@@ -1,4 +1,4 @@
-# CTS-中文TypeScript
+# CTS-中文TypeScript 2.7.0
 
 ## 安装 正在开发中...
 

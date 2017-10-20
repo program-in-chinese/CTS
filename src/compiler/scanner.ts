@@ -188,20 +188,31 @@ namespace ts {
         "@": SyntaxKind.AtToken,
     });
 
-    export const 中文关键字头 = createMapFromTemplate({ "抽": 1, "通": 2, "转": 3, "跳": 5, "为": 6, "捕": 7, "类": 8, "继": 9, "常": 10, "构": 11, "调": 12, "声": 13, "默": 14, "删": 15, "开": 16, "否": 17, "枚": 18, "导": 19, "扩": 20, "假": 21, "最": 22, "循": 23, "从": 24, "函": 25, "置": 26, "如": 27, "实": 28, "引": 29, "在": 30, "接": 31, "是": 32, "键": 33, "变": 34, "模": 35, "名": 36, "不": 37, "新": 38, "空": 39, "数": 40, "基": 41, "包": 42, "私": 43, "保": 44, "公": 45, "只": 46, "需": 47, "全": 48, "返": 49, "取": 50, "静": 51, "文": 52, "父": 53, "符": 54, "本": 55, "抛": 56, "真": 57, "尝": 58, "未": 59, "自": 60, "无": 61, "判": 62, "外": 63, "获": 64, "异": 65, "等": 66, "属": 67 });
+    export const 中文关键字头 = createMapFromTemplate({ "抽": 1, "通": 2, "转": 3, "跳": 5, "为": 6, "捕": 7, "类": 8, "继": 9, "常": 10, "构": 11, "调": 12, "声": 13, "默": 14, "删": 15, "开": 16, "否": 17, "枚": 18, "导": 19, "扩": 20, "假": 21, "最": 22, "循": 23, "从": 24, "函": 25, "设": 26, "如": 27, "实": 28, "引": 29, "位": 30, "接": 31, "是": 32, "键": 33, "变": 34, "模": 35, "名": 36, "不": 37, "新": 38, "空": 39, "数": 40, "基": 41, "包": 42, "私": 43, "保": 44, "公": 45, "只": 46, "需": 47, "全": 48, "返": 49, "取": 50, "静": 51, "文": 52, "父": 53, "符": 54, "本": 55, "抛": 56, "真": 57, "尝": 58, "未": 59, "自": 60, "无": 61, "判": 62, "外": 63, "获": 64, "异": 65, "等": 66, "属": 67 });
+
+    export const 字头 = 创建关键字字头();
+
+    export function 创建关键字字头() {
+        const 键集 = 中文关键字映射表.keys();
+        for (const 键 in 键集) {
+            console.log("键为: ", 键);
+        }
+    }
 
     export const 中文关键字映射表 = createMapFromTemplate({
         "抽象": SyntaxKind.AbstractKeyword,
-        "通用型": SyntaxKind.AnyKeyword,
+        "任意": SyntaxKind.AnyKeyword,
         "转为": SyntaxKind.AsKeyword,
         "真假": SyntaxKind.BooleanKeyword,
         "跳出": SyntaxKind.BreakKeyword,
-        "为": SyntaxKind.CaseKeyword,
+        "如为": SyntaxKind.CaseKeyword,
         "捕获": SyntaxKind.CatchKeyword,
-        "类": SyntaxKind.ClassKeyword,
+
+        "类别": SyntaxKind.ClassKeyword,
+
         "继续": SyntaxKind.ContinueKeyword,
         "常量": SyntaxKind.ConstKeyword,
-        "构造器": SyntaxKind.ConstructorKeyword,
+        "构造": SyntaxKind.ConstructorKeyword,
         "调试": SyntaxKind.DebuggerKeyword,
         "声明": SyntaxKind.DeclareKeyword,
         "默认": SyntaxKind.DefaultKeyword,
@@ -211,29 +222,37 @@ namespace ts {
         "枚举": SyntaxKind.EnumKeyword,
         "导出": SyntaxKind.ExportKeyword,
         "扩展": SyntaxKind.ExtendsKeyword,
-        "假": SyntaxKind.FalseKeyword,
+
+        "为假": SyntaxKind.FalseKeyword,
+
         "最后": SyntaxKind.FinallyKeyword,
         "循环": SyntaxKind.ForKeyword,
-        "从": SyntaxKind.FromKeyword,
+        "来自": SyntaxKind.FromKeyword,
         "函数": SyntaxKind.FunctionKeyword,
-        "取": SyntaxKind.GetKeyword,
+        "获取": SyntaxKind.GetKeyword,
         "如果": SyntaxKind.IfKeyword,
         "实现": SyntaxKind.ImplementsKeyword,
-        "引入": SyntaxKind.ImportKeyword,
-        "在": SyntaxKind.InKeyword,
-        "类为": SyntaxKind.InstanceOfKeyword,
+        "引用": SyntaxKind.ImportKeyword,
+        "位于": SyntaxKind.InKeyword,
+        "为类": SyntaxKind.InstanceOfKeyword,
         "接口": SyntaxKind.InterfaceKeyword,
-        "是": SyntaxKind.IsKeyword,
-        "键为": SyntaxKind.KeyOfKeyword,
-        "变量": SyntaxKind.LetKeyword,
+
+        "是为": SyntaxKind.IsKeyword,
+        "键集": SyntaxKind.KeyOfKeyword,
+        "块级": SyntaxKind.LetKeyword,
+
         "模块": SyntaxKind.ModuleKeyword,
-        "名称空间": SyntaxKind.NamespaceKeyword,
-        "不可及": SyntaxKind.NeverKeyword,
+
+        "名域": SyntaxKind.NamespaceKeyword,
+        "不达": SyntaxKind.NeverKeyword,
+
         "新建": SyntaxKind.NewKeyword,
-        "空": SyntaxKind.NullKeyword,
+        "空值": SyntaxKind.NullKeyword,
         "数字": SyntaxKind.NumberKeyword,
-        "基对象": SyntaxKind.ObjectKeyword,
-        "包": SyntaxKind.PackageKeyword,
+        "对象": SyntaxKind.ObjectKeyword,
+
+        "包装": SyntaxKind.PackageKeyword,
+
         "私有": SyntaxKind.PrivateKeyword,
         "保护": SyntaxKind.ProtectedKeyword,
         "公开": SyntaxKind.PublicKeyword,
@@ -241,27 +260,38 @@ namespace ts {
         "需要": SyntaxKind.RequireKeyword,
         "全局": SyntaxKind.GlobalKeyword,
         "返回": SyntaxKind.ReturnKeyword,
-        "置": SyntaxKind.SetKeyword,
+        "设置": SyntaxKind.SetKeyword,
         "静态": SyntaxKind.StaticKeyword,
         "文字": SyntaxKind.StringKeyword,
-        "父构造器": SyntaxKind.SuperKeyword,
-        "假如": SyntaxKind.SwitchKeyword,
+
+        "父级": SyntaxKind.SuperKeyword,
+        "分拣": SyntaxKind.SwitchKeyword,
+
         "符号": SyntaxKind.SymbolKeyword,
-        "本对象": SyntaxKind.ThisKeyword,
+
+        "本体": SyntaxKind.ThisKeyword,
+
         "抛出": SyntaxKind.ThrowKeyword,
-        "真": SyntaxKind.TrueKeyword,
+
+        "为真": SyntaxKind.TrueKeyword,
+
         "尝试": SyntaxKind.TryKeyword,
         "类型": SyntaxKind.TypeKeyword,
-        "类型为": SyntaxKind.TypeOfKeyword,
-        "未定义": SyntaxKind.UndefinedKeyword,
-        "自由变量": SyntaxKind.VarKeyword,
+
+        "类为": SyntaxKind.TypeOfKeyword,
+        "未定": SyntaxKind.UndefinedKeyword,
+
+        "变量": SyntaxKind.VarKeyword,
         "无值": SyntaxKind.VoidKeyword,
-        "判断循环": SyntaxKind.WhileKeyword,
+
+        "判断": SyntaxKind.WhileKeyword,
+
         "外扩": SyntaxKind.WithKeyword,
         "获得": SyntaxKind.YieldKeyword,
         "异步": SyntaxKind.AsyncKeyword,
         "等待": SyntaxKind.AwaitKeyword,
         "属于": SyntaxKind.OfKeyword,
+
         "{": SyntaxKind.OpenBraceToken,
         "}": SyntaxKind.CloseBraceToken,
         "(": SyntaxKind.OpenParenToken,
