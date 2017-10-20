@@ -20,7 +20,7 @@ npm install -g chtypescript@next
 
 ## 构建
 
-需要先安装[Git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org/).
+需要先安装[Git](https://git-scm.com/downloads) 和 [Node.js](https://nodejs.org/).
 
 复制地址
 
@@ -64,4 +64,4 @@ node built/local/ctsc.js hello.ts
 
 ## 主页
 
-For details on our planned features and future direction please refer to our [主页](https://github.com/program-in-chinese/CTS/wiki/Home).
+未来社区规划等其他信息: [主页](https://github.com/program-in-chinese/CTS/wiki/Home).
