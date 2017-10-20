@@ -1,6 +1,6 @@
 # CTS-中文TypeScript
 
-## 安装
+## 安装 正在开发中...
 
 最新稳定版：
 
@@ -18,7 +18,7 @@ npm install -g chtypescript@next
 
 ## 文档
 
-## 构建
+## 复制项目
 
 需要先安装[Git](https://git-scm.com/downloads) 和 [Node.js](https://nodejs.org/).
 
@@ -41,9 +41,10 @@ npm install -g gulp
 npm install
 ```
 
-## 构建
+## 构建命令
 
-```
+```bash
+
 gulp local            # 构建编译本地文件 built/local.
 gulp clean            # 删除当前构建.
 gulp LKG              # 构建通过后替换成主环境.
@@ -64,4 +65,4 @@ node built/local/ctsc.js hello.ts
 
 ## 主页
 
-未来社区规划等其他信息: [主页](https://github.com/program-in-chinese/CTS/wiki/Home).
+未来社区规划等其他信息详见[主页](https://github.com/program-in-chinese/CTS/wiki/Home).
