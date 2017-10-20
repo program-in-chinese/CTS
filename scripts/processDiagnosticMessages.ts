@@ -99,7 +99,7 @@ function convertPropertyName(origName: string): string {
         if (char === '*') { return "_Asterisk"; }
         if (char === '/') { return "_Slash"; }
         if (char === ':') { return "_Colon"; }
-        return /\w/.test(char) ? char : "_";
+        return /\w|[\u4e00-\u9fa5]/.test(char) ? char : "_";
     }).join("");
 
     // get rid of all multi-underscores
