@@ -742,7 +742,6 @@ namespace ts {
         LastJSDocTagNode = JSDocTypeLiteral
     }
 
-
     export const enum NodeFlags {
         None =               0,
         Let =                1 << 0,  // Variable declaration

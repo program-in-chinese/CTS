@@ -41,7 +41,7 @@ npm install -g gulp
 npm install
 ```
 
-详细构建命了见下表:
+## 构建
 
 ```
 gulp local            # 构建编译本地文件 built/local.

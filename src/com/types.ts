@@ -3466,15 +3466,19 @@ namespace ts {
 
     /** SymbolTable based on ES6 Map interface. */
     export type SymbolTable = UnderscoreEscapedMap<Symbol>;
+
     export type 索引 = {
         键: string,
         值: string
     };
+
     export type 别名索引 = {
         键: __String | string,
         值: 别名
     };
+
     export type 索引表 = Map<string>;
+
     /** Represents a "prefix*suffix" pattern. */
     /* @internal */
     export interface Pattern {
