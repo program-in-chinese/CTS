@@ -752,7 +752,7 @@ namespace ts {
                 }
             }
             const 局部字典范围 = 取局部字典评论范围(node, sourceFile.text);
-            if (局部字典范围 && 局部字典范围.length > 0) {
+            if (局部字典范围 && 局部字典范围[0]) {
                 for (const 范围 of 局部字典范围) {
                     const 局部词典 = 编译词典标签.编译局部词典(node, 范围.pos, 范围.end - 范围.pos);
                     if (!局部词典) {

@@ -329,7 +329,7 @@ namespace ts {
         return binarySearch(nodeArray, node, compareNodePos);
     }
 
-    function compareNodePos({ pos: aPos }: Node, { pos: bPos}: Node) {
+    function compareNodePos({ pos: aPos }: Node, { pos: bPos }: Node) {
         return aPos < bPos ? Comparison.LessThan : bPos < aPos ? Comparison.GreaterThan : Comparison.EqualTo;
     }
 
@@ -720,6 +720,9 @@ namespace ts {
             text.charCodeAt(comment.pos + 3) !== CharacterCodes.slash);
     }
 
+
+
+
     export const fullTripleSlashReferencePathRegEx = /^(\/\/\/\s*<reference\s+path\s*=\s*)('|")(.+?)\2.*?\/>/;
     const fullTripleSlashReferenceTypeReferenceDirectiveRegEx = /^(\/\/\/\s*<reference\s+types\s*=\s*)('|")(.+?)\2.*?\/>/;
     export const fullTripleSlashAMDReferencePathRegEx = /^(\/\/\/\s*<amd-dependency\s+path\s*=\s*)('|")(.+?)\2.*?\/>/;
@@ -757,7 +760,7 @@ namespace ts {
                 // At this point, node is either a qualified name or an identifier
                 Debug.assert(node.kind === SyntaxKind.Identifier || node.kind === SyntaxKind.QualifiedName || node.kind === SyntaxKind.PropertyAccessExpression,
                     "'node' was expected to be a qualified name, identifier or property access in 'isPartOfTypeNode'.");
-                // falls through
+            // falls through
             case SyntaxKind.QualifiedName:
             case SyntaxKind.PropertyAccessExpression:
             case SyntaxKind.ThisKeyword:
@@ -1032,7 +1035,7 @@ namespace ts {
                     if (!includeArrowFunctions) {
                         continue;
                     }
-                    // falls through
+                // falls through
                 case SyntaxKind.FunctionDeclaration:
                 case SyntaxKind.FunctionExpression:
                 case SyntaxKind.ModuleDeclaration:
@@ -1091,7 +1094,7 @@ namespace ts {
                     if (!stopOnFunctions) {
                         continue;
                     }
-                    // falls through
+                // falls through
                 case SyntaxKind.PropertyDeclaration:
                 case SyntaxKind.PropertySignature:
                 case SyntaxKind.MethodDeclaration:
@@ -1275,7 +1278,7 @@ namespace ts {
                 if (node.parent.kind === SyntaxKind.TypeQuery || isJSXTagName(node)) {
                     return true;
                 }
-                // falls through
+            // falls through
             case SyntaxKind.NumericLiteral:
             case SyntaxKind.StringLiteral:
             case SyntaxKind.ThisKeyword:
@@ -1928,7 +1931,7 @@ namespace ts {
                 if (node.asteriskToken) {
                     flags |= FunctionFlags.Generator;
                 }
-                // falls through
+            // falls through
             case SyntaxKind.ArrowFunction:
                 if (hasModifier(node, ModifierFlags.Async)) {
                     flags |= FunctionFlags.Async;
@@ -2401,8 +2404,8 @@ namespace ts {
     export function escapeString(s: string, quoteChar?: CharacterCodes.doubleQuote | CharacterCodes.singleQuote | CharacterCodes.backtick): string {
         const escapedCharsRegExp =
             quoteChar === CharacterCodes.backtick ? backtickQuoteEscapedCharsRegExp :
-            quoteChar === CharacterCodes.singleQuote ? singleQuoteEscapedCharsRegExp :
-            doubleQuoteEscapedCharsRegExp;
+                quoteChar === CharacterCodes.singleQuote ? singleQuoteEscapedCharsRegExp :
+                    doubleQuoteEscapedCharsRegExp;
         return s.replace(escapedCharsRegExp, getReplacement).replace(escapedNullRegExp, nullReplacement);
     }
 
@@ -4087,7 +4090,7 @@ namespace ts {
         switch (hostNode.kind) {
             case SyntaxKind.VariableStatement:
                 if ((hostNode as VariableStatement).declarationList &&
-                (hostNode as VariableStatement).declarationList.declarations[0]) {
+                    (hostNode as VariableStatement).declarationList.declarations[0]) {
                     return getDeclarationIdentifier((hostNode as VariableStatement).declarationList.declarations[0]);
                 }
                 return undefined;
@@ -5703,4 +5706,114 @@ namespace ts {
     export function hasJSDocNodes(node: Node): node is HasJSDoc {
         return !!(node as JSDocContainer).jsDoc && (node as JSDocContainer).jsDoc.length > 0;
     }
+}
+
+namespace ts {
+    export function 创建空对象<T>(): T {
+        let 结果 = Object.create(/** o */null)
+        结果.__ = undefined
+        delete 结果.__
+        return 结果
+    }
+
+    export function 取声明的标识符或字面量标识符(声明节点: Declaration): Identifier | StringLiteral | undefined {
+        const 标识符 = getNameOfDeclaration(声明节点)
+        if(!标识符){
+            return undefined;
+        }
+        return (isIdentifier(标识符) || isStringLiteral(标识符)) ? 标识符 : undefined;
+    }
+
+    export function 是局部词典语句(词典参数: 词典语句): 词典参数 is 局部词典语句 {
+        return 词典参数.kind === SyntaxKind.局部词典语句
+    }
+
+    export function 是全局词典语句(词典参数: 词典语句): 词典参数 is 全局词典语句 {
+        return 词典参数.kind === SyntaxKind.全局词典语句
+    }
+
+    export function 取字典注释范围(node: Node, text: string): 词典注释范围[] | undefined {
+        const commentRanges = getLeadingCommentRanges(text, node.pos);
+        if (commentRanges) {
+            let 结果: 词典注释范围[] = []
+            for (const 注释 of commentRanges) {
+                if (text.charCodeAt(注释.pos + 1) === CharacterCodes.slash &&
+                    text.charCodeAt(注释.pos + 2) === CharacterCodes.at &&
+                    text.charCodeAt(注释.pos + 3) === CharacterCodes.openBrace) {
+                    let 值 = 创建空对象<词典注释范围>()
+                    值.词典旗帜 = 别名旗帜.局部词典
+                    值.注释范围 = 注释
+                    结果.push(值)
+                } else if (text.charCodeAt(注释.pos + 1) === CharacterCodes.slash &&
+                    text.charCodeAt(注释.pos + 2) === CharacterCodes.at &&
+                    text.charCodeAt(注释.pos + 3) === CharacterCodes.at &&
+                    text.charCodeAt(注释.pos + 4) === CharacterCodes.openBrace) {
+                    let 值 = 创建空对象<词典注释范围>()
+                    值.词典旗帜 = 别名旗帜.全局词典
+                    值.注释范围 = 注释
+                    结果.push(值)
+                }
+            }
+            if (结果 && 结果[0]) {
+                return 结果
+            }
+        }
+    }
+
+    export function 对象名称是交叉相等的(左值: 文本名称, 右值: 文本名称) {
+        return 左值.名称 === 右值.名称 || 左值.别名 === 右值.名称 || 右值.别名 === 左值.名称;
+    }
+
+    export function 创建文本别名(名称: __String | string, 别名参数: 别名): 文本名称 {
+        return { 名称, 别名: 别名参数 ? 别名参数.名称 : undefined };
+    }
+
+    export function 交换词典键值(词典: 词典) {
+        return { ...词典, 键: { ...词典.值, kind: SyntaxKind.词典键 }, 值: { ...词典.键, kind: SyntaxKind.词典值 }, 词典类别: 词典.词典类别 === 别名旗帜.汉英 ? 别名旗帜.英汉 : 别名旗帜.汉英 } as 词典;
+    }
+
+    export function 取别名旗帜(词典: 词典, 旗帜?: 别名旗帜) {
+        return 旗帜 | 词典.是单向词典 | 词典.是文本字面量词典 | 词典.是内置词典 | 词典.是局部词典 | 词典.词典类别 | 词典.是全局词典;
+    }
+
+    export function 翻转别名旗帜(旗帜: 别名旗帜) {
+        return 旗帜 & 别名旗帜.汉英 ? 旗帜 ^ 别名旗帜.汉英 | 别名旗帜.英汉 : 旗帜 ^ 别名旗帜.英汉 | 别名旗帜.汉英;
+    }
+
+    export function 取符号从符号表按名称(符号表: SymbolTable, 名称: __String, 备选别名: __String) {
+        if (!符号表) {
+            return
+        }
+        let 结果 = 符号表.get(名称)
+        if (!结果) {
+            if (备选别名) {
+                结果 = 符号表.get(备选别名)
+            }
+            if (!结果) {
+                结果 = forEachEntry(符号表, v => {
+                    if (v && v.别名 && v.别名.名称 === 名称) {
+                        return v
+                    }
+                })
+            }
+        }
+        return 结果
+    }
+
+    export function 取属性名的标识符(name: PropertyName): Identifier | StringLiteral | undefined {
+        switch (name.kind) {
+            case SyntaxKind.Identifier:
+                return <Identifier>name;
+            case SyntaxKind.StringLiteral:
+                return <StringLiteral>name;
+
+            case SyntaxKind.ComputedPropertyName:
+                if (isStringLiteral((<ComputedPropertyName>name).expression)) {
+                    return <StringLiteral>(<ComputedPropertyName>name).expression
+                }
+        }
+
+        return undefined;
+    }
+
 }

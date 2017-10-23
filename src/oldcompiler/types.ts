@@ -851,53 +851,6 @@ namespace ts {
     }
 
 
-    export interface 词典键 extends Node {
-        kind: SyntaxKind.词典键 | SyntaxKind.词典值;
-        name: Identifier | StringLiteral;
-    }
-    export interface 词典值 extends Node {
-        kind: SyntaxKind.词典值 | SyntaxKind.词典键;
-        name: Identifier | StringLiteral;
-    }
-    export interface 词典 extends Expression {
-        kind: SyntaxKind.词典表达式;
-        键: 词典键;
-        值: 词典值;
-        是局部词典?: 别名旗帜;
-        是单向词典?: 别名旗帜;
-        是内置词典?: 别名旗帜;
-        是文本字面量词典?: 别名旗帜;
-        词典类别?: 别名旗帜;
-        引用节点?: Map<DeclarationName>;
-    }
-
-    export const enum 别名旗帜 {
-        空 = 0,
-        英汉 = 1,
-        汉英 = 1 << 1,
-        字面量 = 1 << 2,
-        局部词典 = 1 << 3,
-        单向词典 = 1 << 4,
-        内置词典 = 1 << 5,
-        是全局导出 = 1 << 6
-    }
-
-    export interface 别名 {
-        旗帜: 别名旗帜;
-        名称: __String;
-    }
-
-    export type 别名组 = UnderscoreEscapedMap<别名[]>;
-
-    export interface 全局词典语句 extends Statement {
-        kind: SyntaxKind.全局词典语句;
-        表达式: NodeArray<词典>;
-    }
-
-    export interface 局部词典语句 extends Statement {
-        kind: SyntaxKind.局部词典语句;
-        表达式: NodeArray<词典>;
-    }
     export interface NodeArray<T extends Node> extends Array<T>, TextRange {
         hasTrailingComma?: boolean;
         /* @internal */ transformFlags?: TransformFlags;
@@ -5006,4 +4959,55 @@ namespace ts {
     export interface SyntaxList extends Node {
         _children: Node[];
     }
+}
+namespace ts {
+
+    export interface 词典键 extends Node {
+        kind: SyntaxKind.词典键 | SyntaxKind.词典值;
+        name: Identifier | StringLiteral;
+    }
+    export interface 词典值 extends Node {
+        kind: SyntaxKind.词典值 | SyntaxKind.词典键;
+        name: Identifier | StringLiteral;
+    }
+    export interface 词典 extends Expression {
+        kind: SyntaxKind.词典表达式;
+        键: 词典键;
+        值: 词典值;
+        是局部词典?: 别名旗帜;
+        是单向词典?: 别名旗帜;
+        是内置词典?: 别名旗帜;
+        是文本字面量词典?: 别名旗帜;
+        词典类别?: 别名旗帜;
+        引用节点?: Map<DeclarationName>;
+    }
+
+    export const enum 别名旗帜 {
+        空 = 0,
+        英汉 = 1,
+        汉英 = 1 << 1,
+        字面量 = 1 << 2,
+        局部词典 = 1 << 3,
+        单向词典 = 1 << 4,
+        内置词典 = 1 << 5,
+        是全局导出 = 1 << 6
+    }
+
+    export interface 别名 {
+        旗帜: 别名旗帜;
+        名称: __String;
+    }
+
+    export type 别名组 = UnderscoreEscapedMap<别名[]>;
+
+    export interface 全局词典语句 extends Statement {
+        kind: SyntaxKind.全局词典语句;
+        表达式: NodeArray<词典>;
+    }
+
+    export interface 局部词典语句 extends Statement {
+        kind: SyntaxKind.局部词典语句;
+        表达式: NodeArray<词典>;
+    }
+
 }

@@ -188,11 +188,8 @@ namespace ts {
         "@": SyntaxKind.AtToken,
     });
 
-    export const 中文关键字头 = createMapFromTemplate({ "抽": 1, "通": 2, "转": 3, "跳": 5, "为": 6, "捕": 7, "类": 8, "继": 9, "常": 10, "构": 11, "调": 12, "声": 13, "默": 14, "删": 15, "开": 16, "否": 17, "枚": 18, "导": 19, "扩": 20, "假": 21, "最": 22, "循": 23, "从": 24, "函": 25, "设": 26, "如": 27, "实": 28, "引": 29, "位": 30, "接": 31, "是": 32, "键": 33, "变": 34, "模": 35, "名": 36, "不": 37, "新": 38, "空": 39, "数": 40, "基": 41, "包": 42, "私": 43, "保": 44, "公": 45, "只": 46, "需": 47, "全": 48, "返": 49, "取": 50, "静": 51, "文": 52, "父": 53, "符": 54, "本": 55, "抛": 56, "真": 57, "尝": 58, "未": 59, "自": 60, "无": 61, "判": 62, "外": 63, "获": 64, "异": 65, "等": 66, "属": 67 });
+    const 中文关键字映射表 = createMapFromTemplate({
 
-
-
-    export const 中文关键字映射表 = createMapFromTemplate({
         "抽象": SyntaxKind.AbstractKeyword,
         "任意": SyntaxKind.AnyKeyword,
         "转为": SyntaxKind.AsKeyword,
@@ -201,7 +198,7 @@ namespace ts {
         "如为": SyntaxKind.CaseKeyword,
         "捕获": SyntaxKind.CatchKeyword,
 
-        "类别": SyntaxKind.ClassKeyword,
+        "种类": SyntaxKind.ClassKeyword,
 
         "继续": SyntaxKind.ContinueKeyword,
         "常量": SyntaxKind.ConstKeyword,
@@ -216,7 +213,7 @@ namespace ts {
         "导出": SyntaxKind.ExportKeyword,
         "扩展": SyntaxKind.ExtendsKeyword,
 
-        "为假": SyntaxKind.FalseKeyword,
+        "假的": SyntaxKind.FalseKeyword,
 
         "最后": SyntaxKind.FinallyKeyword,
         "循环": SyntaxKind.ForKeyword,
@@ -233,7 +230,7 @@ namespace ts {
         "是为": SyntaxKind.IsKeyword,
         "键集": SyntaxKind.KeyOfKeyword,
 
-        "块级": SyntaxKind.LetKeyword,
+        "变量": SyntaxKind.LetKeyword,
 
         "模块": SyntaxKind.ModuleKeyword,
 
@@ -267,7 +264,7 @@ namespace ts {
 
         "抛出": SyntaxKind.ThrowKeyword,
 
-        "为真": SyntaxKind.TrueKeyword,
+        "真的": SyntaxKind.TrueKeyword,
 
         "尝试": SyntaxKind.TryKeyword,
         "类型": SyntaxKind.TypeKeyword,
@@ -275,7 +272,7 @@ namespace ts {
         "类为": SyntaxKind.TypeOfKeyword,
         "未定": SyntaxKind.UndefinedKeyword,
 
-        "变量": SyntaxKind.VarKeyword,
+        "可变": SyntaxKind.VarKeyword,
         "无值": SyntaxKind.VoidKeyword,
 
         "判断": SyntaxKind.WhileKeyword,
@@ -445,10 +442,10 @@ namespace ts {
     export function tokenToString(t: SyntaxKind): string | undefined {
         return tokenStrings[t];
     }
-    export function 令牌转为关键字(t: SyntaxKind) {
+    export function 令牌转为关键字(t: SyntaxKind): string | undefined {
         return tokenStrings[t];
     }
-    export function 令牌转为中文关键字(t: SyntaxKind) {
+    export function 令牌转为中文关键字(t: SyntaxKind): string | undefined {
         return tokenStringsCh[t];
     }
 
@@ -1362,17 +1359,17 @@ namespace ts {
         function getIdentifierToken(): SyntaxKind {
             /** 保留字在2到11个字符之间，以小写字母开头 */
             const len = tokenValue.length;
-            if (len >= 1 && len <= 11) {
+            if (len >= 2 && len <= 11) {
                 const ch = tokenValue.charCodeAt(0);
-                const zh = tokenValue[0];
-                if (len <= 4 && 中文关键字头.get(zh) > 0) {
-                    token = 中文关键字映射表.get(tokenValue);
+                if (len >= 2 && ch >= CharacterCodes.a && ch <= CharacterCodes.z) {
+                    token = textToToken.get(tokenValue);
                     if (token !== undefined) {
                         return token;
                     }
                 }
-                if (len >= 2 && ch >= CharacterCodes.a && ch <= CharacterCodes.z) {
-                    token = textToToken.get(tokenValue);
+                // TODO: 目前放在下面以后上移
+                if (len === 2) {
+                    token = 中文关键字映射表.get(tokenValue);
                     if (token !== undefined) {
                         return token;
                     }

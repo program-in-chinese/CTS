@@ -133,7 +133,9 @@ namespace ts {
 
         let symbolCount = 0;
 
-        let Symbol: { new (flags: SymbolFlags, name: __String): Symbol };
+        let Symbol: { new(flags: SymbolFlags, name: __String): Symbol };
+        let 别名构造: { new(旗帜: 别名旗帜, 名称: __String): 别名 };
+
         let classifiableNames: UnderscoreEscapedMap<true>;
 
         const unreachableFlow: FlowNode = { flags: FlowFlags.Unreachable };
@@ -162,6 +164,8 @@ namespace ts {
             skipTransformFlagAggregation = file.isDeclarationFile;
 
             Symbol = objectAllocator.getSymbolConstructor();
+            别名构造 = objectAllocator.get别名构造函数()
+
 
             if (!file.locals) {
                 bind(file);
@@ -201,9 +205,21 @@ namespace ts {
             }
         }
 
-        function createSymbol(flags: SymbolFlags, name: __String): Symbol {
+        function createSymbol(flags: SymbolFlags, name: __String, decl?: Declaration): Symbol {
             symbolCount++;
-            return new Symbol(flags, name);
+            let 结果 = new Symbol(flags, name);
+            if (file.isDeclarationFile && file.全局词典) {
+                const 词典 = file.全局词典.get(name as string)
+                let 名称 = 取声明的标识符或字面量标识符(decl)
+                if (词典 && 名称 && !名称.别名) {
+                    名称.别名 = new 别名构造(取别名旗帜(词典), name)
+                }
+                if (名称 && 名称.别名) {
+                    结果.别名 = 名称.别名
+                }
+
+            }
+            return 结果
         }
 
         function addDeclarationToSymbol(symbol: Symbol, node: Declaration, symbolFlags: SymbolFlags) {
@@ -355,7 +371,7 @@ namespace ts {
                 }
 
                 if (!symbol) {
-                    symbolTable.set(name, symbol = createSymbol(SymbolFlags.None, name));
+                    symbolTable.set(name, symbol = createSymbol(SymbolFlags.None, name, node));
                     if (isReplaceableByMethod) symbol.isReplaceableByMethod = true;
                 }
                 else if (isReplaceableByMethod && !symbol.isReplaceableByMethod) {
@@ -366,7 +382,7 @@ namespace ts {
                     if (symbol.isReplaceableByMethod) {
                         // Javascript constructor-declared symbols can be discarded in favor of
                         // prototype symbols like methods.
-                        symbolTable.set(name, symbol = createSymbol(SymbolFlags.None, name));
+                        symbolTable.set(name, symbol = createSymbol(SymbolFlags.None, name, node));
                     }
                     else {
                         if ((node as NamedDeclaration).name) {
@@ -403,7 +419,7 @@ namespace ts {
                         });
                         file.bindDiagnostics.push(createDiagnosticForNode(getNameOfDeclaration(node) || node, message, getDisplayName(node)));
 
-                        symbol = createSymbol(SymbolFlags.None, name);
+                        symbol = createSymbol(SymbolFlags.None, name, node);
                     }
                 }
             }
@@ -1625,7 +1641,7 @@ namespace ts {
             // We do that by making an anonymous type literal symbol, and then setting the function
             // symbol as its sole member. To the rest of the system, this symbol will be  indistinguishable
             // from an actual type literal symbol you would have gotten had you used the long form.
-            const symbol = createSymbol(SymbolFlags.Signature, getDeclarationName(node));
+            const symbol = createSymbol(SymbolFlags.Signature, getDeclarationName(node), node);
             addDeclarationToSymbol(symbol, node, SymbolFlags.Signature);
 
             const typeLiteralSymbol = createSymbol(SymbolFlags.TypeLiteral, InternalSymbolName.Type);
@@ -1688,7 +1704,7 @@ namespace ts {
         }
 
         function bindAnonymousDeclaration(node: Declaration, symbolFlags: SymbolFlags, name: __String) {
-            const symbol = createSymbol(symbolFlags, name);
+            const symbol = createSymbol(symbolFlags, name, node);
             if (symbolFlags & SymbolFlags.EnumMember) {
                 symbol.parent = container.symbol;
             }
@@ -1777,7 +1793,7 @@ namespace ts {
         }
 
         function isEvalOrArgumentsIdentifier(node: Node): boolean {
-            return isIdentifier(node) && (node.escapedText === "eval" || node.escapedText === "arguments");
+            return isIdentifier(node) && ((node.escapedText === "eval" || node.escapedText === "执行") || (node.escapedText === "arguments" || node.escapedText === "增强参数集"));
         }
 
         function checkStrictModeEvalOrArguments(contextNode: Node, name: Node) {
@@ -1974,7 +1990,7 @@ namespace ts {
 
             // Note: the node text must be exactly "use strict" or 'use strict'.  It is not ok for the
             // string to contain unicode escapes (as per ES5).
-            return nodeText === '"use strict"' || nodeText === "'use strict'";
+            return nodeText === '"use strict"' || nodeText === "'use strict'"||nodeText === '"严格模式"' || nodeText === "'严格模式'";
         }
 
         function bindWorker(node: Node) {
@@ -2152,7 +2168,7 @@ namespace ts {
                     if (node.parent.kind !== SyntaxKind.JSDocTypeLiteral) {
                         break;
                     }
-                    // falls through
+                // falls through
                 case SyntaxKind.JSDocPropertyTag:
                     const propTag = node as JSDocPropertyLikeTag;
                     const flags = propTag.isBracketed || propTag.typeExpression && propTag.typeExpression.type.kind === SyntaxKind.JSDocOptionalType ?

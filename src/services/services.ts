@@ -744,16 +744,31 @@ namespace ts {
         }
     }
 
+    class 别名对象 implements 别名 {
+        旗帜: 别名旗帜;
+        名称: __String
+        constructor(旗帜: 别名旗帜, 名称: __String) {
+            this.旗帜 = 旗帜
+            this.名称 = 名称
+        }
+        取旗帜() {
+            return this.旗帜
+        }
+        取名称() {
+            return this.名称 as string
+        }
+    }
+
     function getServicesObjectAllocator(): ObjectAllocator {
         return {
             getNodeConstructor: () => NodeObject,
             getTokenConstructor: () => TokenObject,
-
             getIdentifierConstructor: () => IdentifierObject,
             getSourceFileConstructor: () => SourceFileObject,
             getSymbolConstructor: () => SymbolObject,
             getTypeConstructor: () => TypeObject,
             getSignatureConstructor: () => SignatureObject,
+            get别名构造函数: () => 别名对象,
             getSourceMapSourceConstructor: () => SourceMapSourceObject,
         };
     }

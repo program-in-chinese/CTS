@@ -36,6 +36,11 @@ namespace ts {
         getJsDocTags(): JSDocTagInfo[];
     }
 
+    export interface 别名 {
+        取旗帜(): 别名旗帜;
+        取名称(): string;
+    }
+
     export interface Type {
         getFlags(): TypeFlags;
         getSymbol(): Symbol | undefined;

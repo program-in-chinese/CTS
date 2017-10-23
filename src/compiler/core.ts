@@ -2421,6 +2421,7 @@ namespace ts {
         getSymbolConstructor(): new (flags: SymbolFlags, name: __String) => Symbol;
         getTypeConstructor(): new (checker: TypeChecker, flags: TypeFlags) => Type;
         getSignatureConstructor(): new (checker: TypeChecker) => Signature;
+        get别名构造函数(): new (旗帜: 别名旗帜, 名称: __String) => 别名;
         getSourceMapSourceConstructor(): new (fileName: string, text: string, skipTrivia?: (pos: number) => number) => SourceMapSource;
     }
 
@@ -2428,6 +2429,11 @@ namespace ts {
         this.flags = flags;
         this.escapedName = name;
         this.declarations = undefined;
+    }
+
+    function 别名(this: 别名, 旗帜: 别名旗帜, 名称: __String) {
+        this.旗帜 = 旗帜;
+        this.名称 = 名称;
     }
 
     function Type(this: Type, checker: TypeChecker, flags: TypeFlags) {
@@ -2466,6 +2472,7 @@ namespace ts {
         getSymbolConstructor: () => <any>Symbol,
         getTypeConstructor: () => <any>Type,
         getSignatureConstructor: () => <any>Signature,
+        get别名构造函数: () => <any>别名,
         getSourceMapSourceConstructor: () => <any>SourceMapSource,
     };
 

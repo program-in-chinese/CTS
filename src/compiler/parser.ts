@@ -6,7 +6,7 @@ namespace ts {
         None = 0,
         Yield = 1 << 0,
         Await = 1 << 1,
-        Type  = 1 << 2,
+        Type = 1 << 2,
         RequireCompleteParameterList = 1 << 3,
         IgnoreMissingOpenBrace = 1 << 4,
         JSDoc = 1 << 5,
@@ -16,7 +16,6 @@ namespace ts {
     let TokenConstructor: new (kind: SyntaxKind, pos: number, end: number) => Node;
     let IdentifierConstructor: new (kind: SyntaxKind, pos: number, end: number) => Node;
     let SourceFileConstructor: new (kind: SyntaxKind, pos: number, end: number) => Node;
-
     export function createNode(kind: SyntaxKind, pos?: number, end?: number): Node {
         if (kind === SyntaxKind.SourceFile) {
             return new (SourceFileConstructor || (SourceFileConstructor = objectAllocator.getSourceFileConstructor()))(kind, pos, end);
@@ -524,6 +523,8 @@ namespace ts {
         let TokenConstructor: new (kind: SyntaxKind, pos: number, end: number) => Node;
         let IdentifierConstructor: new (kind: SyntaxKind, pos: number, end: number) => Node;
         let SourceFileConstructor: new (kind: SyntaxKind, pos: number, end: number) => Node;
+        let 别名构造函数: new (旗帜: 别名旗帜, 名称: __String) => 别名;
+
 
         let sourceFile: SourceFile;
         let parseDiagnostics: Diagnostic[];
@@ -616,7 +617,6 @@ namespace ts {
 
         export function parseSourceFile(fileName: string, sourceText: string, languageVersion: ScriptTarget, syntaxCursor: IncrementalParser.SyntaxCursor, setParentNodes?: boolean, scriptKind?: ScriptKind): SourceFile {
             scriptKind = ensureScriptKind(fileName, scriptKind);
-
             initializeState(sourceText, languageVersion, syntaxCursor, scriptKind);
 
             const result = parseSourceFileWorker(fileName, languageVersion, setParentNodes, scriptKind);
@@ -663,7 +663,7 @@ namespace ts {
 
         function getLanguageVariant(scriptKind: ScriptKind) {
             // .tsx and .jsx files are treated as jsx language variant.
-            return scriptKind === ScriptKind.TSX || scriptKind === ScriptKind.JSX || scriptKind === ScriptKind.JS  || scriptKind === ScriptKind.JSON ? LanguageVariant.JSX : LanguageVariant.Standard;
+            return scriptKind === ScriptKind.TSX || scriptKind === ScriptKind.JSX || scriptKind === ScriptKind.JS || scriptKind === ScriptKind.JSON ? LanguageVariant.JSX : LanguageVariant.Standard;
         }
 
         function initializeState(_sourceText: string, languageVersion: ScriptTarget, _syntaxCursor: IncrementalParser.SyntaxCursor, scriptKind: ScriptKind) {
@@ -671,6 +671,7 @@ namespace ts {
             TokenConstructor = objectAllocator.getTokenConstructor();
             IdentifierConstructor = objectAllocator.getIdentifierConstructor();
             SourceFileConstructor = objectAllocator.getSourceFileConstructor();
+            别名构造函数=objectAllocator.get别名构造函数();
 
             sourceText = _sourceText;
             syntaxCursor = _syntaxCursor;
@@ -730,7 +731,7 @@ namespace ts {
             return sourceFile;
         }
 
-
+        let 局部词典组: Map<词典>
         function addJSDocComment<T extends HasJSDoc>(node: T): T {
             const comments = getJSDocCommentRanges(node, sourceFile.text);
             if (comments) {
@@ -746,8 +747,77 @@ namespace ts {
                     node.jsDoc.push(jsDoc);
                 }
             }
+            // 词典只能存在于 声明文件
+            if (sourceFile.isDeclarationFile) {
+                const 词典注释 = 取字典注释范围(node, sourceFile.text)
+                if (词典注释) {
+                    for (const 注释 of 词典注释) {
+                        if (注释.词典旗帜 & 别名旗帜.局部词典) {
+                            const 局部词典 = 编译词典标签.编译词典(注释.注释范围.pos, 注释.注释范围.end - 注释.注释范围.pos, /** 头部长度 */ "//@".length, node)
+                            if (!局部词典) {
+                                continue;
+                            }
+                            if (!node.局部词典语句) {
+                                node.局部词典语句 = [];
+                            }
+                            if (是局部词典语句(局部词典)) {
+                                node.局部词典语句.push(局部词典);
+                            }
+                        }
+                        else {
+                            let 全局语句 = 编译词典标签.编译词典(注释.注释范围.pos, 注释.注释范围.end - 注释.注释范围.pos, /** 头部长度 */  "//@@".length)
+                            if (全局语句) {
+                                if (!sourceFile.全局词典) {
+                                    sourceFile.全局词典 = createMap<词典>()
+                                }
+                                全局语句.表达式.forEach(词典节点 => {
+                                    const 键文本 = ts.isIdentifier(词典节点.键.name) ? 词典节点.键.name.escapedText : 词典节点.键.name.text
+                                    const 存在 = sourceFile.全局词典.get(键文本 as string)
+                                    if (!存在) {
+                                        sourceFile.全局词典.set(键文本 as string, 词典节点)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    if (node && node.局部词典语句 && node.局部词典语句[0]) {
+                        局部词典组 = createMap<词典>();
+                        node.局部词典语句.forEach(语句 => {
+                            语句.表达式.forEach(v => {
+                                const 键文本: string = ts.isIdentifier(v.键.name) ? v.键.name.escapedText as string : v.键.name.text;
+                                局部词典组.set(键文本, v);
+                                if (!v.是单向词典) 局部词典组.set(键文本, 交换词典键值(v));
+                            });
+                        });
 
+                        forEachChild(node, 局部词典绑定回调);
+                        局部词典组.clear();
+                    }
+                }
+            }
             return node;
+        }
+
+        function 局部词典绑定回调(node: Node) {
+            if (node.kind === SyntaxKind.Identifier) {
+                const 子词典 = 局部词典组.get((<Identifier>node).escapedText as string);
+                if (子词典 && (子词典.flags & NodeFlags.ThisNodeHasError) === 0) {
+                    const 别名名称: string = (子词典.值.name as Identifier).escapedText as string;
+                    const 别名: 别名 = new 别名构造函数(取别名旗帜(子词典), 别名名称 as __String);
+                    (<Identifier>node).别名 = 别名;
+                    return;
+                }
+            }
+            else if (node.kind === SyntaxKind.StringLiteral) {
+                const 子词典 = 局部词典组.get((<StringLiteral>node).text);
+                if (子词典 && 子词典.是文本字面量词典 && (子词典.flags & NodeFlags.ThisNodeHasError) === 0) {
+                    const 别名名称: string = (子词典.值.name as StringLiteral).text;
+                    const 别名: 别名 = new 别名构造函数(取别名旗帜(子词典), 别名名称 as __String);
+                    (<StringLiteral>node).别名 = 别名;
+                    return;
+                }
+            }
+            forEachChild(node, 局部词典绑定回调)
         }
 
         export function fixupParentReferences(rootNode: Node) {
@@ -2330,7 +2400,7 @@ namespace ts {
                 setAwaitContext(!!(flags & SignatureFlags.Await));
 
                 const result = parseDelimitedList(ParsingContext.Parameters,
-                                                  flags & SignatureFlags.JSDoc ? parseJSDocParameter : () => parseParameter(!!(flags & SignatureFlags.RequireCompleteParameterList)));
+                    flags & SignatureFlags.JSDoc ? parseJSDocParameter : () => parseParameter(!!(flags & SignatureFlags.RequireCompleteParameterList)));
 
                 setYieldContext(savedYieldContext);
                 setAwaitContext(savedAwaitContext);
@@ -3408,7 +3478,7 @@ namespace ts {
             //
             // So we need just a bit of lookahead to ensure that it can only be a signature.
             if (!allowAmbiguity && ((token() !== SyntaxKind.EqualsGreaterThanToken && token() !== SyntaxKind.OpenBraceToken) ||
-                                    find(node.parameters, p => p.initializer && ts.isIdentifier(p.initializer) && p.initializer.escapedText === "= not found"))) {
+                find(node.parameters, p => p.initializer && ts.isIdentifier(p.initializer) && p.initializer.escapedText === "= not found"))) {
                 // Returning undefined here will cause our caller to rewind to where we started from.
                 return undefined;
             }
@@ -3742,7 +3812,7 @@ namespace ts {
                     if (isAwaitExpression()) {
                         return parseAwaitExpression();
                     }
-                    // falls through
+                // falls through
                 default:
                     return parseUpdateExpression();
             }
@@ -3776,8 +3846,8 @@ namespace ts {
                     if (sourceFile.languageVariant !== LanguageVariant.JSX) {
                         return false;
                     }
-                    // We are in JSX context and the token is part of JSXElement.
-                    // falls through
+                // We are in JSX context and the token is part of JSXElement.
+                // falls through
                 default:
                     return true;
             }
@@ -5634,8 +5704,8 @@ namespace ts {
 
         function tryParseTypeArguments(): NodeArray<TypeNode> | undefined {
             return token() === SyntaxKind.LessThanToken
-               ? parseBracketedList(ParsingContext.TypeArguments, parseType, SyntaxKind.LessThanToken, SyntaxKind.GreaterThanToken)
-               : undefined;
+                ? parseBracketedList(ParsingContext.TypeArguments, parseType, SyntaxKind.LessThanToken, SyntaxKind.GreaterThanToken)
+                : undefined;
         }
 
         function isHeritageClause(): boolean {
@@ -6457,8 +6527,8 @@ namespace ts {
                                     indent += scanner.getTokenText().length;
                                     break;
                                 }
-                                // record the * as a comment
-                                // falls through
+                            // record the * as a comment
+                            // falls through
                             default:
                                 state = JSDocState.SavingComments; // leading identifiers start recording as well
                                 pushComment(scanner.getTokenText());
@@ -6887,6 +6957,206 @@ namespace ts {
                     nextJSDocToken();
                     return result;
                 }
+            }
+        }
+
+        export namespace 编译词典标签 {
+
+            export function 编译词典( start: number, length: number, 词典头部长度 = 4,父节点?: Node) {
+                const saveToken = currentToken;
+                const saveParseDiagnosticsLength = parseDiagnostics.length;
+                const saveParseErrorBeforeNextFinishedNode = parseErrorBeforeNextFinishedNode;
+                const 词典语句 = 编译词典语句(start, length, 词典头部长度);
+                if (词典语句) {
+                    词典语句.parent = 父节点;
+                }
+                currentToken = saveToken;
+                parseDiagnostics.length = saveParseDiagnosticsLength;
+                parseErrorBeforeNextFinishedNode = saveParseErrorBeforeNextFinishedNode;
+                return 词典语句;
+            }
+            function 编译词典语句(start: number, 长度: number, 词典头部长度: number) {
+                const content = sourceText;
+                start = start || 0;
+                const end = 长度 === undefined ? content.length : start + 长度;
+                let 语句种类: SyntaxKind
+                长度 = end - start;
+                Debug.assert(start >= 0);
+                Debug.assert(start <= end);
+                Debug.assert(end <= content.length);
+                if (是局部词典头(content, start)) {
+                    语句种类 = SyntaxKind.局部词典语句
+                } else {
+                    语句种类 = SyntaxKind.全局词典语句
+                }
+                let 返回值: 词典语句;
+                let 编译键 = false;
+                const 表达式: 词典[] = [];
+                //词典头部长度: 局部词典为 3 , 全局词典为 4
+                scanner.scanRange(start + 词典头部长度, 长度, () => {
+                    下个();
+                    返回值 = <词典语句>createNode(语句种类, scanner.getStartPos());
+                    跳出循环: while (true) {
+                        switch (token()) {
+                            case SyntaxKind.OpenBraceToken:
+                            case SyntaxKind.CommaToken:
+                                编译键 = true;
+                                下个();
+                                break;
+                            case SyntaxKind.Identifier:
+                            case SyntaxKind.StringLiteral:
+                                const 词典表达式 = 编译词典表达式(编译键, 语句种类);
+                                if (词典表达式) {
+                                    表达式.push(词典表达式);
+                                }
+                                编译键 = false;
+                                continue;
+                            case SyntaxKind.CloseBraceToken:
+                            case SyntaxKind.NewLineTrivia:
+                                break 跳出循环;
+                            case SyntaxKind.Unknown:
+                                continue;
+                            default:
+                                下个();
+                                continue;
+                        }
+                    }
+
+                });
+
+                返回值.表达式 = createNodeArray(表达式, 返回值.pos);
+                return finishNode(返回值, 返回值.pos + 长度 - 3);
+            }
+            function 编译词典表达式(编译键: boolean, 语句种类: SyntaxKind) {
+                let 键, 值;
+                let 文本字面量标识符 = false;
+                const 返回值 = <词典>createNode(SyntaxKind.词典表达式);
+                if (编译键) {
+                    if (token() === SyntaxKind.StringLiteral) {
+                        文本字面量标识符 = true;
+                        键 = <词典键>createNode(SyntaxKind.词典键);
+                        键.name = 创建字面量词典标识符(是词典字面量标识符(), /** 诊断信息 */ undefined);
+                        键 = finishNode(键);
+                    }
+                    else {
+                        键 = <词典键>createNode(SyntaxKind.词典键);
+                        键.name = 创建词典标识符(是词典标识符(), /** 诊断信息 */ undefined);
+                        键 = finishNode(键);
+                    }
+                }
+                if (token() === SyntaxKind.ColonToken) {
+                    下个();
+                    if (文本字面量标识符 && token() === SyntaxKind.StringLiteral) {
+                        值 = <词典值>createNode(SyntaxKind.词典值);
+                        值.name = 创建字面量词典标识符(是词典字面量标识符(), /** 诊断信息 */ undefined);
+                        值 = finishNode(值);
+                    }
+                    else if (token() === SyntaxKind.StringLiteral) {
+                        文本字面量标识符 = false;
+                        值 = <词典值>createNode(SyntaxKind.词典值);
+                        值.name = 创建字面量词典标识符( /** 是字面量标识符 */ false, /** 诊断信息 */ undefined);
+                        值 = finishNode(值);
+                    }
+                    值 = <词典值>createNode(SyntaxKind.词典值);
+                    值.name = 创建词典标识符(是词典标识符(), /** 诊断信息 */ undefined);
+                    值 = finishNode(值);
+                }
+                if (键 && 值) {
+                    返回值.键 = 键;
+                    返回值.值 = 值;
+                    if (语句种类 === SyntaxKind.局部词典语句) {
+                        返回值.是局部词典 = 别名旗帜.局部词典;
+
+                    } else {
+                        返回值.是全局词典 = 别名旗帜.全局词典;
+                    }
+
+                    if (文本字面量标识符) {
+                        返回值.是文本字面量词典 = 别名旗帜.字面量;
+                        文本字面量标识符 = false;
+                    }
+                    返回值.词典类别 = 取词典类别(返回值.键);
+                    while (!(token() === SyntaxKind.EndOfFileToken || token() === SyntaxKind.NewLineTrivia || token() === SyntaxKind.CloseBraceToken || token() === SyntaxKind.CommaToken)) {
+                        parseErrorBeforeNextFinishedNode = true;
+                        下个();
+                    }
+                    return finishNode(返回值);
+                }
+                else {
+                    parseErrorBeforeNextFinishedNode = true;
+                    return finishNode(返回值);
+                }
+            }
+
+            function 取词典类别(键: 词典键) {
+                let text = ""
+                if (ts.isIdentifier(键.name)) {
+                    text = idText(键.name)
+                }
+                else {
+                    text = 键.name.text
+                }
+                for (let i = 0; text.length; i++) {
+                    if (text.charCodeAt(i) > 0xff) {
+                        return 别名旗帜.汉英
+                    }
+                }
+                return 别名旗帜.英汉
+            }
+
+            function 创建词典标识符(是标识符: boolean, 诊断信息: DiagnosticMessage) {
+                if (是标识符) {
+                    const 标识符 = <Identifier>createNode(SyntaxKind.Identifier);
+                    标识符.escapedText = escapeLeadingUnderscores(internIdentifier(scanner.getTokenValue()));
+                    下个();
+                    return finishNode(标识符);
+                }
+                下个();
+                return <Identifier>创建词典失踪节点(SyntaxKind.Identifier, 诊断信息 || Diagnostics.有与关键字冲突的词典标识符_名称为_0, scanner.getTokenValue());
+
+            }
+
+            function 创建字面量词典标识符(是字面量词典标识符: boolean, 诊断信息: DiagnosticMessage) {
+                if (是字面量词典标识符) {
+                    const 标识符 = <StringLiteral>createNode(SyntaxKind.StringLiteral);
+                    标识符.text = internIdentifier(scanner.getTokenValue());
+                    下个();
+                    return finishNode(标识符);
+                }
+                下个();
+                return <StringLiteral>创建词典失踪节点(SyntaxKind.StringLiteral, 诊断信息 || Diagnostics.字典的键为文字字面量值必须为文字字面量_错误名称为_0, scanner.getTokenValue());
+
+            }
+
+            function 是局部词典头(content: string, start: number) {
+                return content.charCodeAt(start) === CharacterCodes.slash &&
+                    content.charCodeAt(start + 1) === CharacterCodes.slash &&
+                    content.charCodeAt(start + 2) === CharacterCodes.at &&
+                    content.charCodeAt(start + 3) === CharacterCodes.openBrace;
+            }
+
+            function 下个() {
+                return currentToken = scanner.扫描词典主体();
+            }
+
+            function 是词典标识符() {
+                if (token() === SyntaxKind.Identifier) return true;
+                return token() > SyntaxKind.LastKeyword;
+
+            }
+
+            function 是词典字面量标识符() {
+                if (token() === SyntaxKind.StringLiteral) {
+                    return true;
+                }
+                return false;
+            }
+
+            function 创建词典失踪节点(kind: SyntaxKind, diagnosticMessage: DiagnosticMessage, arg0?: any): Node {
+                parseErrorAtPosition(scanner.getStartPos(), 0, diagnosticMessage, arg0);
+                const result = createNode(kind, scanner.getStartPos());
+                (<Identifier>result).escapedText = "" as __String;
+                return finishNode(result);
             }
         }
     }
