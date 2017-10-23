@@ -467,6 +467,19 @@ namespace ts {
             "对象": TypeFacts.TypeofEQObject,
             "函数": TypeFacts.TypeofEQFunction
         });
+
+        const 内置类型标识符对应 = createMapFromTemplate({
+
+            "文字": "string",
+            "数字": "number",
+            "真假": "boolean",
+            "符号": "symbol",
+            "未定": "undefined",
+            "对象": "object",
+            "函数": "function"
+
+        })
+
         const typeofNEFacts = createMapFromTemplate({
             "string": TypeFacts.TypeofNEString,
             "number": TypeFacts.TypeofNENumber,
@@ -518,11 +531,16 @@ namespace ts {
             IntrinsicAttributes: "IntrinsicAttributes" as __String,
             IntrinsicClassAttributes: "IntrinsicClassAttributes" as __String
         };
-
+// 黄
+        /** 亚型关系 */
         const subtypeRelation = createMap<RelationComparisonResult>();
+        /** 可赋值关系 */
         const assignableRelation = createMap<RelationComparisonResult>();
+        /** 可比较关系 */
         const comparableRelation = createMap<RelationComparisonResult>();
+        /** 身份关系 */
         const identityRelation = createMap<RelationComparisonResult>();
+        /** 枚举关系 */
         const enumRelation = createMap<boolean>();
 
         // This is for caching the result of getSymbolDisplayBuilder. Do not access directly.
@@ -816,7 +834,7 @@ namespace ts {
 
             Debug.fail("There should exist two symbols, one as property declaration and one as parameter declaration");
         }
-
+// 黄
         function isBlockScopedNameDeclaredBeforeUse(declaration: Declaration, usage: Node): boolean {
             const declarationFile = getSourceFileOfNode(declaration);
             const useFile = getSourceFileOfNode(usage);
@@ -1133,13 +1151,13 @@ namespace ts {
                     case SyntaxKind.SetAccessor:
                     case SyntaxKind.FunctionDeclaration:
                     case SyntaxKind.ArrowFunction:
-                        if (meaning & SymbolFlags.Variable && name === "arguments") {
+                        if (meaning & SymbolFlags.Variable && (name === "arguments" || name === "增强参数集")) {
                             result = argumentsSymbol;
                             break loop;
                         }
                         break;
                     case SyntaxKind.FunctionExpression:
-                        if (meaning & SymbolFlags.Variable && name === "arguments") {
+                        if (meaning & SymbolFlags.Variable && (name === "arguments" || name === "增强参数集")) {
                             result = argumentsSymbol;
                             break loop;
                         }
@@ -4077,6 +4095,9 @@ namespace ts {
          * and the value false is returned. Otherwise, the new entry is just pushed onto the stack, and true is returned.
          * In order to see if the same query has already been done before, the target object and the propertyName both
          * must match the one passed in.
+         * 在类型解析堆栈上推送条目。如果给定目标和给定属性名称的条目已经在堆栈上，并且中间条目之间没有一个类型，则循环已经发生。
+         * 在这种情况下，现有条目和在它之后被推送的所有条目的结果值被更改为false，并返回值false。否则，新的条目就被推到堆栈上，
+         * 并返回真。为了看同一查询已经完成之前，目标对象和属性名必须匹配一个通过。
          *
          * @param target The symbol, type, or signature whose type is being queried
          * @param propertyName The property name that should be used to query the target for its type
@@ -4129,6 +4150,7 @@ namespace ts {
 
         // Pop an entry from the type resolution stack and return its associated result value. The result value will
         // be true if no circularities were detected, or false if a circularity was found.
+        // 从类型解析堆栈弹出一个条目并返回其关联的结果值。结果值如果没有圆进行检测是真或假，如果一个圆被发现。
         function popTypeResolution(): boolean {
             resolutionTargets.pop();
             resolutionPropertyNames.pop();
@@ -4386,7 +4408,7 @@ namespace ts {
                 }
                 // Use contextual parameter type if one is available
                 let type: Type;
-                if (declaration.symbol.escapedName === "this") {
+                if (declaration.symbol.escapedName === "this"||declaration.symbol.escapedName === "本体") {
                     type = getContextualThisParameterType(func);
                 }
                 else {
@@ -6508,7 +6530,7 @@ namespace ts {
                         const resolvedSymbol = resolveName(param, paramSymbol.escapedName, SymbolFlags.Value, undefined, undefined, /*isUse*/ false);
                         paramSymbol = resolvedSymbol;
                     }
-                    if (i === 0 && paramSymbol.escapedName === "this") {
+                    if (i === 0 && (paramSymbol.escapedName === "this" || paramSymbol.escapedName === "本体")) {
                         hasThisParameter = true;
                         thisParameter = param.symbol;
                     }
@@ -6605,7 +6627,7 @@ namespace ts {
                 if (!node) return false;
                 switch (node.kind) {
                     case SyntaxKind.Identifier:
-                        return (<Identifier>node).escapedText === "arguments" && isPartOfExpression(node);
+                        return ((<Identifier>node).escapedText === "arguments"||(<Identifier>node).escapedText === "增强参数集") && isPartOfExpression(node);
 
                     case SyntaxKind.PropertyDeclaration:
                     case SyntaxKind.MethodDeclaration:
@@ -7078,25 +7100,36 @@ namespace ts {
                 }
                 switch (node.typeName.escapedText) {
                     case "String":
+                    case "文字类":
                         return stringType;
                     case "Number":
+                    case "数字类":
                         return numberType;
                     case "Boolean":
+                    case "真假类":
                         return booleanType;
                     case "Void":
+                    case "无值类":
                         return voidType;
                     case "Undefined":
+                    case "未定类":
                         return undefinedType;
                     case "Null":
+                    case "空值类":
                         return nullType;
                     case "Function":
                     case "function":
+                    case "函数类":
+                    case "函数":
                         return globalFunctionType;
                     case "Array":
                     case "array":
+                    case "数组":
+                    case "数组类":
                         return !node.typeArguments || !node.typeArguments.length ? anyArrayType : undefined;
                     case "Promise":
                     case "promise":
+                    case "预设类":
                         return !node.typeArguments || !node.typeArguments.length ? createPromiseType(anyType) : undefined;
                 }
             }
@@ -8566,7 +8599,7 @@ namespace ts {
         }
 
         // TYPE CHECKING
-
+// 黄永兴
         function isTypeIdenticalTo(source: Type, target: Type): boolean {
             return isTypeRelatedTo(source, target, identityRelation);
         }
@@ -8871,30 +8904,37 @@ namespace ts {
             return true;
         }
 
+        function 比较文本字面量类型(s: Type, t: Type) {
+            if ((<LiteralType>s).value === (<LiteralType>t).value) {
+                return true
+            }
+            else if (isString((<LiteralType>s).value) && isString((<LiteralType>t).value)) {
+                return 对象名称是交叉相等的(创建文本别名((<StringLiteralType>s).value, s.别名), 创建文本别名((<StringLiteralType>t).value, t.别名))
+            }
+            return false
+        }
+
         function isSimpleTypeRelatedTo(source: Type, target: Type, relation: Map<RelationComparisonResult>, errorReporter?: ErrorReporter) {
             const s = source.flags;
             const t = target.flags;
-
             if (t & TypeFlags.Never) return false;
             if (t & TypeFlags.Any || s & TypeFlags.Never) return true;
             if (s & TypeFlags.StringLike && t & TypeFlags.String) return true;
             if (s & TypeFlags.StringLiteral && s & TypeFlags.EnumLiteral &&
                 t & TypeFlags.StringLiteral && !(t & TypeFlags.EnumLiteral) &&
-                (<LiteralType>source).value === (<LiteralType>target).value) return true;
-
+                比较文本字面量类型(source, target)) return true;
 
             if (s & TypeFlags.NumberLike && t & TypeFlags.Number) return true;
             if (s & TypeFlags.NumberLiteral && s & TypeFlags.EnumLiteral &&
                 t & TypeFlags.NumberLiteral && !(t & TypeFlags.EnumLiteral) &&
-                (<LiteralType>source).value === (<LiteralType>target).value) return true;
+                比较文本字面量类型(source, target)) return true;
 
             if (s & TypeFlags.BooleanLike && t & TypeFlags.Boolean) return true;
             if (s & TypeFlags.Enum && t & TypeFlags.Enum && isEnumTypeRelatedTo(source.symbol, target.symbol, errorReporter)) return true;
             if (s & TypeFlags.EnumLiteral && t & TypeFlags.EnumLiteral) {
                 if (s & TypeFlags.Union && t & TypeFlags.Union && isEnumTypeRelatedTo(source.symbol, target.symbol, errorReporter)) return true;
                 if (s & TypeFlags.Literal && t & TypeFlags.Literal &&
-                    (<LiteralType>source).value === (<LiteralType>target).value &&
-
+                    比较文本字面量类型(source, target) &&
                     isEnumTypeRelatedTo(getParentOfSymbol(source.symbol), getParentOfSymbol(target.symbol), errorReporter)) return true;
             }
             if (s & TypeFlags.Undefined && (!strictNullChecks || t & (TypeFlags.Undefined | TypeFlags.Void))) return true;
@@ -8943,6 +8983,7 @@ namespace ts {
          * @param headMessage If the error chain should be prepended by a head message, then headMessage will be used.
          * @param containingMessageChain A chain of errors to prepend any new errors found.
          */
+// 黄
         function checkTypeRelatedTo(
             source: Type,
             target: Type,
@@ -9055,7 +9096,7 @@ namespace ts {
                     target = (<LiteralType>target).regularType;
                 }
                 // both types are the same - covers 'they are the same primitive type or both are Any' or the same type parameter cases
-                if (source === target) return Ternary.True;
+                if (比较文本字面量类型(source, target)) return Ternary.True;
 
                 if (relation === identityRelation) {
                     return isIdenticalTo(source, target);
@@ -9385,6 +9426,10 @@ namespace ts {
             // Third, check if both types are part of deeply nested chains of generic type instantiations and if so assume the types are
             // equal and infinitely expanding. Fourth, if we have reached a depth of 100 nested comparisons, assume we have runaway recursion
             // and issue an error. Otherwise, actually compare the structure of the two types.
+            // 确定递归类型是否相关。首先，检查结果是否已经在全局缓存中可用。第二，检查我们是否已经开始比较给定的两种类型，
+            // 在这种情况下，我们假设结果是正确的。第三、检查是否两者都是部分深嵌套泛型类型的实例化链如果因此假设类型都是
+            // 平等的，无限扩张。第四，如果我们达到了100个嵌套比较的深度，假设我们有失控的递归并产生错误。
+            // 否则，实际上比较两种类型的结构。
             function recursiveTypeRelatedTo(source: Type, target: Type, reportErrors: boolean): Ternary {
                 if (overflow) {
                     return Ternary.False;
@@ -9395,6 +9440,7 @@ namespace ts {
                     if (reportErrors && related === RelationComparisonResult.Failed) {
                         // We are elaborating errors and the cached result is an unreported failure. Record the result as a reported
                         // failure and continue computing the relation such that errors get reported.
+                        // 我们正在详细描述错误，缓存结果是未报告的失败。将结果记录为已报告的故障，并继续计算错误报告的关系。
                         relation.set(id, RelationComparisonResult.FailedAndReported);
                     }
                     else {
@@ -9718,6 +9764,7 @@ namespace ts {
             /**
              * A type is 'weak' if it is an object type with at least one optional property
              * and no required properties, call/construct signatures or index signatures
+             * 类型是弱的，如果它是具有至少一个可选属性和不需要属性的对象类型，则调用/构造签名或索引签名。
              */
             function isWeakType(type: Type): boolean {
                 if (type.flags & TypeFlags.Object) {
@@ -10073,6 +10120,7 @@ namespace ts {
         /**
          * To improve caching, the relation key for two generic types uses the target's id plus ids of the type parameters.
          * For other cases, the types ids are used.
+         * 为了提高缓存，两个泛型类型的关系键使用目标的id加上类型参数的id。对于其他情况，使用类型ID。
          */
         function getRelationKey(source: Type, target: Type, relation: Map<RelationComparisonResult>) {
             if (relation === identityRelation && source.id > target.id) {
@@ -10274,7 +10322,7 @@ namespace ts {
             }
             return result;
         }
-
+// 黄永兴
         function isRestParameterIndex(signature: Signature, parameterIndex: number) {
             return signature.hasRestParameter && parameterIndex >= signature.parameters.length - 1;
         }
@@ -17624,6 +17672,22 @@ namespace ts {
         }
 
         function checkTypeOfExpression(node: TypeOfExpression): Type {
+            if (isBinaryExpression(node.parent)) {
+                let 左 = node.parent.left
+                let 右 = node.parent.right
+                if (isStringLiteral(左)) {
+                    let 词典值 = 内置类型标识符对应.get(左.text);
+                    if (词典值) {
+                        左.别名 = 新建别名(undefined, 词典值);
+                    }
+                }
+                else if (isStringLiteral(右)) {
+                    let 词典值 = 内置类型标识符对应.get(右.text);
+                    if (词典值) {
+                        右.别名 = 新建别名(undefined, 词典值);
+                    }
+                }
+            }
             checkExpression(node.expression);
             return typeofType;
         }
