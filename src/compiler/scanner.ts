@@ -207,7 +207,7 @@ namespace ts {
         "声明": SyntaxKind.DeclareKeyword,
         "默认": SyntaxKind.DefaultKeyword,
         "删除": SyntaxKind.DeleteKeyword,
-        "开始": SyntaxKind.DoKeyword,
+        "运行": SyntaxKind.DoKeyword,
         "否则": SyntaxKind.ElseKeyword,
         "枚举": SyntaxKind.EnumKeyword,
         "导出": SyntaxKind.ExportKeyword,
@@ -275,7 +275,7 @@ namespace ts {
         "可变": SyntaxKind.VarKeyword,
         "无值": SyntaxKind.VoidKeyword,
 
-        "判断": SyntaxKind.WhileKeyword,
+        "只要": SyntaxKind.WhileKeyword,
 
         "外扩": SyntaxKind.WithKeyword,
         "获得": SyntaxKind.YieldKeyword,
