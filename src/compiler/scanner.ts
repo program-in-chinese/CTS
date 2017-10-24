@@ -215,16 +215,16 @@ namespace ts {
 
         "假的": SyntaxKind.FalseKeyword,
 
-        "最后": SyntaxKind.FinallyKeyword,
+        "善后": SyntaxKind.FinallyKeyword,
         "循环": SyntaxKind.ForKeyword,
         "来自": SyntaxKind.FromKeyword,
         "函数": SyntaxKind.FunctionKeyword,
         "获取": SyntaxKind.GetKeyword,
         "如果": SyntaxKind.IfKeyword,
         "实现": SyntaxKind.ImplementsKeyword,
-        "引用": SyntaxKind.ImportKeyword,
+        "导入": SyntaxKind.ImportKeyword,
         "位于": SyntaxKind.InKeyword,
-        "为类": SyntaxKind.InstanceOfKeyword,
+        "身为": SyntaxKind.InstanceOfKeyword,
         "接口": SyntaxKind.InterfaceKeyword,
 
         "是为": SyntaxKind.IsKeyword,
