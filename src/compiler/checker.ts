@@ -1036,8 +1036,9 @@ namespace ts {
                             // name of that export default matches.
                             if (result = moduleExports.get("default" as __String)) {
                                 const localSymbol = getLocalSymbolForExportDefault(result);
-                                if (localSymbol && (result.flags & meaning) && localSymbol.escapedName === name) {
+                                if (localSymbol && (result.flags & meaning) && 对象名称是交叉相等的(创建文本别名(localSymbol.escapedName, localSymbol.别名), 创建文本别名(name, undefined))) {
                                     break loop;
+
                                 }
                                 result = undefined;
                             }
@@ -8882,7 +8883,7 @@ namespace ts {
             if (relation !== undefined) {
                 return relation;
             }
-            if (sourceSymbol.escapedName !== targetSymbol.escapedName || !(sourceSymbol.flags & SymbolFlags.RegularEnum) || !(targetSymbol.flags & SymbolFlags.RegularEnum)) {
+            if (!对象名称是交叉相等的(创建文本别名(sourceSymbol.escapedName, sourceSymbol.别名), 创建文本别名(targetSymbol.escapedName, targetSymbol.别名)) || !(sourceSymbol.flags & SymbolFlags.RegularEnum) || !(targetSymbol.flags & SymbolFlags.RegularEnum)) {
                 enumRelation.set(id, false);
                 return false;
             }
@@ -9096,7 +9097,7 @@ namespace ts {
                     target = (<LiteralType>target).regularType;
                 }
                 // both types are the same - covers 'they are the same primitive type or both are Any' or the same type parameter cases
-                if (比较文本字面量类型(source, target)) return Ternary.True;
+                if (source === target) return Ternary.True;
 
                 if (relation === identityRelation) {
                     return isIdenticalTo(source, target);

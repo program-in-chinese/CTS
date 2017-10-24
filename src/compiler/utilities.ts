@@ -5761,7 +5761,16 @@ namespace ts {
     }
 
     export function 对象名称是交叉相等的(左值: 文本名称, 右值: 文本名称) {
-        return 左值.名称 === 右值.名称 || 左值.别名 === 右值.名称 || 右值.别名 === 左值.名称;
+        if (左值.名称 === 右值.名称) {
+            return true;
+        }
+        else if (右值.名称 && 左值.别名 === 右值.名称) {
+            return true;
+        }
+        else if (左值.名称 && 右值.别名 === 左值.名称) {
+            return true;
+        }
+        return false;
     }
 
     export function 创建文本别名(名称: __String | string, 别名参数: 别名): 文本名称 {
