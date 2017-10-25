@@ -222,7 +222,7 @@ namespace ts {
         "获取": SyntaxKind.GetKeyword,
         "如果": SyntaxKind.IfKeyword,
         "实现": SyntaxKind.ImplementsKeyword,
-        "引用": SyntaxKind.ImportKeyword,
+        "导入": SyntaxKind.ImportKeyword,
         "位于": SyntaxKind.InKeyword,
         "为类": SyntaxKind.InstanceOfKeyword,
         "接口": SyntaxKind.InterfaceKeyword,

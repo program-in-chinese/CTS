@@ -50,8 +50,8 @@ gulp clean            # 删除当前构建.
 gulp LKG              # 构建通过后替换成主环境.
                       # 构建编译器稳定后要执行的引导步骤.
 gulp tests            # 构建测试环境.
-gulp runtests         # 暂时不支持.
-gulp runtests-browser # 暂时不支持.
+gulp runtests         # 运行单元测试.
+gulp runtests-browser # 浏览器环境运行测试.
 gulp baseline-accept  # 从运行测试中获得的结果替换基线测试结果.
 gulp lint             # 执行 tslint 检查.
 gulp help             # 查看相关命令.

@@ -531,7 +531,7 @@ namespace ts {
             IntrinsicAttributes: "IntrinsicAttributes" as __String,
             IntrinsicClassAttributes: "IntrinsicClassAttributes" as __String
         };
-// 黄
+        // 黄
         /** 亚型关系 */
         const subtypeRelation = createMap<RelationComparisonResult>();
         /** 可赋值关系 */
@@ -611,6 +611,23 @@ namespace ts {
             const symbol = <TransientSymbol>(new Symbol(flags | SymbolFlags.Transient, name));
             symbol.checkFlags = 0;
             return symbol;
+        }
+
+
+
+        function 创建节点别名根据符号别名(name: Identifier | StringLiteral, 符号: Symbol) {
+            if (!name || !(符号 && 符号.别名)) {
+                return
+            }
+            if (!name.别名 && 符号.别名) {
+                const 节点文本 = isIdentifier(name) ? name.escapedText : name.text
+                const 符号别名 = 符号.别名
+                if (节点文本 !== 符号.escapedName) {
+                    name.别名 = 新建别名(翻转别名旗帜(符号别名.旗帜), 符号.escapedName)
+                } else {
+                    name.别名 = 符号别名
+                }
+            }
         }
 
         function 新建别名(别名旗帜参数: 别名旗帜, 别名名称: string | __String) {
@@ -834,7 +851,7 @@ namespace ts {
 
             Debug.fail("There should exist two symbols, one as property declaration and one as parameter declaration");
         }
-// 黄
+        // 黄
         function isBlockScopedNameDeclaredBeforeUse(declaration: Declaration, usage: Node): boolean {
             const declarationFile = getSourceFileOfNode(declaration);
             const useFile = getSourceFileOfNode(usage);
@@ -1036,7 +1053,7 @@ namespace ts {
                             // name of that export default matches.
                             if (result = moduleExports.get("default" as __String)) {
                                 const localSymbol = getLocalSymbolForExportDefault(result);
-                                if (localSymbol && (result.flags & meaning) && 对象名称是交叉相等的(创建文本别名(localSymbol.escapedName, localSymbol.别名), 创建文本别名(name, undefined))) {
+                                if (localSymbol && (result.flags & meaning) && 对象名称比较(localSymbol, name)) {
                                     break loop;
 
                                 }
@@ -1109,7 +1126,7 @@ namespace ts {
                         }
                         if (location.kind === SyntaxKind.ClassExpression && meaning & SymbolFlags.Class) {
                             const className = (<ClassExpression>location).name;
-                            if (className && name === className.escapedText) {
+                            if (className && 对象名称比较(name, className)) {
                                 result = location.symbol;
                                 break loop;
                             }
@@ -1165,7 +1182,7 @@ namespace ts {
 
                         if (meaning & SymbolFlags.Function) {
                             const functionName = (<FunctionExpression>location).name;
-                            if (functionName && name === functionName.escapedText) {
+                            if (functionName && 对象名称比较(name, functionName)) {
                                 result = location.symbol;
                                 break loop;
                             }
@@ -1281,6 +1298,9 @@ namespace ts {
                         error(errorLocation, Diagnostics._0_refers_to_a_UMD_global_but_the_current_file_is_a_module_Consider_adding_an_import_instead, unescapeLeadingUnderscores(name));
                     }
                 }
+            }
+            if (!isString(nameArg)) {
+                创建节点别名根据符号别名(nameArg as Identifier, result)
             }
             return result;
         }
@@ -1580,7 +1600,7 @@ namespace ts {
                     symbolFromVariable = resolveSymbol(symbolFromVariable, dontResolveAlias);
                     let symbolFromModule = getExportOfModule(targetSymbol, name.escapedText, dontResolveAlias);
                     // If the export member we're looking for is default, and there is no real default but allowSyntheticDefaultImports is on, return the entire module as the default
-                    if (!symbolFromModule && allowSyntheticDefaultImports && name.escapedText === "default") {
+                    if (!symbolFromModule && allowSyntheticDefaultImports && 对象名称比较(name, "default")) {
                         symbolFromModule = resolveExternalModuleSymbol(moduleSymbol, dontResolveAlias) || resolveSymbol(moduleSymbol, dontResolveAlias);
                     }
                     const symbol = symbolFromModule && symbolFromVariable ?
@@ -1745,7 +1765,6 @@ namespace ts {
                 if (!symbol) {
                     return undefined;
                 }
-                创建节点别名根据符号别名(name, symbol)
             }
             else if (name.kind === SyntaxKind.QualifiedName || name.kind === SyntaxKind.PropertyAccessExpression) {
                 let left: EntityNameOrEntityNameExpression;
@@ -2043,7 +2062,9 @@ namespace ts {
         }
 
         function getSymbolOfNode(node: Node): Symbol {
-            return getMergedSymbol(node.symbol);
+            const 结果 = getMergedSymbol(node.symbol);
+            创建节点别名根据符号别名(node as Identifier, 结果)
+            return 结果
         }
 
         function getParentOfSymbol(symbol: Symbol): Symbol {
@@ -4409,7 +4430,7 @@ namespace ts {
                 }
                 // Use contextual parameter type if one is available
                 let type: Type;
-                if (declaration.symbol.escapedName === "this"||declaration.symbol.escapedName === "本体") {
+                if (declaration.symbol.escapedName === "this" || declaration.symbol.escapedName === "本体") {
                     type = getContextualThisParameterType(func);
                 }
                 else {
@@ -6628,7 +6649,7 @@ namespace ts {
                 if (!node) return false;
                 switch (node.kind) {
                     case SyntaxKind.Identifier:
-                        return ((<Identifier>node).escapedText === "arguments"||(<Identifier>node).escapedText === "增强参数集") && isPartOfExpression(node);
+                        return ((<Identifier>node).escapedText === "arguments" || (<Identifier>node).escapedText === "增强参数集") && isPartOfExpression(node);
 
                     case SyntaxKind.PropertyDeclaration:
                     case SyntaxKind.MethodDeclaration:
@@ -7090,7 +7111,7 @@ namespace ts {
 
         function getIntendedTypeFromJSDocTypeReference(node: TypeReferenceNode): Type {
             if (isIdentifier(node.typeName)) {
-                if (node.typeName.escapedText === "Object") {
+                if (对象名称比较(node.typeName, "Object")) {
                     if (isJSDocIndexSignature(node)) {
                         const indexed = getTypeFromTypeNode(node.typeArguments[0]);
                         const target = getTypeFromTypeNode(node.typeArguments[1]);
@@ -8600,7 +8621,7 @@ namespace ts {
         }
 
         // TYPE CHECKING
-// 黄永兴
+        // 黄永兴
         function isTypeIdenticalTo(source: Type, target: Type): boolean {
             return isTypeRelatedTo(source, target, identityRelation);
         }
@@ -8883,7 +8904,7 @@ namespace ts {
             if (relation !== undefined) {
                 return relation;
             }
-            if (!对象名称是交叉相等的(创建文本别名(sourceSymbol.escapedName, sourceSymbol.别名), 创建文本别名(targetSymbol.escapedName, targetSymbol.别名)) || !(sourceSymbol.flags & SymbolFlags.RegularEnum) || !(targetSymbol.flags & SymbolFlags.RegularEnum)) {
+            if (!对象名称比较(sourceSymbol, targetSymbol) || !(sourceSymbol.flags & SymbolFlags.RegularEnum) || !(targetSymbol.flags & SymbolFlags.RegularEnum)) {
                 enumRelation.set(id, false);
                 return false;
             }
@@ -8910,7 +8931,7 @@ namespace ts {
                 return true
             }
             else if (isString((<LiteralType>s).value) && isString((<LiteralType>t).value)) {
-                return 对象名称是交叉相等的(创建文本别名((<StringLiteralType>s).value, s.别名), 创建文本别名((<StringLiteralType>t).value, t.别名))
+                return 对象名称比较(<StringLiteralType>s, <StringLiteralType>t)
             }
             return false
         }
@@ -8984,7 +9005,7 @@ namespace ts {
          * @param headMessage If the error chain should be prepended by a head message, then headMessage will be used.
          * @param containingMessageChain A chain of errors to prepend any new errors found.
          */
-// 黄
+        // 黄
         function checkTypeRelatedTo(
             source: Type,
             target: Type,
@@ -10323,7 +10344,7 @@ namespace ts {
             }
             return result;
         }
-// 黄永兴
+        // 黄永兴
         function isRestParameterIndex(signature: Signature, parameterIndex: number) {
             return signature.hasRestParameter && parameterIndex >= signature.parameters.length - 1;
         }
@@ -11272,13 +11293,15 @@ namespace ts {
                 case SyntaxKind.SuperKeyword:
                     return target.kind === SyntaxKind.SuperKeyword;
                 case SyntaxKind.PropertyAccessExpression:
+                    //黄
                     return target.kind === SyntaxKind.PropertyAccessExpression &&
-                        (<PropertyAccessExpression>source).name.escapedText === (<PropertyAccessExpression>target).name.escapedText &&
+                        对象名称比较((<PropertyAccessExpression>source).name, (<PropertyAccessExpression>target).name) &&
+
                         isMatchingReference((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression);
                 case SyntaxKind.BindingElement:
                     if (target.kind !== SyntaxKind.PropertyAccessExpression) return false;
                     const t = target as PropertyAccessExpression;
-                    if (t.name.escapedText !== getBindingElementNameText(source as BindingElement)) return false;
+                    if (!对象名称比较(t.name, getBindingElementNameText(source as BindingElement))) return false;
                     if (source.parent.parent.kind === SyntaxKind.BindingElement && isMatchingReference(source.parent.parent, t.expression)) {
                         return true;
                     }
@@ -11827,8 +11850,9 @@ namespace ts {
         function isEvolvingArrayOperationTarget(node: Node) {
             const root = getReferenceRoot(node);
             const parent = root.parent;
+            // 黄
             const isLengthPushOrUnshift = parent.kind === SyntaxKind.PropertyAccessExpression && (
-                (<PropertyAccessExpression>parent).name.escapedText === "length" ||
+                (<PropertyAccessExpression>parent).name.escapedText === "length" || (<PropertyAccessExpression>parent).name.escapedText === "长度" ||
                 parent.parent.kind === SyntaxKind.CallExpression && isPushOrUnshiftIdentifier((<PropertyAccessExpression>parent).name));
             const isElementAssignment = parent.kind === SyntaxKind.ElementAccessExpression &&
                 (<ElementAccessExpression>parent).expression === root &&
@@ -12617,7 +12641,6 @@ namespace ts {
                 }
 
                 getNodeLinks(container).flags |= NodeCheckFlags.CaptureArguments;
-                创建节点别名根据符号别名(node, symbol)
                 return getTypeOfSymbol(symbol);
             }
 
@@ -12691,7 +12714,6 @@ namespace ts {
             // entities we simply return the declared type.
             if (localOrExportSymbol.flags & SymbolFlags.Variable) {
                 if (assignmentKind === AssignmentKind.Definite) {
-                    创建节点别名根据符号别名(node, symbol)
                     return type;
                 }
             }
@@ -12699,12 +12721,10 @@ namespace ts {
                 declaration = find<Declaration>(symbol.declarations, isSomeImportDeclaration);
             }
             else {
-                创建节点别名根据符号别名(node, symbol)
                 return type;
             }
 
             if (!declaration) {
-                创建节点别名根据符号别名(node, symbol)
                 return type;
             }
 
@@ -12743,35 +12763,17 @@ namespace ts {
                         error(getNameOfDeclaration(declaration), Diagnostics.Variable_0_implicitly_has_type_1_in_some_locations_where_its_type_cannot_be_determined, symbolToString(symbol), typeToString(flowType));
                         error(node, Diagnostics.Variable_0_implicitly_has_an_1_type, symbolToString(symbol), typeToString(flowType));
                     }
-                    创建节点别名根据符号别名(node, symbol)
                     return convertAutoToAny(flowType);
                 }
             }
             else if (!assumeInitialized && !(getFalsyFlags(type) & TypeFlags.Undefined) && getFalsyFlags(flowType) & TypeFlags.Undefined) {
                 error(node, Diagnostics.Variable_0_is_used_before_being_assigned, symbolToString(symbol));
                 // Return the declared type to reduce follow-on errors
-                创建节点别名根据符号别名(node, symbol)
                 return type;
             }
-            创建节点别名根据符号别名(node, symbol)
             return assignmentKind ? getBaseTypeOfLiteralType(flowType) : flowType;
         }
 
-        function 创建节点别名根据符号别名(name: Identifier | StringLiteral, 符号: Symbol) {
-            if (!name || !(符号 && 符号.别名)) {
-                return
-            }
-            const 节点文本 = isIdentifier(name) ? name.escapedText : name.text
-            if (!name.别名 && 符号.别名) {
-                console.log("不应该到这里")
-                const 符号别名 = 符号.别名
-                if (节点文本 !== 符号.escapedName) {
-                    name.别名 = 新建别名(翻转别名旗帜(符号别名.旗帜), 符号.escapedName)
-                } else if (节点文本 === 符号.escapedName) {
-                    name.别名 = 符号别名
-                }
-            }
-        }
         // 黄
         function isInsideFunction(node: Node, threshold: Node): boolean {
             return !!findAncestor(node, n => n === threshold ? "quit" : isFunctionLike(n));
@@ -13025,7 +13027,7 @@ namespace ts {
                 const jsDocFunctionType = <JSDocFunctionType>jsdocType;
                 if (jsDocFunctionType.parameters.length > 0 &&
                     jsDocFunctionType.parameters[0].name &&
-                    (jsDocFunctionType.parameters[0].name as Identifier).escapedText === "this") {
+                    ((jsDocFunctionType.parameters[0].name as Identifier).escapedText === "this" || (jsDocFunctionType.parameters[0].name as Identifier).escapedText === "本体")) {
                     return getTypeFromTypeNode(jsDocFunctionType.parameters[0].type);
                 }
             }
@@ -13988,7 +13990,7 @@ namespace ts {
             const unionType = propTypes.length ? getUnionType(propTypes, /*subtypeReduction*/ true) : undefinedType;
             return createIndexInfo(unionType, /*isReadonly*/ false);
         }
-
+// 黄
         function checkObjectLiteral(node: ObjectLiteralExpression, checkMode?: CheckMode): Type {
             const inDestructuringPattern = isAssignmentTarget(node);
             // Grammar checking
@@ -14259,7 +14261,8 @@ namespace ts {
                     attributeSymbol.target = member;
                     attributesTable.set(attributeSymbol.escapedName, attributeSymbol);
                     attributesArray.push(attributeSymbol);
-                    if (attributeDecl.name.escapedText === jsxChildrenPropertyName) {
+                    //黄
+                    if (对象名称比较(attributeDecl.name, jsxChildrenPropertyName)) {
                         explicitlySpecifyChildrenAttribute = true;
                     }
                 }
@@ -15142,6 +15145,7 @@ namespace ts {
                 return apparentType;
             }
             const prop = getPropertyOfType(apparentType, right.escapedText);
+
             if (!prop) {
                 const indexInfo = getIndexInfoOfType(apparentType, IndexKind.String);
                 if (indexInfo && indexInfo.type) {
@@ -15180,9 +15184,12 @@ namespace ts {
             if (node.kind !== SyntaxKind.PropertyAccessExpression || assignmentKind === AssignmentKind.Definite ||
                 !(prop.flags & (SymbolFlags.Variable | SymbolFlags.Property | SymbolFlags.Accessor)) &&
                 !(prop.flags & SymbolFlags.Method && propType.flags & TypeFlags.Union)) {
+                创建节点别名根据符号别名(right, prop)
                 return propType;
             }
             const flowType = getFlowTypeOfReference(node, propType);
+
+            创建节点别名根据符号别名(right, prop)
             return assignmentKind ? getBaseTypeOfLiteralType(flowType) : flowType;
         }
 
@@ -18239,9 +18246,9 @@ namespace ts {
                     }
                     return rightType;
             }
-
+            //黄
             function isEvalNode(node: Expression) {
-                return node.kind === SyntaxKind.Identifier && (node as Identifier).escapedText === "eval";
+                return node.kind === SyntaxKind.Identifier && ((node as Identifier).escapedText === "eval" || (node as Identifier).escapedText === "执行");
             }
 
             // Return true if there was no error, false if there was an error.
@@ -18728,7 +18735,7 @@ namespace ts {
             if (node.questionToken && isBindingPattern(node.name) && (func as FunctionLikeDeclaration).body) {
                 error(node, Diagnostics.A_binding_pattern_parameter_cannot_be_optional_in_an_implementation_signature);
             }
-            if (node.name && isIdentifier(node.name) && (node.name.escapedText === "this" || node.name.escapedText === "new")) {
+            if (node.name && isIdentifier(node.name) && (node.name.escapedText === "this" || node.name.escapedText === "本体" || node.name.escapedText === "新建" || node.name.escapedText === "new")) {
                 if (indexOf(func.parameters, node) !== 0) {
                     error(node, Diagnostics.A_0_parameter_must_be_the_first_parameter, node.name.escapedText as string);
                 }
@@ -18748,7 +18755,7 @@ namespace ts {
             if (parameterList) {
                 for (let i = 0; i < parameterList.length; i++) {
                     const param = parameterList[i];
-                    if (param.name.kind === SyntaxKind.Identifier && param.name.escapedText === parameter.escapedText) {
+                    if (param.name.kind === SyntaxKind.Identifier && 对象名称比较(param.name, parameter)) {
                         return i;
                     }
                 }
@@ -18832,7 +18839,7 @@ namespace ts {
                 }
 
                 const name = element.name;
-                if (name.kind === SyntaxKind.Identifier && name.escapedText === predicateVariableName) {
+                if (name.kind === SyntaxKind.Identifier && 对象名称比较(name, predicateVariableName)) {
                     error(predicateVariableNode,
                         Diagnostics.A_type_predicate_cannot_reference_element_0_in_a_binding_pattern,
                         predicateVariableName);
@@ -19524,7 +19531,7 @@ namespace ts {
                         const subsequentName = (<FunctionLikeDeclaration>subsequentNode).name;
                         if (node.name && subsequentName &&
                             (isComputedPropertyName(node.name) && isComputedPropertyName(subsequentName) ||
-                                !isComputedPropertyName(node.name) && !isComputedPropertyName(subsequentName) && getEscapedTextOfIdentifierOrLiteral(node.name) === getEscapedTextOfIdentifierOrLiteral(subsequentName))) {
+                                !isComputedPropertyName(node.name) && !isComputedPropertyName(subsequentName) && 对象名称比较(getEscapedTextOfIdentifierOrLiteral(node.name), getEscapedTextOfIdentifierOrLiteral(subsequentName)))) {
                             const reportError =
                                 (node.kind === SyntaxKind.MethodDeclaration || node.kind === SyntaxKind.MethodSignature) &&
                                 hasModifier(node, ModifierFlags.Static) !== hasModifier(subsequentNode, ModifierFlags.Static);
@@ -19999,7 +20006,7 @@ namespace ts {
                 const promiseConstructorSymbol = resolveEntityName(promiseConstructorName, SymbolFlags.Value, /*ignoreErrors*/ true);
                 const promiseConstructorType = promiseConstructorSymbol ? getTypeOfSymbol(promiseConstructorSymbol) : unknownType;
                 if (promiseConstructorType === unknownType) {
-                    if (promiseConstructorName.kind === SyntaxKind.Identifier && promiseConstructorName.escapedText === "Promise" && getTargetType(returnType) === getGlobalPromiseType(/*reportErrors*/ false)) {
+                    if (promiseConstructorName.kind === SyntaxKind.Identifier && 对象名称比较(promiseConstructorName, "Promise") && getTargetType(returnType) === getGlobalPromiseType(/*reportErrors*/ false)) {
                         error(returnTypeNode, Diagnostics.An_async_function_or_method_in_ES5_SlashES3_requires_the_Promise_constructor_Make_sure_you_have_a_declaration_for_the_Promise_constructor_or_include_ES2015_in_your_lib_option);
                     }
                     else {
@@ -20144,7 +20151,7 @@ namespace ts {
                                 // return undefined if they dont match because we would emit object
                                 if (!isIdentifier(commonEntityName) ||
                                     !isIdentifier(individualEntityName) ||
-                                    commonEntityName.escapedText !== individualEntityName.escapedText) {
+                                    !对象名称比较(commonEntityName, individualEntityName)) {
                                     return undefined;
                                 }
                             }
@@ -20272,7 +20279,7 @@ namespace ts {
             const extend = getClassExtendsHeritageClauseElement(classLike);
             if (extend) {
                 const className = getIdentifierFromEntityNameExpression(extend.expression);
-                if (className && name.escapedText !== className.escapedText) {
+                if (className && !对象名称比较(name, className)) {
                     error(name, Diagnostics.JSDoc_0_1_does_not_match_the_extends_2_clause, idText(node.tagName), idText(name), idText(className));
                 }
             }
@@ -20550,14 +20557,14 @@ namespace ts {
             }
 
             forEach(node.parameters, p => {
-                if (p.name && !isBindingPattern(p.name) && p.name.escapedText === argumentsSymbol.escapedName) {
+                if (p.name && !isBindingPattern(p.name) && 对象名称比较(p.name, argumentsSymbol)) {
                     error(p, Diagnostics.Duplicate_identifier_arguments_Compiler_uses_arguments_to_initialize_rest_parameters);
                 }
             });
         }
 
         function needCollisionCheckForIdentifier(node: Node, identifier: Identifier, name: string): boolean {
-            if (!(identifier && identifier.escapedText === name)) {
+            if (!(identifier && 对象名称比较(identifier, name))) {
                 return false;
             }
 
@@ -21631,7 +21638,7 @@ namespace ts {
                         if (isFunctionLike(current)) {
                             return "quit";
                         }
-                        if (current.kind === SyntaxKind.LabeledStatement && (<LabeledStatement>current).label.escapedText === node.label.escapedText) {
+                        if (current.kind === SyntaxKind.LabeledStatement && 对象名称比较((<LabeledStatement>current).label, node.label)) {
                             const sourceFile = getSourceFileOfNode(node);
                             grammarErrorOnNode(node.label, Diagnostics.Duplicate_label_0, getTextOfNodeFromSourceText(sourceFile.text, node.label));
                             return true;
@@ -21796,6 +21803,13 @@ namespace ts {
                 case "symbol":
                 case "void":
                 case "object":
+                case "任意":
+                case "数字":
+                case "真假":
+                case "文字":
+                case "返回":
+                case "无值":
+                case "对象":
                     error(name, message, (<Identifier>name).escapedText as string);
             }
         }
@@ -21869,7 +21883,7 @@ namespace ts {
 
                     // If the type parameter node does not have the same as the resolved type
                     // parameter at this position, we report an error.
-                    if (source.name.escapedText !== target.symbol.escapedName) {
+                    if (!对象名称比较(source.name, target.symbol)) {
                         return false;
                     }
 
@@ -25375,7 +25389,7 @@ namespace ts {
 
                 switch (current.kind) {
                     case SyntaxKind.LabeledStatement:
-                        if (node.label && (<LabeledStatement>current).label.escapedText === node.label.escapedText) {
+                        if (node.label && 对象名称比较((<LabeledStatement>current).label, node.label)) {
                             // found matching label - verify that label usage is correct
                             // continue can only target labels that are on iteration statements
                             const isMisplacedContinueLabel = node.kind === SyntaxKind.ContinueStatement
@@ -25565,7 +25579,7 @@ namespace ts {
 
         function checkGrammarMetaProperty(node: MetaProperty) {
             if (node.keywordToken === SyntaxKind.NewKeyword) {
-                if (node.name.escapedText !== "target") {
+                if (!对象名称比较(node.name, "target")) {
                     return grammarErrorOnNode(node.name, Diagnostics._0_is_not_a_valid_meta_property_for_keyword_1_Did_you_mean_2, node.name.escapedText, tokenToString(node.keywordToken), "target");
                 }
             }

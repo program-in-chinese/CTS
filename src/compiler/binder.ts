@@ -212,7 +212,8 @@ namespace ts {
                 const 词典 = file.全局词典.get(name as string)
                 let 名称 = 取声明的标识符或字面量标识符(decl)
                 if (词典 && 名称 && !名称.别名) {
-                    名称.别名 = new 别名构造(取别名旗帜(词典), name)
+                    const 别名名称变量 = isIdentifier(词典.值.name) ? 词典.值.name.escapedText : 词典.值.name.text;
+                    名称.别名 = new 别名构造(取别名旗帜(词典), 别名名称变量 as __String)
                 }
                 if (名称 && 名称.别名) {
                     结果.别名 = 名称.别名

@@ -2826,7 +2826,7 @@ namespace ts {
                 return node.text;
             }
 
-            return getSourceTextOfNodeFromSourceFile(currentSourceFile, node, includeTrivia);
+            return 取输出文本从源文件按节点(currentSourceFile, node, includeTrivia);
         }
 
         function getLiteralTextOfNode(node: LiteralLikeNode): string {

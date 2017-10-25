@@ -3626,13 +3626,17 @@ declare namespace ts {
     function 是局部词典语句(词典参数: 词典语句): 词典参数 is 局部词典语句;
     function 是全局词典语句(词典参数: 词典语句): 词典参数 is 全局词典语句;
     function 取字典注释范围(node: Node, text: string): 词典注释范围[] | undefined;
-    function 对象名称是交叉相等的(左值: 文本名称, 右值: 文本名称): boolean;
-    function 创建文本别名(名称: __String | string, 别名参数: 别名): 文本名称;
+    type 可比较名称类型 = Identifier | Symbol | StringLiteralType | string | __String;
+    function 是标识符(标识符参数: 可比较名称类型): 标识符参数 is Identifier;
+    function 是符号(符号参数: 可比较名称类型): 符号参数 is Symbol;
+    function 是字面量类型(类型参数: 可比较名称类型): 类型参数 is StringLiteralType;
+    function 对象名称比较(左值: 可比较名称类型, 右值: 可比较名称类型): boolean;
     function 交换词典键值(词典: 词典): 词典;
     function 取别名旗帜(词典: 词典, 旗帜?: 别名旗帜): number;
     function 翻转别名旗帜(旗帜: 别名旗帜): number;
     function 取符号从符号表按名称(符号表: SymbolTable, 名称: __String, 备选别名: __String): Symbol;
     function 取属性名的标识符(name: PropertyName): Identifier | StringLiteral | undefined;
+    function 取输出文本从源文件按节点(sourceFile: SourceFile, node: Node, includeTrivia?: boolean): string;
 }
 declare namespace ts {
     function createNode(kind: SyntaxKind, pos?: number, end?: number): Node;

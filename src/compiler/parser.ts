@@ -786,10 +786,12 @@ namespace ts {
                             语句.表达式.forEach(v => {
                                 const 键文本: string = ts.isIdentifier(v.键.name) ? v.键.name.escapedText as string : v.键.name.text;
                                 局部词典组.set(键文本, v);
-                                if (!v.是单向词典) 局部词典组.set(键文本, 交换词典键值(v));
+                                if (!v.是单向词典){
+                                    const 值文本:string = ts.isIdentifier(v.值.name) ? v.值.name.escapedText as string : v.值.name.text;
+                                    局部词典组.set(值文本, 交换词典键值(v));
+                                }
                             });
                         });
-
                         forEachChild(node, 局部词典绑定回调);
                         局部词典组.clear();
                     }

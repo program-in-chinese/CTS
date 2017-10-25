@@ -79,7 +79,11 @@ class TypeWriterWalker {
             // Workaround to ensure we output 'C' instead of 'typeof C' for base class expressions
             // let type = this.checker.getTypeAtLocation(node);
             const type = node.parent && ts.isExpressionWithTypeArgumentsInClassExtendsClause(node.parent) && this.checker.getTypeAtLocation(node.parent) || this.checker.getTypeAtLocation(node);
-            const typeString = type ? this.checker.typeToString(type, node.parent, ts.TypeFormatFlags.NoTruncation) : "No type information available!";
+            let typeString = type ? this.checker.typeToString(type, node.parent, ts.TypeFormatFlags.NoTruncation) : "No type information available!";
+            if (type && type.别名) {
+                typeString += "\n>类型名 : " + type.别名.名称
+
+            }
             return {
                 line: lineAndCharacter.line,
                 syntaxKind: node.kind,
@@ -91,7 +95,19 @@ class TypeWriterWalker {
         if (!symbol) {
             return;
         }
-        let symbolString = "Symbol(" + this.checker.symbolToString(symbol, node.parent);
+        const 符号名 = this.checker.symbolToString(symbol, node.parent)
+        let symbolString = "Symbol(" + 符号名;
+        let node别名: string
+        if (node.别名) {
+            node别名 = ">节点别名 : #" + 符号名 + " => " + node.别名.名称;
+        }
+        if (symbol.别名) {
+            if (node别名) {
+                node别名 += "\n>符号别名 : #" + 符号名 + " => " + symbol.别名.名称;
+            } else {
+                node别名 = ">符号别名 : #" + 符号名 + " => " + symbol.别名.名称;
+            }
+        }
         if (symbol.declarations) {
             let count = 0;
             for (const declaration of symbol.declarations) {
@@ -114,7 +130,11 @@ class TypeWriterWalker {
                 (declaration as any).__symbolTestOutputCache = declText;
             }
         }
+
         symbolString += ")";
+        if (node别名) {
+            symbolString += "\n" + node别名;
+        }
         return {
             line: lineAndCharacter.line,
             syntaxKind: node.kind,

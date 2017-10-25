@@ -418,7 +418,8 @@ namespace ts {
             return createElementAccess(value, argumentExpression);
         }
         else {
-            const name = createIdentifier(idText(propertyName));
+            const 名字 = propertyName.别名 ? unescapeLeadingUnderscores(propertyName.别名.名称) : unescapeLeadingUnderscores(propertyName.escapedText);
+            const name = createIdentifier(名字);
             return createPropertyAccess(value, name);
         }
     }

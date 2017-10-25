@@ -345,7 +345,7 @@ namespace ts {
         // If we don't need to downlevel and we can reach the original source text using
         // the node's parent reference, then simply get the text as it was originally written.
         if (!nodeIsSynthesized(node) && node.parent) {
-            return getSourceTextOfNodeFromSourceFile(sourceFile, node);
+            return 取输出文本从源文件按节点(sourceFile, node);
         }
 
         const escapeText = getEmitFlags(node) & EmitFlags.NoAsciiEscaping ? escapeString : escapeNonAsciiString;
@@ -5718,7 +5718,7 @@ namespace ts {
 
     export function 取声明的标识符或字面量标识符(声明节点: Declaration): Identifier | StringLiteral | undefined {
         const 标识符 = getNameOfDeclaration(声明节点)
-        if(!标识符){
+        if (!标识符) {
             return undefined;
         }
         return (isIdentifier(标识符) || isStringLiteral(标识符)) ? 标识符 : undefined;
@@ -5760,7 +5760,76 @@ namespace ts {
         }
     }
 
-    export function 对象名称是交叉相等的(左值: 文本名称, 右值: 文本名称) {
+    export type 可比较名称类型 = Identifier | Symbol | StringLiteralType | string | __String
+
+    export function 是标识符(标识符参数: 可比较名称类型): 标识符参数 is Identifier {
+        if (标识符参数 && (标识符参数 as any).kind) {
+            return isIdentifier(标识符参数 as Node)
+        }
+    }
+
+    export function 是符号(符号参数: 可比较名称类型): 符号参数 is Symbol {
+        if (符号参数 && !(符号参数 as any).kind) {
+            return !!(符号参数 as any).escapedName
+        }
+        return false;
+    }
+
+    export function 是字面量类型(类型参数: 可比较名称类型): 类型参数 is StringLiteralType {
+        if (类型参数 && (类型参数 as any).flags && ((类型参数 as any).flags & TypeFlags.StringLiteral)) {
+            return true;
+        }
+        return false;
+    }
+
+    export function 对象名称比较(左值: 可比较名称类型, 右值: 可比较名称类型) {
+        if (左值 === 右值) {
+            return true
+        } else {
+            let 左名称: __String, 右名称: __String, 左别名: __String, 右别名: __String;
+            if (isString(左值)) {
+                左名称 = (左值 as __String);
+            }
+            else if (是标识符(左值 as Identifier)) {
+                左名称 = (左值 as Identifier).escapedText;
+                左别名 = (左值 as Identifier).别名 && (左值 as Identifier).别名.名称;
+            }
+            else if (是符号(左值)) {
+                左名称 = (左值 as Symbol).escapedName;
+                左别名 = (左值 as Symbol).别名 && (左值 as Symbol).别名.名称;
+            }
+            else if (是字面量类型(左值)) {
+                左名称 = (左值 as StringLiteralType).value as __String;
+                左别名 = (左值 as StringLiteralType).别名 && (左值 as StringLiteralType).别名.名称;
+            }
+
+            if (isString(右值)) {
+                右名称 = (右值 as __String);
+            }
+            else if (是标识符(右值 as Identifier)) {
+                右名称 = (右值 as Identifier).escapedText;
+                右别名 = (右值 as Identifier).别名 && (右值 as Identifier).别名.名称;
+            }
+            else if (是符号(右值)) {
+                右名称 = (右值 as Symbol).escapedName;
+                右别名 = (右值 as Symbol).别名 && (右值 as Symbol).别名.名称;
+            }
+            else if (是字面量类型(右值)) {
+                右名称 = (右值 as StringLiteralType).value as __String;
+                右别名 = (右值 as StringLiteralType).别名 && (右值 as StringLiteralType).别名.名称;
+            }
+
+            if (左名称 || 右名称 || (左名称 && 右别名) || (右名称 && 左别名)) {
+                return 对象名称是交叉相等的(创建文本别名(左名称, 左别名), 创建文本别名(右名称, 右别名));
+            }
+            else {
+                return false
+            }
+
+        }
+    }
+
+    function 对象名称是交叉相等的(左值: 文本名称, 右值: 文本名称) {
         if (左值.名称 === 右值.名称) {
             return true;
         }
@@ -5773,12 +5842,20 @@ namespace ts {
         return false;
     }
 
-    export function 创建文本别名(名称: __String | string, 别名参数: 别名): 文本名称 {
-        return { 名称, 别名: 别名参数 ? 别名参数.名称 : undefined };
+    function 创建文本别名(名称: __String | string, 别名参数: __String | string): 文本名称 {
+        let 结果 = 创建空对象<文本名称>()
+        结果.名称 = 名称;
+        结果.别名 = 别名参数
+        return 结果;
     }
 
     export function 交换词典键值(词典: 词典) {
-        return { ...词典, 键: { ...词典.值, kind: SyntaxKind.词典键 }, 值: { ...词典.键, kind: SyntaxKind.词典值 }, 词典类别: 词典.词典类别 === 别名旗帜.汉英 ? 别名旗帜.英汉 : 别名旗帜.汉英 } as 词典;
+        let 结果 = 创建空对象<词典>();
+        结果 = { ...词典 };
+        结果.键 = { ...词典.值, kind: SyntaxKind.词典键 };
+        结果.值 = { ...词典.键, kind: SyntaxKind.词典值 };
+        结果.词典类别 = 词典.词典类别 === 别名旗帜.汉英 ? 别名旗帜.英汉 : 别名旗帜.汉英;
+        return 结果;
     }
 
     export function 取别名旗帜(词典: 词典, 旗帜?: 别名旗帜) {
@@ -5823,6 +5900,45 @@ namespace ts {
         }
 
         return undefined;
+    }
+
+    export function 取输出文本从源文件按节点(sourceFile: SourceFile, node: Node, includeTrivia = false): string {
+        if (nodeIsMissing(node)) {
+            return "";
+        }
+        const 源码文本 = sourceFile.text;
+        let 前部的琐事: string;
+        if (includeTrivia) {
+            前部的琐事 = 源码文本.substring(node.pos, skipTrivia(源码文本, node.pos));
+        }
+        const 结果 = 输出节点编码英文(node, 前部的琐事)
+        if (结果) {
+            return 结果
+        }
+        return 源码文本.substring(includeTrivia ? node.pos : skipTrivia(源码文本, node.pos), node.end);
+    }
+
+    function 是字面量节点(node: Node): node is LiteralLikeNode {
+        return node.kind === SyntaxKind.StringLiteral;
+    }
+
+    function 解码文本(别名参数: 别名) {
+        return unescapeLeadingUnderscores(别名参数.名称)
+    }
+
+    function 输出节点编码英文(node: Node, 前部琐事?: string) {
+        if (!node.别名) {
+            return;
+        }
+        if (node.别名.旗帜 & 别名旗帜.汉英) {
+            if (前部琐事) {
+                return 是字面量节点(node) ? `"${前部琐事}${解码文本(node.别名)}"` : 前部琐事 + 解码文本(node.别名);
+            }
+            else {
+                return 是字面量节点(node) ? `"${解码文本(node.别名)}"` : 解码文本(node.别名);
+            }
+        }
+        return;
     }
 
 }
