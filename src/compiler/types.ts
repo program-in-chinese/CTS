@@ -3889,7 +3889,7 @@ namespace ts {
     // before a type assertion, or when  an object literal's type is widened. The regular
     // version of a fresh type is identical except for the TypeFlags.FreshObjectLiteral flag.
     export interface FreshObjectLiteralType extends ResolvedType {
-        regularType: ResolvedType;  // Regular version of fresh type
+        regularType: ResolvedType;  // Regular version of fresh type 普通版的清新型
     }
 
     // Just a place to cache element types of iterables and iterators

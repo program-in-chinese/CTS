@@ -18,6 +18,13 @@
 aaa.错误属性
 aaa.错误   // 错误: 不能调用私有属性.
 
+// @Filename: /a/测试_2.ts
+导入 { 错误类 } 来自 "errorCh"
+变量 aaa = 新建 错误类("错误常量")
+变量 { 错误属性 } = aaa   // 错误: 因为使用的是别名 可能不报错, 编译 es5 以下不报错
+变量 bbb = 错误属性
+aaa.错误   // 错误: 不能调用私有属性.
+
 
 //************************* 中英*比较 *************************// 
 
@@ -28,8 +35,16 @@ export declare class Error {
     public Error: string
 }
 
-// @Filename: /a/测试_2.ts
+// @Filename: /a/测试_3.ts
 import *as e from "errorEn"
 let aaa = new e.Error("Error")
 aaa.Error
+aaa.error   // error: 不能调用私有属性.
+
+
+// @Filename: /a/测试_4.ts
+import { Error as ERROR } from "errorEn"
+let aaa = new ERROR("Error")
+let { Error } = aaa     //error: 如导入不使用别名 这里会报错. 
+let bbb = Error
 aaa.error   // error: 不能调用私有属性.

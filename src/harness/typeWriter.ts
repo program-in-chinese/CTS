@@ -81,7 +81,7 @@ class TypeWriterWalker {
             const type = node.parent && ts.isExpressionWithTypeArgumentsInClassExtendsClause(node.parent) && this.checker.getTypeAtLocation(node.parent) || this.checker.getTypeAtLocation(node);
             let typeString = type ? this.checker.typeToString(type, node.parent, ts.TypeFormatFlags.NoTruncation) : "No type information available!";
             if (type && type.别名) {
-                typeString += "\n>类型名 : " + type.别名.名称
+                typeString += "\n>类型别名 :=> " + type.别名.名称
 
             }
             return {

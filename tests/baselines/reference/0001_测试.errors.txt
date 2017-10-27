@@ -1,5 +1,7 @@
 /a/测试_1.ts(4,5): error TS2341: Property '错误' is private and only accessible within class '错误类'.
-/a/测试_2.ts(4,5): error TS2341: Property 'error' is private and only accessible within class 'Error'.
+/a/测试_2.ts(5,5): error TS2341: Property '错误' is private and only accessible within class '错误类'.
+/a/测试_3.ts(4,5): error TS2341: Property 'error' is private and only accessible within class 'Error'.
+/a/测试_4.ts(5,5): error TS2341: Property 'error' is private and only accessible within class 'Error'.
 
 
 ==== /a/node_modules/@types/errorCh/index.d.ts (0 errors) ====
@@ -13,9 +15,18 @@
     }
     
 ==== /a/测试_1.ts (1 errors) ====
-    导入 *转为 错误 来自 "errorCh"
+    导入 * 转为 错误 来自 "errorCh"
     变量 aaa = 新建 错误.错误类("错误常量")
     aaa.错误属性
+    aaa.错误   // 错误: 不能调用私有属性.
+        ~~
+!!! error TS2341: Property '错误' is private and only accessible within class '错误类'.
+    
+==== /a/测试_2.ts (1 errors) ====
+    导入 { 错误类 } 来自 "errorCh"
+    变量 aaa = 新建 错误类("错误常量")
+    变量 { 错误属性 } = aaa   // 错误: 因为使用的是别名 可能不报错, 编译 es5 以下不报错
+    变量 bbb = 错误属性
     aaa.错误   // 错误: 不能调用私有属性.
         ~~
 !!! error TS2341: Property '错误' is private and only accessible within class '错误类'.
@@ -24,16 +35,27 @@
     //************************* 中英*比较 *************************// 
     
 ==== /a/node_modules/@types/errorEn/index.d.ts (0 errors) ====
-    export declare class Error{
-        private error:string
-        constructor(err:"error"|"Error")
-        public Error:string    
+    export declare class Error {
+        private error: string
+        constructor(err: "error" | "Error")
+        public Error: string
     }
     
-==== /a/测试_2.ts (1 errors) ====
+==== /a/测试_3.ts (1 errors) ====
     import *as e from "errorEn"
     let aaa = new e.Error("Error")
     aaa.Error
     aaa.error   // error: 不能调用私有属性.
         ~~~~~
 !!! error TS2341: Property 'error' is private and only accessible within class 'Error'.
+    
+    
+==== /a/测试_4.ts (1 errors) ====
+    import { Error as ERROR } from "errorEn"
+    let aaa = new ERROR("Error")
+    let { Error } = aaa     //error: 如导入不使用别名 这里会报错. 
+    let bbb = Error
+    aaa.error   // error: 不能调用私有属性.
+        ~~~~~
+!!! error TS2341: Property 'error' is private and only accessible within class 'Error'.
+    

@@ -5865,7 +5865,7 @@ namespace ts {
     export function 翻转别名旗帜(旗帜: 别名旗帜) {
         return 旗帜 & 别名旗帜.汉英 ? 旗帜 ^ 别名旗帜.汉英 | 别名旗帜.英汉 : 旗帜 ^ 别名旗帜.英汉 | 别名旗帜.汉英;
     }
-
+    /*
     export function 取符号从符号表按名称(符号表: SymbolTable, 名称: __String, 备选别名: __String) {
         if (!符号表) {
             return
@@ -5874,10 +5874,13 @@ namespace ts {
         if (!结果) {
             if (备选别名) {
                 结果 = 符号表.get(备选别名)
+
+                console.log("啦啦啦: ", 名称)
             }
             if (!结果) {
                 结果 = forEachEntry(符号表, v => {
                     if (v && v.别名 && v.别名.名称 === 名称) {
+                        console.log("啦: ", 名称)
                         return v
                     }
                 })
@@ -5885,6 +5888,7 @@ namespace ts {
         }
         return 结果
     }
+    */
 
     export function 取属性名的标识符(name: PropertyName): Identifier | StringLiteral | undefined {
         switch (name.kind) {

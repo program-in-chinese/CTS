@@ -3634,7 +3634,6 @@ declare namespace ts {
     function 交换词典键值(词典: 词典): 词典;
     function 取别名旗帜(词典: 词典, 旗帜?: 别名旗帜): number;
     function 翻转别名旗帜(旗帜: 别名旗帜): number;
-    function 取符号从符号表按名称(符号表: SymbolTable, 名称: __String, 备选别名: __String): Symbol;
     function 取属性名的标识符(name: PropertyName): Identifier | StringLiteral | undefined;
     function 取输出文本从源文件按节点(sourceFile: SourceFile, node: Node, includeTrivia?: boolean): string;
 }

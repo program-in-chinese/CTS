@@ -24,7 +24,7 @@
 }
 
 === /a/测试_1.ts ===
-导入 *转为 错误 来自 "errorCh"
+导入 * 转为 错误 来自 "errorCh"
 >错误 : Symbol(错误, Decl(测试_1.ts, 0, 2))
 
 变量 aaa = 新建 错误.错误类("错误常量")
@@ -52,40 +52,88 @@ aaa.错误   // 错误: 不能调用私有属性.
 >节点别名 : #错误.错误类.错误 => error
 >符号别名 : #错误.错误类.错误 => error
 
+=== /a/测试_2.ts ===
+导入 { 错误类 } 来自 "errorCh"
+>错误类 : Symbol(错误类, Decl(测试_2.ts, 0, 4))
+
+变量 aaa = 新建 错误类("错误常量")
+>aaa : Symbol(aaa, Decl(测试_2.ts, 1, 2))
+>错误类 : Symbol(错误类, Decl(测试_2.ts, 0, 4))
+
+变量 { 错误属性 } = aaa   // 错误: 因为使用的是别名 可能不报错, 编译 es5 以下不报错
+>错误属性 : Symbol(错误属性, Decl(测试_2.ts, 2, 4))
+>节点别名 : #错误属性 => Error
+>aaa : Symbol(aaa, Decl(测试_2.ts, 1, 2))
+
+变量 bbb = 错误属性
+>bbb : Symbol(bbb, Decl(测试_2.ts, 3, 2))
+>错误属性 : Symbol(错误属性, Decl(测试_2.ts, 2, 4))
+
+aaa.错误   // 错误: 不能调用私有属性.
+>aaa.错误 : Symbol(错误类.错误, Decl(index.d.ts, 1, 14))
+>符号别名 : #错误类.错误 => error
+>aaa : Symbol(aaa, Decl(测试_2.ts, 1, 2))
+>错误 : Symbol(错误类.错误, Decl(index.d.ts, 1, 14))
+>节点别名 : #错误类.错误 => error
+>符号别名 : #错误类.错误 => error
+
 
 //************************* 中英*比较 *************************// 
 
 === /a/node_modules/@types/errorEn/index.d.ts ===
-export declare class Error{
+export declare class Error {
 >Error : Symbol(Error, Decl(index.d.ts, 0, 0))
 
-    private error:string
->error : Symbol(Error.error, Decl(index.d.ts, 0, 27))
+    private error: string
+>error : Symbol(Error.error, Decl(index.d.ts, 0, 28))
 
-    constructor(err:"error"|"Error")
+    constructor(err: "error" | "Error")
 >err : Symbol(err, Decl(index.d.ts, 2, 16))
 
-    public Error:string    
->Error : Symbol(Error.Error, Decl(index.d.ts, 2, 36))
+    public Error: string
+>Error : Symbol(Error.Error, Decl(index.d.ts, 2, 39))
 }
 
-=== /a/测试_2.ts ===
+=== /a/测试_3.ts ===
 import *as e from "errorEn"
->e : Symbol(e, Decl(测试_2.ts, 0, 6))
+>e : Symbol(e, Decl(测试_3.ts, 0, 6))
 
 let aaa = new e.Error("Error")
->aaa : Symbol(aaa, Decl(测试_2.ts, 1, 3))
+>aaa : Symbol(aaa, Decl(测试_3.ts, 1, 3))
 >e.Error : Symbol(e.Error, Decl(index.d.ts, 0, 0))
->e : Symbol(e, Decl(测试_2.ts, 0, 6))
+>e : Symbol(e, Decl(测试_3.ts, 0, 6))
 >Error : Symbol(e.Error, Decl(index.d.ts, 0, 0))
 
 aaa.Error
->aaa.Error : Symbol(e.Error.Error, Decl(index.d.ts, 2, 36))
->aaa : Symbol(aaa, Decl(测试_2.ts, 1, 3))
->Error : Symbol(e.Error.Error, Decl(index.d.ts, 2, 36))
+>aaa.Error : Symbol(e.Error.Error, Decl(index.d.ts, 2, 39))
+>aaa : Symbol(aaa, Decl(测试_3.ts, 1, 3))
+>Error : Symbol(e.Error.Error, Decl(index.d.ts, 2, 39))
 
 aaa.error   // error: 不能调用私有属性.
->aaa.error : Symbol(e.Error.error, Decl(index.d.ts, 0, 27))
->aaa : Symbol(aaa, Decl(测试_2.ts, 1, 3))
->error : Symbol(e.Error.error, Decl(index.d.ts, 0, 27))
+>aaa.error : Symbol(e.Error.error, Decl(index.d.ts, 0, 28))
+>aaa : Symbol(aaa, Decl(测试_3.ts, 1, 3))
+>error : Symbol(e.Error.error, Decl(index.d.ts, 0, 28))
+
+
+=== /a/测试_4.ts ===
+import { Error as ERROR } from "errorEn"
+>Error : Symbol(ERROR, Decl(测试_4.ts, 0, 8))
+>ERROR : Symbol(ERROR, Decl(测试_4.ts, 0, 8))
+
+let aaa = new ERROR("Error")
+>aaa : Symbol(aaa, Decl(测试_4.ts, 1, 3))
+>ERROR : Symbol(ERROR, Decl(测试_4.ts, 0, 8))
+
+let { Error } = aaa     //error: 如导入不使用别名 这里会报错. 
+>Error : Symbol(Error, Decl(测试_4.ts, 2, 5))
+>aaa : Symbol(aaa, Decl(测试_4.ts, 1, 3))
+
+let bbb = Error
+>bbb : Symbol(bbb, Decl(测试_4.ts, 3, 3))
+>Error : Symbol(Error, Decl(测试_4.ts, 2, 5))
+
+aaa.error   // error: 不能调用私有属性.
+>aaa.error : Symbol(ERROR.error, Decl(index.d.ts, 0, 28))
+>aaa : Symbol(aaa, Decl(测试_4.ts, 1, 3))
+>error : Symbol(ERROR.error, Decl(index.d.ts, 0, 28))
 
