@@ -5,59 +5,81 @@ class B {
 
     n: number;
 >n : number
+>类型别名 :=> 数字
 }
 class C {
 >C : C
 
     n: number;
 >n : number
+>类型别名 :=> 数字
 
     explicitThis(this: this, m: number): number {
 >explicitThis : (this: this, m: number) => number
 >this : this
 >m : number
+>类型别名 :=> 数字
 
         return this.n + m;
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : this
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
     }
     explicitC(this: C, m: number): number {
 >explicitC : (this: C, m: number) => number
 >this : C
 >C : C
 >m : number
+>类型别名 :=> 数字
 
         return this.n + m;
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : C
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
     }
     explicitProperty(this: {n: number}, m: number): number {
 >explicitProperty : (this: { n: number; }, m: number) => number
 >this : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
         return this.n + m;
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
     }
     explicitVoid(this: void, m: number): number {
 >explicitVoid : (this: void, m: number) => number
 >this : void
+>类型别名 :=> 无值
 >m : number
+>类型别名 :=> 数字
 
         return m + 1;
 >m + 1 : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 >1 : 1
     }
 }
@@ -70,19 +92,23 @@ interface I {
 
     a: number;
 >a : number
+>类型别名 :=> 数字
 
     explicitVoid1(this: void): number;
 >explicitVoid1 : (this: void) => number
 >this : void
+>类型别名 :=> 无值
 
     explicitVoid2(this: void): number;
 >explicitVoid2 : (this: void) => number
 >this : void
+>类型别名 :=> 无值
 
     explicitStructural(this: {a: number}): number;
 >explicitStructural : (this: { a: number; }) => number
 >this : { a: number; }
 >a : number
+>类型别名 :=> 数字
 
     explicitInterface(this: I): number;
 >explicitInterface : (this: I) => number
@@ -97,36 +123,52 @@ function explicitStructural(this: { y: number }, x: number): number {
 >explicitStructural : (this: { y: number; }, x: number) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 
     return x + this.y;
 >x + this.y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 }
 function justThis(this: { y: number }): number {
 >justThis : (this: { y: number; }) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 
     return this.y;
 >this.y : number
+>类型别名 :=> 数字
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 }
 function implicitThis(n: number): number {
 >implicitThis : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 
     return this.m + n + 12;
 >this.m + n + 12 : any
+>类型别名 :=> 任意
 >this.m + n : any
+>类型别名 :=> 任意
 >this.m : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >m : any
+>类型别名 :=> 任意
 >n : number
+>类型别名 :=> 数字
 >12 : 12
 }
 let impl: I = {
@@ -136,14 +178,18 @@ let impl: I = {
 
     a: 12,
 >a : number
+>类型别名 :=> 数字
 >12 : 12
 
     explicitVoid2: () => this.a, // ok, this: any because it refers to some outer object (window?)
 >explicitVoid2 : () => any
 >() => this.a : () => any
 >this.a : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
     explicitVoid1() { return 12; },
 >explicitVoid1 : (this: void) => number
@@ -154,8 +200,10 @@ let impl: I = {
 
         return this.a;
 >this.a : number
+>类型别名 :=> 数字
 >this : { a: number; }
 >a : number
+>类型别名 :=> 数字
 
     },
     explicitInterface() {
@@ -163,8 +211,10 @@ let impl: I = {
 
         return this.a;
 >this.a : number
+>类型别名 :=> 数字
 >this : I
 >a : number
+>类型别名 :=> 数字
 
     },
     explicitThis() {
@@ -172,8 +222,10 @@ let impl: I = {
 
         return this.a;
 >this.a : number
+>类型别名 :=> 数字
 >this : I
 >a : number
+>类型别名 :=> 数字
 
     },
 }
@@ -200,8 +252,10 @@ impl.explicitStructural = function() { return this.a; };
 >explicitStructural : (this: { a: number; }) => number
 >function() { return this.a; } : (this: { a: number; }) => number
 >this.a : number
+>类型别名 :=> 数字
 >this : { a: number; }
 >a : number
+>类型别名 :=> 数字
 
 impl.explicitInterface = function() { return this.a; };
 >impl.explicitInterface = function() { return this.a; } : (this: I) => number
@@ -210,8 +264,10 @@ impl.explicitInterface = function() { return this.a; };
 >explicitInterface : (this: I) => number
 >function() { return this.a; } : (this: I) => number
 >this.a : number
+>类型别名 :=> 数字
 >this : I
 >a : number
+>类型别名 :=> 数字
 
 impl.explicitStructural = () => 12;
 >impl.explicitStructural = () => 12 : () => number
@@ -236,19 +292,25 @@ impl.explicitThis = function () { return this.a; };
 >explicitThis : (this: I) => number
 >function () { return this.a; } : (this: I) => number
 >this.a : number
+>类型别名 :=> 数字
 >this : I
 >a : number
+>类型别名 :=> 数字
 
 // parameter checking
 let ok: {y: number, f: (this: { y: number }, x: number) => number} = { y: 12, f: explicitStructural };
 >ok : { y: number; f: (this: { y: number; }, x: number) => number; }
 >y : number
+>类型别名 :=> 数字
 >f : (this: { y: number; }, x: number) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >{ y: 12, f: explicitStructural } : { y: number; f: (this: { y: number; }, x: number) => number; }
 >y : number
+>类型别名 :=> 数字
 >12 : 12
 >f : (this: { y: number; }, x: number) => number
 >explicitStructural : (this: { y: number; }, x: number) => number
@@ -256,16 +318,20 @@ let ok: {y: number, f: (this: { y: number }, x: number) => number} = { y: 12, f:
 let implicitAnyOk: {notSpecified: number, f: (x: number) => number} = { notSpecified: 12, f: implicitThis };
 >implicitAnyOk : { notSpecified: number; f: (x: number) => number; }
 >notSpecified : number
+>类型别名 :=> 数字
 >f : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >{ notSpecified: 12, f: implicitThis } : { notSpecified: number; f: (n: number) => number; }
 >notSpecified : number
+>类型别名 :=> 数字
 >12 : 12
 >f : (n: number) => number
 >implicitThis : (n: number) => number
 
 ok.f(13);
 >ok.f(13) : number
+>类型别名 :=> 数字
 >ok.f : (this: { y: number; }, x: number) => number
 >ok : { y: number; f: (this: { y: number; }, x: number) => number; }
 >f : (this: { y: number; }, x: number) => number
@@ -273,11 +339,13 @@ ok.f(13);
 
 implicitThis(12);
 >implicitThis(12) : number
+>类型别名 :=> 数字
 >implicitThis : (n: number) => number
 >12 : 12
 
 implicitAnyOk.f(12);
 >implicitAnyOk.f(12) : number
+>类型别名 :=> 数字
 >implicitAnyOk.f : (x: number) => number
 >implicitAnyOk : { notSpecified: number; f: (x: number) => number; }
 >f : (x: number) => number
@@ -301,6 +369,7 @@ let ripped = c.explicitC;
 
 c.explicitC(12);
 >c.explicitC(12) : number
+>类型别名 :=> 数字
 >c.explicitC : (this: C, m: number) => number
 >c : C
 >explicitC : (this: C, m: number) => number
@@ -308,6 +377,7 @@ c.explicitC(12);
 
 c.explicitProperty(12);
 >c.explicitProperty(12) : number
+>类型别名 :=> 数字
 >c.explicitProperty : (this: { n: number; }, m: number) => number
 >c : C
 >explicitProperty : (this: { n: number; }, m: number) => number
@@ -315,6 +385,7 @@ c.explicitProperty(12);
 
 c.explicitThis(12);
 >c.explicitThis(12) : number
+>类型别名 :=> 数字
 >c.explicitThis : (this: C, m: number) => number
 >c : C
 >explicitThis : (this: C, m: number) => number
@@ -322,6 +393,7 @@ c.explicitThis(12);
 
 d.explicitC(12);
 >d.explicitC(12) : number
+>类型别名 :=> 数字
 >d.explicitC : (this: C, m: number) => number
 >d : D
 >explicitC : (this: C, m: number) => number
@@ -329,6 +401,7 @@ d.explicitC(12);
 
 d.explicitProperty(12);
 >d.explicitProperty(12) : number
+>类型别名 :=> 数字
 >d.explicitProperty : (this: { n: number; }, m: number) => number
 >d : D
 >explicitProperty : (this: { n: number; }, m: number) => number
@@ -336,6 +409,7 @@ d.explicitProperty(12);
 
 d.explicitThis(12);
 >d.explicitThis(12) : number
+>类型别名 :=> 数字
 >d.explicitThis : (this: D, m: number) => number
 >d : D
 >explicitThis : (this: D, m: number) => number
@@ -346,35 +420,43 @@ let reconstructed: {
 
     n: number,
 >n : number
+>类型别名 :=> 数字
 
     explicitThis(this: C, m: number): number, // note: this: this is not allowed in an object literal type.
 >explicitThis : (this: C, m: number) => number
 >this : C
 >C : C
 >m : number
+>类型别名 :=> 数字
 
     explicitC(this: C, m: number): number,
 >explicitC : (this: C, m: number) => number
 >this : C
 >C : C
 >m : number
+>类型别名 :=> 数字
 
     explicitProperty: (this: {n : number}, m: number) => number,
 >explicitProperty : (this: { n: number; }, m: number) => number
 >this : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
     explicitVoid(this: void, m: number): number,
 >explicitVoid : (this: void, m: number) => number
 >this : void
+>类型别名 :=> 无值
 >m : number
+>类型别名 :=> 数字
 
 } = { 
 >{     n: 12,    explicitThis: c.explicitThis,    explicitC: c.explicitC,    explicitProperty: c.explicitProperty,    explicitVoid: c.explicitVoid} : { n: number; explicitThis: (this: C, m: number) => number; explicitC: (this: C, m: number) => number; explicitProperty: (this: { n: number; }, m: number) => number; explicitVoid: (this: void, m: number) => number; }
 
     n: 12,
 >n : number
+>类型别名 :=> 数字
 >12 : 12
 
     explicitThis: c.explicitThis,
@@ -404,6 +486,7 @@ let reconstructed: {
 };
 reconstructed.explicitThis(10);
 >reconstructed.explicitThis(10) : number
+>类型别名 :=> 数字
 >reconstructed.explicitThis : (this: C, m: number) => number
 >reconstructed : { n: number; explicitThis(this: C, m: number): number; explicitC(this: C, m: number): number; explicitProperty: (this: { n: number; }, m: number) => number; explicitVoid(this: void, m: number): number; }
 >explicitThis : (this: C, m: number) => number
@@ -411,6 +494,7 @@ reconstructed.explicitThis(10);
 
 reconstructed.explicitProperty(11);
 >reconstructed.explicitProperty(11) : number
+>类型别名 :=> 数字
 >reconstructed.explicitProperty : (this: { n: number; }, m: number) => number
 >reconstructed : { n: number; explicitThis(this: C, m: number): number; explicitC(this: C, m: number): number; explicitProperty: (this: { n: number; }, m: number) => number; explicitVoid(this: void, m: number): number; }
 >explicitProperty : (this: { n: number; }, m: number) => number
@@ -424,6 +508,7 @@ let explicitVoid = reconstructed.explicitVoid;
 
 explicitVoid(12);
 >explicitVoid(12) : number
+>类型别名 :=> 数字
 >explicitVoid : (this: void, m: number) => number
 >12 : 12
 
@@ -432,64 +517,92 @@ let unboundToSpecified: (this: { y: number }, x: number) => number = x => x + th
 >unboundToSpecified : (this: { y: number; }, x: number) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >x => x + this.y : (this: { y: number; }, x: number) => any
 >x : number
+>类型别名 :=> 数字
 >x + this.y : any
+>类型别名 :=> 任意
 >x : number
+>类型别名 :=> 数字
 >this.y : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
 let specifiedToSpecified: (this: {y: number}, x: number) => number = explicitStructural;
 >specifiedToSpecified : (this: { y: number; }, x: number) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >explicitStructural : (this: { y: number; }, x: number) => number
 
 let anyToSpecified: (this: { y: number }, x: number) => number = function(x: number): number { return x + 12; };
 >anyToSpecified : (this: { y: number; }, x: number) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >function(x: number): number { return x + 12; } : (this: { y: number; }, x: number) => number
 >x : number
+>类型别名 :=> 数字
 >x + 12 : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >12 : 12
 
 let unspecifiedLambda: (x: number) => number = x => x + 12;
 >unspecifiedLambda : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >x => x + 12 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >x + 12 : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >12 : 12
 
 let specifiedLambda: (this: void, x: number) => number = x => x + 12;
 >specifiedLambda : (this: void, x: number) => number
 >this : void
+>类型别名 :=> 无值
 >x : number
+>类型别名 :=> 数字
 >x => x + 12 : (this: void, x: number) => number
 >x : number
+>类型别名 :=> 数字
 >x + 12 : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >12 : 12
 
 let unspecifiedLambdaToSpecified: (this: {y: number}, x: number) => number = unspecifiedLambda;
 >unspecifiedLambdaToSpecified : (this: { y: number; }, x: number) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >unspecifiedLambda : (x: number) => number
 
 let specifiedLambdaToSpecified: (this: {y: number}, x: number) => number = specifiedLambda;
 >specifiedLambdaToSpecified : (this: { y: number; }, x: number) => number
 >this : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >specifiedLambda : (this: void, x: number) => number
 
 
@@ -498,12 +611,15 @@ let explicitCFunction: (this: C, m: number) => number;
 >this : C
 >C : C
 >m : number
+>类型别名 :=> 数字
 
 let explicitPropertyFunction: (this: {n: number}, m: number) => number;
 >explicitPropertyFunction : (this: { n: number; }, m: number) => number
 >this : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 c.explicitC = explicitCFunction;
 >c.explicitC = explicitCFunction : (this: C, m: number) => number
@@ -521,11 +637,16 @@ c.explicitC = function(this: C, m: number) { return this.n + m };
 >this : C
 >C : C
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : C
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 c.explicitProperty = explicitPropertyFunction;
 >c.explicitProperty = explicitPropertyFunction : (this: { n: number; }, m: number) => number
@@ -542,12 +663,18 @@ c.explicitProperty = function(this: {n: number}, m: number) { return this.n + m 
 >function(this: {n: number}, m: number) { return this.n + m } : (this: { n: number; }, m: number) => number
 >this : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 c.explicitProperty = reconstructed.explicitProperty;
 >c.explicitProperty = reconstructed.explicitProperty : (this: { n: number; }, m: number) => number
@@ -566,7 +693,9 @@ c.explicitC = m => m;
 >explicitC : (this: C, m: number) => number
 >m => m : (this: C, m: number) => number
 >m : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 c.explicitThis = m => m;
 >c.explicitThis = m => m : (this: C, m: number) => number
@@ -575,7 +704,9 @@ c.explicitThis = m => m;
 >explicitThis : (this: C, m: number) => number
 >m => m : (this: C, m: number) => number
 >m : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 c.explicitProperty = m => m;
 >c.explicitProperty = m => m : (this: { n: number; }, m: number) => number
@@ -584,7 +715,9 @@ c.explicitProperty = m => m;
 >explicitProperty : (this: { n: number; }, m: number) => number
 >m => m : (this: { n: number; }, m: number) => number
 >m : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 // this inside lambdas refer to outer scope
 // the outer-scoped lambda at top-level is still just `any`
@@ -595,11 +728,17 @@ c.explicitC = m => m + this.n;
 >explicitC : (this: C, m: number) => number
 >m => m + this.n : (this: C, m: number) => any
 >m : number
+>类型别名 :=> 数字
 >m + this.n : any
+>类型别名 :=> 任意
 >m : number
+>类型别名 :=> 数字
 >this.n : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >n : any
+>类型别名 :=> 任意
 
 c.explicitThis = m => m + this.n;
 >c.explicitThis = m => m + this.n : (this: C, m: number) => any
@@ -608,11 +747,17 @@ c.explicitThis = m => m + this.n;
 >explicitThis : (this: C, m: number) => number
 >m => m + this.n : (this: C, m: number) => any
 >m : number
+>类型别名 :=> 数字
 >m + this.n : any
+>类型别名 :=> 任意
 >m : number
+>类型别名 :=> 数字
 >this.n : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >n : any
+>类型别名 :=> 任意
 
 c.explicitProperty = m => m + this.n;
 >c.explicitProperty = m => m + this.n : (this: { n: number; }, m: number) => any
@@ -621,11 +766,17 @@ c.explicitProperty = m => m + this.n;
 >explicitProperty : (this: { n: number; }, m: number) => number
 >m => m + this.n : (this: { n: number; }, m: number) => any
 >m : number
+>类型别名 :=> 数字
 >m + this.n : any
+>类型别名 :=> 任意
 >m : number
+>类型别名 :=> 数字
 >this.n : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >n : any
+>类型别名 :=> 任意
 
 //NOTE: this=C here, I guess?
 c.explicitThis = explicitCFunction;
@@ -644,11 +795,16 @@ c.explicitThis = function(this: C, m: number) { return this.n + m };
 >this : C
 >C : C
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : C
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 // this:any compatibility
 c.explicitC = function(m) { return this.n + m };
@@ -658,11 +814,16 @@ c.explicitC = function(m) { return this.n + m };
 >explicitC : (this: C, m: number) => number
 >function(m) { return this.n + m } : (this: C, m: number) => number
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : C
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 c.explicitProperty = function(m) { return this.n + m };
 >c.explicitProperty = function(m) { return this.n + m } : (this: { n: number; }, m: number) => number
@@ -671,11 +832,16 @@ c.explicitProperty = function(m) { return this.n + m };
 >explicitProperty : (this: { n: number; }, m: number) => number
 >function(m) { return this.n + m } : (this: { n: number; }, m: number) => number
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 c.explicitThis = function(m) { return this.n + m };
 >c.explicitThis = function(m) { return this.n + m } : (this: C, m: number) => number
@@ -684,11 +850,16 @@ c.explicitThis = function(m) { return this.n + m };
 >explicitThis : (this: C, m: number) => number
 >function(m) { return this.n + m } : (this: C, m: number) => number
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : C
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 // this: contextual typing
 c.explicitThis = function(this, m) { return this.n + m };
@@ -699,11 +870,16 @@ c.explicitThis = function(this, m) { return this.n + m };
 >function(this, m) { return this.n + m } : (this: C, m: number) => number
 >this : C
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : C
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 // this: superclass compatibility
 c.explicitC = function(this: B, m: number) { return this.n + m };
@@ -715,11 +891,16 @@ c.explicitC = function(this: B, m: number) { return this.n + m };
 >this : B
 >B : B
 >m : number
+>类型别名 :=> 数字
 >this.n + m : number
+>类型别名 :=> 数字
 >this.n : number
+>类型别名 :=> 数字
 >this : B
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 // this:void compatibility
 c.explicitVoid = n => n;
@@ -729,7 +910,9 @@ c.explicitVoid = n => n;
 >explicitVoid : (this: void, m: number) => number
 >n => n : (this: void, n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 // class-based assignability
 class Base1 {
@@ -737,32 +920,40 @@ class Base1 {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     public polymorphic(this: this): number { return this.x; }
 >polymorphic : (this: this) => number
 >this : this
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
 
     explicit(this: Base1): number { return this.x; }
 >explicit : (this: Base1) => number
 >this : Base1
 >Base1 : Base1
 >this.x : number
+>类型别名 :=> 数字
 >this : Base1
 >x : number
+>类型别名 :=> 数字
 
     static explicitStatic(this: typeof Base1): number { return this.y; }
 >explicitStatic : (this: typeof Base1) => number
 >this : typeof Base1
 >Base1 : typeof Base1
 >this.y : number
+>类型别名 :=> 数字
 >this : typeof Base1
 >y : number
+>类型别名 :=> 数字
 
     static y: number;
 >y : number
+>类型别名 :=> 数字
 }
 class Derived1 extends Base1 {
 >Derived1 : Derived1
@@ -770,27 +961,33 @@ class Derived1 extends Base1 {
 
     y: number
 >y : number
+>类型别名 :=> 数字
 }
 class Base2 {
 >Base2 : Base2
 
     y: number
 >y : number
+>类型别名 :=> 数字
 
     polymorphic(this: this): number { return this.y; }
 >polymorphic : (this: this) => number
 >this : this
 >this.y : number
+>类型别名 :=> 数字
 >this : this
 >y : number
+>类型别名 :=> 数字
 
     explicit(this: Base1): number { return this.x; }
 >explicit : (this: Base1) => number
 >this : Base1
 >Base1 : Base1
 >this.x : number
+>类型别名 :=> 数字
 >this : Base1
 >x : number
+>类型别名 :=> 数字
 }
 class Derived2 extends Base2 {
 >Derived2 : Derived2
@@ -798,6 +995,7 @@ class Derived2 extends Base2 {
 
     x: number
 >x : number
+>类型别名 :=> 数字
 }
 let b1 = new Base1();
 >b1 : Base1
@@ -883,46 +1081,61 @@ function InterfaceThis(this: I) {
     this.a = 12;
 >this.a = 12 : 12
 >this.a : number
+>类型别名 :=> 数字
 >this : I
 >a : number
+>类型别名 :=> 数字
 >12 : 12
 }
 function LiteralTypeThis(this: {x: string}) {
 >LiteralTypeThis : (this: { x: string; }) => void
 >this : { x: string; }
 >x : string
+>类型别名 :=> 文字
 
     this.x = "ok";
 >this.x = "ok" : "ok"
 >this.x : string
+>类型别名 :=> 文字
 >this : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"ok" : "ok"
 }
 function AnyThis(this: any) {
 >AnyThis : (this: any) => void
 >this : any
+>类型别名 :=> 任意
 
     this.x = "ok";
 >this.x = "ok" : "ok"
 >this.x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >"ok" : "ok"
 }
 let interfaceThis = new InterfaceThis();
 >interfaceThis : any
+>类型别名 :=> 任意
 >new InterfaceThis() : any
+>类型别名 :=> 任意
 >InterfaceThis : (this: I) => void
 
 let literalTypeThis = new LiteralTypeThis();
 >literalTypeThis : any
+>类型别名 :=> 任意
 >new LiteralTypeThis() : any
+>类型别名 :=> 任意
 >LiteralTypeThis : (this: { x: string; }) => void
 
 let anyThis = new AnyThis();
 >anyThis : any
+>类型别名 :=> 任意
 >new AnyThis() : any
+>类型别名 :=> 任意
 >AnyThis : (this: any) => void
 
 //// type parameter inference ////
@@ -931,7 +1144,9 @@ declare var f: {
 
     (this: void, x: number): number, 
 >this : void
+>类型别名 :=> 无值
 >x : number
+>类型别名 :=> 数字
 
     call<U>(this: (...argArray: any[]) => U, ...argArray: any[]): U;
 >call : <U>(this: (...argArray: any[]) => U, ...argArray: any[]) => U
@@ -945,7 +1160,9 @@ declare var f: {
 };
 let n: number = f.call(12);
 >n : number
+>类型别名 :=> 数字
 >f.call(12) : number
+>类型别名 :=> 数字
 >f.call : <U>(this: (...argArray: any[]) => U, ...argArray: any[]) => U
 >f : { (this: void, x: number): number; call<U>(this: (...argArray: any[]) => U, ...argArray: any[]): U; }
 >call : <U>(this: (...argArray: any[]) => U, ...argArray: any[]) => U
@@ -954,10 +1171,17 @@ let n: number = f.call(12);
 function missingTypeIsImplicitAny(this, a: number) { return this.anything + a; } 
 >missingTypeIsImplicitAny : (this: any, a: number) => any
 >this : any
+>类型别名 :=> 任意
 >a : number
+>类型别名 :=> 数字
 >this.anything + a : any
+>类型别名 :=> 任意
 >this.anything : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >anything : any
+>类型别名 :=> 任意
 >a : number
+>类型别名 :=> 数字
 

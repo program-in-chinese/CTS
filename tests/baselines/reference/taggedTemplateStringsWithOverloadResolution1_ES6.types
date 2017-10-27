@@ -9,20 +9,25 @@ function foo(strs: TemplateStringsArray, x: number): string;
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >x : number
+>类型别名 :=> 数字
 
 function foo(strs: TemplateStringsArray, x: number, y: number): boolean;
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 function foo(strs: TemplateStringsArray, x: number, y: string): {};
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
 function foo(...stuff: any[]): any {
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
@@ -30,24 +35,31 @@ function foo(...stuff: any[]): any {
 
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 var a = foo([]);             // number
 >a : any
+>类型别名 :=> 任意
 >foo([]) : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >[] : undefined[]
 
 var b = foo([], 1);          // string
 >b : any
+>类型别名 :=> 任意
 >foo([], 1) : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >[] : undefined[]
 >1 : 1
 
 var c = foo([], 1, 2);       // boolean
 >c : any
+>类型别名 :=> 任意
 >foo([], 1, 2) : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >[] : undefined[]
 >1 : 1
@@ -55,15 +67,20 @@ var c = foo([], 1, 2);       // boolean
 
 var d = foo([], 1, true);    // boolean (with error)
 >d : any
+>类型别名 :=> 任意
 >foo([], 1, true) : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >[] : undefined[]
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 
 var e = foo([], 1, "2");     // {}
 >e : any
+>类型别名 :=> 任意
 >foo([], 1, "2") : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >[] : undefined[]
 >1 : 1
@@ -71,7 +88,9 @@ var e = foo([], 1, "2");     // {}
 
 var f = foo([], 1, 2, 3);    // any (with error)
 >f : any
+>类型别名 :=> 任意
 >foo([], 1, 2, 3) : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >[] : undefined[]
 >1 : 1
@@ -80,46 +99,62 @@ var f = foo([], 1, 2, 3);    // any (with error)
 
 var u = foo ``;              // number
 >u : number
+>类型别名 :=> 数字
 >foo `` : number
+>类型别名 :=> 数字
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >`` : ""
 
 var v = foo `${1}`;          // string
 >v : string
+>类型别名 :=> 文字
 >foo `${1}` : string
+>类型别名 :=> 文字
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >`${1}` : string
+>类型别名 :=> 文字
 >1 : 1
 
 var w = foo `${1}${2}`;      // boolean
 >w : boolean
+>类型别名 :=> 真假
 >foo `${1}${2}` : boolean
+>类型别名 :=> 真假
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >`${1}${2}` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 
 var x = foo `${1}${true}`;   // boolean (with error)
 >x : any
+>类型别名 :=> 任意
 >foo `${1}${true}` : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >`${1}${true}` : string
+>类型别名 :=> 文字
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 
 var y = foo `${1}${"2"}`;    // {}
 >y : {}
 >foo `${1}${"2"}` : {}
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >`${1}${"2"}` : string
+>类型别名 :=> 文字
 >1 : 1
 >"2" : "2"
 
 var z = foo `${1}${2}${3}`;  // any (with error)
 >z : any
+>类型别名 :=> 任意
 >foo `${1}${2}${3}` : any
+>类型别名 :=> 任意
 >foo : { (strs: TemplateStringsArray): number; (strs: TemplateStringsArray, x: number): string; (strs: TemplateStringsArray, x: number, y: number): boolean; (strs: TemplateStringsArray, x: number, y: string): {}; }
 >`${1}${2}${3}` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 >3 : 3

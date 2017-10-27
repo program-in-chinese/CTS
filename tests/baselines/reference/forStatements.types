@@ -4,6 +4,7 @@ interface I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class C implements I {
@@ -12,6 +13,7 @@ class C implements I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class D<T>{
@@ -37,6 +39,7 @@ class D<T>{
 function F(x: string): number { return 42; }
 >F : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >42 : 42
 
 module M {
@@ -47,23 +50,29 @@ module M {
 
         name: string;
 >name : string
+>类型别名 :=> 文字
     }
 
     export function F2(x: number): string { return x.toString(); }
 >F2 : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 }
 
 for(var aNumber: number = 9.9;;){} 
 >aNumber : number
+>类型别名 :=> 数字
 >9.9 : 9.9
 
 for(var aString: string = 'this is a string';;){}
 >aString : string
+>类型别名 :=> 文字
 >'this is a string' : "this is a string"
 
 for(var aDate: Date = new Date(12);;){}
@@ -81,15 +90,21 @@ for(var anObject: Object = new Object();;){}
 
 for(var anAny: any = null;;){}
 >anAny : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 for(var aSecondAny: any = undefined;;){}
 >aSecondAny : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 for(var aVoid: void = undefined;;){}
 >aVoid : void
+>类型别名 :=> 无值
 >undefined : undefined
+>类型别名 :=> 未定
 
 for(var anInterface: I = new C();;){}
 >anInterface : I
@@ -114,11 +129,13 @@ for(var anObjectLiteral: I = { id: 12 };;){}
 >I : I
 >{ id: 12 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >12 : 12
 
 for(var anOtherObjectLiteral: { id: number } = new C();;){}
 >anOtherObjectLiteral : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >new C() : C
 >C : typeof C
 
@@ -130,6 +147,7 @@ for(var aFunction: typeof F = F;;){}
 for(var anOtherFunction: (x: string) => number = F;;){}
 >anOtherFunction : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >F : (x: string) => number
 
 for(var aLambda: typeof F = (x) => 2;;){}
@@ -137,6 +155,7 @@ for(var aLambda: typeof F = (x) => 2;;){}
 >F : (x: string) => number
 >(x) => 2 : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >2 : 2
 
 for(var aModule: typeof M = M;;){}
@@ -147,6 +166,7 @@ for(var aModule: typeof M = M;;){}
 for(var aClassInModule: M.A = new M.A();;){}
 >aClassInModule : M.A
 >M : any
+>类型别名 :=> 任意
 >A : M.A
 >new M.A() : M.A
 >M.A : typeof M.A
@@ -160,5 +180,6 @@ for(var aFunctionInModule: typeof M.F2 = (x) => 'this is a string';;){}
 >F2 : (x: number) => string
 >(x) => 'this is a string' : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >'this is a string' : "this is a string"
 

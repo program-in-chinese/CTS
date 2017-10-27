@@ -3,17 +3,23 @@
 function foo(x) { };
 >foo : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 
 function bar(x: number, y) { };  // error at "y"; no error at "x"
 >bar : (x: number, y: any) => void
 >x : number
+>类型别名 :=> 数字
 >y : any
+>类型别名 :=> 任意
 
 function func2(a, b, c) { };     // error at "a,b,c"
 >func2 : (a: any, b: any, c: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
 function func3(...args) { };     // error at "args" 
 >func3 : (...args: any[]) => void
@@ -22,20 +28,28 @@ function func3(...args) { };     // error at "args"
 function func4(z= null, w= undefined) { };  // error at "z,w"
 >func4 : (z?: any, w?: any) => void
 >z : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 >w : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 // these shouldn't be errors
 function noError1(x= 3, y= 2) { };
 >noError1 : (x?: number, y?: number) => void
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 function noError2(x: number, y: string) { };
 >noError2 : (x: number, y: string) => void
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 

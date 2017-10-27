@@ -7,7 +7,9 @@ module A {
 
         constructor(public x: number, public y: number) { }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
     }
     export var Origin = new Point(0, 0);
 >Origin : Point
@@ -20,6 +22,7 @@ module A {
 // no code gen expected
 module B {
 >B : any
+>类型别名 :=> 任意
 
     import a = A; //Error generates 'var <Alias> = <EntityName>;'
 >a : typeof a
@@ -40,14 +43,17 @@ module C {
     var p: a.Point;
 >p : a.Point
 >a : any
+>类型别名 :=> 任意
 >Point : a.Point
 
     var p = { x: 0, y: 0 };
 >p : a.Point
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : number
+>类型别名 :=> 数字
 >0 : 0
 }
 

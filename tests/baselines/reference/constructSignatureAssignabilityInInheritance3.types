@@ -8,24 +8,29 @@ module Errors {
     class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
     class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
     class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
     class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
 >bing : string
+>类型别名 :=> 文字
 
     module WithNonGenericSignaturesInBaseType {
 >WithNonGenericSignaturesInBaseType : any
+>类型别名 :=> 任意
 
         // base type with non-generic call signatures
         interface A {
@@ -34,6 +39,7 @@ module Errors {
             a2: new (x: number) => string[];
 >a2 : new (x: number) => string[]
 >x : number
+>类型别名 :=> 数字
 
             a7: new (x: (arg: Base) => Derived) => (r: Base) => Derived2;
 >a7 : new (x: (arg: Base) => Derived) => (r: Base) => Derived2
@@ -69,9 +75,12 @@ module Errors {
 >a11 : new (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 >x : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >y : { foo: string; bar: string; }
 >foo : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 >Base : Base
 
             a12: new (x: Array<Base>, y: Array<Derived2>) => Array<Derived>;
@@ -90,16 +99,20 @@ module Errors {
 
                 new (x: number): number[];
 >x : number
+>类型别名 :=> 数字
 
                 new (x: string): string[];
 >x : string
+>类型别名 :=> 文字
 
             };
             a15: new (x: { a: string; b: number }) => number;
 >a15 : new (x: { a: string; b: number; }) => number
 >x : { a: string; b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 
             a16: {
 >a16 : { new (x: { new (a: number): number; new (a?: number): number; }): number[]; new (x: { new (a: boolean): boolean; new (a?: boolean): boolean; }): boolean[]; }
@@ -110,9 +123,11 @@ module Errors {
 
                     new (a: number): number;
 >a : number
+>类型别名 :=> 数字
 
                     new (a?: number): number;
 >a : number
+>类型别名 :=> 数字
 
                 }): number[];
                 new (x: {
@@ -120,9 +135,11 @@ module Errors {
 
                     new (a: boolean): boolean;
 >a : boolean
+>类型别名 :=> 真假
 
                     new (a?: boolean): boolean;
 >a : boolean
+>类型别名 :=> 真假
 
                 }): boolean[];
             };
@@ -193,6 +210,7 @@ module Errors {
 >y : (arg2: { foo: number; }) => U
 >arg2 : { foo: number; }
 >foo : number
+>类型别名 :=> 数字
 >U : U
 >r : T
 >T : T
@@ -293,6 +311,7 @@ module Errors {
 
     module WithGenericSignaturesInBaseType {
 >WithGenericSignaturesInBaseType : any
+>类型别名 :=> 任意
 
         // base type has generic call signature
         interface B {

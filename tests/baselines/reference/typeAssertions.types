@@ -9,33 +9,44 @@ function fn1<T>(t: T) { }
 function fn2(t: any) { }
 >fn2 : (t: any) => void
 >t : any
+>类型别名 :=> 任意
 
 fn1(fn2<string>(4)); // Error
 >fn1(fn2<string>(4)) : void
+>类型别名 :=> 无值
 >fn1 : <T>(t: T) => void
 >fn2<string>(4) : void
+>类型别名 :=> 无值
 >fn2 : (t: any) => void
 >4 : 4
 
 var a: any;
 >a : any
+>类型别名 :=> 任意
 
 var s: string;
 >s : string
+>类型别名 :=> 文字
 
 // Type assertion of non - unary expression
 var a = <any>"" + 4;
 >a : any
+>类型别名 :=> 任意
 ><any>"" + 4 : any
+>类型别名 :=> 任意
 ><any>"" : any
+>类型别名 :=> 任意
 >"" : ""
 >4 : 4
 
 var s = "" + <any>4;
 >s : string
+>类型别名 :=> 文字
 >"" + <any>4 : string
+>类型别名 :=> 文字
 >"" : ""
 ><any>4 : any
+>类型别名 :=> 任意
 >4 : 4
 
 class SomeBase {
@@ -43,6 +54,7 @@ class SomeBase {
 
     private p;
 >p : any
+>类型别名 :=> 任意
 }
 class SomeDerived extends SomeBase {
 >SomeDerived : SomeDerived
@@ -50,12 +62,14 @@ class SomeDerived extends SomeBase {
 
     private x;
 >x : any
+>类型别名 :=> 任意
 }
 class SomeOther {
 >SomeOther : SomeOther
 
     private q;
 >q : any
+>类型别名 :=> 任意
 }
 
 // Type assertion should check for assignability in either direction
@@ -143,33 +157,48 @@ var numOrStr: number | string;
 
 var str: string;
 >str : string
+>类型别名 :=> 文字
 
 if(<numOrStr is string>(numOrStr === undefined)) { // Error
 ><numOrStr is : any
+>类型别名 :=> 任意
 >numOrStr : No type information available!
 >is : any
+>类型别名 :=> 任意
 >string>(numOrStr === undefined) : boolean
+>类型别名 :=> 真假
 >string : any
+>类型别名 :=> 任意
 >(numOrStr === undefined) : boolean
+>类型别名 :=> 真假
 >numOrStr === undefined : boolean
+>类型别名 :=> 真假
 >numOrStr : string | number
 >undefined : undefined
+>类型别名 :=> 未定
 
 	str = numOrStr; // Error, no narrowing occurred
 >str = numOrStr : string | number
 >str : string
+>类型别名 :=> 文字
 >numOrStr : string | number
 }
 
 if((numOrStr === undefined) as numOrStr is string) { // Error
 >(numOrStr === undefined) as numOrStr : any
+>类型别名 :=> 任意
 >(numOrStr === undefined) : boolean
+>类型别名 :=> 真假
 >numOrStr === undefined : boolean
+>类型别名 :=> 真假
 >numOrStr : string | number
 >undefined : undefined
+>类型别名 :=> 未定
 >numOrStr : No type information available!
 >is : any
+>类型别名 :=> 任意
 >string : any
+>类型别名 :=> 任意
 }
 
 

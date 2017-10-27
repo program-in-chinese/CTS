@@ -7,6 +7,7 @@ interface MyString extends String {
 
     foo: number;
 >foo : number
+>类型别名 :=> 数字
 }
 
 class C {
@@ -14,14 +15,17 @@ class C {
 
     [x: string]: string;
 >x : string
+>类型别名 :=> 文字
 
     constructor() { } // ok
 
     a: string; // ok
 >a : string
+>类型别名 :=> 文字
 
     b: number; // error
 >b : number
+>类型别名 :=> 数字
 
     c: () => {} // error
 >c : () => {}
@@ -38,13 +42,16 @@ class C {
 
     get X() { // ok
 >X : string
+>类型别名 :=> 文字
 
         return '';
 >'' : ""
     }
     set X(v) { } // ok
 >X : string
+>类型别名 :=> 文字
 >v : string
+>类型别名 :=> 文字
 
     foo() { // error
 >foo : () => string
@@ -55,15 +62,18 @@ class C {
 
     static sa: number; // ok
 >sa : number
+>类型别名 :=> 数字
 
     static sb: string; // ok
 >sb : string
+>类型别名 :=> 文字
 
     static foo() { } // ok
 >foo : () => void
 
     static get X() { // ok
 >X : number
+>类型别名 :=> 数字
 
         return 1;
 >1 : 1
@@ -75,12 +85,15 @@ interface I {
 
     [x: string]: string;
 >x : string
+>类型别名 :=> 文字
 
     a: string; // ok
 >a : string
+>类型别名 :=> 文字
 
     b: number; // error
 >b : number
+>类型别名 :=> 数字
 
     c: () => {} // error
 >c : () => {}
@@ -92,6 +105,7 @@ interface I {
     (): string; // ok
     (x): number // ok
 >x : any
+>类型别名 :=> 任意
 
     foo(): string; // error
 >foo : () => string
@@ -108,12 +122,15 @@ var a: {
 
     [x: string]: string;
 >x : string
+>类型别名 :=> 文字
 
     a: string; // ok
 >a : string
+>类型别名 :=> 文字
 
     b: number; // error
 >b : number
+>类型别名 :=> 数字
 
     c: () => {} // error
 >c : () => {}
@@ -125,6 +142,7 @@ var a: {
     (): string; // ok
     (x): number // ok
 >x : any
+>类型别名 :=> 任意
 
     foo(): string; // error
 >foo : () => string
@@ -140,14 +158,17 @@ var a: {
 var b: { [x: string]: string; } = {
 >b : { [x: string]: string; }
 >x : string
+>类型别名 :=> 文字
 >{    a: '',    b: 1,     c: () => { },     "d": '',     "e": 1,     1.0: '',    2.0: 1,     "3.0": '',     "4.0": 1,     f: <MyString>null,     get X() {         return '';    },    set X(v) { },     foo() {         return '';    }} : { a: string; b: number; c: () => void; "d": string; "e": number; 1.0: string; 2.0: number; "3.0": string; "4.0": number; f: MyString; X: string; foo(): string; }
 
     a: '',
 >a : string
+>类型别名 :=> 文字
 >'' : ""
 
     b: 1, 
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 
     c: () => { }, 
@@ -177,9 +198,11 @@ var b: { [x: string]: string; } = {
 ><MyString>null : MyString
 >MyString : MyString
 >null : null
+>类型别名 :=> 空值
 
     get X() { 
 >X : string
+>类型别名 :=> 文字
 
         return '';
 >'' : ""
@@ -187,7 +210,9 @@ var b: { [x: string]: string; } = {
     },
     set X(v) { }, 
 >X : string
+>类型别名 :=> 文字
 >v : string
+>类型别名 :=> 文字
 
     foo() { 
 >foo : () => string

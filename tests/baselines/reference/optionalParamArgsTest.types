@@ -16,16 +16,21 @@ interface I1 {
     C1M2(C1M2A1:number):number;
 >C1M2 : (C1M2A1: number) => number
 >C1M2A1 : number
+>类型别名 :=> 数字
 
     C1M3(C1M3A1?:number,C1M3A2?:number):number;
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >C1M3A1 : number
+>类型别名 :=> 数字
 >C1M3A2 : number
+>类型别名 :=> 数字
 
     C1M4(C1M4A1:number,C1M4A2?:number):number;
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >C1M4A1 : number
+>类型别名 :=> 数字
 >C1M4A2 : number
+>类型别名 :=> 数字
 }
 
 // test basic configurations
@@ -34,12 +39,15 @@ class C1 {
 
     constructor(v: number = 1, p: number = 0) { }
 >v : number
+>类型别名 :=> 数字
 >1 : 1
 >p : number
+>类型别名 :=> 数字
 >0 : 0
 
     public n:number = 0;
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     public C1M1() { return 0; } // returning C1M1A1 will result in "Unresolved symbol C1M1A1"
@@ -49,48 +57,73 @@ class C1 {
     public C1M2(C1M2A1:number) { return C1M2A1; } // will return C1M1A2 without complaint
 >C1M2 : (C1M2A1: number) => number
 >C1M2A1 : number
+>类型别名 :=> 数字
 >C1M2A1 : number
+>类型别名 :=> 数字
 
     // C1M3 contains all optional parameters
     public C1M3(C1M3A1:number=0,C1M3A2:number=C1M3A1) {return C1M3A1 + C1M3A2; }
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >C1M3A1 : number
+>类型别名 :=> 数字
 >0 : 0
 >C1M3A2 : number
+>类型别名 :=> 数字
 >C1M3A1 : number
+>类型别名 :=> 数字
 >C1M3A1 + C1M3A2 : number
+>类型别名 :=> 数字
 >C1M3A1 : number
+>类型别名 :=> 数字
 >C1M3A2 : number
+>类型别名 :=> 数字
 
     // C1M4 contains a mix of optional and non-optional parameters
     public C1M4(C1M4A1:number,C1M4A2?:number) { return C1M4A1 + C1M4A2; }
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >C1M4A1 : number
+>类型别名 :=> 数字
 >C1M4A2 : number
+>类型别名 :=> 数字
 >C1M4A1 + C1M4A2 : number
+>类型别名 :=> 数字
 >C1M4A1 : number
+>类型别名 :=> 数字
 >C1M4A2 : number
+>类型别名 :=> 数字
 
     public C1M5(C1M5A1:number,C1M5A2:number=0,C1M5A3?:number) { return C1M5A1 + C1M5A2; }
 >C1M5 : (C1M5A1: number, C1M5A2?: number, C1M5A3?: number) => number
 >C1M5A1 : number
+>类型别名 :=> 数字
 >C1M5A2 : number
+>类型别名 :=> 数字
 >0 : 0
 >C1M5A3 : number
+>类型别名 :=> 数字
 >C1M5A1 + C1M5A2 : number
+>类型别名 :=> 数字
 >C1M5A1 : number
+>类型别名 :=> 数字
 >C1M5A2 : number
+>类型别名 :=> 数字
 
     // Uninitialized parameter makes the initialized one required
     public C1M5(C1M5A1:number,C1M5A2:number=0,C1M5A3:number) { return C1M5A1 + C1M5A2; }
 >C1M5 : (C1M5A1: number, C1M5A2?: number, C1M5A3?: number) => number
 >C1M5A1 : number
+>类型别名 :=> 数字
 >C1M5A2 : number
+>类型别名 :=> 数字
 >0 : 0
 >C1M5A3 : number
+>类型别名 :=> 数字
 >C1M5A1 + C1M5A2 : number
+>类型别名 :=> 数字
 >C1M5A1 : number
+>类型别名 :=> 数字
 >C1M5A2 : number
+>类型别名 :=> 数字
 }
 
 class C2 extends C1 {
@@ -99,12 +132,15 @@ class C2 extends C1 {
 
     constructor(v2: number = 6) {
 >v2 : number
+>类型别名 :=> 数字
 >6 : 6
 
         super(v2);
 >super(v2) : void
+>类型别名 :=> 无值
 >super : typeof C1
 >v2 : number
+>类型别名 :=> 数字
     }
 }
 
@@ -116,25 +152,38 @@ function F1() { return 0; }
 function F2(F2A1:number) { return F2A1; } 
 >F2 : (F2A1: number) => number
 >F2A1 : number
+>类型别名 :=> 数字
 >F2A1 : number
+>类型别名 :=> 数字
 
 function F3(F3A1=0,F3A2=F3A1) {return F3A1 + F3A2; }
 >F3 : (F3A1?: number, F3A2?: number) => number
 >F3A1 : number
+>类型别名 :=> 数字
 >0 : 0
 >F3A2 : number
+>类型别名 :=> 数字
 >F3A1 : number
+>类型别名 :=> 数字
 >F3A1 + F3A2 : number
+>类型别名 :=> 数字
 >F3A1 : number
+>类型别名 :=> 数字
 >F3A2 : number
+>类型别名 :=> 数字
 
 function F4(F4A1:number,F4A2?:number) { return F4A1 + F4A2; }
 >F4 : (F4A1: number, F4A2?: number) => number
 >F4A1 : number
+>类型别名 :=> 数字
 >F4A2 : number
+>类型别名 :=> 数字
 >F4A1 + F4A2 : number
+>类型别名 :=> 数字
 >F4A1 : number
+>类型别名 :=> 数字
 >F4A2 : number
+>类型别名 :=> 数字
 
 var L1 = function() {return 0;}
 >L1 : () => number
@@ -145,27 +194,40 @@ var L2 = function (L2A1:number) { return L2A1; }
 >L2 : (L2A1: number) => number
 >function (L2A1:number) { return L2A1; } : (L2A1: number) => number
 >L2A1 : number
+>类型别名 :=> 数字
 >L2A1 : number
+>类型别名 :=> 数字
 
 var L3 = function (L3A1=0,L3A2=L3A1) {return L3A1 + L3A2; }
 >L3 : (L3A1?: number, L3A2?: number) => number
 >function (L3A1=0,L3A2=L3A1) {return L3A1 + L3A2; } : (L3A1?: number, L3A2?: number) => number
 >L3A1 : number
+>类型别名 :=> 数字
 >0 : 0
 >L3A2 : number
+>类型别名 :=> 数字
 >L3A1 : number
+>类型别名 :=> 数字
 >L3A1 + L3A2 : number
+>类型别名 :=> 数字
 >L3A1 : number
+>类型别名 :=> 数字
 >L3A2 : number
+>类型别名 :=> 数字
 
 var L4 = function (L4A1:number,L4A2?:number) { return L4A1 + L4A2; }
 >L4 : (L4A1: number, L4A2?: number) => number
 >function (L4A1:number,L4A2?:number) { return L4A1 + L4A2; } : (L4A1: number, L4A2?: number) => number
 >L4A1 : number
+>类型别名 :=> 数字
 >L4A2 : number
+>类型别名 :=> 数字
 >L4A1 + L4A2 : number
+>类型别名 :=> 数字
 >L4A1 : number
+>类型别名 :=> 数字
 >L4A2 : number
+>类型别名 :=> 数字
 
 var c1o1:C1 = new C1(5);
 >c1o1 : C1
@@ -184,23 +246,29 @@ var i1o1:I1 = new C1(5);
 // Valid
 c1o1.C1M1();
 >c1o1.C1M1() : number
+>类型别名 :=> 数字
 >c1o1.C1M1 : () => number
 >c1o1 : C1
 >C1M1 : () => number
 
 var f1v1=F1();
 >f1v1 : number
+>类型别名 :=> 数字
 >F1() : number
+>类型别名 :=> 数字
 >F1 : () => number
 
 var l1v1=L1();
 >l1v1 : number
+>类型别名 :=> 数字
 >L1() : number
+>类型别名 :=> 数字
 >L1 : () => number
 
 // Valid
 c1o1.C1M2(1);
 >c1o1.C1M2(1) : number
+>类型别名 :=> 数字
 >c1o1.C1M2 : (C1M2A1: number) => number
 >c1o1 : C1
 >C1M2 : (C1M2A1: number) => number
@@ -208,6 +276,7 @@ c1o1.C1M2(1);
 
 i1o1.C1M2(1);
 >i1o1.C1M2(1) : number
+>类型别名 :=> 数字
 >i1o1.C1M2 : (C1M2A1: number) => number
 >i1o1 : I1
 >C1M2 : (C1M2A1: number) => number
@@ -215,19 +284,24 @@ i1o1.C1M2(1);
 
 var f2v1=F2(1);
 >f2v1 : number
+>类型别名 :=> 数字
 >F2(1) : number
+>类型别名 :=> 数字
 >F2 : (F2A1: number) => number
 >1 : 1
 
 var l2v1=L2(1);
 >l2v1 : number
+>类型别名 :=> 数字
 >L2(1) : number
+>类型别名 :=> 数字
 >L2 : (L2A1: number) => number
 >1 : 1
 
 // Valid
 c1o1.C1M3(1,2);
 >c1o1.C1M3(1,2) : number
+>类型别名 :=> 数字
 >c1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >c1o1 : C1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
@@ -236,6 +310,7 @@ c1o1.C1M3(1,2);
 
 i1o1.C1M3(1,2);
 >i1o1.C1M3(1,2) : number
+>类型别名 :=> 数字
 >i1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >i1o1 : I1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
@@ -244,14 +319,18 @@ i1o1.C1M3(1,2);
 
 var f3v1=F3(1,2);
 >f3v1 : number
+>类型别名 :=> 数字
 >F3(1,2) : number
+>类型别名 :=> 数字
 >F3 : (F3A1?: number, F3A2?: number) => number
 >1 : 1
 >2 : 2
 
 var l3v1=L3(1,2);
 >l3v1 : number
+>类型别名 :=> 数字
 >L3(1,2) : number
+>类型别名 :=> 数字
 >L3 : (L3A1?: number, L3A2?: number) => number
 >1 : 1
 >2 : 2
@@ -259,6 +338,7 @@ var l3v1=L3(1,2);
 // Valid
 c1o1.C1M4(1,2);
 >c1o1.C1M4(1,2) : number
+>类型别名 :=> 数字
 >c1o1.C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >c1o1 : C1
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
@@ -267,6 +347,7 @@ c1o1.C1M4(1,2);
 
 i1o1.C1M4(1,2);
 >i1o1.C1M4(1,2) : number
+>类型别名 :=> 数字
 >i1o1.C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >i1o1 : I1
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
@@ -275,14 +356,18 @@ i1o1.C1M4(1,2);
 
 var f4v1=F4(1,2);
 >f4v1 : number
+>类型别名 :=> 数字
 >F4(1,2) : number
+>类型别名 :=> 数字
 >F4 : (F4A1: number, F4A2?: number) => number
 >1 : 1
 >2 : 2
 
 var l4v1=L4(1,2);
 >l4v1 : number
+>类型别名 :=> 数字
 >L4(1,2) : number
+>类型别名 :=> 数字
 >L4 : (L4A1: number, L4A2?: number) => number
 >1 : 1
 >2 : 2
@@ -290,6 +375,7 @@ var l4v1=L4(1,2);
 // Valid
 c1o1.C1M3(1);
 >c1o1.C1M3(1) : number
+>类型别名 :=> 数字
 >c1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >c1o1 : C1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
@@ -297,6 +383,7 @@ c1o1.C1M3(1);
 
 i1o1.C1M3(1);
 >i1o1.C1M3(1) : number
+>类型别名 :=> 数字
 >i1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >i1o1 : I1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
@@ -304,42 +391,53 @@ i1o1.C1M3(1);
 
 var f3v2=F3(1);
 >f3v2 : number
+>类型别名 :=> 数字
 >F3(1) : number
+>类型别名 :=> 数字
 >F3 : (F3A1?: number, F3A2?: number) => number
 >1 : 1
 
 var l3v2=L3(1);
 >l3v2 : number
+>类型别名 :=> 数字
 >L3(1) : number
+>类型别名 :=> 数字
 >L3 : (L3A1?: number, L3A2?: number) => number
 >1 : 1
 
 // Valid 
 c1o1.C1M3();
 >c1o1.C1M3() : number
+>类型别名 :=> 数字
 >c1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >c1o1 : C1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 
 i1o1.C1M3();
 >i1o1.C1M3() : number
+>类型别名 :=> 数字
 >i1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >i1o1 : I1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 
 var f3v3=F3();
 >f3v3 : number
+>类型别名 :=> 数字
 >F3() : number
+>类型别名 :=> 数字
 >F3 : (F3A1?: number, F3A2?: number) => number
 
 var l3v3=L3();
 >l3v3 : number
+>类型别名 :=> 数字
 >L3() : number
+>类型别名 :=> 数字
 >L3 : (L3A1?: number, L3A2?: number) => number
 
 // Valid
 c1o1.C1M4(1);
 >c1o1.C1M4(1) : number
+>类型别名 :=> 数字
 >c1o1.C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >c1o1 : C1
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
@@ -347,6 +445,7 @@ c1o1.C1M4(1);
 
 i1o1.C1M4(1);
 >i1o1.C1M4(1) : number
+>类型别名 :=> 数字
 >i1o1.C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >i1o1 : I1
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
@@ -354,19 +453,24 @@ i1o1.C1M4(1);
 
 var f4v2=F4(1);
 >f4v2 : number
+>类型别名 :=> 数字
 >F4(1) : number
+>类型别名 :=> 数字
 >F4 : (F4A1: number, F4A2?: number) => number
 >1 : 1
 
 var l4v2=L4(1);
 >l4v2 : number
+>类型别名 :=> 数字
 >L4(1) : number
+>类型别名 :=> 数字
 >L4 : (L4A1: number, L4A2?: number) => number
 >1 : 1
 
 // Negative tests - we expect these cases to fail
 c1o1.C1M1(1);
 >c1o1.C1M1(1) : number
+>类型别名 :=> 数字
 >c1o1.C1M1 : () => number
 >c1o1 : C1
 >C1M1 : () => number
@@ -374,6 +478,7 @@ c1o1.C1M1(1);
 
 i1o1.C1M1(1);
 >i1o1.C1M1(1) : number
+>类型别名 :=> 数字
 >i1o1.C1M1 : () => number
 >i1o1 : I1
 >C1M1 : () => number
@@ -381,36 +486,43 @@ i1o1.C1M1(1);
 
 F1(1);
 >F1(1) : number
+>类型别名 :=> 数字
 >F1 : () => number
 >1 : 1
 
 L1(1);
 >L1(1) : number
+>类型别名 :=> 数字
 >L1 : () => number
 >1 : 1
 
 c1o1.C1M2();
 >c1o1.C1M2() : number
+>类型别名 :=> 数字
 >c1o1.C1M2 : (C1M2A1: number) => number
 >c1o1 : C1
 >C1M2 : (C1M2A1: number) => number
 
 i1o1.C1M2();
 >i1o1.C1M2() : number
+>类型别名 :=> 数字
 >i1o1.C1M2 : (C1M2A1: number) => number
 >i1o1 : I1
 >C1M2 : (C1M2A1: number) => number
 
 F2();
 >F2() : number
+>类型别名 :=> 数字
 >F2 : (F2A1: number) => number
 
 L2();
 >L2() : number
+>类型别名 :=> 数字
 >L2 : (L2A1: number) => number
 
 c1o1.C1M2(1,2);
 >c1o1.C1M2(1,2) : number
+>类型别名 :=> 数字
 >c1o1.C1M2 : (C1M2A1: number) => number
 >c1o1 : C1
 >C1M2 : (C1M2A1: number) => number
@@ -419,6 +531,7 @@ c1o1.C1M2(1,2);
 
 i1o1.C1M2(1,2);
 >i1o1.C1M2(1,2) : number
+>类型别名 :=> 数字
 >i1o1.C1M2 : (C1M2A1: number) => number
 >i1o1 : I1
 >C1M2 : (C1M2A1: number) => number
@@ -427,18 +540,21 @@ i1o1.C1M2(1,2);
 
 F2(1,2);
 >F2(1,2) : number
+>类型别名 :=> 数字
 >F2 : (F2A1: number) => number
 >1 : 1
 >2 : 2
 
 L2(1,2);
 >L2(1,2) : number
+>类型别名 :=> 数字
 >L2 : (L2A1: number) => number
 >1 : 1
 >2 : 2
 
 c1o1.C1M3(1,2,3);
 >c1o1.C1M3(1,2,3) : number
+>类型别名 :=> 数字
 >c1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >c1o1 : C1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
@@ -448,6 +564,7 @@ c1o1.C1M3(1,2,3);
 
 i1o1.C1M3(1,2,3);
 >i1o1.C1M3(1,2,3) : number
+>类型别名 :=> 数字
 >i1o1.C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
 >i1o1 : I1
 >C1M3 : (C1M3A1?: number, C1M3A2?: number) => number
@@ -457,6 +574,7 @@ i1o1.C1M3(1,2,3);
 
 F3(1,2,3);
 >F3(1,2,3) : number
+>类型别名 :=> 数字
 >F3 : (F3A1?: number, F3A2?: number) => number
 >1 : 1
 >2 : 2
@@ -464,6 +582,7 @@ F3(1,2,3);
 
 L3(1,2,3);
 >L3(1,2,3) : number
+>类型别名 :=> 数字
 >L3 : (L3A1?: number, L3A2?: number) => number
 >1 : 1
 >2 : 2
@@ -471,42 +590,51 @@ L3(1,2,3);
 
 c1o1.C1M4();
 >c1o1.C1M4() : number
+>类型别名 :=> 数字
 >c1o1.C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >c1o1 : C1
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 
 i1o1.C1M4();
 >i1o1.C1M4() : number
+>类型别名 :=> 数字
 >i1o1.C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 >i1o1 : I1
 >C1M4 : (C1M4A1: number, C1M4A2?: number) => number
 
 F4();
 >F4() : number
+>类型别名 :=> 数字
 >F4 : (F4A1: number, F4A2?: number) => number
 
 L4();
 >L4() : number
+>类型别名 :=> 数字
 >L4 : (L4A1: number, L4A2?: number) => number
 
 function fnOpt1(id: number, children: number[] = [], expectedPath: number[] = [], isRoot?: boolean): void {}
 >fnOpt1 : (id: number, children?: number[], expectedPath?: number[], isRoot?: boolean) => void
 >id : number
+>类型别名 :=> 数字
 >children : number[]
 >[] : undefined[]
 >expectedPath : number[]
 >[] : undefined[]
 >isRoot : boolean
+>类型别名 :=> 真假
 
 function fnOpt2(id: number, children?: number[], expectedPath?: number[], isRoot?: boolean): void {}
 >fnOpt2 : (id: number, children?: number[], expectedPath?: number[], isRoot?: boolean) => void
 >id : number
+>类型别名 :=> 数字
 >children : number[]
 >expectedPath : number[]
 >isRoot : boolean
+>类型别名 :=> 真假
 
 fnOpt1(1, [2, 3], [1], true);
 >fnOpt1(1, [2, 3], [1], true) : void
+>类型别名 :=> 无值
 >fnOpt1 : (id: number, children?: number[], expectedPath?: number[], isRoot?: boolean) => void
 >1 : 1
 >[2, 3] : number[]
@@ -515,9 +643,11 @@ fnOpt1(1, [2, 3], [1], true);
 >[1] : number[]
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 
 fnOpt2(1, [2, 3], [1], true);
 >fnOpt2(1, [2, 3], [1], true) : void
+>类型别名 :=> 无值
 >fnOpt2 : (id: number, children?: number[], expectedPath?: number[], isRoot?: boolean) => void
 >1 : 1
 >[2, 3] : number[]
@@ -526,4 +656,5 @@ fnOpt2(1, [2, 3], [1], true);
 >[1] : number[]
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 

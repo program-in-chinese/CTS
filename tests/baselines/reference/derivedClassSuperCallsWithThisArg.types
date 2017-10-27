@@ -4,9 +4,11 @@ class Base {
 
     x: string;
 >x : string
+>类型别名 :=> 文字
 
     constructor(a) { }
 >a : any
+>类型别名 :=> 任意
 }
 
 class Derived extends Base {
@@ -16,6 +18,7 @@ class Derived extends Base {
     constructor() {
         super(this); // ok
 >super(this) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >this : this
     }
@@ -27,9 +30,11 @@ class Derived2 extends Base {
 
     constructor(public a: string) {
 >a : string
+>类型别名 :=> 文字
 
         super(this); // error
 >super(this) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >this : this
     }
@@ -41,9 +46,11 @@ class Derived3 extends Base {
 
     constructor(public a: string) {
 >a : string
+>类型别名 :=> 文字
 
         super(() => this); // error
 >super(() => this) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >() => this : () => this
 >this : this
@@ -56,11 +63,14 @@ class Derived4 extends Base {
 
     constructor(public a: string) {
 >a : string
+>类型别名 :=> 文字
 
         super(function () { return this; }); // ok
 >super(function () { return this; }) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >function () { return this; } : () => any
 >this : any
+>类型别名 :=> 任意
     }
 }

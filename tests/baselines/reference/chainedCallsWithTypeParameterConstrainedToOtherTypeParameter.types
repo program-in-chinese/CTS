@@ -21,6 +21,7 @@ class Chain<T extends A> {
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -29,6 +30,7 @@ class A {
 
     x;
 >x : any
+>类型别名 :=> 任意
 }
 class B extends A {
 >B : B
@@ -36,6 +38,7 @@ class B extends A {
 
     y;
 >y : any
+>类型别名 :=> 任意
 }
 class C extends B {
 >C : C
@@ -43,13 +46,17 @@ class C extends B {
 
     z;
 >z : any
+>类型别名 :=> 任意
 }
 
 // Ok to go down the chain, but error to try to climb back up
 (new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then(b => new A);
 >(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then(b => new A) : any
+>类型别名 :=> 任意
 >(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then : any
+>类型别名 :=> 任意
 >(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B) : any
+>类型别名 :=> 任意
 >(new Chain(new A)).then(a => new B).then(b => new C).then : <S extends C>(cb: (x: C) => S) => Chain<S>
 >(new Chain(new A)).then(a => new B).then(b => new C) : Chain<C>
 >(new Chain(new A)).then(a => new B).then : <S extends B>(cb: (x: B) => S) => Chain<S>
@@ -76,8 +83,10 @@ class C extends B {
 >new B : B
 >B : typeof B
 >then : any
+>类型别名 :=> 任意
 >b => new A : (b: any) => A
 >b : any
+>类型别名 :=> 任意
 >new A : A
 >A : typeof A
 

@@ -10,15 +10,20 @@ function foo<T>(x = class { prop: T }): T {
 
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 // Should not infer string because it is a static property
 foo(class { static prop = "hello" }).length;
 >foo(class { static prop = "hello" }).length : any
+>类型别名 :=> 任意
 >foo(class { static prop = "hello" }) : any
+>类型别名 :=> 任意
 >foo : <T>(x?: typeof (Anonymous class)) => T
 >class { static prop = "hello" } : typeof (Anonymous class)
 >prop : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 >length : any
+>类型别名 :=> 任意
 

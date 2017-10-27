@@ -2,10 +2,12 @@
 function f(s: string): string;
 >f : { (s: string): string; (n: number): number; <T>(x: T): T; }
 >s : string
+>类型别名 :=> 文字
 
 function f(n: number): number;
 >f : { (s: string): string; (n: number): number; <T>(x: T): T; }
 >n : number
+>类型别名 :=> 数字
 
 function f<T>(x: T): T;
 >f : { (s: string): string; (n: number): number; <T>(x: T): T; }
@@ -17,6 +19,7 @@ function f<T>(x: T): T;
 function f(x): any { }
 >f : { (s: string): string; (n: number): number; <T>(x: T): T; }
 >x : any
+>类型别名 :=> 任意
 
 var v = {
 >v : { [x: string]: number; [x: number]: number; [f(true)]: number; }
@@ -24,19 +27,23 @@ var v = {
 
     [f("")]: 0,
 >f("") : string
+>类型别名 :=> 文字
 >f : { (s: string): string; (n: number): number; <T>(x: T): T; }
 >"" : ""
 >0 : 0
 
     [f(0)]: 0,
 >f(0) : number
+>类型别名 :=> 数字
 >f : { (s: string): string; (n: number): number; <T>(x: T): T; }
 >0 : 0
 >0 : 0
 
     [f(true)]: 0
 >f(true) : true
+>类型别名 :=> 为真
 >f : { (s: string): string; (n: number): number; <T>(x: T): T; }
 >true : true
+>类型别名 :=> 为真
 >0 : 0
 }

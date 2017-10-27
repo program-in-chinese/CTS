@@ -11,6 +11,7 @@ class Private {
 
 	private p: string;
 >p : string
+>类型别名 :=> 文字
 }
 
 class Private2 {
@@ -21,6 +22,7 @@ class Private2 {
 
 	private p: string;
 >p : string
+>类型别名 :=> 文字
 }
 
 class Protected {
@@ -31,9 +33,11 @@ class Protected {
 
 	protected p: string;
 >p : string
+>类型别名 :=> 文字
 
 	protected static s: string;
 >s : string
+>类型别名 :=> 文字
 }
 
 class Protected2 {
@@ -44,9 +48,11 @@ class Protected2 {
 
 	protected p: string;
 >p : string
+>类型别名 :=> 文字
 
 	protected static s: string;
 >s : string
+>类型别名 :=> 文字
 }
 
 class Public {
@@ -57,9 +63,11 @@ class Public {
 
 	public p: string;
 >p : string
+>类型别名 :=> 文字
 
 	public static s: string;
 >s : string
+>类型别名 :=> 文字
 }
 
 class Public2 {
@@ -70,9 +78,11 @@ class Public2 {
 
 	public p: string;
 >p : string
+>类型别名 :=> 文字
 
 	public static s: string;
 >s : string
+>类型别名 :=> 文字
 }
 
 function f1(x: Private & Private2) {
@@ -83,8 +93,10 @@ function f1(x: Private & Private2) {
 
 	x.p;  // Error, private constituent makes property inaccessible
 >x.p : string
+>类型别名 :=> 文字
 >x : Private & Private2
 >p : string
+>类型别名 :=> 文字
 }
 
 function f2(x: Private & Protected) {
@@ -95,8 +107,10 @@ function f2(x: Private & Protected) {
 
 	x.p;  // Error, private constituent makes property inaccessible
 >x.p : string
+>类型别名 :=> 文字
 >x : Private & Protected
 >p : string
+>类型别名 :=> 文字
 }
 
 function f3(x: Private & Public) {
@@ -107,8 +121,10 @@ function f3(x: Private & Public) {
 
 	x.p;  // Error, private constituent makes property inaccessible
 >x.p : string
+>类型别名 :=> 文字
 >x : Private & Public
 >p : string
+>类型别名 :=> 文字
 }
 
 function f4(x: Protected & Protected2) {
@@ -119,8 +135,10 @@ function f4(x: Protected & Protected2) {
 
 	x.p;  // Error, protected when all constituents are protected
 >x.p : string
+>类型别名 :=> 文字
 >x : Protected & Protected2
 >p : string
+>类型别名 :=> 文字
 }
 
 function f5(x: Protected & Public) {
@@ -131,8 +149,10 @@ function f5(x: Protected & Public) {
 
 	x.p;  // Ok, public if any constituent is public
 >x.p : string
+>类型别名 :=> 文字
 >x : Protected & Public
 >p : string
+>类型别名 :=> 文字
 }
 
 function f6(x: Public & Public2) {
@@ -143,8 +163,10 @@ function f6(x: Public & Public2) {
 
 	x.p;  // Ok, public if any constituent is public
 >x.p : string
+>类型别名 :=> 文字
 >x : Public & Public2
 >p : string
+>类型别名 :=> 文字
 }
 
 declare function Mix<T, U>(c1: T, c2: U): T & U;
@@ -199,36 +221,48 @@ class C4 extends Mix(Protected, Protected2) {
 
 		c4.p;
 >c4.p : string
+>类型别名 :=> 文字
 >c4 : C4
 >p : string
+>类型别名 :=> 文字
 
 		c5.p;
 >c5.p : string
+>类型别名 :=> 文字
 >c5 : C5
 >p : string
+>类型别名 :=> 文字
 
 		c6.p;
 >c6.p : string
+>类型别名 :=> 文字
 >c6 : C6
 >p : string
+>类型别名 :=> 文字
 	}
 	static g() {
 >g : () => void
 
 		C4.s;
 >C4.s : string
+>类型别名 :=> 文字
 >C4 : typeof C4
 >s : string
+>类型别名 :=> 文字
 
 		C5.s;
 >C5.s : string
+>类型别名 :=> 文字
 >C5 : typeof C5
 >s : string
+>类型别名 :=> 文字
 
 		C6.s
 >C6.s : string
+>类型别名 :=> 文字
 >C6 : typeof C6
 >s : string
+>类型别名 :=> 文字
 	}
 }
 
@@ -250,36 +284,48 @@ class C5 extends Mix(Protected, Public) {
 
 		c4.p;  // Error, not in class deriving from Protected2
 >c4.p : string
+>类型别名 :=> 文字
 >c4 : C4
 >p : string
+>类型别名 :=> 文字
 
 		c5.p;
 >c5.p : string
+>类型别名 :=> 文字
 >c5 : C5
 >p : string
+>类型别名 :=> 文字
 
 		c6.p;
 >c6.p : string
+>类型别名 :=> 文字
 >c6 : C6
 >p : string
+>类型别名 :=> 文字
 	}
 	static g() {
 >g : () => void
 
 		C4.s;  // Error, not in class deriving from Protected2
 >C4.s : string
+>类型别名 :=> 文字
 >C4 : typeof C4
 >s : string
+>类型别名 :=> 文字
 
 		C5.s;
 >C5.s : string
+>类型别名 :=> 文字
 >C5 : typeof C5
 >s : string
+>类型别名 :=> 文字
 
 		C6.s
 >C6.s : string
+>类型别名 :=> 文字
 >C6 : typeof C6
 >s : string
+>类型别名 :=> 文字
 	}
 }
 
@@ -301,36 +347,48 @@ class C6 extends Mix(Public, Public2) {
 
 		c4.p;  // Error, not in class deriving from Protected2
 >c4.p : string
+>类型别名 :=> 文字
 >c4 : C4
 >p : string
+>类型别名 :=> 文字
 
 		c5.p;
 >c5.p : string
+>类型别名 :=> 文字
 >c5 : C5
 >p : string
+>类型别名 :=> 文字
 
 		c6.p;
 >c6.p : string
+>类型别名 :=> 文字
 >c6 : C6
 >p : string
+>类型别名 :=> 文字
 	}
 	static g() {
 >g : () => void
 
 		C4.s;  // Error, not in class deriving from Protected2
 >C4.s : string
+>类型别名 :=> 文字
 >C4 : typeof C4
 >s : string
+>类型别名 :=> 文字
 
 		C5.s;
 >C5.s : string
+>类型别名 :=> 文字
 >C5 : typeof C5
 >s : string
+>类型别名 :=> 文字
 
 		C6.s
 >C6.s : string
+>类型别名 :=> 文字
 >C6 : typeof C6
 >s : string
+>类型别名 :=> 文字
 	}
 }
 

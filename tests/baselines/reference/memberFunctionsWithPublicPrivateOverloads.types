@@ -5,16 +5,21 @@ class C {
     private foo(x: number);
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 
     public foo(x: number, y: string); // error
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private foo(x: any, y?: any) { }
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     private bar(x: 'hi');
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
@@ -23,44 +28,59 @@ class C {
     public bar(x: string); // error
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     private bar(x: number, y: string);
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private bar(x: any, y?: any) { }
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     private static foo(x: number);
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 
     public static foo(x: number, y: string); // error
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private static foo(x: any, y?: any) { }
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     protected baz(x: string); // error
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     protected baz(x: number, y: string); // error
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private baz(x: any, y?: any) { }
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     private static bar(x: 'hi');
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
@@ -69,16 +89,21 @@ class C {
     public static bar(x: string); // error
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     private static bar(x: number, y: string);
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private static bar(x: any, y?: any) { }
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     protected static baz(x: 'hi');
 >baz : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
@@ -87,16 +112,21 @@ class C {
     public static baz(x: string); // error
 >baz : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     protected static baz(x: number, y: string);
 >baz : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     protected static baz(x: any, y?: any) { }
 >baz : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 }
 
 class D<T> {
@@ -106,6 +136,7 @@ class D<T> {
     private foo(x: number); 
 >foo : { (x: number): any; (x: T, y: T): any; }
 >x : number
+>类型别名 :=> 数字
 
     public foo(x: T, y: T); // error
 >foo : { (x: number): any; (x: T, y: T): any; }
@@ -117,7 +148,9 @@ class D<T> {
     private foo(x: any, y?: any) { }
 >foo : { (x: number): any; (x: T, y: T): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     private bar(x: 'hi');
 >bar : { (x: "hi"): any; (x: string): any; (x: T, y: T): any; }
@@ -126,6 +159,7 @@ class D<T> {
     public bar(x: string); // error
 >bar : { (x: "hi"): any; (x: string): any; (x: T, y: T): any; }
 >x : string
+>类型别名 :=> 文字
 
     private bar(x: T, y: T);
 >bar : { (x: "hi"): any; (x: string): any; (x: T, y: T): any; }
@@ -137,35 +171,47 @@ class D<T> {
     private bar(x: any, y?: any) { }
 >bar : { (x: "hi"): any; (x: string): any; (x: T, y: T): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     private baz(x: string); 
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     protected baz(x: number, y: string); // error
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private baz(x: any, y?: any) { }
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     private static foo(x: number);
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 
     public static foo(x: number, y: string); // error
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private static foo(x: any, y?: any) { }
 >foo : { (x: number): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     private static bar(x: 'hi');
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
@@ -174,30 +220,40 @@ class D<T> {
     public static bar(x: string); // error
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     private static bar(x: number, y: string);
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     private static bar(x: any, y?: any) { }
 >bar : { (x: "hi"): any; (x: string): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     public static baz(x: string); // error
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     protected static baz(x: number, y: string);
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     protected static baz(x: any, y?: any) { }
 >baz : { (x: string): any; (x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 }
 
 var c: C;
@@ -206,7 +262,9 @@ var c: C;
 
 var r = c.foo(1); // error
 >r : any
+>类型别名 :=> 任意
 >c.foo(1) : any
+>类型别名 :=> 任意
 >c.foo : { (x: number): any; (x: number, y: string): any; }
 >c : C
 >foo : { (x: number): any; (x: number, y: string): any; }
@@ -218,7 +276,9 @@ var d: D<number>;
 
 var r2 = d.foo(2); // error
 >r2 : any
+>类型别名 :=> 任意
 >d.foo(2) : any
+>类型别名 :=> 任意
 >d.foo : { (x: number): any; (x: number, y: number): any; }
 >d : D<number>
 >foo : { (x: number): any; (x: number, y: number): any; }

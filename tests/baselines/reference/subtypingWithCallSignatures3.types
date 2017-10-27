@@ -8,31 +8,37 @@ module Errors {
     class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
     class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
     class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
     class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
 >bing : string
+>类型别名 :=> 文字
 
     declare function foo2(a2: (x: number) => string[]): typeof a2;
 >foo2 : { (a2: (x: number) => string[]): (x: number) => string[]; (a2: any): any; }
 >a2 : (x: number) => string[]
 >x : number
+>类型别名 :=> 数字
 >a2 : (x: number) => string[]
 
     declare function foo2(a2: any): any;
 >foo2 : { (a2: (x: number) => string[]): (x: number) => string[]; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo7(a2: (x: (arg: Base) => Derived) => (r: Base) => Derived2): typeof a2;
 >foo7 : { (a2: (x: (arg: Base) => Derived) => (r: Base) => Derived2): (x: (arg: Base) => Derived) => (r: Base) => Derived2; (a2: any): any; }
@@ -49,6 +55,7 @@ module Errors {
     declare function foo7(a2: any): any;
 >foo7 : { (a2: (x: (arg: Base) => Derived) => (r: Base) => Derived2): (x: (arg: Base) => Derived) => (r: Base) => Derived2; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo8(a2: (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived): typeof a2;
 >foo8 : { (a2: (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived): (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived; (a2: any): any; }
@@ -69,6 +76,7 @@ module Errors {
     declare function foo8(a2: any): any;
 >foo8 : { (a2: (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived): (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo10(a2: (...x: Base[]) => Base): typeof a2;
 >foo10 : { (a2: (...x: Base[]) => Base): (...x: Base[]) => Base; (a2: any): any; }
@@ -81,21 +89,26 @@ module Errors {
     declare function foo10(a2: any): any;
 >foo10 : { (a2: (...x: Base[]) => Base): (...x: Base[]) => Base; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo11(a2: (x: { foo: string }, y: { foo: string; bar: string }) => Base): typeof a2;
 >foo11 : { (a2: (x: { foo: string; }, y: { foo: string; bar: string; }) => Base): (x: { foo: string; }, y: { foo: string; bar: string; }) => Base; (a2: any): any; }
 >a2 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 >x : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >y : { foo: string; bar: string; }
 >foo : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 >Base : Base
 >a2 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 
     declare function foo11(a2: any): any;
 >foo11 : { (a2: (x: { foo: string; }, y: { foo: string; bar: string; }) => Base): (x: { foo: string; }, y: { foo: string; bar: string; }) => Base; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo12(a2: (x: Array<Base>, y: Array<Derived2>) => Array<Derived>): typeof a2;
 >foo12 : { (a2: (x: Base[], y: Derived2[]) => Derived[]): (x: Base[], y: Derived2[]) => Derived[]; (a2: any): any; }
@@ -113,18 +126,22 @@ module Errors {
     declare function foo12(a2: any): any;
 >foo12 : { (a2: (x: Base[], y: Derived2[]) => Derived[]): (x: Base[], y: Derived2[]) => Derived[]; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo15(a2: (x: { a: string; b: number }) => number): typeof a2;
 >foo15 : { (a2: (x: { a: string; b: number; }) => number): (x: { a: string; b: number; }) => number; (a2: any): any; }
 >a2 : (x: { a: string; b: number; }) => number
 >x : { a: string; b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >a2 : (x: { a: string; b: number; }) => number
 
     declare function foo15(a2: any): any;
 >foo15 : { (a2: (x: { a: string; b: number; }) => number): (x: { a: string; b: number; }) => number; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo16(a2: {
 >foo16 : { (a2: { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }): { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }; (a2: any): any; }
@@ -136,9 +153,11 @@ module Errors {
 
             (a: number): number;
 >a : number
+>类型别名 :=> 数字
 
             (a?: number): number;
 >a : number
+>类型别名 :=> 数字
 
         }): number[];
         (x: {
@@ -146,9 +165,11 @@ module Errors {
 
             (a: boolean): boolean;
 >a : boolean
+>类型别名 :=> 真假
 
             (a?: boolean): boolean;
 >a : boolean
+>类型别名 :=> 真假
 
         }): boolean[];
     }): typeof a2;
@@ -157,6 +178,7 @@ module Errors {
     declare function foo16(a2: any): any;
 >foo16 : { (a2: { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }): { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     declare function foo17(a2: {
 >foo17 : { (a2: { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }): { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }; (a2: any): any; }
@@ -204,6 +226,7 @@ module Errors {
     declare function foo17(a2: any): any;
 >foo17 : { (a2: { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }): { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     var r1 = foo2(<T, U>(x: T) => <U[]>null); // any
 >r1 : (x: number) => string[]
@@ -217,12 +240,14 @@ module Errors {
 ><U[]>null : U[]
 >U : U
 >null : null
+>类型别名 :=> 空值
 
     var r1a = [(x: number) => [''], <T, U>(x: T) => <U[]>null];
 >r1a : ((x: number) => string[])[]
 >[(x: number) => [''], <T, U>(x: T) => <U[]>null] : ((x: number) => string[])[]
 >(x: number) => [''] : (x: number) => string[]
 >x : number
+>类型别名 :=> 数字
 >[''] : string[]
 >'' : ""
 ><T, U>(x: T) => <U[]>null : <T, U>(x: T) => U[]
@@ -233,6 +258,7 @@ module Errors {
 ><U[]>null : U[]
 >U : U
 >null : null
+>类型别名 :=> 空值
 
     var r1b = [<T, U>(x: T) => <U[]>null, (x: number) => ['']];
 >r1b : ((x: number) => string[])[]
@@ -245,8 +271,10 @@ module Errors {
 ><U[]>null : U[]
 >U : U
 >null : null
+>类型别名 :=> 空值
 >(x: number) => [''] : (x: number) => string[]
 >x : number
+>类型别名 :=> 数字
 >[''] : string[]
 >'' : ""
 
@@ -269,6 +297,7 @@ module Errors {
 ><V>null : V
 >V : V
 >null : null
+>类型别名 :=> 空值
 
     var r2arg2 = (x: (arg: Base) => Derived) => (r: Base) => <Derived2>null;
 >r2arg2 : (x: (arg: Base) => Derived) => (r: Base) => Derived2
@@ -283,6 +312,7 @@ module Errors {
 ><Derived2>null : Derived2
 >Derived2 : Derived2
 >null : null
+>类型别名 :=> 空值
 
     var r2 = foo7(r2arg); // any
 >r2 : (x: (arg: Base) => Derived) => (r: Base) => Derived2
@@ -316,6 +346,7 @@ module Errors {
 >y : (arg2: { foo: number; }) => U
 >arg2 : { foo: number; }
 >foo : number
+>类型别名 :=> 数字
 >U : U
 >(r: T) => <U>null : (r: T) => U
 >r : T
@@ -323,6 +354,7 @@ module Errors {
 ><U>null : U
 >U : U
 >null : null
+>类型别名 :=> 空值
 
     var r3arg2 = (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => <Derived>null;
 >r3arg2 : (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
@@ -341,10 +373,13 @@ module Errors {
 ><Derived>null : Derived
 >Derived : Derived
 >null : null
+>类型别名 :=> 空值
 
     var r3 = foo8(r3arg); // any
 >r3 : any
+>类型别名 :=> 任意
 >foo8(r3arg) : any
+>类型别名 :=> 任意
 >foo8 : { (a2: (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived): (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived; (a2: any): any; }
 >r3arg : <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: number; }) => U) => (r: T) => U
 
@@ -370,6 +405,7 @@ module Errors {
 ><T>null : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     var r4arg2 = (...x: Base[]) => <Base>null;
 >r4arg2 : (...x: Base[]) => Base
@@ -379,6 +415,7 @@ module Errors {
 ><Base>null : Base
 >Base : Base
 >null : null
+>类型别名 :=> 空值
 
     var r4 = foo10(r4arg); // any
 >r4 : (...x: Base[]) => Base
@@ -410,18 +447,23 @@ module Errors {
 ><T>null : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     var r5arg2 = (x: { foo: string }, y: { foo: string; bar: string }) => <Base>null;
 >r5arg2 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 >(x: { foo: string }, y: { foo: string; bar: string }) => <Base>null : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 >x : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >y : { foo: string; bar: string; }
 >foo : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 ><Base>null : Base
 >Base : Base
 >null : null
+>类型别名 :=> 空值
 
     var r5 = foo11(r5arg); // any
 >r5 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
@@ -454,6 +496,7 @@ module Errors {
 >Array : T[]
 >Derived : Derived
 >null : null
+>类型别名 :=> 空值
 
     var r6arg2 = <T extends Array<Derived2>>(x: Array<Base>, y: Array<Base>) => <T>null;
 >r6arg2 : <T extends Derived2[]>(x: Base[], y: Base[]) => T
@@ -470,6 +513,7 @@ module Errors {
 ><T>null : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     var r6 = foo12(r6arg); // (x: Array<Base>, y: Array<Derived2>) => Array<Derived>
 >r6 : (x: Base[], y: Derived2[]) => Derived[]
@@ -501,18 +545,23 @@ module Errors {
 ><T>null : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     var r7arg2 = (x: { a: string; b: number }) => 1;
 >r7arg2 : (x: { a: string; b: number; }) => number
 >(x: { a: string; b: number }) => 1 : (x: { a: string; b: number; }) => number
 >x : { a: string; b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 
     var r7 = foo15(r7arg); // any
 >r7 : any
+>类型别名 :=> 任意
 >foo15(r7arg) : any
+>类型别名 :=> 任意
 >foo15 : { (a2: (x: { a: string; b: number; }) => number): (x: { a: string; b: number; }) => number; (a2: any): any; }
 >r7arg : <T>(x: { a: T; b: T; }) => T
 
@@ -542,7 +591,9 @@ module Errors {
 
     var r7c = foo15(r7arg3); // (x: { a: string; b: number }) => number): number;
 >r7c : any
+>类型别名 :=> 任意
 >foo15(r7arg3) : any
+>类型别名 :=> 任意
 >foo15 : { (a2: (x: { a: string; b: number; }) => number): (x: { a: string; b: number; }) => number; (a2: any): any; }
 >r7arg3 : <T extends Base>(x: { a: T; b: T; }) => number
 
@@ -569,10 +620,13 @@ module Errors {
 ><T[]>null : T[]
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     var r8 = foo16(r8arg); // any
 >r8 : any
+>类型别名 :=> 任意
 >foo16(r8arg) : any
+>类型别名 :=> 任意
 >foo16 : { (a2: { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }): { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }; (a2: any): any; }
 >r8arg : <T>(x: (a: T) => T) => T[]
 
@@ -586,6 +640,7 @@ module Errors {
 >T : T
 ><any[]>null : any[]
 >null : null
+>类型别名 :=> 空值
 
     var r9 = foo17(r9arg); // (x: { <T extends Derived >(a: T): T; <T extends Base >(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[];
 >r9 : { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }
@@ -609,6 +664,7 @@ module WithGenericSignaturesInBaseType {
     declare function foo2(a2: any): any;
 >foo2 : { (a2: <T>(x: T) => T[]): <T>(x: T) => T[]; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     var r2arg2 = <T>(x: T) => [''];
 >r2arg2 : <T>(x: T) => string[]
@@ -621,7 +677,9 @@ module WithGenericSignaturesInBaseType {
 
     var r2 = foo2(r2arg2); // <T>(x:T) => T[] since we can infer from generic signatures now
 >r2 : any
+>类型别名 :=> 任意
 >foo2(r2arg2) : any
+>类型别名 :=> 任意
 >foo2 : { (a2: <T>(x: T) => T[]): <T>(x: T) => T[]; (a2: any): any; }
 >r2arg2 : <T>(x: T) => string[]
 
@@ -636,6 +694,7 @@ module WithGenericSignaturesInBaseType {
     declare function foo3(a2: any): any;
 >foo3 : { (a2: <T>(x: T) => string[]): <T>(x: T) => string[]; (a2: any): any; }
 >a2 : any
+>类型别名 :=> 任意
 
     var r3arg2 = <T>(x: T) => <T[]>null;
 >r3arg2 : <T>(x: T) => T[]
@@ -646,10 +705,13 @@ module WithGenericSignaturesInBaseType {
 ><T[]>null : T[]
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     var r3 = foo3(r3arg2); // any
 >r3 : any
+>类型别名 :=> 任意
 >foo3(r3arg2) : any
+>类型别名 :=> 任意
 >foo3 : { (a2: <T>(x: T) => string[]): <T>(x: T) => string[]; (a2: any): any; }
 >r3arg2 : <T>(x: T) => T[]
 }

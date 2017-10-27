@@ -10,9 +10,11 @@ module NonGenericParameter {
 
         new(x: boolean): boolean;
 >x : boolean
+>类型别名 :=> 真假
 
         new(x: string): string;
 >x : string
+>类型别名 :=> 文字
     }
 
     function foo4(cb: typeof a) {
@@ -22,13 +24,17 @@ module NonGenericParameter {
 
         return new cb(null);
 >new cb(null) : boolean
+>类型别名 :=> 真假
 >cb : { new (x: boolean): boolean; new (x: string): string; }
 >null : null
+>类型别名 :=> 空值
     }
 
     var r = foo4(a);
 >r : boolean
+>类型别名 :=> 真假
 >foo4(a) : boolean
+>类型别名 :=> 真假
 >foo4 : (cb: { new (x: boolean): boolean; new (x: string): string; }) => boolean
 >a : { new (x: boolean): boolean; new (x: string): string; }
 
@@ -41,7 +47,9 @@ module NonGenericParameter {
 
     var r2 = foo4(b);
 >r2 : boolean
+>类型别名 :=> 真假
 >foo4(b) : boolean
+>类型别名 :=> 真假
 >foo4 : (cb: { new (x: boolean): boolean; new (x: string): string; }) => boolean
 >b : new <T>(x: T) => T
 }
@@ -56,6 +64,7 @@ module GenericParameter {
 >x : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
         return cb;
@@ -67,9 +76,11 @@ module GenericParameter {
 
         new (x: boolean): string;
 >x : boolean
+>类型别名 :=> 真假
 
         new (x: number): boolean;
 >x : number
+>类型别名 :=> 数字
     }
     var r5 = foo5(a); // new{} => string; new(x:number) => {}
 >r5 : { new (x: boolean): string; new (x: number): boolean; }
@@ -84,6 +95,7 @@ module GenericParameter {
 >T : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
     var r7 = foo5(b); // new any => string; new(x:number) => any
@@ -150,6 +162,7 @@ module GenericParameter {
 >T : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
     var c2: { new <T>(x: T): string; new<T>(x: number): T; }
@@ -159,6 +172,7 @@ module GenericParameter {
 >T : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
     var r14 = foo7(1, c); // new any => string; new(x:any, y?:any) => string

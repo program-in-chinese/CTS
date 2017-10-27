@@ -1,40 +1,54 @@
 === tests/cases/conformance/jsdoc/a.ts ===
 var W: string;
 >W : string
+>类型别名 :=> 文字
 
 === tests/cases/conformance/jsdoc/b.js ===
 // @ts-check
 var W = /** @type {string} */(/** @type {*} */ (4));
 >W : string
+>类型别名 :=> 文字
 >(/** @type {*} */ (4)) : string
+>类型别名 :=> 文字
 >(4) : any
+>类型别名 :=> 任意
 >4 : 4
 
 var W = /** @type {string} */(4); // Error
 >W : string
+>类型别名 :=> 文字
 >(4) : string
+>类型别名 :=> 文字
 >4 : 4
 
 /** @type {*} */
 var a;
 >a : any
+>类型别名 :=> 任意
 
 /** @type {string} */
 var s;
 >s : string
+>类型别名 :=> 文字
 
 var a = /** @type {*} */("" + 4);
 >a : any
+>类型别名 :=> 任意
 >("" + 4) : any
+>类型别名 :=> 任意
 >"" + 4 : string
+>类型别名 :=> 文字
 >"" : ""
 >4 : 4
 
 var s = "" + /** @type {*} */(4);
 >s : string
+>类型别名 :=> 文字
 >"" + /** @type {*} */(4) : string
+>类型别名 :=> 文字
 >"" : ""
 >(4) : any
+>类型别名 :=> 任意
 >4 : 4
 
 class SomeBase {
@@ -44,8 +58,10 @@ class SomeBase {
         this.p = 42;
 >this.p = 42 : 42
 >this.p : number
+>类型别名 :=> 数字
 >this : this
 >p : number
+>类型别名 :=> 数字
 >42 : 42
     }
 }
@@ -56,13 +72,16 @@ class SomeDerived extends SomeBase {
     constructor() {
         super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof SomeBase
 
         this.x = 42;
 >this.x = 42 : 42
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
 >42 : 42
     }
 }
@@ -73,8 +92,10 @@ class SomeOther {
         this.q = 42;
 >this.q = 42 : 42
 >this.q : number
+>类型别名 :=> 数字
 >this : this
 >q : number
+>类型别名 :=> 数字
 >42 : 42
     }
 }
@@ -86,8 +107,11 @@ function SomeFakeClass() {
     this.p = "bar";
 >this.p = "bar" : "bar"
 >this.p : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >p : any
+>类型别名 :=> 任意
 >"bar" : "bar"
 }
 
@@ -195,16 +219,20 @@ var numOrStr;
 /** @type {string} */
 var str;
 >str : string
+>类型别名 :=> 文字
 
 if(/** @type {numOrStr is string} */(numOrStr === undefined)) { // Error
 >(numOrStr === undefined) : string | number
 >numOrStr === undefined : boolean
+>类型别名 :=> 真假
 >numOrStr : string | number
 >undefined : undefined
+>类型别名 :=> 未定
 
 	str = numOrStr; // Error, no narrowing occurred
 >str = numOrStr : string | number
 >str : string
+>类型别名 :=> 文字
 >numOrStr : string | number
 }
 

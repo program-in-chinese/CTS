@@ -11,18 +11,24 @@ module NonGeneric {
 
         static get x() { return 1; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
         static set x(v) { }
 >x : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 
         constructor(public a: number, private b: number) { }
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
         static foo: string; // not reflected in class type
 >foo : string
+>类型别名 :=> 文字
     }
 
     module C {
@@ -30,6 +36,7 @@ module NonGeneric {
 
         export var bar = ''; // not reflected in class type
 >bar : string
+>类型别名 :=> 文字
 >'' : ""
     }
 
@@ -49,21 +56,30 @@ module NonGeneric {
 
     var r4 = c.foo; // error
 >r4 : any
+>类型别名 :=> 任意
 >c.foo : any
+>类型别名 :=> 任意
 >c : C
 >foo : any
+>类型别名 :=> 任意
 
     var r5 = c.bar; // error
 >r5 : any
+>类型别名 :=> 任意
 >c.bar : any
+>类型别名 :=> 任意
 >c : C
 >bar : any
+>类型别名 :=> 任意
 
     var r6 = c.x; // error
 >r6 : any
+>类型别名 :=> 任意
 >c.x : any
+>类型别名 :=> 任意
 >c : C
 >x : any
+>类型别名 :=> 任意
 }
 
 module Generic {
@@ -80,11 +96,14 @@ module Generic {
 
         static get x() { return 1; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
         static set x(v) { }
 >x : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 
         constructor(public a: T, private b: U) { }
 >a : T
@@ -94,6 +113,7 @@ module Generic {
 
         static foo: T; // not reflected in class type
 >foo : any
+>类型别名 :=> 任意
 >T : No type information available!
     }
 
@@ -102,6 +122,7 @@ module Generic {
 
         export var bar = ''; // not reflected in class type
 >bar : string
+>类型别名 :=> 文字
 >'' : ""
     }
 
@@ -121,19 +142,28 @@ module Generic {
 
     var r4 = c.foo; // error
 >r4 : any
+>类型别名 :=> 任意
 >c.foo : any
+>类型别名 :=> 任意
 >c : C<number, string>
 >foo : any
+>类型别名 :=> 任意
 
     var r5 = c.bar; // error
 >r5 : any
+>类型别名 :=> 任意
 >c.bar : any
+>类型别名 :=> 任意
 >c : C<number, string>
 >bar : any
+>类型别名 :=> 任意
 
     var r6 = c.x; // error
 >r6 : any
+>类型别名 :=> 任意
 >c.x : any
+>类型别名 :=> 任意
 >c : C<number, string>
 >x : any
+>类型别名 :=> 任意
 }

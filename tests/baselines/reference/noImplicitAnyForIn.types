@@ -11,26 +11,34 @@ var x: {}[] = [[1, 2, 3], ["hello"]];
 
 for (var i in x) {
 >i : string
+>类型别名 :=> 文字
 >x : {}[]
 
     for (var j in x[i]) {
 >j : string
+>类型别名 :=> 文字
 >x[i] : {}
 >x : {}[]
 >i : string
+>类型别名 :=> 文字
 
         //Should yield an implicit 'any' error
         var _j = x[i][j];
 >_j : any
+>类型别名 :=> 任意
 >x[i][j] : any
+>类型别名 :=> 任意
 >x[i] : {}
 >x : {}[]
 >i : string
+>类型别名 :=> 文字
 >j : string
+>类型别名 :=> 文字
     }
 
     for (var k in x[0]) {
 >k : string
+>类型别名 :=> 文字
 >x[0] : {}
 >x : {}[]
 >0 : 0
@@ -44,29 +52,39 @@ for (var i in x) {
         //Should yield an implicit 'any' error
         var k2 = k1[k];
 >k2 : any
+>类型别名 :=> 任意
 >k1[k] : any
+>类型别名 :=> 任意
 >k1 : {}
 >k : string
+>类型别名 :=> 文字
     }
 }
 
 for (var a in x) {
 >a : string
+>类型别名 :=> 文字
 >x : {}[]
 
     // Should yield an implicit 'any' error.
     var b;
 >b : any
+>类型别名 :=> 任意
 
     var c = a || b;
 >c : string
+>类型别名 :=> 文字
 >a || b : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 >b : undefined
+>类型别名 :=> 未定
 }
 
 var idx = 0;
 >idx : number
+>类型别名 :=> 数字
 >0 : 0
 
 var m = [1, 2, 3, 4, 5];
@@ -90,6 +108,8 @@ for (n[idx++] in m);
 >n[idx++] : any[]
 >n : any[][]
 >idx++ : number
+>类型别名 :=> 数字
 >idx : number
+>类型别名 :=> 数字
 >m : number[]
 

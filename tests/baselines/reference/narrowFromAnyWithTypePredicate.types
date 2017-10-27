@@ -1,127 +1,175 @@
 === tests/cases/conformance/types/any/narrowFromAnyWithTypePredicate.ts ===
 declare var x: any;
 >x : any
+>类型别名 :=> 任意
 
 declare function isFunction(x): x is Function;
 >isFunction : (x: any) => x is Function
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >Function : Function
 
 declare function isObject(x): x is Object;
 >isObject : (x: any) => x is Object
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >Object : Object
 
 declare function isAnything(x): x is {};
 >isAnything : (x: any) => x is {}
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 declare function isError(x): x is Error;
 >isError : (x: any) => x is Error
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >Error : Error
 
 declare function isDate(x): x is Date;
 >isDate : (x: any) => x is Date
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >Date : Date
 
 
 if (isFunction(x)) { // 'any' is not narrowed when target type is 'Function'
 >isFunction(x) : boolean
+>类型别名 :=> 真假
 >isFunction : (x: any) => x is Function
 >x : any
+>类型别名 :=> 任意
 
     x();
 >x() : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
     x(1, 2, 3);
 >x(1, 2, 3) : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 >2 : 2
 >3 : 3
 
     x("hello!");
 >x("hello!") : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >"hello!" : "hello!"
 
     x.prop;
 >x.prop : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >prop : any
+>类型别名 :=> 任意
 }
 
 if (isObject(x)) { // 'any' is not narrowed when target type is 'Object'
 >isObject(x) : boolean
+>类型别名 :=> 真假
 >isObject : (x: any) => x is Object
 >x : any
+>类型别名 :=> 任意
 
     x.method();
 >x.method() : any
+>类型别名 :=> 任意
 >x.method : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >method : any
+>类型别名 :=> 任意
 
     x();
 >x() : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 }
 
 if (isAnything(x)) { // 'any' is narrowed to types other than 'Function'/'Object' (including {})
 >isAnything(x) : boolean
+>类型别名 :=> 真假
 >isAnything : (x: any) => x is {}
 >x : any
+>类型别名 :=> 任意
 
     x.method();
 >x.method() : any
+>类型别名 :=> 任意
 >x.method : any
+>类型别名 :=> 任意
 >x : {}
 >method : any
+>类型别名 :=> 任意
 
     x();
 >x() : any
+>类型别名 :=> 任意
 >x : {}
 }
 
 if (isError(x)) { 
 >isError(x) : boolean
+>类型别名 :=> 真假
 >isError : (x: any) => x is Error
 >x : any
+>类型别名 :=> 任意
 
     x.message;
 >x.message : string
+>类型别名 :=> 文字
 >x : Error
 >message : string
+>类型别名 :=> 文字
 
     x.mesage;
 >x.mesage : any
+>类型别名 :=> 任意
 >x : Error
 >mesage : any
+>类型别名 :=> 任意
 }
 
 if (isDate(x)) {
 >isDate(x) : boolean
+>类型别名 :=> 真假
 >isDate : (x: any) => x is Date
 >x : any
+>类型别名 :=> 任意
 
     x.getDate();
 >x.getDate() : number
+>类型别名 :=> 数字
 >x.getDate : () => number
 >x : Date
 >getDate : () => number
 
     x.getHuors();
 >x.getHuors() : any
+>类型别名 :=> 任意
 >x.getHuors : any
+>类型别名 :=> 任意
 >x : Date
 >getHuors : any
+>类型别名 :=> 任意
 }
 

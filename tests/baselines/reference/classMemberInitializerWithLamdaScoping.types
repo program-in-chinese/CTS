@@ -5,6 +5,7 @@ declare var console: {
     log(msg?: any): void;
 >log : (msg?: any) => void
 >msg : any
+>类型别名 :=> 任意
 
 };
 class Test {
@@ -12,6 +13,7 @@ class Test {
 
     constructor(private field: string) {
 >field : string
+>类型别名 :=> 文字
     }
     messageHandler = () => {
 >messageHandler : () => void
@@ -19,20 +21,26 @@ class Test {
 
         var field = this.field;
 >field : string
+>类型别名 :=> 文字
 >this.field : string
+>类型别名 :=> 文字
 >this : this
 >field : string
+>类型别名 :=> 文字
 
         console.log(field); // Using field here shouldnt be error
 >console.log(field) : void
+>类型别名 :=> 无值
 >console.log : (msg?: any) => void
 >console : { log(msg?: any): void; }
 >log : (msg?: any) => void
 >field : string
+>类型别名 :=> 文字
 
     };
     static field: number;
 >field : number
+>类型别名 :=> 数字
 
     static staticMessageHandler = () => {
 >staticMessageHandler : () => void
@@ -40,28 +48,35 @@ class Test {
 
         var field = Test.field;
 >field : number
+>类型别名 :=> 数字
 >Test.field : number
+>类型别名 :=> 数字
 >Test : typeof Test
 >field : number
+>类型别名 :=> 数字
 
         console.log(field); // Using field here shouldnt be error
 >console.log(field) : void
+>类型别名 :=> 无值
 >console.log : (msg?: any) => void
 >console : { log(msg?: any): void; }
 >log : (msg?: any) => void
 >field : number
+>类型别名 :=> 数字
 
     };
 }
 
 var field1: string;
 >field1 : string
+>类型别名 :=> 文字
 
 class Test1 {
 >Test1 : Test1
 
     constructor(private field1: string) {
 >field1 : string
+>类型别名 :=> 文字
     }
     messageHandler = () => {
 >messageHandler : () => void
@@ -69,10 +84,12 @@ class Test1 {
 
         console.log(field1); // But this should be error as the field1 will resolve to var field1 
 >console.log(field1) : void
+>类型别名 :=> 无值
 >console.log : (msg?: any) => void
 >console : { log(msg?: any): void; }
 >log : (msg?: any) => void
 >field1 : any
+>类型别名 :=> 任意
 
                              // but since this code would be generated inside constructor, in generated js
                              // it would resolve to private field1 and thats not what user intended here. 
@@ -83,10 +100,12 @@ class Test1 {
 
         console.log(field1); // This shouldnt be error as its a static property
 >console.log(field1) : void
+>类型别名 :=> 无值
 >console.log : (msg?: any) => void
 >console : { log(msg?: any): void; }
 >log : (msg?: any) => void
 >field1 : string
+>类型别名 :=> 文字
 
     };
 }

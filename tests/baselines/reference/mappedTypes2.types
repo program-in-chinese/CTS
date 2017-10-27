@@ -155,9 +155,11 @@ interface Point {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     y: number;
 >y : number
+>类型别名 :=> 数字
 }
 
 interface Shape {
@@ -165,12 +167,15 @@ interface Shape {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 
     width: number;
 >width : number
+>类型别名 :=> 数字
 
     height: number;
 >height : number
+>类型别名 :=> 数字
 
     location: Point;
 >location : Point
@@ -199,12 +204,15 @@ interface ReadonlyShape {
 
     readonly name: string;
 >name : string
+>类型别名 :=> 文字
 
     readonly width: number;
 >width : number
+>类型别名 :=> 数字
 
     readonly height: number;
 >height : number
+>类型别名 :=> 数字
 
     readonly location: Point;
 >location : Point
@@ -220,20 +228,25 @@ function f0(s1: Shape, s2: Shape) {
 
     assign(s1, { name: "circle" });
 >assign(s1, { name: "circle" }) : void
+>类型别名 :=> 无值
 >assign : <T>(obj: T, props: Partial<T>) => void
 >s1 : Shape
 >{ name: "circle" } : { name: string; }
 >name : string
+>类型别名 :=> 文字
 >"circle" : "circle"
 
     assign(s2, { width: 10, height: 20 });
 >assign(s2, { width: 10, height: 20 }) : void
+>类型别名 :=> 无值
 >assign : <T>(obj: T, props: Partial<T>) => void
 >s2 : Shape
 >{ width: 10, height: 20 } : { width: number; height: number; }
 >width : number
+>类型别名 :=> 数字
 >10 : 10
 >height : number
+>类型别名 :=> 数字
 >20 : 20
 }
 
@@ -300,10 +313,13 @@ function f4() {
 >rec : { foo: string; bar: string; baz: string; }
 >{ foo: "hello", bar: "world", baz: "bye" } : { foo: string; bar: string; baz: string; }
 >foo : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 >bar : string
+>类型别名 :=> 文字
 >"world" : "world"
 >baz : string
+>类型别名 :=> 文字
 >"bye" : "bye"
 
     const lengths = mapObject(rec, s => s.length);  // { foo: number, bar: number, baz: number }
@@ -313,9 +329,13 @@ function f4() {
 >rec : { foo: string; bar: string; baz: string; }
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 }
 
 function f5(shape: Shape) {
@@ -331,7 +351,9 @@ function f5(shape: Shape) {
 
     let name = p.name.get();
 >name : string
+>类型别名 :=> 文字
 >p.name.get() : string
+>类型别名 :=> 文字
 >p.name.get : () => string
 >p.name : Proxy<string>
 >p : Proxify<Shape>
@@ -340,6 +362,7 @@ function f5(shape: Shape) {
 
     p.width.set(42);
 >p.width.set(42) : void
+>类型别名 :=> 无值
 >p.width.set : (value: number) => void
 >p.width : Proxy<number>
 >p : Proxify<Shape>
@@ -356,9 +379,12 @@ function f6(shape: DeepReadonly<Shape>) {
 
     let name = shape.name;  // string
 >name : string
+>类型别名 :=> 文字
 >shape.name : string
+>类型别名 :=> 文字
 >shape : DeepReadonly<Shape>
 >name : string
+>类型别名 :=> 文字
 
     let location = shape.location;  // DeepReadonly<Point>
 >location : DeepReadonly<Point>
@@ -368,7 +394,10 @@ function f6(shape: DeepReadonly<Shape>) {
 
     let x = location.x;  // number
 >x : number
+>类型别名 :=> 数字
 >location.x : number
+>类型别名 :=> 数字
 >location : DeepReadonly<Point>
 >x : number
+>类型别名 :=> 数字
 }

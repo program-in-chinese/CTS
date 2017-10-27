@@ -1,61 +1,78 @@
 === tests/cases/compiler/withExportDecl.ts ===
 var simpleVar;
 >simpleVar : any
+>类型别名 :=> 任意
 
 export var exportedSimpleVar;
 >exportedSimpleVar : any
+>类型别名 :=> 任意
 
 var anotherVar: any;
 >anotherVar : any
+>类型别名 :=> 任意
 
 var varWithSimpleType: number;
 >varWithSimpleType : number
+>类型别名 :=> 数字
 
 var varWithArrayType: number[];
 >varWithArrayType : number[]
 
 var varWithInitialValue = 30;
 >varWithInitialValue : number
+>类型别名 :=> 数字
 >30 : 30
 
 export var exportedVarWithInitialValue = 70;
 >exportedVarWithInitialValue : number
+>类型别名 :=> 数字
 >70 : 70
 
 var withComplicatedValue = { x: 30, y: 70, desc: "position" };
 >withComplicatedValue : { x: number; y: number; desc: string; }
 >{ x: 30, y: 70, desc: "position" } : { x: number; y: number; desc: string; }
 >x : number
+>类型别名 :=> 数字
 >30 : 30
 >y : number
+>类型别名 :=> 数字
 >70 : 70
 >desc : string
+>类型别名 :=> 文字
 >"position" : "position"
 
 export var exportedWithComplicatedValue = { x: 30, y: 70, desc: "position" };
 >exportedWithComplicatedValue : { x: number; y: number; desc: string; }
 >{ x: 30, y: 70, desc: "position" } : { x: number; y: number; desc: string; }
 >x : number
+>类型别名 :=> 数字
 >30 : 30
 >y : number
+>类型别名 :=> 数字
 >70 : 70
 >desc : string
+>类型别名 :=> 文字
 >"position" : "position"
 
 declare var declaredVar;
 >declaredVar : any
+>类型别名 :=> 任意
 
 declare var declareVar2
 >declareVar2 : any
+>类型别名 :=> 任意
 
 declare var declaredVar;
 >declaredVar : any
+>类型别名 :=> 任意
 
 declare var deckareVarWithType: number;
 >deckareVarWithType : number
+>类型别名 :=> 数字
 
 export declare var exportedDeclaredVar: number;
 >exportedDeclaredVar : number
+>类型别名 :=> 数字
 
 var arrayVar: string[] = ['a', 'b'];
 >arrayVar : string[]
@@ -66,17 +83,22 @@ var arrayVar: string[] = ['a', 'b'];
 export var exportedArrayVar: { x: number; y: string; }[] ;
 >exportedArrayVar : { x: number; y: string; }[]
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
 exportedArrayVar.push({ x: 30, y : 'hello world' });
 >exportedArrayVar.push({ x: 30, y : 'hello world' }) : number
+>类型别名 :=> 数字
 >exportedArrayVar.push : (...items: { x: number; y: string; }[]) => number
 >exportedArrayVar : { x: number; y: string; }[]
 >push : (...items: { x: number; y: string; }[]) => number
 >{ x: 30, y : 'hello world' } : { x: number; y: string; }
 >x : number
+>类型别名 :=> 数字
 >30 : 30
 >y : string
+>类型别名 :=> 文字
 >'hello world' : "hello world"
 
 function simpleFunction() {
@@ -87,14 +109,17 @@ function simpleFunction() {
 
         x: "Hello",
 >x : string
+>类型别名 :=> 文字
 >"Hello" : "Hello"
 
         y: "word",
 >y : string
+>类型别名 :=> 文字
 >"word" : "word"
 
         n: 2
 >n : number
+>类型别名 :=> 数字
 >2 : 2
 
     };
@@ -123,6 +148,7 @@ export declare module m2 {
 
     export var a: number;
 >a : number
+>类型别名 :=> 数字
 }
 
 
@@ -134,6 +160,7 @@ export module m3 {
 
         return m1.foo();
 >m1.foo() : string
+>类型别名 :=> 文字
 >m1.foo : () => string
 >m1 : typeof m1
 >foo : () => string
@@ -142,15 +169,21 @@ export module m3 {
 
 export var eVar1, eVar2 = 10;
 >eVar1 : any
+>类型别名 :=> 任意
 >eVar2 : number
+>类型别名 :=> 数字
 >10 : 10
 
 var eVar22;
 >eVar22 : any
+>类型别名 :=> 任意
 
 export var eVar3 = 10, eVar4, eVar5;
 >eVar3 : number
+>类型别名 :=> 数字
 >10 : 10
 >eVar4 : any
+>类型别名 :=> 任意
 >eVar5 : any
+>类型别名 :=> 任意
 

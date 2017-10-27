@@ -1,10 +1,12 @@
 === tests/cases/compiler/exportImportNonInstantiatedModule.ts ===
 module A {
 >A : any
+>类型别名 :=> 任意
 
     export interface I { x: number }
 >I : I
 >x : number
+>类型别名 :=> 数字
 }
 
 module B {
@@ -12,16 +14,21 @@ module B {
 
     export import A1 = A
 >A1 : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
     
 }
 
 var x: B.A1.I = { x: 1 };
 >x : A.I
 >B : any
+>类型别名 :=> 任意
 >A1 : any
+>类型别名 :=> 任意
 >I : A.I
 >{ x: 1 } : { x: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 

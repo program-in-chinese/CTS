@@ -1,6 +1,7 @@
 === tests/cases/conformance/async/es6/asyncAwaitIsolatedModules_es6.ts ===
 import { MyPromise } from "missing";
 >MyPromise : any
+>类型别名 :=> 任意
 
 declare var p: Promise<number>;
 >p : Promise<number>
@@ -8,7 +9,9 @@ declare var p: Promise<number>;
 
 declare var mp: MyPromise<number>;
 >mp : any
+>类型别名 :=> 任意
 >MyPromise : any
+>类型别名 :=> 任意
 
 async function f0() { }
 >f0 : () => Promise<void>
@@ -20,6 +23,7 @@ async function f1(): Promise<void> { }
 async function f3(): MyPromise<void> { }
 >f3 : () => any
 >MyPromise : any
+>类型别名 :=> 任意
 
 let f4 = async function() { }
 >f4 : () => Promise<void>
@@ -34,6 +38,7 @@ let f6 = async function(): MyPromise<void> { }
 >f6 : () => any
 >async function(): MyPromise<void> { } : () => any
 >MyPromise : any
+>类型别名 :=> 任意
 
 let f7 = async () => { };
 >f7 : () => Promise<void>
@@ -48,6 +53,7 @@ let f9 = async (): MyPromise<void> => { };
 >f9 : () => any
 >async (): MyPromise<void> => { } : () => any
 >MyPromise : any
+>类型别名 :=> 任意
 
 let f10 = async () => p;
 >f10 : () => Promise<number>
@@ -58,17 +64,20 @@ let f11 = async () => mp;
 >f11 : () => Promise<any>
 >async () => mp : () => Promise<any>
 >mp : any
+>类型别名 :=> 任意
 
 let f12 = async (): Promise<number> => mp;
 >f12 : () => Promise<number>
 >async (): Promise<number> => mp : () => Promise<number>
 >Promise : Promise<T>
 >mp : any
+>类型别名 :=> 任意
 
 let f13 = async (): MyPromise<number> => p;
 >f13 : () => any
 >async (): MyPromise<number> => p : () => any
 >MyPromise : any
+>类型别名 :=> 任意
 >p : Promise<number>
 
 let o = {
@@ -85,6 +94,7 @@ let o = {
 	async m3(): MyPromise<void> { }
 >m3 : () => any
 >MyPromise : any
+>类型别名 :=> 任意
 
 };
 
@@ -101,6 +111,7 @@ class C {
 	async m3(): MyPromise<void> { }
 >m3 : () => any
 >MyPromise : any
+>类型别名 :=> 任意
 
 	static async m4() { }
 >m4 : () => Promise<void>
@@ -112,6 +123,7 @@ class C {
 	static async m6(): MyPromise<void> { }
 >m6 : () => any
 >MyPromise : any
+>类型别名 :=> 任意
 }
 
 module M {

@@ -3,8 +3,10 @@ var o = { a: 1, b: 'no' }
 >o : { a: number; b: string; }
 >{ a: 1, b: 'no' } : { a: number; b: string; }
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 >b : string
+>类型别名 :=> 文字
 >'no' : "no"
 
 var { ...clone } = o;
@@ -13,31 +15,40 @@ var { ...clone } = o;
 
 var { a, ...justB } = o;
 >a : number
+>类型别名 :=> 数字
 >justB : { b: string; }
 >o : { a: number; b: string; }
 
 var { a, b: renamed, ...empty } = o;
 >a : number
+>类型别名 :=> 数字
 >b : any
+>类型别名 :=> 任意
 >renamed : string
+>类型别名 :=> 文字
 >empty : {}
 >o : { a: number; b: string; }
 
 var { ['b']: renamed, ...justA } = o;
 >'b' : "b"
 >renamed : string
+>类型别名 :=> 文字
 >justA : { a: number; }
 >o : { a: number; b: string; }
 
 var { 'b': renamed, ...justA } = o;
 >renamed : string
+>类型别名 :=> 文字
 >justA : { a: number; }
 >o : { a: number; b: string; }
 
 var { b: { '0': n, '1': oooo }, ...justA } = o;
 >b : any
+>类型别名 :=> 任意
 >n : string
+>类型别名 :=> 文字
 >oooo : string
+>类型别名 :=> 文字
 >justA : { a: number; }
 >o : { a: number; b: string; }
 
@@ -45,35 +56,51 @@ let o2 = { c: 'terrible idea?', d: 'yes' };
 >o2 : { c: string; d: string; }
 >{ c: 'terrible idea?', d: 'yes' } : { c: string; d: string; }
 >c : string
+>类型别名 :=> 文字
 >'terrible idea?' : "terrible idea?"
 >d : string
+>类型别名 :=> 文字
 >'yes' : "yes"
 
 var { d: renamed, ...d } = o2;
 >d : any
+>类型别名 :=> 任意
 >renamed : string
+>类型别名 :=> 文字
 >d : { c: string; }
 >o2 : { c: string; d: string; }
 
 let nestedrest: { x: number, n1: { y: number, n2: { z: number, n3: { n4: number } } }, rest: number, restrest: number };
 >nestedrest : { x: number; n1: { y: number; n2: { z: number; n3: { n4: number; }; }; }; rest: number; restrest: number; }
 >x : number
+>类型别名 :=> 数字
 >n1 : { y: number; n2: { z: number; n3: { n4: number; }; }; }
 >y : number
+>类型别名 :=> 数字
 >n2 : { z: number; n3: { n4: number; }; }
 >z : number
+>类型别名 :=> 数字
 >n3 : { n4: number; }
 >n4 : number
+>类型别名 :=> 数字
 >rest : number
+>类型别名 :=> 数字
 >restrest : number
+>类型别名 :=> 数字
 
 var { x, n1: { y, n2: { z, n3: { ...nr } } }, ...restrest } = nestedrest;
 >x : number
+>类型别名 :=> 数字
 >n1 : any
+>类型别名 :=> 任意
 >y : number
+>类型别名 :=> 数字
 >n2 : any
+>类型别名 :=> 任意
 >z : number
+>类型别名 :=> 数字
 >n3 : any
+>类型别名 :=> 任意
 >nr : { n4: number; }
 >restrest : { rest: number; restrest: number; }
 >nestedrest : { x: number; n1: { y: number; n2: { z: number; n3: { n4: number; }; }; }; rest: number; restrest: number; }
@@ -82,15 +109,22 @@ let complex: { x: { ka, ki }, y: number };
 >complex : { x: { ka: any; ki: any; }; y: number; }
 >x : { ka: any; ki: any; }
 >ka : any
+>类型别名 :=> 任意
 >ki : any
+>类型别名 :=> 任意
 >y : number
+>类型别名 :=> 数字
 
 var { x: { ka, ...nested }, y: other, ...rest } = complex;
 >x : any
+>类型别名 :=> 任意
 >ka : any
+>类型别名 :=> 任意
 >nested : { ki: any; }
 >y : any
+>类型别名 :=> 任意
 >other : number
+>类型别名 :=> 数字
 >rest : {}
 >complex : { x: { ka: any; ki: any; }; y: number; }
 
@@ -101,19 +135,25 @@ var { x: { ka, ...nested }, y: other, ...rest } = complex;
 >x : { ki: any; ka: any; }
 >{ ka, ...nested } : { ki: any; ka: any; }
 >ka : any
+>类型别名 :=> 任意
 >nested : { ki: any; }
 >y : number
+>类型别名 :=> 数字
 >other : number
+>类型别名 :=> 数字
 >rest : {}
 >complex : { x: { ka: any; ki: any; }; y: number; }
 
 var { x, ...fresh } = { x: 1, y: 2 };
 >x : number
+>类型别名 :=> 数字
 >fresh : { y: number; }
 >{ x: 1, y: 2 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 ({ x, ...fresh } = { x: 1, y: 2 });
@@ -121,11 +161,14 @@ var { x, ...fresh } = { x: 1, y: 2 };
 >{ x, ...fresh } = { x: 1, y: 2 } : { x: number; y: number; }
 >{ x, ...fresh } : { y: number; x: number; }
 >x : number
+>类型别名 :=> 数字
 >fresh : { y: number; }
 >{ x: 1, y: 2 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 class Removable {
@@ -133,30 +176,39 @@ class Removable {
 
     private x: number;
 >x : number
+>类型别名 :=> 数字
 
     protected y: number;
 >y : number
+>类型别名 :=> 数字
 
     set z(value: number) { }
 >z : number
+>类型别名 :=> 数字
 >value : number
+>类型别名 :=> 数字
 
     get both(): number { return 12 }
 >both : number
+>类型别名 :=> 数字
 >12 : 12
 
     set both(value: number) { }
 >both : number
+>类型别名 :=> 数字
 >value : number
+>类型别名 :=> 数字
 
     m() { }
 >m : () => void
 
     removed: string;
 >removed : string
+>类型别名 :=> 文字
 
     remainder: string;
 >remainder : string
+>类型别名 :=> 文字
 }
 interface I {
 >I : I
@@ -166,9 +218,11 @@ interface I {
 
     removed: string;
 >removed : string
+>类型别名 :=> 文字
 
     remainder: string;
 >remainder : string
+>类型别名 :=> 文字
 }
 var removable = new Removable();
 >removable : Removable
@@ -177,6 +231,7 @@ var removable = new Removable();
 
 var { removed, ...removableRest } = removable;
 >removed : string
+>类型别名 :=> 文字
 >removableRest : { both: number; remainder: string; }
 >removable : Removable
 
@@ -187,22 +242,29 @@ var i: I = removable;
 
 var { removed, ...removableRest2 } = i;
 >removed : string
+>类型别名 :=> 文字
 >removableRest2 : { m(): void; remainder: string; }
 >i : I
 
 let computed = 'b';
 >computed : string
+>类型别名 :=> 文字
 >'b' : "b"
 
 let computed2 = 'a';
 >computed2 : string
+>类型别名 :=> 文字
 >'a' : "a"
 
 var { [computed]: stillNotGreat, [computed2]: soSo,  ...o } = o;
 >computed : string
+>类型别名 :=> 文字
 >stillNotGreat : any
+>类型别名 :=> 任意
 >computed2 : string
+>类型别名 :=> 文字
 >soSo : any
+>类型别名 :=> 任意
 >o : { a: number; b: string; }
 >o : { a: number; b: string; }
 
@@ -211,9 +273,13 @@ var { [computed]: stillNotGreat, [computed2]: soSo,  ...o } = o;
 >{ [computed]: stillNotGreat, [computed2]: soSo, ...o } = o : { a: number; b: string; }
 >{ [computed]: stillNotGreat, [computed2]: soSo, ...o } : { a: number; b: string; }
 >computed : string
+>类型别名 :=> 文字
 >stillNotGreat : any
+>类型别名 :=> 任意
 >computed2 : string
+>类型别名 :=> 文字
 >soSo : any
+>类型别名 :=> 任意
 >o : { a: number; b: string; }
 >o : { a: number; b: string; }
 
@@ -221,11 +287,16 @@ var noContextualType = ({ aNumber = 12, ...notEmptyObject }) => aNumber + notEmp
 >noContextualType : ({ aNumber, ...notEmptyObject }: { [x: string]: any; aNumber?: number; }) => any
 >({ aNumber = 12, ...notEmptyObject }) => aNumber + notEmptyObject.anythingGoes : ({ aNumber, ...notEmptyObject }: { [x: string]: any; aNumber?: number; }) => any
 >aNumber : number
+>类型别名 :=> 数字
 >12 : 12
 >notEmptyObject : { [x: string]: any; }
 >aNumber + notEmptyObject.anythingGoes : any
+>类型别名 :=> 任意
 >aNumber : number
+>类型别名 :=> 数字
 >notEmptyObject.anythingGoes : any
+>类型别名 :=> 任意
 >notEmptyObject : { [x: string]: any; }
 >anythingGoes : any
+>类型别名 :=> 任意
 

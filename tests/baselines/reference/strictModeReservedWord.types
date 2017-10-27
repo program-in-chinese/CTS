@@ -1,6 +1,7 @@
 === tests/cases/compiler/strictModeReservedWord.ts ===
 let let = 10;
 >let : number
+>类型别名 :=> 数字
 >10 : 10
 
 function foo() {
@@ -11,18 +12,22 @@ function foo() {
 
     var public = 10;
 >public : number
+>类型别名 :=> 数字
 >10 : 10
 
     var static = "hi";
 >static : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 
     let let = "blah";
 >let : string
+>类型别名 :=> 文字
 >"blah" : "blah"
 
     var package = "hello"
 >package : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
     function package() { }
@@ -31,8 +36,11 @@ function foo() {
     function bar(private, implements, let) { }
 >bar : (private: any, implements: any, let: any) => void
 >private : any
+>类型别名 :=> 任意
 >implements : any
+>类型别名 :=> 任意
 >let : any
+>类型别名 :=> 任意
 
     function baz<implements, protected>() { }
 >baz : <implements, protected>() => void
@@ -43,62 +51,88 @@ function foo() {
 >barn : (cb: (private: any, public: any, package: any) => void) => void
 >cb : (private: any, public: any, package: any) => void
 >private : any
+>类型别名 :=> 任意
 >public : any
+>类型别名 :=> 任意
 >package : any
+>类型别名 :=> 任意
 
     barn((private, public, package) => { });
 >barn((private, public, package) => { }) : void
+>类型别名 :=> 无值
 >barn : (cb: (private: any, public: any, package: any) => void) => void
 >(private, public, package) => { } : (private: any, public: any, package: any) => void
 >private : any
+>类型别名 :=> 任意
 >public : any
+>类型别名 :=> 任意
 >package : any
+>类型别名 :=> 任意
 
     var myClass = class package extends public {}
 >myClass : typeof package
 >class package extends public {} : typeof package
 >package : typeof package
 >public : number
+>类型别名 :=> 数字
 
     var b: public.bar;
 >b : any
+>类型别名 :=> 任意
 >public : any
+>类型别名 :=> 任意
 >bar : No type information available!
 
     function foo(x: private.x) { }
 >foo : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 >private : any
+>类型别名 :=> 任意
 >x : No type information available!
 
     function foo1(x: private.package.x) { }
 >foo1 : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 >private : any
+>类型别名 :=> 任意
 >package : any
+>类型别名 :=> 任意
 >x : No type information available!
 
     function foo2(x: private.package.protected) { }
 >foo2 : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 >private : any
+>类型别名 :=> 任意
 >package : any
+>类型别名 :=> 任意
 >protected : No type information available!
 
     let b: interface.package.implements.B;
 >b : any
+>类型别名 :=> 任意
 >interface : any
+>类型别名 :=> 任意
 >package : any
+>类型别名 :=> 任意
 >implements : any
+>类型别名 :=> 任意
 >B : No type information available!
 
     ublic();
 >ublic() : any
+>类型别名 :=> 任意
 >ublic : any
+>类型别名 :=> 任意
 
     static();
 >static() : any
+>类型别名 :=> 任意
 >static : string
+>类型别名 :=> 文字
 }
 
 

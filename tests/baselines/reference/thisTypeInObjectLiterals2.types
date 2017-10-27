@@ -8,6 +8,7 @@ let obj1 = {
 
     a: 1,
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 
     f() {
@@ -15,12 +16,15 @@ let obj1 = {
 
         return this.a;
 >this.a : number
+>类型别名 :=> 数字
 >this : { a: number; f(): number; b: string; c: { g(): void; }; readonly d: number; e: string; }
 >a : number
+>类型别名 :=> 数字
 
     },
     b: "hello",
 >b : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
     c: {
@@ -32,6 +36,7 @@ let obj1 = {
 
             this.g();
 >this.g() : void
+>类型别名 :=> 无值
 >this.g : () => void
 >this : { g(): void; }
 >g : () => void
@@ -39,32 +44,44 @@ let obj1 = {
     },
     get d() {
 >d : number
+>类型别名 :=> 数字
 
         return this.a;
 >this.a : number
+>类型别名 :=> 数字
 >this : { a: number; f(): number; b: string; c: { g(): void; }; readonly d: number; e: string; }
 >a : number
+>类型别名 :=> 数字
 
     },
     get e() {
 >e : string
+>类型别名 :=> 文字
 
         return this.b;
 >this.b : string
+>类型别名 :=> 文字
 >this : { a: number; f(): number; b: string; c: { g(): void; }; readonly d: number; e: string; }
 >b : string
+>类型别名 :=> 文字
 
     },
     set e(value) {
 >e : string
+>类型别名 :=> 文字
 >value : string
+>类型别名 :=> 文字
 
         this.b = value;
 >this.b = value : string
+>类型别名 :=> 文字
 >this.b : string
+>类型别名 :=> 文字
 >this : { a: number; f(): number; b: string; c: { g(): void; }; readonly d: number; e: string; }
 >b : string
+>类型别名 :=> 文字
 >value : string
+>类型别名 :=> 文字
     }
 };
 
@@ -76,9 +93,11 @@ type Point = {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     y: number;
 >y : number
+>类型别名 :=> 数字
 
     z?: number;
 >z : number | undefined
@@ -86,7 +105,9 @@ type Point = {
     moveBy(dx: number, dy: number, dz?: number): void;
 >moveBy : (dx: number, dy: number, dz?: number | undefined) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >dz : number | undefined
 }
 
@@ -97,31 +118,43 @@ let p1: Point = {
 
     x: 10,
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
     y: 20,
 >y : number
+>类型别名 :=> 数字
 >20 : 20
 
     moveBy(dx, dy, dz) {
 >moveBy : (dx: number, dy: number, dz: number | undefined) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >dz : number | undefined
 
         this.x += dx;
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
         this.y += dy;
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : Point
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
         if (this.z && dz) {
 >this.z && dz : number | undefined
@@ -132,10 +165,14 @@ let p1: Point = {
 
             this.z += dz;
 >this.z += dz : number
+>类型别名 :=> 数字
 >this.z : number
+>类型别名 :=> 数字
 >this : Point
 >z : number
+>类型别名 :=> 数字
 >dz : number
+>类型别名 :=> 数字
         }
     }
 };
@@ -144,35 +181,48 @@ let p2: Point | null = {
 >p2 : Point | null
 >Point : Point
 >null : null
+>类型别名 :=> 空值
 >{    x: 10,    y: 20,    moveBy(dx, dy, dz) {        this.x += dx;        this.y += dy;        if (this.z && dz) {            this.z += dz;        }    }} : { x: number; y: number; moveBy(dx: number, dy: number, dz: number | undefined): void; }
 
     x: 10,
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
     y: 20,
 >y : number
+>类型别名 :=> 数字
 >20 : 20
 
     moveBy(dx, dy, dz) {
 >moveBy : (dx: number, dy: number, dz: number | undefined) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >dz : number | undefined
 
         this.x += dx;
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
         this.y += dy;
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : Point
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
         if (this.z && dz) {
 >this.z && dz : number | undefined
@@ -183,10 +233,14 @@ let p2: Point | null = {
 
             this.z += dz;
 >this.z += dz : number
+>类型别名 :=> 数字
 >this.z : number
+>类型别名 :=> 数字
 >this : Point
 >z : number
+>类型别名 :=> 数字
 >dz : number
+>类型别名 :=> 数字
         }
     }
 };
@@ -198,31 +252,43 @@ let p3: Point | undefined = {
 
     x: 10,
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
     y: 20,
 >y : number
+>类型别名 :=> 数字
 >20 : 20
 
     moveBy(dx, dy, dz) {
 >moveBy : (dx: number, dy: number, dz: number | undefined) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >dz : number | undefined
 
         this.x += dx;
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
         this.y += dy;
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : Point
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
         if (this.z && dz) {
 >this.z && dz : number | undefined
@@ -233,10 +299,14 @@ let p3: Point | undefined = {
 
             this.z += dz;
 >this.z += dz : number
+>类型别名 :=> 数字
 >this.z : number
+>类型别名 :=> 数字
 >this : Point
 >z : number
+>类型别名 :=> 数字
 >dz : number
+>类型别名 :=> 数字
         }
     }
 };
@@ -245,35 +315,48 @@ let p4: Point | null | undefined = {
 >p4 : Point | null | undefined
 >Point : Point
 >null : null
+>类型别名 :=> 空值
 >{    x: 10,    y: 20,    moveBy(dx, dy, dz) {        this.x += dx;        this.y += dy;        if (this.z && dz) {            this.z += dz;        }    }} : { x: number; y: number; moveBy(dx: number, dy: number, dz: number | undefined): void; }
 
     x: 10,
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
     y: 20,
 >y : number
+>类型别名 :=> 数字
 >20 : 20
 
     moveBy(dx, dy, dz) {
 >moveBy : (dx: number, dy: number, dz: number | undefined) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >dz : number | undefined
 
         this.x += dx;
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
         this.y += dy;
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : Point
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
         if (this.z && dz) {
 >this.z && dz : number | undefined
@@ -284,10 +367,14 @@ let p4: Point | null | undefined = {
 
             this.z += dz;
 >this.z += dz : number
+>类型别名 :=> 数字
 >this.z : number
+>类型别名 :=> 数字
 >this : Point
 >z : number
+>类型别名 :=> 数字
 >dz : number
+>类型别名 :=> 数字
         }
     }
 };
@@ -299,36 +386,49 @@ declare function f1(p: Point): void;
 
 f1({
 >f1({    x: 10,    y: 20,    moveBy(dx, dy, dz) {        this.x += dx;        this.y += dy;        if (this.z && dz) {            this.z += dz;        }    }}) : void
+>类型别名 :=> 无值
 >f1 : (p: Point) => void
 >{    x: 10,    y: 20,    moveBy(dx, dy, dz) {        this.x += dx;        this.y += dy;        if (this.z && dz) {            this.z += dz;        }    }} : { x: number; y: number; moveBy(dx: number, dy: number, dz: number | undefined): void; }
 
     x: 10,
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
     y: 20,
 >y : number
+>类型别名 :=> 数字
 >20 : 20
 
     moveBy(dx, dy, dz) {
 >moveBy : (dx: number, dy: number, dz: number | undefined) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >dz : number | undefined
 
         this.x += dx;
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
         this.y += dy;
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : Point
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
         if (this.z && dz) {
 >this.z && dz : number | undefined
@@ -339,10 +439,14 @@ f1({
 
             this.z += dz;
 >this.z += dz : number
+>类型别名 :=> 数字
 >this.z : number
+>类型别名 :=> 数字
 >this : Point
 >z : number
+>类型别名 :=> 数字
 >dz : number
+>类型别名 :=> 数字
         }
     }
 });
@@ -352,39 +456,53 @@ declare function f2(p: Point | null | undefined): void;
 >p : Point | null | undefined
 >Point : Point
 >null : null
+>类型别名 :=> 空值
 
 f2({
 >f2({    x: 10,    y: 20,    moveBy(dx, dy, dz) {        this.x += dx;        this.y += dy;        if (this.z && dz) {            this.z += dz;        }    }}) : void
+>类型别名 :=> 无值
 >f2 : (p: Point | null | undefined) => void
 >{    x: 10,    y: 20,    moveBy(dx, dy, dz) {        this.x += dx;        this.y += dy;        if (this.z && dz) {            this.z += dz;        }    }} : { x: number; y: number; moveBy(dx: number, dy: number, dz: number | undefined): void; }
 
     x: 10,
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
     y: 20,
 >y : number
+>类型别名 :=> 数字
 >20 : 20
 
     moveBy(dx, dy, dz) {
 >moveBy : (dx: number, dy: number, dz: number | undefined) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >dz : number | undefined
 
         this.x += dx;
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
         this.y += dy;
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : Point
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
         if (this.z && dz) {
 >this.z && dz : number | undefined
@@ -395,10 +513,14 @@ f2({
 
             this.z += dz;
 >this.z += dz : number
+>类型别名 :=> 数字
 >this.z : number
+>类型别名 :=> 数字
 >this : Point
 >z : number
+>类型别名 :=> 数字
 >dz : number
+>类型别名 :=> 数字
         }
     }
 });
@@ -444,8 +566,10 @@ let x1 = makeObject({
 >data : { x: number; y: number; }
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : number
+>类型别名 :=> 数字
 >0 : 0
 
     methods: {
@@ -455,21 +579,31 @@ let x1 = makeObject({
         moveBy(dx: number, dy: number) {
 >moveBy : (dx: number, dy: number) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
             this.x += dx;  // Strongly typed this
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : { x: number; y: number; } & { moveBy(dx: number, dy: number): void; }
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
             this.y += dy;  // Strongly typed this
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : { x: number; y: number; } & { moveBy(dx: number, dy: number): void; }
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
         }
     }
 });
@@ -515,8 +649,10 @@ let x2 = makeObject2({
 >data : { x: number; y: number; }
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : number
+>类型别名 :=> 数字
 >0 : 0
 
     methods: {
@@ -526,21 +662,31 @@ let x2 = makeObject2({
         moveBy(dx: number, dy: number) {
 >moveBy : (dx: number, dy: number) => void
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
             this.x += dx;  // Strongly typed this
 >this.x += dx : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : { x: number; y: number; } & { moveBy(dx: number, dy: number): void; }
 >x : number
+>类型别名 :=> 数字
 >dx : number
+>类型别名 :=> 数字
 
             this.y += dy;  // Strongly typed this
 >this.y += dy : number
+>类型别名 :=> 数字
 >this.y : number
+>类型别名 :=> 数字
 >this : { x: number; y: number; } & { moveBy(dx: number, dy: number): void; }
 >y : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
         }
     }
 });
@@ -618,17 +764,24 @@ let p10 = defineProp(p1, "foo", { value: 42 });
 >"foo" : "foo"
 >{ value: 42 } : { value: number; }
 >value : number
+>类型别名 :=> 数字
 >42 : 42
 
 p10.foo = p10.foo + 1;
 >p10.foo = p10.foo + 1 : number
+>类型别名 :=> 数字
 >p10.foo : number
+>类型别名 :=> 数字
 >p10 : Point & Record<"foo", number>
 >foo : number
+>类型别名 :=> 数字
 >p10.foo + 1 : number
+>类型别名 :=> 数字
 >p10.foo : number
+>类型别名 :=> 数字
 >p10 : Point & Record<"foo", number>
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
 
 let p11 = defineProp(p1, "bar", {
@@ -644,31 +797,44 @@ let p11 = defineProp(p1, "bar", {
 
         return this.x;
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 
     },
     set(value: number) {
 >set : (value: number) => void
 >value : number
+>类型别名 :=> 数字
 
         this.x = value;
 >this.x = value : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >value : number
+>类型别名 :=> 数字
     }
 });
 p11.bar = p11.bar + 1;
 >p11.bar = p11.bar + 1 : number
+>类型别名 :=> 数字
 >p11.bar : number
+>类型别名 :=> 数字
 >p11 : Point & Record<"bar", number>
 >bar : number
+>类型别名 :=> 数字
 >p11.bar + 1 : number
+>类型别名 :=> 数字
 >p11.bar : number
+>类型别名 :=> 数字
 >p11 : Point & Record<"bar", number>
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 
 let p12 = defineProps(p1, {
@@ -684,6 +850,7 @@ let p12 = defineProps(p1, {
 
         value: 42
 >value : number
+>类型别名 :=> 数字
 >42 : 42
 
     },
@@ -696,43 +863,62 @@ let p12 = defineProps(p1, {
 
             return this.x;
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 
         },
         set(value: number) {
 >set : (value: number) => void
 >value : number
+>类型别名 :=> 数字
 
             this.x = value;
 >this.x = value : number
+>类型别名 :=> 数字
 >this.x : number
+>类型别名 :=> 数字
 >this : Point
 >x : number
+>类型别名 :=> 数字
 >value : number
+>类型别名 :=> 数字
         }
     }
 });
 p12.foo = p12.foo + 1;
 >p12.foo = p12.foo + 1 : number
+>类型别名 :=> 数字
 >p12.foo : number
+>类型别名 :=> 数字
 >p12 : Point & { foo: number; bar: number; }
 >foo : number
+>类型别名 :=> 数字
 >p12.foo + 1 : number
+>类型别名 :=> 数字
 >p12.foo : number
+>类型别名 :=> 数字
 >p12 : Point & { foo: number; bar: number; }
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
 
 p12.bar = p12.bar + 1;
 >p12.bar = p12.bar + 1 : number
+>类型别名 :=> 数字
 >p12.bar : number
+>类型别名 :=> 数字
 >p12 : Point & { foo: number; bar: number; }
 >bar : number
+>类型别名 :=> 数字
 >p12.bar + 1 : number
+>类型别名 :=> 数字
 >p12.bar : number
+>类型别名 :=> 数字
 >p12 : Point & { foo: number; bar: number; }
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 
 // Proof of concept for typing of Vue.js
@@ -752,6 +938,7 @@ type Dictionary<T> = { [x: string]: T }
 >Dictionary : Dictionary<T>
 >T : T
 >x : string
+>类型别名 :=> 文字
 >T : T
 
 type Computed<T> = {
@@ -819,8 +1006,10 @@ let vue = new Vue({
 >({ x: 1, y: 2 }) : { x: number; y: number; }
 >{ x: 1, y: 2 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
     methods: {
@@ -830,11 +1019,14 @@ let vue = new Vue({
         f(x: string) {
 >f : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 
             return this.x;
 >this.x : number
+>类型别名 :=> 数字
 >this : { x: number; y: number; } & { f(x: string): number; } & { test: number; hello: string; }
 >x : number
+>类型别名 :=> 数字
         }
     },
     computed: {
@@ -846,8 +1038,10 @@ let vue = new Vue({
 
             return this.x;
 >this.x : number
+>类型别名 :=> 数字
 >this : { x: number; y: number; } & { f(x: string): number; } & { test: number; hello: string; }
 >x : number
+>类型别名 :=> 数字
 
         },
         hello: {
@@ -864,6 +1058,7 @@ let vue = new Vue({
             set(value: string) {
 >set : (value: string) => void
 >value : string
+>类型别名 :=> 文字
             }
         }
     }
@@ -874,11 +1069,14 @@ vue;
 
 vue.x;
 >vue.x : number
+>类型别名 :=> 数字
 >vue : { x: number; y: number; } & { f(x: string): number; } & { test: number; hello: string; }
 >x : number
+>类型别名 :=> 数字
 
 vue.f("abc");
 >vue.f("abc") : number
+>类型别名 :=> 数字
 >vue.f : (x: string) => number
 >vue : { x: number; y: number; } & { f(x: string): number; } & { test: number; hello: string; }
 >f : (x: string) => number
@@ -886,11 +1084,15 @@ vue.f("abc");
 
 vue.test;
 >vue.test : number
+>类型别名 :=> 数字
 >vue : { x: number; y: number; } & { f(x: string): number; } & { test: number; hello: string; }
 >test : number
+>类型别名 :=> 数字
 
 vue.hello;
 >vue.hello : string
+>类型别名 :=> 文字
 >vue : { x: number; y: number; } & { f(x: string): number; } & { test: number; hello: string; }
 >hello : string
+>类型别名 :=> 文字
 

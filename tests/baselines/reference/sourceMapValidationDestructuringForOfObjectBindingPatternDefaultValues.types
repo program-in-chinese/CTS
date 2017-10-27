@@ -5,15 +5,18 @@ declare var console: {
     log(msg: any): void;
 >log : (msg: any) => void
 >msg : any
+>类型别名 :=> 任意
 }
 interface Robot {
 >Robot : Robot
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 
     skill: string;
 >skill : string
+>类型别名 :=> 文字
 }
 
 interface MultiRobot {
@@ -21,15 +24,18 @@ interface MultiRobot {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 
     skills: {
 >skills : { primary?: string; secondary?: string; }
 
         primary?: string;
 >primary : string
+>类型别名 :=> 文字
 
         secondary?: string;
 >secondary : string
+>类型别名 :=> 文字
 
     };
 }
@@ -40,13 +46,17 @@ let robots: Robot[] = [{ name: "mower", skill: "mowing" }, { name: "trimmer", sk
 >[{ name: "mower", skill: "mowing" }, { name: "trimmer", skill: "trimming" }] : { name: string; skill: string; }[]
 >{ name: "mower", skill: "mowing" } : { name: string; skill: string; }
 >name : string
+>类型别名 :=> 文字
 >"mower" : "mower"
 >skill : string
+>类型别名 :=> 文字
 >"mowing" : "mowing"
 >{ name: "trimmer", skill: "trimming" } : { name: string; skill: string; }
 >name : string
+>类型别名 :=> 文字
 >"trimmer" : "trimmer"
 >skill : string
+>类型别名 :=> 文字
 >"trimming" : "trimming"
 
 let multiRobots: MultiRobot[] = [{ name: "mower", skills: { primary: "mowing", secondary: "none" } },
@@ -55,23 +65,29 @@ let multiRobots: MultiRobot[] = [{ name: "mower", skills: { primary: "mowing", s
 >[{ name: "mower", skills: { primary: "mowing", secondary: "none" } },    { name: "trimmer", skills: { primary: "trimming", secondary: "edging" } }] : { name: string; skills: { primary: string; secondary: string; }; }[]
 >{ name: "mower", skills: { primary: "mowing", secondary: "none" } } : { name: string; skills: { primary: string; secondary: string; }; }
 >name : string
+>类型别名 :=> 文字
 >"mower" : "mower"
 >skills : { primary: string; secondary: string; }
 >{ primary: "mowing", secondary: "none" } : { primary: string; secondary: string; }
 >primary : string
+>类型别名 :=> 文字
 >"mowing" : "mowing"
 >secondary : string
+>类型别名 :=> 文字
 >"none" : "none"
 
     { name: "trimmer", skills: { primary: "trimming", secondary: "edging" } }];
 >{ name: "trimmer", skills: { primary: "trimming", secondary: "edging" } } : { name: string; skills: { primary: string; secondary: string; }; }
 >name : string
+>类型别名 :=> 文字
 >"trimmer" : "trimmer"
 >skills : { primary: string; secondary: string; }
 >{ primary: "trimming", secondary: "edging" } : { primary: string; secondary: string; }
 >primary : string
+>类型别名 :=> 文字
 >"trimming" : "trimming"
 >secondary : string
+>类型别名 :=> 文字
 >"edging" : "edging"
 
 function getRobots() {
@@ -90,117 +106,158 @@ function getMultiRobots() {
 
 for (let {name: nameA = "noName" } of robots) {
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 >robots : Robot[]
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let {name: nameA = "noName" } of getRobots()) {
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 >getRobots() : Robot[]
 >getRobots : () => Robot[]
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let {name: nameA = "noName" } of [{ name: "mower", skill: "mowing" }, { name: "trimmer", skill: "trimming" }]) {
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 >[{ name: "mower", skill: "mowing" }, { name: "trimmer", skill: "trimming" }] : { name: string; skill: string; }[]
 >{ name: "mower", skill: "mowing" } : { name: string; skill: string; }
 >name : string
+>类型别名 :=> 文字
 >"mower" : "mower"
 >skill : string
+>类型别名 :=> 文字
 >"mowing" : "mowing"
 >{ name: "trimmer", skill: "trimming" } : { name: string; skill: string; }
 >name : string
+>类型别名 :=> 文字
 >"trimmer" : "trimmer"
 >skill : string
+>类型别名 :=> 文字
 >"trimming" : "trimming"
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let { skills: { primary: primaryA = "primary", secondary: secondaryA = "secondary" } =
 >skills : any
+>类型别名 :=> 任意
 >primary : any
+>类型别名 :=> 任意
 >primaryA : string
+>类型别名 :=> 文字
 >"primary" : "primary"
 >secondary : any
+>类型别名 :=> 任意
 >secondaryA : string
+>类型别名 :=> 文字
 >"secondary" : "secondary"
 
     { primary: "nosKill", secondary: "noSkill" } } of multiRobots) {
 >{ primary: "nosKill", secondary: "noSkill" } : { primary?: string; secondary?: string; }
 >primary : string
+>类型别名 :=> 文字
 >"nosKill" : "nosKill"
 >secondary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >multiRobots : MultiRobot[]
 
     console.log(primaryA);
 >console.log(primaryA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >primaryA : string
+>类型别名 :=> 文字
 }
 for (let { skills: { primary: primaryA = "primary", secondary: secondaryA = "secondary" } =
 >skills : any
+>类型别名 :=> 任意
 >primary : any
+>类型别名 :=> 任意
 >primaryA : string
+>类型别名 :=> 文字
 >"primary" : "primary"
 >secondary : any
+>类型别名 :=> 任意
 >secondaryA : string
+>类型别名 :=> 文字
 >"secondary" : "secondary"
 
     { primary: "nosKill", secondary: "noSkill" } } of getMultiRobots()) {
 >{ primary: "nosKill", secondary: "noSkill" } : { primary?: string; secondary?: string; }
 >primary : string
+>类型别名 :=> 文字
 >"nosKill" : "nosKill"
 >secondary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >getMultiRobots() : MultiRobot[]
 >getMultiRobots : () => MultiRobot[]
 
     console.log(primaryA);
 >console.log(primaryA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >primaryA : string
+>类型别名 :=> 文字
 }
 for (let { skills: { primary: primaryA = "primary", secondary: secondaryA = "secondary" } =
 >skills : any
+>类型别名 :=> 任意
 >primary : any
+>类型别名 :=> 任意
 >primaryA : string
+>类型别名 :=> 文字
 >"primary" : "primary"
 >secondary : any
+>类型别名 :=> 任意
 >secondaryA : string
+>类型别名 :=> 文字
 >"secondary" : "secondary"
 
     { primary: "nosKill", secondary: "noSkill" } } of
 >{ primary: "nosKill", secondary: "noSkill" } : { primary?: string; secondary?: string; }
 >primary : string
+>类型别名 :=> 文字
 >"nosKill" : "nosKill"
 >secondary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 
     <MultiRobot[]>[{ name: "mower", skills: { primary: "mowing", secondary: "none" } },
@@ -209,116 +266,155 @@ for (let { skills: { primary: primaryA = "primary", secondary: secondaryA = "sec
 >[{ name: "mower", skills: { primary: "mowing", secondary: "none" } },    { name: "trimmer", skills: { primary: "trimming", secondary: "edging" } }] : { name: string; skills: { primary: string; secondary: string; }; }[]
 >{ name: "mower", skills: { primary: "mowing", secondary: "none" } } : { name: string; skills: { primary: string; secondary: string; }; }
 >name : string
+>类型别名 :=> 文字
 >"mower" : "mower"
 >skills : { primary: string; secondary: string; }
 >{ primary: "mowing", secondary: "none" } : { primary: string; secondary: string; }
 >primary : string
+>类型别名 :=> 文字
 >"mowing" : "mowing"
 >secondary : string
+>类型别名 :=> 文字
 >"none" : "none"
 
     { name: "trimmer", skills: { primary: "trimming", secondary: "edging" } }]) {
 >{ name: "trimmer", skills: { primary: "trimming", secondary: "edging" } } : { name: string; skills: { primary: string; secondary: string; }; }
 >name : string
+>类型别名 :=> 文字
 >"trimmer" : "trimmer"
 >skills : { primary: string; secondary: string; }
 >{ primary: "trimming", secondary: "edging" } : { primary: string; secondary: string; }
 >primary : string
+>类型别名 :=> 文字
 >"trimming" : "trimming"
 >secondary : string
+>类型别名 :=> 文字
 >"edging" : "edging"
 
     console.log(primaryA);
 >console.log(primaryA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >primaryA : string
+>类型别名 :=> 文字
 }
 
 for (let {name: nameA = "noName", skill: skillA = "noSkill" } of robots) {
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 >skill : any
+>类型别名 :=> 任意
 >skillA : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >robots : Robot[]
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let {name: nameA = "noName", skill: skillA = "noSkill"  } of getRobots()) {
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 >skill : any
+>类型别名 :=> 任意
 >skillA : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >getRobots() : Robot[]
 >getRobots : () => Robot[]
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let {name: nameA = "noName", skill: skillA = "noSkill"  } of [{ name: "mower", skill: "mowing" }, { name: "trimmer", skill: "trimming" }]) {
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 >skill : any
+>类型别名 :=> 任意
 >skillA : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >[{ name: "mower", skill: "mowing" }, { name: "trimmer", skill: "trimming" }] : { name: string; skill: string; }[]
 >{ name: "mower", skill: "mowing" } : { name: string; skill: string; }
 >name : string
+>类型别名 :=> 文字
 >"mower" : "mower"
 >skill : string
+>类型别名 :=> 文字
 >"mowing" : "mowing"
 >{ name: "trimmer", skill: "trimming" } : { name: string; skill: string; }
 >name : string
+>类型别名 :=> 文字
 >"trimmer" : "trimmer"
 >skill : string
+>类型别名 :=> 文字
 >"trimming" : "trimming"
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let {
     name: nameA = "noName",
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 
     skills: {
 >skills : any
+>类型别名 :=> 任意
 
         primary: primaryA = "primary",
 >primary : any
+>类型别名 :=> 任意
 >primaryA : string
+>类型别名 :=> 文字
 >"primary" : "primary"
 
         secondary: secondaryA = "secondary"
 >secondary : any
+>类型别名 :=> 任意
 >secondaryA : string
+>类型别名 :=> 文字
 >"secondary" : "secondary"
 
     } = { primary: "noSkill", secondary: "noSkill" }
 >{ primary: "noSkill", secondary: "noSkill" } : { primary?: string; secondary?: string; }
 >primary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >secondary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 
 } of multiRobots) {
@@ -326,35 +422,46 @@ for (let {
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let {
     name: nameA = "noName",
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 
     skills: {
 >skills : any
+>类型别名 :=> 任意
 
         primary: primaryA = "primary",
 >primary : any
+>类型别名 :=> 任意
 >primaryA : string
+>类型别名 :=> 文字
 >"primary" : "primary"
 
         secondary: secondaryA = "secondary"
 >secondary : any
+>类型别名 :=> 任意
 >secondaryA : string
+>类型别名 :=> 文字
 >"secondary" : "secondary"
 
     } = { primary: "noSkill", secondary: "noSkill" }
 >{ primary: "noSkill", secondary: "noSkill" } : { primary?: string; secondary?: string; }
 >primary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >secondary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 
 } of getMultiRobots()) {
@@ -363,35 +470,46 @@ for (let {
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 for (let {
     name: nameA = "noName",
 >name : any
+>类型别名 :=> 任意
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 
     skills: {
 >skills : any
+>类型别名 :=> 任意
 
         primary: primaryA = "primary",
 >primary : any
+>类型别名 :=> 任意
 >primaryA : string
+>类型别名 :=> 文字
 >"primary" : "primary"
 
         secondary: secondaryA = "secondary"
 >secondary : any
+>类型别名 :=> 任意
 >secondaryA : string
+>类型别名 :=> 文字
 >"secondary" : "secondary"
 
     } = { primary: "noSkill", secondary: "noSkill" }
 >{ primary: "noSkill", secondary: "noSkill" } : { primary?: string; secondary?: string; }
 >primary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 >secondary : string
+>类型别名 :=> 文字
 >"noSkill" : "noSkill"
 
 } of <MultiRobot[]>[{ name: "mower", skills: { primary: "mowing", secondary: "none" } },
@@ -400,29 +518,37 @@ for (let {
 >[{ name: "mower", skills: { primary: "mowing", secondary: "none" } },    { name: "trimmer", skills: { primary: "trimming", secondary: "edging" } }] : { name: string; skills: { primary: string; secondary: string; }; }[]
 >{ name: "mower", skills: { primary: "mowing", secondary: "none" } } : { name: string; skills: { primary: string; secondary: string; }; }
 >name : string
+>类型别名 :=> 文字
 >"mower" : "mower"
 >skills : { primary: string; secondary: string; }
 >{ primary: "mowing", secondary: "none" } : { primary: string; secondary: string; }
 >primary : string
+>类型别名 :=> 文字
 >"mowing" : "mowing"
 >secondary : string
+>类型别名 :=> 文字
 >"none" : "none"
 
     { name: "trimmer", skills: { primary: "trimming", secondary: "edging" } }]) {
 >{ name: "trimmer", skills: { primary: "trimming", secondary: "edging" } } : { name: string; skills: { primary: string; secondary: string; }; }
 >name : string
+>类型别名 :=> 文字
 >"trimmer" : "trimmer"
 >skills : { primary: string; secondary: string; }
 >{ primary: "trimming", secondary: "edging" } : { primary: string; secondary: string; }
 >primary : string
+>类型别名 :=> 文字
 >"trimming" : "trimming"
 >secondary : string
+>类型别名 :=> 文字
 >"edging" : "edging"
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }

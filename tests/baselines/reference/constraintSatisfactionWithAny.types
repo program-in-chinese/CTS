@@ -9,15 +9,18 @@ function foo<T extends String>(x: T): T { return null; }
 >T : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
 function foo2<T extends { x: number }>(x: T): T { return null; }
 >foo2 : <T extends { x: number; }>(x: T) => T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >x : T
 >T : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
 //function foo3<T extends T[]>(x: T): T { return null; }
 function foo4<T extends <T>(x: T) => void>(x: T): T { return null; }
@@ -30,44 +33,59 @@ function foo4<T extends <T>(x: T) => void>(x: T): T { return null; }
 >T : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
 var a;
 >a : any
+>类型别名 :=> 任意
 
 foo(a);
 >foo(a) : any
+>类型别名 :=> 任意
 >foo : <T extends String>(x: T) => T
 >a : any
+>类型别名 :=> 任意
 
 foo2(a);
 >foo2(a) : any
+>类型别名 :=> 任意
 >foo2 : <T extends { x: number; }>(x: T) => T
 >a : any
+>类型别名 :=> 任意
 
 //foo3(a);
 foo4(a);
 >foo4(a) : any
+>类型别名 :=> 任意
 >foo4 : <T extends <T>(x: T) => void>(x: T) => T
 >a : any
+>类型别名 :=> 任意
 
 var b: number;
 >b : number
+>类型别名 :=> 数字
 
 foo<any>(b);
 >foo<any>(b) : any
+>类型别名 :=> 任意
 >foo : <T extends String>(x: T) => T
 >b : number
+>类型别名 :=> 数字
 
 foo2<any>(b);
 >foo2<any>(b) : any
+>类型别名 :=> 任意
 >foo2 : <T extends { x: number; }>(x: T) => T
 >b : number
+>类型别名 :=> 数字
 
 //foo3<any>(b);
 foo4<any>(b);
 >foo4<any>(b) : any
+>类型别名 :=> 任意
 >foo4 : <T extends <T>(x: T) => void>(x: T) => T
 >b : number
+>类型别名 :=> 数字
 
 //function foo5<T extends String, U extends T>(x: T, y: U): T { return null; }
 //foo5(a, a);
@@ -88,17 +106,20 @@ var c1 = new C(a);
 >new C(a) : C<any>
 >C : typeof C
 >a : any
+>类型别名 :=> 任意
 
 var c2 = new C<any>(b);
 >c2 : C<any>
 >new C<any>(b) : C<any>
 >C : typeof C
 >b : number
+>类型别名 :=> 数字
 
 class C2<T extends { x: number }> {
 >C2 : C2<T>
 >T : T
 >x : number
+>类型别名 :=> 数字
 
     constructor(public x: T) { }
 >x : T
@@ -110,12 +131,14 @@ var c3 = new C2(a);
 >new C2(a) : C2<any>
 >C2 : typeof C2
 >a : any
+>类型别名 :=> 任意
 
 var c4 = new C2<any>(b);
 >c4 : C2<any>
 >new C2<any>(b) : C2<any>
 >C2 : typeof C2
 >b : number
+>类型别名 :=> 数字
 
 //class C3<T extends T[]> {
 //    constructor(public x: T) { }
@@ -142,12 +165,14 @@ var c7 = new C4(a);
 >new C4(a) : C4<any>
 >C4 : typeof C4
 >a : any
+>类型别名 :=> 任意
 
 var c8 = new C4<any>(b);
 >c8 : C4<any>
 >new C4<any>(b) : C4<any>
 >C4 : typeof C4
 >b : number
+>类型别名 :=> 数字
 
 
 

@@ -1,6 +1,7 @@
 === tests/cases/compiler/index.tsx ===
 namespace JSX {
 >JSX : any
+>类型别名 :=> 任意
 
     export interface Element {}
 >Element : Element
@@ -10,6 +11,7 @@ export type CatInfo = { type: 'Cat'; subType: string; };
 >CatInfo : CatInfo
 >type : "Cat"
 >subType : string
+>类型别名 :=> 文字
 
 export type DogInfo = { type: 'Dog'; };
 >DogInfo : DogInfo
@@ -25,11 +27,14 @@ function AnimalComponent(info: AnimalInfo): JSX.Element {
 >info : AnimalInfo
 >AnimalInfo : AnimalInfo
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
     return undefined as any;
 >undefined as any : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function getProps(): AnimalInfo {
@@ -40,8 +45,10 @@ function getProps(): AnimalInfo {
     return { type: 'Cat', subType: 'Large' };
 >{ type: 'Cat', subType: 'Large' } : { type: "Cat"; subType: string; }
 >type : string
+>类型别名 :=> 文字
 >'Cat' : "Cat"
 >subType : string
+>类型别名 :=> 文字
 >'Large' : "Large"
 }
 
@@ -53,7 +60,9 @@ var props:AnimalInfo = getProps();
 
 var component = <AnimalComponent {...props} />
 >component : any
+>类型别名 :=> 任意
 ><AnimalComponent {...props} /> : any
+>类型别名 :=> 任意
 >AnimalComponent : (info: AnimalInfo) => JSX.Element
 >props : AnimalInfo
 
@@ -62,13 +71,17 @@ var props2:AnimalInfo = { type: 'Cat', subType: 'Large' };
 >AnimalInfo : AnimalInfo
 >{ type: 'Cat', subType: 'Large' } : { type: "Cat"; subType: string; }
 >type : string
+>类型别名 :=> 文字
 >'Cat' : "Cat"
 >subType : string
+>类型别名 :=> 文字
 >'Large' : "Large"
 
 var component2 = <AnimalComponent {...props2} />
 >component2 : any
+>类型别名 :=> 任意
 ><AnimalComponent {...props2} /> : any
+>类型别名 :=> 任意
 >AnimalComponent : (info: AnimalInfo) => JSX.Element
 >props2 : CatInfo
 

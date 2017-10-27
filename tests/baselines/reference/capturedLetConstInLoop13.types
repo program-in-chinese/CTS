@@ -5,6 +5,7 @@ class Main {
     constructor() {
         this.register("a", "b", "c");
 >this.register("a", "b", "c") : void
+>类型别名 :=> 无值
 >this.register : (...names: string[]) => void
 >this : this
 >register : (...names: string[]) => void
@@ -19,10 +20,12 @@ class Main {
 
         for (let name of names) {
 >name : string
+>类型别名 :=> 文字
 >names : string[]
 
             this.bar({
 >this.bar({                [name + ".a"]: () => { this.foo(name); },            }) : void
+>类型别名 :=> 无值
 >this.bar : (a: any) => void
 >this : this
 >bar : (a: any) => void
@@ -30,14 +33,18 @@ class Main {
 
                 [name + ".a"]: () => { this.foo(name); },
 >name + ".a" : string
+>类型别名 :=> 文字
 >name : string
+>类型别名 :=> 文字
 >".a" : ".a"
 >() => { this.foo(name); } : () => void
 >this.foo(name) : void
+>类型别名 :=> 无值
 >this.foo : (name: string) => void
 >this : this
 >foo : (name: string) => void
 >name : string
+>类型别名 :=> 文字
 
             });
         }
@@ -46,10 +53,12 @@ class Main {
     private bar(a: any): void { }
 >bar : (a: any) => void
 >a : any
+>类型别名 :=> 任意
 
     private foo(name: string): void { }
 >foo : (name: string) => void
 >name : string
+>类型别名 :=> 文字
 
 }
 

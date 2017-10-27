@@ -13,16 +13,19 @@ function foo<T extends number>(x: T) {
 
     var y: number = x;  // Ok
 >y : number
+>类型别名 :=> 数字
 >x : T
 }
 
 foo(5);
 >foo(5) : void
+>类型别名 :=> 无值
 >foo : <T extends number>(x: T) => void
 >5 : 5
 
 foo(E.A);
 >foo(E.A) : void
+>类型别名 :=> 无值
 >foo : <T extends number>(x: T) => void
 >E.A : E.A
 >E : typeof E
@@ -31,10 +34,12 @@ foo(E.A);
 class A { a }
 >A : A
 >a : any
+>类型别名 :=> 任意
 
 class B { b }
 >B : B
 >b : any
+>类型别名 :=> 任意
 
 function bar<T extends A | B>(x: T) {
 >bar : <T extends A | B>(x: T) => void
@@ -53,12 +58,14 @@ function bar<T extends A | B>(x: T) {
 
 bar(new A);
 >bar(new A) : void
+>类型别名 :=> 无值
 >bar : <T extends A | B>(x: T) => void
 >new A : A
 >A : typeof A
 
 bar(new B);
 >bar(new B) : void
+>类型别名 :=> 无值
 >bar : <T extends A | B>(x: T) => void
 >new B : B
 >B : typeof B

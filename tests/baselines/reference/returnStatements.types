@@ -11,6 +11,7 @@ function fn2(): string { return ''; }
 function fn3(): void { return undefined; }
 >fn3 : () => void
 >undefined : undefined
+>类型别名 :=> 未定
 
 function fn4(): void { return; }
 >fn4 : () => void
@@ -18,6 +19,7 @@ function fn4(): void { return; }
 function fn5(): boolean { return true; }
 >fn5 : () => boolean
 >true : true
+>类型别名 :=> 为真
 
 function fn6(): Date { return new Date(12); }
 >fn6 : () => Date
@@ -29,6 +31,7 @@ function fn6(): Date { return new Date(12); }
 function fn7(): any { return null; }
 >fn7 : () => any
 >null : null
+>类型别名 :=> 空值
 
 function fn8(): any { return; } // OK, eq. to 'return undefined'
 >fn8 : () => any
@@ -36,6 +39,7 @@ function fn8(): any { return; } // OK, eq. to 'return undefined'
 interface I { id: number }
 >I : I
 >id : number
+>类型别名 :=> 数字
 
 class C implements I {
 >C : C
@@ -43,6 +47,7 @@ class C implements I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 
     dispose() {}
 >dispose : () => void
@@ -53,12 +58,14 @@ class D extends C {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 }
 function fn10(): I { return { id: 12 }; } 
 >fn10 : () => I
 >I : I
 >{ id: 12 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >12 : 12
 
 function fn11(): I { return new C(); }
@@ -77,4 +84,5 @@ function fn13(): C { return null; }
 >fn13 : () => C
 >C : C
 >null : null
+>类型别名 :=> 空值
 

@@ -8,6 +8,7 @@ function kindIs(kind: Kind, is: "A"): kind is "A";
 >Kind : Kind
 >is : "A"
 >kind : any
+>类型别名 :=> 任意
 
 function kindIs(kind: Kind, is: "B"): kind is "B";
 >kindIs : { (kind: Kind, is: "A"): kind is "A"; (kind: Kind, is: "B"): kind is "B"; }
@@ -15,6 +16,7 @@ function kindIs(kind: Kind, is: "B"): kind is "B";
 >Kind : Kind
 >is : "B"
 >kind : any
+>类型别名 :=> 任意
 
 function kindIs(kind: Kind, is: Kind): boolean {
 >kindIs : { (kind: Kind, is: "A"): kind is "A"; (kind: Kind, is: "B"): kind is "B"; }
@@ -25,6 +27,7 @@ function kindIs(kind: Kind, is: Kind): boolean {
 
     return kind === is;
 >kind === is : boolean
+>类型别名 :=> 真假
 >kind : Kind
 >is : Kind
 }
@@ -33,9 +36,11 @@ var x: Kind = undefined;
 >x : Kind
 >Kind : Kind
 >undefined : undefined
+>类型别名 :=> 未定
 
 if (kindIs(x, "A")) {
 >kindIs(x, "A") : boolean
+>类型别名 :=> 真假
 >kindIs : { (kind: Kind, is: "A"): kind is "A"; (kind: Kind, is: "B"): kind is "B"; }
 >x : Kind
 >"A" : "A"
@@ -52,7 +57,9 @@ else {
 
 if (!kindIs(x, "B")) {
 >!kindIs(x, "B") : boolean
+>类型别名 :=> 真假
 >kindIs(x, "B") : boolean
+>类型别名 :=> 真假
 >kindIs : { (kind: Kind, is: "A"): kind is "A"; (kind: Kind, is: "B"): kind is "B"; }
 >x : Kind
 >"B" : "B"

@@ -7,6 +7,7 @@ class C {
 
     public a: string;
 >a : string
+>类型别名 :=> 文字
 
     static foo() { }
 >foo : () => void
@@ -20,12 +21,15 @@ enum E { a, b, c }
 module M { export var a }
 >M : typeof M
 >a : any
+>类型别名 :=> 任意
 
 var a: boolean;
 >a : boolean
+>类型别名 :=> 真假
 
 var b: number;
 >b : number
+>类型别名 :=> 数字
 
 var c: Object;
 >c : Object
@@ -38,113 +42,171 @@ var d: Number;
 // boolean + every type except any and string
 var r1 = a + a;
 >r1 : any
+>类型别名 :=> 任意
 >a + a : any
+>类型别名 :=> 任意
 >a : boolean
+>类型别名 :=> 真假
 >a : boolean
+>类型别名 :=> 真假
 
 var r2 = a + b;
 >r2 : any
+>类型别名 :=> 任意
 >a + b : any
+>类型别名 :=> 任意
 >a : boolean
+>类型别名 :=> 真假
 >b : number
+>类型别名 :=> 数字
 
 var r3 = a + c;
 >r3 : any
+>类型别名 :=> 任意
 >a + c : any
+>类型别名 :=> 任意
 >a : boolean
+>类型别名 :=> 真假
 >c : Object
 
 // number + every type except any and string
 var r4 = b + a;
 >r4 : any
+>类型别名 :=> 任意
 >b + a : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 >a : boolean
+>类型别名 :=> 真假
 
 var r5 = b + b; // number + number is valid
 >r5 : number
+>类型别名 :=> 数字
 >b + b : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
 var r6 = b + c;
 >r6 : any
+>类型别名 :=> 任意
 >b + c : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 >c : Object
 
 // object + every type except any and string
 var r7 = c + a;
 >r7 : any
+>类型别名 :=> 任意
 >c + a : any
+>类型别名 :=> 任意
 >c : Object
 >a : boolean
+>类型别名 :=> 真假
 
 var r8 = c + b;
 >r8 : any
+>类型别名 :=> 任意
 >c + b : any
+>类型别名 :=> 任意
 >c : Object
 >b : number
+>类型别名 :=> 数字
 
 var r9 = c + c;
 >r9 : any
+>类型别名 :=> 任意
 >c + c : any
+>类型别名 :=> 任意
 >c : Object
 >c : Object
 
 // other cases
 var r10 = a + true;
 >r10 : any
+>类型别名 :=> 任意
 >a + true : any
+>类型别名 :=> 任意
 >a : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 var r11 = true + false;
 >r11 : any
+>类型别名 :=> 任意
 >true + false : any
+>类型别名 :=> 任意
 >true : true
+>类型别名 :=> 为真
 >false : false
+>类型别名 :=> 为假
 
 var r12 = true + 123;
 >r12 : any
+>类型别名 :=> 任意
 >true + 123 : any
+>类型别名 :=> 任意
 >true : true
+>类型别名 :=> 为真
 >123 : 123
 
 var r13 = {} + {};
 >r13 : any
+>类型别名 :=> 任意
 >{} + {} : any
+>类型别名 :=> 任意
 >{} : {}
 >{} : {}
 
 var r14 = b + d;
 >r14 : any
+>类型别名 :=> 任意
 >b + d : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 >d : Number
 
 var r15 = b + foo;
 >r15 : any
+>类型别名 :=> 任意
 >b + foo : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 >foo : () => void
 
 var r16 = b + foo();
 >r16 : any
+>类型别名 :=> 任意
 >b + foo() : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 >foo() : void
+>类型别名 :=> 无值
 >foo : () => void
 
 var r17 = b + C;
 >r17 : any
+>类型别名 :=> 任意
 >b + C : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 >C : typeof C
 
 var r18 = E.a + new C();
 >r18 : any
+>类型别名 :=> 任意
 >E.a + new C() : any
+>类型别名 :=> 任意
 >E.a : E.a
 >E : typeof E
 >a : E.a
@@ -153,18 +215,23 @@ var r18 = E.a + new C();
 
 var r19 = E.a + C.foo();
 >r19 : any
+>类型别名 :=> 任意
 >E.a + C.foo() : any
+>类型别名 :=> 任意
 >E.a : E.a
 >E : typeof E
 >a : E.a
 >C.foo() : void
+>类型别名 :=> 无值
 >C.foo : () => void
 >C : typeof C
 >foo : () => void
 
 var r20 = E.a + M;
 >r20 : any
+>类型别名 :=> 任意
 >E.a + M : any
+>类型别名 :=> 任意
 >E.a : E.a
 >E : typeof E
 >a : E.a

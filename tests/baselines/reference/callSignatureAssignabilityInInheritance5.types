@@ -5,21 +5,25 @@
 class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
 >bing : string
+>类型别名 :=> 文字
 
 interface A { // T
 >A : A
@@ -28,24 +32,30 @@ interface A { // T
     a: (x: number) => number[];
 >a : (x: number) => number[]
 >x : number
+>类型别名 :=> 数字
 
     a2: (x: number) => string[];
 >a2 : (x: number) => string[]
 >x : number
+>类型别名 :=> 数字
 
     a3: (x: number) => void;
 >a3 : (x: number) => void
 >x : number
+>类型别名 :=> 数字
 
     a4: (x: string, y: number) => string;
 >a4 : (x: string, y: number) => string
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
     a5: (x: (arg: string) => number) => string;
 >a5 : (x: (arg: string) => number) => string
 >x : (arg: string) => number
 >arg : string
+>类型别名 :=> 文字
 
     a6: (x: (arg: Base) => Derived) => Base;
 >a6 : (x: (arg: Base) => Derived) => Base
@@ -103,9 +113,12 @@ interface A { // T
 >a11 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 >x : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >y : { foo: string; bar: string; }
 >foo : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 >Base : Base
 
     a12: (x: Array<Base>, y: Array<Derived2>) => Array<Derived>;
@@ -134,7 +147,9 @@ interface A { // T
 >a14 : (x: { a: string; b: number; }) => Object
 >x : { a: string; b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >Object : Object
 }
 
@@ -253,7 +268,9 @@ interface I extends B {
 >y : (arg2: { foo: string; bing: number; }) => U
 >arg2 : { foo: string; bing: number; }
 >foo : string
+>类型别名 :=> 文字
 >bing : number
+>类型别名 :=> 数字
 >U : U
 >r : T
 >T : T

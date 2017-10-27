@@ -22,10 +22,12 @@ function foo<T>(x: Computed<T>) { }
 
 var s: string;
 >s : string
+>类型别名 :=> 文字
 
 // Calls below should infer string for T and then assign that type to the value parameter
 foo({
 >foo({    read: () => s,    write: value => s = value}) : void
+>类型别名 :=> 无值
 >foo : <T>(x: Computed<T>) => void
 >{    read: () => s,    write: value => s = value} : { read: () => string; write: (value: string) => string; }
 
@@ -33,18 +35,24 @@ foo({
 >read : () => string
 >() => s : () => string
 >s : string
+>类型别名 :=> 文字
 
     write: value => s = value
 >write : (value: string) => string
 >value => s = value : (value: string) => string
 >value : string
+>类型别名 :=> 文字
 >s = value : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 >value : string
+>类型别名 :=> 文字
 
 });
 foo({
 >foo({    write: value => s = value,    read: () => s}) : void
+>类型别名 :=> 无值
 >foo : <T>(x: Computed<T>) => void
 >{    write: value => s = value,    read: () => s} : { write: (value: string) => string; read: () => string; }
 
@@ -52,14 +60,19 @@ foo({
 >write : (value: string) => string
 >value => s = value : (value: string) => string
 >value : string
+>类型别名 :=> 文字
 >s = value : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 >value : string
+>类型别名 :=> 文字
 
     read: () => s
 >read : () => string
 >() => s : () => string
 >s : string
+>类型别名 :=> 文字
 
 });
 
@@ -90,16 +103,21 @@ declare function f1<T, U>(a: { w: (x: T) => U; r: () => T; }, b: T): U;
 
 var v1: number;
 >v1 : number
+>类型别名 :=> 数字
 
 var v1 = f1({ w: x => x, r: () => 0 }, 0);
 >v1 : number
+>类型别名 :=> 数字
 >f1({ w: x => x, r: () => 0 }, 0) : number
+>类型别名 :=> 数字
 >f1 : <T, U>(a: { w: (x: T) => U; r: () => T; }, b: T) => U
 >{ w: x => x, r: () => 0 } : { w: (x: number) => number; r: () => number; }
 >w : (x: number) => number
 >x => x : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >r : () => number
 >() => 0 : () => number
 >0 : 0
@@ -107,13 +125,17 @@ var v1 = f1({ w: x => x, r: () => 0 }, 0);
 
 var v1 = f1({ w: x => x, r: () => 0 }, E1.X);
 >v1 : number
+>类型别名 :=> 数字
 >f1({ w: x => x, r: () => 0 }, E1.X) : number
+>类型别名 :=> 数字
 >f1 : <T, U>(a: { w: (x: T) => U; r: () => T; }, b: T) => U
 >{ w: x => x, r: () => 0 } : { w: (x: number) => number; r: () => number; }
 >w : (x: number) => number
 >x => x : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >r : () => number
 >() => 0 : () => number
 >0 : 0
@@ -123,7 +145,9 @@ var v1 = f1({ w: x => x, r: () => 0 }, E1.X);
 
 var v1 = f1({ w: x => x, r: () => E1.X }, 0);
 >v1 : number
+>类型别名 :=> 数字
 >f1({ w: x => x, r: () => E1.X }, 0) : number
+>类型别名 :=> 数字
 >f1 : <T, U>(a: { w: (x: T) => U; r: () => T; }, b: T) => U
 >{ w: x => x, r: () => E1.X } : { w: (x: 0) => number; r: () => E1; }
 >w : (x: 0) => number
@@ -161,7 +185,9 @@ var v2 = f1({ w: x => x, r: () => E1.X }, E1.X);
 
 var v3 = f1({ w: x => x, r: () => E1.X }, E2.X);  // Error
 >v3 : any
+>类型别名 :=> 任意
 >f1({ w: x => x, r: () => E1.X }, E2.X) : any
+>类型别名 :=> 任意
 >f1 : <T, U>(a: { w: (x: T) => U; r: () => T; }, b: T) => U
 >{ w: x => x, r: () => E1.X } : { w: (x: E1) => E1; r: () => E1; }
 >w : (x: E1) => E1

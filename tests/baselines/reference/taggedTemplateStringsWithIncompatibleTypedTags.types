@@ -23,9 +23,11 @@ interface I {
     thisIsNotATag(x: string): void
 >thisIsNotATag : (x: string) => void
 >x : string
+>类型别名 :=> 文字
 
     [x: number]: I;
 >x : number
+>类型别名 :=> 数字
 >I : I
 }
 
@@ -40,8 +42,10 @@ f `abc`
 
 f `abc${1}def${2}ghi`;
 >f `abc${1}def${2}ghi` : any
+>类型别名 :=> 任意
 >f : I
 >`abc${1}def${2}ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 
@@ -54,12 +58,16 @@ f `abc`.member
 
 f `abc${1}def${2}ghi`.member;
 >f `abc${1}def${2}ghi`.member : any
+>类型别名 :=> 任意
 >f `abc${1}def${2}ghi` : any
+>类型别名 :=> 任意
 >f : I
 >`abc${1}def${2}ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 >member : any
+>类型别名 :=> 任意
 
 f `abc`["member"];
 >f `abc`["member"] : I
@@ -70,15 +78,19 @@ f `abc`["member"];
 
 f `abc${1}def${2}ghi`["member"];
 >f `abc${1}def${2}ghi`["member"] : any
+>类型别名 :=> 任意
 >f `abc${1}def${2}ghi` : any
+>类型别名 :=> 任意
 >f : I
 >`abc${1}def${2}ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 >"member" : "member"
 
 f `abc`[0].member `abc${1}def${2}ghi`;
 >f `abc`[0].member `abc${1}def${2}ghi` : any
+>类型别名 :=> 任意
 >f `abc`[0].member : I
 >f `abc`[0] : I
 >f `abc` : I
@@ -87,41 +99,55 @@ f `abc`[0].member `abc${1}def${2}ghi`;
 >0 : 0
 >member : I
 >`abc${1}def${2}ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 
 f `abc${1}def${2}ghi`["member"].member `abc${1}def${2}ghi`;
 >f `abc${1}def${2}ghi`["member"].member `abc${1}def${2}ghi` : any
+>类型别名 :=> 任意
 >f `abc${1}def${2}ghi`["member"].member : any
+>类型别名 :=> 任意
 >f `abc${1}def${2}ghi`["member"] : any
+>类型别名 :=> 任意
 >f `abc${1}def${2}ghi` : any
+>类型别名 :=> 任意
 >f : I
 >`abc${1}def${2}ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 >"member" : "member"
 >member : any
+>类型别名 :=> 任意
 >`abc${1}def${2}ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 
 f `abc${ true }def${ true }ghi`["member"].member `abc${ 1 }def${ 2 }ghi`;
 >f `abc${ true }def${ true }ghi`["member"].member `abc${ 1 }def${ 2 }ghi` : any
+>类型别名 :=> 任意
 >f `abc${ true }def${ true }ghi`["member"].member : I
 >f `abc${ true }def${ true }ghi`["member"] : I
 >f `abc${ true }def${ true }ghi` : I
 >f : I
 >`abc${ true }def${ true }ghi` : string
+>类型别名 :=> 文字
 >true : true
+>类型别名 :=> 为真
 >true : true
+>类型别名 :=> 为真
 >"member" : "member"
 >member : I
 >`abc${ 1 }def${ 2 }ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 
 f.thisIsNotATag(`abc`);
 >f.thisIsNotATag(`abc`) : void
+>类型别名 :=> 无值
 >f.thisIsNotATag : (x: string) => void
 >f : I
 >thisIsNotATag : (x: string) => void
@@ -129,10 +155,12 @@ f.thisIsNotATag(`abc`);
 
 f.thisIsNotATag(`abc${1}def${2}ghi`);
 >f.thisIsNotATag(`abc${1}def${2}ghi`) : void
+>类型别名 :=> 无值
 >f.thisIsNotATag : (x: string) => void
 >f : I
 >thisIsNotATag : (x: string) => void
 >`abc${1}def${2}ghi` : string
+>类型别名 :=> 文字
 >1 : 1
 >2 : 2
 

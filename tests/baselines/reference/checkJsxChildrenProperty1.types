@@ -7,13 +7,16 @@ interface Prop {
 
     a: number,
 >a : number
+>类型别名 :=> 数字
 
     b: string,
 >b : string
+>类型别名 :=> 文字
 
     children: string | JSX.Element
 >children : string | JSX.Element
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 }
 
@@ -25,10 +28,14 @@ function Comp(p: Prop) {
     return <div>{p.b}</div>;
 ><div>{p.b}</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >p.b : string
+>类型别名 :=> 文字
 >p : Prop
 >b : string
+>类型别名 :=> 文字
 >div : any
+>类型别名 :=> 任意
 }
 
 // OK
@@ -37,9 +44,12 @@ let k = <Comp a={10} b="hi" children ="lol" />;
 ><Comp a={10} b="hi" children ="lol" /> : JSX.Element
 >Comp : (p: Prop) => JSX.Element
 >a : number
+>类型别名 :=> 数字
 >10 : 10
 >b : string
+>类型别名 :=> 文字
 >children : string
+>类型别名 :=> 文字
 
 let k1 =
 >k1 : JSX.Element
@@ -48,8 +58,10 @@ let k1 =
 ><Comp a={10} b="hi">        hi hi hi!    </Comp> : JSX.Element
 >Comp : (p: Prop) => JSX.Element
 >a : number
+>类型别名 :=> 数字
 >10 : 10
 >b : string
+>类型别名 :=> 文字
 
         hi hi hi!
     </Comp>;
@@ -62,13 +74,17 @@ let k2 =
 ><Comp a={10} b="hi">        <div>hi hi hi!</div>    </Comp> : JSX.Element
 >Comp : (p: Prop) => JSX.Element
 >a : number
+>类型别名 :=> 数字
 >10 : 10
 >b : string
+>类型别名 :=> 文字
 
         <div>hi hi hi!</div>
 ><div>hi hi hi!</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
 
     </Comp>;
 >Comp : (p: Prop) => JSX.Element

@@ -1,6 +1,7 @@
 === tests/cases/compiler/intrinsics.ts ===
 var hasOwnProperty: hasOwnProperty; // Error
 >hasOwnProperty : any
+>类型别名 :=> 任意
 >hasOwnProperty : No type information available!
 
 module m1 {
@@ -8,6 +9,7 @@ module m1 {
 
     export var __proto__;
 >__proto__ : any
+>类型别名 :=> 任意
 
     interface __proto__ {}
 >__proto__ : __proto__
@@ -22,13 +24,16 @@ module m1 {
 __proto__ = 0; // Error, __proto__ not defined
 >__proto__ = 0 : 0
 >__proto__ : any
+>类型别名 :=> 任意
 >0 : 0
 
 m1.__proto__ = 0;
 >m1.__proto__ = 0 : 0
 >m1.__proto__ : any
+>类型别名 :=> 任意
 >m1 : typeof m1
 >__proto__ : any
+>类型别名 :=> 任意
 >0 : 0
 
 class Foo<__proto__> { }
@@ -38,4 +43,5 @@ class Foo<__proto__> { }
 var foo: (__proto__: number) => void;
 >foo : (__proto__: number) => void
 >__proto__ : number
+>类型别名 :=> 数字
 

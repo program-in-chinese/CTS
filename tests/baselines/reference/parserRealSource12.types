@@ -13,8 +13,10 @@ module TypeScript {
         walk(ast: AST, parent: AST): AST;
 >walk : (ast: any, parent: any) => any
 >ast : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >AST : No type information available!
 
@@ -24,6 +26,7 @@ module TypeScript {
 
         state: any; // user state object
 >state : any
+>类型别名 :=> 任意
     }
 
     export class AstWalkOptions {
@@ -31,36 +34,54 @@ module TypeScript {
 
         public goChildren = true;
 >goChildren : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
         public goNextSibling = true;
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
         public reverseSiblings = false; // visit siblings in reverse execution order
 >reverseSiblings : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
         public stopWalk(stop:boolean = true) {
 >stopWalk : (stop?: boolean) => void
 >stop : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
             this.goChildren = !stop;
 >this.goChildren = !stop : boolean
+>类型别名 :=> 真假
 >this.goChildren : boolean
+>类型别名 :=> 真假
 >this : this
 >goChildren : boolean
+>类型别名 :=> 真假
 >!stop : boolean
+>类型别名 :=> 真假
 >stop : boolean
+>类型别名 :=> 真假
 
             this.goNextSibling = !stop;
 >this.goNextSibling = !stop : boolean
+>类型别名 :=> 真假
 >this.goNextSibling : boolean
+>类型别名 :=> 真假
 >this : this
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >!stop : boolean
+>类型别名 :=> 真假
 >stop : boolean
+>类型别名 :=> 真假
         }
     }
 
@@ -69,8 +90,10 @@ module TypeScript {
 
         (ast: AST, parent: AST, walker: IAstWalker): AST;
 >ast : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
@@ -82,8 +105,10 @@ module TypeScript {
 
         (preAst: AST, parent: AST, walker: IAstWalker): void;
 >preAst : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
@@ -112,93 +137,129 @@ module TypeScript {
 
             public state: any) {
 >state : any
+>类型别名 :=> 任意
         }
 
         public walk(ast: AST, parent: AST): AST {
 >walk : (ast: any, parent: any) => any
 >ast : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >AST : No type information available!
 
             var preAst = this.pre(ast, parent, this);
 >preAst : any
+>类型别名 :=> 任意
 >this.pre(ast, parent, this) : any
+>类型别名 :=> 任意
 >this.pre : IAstWalkCallback
 >this : this
 >pre : IAstWalkCallback
 >ast : any
+>类型别名 :=> 任意
 >parent : any
+>类型别名 :=> 任意
 >this : this
 
             if (preAst === undefined) {
 >preAst === undefined : boolean
+>类型别名 :=> 真假
 >preAst : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
                 preAst = ast;
 >preAst = ast : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >ast : any
+>类型别名 :=> 任意
             }
             if (this.options.goChildren) {
 >this.options.goChildren : boolean
+>类型别名 :=> 真假
 >this.options : AstWalkOptions
 >this : this
 >options : AstWalkOptions
 >goChildren : boolean
+>类型别名 :=> 真假
 
                 var svGoSib = this.options.goNextSibling;
 >svGoSib : boolean
+>类型别名 :=> 真假
 >this.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >this.options : AstWalkOptions
 >this : this
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 this.options.goNextSibling = true;
 >this.options.goNextSibling = true : true
+>类型别名 :=> 为真
 >this.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >this.options : AstWalkOptions
 >this : this
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
                 // Call the "walkChildren" function corresponding to "nodeType".
                 this.childrenWalkers[ast.nodeType](ast, parent, this);
 >this.childrenWalkers[ast.nodeType](ast, parent, this) : void
+>类型别名 :=> 无值
 >this.childrenWalkers[ast.nodeType] : IAstWalkChildren
 >this.childrenWalkers : IAstWalkChildren[]
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >ast.nodeType : any
+>类型别名 :=> 任意
 >ast : any
+>类型别名 :=> 任意
 >nodeType : any
+>类型别名 :=> 任意
 >ast : any
+>类型别名 :=> 任意
 >parent : any
+>类型别名 :=> 任意
 >this : this
 
                 this.options.goNextSibling = svGoSib;
 >this.options.goNextSibling = svGoSib : boolean
+>类型别名 :=> 真假
 >this.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >this.options : AstWalkOptions
 >this : this
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >svGoSib : boolean
+>类型别名 :=> 真假
             }
             else {
                 // no go only applies to children of node issuing it
                 this.options.goChildren = true;
 >this.options.goChildren = true : true
+>类型别名 :=> 为真
 >this.options.goChildren : boolean
+>类型别名 :=> 真假
 >this.options : AstWalkOptions
 >this : this
 >options : AstWalkOptions
 >goChildren : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
             }
             if (this.post) {
 >this.post : IAstWalkCallback
@@ -207,30 +268,42 @@ module TypeScript {
 
                 var postAst = this.post(preAst, parent, this);
 >postAst : any
+>类型别名 :=> 任意
 >this.post(preAst, parent, this) : any
+>类型别名 :=> 任意
 >this.post : IAstWalkCallback
 >this : this
 >post : IAstWalkCallback
 >preAst : any
+>类型别名 :=> 任意
 >parent : any
+>类型别名 :=> 任意
 >this : this
 
                 if (postAst === undefined) {
 >postAst === undefined : boolean
+>类型别名 :=> 真假
 >postAst : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
                     postAst = preAst;
 >postAst = preAst : any
+>类型别名 :=> 任意
 >postAst : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
                 }
                 return postAst;
 >postAst : any
+>类型别名 :=> 任意
             }
             else {
                 return preAst;
 >preAst : any
+>类型别名 :=> 任意
             }
         }
     }
@@ -246,6 +319,7 @@ module TypeScript {
         constructor () {
             this.initChildrenWalkers();
 >this.initChildrenWalkers() : void
+>类型别名 :=> 无值
 >this.initChildrenWalkers : () => void
 >this : this
 >initChildrenWalkers : () => void
@@ -254,6 +328,7 @@ module TypeScript {
         public walk(ast: AST, pre: IAstWalkCallback, post?: IAstWalkCallback, options?: AstWalkOptions, state?: any): AST {
 >walk : (ast: any, pre: IAstWalkCallback, post?: IAstWalkCallback, options?: AstWalkOptions, state?: any) => any
 >ast : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >pre : IAstWalkCallback
 >IAstWalkCallback : IAstWalkCallback
@@ -262,10 +337,12 @@ module TypeScript {
 >options : AstWalkOptions
 >AstWalkOptions : AstWalkOptions
 >state : any
+>类型别名 :=> 任意
 >AST : No type information available!
 
             return this.getWalker(pre, post, options, state).walk(ast, null)
 >this.getWalker(pre, post, options, state).walk(ast, null) : any
+>类型别名 :=> 任意
 >this.getWalker(pre, post, options, state).walk : (ast: any, parent: any) => any
 >this.getWalker(pre, post, options, state) : IAstWalker
 >this.getWalker : (pre: IAstWalkCallback, post?: IAstWalkCallback, options?: AstWalkOptions, state?: any) => IAstWalker
@@ -275,9 +352,12 @@ module TypeScript {
 >post : IAstWalkCallback
 >options : AstWalkOptions
 >state : any
+>类型别名 :=> 任意
 >walk : (ast: any, parent: any) => any
 >ast : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
         }
 
         public getWalker(pre: IAstWalkCallback, post?: IAstWalkCallback, options?: AstWalkOptions, state?: any): IAstWalker {
@@ -289,6 +369,7 @@ module TypeScript {
 >options : AstWalkOptions
 >AstWalkOptions : AstWalkOptions
 >state : any
+>类型别名 :=> 任意
 >IAstWalker : IAstWalker
 
             return this.getSlowWalker(pre, post, options, state);
@@ -300,6 +381,7 @@ module TypeScript {
 >post : IAstWalkCallback
 >options : AstWalkOptions
 >state : any
+>类型别名 :=> 任意
         }
 
         private getSlowWalker(pre: IAstWalkCallback, post?: IAstWalkCallback, options?: AstWalkOptions, state?: any): IAstWalker {
@@ -311,10 +393,12 @@ module TypeScript {
 >options : AstWalkOptions
 >AstWalkOptions : AstWalkOptions
 >state : any
+>类型别名 :=> 任意
 >IAstWalker : IAstWalker
 
             if (!options) {
 >!options : boolean
+>类型别名 :=> 真假
 >options : AstWalkOptions
 
                 options = new AstWalkOptions();
@@ -334,6 +418,7 @@ module TypeScript {
 >post : IAstWalkCallback
 >options : AstWalkOptions
 >state : any
+>类型别名 :=> 任意
         }
 
         private initChildrenWalkers(): void {
@@ -346,8 +431,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.None : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >None : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -359,8 +447,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Empty : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Empty : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -372,8 +463,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.EmptyExpr : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >EmptyExpr : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -385,8 +479,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.True : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >True : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -398,8 +495,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.False : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >False : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -411,8 +511,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.This : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >This : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -424,8 +527,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Super : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Super : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -437,8 +543,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.QString : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >QString : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -450,8 +559,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Regex : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Regex : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -463,8 +575,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Null : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Null : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -476,8 +591,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ArrayLit : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ArrayLit : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -489,8 +607,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ObjectLit : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ObjectLit : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -502,8 +623,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Void : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Void : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -515,8 +639,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Comma : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Comma : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -528,8 +655,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Pos : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Pos : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -541,8 +671,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Neg : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Neg : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -554,8 +687,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Delete : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Delete : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -567,8 +703,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Await : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Await : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -580,8 +719,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.In : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >In : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -593,8 +735,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Dot : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Dot : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -606,8 +751,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.From : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >From : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -619,8 +767,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Is : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Is : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -632,8 +783,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.InstOf : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >InstOf : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -645,8 +799,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Typeof : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Typeof : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -658,8 +815,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.NumberLit : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >NumberLit : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -671,8 +831,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Name : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Name : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -684,8 +847,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.TypeRef : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >TypeRef : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkTypeReferenceChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkTypeReferenceChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -697,8 +863,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Index : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Index : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -710,8 +879,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Call : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Call : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkCallExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkCallExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -723,8 +895,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.New : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >New : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkCallExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkCallExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -736,8 +911,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Asg : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Asg : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -749,8 +927,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgAdd : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgAdd : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -762,8 +943,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgSub : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgSub : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -775,8 +959,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgDiv : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgDiv : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -788,8 +975,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgMul : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgMul : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -801,8 +991,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgMod : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgMod : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -814,8 +1007,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgAnd : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgAnd : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -827,8 +1023,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgXor : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgXor : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -840,8 +1039,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgOr : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgOr : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -853,8 +1055,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgLsh : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgLsh : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -866,8 +1071,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgRsh : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgRsh : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -879,8 +1087,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.AsgRs2 : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >AsgRs2 : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -892,8 +1103,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ConditionalExpression : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ConditionalExpression : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkTrinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkTrinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -905,8 +1119,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.LogOr : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >LogOr : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -918,8 +1135,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.LogAnd : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >LogAnd : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -931,8 +1151,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Or : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Or : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -944,8 +1167,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Xor : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Xor : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -957,8 +1183,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.And : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >And : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -970,8 +1199,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Eq : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Eq : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -983,8 +1215,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Ne : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Ne : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -996,8 +1231,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Eqv : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Eqv : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1009,8 +1247,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.NEqv : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >NEqv : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1022,8 +1263,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Lt : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Lt : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1035,8 +1279,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Le : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Le : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1048,8 +1295,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Gt : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Gt : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1061,8 +1311,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Ge : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Ge : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1074,8 +1327,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Add : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Add : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1087,8 +1343,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Sub : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Sub : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1100,8 +1359,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Mul : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Mul : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1113,8 +1375,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Div : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Div : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1126,8 +1391,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Mod : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Mod : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1139,8 +1407,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Lsh : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Lsh : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1152,8 +1423,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Rsh : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Rsh : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1165,8 +1439,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Rs2 : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Rs2 : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1178,8 +1455,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Not : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Not : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1191,8 +1471,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.LogNot : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >LogNot : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1204,8 +1487,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.IncPre : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >IncPre : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1217,8 +1503,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.DecPre : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >DecPre : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1230,8 +1519,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.IncPost : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >IncPost : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1243,8 +1535,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.DecPost : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >DecPost : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1256,8 +1551,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.TypeAssertion : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >TypeAssertion : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1269,8 +1567,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.FuncDecl : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >FuncDecl : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkFuncDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkFuncDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1282,8 +1583,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Member : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Member : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1295,8 +1599,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.VarDecl : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >VarDecl : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBoundDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBoundDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1308,8 +1615,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ArgDecl : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ArgDecl : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBoundDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBoundDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1321,8 +1631,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Return : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Return : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkReturnStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkReturnStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1334,8 +1647,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Break : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Break : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1347,8 +1663,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Continue : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Continue : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1360,8 +1679,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Throw : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Throw : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1373,8 +1695,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.For : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >For : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkForStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkForStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1386,8 +1711,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ForIn : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ForIn : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkForInStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkForInStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1399,8 +1727,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.If : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >If : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkIfStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkIfStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1412,8 +1743,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.While : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >While : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkWhileStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkWhileStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1425,8 +1759,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.DoWhile : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >DoWhile : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkDoWhileStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkDoWhileStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1438,8 +1775,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Block : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Block : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkBlockChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkBlockChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1451,8 +1791,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Case : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Case : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkCaseStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkCaseStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1464,8 +1807,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Switch : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Switch : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkSwitchStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkSwitchStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1477,8 +1823,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Try : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Try : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkTryChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkTryChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1490,8 +1839,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.TryCatch : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >TryCatch : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkTryCatchChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkTryCatchChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1503,8 +1855,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.TryFinally : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >TryFinally : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkTryFinallyChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkTryFinallyChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1516,8 +1871,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Finally : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Finally : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkFinallyChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkFinallyChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1529,8 +1887,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Catch : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Catch : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkCatchChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkCatchChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1542,8 +1903,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.List : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >List : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkListChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkListChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1555,8 +1919,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Script : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Script : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkScriptChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkScriptChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1568,8 +1935,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ClassDeclaration : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ClassDeclaration : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkClassDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkClassDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1581,8 +1951,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.InterfaceDeclaration : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >InterfaceDeclaration : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkTypeDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkTypeDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1594,8 +1967,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ModuleDeclaration : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ModuleDeclaration : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkModuleDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkModuleDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1607,8 +1983,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.ImportDeclaration : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >ImportDeclaration : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkImportDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkImportDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1620,8 +1999,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.With : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >With : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkWithStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkWithStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1633,8 +2015,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Label : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Label : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkLabelChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkLabelChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1646,8 +2031,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.LabeledStatement : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >LabeledStatement : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkLabeledStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkLabeledStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1659,8 +2047,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.EBStart : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >EBStart : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1672,8 +2063,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.GotoEB : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >GotoEB : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1685,8 +2079,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.EndCode : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >EndCode : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1698,8 +2095,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Error : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Error : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1711,8 +2111,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Comment : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Comment : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1724,8 +2127,11 @@ module TypeScript {
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >NodeType.Debugger : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >Debugger : any
+>类型别名 :=> 任意
 >ChildrenWalkers.walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >ChildrenWalkers : typeof ChildrenWalkers
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
@@ -1733,22 +2139,34 @@ module TypeScript {
             // Verify the code is up to date with the enum
             for (var e in (<any>NodeType)._map) {
 >e : string
+>类型别名 :=> 文字
 >(<any>NodeType)._map : any
+>类型别名 :=> 任意
 >(<any>NodeType) : any
+>类型别名 :=> 任意
 ><any>NodeType : any
+>类型别名 :=> 任意
 >NodeType : any
+>类型别名 :=> 任意
 >_map : any
+>类型别名 :=> 任意
 
                 if ((<any>this.childrenWalkers)[e] === undefined) {
 >(<any>this.childrenWalkers)[e] === undefined : boolean
+>类型别名 :=> 真假
 >(<any>this.childrenWalkers)[e] : any
+>类型别名 :=> 任意
 >(<any>this.childrenWalkers) : any
+>类型别名 :=> 任意
 ><any>this.childrenWalkers : any
+>类型别名 :=> 任意
 >this.childrenWalkers : IAstWalkChildren[]
 >this : this
 >childrenWalkers : IAstWalkChildren[]
 >e : string
+>类型别名 :=> 文字
 >undefined : undefined
+>类型别名 :=> 未定
 
                     throw new Error("initWalkers function is not up to date with enum content!");
 >new Error("initWalkers function is not up to date with enum content!") : Error
@@ -1769,6 +2187,7 @@ module TypeScript {
 
         if (!globalAstWalkerFactory) {
 >!globalAstWalkerFactory : boolean
+>类型别名 :=> 真假
 >globalAstWalkerFactory : AstWalkerFactory
 
             globalAstWalkerFactory = new AstWalkerFactory();
@@ -1787,8 +2206,10 @@ module TypeScript {
         export function walkNone(preAst: ASTList, parent: AST, walker: IAstWalker): void {
 >walkNone : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
@@ -1799,99 +2220,152 @@ module TypeScript {
         export function walkListChildren(preAst: ASTList, parent: AST, walker: IAstWalker): void {
 >walkListChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             var len = preAst.members.length;
 >len : any
+>类型别名 :=> 任意
 >preAst.members.length : any
+>类型别名 :=> 任意
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >length : any
+>类型别名 :=> 任意
 
             if (walker.options.reverseSiblings) {
 >walker.options.reverseSiblings : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >reverseSiblings : boolean
+>类型别名 :=> 真假
 
                 for (var i = len - 1; i >= 0; i--) {
 >i : number
+>类型别名 :=> 数字
 >len - 1 : number
+>类型别名 :=> 数字
 >len : any
+>类型别名 :=> 任意
 >1 : 1
 >i >= 0 : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i-- : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 
                     if (walker.options.goNextSibling) {
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                         preAst.members[i] = walker.walk(preAst.members[i], preAst);
 >preAst.members[i] = walker.walk(preAst.members[i], preAst) : any
+>类型别名 :=> 任意
 >preAst.members[i] : any
+>类型别名 :=> 任意
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >i : number
+>类型别名 :=> 数字
 >walker.walk(preAst.members[i], preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.members[i] : any
+>类型别名 :=> 任意
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >i : number
+>类型别名 :=> 数字
 >preAst : any
+>类型别名 :=> 任意
                     }
                 }
             }
             else {
                 for (var i = 0; i < len; i++) {
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i < len : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >len : any
+>类型别名 :=> 任意
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 
                     if (walker.options.goNextSibling) {
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                         preAst.members[i] = walker.walk(preAst.members[i], preAst);
 >preAst.members[i] = walker.walk(preAst.members[i], preAst) : any
+>类型别名 :=> 任意
 >preAst.members[i] : any
+>类型别名 :=> 任意
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >i : number
+>类型别名 :=> 数字
 >walker.walk(preAst.members[i], preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.members[i] : any
+>类型别名 :=> 任意
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >i : number
+>类型别名 :=> 数字
 >preAst : any
+>类型别名 :=> 任意
                     }
                 }
             }
@@ -1900,160 +2374,248 @@ module TypeScript {
         export function walkUnaryExpressionChildren(preAst: UnaryExpression, parent: AST, walker: IAstWalker): void {
 >walkUnaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >UnaryExpression : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.castTerm) {
 >preAst.castTerm : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >castTerm : any
+>类型别名 :=> 任意
 
                 preAst.castTerm = walker.walk(preAst.castTerm, preAst);
 >preAst.castTerm = walker.walk(preAst.castTerm, preAst) : any
+>类型别名 :=> 任意
 >preAst.castTerm : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >castTerm : any
+>类型别名 :=> 任意
 >walker.walk(preAst.castTerm, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.castTerm : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >castTerm : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.operand) {
 >preAst.operand : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand : any
+>类型别名 :=> 任意
 
                 preAst.operand = walker.walk(preAst.operand, preAst);
 >preAst.operand = walker.walk(preAst.operand, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkBinaryExpressionChildren(preAst: BinaryExpression, parent: AST, walker: IAstWalker): void {
 >walkBinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >BinaryExpression : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (walker.options.reverseSiblings) {
 >walker.options.reverseSiblings : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >reverseSiblings : boolean
+>类型别名 :=> 真假
 
                 if (preAst.operand2) {
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 
                     preAst.operand2 = walker.walk(preAst.operand2, preAst);
 >preAst.operand2 = walker.walk(preAst.operand2, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand2, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
                 }
                 if ((preAst.operand1) && (walker.options.goNextSibling)) {
 >(preAst.operand1) && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >(preAst.operand1) : any
+>类型别名 :=> 任意
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                     preAst.operand1 = walker.walk(preAst.operand1, preAst);
 >preAst.operand1 = walker.walk(preAst.operand1, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand1, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
                 }
             } else {
                 if (preAst.operand1) {
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 
                     preAst.operand1 = walker.walk(preAst.operand1, preAst);
 >preAst.operand1 = walker.walk(preAst.operand1, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand1, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
                 }
                 if ((preAst.operand2) && (walker.options.goNextSibling)) {
 >(preAst.operand2) && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >(preAst.operand2) : any
+>类型别名 :=> 任意
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                     preAst.operand2 = walker.walk(preAst.operand2, preAst);
 >preAst.operand2 = walker.walk(preAst.operand2, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand2, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
                 }
             }
         }
@@ -2061,1246 +2623,1915 @@ module TypeScript {
         export function walkTypeReferenceChildren(preAst: TypeReference, parent: AST, walker: IAstWalker): void {
 >walkTypeReferenceChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >TypeReference : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.term) {
 >preAst.term : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >term : any
+>类型别名 :=> 任意
 
                 preAst.term = walker.walk(preAst.term, preAst);
 >preAst.term = walker.walk(preAst.term, preAst) : any
+>类型别名 :=> 任意
 >preAst.term : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >term : any
+>类型别名 :=> 任意
 >walker.walk(preAst.term, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.term : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >term : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkCallExpressionChildren(preAst: CallExpression, parent: AST, walker: IAstWalker): void {
 >walkCallExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >CallExpression : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (!walker.options.reverseSiblings) {
 >!walker.options.reverseSiblings : boolean
+>类型别名 :=> 真假
 >walker.options.reverseSiblings : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >reverseSiblings : boolean
+>类型别名 :=> 真假
 
                 preAst.target = walker.walk(preAst.target, preAst);
 >preAst.target = walker.walk(preAst.target, preAst) : any
+>类型别名 :=> 任意
 >preAst.target : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >target : any
+>类型别名 :=> 任意
 >walker.walk(preAst.target, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.target : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >target : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.arguments && (walker.options.goNextSibling)) {
 >preAst.arguments && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >arguments : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.arguments = <ASTList> walker.walk(preAst.arguments, preAst);
 >preAst.arguments = <ASTList> walker.walk(preAst.arguments, preAst) : any
+>类型别名 :=> 任意
 >preAst.arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >arguments : any
+>类型别名 :=> 任意
 ><ASTList> walker.walk(preAst.arguments, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.arguments, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if ((walker.options.reverseSiblings) && (walker.options.goNextSibling)) {
 >(walker.options.reverseSiblings) && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >(walker.options.reverseSiblings) : boolean
+>类型别名 :=> 真假
 >walker.options.reverseSiblings : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >reverseSiblings : boolean
+>类型别名 :=> 真假
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.target = walker.walk(preAst.target, preAst);
 >preAst.target = walker.walk(preAst.target, preAst) : any
+>类型别名 :=> 任意
 >preAst.target : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >target : any
+>类型别名 :=> 任意
 >walker.walk(preAst.target, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.target : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >target : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkTrinaryExpressionChildren(preAst: ConditionalExpression, parent: AST, walker: IAstWalker): void {
 >walkTrinaryExpressionChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ConditionalExpression : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.operand1) {
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 
                 preAst.operand1 = walker.walk(preAst.operand1, preAst);
 >preAst.operand1 = walker.walk(preAst.operand1, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand1, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand1 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.operand2 && (walker.options.goNextSibling)) {
 >preAst.operand2 && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.operand2 = walker.walk(preAst.operand2, preAst);
 >preAst.operand2 = walker.walk(preAst.operand2, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand2, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand2 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.operand3 && (walker.options.goNextSibling)) {
 >preAst.operand3 && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.operand3 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand3 : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.operand3 = walker.walk(preAst.operand3, preAst);
 >preAst.operand3 = walker.walk(preAst.operand3, preAst) : any
+>类型别名 :=> 任意
 >preAst.operand3 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand3 : any
+>类型别名 :=> 任意
 >walker.walk(preAst.operand3, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.operand3 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >operand3 : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkFuncDeclChildren(preAst: FuncDecl, parent: AST, walker: IAstWalker): void {
 >walkFuncDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >FuncDecl : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.name) {
 >preAst.name : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >name : any
+>类型别名 :=> 任意
 
                 preAst.name = <Identifier>walker.walk(preAst.name, preAst);
 >preAst.name = <Identifier>walker.walk(preAst.name, preAst) : any
+>类型别名 :=> 任意
 >preAst.name : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >name : any
+>类型别名 :=> 任意
 ><Identifier>walker.walk(preAst.name, preAst) : any
+>类型别名 :=> 任意
 >Identifier : No type information available!
 >walker.walk(preAst.name, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.name : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >name : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.arguments && (preAst.arguments.members.length > 0) && (walker.options.goNextSibling)) {
 >preAst.arguments && (preAst.arguments.members.length > 0) && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.arguments && (preAst.arguments.members.length > 0) : boolean
+>类型别名 :=> 真假
 >preAst.arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >arguments : any
+>类型别名 :=> 任意
 >(preAst.arguments.members.length > 0) : boolean
+>类型别名 :=> 真假
 >preAst.arguments.members.length > 0 : boolean
+>类型别名 :=> 真假
 >preAst.arguments.members.length : any
+>类型别名 :=> 任意
 >preAst.arguments.members : any
+>类型别名 :=> 任意
 >preAst.arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >arguments : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >length : any
+>类型别名 :=> 任意
 >0 : 0
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.arguments = <ASTList>walker.walk(preAst.arguments, preAst);
 >preAst.arguments = <ASTList>walker.walk(preAst.arguments, preAst) : any
+>类型别名 :=> 任意
 >preAst.arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >arguments : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.arguments, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.arguments, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >arguments : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.returnTypeAnnotation && (walker.options.goNextSibling)) {
 >preAst.returnTypeAnnotation && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.returnTypeAnnotation : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >returnTypeAnnotation : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.returnTypeAnnotation = walker.walk(preAst.returnTypeAnnotation, preAst);
 >preAst.returnTypeAnnotation = walker.walk(preAst.returnTypeAnnotation, preAst) : any
+>类型别名 :=> 任意
 >preAst.returnTypeAnnotation : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >returnTypeAnnotation : any
+>类型别名 :=> 任意
 >walker.walk(preAst.returnTypeAnnotation, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.returnTypeAnnotation : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >returnTypeAnnotation : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.bod && (preAst.bod.members.length > 0) && (walker.options.goNextSibling)) {
 >preAst.bod && (preAst.bod.members.length > 0) && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.bod && (preAst.bod.members.length > 0) : boolean
+>类型别名 :=> 真假
 >preAst.bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >bod : any
+>类型别名 :=> 任意
 >(preAst.bod.members.length > 0) : boolean
+>类型别名 :=> 真假
 >preAst.bod.members.length > 0 : boolean
+>类型别名 :=> 真假
 >preAst.bod.members.length : any
+>类型别名 :=> 任意
 >preAst.bod.members : any
+>类型别名 :=> 任意
 >preAst.bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >bod : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >length : any
+>类型别名 :=> 任意
 >0 : 0
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.bod = <ASTList>walker.walk(preAst.bod, preAst);
 >preAst.bod = <ASTList>walker.walk(preAst.bod, preAst) : any
+>类型别名 :=> 任意
 >preAst.bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >bod : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.bod, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.bod, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkBoundDeclChildren(preAst: BoundDecl, parent: AST, walker: IAstWalker): void {
 >walkBoundDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >BoundDecl : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.id) {
 >preAst.id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 
                 preAst.id = <Identifier>walker.walk(preAst.id, preAst);
 >preAst.id = <Identifier>walker.walk(preAst.id, preAst) : any
+>类型别名 :=> 任意
 >preAst.id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 ><Identifier>walker.walk(preAst.id, preAst) : any
+>类型别名 :=> 任意
 >Identifier : No type information available!
 >walker.walk(preAst.id, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.init) {
 >preAst.init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >init : any
+>类型别名 :=> 任意
 
                 preAst.init = walker.walk(preAst.init, preAst);
 >preAst.init = walker.walk(preAst.init, preAst) : any
+>类型别名 :=> 任意
 >preAst.init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >init : any
+>类型别名 :=> 任意
 >walker.walk(preAst.init, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if ((preAst.typeExpr) && (walker.options.goNextSibling)) {
 >(preAst.typeExpr) && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >(preAst.typeExpr) : any
+>类型别名 :=> 任意
 >preAst.typeExpr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >typeExpr : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.typeExpr = walker.walk(preAst.typeExpr, preAst);
 >preAst.typeExpr = walker.walk(preAst.typeExpr, preAst) : any
+>类型别名 :=> 任意
 >preAst.typeExpr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >typeExpr : any
+>类型别名 :=> 任意
 >walker.walk(preAst.typeExpr, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.typeExpr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >typeExpr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkReturnStatementChildren(preAst: ReturnStatement, parent: AST, walker: IAstWalker): void {
 >walkReturnStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ReturnStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.returnExpression) {
 >preAst.returnExpression : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >returnExpression : any
+>类型别名 :=> 任意
 
                 preAst.returnExpression = walker.walk(preAst.returnExpression, preAst);
 >preAst.returnExpression = walker.walk(preAst.returnExpression, preAst) : any
+>类型别名 :=> 任意
 >preAst.returnExpression : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >returnExpression : any
+>类型别名 :=> 任意
 >walker.walk(preAst.returnExpression, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.returnExpression : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >returnExpression : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkForStatementChildren(preAst: ForStatement, parent: AST, walker: IAstWalker): void {
 >walkForStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ForStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.init) {
 >preAst.init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >init : any
+>类型别名 :=> 任意
 
                 preAst.init = walker.walk(preAst.init, preAst);
 >preAst.init = walker.walk(preAst.init, preAst) : any
+>类型别名 :=> 任意
 >preAst.init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >init : any
+>类型别名 :=> 任意
 >walker.walk(preAst.init, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >init : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (preAst.cond && walker.options.goNextSibling) {
 >preAst.cond && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.cond = walker.walk(preAst.cond, preAst);
 >preAst.cond = walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (preAst.incr && walker.options.goNextSibling) {
 >preAst.incr && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.incr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >incr : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.incr = walker.walk(preAst.incr, preAst);
 >preAst.incr = walker.walk(preAst.incr, preAst) : any
+>类型别名 :=> 任意
 >preAst.incr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >incr : any
+>类型别名 :=> 任意
 >walker.walk(preAst.incr, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.incr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >incr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (preAst.body && walker.options.goNextSibling) {
 >preAst.body && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkForInStatementChildren(preAst: ForInStatement, parent: AST, walker: IAstWalker): void {
 >walkForInStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ForInStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             preAst.lval = walker.walk(preAst.lval, preAst);
 >preAst.lval = walker.walk(preAst.lval, preAst) : any
+>类型别名 :=> 任意
 >preAst.lval : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >lval : any
+>类型别名 :=> 任意
 >walker.walk(preAst.lval, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.lval : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >lval : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 
             if (walker.options.goNextSibling) {
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.obj = walker.walk(preAst.obj, preAst);
 >preAst.obj = walker.walk(preAst.obj, preAst) : any
+>类型别名 :=> 任意
 >preAst.obj : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >obj : any
+>类型别名 :=> 任意
 >walker.walk(preAst.obj, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.obj : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >obj : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.body && (walker.options.goNextSibling)) {
 >preAst.body && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkIfStatementChildren(preAst: IfStatement, parent: AST, walker: IAstWalker): void {
 >walkIfStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >IfStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             preAst.cond = walker.walk(preAst.cond, preAst);
 >preAst.cond = walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 
             if (preAst.thenBod && (walker.options.goNextSibling)) {
 >preAst.thenBod && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.thenBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >thenBod : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.thenBod = walker.walk(preAst.thenBod, preAst);
 >preAst.thenBod = walker.walk(preAst.thenBod, preAst) : any
+>类型别名 :=> 任意
 >preAst.thenBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >thenBod : any
+>类型别名 :=> 任意
 >walker.walk(preAst.thenBod, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.thenBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >thenBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.elseBod && (walker.options.goNextSibling)) {
 >preAst.elseBod && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.elseBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >elseBod : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.elseBod = walker.walk(preAst.elseBod, preAst);
 >preAst.elseBod = walker.walk(preAst.elseBod, preAst) : any
+>类型别名 :=> 任意
 >preAst.elseBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >elseBod : any
+>类型别名 :=> 任意
 >walker.walk(preAst.elseBod, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.elseBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >elseBod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkWhileStatementChildren(preAst: WhileStatement, parent: AST, walker: IAstWalker): void {
 >walkWhileStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >WhileStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             preAst.cond = walker.walk(preAst.cond, preAst);
 >preAst.cond = walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 
             if (preAst.body && (walker.options.goNextSibling)) {
 >preAst.body && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkDoWhileStatementChildren(preAst: DoWhileStatement, parent: AST, walker: IAstWalker): void {
 >walkDoWhileStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >DoWhileStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             preAst.cond = walker.walk(preAst.cond, preAst);
 >preAst.cond = walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >walker.walk(preAst.cond, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >cond : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 
             if (preAst.body && (walker.options.goNextSibling)) {
 >preAst.body && (walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >(walker.options.goNextSibling) : boolean
+>类型别名 :=> 真假
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkBlockChildren(preAst: Block, parent: AST, walker: IAstWalker): void {
 >walkBlockChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >Block : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.statements) {
 >preAst.statements : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >statements : any
+>类型别名 :=> 任意
 
                 preAst.statements = <ASTList>walker.walk(preAst.statements, preAst);
 >preAst.statements = <ASTList>walker.walk(preAst.statements, preAst) : any
+>类型别名 :=> 任意
 >preAst.statements : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >statements : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.statements, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.statements, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.statements : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >statements : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkCaseStatementChildren(preAst: CaseStatement, parent: AST, walker: IAstWalker): void {
 >walkCaseStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >CaseStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.expr) {
 >preAst.expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >expr : any
+>类型别名 :=> 任意
 
                 preAst.expr = walker.walk(preAst.expr, preAst);
 >preAst.expr = walker.walk(preAst.expr, preAst) : any
+>类型别名 :=> 任意
 >preAst.expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >expr : any
+>类型别名 :=> 任意
 >walker.walk(preAst.expr, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (preAst.body && walker.options.goNextSibling) {
 >preAst.body && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.body = <ASTList>walker.walk(preAst.body, preAst);
 >preAst.body = <ASTList>walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkSwitchStatementChildren(preAst: SwitchStatement, parent: AST, walker: IAstWalker): void {
 >walkSwitchStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >SwitchStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.val) {
 >preAst.val : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >val : any
+>类型别名 :=> 任意
 
                 preAst.val = walker.walk(preAst.val, preAst);
 >preAst.val = walker.walk(preAst.val, preAst) : any
+>类型别名 :=> 任意
 >preAst.val : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >val : any
+>类型别名 :=> 任意
 >walker.walk(preAst.val, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.val : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >val : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if ((preAst.caseList) && walker.options.goNextSibling) {
 >(preAst.caseList) && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >(preAst.caseList) : any
+>类型别名 :=> 任意
 >preAst.caseList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >caseList : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.caseList = <ASTList>walker.walk(preAst.caseList, preAst);
 >preAst.caseList = <ASTList>walker.walk(preAst.caseList, preAst) : any
+>类型别名 :=> 任意
 >preAst.caseList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >caseList : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.caseList, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.caseList, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.caseList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >caseList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkTryChildren(preAst: Try, parent: AST, walker: IAstWalker): void {
 >walkTryChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >Try : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.body) {
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkTryCatchChildren(preAst: TryCatch, parent: AST, walker: IAstWalker): void {
 >walkTryCatchChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >TryCatch : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.tryNode) {
 >preAst.tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >tryNode : any
+>类型别名 :=> 任意
 
                 preAst.tryNode = <Try>walker.walk(preAst.tryNode, preAst);
 >preAst.tryNode = <Try>walker.walk(preAst.tryNode, preAst) : any
+>类型别名 :=> 任意
 >preAst.tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >tryNode : any
+>类型别名 :=> 任意
 ><Try>walker.walk(preAst.tryNode, preAst) : any
+>类型别名 :=> 任意
 >Try : No type information available!
 >walker.walk(preAst.tryNode, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if ((preAst.catchNode) && walker.options.goNextSibling) {
 >(preAst.catchNode) && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >(preAst.catchNode) : any
+>类型别名 :=> 任意
 >preAst.catchNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >catchNode : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.catchNode = <Catch>walker.walk(preAst.catchNode, preAst);
 >preAst.catchNode = <Catch>walker.walk(preAst.catchNode, preAst) : any
+>类型别名 :=> 任意
 >preAst.catchNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >catchNode : any
+>类型别名 :=> 任意
 ><Catch>walker.walk(preAst.catchNode, preAst) : any
+>类型别名 :=> 任意
 >Catch : No type information available!
 >walker.walk(preAst.catchNode, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.catchNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >catchNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkTryFinallyChildren(preAst: TryFinally, parent: AST, walker: IAstWalker): void {
 >walkTryFinallyChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >TryFinally : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.tryNode) {
 >preAst.tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >tryNode : any
+>类型别名 :=> 任意
 
                 preAst.tryNode = walker.walk(preAst.tryNode, preAst);
 >preAst.tryNode = walker.walk(preAst.tryNode, preAst) : any
+>类型别名 :=> 任意
 >preAst.tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >tryNode : any
+>类型别名 :=> 任意
 >walker.walk(preAst.tryNode, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >tryNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (preAst.finallyNode && walker.options.goNextSibling) {
 >preAst.finallyNode && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.finallyNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >finallyNode : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.finallyNode = <Finally>walker.walk(preAst.finallyNode, preAst);
 >preAst.finallyNode = <Finally>walker.walk(preAst.finallyNode, preAst) : any
+>类型别名 :=> 任意
 >preAst.finallyNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >finallyNode : any
+>类型别名 :=> 任意
 ><Finally>walker.walk(preAst.finallyNode, preAst) : any
+>类型别名 :=> 任意
 >Finally : No type information available!
 >walker.walk(preAst.finallyNode, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.finallyNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >finallyNode : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkFinallyChildren(preAst: Finally, parent: AST, walker: IAstWalker): void {
 >walkFinallyChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >Finally : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.body) {
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkCatchChildren(preAst: Catch, parent: AST, walker: IAstWalker): void {
 >walkCatchChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >Catch : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.param) {
 >preAst.param : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >param : any
+>类型别名 :=> 任意
 
                 preAst.param = <VarDecl>walker.walk(preAst.param, preAst);
 >preAst.param = <VarDecl>walker.walk(preAst.param, preAst) : any
+>类型别名 :=> 任意
 >preAst.param : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >param : any
+>类型别名 :=> 任意
 ><VarDecl>walker.walk(preAst.param, preAst) : any
+>类型别名 :=> 任意
 >VarDecl : No type information available!
 >walker.walk(preAst.param, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.param : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >param : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if ((preAst.body) && walker.options.goNextSibling) {
 >(preAst.body) && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >(preAst.body) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkRecordChildren(preAst: NamedDeclaration, parent: AST, walker: IAstWalker): void {
 >walkRecordChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >NamedDeclaration : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             preAst.name = <Identifier>walker.walk(preAst.name, preAst);
 >preAst.name = <Identifier>walker.walk(preAst.name, preAst) : any
+>类型别名 :=> 任意
 >preAst.name : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >name : any
+>类型别名 :=> 任意
 ><Identifier>walker.walk(preAst.name, preAst) : any
+>类型别名 :=> 任意
 >Identifier : No type information available!
 >walker.walk(preAst.name, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.name : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >name : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 
             if (walker.options.goNextSibling && preAst.members) {
 >walker.options.goNextSibling && preAst.members : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 
                 preAst.members = <ASTList>walker.walk(preAst.members, preAst);
 >preAst.members = <ASTList>walker.walk(preAst.members, preAst) : any
+>类型别名 :=> 任意
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.members, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.members, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >members : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
         }
@@ -3308,328 +4539,485 @@ module TypeScript {
         export function walkNamedTypeChildren(preAst: TypeDeclaration, parent: AST, walker: IAstWalker): void {
 >walkNamedTypeChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >TypeDeclaration : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             walkRecordChildren(preAst, parent, walker);
 >walkRecordChildren(preAst, parent, walker) : void
+>类型别名 :=> 无值
 >walkRecordChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >parent : any
+>类型别名 :=> 任意
 >walker : IAstWalker
         }
 
         export function walkClassDeclChildren(preAst: ClassDeclaration, parent: AST, walker: IAstWalker): void {
 >walkClassDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ClassDeclaration : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             walkNamedTypeChildren(preAst, parent, walker);
 >walkNamedTypeChildren(preAst, parent, walker) : void
+>类型别名 :=> 无值
 >walkNamedTypeChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >parent : any
+>类型别名 :=> 任意
 >walker : IAstWalker
 
             if (walker.options.goNextSibling && preAst.extendsList) {
 >walker.options.goNextSibling && preAst.extendsList : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >extendsList : any
+>类型别名 :=> 任意
 
                 preAst.extendsList = <ASTList>walker.walk(preAst.extendsList, preAst);
 >preAst.extendsList = <ASTList>walker.walk(preAst.extendsList, preAst) : any
+>类型别名 :=> 任意
 >preAst.extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >extendsList : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.extendsList, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.extendsList, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (walker.options.goNextSibling && preAst.implementsList) {
 >walker.options.goNextSibling && preAst.implementsList : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >implementsList : any
+>类型别名 :=> 任意
 
                 preAst.implementsList = <ASTList>walker.walk(preAst.implementsList, preAst);
 >preAst.implementsList = <ASTList>walker.walk(preAst.implementsList, preAst) : any
+>类型别名 :=> 任意
 >preAst.implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >implementsList : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.implementsList, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.implementsList, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkScriptChildren(preAst: Script, parent: AST, walker: IAstWalker): void {
 >walkScriptChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >Script : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.bod) {
 >preAst.bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >bod : any
+>类型别名 :=> 任意
 
                 preAst.bod = <ASTList>walker.walk(preAst.bod, preAst);
 >preAst.bod = <ASTList>walker.walk(preAst.bod, preAst) : any
+>类型别名 :=> 任意
 >preAst.bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >bod : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.bod, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.bod, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >bod : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkTypeDeclChildren(preAst: InterfaceDeclaration, parent: AST, walker: IAstWalker): void {
 >walkTypeDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >InterfaceDeclaration : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             walkNamedTypeChildren(preAst, parent, walker);
 >walkNamedTypeChildren(preAst, parent, walker) : void
+>类型别名 :=> 无值
 >walkNamedTypeChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >parent : any
+>类型别名 :=> 任意
 >walker : IAstWalker
 
             // walked arguments as part of members
             if (walker.options.goNextSibling && preAst.extendsList) {
 >walker.options.goNextSibling && preAst.extendsList : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >extendsList : any
+>类型别名 :=> 任意
 
                 preAst.extendsList = <ASTList>walker.walk(preAst.extendsList, preAst);
 >preAst.extendsList = <ASTList>walker.walk(preAst.extendsList, preAst) : any
+>类型别名 :=> 任意
 >preAst.extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >extendsList : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.extendsList, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.extendsList, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >extendsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (walker.options.goNextSibling && preAst.implementsList) {
 >walker.options.goNextSibling && preAst.implementsList : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >implementsList : any
+>类型别名 :=> 任意
 
                 preAst.implementsList = <ASTList>walker.walk(preAst.implementsList, preAst);
 >preAst.implementsList = <ASTList>walker.walk(preAst.implementsList, preAst) : any
+>类型别名 :=> 任意
 >preAst.implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >implementsList : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.implementsList, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.implementsList, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >implementsList : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkModuleDeclChildren(preAst: ModuleDeclaration, parent: AST, walker: IAstWalker): void {
 >walkModuleDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ModuleDeclaration : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             walkRecordChildren(preAst, parent, walker);
 >walkRecordChildren(preAst, parent, walker) : void
+>类型别名 :=> 无值
 >walkRecordChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >parent : any
+>类型别名 :=> 任意
 >walker : IAstWalker
         }
 
         export function walkImportDeclChildren(preAst: ImportDeclaration, parent: AST, walker: IAstWalker): void {
 >walkImportDeclChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >ImportDeclaration : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.id) {
 >preAst.id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 
                 preAst.id = <Identifier>walker.walk(preAst.id, preAst);
 >preAst.id = <Identifier>walker.walk(preAst.id, preAst) : any
+>类型别名 :=> 任意
 >preAst.id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 ><Identifier>walker.walk(preAst.id, preAst) : any
+>类型别名 :=> 任意
 >Identifier : No type information available!
 >walker.walk(preAst.id, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
             if (preAst.alias) {
 >preAst.alias : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >alias : any
+>类型别名 :=> 任意
 
                 preAst.alias = walker.walk(preAst.alias, preAst);
 >preAst.alias = walker.walk(preAst.alias, preAst) : any
+>类型别名 :=> 任意
 >preAst.alias : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >alias : any
+>类型别名 :=> 任意
 >walker.walk(preAst.alias, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.alias : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >alias : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkWithStatementChildren(preAst: WithStatement, parent: AST, walker: IAstWalker): void {
 >walkWithStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >WithStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             if (preAst.expr) {
 >preAst.expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >expr : any
+>类型别名 :=> 任意
 
                 preAst.expr = walker.walk(preAst.expr, preAst);
 >preAst.expr = walker.walk(preAst.expr, preAst) : any
+>类型别名 :=> 任意
 >preAst.expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >expr : any
+>类型别名 :=> 任意
 >walker.walk(preAst.expr, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >expr : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
 
             if (preAst.body && walker.options.goNextSibling) {
 >preAst.body && walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.body = walker.walk(preAst.body, preAst);
 >preAst.body = walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >walker.walk(preAst.body, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >body : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
 
         export function walkLabelChildren(preAst: Label, parent: AST, walker: IAstWalker): void {
 >walkLabelChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >Label : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
@@ -3640,48 +5028,71 @@ module TypeScript {
         export function walkLabeledStatementChildren(preAst: LabeledStatement, parent: AST, walker: IAstWalker): void {
 >walkLabeledStatementChildren : (preAst: any, parent: any, walker: IAstWalker) => void
 >preAst : any
+>类型别名 :=> 任意
 >LabeledStatement : No type information available!
 >parent : any
+>类型别名 :=> 任意
 >AST : No type information available!
 >walker : IAstWalker
 >IAstWalker : IAstWalker
 
             preAst.labels = <ASTList>walker.walk(preAst.labels, preAst);
 >preAst.labels = <ASTList>walker.walk(preAst.labels, preAst) : any
+>类型别名 :=> 任意
 >preAst.labels : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >labels : any
+>类型别名 :=> 任意
 ><ASTList>walker.walk(preAst.labels, preAst) : any
+>类型别名 :=> 任意
 >ASTList : No type information available!
 >walker.walk(preAst.labels, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.labels : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >labels : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 
             if (walker.options.goNextSibling) {
 >walker.options.goNextSibling : boolean
+>类型别名 :=> 真假
 >walker.options : AstWalkOptions
 >walker : IAstWalker
 >options : AstWalkOptions
 >goNextSibling : boolean
+>类型别名 :=> 真假
 
                 preAst.stmt = walker.walk(preAst.stmt, preAst);
 >preAst.stmt = walker.walk(preAst.stmt, preAst) : any
+>类型别名 :=> 任意
 >preAst.stmt : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >stmt : any
+>类型别名 :=> 任意
 >walker.walk(preAst.stmt, preAst) : any
+>类型别名 :=> 任意
 >walker.walk : (ast: any, parent: any) => any
 >walker : IAstWalker
 >walk : (ast: any, parent: any) => any
 >preAst.stmt : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
 >stmt : any
+>类型别名 :=> 任意
 >preAst : any
+>类型别名 :=> 任意
             }
         }
     }

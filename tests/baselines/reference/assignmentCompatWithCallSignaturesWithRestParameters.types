@@ -11,18 +11,23 @@ interface Base {
     a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >z : number[]
 
     a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >z : number[]
 
     a4: (x?: number, y?: string, ...z: number[]) => number;
 >a4 : (x?: number, y?: string, ...z: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >z : number[]
 }
 
@@ -55,6 +60,7 @@ var a: (...args: number[]) => number; // ok, same number of required params
 >a : (...args: number[]) => number
 >(x?: number) => 1 : (x?: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a = (x?: number, y?: number, z?: number) => 1; // ok, same number of required params
@@ -62,8 +68,11 @@ var a: (...args: number[]) => number; // ok, same number of required params
 >a : (...args: number[]) => number
 >(x?: number, y?: number, z?: number) => 1 : (x?: number, y?: number, z?: number) => number
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : number
+>类型别名 :=> 数字
 >1 : 1
 
     a = (x: number) => 1; // ok, rest param corresponds to infinite number of params
@@ -71,6 +80,7 @@ var a: (...args: number[]) => number; // ok, same number of required params
 >a : (...args: number[]) => number
 >(x: number) => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a = (x?: string) => 1; // error, incompatible type
@@ -78,12 +88,14 @@ var a: (...args: number[]) => number; // ok, same number of required params
 >a : (...args: number[]) => number
 >(x?: string) => 1 : (x?: string) => number
 >x : string
+>类型别名 :=> 文字
 >1 : 1
 
 
 var a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >z : number[]
 
     a2 = () => 1; // ok, fewer required params
@@ -104,6 +116,7 @@ var a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >(x?: number) => 1 : (x?: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a2 = (x: number) => 1; // ok, same number of required params
@@ -111,6 +124,7 @@ var a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >(x: number) => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a2 = (x: number, ...args: number[]) => 1; // ok, same number of required params
@@ -118,6 +132,7 @@ var a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >(x: number, ...args: number[]) => 1 : (x: number, ...args: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >args : number[]
 >1 : 1
 
@@ -126,6 +141,7 @@ var a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >(x: number, ...args: string[]) => 1 : (x: number, ...args: string[]) => number
 >x : number
+>类型别名 :=> 数字
 >args : string[]
 >1 : 1
 
@@ -134,7 +150,9 @@ var a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >(x: number, y: number) => 1 : (x: number, y: number) => number
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
     a2 = (x: number, y?: number) => 1; // ok, same number of required params
@@ -142,13 +160,17 @@ var a2: (x: number, ...z: number[]) => number;
 >a2 : (x: number, ...z: number[]) => number
 >(x: number, y?: number) => 1 : (x: number, y?: number) => number
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
 var a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >z : number[]
 
     a3 = () => 1; // ok, fewer required params
@@ -162,6 +184,7 @@ var a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >(x?: number) => 1 : (x?: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a3 = (x: number) => 1; // ok, same number of required params
@@ -169,6 +192,7 @@ var a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >(x: number) => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a3 = (x: number, y: string) => 1;  // ok, all present params match
@@ -176,7 +200,9 @@ var a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >(x: number, y: string) => 1 : (x: number, y: string) => number
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >1 : 1
 
     a3 = (x: number, y?: number, z?: number) => 1;  // error
@@ -184,8 +210,11 @@ var a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >(x: number, y?: number, z?: number) => 1 : (x: number, y?: number, z?: number) => number
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : number
+>类型别名 :=> 数字
 >1 : 1
 
     a3 = (x: number, ...z: number[]) => 1;  // error
@@ -193,6 +222,7 @@ var a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >(x: number, ...z: number[]) => 1 : (x: number, ...z: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >z : number[]
 >1 : 1
 
@@ -201,14 +231,19 @@ var a3: (x: number, y?: string, ...z: number[]) => number;
 >a3 : (x: number, y?: string, ...z: number[]) => number
 >(x: string, y?: string, z?: string) => 1 : (x: string, y?: string, z?: string) => number
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >z : string
+>类型别名 :=> 文字
 >1 : 1
 
 var a4: (x?: number, y?: string, ...z: number[]) => number;
 >a4 : (x?: number, y?: string, ...z: number[]) => number
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >z : number[]
 
     a4 = () => 1; // ok, fewer required params
@@ -222,7 +257,9 @@ var a4: (x?: number, y?: string, ...z: number[]) => number;
 >a4 : (x?: number, y?: string, ...z: number[]) => number
 >(x?: number, y?: number) => 1 : (x?: number, y?: number) => number
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
     a4 = (x: number) => 1; // ok, all present params match
@@ -230,6 +267,7 @@ var a4: (x?: number, y?: string, ...z: number[]) => number;
 >a4 : (x?: number, y?: string, ...z: number[]) => number
 >(x: number) => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a4 = (x: number, y?: number) => 1;  // error, second param has type mismatch
@@ -237,7 +275,9 @@ var a4: (x?: number, y?: string, ...z: number[]) => number;
 >a4 : (x?: number, y?: string, ...z: number[]) => number
 >(x: number, y?: number) => 1 : (x: number, y?: number) => number
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
     a4 = (x?: number, y?: string) => 1;  // ok, same number of required params with matching types
@@ -245,7 +285,9 @@ var a4: (x?: number, y?: string, ...z: number[]) => number;
 >a4 : (x?: number, y?: string, ...z: number[]) => number
 >(x?: number, y?: string) => 1 : (x?: number, y?: string) => number
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >1 : 1
 
     a4 = (x: number, ...args: string[]) => 1;  // error, rest params have type mismatch
@@ -253,6 +295,7 @@ var a4: (x?: number, y?: string, ...z: number[]) => number;
 >a4 : (x?: number, y?: string, ...z: number[]) => number
 >(x: number, ...args: string[]) => 1 : (x: number, ...args: string[]) => number
 >x : number
+>类型别名 :=> 数字
 >args : string[]
 >1 : 1
 

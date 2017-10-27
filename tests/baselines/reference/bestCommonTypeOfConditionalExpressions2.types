@@ -5,16 +5,19 @@
 class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 class Derived2 extends Base { baz: string; }
 >Derived2 : Derived2
 >Base : Base
 >baz : string
+>类型别名 :=> 文字
 
 var base: Base;
 >base : Base
@@ -32,6 +35,7 @@ var r2 = true ? 1 : '';
 >r2 : string | number
 >true ? 1 : '' : 1 | ""
 >true : true
+>类型别名 :=> 为真
 >1 : 1
 >'' : ""
 
@@ -39,6 +43,7 @@ var r9 = true ? derived : derived2;
 >r9 : Derived | Derived2
 >true ? derived : derived2 : Derived | Derived2
 >true : true
+>类型别名 :=> 为真
 >derived : Derived
 >derived2 : Derived2
 
@@ -54,6 +59,7 @@ function foo<T, U>(t: T, u: U) {
     return true ? t : u;
 >true ? t : u : T | U
 >true : true
+>类型别名 :=> 为真
 >t : T
 >u : U
 }
@@ -71,6 +77,7 @@ function foo2<T extends U, U>(t: T, u: U) { // Error for referencing own type pa
     return true ? t : u; // Ok because BCT(T, U) = U
 >true ? t : u : U
 >true : true
+>类型别名 :=> 为真
 >t : T
 >u : U
 }
@@ -90,6 +97,7 @@ function foo3<T extends U, U extends V, V>(t: T, u: U) {
     return true ? t : u;
 >true ? t : u : U
 >true : true
+>类型别名 :=> 为真
 >t : T
 >u : U
 }

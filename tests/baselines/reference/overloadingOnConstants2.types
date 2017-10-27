@@ -4,6 +4,7 @@ class C {
 
    private x = 1;
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 }
 class D extends C {}
@@ -15,6 +16,7 @@ class E {
 
    private y = 1;
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 }
 function foo(x: "hi", items: string[]): D;
@@ -32,11 +34,13 @@ function foo(x: "bye", items: string[]): E;
 function foo(x: string, items: string[]): C {
 >foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
 >x : string
+>类型别名 :=> 文字
 >items : string[]
 >C : C
 
    return null;
 >null : null
+>类型别名 :=> 空值
 }
 var a: D = foo("hi", []); // D
 >a : D
@@ -56,7 +60,9 @@ var b: E = foo("bye", []); // E
 
 var c = foo("um", []); // error
 >c : any
+>类型别名 :=> 任意
 >foo("um", []) : any
+>类型别名 :=> 任意
 >foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
 >"um" : "um"
 >[] : undefined[]
@@ -72,17 +78,20 @@ function bar(x: "bye", items: string[]): E;
 function bar(x: string, items: string[]): C;
 >bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
 >x : string
+>类型别名 :=> 文字
 >items : string[]
 >C : C
 
 function bar(x: string, items: string[]): C {
 >bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
 >x : string
+>类型别名 :=> 文字
 >items : string[]
 >C : C
 
    return null;
 >null : null
+>类型别名 :=> 空值
 }
 
 var d: D = bar("hi", []); // D

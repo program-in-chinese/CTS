@@ -4,43 +4,53 @@
 class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
 >bing : string
+>类型别名 :=> 文字
 
 var a: new (x: number) => number[];
 >a : new (x: number) => number[]
 >x : number
+>类型别名 :=> 数字
 
 var a2: new (x: number) => string[];
 >a2 : new (x: number) => string[]
 >x : number
+>类型别名 :=> 数字
 
 var a3: new (x: number) => void;
 >a3 : new (x: number) => void
 >x : number
+>类型别名 :=> 数字
 
 var a4: new (x: string, y: number) => string;
 >a4 : new (x: string, y: number) => string
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
 var a5: new (x: (arg: string) => number) => string;
 >a5 : new (x: (arg: string) => number) => string
 >x : (arg: string) => number
 >arg : string
+>类型别名 :=> 文字
 
 var a6: new (x: (arg: Base) => Derived) => Base;
 >a6 : new (x: (arg: Base) => Derived) => Base
@@ -98,9 +108,12 @@ var a11: new (x: { foo: string }, y: { foo: string; bar: string }) => Base;
 >a11 : new (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 >x : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >y : { foo: string; bar: string; }
 >foo : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 >Base : Base
 
 var a12: new (x: Array<Base>, y: Array<Derived2>) => Array<Derived>;
@@ -129,7 +142,9 @@ var a14: new (x: { a: string; b: number }) => Object;
 >a14 : new (x: { a: string; b: number; }) => Object
 >x : { a: string; b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >Object : Object
 
 var a15: {
@@ -137,9 +152,11 @@ var a15: {
 
     new (x: number): number[];
 >x : number
+>类型别名 :=> 数字
 
     new (x: string): string[];
 >x : string
+>类型别名 :=> 文字
 }
 var a16: {
 >a16 : { new <T extends Derived>(x: T): number[]; new <U extends Base>(x: U): number[]; }
@@ -162,10 +179,12 @@ var a17: {
     new (x: new (a: number) => number): number[];
 >x : new (a: number) => number
 >a : number
+>类型别名 :=> 数字
 
     new (x: new (a: string) => string): string[];
 >x : new (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
 };
 var a18: {
@@ -176,9 +195,11 @@ var a18: {
 
         new (a: number): number;
 >a : number
+>类型别名 :=> 数字
 
         new (a: string): string;
 >a : string
+>类型别名 :=> 文字
 
     }): any[];
     new (x: {
@@ -186,6 +207,7 @@ var a18: {
 
         new (a: boolean): boolean;
 >a : boolean
+>类型别名 :=> 真假
 
         new (a: Date): Date;
 >a : Date
@@ -372,7 +394,9 @@ var b9: new <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { fo
 >y : (arg2: { foo: string; bing: number; }) => U
 >arg2 : { foo: string; bing: number; }
 >foo : string
+>类型别名 :=> 文字
 >bing : number
+>类型别名 :=> 数字
 >U : U
 >r : T
 >T : T

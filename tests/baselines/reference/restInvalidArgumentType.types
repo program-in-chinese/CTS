@@ -8,6 +8,7 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 >f : <T extends { b: string; }>(p1: T, p2: T[]) => void
 >T : T
 >b : string
+>类型别名 :=> 文字
 >p1 : T
 >T : T
 >p2 : T[]
@@ -42,25 +43,31 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 >union_generic : T | { a: number; }
 >T : T
 >a : number
+>类型别名 :=> 数字
 
     var union_primitive: { a: number } | number;
 >union_primitive : number | { a: number; }
 >a : number
+>类型别名 :=> 数字
 
     var intersection_generic: T & { a: number };
 >intersection_generic : T & { a: number; }
 >T : T
 >a : number
+>类型别名 :=> 数字
 
     var intersection_primitive: { a: number } & string;
 >intersection_primitive : { a: number; } & string
 >a : number
+>类型别名 :=> 数字
 
     var num: number;
 >num : number
+>类型别名 :=> 数字
 
     var str: string;
 >str : string
+>类型别名 :=> 文字
 
     var literal_string: "string";
 >literal_string : "string"
@@ -74,16 +81,21 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 
     var u: undefined;
 >u : undefined
+>类型别名 :=> 未定
 
     var n: null;
 >n : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
     var a: any;
 >a : any
+>类型别名 :=> 任意
 
     var {...r1} = p1;   // Error, generic type paramterre
 >r1 : any
+>类型别名 :=> 任意
 >p1 : T
 
     var {...r2} = p2;   // OK
@@ -92,18 +104,22 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 
     var {...r3} = t;   // Error, generic type paramter
 >r3 : any
+>类型别名 :=> 任意
 >t : T
 
     var {...r4} = i;   // Error, index access
 >r4 : any
+>类型别名 :=> 任意
 >i : T["b"]
 
     var {...r5} = k;   // Error, index
 >r5 : any
+>类型别名 :=> 任意
 >k : keyof T
 
     var {...r6} = mapped_generic; // Error, generic mapped object type
 >r6 : any
+>类型别名 :=> 任意
 >mapped_generic : { [P in keyof T]: T[P]; }
 
     var {...r7} = mapped;  // OK, non-generic mapped type
@@ -112,50 +128,67 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 
     var {...r8} = union_generic;  // Error, union with generic type parameter
 >r8 : any
+>类型别名 :=> 任意
 >union_generic : T | { a: number; }
 
     var {...r9} = union_primitive;  // Error, union with generic type parameter
 >r9 : any
+>类型别名 :=> 任意
 >union_primitive : number | { a: number; }
 
     var {...r10} = intersection_generic;  // Error, intersection with generic type parameter
 >r10 : any
+>类型别名 :=> 任意
 >intersection_generic : T & { a: number; }
 
     var {...r11} = intersection_primitive;  // Error, intersection with generic type parameter
 >r11 : any
+>类型别名 :=> 任意
 >intersection_primitive : { a: number; } & string
 
     var {...r12} = num;  // Error
 >r12 : any
+>类型别名 :=> 任意
 >num : number
+>类型别名 :=> 数字
 
     var {...r13} = str;  // Error
 >r13 : any
+>类型别名 :=> 任意
 >str : string
+>类型别名 :=> 文字
 
     var {...r14} = u;  // error, undefined-only not allowed
 >r14 : any
+>类型别名 :=> 任意
 >u : undefined
+>类型别名 :=> 未定
 
     var {...r15} = n;  // error, null-only not allowed
 >r15 : any
+>类型别名 :=> 任意
 >n : null
+>类型别名 :=> 空值
 
     var {...r16} = a;  // OK
 >r16 : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
     var {...r17} = literal_string;  // Error
 >r17 : any
+>类型别名 :=> 任意
 >literal_string : "string"
 
     var {...r18} = literal_number;  // Error
 >r18 : any
+>类型别名 :=> 任意
 >literal_number : 42
 
     var {...r19} = e;  // Error, enum
 >r19 : any
+>类型别名 :=> 任意
 >e : E
 }
 

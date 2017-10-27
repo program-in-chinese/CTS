@@ -11,6 +11,7 @@ export class MyBaseClass<T> {
 
     baseProperty: string;
 >baseProperty : string
+>类型别名 :=> 文字
 
     constructor(value: T) {}
 >value : T
@@ -19,6 +20,7 @@ export class MyBaseClass<T> {
 === tests/cases/compiler/MixinClass.ts ===
 import { Constructor, MyBaseClass } from './BaseClass';
 >Constructor : any
+>类型别名 :=> 任意
 >MyBaseClass : typeof MyBaseClass
 
 export interface MyMixin {
@@ -26,6 +28,7 @@ export interface MyMixin {
 
     mixinProperty: string;
 >mixinProperty : string
+>类型别名 :=> 文字
 }
 
 export function MyMixin<T extends Constructor<MyBaseClass<any>>>(base: T): T & Constructor<MyMixin> {
@@ -45,6 +48,7 @@ export function MyMixin<T extends Constructor<MyBaseClass<any>>>(base: T): T & C
 
         mixinProperty: string;
 >mixinProperty : string
+>类型别名 :=> 文字
     }
 }
 === tests/cases/compiler/FinalClass.ts ===
@@ -62,6 +66,7 @@ export class MyExtendedClass extends MyMixin(MyBaseClass)<string> {
 
     extendedClassProperty: number;
 >extendedClassProperty : number
+>类型别名 :=> 数字
 }
 === tests/cases/compiler/Main.ts ===
 import { MyExtendedClass } from './FinalClass';

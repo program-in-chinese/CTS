@@ -3,15 +3,20 @@
 
 for (var x: number; ;) { }
 >x : number
+>类型别名 :=> 数字
 
 for (var x = 2; ;) { }
 >x : number
+>类型别名 :=> 数字
 >2 : 2
 
 for (var x = <number>undefined; ;) { }
 >x : number
+>类型别名 :=> 数字
 ><number>undefined : number
+>类型别名 :=> 数字
 >undefined : undefined
+>类型别名 :=> 未定
 
 // new declaration space, making redeclaring x as a string valid
 function declSpace() {
@@ -19,12 +24,15 @@ function declSpace() {
 
     for (var x = 'this is a string'; ;) { }
 >x : string
+>类型别名 :=> 文字
 >'this is a string' : "this is a string"
 }
 interface Point { x: number; y: number; }
 >Point : Point
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 for (var p: Point; ;) { }
 >p : Point
@@ -34,8 +42,10 @@ for (var p = { x: 1, y: 2 }; ;) { }
 >p : Point
 >{ x: 1, y: 2 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 for (var p: Point = { x: 0, y: undefined }; ;) { }
@@ -43,39 +53,55 @@ for (var p: Point = { x: 0, y: undefined }; ;) { }
 >Point : Point
 >{ x: 0, y: undefined } : { x: number; y: undefined; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 for (var p = { x: 1, y: <number>undefined }; ;) { }
 >p : Point
 >{ x: 1, y: <number>undefined } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 ><number>undefined : number
+>类型别名 :=> 数字
 >undefined : undefined
+>类型别名 :=> 未定
 
 for (var p: { x: number; y: number; } = { x: 1, y: 2 }; ;) { }
 >p : Point
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >{ x: 1, y: 2 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 for (var p = <{ x: number; y: number; }>{ x: 0, y: undefined }; ;) { }
 >p : Point
 ><{ x: number; y: number; }>{ x: 0, y: undefined } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >{ x: 0, y: undefined } : { x: number; y: undefined; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 for (var p: typeof p; ;) { }
 >p : Point
@@ -85,27 +111,33 @@ for (var fn = function (s: string) { return 42; }; ;) { }
 >fn : (s: string) => number
 >function (s: string) { return 42; } : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >42 : 42
 
 for (var fn = (s: string) => 3; ;) { }
 >fn : (s: string) => number
 >(s: string) => 3 : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >3 : 3
 
 for (var fn: (s: string) => number; ;) { }
 >fn : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 
 for (var fn: { (s: string): number }; ;) { }
 >fn : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 
 for (var fn = <(s: string) => number> null; ;) { }
 >fn : (s: string) => number
 ><(s: string) => number> null : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 
 for (var fn: typeof fn; ;) { }
 >fn : (s: string) => number

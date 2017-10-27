@@ -2,18 +2,22 @@
 interface A { a: string }
 >A : A
 >a : string
+>类型别名 :=> 文字
 
 interface B { b: string }
 >B : B
 >b : string
+>类型别名 :=> 文字
 
 interface C { c: string }
 >C : C
 >c : string
+>类型别名 :=> 文字
 
 interface D { d: string }
 >D : D
 >d : string
+>类型别名 :=> 文字
 
 // Identical ways of writing the same type
 type X1 = (A | B) & (C | D);
@@ -58,10 +62,12 @@ var x: X3;
 interface X { x: string }
 >X : X
 >x : string
+>类型别名 :=> 文字
 
 interface Y { y: string }
 >Y : Y
 >y : string
+>类型别名 :=> 文字
 
 // Identical ways of writing the same type
 type Y1 = (A | X & Y) & (C | D);
@@ -110,10 +116,12 @@ var y: Y3;
 interface M { m: string }
 >M : M
 >m : string
+>类型别名 :=> 文字
 
 interface N { n: string }
 >N : N
 >n : string
+>类型别名 :=> 文字
 
 // Identical ways of writing the same type
 type Z1 = (A | X & (M | N)) & (C | D);
@@ -199,10 +207,12 @@ type BoxedValue = { kind: 'int',    num: number }
 >BoxedValue : BoxedValue
 >kind : "int"
 >num : number
+>类型别名 :=> 数字
 
                 | { kind: 'string', str: string }
 >kind : "string"
 >str : string
+>类型别名 :=> 文字
 
 type IntersectionFail = BoxedValue & ToString
 >IntersectionFail : IntersectionFail
@@ -213,11 +223,13 @@ type IntersectionInline = { kind: 'int',    num: number } & ToString
 >IntersectionInline : IntersectionInline
 >kind : "int"
 >num : number
+>类型别名 :=> 数字
 >ToString : ToString
 
                         | { kind: 'string', str: string } & ToString
 >kind : "string"
 >str : string
+>类型别名 :=> 文字
 >ToString : ToString
 
 function getValueAsString(value: IntersectionFail): string {
@@ -227,6 +239,7 @@ function getValueAsString(value: IntersectionFail): string {
 
     if (value.kind === 'int') {
 >value.kind === 'int' : boolean
+>类型别名 :=> 真假
 >value.kind : "string" | "int"
 >value : IntersectionFail
 >kind : "string" | "int"
@@ -234,15 +247,20 @@ function getValueAsString(value: IntersectionFail): string {
 
         return '' + value.num;
 >'' + value.num : string
+>类型别名 :=> 文字
 >'' : ""
 >value.num : number
+>类型别名 :=> 数字
 >value : { kind: "int"; num: number; } & ToString
 >num : number
+>类型别名 :=> 数字
     }
     return value.str;
 >value.str : string
+>类型别名 :=> 文字
 >value : { kind: "string"; str: string; } & ToString
 >str : string
+>类型别名 :=> 文字
 }
 
 // Repro from #12535
@@ -317,6 +335,7 @@ type Foo = {
     genreId: enums.Genre;
 >genreId : enums.Genre
 >enums : any
+>类型别名 :=> 任意
 >Genre : enums.Genre
 
 };
@@ -327,6 +346,7 @@ type Bar = {
     genreId: enums.Genre;
 >genreId : enums.Genre
 >enums : any
+>类型别名 :=> 任意
 >Genre : enums.Genre
 
 };
@@ -339,11 +359,13 @@ type FooBar = Foo & Bar;
 function foo(so: any) {
 >foo : (so: any) => enums.Genre
 >so : any
+>类型别名 :=> 任意
 
     const val = so as FooBar;
 >val : FooBar
 >so as FooBar : FooBar
 >so : any
+>类型别名 :=> 任意
 >FooBar : FooBar
 
     const isGenre = val.genreId;

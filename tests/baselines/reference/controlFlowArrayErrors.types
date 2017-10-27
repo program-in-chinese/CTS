@@ -15,6 +15,7 @@ function f1() {
 
     x.push(5);
 >x.push(5) : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number
@@ -30,10 +31,12 @@ function f2() {
 
     let x;       // Implicit any[] error in some locations
 >x : any
+>类型别名 :=> 任意
 
     x = [];
 >x = [] : undefined[]
 >x : any
+>类型别名 :=> 任意
 >[] : undefined[]
 
     let y = x;   // Implicit any[] error
@@ -42,6 +45,7 @@ function f2() {
 
     x.push(5);
 >x.push(5) : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number
@@ -61,6 +65,7 @@ function f3() {
 
     x.push(5);
 >x.push(5) : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number
@@ -79,20 +84,24 @@ function f4() {
 
     let x;
 >x : any
+>类型别名 :=> 任意
 
     x = [5, "hello"];  // Non-evolving array
 >x = [5, "hello"] : (string | number)[]
 >x : any
+>类型别名 :=> 任意
 >[5, "hello"] : (string | number)[]
 >5 : 5
 >"hello" : "hello"
 
     x.push(true);      // Error
 >x.push(true) : number
+>类型别名 :=> 数字
 >x.push : (...items: (string | number)[]) => number
 >x : (string | number)[]
 >push : (...items: (string | number)[]) => number
 >true : true
+>类型别名 :=> 为真
 }
 
 function f5() {
@@ -106,10 +115,12 @@ function f5() {
 
     x.push(true);          // Error
 >x.push(true) : number
+>类型别名 :=> 数字
 >x.push : (...items: (string | number)[]) => number
 >x : (string | number)[]
 >push : (...items: (string | number)[]) => number
 >true : true
+>类型别名 :=> 为真
 }
 
 function f6() {
@@ -117,18 +128,22 @@ function f6() {
 
     let x;
 >x : any
+>类型别名 :=> 任意
 
     if (cond()) {
 >cond() : boolean
+>类型别名 :=> 真假
 >cond : () => boolean
 
         x = [];
 >x = [] : undefined[]
 >x : any
+>类型别名 :=> 任意
 >[] : undefined[]
 
         x.push(5);
 >x.push(5) : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number
@@ -136,6 +151,7 @@ function f6() {
 
         x.push("hello");
 >x.push("hello") : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number
@@ -145,14 +161,17 @@ function f6() {
         x = [true];  // Non-evolving array
 >x = [true] : boolean[]
 >x : any
+>类型别名 :=> 任意
 >[true] : boolean[]
 >true : true
+>类型别名 :=> 为真
     }
     x;           // boolean[] | (string | number)[]
 >x : (string | number)[] | boolean[]
 
     x.push(99);  // Error
 >x.push(99) : any
+>类型别名 :=> 任意
 >x.push : ((...items: (string | number)[]) => number) | ((...items: boolean[]) => number)
 >x : (string | number)[] | boolean[]
 >push : ((...items: (string | number)[]) => number) | ((...items: boolean[]) => number)
@@ -168,6 +187,7 @@ function f7() {
 
     x.push(5);
 >x.push(5) : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number
@@ -179,6 +199,7 @@ function f7() {
 
     x.push("hello");  // Ok
 >x.push("hello") : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number
@@ -186,6 +207,7 @@ function f7() {
 
     y.push("hello");  // Error
 >y.push("hello") : number
+>类型别名 :=> 数字
 >y.push : (...items: number[]) => number
 >y : number[]
 >push : (...items: number[]) => number
@@ -201,6 +223,7 @@ function f8() {
 
     x.push(5);
 >x.push(5) : number
+>类型别名 :=> 数字
 >x.push : (...items: any[]) => number
 >x : any[]
 >push : (...items: any[]) => number

@@ -5,6 +5,7 @@ class c1 {
 
     constructor(i: number, ...arguments) { // error
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
         var arguments: any[]; // no error
@@ -16,10 +17,12 @@ class c12 {
 
     constructor(arguments: number, ...rest) { // error
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -28,9 +31,11 @@ class c1NoError {
 
     constructor(arguments: number) { // no error
 >arguments : number
+>类型别名 :=> 数字
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -43,6 +48,7 @@ class c2 {
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -52,6 +58,7 @@ class c2NoError {
     constructor() {
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -61,10 +68,12 @@ class c3 {
 
     constructor(public arguments: number, ...restParameters) { //arguments is error
 >arguments : number
+>类型别名 :=> 数字
 >restParameters : any[]
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -73,9 +82,11 @@ class c3NoError {
 
     constructor(public arguments: number) { // no error
 >arguments : number
+>类型别名 :=> 数字
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -85,6 +96,7 @@ declare class c4 {
 
     constructor(i: number, ...arguments); // No error - no code gen
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 }
 declare class c42 {
@@ -92,6 +104,7 @@ declare class c42 {
 
     constructor(arguments: number, ...rest); // No error - no code gen
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 }
 declare class c4NoError {
@@ -99,6 +112,7 @@ declare class c4NoError {
 
     constructor(arguments: number);  // no error
 >arguments : number
+>类型别名 :=> 数字
 }
 
 class c5 {
@@ -106,14 +120,17 @@ class c5 {
 
     constructor(i: number, ...arguments); // no codegen no error
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
     constructor(i: string, ...arguments); // no codegen no error
 >i : string
+>类型别名 :=> 文字
 >arguments : any[]
 
     constructor(i: any, ...arguments) { // error
 >i : any
+>类型别名 :=> 任意
 >arguments : any[]
 
         var arguments: any[]; // no error
@@ -126,18 +143,22 @@ class c52 {
 
     constructor(arguments: number, ...rest); // no codegen no error
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
     constructor(arguments: string, ...rest); // no codegen no error
 >arguments : string
+>类型别名 :=> 文字
 >rest : any[]
 
     constructor(arguments: any, ...rest) { // error
 >arguments : any
+>类型别名 :=> 任意
 >rest : any[]
 
         var arguments: any; // no error
 >arguments : any
+>类型别名 :=> 任意
     }
 }
 
@@ -146,15 +167,19 @@ class c5NoError {
 
     constructor(arguments: number); // no error
 >arguments : number
+>类型别名 :=> 数字
 
     constructor(arguments: string); // no error
 >arguments : string
+>类型别名 :=> 文字
 
     constructor(arguments: any) { // no error
 >arguments : any
+>类型别名 :=> 任意
 
         var arguments: any; // no error
 >arguments : any
+>类型别名 :=> 任意
     }
 }
 
@@ -163,10 +188,12 @@ declare class c6 {
 
     constructor(i: number, ...arguments); // no codegen no error
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
     constructor(i: string, ...arguments); // no codegen no error
 >i : string
+>类型别名 :=> 文字
 >arguments : any[]
 }
 declare class c62 {
@@ -174,10 +201,12 @@ declare class c62 {
 
     constructor(arguments: number, ...rest); // no codegen no error
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
     constructor(arguments: string, ...rest); // no codegen no error
 >arguments : string
+>类型别名 :=> 文字
 >rest : any[]
 }
 
@@ -186,7 +215,9 @@ declare class c6NoError {
 
     constructor(arguments: number); // no error
 >arguments : number
+>类型别名 :=> 数字
 
     constructor(arguments: string); // no error
 >arguments : string
+>类型别名 :=> 文字
 }

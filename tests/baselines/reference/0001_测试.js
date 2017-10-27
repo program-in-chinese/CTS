@@ -60,7 +60,7 @@ aaa.error; // 错误: 不能调用私有属性.
 Object.defineProperty(exports, "__esModule", { value: true });
 var errorCh_1 = require("errorCh");
 var aaa = new errorCh_1.错误类("错误常量");
-var Error = aaa.Error; // 错误: 因为使用的是别名 可能不报错, 编译 es5 以下不报错
+var 错误属性 = aaa.错误属性; // 错误: 因为使用的是别名 可能不报错, 编译 es5 以下不报错
 var bbb = 错误属性;
 aaa.error; // 错误: 不能调用私有属性.
 //************************* 中英*比较 *************************// 

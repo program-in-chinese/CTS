@@ -10,9 +10,11 @@ module NonGenericParameter {
 
         (x: boolean): boolean;
 >x : boolean
+>类型别名 :=> 真假
 
         (x: string): string;
 >x : string
+>类型别名 :=> 文字
     }
 
     function foo4(cb: typeof a) {
@@ -48,6 +50,7 @@ module GenericParameter {
 >x : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
         return cb;
@@ -81,7 +84,9 @@ module GenericParameter {
 
     var r10 = foo6(<T>(x: T, y: T) => ''); // error
 >r10 : any
+>类型别名 :=> 任意
 >foo6(<T>(x: T, y: T) => '') : any
+>类型别名 :=> 任意
 >foo6 : <T>(cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
 ><T>(x: T, y: T) => '' : <T>(x: T, y: T) => string
 >T : T
@@ -126,6 +131,7 @@ module GenericParameter {
 >T : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
     var r14 = foo7(1, a); // ok

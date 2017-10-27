@@ -3,31 +3,43 @@ var f = function (a = 3) { return a; }; // Type should be (a?: number) => number
 >f : (a?: number) => number
 >function (a = 3) { return a; } : (a?: number) => number
 >a : number
+>类型别名 :=> 数字
 >3 : 3
 >a : number
+>类型别名 :=> 数字
 
 var n: number = f(4);
 >n : number
+>类型别名 :=> 数字
 >f(4) : number
+>类型别名 :=> 数字
 >f : (a?: number) => number
 >4 : 4
 
 n = f();
 >n = f() : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >f() : number
+>类型别名 :=> 数字
 >f : (a?: number) => number
 
 var s: string = f('');
 >s : string
+>类型别名 :=> 文字
 >f('') : number
+>类型别名 :=> 数字
 >f : (a?: number) => number
 >'' : ""
 
 s = f();
 >s = f() : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >f() : number
+>类型别名 :=> 数字
 >f : (a?: number) => number
 
 // Type check the default argument with the type annotation
@@ -35,26 +47,37 @@ var f2 = function (a: string = 3) { return a; }; // Should error, but be of type
 >f2 : (a?: string) => string
 >function (a: string = 3) { return a; } : (a?: string) => string
 >a : string
+>类型别名 :=> 文字
 >3 : 3
 >a : string
+>类型别名 :=> 文字
 
 s = f2('');
 >s = f2('') : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 >f2('') : string
+>类型别名 :=> 文字
 >f2 : (a?: string) => string
 >'' : ""
 
 s = f2();
 >s = f2() : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 >f2() : string
+>类型别名 :=> 文字
 >f2 : (a?: string) => string
 
 n = f2();
 >n = f2() : string
+>类型别名 :=> 文字
 >n : number
+>类型别名 :=> 数字
 >f2() : string
+>类型别名 :=> 文字
 >f2 : (a?: string) => string
 
 // Contextually type the default arg with the type annotation
@@ -63,17 +86,23 @@ var f3 = function (a: (s: string) => any = (s) => <number>s) { };
 >function (a: (s: string) => any = (s) => <number>s) { } : (a?: (s: string) => any) => void
 >a : (s: string) => any
 >s : string
+>类型别名 :=> 文字
 >(s) => <number>s : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 ><number>s : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
 // Type check using the function's contextual type
 var f4: (a: number) => void = function (a = "") { };
 >f4 : (a: number) => void
 >a : number
+>类型别名 :=> 数字
 >function (a = "") { } : (a?: number) => void
 >a : number
+>类型别名 :=> 数字
 >"" : ""
 
 // Contextually type the default arg using the function's contextual type
@@ -81,29 +110,37 @@ var f5: (a: (s: string) => any) => void = function (a = s => <number>s) { };
 >f5 : (a: (s: string) => any) => void
 >a : (s: string) => any
 >s : string
+>类型别名 :=> 文字
 >function (a = s => <number>s) { } : (a?: (s: string) => any) => void
 >a : (s: string) => any
 >s => <number>s : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 ><number>s : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
 // Instantiated module
 module T { }
 >T : any
+>类型别名 :=> 任意
 
 module U {
 >U : typeof U
 
     export var x;
 >x : any
+>类型别名 :=> 任意
 }
 
 var f6 = (t = T) => { };
 >f6 : (t?: any) => void
 >(t = T) => { } : (t?: any) => void
 >t : any
+>类型别名 :=> 任意
 >T : any
+>类型别名 :=> 任意
 
 var f7 = (t = U) => { return t; };
 >f7 : (t?: typeof U) => typeof U
@@ -114,7 +151,9 @@ var f7 = (t = U) => { return t; };
 
 f7().x;
 >f7().x : any
+>类型别名 :=> 任意
 >f7() : typeof U
 >f7 : (t?: typeof U) => typeof U
 >x : any
+>类型别名 :=> 任意
 

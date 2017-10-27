@@ -4,6 +4,7 @@ interface Item {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 }
 
 declare function foo<T extends Item>(x?: T, y?: T): T;
@@ -18,9 +19,12 @@ declare function foo<T extends Item>(x?: T, y?: T): T;
 
 var z1 = foo(null);                   // any
 >z1 : any
+>类型别名 :=> 任意
 >foo(null) : any
+>类型别名 :=> 任意
 >foo : <T extends Item>(x?: T, y?: T) => T
 >null : null
+>类型别名 :=> 空值
 
 var z2 = foo();                       // Item
 >z2 : Item
@@ -33,7 +37,9 @@ var z3 = foo({ name: null });         // { name: any }
 >foo : <T extends Item>(x?: T, y?: T) => T
 >{ name: null } : { name: null; }
 >name : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var z4 = foo({ name: "abc" });        // { name: string }
 >z4 : { name: string; }
@@ -41,6 +47,7 @@ var z4 = foo({ name: "abc" });        // { name: string }
 >foo : <T extends Item>(x?: T, y?: T) => T
 >{ name: "abc" } : { name: string; }
 >name : string
+>类型别名 :=> 文字
 >"abc" : "abc"
 
 var z5 = foo({ name: "abc", a: 5 });  // { name: string; a: number }
@@ -49,22 +56,30 @@ var z5 = foo({ name: "abc", a: 5 });  // { name: string; a: number }
 >foo : <T extends Item>(x?: T, y?: T) => T
 >{ name: "abc", a: 5 } : { name: string; a: number; }
 >name : string
+>类型别名 :=> 文字
 >"abc" : "abc"
 >a : number
+>类型别名 :=> 数字
 >5 : 5
 
 var z6 = foo({ name: "abc", a: 5 }, { name: "def", b: 5 });  // error
 >z6 : any
+>类型别名 :=> 任意
 >foo({ name: "abc", a: 5 }, { name: "def", b: 5 }) : any
+>类型别名 :=> 任意
 >foo : <T extends Item>(x?: T, y?: T) => T
 >{ name: "abc", a: 5 } : { name: string; a: number; }
 >name : string
+>类型别名 :=> 文字
 >"abc" : "abc"
 >a : number
+>类型别名 :=> 数字
 >5 : 5
 >{ name: "def", b: 5 } : { name: string; b: number; }
 >name : string
+>类型别名 :=> 文字
 >"def" : "def"
 >b : number
+>类型别名 :=> 数字
 >5 : 5
 

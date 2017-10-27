@@ -25,6 +25,7 @@ function tempTag2(templateStrs: TemplateStringsArray, f: FuncType1, x: number): 
 >f : FuncType1
 >FuncType1 : FuncType1
 >x : number
+>类型别名 :=> 数字
 
 function tempTag2(templateStrs: TemplateStringsArray, f: FuncType2, h: FuncType2, x: string): string;
 >tempTag2 : { (templateStrs: TemplateStringsArray, f: FuncType1, x: number): number; (templateStrs: TemplateStringsArray, f: FuncType2, h: FuncType2, x: string): string; }
@@ -35,6 +36,7 @@ function tempTag2(templateStrs: TemplateStringsArray, f: FuncType2, h: FuncType2
 >h : FuncType2
 >FuncType2 : FuncType2
 >x : string
+>类型别名 :=> 文字
 
 function tempTag2(...rest: any[]): any {
 >tempTag2 : { (templateStrs: TemplateStringsArray, f: FuncType1, x: number): number; (templateStrs: TemplateStringsArray, f: FuncType2, h: FuncType2, x: string): string; }
@@ -42,6 +44,7 @@ function tempTag2(...rest: any[]): any {
 
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 // If contextual typing takes place, these functions should work.
@@ -50,44 +53,59 @@ function tempTag2(...rest: any[]): any {
 // so this test will error.
 tempTag2 `${ x => { x<number>(undefined); return x; }         }${ 0 }`;
 >tempTag2 `${ x => { x<number>(undefined); return x; }         }${ 0 }` : number
+>类型别名 :=> 数字
 >tempTag2 : { (templateStrs: TemplateStringsArray, f: FuncType1, x: number): number; (templateStrs: TemplateStringsArray, f: FuncType2, h: FuncType2, x: string): string; }
 >`${ x => { x<number>(undefined); return x; }         }${ 0 }` : string
+>类型别名 :=> 文字
 >x => { x<number>(undefined); return x; } : (x: <T>(p: T) => T) => <T>(p: T) => T
 >x : <T>(p: T) => T
 >x<number>(undefined) : number
+>类型别名 :=> 数字
 >x : <T>(p: T) => T
 >undefined : undefined
+>类型别名 :=> 未定
 >x : <T>(p: T) => T
 >0 : 0
 
 tempTag2 `${ x => { x<number, string>(undefined); return x; } }${ y => { y<string, number>(null); return y; } }${ "hello" }`;
 >tempTag2 `${ x => { x<number, string>(undefined); return x; } }${ y => { y<string, number>(null); return y; } }${ "hello" }` : string
+>类型别名 :=> 文字
 >tempTag2 : { (templateStrs: TemplateStringsArray, f: FuncType1, x: number): number; (templateStrs: TemplateStringsArray, f: FuncType2, h: FuncType2, x: string): string; }
 >`${ x => { x<number, string>(undefined); return x; } }${ y => { y<string, number>(null); return y; } }${ "hello" }` : string
+>类型别名 :=> 文字
 >x => { x<number, string>(undefined); return x; } : (x: <S, T>(p: T) => T) => <S, T>(p: T) => T
 >x : <S, T>(p: T) => T
 >x<number, string>(undefined) : string
+>类型别名 :=> 文字
 >x : <S, T>(p: T) => T
 >undefined : undefined
+>类型别名 :=> 未定
 >x : <S, T>(p: T) => T
 >y => { y<string, number>(null); return y; } : (y: <S, T>(p: T) => T) => <S, T>(p: T) => T
 >y : <S, T>(p: T) => T
 >y<string, number>(null) : number
+>类型别名 :=> 数字
 >y : <S, T>(p: T) => T
 >null : null
+>类型别名 :=> 空值
 >y : <S, T>(p: T) => T
 >"hello" : "hello"
 
 tempTag2 `${ x => { x<number, string>(undefined); return x; } }${ undefined }${ "hello" }`;
 >tempTag2 `${ x => { x<number, string>(undefined); return x; } }${ undefined }${ "hello" }` : string
+>类型别名 :=> 文字
 >tempTag2 : { (templateStrs: TemplateStringsArray, f: FuncType1, x: number): number; (templateStrs: TemplateStringsArray, f: FuncType2, h: FuncType2, x: string): string; }
 >`${ x => { x<number, string>(undefined); return x; } }${ undefined }${ "hello" }` : string
+>类型别名 :=> 文字
 >x => { x<number, string>(undefined); return x; } : (x: <S, T>(p: T) => T) => <S, T>(p: T) => T
 >x : <S, T>(p: T) => T
 >x<number, string>(undefined) : string
+>类型别名 :=> 文字
 >x : <S, T>(p: T) => T
 >undefined : undefined
+>类型别名 :=> 未定
 >x : <S, T>(p: T) => T
 >undefined : undefined
+>类型别名 :=> 未定
 >"hello" : "hello"
 

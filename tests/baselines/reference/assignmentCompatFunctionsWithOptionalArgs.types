@@ -3,37 +3,50 @@ function foo(x: { id: number; name?: string; }): void;
 >foo : (x: { id: number; name?: string; }) => void
 >x : { id: number; name?: string; }
 >id : number
+>类型别名 :=> 数字
 >name : string
+>类型别名 :=> 文字
 
 foo({ id: 1234 });                 // Ok
 >foo({ id: 1234 }) : void
+>类型别名 :=> 无值
 >foo : (x: { id: number; name?: string; }) => void
 >{ id: 1234 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >1234 : 1234
 
 foo({ id: 1234, name: "hello" });  // Ok
 >foo({ id: 1234, name: "hello" }) : void
+>类型别名 :=> 无值
 >foo : (x: { id: number; name?: string; }) => void
 >{ id: 1234, name: "hello" } : { id: number; name: string; }
 >id : number
+>类型别名 :=> 数字
 >1234 : 1234
 >name : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 foo({ id: 1234, name: false });    // Error, name of wrong type
 >foo({ id: 1234, name: false }) : void
+>类型别名 :=> 无值
 >foo : (x: { id: number; name?: string; }) => void
 >{ id: 1234, name: false } : { id: number; name: boolean; }
 >id : number
+>类型别名 :=> 数字
 >1234 : 1234
 >name : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
 foo({ name: "hello" });            // Error, id required but missing
 >foo({ name: "hello" }) : void
+>类型别名 :=> 无值
 >foo : (x: { id: number; name?: string; }) => void
 >{ name: "hello" } : { name: string; }
 >name : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 

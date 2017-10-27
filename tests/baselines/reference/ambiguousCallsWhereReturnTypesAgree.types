@@ -5,6 +5,7 @@ class TestClass {
     public bar(x: string): void;
 >bar : { (x: string): void; (x: string[]): void; }
 >x : string
+>类型别名 :=> 文字
 
     public bar(x: string[]): void;
 >bar : { (x: string): void; (x: string[]): void; }
@@ -13,12 +14,14 @@ class TestClass {
     public bar(x: any): void {
 >bar : { (x: string): void; (x: string[]): void; }
 >x : any
+>类型别名 :=> 任意
         
     }
  
     public foo(x: string): void;
 >foo : { (x: string): void; (x: string[]): void; }
 >x : string
+>类型别名 :=> 文字
 
     public foo(x: string[]): void;
 >foo : { (x: string): void; (x: string[]): void; }
@@ -27,13 +30,16 @@ class TestClass {
     public foo(x: any): void {
 >foo : { (x: string): void; (x: string[]): void; }
 >x : any
+>类型别名 :=> 任意
 
         this.bar(x); // should not error
 >this.bar(x) : void
+>类型别名 :=> 无值
 >this.bar : { (x: string): void; (x: string[]): void; }
 >this : this
 >bar : { (x: string): void; (x: string[]): void; }
 >x : any
+>类型别名 :=> 任意
     }
 }
 
@@ -43,6 +49,7 @@ class TestClass2 {
     public bar(x: string): number;
 >bar : { (x: string): number; (x: string[]): number; }
 >x : string
+>类型别名 :=> 文字
 
     public bar(x: string[]): number;
 >bar : { (x: string): number; (x: string[]): number; }
@@ -51,6 +58,7 @@ class TestClass2 {
     public bar(x: any): number {
 >bar : { (x: string): number; (x: string[]): number; }
 >x : any
+>类型别名 :=> 任意
 
         return 0;
 >0 : 0
@@ -59,6 +67,7 @@ class TestClass2 {
     public foo(x: string): number;
 >foo : { (x: string): number; (x: string[]): number; }
 >x : string
+>类型别名 :=> 文字
 
     public foo(x: string[]): number;
 >foo : { (x: string): number; (x: string[]): number; }
@@ -67,13 +76,16 @@ class TestClass2 {
     public foo(x: any): number {
 >foo : { (x: string): number; (x: string[]): number; }
 >x : any
+>类型别名 :=> 任意
 
         return this.bar(x); // should not error
 >this.bar(x) : number
+>类型别名 :=> 数字
 >this.bar : { (x: string): number; (x: string[]): number; }
 >this : this
 >bar : { (x: string): number; (x: string[]): number; }
 >x : any
+>类型别名 :=> 任意
     }
 }
 

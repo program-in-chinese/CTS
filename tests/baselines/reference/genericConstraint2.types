@@ -21,24 +21,31 @@ function compare<T extends Comparable<T>>(x: T, y: T): number {
 
     if (x == null) return y == null ? 0 : -1;
 >x == null : boolean
+>类型别名 :=> 真假
 >x : T
 >null : null
+>类型别名 :=> 空值
 >y == null ? 0 : -1 : 0 | -1
 >y == null : boolean
+>类型别名 :=> 真假
 >y : T
 >null : null
+>类型别名 :=> 空值
 >0 : 0
 >-1 : -1
 >1 : 1
 
     if (y == null) return 1;
 >y == null : boolean
+>类型别名 :=> 真假
 >y : T
 >null : null
+>类型别名 :=> 空值
 >1 : 1
 
     return x.comparer(y);
 >x.comparer(y) : number
+>类型别名 :=> 数字
 >x.comparer : (other: T) => number
 >x : T
 >comparer : (other: T) => number
@@ -51,10 +58,12 @@ class ComparableString implements Comparable<string>{
 
     constructor(public currentValue: string) { }
 >currentValue : string
+>类型别名 :=> 文字
 
     localeCompare(other) {
 >localeCompare : (other: any) => number
 >other : any
+>类型别名 :=> 任意
 
         return 0;
 >0 : 0
@@ -75,7 +84,9 @@ var b = new ComparableString("b");
 
 var c = compare<ComparableString>(a, b);
 >c : any
+>类型别名 :=> 任意
 >compare<ComparableString>(a, b) : any
+>类型别名 :=> 任意
 >compare : <T extends Comparable<T>>(x: T, y: T) => number
 >ComparableString : ComparableString
 >a : ComparableString

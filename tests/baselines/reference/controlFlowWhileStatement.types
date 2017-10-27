@@ -1,6 +1,7 @@
 === tests/cases/conformance/controlFlow/controlFlowWhileStatement.ts ===
 let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 function a() {
 >a : () => void
@@ -15,9 +16,11 @@ function a() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x; // string
 >x : string
+>类型别名 :=> 文字
     }
 }
 function b() {
@@ -33,9 +36,11 @@ function b() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x; // string
 >x : string
+>类型别名 :=> 文字
 
         x = 42;
 >x = 42 : 42
@@ -58,17 +63,22 @@ function c() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x; // string
 >x : string
+>类型别名 :=> 文字
 
         x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : string | number
 >undefined : undefined
+>类型别名 :=> 未定
 
         if (typeof x === "string") continue;
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"
@@ -89,13 +99,18 @@ function d() {
 
     while (x = x.length) {
 >x = x.length : number
+>类型别名 :=> 数字
 >x : string | number
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
         x; // number
 >x : number
+>类型别名 :=> 数字
 
         x = "";
 >x = "" : ""
@@ -116,6 +131,7 @@ function e() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x; // string | number
 >x : string | number
@@ -127,6 +143,7 @@ function e() {
 
         x; // number
 >x : number
+>类型别名 :=> 数字
     }
     x; // string | number
 >x : string | number
@@ -146,9 +163,11 @@ function f() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         if (cond) {
 >cond : true
+>类型别名 :=> 为真
 
             x = 42;
 >x = 42 : 42
@@ -159,11 +178,14 @@ function f() {
         }
         if (cond) {
 >cond : true
+>类型别名 :=> 为真
 
             x = true;
 >x = true : true
+>类型别名 :=> 为真
 >x : string | number | boolean | Function | RegExp
 >true : true
+>类型别名 :=> 为真
 
             continue;
         }
@@ -190,9 +212,11 @@ function g() {
 
     while (true) {
 >true : true
+>类型别名 :=> 为真
 
         if (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
             x = 42;
 >x = 42 : 42
@@ -203,11 +227,14 @@ function g() {
         }
         if (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
             x = true;
 >x = true : true
+>类型别名 :=> 为真
 >x : string | number | boolean | Function | RegExp
 >true : true
+>类型别名 :=> 为真
 
             continue;
         }
@@ -218,6 +245,7 @@ function g() {
     }
     x; // number
 >x : number
+>类型别名 :=> 数字
 }
 function h1() {
 >h1 : () => void
@@ -232,6 +260,7 @@ function h1() {
 
     while (x > 1) {
 >x > 1 : boolean
+>类型别名 :=> 真假
 >x : string | number
 >1 : 1
 
@@ -245,6 +274,7 @@ function h1() {
 
         x; // number
 >x : number
+>类型别名 :=> 数字
     }
     x; // string | number
 >x : string | number
@@ -266,16 +296,20 @@ function h2() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x = len(x);
 >x = len(x) : number
+>类型别名 :=> 数字
 >x : string | number | boolean
 >len(x) : number
+>类型别名 :=> 数字
 >len : (s: string | number) => number
 >x : string | number
 
         x; // number
 >x : number
+>类型别名 :=> 数字
     }
     x; // string | number
 >x : string | number
@@ -293,14 +327,17 @@ function h3() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x; // string | number
 >x : string | number
 
         x = len(x);
 >x = len(x) : number
+>类型别名 :=> 数字
 >x : string | number | boolean
 >len(x) : number
+>类型别名 :=> 数字
 >len : (s: string | number) => number
 >x : string | number
     }

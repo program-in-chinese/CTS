@@ -2,7 +2,9 @@
 var x: {p1:number; p2?:string; p3?:{():number;};};
 >x : { p1: number; p2?: string; p3?: () => number; }
 >p1 : number
+>类型别名 :=> 数字
 >p2 : string
+>类型别名 :=> 文字
 >p3 : () => number
 
 interface IFoo
@@ -10,9 +12,11 @@ interface IFoo
 {
     id: number;
 >id : number
+>类型别名 :=> 数字
 
     name?: string;
 >name : string
+>类型别名 :=> 文字
 
     print?(): void;
 >print : () => void
@@ -28,6 +32,7 @@ foo = { id: 1234 };                // Ok
 >foo : IFoo
 >{ id: 1234 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >1234 : 1234
 
 foo = { id: 1234, name: "test" };  // Ok
@@ -35,8 +40,10 @@ foo = { id: 1234, name: "test" };  // Ok
 >foo : IFoo
 >{ id: 1234, name: "test" } : { id: number; name: string; }
 >id : number
+>类型别名 :=> 数字
 >1234 : 1234
 >name : string
+>类型别名 :=> 文字
 >"test" : "test"
 
 foo = { name: "test" };            // Error, id missing
@@ -44,6 +51,7 @@ foo = { name: "test" };            // Error, id missing
 >foo : IFoo
 >{ name: "test" } : { name: string; }
 >name : string
+>类型别名 :=> 文字
 >"test" : "test"
 
 foo = {id: 1234, print:()=>{}}	   // Ok
@@ -51,25 +59,33 @@ foo = {id: 1234, print:()=>{}}	   // Ok
 >foo : IFoo
 >{id: 1234, print:()=>{}} : { id: number; print: () => void; }
 >id : number
+>类型别名 :=> 数字
 >1234 : 1234
 >print : () => void
 >()=>{} : () => void
 
 var s = foo.name || "default";
 >s : string
+>类型别名 :=> 文字
 >foo.name || "default" : string
+>类型别名 :=> 文字
 >foo.name : string
+>类型别名 :=> 文字
 >foo : IFoo
 >name : string
+>类型别名 :=> 文字
 >"default" : "default"
 
 if (foo.print !== undefined) foo.print();
 >foo.print !== undefined : boolean
+>类型别名 :=> 真假
 >foo.print : () => void
 >foo : IFoo
 >print : () => void
 >undefined : undefined
+>类型别名 :=> 未定
 >foo.print() : void
+>类型别名 :=> 无值
 >foo.print : () => void
 >foo : IFoo
 >print : () => void
@@ -85,10 +101,12 @@ interface i2 { M?: () => void; };
 interface i3 { M: number; };
 >i3 : i3
 >M : number
+>类型别名 :=> 数字
 
 interface i4 { M?: number; };
 >i4 : i4
 >M : number
+>类型别名 :=> 数字
 
 var test1: i1 = {};
 >test1 : i1
@@ -122,6 +140,7 @@ var test6: i3 = { M: 5 };
 >i3 : i3
 >{ M: 5 } : { M: number; }
 >M : number
+>类型别名 :=> 数字
 >5 : 5
 
 var test7: i2 = { M: function () { } };
@@ -141,6 +160,7 @@ var test8: i4 = { M: 5 }
 >i4 : i4
 >{ M: 5 } : { M: number; }
 >M : number
+>类型别名 :=> 数字
 >5 : 5
 
 test8 = {};

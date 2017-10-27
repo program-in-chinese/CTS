@@ -1,6 +1,7 @@
 === tests/cases/compiler/recursiveExportAssignmentAndFindAliasedType5_moduleA.ts ===
 import moduleC = require("recursiveExportAssignmentAndFindAliasedType5_moduleC");
 >moduleC : any
+>类型别名 :=> 任意
 
 import ClassB = require("recursiveExportAssignmentAndFindAliasedType5_moduleB");
 >ClassB : typeof ClassB
@@ -12,16 +13,20 @@ export var b: ClassB; // This should result in type ClassB
 === tests/cases/compiler/recursiveExportAssignmentAndFindAliasedType5_moduleC.ts ===
 import self = require("recursiveExportAssignmentAndFindAliasedType5_moduleD");
 >self : any
+>类型别名 :=> 任意
 
 export = self;
 >self : any
+>类型别名 :=> 任意
 
 === tests/cases/compiler/recursiveExportAssignmentAndFindAliasedType5_moduleD.ts ===
 import self = require("recursiveExportAssignmentAndFindAliasedType5_moduleC");
 >self : any
+>类型别名 :=> 任意
 
 export = self;
 >self : any
+>类型别名 :=> 任意
 
 === tests/cases/compiler/recursiveExportAssignmentAndFindAliasedType5_moduleB.ts ===
 class ClassB { }

@@ -2,11 +2,14 @@
 export default function require(a) { }
 >require : (a: any) => void
 >a : any
+>类型别名 :=> 任意
 
 export function has(a) { return true }
 >has : (a: any) => boolean
 >a : any
+>类型别名 :=> 任意
 >true : true
+>类型别名 :=> 为真
 
 === tests/cases/compiler/m.js ===
 import require, { has } from "./c"
@@ -18,11 +21,13 @@ export function hello() { }
 
 if (has('ember-debug')) {
 >has('ember-debug') : boolean
+>类型别名 :=> 真假
 >has : (a: any) => boolean
 >'ember-debug' : "ember-debug"
 
     require('ember-debug');
 >require('ember-debug') : void
+>类型别名 :=> 无值
 >require : (a: any) => void
 >'ember-debug' : "ember-debug"
 }
@@ -33,5 +38,6 @@ import { hello } from "./m";
 
 hello();
 >hello() : void
+>类型别名 :=> 无值
 >hello : () => void
 

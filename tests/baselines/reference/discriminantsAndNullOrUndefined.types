@@ -17,6 +17,7 @@ type C = A | B | undefined;
 function never(_: never): never {
 >never : (_: never) => never
 >_ : never
+>类型别名 :=> 不及
 
     throw new Error();
 >new Error() : Error
@@ -39,8 +40,10 @@ declare var c: C;
 
 if (c !== undefined) {
 >c !== undefined : boolean
+>类型别名 :=> 真假
 >c : C
 >undefined : undefined
+>类型别名 :=> 未定
 
     switch (c.kind) {
 >c.kind : "A" | "B"
@@ -50,18 +53,22 @@ if (c !== undefined) {
         case 'A': useA(c); break;
 >'A' : "A"
 >useA(c) : void
+>类型别名 :=> 无值
 >useA : (_: A) => void
 >c : A
 
         case 'B': useB(c); break;
 >'B' : "B"
 >useB(c) : void
+>类型别名 :=> 无值
 >useB : (_: B) => void
 >c : B
 
         default: never(c);
 >never(c) : never
+>类型别名 :=> 不及
 >never : (_: never) => never
 >c : never
+>类型别名 :=> 不及
     }
 }

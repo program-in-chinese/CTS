@@ -4,11 +4,13 @@ interface ObjA {
 
   y?:string,
 >y : string
+>类型别名 :=> 文字
 }
 
 interface ObjB {[key:string]:any}
 >ObjB : ObjB
 >key : string
+>类型别名 :=> 文字
 
 interface Opts<A, B> {a:A, b:B}
 >Opts : Opts<A, B>
@@ -44,10 +46,12 @@ interface MyObjA {
 
   x:string,
 >x : string
+>类型别名 :=> 文字
 }
 
 fn<MyObjA>({
 >fn<MyObjA>({  a: {x: 'X', y: 'Y'},  b: {},}) : any
+>类型别名 :=> 任意
 >fn : <A extends ObjA, B extends ObjB = ObjB>(opts: Opts<A, B>) => string
 >MyObjA : MyObjA
 >{  a: {x: 'X', y: 'Y'},  b: {},} : { a: { x: string; y: string; }; b: {}; }
@@ -56,8 +60,10 @@ fn<MyObjA>({
 >a : { x: string; y: string; }
 >{x: 'X', y: 'Y'} : { x: string; y: string; }
 >x : string
+>类型别名 :=> 文字
 >'X' : "X"
 >y : string
+>类型别名 :=> 文字
 >'Y' : "Y"
 
   b: {},

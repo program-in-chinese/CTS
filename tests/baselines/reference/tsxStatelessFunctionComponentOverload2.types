@@ -5,14 +5,18 @@ import React = require('react')
 declare function OneThing(): JSX.Element;
 >OneThing : { (): JSX.Element; (l: { yy: number; yy1: string; }): JSX.Element; }
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function OneThing(l: {yy: number, yy1: string}): JSX.Element;
 >OneThing : { (): JSX.Element; (l: { yy: number; yy1: string; }): JSX.Element; }
 >l : { yy: number; yy1: string; }
 >yy : number
+>类型别名 :=> 数字
 >yy1 : string
+>类型别名 :=> 文字
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 let obj = {
@@ -21,10 +25,12 @@ let obj = {
 
     yy: 10,
 >yy : number
+>类型别名 :=> 数字
 >10 : 10
 
     yy1: "hello"
 >yy1 : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 }
 
@@ -34,7 +40,9 @@ let obj1 = {
 
     yy: true
 >yy : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 }
 
 let obj2 = {
@@ -43,6 +51,7 @@ let obj2 = {
 
     yy: 500,
 >yy : number
+>类型别名 :=> 数字
 >500 : 500
 
     "ignore-prop": "hello"
@@ -51,6 +60,7 @@ let obj2 = {
 
 let defaultObj: any;
 >defaultObj : any
+>类型别名 :=> 任意
 
 // OK
 const c1 = <OneThing />
@@ -83,9 +93,11 @@ const c5 = <OneThing {...obj1} yy={42} {...{yy1: "hi"}}/>
 >OneThing : { (): JSX.Element; (l: { yy: number; yy1: string; }): JSX.Element; }
 >obj1 : { yy: boolean; }
 >yy : number
+>类型别名 :=> 数字
 >42 : 42
 >{yy1: "hi"} : { yy1: string; }
 >yy1 : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 
 const c6 = <OneThing {...obj1} {...{yy: 10000, yy1: "true"}} />
@@ -95,8 +107,10 @@ const c6 = <OneThing {...obj1} {...{yy: 10000, yy1: "true"}} />
 >obj1 : { yy: boolean; }
 >{yy: 10000, yy1: "true"} : { yy: number; yy1: string; }
 >yy : number
+>类型别名 :=> 数字
 >10000 : 10000
 >yy1 : string
+>类型别名 :=> 文字
 >"true" : "true"
 
 const c7 = <OneThing {...defaultObj} yy {...obj} />;  // No error. should pick second overload
@@ -104,7 +118,9 @@ const c7 = <OneThing {...defaultObj} yy {...obj} />;  // No error. should pick s
 ><OneThing {...defaultObj} yy {...obj} /> : JSX.Element
 >OneThing : { (): JSX.Element; (l: { yy: number; yy1: string; }): JSX.Element; }
 >defaultObj : any
+>类型别名 :=> 任意
 >yy : true
+>类型别名 :=> 为真
 >obj : { yy: number; yy1: string; }
 
 const c8 = <OneThing ignore-prop={100} />
@@ -112,6 +128,7 @@ const c8 = <OneThing ignore-prop={100} />
 ><OneThing ignore-prop={100} /> : JSX.Element
 >OneThing : { (): JSX.Element; (l: { yy: number; yy1: string; }): JSX.Element; }
 >ignore-prop : number
+>类型别名 :=> 数字
 >100 : 100
 
 const c9 = <OneThing {...{ "ignore-prop":200 }} />;
@@ -127,4 +144,5 @@ const c10 = <OneThing {...obj2} yy1="boo" />;
 >OneThing : { (): JSX.Element; (l: { yy: number; yy1: string; }): JSX.Element; }
 >obj2 : { yy: number; "ignore-prop": string; }
 >yy1 : string
+>类型别名 :=> 文字
 

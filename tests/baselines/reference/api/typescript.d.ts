@@ -3627,9 +3627,6 @@ declare namespace ts {
     function 是全局词典语句(词典参数: 词典语句): 词典参数 is 全局词典语句;
     function 取字典注释范围(node: Node, text: string): 词典注释范围[] | undefined;
     type 可比较名称类型 = Identifier | Symbol | StringLiteralType | string | __String;
-    function 是标识符(标识符参数: 可比较名称类型): 标识符参数 is Identifier;
-    function 是符号(符号参数: 可比较名称类型): 符号参数 is Symbol;
-    function 是字面量类型(类型参数: 可比较名称类型): 类型参数 is StringLiteralType;
     function 对象名称比较(左值: 可比较名称类型, 右值: 可比较名称类型): boolean;
     function 交换词典键值(词典: 词典): 词典;
     function 取别名旗帜(词典: 词典, 旗帜?: 别名旗帜): number;

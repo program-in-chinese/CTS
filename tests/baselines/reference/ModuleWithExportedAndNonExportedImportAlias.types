@@ -1,15 +1,18 @@
 === tests/cases/conformance/internalModules/exportDeclarations/ModuleWithExportedAndNonExportedImportAlias.ts ===
 module A {
 >A : any
+>类型别名 :=> 任意
 
     export interface Point {
 >Point : Point
 
         x: number;
 >x : number
+>类型别名 :=> 数字
 
         y: number;
 >y : number
+>类型别名 :=> 数字
     }
 
     interface Point3d extends Point {
@@ -18,6 +21,7 @@ module A {
 
         z: number;
 >z : number
+>类型别名 :=> 数字
     }
 }
 
@@ -30,9 +34,11 @@ module B {
         constructor(public start: A.Point, public end: A.Point) { }
 >start : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
 >end : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
     }
 }
@@ -42,7 +48,9 @@ module Geometry {
 
     export import Points = A;
 >Points : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
 
     import Lines = B;
 >Lines : typeof Lines
@@ -51,17 +59,21 @@ module Geometry {
     export var Origin: Points.Point = { x: 0, y: 0 };
 >Origin : Points.Point
 >Points : any
+>类型别名 :=> 任意
 >Point : Points.Point
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : number
+>类型别名 :=> 数字
 >0 : 0
 
     // this is valid since B.Line _is_ visible outside Geometry
     export var Unit: Lines.Line = new Lines.Line(Origin, { x: 1, y: 0 });
 >Unit : Lines.Line
 >Lines : any
+>类型别名 :=> 任意
 >Line : Lines.Line
 >new Lines.Line(Origin, { x: 1, y: 0 }) : Lines.Line
 >Lines.Line : typeof Lines.Line
@@ -70,8 +82,10 @@ module Geometry {
 >Origin : Points.Point
 >{ x: 1, y: 0 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >0 : 0
 }
 
@@ -79,12 +93,16 @@ module Geometry {
 var p: { x: number; y: number };
 >p : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 var p: Geometry.Points.Point;
 >p : { x: number; y: number; }
 >Geometry : any
+>类型别名 :=> 任意
 >Points : any
+>类型别名 :=> 任意
 >Point : A.Point
 
 var p = Geometry.Origin;
@@ -97,10 +115,14 @@ var line: { start: { x: number; y: number }; end: { x: number; y: number; } };
 >line : { start: { x: number; y: number; }; end: { x: number; y: number; }; }
 >start : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >end : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 var line = Geometry.Unit;
 >line : { start: { x: number; y: number; }; end: { x: number; y: number; }; }
@@ -112,9 +134,13 @@ var line = Geometry.Unit;
 var line = Geometry.Lines.Line;
 >line : { start: { x: number; y: number; }; end: { x: number; y: number; }; }
 >Geometry.Lines.Line : any
+>类型别名 :=> 任意
 >Geometry.Lines : any
+>类型别名 :=> 任意
 >Geometry : typeof Geometry
 >Lines : any
+>类型别名 :=> 任意
 >Line : any
+>类型别名 :=> 任意
 
 

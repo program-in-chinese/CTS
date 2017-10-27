@@ -1,9 +1,11 @@
 === tests/cases/compiler/reachabilityChecks1.ts ===
 while (true);
 >true : true
+>类型别名 :=> 为真
 
 var x = 1;
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 module A {
@@ -11,9 +13,11 @@ module A {
 
     while (true);
 >true : true
+>类型别名 :=> 为真
 
     let x;
 >x : any
+>类型别名 :=> 任意
 }
 
 module A1 {
@@ -21,9 +25,11 @@ module A1 {
 
     do {} while(true);
 >true : true
+>类型别名 :=> 为真
 
     module A {
 >A : any
+>类型别名 :=> 任意
 
         interface F {}
 >F : F
@@ -35,12 +41,14 @@ module A2 {
 
     while (true);
 >true : true
+>类型别名 :=> 为真
 
     module A {
 >A : typeof A
 
         var x = 1;
 >x : number
+>类型别名 :=> 数字
 >1 : 1
     }
 }
@@ -50,9 +58,11 @@ module A3 {
 
     while (true);
 >true : true
+>类型别名 :=> 为真
 
     type T = string;
 >T : string
+>类型别名 :=> 文字
 }
 
 module A4 {
@@ -60,6 +70,7 @@ module A4 {
 
     while (true);
 >true : true
+>类型别名 :=> 为真
 
     module A {
 >A : typeof A
@@ -73,9 +84,11 @@ module A4 {
 function f1(x) {
 >f1 : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 
     if (x) {
 >x : any
+>类型别名 :=> 任意
 
         return;
     }
@@ -87,6 +100,7 @@ function f1(x) {
     }
     var x;
 >x : any
+>类型别名 :=> 任意
 }
 
 function f2() {
@@ -104,6 +118,7 @@ module B {
     for (; ;);
     module C {
 >C : any
+>类型别名 :=> 任意
     }
 }
 
@@ -113,6 +128,7 @@ function f3() {
     do {
     } while (true);
 >true : true
+>类型别名 :=> 为真
 
     enum E {
 >E : E
@@ -128,6 +144,7 @@ function f4() {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         throw new Error();
 >new Error() : Error

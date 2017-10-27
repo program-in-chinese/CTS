@@ -1,16 +1,20 @@
 === tests/cases/conformance/types/specifyingTypes/typeQueries/typeofAnExportedType.ts ===
 export var x = 1;
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 export var r1: typeof x;
 >r1 : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 
 export var y = { foo: '' };
 >y : { foo: string; }
 >{ foo: '' } : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >'' : ""
 
 export var r2: typeof y;
@@ -22,6 +26,7 @@ export class C {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 export var c: C;
 >c : C
@@ -48,6 +53,7 @@ export interface I {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 export var i: I;
 >i : I
@@ -70,6 +76,7 @@ export module M {
 
     export var foo = '';
 >foo : string
+>类型别名 :=> 文字
 >'' : ""
 
     export class C {
@@ -77,6 +84,7 @@ export module M {
 
         foo: string;
 >foo : string
+>类型别名 :=> 文字
     }
 }
 export var r6: typeof M;
@@ -85,9 +93,12 @@ export var r6: typeof M;
 
 export var r7: typeof M.foo;
 >r7 : string
+>类型别名 :=> 文字
 >M.foo : string
+>类型别名 :=> 文字
 >M : typeof M
 >foo : string
+>类型别名 :=> 文字
 
 export import Z = M;
 >Z : typeof M
@@ -99,9 +110,12 @@ export var r8: typeof Z;
 
 export var r9: typeof Z.foo;
 >r9 : string
+>类型别名 :=> 文字
 >Z.foo : string
+>类型别名 :=> 文字
 >Z : typeof M
 >foo : string
+>类型别名 :=> 文字
 
 export enum E {
 >E : E
@@ -121,7 +135,9 @@ export var r11: typeof E.A;
 
 export var r12: typeof r12;
 >r12 : any
+>类型别名 :=> 任意
 >r12 : any
+>类型别名 :=> 任意
 
 export function foo() { }
 >foo : typeof foo
@@ -131,6 +147,7 @@ export module foo {
 
     export var y = 1;
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
     export class C {
@@ -138,6 +155,7 @@ export module foo {
 
         foo: string;
 >foo : string
+>类型别名 :=> 文字
     }
 }
 export var r13: typeof foo;

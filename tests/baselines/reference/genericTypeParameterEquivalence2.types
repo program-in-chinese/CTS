@@ -27,10 +27,12 @@ function compose<A, B, C>(f: (b: B) => C, g: (a:A) => B): (a:A) => C {
 >f(g.apply(null, a)) : C
 >f : (b: B) => C
 >g.apply(null, a) : any
+>类型别名 :=> 任意
 >g.apply : (this: Function, thisArg: any, argArray?: any) => any
 >g : (a: A) => B
 >apply : (this: Function, thisArg: any, argArray?: any) => any
 >null : null
+>类型别名 :=> 空值
 >a : A
 
     };
@@ -46,25 +48,36 @@ function forEach<A>(list: A[], f: (a: A, n?: number) => void ): void {
 >a : A
 >A : A
 >n : number
+>类型别名 :=> 数字
 
     for (var i = 0; i < list.length; ++i) {
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i < list.length : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >list.length : number
+>类型别名 :=> 数字
 >list : A[]
 >length : number
+>类型别名 :=> 数字
 >++i : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 
         f(list[i], i);
 >f(list[i], i) : void
+>类型别名 :=> 无值
 >f : (a: A, n?: number) => void
 >list[i] : A
 >list : A[]
 >i : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
     }
 }
 
@@ -85,6 +98,7 @@ function filter<A>(f: (a: A) => boolean, ar: A[]): A[] {
 
     forEach(ar, (el) => {
 >forEach(ar, (el) => {        if (f(el)) {            ret.push(el);        }    } ) : void
+>类型别名 :=> 无值
 >forEach : <A>(list: A[], f: (a: A, n?: number) => void) => void
 >ar : A[]
 >(el) => {        if (f(el)) {            ret.push(el);        }    } : (el: A) => void
@@ -92,11 +106,13 @@ function filter<A>(f: (a: A) => boolean, ar: A[]): A[] {
 
         if (f(el)) {
 >f(el) : boolean
+>类型别名 :=> 真假
 >f : (a: A) => boolean
 >el : A
 
             ret.push(el);
 >ret.push(el) : number
+>类型别名 :=> 数字
 >ret.push : (...items: any[]) => number
 >ret : any[]
 >push : (...items: any[]) => number
@@ -117,8 +133,10 @@ function length2<A>(ar: A[]): number {
 
     return ar.length;
 >ar.length : number
+>类型别名 :=> 数字
 >ar : A[]
 >length : number
+>类型别名 :=> 数字
 }
 
 // curry1 :: ((a,b)->c) -> (a->(b->c))

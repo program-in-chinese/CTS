@@ -12,7 +12,9 @@ module TypeScript {
 
         export var debug = false;
 >debug : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
         export interface IDiagnosticWriter {
 >IDiagnosticWriter : IDiagnosticWriter
@@ -20,63 +22,80 @@ module TypeScript {
             Alert(output: string): void;
 >Alert : (output: string) => void
 >output : string
+>类型别名 :=> 文字
         }
 
         export var diagnosticWriter: IDiagnosticWriter = null;
 >diagnosticWriter : IDiagnosticWriter
 >IDiagnosticWriter : IDiagnosticWriter
 >null : null
+>类型别名 :=> 空值
 
         export var analysisPass: number = 0;
 >analysisPass : number
+>类型别名 :=> 数字
 >0 : 0
 
         export function Alert(output: string) {
 >Alert : (output: string) => void
 >output : string
+>类型别名 :=> 文字
 
             if (diagnosticWriter) {
 >diagnosticWriter : IDiagnosticWriter
 
                 diagnosticWriter.Alert(output);
 >diagnosticWriter.Alert(output) : void
+>类型别名 :=> 无值
 >diagnosticWriter.Alert : (output: string) => void
 >diagnosticWriter : IDiagnosticWriter
 >Alert : (output: string) => void
 >output : string
+>类型别名 :=> 文字
             }
         }
 
         export function debugPrint(s: string) {
 >debugPrint : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
             if (debug) {
 >debug : boolean
+>类型别名 :=> 真假
 
                 Alert(s);
 >Alert(s) : void
+>类型别名 :=> 无值
 >Alert : (output: string) => void
 >s : string
+>类型别名 :=> 文字
             }
         }
 
         export function assert(condition: boolean, s: string) {
 >assert : (condition: boolean, s: string) => void
 >condition : boolean
+>类型别名 :=> 真假
 >s : string
+>类型别名 :=> 文字
 
             if (debug) {
 >debug : boolean
+>类型别名 :=> 真假
 
                 if (!condition) {
 >!condition : boolean
+>类型别名 :=> 真假
 >condition : boolean
+>类型别名 :=> 真假
 
                     Alert(s);
 >Alert(s) : void
+>类型别名 :=> 无值
 >Alert : (output: string) => void
 >s : string
+>类型别名 :=> 文字
                 }
             }
         }
@@ -104,6 +123,7 @@ module TypeScript {
         log(s: string): void;
 >log : (s: string) => void
 >s : string
+>类型别名 :=> 文字
     }
 
     export class NullLogger implements ILogger {
@@ -113,26 +133,32 @@ module TypeScript {
         public information(): boolean { return false; }
 >information : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public debug(): boolean { return false; }
 >debug : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public warning(): boolean { return false; }
 >warning : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public error(): boolean { return false; }
 >error : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public fatal(): boolean { return false; }
 >fatal : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public log(s: string): void {
 >log : (s: string) => void
 >s : string
+>类型别名 :=> 文字
         }
     }
 
@@ -142,18 +168,23 @@ module TypeScript {
 
         private _information: boolean;
 >_information : boolean
+>类型别名 :=> 真假
 
         private _debug: boolean;
 >_debug : boolean
+>类型别名 :=> 真假
 
         private _warning: boolean;
 >_warning : boolean
+>类型别名 :=> 真假
 
         private _error: boolean;
 >_error : boolean
+>类型别名 :=> 真假
 
         private _fatal: boolean;
 >_fatal : boolean
+>类型别名 :=> 真假
 
         constructor (public logger: ILogger) { 
 >logger : ILogger
@@ -161,10 +192,14 @@ module TypeScript {
 
             this._information = this.logger.information();
 >this._information = this.logger.information() : boolean
+>类型别名 :=> 真假
 >this._information : boolean
+>类型别名 :=> 真假
 >this : this
 >_information : boolean
+>类型别名 :=> 真假
 >this.logger.information() : boolean
+>类型别名 :=> 真假
 >this.logger.information : () => boolean
 >this.logger : ILogger
 >this : this
@@ -173,10 +208,14 @@ module TypeScript {
 
             this._debug = this.logger.debug();
 >this._debug = this.logger.debug() : boolean
+>类型别名 :=> 真假
 >this._debug : boolean
+>类型别名 :=> 真假
 >this : this
 >_debug : boolean
+>类型别名 :=> 真假
 >this.logger.debug() : boolean
+>类型别名 :=> 真假
 >this.logger.debug : () => boolean
 >this.logger : ILogger
 >this : this
@@ -185,10 +224,14 @@ module TypeScript {
 
             this._warning = this.logger.warning();
 >this._warning = this.logger.warning() : boolean
+>类型别名 :=> 真假
 >this._warning : boolean
+>类型别名 :=> 真假
 >this : this
 >_warning : boolean
+>类型别名 :=> 真假
 >this.logger.warning() : boolean
+>类型别名 :=> 真假
 >this.logger.warning : () => boolean
 >this.logger : ILogger
 >this : this
@@ -197,10 +240,14 @@ module TypeScript {
 
             this._error = this.logger.error();
 >this._error = this.logger.error() : boolean
+>类型别名 :=> 真假
 >this._error : boolean
+>类型别名 :=> 真假
 >this : this
 >_error : boolean
+>类型别名 :=> 真假
 >this.logger.error() : boolean
+>类型别名 :=> 真假
 >this.logger.error : () => boolean
 >this.logger : ILogger
 >this : this
@@ -209,10 +256,14 @@ module TypeScript {
 
             this._fatal = this.logger.fatal();
 >this._fatal = this.logger.fatal() : boolean
+>类型别名 :=> 真假
 >this._fatal : boolean
+>类型别名 :=> 真假
 >this : this
 >_fatal : boolean
+>类型别名 :=> 真假
 >this.logger.fatal() : boolean
+>类型别名 :=> 真假
 >this.logger.fatal : () => boolean
 >this.logger : ILogger
 >this : this
@@ -224,45 +275,58 @@ module TypeScript {
         public information(): boolean { return this._information; }
 >information : () => boolean
 >this._information : boolean
+>类型别名 :=> 真假
 >this : this
 >_information : boolean
+>类型别名 :=> 真假
 
         public debug(): boolean { return this._debug; }
 >debug : () => boolean
 >this._debug : boolean
+>类型别名 :=> 真假
 >this : this
 >_debug : boolean
+>类型别名 :=> 真假
 
         public warning(): boolean { return this._warning; }
 >warning : () => boolean
 >this._warning : boolean
+>类型别名 :=> 真假
 >this : this
 >_warning : boolean
+>类型别名 :=> 真假
 
         public error(): boolean { return this._error; }
 >error : () => boolean
 >this._error : boolean
+>类型别名 :=> 真假
 >this : this
 >_error : boolean
+>类型别名 :=> 真假
 
         public fatal(): boolean { return this._fatal; }
 >fatal : () => boolean
 >this._fatal : boolean
+>类型别名 :=> 真假
 >this : this
 >_fatal : boolean
+>类型别名 :=> 真假
 
         public log(s: string): void {
 >log : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
             this.logger.log(s);
 >this.logger.log(s) : void
+>类型别名 :=> 无值
 >this.logger.log : (s: string) => void
 >this.logger : ILogger
 >this : this
 >logger : ILogger
 >log : (s: string) => void
 >s : string
+>类型别名 :=> 文字
         }
     }
 
@@ -277,35 +341,43 @@ module TypeScript {
         public information(): boolean { return false; }
 >information : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public debug(): boolean { return false; }
 >debug : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public warning(): boolean { return false; }
 >warning : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public error(): boolean { return false; }
 >error : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public fatal(): boolean { return false; }
 >fatal : () => boolean
 >false : false
+>类型别名 :=> 为假
 
         public log(s: string): void {
 >log : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
             this.logContents.push(s);
 >this.logContents.push(s) : number
+>类型别名 :=> 数字
 >this.logContents.push : (...items: any[]) => number
 >this.logContents : any[]
 >this : this
 >logContents : any[]
 >push : (...items: any[]) => number
 >s : string
+>类型别名 :=> 文字
         }
     }
 
@@ -314,76 +386,104 @@ module TypeScript {
 >logger : ILogger
 >ILogger : ILogger
 >funcDescription : string
+>类型别名 :=> 文字
 >func : () => any
 
         var start = +new Date();
 >start : number
+>类型别名 :=> 数字
 >+new Date() : number
+>类型别名 :=> 数字
 >new Date() : Date
 >Date : DateConstructor
 
         var result = func();
 >result : any
+>类型别名 :=> 任意
 >func() : any
+>类型别名 :=> 任意
 >func : () => any
 
         var end = +new Date();
 >end : number
+>类型别名 :=> 数字
 >+new Date() : number
+>类型别名 :=> 数字
 >new Date() : Date
 >Date : DateConstructor
 
         logger.log(funcDescription + " completed in " + (end - start) + " msec");
 >logger.log(funcDescription + " completed in " + (end - start) + " msec") : void
+>类型别名 :=> 无值
 >logger.log : (s: string) => void
 >logger : ILogger
 >log : (s: string) => void
 >funcDescription + " completed in " + (end - start) + " msec" : string
+>类型别名 :=> 文字
 >funcDescription + " completed in " + (end - start) : string
+>类型别名 :=> 文字
 >funcDescription + " completed in " : string
+>类型别名 :=> 文字
 >funcDescription : string
+>类型别名 :=> 文字
 >" completed in " : " completed in "
 >(end - start) : number
+>类型别名 :=> 数字
 >end - start : number
+>类型别名 :=> 数字
 >end : number
+>类型别名 :=> 数字
 >start : number
+>类型别名 :=> 数字
 >" msec" : " msec"
 
         return result;
 >result : any
+>类型别名 :=> 任意
     }
 
     export function stringToLiteral(value: string, length: number): string {
 >stringToLiteral : (value: string, length: number) => string
 >value : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
         var result = "";
 >result : string
+>类型别名 :=> 文字
 >"" : ""
 
         var addChar = (index: number) => {
 >addChar : (index: number) => void
 >(index: number) => {            var ch = value.charCodeAt(index);            switch (ch) {                case 0x09: // tab                    result += "\\t";                    break;                case 0x0a: // line feed                    result += "\\n";                    break;                case 0x0b: // vertical tab                    result += "\\v";                    break;                case 0x0c: // form feed                    result += "\\f";                    break;                case 0x0d: // carriage return                    result += "\\r";                    break;                case 0x22:  // double quote                    result += "\\\"";                    break;                case 0x27: // single quote                    result += "\\\'";                    break;                case 0x5c: // Backslash                    result += "\\";                    break;                default:                    result += value.charAt(index);            }        } : (index: number) => void
 >index : number
+>类型别名 :=> 数字
 
             var ch = value.charCodeAt(index);
 >ch : number
+>类型别名 :=> 数字
 >value.charCodeAt(index) : number
+>类型别名 :=> 数字
 >value.charCodeAt : (index: number) => number
 >value : string
+>类型别名 :=> 文字
 >charCodeAt : (index: number) => number
 >index : number
+>类型别名 :=> 数字
 
             switch (ch) {
 >ch : number
+>类型别名 :=> 数字
 
                 case 0x09: // tab
 >0x09 : 9
 
                     result += "\\t";
 >result += "\\t" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\t" : "\\t"
 
                     break;
@@ -392,7 +492,9 @@ module TypeScript {
 
                     result += "\\n";
 >result += "\\n" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\n" : "\\n"
 
                     break;
@@ -401,7 +503,9 @@ module TypeScript {
 
                     result += "\\v";
 >result += "\\v" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\v" : "\\v"
 
                     break;
@@ -410,7 +514,9 @@ module TypeScript {
 
                     result += "\\f";
 >result += "\\f" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\f" : "\\f"
 
                     break;
@@ -419,7 +525,9 @@ module TypeScript {
 
                     result += "\\r";
 >result += "\\r" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\r" : "\\r"
 
                     break;
@@ -428,7 +536,9 @@ module TypeScript {
 
                     result += "\\\"";
 >result += "\\\"" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\\"" : "\\\""
 
                     break;
@@ -437,7 +547,9 @@ module TypeScript {
 
                     result += "\\\'";
 >result += "\\\'" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\\'" : "\\'"
 
                     break;
@@ -446,97 +558,154 @@ module TypeScript {
 
                     result += "\\";
 >result += "\\" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"\\" : "\\"
 
                     break;
                 default:
                     result += value.charAt(index);
 >result += value.charAt(index) : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >value.charAt(index) : string
+>类型别名 :=> 文字
 >value.charAt : (pos: number) => string
 >value : string
+>类型别名 :=> 文字
 >charAt : (pos: number) => string
 >index : number
+>类型别名 :=> 数字
             }
         }
 
         var tooLong = (value.length > length);
 >tooLong : boolean
+>类型别名 :=> 真假
 >(value.length > length) : boolean
+>类型别名 :=> 真假
 >value.length > length : boolean
+>类型别名 :=> 真假
 >value.length : number
+>类型别名 :=> 数字
 >value : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >length : number
+>类型别名 :=> 数字
 
         if (tooLong) {
 >tooLong : boolean
+>类型别名 :=> 真假
 
             var mid = length >> 1;
 >mid : number
+>类型别名 :=> 数字
 >length >> 1 : number
+>类型别名 :=> 数字
 >length : number
+>类型别名 :=> 数字
 >1 : 1
 
             for (var i = 0; i < mid; i++) addChar(i);
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i < mid : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >mid : number
+>类型别名 :=> 数字
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 >addChar(i) : void
+>类型别名 :=> 无值
 >addChar : (index: number) => void
 >i : number
+>类型别名 :=> 数字
 
             result += "(...)";
 >result += "(...)" : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >"(...)" : "(...)"
 
             for (var i = value.length - mid; i < value.length; i++) addChar(i);
 >i : number
+>类型别名 :=> 数字
 >value.length - mid : number
+>类型别名 :=> 数字
 >value.length : number
+>类型别名 :=> 数字
 >value : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >mid : number
+>类型别名 :=> 数字
 >i < value.length : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >value.length : number
+>类型别名 :=> 数字
 >value : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 >addChar(i) : void
+>类型别名 :=> 无值
 >addChar : (index: number) => void
 >i : number
+>类型别名 :=> 数字
         }
         else {
             length = value.length;
 >length = value.length : number
+>类型别名 :=> 数字
 >length : number
+>类型别名 :=> 数字
 >value.length : number
+>类型别名 :=> 数字
 >value : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
             for (var i = 0; i < length; i++) addChar(i);
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i < length : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >length : number
+>类型别名 :=> 数字
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 >addChar(i) : void
+>类型别名 :=> 无值
 >addChar : (index: number) => void
 >i : number
+>类型别名 :=> 数字
         }
         return result;
 >result : string
+>类型别名 :=> 文字
     }
 }
 

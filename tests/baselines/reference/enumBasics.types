@@ -16,6 +16,7 @@ enum E1 {
 // Enum type is a subtype of Number
 var x: number = E1.A;
 >x : number
+>类型别名 :=> 数字
 >E1.A : E1.A
 >E1 : typeof E1
 >A : E1.A
@@ -31,20 +32,24 @@ var e: {
     readonly A: E1.A;
 >A : E1.A
 >E1 : any
+>类型别名 :=> 任意
 >A : E1.A
 
     readonly B: E1.B;
 >B : E1.B
 >E1 : any
+>类型别名 :=> 任意
 >B : E1.B
 
     readonly C: E1.C;
 >C : E1.C
 >E1 : any
+>类型别名 :=> 任意
 >C : E1.C
 
     readonly [n: number]: string;
 >n : number
+>类型别名 :=> 数字
 
 };
 var e: typeof E1;
@@ -54,7 +59,9 @@ var e: typeof E1;
 // Reverse mapping of enum returns string name of property 
 var s = E1[e.A];
 >s : string
+>类型别名 :=> 文字
 >E1[e.A] : string
+>类型别名 :=> 文字
 >E1 : typeof E1
 >e.A : E1.A
 >e : typeof E1
@@ -62,6 +69,7 @@ var s = E1[e.A];
 
 var s: string;
 >s : string
+>类型别名 :=> 文字
 
 
 // Enum with only constant members
@@ -84,14 +92,18 @@ enum E3 {
     X = 'foo'.length, Y = 4 + 3, Z = +'foo'
 >X : E3
 >'foo'.length : number
+>类型别名 :=> 数字
 >'foo' : "foo"
 >length : number
+>类型别名 :=> 数字
 >Y : E3
 >4 + 3 : number
+>类型别名 :=> 数字
 >4 : 4
 >3 : 3
 >Z : E3
 >+'foo' : number
+>类型别名 :=> 数字
 >'foo' : "foo"
 }
 
@@ -105,8 +117,10 @@ enum E4 {
 >Y : E4
 >Z : E4
 >'foo'.length : number
+>类型别名 :=> 数字
 >'foo' : "foo"
 >length : number
+>类型别名 :=> 数字
 }
 
 // Enum with > 2 constant members with no initializer for first member, non zero initializer for second element
@@ -145,6 +159,7 @@ enum E7 {
     A = 'foo'['foo']
 >A : E7
 >'foo'['foo'] : any
+>类型别名 :=> 任意
 >'foo' : "foo"
 >'foo' : "foo"
 }
@@ -156,6 +171,7 @@ enum E8 {
     B = 'foo'['foo']
 >B : E8
 >'foo'['foo'] : any
+>类型别名 :=> 任意
 >'foo' : "foo"
 >'foo' : "foo"
 }

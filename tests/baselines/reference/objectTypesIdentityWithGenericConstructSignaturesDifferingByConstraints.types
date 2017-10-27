@@ -12,6 +12,7 @@ class B<T extends Array<number>> {
 >x : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 class C<T extends String> {
@@ -23,6 +24,7 @@ class C<T extends String> {
 >x : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 interface I<T extends Number> {
@@ -77,6 +79,7 @@ function foo1b(x: B<Array<number>>); // error
 function foo1b(x: any) { }
 >foo1b : { (x: B<number[]>): any; (x: B<number[]>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo1c(x: C<String>);
 >foo1c : { (x: C<String>): any; (x: C<String>): any; }
@@ -93,6 +96,7 @@ function foo1c(x: C<String>); // error
 function foo1c(x: any) { }
 >foo1c : { (x: C<String>): any; (x: C<String>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo2(x: I<Number>);
 >foo2 : { (x: I<Number>): any; (x: I<Number>): any; }
@@ -109,6 +113,7 @@ function foo2(x: I<Number>); // error
 function foo2(x: any) { }
 >foo2 : { (x: I<Number>): any; (x: I<Number>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo3(x: typeof a);
 >foo3 : { (x: new <T extends string[]>(x: T) => string): any; (x: new <T extends string[]>(x: T) => string): any; }
@@ -123,6 +128,7 @@ function foo3(x: typeof a); // error
 function foo3(x: any) { }
 >foo3 : { (x: new <T extends string[]>(x: T) => string): any; (x: new <T extends string[]>(x: T) => string): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo4(x: typeof b);
 >foo4 : { (x: { new<T extends RegExp>(x: T): string; }): any; (x: { new<T extends RegExp>(x: T): string; }): any; }
@@ -137,6 +143,7 @@ function foo4(x: typeof b); // error
 function foo4(x: any) { }
 >foo4 : { (x: { new<T extends RegExp>(x: T): string; }): any; (x: { new<T extends RegExp>(x: T): string; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo8(x: B<Array<number>>);
 >foo8 : { (x: B<number[]>): any; (x: I<Number>): any; }
@@ -153,6 +160,7 @@ function foo8(x: I<Number>); // ok
 function foo8(x: any) { }
 >foo8 : { (x: B<number[]>): any; (x: I<Number>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo9(x: B<Array<number>>);
 >foo9 : { (x: B<number[]>): any; (x: C<String>): any; }
@@ -169,6 +177,7 @@ function foo9(x: C<String>); // error, types are structurally equal
 function foo9(x: any) { }
 >foo9 : { (x: B<number[]>): any; (x: C<String>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo10(x: B<Array<number>>);
 >foo10 : { (x: B<number[]>): any; (x: new <T extends string[]>(x: T) => string): any; }
@@ -184,6 +193,7 @@ function foo10(x: typeof a); // ok
 function foo10(x: any) { }
 >foo10 : { (x: B<number[]>): any; (x: new <T extends string[]>(x: T) => string): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo11(x: B<Array<number>>);
 >foo11 : { (x: B<number[]>): any; (x: { new<T extends RegExp>(x: T): string; }): any; }
@@ -199,6 +209,7 @@ function foo11(x: typeof b); // ok
 function foo11(x: any) { }
 >foo11 : { (x: B<number[]>): any; (x: { new<T extends RegExp>(x: T): string; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12(x: I<Number>);
 >foo12 : { (x: I<Number>): any; (x: C<String>): any; }
@@ -215,6 +226,7 @@ function foo12(x: C<String>); // ok
 function foo12(x: any) { }
 >foo12 : { (x: I<Number>): any; (x: C<String>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12b(x: I2);
 >foo12b : { (x: I2): any; (x: C<String>): any; }
@@ -230,6 +242,7 @@ function foo12b(x: C<String>); // ok
 function foo12b(x: any) { }
 >foo12b : { (x: I2): any; (x: C<String>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo13(x: I<Number>);
 >foo13 : { (x: I<Number>): any; (x: new <T extends string[]>(x: T) => string): any; }
@@ -245,6 +258,7 @@ function foo13(x: typeof a); // ok
 function foo13(x: any) { }
 >foo13 : { (x: I<Number>): any; (x: new <T extends string[]>(x: T) => string): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo14(x: I<Number>);
 >foo14 : { (x: I<Number>): any; (x: { new<T extends RegExp>(x: T): string; }): any; }
@@ -260,4 +274,5 @@ function foo14(x: typeof b); // ok
 function foo14(x: any) { }
 >foo14 : { (x: I<Number>): any; (x: { new<T extends RegExp>(x: T): string; }): any; }
 >x : any
+>类型别名 :=> 任意
 

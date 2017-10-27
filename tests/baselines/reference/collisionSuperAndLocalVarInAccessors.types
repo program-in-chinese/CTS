@@ -1,6 +1,7 @@
 === tests/cases/compiler/collisionSuperAndLocalVarInAccessors.ts ===
 var _super = 10; // No Error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
 
 class Foo {
@@ -8,9 +9,11 @@ class Foo {
 
     get prop1(): number {
 >prop1 : number
+>类型别名 :=> 数字
 
         var _super = 10; // No error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
 
         return 10;
@@ -18,10 +21,13 @@ class Foo {
     }
     set prop1(val: number) {
 >prop1 : number
+>类型别名 :=> 数字
 >val : number
+>类型别名 :=> 数字
 
         var _super = 10; // No error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -31,9 +37,11 @@ class b extends Foo {
 
     get prop2(): number {
 >prop2 : number
+>类型别名 :=> 数字
 
         var _super = 10; // Should be error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
 
         return 10;
@@ -41,10 +49,13 @@ class b extends Foo {
     }
     set prop2(val: number) {
 >prop2 : number
+>类型别名 :=> 数字
 >val : number
+>类型别名 :=> 数字
 
         var _super = 10; // Should be error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -54,6 +65,7 @@ class c extends Foo {
 
     get prop2(): number {
 >prop2 : number
+>类型别名 :=> 数字
 
         var x = () => {
 >x : () => void
@@ -61,6 +73,7 @@ class c extends Foo {
 
             var _super = 10; // Should be error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
         }
         return 10;
@@ -68,7 +81,9 @@ class c extends Foo {
     }
     set prop2(val: number) {
 >prop2 : number
+>类型别名 :=> 数字
 >val : number
+>类型别名 :=> 数字
 
         var x = () => {
 >x : () => void
@@ -76,6 +91,7 @@ class c extends Foo {
 
             var _super = 10; // Should be error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
         }
     }

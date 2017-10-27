@@ -24,12 +24,14 @@ class A<P extends Partial<Foo>> {
 
         this.props.foo && this.props.foo()
 >this.props.foo && this.props.foo() : void
+>类型别名 :=> 无值
 >this.props.foo : P["foo"]
 >this.props : Readonly<P>
 >this : this
 >props : Readonly<P>
 >foo : P["foo"]
 >this.props.foo() : void
+>类型别名 :=> 无值
 >this.props.foo : () => void
 >this.props : Readonly<P>
 >this : this
@@ -110,6 +112,7 @@ type Item = {
     (): string;
     x: string;
 >x : string
+>类型别名 :=> 文字
 }
 
 function f1<T extends Item | undefined>(obj: T) {
@@ -124,16 +127,20 @@ function f1<T extends Item | undefined>(obj: T) {
 
         obj.x;
 >obj.x : string
+>类型别名 :=> 文字
 >obj : Item
 >x : string
+>类型别名 :=> 文字
 
         obj["x"];
 >obj["x"] : string
+>类型别名 :=> 文字
 >obj : Item
 >"x" : "x"
 
         obj();
 >obj() : string
+>类型别名 :=> 文字
 >obj : Item
     }
 }
@@ -150,16 +157,20 @@ function f2<T extends Item | undefined>(obj: T | undefined) {
 
         obj.x;
 >obj.x : string
+>类型别名 :=> 文字
 >obj : Item
 >x : string
+>类型别名 :=> 文字
 
         obj["x"];
 >obj["x"] : string
+>类型别名 :=> 文字
 >obj : Item
 >"x" : "x"
 
         obj();
 >obj() : string
+>类型别名 :=> 文字
 >obj : Item
     }
 }
@@ -171,22 +182,27 @@ function f3<T extends Item | undefined>(obj: T | null) {
 >obj : T | null
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     if (obj) {
 >obj : T | null
 
         obj.x;
 >obj.x : string
+>类型别名 :=> 文字
 >obj : Item
 >x : string
+>类型别名 :=> 文字
 
         obj["x"];
 >obj["x"] : string
+>类型别名 :=> 文字
 >obj : Item
 >"x" : "x"
 
         obj();
 >obj() : string
+>类型别名 :=> 文字
 >obj : Item
     }
 }
@@ -197,16 +213,21 @@ function f4<T extends string[] | undefined>(obj: T | undefined, x: number) {
 >obj : T | undefined
 >T : T
 >x : number
+>类型别名 :=> 数字
 
     if (obj) {
 >obj : T | undefined
 
         obj[x].length;
 >obj[x].length : number
+>类型别名 :=> 数字
 >obj[x] : string
+>类型别名 :=> 文字
 >obj : string[]
 >x : number
+>类型别名 :=> 数字
 >length : number
+>类型别名 :=> 数字
     }
 }
 

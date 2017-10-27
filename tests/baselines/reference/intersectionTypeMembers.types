@@ -5,14 +5,17 @@
 interface A { a: string }
 >A : A
 >a : string
+>类型别名 :=> 文字
 
 interface B { b: string }
 >B : B
 >b : string
+>类型别名 :=> 文字
 
 interface C { c: string }
 >C : C
 >c : string
+>类型别名 :=> 文字
 
 var abc: A & B & C;
 >abc : A & B & C
@@ -23,22 +26,28 @@ var abc: A & B & C;
 abc.a = "hello";
 >abc.a = "hello" : "hello"
 >abc.a : string
+>类型别名 :=> 文字
 >abc : A & B & C
 >a : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 abc.b = "hello";
 >abc.b = "hello" : "hello"
 >abc.b : string
+>类型别名 :=> 文字
 >abc : A & B & C
 >b : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 abc.c = "hello";
 >abc.c = "hello" : "hello"
 >abc.c : string
+>类型别名 :=> 文字
 >abc : A & B & C
 >c : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 interface X { x: A }
@@ -65,37 +74,45 @@ var xyz: X & Y & Z;
 xyz.x.a = "hello";
 >xyz.x.a = "hello" : "hello"
 >xyz.x.a : string
+>类型别名 :=> 文字
 >xyz.x : A & B & C
 >xyz : X & Y & Z
 >x : A & B & C
 >a : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 xyz.x.b = "hello";
 >xyz.x.b = "hello" : "hello"
 >xyz.x.b : string
+>类型别名 :=> 文字
 >xyz.x : A & B & C
 >xyz : X & Y & Z
 >x : A & B & C
 >b : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 xyz.x.c = "hello";
 >xyz.x.c = "hello" : "hello"
 >xyz.x.c : string
+>类型别名 :=> 文字
 >xyz.x : A & B & C
 >xyz : X & Y & Z
 >x : A & B & C
 >c : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 type F1 = (x: string) => string;
 >F1 : F1
 >x : string
+>类型别名 :=> 文字
 
 type F2 = (x: number) => number;
 >F2 : F2
 >x : number
+>类型别名 :=> 数字
 
 var f: F1 & F2;
 >f : F1 & F2
@@ -104,13 +121,17 @@ var f: F1 & F2;
 
 var s = f("hello");
 >s : string
+>类型别名 :=> 文字
 >f("hello") : string
+>类型别名 :=> 文字
 >f : F1 & F2
 >"hello" : "hello"
 
 var n = f(42);
 >n : number
+>类型别名 :=> 数字
 >f(42) : number
+>类型别名 :=> 数字
 >f : F1 & F2
 >42 : 42
 
@@ -121,8 +142,10 @@ interface D {
 >nested : { doublyNested: { d: string; }; different: { e: number; }; }
 >doublyNested : { d: string; }
 >d : string
+>类型别名 :=> 文字
 >different : { e: number; }
 >e : number
+>类型别名 :=> 数字
 }
 interface E {
 >E : E
@@ -131,8 +154,10 @@ interface E {
 >nested : { doublyNested: { f: string; }; other: { g: number; }; }
 >doublyNested : { f: string; }
 >f : string
+>类型别名 :=> 文字
 >other : { g: number; }
 >g : number
+>类型别名 :=> 数字
 }
 const de: D & E = {
 >de : D & E
@@ -150,10 +175,12 @@ const de: D & E = {
 
             d: 'yes',
 >d : string
+>类型别名 :=> 文字
 >'yes' : "yes"
 
             f: 'no'
 >f : string
+>类型别名 :=> 文字
 >'no' : "no"
 
         },
@@ -161,12 +188,14 @@ const de: D & E = {
 >different : { e: number; }
 >{ e: 12 } : { e: number; }
 >e : number
+>类型别名 :=> 数字
 >12 : 12
 
         other: { g: 101 }
 >other : { g: number; }
 >{ g: 101 } : { g: number; }
 >g : number
+>类型别名 :=> 数字
 >101 : 101
     }
 }

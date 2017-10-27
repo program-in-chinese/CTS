@@ -1,13 +1,16 @@
 === tests/cases/conformance/types/rest/objectRestAssignment.ts ===
 let ka: any;
 >ka : any
+>类型别名 :=> 任意
 
 let nested: { ki };
 >nested : { ki: any; }
 >ki : any
+>类型别名 :=> 任意
 
 let other: number;
 >other : number
+>类型别名 :=> 数字
 
 let rest: { };
 >rest : {}
@@ -16,8 +19,11 @@ let complex: { x: { ka, ki }, y: number };
 >complex : { x: { ka: any; ki: any; }; y: number; }
 >x : { ka: any; ki: any; }
 >ka : any
+>类型别名 :=> 任意
 >ki : any
+>类型别名 :=> 任意
 >y : number
+>类型别名 :=> 数字
 
 ({x: { ka, ...nested }, y: other, ...rest} = complex);
 >({x: { ka, ...nested }, y: other, ...rest} = complex) : { x: { ka: any; ki: any; }; y: number; }
@@ -26,9 +32,12 @@ let complex: { x: { ka, ki }, y: number };
 >x : { ki: any; ka: any; }
 >{ ka, ...nested } : { ki: any; ka: any; }
 >ka : any
+>类型别名 :=> 任意
 >nested : { ki: any; }
 >y : number
+>类型别名 :=> 数字
 >other : number
+>类型别名 :=> 数字
 >rest : {}
 >complex : { x: { ka: any; ki: any; }; y: number; }
 
@@ -37,21 +46,31 @@ let overEmit: { a: { ka: string, x: string }[], b: { z: string, ki: string, ku: 
 >overEmit : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }
 >a : { ka: string; x: string; }[]
 >ka : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 >b : { z: string; ki: string; ku: string; }
 >z : string
+>类型别名 :=> 文字
 >ki : string
+>类型别名 :=> 文字
 >ku : string
+>类型别名 :=> 文字
 >ke : string
+>类型别名 :=> 文字
 >ko : string
+>类型别名 :=> 文字
 
 // var _g = overEmit.a, [_h, ...y] = _g, nested2 = __rest(_h, []), _j = overEmit.b, { z } = _j, c = __rest(_j, ["z"]), rest2 = __rest(overEmit, ["a", "b"]);
 var { a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit;
 >a : any
+>类型别名 :=> 任意
 >nested2 : { ka: string; x: string; }
 >y : { ka: string; x: string; }[]
 >b : any
+>类型别名 :=> 任意
 >z : string
+>类型别名 :=> 文字
 >c : { ki: string; ku: string; }
 >rest2 : { ke: string; ko: string; }
 >overEmit : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }
@@ -69,6 +88,7 @@ var { a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit;
 >b : { ki: string; ku: string; z: string; }
 >{ z, ...c } : { ki: string; ku: string; z: string; }
 >z : string
+>类型别名 :=> 文字
 >c : { ki: string; ku: string; }
 >rest2 : { ke: string; ko: string; }
 >overEmit : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }

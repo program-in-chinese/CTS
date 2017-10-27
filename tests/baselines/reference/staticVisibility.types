@@ -4,33 +4,42 @@ class C1 {
     
     p: any;
 >p : any
+>类型别名 :=> 任意
 
     static s: any;
 >s : any
+>类型别名 :=> 任意
 
     constructor() {
         var v = 0;
 >v : number
+>类型别名 :=> 数字
 >0 : 0
 
         s = 1; // should be error
 >s = 1 : 1
 >s : any
+>类型别名 :=> 任意
 >1 : 1
 
         C1.s = 1; // should be ok
 >C1.s = 1 : 1
 >C1.s : any
+>类型别名 :=> 任意
 >C1 : typeof C1
 >s : any
+>类型别名 :=> 任意
 >1 : 1
 
         b(); // should be error
 >b() : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 
         C1.b(); // should be ok
 >C1.b() : void
+>类型别名 :=> 无值
 >C1.b : () => void
 >C1 : typeof C1
 >b : () => void
@@ -42,20 +51,25 @@ class C1 {
         v = 1; // should be error
 >v = 1 : 1
 >v : any
+>类型别名 :=> 任意
 >1 : 1
 
         this.p = 0; // should be error
 >this.p = 0 : 0
 >this.p : any
+>类型别名 :=> 任意
 >this : typeof C1
 >p : any
+>类型别名 :=> 任意
 >0 : 0
 
         C1.s = 1; // should be ok
 >C1.s = 1 : 1
 >C1.s : any
+>类型别名 :=> 任意
 >C1 : typeof C1
 >s : any
+>类型别名 :=> 任意
 >1 : 1
     }
 }
@@ -65,6 +79,7 @@ class C2 {
  
 barback:string = "";
 >barback : string
+>类型别名 :=> 文字
 >"" : ""
  
 
@@ -72,14 +87,20 @@ barback:string = "";
 
 static get Bar() {return "bar";} // ok
 >Bar : string
+>类型别名 :=> 文字
 >"bar" : "bar"
  
 static set Bar(bar:string) {barback = bar;} // not ok
 >Bar : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 >barback = bar : string
+>类型别名 :=> 文字
 >barback : any
+>类型别名 :=> 任意
 >bar : string
+>类型别名 :=> 文字
 
 }
 

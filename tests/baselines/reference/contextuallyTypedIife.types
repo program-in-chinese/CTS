@@ -2,116 +2,157 @@
 // arrow
 (jake => { })("build");
 >(jake => { })("build") : void
+>类型别名 :=> 无值
 >(jake => { }) : (jake: string) => void
 >jake => { } : (jake: string) => void
 >jake : string
+>类型别名 :=> 文字
 >"build" : "build"
 
 // function expression
 (function (cats) { })("lol");
 >(function (cats) { })("lol") : void
+>类型别名 :=> 无值
 >(function (cats) { }) : (cats: string) => void
 >function (cats) { } : (cats: string) => void
 >cats : string
+>类型别名 :=> 文字
 >"lol" : "lol"
 
 // Lots of Irritating Superfluous Parentheses
 (function (x) { } ("!"));
 >(function (x) { } ("!")) : void
+>类型别名 :=> 无值
 >function (x) { } ("!") : void
+>类型别名 :=> 无值
 >function (x) { } : (x: string) => void
 >x : string
+>类型别名 :=> 文字
 >"!" : "!"
 
 ((((function (y) { }))))("-");
 >((((function (y) { }))))("-") : void
+>类型别名 :=> 无值
 >((((function (y) { })))) : (y: string) => void
 >(((function (y) { }))) : (y: string) => void
 >((function (y) { })) : (y: string) => void
 >(function (y) { }) : (y: string) => void
 >function (y) { } : (y: string) => void
 >y : string
+>类型别名 :=> 文字
 >"-" : "-"
 
 // multiple arguments
 ((a, b, c) => { })("foo", 101, false);
 >((a, b, c) => { })("foo", 101, false) : void
+>类型别名 :=> 无值
 >((a, b, c) => { }) : (a: string, b: number, c: boolean) => void
 >(a, b, c) => { } : (a: string, b: number, c: boolean) => void
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >c : boolean
+>类型别名 :=> 真假
 >"foo" : "foo"
 >101 : 101
 >false : false
+>类型别名 :=> 为假
 
 // default parameters
 ((m = 10) => m + 1)(12);
 >((m = 10) => m + 1)(12) : number
+>类型别名 :=> 数字
 >((m = 10) => m + 1) : (m?: number) => number
 >(m = 10) => m + 1 : (m?: number) => number
 >m : number
+>类型别名 :=> 数字
 >10 : 10
 >m + 1 : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 >1 : 1
 >12 : 12
 
 ((n = 10) => n + 1)();
 >((n = 10) => n + 1)() : number
+>类型别名 :=> 数字
 >((n = 10) => n + 1) : (n?: number) => number
 >(n = 10) => n + 1 : (n?: number) => number
 >n : number
+>类型别名 :=> 数字
 >10 : 10
 >n + 1 : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >1 : 1
 
 // optional parameters
 ((j?) => j + 1)(12);
 >((j?) => j + 1)(12) : number
+>类型别名 :=> 数字
 >((j?) => j + 1) : (j?: number) => number
 >(j?) => j + 1 : (j?: number) => number
 >j : number
+>类型别名 :=> 数字
 >j + 1 : number
+>类型别名 :=> 数字
 >j : number
+>类型别名 :=> 数字
 >1 : 1
 >12 : 12
 
 ((k?) => k + 1)();
 >((k?) => k + 1)() : any
+>类型别名 :=> 任意
 >((k?) => k + 1) : (k?: any) => any
 >(k?) => k + 1 : (k?: any) => any
 >k : any
+>类型别名 :=> 任意
 >k + 1 : any
+>类型别名 :=> 任意
 >k : any
+>类型别名 :=> 任意
 >1 : 1
 
 ((l, o?) => l + o)(12); // o should be any
 >((l, o?) => l + o)(12) : any
+>类型别名 :=> 任意
 >((l, o?) => l + o) : (l: number, o?: any) => any
 >(l, o?) => l + o : (l: number, o?: any) => any
 >l : number
+>类型别名 :=> 数字
 >o : any
+>类型别名 :=> 任意
 >l + o : any
+>类型别名 :=> 任意
 >l : number
+>类型别名 :=> 数字
 >o : any
+>类型别名 :=> 任意
 >12 : 12
 
 // rest parameters
 ((...numbers) => numbers.every(n => n > 0))(5,6,7);
 >((...numbers) => numbers.every(n => n > 0))(5,6,7) : boolean
+>类型别名 :=> 真假
 >((...numbers) => numbers.every(n => n > 0)) : (...numbers: number[]) => boolean
 >(...numbers) => numbers.every(n => n > 0) : (...numbers: number[]) => boolean
 >numbers : number[]
 >numbers.every(n => n > 0) : boolean
+>类型别名 :=> 真假
 >numbers.every : (callbackfn: (value: number, index: number, array: number[]) => boolean, thisArg?: any) => boolean
 >numbers : number[]
 >every : (callbackfn: (value: number, index: number, array: number[]) => boolean, thisArg?: any) => boolean
 >n => n > 0 : (n: number) => boolean
 >n : number
+>类型别名 :=> 数字
 >n > 0 : boolean
+>类型别名 :=> 真假
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 >5 : 5
 >6 : 6
@@ -119,17 +160,21 @@
 
 ((...mixed) => mixed.every(n => !!n))(5,'oops','oh no');
 >((...mixed) => mixed.every(n => !!n))(5,'oops','oh no') : boolean
+>类型别名 :=> 真假
 >((...mixed) => mixed.every(n => !!n)) : (...mixed: (string | number)[]) => boolean
 >(...mixed) => mixed.every(n => !!n) : (...mixed: (string | number)[]) => boolean
 >mixed : (string | number)[]
 >mixed.every(n => !!n) : boolean
+>类型别名 :=> 真假
 >mixed.every : (callbackfn: (value: string | number, index: number, array: (string | number)[]) => boolean, thisArg?: any) => boolean
 >mixed : (string | number)[]
 >every : (callbackfn: (value: string | number, index: number, array: (string | number)[]) => boolean, thisArg?: any) => boolean
 >n => !!n : (n: string | number) => boolean
 >n : string | number
 >!!n : boolean
+>类型别名 :=> 真假
 >!n : boolean
+>类型别名 :=> 真假
 >n : string | number
 >5 : 5
 >'oops' : "oops"
@@ -137,17 +182,22 @@
 
 ((...noNumbers) => noNumbers.some(n => n > 0))();
 >((...noNumbers) => noNumbers.some(n => n > 0))() : boolean
+>类型别名 :=> 真假
 >((...noNumbers) => noNumbers.some(n => n > 0)) : (...noNumbers: any[]) => boolean
 >(...noNumbers) => noNumbers.some(n => n > 0) : (...noNumbers: any[]) => boolean
 >noNumbers : any[]
 >noNumbers.some(n => n > 0) : boolean
+>类型别名 :=> 真假
 >noNumbers.some : (callbackfn: (value: any, index: number, array: any[]) => boolean, thisArg?: any) => boolean
 >noNumbers : any[]
 >some : (callbackfn: (value: any, index: number, array: any[]) => boolean, thisArg?: any) => boolean
 >n => n > 0 : (n: any) => boolean
 >n : any
+>类型别名 :=> 任意
 >n > 0 : boolean
+>类型别名 :=> 真假
 >n : any
+>类型别名 :=> 任意
 >0 : 0
 
 ((first, ...rest) => first ? [] : rest.map(n => n > 0))(8,9,10);
@@ -155,9 +205,11 @@
 >((first, ...rest) => first ? [] : rest.map(n => n > 0)) : (first: number, ...rest: number[]) => boolean[]
 >(first, ...rest) => first ? [] : rest.map(n => n > 0) : (first: number, ...rest: number[]) => boolean[]
 >first : number
+>类型别名 :=> 数字
 >rest : number[]
 >first ? [] : rest.map(n => n > 0) : boolean[]
 >first : number
+>类型别名 :=> 数字
 >[] : undefined[]
 >rest.map(n => n > 0) : boolean[]
 >rest.map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
@@ -165,8 +217,11 @@
 >map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
 >n => n > 0 : (n: number) => boolean
 >n : number
+>类型别名 :=> 数字
 >n > 0 : boolean
+>类型别名 :=> 真假
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 >8 : 8
 >9 : 9
@@ -175,71 +230,96 @@
 // destructuring parameters (with defaults too!)
 (({ q }) => q)({ q : 13 });
 >(({ q }) => q)({ q : 13 }) : number
+>类型别名 :=> 数字
 >(({ q }) => q) : ({ q }: { q: number; }) => number
 >({ q }) => q : ({ q }: { q: number; }) => number
 >q : number
+>类型别名 :=> 数字
 >q : number
+>类型别名 :=> 数字
 >{ q : 13 } : { q: number; }
 >q : number
+>类型别名 :=> 数字
 >13 : 13
 
 (({ p = 14 }) => p)({ p : 15 });
 >(({ p = 14 }) => p)({ p : 15 }) : number
+>类型别名 :=> 数字
 >(({ p = 14 }) => p) : ({ p }: { p: number; }) => number
 >({ p = 14 }) => p : ({ p }: { p: number; }) => number
 >p : number
+>类型别名 :=> 数字
 >14 : 14
 >p : number
+>类型别名 :=> 数字
 >{ p : 15 } : { p: number; }
 >p : number
+>类型别名 :=> 数字
 >15 : 15
 
 (({ r = 17 } = { r: 18 }) => r)({r : 19});
 >(({ r = 17 } = { r: 18 }) => r)({r : 19}) : number
+>类型别名 :=> 数字
 >(({ r = 17 } = { r: 18 }) => r) : ({ r }?: { r: number; }) => number
 >({ r = 17 } = { r: 18 }) => r : ({ r }?: { r: number; }) => number
 >r : number
+>类型别名 :=> 数字
 >17 : 17
 >{ r: 18 } : { r: number; }
 >r : number
+>类型别名 :=> 数字
 >18 : 18
 >r : number
+>类型别名 :=> 数字
 >{r : 19} : { r: number; }
 >r : number
+>类型别名 :=> 数字
 >19 : 19
 
 (({ u = 22 } = { u: 23 }) => u)();
 >(({ u = 22 } = { u: 23 }) => u)() : number
+>类型别名 :=> 数字
 >(({ u = 22 } = { u: 23 }) => u) : ({ u }?: { u?: number; }) => number
 >({ u = 22 } = { u: 23 }) => u : ({ u }?: { u?: number; }) => number
 >u : number
+>类型别名 :=> 数字
 >22 : 22
 >{ u: 23 } : { u?: number; }
 >u : number
+>类型别名 :=> 数字
 >23 : 23
 >u : number
+>类型别名 :=> 数字
 
 // contextually typed parameters.
 let twelve = (f => f(12))(i => i);
 >twelve : any
+>类型别名 :=> 任意
 >(f => f(12))(i => i) : any
+>类型别名 :=> 任意
 >(f => f(12)) : (f: (i: any) => any) => any
 >f => f(12) : (f: (i: any) => any) => any
 >f : (i: any) => any
 >f(12) : any
+>类型别名 :=> 任意
 >f : (i: any) => any
 >12 : 12
 >i => i : (i: any) => any
 >i : any
+>类型别名 :=> 任意
 >i : any
+>类型别名 :=> 任意
 
 let eleven = (o => o.a(11))({ a: function(n) { return n; } });
 >eleven : any
+>类型别名 :=> 任意
 >(o => o.a(11))({ a: function(n) { return n; } }) : any
+>类型别名 :=> 任意
 >(o => o.a(11)) : (o: { a: (n: any) => any; }) => any
 >o => o.a(11) : (o: { a: (n: any) => any; }) => any
 >o : { a: (n: any) => any; }
 >o.a(11) : any
+>类型别名 :=> 任意
 >o.a : (n: any) => any
 >o : { a: (n: any) => any; }
 >a : (n: any) => any
@@ -248,24 +328,34 @@ let eleven = (o => o.a(11))({ a: function(n) { return n; } });
 >a : (n: any) => any
 >function(n) { return n; } : (n: any) => any
 >n : any
+>类型别名 :=> 任意
 >n : any
+>类型别名 :=> 任意
 
 // missing arguments
 (function(x, undefined) { return x; })(42);
 >(function(x, undefined) { return x; })(42) : number
+>类型别名 :=> 数字
 >(function(x, undefined) { return x; }) : (x: number, undefined?: any) => number
 >function(x, undefined) { return x; } : (x: number, undefined?: any) => number
 >x : number
+>类型别名 :=> 数字
 >undefined : any
+>类型别名 :=> 任意
 >x : number
+>类型别名 :=> 数字
 >42 : 42
 
 ((x, y, z) => 42)();
 >((x, y, z) => 42)() : number
+>类型别名 :=> 数字
 >((x, y, z) => 42) : (x?: any, y?: any, z?: any) => number
 >(x, y, z) => 42 : (x?: any, y?: any, z?: any) => number
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >z : any
+>类型别名 :=> 任意
 >42 : 42
 

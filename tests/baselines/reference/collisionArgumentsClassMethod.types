@@ -5,6 +5,7 @@ class c1 {
     public foo(i: number, ...arguments) { //arguments is error
 >foo : (i: number, ...arguments: any[]) => void
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
         var arguments: any[]; // no error
@@ -13,33 +14,40 @@ class c1 {
     public foo1(arguments: number, ...rest) { //arguments is error
 >foo1 : (arguments: number, ...rest: any[]) => void
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
     public fooNoError(arguments: number) { // no error
 >fooNoError : (arguments: number) => void
 >arguments : number
+>类型别名 :=> 数字
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
     public f4(i: number, ...arguments); // no codegen no error
 >f4 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
     public f4(i: string, ...arguments); // no codegen no error
 >f4 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : string
+>类型别名 :=> 文字
 >arguments : any[]
 
     public f4(i: any, ...arguments) { // error
 >f4 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : any
+>类型别名 :=> 任意
 >arguments : any[]
 
         var arguments: any[]; // no error
@@ -48,35 +56,43 @@ class c1 {
     public f41(arguments: number, ...rest); // no codegen no error
 >f41 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
     public f41(arguments: string, ...rest); // no codegen no error
 >f41 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : string
+>类型别名 :=> 文字
 >rest : any[]
 
     public f41(arguments: any, ...rest) { // error
 >f41 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : any
+>类型别名 :=> 任意
 >rest : any[]
 
         var arguments: any; // no error
 >arguments : any
+>类型别名 :=> 任意
     }
     public f4NoError(arguments: number); // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : number
+>类型别名 :=> 数字
 
     public f4NoError(arguments: string); // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : string
+>类型别名 :=> 文字
 
     public f4NoError(arguments: any) { // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : any
+>类型别名 :=> 任意
 
         var arguments: any; // no error
 >arguments : any
+>类型别名 :=> 任意
     }
 }
 
@@ -86,44 +102,53 @@ declare class c2 {
     public foo(i: number, ...arguments); // No error - no code gen
 >foo : (i: number, ...arguments: any[]) => any
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
     public foo1(arguments: number, ...rest); // No error - no code gen
 >foo1 : (arguments: number, ...rest: any[]) => any
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
     public fooNoError(arguments: number); // No error - no code gen
 >fooNoError : (arguments: number) => any
 >arguments : number
+>类型别名 :=> 数字
 
     public f4(i: number, ...arguments); // no codegen no error
 >f4 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
     public f4(i: string, ...arguments); // no codegen no error
 >f4 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : string
+>类型别名 :=> 文字
 >arguments : any[]
 
     public f41(arguments: number, ...rest); // no codegen no error
 >f41 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
     public f41(arguments: string, ...rest); // no codegen no error
 >f41 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : string
+>类型别名 :=> 文字
 >rest : any[]
 
     public f4NoError(arguments: number); // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : number
+>类型别名 :=> 数字
 
     public f4NoError(arguments: string); // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : string
+>类型别名 :=> 文字
 }
 
 class c3 {
@@ -135,6 +160,7 @@ class c3 {
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
     public fooNoError() {
@@ -142,6 +168,7 @@ class c3 {
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }

@@ -6,10 +6,13 @@ var use: Overload;
 
 use((req, res) => {});
 >use((req, res) => {}) : void
+>类型别名 :=> 无值
 >use : Overload
 >(req, res) => {} : (req: any, res: any) => void
 >req : any
+>类型别名 :=> 任意
 >res : any
+>类型别名 :=> 任意
 
 interface Overload {
 >Overload : Overload
@@ -17,11 +20,14 @@ interface Overload {
     (handler1: (req1: string) => void): void;
 >handler1 : (req1: string) => void
 >req1 : string
+>类型别名 :=> 文字
 
     (handler2: (req2: number, res2: number) => void): void;
 >handler2 : (req2: number, res2: number) => void
 >req2 : number
+>类型别名 :=> 数字
 >res2 : number
+>类型别名 :=> 数字
 }
 // larger repro from #11875
 let app: MyApp;
@@ -35,9 +41,13 @@ app.use((err: any, req, res, next) => { return; });
 >use : IRouterHandler<MyApp> & IRouterMatcher<MyApp>
 >(err: any, req, res, next) => { return; } : (err: any, req: any, res: any, next: any) => void
 >err : any
+>类型别名 :=> 任意
 >req : any
+>类型别名 :=> 任意
 >res : any
+>类型别名 :=> 任意
 >next : any
+>类型别名 :=> 任意
 
 
 interface MyApp {
@@ -112,6 +122,7 @@ interface ErrorRequestHandler {
 
     (err: any, req: Request, res: Response, next: NextFunction): any;
 >err : any
+>类型别名 :=> 任意
 >req : Request
 >Request : Request
 >res : Response
@@ -125,6 +136,7 @@ interface Request {
 
     method: string;
 >method : string
+>类型别名 :=> 文字
 }
 
 interface Response {
@@ -132,6 +144,7 @@ interface Response {
 
     statusCode: number;
 >statusCode : number
+>类型别名 :=> 数字
 }
 
 interface NextFunction {
@@ -139,5 +152,6 @@ interface NextFunction {
 
     (err?: any): void;
 >err : any
+>类型别名 :=> 任意
 }
 

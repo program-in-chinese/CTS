@@ -8,6 +8,7 @@ function noParams<T>(n: T) { }
 
 noParams ``;
 >noParams `` : void
+>类型别名 :=> 无值
 >noParams : <T>(n: T) => void
 >`` : ""
 
@@ -20,6 +21,7 @@ function noGenericParams<T>(n: TemplateStringsArray) { }
 
 noGenericParams ``;
 >noGenericParams `` : void
+>类型别名 :=> 无值
 >noGenericParams : <T>(n: TemplateStringsArray) => void
 >`` : ""
 
@@ -31,11 +33,14 @@ function someGenerics1a<T, U>(n: T, m: number) { }
 >n : T
 >T : T
 >m : number
+>类型别名 :=> 数字
 
 someGenerics1a `${3}`;
 >someGenerics1a `${3}` : void
+>类型别名 :=> 无值
 >someGenerics1a : <T, U>(n: T, m: number) => void
 >`${3}` : string
+>类型别名 :=> 文字
 >3 : 3
 
 function someGenerics1b<T, U>(n: TemplateStringsArray, m: U) { }
@@ -49,8 +54,10 @@ function someGenerics1b<T, U>(n: TemplateStringsArray, m: U) { }
 
 someGenerics1b `${3}`;
 >someGenerics1b `${3}` : void
+>类型别名 :=> 无值
 >someGenerics1b : <T, U>(n: TemplateStringsArray, m: U) => void
 >`${3}` : string
+>类型别名 :=> 文字
 >3 : 3
 
 // Generic tag with argument of function type whose parameter is of type parameter type
@@ -65,11 +72,15 @@ function someGenerics2a<T>(strs: TemplateStringsArray, n: (x: T) => void) { }
 
 someGenerics2a `${(n: string) => n}`;
 >someGenerics2a `${(n: string) => n}` : void
+>类型别名 :=> 无值
 >someGenerics2a : <T>(strs: TemplateStringsArray, n: (x: T) => void) => void
 >`${(n: string) => n}` : string
+>类型别名 :=> 文字
 >(n: string) => n : (n: string) => string
 >n : string
+>类型别名 :=> 文字
 >n : string
+>类型别名 :=> 文字
 
 function someGenerics2b<T, U>(strs: TemplateStringsArray, n: (x: T, y: U) => void) { }
 >someGenerics2b : <T, U>(strs: TemplateStringsArray, n: (x: T, y: U) => void) => void
@@ -85,12 +96,17 @@ function someGenerics2b<T, U>(strs: TemplateStringsArray, n: (x: T, y: U) => voi
 
 someGenerics2b `${ (n: string, x: number) => n }`;
 >someGenerics2b `${ (n: string, x: number) => n }` : void
+>类型别名 :=> 无值
 >someGenerics2b : <T, U>(strs: TemplateStringsArray, n: (x: T, y: U) => void) => void
 >`${ (n: string, x: number) => n }` : string
+>类型别名 :=> 文字
 >(n: string, x: number) => n : (n: string, x: number) => string
 >n : string
+>类型别名 :=> 文字
 >x : number
+>类型别名 :=> 数字
 >n : string
+>类型别名 :=> 文字
 
 // Generic tag with argument of function type whose parameter is not of type parameter type but body/return type uses type parameter
 function someGenerics3<T>(strs: TemplateStringsArray, producer: () => T) { }
@@ -103,22 +119,29 @@ function someGenerics3<T>(strs: TemplateStringsArray, producer: () => T) { }
 
 someGenerics3 `${() => ''}`;
 >someGenerics3 `${() => ''}` : void
+>类型别名 :=> 无值
 >someGenerics3 : <T>(strs: TemplateStringsArray, producer: () => T) => void
 >`${() => ''}` : string
+>类型别名 :=> 文字
 >() => '' : () => string
 >'' : ""
 
 someGenerics3 `${() => undefined}`;
 >someGenerics3 `${() => undefined}` : void
+>类型别名 :=> 无值
 >someGenerics3 : <T>(strs: TemplateStringsArray, producer: () => T) => void
 >`${() => undefined}` : string
+>类型别名 :=> 文字
 >() => undefined : () => any
 >undefined : undefined
+>类型别名 :=> 未定
 
 someGenerics3 `${() => 3}`;
 >someGenerics3 `${() => 3}` : void
+>类型别名 :=> 无值
 >someGenerics3 : <T>(strs: TemplateStringsArray, producer: () => T) => void
 >`${() => 3}` : string
+>类型别名 :=> 文字
 >() => 3 : () => number
 >3 : 3
 
@@ -137,26 +160,35 @@ function someGenerics4<T, U>(strs: TemplateStringsArray, n: T, f: (x: U) => void
 
 someGenerics4 `${4}${ () => null }`;
 >someGenerics4 `${4}${ () => null }` : void
+>类型别名 :=> 无值
 >someGenerics4 : <T, U>(strs: TemplateStringsArray, n: T, f: (x: U) => void) => void
 >`${4}${ () => null }` : string
+>类型别名 :=> 文字
 >4 : 4
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
 someGenerics4 `${''}${ () => 3 }`;
 >someGenerics4 `${''}${ () => 3 }` : void
+>类型别名 :=> 无值
 >someGenerics4 : <T, U>(strs: TemplateStringsArray, n: T, f: (x: U) => void) => void
 >`${''}${ () => 3 }` : string
+>类型别名 :=> 文字
 >'' : ""
 >() => 3 : () => number
 >3 : 3
 
 someGenerics4 `${ null }${ null }`;
 >someGenerics4 `${ null }${ null }` : void
+>类型别名 :=> 无值
 >someGenerics4 : <T, U>(strs: TemplateStringsArray, n: T, f: (x: U) => void) => void
 >`${ null }${ null }` : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 // 2 parameter generic tag with argument 2 of type parameter type and argument 1 of function type whose parameter is of type parameter type
 function someGenerics5<U, T>(strs: TemplateStringsArray, n: T, f: (x: U) => void) { }
@@ -173,26 +205,35 @@ function someGenerics5<U, T>(strs: TemplateStringsArray, n: T, f: (x: U) => void
 
 someGenerics5 `${ 4 } ${ () => null }`;
 >someGenerics5 `${ 4 } ${ () => null }` : void
+>类型别名 :=> 无值
 >someGenerics5 : <U, T>(strs: TemplateStringsArray, n: T, f: (x: U) => void) => void
 >`${ 4 } ${ () => null }` : string
+>类型别名 :=> 文字
 >4 : 4
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
 someGenerics5 `${ '' }${ () => 3 }`;
 >someGenerics5 `${ '' }${ () => 3 }` : void
+>类型别名 :=> 无值
 >someGenerics5 : <U, T>(strs: TemplateStringsArray, n: T, f: (x: U) => void) => void
 >`${ '' }${ () => 3 }` : string
+>类型别名 :=> 文字
 >'' : ""
 >() => 3 : () => number
 >3 : 3
 
 someGenerics5 `${null}${null}`;
 >someGenerics5 `${null}${null}` : void
+>类型别名 :=> 无值
 >someGenerics5 : <U, T>(strs: TemplateStringsArray, n: T, f: (x: U) => void) => void
 >`${null}${null}` : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 // Generic tag with multiple arguments of function types that each have parameters of the same generic type
 function someGenerics6<A>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) { }
@@ -215,8 +256,10 @@ function someGenerics6<A>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: A) 
 
 someGenerics6 `${ n => n }${ n => n}${ n => n}`;
 >someGenerics6 `${ n => n }${ n => n}${ n => n}` : void
+>类型别名 :=> 无值
 >someGenerics6 : <A>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
 >`${ n => n }${ n => n}${ n => n}` : string
+>类型别名 :=> 文字
 >n => n : (n: {}) => {}
 >n : {}
 >n : {}
@@ -229,8 +272,10 @@ someGenerics6 `${ n => n }${ n => n}${ n => n}`;
 
 someGenerics6 `${ n => n }${ n => n}${ n => n}`;
 >someGenerics6 `${ n => n }${ n => n}${ n => n}` : void
+>类型别名 :=> 无值
 >someGenerics6 : <A>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
 >`${ n => n }${ n => n}${ n => n}` : string
+>类型别名 :=> 文字
 >n => n : (n: {}) => {}
 >n : {}
 >n : {}
@@ -243,17 +288,25 @@ someGenerics6 `${ n => n }${ n => n}${ n => n}`;
 
 someGenerics6 `${ (n: number) => n }${ (n: number) => n }${ (n: number) => n }`;
 >someGenerics6 `${ (n: number) => n }${ (n: number) => n }${ (n: number) => n }` : void
+>类型别名 :=> 无值
 >someGenerics6 : <A>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
 >`${ (n: number) => n }${ (n: number) => n }${ (n: number) => n }` : string
+>类型别名 :=> 文字
 >(n: number) => n : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >(n: number) => n : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >(n: number) => n : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 // Generic tag with multiple arguments of function types that each have parameters of different generic type
 function someGenerics7<A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) { }
@@ -278,8 +331,10 @@ function someGenerics7<A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (
 
 someGenerics7 `${ n => n }${ n => n }${ n => n }`;
 >someGenerics7 `${ n => n }${ n => n }${ n => n }` : void
+>类型别名 :=> 无值
 >someGenerics7 : <A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
 >`${ n => n }${ n => n }${ n => n }` : string
+>类型别名 :=> 文字
 >n => n : (n: {}) => {}
 >n : {}
 >n : {}
@@ -292,8 +347,10 @@ someGenerics7 `${ n => n }${ n => n }${ n => n }`;
 
 someGenerics7 `${ n => n }${ n => n }${ n => n }`;
 >someGenerics7 `${ n => n }${ n => n }${ n => n }` : void
+>类型别名 :=> 无值
 >someGenerics7 : <A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
 >`${ n => n }${ n => n }${ n => n }` : string
+>类型别名 :=> 文字
 >n => n : (n: {}) => {}
 >n : {}
 >n : {}
@@ -306,17 +363,25 @@ someGenerics7 `${ n => n }${ n => n }${ n => n }`;
 
 someGenerics7 `${(n: number) => n}${ (n: string) => n}${ (n: number) => n}`;
 >someGenerics7 `${(n: number) => n}${ (n: string) => n}${ (n: number) => n}` : void
+>类型别名 :=> 无值
 >someGenerics7 : <A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
 >`${(n: number) => n}${ (n: string) => n}${ (n: number) => n}` : string
+>类型别名 :=> 文字
 >(n: number) => n : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >(n: string) => n : (n: string) => string
 >n : string
+>类型别名 :=> 文字
 >n : string
+>类型别名 :=> 文字
 >(n: number) => n : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 // Generic tag with argument of generic function type
 function someGenerics8<T>(strs: TemplateStringsArray, n: T): T { return n; }
@@ -334,15 +399,21 @@ var x = someGenerics8 `${ someGenerics7 }`;
 >someGenerics8 `${ someGenerics7 }` : <A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
 >someGenerics8 : <T>(strs: TemplateStringsArray, n: T) => T
 >`${ someGenerics7 }` : string
+>类型别名 :=> 文字
 >someGenerics7 : <A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
 
 x `${null}${null}${null}`;
 >x `${null}${null}${null}` : void
+>类型别名 :=> 无值
 >x : <A, B, C>(strs: TemplateStringsArray, a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
 >`${null}${null}${null}` : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 // Generic tag with multiple parameters of generic type passed arguments with no best common type
 function someGenerics9<T>(strs: TemplateStringsArray, a: T, b: T, c: T): T {
@@ -360,18 +431,23 @@ function someGenerics9<T>(strs: TemplateStringsArray, a: T, b: T, c: T): T {
 
     return null;
 >null : null
+>类型别名 :=> 空值
 }
 var a9a = someGenerics9 `${ '' }${ 0 }${ [] }`;
 >a9a : any
+>类型别名 :=> 任意
 >someGenerics9 `${ '' }${ 0 }${ [] }` : any
+>类型别名 :=> 任意
 >someGenerics9 : <T>(strs: TemplateStringsArray, a: T, b: T, c: T) => T
 >`${ '' }${ 0 }${ [] }` : string
+>类型别名 :=> 文字
 >'' : ""
 >0 : 0
 >[] : undefined[]
 
 var a9a: {};
 >a9a : any
+>类型别名 :=> 任意
 
 // Generic tag with multiple parameters of generic type passed arguments with multiple best common types
 interface A91 {
@@ -379,15 +455,18 @@ interface A91 {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     y?: string;
 >y : string
+>类型别名 :=> 文字
 }
 interface A92 {
 >A92 : A92
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     z?: Date;
 >z : Date
@@ -396,24 +475,32 @@ interface A92 {
 
 var a9e = someGenerics9 `${ undefined }${ { x: 6, z: new Date() } }${ { x: 6, y: '' } }`;
 >a9e : any
+>类型别名 :=> 任意
 >someGenerics9 `${ undefined }${ { x: 6, z: new Date() } }${ { x: 6, y: '' } }` : any
+>类型别名 :=> 任意
 >someGenerics9 : <T>(strs: TemplateStringsArray, a: T, b: T, c: T) => T
 >`${ undefined }${ { x: 6, z: new Date() } }${ { x: 6, y: '' } }` : string
+>类型别名 :=> 文字
 >undefined : undefined
+>类型别名 :=> 未定
 >{ x: 6, z: new Date() } : { x: number; z: Date; }
 >x : number
+>类型别名 :=> 数字
 >6 : 6
 >z : Date
 >new Date() : Date
 >Date : DateConstructor
 >{ x: 6, y: '' } : { x: number; y: string; }
 >x : number
+>类型别名 :=> 数字
 >6 : 6
 >y : string
+>类型别名 :=> 文字
 >'' : ""
 
 var a9e: {};
 >a9e : any
+>类型别名 :=> 任意
 
 // Generic tag with multiple parameters of generic type passed arguments with a single best common type
 var a9d = someGenerics9 `${ { x: 3 }}${ { x: 6 }}${ { x: 6 } }`;
@@ -421,35 +508,46 @@ var a9d = someGenerics9 `${ { x: 3 }}${ { x: 6 }}${ { x: 6 } }`;
 >someGenerics9 `${ { x: 3 }}${ { x: 6 }}${ { x: 6 } }` : { x: number; }
 >someGenerics9 : <T>(strs: TemplateStringsArray, a: T, b: T, c: T) => T
 >`${ { x: 3 }}${ { x: 6 }}${ { x: 6 } }` : string
+>类型别名 :=> 文字
 >{ x: 3 } : { x: number; }
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 >{ x: 6 } : { x: number; }
 >x : number
+>类型别名 :=> 数字
 >6 : 6
 >{ x: 6 } : { x: number; }
 >x : number
+>类型别名 :=> 数字
 >6 : 6
 
 var a9d: { x: number; };
 >a9d : { x: number; }
 >x : number
+>类型别名 :=> 数字
 
 // Generic tag with multiple parameters of generic type where one argument is of type 'any'
 var anyVar: any;
 >anyVar : any
+>类型别名 :=> 任意
 
 var a = someGenerics9 `${ 7 }${ anyVar }${ 4 }`;
 >a : any
+>类型别名 :=> 任意
 >someGenerics9 `${ 7 }${ anyVar }${ 4 }` : any
+>类型别名 :=> 任意
 >someGenerics9 : <T>(strs: TemplateStringsArray, a: T, b: T, c: T) => T
 >`${ 7 }${ anyVar }${ 4 }` : string
+>类型别名 :=> 文字
 >7 : 7
 >anyVar : any
+>类型别名 :=> 任意
 >4 : 4
 
 var a: any;
 >a : any
+>类型别名 :=> 任意
 
 // Generic tag with multiple parameters of generic type where one argument is [] and the other is not 'any'
 var arr = someGenerics9 `${ [] }${ null }${ undefined }`;
@@ -457,9 +555,12 @@ var arr = someGenerics9 `${ [] }${ null }${ undefined }`;
 >someGenerics9 `${ [] }${ null }${ undefined }` : any[]
 >someGenerics9 : <T>(strs: TemplateStringsArray, a: T, b: T, c: T) => T
 >`${ [] }${ null }${ undefined }` : string
+>类型别名 :=> 文字
 >[] : undefined[]
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
 var arr: any[];
 >arr : any[]

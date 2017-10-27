@@ -5,6 +5,7 @@ class Base {
     constructor() {
         var x;
 >x : any
+>类型别名 :=> 任意
     }
     public foo() {
 >foo : () => string
@@ -30,13 +31,17 @@ class Sub1 extends Base {
 
         return "sub1" + super.foo() + super.bar();
 >"sub1" + super.foo() + super.bar() : string
+>类型别名 :=> 文字
 >"sub1" + super.foo() : string
+>类型别名 :=> 文字
 >"sub1" : "sub1"
 >super.foo() : string
+>类型别名 :=> 文字
 >super.foo : () => string
 >super : Base
 >foo : () => string
 >super.bar() : string
+>类型别名 :=> 文字
 >super.bar : () => string
 >super : Base
 >bar : () => string
@@ -53,8 +58,10 @@ class SubSub1 extends Sub1 {
 
         return "subsub1" + super.foo();
 >"subsub1" + super.foo() : string
+>类型别名 :=> 文字
 >"subsub1" : "subsub1"
 >super.foo() : string
+>类型别名 :=> 文字
 >super.foo : () => string
 >super : Sub1
 >foo : () => string
@@ -69,9 +76,13 @@ class Base2 {
 
         super.foo();
 >super.foo() : any
+>类型别名 :=> 任意
 >super.foo : any
+>类型别名 :=> 任意
 >super : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
     }
 }
 
@@ -87,11 +98,14 @@ var ss = new SubSub1();
 
 s.foo() + ss.foo();
 >s.foo() + ss.foo() : string
+>类型别名 :=> 文字
 >s.foo() : string
+>类型别名 :=> 文字
 >s.foo : () => string
 >s : Sub1
 >foo : () => string
 >ss.foo() : string
+>类型别名 :=> 文字
 >ss.foo : () => string
 >ss : SubSub1
 >foo : () => string

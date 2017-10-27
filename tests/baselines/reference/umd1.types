@@ -2,6 +2,7 @@
 /// <reference path="foo.d.ts" />
 Foo.fn();
 >Foo.fn() : void
+>类型别名 :=> 无值
 >Foo.fn : () => void
 >Foo : typeof Foo
 >fn : () => void
@@ -9,17 +10,22 @@ Foo.fn();
 let x: Foo.Thing;
 >x : Foo.Thing
 >Foo : any
+>类型别名 :=> 任意
 >Thing : Foo.Thing
 
 let y: number = x.n;
 >y : number
+>类型别名 :=> 数字
 >x.n : number
+>类型别名 :=> 数字
 >x : Foo.Thing
 >n : number
+>类型别名 :=> 数字
 
 === tests/cases/conformance/externalModules/foo.d.ts ===
 export var x: number;
 >x : number
+>类型别名 :=> 数字
 
 export function fn(): void;
 >fn : () => void
@@ -27,7 +33,9 @@ export function fn(): void;
 export interface Thing { n: typeof x }
 >Thing : Thing
 >n : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 
 export as namespace Foo;
 >Foo : typeof "tests/cases/conformance/externalModules/foo"

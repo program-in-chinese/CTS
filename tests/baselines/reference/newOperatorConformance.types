@@ -8,7 +8,9 @@ class C1 {
 
     constructor(n: number, s: string) { }
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 }
 
 class T<T> {
@@ -31,6 +33,7 @@ var anyCtor1: {
 
     new (n): any;
 >n : any
+>类型别名 :=> 任意
 
 };
 
@@ -68,18 +71,24 @@ var c1: T<{}>;
 // Construct expression where constructor is of type 'any' with no parentheses
 var d = new anyCtor;
 >d : any
+>类型别名 :=> 任意
 >new anyCtor : any
+>类型别名 :=> 任意
 >anyCtor : new () => any
 
 var d: any;
 >d : any
+>类型别名 :=> 任意
 
 // Construct expression where constructor is of type 'any' with > 1 arg
 var d = new anyCtor1(undefined);
 >d : any
+>类型别名 :=> 任意
 >new anyCtor1(undefined) : any
+>类型别名 :=> 任意
 >anyCtor1 : new (n: any) => any
 >undefined : undefined
+>类型别名 :=> 未定
 
 // Construct expression of type where apparent type has a construct signature with 0 arguments
 function newFn1<T extends { new (): number }>(s: T) {
@@ -90,11 +99,14 @@ function newFn1<T extends { new (): number }>(s: T) {
 
     var p = new s;
 >p : number
+>类型别名 :=> 数字
 >new s : number
+>类型别名 :=> 数字
 >s : T
 
     var p: number;
 >p : number
+>类型别名 :=> 数字
 }
 
 // Construct expression of type where apparent type has a construct signature with 1 arguments
@@ -102,17 +114,21 @@ function newFn2<T extends { new (s: number): string}>(s: T) {
 >newFn2 : <T extends new (s: number) => string>(s: T) => void
 >T : T
 >s : number
+>类型别名 :=> 数字
 >s : T
 >T : T
 
     var p = new s(32);
 >p : string
+>类型别名 :=> 文字
 >new s(32) : string
+>类型别名 :=> 文字
 >s : T
 >32 : 32
 
     var p: string;
 >p : string
+>类型别名 :=> 文字
 }
 
 // Construct expression of void returning function
@@ -121,11 +137,14 @@ function fnVoid(): void { }
 
 var t = new fnVoid();
 >t : any
+>类型别名 :=> 任意
 >new fnVoid() : any
+>类型别名 :=> 任意
 >fnVoid : () => void
 
 var t: any;
 >t : any
+>类型别名 :=> 任意
 
 // Chained new expressions
 var nested = new (new (new nestedCtor())())();

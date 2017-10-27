@@ -11,6 +11,7 @@ class B<T> {
 >x : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 class C<T> {
@@ -21,6 +22,7 @@ class C<T> {
 >x : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 interface I<T> {
@@ -59,6 +61,7 @@ var b = { new<T>(x: T): T { return null; } }; // not a construct signature, func
 >T : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
 function foo1b(x: B<string>);
 >foo1b : { (x: B<string>): any; (x: B<string>): any; }
@@ -73,6 +76,7 @@ function foo1b(x: B<string>); // error
 function foo1b(x: any) { }
 >foo1b : { (x: B<string>): any; (x: B<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo1c(x: C<string>);
 >foo1c : { (x: C<string>): any; (x: C<string>): any; }
@@ -87,6 +91,7 @@ function foo1c(x: C<string>); // error
 function foo1c(x: any) { }
 >foo1c : { (x: C<string>): any; (x: C<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo2(x: I<string>);
 >foo2 : { (x: I<string>): any; (x: I<string>): any; }
@@ -101,6 +106,7 @@ function foo2(x: I<string>); // error
 function foo2(x: any) { }
 >foo2 : { (x: I<string>): any; (x: I<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo3(x: typeof a);
 >foo3 : { (x: new <T>(x: T) => T): any; (x: new <T>(x: T) => T): any; }
@@ -115,6 +121,7 @@ function foo3(x: typeof a); // error
 function foo3(x: any) { }
 >foo3 : { (x: new <T>(x: T) => T): any; (x: new <T>(x: T) => T): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo4(x: typeof b);
 >foo4 : { (x: { new<T>(x: T): T; }): any; (x: { new<T>(x: T): T; }): any; }
@@ -129,6 +136,7 @@ function foo4(x: typeof b); // error
 function foo4(x: any) { }
 >foo4 : { (x: { new<T>(x: T): T; }): any; (x: { new<T>(x: T): T; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo5(x: typeof a): number;
 >foo5 : { (x: new <T>(x: T) => T): number; (x: { new<T>(x: T): T; }): string; }
@@ -143,6 +151,7 @@ function foo5(x: typeof b): string; // ok
 function foo5(x: any): any { }
 >foo5 : { (x: new <T>(x: T) => T): number; (x: { new<T>(x: T): T; }): string; }
 >x : any
+>类型别名 :=> 任意
 
 function foo8(x: B<string>);
 >foo8 : { (x: B<string>): any; (x: I<string>): any; }
@@ -157,6 +166,7 @@ function foo8(x: I<string>); // ok
 function foo8(x: any) { }
 >foo8 : { (x: B<string>): any; (x: I<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo9(x: B<string>);
 >foo9 : { (x: B<string>): any; (x: C<string>): any; }
@@ -171,6 +181,7 @@ function foo9(x: C<string>); // error since types are structurally equal
 function foo9(x: any) { }
 >foo9 : { (x: B<string>): any; (x: C<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo10(x: B<string>);
 >foo10 : { (x: B<string>): any; (x: new <T>(x: T) => T): any; }
@@ -185,6 +196,7 @@ function foo10(x: typeof a); // ok
 function foo10(x: any) { }
 >foo10 : { (x: B<string>): any; (x: new <T>(x: T) => T): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo11(x: B<string>);
 >foo11 : { (x: B<string>): any; (x: { new<T>(x: T): T; }): any; }
@@ -199,6 +211,7 @@ function foo11(x: typeof b); // ok
 function foo11(x: any) { }
 >foo11 : { (x: B<string>): any; (x: { new<T>(x: T): T; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12(x: I<string>);
 >foo12 : { (x: I<string>): any; (x: C<string>): any; }
@@ -213,6 +226,7 @@ function foo12(x: C<string>); // ok
 function foo12(x: any) { }
 >foo12 : { (x: I<string>): any; (x: C<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12b(x: I2);
 >foo12b : { (x: I2): any; (x: C<string>): any; }
@@ -227,6 +241,7 @@ function foo12b(x: C<string>); // ok
 function foo12b(x: any) { }
 >foo12b : { (x: I2): any; (x: C<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo13(x: I<string>);
 >foo13 : { (x: I<string>): any; (x: new <T>(x: T) => T): any; }
@@ -241,6 +256,7 @@ function foo13(x: typeof a); // ok
 function foo13(x: any) { }
 >foo13 : { (x: I<string>): any; (x: new <T>(x: T) => T): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo14(x: I<string>);
 >foo14 : { (x: I<string>): any; (x: { new<T>(x: T): T; }): any; }
@@ -255,6 +271,7 @@ function foo14(x: typeof b); // ok
 function foo14(x: any) { }
 >foo14 : { (x: I<string>): any; (x: { new<T>(x: T): T; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo15(x: I2);
 >foo15 : { (x: I2): any; (x: C<number>): any; }
@@ -269,4 +286,5 @@ function foo15(x: C<number>); // ok
 function foo15(x: any) { }
 >foo15 : { (x: I2): any; (x: C<number>): any; }
 >x : any
+>类型别名 :=> 任意
 

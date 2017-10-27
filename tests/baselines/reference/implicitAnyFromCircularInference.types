@@ -2,22 +2,30 @@
 // Error expected
 var a: typeof a;
 >a : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
 // Error expected on b or c
 var b: typeof c;
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
 var c: typeof b;
 >c : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 
 // Error expected
 var d: Array<typeof d>;
 >d : any
+>类型别名 :=> 任意
 >Array : T[]
 >d : any
+>类型别名 :=> 任意
 
 function f() { return f; }
 >f : () => typeof f
@@ -27,6 +35,7 @@ function f() { return f; }
 function g() { return g(); }
 >g : () => any
 >g() : any
+>类型别名 :=> 任意
 >g : () => any
 
 // Error expected
@@ -36,6 +45,7 @@ var f1 = function () {
 
     return f1();
 >f1() : any
+>类型别名 :=> 任意
 >f1 : () => any
 
 };
@@ -45,6 +55,7 @@ var f2 = () => f2();
 >f2 : () => any
 >() => f2() : () => any
 >f2() : any
+>类型别名 :=> 任意
 >f2 : () => any
 
 // Error expected
@@ -53,6 +64,7 @@ function h() {
 
     return foo();
 >foo() : any
+>类型别名 :=> 任意
 >foo : () => any
 
     function foo() {
@@ -60,7 +72,9 @@ function h() {
 
         return h() || "hello";
 >h() || "hello" : any
+>类型别名 :=> 任意
 >h() : any
+>类型别名 :=> 任意
 >h : () => any
 >"hello" : "hello"
     }
@@ -71,6 +85,7 @@ interface A {
 
     s: string;
 >s : string
+>类型别名 :=> 文字
 }
 
 function foo(x: A): string { return "abc"; }
@@ -85,7 +100,9 @@ class C {
     // Error expected
     s = foo(this);
 >s : string
+>类型别名 :=> 文字
 >foo(this) : string
+>类型别名 :=> 文字
 >foo : (x: A) => string
 >this : this
 }
@@ -96,11 +113,14 @@ class D {
     // Error expected
     get x() {
 >x : any
+>类型别名 :=> 任意
 
         return this.x;
 >this.x : any
+>类型别名 :=> 任意
 >this : this
 >x : any
+>类型别名 :=> 任意
     }
 }
 

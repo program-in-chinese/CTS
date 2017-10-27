@@ -5,15 +5,19 @@ interface Show {
     show: (x: number) => string;
 >show : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 }
 function f({ show = v => v.toString() }: Show) {}
 >f : ({ show }: Show) => void
 >show : (x: number) => string
 >v => v.toString() : (v: number) => string
 >v : number
+>类型别名 :=> 数字
 >v.toString() : string
+>类型别名 :=> 文字
 >v.toString : (radix?: number) => string
 >v : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 >Show : Show
 
@@ -22,9 +26,12 @@ function f2({ "show": showRename = v => v.toString() }: Show) {}
 >showRename : (x: number) => string
 >v => v.toString() : (v: number) => string
 >v : number
+>类型别名 :=> 数字
 >v.toString() : string
+>类型别名 :=> 文字
 >v.toString : (radix?: number) => string
 >v : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 >Show : Show
 
@@ -34,9 +41,12 @@ function f3({ ["show"]: showRename = v => v.toString() }: Show) {}
 >showRename : (x: number) => string
 >v => v.toString() : (v: number) => string
 >v : number
+>类型别名 :=> 数字
 >v.toString() : string
+>类型别名 :=> 文字
 >v.toString : (radix?: number) => string
 >v : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 >Show : Show
 
@@ -54,9 +64,12 @@ function ff({ nested = { show: v => v.toString() } }: Nested) {}
 >show : (v: number) => string
 >v => v.toString() : (v: number) => string
 >v : number
+>类型别名 :=> 数字
 >v.toString() : string
+>类型别名 :=> 文字
 >v.toString : (radix?: number) => string
 >v : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 >Nested : Nested
 
@@ -92,19 +105,25 @@ interface StringIdentity {
     stringIdentity(s: string): string;
 >stringIdentity : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 }
 let { stringIdentity: id = arg => arg }: StringIdentity = { stringIdentity: x => x};
 >stringIdentity : any
+>类型别名 :=> 任意
 >id : (s: string) => string
 >arg => arg : (arg: string) => string
 >arg : string
+>类型别名 :=> 文字
 >arg : string
+>类型别名 :=> 文字
 >StringIdentity : StringIdentity
 >{ stringIdentity: x => x} : { stringIdentity: (x: string) => string; }
 >stringIdentity : (x: string) => string
 >x => x : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
 
 

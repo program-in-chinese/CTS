@@ -150,15 +150,19 @@ function f1() {
 
         a: 42,
 >a : number
+>类型别名 :=> 数字
 >42 : 42
 
         b: "hello",
 >b : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
         c: true
 >c : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
     };
     let b = boxify(v);
@@ -169,11 +173,14 @@ function f1() {
 
     let x: number = b.a.value;
 >x : number
+>类型别名 :=> 数字
 >b.a.value : number
+>类型别名 :=> 数字
 >b.a : Box<number>
 >b : Boxified<{ a: number; b: string; c: boolean; }>
 >a : Box<number>
 >value : number
+>类型别名 :=> 数字
 }
 
 function f2() {
@@ -200,6 +207,7 @@ function f2() {
 >box(true) : Box<boolean>
 >box : <T>(x: T) => Box<T>
 >true : true
+>类型别名 :=> 为真
 
     };
     let v = unboxify(b);
@@ -210,9 +218,12 @@ function f2() {
 
     let x: number = v.a;
 >x : number
+>类型别名 :=> 数字
 >v.a : number
+>类型别名 :=> 数字
 >v : { a: number; b: string; c: boolean; }
 >a : number
+>类型别名 :=> 数字
 }
 
 function f3() {
@@ -239,15 +250,19 @@ function f3() {
 >box(true) : Box<boolean>
 >box : <T>(x: T) => Box<T>
 >true : true
+>类型别名 :=> 为真
 
     };
     assignBoxified(b, { c: false });
 >assignBoxified(b, { c: false }) : void
+>类型别名 :=> 无值
 >assignBoxified : <T>(obj: Boxified<T>, values: T) => void
 >b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
 >{ c: false } : { c: false; }
 >c : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 }
 
 function f4() {
@@ -274,6 +289,7 @@ function f4() {
 >box(true) : Box<boolean>
 >box : <T>(x: T) => Box<T>
 >true : true
+>类型别名 :=> 为真
 
     };
     b = boxify(unboxify(b));
@@ -311,6 +327,7 @@ function makeRecord<T, K extends string>(obj: { [P in K]: T }) {
 function f5(s: string) {
 >f5 : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
     let b = makeRecord({
 >b : { a: Box<number> | Box<string> | Box<boolean>; b: Box<number> | Box<string> | Box<boolean>; c: Box<number> | Box<string> | Box<boolean>; }
@@ -335,6 +352,7 @@ function f5(s: string) {
 >box(true) : Box<boolean>
 >box : <T>(x: T) => Box<T>
 >true : true
+>类型别名 :=> 为真
 
     });
     let v = unboxify(b);
@@ -355,6 +373,7 @@ function makeDictionary<T>(obj: { [x: string]: T }) {
 >T : T
 >obj : { [x: string]: T; }
 >x : string
+>类型别名 :=> 文字
 >T : T
 
     return obj;
@@ -364,6 +383,7 @@ function makeDictionary<T>(obj: { [x: string]: T }) {
 function f6(s: string) {
 >f6 : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
     let b = makeDictionary({
 >b : { [x: string]: Box<number> | Box<string> | Box<boolean>; }
@@ -388,6 +408,7 @@ function f6(s: string) {
 >box(true) : Box<boolean>
 >box : <T>(x: T) => Box<T>
 >true : true
+>类型别名 :=> 为真
 
     });
     let v = unboxify(b);
@@ -401,6 +422,7 @@ function f6(s: string) {
 >v[s] : string | number | boolean
 >v : { [x: string]: string | number | boolean; }
 >s : string
+>类型别名 :=> 文字
 }
 
 declare function validate<T>(obj: { [P in keyof T]?: T[P] }): T;
@@ -441,6 +463,7 @@ type Foo = {
 
     readonly b: string;
 >b : string
+>类型别名 :=> 文字
 }
 
 function f10(foo: Foo) {
@@ -516,6 +539,7 @@ var g1 = applySpec({
 >sum : (a: any) => number
 >(a: any) => 3 : (a: any) => number
 >a : any
+>类型别名 :=> 任意
 >3 : 3
 
     nested: {
@@ -526,6 +550,7 @@ var g1 = applySpec({
 >mul : (b: any) => string
 >(b: any) => "n" : (b: any) => string
 >b : any
+>类型别名 :=> 任意
 >"n" : "n"
     }
 });
@@ -543,7 +568,9 @@ var g2 = applySpec({ foo: { bar: { baz: (x: any) => true } } });
 >baz : (x: any) => boolean
 >(x: any) => true : (x: any) => boolean
 >x : any
+>类型别名 :=> 任意
 >true : true
+>类型别名 :=> 为真
 
 // Repro from #12633
 
@@ -562,8 +589,10 @@ let o = {a: 5, b: 7};
 >o : { a: number; b: number; }
 >{a: 5, b: 7} : { a: number; b: number; }
 >a : number
+>类型别名 :=> 数字
 >5 : 5
 >b : number
+>类型别名 :=> 数字
 >7 : 7
 
 foo(o, {b: 9});
@@ -572,6 +601,7 @@ foo(o, {b: 9});
 >o : { a: number; b: number; }
 >{b: 9} : { b: number; }
 >b : number
+>类型别名 :=> 数字
 >9 : 9
 
 o = foo(o, {b: 9});
@@ -582,5 +612,6 @@ o = foo(o, {b: 9});
 >o : { a: number; b: number; }
 >{b: 9} : { b: number; }
 >b : number
+>类型别名 :=> 数字
 >9 : 9
 

@@ -4,6 +4,7 @@ interface I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class C implements I {
@@ -12,9 +13,11 @@ class C implements I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 
     valid: boolean;
 >valid : boolean
+>类型别名 :=> 真假
 }
 
 class C2 extends C {
@@ -23,6 +26,7 @@ class C2 extends C {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 }
 
 class D<T>{
@@ -48,6 +52,7 @@ class D<T>{
 function F(x: string): number { return 42; }
 >F : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >42 : 42
 
 module M {
@@ -58,41 +63,51 @@ module M {
 
         name: string;
 >name : string
+>类型别名 :=> 文字
     }
 
     export function F2(x: number): string { return x.toString(); }
 >F2 : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 }
 
 // all of these are errors
 for( var a: any;;){}
 >a : any
+>类型别名 :=> 任意
 
 for( var a = 1;;){}
 >a : any
+>类型别名 :=> 任意
 >1 : 1
 
 for( var a = 'a string';;){}
 >a : any
+>类型别名 :=> 任意
 >'a string' : "a string"
 
 for( var a = new C();;){}
 >a : any
+>类型别名 :=> 任意
 >new C() : C
 >C : typeof C
 
 for( var a = new D<string>();;){}
 >a : any
+>类型别名 :=> 任意
 >new D<string>() : D<string>
 >D : typeof D
 
 for( var a = M;;){}
 >a : any
+>类型别名 :=> 任意
 >M : typeof M
 
 for( var b: I;;){}
@@ -117,6 +132,7 @@ for( var f = (x: number) => '';;){}
 >f : (x: string) => number
 >(x: number) => '' : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >'' : ""
 
 for(var arr: string[];;){}

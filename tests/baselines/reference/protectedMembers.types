@@ -5,25 +5,31 @@ class C1 {
 
     protected x: number;
 >x : number
+>类型别名 :=> 数字
 
     protected static sx: number;
 >sx : number
+>类型别名 :=> 数字
 
     protected f() {
 >f : () => number
 
         return this.x;
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
     }
     protected static sf() {
 >sf : () => number
 
         return this.sx;
 >this.sx : number
+>类型别名 :=> 数字
 >this : typeof C1
 >sx : number
+>类型别名 :=> 数字
     }
 }
 
@@ -37,26 +43,34 @@ class C2 extends C1 {
 
         return super.f() + this.x;
 >super.f() + this.x : number
+>类型别名 :=> 数字
 >super.f() : number
+>类型别名 :=> 数字
 >super.f : () => number
 >super : C1
 >f : () => number
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
     }
     protected static sf() {
 >sf : () => number
 
         return super.sf() + this.sx;
 >super.sf() + this.sx : number
+>类型别名 :=> 数字
 >super.sf() : number
+>类型别名 :=> 数字
 >super.sf : () => number
 >super : typeof C1
 >sf : () => number
 >this.sx : number
+>类型别名 :=> 数字
 >this : typeof C2
 >sx : number
+>类型别名 :=> 数字
     }
 }
 
@@ -67,15 +81,18 @@ class C3 extends C2 {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     static sx: number;
 >sx : number
+>类型别名 :=> 数字
 
     f() {
 >f : () => number
 
         return super.f();
 >super.f() : number
+>类型别名 :=> 数字
 >super.f : () => number
 >super : C2
 >f : () => number
@@ -85,6 +102,7 @@ class C3 extends C2 {
 
         return super.sf();
 >super.sf() : number
+>类型别名 :=> 数字
 >super.sf : () => number
 >super : typeof C2
 >sf : () => number
@@ -106,22 +124,28 @@ var c3: C3;
 // All of these should be errors
 c1.x;
 >c1.x : number
+>类型别名 :=> 数字
 >c1 : C1
 >x : number
+>类型别名 :=> 数字
 
 c1.f();
 >c1.f() : number
+>类型别名 :=> 数字
 >c1.f : () => number
 >c1 : C1
 >f : () => number
 
 C1.sx;
 >C1.sx : number
+>类型别名 :=> 数字
 >C1 : typeof C1
 >sx : number
+>类型别名 :=> 数字
 
 C1.sf();
 >C1.sf() : number
+>类型别名 :=> 数字
 >C1.sf : () => number
 >C1 : typeof C1
 >sf : () => number
@@ -129,22 +153,28 @@ C1.sf();
 // All of these should be errors
 c2.x;
 >c2.x : number
+>类型别名 :=> 数字
 >c2 : C2
 >x : number
+>类型别名 :=> 数字
 
 c2.f();
 >c2.f() : number
+>类型别名 :=> 数字
 >c2.f : () => number
 >c2 : C2
 >f : () => number
 
 C2.sx;
 >C2.sx : number
+>类型别名 :=> 数字
 >C2 : typeof C2
 >sx : number
+>类型别名 :=> 数字
 
 C2.sf();
 >C2.sf() : number
+>类型别名 :=> 数字
 >C2.sf : () => number
 >C2 : typeof C2
 >sf : () => number
@@ -152,22 +182,28 @@ C2.sf();
 // All of these should be ok
 c3.x;
 >c3.x : number
+>类型别名 :=> 数字
 >c3 : C3
 >x : number
+>类型别名 :=> 数字
 
 c3.f();
 >c3.f() : number
+>类型别名 :=> 数字
 >c3.f : () => number
 >c3 : C3
 >f : () => number
 
 C3.sx;
 >C3.sx : number
+>类型别名 :=> 数字
 >C3 : typeof C3
 >sx : number
+>类型别名 :=> 数字
 
 C3.sf();
 >C3.sf() : number
+>类型别名 :=> 数字
 >C3.sf : () => number
 >C3 : typeof C3
 >sf : () => number
@@ -177,6 +213,7 @@ class A {
 
     protected x;
 >x : any
+>类型别名 :=> 任意
 }
 
 class B extends A {
@@ -185,6 +222,7 @@ class B extends A {
 
     y;
 >y : any
+>类型别名 :=> 任意
 }
 
 class C extends A {
@@ -193,6 +231,7 @@ class C extends A {
 
     z;
 >z : any
+>类型别名 :=> 任意
 
     static foo(a: A, b: B, c: C, d: D, e: E) {
 >foo : (a: A, b: B, c: C, d: D, e: E) => void
@@ -210,36 +249,46 @@ class C extends A {
         a.x = 1;  // Error, access must be through C or type derived from C
 >a.x = 1 : 1
 >a.x : any
+>类型别名 :=> 任意
 >a : A
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 
         b.x = 1;  // Error, access must be through C or type derived from C
 >b.x = 1 : 1
 >b.x : any
+>类型别名 :=> 任意
 >b : B
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 
         c.x = 1;
 >c.x = 1 : 1
 >c.x : any
+>类型别名 :=> 任意
 >c : C
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 
         d.x = 1;
 >d.x = 1 : 1
 >d.x : any
+>类型别名 :=> 任意
 >d : D
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 
         e.x = 1;
 >e.x = 1 : 1
 >e.x : any
+>类型别名 :=> 任意
 >e : E
 >x : any
+>类型别名 :=> 任意
 >1 : 1
     }
 }
@@ -250,6 +299,7 @@ class D extends C {
 
     d;
 >d : any
+>类型别名 :=> 任意
 }
 
 interface E extends C {
@@ -258,6 +308,7 @@ interface E extends C {
 
     e;
 >e : any
+>类型别名 :=> 任意
 }
 
 class CC {
@@ -272,12 +323,14 @@ class A1 {
 
     protected x;
 >x : any
+>类型别名 :=> 任意
 }
 class B1 {
 >B1 : B1
 
     x;
 >x : any
+>类型别名 :=> 任意
 }
 var a1: A1;
 >a1 : A1
@@ -302,6 +355,7 @@ class A2 {
 
     protected x;
 >x : any
+>类型别名 :=> 任意
 }
 class B2 extends A2 {
 >B2 : B2
@@ -309,6 +363,7 @@ class B2 extends A2 {
 
     x;
 >x : any
+>类型别名 :=> 任意
 }
 
 class A3 {
@@ -316,6 +371,7 @@ class A3 {
 
     x;
 >x : any
+>类型别名 :=> 任意
 }
 // Error x is protected in B3 but public in A3
 class B3 extends A3 {
@@ -324,6 +380,7 @@ class B3 extends A3 {
 
     protected x;
 >x : any
+>类型别名 :=> 任意
 }
 
 

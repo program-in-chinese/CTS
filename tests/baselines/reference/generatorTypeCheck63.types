@@ -4,6 +4,7 @@ export interface StrategicState {
 
     lastStrategyApplied?: string;
 >lastStrategyApplied : string
+>类型别名 :=> 文字
 }
 
 export function strategy<T extends StrategicState>(stratName: string, gen: (a: T) => IterableIterator<T | undefined>): (a: T) => IterableIterator<T | undefined> {
@@ -11,6 +12,7 @@ export function strategy<T extends StrategicState>(stratName: string, gen: (a: T
 >T : T
 >StrategicState : StrategicState
 >stratName : string
+>类型别名 :=> 文字
 >gen : (a: T) => IterableIterator<T>
 >a : T
 >T : T
@@ -36,13 +38,18 @@ export function strategy<T extends StrategicState>(stratName: string, gen: (a: T
 
                 next.lastStrategyApplied = stratName;
 >next.lastStrategyApplied = stratName : string
+>类型别名 :=> 文字
 >next.lastStrategyApplied : string
+>类型别名 :=> 文字
 >next : T
 >lastStrategyApplied : string
+>类型别名 :=> 文字
 >stratName : string
+>类型别名 :=> 文字
             }
             yield next;
 >yield next : any
+>类型别名 :=> 任意
 >next : T
         }
     }
@@ -65,6 +72,7 @@ export interface State extends StrategicState {
 
     foo: number;
 >foo : number
+>类型别名 :=> 数字
 }
 
 export const Nothing: Strategy<State> = strategy("Nothing", function* (state: State) {
@@ -72,6 +80,7 @@ export const Nothing: Strategy<State> = strategy("Nothing", function* (state: St
 >Strategy : Strategy<T>
 >State : State
 >strategy("Nothing", function* (state: State) {    yield 1;    return state;}) : any
+>类型别名 :=> 任意
 >strategy : <T extends StrategicState>(stratName: string, gen: (a: T) => IterableIterator<T>) => (a: T) => IterableIterator<T>
 >"Nothing" : "Nothing"
 >function* (state: State) {    yield 1;    return state;} : (state: State) => IterableIterator<State | 1>
@@ -80,6 +89,7 @@ export const Nothing: Strategy<State> = strategy("Nothing", function* (state: St
 
     yield 1;
 >yield 1 : any
+>类型别名 :=> 任意
 >1 : 1
 
     return state;
@@ -105,6 +115,7 @@ export const Nothing2: Strategy<State> = strategy("Nothing", function* (state: S
 >Strategy : Strategy<T>
 >State : State
 >strategy("Nothing", function* (state: State) {    return 1;}) : any
+>类型别名 :=> 任意
 >strategy : <T extends StrategicState>(stratName: string, gen: (a: T) => IterableIterator<T>) => (a: T) => IterableIterator<T>
 >"Nothing" : "Nothing"
 >function* (state: State) {    return 1;} : (state: State) => IterableIterator<1>
@@ -121,6 +132,7 @@ export const Nothing3: Strategy<State> = strategy("Nothing", function* (state: S
 >Strategy : Strategy<T>
 >State : State
 >strategy("Nothing", function* (state: State) {    yield state;    return 1;}) : any
+>类型别名 :=> 任意
 >strategy : <T extends StrategicState>(stratName: string, gen: (a: T) => IterableIterator<T>) => (a: T) => IterableIterator<T>
 >"Nothing" : "Nothing"
 >function* (state: State) {    yield state;    return 1;} : (state: State) => IterableIterator<State | 1>
@@ -129,6 +141,7 @@ export const Nothing3: Strategy<State> = strategy("Nothing", function* (state: S
 
     yield state;
 >yield state : any
+>类型别名 :=> 任意
 >state : State
 
     return 1;

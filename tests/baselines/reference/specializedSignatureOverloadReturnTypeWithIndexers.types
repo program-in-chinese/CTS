@@ -5,12 +5,15 @@ interface A {
     f(p: string): { [p: string]: string; };
 >f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: string]: any; }; }
 >p : string
+>类型别名 :=> 文字
 >p : string
+>类型别名 :=> 文字
 
     f(p: "spec"): { [p: string]: any; } // Should be ok
 >f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: string]: any; }; }
 >p : "spec"
 >p : string
+>类型别名 :=> 文字
 }
 interface B {
 >B : B
@@ -18,12 +21,15 @@ interface B {
     f(p: string): { [p: number]: string; };
 >f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: string]: any; }; }
 >p : string
+>类型别名 :=> 文字
 >p : number
+>类型别名 :=> 数字
 
     f(p: "spec"): { [p: string]: any; } // Should be ok
 >f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: string]: any; }; }
 >p : "spec"
 >p : string
+>类型别名 :=> 文字
 }
 interface C {
 >C : C
@@ -31,12 +37,15 @@ interface C {
     f(p: string): { [p: number]: string; };
 >f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: number]: any; }; }
 >p : string
+>类型别名 :=> 文字
 >p : number
+>类型别名 :=> 数字
 
     f(p: "spec"): { [p: number]: any; } // Should be ok
 >f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: number]: any; }; }
 >p : "spec"
 >p : number
+>类型别名 :=> 数字
 }
 interface D {
 >D : D
@@ -44,10 +53,13 @@ interface D {
     f(p: string): { [p: string]: string; };
 >f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: number]: any; }; }
 >p : string
+>类型别名 :=> 文字
 >p : string
+>类型别名 :=> 文字
 
     f(p: "spec"): { [p: number]: any; } // Should be error
 >f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: number]: any; }; }
 >p : "spec"
 >p : number
+>类型别名 :=> 数字
 }

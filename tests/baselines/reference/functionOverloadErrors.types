@@ -3,6 +3,7 @@
 function fn1(x = 3);
 >fn1 : (x?: number) => any
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 
 function fn1() { }
@@ -36,16 +37,19 @@ function fn2b() {
 function fn3(x: string): string;
 >fn3 : { (x: string): string; (y: string): number; }
 >x : string
+>类型别名 :=> 文字
 
 function fn3(y: string): number;
 >fn3 : { (x: string): string; (y: string): number; }
 >y : string
+>类型别名 :=> 文字
 
 function fn3(): any {
 >fn3 : { (x: string): string; (y: string): number; }
 
     return null;
 >null : null
+>类型别名 :=> 空值
 }
 
 //Function overload with rest param and another with only an optional parameter
@@ -56,6 +60,7 @@ function fn6(...t: any[]);
 function fn6(x?: any);
 >fn6 : { (...t: any[]): any; (x?: any): any; }
 >x : any
+>类型别名 :=> 任意
 
 function fn6() { }
 >fn6 : { (...t: any[]): any; (x?: any): any; }
@@ -68,8 +73,11 @@ function fn7(...t: any[]);
 function fn7(x?: any, y?: any, z?: any);
 >fn7 : { (...t: any[]): any; (x?: any, y?: any, z?: any): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >z : any
+>类型别名 :=> 任意
 
 function fn7() { }
 >fn7 : { (...t: any[]): any; (x?: any, y?: any, z?: any): any; }
@@ -79,11 +87,13 @@ function fn8<T>(n: string);
 >fn8 : { <T>(n: string): any; <S>(n: string): any; }
 >T : T
 >n : string
+>类型别名 :=> 文字
 
 function fn8<S>(n: string);
 >fn8 : { <T>(n: string): any; <S>(n: string): any; }
 >S : S
 >n : string
+>类型别名 :=> 文字
 
 function fn8() { }
 >fn8 : { <T>(n: string): any; <S>(n: string): any; }
@@ -130,6 +140,7 @@ function fn11<S extends typeof window>();
 >fn11 : { <T extends any>(): any; <S extends any>(): any; }
 >S : S
 >window : any
+>类型别名 :=> 任意
 
 function fn11() { }
 >fn11 : { <T extends any>(): any; <S extends any>(): any; }
@@ -169,6 +180,7 @@ class cls {
     private f(s: string);
 >f : { (): any; (s: string): any; }
 >s : string
+>类型别名 :=> 文字
 
     f() { }
 >f : { (): any; (s: string): any; }
@@ -176,6 +188,7 @@ class cls {
     private g(s: string);
 >g : { (s: string): any; (): any; }
 >s : string
+>类型别名 :=> 文字
 
     public g();
 >g : { (s: string): any; (): any; }
@@ -194,6 +207,7 @@ module M {
     function fn1(n: string);
 >fn1 : { (): any; (n: string): any; }
 >n : string
+>类型别名 :=> 文字
 
     function fn1() { } 
 >fn1 : { (): any; (n: string): any; }
@@ -201,6 +215,7 @@ module M {
     function fn2(n: string);
 >fn2 : { (n: string): any; (): any; }
 >n : string
+>类型别名 :=> 文字
 
     export function fn2();
 >fn2 : () => any
@@ -216,6 +231,7 @@ declare function dfn1();
 function dfn1(s: string);
 >dfn1 : { (): any; (s: string): any; }
 >s : string
+>类型别名 :=> 文字
 
 function dfn1() { }
 >dfn1 : { (): any; (s: string): any; }
@@ -226,6 +242,7 @@ function dfn2();
 declare function dfn2(s: string);
 >dfn2 : { (): any; (s: string): any; }
 >s : string
+>类型别名 :=> 文字
 
 function dfn2() { }
 >dfn2 : { (): any; (s: string): any; }
@@ -237,21 +254,25 @@ function fewerParams();
 function fewerParams(n: string) {
 >fewerParams : () => any
 >n : string
+>类型别名 :=> 文字
 }
 
 //Function implementation whose parameter types are not assignable to all corresponding overload signature parameters
 function fn13(n: string);
 >fn13 : (n: string) => any
 >n : string
+>类型别名 :=> 文字
 
 function fn13(n: number) { }
 >fn13 : (n: string) => any
 >n : number
+>类型别名 :=> 数字
 
 //Function overloads where return types are not all subtype of implementation return type
 function fn14(n: string): string;
 >fn14 : (n: string) => string
 >n : string
+>类型别名 :=> 文字
 
 function fn14() {
 >fn14 : (n: string) => string
@@ -279,12 +300,14 @@ function fn15() {
 
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 //Function overloads which use initializer expressions
 function initExpr(n = 13);
 >initExpr : (n?: number) => any
 >n : number
+>类型别名 :=> 数字
 >13 : 13
 
 function initExpr() { }

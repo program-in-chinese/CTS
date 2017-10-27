@@ -1,6 +1,7 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
 >JSX : any
+>类型别名 :=> 任意
 
 	interface Element { }
 >Element : Element
@@ -22,6 +23,7 @@ interface Attribs1 {
 
 	x: string;
 >x : string
+>类型别名 :=> 文字
 }
 
 interface Attribs2 {
@@ -35,12 +37,14 @@ function make1<T extends {x: string}> (obj: T) {
 >make1 : <T extends { x: string; }>(obj: T) => JSX.Element
 >T : T
 >x : string
+>类型别名 :=> 文字
 >obj : T
 >T : T
 
 	return <test1 {...obj} />; // OK
 ><test1 {...obj} /> : JSX.Element
 >test1 : any
+>类型别名 :=> 任意
 >obj : T
 }
 
@@ -48,12 +52,14 @@ function make2<T extends {x: number}> (obj: T) {
 >make2 : <T extends { x: number; }>(obj: T) => JSX.Element
 >T : T
 >x : number
+>类型别名 :=> 数字
 >obj : T
 >T : T
 
 	return <test1 {...obj} />; // Error (x is number, not string)
 ><test1 {...obj} /> : JSX.Element
 >test1 : any
+>类型别名 :=> 任意
 >obj : T
 }
 
@@ -61,12 +67,14 @@ function make3<T extends {y: string}> (obj: T) {
 >make3 : <T extends { y: string; }>(obj: T) => JSX.Element
 >T : T
 >y : string
+>类型别名 :=> 文字
 >obj : T
 >T : T
 
 	return <test1 {...obj} />; // Error, missing x
 ><test1 {...obj} /> : JSX.Element
 >test1 : any
+>类型别名 :=> 任意
 >obj : T
 }
 
@@ -74,10 +82,12 @@ function make3<T extends {y: string}> (obj: T) {
 <test1 {...{}} />; // Error, missing x
 ><test1 {...{}} /> : JSX.Element
 >test1 : any
+>类型别名 :=> 任意
 >{} : {}
 
 <test2 {...{}} />; // Error, missing toString
 ><test2 {...{}} /> : JSX.Element
 >test2 : any
+>类型别名 :=> 任意
 >{} : {}
 

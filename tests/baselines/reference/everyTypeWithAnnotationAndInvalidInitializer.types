@@ -4,6 +4,7 @@ interface I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class C implements I {
@@ -12,6 +13,7 @@ class C implements I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class D<T>{
@@ -37,13 +39,17 @@ class D<T>{
 function F(x: string): number { return 42; }
 >F : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >42 : 42
 
 function F2(x: number): boolean { return x < 42; }
 >F2 : (x: number) => boolean
 >x : number
+>类型别名 :=> 数字
 >x < 42 : boolean
+>类型别名 :=> 真假
 >x : number
+>类型别名 :=> 数字
 >42 : 42
 
 module M {
@@ -54,14 +60,18 @@ module M {
 
         name: string;
 >name : string
+>类型别名 :=> 文字
     }
 
     export function F2(x: number): string { return x.toString(); }
 >F2 : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 }
 
@@ -73,23 +83,29 @@ module N {
 
         id: number;
 >id : number
+>类型别名 :=> 数字
     }
 
     export function F2(x: number): string { return x.toString(); }
 >F2 : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 }
 
 var aNumber: number = 'this is a string';
 >aNumber : number
+>类型别名 :=> 数字
 >'this is a string' : "this is a string"
 
 var aString: string = 9.9;
 >aString : string
+>类型别名 :=> 文字
 >9.9 : 9.9
 
 var aDate: Date = 9.9;
@@ -99,6 +115,7 @@ var aDate: Date = 9.9;
 
 var aVoid: void = 9.9;
 >aVoid : void
+>类型别名 :=> 无值
 >9.9 : 9.9
 
 var anInterface: I = new D();
@@ -124,11 +141,13 @@ var anObjectLiteral: I = { id: 'a string' };
 >I : I
 >{ id: 'a string' } : { id: string; }
 >id : string
+>类型别名 :=> 文字
 >'a string' : "a string"
 
 var anOtherObjectLiteral: { id: string } = new C();
 >anOtherObjectLiteral : { id: string; }
 >id : string
+>类型别名 :=> 文字
 >new C() : C
 >C : typeof C
 
@@ -140,6 +159,7 @@ var aFunction: typeof F = F2;
 var anOtherFunction: (x: string) => number = F2;
 >anOtherFunction : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >F2 : (x: number) => boolean
 
 var aLambda: typeof F = (x) => 'a string';
@@ -147,6 +167,7 @@ var aLambda: typeof F = (x) => 'a string';
 >F : (x: string) => number
 >(x) => 'a string' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'a string' : "a string"
 
 var aModule: typeof M = N;
@@ -157,6 +178,7 @@ var aModule: typeof M = N;
 var aClassInModule: M.A = new N.A();
 >aClassInModule : M.A
 >M : any
+>类型别名 :=> 任意
 >A : M.A
 >new N.A() : N.A
 >N.A : typeof N.A

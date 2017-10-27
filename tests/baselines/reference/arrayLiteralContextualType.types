@@ -4,6 +4,7 @@ interface IAnimal {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 }
 
 class Giraffe {
@@ -11,10 +12,12 @@ class Giraffe {
 
     name = "Giraffe";
 >name : string
+>类型别名 :=> 文字
 >"Giraffe" : "Giraffe"
 
     neckLength = "3m";
 >neckLength : string
+>类型别名 :=> 文字
 >"3m" : "3m"
 }
 
@@ -23,10 +26,12 @@ class Elephant {
 
     name = "Elephant";
 >name : string
+>类型别名 :=> 文字
 >"Elephant" : "Elephant"
 
     trunkDiameter = "20cm";
 >trunkDiameter : string
+>类型别名 :=> 文字
 >"20cm" : "20cm"
 }
 
@@ -39,10 +44,12 @@ function bar(animals: { [n: number]: IAnimal }) { }
 >bar : (animals: { [n: number]: IAnimal; }) => void
 >animals : { [n: number]: IAnimal; }
 >n : number
+>类型别名 :=> 数字
 >IAnimal : IAnimal
 
 foo([
 >foo([    new Giraffe(),    new Elephant()]) : void
+>类型别名 :=> 无值
 >foo : (animals: IAnimal[]) => void
 >[    new Giraffe(),    new Elephant()] : (Giraffe | Elephant)[]
 
@@ -57,6 +64,7 @@ foo([
 ]); // Legal because of the contextual type IAnimal provided by the parameter
 bar([
 >bar([    new Giraffe(),    new Elephant()]) : void
+>类型别名 :=> 无值
 >bar : (animals: { [n: number]: IAnimal; }) => void
 >[    new Giraffe(),    new Elephant()] : (Giraffe | Elephant)[]
 
@@ -80,11 +88,13 @@ var arr = [new Giraffe(), new Elephant()];
 
 foo(arr); // ok because arr is Array<Giraffe|Elephant> not {}[]
 >foo(arr) : void
+>类型别名 :=> 无值
 >foo : (animals: IAnimal[]) => void
 >arr : (Giraffe | Elephant)[]
 
 bar(arr); // ok because arr is Array<Giraffe|Elephant> not {}[]
 >bar(arr) : void
+>类型别名 :=> 无值
 >bar : (animals: { [n: number]: IAnimal; }) => void
 >arr : (Giraffe | Elephant)[]
 

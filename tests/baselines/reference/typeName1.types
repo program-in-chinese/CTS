@@ -4,72 +4,96 @@ interface I {
 
     k;
 >k : any
+>类型别名 :=> 任意
 }
 class C {
 >C : C
 
     public eek:string;
 >eek : string
+>类型别名 :=> 文字
 
     static zeek:number;
 >zeek : number
+>类型别名 :=> 数字
 }
 
 var x1:{ f(s:string):number;f(n:number):string; }=3;
 >x1 : { f(s: string): number; f(n: number): string; }
 >f : { (s: string): number; (n: number): string; }
 >s : string
+>类型别名 :=> 文字
 >f : { (s: string): number; (n: number): string; }
 >n : number
+>类型别名 :=> 数字
 >3 : 3
 
 var x2:{ f(s:string):number; } =3;
 >x2 : { f(s: string): number; }
 >f : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >3 : 3
 
 var x3:{ (s:string):number;(n:number):string; }=3;
 >x3 : { (s: string): number; (n: number): string; }
 >s : string
+>类型别名 :=> 文字
 >n : number
+>类型别名 :=> 数字
 >3 : 3
 
 var x4:{ x;y;z:number;f(n:number):string;f(s:string):number; }=3;
 >x4 : { x: any; y: any; z: number; f(n: number): string; f(s: string): number; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >z : number
+>类型别名 :=> 数字
 >f : { (n: number): string; (s: string): number; }
 >n : number
+>类型别名 :=> 数字
 >f : { (n: number): string; (s: string): number; }
 >s : string
+>类型别名 :=> 文字
 >3 : 3
 
 var x5:{ (s:string):number;(n:number):string;x;y;z:number;f(n:number):string;f(s:string):number; }=3;
 >x5 : { (s: string): number; (n: number): string; x: any; y: any; z: number; f(n: number): string; f(s: string): number; }
 >s : string
+>类型别名 :=> 文字
 >n : number
+>类型别名 :=> 数字
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >z : number
+>类型别名 :=> 数字
 >f : { (n: number): string; (s: string): number; }
 >n : number
+>类型别名 :=> 数字
 >f : { (n: number): string; (s: string): number; }
 >s : string
+>类型别名 :=> 文字
 >3 : 3
 
 var x6:{ z:number;f:{(n:number):string;(s:string):number;}; }=3;
 >x6 : { z: number; f: { (n: number): string; (s: string): number; }; }
 >z : number
+>类型别名 :=> 数字
 >f : { (n: number): string; (s: string): number; }
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >3 : 3
 
 var x7:(s:string)=>boolean=3;
 >x7 : (s: string) => boolean
 >s : string
+>类型别名 :=> 文字
 >3 : 3
 
 var x8:{ z:I;[s:string]:{ x; y; };[n:number]:{x; y;};():boolean; }=3;
@@ -77,11 +101,17 @@ var x8:{ z:I;[s:string]:{ x; y; };[n:number]:{x; y;};():boolean; }=3;
 >z : I
 >I : I
 >s : string
+>类型别名 :=> 文字
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >n : number
+>类型别名 :=> 数字
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >3 : 3
 
 var x9:I=3;
@@ -99,6 +129,7 @@ var x11:{z:I;x:boolean;}[][]=3;
 >z : I
 >I : I
 >x : boolean
+>类型别名 :=> 真假
 >3 : 3
 
 var x12:{z:I;x:boolean;y:(s:string)=>boolean;w:{ z:I;[s:string]:{ x; y; };[n:number]:{x; y;};():boolean; };}[][]=3;
@@ -106,37 +137,52 @@ var x12:{z:I;x:boolean;y:(s:string)=>boolean;w:{ z:I;[s:string]:{ x; y; };[n:num
 >z : I
 >I : I
 >x : boolean
+>类型别名 :=> 真假
 >y : (s: string) => boolean
 >s : string
+>类型别名 :=> 文字
 >w : { (): boolean; [s: string]: { x: any; y: any; }; [n: number]: { x: any; y: any; }; z: I; }
 >z : I
 >I : I
 >s : string
+>类型别名 :=> 文字
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >n : number
+>类型别名 :=> 数字
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >3 : 3
 
 var x13:{ new(): number; new(n:number):number; x: string; w: {y: number;}; (): {}; } = 3;
 >x13 : { (): {}; new (): number; new (n: number): number; x: string; w: { y: number; }; }
 >n : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >w : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >3 : 3
 
 var x14:{ f(x:number):boolean; p; q; ():string; }=3;
 >x14 : { (): string; f(x: number): boolean; p: any; q: any; }
 >f : (x: number) => boolean
 >x : number
+>类型别名 :=> 数字
 >p : any
+>类型别名 :=> 任意
 >q : any
+>类型别名 :=> 任意
 >3 : 3
 
 var x15:number=C;
 >x15 : number
+>类型别名 :=> 数字
 >C : typeof C
 
 

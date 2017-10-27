@@ -31,12 +31,15 @@ module onlyT {
 >r1 : (x: {}) => {}
 >x : {}
 >foo((x: number) => 1, (x: string) => '') : any
+>类型别名 :=> 任意
 >foo : <T>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >(x: number) => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 
     function other2<T extends Date>(x: T) {
@@ -106,7 +109,9 @@ module onlyT {
 
         var r7 = foo2((a: T) => a, (b: T) => b); // error
 >r7 : any
+>类型别名 :=> 任意
 >foo2((a: T) => a, (b: T) => b) : any
+>类型别名 :=> 任意
 >foo2 : <T extends Date>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >(a: T) => a : (a: T) => T
 >a : T
@@ -163,7 +168,9 @@ module onlyT {
 
     var r7 = foo3(E.A, (x) => E.A, (x) => F.A); // error
 >r7 : any
+>类型别名 :=> 任意
 >foo3(E.A, (x) => E.A, (x) => F.A) : any
+>类型别名 :=> 任意
 >foo3 : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >E.A : E
 >E : typeof E
@@ -213,9 +220,11 @@ module TU {
 >foo : <T, U>(a: (x: T) => T, b: (x: U) => U) => (x: T) => T
 >(x: number) => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 
     function other2<T extends Date>(x: T) {
@@ -286,7 +295,9 @@ module TU {
 
         var r7 = foo2((a: T) => a, (b: T) => b); 
 >r7 : any
+>类型别名 :=> 任意
 >foo2((a: T) => a, (b: T) => b) : any
+>类型别名 :=> 任意
 >foo2 : <T extends Date, U extends Date>(a: (x: T) => T, b: (x: U) => U) => (x: T) => T
 >(a: T) => a : (a: T) => T
 >a : T
@@ -328,6 +339,7 @@ module TU {
 >T : T
 >b : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >U : No type information available!
 >U : No type information available!
 
@@ -355,6 +367,7 @@ module TU {
 >A : E
 >(x) => F.A : (x: any) => F
 >x : any
+>类型别名 :=> 任意
 >F.A : F
 >F : typeof F
 >A : F

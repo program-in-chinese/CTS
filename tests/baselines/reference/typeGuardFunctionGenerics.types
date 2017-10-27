@@ -4,6 +4,7 @@ class A {
 
     propA: number;
 >propA : number
+>类型别名 :=> 数字
 }
 
 class B {
@@ -11,6 +12,7 @@ class B {
 
     propB: number;
 >propB : number
+>类型别名 :=> 数字
 }
 
 class C extends A {
@@ -19,23 +21,29 @@ class C extends A {
 
     propC: number;
 >propC : number
+>类型别名 :=> 数字
 }
 
 declare function isB(p1): p1 is B;
 >isB : (p1: any) => p1 is B
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >B : B
 
 declare function isC(p1): p1 is C;
 >isC : (p1: any) => p1 is C
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
 declare function retC(x): C; 
 >retC : (x: any) => C
 >x : any
+>类型别名 :=> 任意
 >C : C
 
 declare function funA<T>(p1: (p1) => T): T;
@@ -43,6 +51,7 @@ declare function funA<T>(p1: (p1) => T): T;
 >T : T
 >p1 : (p1: any) => T
 >p1 : any
+>类型别名 :=> 任意
 >T : T
 >T : T
 
@@ -51,9 +60,12 @@ declare function funB<T>(p1: (p1) => T, p2: any): p2 is T;
 >T : T
 >p1 : (p1: any) => T
 >p1 : any
+>类型别名 :=> 任意
 >T : T
 >p2 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >T : T
 
 declare function funC<T>(p1: (p1) => p1 is T): T;
@@ -61,7 +73,9 @@ declare function funC<T>(p1: (p1) => p1 is T): T;
 >T : T
 >p1 : (p1: any) => p1 is T
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >T : T
 >T : T
 
@@ -70,10 +84,14 @@ declare function funD<T>(p1: (p1) => p1 is T, p2: any): p2 is T;
 >T : T
 >p1 : (p1: any) => p1 is T
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >T : T
 >p2 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >T : T
 
 declare function funE<T, U>(p1: (p1) => p1 is T, p2: U): T;
@@ -82,7 +100,9 @@ declare function funE<T, U>(p1: (p1) => p1 is T, p2: U): T;
 >U : U
 >p1 : (p1: any) => p1 is T
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >T : T
 >p2 : U
 >U : U
@@ -94,20 +114,25 @@ let a: A;
 
 let test1: boolean = funA(isB);
 >test1 : boolean
+>类型别名 :=> 真假
 >funA(isB) : boolean
+>类型别名 :=> 真假
 >funA : <T>(p1: (p1: any) => T) => T
 >isB : (p1: any) => p1 is B
 
 if (funB(retC, a)) {
 >funB(retC, a) : boolean
+>类型别名 :=> 真假
 >funB : <T>(p1: (p1: any) => T, p2: any) => p2 is T
 >retC : (x: any) => C
 >a : A
 
     a.propC;
 >a.propC : number
+>类型别名 :=> 数字
 >a : C
 >propC : number
+>类型别名 :=> 数字
 }
 let test2: B = funC(isB);
 >test2 : B
@@ -118,14 +143,17 @@ let test2: B = funC(isB);
 
 if (funD(isC, a)) {
 >funD(isC, a) : boolean
+>类型别名 :=> 真假
 >funD : <T>(p1: (p1: any) => p1 is T, p2: any) => p2 is T
 >isC : (p1: any) => p1 is C
 >a : A
 
     a.propC;
 >a.propC : number
+>类型别名 :=> 数字
 >a : C
 >propC : number
+>类型别名 :=> 数字
 }
 let test3: B = funE(isB, 1);
 >test3 : B

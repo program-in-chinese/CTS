@@ -38,6 +38,7 @@ function f6(): void {
     // Fine since we are typed void and return undefined
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function f7(): void {
@@ -46,6 +47,7 @@ function f7(): void {
     // Fine since we are typed void and return null
     return null;
 >null : null
+>类型别名 :=> 空值
 }
 
 function f8(): void {
@@ -61,6 +63,7 @@ function f9(): void {
     // Fine since we are typed any and return undefined
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function f10(): void {
@@ -69,6 +72,7 @@ function f10(): void {
     // Fine since we are typed any and return null
     return null;
 >null : null
+>类型别名 :=> 空值
 }
 
 function f11(): string {
@@ -77,6 +81,7 @@ function f11(): string {
     // Fine since we consist of a single throw statement.
     throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function f12(): void {
@@ -85,6 +90,7 @@ function f12(): void {
     // Fine since we consist of a single throw statement.
     throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function f13(): any {
@@ -93,6 +99,7 @@ function f13(): any {
     // Fine since we consist of a single throw statement.
     throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function f14(): number {
@@ -102,9 +109,11 @@ function f14(): number {
     // if no return statements are present but we are annotated.
     throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 
     throw null;
 >null : null
+>类型别名 :=> 空值
 }
 
 function f15(): number {
@@ -113,9 +122,11 @@ function f15(): number {
     // Fine, since we have a return statement somewhere.
     throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 
     throw null;
 >null : null
+>类型别名 :=> 空值
 
     return;
 }
@@ -164,12 +175,14 @@ class C {
 
     public get m1() {
 >m1 : void
+>类型别名 :=> 无值
 
         // Errors; get accessors must return a value.
     }
 
     public get m2() {
 >m2 : void
+>类型别名 :=> 无值
 
         // Permissible; returns undefined.
         return;
@@ -177,6 +190,7 @@ class C {
 
     public get m3() {
 >m3 : string
+>类型别名 :=> 文字
 
         return "Okay, because this is a return expression.";
 >"Okay, because this is a return expression." : "Okay, because this is a return expression."
@@ -184,23 +198,30 @@ class C {
 
     public get m4() {
 >m4 : void
+>类型别名 :=> 无值
 
         // Fine since this consists of a single throw statement.
         throw null;
 >null : null
+>类型别名 :=> 空值
     }
 
     public get m5() {
 >m5 : void
+>类型别名 :=> 无值
 
         // Not fine, since we can *only* consist of a single throw statement
         // if no return statements are present but we are a get accessor.
         throw null;
 >null : null
+>类型别名 :=> 空值
 
         throw undefined.
 >undefined. : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
     }
 > : any
+>类型别名 :=> 任意
 }

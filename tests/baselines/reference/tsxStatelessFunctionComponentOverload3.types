@@ -4,24 +4,30 @@ interface Context {
 
     color: any;
 >color : any
+>类型别名 :=> 任意
 }
 declare function ZeroThingOrTwoThing(): JSX.Element;
 >ZeroThingOrTwoThing : { (): JSX.Element; (l: { yy: number; yy1: string; }, context: Context): JSX.Element; }
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function ZeroThingOrTwoThing(l: {yy: number, yy1: string}, context: Context): JSX.Element;
 >ZeroThingOrTwoThing : { (): JSX.Element; (l: { yy: number; yy1: string; }, context: Context): JSX.Element; }
 >l : { yy: number; yy1: string; }
 >yy : number
+>类型别名 :=> 数字
 >yy1 : string
+>类型别名 :=> 文字
 >context : Context
 >Context : Context
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 let obj2: any;
 >obj2 : any
+>类型别名 :=> 任意
 
 // OK
 const two1 = <ZeroThingOrTwoThing />;
@@ -34,54 +40,69 @@ const two2 = <ZeroThingOrTwoThing yy={100}  yy1="hello"/>;
 ><ZeroThingOrTwoThing yy={100}  yy1="hello"/> : JSX.Element
 >ZeroThingOrTwoThing : { (): JSX.Element; (l: { yy: number; yy1: string; }, context: Context): JSX.Element; }
 >yy : number
+>类型别名 :=> 数字
 >100 : 100
 >yy1 : string
+>类型别名 :=> 文字
 
 const two3 = <ZeroThingOrTwoThing {...obj2} />;  // it is just any so we allow it to pass through
 >two3 : JSX.Element
 ><ZeroThingOrTwoThing {...obj2} /> : JSX.Element
 >ZeroThingOrTwoThing : { (): JSX.Element; (l: { yy: number; yy1: string; }, context: Context): JSX.Element; }
 >obj2 : any
+>类型别名 :=> 任意
 
 const two4 = <ZeroThingOrTwoThing  yy={1000} {...obj2} />;  // it is just any so we allow it to pass through
 >two4 : JSX.Element
 ><ZeroThingOrTwoThing  yy={1000} {...obj2} /> : JSX.Element
 >ZeroThingOrTwoThing : { (): JSX.Element; (l: { yy: number; yy1: string; }, context: Context): JSX.Element; }
 >yy : number
+>类型别名 :=> 数字
 >1000 : 1000
 >obj2 : any
+>类型别名 :=> 任意
 
 const two5 = <ZeroThingOrTwoThing  {...obj2} yy={1000} />;  // it is just any so we allow it to pass through
 >two5 : JSX.Element
 ><ZeroThingOrTwoThing  {...obj2} yy={1000} /> : JSX.Element
 >ZeroThingOrTwoThing : { (): JSX.Element; (l: { yy: number; yy1: string; }, context: Context): JSX.Element; }
 >obj2 : any
+>类型别名 :=> 任意
 >yy : number
+>类型别名 :=> 数字
 >1000 : 1000
 
 declare function ThreeThing(l: {y1: string}): JSX.Element;
 >ThreeThing : { (l: { y1: string; }): JSX.Element; (l: { y2: string; }): JSX.Element; (l: { yy: number; yy1: string; }, context: Context, updater: any): JSX.Element; }
 >l : { y1: string; }
 >y1 : string
+>类型别名 :=> 文字
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function ThreeThing(l: {y2: string}): JSX.Element;
 >ThreeThing : { (l: { y1: string; }): JSX.Element; (l: { y2: string; }): JSX.Element; (l: { yy: number; yy1: string; }, context: Context, updater: any): JSX.Element; }
 >l : { y2: string; }
 >y2 : string
+>类型别名 :=> 文字
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function ThreeThing(l: {yy: number, yy1: string}, context: Context, updater: any): JSX.Element;
 >ThreeThing : { (l: { y1: string; }): JSX.Element; (l: { y2: string; }): JSX.Element; (l: { yy: number; yy1: string; }, context: Context, updater: any): JSX.Element; }
 >l : { yy: number; yy1: string; }
 >yy : number
+>类型别名 :=> 数字
 >yy1 : string
+>类型别名 :=> 文字
 >context : Context
 >Context : Context
 >updater : any
+>类型别名 :=> 任意
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // OK
@@ -90,20 +111,25 @@ const three1 = <ThreeThing yy={99} yy1="hello world" />;
 ><ThreeThing yy={99} yy1="hello world" /> : JSX.Element
 >ThreeThing : { (l: { y1: string; }): JSX.Element; (l: { y2: string; }): JSX.Element; (l: { yy: number; yy1: string; }, context: Context, updater: any): JSX.Element; }
 >yy : number
+>类型别名 :=> 数字
 >99 : 99
 >yy1 : string
+>类型别名 :=> 文字
 
 const three2 = <ThreeThing y2="Bye" />;
 >three2 : JSX.Element
 ><ThreeThing y2="Bye" /> : JSX.Element
 >ThreeThing : { (l: { y1: string; }): JSX.Element; (l: { y2: string; }): JSX.Element; (l: { yy: number; yy1: string; }, context: Context, updater: any): JSX.Element; }
 >y2 : string
+>类型别名 :=> 文字
 
 const three3 = <ThreeThing {...obj2} y2={10} />;  // it is just any so we allow it to pass through
 >three3 : JSX.Element
 ><ThreeThing {...obj2} y2={10} /> : JSX.Element
 >ThreeThing : { (l: { y1: string; }): JSX.Element; (l: { y2: string; }): JSX.Element; (l: { yy: number; yy1: string; }, context: Context, updater: any): JSX.Element; }
 >obj2 : any
+>类型别名 :=> 任意
 >y2 : number
+>类型别名 :=> 数字
 >10 : 10
 

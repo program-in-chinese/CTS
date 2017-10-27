@@ -9,6 +9,7 @@ declare function ComponentSpecific1<U>(l: {prop: U, "ignore-prop": string}): JSX
 >prop : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function ComponentSpecific2<U>(l: {prop: U}): JSX.Element;
@@ -18,6 +19,7 @@ declare function ComponentSpecific2<U>(l: {prop: U}): JSX.Element;
 >prop : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // Error
@@ -25,6 +27,7 @@ function Bar<T extends {prop: number}>(arg: T) {
 >Bar : <T extends { prop: number; }>(arg: T) => void
 >T : T
 >prop : number
+>类型别名 :=> 数字
 >arg : T
 >T : T
 
@@ -34,6 +37,7 @@ function Bar<T extends {prop: number}>(arg: T) {
 >ComponentSpecific1 : <U>(l: { prop: U; "ignore-prop": string; }) => JSX.Element
 >arg : T
 >ignore-prop : number
+>类型别名 :=> 数字
 >10 : 10
  }
 
@@ -59,6 +63,7 @@ declare function Link<U>(l: {func: (arg: U)=>void}): JSX.Element;
 >arg : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // Error
@@ -66,7 +71,9 @@ function createLink(func: (a: number, b: string)=>void) {
 >createLink : (func: (a: number, b: string) => void) => void
 >func : (a: number, b: string) => void
 >a : number
+>类型别名 :=> 数字
 >b : string
+>类型别名 :=> 文字
 
     let o = <Link func={func} />
 >o : JSX.Element
@@ -98,6 +105,7 @@ declare function InferParamComponent<T>(attr: InferParamProp<T>): JSX.Element;
 >InferParamProp : InferParamProp<T>
 >T : T
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // Error
@@ -114,4 +122,5 @@ let i = <InferParamComponent values={[1, 2, 3, 4]} selectHandler={(val: string) 
 >selectHandler : (val: string) => void
 >(val: string) => { } : (val: string) => void
 >val : string
+>类型别名 :=> 文字
 

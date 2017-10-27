@@ -1,15 +1,20 @@
 === tests/cases/conformance/controlFlow/controlFlowIterationErrors.ts ===
 let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 function len(s: string) {
 >len : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 
     return s.length;
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 }
 
 function f1() {
@@ -25,16 +30,20 @@ function f1() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x = len(x);
 >x = len(x) : any
+>类型别名 :=> 任意
 >x : string | number | boolean
 >len(x) : number
+>类型别名 :=> 数字
 >len : (s: string) => number
 >x : string | number
 
         x;
 >x : number
+>类型别名 :=> 数字
     }
     x;
 >x : string | number
@@ -53,14 +62,17 @@ function f2() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x;
 >x : string | number
 
         x = len(x);
 >x = len(x) : any
+>类型别名 :=> 任意
 >x : string | number | boolean
 >len(x) : number
+>类型别名 :=> 数字
 >len : (s: string) => number
 >x : string | number
     }
@@ -71,10 +83,12 @@ function f2() {
 declare function foo(x: string): number;
 >foo : { (x: string): number; (x: number): string; }
 >x : string
+>类型别名 :=> 文字
 
 declare function foo(x: number): string;
 >foo : { (x: string): number; (x: number): string; }
 >x : number
+>类型别名 :=> 数字
 
 function g1() {
 >g1 : () => void
@@ -89,11 +103,14 @@ function g1() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x = foo(x);
 >x = foo(x) : any
+>类型别名 :=> 任意
 >x : string | number | boolean
 >foo(x) : any
+>类型别名 :=> 任意
 >foo : { (x: string): number; (x: number): string; }
 >x : string | number
 
@@ -117,14 +134,17 @@ function g2() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x;
 >x : string | number
 
         x = foo(x);
 >x = foo(x) : any
+>类型别名 :=> 任意
 >x : string | number | boolean
 >foo(x) : any
+>类型别名 :=> 任意
 >foo : { (x: string): number; (x: number): string; }
 >x : string | number
     }
@@ -138,6 +158,7 @@ function asNumber(x: string | number): number {
 
     return +x;
 >+x : number
+>类型别名 :=> 数字
 >x : string | number
 }
 
@@ -154,17 +175,22 @@ function h1() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x = +x + 1;
 >x = +x + 1 : number
+>类型别名 :=> 数字
 >x : string | number | boolean
 >+x + 1 : number
+>类型别名 :=> 数字
 >+x : number
+>类型别名 :=> 数字
 >x : string | number
 >1 : 1
 
         x;
 >x : number
+>类型别名 :=> 数字
     }
 }
 
@@ -181,18 +207,23 @@ function h2() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x = asNumber(x) + 1;
 >x = asNumber(x) + 1 : number
+>类型别名 :=> 数字
 >x : string | number | boolean
 >asNumber(x) + 1 : number
+>类型别名 :=> 数字
 >asNumber(x) : number
+>类型别名 :=> 数字
 >asNumber : (x: string | number) => number
 >x : string | number
 >1 : 1
 
         x;
 >x : number
+>类型别名 :=> 数字
     }
 }
 
@@ -209,22 +240,29 @@ function h3() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         let y = asNumber(x);
 >y : number
+>类型别名 :=> 数字
 >asNumber(x) : number
+>类型别名 :=> 数字
 >asNumber : (x: string | number) => number
 >x : string | number
 
         x = y + 1;
 >x = y + 1 : number
+>类型别名 :=> 数字
 >x : string | number | boolean
 >y + 1 : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
         x;
 >x : number
+>类型别名 :=> 数字
     }
 }
 
@@ -241,25 +279,32 @@ function h4() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x;
 >x : string | number
 
         let y = asNumber(x);
 >y : number
+>类型别名 :=> 数字
 >asNumber(x) : number
+>类型别名 :=> 数字
 >asNumber : (x: string | number) => number
 >x : string | number
 
         x = y + 1;
 >x = y + 1 : number
+>类型别名 :=> 数字
 >x : string | number | boolean
 >y + 1 : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
         x;
 >x : number
+>类型别名 :=> 数字
     }
 }
 

@@ -4,25 +4,31 @@ class Shape {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 
     width: number;
 >width : number
+>类型别名 :=> 数字
 
     height: number;
 >height : number
+>类型别名 :=> 数字
 
     visible: boolean;
 >visible : boolean
+>类型别名 :=> 真假
 }
 
 type Dictionary<T> = { [x: string]: T };
 >Dictionary : Dictionary<T>
 >T : T
 >x : string
+>类型别名 :=> 文字
 >T : T
 
 type T00 = keyof K0;  // Error
 >T00 : string
+>类型别名 :=> 文字
 >K0 : No type information available!
 
 type T01 = keyof Object;
@@ -51,96 +57,122 @@ type T06 = keyof keyof keyof keyof keyof keyof Object;
 
 type T10 = Shape["name"];
 >T10 : string
+>类型别名 :=> 文字
 >Shape : Shape
 
 type T11 = Shape["foo"];  // Error
 >T11 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T12 = Shape["name" | "foo"];  // Error
 >T12 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T13 = Shape[any];  // Error
 >T13 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T14 = Shape[string];  // Error
 >T14 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T15 = Shape[number];  // Error
 >T15 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T16 = Shape[boolean];  // Error
 >T16 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T17 = Shape[void];  // Error
 >T17 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T18 = Shape[undefined];  // Error
 >T18 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T19 = Shape[{ x: string }];  // Error
 >T19 : any
+>类型别名 :=> 任意
 >Shape : Shape
 >x : string
+>类型别名 :=> 文字
 
 type T20 = Shape[string | number];  // Error
 >T20 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T21 = Shape[string & number];  // Error
 >T21 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T22 = Shape[string | boolean];  // Error
 >T22 : any
+>类型别名 :=> 任意
 >Shape : Shape
 
 type T30 = string[]["length"];
 >T30 : number
+>类型别名 :=> 数字
 
 type T31 = string[][number];
 >T31 : string
+>类型别名 :=> 文字
 
 type T32 = string[][string];  // Error
 >T32 : any
+>类型别名 :=> 任意
 
 type T33 = string[][boolean];  // Error
 >T33 : any
+>类型别名 :=> 任意
 
 type T40 = Dictionary<string>[any];
 >T40 : string
+>类型别名 :=> 文字
 >Dictionary : Dictionary<T>
 
 type T41 = Dictionary<string>[number];
 >T41 : string
+>类型别名 :=> 文字
 >Dictionary : Dictionary<T>
 
 type T42 = Dictionary<string>[string];
 >T42 : string
+>类型别名 :=> 文字
 >Dictionary : Dictionary<T>
 
 type T43 = Dictionary<string>[boolean];  // Error
 >T43 : any
+>类型别名 :=> 任意
 >Dictionary : Dictionary<T>
 
 type T50 = any[any];
 >T50 : any
+>类型别名 :=> 任意
 
 type T51 = any[number];
 >T51 : any
+>类型别名 :=> 任意
 
 type T52 = any[string];
 >T52 : any
+>类型别名 :=> 任意
 
 type T53 = any[boolean];  // Error
 >T53 : any
+>类型别名 :=> 任意
 
 type T60 = {}["toString"];
 >T60 : () => string
@@ -150,6 +182,7 @@ type T61 = []["toString"];
 
 declare let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 function getProperty<T, K extends keyof T>(obj: T, key: K) {
 >getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
@@ -195,30 +228,38 @@ function f10(shape: Shape) {
 
     let x1 = getProperty(shape, "name");
 >x1 : string
+>类型别名 :=> 文字
 >getProperty(shape, "name") : string
+>类型别名 :=> 文字
 >getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >"name" : "name"
 
     let x2 = getProperty(shape, "size");  // Error
 >x2 : any
+>类型别名 :=> 任意
 >getProperty(shape, "size") : any
+>类型别名 :=> 任意
 >getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >"size" : "size"
 
     let x3 = getProperty(shape, cond ? "name" : "size");  // Error
 >x3 : any
+>类型别名 :=> 任意
 >getProperty(shape, cond ? "name" : "size") : any
+>类型别名 :=> 任意
 >getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >cond ? "name" : "size" : "name" | "size"
 >cond : boolean
+>类型别名 :=> 真假
 >"name" : "name"
 >"size" : "size"
 
     setProperty(shape, "name", "rectangle");
 >setProperty(shape, "name", "rectangle") : void
+>类型别名 :=> 无值
 >setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >"name" : "name"
@@ -226,6 +267,7 @@ function f10(shape: Shape) {
 
     setProperty(shape, "size", 10);  // Error
 >setProperty(shape, "size", 10) : any
+>类型别名 :=> 任意
 >setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >"size" : "size"
@@ -233,10 +275,12 @@ function f10(shape: Shape) {
 
     setProperty(shape, cond ? "name" : "size", 10);  // Error
 >setProperty(shape, cond ? "name" : "size", 10) : any
+>类型别名 :=> 任意
 >setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >cond ? "name" : "size" : "name" | "size"
 >cond : boolean
+>类型别名 :=> 真假
 >"name" : "name"
 >"size" : "size"
 >10 : 10

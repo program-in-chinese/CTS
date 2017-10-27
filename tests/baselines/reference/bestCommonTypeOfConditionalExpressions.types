@@ -5,26 +5,33 @@
 var a: { x: number; y?: number };
 >a : { x: number; y?: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 var b: { x: number; z?: number };
 >b : { x: number; z?: number; }
 >x : number
+>类型别名 :=> 数字
 >z : number
+>类型别名 :=> 数字
 
 class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 class Derived2 extends Base { baz: string; }
 >Derived2 : Derived2
 >Base : Base
 >baz : string
+>类型别名 :=> 文字
 
 var base: Base;
 >base : Base
@@ -40,8 +47,10 @@ var derived2: Derived2;
 
 var r = true ? 1 : 2;
 >r : number
+>类型别名 :=> 数字
 >true ? 1 : 2 : 1 | 2
 >true : true
+>类型别名 :=> 为真
 >1 : 1
 >2 : 2
 
@@ -49,6 +58,7 @@ var r3 = true ? 1 : {};
 >r3 : {}
 >true ? 1 : {} : {}
 >true : true
+>类型别名 :=> 为真
 >1 : 1
 >{} : {}
 
@@ -56,6 +66,7 @@ var r4 = true ? a : b; // typeof a
 >r4 : { x: number; y?: number; } | { x: number; z?: number; }
 >true ? a : b : { x: number; y?: number; } | { x: number; z?: number; }
 >true : true
+>类型别名 :=> 为真
 >a : { x: number; y?: number; }
 >b : { x: number; z?: number; }
 
@@ -63,6 +74,7 @@ var r5 = true ? b : a; // typeof b
 >r5 : { x: number; y?: number; } | { x: number; z?: number; }
 >true ? b : a : { x: number; y?: number; } | { x: number; z?: number; }
 >true : true
+>类型别名 :=> 为真
 >b : { x: number; z?: number; }
 >a : { x: number; y?: number; }
 
@@ -70,8 +82,10 @@ var r6 = true ? (x: number) => { } : (x: Object) => { }; // returns number => vo
 >r6 : (x: number) => void
 >true ? (x: number) => { } : (x: Object) => { } : (x: number) => void
 >true : true
+>类型别名 :=> 为真
 >(x: number) => { } : (x: number) => void
 >x : number
+>类型别名 :=> 数字
 >(x: Object) => { } : (x: Object) => void
 >x : Object
 >Object : Object
@@ -82,8 +96,10 @@ var r7: (x: Object) => void = true ? (x: number) => { } : (x: Object) => { };
 >Object : Object
 >true ? (x: number) => { } : (x: Object) => { } : (x: number) => void
 >true : true
+>类型别名 :=> 为真
 >(x: number) => { } : (x: number) => void
 >x : number
+>类型别名 :=> 数字
 >(x: Object) => { } : (x: Object) => void
 >x : Object
 >Object : Object
@@ -92,17 +108,20 @@ var r8 = true ? (x: Object) => { } : (x: number) => { }; // returns Object => vo
 >r8 : (x: Object) => void
 >true ? (x: Object) => { } : (x: number) => { } : (x: Object) => void
 >true : true
+>类型别名 :=> 为真
 >(x: Object) => { } : (x: Object) => void
 >x : Object
 >Object : Object
 >(x: number) => { } : (x: number) => void
 >x : number
+>类型别名 :=> 数字
 
 var r10: Base = true ? derived : derived2; // no error since we use the contextual type in BCT
 >r10 : Base
 >Base : Base
 >true ? derived : derived2 : Derived | Derived2
 >true : true
+>类型别名 :=> 为真
 >derived : Derived
 >derived2 : Derived2
 
@@ -110,6 +129,7 @@ var r11 = true ? base : derived2;
 >r11 : Base
 >true ? base : derived2 : Base
 >true : true
+>类型别名 :=> 为真
 >base : Base
 >derived2 : Derived2
 
@@ -126,6 +146,7 @@ function foo5<T, U>(t: T, u: U): Object {
     return true ? t : u; // BCT is Object
 >true ? t : u : T | U
 >true : true
+>类型别名 :=> 为真
 >t : T
 >u : U
 }

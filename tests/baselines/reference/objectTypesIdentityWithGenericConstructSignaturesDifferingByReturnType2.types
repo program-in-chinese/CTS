@@ -12,6 +12,7 @@ class B<T extends Date> {
 >x : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 class C<T extends Date> {
@@ -23,6 +24,7 @@ class C<T extends Date> {
 >x : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 interface I<T extends Date> {
@@ -64,6 +66,7 @@ var b = { new<T extends Date>(x: T) { return null; } }; // not a construct signa
 >x : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
 function foo1b(x: B<Date>);
 >foo1b : { (x: B<Date>): any; (x: B<Date>): any; }
@@ -80,6 +83,7 @@ function foo1b(x: B<Date>); // error
 function foo1b(x: any) { }
 >foo1b : { (x: B<Date>): any; (x: B<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo1c(x: C<Date>);
 >foo1c : { (x: C<Date>): any; (x: C<Date>): any; }
@@ -96,6 +100,7 @@ function foo1c(x: C<Date>); // error
 function foo1c(x: any) { }
 >foo1c : { (x: C<Date>): any; (x: C<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo2(x: I<Date>);
 >foo2 : { (x: I<Date>): any; (x: I<Date>): any; }
@@ -112,6 +117,7 @@ function foo2(x: I<Date>); // error
 function foo2(x: any) { }
 >foo2 : { (x: I<Date>): any; (x: I<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo3(x: typeof a);
 >foo3 : { (x: new <T extends Date>(x: T) => T): any; (x: new <T extends Date>(x: T) => T): any; }
@@ -126,6 +132,7 @@ function foo3(x: typeof a); // error
 function foo3(x: any) { }
 >foo3 : { (x: new <T extends Date>(x: T) => T): any; (x: new <T extends Date>(x: T) => T): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo4(x: typeof b);
 >foo4 : { (x: { new<T extends Date>(x: T): any; }): any; (x: { new<T extends Date>(x: T): any; }): any; }
@@ -140,6 +147,7 @@ function foo4(x: typeof b); // error
 function foo4(x: any) { }
 >foo4 : { (x: { new<T extends Date>(x: T): any; }): any; (x: { new<T extends Date>(x: T): any; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo8(x: B<Date>);
 >foo8 : { (x: B<Date>): any; (x: I<Date>): any; }
@@ -156,6 +164,7 @@ function foo8(x: I<Date>); // ok
 function foo8(x: any) { }
 >foo8 : { (x: B<Date>): any; (x: I<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo9(x: B<Date>);
 >foo9 : { (x: B<Date>): any; (x: C<Date>): any; }
@@ -172,6 +181,7 @@ function foo9(x: C<Date>); // error since types are structurally equal
 function foo9(x: any) { }
 >foo9 : { (x: B<Date>): any; (x: C<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo10(x: B<Date>);
 >foo10 : { (x: B<Date>): any; (x: new <T extends Date>(x: T) => T): any; }
@@ -187,6 +197,7 @@ function foo10(x: typeof a); // ok
 function foo10(x: any) { }
 >foo10 : { (x: B<Date>): any; (x: new <T extends Date>(x: T) => T): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo11(x: B<Date>);
 >foo11 : { (x: B<Date>): any; (x: { new<T extends Date>(x: T): any; }): any; }
@@ -202,6 +213,7 @@ function foo11(x: typeof b); // ok
 function foo11(x: any) { }
 >foo11 : { (x: B<Date>): any; (x: { new<T extends Date>(x: T): any; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12(x: I<Date>);
 >foo12 : { (x: I<Date>): any; (x: C<Date>): any; }
@@ -218,6 +230,7 @@ function foo12(x: C<Date>); // ok
 function foo12(x: any) { }
 >foo12 : { (x: I<Date>): any; (x: C<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12b(x: I2);
 >foo12b : { (x: I2): any; (x: C<Date>): any; }
@@ -233,6 +246,7 @@ function foo12b(x: C<Date>); // ok
 function foo12b(x: any) { }
 >foo12b : { (x: I2): any; (x: C<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo13(x: I<Date>);
 >foo13 : { (x: I<Date>): any; (x: new <T extends Date>(x: T) => T): any; }
@@ -248,6 +262,7 @@ function foo13(x: typeof a); // ok
 function foo13(x: any) { }
 >foo13 : { (x: I<Date>): any; (x: new <T extends Date>(x: T) => T): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo14(x: I<Date>);
 >foo14 : { (x: I<Date>): any; (x: { new<T extends Date>(x: T): any; }): any; }
@@ -263,6 +278,7 @@ function foo14(x: typeof b); // ok
 function foo14(x: any) { }
 >foo14 : { (x: I<Date>): any; (x: { new<T extends Date>(x: T): any; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo15(x: I2);
 >foo15 : { (x: I2): any; (x: C<Date>): any; }
@@ -278,4 +294,5 @@ function foo15(x: C<Date>); // ok
 function foo15(x: any) { }
 >foo15 : { (x: I2): any; (x: C<Date>): any; }
 >x : any
+>类型别名 :=> 任意
 

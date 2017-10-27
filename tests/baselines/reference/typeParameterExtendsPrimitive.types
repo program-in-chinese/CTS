@@ -18,6 +18,7 @@ function f<T extends number>() {
     }
     return t + t;
 >t + t : number
+>类型别名 :=> 数字
 >t : T
 >t : T
 }
@@ -26,6 +27,7 @@ function f<T extends number>() {
 interface I { x: number }
 >I : I
 >x : number
+>类型别名 :=> 数字
 
 type IdMap<T> = { [P in keyof T]: T[P] };
 >IdMap : IdMap<T>
@@ -45,12 +47,14 @@ function g<T extends I>(i: IdMap<T>) {
 
     const n: number = i.x;
 >n : number
+>类型别名 :=> 数字
 >i.x : T["x"]
 >i : IdMap<T>
 >x : T["x"]
 
     return i.x * 2;
 >i.x * 2 : number
+>类型别名 :=> 数字
 >i.x : T["x"]
 >i : IdMap<T>
 >x : T["x"]
@@ -71,6 +75,7 @@ function h<T extends Record<K, number>, K extends string>(array: T[], prop: K): 
 
     let result = 0;
 >result : number
+>类型别名 :=> 数字
 >0 : 0
 
     for (const v of array) {
@@ -79,12 +84,15 @@ function h<T extends Record<K, number>, K extends string>(array: T[], prop: K): 
 
         result += v[prop];
 >result += v[prop] : number
+>类型别名 :=> 数字
 >result : number
+>类型别名 :=> 数字
 >v[prop] : T[K]
 >v : T
 >prop : K
     }
     return result;
 >result : number
+>类型别名 :=> 数字
 }
 

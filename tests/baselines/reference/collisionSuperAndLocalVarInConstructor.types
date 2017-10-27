@@ -1,6 +1,7 @@
 === tests/cases/compiler/collisionSuperAndLocalVarInConstructor.ts ===
 var _super = 10; // No Error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
 
 class Foo {
@@ -9,6 +10,7 @@ class Foo {
     constructor() {
         var _super = 10; // No error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -19,10 +21,12 @@ class b extends Foo {
     constructor() {
         super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof Foo
 
         var _super = 10; // Should be error 
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }
@@ -33,6 +37,7 @@ class c extends Foo {
     constructor() {
         super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof Foo
 
         var x = () => {
@@ -41,6 +46,7 @@ class c extends Foo {
 
             var _super = 10; // Should be error
 >_super : number
+>类型别名 :=> 数字
 >10 : 10
         }
     }

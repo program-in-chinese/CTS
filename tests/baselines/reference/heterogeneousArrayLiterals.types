@@ -12,6 +12,7 @@ var b = [1, null]; // number[]
 >[1, null] : number[]
 >1 : 1
 >null : null
+>类型别名 :=> 空值
 
 var c = [1, '', null]; // {}[]
 >c : (string | number)[]
@@ -19,6 +20,7 @@ var c = [1, '', null]; // {}[]
 >1 : 1
 >'' : ""
 >null : null
+>类型别名 :=> 空值
 
 var d = [{}, 1]; // {}[]
 >d : {}[]
@@ -52,11 +54,14 @@ var h = [{ foo: 1, bar: '' }, { foo: 2 }]; // {foo: number}[]
 >[{ foo: 1, bar: '' }, { foo: 2 }] : ({ foo: number; bar: string; } | { foo: number; })[]
 >{ foo: 1, bar: '' } : { foo: number; bar: string; }
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
 >bar : string
+>类型别名 :=> 文字
 >'' : ""
 >{ foo: 2 } : { foo: number; }
 >foo : number
+>类型别名 :=> 数字
 >2 : 2
 
 var i = [{ foo: 1, bar: '' }, { foo: '' }]; // {}[]
@@ -64,11 +69,14 @@ var i = [{ foo: 1, bar: '' }, { foo: '' }]; // {}[]
 >[{ foo: 1, bar: '' }, { foo: '' }] : ({ foo: number; bar: string; } | { foo: string; })[]
 >{ foo: 1, bar: '' } : { foo: number; bar: string; }
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
 >bar : string
+>类型别名 :=> 文字
 >'' : ""
 >{ foo: '' } : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >'' : ""
 
 var j = [() => 1, () => '']; // {}[]
@@ -94,6 +102,7 @@ var l = [() => 1, () => null]; // { (): any }[]
 >1 : 1
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
 var m = [() => 1, () => '', () => null]; // { (): any }[]
 >m : (() => any)[]
@@ -104,6 +113,7 @@ var m = [() => 1, () => '', () => null]; // { (): any }[]
 >'' : ""
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
 var n = [[() => 1], [() => '']]; // {}[]
 >n : ((() => number)[] | (() => string)[])[]
@@ -118,16 +128,19 @@ var n = [[() => 1], [() => '']]; // {}[]
 class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 class Derived2 extends Base { baz: string; }
 >Derived2 : Derived2
 >Base : Base
 >baz : string
+>类型别名 :=> 文字
 
 var base: Base;
 >base : Base
@@ -191,6 +204,7 @@ module Derived {
 >base : Base
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
     var m = [() => base, () => derived, () => null]; // { (): any }[]
 >m : (() => any)[]
@@ -201,6 +215,7 @@ module Derived {
 >derived : Derived
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
     var n = [[() => base], [() => derived]]; // { (): Base }[]
 >n : (() => Base)[][]
@@ -252,6 +267,7 @@ module WithContextualType {
 >Derived : Derived
 >[null] : null[]
 >null : null
+>类型别名 :=> 空值
 
     var c: Derived[] = [];
 >c : Derived[]
@@ -288,6 +304,7 @@ function foo<T, U>(t: T, u: U) {
 >[t, null] : T[]
 >t : T
 >null : null
+>类型别名 :=> 空值
 
     var c = [t, u]; // {}[]
 >c : (T | U)[]
@@ -318,6 +335,7 @@ function foo<T, U>(t: T, u: U) {
 >u : U
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 }
 
 function foo2<T extends Base, U extends Derived>(t: T, u: U) {
@@ -342,6 +360,7 @@ function foo2<T extends Base, U extends Derived>(t: T, u: U) {
 >[t, null] : T[]
 >t : T
 >null : null
+>类型别名 :=> 空值
 
     var c = [t, u]; // {}[]
 >c : (T | U)[]
@@ -372,6 +391,7 @@ function foo2<T extends Base, U extends Derived>(t: T, u: U) {
 >u : U
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
     var g = [t, base]; // Base[]
 >g : Base[]
@@ -420,6 +440,7 @@ function foo3<T extends Derived, U extends Derived>(t: T, u: U) {
 >[t, null] : T[]
 >t : T
 >null : null
+>类型别名 :=> 空值
 
     var c = [t, u]; // {}[]
 >c : (T | U)[]
@@ -450,6 +471,7 @@ function foo3<T extends Derived, U extends Derived>(t: T, u: U) {
 >u : U
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
     var g = [t, base]; // Base[]
 >g : Base[]
@@ -498,6 +520,7 @@ function foo4<T extends Base, U extends Base>(t: T, u: U) {
 >[t, null] : T[]
 >t : T
 >null : null
+>类型别名 :=> 空值
 
     var c = [t, u]; // BUG 821629
 >c : (T | U)[]
@@ -528,6 +551,7 @@ function foo4<T extends Base, U extends Base>(t: T, u: U) {
 >u : U
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 
     var g = [t, base]; // Base[]
 >g : Base[]

@@ -10,12 +10,15 @@ class T {
 
     prop: number;
 >prop : number
+>类型别名 :=> 数字
 }
 
 x.prop;
 >x.prop : number
+>类型别名 :=> 数字
 >x : T
 >prop : number
+>类型别名 :=> 数字
 
 // Just to be sure that @property has no impact either.
 /**
@@ -24,6 +27,7 @@ x.prop;
  */
 declare const myType: MyType; // should error, no such type
 >myType : any
+>类型别名 :=> 任意
 >MyType : No type information available!
 
 // @param type has no effect.
@@ -34,20 +38,28 @@ declare const myType: MyType; // should error, no such type
 function f(x: boolean) { return x * 2; } // Should error
 >f : (x: boolean) => number
 >x : boolean
+>类型别名 :=> 真假
 >x * 2 : number
+>类型别名 :=> 数字
 >x : boolean
+>类型别名 :=> 真假
 >2 : 2
 
 // Should fail, because it takes a boolean and returns a number
 f(1); f(true).length;
 >f(1) : number
+>类型别名 :=> 数字
 >f : (x: boolean) => number
 >1 : 1
 >f(true).length : any
+>类型别名 :=> 任意
 >f(true) : number
+>类型别名 :=> 数字
 >f : (x: boolean) => number
 >true : true
+>类型别名 :=> 为真
 >length : any
+>类型别名 :=> 任意
 
 // @type has no effect either.
 /** @type {{ x?: number }} */
@@ -58,8 +70,10 @@ const z = {};
 z.x = 1; // Error
 >z.x = 1 : 1
 >z.x : any
+>类型别名 :=> 任意
 >z : {}
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 
 // @template tag should not interfere with constraint or default.
@@ -85,6 +99,7 @@ let i: I; // Should succeed thanks to type parameter default
 /** @typedef {string} N.Str */
 import M = N; // Error: @typedef does not create namespaces in TypeScript code.
 >M : any
+>类型别名 :=> 任意
 >N : No type information available!
 
 // Not legal JSDoc, but that shouldn't matter in TypeScript.
@@ -97,8 +112,13 @@ const obj = { foo: (a, b) => a + b };
 >foo : (a: any, b: any) => any
 >(a, b) => a + b : (a: any, b: any) => any
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >a + b : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 

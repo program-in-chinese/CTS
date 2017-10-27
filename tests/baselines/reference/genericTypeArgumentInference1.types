@@ -1,6 +1,7 @@
 === tests/cases/compiler/genericTypeArgumentInference1.ts ===
 module Underscore {
 >Underscore : any
+>类型别名 :=> 任意
 
     export interface Iterator<T, U> {
 >Iterator : Iterator<T, U>
@@ -11,7 +12,9 @@ module Underscore {
 >value : T
 >T : T
 >index : any
+>类型别名 :=> 任意
 >list : any
+>类型别名 :=> 任意
 >U : U
     }
     export interface Static {
@@ -26,6 +29,7 @@ module Underscore {
 >Iterator : Iterator<T, U>
 >T : T
 >context : any
+>类型别名 :=> 任意
 >T : T
 
         identity<T>(value: T): T;
@@ -39,18 +43,23 @@ module Underscore {
 declare var _: Underscore.Static;
 >_ : Underscore.Static
 >Underscore : any
+>类型别名 :=> 任意
 >Static : Underscore.Static
 
 var r = _.all([true, 1, null, 'yes'], _.identity);
 >r : any
+>类型别名 :=> 任意
 >_.all([true, 1, null, 'yes'], _.identity) : any
+>类型别名 :=> 任意
 >_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
 >all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >[true, 1, null, 'yes'] : (string | number | boolean)[]
 >true : true
+>类型别名 :=> 为真
 >1 : 1
 >null : null
+>类型别名 :=> 空值
 >'yes' : "yes"
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
@@ -58,19 +67,24 @@ var r = _.all([true, 1, null, 'yes'], _.identity);
 
 var r2 = _.all([true], _.identity);
 >r2 : boolean
+>类型别名 :=> 真假
 >_.all([true], _.identity) : boolean
+>类型别名 :=> 真假
 >_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
 >all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >[true] : true[]
 >true : true
+>类型别名 :=> 为真
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
 >identity : <T>(value: T) => T
 
 var r3 = _.all([], _.identity);
 >r3 : any
+>类型别名 :=> 任意
 >_.all([], _.identity) : any
+>类型别名 :=> 任意
 >_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
 >all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
@@ -81,13 +95,17 @@ var r3 = _.all([], _.identity);
 
 var r4 = _.all([<any>true], _.identity);
 >r4 : any
+>类型别名 :=> 任意
 >_.all([<any>true], _.identity) : any
+>类型别名 :=> 任意
 >_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
 >all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >[<any>true] : any[]
 ><any>true : any
+>类型别名 :=> 任意
 >true : true
+>类型别名 :=> 为真
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
 >identity : <T>(value: T) => T

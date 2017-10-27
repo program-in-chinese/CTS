@@ -18,6 +18,7 @@ function f1(s: Set<string> | Set<number>) {
 
     if (s instanceof Set) {
 >s instanceof Set : boolean
+>类型别名 :=> 真假
 >s : Set<number>
 >Set : SetConstructor
 
@@ -52,6 +53,7 @@ function f2(s: Set<string> | Set<number>) {
 
     if (s instanceof Promise) {
 >s instanceof Promise : boolean
+>类型别名 :=> 真假
 >s : Set<number>
 >Promise : PromiseConstructor
 
@@ -80,6 +82,7 @@ function f3(s: Set<string> | Set<number>) {
 
     if (s instanceof Set) {
 >s instanceof Set : boolean
+>类型别名 :=> 真假
 >s : Set<string> | Set<number>
 >Set : SetConstructor
 
@@ -89,6 +92,7 @@ function f3(s: Set<string> | Set<number>) {
     else {
         s;  // never
 >s : never
+>类型别名 :=> 不及
     }
 }
 
@@ -109,6 +113,7 @@ function f4(s: Set<string> | Set<number>) {
 
     if (s instanceof Set) {
 >s instanceof Set : boolean
+>类型别名 :=> 真假
 >s : Set<number>
 >Set : SetConstructor
 
@@ -118,6 +123,7 @@ function f4(s: Set<string> | Set<number>) {
     else {
         s;  // never
 >s : never
+>类型别名 :=> 不及
     }
 }
 
@@ -126,16 +132,19 @@ function f4(s: Set<string> | Set<number>) {
 class A { a: string }
 >A : A
 >a : string
+>类型别名 :=> 文字
 
 class B extends A { b: string }
 >B : B
 >A : A
 >b : string
+>类型别名 :=> 文字
 
 class C extends A { c: string }
 >C : C
 >A : A
 >c : string
+>类型别名 :=> 文字
 
 function foo(x: A | undefined) {
 >foo : (x: A) => void
@@ -147,10 +156,13 @@ function foo(x: A | undefined) {
 
     if (x instanceof B || x instanceof C) {
 >x instanceof B || x instanceof C : boolean
+>类型别名 :=> 真假
 >x instanceof B : boolean
+>类型别名 :=> 真假
 >x : A
 >B : typeof B
 >x instanceof C : boolean
+>类型别名 :=> 真假
 >x : A
 >C : typeof C
 
@@ -162,10 +174,13 @@ function foo(x: A | undefined) {
 
     if (x instanceof B && x instanceof C) {
 >x instanceof B && x instanceof C : boolean
+>类型别名 :=> 真假
 >x instanceof B : boolean
+>类型别名 :=> 真假
 >x : A
 >B : typeof B
 >x instanceof C : boolean
+>类型别名 :=> 真假
 >x : B
 >C : typeof C
 
@@ -177,6 +192,7 @@ function foo(x: A | undefined) {
 
     if (!x) {
 >!x : boolean
+>类型别名 :=> 真假
 >x : A
 
         return;
@@ -186,6 +202,7 @@ function foo(x: A | undefined) {
 
     if (x instanceof B) {
 >x instanceof B : boolean
+>类型别名 :=> 真假
 >x : A
 >B : typeof B
 
@@ -194,6 +211,7 @@ function foo(x: A | undefined) {
 
         if (x instanceof C) {
 >x instanceof C : boolean
+>类型别名 :=> 真假
 >x : B
 >C : typeof C
 
@@ -223,6 +241,7 @@ interface X {
 
     x?: string;
 >x : string
+>类型别名 :=> 文字
 }
 
 class Y {
@@ -230,6 +249,7 @@ class Y {
 
     y: string;
 >y : string
+>类型别名 :=> 文字
 }
 
 function goo(x: X) {
@@ -242,13 +262,16 @@ function goo(x: X) {
 
     if (x instanceof Y) {
 >x instanceof Y : boolean
+>类型别名 :=> 真假
 >x : X
 >Y : typeof Y
 
         x.y;
 >x.y : string
+>类型别名 :=> 文字
 >x : X & Y
 >y : string
+>类型别名 :=> 文字
     }
     x;
 >x : X

@@ -17,6 +17,7 @@ function foo<T, U>(arg: { cb: new(t: T) => U }) {
 >arg : { cb: new (t: T) => U; }
 >cb : new (t: T) => U
 >null : null
+>类型别名 :=> 空值
 }
 
 var arg: { cb: new<T>(x: T) => string };
@@ -28,7 +29,9 @@ var arg: { cb: new<T>(x: T) => string };
 
 var r = foo(arg); // {}
 >r : string
+>类型别名 :=> 文字
 >foo(arg) : string
+>类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
 >arg : { cb: new <T>(x: T) => string; }
 
@@ -44,7 +47,9 @@ var arg2: { cb: new <T>(x: T, y: T) => string };
 
 var r2 = foo(arg2); // error
 >r2 : any
+>类型别名 :=> 任意
 >foo(arg2) : any
+>类型别名 :=> 任意
 >foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
 >arg2 : { cb: new <T>(x: T, y: T) => string; }
 
@@ -52,11 +57,15 @@ var arg3: { cb: new (x: string, y: number) => string };
 >arg3 : { cb: new (x: string, y: number) => string; }
 >cb : new (x: string, y: number) => string
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
 var r3 = foo(arg3); // error
 >r3 : any
+>类型别名 :=> 任意
 >foo(arg3) : any
+>类型别名 :=> 任意
 >foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
 >arg3 : { cb: new (x: string, y: number) => string; }
 
@@ -78,13 +87,17 @@ function foo2<T, U>(arg: { cb: new(t: T, t2: T) => U }) {
 >arg : { cb: new (t: T, t2: T) => U; }
 >cb : new (t: T, t2: T) => U
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 }
 
 // fewer args ok
 var r4 = foo(arg); // {}
 >r4 : string
+>类型别名 :=> 文字
 >foo(arg) : string
+>类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
 >arg : { cb: new <T>(x: T) => string; }
 
@@ -92,10 +105,13 @@ var arg4: { cb: new (x: string) => string };
 >arg4 : { cb: new (x: string) => string; }
 >cb : new (x: string) => string
 >x : string
+>类型别名 :=> 文字
 
 var r6 = foo(arg4); // string
 >r6 : string
+>类型别名 :=> 文字
 >foo(arg4) : string
+>类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
 >arg4 : { cb: new (x: string) => string; }
 
@@ -105,7 +121,9 @@ var arg5: { cb: new () => string };
 
 var r7 = foo(arg5); // string
 >r7 : string
+>类型别名 :=> 文字
 >foo(arg5) : string
+>类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
 >arg5 : { cb: new () => string; }
 

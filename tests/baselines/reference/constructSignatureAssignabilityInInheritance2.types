@@ -4,21 +4,25 @@
 class Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
 >bing : string
+>类型别名 :=> 文字
 
 interface A { // T
 >A : A
@@ -27,24 +31,30 @@ interface A { // T
     a: new (x: number) => number[];
 >a : new (x: number) => number[]
 >x : number
+>类型别名 :=> 数字
 
     a2: new (x: number) => string[];
 >a2 : new (x: number) => string[]
 >x : number
+>类型别名 :=> 数字
 
     a3: new (x: number) => void;
 >a3 : new (x: number) => void
 >x : number
+>类型别名 :=> 数字
 
     a4: new (x: string, y: number) => string;
 >a4 : new (x: string, y: number) => string
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
     a5: new (x: (arg: string) => number) => string;
 >a5 : new (x: (arg: string) => number) => string
 >x : (arg: string) => number
 >arg : string
+>类型别名 :=> 文字
 
     a6: new (x: (arg: Base) => Derived) => Base;
 >a6 : new (x: (arg: Base) => Derived) => Base
@@ -102,9 +112,12 @@ interface A { // T
 >a11 : new (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
 >x : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 >y : { foo: string; bar: string; }
 >foo : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 >Base : Base
 
     a12: new (x: Array<Base>, y: Array<Derived2>) => Array<Derived>;
@@ -133,7 +146,9 @@ interface A { // T
 >a14 : new (x: { a: string; b: number; }) => Object
 >x : { a: string; b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >Object : Object
 
     a15: {
@@ -141,9 +156,11 @@ interface A { // T
 
         new (x: number): number[];
 >x : number
+>类型别名 :=> 数字
 
         new (x: string): string[];
 >x : string
+>类型别名 :=> 文字
 
     };
     a16: {
@@ -168,10 +185,12 @@ interface A { // T
         new (x: new (a: number) => number): number[];
 >x : new (a: number) => number
 >a : number
+>类型别名 :=> 数字
 
         new (x: new (a: string) => string): string[];
 >x : new (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
     };
     a18: {
@@ -182,9 +201,11 @@ interface A { // T
 
             new (a: number): number;
 >a : number
+>类型别名 :=> 数字
 
             new (a: string): string;
 >a : string
+>类型别名 :=> 文字
 
         }): any[];
         new (x: {
@@ -192,6 +213,7 @@ interface A { // T
 
             new (a: boolean): boolean;
 >a : boolean
+>类型别名 :=> 真假
 
             new (a: Date): Date;
 >a : Date
@@ -305,7 +327,9 @@ interface I extends A {
 >y : (arg2: { foo: string; bing: number; }) => U
 >arg2 : { foo: string; bing: number; }
 >foo : string
+>类型别名 :=> 文字
 >bing : number
+>类型别名 :=> 数字
 >U : U
 >r : T
 >T : T

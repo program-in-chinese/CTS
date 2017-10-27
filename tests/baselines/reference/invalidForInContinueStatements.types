@@ -7,18 +7,23 @@ continue;
 // non-existent label
 ONE:
 >ONE : any
+>类型别名 :=> 任意
 
 for (var x in {}) continue TWO;
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 >TWO : any
+>类型别名 :=> 任意
 
 // continue from inside function
 TWO:
 >TWO : any
+>类型别名 :=> 任意
 
 for (var x in {}) {
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 
     var fn = () => {
@@ -27,14 +32,17 @@ for (var x in {}) {
 
         continue TWO;
 >TWO : any
+>类型别名 :=> 任意
     }
 }
 
 THREE:
 >THREE : any
+>类型别名 :=> 任意
 
 for (var x in {}) {
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 
     var fn = function () {
@@ -43,37 +51,46 @@ for (var x in {}) {
 
         continue THREE;
 >THREE : any
+>类型别名 :=> 任意
     }
 }
 
 // continue forward
 for (var x in {}) {
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 
     continue FIVE;
 >FIVE : any
+>类型别名 :=> 任意
 
     FIVE:
 >FIVE : any
+>类型别名 :=> 任意
 
     for (var x in {}) { }
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 }
 
 // label on non-loop statement
 NINE:
 >NINE : any
+>类型别名 :=> 任意
 
 var y = 12;
 >y : number
+>类型别名 :=> 数字
 >12 : 12
 
 for (var x in {}) {
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 
     continue NINE;
 >NINE : any
+>类型别名 :=> 任意
 }

@@ -12,19 +12,25 @@ function f1() {
 
     if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"
 
         let n = function() {
 >n : number
+>类型别名 :=> 数字
 >function() {            return x.length;        }() : number
+>类型别名 :=> 数字
 >function() {            return x.length;        } : () => number
 
             return x.length;
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
         }();
     }
@@ -40,20 +46,26 @@ function f2() {
 
     if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"
 
         let n = (function() {
 >n : number
+>类型别名 :=> 数字
 >(function() {            return x.length;        })() : number
+>类型别名 :=> 数字
 >(function() {            return x.length;        }) : () => number
 >function() {            return x.length;        } : () => number
 
             return x.length;
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
         })();
     }
@@ -69,28 +81,41 @@ function f3() {
 
     let y: number;
 >y : number
+>类型别名 :=> 数字
 
     if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"
 
         let n = (z => x.length + y + z)(y = 1);
 >n : number
+>类型别名 :=> 数字
 >(z => x.length + y + z)(y = 1) : number
+>类型别名 :=> 数字
 >(z => x.length + y + z) : (z: number) => number
 >z => x.length + y + z : (z: number) => number
 >z : number
+>类型别名 :=> 数字
 >x.length + y + z : number
+>类型别名 :=> 数字
 >x.length + y : number
+>类型别名 :=> 数字
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : number
+>类型别名 :=> 数字
 >y = 1 : 1
 >y : number
+>类型别名 :=> 数字
 >1 : 1
     }
 }
@@ -102,6 +127,7 @@ let maybeNumber: number | undefined;
 
 (function () {
 >(function () {    maybeNumber = 1;})() : void
+>类型别名 :=> 无值
 >(function () {    maybeNumber = 1;}) : () => void
 >function () {    maybeNumber = 1;} : () => void
 
@@ -113,16 +139,23 @@ let maybeNumber: number | undefined;
 })();
 maybeNumber++;
 >maybeNumber++ : number
+>类型别名 :=> 数字
 >maybeNumber : number
+>类型别名 :=> 数字
 
 if (maybeNumber !== undefined) {
 >maybeNumber !== undefined : boolean
+>类型别名 :=> 真假
 >maybeNumber : number
+>类型别名 :=> 数字
 >undefined : undefined
+>类型别名 :=> 未定
 
     maybeNumber++;
 >maybeNumber++ : number
+>类型别名 :=> 数字
 >maybeNumber : number
+>类型别名 :=> 数字
 }
 
 let test: string | undefined;
@@ -130,6 +163,7 @@ let test: string | undefined;
 
 if (!test) {
 >!test : boolean
+>类型别名 :=> 真假
 >test : string | undefined
 
     throw new Error('Test is not defined');
@@ -139,13 +173,16 @@ if (!test) {
 }
 (() => {
 >(() => {    test.slice(1); // No error})() : void
+>类型别名 :=> 无值
 >(() => {    test.slice(1); // No error}) : () => void
 >() => {    test.slice(1); // No error} : () => void
 
     test.slice(1); // No error
 >test.slice(1) : string
+>类型别名 :=> 文字
 >test.slice : (start?: number | undefined, end?: number | undefined) => string
 >test : string
+>类型别名 :=> 文字
 >slice : (start?: number | undefined, end?: number | undefined) => string
 >1 : 1
 

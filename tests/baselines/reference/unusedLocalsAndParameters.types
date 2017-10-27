@@ -5,9 +5,11 @@ export { };
 function f(a) {
 >f : (a: any) => void
 >a : any
+>类型别名 :=> 任意
 }
 f(0);
 >f(0) : void
+>类型别名 :=> 无值
 >f : (a: any) => void
 >0 : 0
 
@@ -16,11 +18,13 @@ var fexp = function (a) {
 >fexp : (a: any) => void
 >function (a) {} : (a: any) => void
 >a : any
+>类型别名 :=> 任意
 
 };
 
 fexp(0);
 >fexp(0) : void
+>类型别名 :=> 无值
 >fexp : (a: any) => void
 >0 : 0
 
@@ -29,6 +33,7 @@ var farrow = (a) => {
 >farrow : (a: any) => void
 >(a) => {} : (a: any) => void
 >a : any
+>类型别名 :=> 任意
 
 };
 
@@ -39,11 +44,14 @@ class C {
     method(a) {
 >method : (a: any) => void
 >a : any
+>类型别名 :=> 任意
     }
     // Accessor declaration paramter
     set x(v: number) {
 >x : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
     }
 }
 
@@ -55,11 +63,14 @@ var E = class {
     method(a) {
 >method : (a: any) => void
 >a : any
+>类型别名 :=> 任意
     }
     // Accessor declaration paramter
     set x(v: number) {
 >x : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
     }
 }
 
@@ -71,12 +82,15 @@ var o = {
     method(a) {
 >method : (a: any) => void
 >a : any
+>类型别名 :=> 任意
 
     },
     // Accessor declaration paramter
     set x(v: number) {
 >x : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
     }
 };
 
@@ -86,12 +100,14 @@ o;
 // in a for..in statment
 for (let i in o) {
 >i : string
+>类型别名 :=> 文字
 >o : { method(a: any): void; x: number; }
 }
 
 // in a for..of statment
 for (let i of [1, 2, 3]) {
 >i : number
+>类型别名 :=> 数字
 >[1, 2, 3] : number[]
 >1 : 1
 >2 : 2
@@ -101,23 +117,32 @@ for (let i of [1, 2, 3]) {
 // in a for. statment
 for (let i = 0, n; i < 10; i++) {
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >n : any
+>类型别名 :=> 任意
 >i < 10 : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >10 : 10
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 }
 
 // in a block
 
 const condition = false;
 >condition : false
+>类型别名 :=> 为假
 >false : false
+>类型别名 :=> 为假
 
 if (condition) {
 >condition : false
+>类型别名 :=> 为假
 
     const c = 0;
 >c : 0
@@ -132,6 +157,7 @@ try {
 }
 catch (e) {
 >e : any
+>类型别名 :=> 任意
 
     const c = 1;
 >c : 1
@@ -150,6 +176,7 @@ namespace N {
 
     var x;
 >x : any
+>类型别名 :=> 任意
 }
 
     

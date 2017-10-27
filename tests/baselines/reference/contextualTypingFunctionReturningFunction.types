@@ -5,10 +5,12 @@ interface I {
 	a(s: string): void;
 >a : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
 	b(): (n: number) => void;
 >b : () => (n: number) => void
 >n : number
+>类型别名 :=> 数字
 }
 
 declare function f(i: I): void;
@@ -18,6 +20,7 @@ declare function f(i: I): void;
 
 f({
 >f({	a: s => {},	b: () => n => {},}) : void
+>类型别名 :=> 无值
 >f : (i: I) => void
 >{	a: s => {},	b: () => n => {},} : { a: (s: string) => void; b: () => (n: number) => void; }
 
@@ -25,12 +28,14 @@ f({
 >a : (s: string) => void
 >s => {} : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
 	b: () => n => {},
 >b : () => (n: number) => void
 >() => n => {} : () => (n: number) => void
 >n => {} : (n: number) => void
 >n : number
+>类型别名 :=> 数字
 
 });
 

@@ -2,37 +2,53 @@
 // A built-in element (OK)
 var a1 = <div id="foo" />;
 >a1 : any
+>类型别名 :=> 任意
 ><div id="foo" /> : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
 >id : string
+>类型别名 :=> 文字
 
 // A built-in element with a mistyped property (error)
 var a2 = <img srce="foo.jpg" />
 >a2 : any
+>类型别名 :=> 任意
 ><img srce="foo.jpg" /> : any
+>类型别名 :=> 任意
 >img : any
+>类型别名 :=> 任意
 >srce : string
+>类型别名 :=> 文字
 
 // A built-in element with a badly-typed attribute value (error)
 var thing = { oops: 100 };
 >thing : { oops: number; }
 >{ oops: 100 } : { oops: number; }
 >oops : number
+>类型别名 :=> 数字
 >100 : 100
 
 var a3 = <div id={thing} />
 >a3 : any
+>类型别名 :=> 任意
 ><div id={thing} /> : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
 >id : { oops: number; }
 >thing : { oops: number; }
 
 // Mistyped html name (error)
 var e1 = <imag src="bar.jpg" />
 >e1 : any
+>类型别名 :=> 任意
 ><imag src="bar.jpg" /> : any
+>类型别名 :=> 任意
 >imag : any
+>类型别名 :=> 任意
 >src : string
+>类型别名 :=> 文字
 
 // A custom type
 class MyClass {
@@ -44,13 +60,17 @@ class MyClass {
     pt?: { x: number; y: number; };
 >pt : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 	name?: string;
 >name : string
+>类型别名 :=> 文字
 
 	reqd: boolean;
 >reqd : boolean
+>类型别名 :=> 真假
   }
 }
 
@@ -58,10 +78,14 @@ class MyClass {
 // TODO: Error on missing 'reqd'
 var b1 = <MyClass reqd={true} />; 
 >b1 : any
+>类型别名 :=> 任意
 ><MyClass reqd={true} /> : any
+>类型别名 :=> 任意
 >MyClass : typeof MyClass
 >reqd : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 // Mistyped attribute member
 // sample.tsx(23,22): error TS2322: Type '{ x: number; y: string; }' is not assignable to type '{ x: number; y: number; }'.
@@ -69,13 +93,17 @@ var b1 = <MyClass reqd={true} />;
 //    Type 'string' is not assignable to type 'number'.
 var b2 = <MyClass pt={{x: 4, y: 'oops'}} />;
 >b2 : any
+>类型别名 :=> 任意
 ><MyClass pt={{x: 4, y: 'oops'}} /> : any
+>类型别名 :=> 任意
 >MyClass : typeof MyClass
 >pt : { x: number; y: string; }
 >{x: 4, y: 'oops'} : { x: number; y: string; }
 >x : number
+>类型别名 :=> 数字
 >4 : 4
 >y : string
+>类型别名 :=> 文字
 >'oops' : "oops"
 
 

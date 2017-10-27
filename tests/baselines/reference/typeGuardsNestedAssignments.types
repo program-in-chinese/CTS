@@ -4,16 +4,19 @@ class Foo {
 
     x: string;
 >x : string
+>类型别名 :=> 文字
 }
 
 declare function getFooOrNull(): Foo | null;
 >getFooOrNull : () => Foo | null
 >Foo : Foo
 >null : null
+>类型别名 :=> 空值
 
 declare function getStringOrNumberOrNull(): string | number | null;
 >getStringOrNumberOrNull : () => string | number | null
 >null : null
+>类型别名 :=> 空值
 
 function f1() {
 >f1 : () => void
@@ -22,15 +25,18 @@ function f1() {
 >foo : Foo | null
 >Foo : Foo
 >null : null
+>类型别名 :=> 空值
 
     if ((foo = getFooOrNull()) !== null) {
 >(foo = getFooOrNull()) !== null : boolean
+>类型别名 :=> 真假
 >(foo = getFooOrNull()) : Foo | null
 >foo = getFooOrNull() : Foo | null
 >foo : Foo | null
 >getFooOrNull() : Foo | null
 >getFooOrNull : () => Foo | null
 >null : null
+>类型别名 :=> 空值
 
         foo;  // Foo
 >foo : Foo
@@ -44,14 +50,17 @@ function f2() {
 >foo1 : Foo | null
 >Foo : Foo
 >null : null
+>类型别名 :=> 空值
 
     let foo2: Foo | null;
 >foo2 : Foo | null
 >Foo : Foo
 >null : null
+>类型别名 :=> 空值
 
     if ((foo1 = getFooOrNull(), foo2 = foo1) !== null) {
 >(foo1 = getFooOrNull(), foo2 = foo1) !== null : boolean
+>类型别名 :=> 真假
 >(foo1 = getFooOrNull(), foo2 = foo1) : Foo | null
 >foo1 = getFooOrNull(), foo2 = foo1 : Foo | null
 >foo1 = getFooOrNull() : Foo | null
@@ -62,6 +71,7 @@ function f2() {
 >foo2 : Foo | null
 >foo1 : Foo | null
 >null : null
+>类型别名 :=> 空值
 
         foo1;  // Foo | null
 >foo1 : Foo | null
@@ -78,9 +88,11 @@ function f3() {
 >obj : Object | null
 >Object : Object
 >null : null
+>类型别名 :=> 空值
 
     if ((obj = getFooOrNull()) instanceof Foo) {
 >(obj = getFooOrNull()) instanceof Foo : boolean
+>类型别名 :=> 真假
 >(obj = getFooOrNull()) : Foo | null
 >obj = getFooOrNull() : Foo | null
 >obj : Object | null
@@ -99,9 +111,11 @@ function f4() {
     let x: string | number | null;
 >x : string | number | null
 >null : null
+>类型别名 :=> 空值
 
     if (typeof (x = getStringOrNumberOrNull()) === "number") {
 >typeof (x = getStringOrNumberOrNull()) === "number" : boolean
+>类型别名 :=> 真假
 >typeof (x = getStringOrNumberOrNull()) : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >(x = getStringOrNumberOrNull()) : string | number | null
 >x = getStringOrNumberOrNull() : string | number | null
@@ -112,6 +126,7 @@ function f4() {
 
         x;
 >x : number
+>类型别名 :=> 数字
     }
 }
 
@@ -125,9 +140,11 @@ let match: RegExpExecArray | null
 >match : RegExpExecArray | null
 >RegExpExecArray : RegExpExecArray
 >null : null
+>类型别名 :=> 空值
 
 while ((match = re.exec("xxx")) != null) {
 >(match = re.exec("xxx")) != null : boolean
+>类型别名 :=> 真假
 >(match = re.exec("xxx")) : RegExpExecArray | null
 >match = re.exec("xxx") : RegExpExecArray | null
 >match : RegExpExecArray | null
@@ -137,18 +154,27 @@ while ((match = re.exec("xxx")) != null) {
 >exec : (string: string) => RegExpExecArray | null
 >"xxx" : "xxx"
 >null : null
+>类型别名 :=> 空值
 
     const length = match[1].length + match[2].length
 >length : number
+>类型别名 :=> 数字
 >match[1].length + match[2].length : number
+>类型别名 :=> 数字
 >match[1].length : number
+>类型别名 :=> 数字
 >match[1] : string
+>类型别名 :=> 文字
 >match : RegExpExecArray
 >1 : 1
 >length : number
+>类型别名 :=> 数字
 >match[2].length : number
+>类型别名 :=> 数字
 >match[2] : string
+>类型别名 :=> 文字
 >match : RegExpExecArray
 >2 : 2
 >length : number
+>类型别名 :=> 数字
 }

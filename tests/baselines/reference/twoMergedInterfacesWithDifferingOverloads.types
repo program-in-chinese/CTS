@@ -7,10 +7,12 @@ interface A {
     foo(x: number): number;
 >foo : { (x: number): number; (x: string): string; (x: Date): Date; }
 >x : number
+>类型别名 :=> 数字
 
     foo(x: string): string;
 >foo : { (x: number): number; (x: string): string; (x: Date): Date; }
 >x : string
+>类型别名 :=> 文字
 }
 
 interface A {
@@ -35,6 +37,7 @@ interface B<T> {
     foo(x: string): string;
 >foo : { (x: T): number; (x: string): string; (x: T): Date; (x: Date): string; }
 >x : string
+>类型别名 :=> 文字
 }
 
 interface B<T> {
@@ -64,6 +67,7 @@ var r = b.foo(true); // returns Date
 >b : B<boolean>
 >foo : { (x: boolean): number; (x: string): string; (x: boolean): Date; (x: Date): string; }
 >true : true
+>类型别名 :=> 为真
 
 // add generic overload
 interface C<T, U> {
@@ -81,7 +85,9 @@ interface C<T, U> {
     foo(x: string, y: string): number;
 >foo : { (x: T, y: U): string; (x: string, y: string): number; <W>(x: W, y: W): W; }
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 }
 
 interface C<T, U> {
@@ -106,6 +112,7 @@ var c: C<boolean, Date>;
 
 var r2 = c.foo(1, 2); // number
 >r2 : number
+>类型别名 :=> 数字
 >c.foo(1, 2) : 1 | 2
 >c.foo : { (x: boolean, y: Date): string; (x: string, y: string): number; <W>(x: W, y: W): W; }
 >c : C<boolean, Date>
@@ -159,7 +166,9 @@ var d: D<boolean, Date>;
 
 var r3 = d.foo(1, 1); // boolean, last definition wins
 >r3 : boolean
+>类型别名 :=> 真假
 >d.foo(1, 1) : boolean
+>类型别名 :=> 真假
 >d.foo : { <A>(x: A, y: A): Date; <W>(x: W, y: W): boolean; }
 >d : D<boolean, Date>
 >foo : { <A>(x: A, y: A): Date; <W>(x: W, y: W): boolean; }

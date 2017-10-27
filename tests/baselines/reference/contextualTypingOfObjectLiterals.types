@@ -2,11 +2,13 @@
 var obj1: { [x: string]: string; };
 >obj1 : { [x: string]: string; }
 >x : string
+>类型别名 :=> 文字
 
 var obj2 = {x: ""};
 >obj2 : { x: string; }
 >{x: ""} : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 
 obj1 = {}; // Ok
@@ -23,19 +25,23 @@ function f(x: { [s: string]: string }) { }
 >f : (x: { [s: string]: string; }) => void
 >x : { [s: string]: string; }
 >s : string
+>类型别名 :=> 文字
 
 f({}); // Ok
 >f({}) : void
+>类型别名 :=> 无值
 >f : (x: { [s: string]: string; }) => void
 >{} : {}
 
 f(obj1); // Ok
 >f(obj1) : void
+>类型别名 :=> 无值
 >f : (x: { [s: string]: string; }) => void
 >obj1 : { [x: string]: string; }
 
 f(obj2); // Error - indexer doesn't match
 >f(obj2) : void
+>类型别名 :=> 无值
 >f : (x: { [s: string]: string; }) => void
 >obj2 : { x: string; }
 

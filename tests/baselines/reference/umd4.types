@@ -4,6 +4,7 @@ import * as Bar from './foo';
 
 Bar.fn();
 >Bar.fn() : void
+>类型别名 :=> 无值
 >Bar.fn : () => void
 >Bar : typeof Bar
 >fn : () => void
@@ -11,17 +12,22 @@ Bar.fn();
 let x: Bar.Thing;
 >x : Bar.Thing
 >Bar : any
+>类型别名 :=> 任意
 >Thing : Bar.Thing
 
 let y: number = x.n;
 >y : number
+>类型别名 :=> 数字
 >x.n : number
+>类型别名 :=> 数字
 >x : Bar.Thing
 >n : number
+>类型别名 :=> 数字
 
 === tests/cases/conformance/externalModules/foo.d.ts ===
 export var x: number;
 >x : number
+>类型别名 :=> 数字
 
 export function fn(): void;
 >fn : () => void
@@ -29,7 +35,9 @@ export function fn(): void;
 export interface Thing { n: typeof x }
 >Thing : Thing
 >n : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 
 export as namespace Foo;
 >Foo : typeof "tests/cases/conformance/externalModules/foo"

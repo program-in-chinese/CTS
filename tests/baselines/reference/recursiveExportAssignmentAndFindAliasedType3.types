@@ -2,6 +2,7 @@
 /// <reference path="recursiveExportAssignmentAndFindAliasedType3_moduleDef.d.ts"/>
 import moduleC = require("moduleC");
 >moduleC : any
+>类型别名 :=> 任意
 
 import ClassB = require("recursiveExportAssignmentAndFindAliasedType3_moduleB");
 >ClassB : typeof ClassB
@@ -14,23 +15,29 @@ export var b: ClassB; // This should result in type ClassB
 declare module "moduleC" {
     import self = require("moduleD");
 >self : any
+>类型别名 :=> 任意
 
     export = self;
 >self : any
+>类型别名 :=> 任意
 }
 declare module "moduleD" {
     import self = require("moduleE");
 >self : any
+>类型别名 :=> 任意
 
     export = self;
 >self : any
+>类型别名 :=> 任意
 }
 declare module "moduleE" {
     import self = require("moduleC");
 >self : any
+>类型别名 :=> 任意
 
     export = self;
 >self : any
+>类型别名 :=> 任意
 }
 
 === tests/cases/compiler/recursiveExportAssignmentAndFindAliasedType3_moduleB.ts ===

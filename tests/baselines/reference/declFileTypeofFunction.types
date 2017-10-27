@@ -12,6 +12,7 @@ function f(n: typeof g): string;
 function f() { return undefined; }
 >f : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
 >undefined : undefined
+>类型别名 :=> 未定
 
 function g(n: typeof g): number;
 >g : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
@@ -26,6 +27,7 @@ function g(n: typeof f): number;
 function g() { return undefined; }
 >g : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
 >undefined : undefined
+>类型别名 :=> 未定
 
 var b: () => typeof b;
 >b : () => any
@@ -44,6 +46,7 @@ function foo(): typeof foo {
 
     return null;
 >null : null
+>类型别名 :=> 空值
 }
 var foo1: typeof foo;
 >foo1 : () => typeof foo
@@ -71,13 +74,16 @@ var x = () => {
 function foo5(x: number) {
 >foo5 : (x: number) => (x: number) => number
 >x : number
+>类型别名 :=> 数字
 
     function bar(x: number) {
 >bar : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 
         return x;
 >x : number
+>类型别名 :=> 数字
     }
     return bar;
 >bar : (x: number) => number

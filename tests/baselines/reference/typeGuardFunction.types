@@ -4,6 +4,7 @@ class A {
 
     propA: number;
 >propA : number
+>类型别名 :=> 数字
 }
 
 class B {
@@ -11,6 +12,7 @@ class B {
 
     propB: number;
 >propB : number
+>类型别名 :=> 数字
 }
 
 class C extends A {
@@ -19,24 +21,31 @@ class C extends A {
 
     propC: number;
 >propC : number
+>类型别名 :=> 数字
 }
 
 declare function isA(p1: any): p1 is A;
 >isA : (p1: any) => p1 is A
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >A : A
 
 declare function isB(p1: any): p1 is B;
 >isB : (p1: any) => p1 is B
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >B : B
 
 declare function isC(p1: any): p1 is C;
 >isC : (p1: any) => p1 is C
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
 declare function retC(): C;
@@ -54,13 +63,16 @@ var b: B;
 // Basic
 if (isC(a)) {
 >isC(a) : boolean
+>类型别名 :=> 真假
 >isC : (p1: any) => p1 is C
 >a : A
 
     a.propC;
 >a.propC : number
+>类型别名 :=> 数字
 >a : C
 >propC : number
+>类型别名 :=> 数字
 }
 
 // Sub type
@@ -70,13 +82,16 @@ var subType: C;
 
 if(isA(subType)) {
 >isA(subType) : boolean
+>类型别名 :=> 真假
 >isA : (p1: any) => p1 is A
 >subType : C
 
     subType.propC;
 >subType.propC : number
+>类型别名 :=> 数字
 >subType : C
 >propC : number
+>类型别名 :=> 数字
 }
 
 // Union type
@@ -87,13 +102,16 @@ var union: A | B;
 
 if(isA(union)) {
 >isA(union) : boolean
+>类型别名 :=> 真假
 >isA : (p1: any) => p1 is A
 >union : A | B
 
     union.propA;
 >union.propA : number
+>类型别名 :=> 数字
 >union : A
 >propA : number
+>类型别名 :=> 数字
 }
 
 // Call signature
@@ -104,6 +122,7 @@ interface I1 {
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 }
 
@@ -112,20 +131,26 @@ interface I1 {
 declare function isC_multipleParams(p1, p2): p1 is C;
 >isC_multipleParams : (p1: any, p2: any) => p1 is C
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
 if (isC_multipleParams(a, 0)) {
 >isC_multipleParams(a, 0) : boolean
+>类型别名 :=> 真假
 >isC_multipleParams : (p1: any, p2: any) => p1 is C
 >a : A
 >0 : 0
 
     a.propC;
 >a.propC : number
+>类型别名 :=> 数字
 >a : C
 >propC : number
+>类型别名 :=> 数字
 }
 
 // Methods
@@ -137,6 +162,7 @@ var obj: {
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 }
 class D {
@@ -147,10 +173,12 @@ class D {
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
         return true;
 >true : true
+>类型别名 :=> 为真
     }
 }
 
@@ -161,8 +189,10 @@ let f1 = (p1: A): p1 is C => false;
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 >false : false
+>类型别名 :=> 为假
 
 // Function type
 declare function f2(p1: (p1: A) => p1 is C);
@@ -171,20 +201,24 @@ declare function f2(p1: (p1: A) => p1 is C);
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
 // Function expressions
 f2(function(p1: A): p1 is C {
 >f2(function(p1: A): p1 is C {    return true;}) : any
+>类型别名 :=> 任意
 >f2 : (p1: (p1: A) => p1 is C) => any
 >function(p1: A): p1 is C {    return true;} : (p1: A) => p1 is C
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
     return true;
 >true : true
+>类型别名 :=> 为真
 
 });
 
@@ -192,11 +226,14 @@ f2(function(p1: A): p1 is C {
 declare function acceptingBoolean(a: boolean);
 >acceptingBoolean : (a: boolean) => any
 >a : boolean
+>类型别名 :=> 真假
 
 acceptingBoolean(isA(a));
 >acceptingBoolean(isA(a)) : any
+>类型别名 :=> 任意
 >acceptingBoolean : (a: boolean) => any
 >isA(a) : boolean
+>类型别名 :=> 真假
 >isA : (p1: any) => p1 is A
 >a : A
 
@@ -205,11 +242,14 @@ declare function acceptingTypeGuardFunction(p1: (item) => item is A);
 >acceptingTypeGuardFunction : (p1: (item: any) => item is A) => any
 >p1 : (item: any) => item is A
 >item : any
+>类型别名 :=> 任意
 >item : any
+>类型别名 :=> 任意
 >A : A
 
 acceptingTypeGuardFunction(isA);
 >acceptingTypeGuardFunction(isA) : any
+>类型别名 :=> 任意
 >acceptingTypeGuardFunction : (p1: (item: any) => item is A) => any
 >isA : (p1: any) => p1 is A
 
@@ -224,6 +264,7 @@ let union3: boolean | B = isA(union2) || union2;
 >B : B
 >isA(union2) || union2 : true | B
 >isA(union2) : boolean
+>类型别名 :=> 真假
 >isA : (p1: any) => p1 is A
 >union2 : B | C
 >union2 : B

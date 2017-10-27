@@ -5,16 +5,20 @@ interface Foo {
     method(a: number): string;
 >method : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 
     optionalMethod?(a: number): string;
 >optionalMethod : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 
     property: string;
 >property : string
+>类型别名 :=> 文字
 
     optionalProperty?: string;
 >optionalProperty : string
+>类型别名 :=> 文字
 }
 
 class Foo {
@@ -22,13 +26,16 @@ class Foo {
 
     additionalProperty: string;
 >additionalProperty : string
+>类型别名 :=> 文字
 
     additionalMethod(a: number): string {
 >additionalMethod : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 
         return this.method(0);
 >this.method(0) : string
+>类型别名 :=> 文字
 >this.method : (a: number) => string
 >this : this
 >method : (a: number) => string
@@ -43,11 +50,14 @@ class Bar extends Foo {
     method(a: number) {
 >method : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 
         return this.optionalProperty;
 >this.optionalProperty : string
+>类型别名 :=> 文字
 >this : this
 >optionalProperty : string
+>类型别名 :=> 文字
     }
 }
 
@@ -59,6 +69,7 @@ var bar = new Bar();
 
 bar.method(0);
 >bar.method(0) : string
+>类型别名 :=> 文字
 >bar.method : (a: number) => string
 >bar : Bar
 >method : (a: number) => string
@@ -66,6 +77,7 @@ bar.method(0);
 
 bar.optionalMethod(1);
 >bar.optionalMethod(1) : string
+>类型别名 :=> 文字
 >bar.optionalMethod : (a: number) => string
 >bar : Bar
 >optionalMethod : (a: number) => string
@@ -73,21 +85,28 @@ bar.optionalMethod(1);
 
 bar.property;
 >bar.property : string
+>类型别名 :=> 文字
 >bar : Bar
 >property : string
+>类型别名 :=> 文字
 
 bar.optionalProperty;
 >bar.optionalProperty : string
+>类型别名 :=> 文字
 >bar : Bar
 >optionalProperty : string
+>类型别名 :=> 文字
 
 bar.additionalProperty;
 >bar.additionalProperty : string
+>类型别名 :=> 文字
 >bar : Bar
 >additionalProperty : string
+>类型别名 :=> 文字
 
 bar.additionalMethod(2);
 >bar.additionalMethod(2) : string
+>类型别名 :=> 文字
 >bar.additionalMethod : (a: number) => string
 >bar : Bar
 >additionalMethod : (a: number) => string
@@ -99,16 +118,20 @@ var obj: {
     method(a: number): string;
 >method : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 
     property: string;
 >property : string
+>类型别名 :=> 文字
 
     additionalProperty: string;
 >additionalProperty : string
+>类型别名 :=> 文字
 
     additionalMethod(a: number): string;
 >additionalMethod : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 
 };
 

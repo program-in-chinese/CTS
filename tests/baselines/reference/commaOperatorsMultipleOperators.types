@@ -1,15 +1,19 @@
 === tests/cases/conformance/expressions/commaOperator/commaOperatorsMultipleOperators.ts ===
 var ANY: any;
 >ANY : any
+>类型别名 :=> 任意
 
 var BOOLEAN: boolean;
 >BOOLEAN : boolean
+>类型别名 :=> 真假
 
 var NUMBER: number;
 >NUMBER : number
+>类型别名 :=> 数字
 
 var STRING: string;
 >STRING : string
+>类型别名 :=> 文字
 
 var OBJECT: Object;
 >OBJECT : Object
@@ -18,101 +22,157 @@ var OBJECT: Object;
 //Expected: work well
 ANY, BOOLEAN, NUMBER;
 >ANY, BOOLEAN, NUMBER : number
+>类型别名 :=> 数字
 >ANY, BOOLEAN : boolean
+>类型别名 :=> 真假
 >ANY : any
+>类型别名 :=> 任意
 >BOOLEAN : boolean
+>类型别名 :=> 真假
 >NUMBER : number
+>类型别名 :=> 数字
 
 BOOLEAN, NUMBER, STRING;
 >BOOLEAN, NUMBER, STRING : string
+>类型别名 :=> 文字
 >BOOLEAN, NUMBER : number
+>类型别名 :=> 数字
 >BOOLEAN : boolean
+>类型别名 :=> 真假
 >NUMBER : number
+>类型别名 :=> 数字
 >STRING : string
+>类型别名 :=> 文字
 
 NUMBER, STRING, OBJECT;
 >NUMBER, STRING, OBJECT : Object
 >NUMBER, STRING : string
+>类型别名 :=> 文字
 >NUMBER : number
+>类型别名 :=> 数字
 >STRING : string
+>类型别名 :=> 文字
 >OBJECT : Object
 
 STRING, OBJECT, ANY;
 >STRING, OBJECT, ANY : any
+>类型别名 :=> 任意
 >STRING, OBJECT : Object
 >STRING : string
+>类型别名 :=> 文字
 >OBJECT : Object
 >ANY : any
+>类型别名 :=> 任意
 
 OBJECT, ANY, BOOLEAN;
 >OBJECT, ANY, BOOLEAN : boolean
+>类型别名 :=> 真假
 >OBJECT, ANY : any
+>类型别名 :=> 任意
 >OBJECT : Object
 >ANY : any
+>类型别名 :=> 任意
 >BOOLEAN : boolean
+>类型别名 :=> 真假
 
 //Results should have the same type as the third operand
 var resultIsAny1 = (STRING, OBJECT, ANY);
 >resultIsAny1 : any
+>类型别名 :=> 任意
 >(STRING, OBJECT, ANY) : any
+>类型别名 :=> 任意
 >STRING, OBJECT, ANY : any
+>类型别名 :=> 任意
 >STRING, OBJECT : Object
 >STRING : string
+>类型别名 :=> 文字
 >OBJECT : Object
 >ANY : any
+>类型别名 :=> 任意
 
 var resultIsBoolean1 = (OBJECT, ANY, BOOLEAN);
 >resultIsBoolean1 : boolean
+>类型别名 :=> 真假
 >(OBJECT, ANY, BOOLEAN) : boolean
+>类型别名 :=> 真假
 >OBJECT, ANY, BOOLEAN : boolean
+>类型别名 :=> 真假
 >OBJECT, ANY : any
+>类型别名 :=> 任意
 >OBJECT : Object
 >ANY : any
+>类型别名 :=> 任意
 >BOOLEAN : boolean
+>类型别名 :=> 真假
 
 var resultIsNumber1 = (ANY, BOOLEAN, NUMBER);
 >resultIsNumber1 : number
+>类型别名 :=> 数字
 >(ANY, BOOLEAN, NUMBER) : number
+>类型别名 :=> 数字
 >ANY, BOOLEAN, NUMBER : number
+>类型别名 :=> 数字
 >ANY, BOOLEAN : boolean
+>类型别名 :=> 真假
 >ANY : any
+>类型别名 :=> 任意
 >BOOLEAN : boolean
+>类型别名 :=> 真假
 >NUMBER : number
+>类型别名 :=> 数字
 
 var resultIsString1 = (BOOLEAN, NUMBER, STRING);
 >resultIsString1 : string
+>类型别名 :=> 文字
 >(BOOLEAN, NUMBER, STRING) : string
+>类型别名 :=> 文字
 >BOOLEAN, NUMBER, STRING : string
+>类型别名 :=> 文字
 >BOOLEAN, NUMBER : number
+>类型别名 :=> 数字
 >BOOLEAN : boolean
+>类型别名 :=> 真假
 >NUMBER : number
+>类型别名 :=> 数字
 >STRING : string
+>类型别名 :=> 文字
 
 var resultIsObject1 = (NUMBER, STRING, OBJECT);
 >resultIsObject1 : Object
 >(NUMBER, STRING, OBJECT) : Object
 >NUMBER, STRING, OBJECT : Object
 >NUMBER, STRING : string
+>类型别名 :=> 文字
 >NUMBER : number
+>类型别名 :=> 数字
 >STRING : string
+>类型别名 :=> 文字
 >OBJECT : Object
 
 //Literal and expression
 null, true, 1;
 >null, true, 1 : 1
 >null, true : true
+>类型别名 :=> 为真
 >null : null
+>类型别名 :=> 空值
 >true : true
+>类型别名 :=> 为真
 >1 : 1
 
 ++NUMBER, STRING.charAt(0), new Object();
 >++NUMBER, STRING.charAt(0), new Object() : Object
 >++NUMBER, STRING.charAt(0) : string
+>类型别名 :=> 文字
 >++NUMBER : number
+>类型别名 :=> 数字
 >NUMBER : number
+>类型别名 :=> 数字
 >STRING.charAt(0) : string
+>类型别名 :=> 文字
 >STRING.charAt : (pos: number) => string
 >STRING : string
+>类型别名 :=> 文字
 >charAt : (pos: number) => string
 >0 : 0
 >new Object() : Object
@@ -120,11 +180,15 @@ null, true, 1;
 
 var resultIsNumber2 = (null, true, 1);
 >resultIsNumber2 : number
+>类型别名 :=> 数字
 >(null, true, 1) : 1
 >null, true, 1 : 1
 >null, true : true
+>类型别名 :=> 为真
 >null : null
+>类型别名 :=> 空值
 >true : true
+>类型别名 :=> 为真
 >1 : 1
 
 var resultIsObject2 = (++NUMBER, STRING.charAt(0), new Object());
@@ -132,11 +196,16 @@ var resultIsObject2 = (++NUMBER, STRING.charAt(0), new Object());
 >(++NUMBER, STRING.charAt(0), new Object()) : Object
 >++NUMBER, STRING.charAt(0), new Object() : Object
 >++NUMBER, STRING.charAt(0) : string
+>类型别名 :=> 文字
 >++NUMBER : number
+>类型别名 :=> 数字
 >NUMBER : number
+>类型别名 :=> 数字
 >STRING.charAt(0) : string
+>类型别名 :=> 文字
 >STRING.charAt : (pos: number) => string
 >STRING : string
+>类型别名 :=> 文字
 >charAt : (pos: number) => string
 >0 : 0
 >new Object() : Object

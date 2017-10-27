@@ -10,6 +10,7 @@ module Outer {
     }
     export module uninstantiated {
 >uninstantiated : any
+>类型别名 :=> 任意
 
         export interface P { }
 >P : P
@@ -23,8 +24,10 @@ import importInst = Outer.instantiated;
 
 import importUninst = Outer.uninstantiated;
 >importUninst : any
+>类型别名 :=> 任意
 >Outer : typeof Outer
 >uninstantiated : any
+>类型别名 :=> 任意
 
 var x1: typeof importInst.C = importInst.C;
 >x1 : typeof importInst.C
@@ -38,18 +41,24 @@ var x1: typeof importInst.C = importInst.C;
 var x2: importInst.C = new x1();
 >x2 : importInst.C
 >importInst : any
+>类型别名 :=> 任意
 >C : importInst.C
 >new x1() : importInst.C
 >x1 : typeof importInst.C
 
 var x3: typeof importUninst.P; // Error again
 >x3 : any
+>类型别名 :=> 任意
 >importUninst.P : any
+>类型别名 :=> 任意
 >importUninst : any
+>类型别名 :=> 任意
 >P : any
+>类型别名 :=> 任意
 
 var x4: Outer = Outer;
 >x4 : any
+>类型别名 :=> 任意
 >Outer : No type information available!
 >Outer : typeof Outer
 
@@ -71,7 +80,9 @@ x5 = Outer.instantiated;
 
 var x6: typeof importUninst;
 >x6 : any
+>类型别名 :=> 任意
 >importUninst : any
+>类型别名 :=> 任意
 
 var x7: typeof Outer = Outer;
 >x7 : typeof Outer

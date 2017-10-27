@@ -1,18 +1,22 @@
 === tests/cases/compiler/moduleOuterQualification.ts ===
 declare module outer {
 >outer : any
+>类型别名 :=> 任意
 
   interface Beta { }
 >Beta : Beta
 
   module inner {
 >inner : any
+>类型别名 :=> 任意
 
     // .d.ts emit: should be 'extends outer.Beta'
     export interface Beta extends outer.Beta { }
 >Beta : Beta
 >outer.Beta : any
+>类型别名 :=> 任意
 >outer : any
+>类型别名 :=> 任意
 >Beta : outer.Beta
   }
 }

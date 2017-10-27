@@ -2,47 +2,66 @@
 function f1(x) {
 >f1 : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
     // implicit any is still allowed
     return x + 1;
 >x + 1 : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 }
 
 function f2(y: number) {
 >f2 : (y: number) => number
 >y : number
+>类型别名 :=> 数字
 
     // ok: no reference to this
     return y + 1;
 >y + 1 : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 }
 
 function f3(z: number): number {
 >f3 : (z: number) => number
 >z : number
+>类型别名 :=> 数字
 
     // error: this is implicitly any
     return this.a + z;
 >this.a + z : any
+>类型别名 :=> 任意
 >this.a : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >z : number
+>类型别名 :=> 数字
 }
 
 // error: `this` is `window`, but is still of type `any`
 let f4: (b: number) => number = b => this.c + b;
 >f4 : (b: number) => number
 >b : number
+>类型别名 :=> 数字
 >b => this.c + b : (b: number) => any
 >b : number
+>类型别名 :=> 数字
 >this.c + b : any
+>类型别名 :=> 任意
 >this.c : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 

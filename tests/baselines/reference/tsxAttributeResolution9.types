@@ -1,6 +1,7 @@
 === tests/cases/conformance/jsx/react.d.ts ===
 declare module JSX {
 >JSX : any
+>类型别名 :=> 任意
 
 	interface Element { }
 >Element : Element
@@ -13,6 +14,7 @@ declare module JSX {
 
 		props;
 >props : any
+>类型别名 :=> 任意
 	}
 }
 
@@ -21,6 +23,7 @@ interface Props {
 
   foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 
 === tests/cases/conformance/jsx/file.tsx ===
@@ -34,16 +37,19 @@ export class MyComponent {
   props: { foo: string; }
 >props : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 }
 
 <MyComponent foo="bar" />; // ok  
 ><MyComponent foo="bar" /> : JSX.Element
 >MyComponent : typeof MyComponent
 >foo : string
+>类型别名 :=> 文字
 
 <MyComponent foo={0} />; // should be an error
 ><MyComponent foo={0} /> : JSX.Element
 >MyComponent : typeof MyComponent
 >foo : number
+>类型别名 :=> 数字
 >0 : 0
 

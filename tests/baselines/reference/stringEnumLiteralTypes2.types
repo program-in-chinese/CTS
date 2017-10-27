@@ -11,24 +11,31 @@ const enum Choice { Unknown = "", Yes = "yes", No = "no" };
 type YesNo = Choice.Yes | Choice.No;
 >YesNo : YesNo
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 >Choice : any
+>类型别名 :=> 任意
 >No : Choice.No
 
 type NoYes = Choice.No | Choice.Yes;
 >NoYes : YesNo
 >Choice : any
+>类型别名 :=> 任意
 >No : Choice.No
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 
 type UnknownYesNo = Choice.Unknown | Choice.Yes | Choice.No;
 >UnknownYesNo : Choice
 >Choice : any
+>类型别名 :=> 任意
 >Unknown : Choice.Unknown
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 >Choice : any
+>类型别名 :=> 任意
 >No : Choice.No
 
 function f1() {
@@ -45,15 +52,19 @@ function f1() {
     var a: Choice.Yes | Choice.No;
 >a : YesNo
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 >Choice : any
+>类型别名 :=> 任意
 >No : Choice.No
 
     var a: Choice.No | Choice.Yes;
 >a : YesNo
 >Choice : any
+>类型别名 :=> 任意
 >No : Choice.No
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 }
 
@@ -86,67 +97,88 @@ function f3(a: Choice.Yes, b: YesNo) {
 >f3 : (a: Choice.Yes, b: YesNo) => void
 >a : Choice.Yes
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 >b : YesNo
 >YesNo : YesNo
 
     var x = a + b;
 >x : string
+>类型别名 :=> 文字
 >a + b : string
+>类型别名 :=> 文字
 >a : Choice.Yes
 >b : YesNo
 
     var y = a == b;
 >y : boolean
+>类型别名 :=> 真假
 >a == b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = a != b;
 >y : boolean
+>类型别名 :=> 真假
 >a != b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = a === b;
 >y : boolean
+>类型别名 :=> 真假
 >a === b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = a !== b;
 >y : boolean
+>类型别名 :=> 真假
 >a !== b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = a > b;
 >y : boolean
+>类型别名 :=> 真假
 >a > b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = a < b;
 >y : boolean
+>类型别名 :=> 真假
 >a < b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = a >= b;
 >y : boolean
+>类型别名 :=> 真假
 >a >= b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = a <= b;
 >y : boolean
+>类型别名 :=> 真假
 >a <= b : boolean
+>类型别名 :=> 真假
 >a : Choice.Yes
 >b : YesNo
 
     var y = !b;
 >y : boolean
+>类型别名 :=> 真假
 >!b : false
+>类型别名 :=> 为假
 >b : YesNo
 }
 
@@ -154,12 +186,14 @@ declare function g(x: Choice.Yes): string;
 >g : { (x: Choice.Yes): string; (x: Choice.No): boolean; (x: Choice): number; }
 >x : Choice.Yes
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 
 declare function g(x: Choice.No): boolean;
 >g : { (x: Choice.Yes): string; (x: Choice.No): boolean; (x: Choice): number; }
 >x : Choice.No
 >Choice : any
+>类型别名 :=> 任意
 >No : Choice.No
 
 declare function g(x: Choice): number;
@@ -178,7 +212,9 @@ function f5(a: YesNo, b: UnknownYesNo, c: Choice) {
 
     var z1 = g(Choice.Yes);
 >z1 : string
+>类型别名 :=> 文字
 >g(Choice.Yes) : string
+>类型别名 :=> 文字
 >g : { (x: Choice.Yes): string; (x: Choice.No): boolean; (x: Choice): number; }
 >Choice.Yes : Choice.Yes
 >Choice : typeof Choice
@@ -186,7 +222,9 @@ function f5(a: YesNo, b: UnknownYesNo, c: Choice) {
 
     var z2 = g(Choice.No);
 >z2 : boolean
+>类型别名 :=> 真假
 >g(Choice.No) : boolean
+>类型别名 :=> 真假
 >g : { (x: Choice.Yes): string; (x: Choice.No): boolean; (x: Choice): number; }
 >Choice.No : Choice.No
 >Choice : typeof Choice
@@ -194,19 +232,25 @@ function f5(a: YesNo, b: UnknownYesNo, c: Choice) {
 
     var z3 = g(a);
 >z3 : number
+>类型别名 :=> 数字
 >g(a) : number
+>类型别名 :=> 数字
 >g : { (x: Choice.Yes): string; (x: Choice.No): boolean; (x: Choice): number; }
 >a : YesNo
 
     var z4 = g(b);
 >z4 : number
+>类型别名 :=> 数字
 >g(b) : number
+>类型别名 :=> 数字
 >g : { (x: Choice.Yes): string; (x: Choice.No): boolean; (x: Choice): number; }
 >b : Choice
 
     var z5 = g(c);
 >z5 : number
+>类型别名 :=> 数字
 >g(c) : number
+>类型别名 :=> 数字
 >g : { (x: Choice.Yes): string; (x: Choice.No): boolean; (x: Choice): number; }
 >c : Choice
 }
@@ -214,6 +258,7 @@ function f5(a: YesNo, b: UnknownYesNo, c: Choice) {
 function assertNever(x: never): never {
 >assertNever : (x: never) => never
 >x : never
+>类型别名 :=> 不及
 
     throw new Error("Unexpected value");
 >new Error("Unexpected value") : Error
@@ -265,8 +310,10 @@ function f11(x: YesNo) {
     }
     return assertNever(x);
 >assertNever(x) : never
+>类型别名 :=> 不及
 >assertNever : (x: never) => never
 >x : never
+>类型别名 :=> 不及
 }
 
 function f12(x: UnknownYesNo) {
@@ -293,6 +340,7 @@ function f13(x: UnknownYesNo) {
 
     if (x === Choice.Yes) {
 >x === Choice.Yes : boolean
+>类型别名 :=> 真假
 >x : Choice
 >Choice.Yes : Choice.Yes
 >Choice : typeof Choice
@@ -313,14 +361,18 @@ type Item =
     { kind: Choice.Yes, a: string } |
 >kind : Choice.Yes
 >Choice : any
+>类型别名 :=> 任意
 >Yes : Choice.Yes
 >a : string
+>类型别名 :=> 文字
 
     { kind: Choice.No, b: string };
 >kind : Choice.No
 >Choice : any
+>类型别名 :=> 任意
 >No : Choice.No
 >b : string
+>类型别名 :=> 文字
 
 function f20(x: Item) {
 >f20 : (x: Item) => string
@@ -337,16 +389,20 @@ function f20(x: Item) {
 >Choice : typeof Choice
 >Yes : Choice.Yes
 >x.a : string
+>类型别名 :=> 文字
 >x : { kind: Choice.Yes; a: string; }
 >a : string
+>类型别名 :=> 文字
 
         case Choice.No: return x.b;
 >Choice.No : Choice.No
 >Choice : typeof Choice
 >No : Choice.No
 >x.b : string
+>类型别名 :=> 文字
 >x : { kind: Choice.No; b: string; }
 >b : string
+>类型别名 :=> 文字
     }
 }
 
@@ -365,19 +421,25 @@ function f21(x: Item) {
 >Choice : typeof Choice
 >Yes : Choice.Yes
 >x.a : string
+>类型别名 :=> 文字
 >x : { kind: Choice.Yes; a: string; }
 >a : string
+>类型别名 :=> 文字
 
         case Choice.No: return x.b;
 >Choice.No : Choice.No
 >Choice : typeof Choice
 >No : Choice.No
 >x.b : string
+>类型别名 :=> 文字
 >x : { kind: Choice.No; b: string; }
 >b : string
+>类型别名 :=> 文字
     }
     return assertNever(x);
 >assertNever(x) : never
+>类型别名 :=> 不及
 >assertNever : (x: never) => never
 >x : never
+>类型别名 :=> 不及
 }

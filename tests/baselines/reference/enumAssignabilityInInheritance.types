@@ -11,6 +11,7 @@ interface I0 {
 
     [x: string]: E;
 >x : string
+>类型别名 :=> 文字
 >E : E
 
     foo: E; // identical and subtype, ok
@@ -28,10 +29,12 @@ declare function foo(x: E): E;
 declare function foo(x: number): number;
 >foo : { (x: E): E; (x: number): number; (x: any): any; }
 >x : number
+>类型别名 :=> 数字
 
 declare function foo(x: any): any;
 >foo : { (x: E): E; (x: number): number; (x: any): any; }
 >x : any
+>类型别名 :=> 任意
 
 var r = foo(E.A); // E
 >r : E
@@ -43,20 +46,27 @@ var r = foo(E.A); // E
 
 var r2 = foo(1); // number
 >r2 : number
+>类型别名 :=> 数字
 >foo(1) : number
+>类型别名 :=> 数字
 >foo : { (x: E): E; (x: number): number; (x: any): any; }
 >1 : 1
 
 var r3 = foo(<any>null); // any
 >r3 : any
+>类型别名 :=> 任意
 >foo(<any>null) : any
+>类型别名 :=> 任意
 >foo : { (x: E): E; (x: number): number; (x: any): any; }
 ><any>null : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 declare function foo2(x: string): string;
 >foo2 : { (x: string): string; (x: E): E; }
 >x : string
+>类型别名 :=> 文字
 
 declare function foo2(x: E): E;
 >foo2 : { (x: string): string; (x: E): E; }
@@ -75,6 +85,7 @@ var r4 = foo2(E.A);
 declare function foo3(x: boolean): boolean;
 >foo3 : { (x: boolean): boolean; (x: E): E; }
 >x : boolean
+>类型别名 :=> 真假
 
 declare function foo3(x: E): E;
 >foo3 : { (x: boolean): boolean; (x: E): E; }
@@ -134,7 +145,9 @@ declare function foo6(x: { bar: number }): { bar: number };
 >foo6 : { (x: { bar: number; }): { bar: number; }; (x: E): E; }
 >x : { bar: number; }
 >bar : number
+>类型别名 :=> 数字
 >bar : number
+>类型别名 :=> 数字
 
 declare function foo6(x: E): E;
 >foo6 : { (x: { bar: number; }): { bar: number; }; (x: E): E; }
@@ -171,6 +184,7 @@ var r4 = foo7(E.A);
 interface I8 { foo: string; }
 >I8 : I8
 >foo : string
+>类型别名 :=> 文字
 
 declare function foo8(x: I8): I8;
 >foo8 : { (x: I8): I8; (x: E): E; }
@@ -195,6 +209,7 @@ var r4 = foo8(E.A);
 class A { foo: number; }
 >A : A
 >foo : number
+>类型别名 :=> 数字
 
 declare function foo9(x: A): A;
 >foo9 : { (x: A): A; (x: E): E; }
@@ -246,7 +261,9 @@ declare function foo11(x: (x) => number): (x) => number;
 >foo11 : { (x: (x: any) => number): (x: any) => number; (x: E): E; }
 >x : (x: any) => number
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 declare function foo11(x: E): E;
 >foo11 : { (x: (x: any) => number): (x: any) => number; (x: E): E; }
@@ -320,6 +337,7 @@ module f {
 
     export var bar = 1;
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 }
 declare function foo14(x: typeof f): typeof f;
@@ -345,12 +363,14 @@ var r4 = foo14(E.A);
 class CC { baz: string }
 >CC : CC
 >baz : string
+>类型别名 :=> 文字
 
 module CC {
 >CC : typeof CC
 
     export var bar = 1;
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 }
 declare function foo15(x: CC): CC;

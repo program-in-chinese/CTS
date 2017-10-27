@@ -5,8 +5,11 @@ interface ifc { }
 // Attempting to 'new' an interface yields poor error
 var i = new ifc();
 >i : any
+>类型别名 :=> 任意
 >new ifc() : any
+>类型别名 :=> 任意
 >ifc : any
+>类型别名 :=> 任意
 
 // Parens are optional
 var x = new Date;
@@ -22,21 +25,28 @@ var y = new Date();
 // Target is not a class or var, good error
 var t1 = new 53();
 >t1 : any
+>类型别名 :=> 任意
 >new 53() : any
+>类型别名 :=> 任意
 >53 : 53
 
 var t2 = new ''();
 >t2 : any
+>类型别名 :=> 任意
 >new ''() : any
+>类型别名 :=> 任意
 >'' : ""
 
 new string;
 >new string : any
+>类型别名 :=> 任意
 >string : any
+>类型别名 :=> 任意
 
 // Use in LHS of expression?
 (new Date()).toString();
 >(new Date()).toString() : string
+>类型别名 :=> 文字
 >(new Date()).toString : () => string
 >(new Date()) : Date
 >new Date() : Date
@@ -46,19 +56,27 @@ new string;
 // Various spacing
 var t3 = new string[]( );
 >t3 : any
+>类型别名 :=> 任意
 >new string[]( ) : any
+>类型别名 :=> 任意
 >string[] : any
+>类型别名 :=> 任意
 >string : any
+>类型别名 :=> 任意
 
 var t4 =
 >t4 : any
+>类型别名 :=> 任意
 
 new
 >newstring[    ]    (        ) : any
+>类型别名 :=> 任意
 
 string
 >string[    ] : any
+>类型别名 :=> 任意
 >string : any
+>类型别名 :=> 任意
 
 [
     ]
@@ -68,13 +86,18 @@ string
 // Unresolved symbol
 var f = new q();
 >f : any
+>类型别名 :=> 任意
 >new q() : any
+>类型别名 :=> 任意
 >q : any
+>类型别名 :=> 任意
 
 // not legal
 var t5 = new new Date;
 >t5 : any
+>类型别名 :=> 任意
 >new new Date : any
+>类型别名 :=> 任意
 >new Date : Date
 >Date : DateConstructor
 
@@ -92,6 +115,7 @@ module M {
 
         x: number;
 >x : number
+>类型别名 :=> 数字
     }
 }
 
@@ -101,11 +125,14 @@ class S {
     public get xs(): M.T[] {
 >xs : M.T[]
 >M : any
+>类型别名 :=> 任意
 >T : M.T
 
         return new M.T[];
 >new M.T[] : any
+>类型别名 :=> 任意
 >M.T[] : any
+>类型别名 :=> 任意
 >M.T : typeof M.T
 >M : typeof M
 >T : typeof M.T

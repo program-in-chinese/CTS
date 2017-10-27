@@ -7,6 +7,7 @@ interface A {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 
 interface A {
@@ -14,6 +15,7 @@ interface A {
 
     bar: number;
 >bar : number
+>类型别名 :=> 数字
 }
 
 interface A {
@@ -21,6 +23,7 @@ interface A {
 
     baz: boolean;
 >baz : boolean
+>类型别名 :=> 真假
 }
 
 var a: A;
@@ -29,21 +32,30 @@ var a: A;
 
 var r1 = a.foo
 >r1 : string
+>类型别名 :=> 文字
 >a.foo : string
+>类型别名 :=> 文字
 >a : A
 >foo : string
+>类型别名 :=> 文字
 
 var r2 = a.bar;
 >r2 : number
+>类型别名 :=> 数字
 >a.bar : number
+>类型别名 :=> 数字
 >a : A
 >bar : number
+>类型别名 :=> 数字
 
 var r3 = a.baz;
 >r3 : boolean
+>类型别名 :=> 真假
 >a.baz : boolean
+>类型别名 :=> 真假
 >a : A
 >baz : boolean
+>类型别名 :=> 真假
 
 // basic generic case
 interface B<T> {
@@ -79,21 +91,30 @@ var b: B<string>;
 
 var r4 = b.foo
 >r4 : string
+>类型别名 :=> 文字
 >b.foo : string
+>类型别名 :=> 文字
 >b : B<string>
 >foo : string
+>类型别名 :=> 文字
 
 var r5 = b.bar;
 >r5 : string
+>类型别名 :=> 文字
 >b.bar : string
+>类型别名 :=> 文字
 >b : B<string>
 >bar : string
+>类型别名 :=> 文字
 
 var r6 = b.baz;
 >r6 : string
+>类型别名 :=> 文字
 >b.baz : string
+>类型别名 :=> 文字
 >b : B<string>
 >baz : string
+>类型别名 :=> 文字
 
 // basic non-generic and generic case inside a module
 module M {
@@ -104,6 +125,7 @@ module M {
 
         foo: string;
 >foo : string
+>类型别名 :=> 文字
     }
 
     interface A {
@@ -111,6 +133,7 @@ module M {
 
         bar: number;
 >bar : number
+>类型别名 :=> 数字
     }
 
     interface A {
@@ -118,6 +141,7 @@ module M {
 
         baz: boolean;
 >baz : boolean
+>类型别名 :=> 真假
     }
 
     var a: A;
@@ -126,23 +150,32 @@ module M {
 
     var r1 = a.foo;
 >r1 : string
+>类型别名 :=> 文字
 >a.foo : string
+>类型别名 :=> 文字
 >a : A
 >foo : string
+>类型别名 :=> 文字
 
     // BUG 856491
     var r2 = a.bar; // any, should be number
 >r2 : number
+>类型别名 :=> 数字
 >a.bar : number
+>类型别名 :=> 数字
 >a : A
 >bar : number
+>类型别名 :=> 数字
 
     // BUG 856491
     var r3 = a.baz; // any, should be boolean
 >r3 : boolean
+>类型别名 :=> 真假
 >a.baz : boolean
+>类型别名 :=> 真假
 >a : A
 >baz : boolean
+>类型别名 :=> 真假
 
     interface B<T> {
 >B : B<T>
@@ -177,21 +210,30 @@ module M {
 
     var r4 = b.foo
 >r4 : string
+>类型别名 :=> 文字
 >b.foo : string
+>类型别名 :=> 文字
 >b : B<string>
 >foo : string
+>类型别名 :=> 文字
 
     // BUG 856491
     var r5 = b.bar; // any, should be number
 >r5 : string
+>类型别名 :=> 文字
 >b.bar : string
+>类型别名 :=> 文字
 >b : B<string>
 >bar : string
+>类型别名 :=> 文字
 
     // BUG 856491
     var r6 = b.baz; // any, should be boolean
 >r6 : string
+>类型别名 :=> 文字
 >b.baz : string
+>类型别名 :=> 文字
 >b : B<string>
 >baz : string
+>类型别名 :=> 文字
 }

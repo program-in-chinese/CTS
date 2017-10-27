@@ -17,6 +17,7 @@ export module C {
 >A : A<T>
 >B : B
 >null : null
+>类型别名 :=> 空值
 
     export function F2<T>(x: T): C.A<C.B> { return null; }
 >F2 : <T>(x: T) => A<B>
@@ -24,10 +25,13 @@ export module C {
 >x : T
 >T : T
 >C : any
+>类型别名 :=> 任意
 >A : A<T>
 >C : any
+>类型别名 :=> 任意
 >B : B
 >null : null
+>类型别名 :=> 空值
 
     export function F3<T>(x: T): C.A<C.B>[] { return null; }
 >F3 : <T>(x: T) => A<B>[]
@@ -35,10 +39,13 @@ export module C {
 >x : T
 >T : T
 >C : any
+>类型别名 :=> 任意
 >A : A<T>
 >C : any
+>类型别名 :=> 任意
 >B : B
 >null : null
+>类型别名 :=> 空值
 
     export function F4<T extends A<B>>(x: T): Array<C.A<C.B>> { return null; }
 >F4 : <T extends A<B>>(x: T) => A<B>[]
@@ -49,16 +56,20 @@ export module C {
 >T : T
 >Array : T[]
 >C : any
+>类型别名 :=> 任意
 >A : A<T>
 >C : any
+>类型别名 :=> 任意
 >B : B
 >null : null
+>类型别名 :=> 空值
 
     export function F5<T>(): T { return null; }
 >F5 : <T>() => T
 >T : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     export function F6<T extends A<B>>(x: T): T { return null; }
 >F6 : <T extends A<B>>(x: T) => T
@@ -69,6 +80,7 @@ export module C {
 >T : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     export class D<T>{
 >D : D<T>
@@ -84,8 +96,10 @@ export module C {
 export var a: C.A<C.B>;
 >a : C.A<C.B>
 >C : any
+>类型别名 :=> 任意
 >A : C.A<T>
 >C : any
+>类型别名 :=> 任意
 >B : C.B
 
 export var b = C.F;
@@ -121,14 +135,17 @@ export var x = (new C.D<C.A<C.B>>(new C.A<C.B>())).val;
 >C : typeof C
 >D : typeof C.D
 >C : any
+>类型别名 :=> 任意
 >A : C.A<T>
 >C : any
+>类型别名 :=> 任意
 >B : C.B
 >new C.A<C.B>() : C.A<C.B>
 >C.A : typeof C.A
 >C : typeof C
 >A : typeof C.A
 >C : any
+>类型别名 :=> 任意
 >B : C.B
 >val : C.A<C.B>
 
@@ -136,8 +153,10 @@ export function f<T extends C.A<C.B>>() { }
 >f : <T extends C.A<C.B>>() => void
 >T : T
 >C : any
+>类型别名 :=> 任意
 >A : C.A<T>
 >C : any
+>类型别名 :=> 任意
 >B : C.B
 
 export var g = C.F5<C.A<C.B>>();
@@ -147,8 +166,10 @@ export var g = C.F5<C.A<C.B>>();
 >C : typeof C
 >F5 : <T>() => T
 >C : any
+>类型别名 :=> 任意
 >A : C.A<T>
 >C : any
+>类型别名 :=> 任意
 >B : C.B
 
 export class h extends C.A<C.B>{ }
@@ -157,14 +178,17 @@ export class h extends C.A<C.B>{ }
 >C : typeof C
 >A : typeof C.A
 >C : any
+>类型别名 :=> 任意
 >B : C.B
 
 export interface i extends C.A<C.B> { }
 >i : i
 >C.A : any
+>类型别名 :=> 任意
 >C : typeof C
 >A : C.A<T>
 >C : any
+>类型别名 :=> 任意
 >B : C.B
 
 export var j = C.F6;

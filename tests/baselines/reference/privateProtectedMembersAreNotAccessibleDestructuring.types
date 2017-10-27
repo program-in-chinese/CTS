@@ -4,9 +4,11 @@ class K {
 
     private priv;
 >priv : any
+>类型别名 :=> 任意
 
     protected prot;
 >prot : any
+>类型别名 :=> 任意
 
     private privateMethod() { }
 >privateMethod : () => void
@@ -16,14 +18,20 @@ class K {
 
         let { priv: a, prot: b } = this; // ok
 >priv : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >prot : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >this : this
 
         let { priv, prot } = new K(); // ok
 >priv : any
+>类型别名 :=> 任意
 >prot : any
+>类型别名 :=> 任意
 >new K() : K
 >K : typeof K
     }
@@ -37,12 +45,16 @@ class C extends K {
 
         let { priv: a } = this; // error
 >priv : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >this : this
 
         let { prot: b } = this; // ok
 >prot : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >this : this
     }
 }
@@ -53,10 +65,12 @@ let k = new K();
 
 let { priv } = k; // error 
 >priv : any
+>类型别名 :=> 任意
 >k : K
 
 let { prot } = k; // error
 >prot : any
+>类型别名 :=> 任意
 >k : K
 
 let { privateMethod } = k; // error
@@ -65,10 +79,15 @@ let { privateMethod } = k; // error
 
 let { priv: a, prot: b, privateMethod: f } = k; // error
 >priv : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >prot : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >privateMethod : any
+>类型别名 :=> 任意
 >f : () => void
 >k : K
 

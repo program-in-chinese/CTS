@@ -8,6 +8,7 @@ class RoyalGuard {
 
         return this instanceof LeadGuard;
 >this instanceof LeadGuard : boolean
+>类型别名 :=> 真假
 >this : this
 >LeadGuard : typeof LeadGuard
     }
@@ -17,6 +18,7 @@ class RoyalGuard {
 
         return this instanceof FollowerGuard;
 >this instanceof FollowerGuard : boolean
+>类型别名 :=> 真假
 >this : this
 >FollowerGuard : typeof FollowerGuard
     }
@@ -46,24 +48,28 @@ let a: RoyalGuard = new FollowerGuard();
 
 if (a.isLeader()) {
 >a.isLeader() : boolean
+>类型别名 :=> 真假
 >a.isLeader : () => this is LeadGuard
 >a : RoyalGuard
 >isLeader : () => this is LeadGuard
 
     a.lead();
 >a.lead() : void
+>类型别名 :=> 无值
 >a.lead : () => void
 >a : LeadGuard
 >lead : () => void
 }
 else if (a.isFollower()) {
 >a.isFollower() : boolean
+>类型别名 :=> 真假
 >a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
 >isFollower : () => this is FollowerGuard
 
     a.follow();
 >a.follow() : void
+>类型别名 :=> 无值
 >a.follow : () => void
 >a : FollowerGuard
 >follow : () => void
@@ -79,24 +85,28 @@ let b: GuardInterface;
 
 if (b.isLeader()) {
 >b.isLeader() : boolean
+>类型别名 :=> 真假
 >b.isLeader : () => this is LeadGuard
 >b : GuardInterface
 >isLeader : () => this is LeadGuard
 
     b.lead();
 >b.lead() : void
+>类型别名 :=> 无值
 >b.lead : () => void
 >b : LeadGuard
 >lead : () => void
 }
 else if (b.isFollower()) {
 >b.isFollower() : boolean
+>类型别名 :=> 真假
 >b.isFollower : () => this is FollowerGuard
 >b : GuardInterface
 >isFollower : () => this is FollowerGuard
 
     b.follow();
 >b.follow() : void
+>类型别名 :=> 无值
 >b.follow : () => void
 >b : FollowerGuard
 >follow : () => void
@@ -123,6 +133,7 @@ var holder2 = {a};
 
 if (holder2.a.isLeader()) {
 >holder2.a.isLeader() : boolean
+>类型别名 :=> 真假
 >holder2.a.isLeader : () => this is LeadGuard
 >holder2.a : RoyalGuard
 >holder2 : { a: RoyalGuard; }
@@ -151,6 +162,7 @@ class ArrowGuard {
 
         return this instanceof ArrowElite;
 >this instanceof ArrowElite : boolean
+>类型别名 :=> 真假
 >this : this
 >ArrowElite : typeof ArrowElite
     }
@@ -161,6 +173,7 @@ class ArrowGuard {
 
         return this instanceof ArrowMedic;
 >this instanceof ArrowMedic : boolean
+>类型别名 :=> 真假
 >this : this
 >ArrowMedic : typeof ArrowMedic
     }
@@ -189,24 +202,28 @@ let guard = new ArrowGuard();
 
 if (guard.isElite()) {
 >guard.isElite() : boolean
+>类型别名 :=> 真假
 >guard.isElite : () => this is ArrowElite
 >guard : ArrowGuard
 >isElite : () => this is ArrowElite
 
     guard.defend();
 >guard.defend() : void
+>类型别名 :=> 无值
 >guard.defend : () => void
 >guard : ArrowElite
 >defend : () => void
 }
 else if (guard.isMedic()) {
 >guard.isMedic() : boolean
+>类型别名 :=> 真假
 >guard.isMedic : () => this is ArrowMedic
 >guard : ArrowGuard
 >isMedic : () => this is ArrowMedic
 
     guard.heal();
 >guard.heal() : void
+>类型别名 :=> 无值
 >guard.heal : () => void
 >guard : ArrowMedic
 >heal : () => void
@@ -217,6 +234,7 @@ interface Supplies {
 
     spoiled: boolean;
 >spoiled : boolean
+>类型别名 :=> 真假
 }
 
 interface Sundries {
@@ -224,6 +242,7 @@ interface Sundries {
 
     broken: boolean;
 >broken : boolean
+>类型别名 :=> 真假
 }
 
 interface Crate<T> {
@@ -236,6 +255,7 @@ interface Crate<T> {
 
     volume: number;
 >volume : number
+>类型别名 :=> 数字
 
     isSupplies(): this is Crate<Supplies>;
 >isSupplies : () => this is Crate<Supplies>
@@ -254,33 +274,43 @@ let crate: Crate<{}>;
 
 if (crate.isSundries()) {
 >crate.isSundries() : boolean
+>类型别名 :=> 真假
 >crate.isSundries : () => this is Crate<Sundries>
 >crate : Crate<{}>
 >isSundries : () => this is Crate<Sundries>
 
     crate.contents.broken = true;
 >crate.contents.broken = true : true
+>类型别名 :=> 为真
 >crate.contents.broken : boolean
+>类型别名 :=> 真假
 >crate.contents : Sundries
 >crate : Crate<Sundries>
 >contents : Sundries
 >broken : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 }
 else if (crate.isSupplies()) {
 >crate.isSupplies() : boolean
+>类型别名 :=> 真假
 >crate.isSupplies : () => this is Crate<Supplies>
 >crate : Crate<{}>
 >isSupplies : () => this is Crate<Supplies>
 
     crate.contents.spoiled = true;
 >crate.contents.spoiled = true : true
+>类型别名 :=> 为真
 >crate.contents.spoiled : boolean
+>类型别名 :=> 真假
 >crate.contents : Supplies
 >crate : Crate<Supplies>
 >contents : Supplies
 >spoiled : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 }
 
 // Matching guards should be assignable
@@ -310,6 +340,7 @@ class MimicGuard {
 >isLeader : () => this is MimicLeader
 >MimicLeader : MimicLeader
 >this instanceof MimicLeader : boolean
+>类型别名 :=> 真假
 >this : this
 >MimicLeader : typeof MimicLeader
 
@@ -317,6 +348,7 @@ class MimicGuard {
 >isFollower : () => this is MimicFollower
 >MimicFollower : MimicFollower
 >this instanceof MimicFollower : boolean
+>类型别名 :=> 真假
 >this : this
 >MimicFollower : typeof MimicFollower
 }
@@ -362,12 +394,14 @@ a.isFollower = mimic.isFollower;
 
 if (mimic.isFollower()) {
 >mimic.isFollower() : boolean
+>类型别名 :=> 真假
 >mimic.isFollower : () => this is MimicFollower
 >mimic : MimicGuard
 >isFollower : () => this is MimicFollower
 
     mimic.follow();
 >mimic.follow() : void
+>类型别名 :=> 无值
 >mimic.follow : () => void
 >mimic : MimicFollower
 >follow : () => void

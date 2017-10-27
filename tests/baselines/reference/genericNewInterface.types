@@ -4,11 +4,13 @@ function createInstance<T>(ctor: new (s: string) => T): T {
 >T : T
 >ctor : new (s: string) => T
 >s : string
+>类型别名 :=> 文字
 >T : T
 >T : T
 
     return new ctor(42); //should be an error
 >new ctor(42) : any
+>类型别名 :=> 任意
 >ctor : new (s: string) => T
 >42 : 42
 }
@@ -19,6 +21,7 @@ interface INewable<T> {
 
     new (param: string): T;
 >param : string
+>类型别名 :=> 文字
 >T : T
 }
 
@@ -32,6 +35,7 @@ function createInstance2<T>(ctor: INewable<T>): T {
 
     return new ctor(1024); //should be an error
 >new ctor(1024) : any
+>类型别名 :=> 任意
 >ctor : INewable<T>
 >1024 : 1024
 }

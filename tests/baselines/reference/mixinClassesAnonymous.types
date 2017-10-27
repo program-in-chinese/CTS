@@ -10,7 +10,9 @@ class Base {
 
     constructor(public x: number, public y: number) {}
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 }
 
 class Derived extends Base {
@@ -19,14 +21,20 @@ class Derived extends Base {
 
     constructor(x: number, y: number, public z: number) {
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : number
+>类型别名 :=> 数字
 
         super(x, y);
 >super(x, y) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
     }
 }
 
@@ -43,6 +51,7 @@ const Printable = <T extends Constructor<Base>>(superClass: T) => class extends 
 
     static message = "hello";
 >message : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
     print() {
@@ -50,15 +59,22 @@ const Printable = <T extends Constructor<Base>>(superClass: T) => class extends 
 
         const output = this.x + "," + this.y;
 >output : string
+>类型别名 :=> 文字
 >this.x + "," + this.y : string
+>类型别名 :=> 文字
 >this.x + "," : string
+>类型别名 :=> 文字
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
 >"," : ","
 >this.y : number
+>类型别名 :=> 数字
 >this : this
 >y : number
+>类型别名 :=> 数字
     }
 }
 
@@ -75,21 +91,26 @@ function Tagged<T extends Constructor<{}>>(superClass: T) {
 
         _tag: string;
 >_tag : string
+>类型别名 :=> 文字
 
         constructor(...args: any[]) {
 >args : any[]
 
             super(...args);
 >super(...args) : void
+>类型别名 :=> 无值
 >super : T
 >...args : any
+>类型别名 :=> 任意
 >args : any[]
 
             this._tag = "hello";
 >this._tag = "hello" : "hello"
 >this._tag : string
+>类型别名 :=> 文字
 >this : this
 >_tag : string
+>类型别名 :=> 文字
 >"hello" : "hello"
         }
     }
@@ -113,8 +134,10 @@ const Thing2 = Tagged(Printable(Derived));
 
 Thing2.message;
 >Thing2.message : string
+>类型别名 :=> 文字
 >Thing2 : { new (...args: any[]): Tagged<{ new (...args: any[]): <typeof Derived>.(Anonymous class); prototype: <any>.(Anonymous class); message: string; } & typeof Derived>.C; prototype: Tagged<any>.C; } & { new (...args: any[]): <typeof Derived>.(Anonymous class); prototype: <any>.(Anonymous class); message: string; } & typeof Derived
 >message : string
+>类型别名 :=> 文字
 
 function f1() {
 >f1 : () => void
@@ -129,13 +152,17 @@ function f1() {
 
     thing.x;
 >thing.x : number
+>类型别名 :=> 数字
 >thing : Tagged<typeof Derived>.C & Derived
 >x : number
+>类型别名 :=> 数字
 
     thing._tag;
 >thing._tag : string
+>类型别名 :=> 文字
 >thing : Tagged<typeof Derived>.C & Derived
 >_tag : string
+>类型别名 :=> 文字
 }
 
 function f2() {
@@ -151,16 +178,21 @@ function f2() {
 
     thing.x;
 >thing.x : number
+>类型别名 :=> 数字
 >thing : Tagged<{ new (...args: any[]): <typeof Derived>.(Anonymous class); prototype: <any>.(Anonymous class); message: string; } & typeof Derived>.C & <typeof Derived>.(Anonymous class) & Derived
 >x : number
+>类型别名 :=> 数字
 
     thing._tag;
 >thing._tag : string
+>类型别名 :=> 文字
 >thing : Tagged<{ new (...args: any[]): <typeof Derived>.(Anonymous class); prototype: <any>.(Anonymous class); message: string; } & typeof Derived>.C & <typeof Derived>.(Anonymous class) & Derived
 >_tag : string
+>类型别名 :=> 文字
 
     thing.print();
 >thing.print() : void
+>类型别名 :=> 无值
 >thing.print : () => void
 >thing : Tagged<{ new (...args: any[]): <typeof Derived>.(Anonymous class); prototype: <any>.(Anonymous class); message: string; } & typeof Derived>.C & <typeof Derived>.(Anonymous class) & Derived
 >print : () => void
@@ -172,9 +204,11 @@ class Thing3 extends Thing2 {
 
     constructor(tag: string) {
 >tag : string
+>类型别名 :=> 文字
 
         super(10, 20, 30);
 >super(10, 20, 30) : void
+>类型别名 :=> 无值
 >super : { new (...args: any[]): Tagged<{ new (...args: any[]): <typeof Derived>.(Anonymous class); prototype: <any>.(Anonymous class); message: string; } & typeof Derived>.C; prototype: Tagged<any>.C; } & { new (...args: any[]): <typeof Derived>.(Anonymous class); prototype: <any>.(Anonymous class); message: string; } & typeof Derived
 >10 : 10
 >20 : 20
@@ -182,16 +216,21 @@ class Thing3 extends Thing2 {
 
         this._tag = tag;
 >this._tag = tag : string
+>类型别名 :=> 文字
 >this._tag : string
+>类型别名 :=> 文字
 >this : this
 >_tag : string
+>类型别名 :=> 文字
 >tag : string
+>类型别名 :=> 文字
     }
     test() {
 >test : () => void
 
         this.print();
 >this.print() : void
+>类型别名 :=> 无值
 >this.print : () => void
 >this : this
 >print : () => void
@@ -211,6 +250,7 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
     return class extends Base {
 >class extends Base {        timestamp = new Date();    } : { new (...args: any[]): (Anonymous class); prototype: <any>.(Anonymous class); } & CT
 >Base : object
+>类型别名 :=> 实例
 
         timestamp = new Date();
 >timestamp : Date

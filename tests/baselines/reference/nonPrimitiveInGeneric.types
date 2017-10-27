@@ -7,6 +7,7 @@ function generic<T>(t: T) {
 
     var o: object = t; // expect error
 >o : object
+>类型别名 :=> 实例
 >t : T
 }
 var a = {};
@@ -15,27 +16,33 @@ var a = {};
 
 var b = "42";
 >b : string
+>类型别名 :=> 文字
 >"42" : "42"
 
 generic<object>({});
 >generic<object>({}) : void
+>类型别名 :=> 无值
 >generic : <T>(t: T) => void
 >{} : {}
 
 generic<object>(a);
 >generic<object>(a) : void
+>类型别名 :=> 无值
 >generic : <T>(t: T) => void
 >a : {}
 
 generic<object>(123); // expect error
 >generic<object>(123) : any
+>类型别名 :=> 任意
 >generic : <T>(t: T) => void
 >123 : 123
 
 generic<object>(b); // expect error
 >generic<object>(b) : any
+>类型别名 :=> 任意
 >generic : <T>(t: T) => void
 >b : string
+>类型别名 :=> 文字
 
 function bound<T extends object>(t: T) {
 >bound : <T extends object>(t: T) => void
@@ -45,28 +52,34 @@ function bound<T extends object>(t: T) {
 
     var o: object = t; // ok
 >o : object
+>类型别名 :=> 实例
 >t : T
 }
 
 bound({});
 >bound({}) : void
+>类型别名 :=> 无值
 >bound : <T extends object>(t: T) => void
 >{} : {}
 
 bound(a);
 >bound(a) : void
+>类型别名 :=> 无值
 >bound : <T extends object>(t: T) => void
 >a : {}
 
 bound(123); // expect error
 >bound(123) : any
+>类型别名 :=> 任意
 >bound : <T extends object>(t: T) => void
 >123 : 123
 
 bound(b); // expect error
 >bound(b) : any
+>类型别名 :=> 任意
 >bound : <T extends object>(t: T) => void
 >b : string
+>类型别名 :=> 文字
 
 function bound2<T extends object>() {}
 >bound2 : <T extends object>() => void
@@ -74,19 +87,23 @@ function bound2<T extends object>() {}
 
 bound2<{}>();
 >bound2<{}>() : void
+>类型别名 :=> 无值
 >bound2 : <T extends object>() => void
 
 bound2<Object>();
 >bound2<Object>() : void
+>类型别名 :=> 无值
 >bound2 : <T extends object>() => void
 >Object : Object
 
 bound2<number>(); // expect error
 >bound2<number>() : any
+>类型别名 :=> 任意
 >bound2 : <T extends object>() => void
 
 bound2<string>(); // expect error
 >bound2<string>() : any
+>类型别名 :=> 任意
 >bound2 : <T extends object>() => void
 
 function bound3<T extends {}>(t: T) {
@@ -97,6 +114,7 @@ function bound3<T extends {}>(t: T) {
 
     var o: object = t; // ok
 >o : object
+>类型别名 :=> 实例
 >t : T
 }
 
@@ -112,6 +130,7 @@ var y: Proxy<null>; // ok
 >y : Proxy<null>
 >Proxy : Proxy<T>
 >null : null
+>类型别名 :=> 空值
 
 var z: Proxy<undefined> ; // ok
 >z : Proxy<undefined>
@@ -123,6 +142,7 @@ interface Blah {
 
     foo: number;
 >foo : number
+>类型别名 :=> 数字
 }
 
 var u: Proxy<Blah>; // ok

@@ -4,9 +4,11 @@ interface Red {
 
 	[n:number]; // ok
 >n : number
+>类型别名 :=> 数字
 
 	[s:string]; // ok
 >s : string
+>类型别名 :=> 文字
 }
 
 interface Blue {
@@ -14,9 +16,11 @@ interface Blue {
 
 	[n:number]: any; // ok
 >n : number
+>类型别名 :=> 数字
 
 	[s:string]: any; // ok
 >s : string
+>类型别名 :=> 文字
 }
 
 interface Yellow {
@@ -24,10 +28,12 @@ interface Yellow {
 
 	[n:number]: Red; // ok
 >n : number
+>类型别名 :=> 数字
 >Red : Red
 
 	[s:string]: Red; // ok
 >s : string
+>类型别名 :=> 文字
 >Red : Red
 }
 
@@ -36,9 +42,11 @@ interface Orange {
 
 	[n:number]: number; // ok
 >n : number
+>类型别名 :=> 数字
 
 	[s:string]: string; // error
 >s : string
+>类型别名 :=> 文字
 }
 
 interface Green {
@@ -46,10 +54,12 @@ interface Green {
 
 	[n:number]: Orange; // error
 >n : number
+>类型别名 :=> 数字
 >Orange : Orange
 
 	[s:string]: Yellow; // ok
 >s : string
+>类型别名 :=> 文字
 >Yellow : Yellow
 }
 
@@ -58,9 +68,11 @@ interface Cyan {
 
 	[n:number]: number; // error
 >n : number
+>类型别名 :=> 数字
 
 	[s:string]: string; // ok
 >s : string
+>类型别名 :=> 文字
 }
 
 interface Purple {
@@ -68,7 +80,9 @@ interface Purple {
 
 	[n:number, s:string]; // error
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 }
 
 interface Magenta {
@@ -89,6 +103,7 @@ var blue: Blue;
 
 var s = "some string";
 >s : string
+>类型别名 :=> 文字
 >"some string" : "some string"
 
 yellow[5]; // ok
@@ -105,26 +120,35 @@ yellow[<any>{}]; // ok
 >yellow[<any>{}] : Red
 >yellow : Yellow
 ><any>{} : any
+>类型别名 :=> 任意
 >{} : {}
 
 s[0]; // error
 >s[0] : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 >0 : 0
 
 s["s"]; // ok
 >s["s"] : any
+>类型别名 :=> 任意
 >s : string
+>类型别名 :=> 文字
 >"s" : "s"
 
 s[<any>{}]; // ok
 >s[<any>{}] : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 ><any>{} : any
+>类型别名 :=> 任意
 >{} : {}
 
 yellow[blue]; // error
 >yellow[blue] : any
+>类型别名 :=> 任意
 >yellow : Yellow
 >blue : Blue
 
@@ -133,6 +157,7 @@ var x:number[];
 
 x[0];
 >x[0] : number
+>类型别名 :=> 数字
 >x : number[]
 >0 : 0
 
@@ -142,26 +167,35 @@ class Benchmark {
     public results: { [x:string]: any; } = <{ [x:string]: any; }>{};
 >results : { [x: string]: any; }
 >x : string
+>类型别名 :=> 文字
 ><{ [x:string]: any; }>{} : { [x: string]: any; }
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 
     public addTimingFor(name: string, timing: number) {
 >addTimingFor : (name: string, timing: number) => void
 >name : string
+>类型别名 :=> 文字
 >timing : number
+>类型别名 :=> 数字
 
         this.results[name] = this.results[name];
 >this.results[name] = this.results[name] : any
+>类型别名 :=> 任意
 >this.results[name] : any
+>类型别名 :=> 任意
 >this.results : { [x: string]: any; }
 >this : this
 >results : { [x: string]: any; }
 >name : string
+>类型别名 :=> 文字
 >this.results[name] : any
+>类型别名 :=> 任意
 >this.results : { [x: string]: any; }
 >this : this
 >results : { [x: string]: any; }
 >name : string
+>类型别名 :=> 文字
     }
 }

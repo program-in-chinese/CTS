@@ -2,10 +2,13 @@
 function f1(s: string) {
 >f1 : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
     if (s === "foo") {
 >s === "foo" : boolean
+>类型别名 :=> 真假
 >s : string
+>类型别名 :=> 文字
 >"foo" : "foo"
 
         s;  // "foo"
@@ -13,11 +16,16 @@ function f1(s: string) {
     }
     if (s === "foo" || s === "bar") {
 >s === "foo" || s === "bar" : boolean
+>类型别名 :=> 真假
 >s === "foo" : boolean
+>类型别名 :=> 真假
 >s : string
+>类型别名 :=> 文字
 >"foo" : "foo"
 >s === "bar" : boolean
+>类型别名 :=> 真假
 >s : string
+>类型别名 :=> 文字
 >"bar" : "bar"
 
         s;  // "foo" | "bar"
@@ -28,9 +36,11 @@ function f1(s: string) {
 function f2(s: string) {
 >f2 : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
     switch (s) {
 >s : string
+>类型别名 :=> 文字
 
         case "foo":
 >"foo" : "foo"
@@ -51,37 +61,51 @@ function f2(s: string) {
         default:
             s;  // string
 >s : string
+>类型别名 :=> 文字
     }
 }
 
 function f3(s: string) {
 >f3 : (s: string) => "foo" | "bar" | undefined
 >s : string
+>类型别名 :=> 文字
 
     return s === "foo" || s === "bar" ? s : undefined;  // "foo" | "bar" | undefined
 >s === "foo" || s === "bar" ? s : undefined : "foo" | "bar" | undefined
 >s === "foo" || s === "bar" : boolean
+>类型别名 :=> 真假
 >s === "foo" : boolean
+>类型别名 :=> 真假
 >s : string
+>类型别名 :=> 文字
 >"foo" : "foo"
 >s === "bar" : boolean
+>类型别名 :=> 真假
 >s : string
+>类型别名 :=> 文字
 >"bar" : "bar"
 >s : "foo" | "bar"
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function f4(x: number) {
 >f4 : (x: number) => 1 | 2
 >x : number
+>类型别名 :=> 数字
 
     if (x === 1 || x === 2) {
 >x === 1 || x === 2 : boolean
+>类型别名 :=> 真假
 >x === 1 : boolean
+>类型别名 :=> 真假
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >x === 2 : boolean
+>类型别名 :=> 真假
 >x : number
+>类型别名 :=> 数字
 >2 : 2
 
         return x;  // 1 | 2
@@ -95,15 +119,21 @@ function f4(x: number) {
 function f5(x: number, y: 1 | 2) {
 >f5 : (x: number, y: 1 | 2) => void
 >x : number
+>类型别名 :=> 数字
 >y : 1 | 2
 
     if (x === 0 || x === y) {
 >x === 0 || x === y : boolean
+>类型别名 :=> 真假
 >x === 0 : boolean
+>类型别名 :=> 真假
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >x === y : boolean
+>类型别名 :=> 真假
 >x : number
+>类型别名 :=> 数字
 >y : 1 | 2
 
         x;  // 0 | 1 | 2
@@ -114,16 +144,22 @@ function f5(x: number, y: 1 | 2) {
 function f6(x: number, y: 1 | 2) {
 >f6 : (x: number, y: 1 | 2) => void
 >x : number
+>类型别名 :=> 数字
 >y : 1 | 2
 
     if (y === x || 0 === x) {
 >y === x || 0 === x : boolean
+>类型别名 :=> 真假
 >y === x : boolean
+>类型别名 :=> 真假
 >y : 1 | 2
 >x : number
+>类型别名 :=> 数字
 >0 === x : boolean
+>类型别名 :=> 真假
 >0 : 0
 >x : number
+>类型别名 :=> 数字
 
         x;  // 0 | 1 | 2
 >x : 1 | 2 | 0
@@ -137,6 +173,7 @@ function f7(x: number | "foo" | "bar", y: 1 | 2 | string) {
 
     if (x === y) {
 >x === y : boolean
+>类型别名 :=> 真假
 >x : number | "foo" | "bar"
 >y : string | 1 | 2
 

@@ -8,12 +8,14 @@ declare function Component<U>(l: U): JSX.Element;
 >l : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 function createComponent<T extends { prop: number }>(arg: T) {
 >createComponent : <T extends { prop: number; }>(arg: T) => void
 >T : T
 >prop : number
+>类型别名 :=> 数字
 >arg : T
 >T : T
 
@@ -29,6 +31,7 @@ function createComponent<T extends { prop: number }>(arg: T) {
 >Component : <U>(l: U) => JSX.Element
 >arg : T
 >prop1 : true
+>类型别名 :=> 为真
 }
 
 declare function ComponentSpecific<U>(l: { prop: U }): JSX.Element;
@@ -38,6 +41,7 @@ declare function ComponentSpecific<U>(l: { prop: U }): JSX.Element;
 >prop : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function ComponentSpecific1<U>(l: { prop: U, "ignore-prop": number }): JSX.Element;
@@ -47,12 +51,14 @@ declare function ComponentSpecific1<U>(l: { prop: U, "ignore-prop": number }): J
 >prop : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 function Bar<T extends { prop: number }>(arg: T) {
 >Bar : <T extends { prop: number; }>(arg: T) => void
 >T : T
 >prop : number
+>类型别名 :=> 数字
 >arg : T
 >T : T
 
@@ -62,6 +68,7 @@ function Bar<T extends { prop: number }>(arg: T) {
 >ComponentSpecific : <U>(l: { prop: U; }) => JSX.Element
 >arg : T
 >ignore-prop : string
+>类型别名 :=> 文字
 
     let a2 = <ComponentSpecific1 {...arg} ignore-prop={10} />;  // U is number
 >a2 : JSX.Element
@@ -69,6 +76,7 @@ function Bar<T extends { prop: number }>(arg: T) {
 >ComponentSpecific1 : <U>(l: { prop: U; "ignore-prop": number; }) => JSX.Element
 >arg : T
 >ignore-prop : number
+>类型别名 :=> 数字
 >10 : 10
 
     let a3 = <ComponentSpecific {...arg} prop="hello" />;   // U is "hello"
@@ -77,6 +85,7 @@ function Bar<T extends { prop: number }>(arg: T) {
 >ComponentSpecific : <U>(l: { prop: U; }) => JSX.Element
 >arg : T
 >prop : string
+>类型别名 :=> 文字
 
     let a4 = <ComponentSpecific {...arg} prop1="hello" />;   // U is "hello"
 >a4 : JSX.Element
@@ -84,5 +93,6 @@ function Bar<T extends { prop: number }>(arg: T) {
 >ComponentSpecific : <U>(l: { prop: U; }) => JSX.Element
 >arg : T
 >prop1 : string
+>类型别名 :=> 文字
 }
 

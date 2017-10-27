@@ -10,7 +10,9 @@ var x = [() => 1, () => { }];
 
 var r2 = x[0]();
 >r2 : void
+>类型别名 :=> 无值
 >x[0]() : void
+>类型别名 :=> 无值
 >x[0] : () => void
 >x : (() => void)[]
 >0 : 0
@@ -20,6 +22,7 @@ class C {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 var y = [C, C];
 >y : (typeof C)[]
@@ -37,17 +40,23 @@ var r3 = new y[0]();
 var a: { (x: number): number; (x: string): string; };
 >a : { (x: number): number; (x: string): string; }
 >x : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 
 var b: { (x: number): number; (x: string): string; };
 >b : { (x: number): number; (x: string): string; }
 >x : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 
 var c: { (x: number): number; (x: any): any; };
 >c : { (x: number): number; (x: any): any; }
 >x : number
+>类型别名 :=> 数字
 >x : any
+>类型别名 :=> 任意
 
 var z = [a, b, c];
 >z : { (x: number): number; (x: any): any; }[]
@@ -64,13 +73,17 @@ var r4 = z[0];
 
 var r5 = r4(''); // any not string
 >r5 : any
+>类型别名 :=> 任意
 >r4('') : any
+>类型别名 :=> 任意
 >r4 : { (x: number): number; (x: any): any; }
 >'' : ""
 
 var r5b = r4(1);
 >r5b : number
+>类型别名 :=> 数字
 >r4(1) : number
+>类型别名 :=> 数字
 >r4 : { (x: number): number; (x: any): any; }
 >1 : 1
 
@@ -80,6 +93,7 @@ var a2: { <T>(x: T): number; (x: string): string;};
 >x : T
 >T : T
 >x : string
+>类型别名 :=> 文字
 
 var b2: { <T>(x: T): number; (x: string): string; };
 >b2 : { <T>(x: T): number; (x: string): string; }
@@ -87,10 +101,12 @@ var b2: { <T>(x: T): number; (x: string): string; };
 >x : T
 >T : T
 >x : string
+>类型别名 :=> 文字
 
 var c2: { (x: number): number; <T>(x: T): any; };
 >c2 : { (x: number): number; <T>(x: T): any; }
 >x : number
+>类型别名 :=> 数字
 >T : T
 >x : T
 >T : T
@@ -110,7 +126,9 @@ var r6 = z2[0];
 
 var r7 = r6(''); // any not string
 >r7 : any
+>类型别名 :=> 任意
 >r6('') : any
+>类型别名 :=> 任意
 >r6 : { (x: number): number; <T>(x: T): any; }
 >'' : ""
 

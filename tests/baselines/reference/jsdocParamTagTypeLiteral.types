@@ -6,12 +6,15 @@
 function normal(notSpecial) {
 >normal : (notSpecial: any) => void
 >notSpecial : any
+>类型别名 :=> 任意
 
     notSpecial; // should just be 'any'
 >notSpecial : any
+>类型别名 :=> 任意
 }
 normal(12);
 >normal(12) : void
+>类型别名 :=> 无值
 >normal : (notSpecial: any) => void
 >12 : 12
 
@@ -28,15 +31,19 @@ function foo1(opts1) {
 
     opts1.x;
 >opts1.x : string
+>类型别名 :=> 文字
 >opts1 : { x: string; y?: string; z?: string; w?: string; }
 >x : string
+>类型别名 :=> 文字
 }
 
 foo1({x: 'abc'});
 >foo1({x: 'abc'}) : void
+>类型别名 :=> 无值
 >foo1 : (opts1: { x: string; y?: string; z?: string; w?: string; }) => void
 >{x: 'abc'} : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >'abc' : "abc"
 
 /**
@@ -50,18 +57,22 @@ function foo2(/** @param opts2 bad idea theatre! */opts2) {
 
     opts2[0].anotherX;
 >opts2[0].anotherX : string
+>类型别名 :=> 文字
 >opts2[0] : { anotherX: string; anotherY?: string; }
 >opts2 : { anotherX: string; anotherY?: string; }[]
 >0 : 0
 >anotherX : string
+>类型别名 :=> 文字
 }
 
 foo2([{anotherX: "world"}]);
 >foo2([{anotherX: "world"}]) : void
+>类型别名 :=> 无值
 >foo2 : (opts2: { anotherX: string; anotherY?: string; }[]) => void
 >[{anotherX: "world"}] : { anotherX: string; }[]
 >{anotherX: "world"} : { anotherX: string; }
 >anotherX : string
+>类型别名 :=> 文字
 >"world" : "world"
 
 /**
@@ -74,14 +85,18 @@ function foo3(opts3) {
 
     opts3.x;
 >opts3.x : string
+>类型别名 :=> 文字
 >opts3 : { x: string; }
 >x : string
+>类型别名 :=> 文字
 }
 foo3({x: 'abc'});
 >foo3({x: 'abc'}) : void
+>类型别名 :=> 无值
 >foo3 : (opts3: { x: string; }) => void
 >{x: 'abc'} : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >'abc' : "abc"
 
 /**
@@ -97,18 +112,22 @@ function foo4(opts4) {
 
     opts4[0].x;
 >opts4[0].x : string
+>类型别名 :=> 文字
 >opts4[0] : { x: string; y?: string; z?: string; w?: string; }
 >opts4 : { x: string; y?: string; z?: string; w?: string; }[]
 >0 : 0
 >x : string
+>类型别名 :=> 文字
 }
 
 foo4([{ x: 'hi' }]);
 >foo4([{ x: 'hi' }]) : void
+>类型别名 :=> 无值
 >foo4 : (opts4: { x: string; y?: string; z?: string; w?: string; }[]) => void
 >[{ x: 'hi' }] : { x: string; }[]
 >{ x: 'hi' } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >'hi' : "hi"
 
 /**
@@ -127,6 +146,7 @@ function foo5(opts5) {
 
     opts5[0].what.bad[0].idea;
 >opts5[0].what.bad[0].idea : string
+>类型别名 :=> 文字
 >opts5[0].what.bad[0] : { idea: string; oh: boolean; }
 >opts5[0].what.bad : { idea: string; oh: boolean; }[]
 >opts5[0].what : { a: string; bad: { idea: string; oh: boolean; }[]; }
@@ -137,33 +157,43 @@ function foo5(opts5) {
 >bad : { idea: string; oh: boolean; }[]
 >0 : 0
 >idea : string
+>类型别名 :=> 文字
 
     opts5[0].unnest;
 >opts5[0].unnest : number
+>类型别名 :=> 数字
 >opts5[0] : { help: string; what: { a: string; bad: { idea: string; oh: boolean; }[]; }; unnest: number; }
 >opts5 : { help: string; what: { a: string; bad: { idea: string; oh: boolean; }[]; }; unnest: number; }[]
 >0 : 0
 >unnest : number
+>类型别名 :=> 数字
 }
 
 foo5([{ help: "help", what: { a: 'a', bad: [{ idea: 'idea', oh: false }] }, unnest: 1 }]);
 >foo5([{ help: "help", what: { a: 'a', bad: [{ idea: 'idea', oh: false }] }, unnest: 1 }]) : void
+>类型别名 :=> 无值
 >foo5 : (opts5: { help: string; what: { a: string; bad: { idea: string; oh: boolean; }[]; }; unnest: number; }[]) => void
 >[{ help: "help", what: { a: 'a', bad: [{ idea: 'idea', oh: false }] }, unnest: 1 }] : { help: string; what: { a: string; bad: { idea: string; oh: false; }[]; }; unnest: number; }[]
 >{ help: "help", what: { a: 'a', bad: [{ idea: 'idea', oh: false }] }, unnest: 1 } : { help: string; what: { a: string; bad: { idea: string; oh: false; }[]; }; unnest: number; }
 >help : string
+>类型别名 :=> 文字
 >"help" : "help"
 >what : { a: string; bad: { idea: string; oh: false; }[]; }
 >{ a: 'a', bad: [{ idea: 'idea', oh: false }] } : { a: string; bad: { idea: string; oh: false; }[]; }
 >a : string
+>类型别名 :=> 文字
 >'a' : "a"
 >bad : { idea: string; oh: false; }[]
 >[{ idea: 'idea', oh: false }] : { idea: string; oh: false; }[]
 >{ idea: 'idea', oh: false } : { idea: string; oh: false; }
 >idea : string
+>类型别名 :=> 文字
 >'idea' : "idea"
 >oh : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 >unnest : number
+>类型别名 :=> 数字
 >1 : 1
 

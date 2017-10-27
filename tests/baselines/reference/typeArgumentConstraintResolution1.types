@@ -11,15 +11,18 @@ function foo1<T extends Number>(test: string);
 >T : T
 >Number : Number
 >test : string
+>类型别名 :=> 文字
 
 function foo1<T extends String>(test: any) { }
 >foo1 : { <T extends Date>(test: T): any; <T extends Number>(test: string): any; }
 >T : T
 >String : String
 >test : any
+>类型别名 :=> 任意
 
 foo1<Date>(""); // should error
 >foo1<Date>("") : any
+>类型别名 :=> 任意
 >foo1 : { <T extends Date>(test: T): any; <T extends Number>(test: string): any; }
 >Date : Date
 >"" : ""
@@ -39,6 +42,7 @@ function foo2<T extends Number>(test: string): T;
 >T : T
 >Number : Number
 >test : string
+>类型别名 :=> 文字
 >T : T
 
 function foo2<T extends String>(test: any): any { return null; }
@@ -46,10 +50,13 @@ function foo2<T extends String>(test: any): any { return null; }
 >T : T
 >String : String
 >test : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 foo2<Date>(""); // Type Date does not satisfy the constraint 'Number' for type parameter 'T extends Number'
 >foo2<Date>("") : any
+>类型别名 :=> 任意
 >foo2 : { <T extends Date>(test: T): T; <T extends Number>(test: string): T; }
 >Date : Date
 >"" : ""

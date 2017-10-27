@@ -3,9 +3,11 @@
 
 var ANY: any;
 >ANY : any
+>类型别名 :=> 任意
 
 var ANY1;
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ANY2: any[] = ["", ""];
 >ANY2 : any[]
@@ -20,8 +22,10 @@ var obj1 = {x:"",y:1};
 >obj1 : { x: string; y: number; }
 >{x:"",y:1} : { x: string; y: number; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
 function foo(): any {
@@ -29,24 +33,29 @@ function foo(): any {
 
     var a;
 >a : any
+>类型别名 :=> 任意
 
     return a;
 >a : any
+>类型别名 :=> 任意
 }
 class A {
 >A : A
 
     public a: any;
 >a : any
+>类型别名 :=> 任意
 
     static foo() {
 >foo : () => any
 
         var a;
 >a : any
+>类型别名 :=> 任意
 
         return a;
 >a : any
+>类型别名 :=> 任意
     }
 }
 module M {
@@ -54,6 +63,7 @@ module M {
 
     export var n: any;
 >n : any
+>类型别名 :=> 任意
 }
 var objA = new A();
 >objA : A
@@ -63,174 +73,270 @@ var objA = new A();
 // any type var
 var ResultIsAny1 = void ANY1;
 >ResultIsAny1 : any
+>类型别名 :=> 任意
 >void ANY1 : undefined
+>类型别名 :=> 未定
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ResultIsAny2 = void ANY2;
 >ResultIsAny2 : any
+>类型别名 :=> 任意
 >void ANY2 : undefined
+>类型别名 :=> 未定
 >ANY2 : any[]
 
 var ResultIsAny3 = void A;
 >ResultIsAny3 : any
+>类型别名 :=> 任意
 >void A : undefined
+>类型别名 :=> 未定
 >A : typeof A
 
 var ResultIsAny4 = void M;
 >ResultIsAny4 : any
+>类型别名 :=> 任意
 >void M : undefined
+>类型别名 :=> 未定
 >M : typeof M
 
 var ResultIsAny5 = void obj;
 >ResultIsAny5 : any
+>类型别名 :=> 任意
 >void obj : undefined
+>类型别名 :=> 未定
 >obj : () => {}
 
 var ResultIsAny6 = void obj1;
 >ResultIsAny6 : any
+>类型别名 :=> 任意
 >void obj1 : undefined
+>类型别名 :=> 未定
 >obj1 : { x: string; y: number; }
 
 // any type literal
 var ResultIsAny7 = void undefined;
 >ResultIsAny7 : any
+>类型别名 :=> 任意
 >void undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 var ResultIsAny8 = void null;
 >ResultIsAny8 : any
+>类型别名 :=> 任意
 >void null : undefined
+>类型别名 :=> 未定
 >null : null
+>类型别名 :=> 空值
 
 // any type expressions
 var ResultIsAny9 = void ANY2[0]
 >ResultIsAny9 : any
+>类型别名 :=> 任意
 >void ANY2[0] : undefined
+>类型别名 :=> 未定
 >ANY2[0] : any
+>类型别名 :=> 任意
 >ANY2 : any[]
 >0 : 0
 
 var ResultIsAny10 = void obj1.x;
 >ResultIsAny10 : any
+>类型别名 :=> 任意
 >void obj1.x : undefined
+>类型别名 :=> 未定
 >obj1.x : string
+>类型别名 :=> 文字
 >obj1 : { x: string; y: number; }
 >x : string
+>类型别名 :=> 文字
 
 var ResultIsAny11 = void obj1.y;
 >ResultIsAny11 : any
+>类型别名 :=> 任意
 >void obj1.y : undefined
+>类型别名 :=> 未定
 >obj1.y : number
+>类型别名 :=> 数字
 >obj1 : { x: string; y: number; }
 >y : number
+>类型别名 :=> 数字
 
 var ResultIsAny12 = void objA.a;
 >ResultIsAny12 : any
+>类型别名 :=> 任意
 >void objA.a : undefined
+>类型别名 :=> 未定
 >objA.a : any
+>类型别名 :=> 任意
 >objA : A
 >a : any
+>类型别名 :=> 任意
 
 var ResultIsAny13 = void M.n;
 >ResultIsAny13 : any
+>类型别名 :=> 任意
 >void M.n : undefined
+>类型别名 :=> 未定
 >M.n : any
+>类型别名 :=> 任意
 >M : typeof M
 >n : any
+>类型别名 :=> 任意
 
 var ResultIsAny14 = void foo();
 >ResultIsAny14 : any
+>类型别名 :=> 任意
 >void foo() : undefined
+>类型别名 :=> 未定
 >foo() : any
+>类型别名 :=> 任意
 >foo : () => any
 
 var ResultIsAny15 = void A.foo();
 >ResultIsAny15 : any
+>类型别名 :=> 任意
 >void A.foo() : undefined
+>类型别名 :=> 未定
 >A.foo() : any
+>类型别名 :=> 任意
 >A.foo : () => any
 >A : typeof A
 >foo : () => any
 
 var ResultIsAny16 = void (ANY + ANY1);
 >ResultIsAny16 : any
+>类型别名 :=> 任意
 >void (ANY + ANY1) : undefined
+>类型别名 :=> 未定
 >(ANY + ANY1) : any
+>类型别名 :=> 任意
 >ANY + ANY1 : any
+>类型别名 :=> 任意
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ResultIsAny17 = void (null + undefined);
 >ResultIsAny17 : any
+>类型别名 :=> 任意
 >void (null + undefined) : undefined
+>类型别名 :=> 未定
 >(null + undefined) : any
+>类型别名 :=> 任意
 >null + undefined : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
 var ResultIsAny18 = void (null + null);
 >ResultIsAny18 : any
+>类型别名 :=> 任意
 >void (null + null) : undefined
+>类型别名 :=> 未定
 >(null + null) : any
+>类型别名 :=> 任意
 >null + null : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var ResultIsAny19 = void (undefined + undefined);
 >ResultIsAny19 : any
+>类型别名 :=> 任意
 >void (undefined + undefined) : undefined
+>类型别名 :=> 未定
 >(undefined + undefined) : any
+>类型别名 :=> 任意
 >undefined + undefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 // multiple void  operators
 var ResultIsAny20 = void void ANY;
 >ResultIsAny20 : any
+>类型别名 :=> 任意
 >void void ANY : undefined
+>类型别名 :=> 未定
 >void ANY : undefined
+>类型别名 :=> 未定
 >ANY : any
+>类型别名 :=> 任意
 
 var ResultIsAny21 = void void void (ANY + ANY1);
 >ResultIsAny21 : any
+>类型别名 :=> 任意
 >void void void (ANY + ANY1) : undefined
+>类型别名 :=> 未定
 >void void (ANY + ANY1) : undefined
+>类型别名 :=> 未定
 >void (ANY + ANY1) : undefined
+>类型别名 :=> 未定
 >(ANY + ANY1) : any
+>类型别名 :=> 任意
 >ANY + ANY1 : any
+>类型别名 :=> 任意
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 // miss assignment operators
 void ANY;
 >void ANY : undefined
+>类型别名 :=> 未定
 >ANY : any
+>类型别名 :=> 任意
 
 void ANY1;
 >void ANY1 : undefined
+>类型别名 :=> 未定
 >ANY1 : any
+>类型别名 :=> 任意
 
 void ANY2[0];
 >void ANY2[0] : undefined
+>类型别名 :=> 未定
 >ANY2[0] : any
+>类型别名 :=> 任意
 >ANY2 : any[]
 >0 : 0
 
 void ANY, ANY1;
 >void ANY, ANY1 : any
+>类型别名 :=> 任意
 >void ANY : undefined
+>类型别名 :=> 未定
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 void objA.a;
 >void objA.a : undefined
+>类型别名 :=> 未定
 >objA.a : any
+>类型别名 :=> 任意
 >objA : A
 >a : any
+>类型别名 :=> 任意
 
 void M.n;
 >void M.n : undefined
+>类型别名 :=> 未定
 >M.n : any
+>类型别名 :=> 任意
 >M : typeof M
 >n : any
+>类型别名 :=> 任意
 

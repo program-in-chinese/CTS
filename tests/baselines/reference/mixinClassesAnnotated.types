@@ -10,7 +10,9 @@ class Base {
 
     constructor(public x: number, public y: number) {}
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 }
 
 class Derived extends Base {
@@ -19,14 +21,20 @@ class Derived extends Base {
 
     constructor(x: number, y: number, public z: number) {
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : number
+>类型别名 :=> 数字
 
         super(x, y);
 >super(x, y) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
     }
 }
 
@@ -48,6 +56,7 @@ const Printable = <T extends Constructor<Base>>(superClass: T): Constructor<Prin
 >Constructor : Constructor<T>
 >Printable : Printable
 >message : string
+>类型别名 :=> 文字
 >T : T
 
     class extends superClass {
@@ -56,6 +65,7 @@ const Printable = <T extends Constructor<Base>>(superClass: T): Constructor<Prin
 
         static message = "hello";
 >message : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
         print() {
@@ -63,15 +73,22 @@ const Printable = <T extends Constructor<Base>>(superClass: T): Constructor<Prin
 
             const output = this.x + "," + this.y;
 >output : string
+>类型别名 :=> 文字
 >this.x + "," + this.y : string
+>类型别名 :=> 文字
 >this.x + "," : string
+>类型别名 :=> 文字
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
 >"," : ","
 >this.y : number
+>类型别名 :=> 数字
 >this : this
 >y : number
+>类型别名 :=> 数字
         }
     }
 
@@ -80,6 +97,7 @@ interface Tagged {
 
     _tag: string;
 >_tag : string
+>类型别名 :=> 文字
 }
 
 function Tagged<T extends Constructor<{}>>(superClass: T): Constructor<Tagged> & T {
@@ -98,21 +116,26 @@ function Tagged<T extends Constructor<{}>>(superClass: T): Constructor<Tagged> &
 
         _tag: string;
 >_tag : string
+>类型别名 :=> 文字
 
         constructor(...args: any[]) {
 >args : any[]
 
             super(...args);
 >super(...args) : void
+>类型别名 :=> 无值
 >super : T
 >...args : any
+>类型别名 :=> 任意
 >args : any[]
 
             this._tag = "hello";
 >this._tag = "hello" : "hello"
 >this._tag : string
+>类型别名 :=> 文字
 >this : this
 >_tag : string
+>类型别名 :=> 文字
 >"hello" : "hello"
         }
     }
@@ -136,8 +159,10 @@ const Thing2 = Tagged(Printable(Derived));
 
 Thing2.message;
 >Thing2.message : string
+>类型别名 :=> 文字
 >Thing2 : Constructor<Tagged> & Constructor<Printable> & { message: string; } & typeof Derived
 >message : string
+>类型别名 :=> 文字
 
 function f1() {
 >f1 : () => void
@@ -152,13 +177,17 @@ function f1() {
 
     thing.x;
 >thing.x : number
+>类型别名 :=> 数字
 >thing : Tagged & Derived
 >x : number
+>类型别名 :=> 数字
 
     thing._tag;
 >thing._tag : string
+>类型别名 :=> 文字
 >thing : Tagged & Derived
 >_tag : string
+>类型别名 :=> 文字
 }
 
 function f2() {
@@ -174,16 +203,21 @@ function f2() {
 
     thing.x;
 >thing.x : number
+>类型别名 :=> 数字
 >thing : Tagged & Printable & Derived
 >x : number
+>类型别名 :=> 数字
 
     thing._tag;
 >thing._tag : string
+>类型别名 :=> 文字
 >thing : Tagged & Printable & Derived
 >_tag : string
+>类型别名 :=> 文字
 
     thing.print();
 >thing.print() : void
+>类型别名 :=> 无值
 >thing.print : () => void
 >thing : Tagged & Printable & Derived
 >print : () => void
@@ -195,9 +229,11 @@ class Thing3 extends Thing2 {
 
     constructor(tag: string) {
 >tag : string
+>类型别名 :=> 文字
 
         super(10, 20, 30);
 >super(10, 20, 30) : void
+>类型别名 :=> 无值
 >super : Constructor<Tagged> & Constructor<Printable> & { message: string; } & typeof Derived
 >10 : 10
 >20 : 20
@@ -205,16 +241,21 @@ class Thing3 extends Thing2 {
 
         this._tag = tag;
 >this._tag = tag : string
+>类型别名 :=> 文字
 >this._tag : string
+>类型别名 :=> 文字
 >this : this
 >_tag : string
+>类型别名 :=> 文字
 >tag : string
+>类型别名 :=> 文字
     }
     test() {
 >test : () => void
 
         this.print();
 >this.print() : void
+>类型别名 :=> 无值
 >this.print : () => void
 >this : this
 >print : () => void

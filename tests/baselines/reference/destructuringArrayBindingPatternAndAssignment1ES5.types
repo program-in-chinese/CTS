@@ -24,23 +24,33 @@
 
 var [a0, a1]: any = undefined;
 >a0 : any
+>类型别名 :=> 任意
 >a1 : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 var [a2 = false, a3 = 1]: any = undefined;
 >a2 : any
+>类型别名 :=> 任意
 >false : false
+>类型别名 :=> 为假
 >a3 : any
+>类型别名 :=> 任意
 >1 : 1
 >undefined : undefined
+>类型别名 :=> 未定
 
 // V is an array assignment pattern, S is the type Any or an array-like type (section 3.3.2), and, for each assignment element E in V,
 //      S is a tuple- like type (section 3.3.3) with a property named N of a type that is assignable to the target given in E,
 //        where N is the numeric index of E in the array assignment pattern, or
 var [b0, b1, b2] = [2, 3, 4];
 >b0 : number
+>类型别名 :=> 数字
 >b1 : number
+>类型别名 :=> 数字
 >b2 : number
+>类型别名 :=> 数字
 >[2, 3, 4] : [number, number, number]
 >2 : 2
 >3 : 3
@@ -48,8 +58,11 @@ var [b0, b1, b2] = [2, 3, 4];
 
 var [b3, b4, b5]: [number, number, string] = [1, 2, "string"];
 >b3 : number
+>类型别名 :=> 数字
 >b4 : number
+>类型别名 :=> 数字
 >b5 : string
+>类型别名 :=> 文字
 >[1, 2, "string"] : [number, number, string]
 >1 : 1
 >2 : 2
@@ -67,7 +80,9 @@ function foo() {
 
 var [b6, b7] = foo();
 >b6 : number
+>类型别名 :=> 数字
 >b7 : number
+>类型别名 :=> 数字
 >foo() : number[]
 >foo : () => number[]
 
@@ -86,18 +101,24 @@ var temp = [1,2,3]
 
 var [c0, c1] = [...temp];
 >c0 : number
+>类型别名 :=> 数字
 >c1 : number
+>类型别名 :=> 数字
 >[...temp] : number[]
 >...temp : number
+>类型别名 :=> 数字
 >temp : number[]
 
 var [c2] = [];
 >c2 : any
+>类型别名 :=> 任意
 >[] : [any]
 
 var [[[c3]], [[[[c4]]]]] = [[[]], [[[[]]]]]
 >c3 : any
+>类型别名 :=> 任意
 >c4 : any
+>类型别名 :=> 任意
 >[[[]], [[[[]]]]] : [[[any]], [[[[any]]]]]
 >[[]] : [[any]]
 >[] : [any]
@@ -109,14 +130,18 @@ var [[[c3]], [[[[c4]]]]] = [[[]], [[[[]]]]]
 var [[c5], c6]: [[string|number], boolean] = [[1], true];
 >c5 : string | number
 >c6 : boolean
+>类型别名 :=> 真假
 >[[1], true] : [[number], true]
 >[1] : [number]
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 
 var [, c7] = [1, 2, 3];
 > : undefined
+>类型别名 :=> 未定
 >c7 : number
+>类型别名 :=> 数字
 >[1, 2, 3] : [number, number, number]
 >1 : 1
 >2 : 2
@@ -124,9 +149,13 @@ var [, c7] = [1, 2, 3];
 
 var [,,, c8] = [1, 2, 3, 4];
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 >c8 : number
+>类型别名 :=> 数字
 >[1, 2, 3, 4] : [number, number, number, number]
 >1 : 1
 >2 : 2
@@ -135,9 +164,13 @@ var [,,, c8] = [1, 2, 3, 4];
 
 var [,,, c9] = [1, 2, 3, 4];
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 >c9 : number
+>类型别名 :=> 数字
 >[1, 2, 3, 4] : [number, number, number, number]
 >1 : 1
 >2 : 2
@@ -146,8 +179,11 @@ var [,,, c9] = [1, 2, 3, 4];
 
 var [,,,...c10] = [1, 2, 3, 4, "hello"];
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 >c10 : (string | number)[]
 >[1, 2, 3, 4, "hello"] : (string | number)[]
 >1 : 1
@@ -167,8 +203,11 @@ var [c11, c12, ...c13] = [1, 2, "string"];
 
 var [c14, c15, c16] = [1, 2, "string"];
 >c14 : number
+>类型别名 :=> 数字
 >c15 : number
+>类型别名 :=> 数字
 >c16 : string
+>类型别名 :=> 文字
 >[1, 2, "string"] : [number, number, string]
 >1 : 1
 >2 : 2

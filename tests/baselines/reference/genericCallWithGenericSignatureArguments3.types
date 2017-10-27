@@ -33,11 +33,13 @@ var r1 = foo('', (x: string) => '', (x: Object) => null); // any => any
 >'' : ""
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 >(x: Object) => null : (x: Object) => any
 >x : Object
 >Object : Object
 >null : null
+>类型别名 :=> 空值
 
 var r1ii = foo('', (x) => '', (x) => null); // string => string
 >r1ii : (x: string) => string
@@ -46,10 +48,13 @@ var r1ii = foo('', (x) => '', (x) => null); // string => string
 >'' : ""
 >(x) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 >(x) => null : (x: string) => any
 >x : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 
 var r2 = foo('', (x: string) => '', (x: Object) => ''); // string => string
 >r2 : (x: Object) => Object
@@ -58,6 +63,7 @@ var r2 = foo('', (x: string) => '', (x: Object) => ''); // string => string
 >'' : ""
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 >(x: Object) => '' : (x: Object) => string
 >x : Object
@@ -69,12 +75,14 @@ var r3 = foo(null, (x: Object) => '', (x: string) => ''); // Object => Object
 >foo(null, (x: Object) => '', (x: string) => '') : (x: Object) => Object
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >null : null
+>类型别名 :=> 空值
 >(x: Object) => '' : (x: Object) => string
 >x : Object
 >Object : Object
 >'' : ""
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 
 var r4 = foo(null, (x) => '', (x) => ''); // any => any
@@ -82,11 +90,14 @@ var r4 = foo(null, (x) => '', (x) => ''); // any => any
 >foo(null, (x) => '', (x) => '') : (x: any) => any
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >null : null
+>类型别名 :=> 空值
 >(x) => '' : (x: any) => string
 >x : any
+>类型别名 :=> 任意
 >'' : ""
 >(x) => '' : (x: any) => string
 >x : any
+>类型别名 :=> 任意
 >'' : ""
 
 var r5 = foo(new Object(), (x) => '', (x) => ''); // Object => Object
@@ -119,6 +130,7 @@ var r6 = foo(E.A, (x: number) => E.A, (x: F) => F.A); // number => number
 >A : E
 >(x: number) => E.A : (x: number) => E
 >x : number
+>类型别名 :=> 数字
 >E.A : E
 >E : typeof E
 >A : E
@@ -162,21 +174,27 @@ var r8 = foo2('', (x) => '', (x) => null); // string => string
 >'' : ""
 >(x) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 >(x) => null : (x: string) => any
 >x : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 
 var r9 = foo2(null, (x) => '', (x) => ''); // any => any
 >r9 : (x: any) => string
 >foo2(null, (x) => '', (x) => '') : (x: any) => string
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
 >null : null
+>类型别名 :=> 空值
 >(x) => '' : (x: any) => string
 >x : any
+>类型别名 :=> 任意
 >'' : ""
 >(x) => '' : (x: any) => string
 >x : any
+>类型别名 :=> 任意
 >'' : ""
 
 var r10 = foo2(null, (x: Object) => '', (x: string) => ''); // Object => Object
@@ -184,26 +202,32 @@ var r10 = foo2(null, (x: Object) => '', (x: string) => ''); // Object => Object
 >foo2(null, (x: Object) => '', (x: string) => '') : (x: Object) => string
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
 >null : null
+>类型别名 :=> 空值
 >(x: Object) => '' : (x: Object) => string
 >x : Object
 >Object : Object
 >'' : ""
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 
 var x: (a: string) => boolean;
 >x : (a: string) => boolean
 >a : string
+>类型别名 :=> 文字
 
 var r11 = foo2(x, (a1: (y: string) => string) => (n: Object) => 1, (a2: (z: string) => string) => 2); // error
 >r11 : any
+>类型别名 :=> 任意
 >foo2(x, (a1: (y: string) => string) => (n: Object) => 1, (a2: (z: string) => string) => 2) : any
+>类型别名 :=> 任意
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
 >x : (a: string) => boolean
 >(a1: (y: string) => string) => (n: Object) => 1 : (a1: (y: string) => string) => (n: Object) => number
 >a1 : (y: string) => string
 >y : string
+>类型别名 :=> 文字
 >(n: Object) => 1 : (n: Object) => number
 >n : Object
 >Object : Object
@@ -211,16 +235,20 @@ var r11 = foo2(x, (a1: (y: string) => string) => (n: Object) => 1, (a2: (z: stri
 >(a2: (z: string) => string) => 2 : (a2: (z: string) => string) => number
 >a2 : (z: string) => string
 >z : string
+>类型别名 :=> 文字
 >2 : 2
 
 var r12 = foo2(x, (a1: (y: string) => boolean) => (n: Object) => 1, (a2: (z: string) => boolean) => 2); // error
 >r12 : any
+>类型别名 :=> 任意
 >foo2(x, (a1: (y: string) => boolean) => (n: Object) => 1, (a2: (z: string) => boolean) => 2) : any
+>类型别名 :=> 任意
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
 >x : (a: string) => boolean
 >(a1: (y: string) => boolean) => (n: Object) => 1 : (a1: (y: string) => boolean) => (n: Object) => number
 >a1 : (y: string) => boolean
 >y : string
+>类型别名 :=> 文字
 >(n: Object) => 1 : (n: Object) => number
 >n : Object
 >Object : Object
@@ -228,5 +256,6 @@ var r12 = foo2(x, (a1: (y: string) => boolean) => (n: Object) => 1, (a2: (z: str
 >(a2: (z: string) => boolean) => 2 : (a2: (z: string) => boolean) => number
 >a2 : (z: string) => boolean
 >z : string
+>类型别名 :=> 文字
 >2 : 2
 

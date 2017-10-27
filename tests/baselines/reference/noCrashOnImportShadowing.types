@@ -12,6 +12,7 @@ interface B {
 
     x: string;
 >x : string
+>类型别名 :=> 文字
 }
 
 const x: B = { x: "" };
@@ -19,6 +20,7 @@ const x: B = { x: "" };
 >B : B
 >{ x: "" } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 
 B.zzz;
@@ -28,22 +30,28 @@ B.zzz;
 
 export { B };
 >B : any
+>类型别名 :=> 任意
 
 === tests/cases/compiler/index.ts ===
 import { B } from "./a";
 >B : any
+>类型别名 :=> 任意
 
 const x: B = { x: "" };
 >x : B
 >B : B
 >{ x: "" } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 
 B.zzz;
 >B.zzz : any
+>类型别名 :=> 任意
 >B : any
+>类型别名 :=> 任意
 >zzz : any
+>类型别名 :=> 任意
 
 import * as OriginalB from "./b";
 >OriginalB : typeof OriginalB
@@ -55,6 +63,7 @@ OriginalB.zzz;
 
 const y: OriginalB = x;
 >y : any
+>类型别名 :=> 任意
 >OriginalB : No type information available!
 >x : B
 

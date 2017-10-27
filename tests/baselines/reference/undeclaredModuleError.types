@@ -1,23 +1,33 @@
 === tests/cases/compiler/undeclaredModuleError.ts ===
 import fs = require('fs');
 >fs : any
+>类型别名 :=> 任意
 
 function readdir(path: string, accept: (stat: fs.Stats, name: string) => boolean, callback: (error: Error, results: { name: string; stat: fs.Stats; }[]) => void ) {}
 >readdir : (path: string, accept: (stat: any, name: string) => boolean, callback: (error: Error, results: { name: string; stat: any; }[]) => void) => void
 >path : string
+>类型别名 :=> 文字
 >accept : (stat: any, name: string) => boolean
 >stat : any
+>类型别名 :=> 任意
 >fs : any
+>类型别名 :=> 任意
 >Stats : any
+>类型别名 :=> 任意
 >name : string
+>类型别名 :=> 文字
 >callback : (error: Error, results: { name: string; stat: any; }[]) => void
 >error : Error
 >Error : Error
 >results : { name: string; stat: any; }[]
 >name : string
+>类型别名 :=> 文字
 >stat : any
+>类型别名 :=> 任意
 >fs : any
+>类型别名 :=> 任意
 >Stats : any
+>类型别名 :=> 任意
 
 function join(...paths: string[]) {}
 >join : (...paths: string[]) => void
@@ -26,21 +36,31 @@ function join(...paths: string[]) {}
 function instrumentFile(covFileDir: string, covFileName: string, originalFilePath: string) {
 >instrumentFile : (covFileDir: string, covFileName: string, originalFilePath: string) => void
 >covFileDir : string
+>类型别名 :=> 文字
 >covFileName : string
+>类型别名 :=> 文字
 >originalFilePath : string
+>类型别名 :=> 文字
 
     fs.readFile(originalFilePath, () => {       
 >fs.readFile(originalFilePath, () => {               readdir(covFileDir, () => {        } , (error: Error, files: {}[]) => {                files.forEach((file) => {                    var fullPath = join(IDoNotExist);                } );            } );    } ) : any
+>类型别名 :=> 任意
 >fs.readFile : any
+>类型别名 :=> 任意
 >fs : any
+>类型别名 :=> 任意
 >readFile : any
+>类型别名 :=> 任意
 >originalFilePath : string
+>类型别名 :=> 文字
 >() => {               readdir(covFileDir, () => {        } , (error: Error, files: {}[]) => {                files.forEach((file) => {                    var fullPath = join(IDoNotExist);                } );            } );    } : () => void
 
         readdir(covFileDir, () => {
 >readdir(covFileDir, () => {        } , (error: Error, files: {}[]) => {                files.forEach((file) => {                    var fullPath = join(IDoNotExist);                } );            } ) : void
+>类型别名 :=> 无值
 >readdir : (path: string, accept: (stat: any, name: string) => boolean, callback: (error: Error, results: { name: string; stat: any; }[]) => void) => void
 >covFileDir : string
+>类型别名 :=> 文字
 >() => {        } : () => void
 
         } , (error: Error, files: {}[]) => {
@@ -51,6 +71,7 @@ function instrumentFile(covFileDir: string, covFileName: string, originalFilePat
 
                 files.forEach((file) => {
 >files.forEach((file) => {                    var fullPath = join(IDoNotExist);                } ) : void
+>类型别名 :=> 无值
 >files.forEach : (callbackfn: (value: {}, index: number, array: {}[]) => void, thisArg?: any) => void
 >files : {}[]
 >forEach : (callbackfn: (value: {}, index: number, array: {}[]) => void, thisArg?: any) => void
@@ -59,9 +80,12 @@ function instrumentFile(covFileDir: string, covFileName: string, originalFilePat
 
                     var fullPath = join(IDoNotExist);
 >fullPath : void
+>类型别名 :=> 无值
 >join(IDoNotExist) : void
+>类型别名 :=> 无值
 >join : (...paths: string[]) => void
 >IDoNotExist : any
+>类型别名 :=> 任意
 
                 } );
             } );

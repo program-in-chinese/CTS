@@ -5,6 +5,7 @@ module A.B {
 
     export var x: number;
 >x : number
+>类型别名 :=> 数字
 }
 
 module A{ 
@@ -15,20 +16,25 @@ module A{
 
         export var x: string;
 >x : string
+>类型别名 :=> 文字
     }
 }
 
 // ensure the right var decl is exported
 var x: number;
 >x : number
+>类型别名 :=> 数字
 
 var x = A.B.x;
 >x : number
+>类型别名 :=> 数字
 >A.B.x : number
+>类型别名 :=> 数字
 >A.B : typeof A.B
 >A : typeof A
 >B : typeof A.B
 >x : number
+>类型别名 :=> 数字
 
 module X.Y.Z {
 >X : typeof X
@@ -40,6 +46,7 @@ module X.Y.Z {
 
         length: number;
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -57,6 +64,7 @@ module X {
 
                 name: string;
 >name : string
+>类型别名 :=> 文字
             }
         }
     }
@@ -66,11 +74,15 @@ module X {
 var l: { length: number };
 >l : { length: number; }
 >length : number
+>类型别名 :=> 数字
 
 var l: X.Y.Z.Line;
 >l : { length: number; }
 >X : any
+>类型别名 :=> 任意
 >Y : any
+>类型别名 :=> 任意
 >Z : any
+>类型别名 :=> 任意
 >Line : X.Y.Z.Line
 

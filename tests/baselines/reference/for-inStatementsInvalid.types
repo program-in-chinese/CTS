@@ -1,16 +1,20 @@
 === tests/cases/conformance/statements/for-inStatements/for-inStatementsInvalid.ts ===
 var aNumber: number;
 >aNumber : number
+>类型别名 :=> 数字
 
 for (aNumber in {}) { }
 >aNumber : number
+>类型别名 :=> 数字
 >{} : {}
 
 var aBoolean: boolean;
 >aBoolean : boolean
+>类型别名 :=> 真假
 
 for (aBoolean in {}) { }
 >aBoolean : boolean
+>类型别名 :=> 真假
 >{} : {}
 
 var aRegExp: RegExp;
@@ -23,6 +27,7 @@ for (aRegExp in {}) { }
 
 for (var idx : number in {}) { }
 >idx : string
+>类型别名 :=> 文字
 >{} : {}
 
 function fn(): void { }
@@ -30,60 +35,94 @@ function fn(): void { }
 
 for (var x in fn()) { }
 >x : string
+>类型别名 :=> 文字
 >fn() : void
+>类型别名 :=> 无值
 >fn : () => void
 
 var c : string, d:string, e;
 >c : string
+>类型别名 :=> 文字
 >d : string
+>类型别名 :=> 文字
 >e : any
+>类型别名 :=> 任意
 
 for (var x in c || d) { }
 >x : string
+>类型别名 :=> 文字
 >c || d : string
+>类型别名 :=> 文字
 >c : string
+>类型别名 :=> 文字
 >d : string
+>类型别名 :=> 文字
 
 for (var x in e ? c : d) { }
 >x : string
+>类型别名 :=> 文字
 >e ? c : d : string
+>类型别名 :=> 文字
 >e : any
+>类型别名 :=> 任意
 >c : string
+>类型别名 :=> 文字
 >d : string
+>类型别名 :=> 文字
 
 for (var x in 42 ? c : d) { }
 >x : string
+>类型别名 :=> 文字
 >42 ? c : d : string
+>类型别名 :=> 文字
 >42 : 42
 >c : string
+>类型别名 :=> 文字
 >d : string
+>类型别名 :=> 文字
 
 for (var x in '' ? c : d) { }
 >x : string
+>类型别名 :=> 文字
 >'' ? c : d : string
+>类型别名 :=> 文字
 >'' : ""
 >c : string
+>类型别名 :=> 文字
 >d : string
+>类型别名 :=> 文字
 
 for (var x in 42 ? d[x] : c[x]) { }
 >x : string
+>类型别名 :=> 文字
 >42 ? d[x] : c[x] : any
+>类型别名 :=> 任意
 >42 : 42
 >d[x] : any
+>类型别名 :=> 任意
 >d : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 >c[x] : any
+>类型别名 :=> 任意
 >c : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
 for (var x in c[23]) { }
 >x : string
+>类型别名 :=> 文字
 >c[23] : string
+>类型别名 :=> 文字
 >c : string
+>类型别名 :=> 文字
 >23 : 23
 
 for (var x in (<T>(x: T) => x)) { }
 >x : string
+>类型别名 :=> 文字
 >(<T>(x: T) => x) : <T>(x: T) => T
 ><T>(x: T) => x : <T>(x: T) => T
 >T : T
@@ -93,12 +132,18 @@ for (var x in (<T>(x: T) => x)) { }
 
 for (var x in function (x: string, y: number) { return x + y }) { }
 >x : string
+>类型别名 :=> 文字
 >function (x: string, y: number) { return x + y } : (x: string, y: string) => string
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >x + y : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 
 class A {
 >A : A
@@ -108,23 +153,28 @@ class A {
 
         for (var x in this.biz()) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz() : number
+>类型别名 :=> 数字
 >this.biz : () => number
 >this : this
 >biz : () => number
 
         for (var x in this.biz) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz : () => number
 >this : this
 >biz : () => number
 
         for (var x in this) { }
 >x : string
+>类型别名 :=> 文字
 >this : this
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 
     static baz() : number {
@@ -132,23 +182,28 @@ class A {
 
         for (var x in this) { }
 >x : string
+>类型别名 :=> 文字
 >this : typeof A
 
         for (var x in this.baz) { }
 >x : string
+>类型别名 :=> 文字
 >this.baz : () => number
 >this : typeof A
 >baz : () => number
 
         for (var x in this.baz()) { }
 >x : string
+>类型别名 :=> 文字
 >this.baz() : number
+>类型别名 :=> 数字
 >this.baz : () => number
 >this : typeof A
 >baz : () => number
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -161,36 +216,44 @@ class B extends A {
 
         for (var x in this.biz()) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz() : number
+>类型别名 :=> 数字
 >this.biz : () => number
 >this : this
 >biz : () => number
 
         for (var x in this.biz) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz : () => number
 >this : this
 >biz : () => number
 
         for (var x in this) { }
 >x : string
+>类型别名 :=> 文字
 >this : this
 
         for (var x in super.biz) { }
 >x : string
+>类型别名 :=> 文字
 >super.biz : () => number
 >super : A
 >biz : () => number
 
         for (var x in super.biz()) { }
 >x : string
+>类型别名 :=> 文字
 >super.biz() : number
+>类型别名 :=> 数字
 >super.biz : () => number
 >super : A
 >biz : () => number
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -199,9 +262,11 @@ interface I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 
     [idx: number]: number;
 >idx : number
+>类型别名 :=> 数字
 }
 var i: I;
 >i : I
@@ -209,7 +274,9 @@ var i: I;
 
 for (var x in i[42]) { } 
 >x : string
+>类型别名 :=> 文字
 >i[42] : number
+>类型别名 :=> 数字
 >i : I
 >42 : 42
 

@@ -10,24 +10,32 @@ import {Cls} from "./m1";
 (<any>Cls.prototype).foo = function() { return 1; };
 >(<any>Cls.prototype).foo = function() { return 1; } : () => number
 >(<any>Cls.prototype).foo : any
+>类型别名 :=> 任意
 >(<any>Cls.prototype) : any
+>类型别名 :=> 任意
 ><any>Cls.prototype : any
+>类型别名 :=> 任意
 >Cls.prototype : Cls
 >Cls : typeof Cls
 >prototype : Cls
 >foo : any
+>类型别名 :=> 任意
 >function() { return 1; } : () => number
 >1 : 1
 
 (<any>Cls.prototype).bar = function() { return "1"; };
 >(<any>Cls.prototype).bar = function() { return "1"; } : () => string
 >(<any>Cls.prototype).bar : any
+>类型别名 :=> 任意
 >(<any>Cls.prototype) : any
+>类型别名 :=> 任意
 ><any>Cls.prototype : any
+>类型别名 :=> 任意
 >Cls.prototype : Cls
 >Cls : typeof Cls
 >prototype : Cls
 >bar : any
+>类型别名 :=> 任意
 >function() { return "1"; } : () => string
 >"1" : "1"
 
@@ -53,10 +61,12 @@ declare module "./m1" {
 export class C1 { x: number }
 >C1 : C1
 >x : number
+>类型别名 :=> 数字
 
 export class C2 { x: string }
 >C2 : C2
 >x : string
+>类型别名 :=> 文字
 
 === tests/cases/compiler/m4.ts ===
 import {Cls} from "./m1";
@@ -69,26 +79,36 @@ import {C1, C2} from "./m3";
 (<any>Cls.prototype).baz1 = function() { return undefined };
 >(<any>Cls.prototype).baz1 = function() { return undefined } : () => any
 >(<any>Cls.prototype).baz1 : any
+>类型别名 :=> 任意
 >(<any>Cls.prototype) : any
+>类型别名 :=> 任意
 ><any>Cls.prototype : any
+>类型别名 :=> 任意
 >Cls.prototype : Cls
 >Cls : typeof Cls
 >prototype : Cls
 >baz1 : any
+>类型别名 :=> 任意
 >function() { return undefined } : () => any
 >undefined : undefined
+>类型别名 :=> 未定
 
 (<any>Cls.prototype).baz2 = function() { return undefined };
 >(<any>Cls.prototype).baz2 = function() { return undefined } : () => any
 >(<any>Cls.prototype).baz2 : any
+>类型别名 :=> 任意
 >(<any>Cls.prototype) : any
+>类型别名 :=> 任意
 ><any>Cls.prototype : any
+>类型别名 :=> 任意
 >Cls.prototype : Cls
 >Cls : typeof Cls
 >prototype : Cls
 >baz2 : any
+>类型别名 :=> 任意
 >function() { return undefined } : () => any
 >undefined : undefined
+>类型别名 :=> 未定
 
 declare module "./m1" {
     interface Cls {
@@ -122,8 +142,10 @@ let c: Cls;
 
 c.foo().toExponential();
 >c.foo().toExponential() : string
+>类型别名 :=> 文字
 >c.foo().toExponential : (fractionDigits?: number) => string
 >c.foo() : number
+>类型别名 :=> 数字
 >c.foo : () => number
 >c : Cls
 >foo : () => number
@@ -131,8 +153,10 @@ c.foo().toExponential();
 
 c.bar().toLowerCase();
 >c.bar().toLowerCase() : string
+>类型别名 :=> 文字
 >c.bar().toLowerCase : () => string
 >c.bar() : string
+>类型别名 :=> 文字
 >c.bar : () => string
 >c : Cls
 >bar : () => string
@@ -140,23 +164,29 @@ c.bar().toLowerCase();
 
 c.baz1().x.toExponential();
 >c.baz1().x.toExponential() : string
+>类型别名 :=> 文字
 >c.baz1().x.toExponential : (fractionDigits?: number) => string
 >c.baz1().x : number
+>类型别名 :=> 数字
 >c.baz1() : C1
 >c.baz1 : () => C1
 >c : Cls
 >baz1 : () => C1
 >x : number
+>类型别名 :=> 数字
 >toExponential : (fractionDigits?: number) => string
 
 c.baz2().x.toLowerCase();
 >c.baz2().x.toLowerCase() : string
+>类型别名 :=> 文字
 >c.baz2().x.toLowerCase : () => string
 >c.baz2().x : string
+>类型别名 :=> 文字
 >c.baz2() : C2
 >c.baz2 : () => C2
 >c : Cls
 >baz2 : () => C2
 >x : string
+>类型别名 :=> 文字
 >toLowerCase : () => string
 

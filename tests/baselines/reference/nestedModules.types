@@ -3,15 +3,18 @@ module A.B.C {
 >A : typeof A
 >B : typeof B
 >C : any
+>类型别名 :=> 任意
 
     export interface Point {
 >Point : Point
 
         x: number;
 >x : number
+>类型别名 :=> 数字
 
         y: number;
 >y : number
+>类型别名 :=> 数字
     }
 }
 
@@ -24,11 +27,14 @@ module A {
         var Point: C.Point = { x: 0, y: 0 }; // bug 832088: could not find module 'C'
 >Point : C.Point
 >C : any
+>类型别名 :=> 任意
 >Point : C.Point
 >{ x: 0, y: 0 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : number
+>类型别名 :=> 数字
 >0 : 0
     }
 }
@@ -42,7 +48,9 @@ module M2.X {
 
         x: number; y: number;
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
     }
 }
 
@@ -54,6 +62,7 @@ module M2 {
 
         export var Point: number;
 >Point : number
+>类型别名 :=> 数字
     }
 }
 
@@ -65,21 +74,29 @@ var m = M2.X;
 
 var point: number;
 >point : number
+>类型别名 :=> 数字
 
 var point = m.Point;
 >point : number
+>类型别名 :=> 数字
 >m.Point : number
+>类型别名 :=> 数字
 >m : typeof M2.X
 >Point : number
+>类型别名 :=> 数字
 
 var p: { x: number; y: number; }
 >p : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 var p: M2.X.Point;
 >p : { x: number; y: number; }
 >M2 : any
+>类型别名 :=> 任意
 >X : any
+>类型别名 :=> 任意
 >Point : M2.X.Point
 

@@ -2,8 +2,10 @@
 var b2: { b: number;} = { a: 0 }; // error
 >b2 : { b: number; }
 >b : number
+>类型别名 :=> 数字
 >{ a: 0 } : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 b2 = { a: 0 }; // error
@@ -11,6 +13,7 @@ b2 = { a: 0 }; // error
 >b2 : { b: number; }
 >{ a: 0 } : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 b2 = {b: 0, a: 0 };
@@ -18,20 +21,27 @@ b2 = {b: 0, a: 0 };
 >b2 : { b: number; }
 >{b: 0, a: 0 } : { b: number; a: number; }
 >b : number
+>类型别名 :=> 数字
 >0 : 0
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 var b3: { f(n: number): number; g(s: string): number; m: number; n?: number; k?(a: any): any; };
 >b3 : { f(n: number): number; g(s: string): number; m: number; n?: number; k?(a: any): any; }
 >f : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >g : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >m : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >k : (a: any) => any
 >a : any
+>类型别名 :=> 任意
 
 b3 = {
 >b3 = {    f: (n) => { return 0; },    g: (s) => { return 0; },    m: 0,} : { f: (n: number) => number; g: (s: string) => number; m: number; }
@@ -42,16 +52,19 @@ b3 = {
 >f : (n: number) => number
 >(n) => { return 0; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     g: (s) => { return 0; },
 >g : (s: string) => number
 >(s) => { return 0; } : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >0 : 0
 
     m: 0,
 >m : number
+>类型别名 :=> 数字
 >0 : 0
 
 }; // ok
@@ -65,12 +78,14 @@ b3 = {
 >f : (n: number) => number
 >(n) => { return 0; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     g: (s) => { return 0; },
 >g : (s: string) => number
 >(s) => { return 0; } : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >0 : 0
 
 }; // error
@@ -84,10 +99,12 @@ b3 = {
 >f : (n: number) => number
 >(n) => { return 0; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     m: 0,
 >m : number
+>类型别名 :=> 数字
 >0 : 0
 
 }; // error
@@ -101,27 +118,33 @@ b3 = {
 >f : (n: number) => number
 >(n) => { return 0; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     g: (s) => { return 0; },
 >g : (s: string) => number
 >(s) => { return 0; } : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >0 : 0
 
     m: 0,
 >m : number
+>类型别名 :=> 数字
 >0 : 0
 
     n: 0,
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     k: (a) =>{ return null; },
 >k : (a: any) => any
 >(a) =>{ return null; } : (a: any) => any
 >a : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 }; // ok
 
@@ -134,22 +157,27 @@ b3 = {
 >f : (n: number) => number
 >(n) => { return 0; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     g: (s) => { return 0; },
 >g : (s: string) => number
 >(s) => { return 0; } : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >0 : 0
 
     n: 0,
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
     k: (a) =>{ return null; },
 >k : (a: any) => any
 >(a) =>{ return null; } : (a: any) => any
 >a : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 }; // error

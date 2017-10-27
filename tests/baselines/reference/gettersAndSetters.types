@@ -5,45 +5,66 @@ class C {
 
     public fooBack = "";
 >fooBack : string
+>类型别名 :=> 文字
 >"" : ""
 
     static barBack:string = "";
 >barBack : string
+>类型别名 :=> 文字
 >"" : ""
 
     public bazBack = "";
 >bazBack : string
+>类型别名 :=> 文字
 >"" : ""
     
     public get Foo() { return this.fooBack;} // ok
 >Foo : string
+>类型别名 :=> 文字
 >this.fooBack : string
+>类型别名 :=> 文字
 >this : this
 >fooBack : string
+>类型别名 :=> 文字
 
     public set Foo(foo:string) {this.fooBack = foo;} // ok
 >Foo : string
+>类型别名 :=> 文字
 >foo : string
+>类型别名 :=> 文字
 >this.fooBack = foo : string
+>类型别名 :=> 文字
 >this.fooBack : string
+>类型别名 :=> 文字
 >this : this
 >fooBack : string
+>类型别名 :=> 文字
 >foo : string
+>类型别名 :=> 文字
 
     static get Bar() {return C.barBack;} // ok
 >Bar : string
+>类型别名 :=> 文字
 >C.barBack : string
+>类型别名 :=> 文字
 >C : typeof C
 >barBack : string
+>类型别名 :=> 文字
 
     static set Bar(bar:string) {C.barBack = bar;} // ok
 >Bar : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 >C.barBack = bar : string
+>类型别名 :=> 文字
 >C.barBack : string
+>类型别名 :=> 文字
 >C : typeof C
 >barBack : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 
     public get = function() {} // ok
 >get : () => void
@@ -61,65 +82,90 @@ var c = new C();
 
 var foo = c.Foo;
 >foo : string
+>类型别名 :=> 文字
 >c.Foo : string
+>类型别名 :=> 文字
 >c : C
 >Foo : string
+>类型别名 :=> 文字
 
 c.Foo = "foov";
 >c.Foo = "foov" : "foov"
 >c.Foo : string
+>类型别名 :=> 文字
 >c : C
 >Foo : string
+>类型别名 :=> 文字
 >"foov" : "foov"
 
 var bar = C.Bar;
 >bar : string
+>类型别名 :=> 文字
 >C.Bar : string
+>类型别名 :=> 文字
 >C : typeof C
 >Bar : string
+>类型别名 :=> 文字
 
 C.Bar = "barv";
 >C.Bar = "barv" : "barv"
 >C.Bar : string
+>类型别名 :=> 文字
 >C : typeof C
 >Bar : string
+>类型别名 :=> 文字
 >"barv" : "barv"
 
 var baz = c.Baz;
 >baz : any
+>类型别名 :=> 任意
 >c.Baz : any
+>类型别名 :=> 任意
 >c : C
 >Baz : any
+>类型别名 :=> 任意
 
 c.Baz = "bazv";
 >c.Baz = "bazv" : "bazv"
 >c.Baz : any
+>类型别名 :=> 任意
 >c : C
 >Baz : any
+>类型别名 :=> 任意
 >"bazv" : "bazv"
 
 // The Foo accessors' return and param types should be contextually typed to the Foo field
 var o : {Foo:number;} = {get Foo() {return 0;}, set Foo(val:number){val}}; // o
 >o : { Foo: number; }
 >Foo : number
+>类型别名 :=> 数字
 >{get Foo() {return 0;}, set Foo(val:number){val}} : { Foo: number; }
 >Foo : number
+>类型别名 :=> 数字
 >0 : 0
 >Foo : number
+>类型别名 :=> 数字
 >val : number
+>类型别名 :=> 数字
 >val : number
+>类型别名 :=> 数字
 
 var ofg = o.Foo;
 >ofg : number
+>类型别名 :=> 数字
 >o.Foo : number
+>类型别名 :=> 数字
 >o : { Foo: number; }
 >Foo : number
+>类型别名 :=> 数字
 
 o.Foo = 0;
 >o.Foo = 0 : 0
 >o.Foo : number
+>类型别名 :=> 数字
 >o : { Foo: number; }
 >Foo : number
+>类型别名 :=> 数字
 >0 : 0
 
 
@@ -128,6 +174,7 @@ interface I1 {
 
     (n:number):number;
 >n : number
+>类型别名 :=> 数字
 }
 
 var i:I1 = function (n) {return n;}
@@ -135,5 +182,7 @@ var i:I1 = function (n) {return n;}
 >I1 : I1
 >function (n) {return n;} : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 

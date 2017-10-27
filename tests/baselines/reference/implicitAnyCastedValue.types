@@ -5,6 +5,7 @@ var x = function () {
 
     return <any>0;  // this should not be an error
 ><any>0 : any
+>类型别名 :=> 任意
 >0 : 0
 }
 
@@ -13,6 +14,7 @@ function foo() {
 
     return <any>"hello world";  // this should not be an error
 ><any>"hello world" : any
+>类型别名 :=> 任意
 >"hello world" : "hello world"
 }
 
@@ -21,17 +23,23 @@ class C {
 
     bar = null;  // this should be an error
 >bar : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
     foo = undefined;  // this should be an error
 >foo : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
     public get tempVar() {
 >tempVar : any
+>类型别名 :=> 任意
 
         return <any>0;  // this should not be an error
 ><any>0 : any
+>类型别名 :=> 任意
 >0 : 0
     }
 
@@ -40,9 +48,12 @@ class C {
 
         return <any>this.bar;
 ><any>this.bar : any
+>类型别名 :=> 任意
 >this.bar : any
+>类型别名 :=> 任意
 >this : this
 >bar : any
+>类型别名 :=> 任意
     }
 
     public returnFooWithCase() {
@@ -50,9 +61,12 @@ class C {
 
         return <any>this.foo;  // this should not be an error
 ><any>this.foo : any
+>类型别名 :=> 任意
 >this.foo : any
+>类型别名 :=> 任意
 >this : this
 >foo : any
+>类型别名 :=> 任意
     }
 }
 
@@ -61,25 +75,34 @@ class C1 {
 
     getValue = null;  // this should be an error
 >getValue : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
     public get castedGet() {
 >castedGet : any
+>类型别名 :=> 任意
 
         return <any>this.getValue;  // this should not be an error
 ><any>this.getValue : any
+>类型别名 :=> 任意
 >this.getValue : any
+>类型别名 :=> 任意
 >this : this
 >getValue : any
+>类型别名 :=> 任意
     }
 
     public get notCastedGet() {
 >notCastedGet : any
+>类型别名 :=> 任意
 
         return this.getValue;  // this should not be an error
 >this.getValue : any
+>类型别名 :=> 任意
 >this : this
 >getValue : any
+>类型别名 :=> 任意
     }
 }
 
@@ -88,7 +111,9 @@ function castedNull() {
 
     return <any>null;  // this should not be an error
 ><any>null : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 }
 
 function notCastedNull() {
@@ -96,6 +121,7 @@ function notCastedNull() {
 
     return null;  // this should be an error
 >null : null
+>类型别名 :=> 空值
 }
 
 function returnTypeBar(): any {
@@ -103,6 +129,7 @@ function returnTypeBar(): any {
 
     return null;  // this should not be an error
 >null : null
+>类型别名 :=> 空值
 }
 
 function undefinedBar() {
@@ -110,71 +137,96 @@ function undefinedBar() {
 
     return <any>undefined;  // this should not be an error
 ><any>undefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function multipleRets1(x) {    // this should not be an error
 >multipleRets1 : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
     if (x) {
 >x : any
+>类型别名 :=> 任意
 
         return <any>0;
 ><any>0 : any
+>类型别名 :=> 任意
 >0 : 0
     }
     else {
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
 function multipleRets2(x) {    // this should not be an error
 >multipleRets2 : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
     if (x) {
 >x : any
+>类型别名 :=> 任意
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
     else if (x == 1) {
 >x == 1 : boolean
+>类型别名 :=> 真假
 >x : any
+>类型别名 :=> 任意
 >1 : 1
 
         return <any>0;
 ><any>0 : any
+>类型别名 :=> 任意
 >0 : 0
     }
     else {
         return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
     }
 }
 
 // this should not be an error
 var bar1 = <any>null;
 >bar1 : any
+>类型别名 :=> 任意
 ><any>null : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 var bar2 = <any>undefined;
 >bar2 : any
+>类型别名 :=> 任意
 ><any>undefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 var bar3 = <any>0;
 >bar3 : any
+>类型别名 :=> 任意
 ><any>0 : any
+>类型别名 :=> 任意
 >0 : 0
 
 var array = <any>[null, undefined];
 >array : any
+>类型别名 :=> 任意
 ><any>[null, undefined] : any
+>类型别名 :=> 任意
 >[null, undefined] : null[]
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 

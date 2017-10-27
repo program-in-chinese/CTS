@@ -17,19 +17,24 @@ function f<T>(x: T, y: string|T): T {
 
 var a1: number;
 >a1 : number
+>类型别名 :=> 数字
 
 var a1 = f(1, 2);
 >a1 : number
+>类型别名 :=> 数字
 >f(1, 2) : any
+>类型别名 :=> 任意
 >f : <T>(x: T, y: string | T) => T
 >1 : 1
 >2 : 2
 
 var a2: number;
 >a2 : number
+>类型别名 :=> 数字
 
 var a2 = f(1, "hello");
 >a2 : number
+>类型别名 :=> 数字
 >f(1, "hello") : 1
 >f : <T>(x: T, y: string | T) => T
 >1 : 1
@@ -37,24 +42,32 @@ var a2 = f(1, "hello");
 
 var a3: number;
 >a3 : number
+>类型别名 :=> 数字
 
 var a3 = f(1, a1 || "hello");
 >a3 : number
+>类型别名 :=> 数字
 >f(1, a1 || "hello") : number
+>类型别名 :=> 数字
 >f : <T>(x: T, y: string | T) => T
 >1 : 1
 >a1 || "hello" : number | "hello"
 >a1 : number
+>类型别名 :=> 数字
 >"hello" : "hello"
 
 var a4: any;
 >a4 : any
+>类型别名 :=> 任意
 
 var a4 = f(undefined, "abc");
 >a4 : any
+>类型别名 :=> 任意
 >f(undefined, "abc") : any
+>类型别名 :=> 任意
 >f : <T>(x: T, y: string | T) => T
 >undefined : undefined
+>类型别名 :=> 未定
 >"abc" : "abc"
 
 function g<T>(value: [string, T]): T {
@@ -72,14 +85,18 @@ function g<T>(value: [string, T]): T {
 
 var b1: boolean;
 >b1 : boolean
+>类型别名 :=> 真假
 
 var b1 = g(["string", true]);
 >b1 : boolean
+>类型别名 :=> 真假
 >g(["string", true]) : boolean
+>类型别名 :=> 真假
 >g : <T>(value: [string, T]) => T
 >["string", true] : [string, true]
 >"string" : "string"
 >true : true
+>类型别名 :=> 为真
 
 function h<T>(x: string|boolean|T): T {
 >h : <T>(x: string | boolean | T) => T
@@ -91,32 +108,40 @@ function h<T>(x: string|boolean|T): T {
     return typeof x === "string" || typeof x === "boolean" ? undefined : x;
 >typeof x === "string" || typeof x === "boolean" ? undefined : x : T
 >typeof x === "string" || typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | boolean | T
 >"string" : "string"
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : boolean | T
 >"boolean" : "boolean"
 >undefined : undefined
+>类型别名 :=> 未定
 >x : T
 }
 
 var c1: number;
 >c1 : number
+>类型别名 :=> 数字
 
 var c1 = h(5);
 >c1 : number
+>类型别名 :=> 数字
 >h(5) : 5
 >h : <T>(x: string | boolean | T) => T
 >5 : 5
 
 var c2: string;
 >c2 : string
+>类型别名 :=> 文字
 
 var c2 = h("abc");
 >c2 : string
+>类型别名 :=> 文字
 >h("abc") : "abc"
 >h : <T>(x: string | boolean | T) => T
 >"abc" : "abc"

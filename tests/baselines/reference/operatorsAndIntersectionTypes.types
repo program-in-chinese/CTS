@@ -2,10 +2,12 @@
 type Guid = string & { $Guid };          // Tagged string type
 >Guid : Guid
 >$Guid : any
+>类型别名 :=> 任意
 
 type SerialNo = number & { $SerialNo };  // Tagged number type
 >SerialNo : SerialNo
 >$SerialNo : any
+>类型别名 :=> 任意
 
 function createGuid() {
 >createGuid : () => Guid
@@ -28,6 +30,7 @@ function createSerialNo() {
 let map1: { [x: string]: number } = {};
 >map1 : { [x: string]: number; }
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 
 let guid = createGuid();
@@ -38,6 +41,7 @@ let guid = createGuid();
 map1[guid] = 123;  // Can with tagged string
 >map1[guid] = 123 : 123
 >map1[guid] : number
+>类型别名 :=> 数字
 >map1 : { [x: string]: number; }
 >guid : Guid
 >123 : 123
@@ -45,6 +49,7 @@ map1[guid] = 123;  // Can with tagged string
 let map2: { [x: number]: string } = {};
 >map2 : { [x: number]: string; }
 >x : number
+>类型别名 :=> 数字
 >{} : {}
 
 let serialNo = createSerialNo();
@@ -55,40 +60,52 @@ let serialNo = createSerialNo();
 map2[serialNo] = "hello";  // Can index with tagged number
 >map2[serialNo] = "hello" : "hello"
 >map2[serialNo] : string
+>类型别名 :=> 文字
 >map2 : { [x: number]: string; }
 >serialNo : SerialNo
 >"hello" : "hello"
 
 const s1 = "{" + guid + "}";
 >s1 : string
+>类型别名 :=> 文字
 >"{" + guid + "}" : string
+>类型别名 :=> 文字
 >"{" + guid : string
+>类型别名 :=> 文字
 >"{" : "{"
 >guid : Guid
 >"}" : "}"
 
 const s2 = guid.toLowerCase();
 >s2 : string
+>类型别名 :=> 文字
 >guid.toLowerCase() : string
+>类型别名 :=> 文字
 >guid.toLowerCase : () => string
 >guid : Guid
 >toLowerCase : () => string
 
 const s3 = guid + guid;
 >s3 : string
+>类型别名 :=> 文字
 >guid + guid : string
+>类型别名 :=> 文字
 >guid : Guid
 >guid : Guid
 
 const s4 = guid + serialNo;
 >s4 : string
+>类型别名 :=> 文字
 >guid + serialNo : string
+>类型别名 :=> 文字
 >guid : Guid
 >serialNo : SerialNo
 
 const s5 = serialNo.toPrecision(0);
 >s5 : string
+>类型别名 :=> 文字
 >serialNo.toPrecision(0) : string
+>类型别名 :=> 文字
 >serialNo.toPrecision : (precision?: number) => string
 >serialNo : SerialNo
 >toPrecision : (precision?: number) => string
@@ -96,37 +113,49 @@ const s5 = serialNo.toPrecision(0);
 
 const n1 = serialNo * 3;
 >n1 : number
+>类型别名 :=> 数字
 >serialNo * 3 : number
+>类型别名 :=> 数字
 >serialNo : SerialNo
 >3 : 3
 
 const n2 = serialNo + serialNo;
 >n2 : number
+>类型别名 :=> 数字
 >serialNo + serialNo : number
+>类型别名 :=> 数字
 >serialNo : SerialNo
 >serialNo : SerialNo
 
 const b1 = guid === "";
 >b1 : boolean
+>类型别名 :=> 真假
 >guid === "" : boolean
+>类型别名 :=> 真假
 >guid : Guid
 >"" : ""
 
 const b2 = guid === guid;
 >b2 : boolean
+>类型别名 :=> 真假
 >guid === guid : boolean
+>类型别名 :=> 真假
 >guid : Guid
 >guid : Guid
 
 const b3 = serialNo === 0;
 >b3 : boolean
+>类型别名 :=> 真假
 >serialNo === 0 : boolean
+>类型别名 :=> 真假
 >serialNo : SerialNo
 >0 : 0
 
 const b4 = serialNo === serialNo;
 >b4 : boolean
+>类型别名 :=> 真假
 >serialNo === serialNo : boolean
+>类型别名 :=> 真假
 >serialNo : SerialNo
 >serialNo : SerialNo
 

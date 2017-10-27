@@ -6,6 +6,7 @@ interface Type {
 
   type: number;
 >type : number
+>类型别名 :=> 数字
 }
 
 interface TypeExt extends Type {
@@ -23,11 +24,15 @@ const guard = (arg: Type): arg is TypeExt => arg.type === 1;
 >arg : Type
 >Type : Type
 >arg : any
+>类型别名 :=> 任意
 >TypeExt : TypeExt
 >arg.type === 1 : boolean
+>类型别名 :=> 真假
 >arg.type : number
+>类型别名 :=> 数字
 >arg : Type
 >type : number
+>类型别名 :=> 数字
 >1 : 1
 
 const otherFunc = (arg1: Type, arg2: TypeExt): void => {};
@@ -45,6 +50,7 @@ export function y(arg: Type): void {
 
   if (guard(arg)) {
 >guard(arg) : boolean
+>类型别名 :=> 真假
 >guard : (arg: Type) => arg is TypeExt
 >arg : Type
 
@@ -56,6 +62,7 @@ export function y(arg: Type): void {
 
       if (otherFunc(ITEM, arg)) {
 >otherFunc(ITEM, arg) : void
+>类型别名 :=> 无值
 >otherFunc : (arg1: Type, arg2: TypeExt) => void
 >ITEM : Type
 >arg : TypeExt

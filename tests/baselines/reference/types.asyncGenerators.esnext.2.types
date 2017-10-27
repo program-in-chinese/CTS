@@ -4,6 +4,7 @@ async function * inferReturnType1() {
 
     yield* {};
 >yield* {} : any
+>类型别名 :=> 任意
 >{} : {}
 }
 async function * inferReturnType2() {
@@ -11,7 +12,9 @@ async function * inferReturnType2() {
 
     yield* inferReturnType2();
 >yield* inferReturnType2() : any
+>类型别名 :=> 任意
 >inferReturnType2() : any
+>类型别名 :=> 任意
 >inferReturnType2 : () => any
 }
 async function * inferReturnType3() {
@@ -19,6 +22,7 @@ async function * inferReturnType3() {
 
     yield* Promise.resolve([1, 2]);
 >yield* Promise.resolve([1, 2]) : any
+>类型别名 :=> 任意
 >Promise.resolve([1, 2]) : Promise<number[]>
 >Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
@@ -34,6 +38,7 @@ const assignability1: () => AsyncIterableIterator<number> = async function * () 
 
     yield "a";
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 
 };
@@ -44,6 +49,7 @@ const assignability2: () => AsyncIterableIterator<number> = async function * () 
 
     yield* ["a", "b"];
 >yield* ["a", "b"] : any
+>类型别名 :=> 任意
 >["a", "b"] : string[]
 >"a" : "a"
 >"b" : "b"
@@ -56,10 +62,12 @@ const assignability3: () => AsyncIterableIterator<number> = async function * () 
 
     yield* (async function * () { yield "a"; })();
 >yield* (async function * () { yield "a"; })() : any
+>类型别名 :=> 任意
 >(async function * () { yield "a"; })() : AsyncIterableIterator<"a">
 >(async function * () { yield "a"; }) : () => AsyncIterableIterator<"a">
 >async function * () { yield "a"; } : () => AsyncIterableIterator<"a">
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 
 };
@@ -70,6 +78,7 @@ const assignability4: () => AsyncIterable<number> = async function * () {
 
     yield "a";
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 
 };
@@ -80,6 +89,7 @@ const assignability5: () => AsyncIterable<number> = async function * () {
 
     yield* ["a", "b"];
 >yield* ["a", "b"] : any
+>类型别名 :=> 任意
 >["a", "b"] : string[]
 >"a" : "a"
 >"b" : "b"
@@ -92,10 +102,12 @@ const assignability6: () => AsyncIterable<number> = async function * () {
 
     yield* (async function * () { yield "a"; })();
 >yield* (async function * () { yield "a"; })() : any
+>类型别名 :=> 任意
 >(async function * () { yield "a"; })() : AsyncIterableIterator<"a">
 >(async function * () { yield "a"; }) : () => AsyncIterableIterator<"a">
 >async function * () { yield "a"; } : () => AsyncIterableIterator<"a">
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 
 };
@@ -106,6 +118,7 @@ const assignability7: () => AsyncIterator<number> = async function * () {
 
     yield "a";
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 
 };
@@ -116,6 +129,7 @@ const assignability8: () => AsyncIterator<number> = async function * () {
 
     yield* ["a", "b"];
 >yield* ["a", "b"] : any
+>类型别名 :=> 任意
 >["a", "b"] : string[]
 >"a" : "a"
 >"b" : "b"
@@ -128,10 +142,12 @@ const assignability9: () => AsyncIterator<number> = async function * () {
 
     yield* (async function * () { yield "a"; })();
 >yield* (async function * () { yield "a"; })() : any
+>类型别名 :=> 任意
 >(async function * () { yield "a"; })() : AsyncIterableIterator<"a">
 >(async function * () { yield "a"; }) : () => AsyncIterableIterator<"a">
 >async function * () { yield "a"; } : () => AsyncIterableIterator<"a">
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 
 };
@@ -141,6 +157,7 @@ async function * explicitReturnType1(): AsyncIterableIterator<number> {
 
     yield "a";
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 }
 async function * explicitReturnType2(): AsyncIterableIterator<number> {
@@ -149,6 +166,7 @@ async function * explicitReturnType2(): AsyncIterableIterator<number> {
 
     yield* ["a", "b"];
 >yield* ["a", "b"] : any
+>类型别名 :=> 任意
 >["a", "b"] : string[]
 >"a" : "a"
 >"b" : "b"
@@ -159,10 +177,12 @@ async function * explicitReturnType3(): AsyncIterableIterator<number> {
 
     yield* (async function * () { yield "a"; })();
 >yield* (async function * () { yield "a"; })() : any
+>类型别名 :=> 任意
 >(async function * () { yield "a"; })() : AsyncIterableIterator<"a">
 >(async function * () { yield "a"; }) : () => AsyncIterableIterator<"a">
 >async function * () { yield "a"; } : () => AsyncIterableIterator<"a">
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 }
 async function * explicitReturnType4(): AsyncIterable<number> {
@@ -171,6 +191,7 @@ async function * explicitReturnType4(): AsyncIterable<number> {
 
     yield "a";
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 }
 async function * explicitReturnType5(): AsyncIterable<number> {
@@ -179,6 +200,7 @@ async function * explicitReturnType5(): AsyncIterable<number> {
 
     yield* ["a", "b"];
 >yield* ["a", "b"] : any
+>类型别名 :=> 任意
 >["a", "b"] : string[]
 >"a" : "a"
 >"b" : "b"
@@ -189,10 +211,12 @@ async function * explicitReturnType6(): AsyncIterable<number> {
 
     yield* (async function * () { yield "a"; })();
 >yield* (async function * () { yield "a"; })() : any
+>类型别名 :=> 任意
 >(async function * () { yield "a"; })() : AsyncIterableIterator<"a">
 >(async function * () { yield "a"; }) : () => AsyncIterableIterator<"a">
 >async function * () { yield "a"; } : () => AsyncIterableIterator<"a">
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 }
 async function * explicitReturnType7(): AsyncIterator<number> {
@@ -201,6 +225,7 @@ async function * explicitReturnType7(): AsyncIterator<number> {
 
     yield "a";
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 }
 async function * explicitReturnType8(): AsyncIterator<number> {
@@ -209,6 +234,7 @@ async function * explicitReturnType8(): AsyncIterator<number> {
 
     yield* ["a", "b"];
 >yield* ["a", "b"] : any
+>类型别名 :=> 任意
 >["a", "b"] : string[]
 >"a" : "a"
 >"b" : "b"
@@ -219,10 +245,12 @@ async function * explicitReturnType9(): AsyncIterator<number> {
 
     yield* (async function * () { yield "a"; })();
 >yield* (async function * () { yield "a"; })() : any
+>类型别名 :=> 任意
 >(async function * () { yield "a"; })() : AsyncIterableIterator<"a">
 >(async function * () { yield "a"; }) : () => AsyncIterableIterator<"a">
 >async function * () { yield "a"; } : () => AsyncIterableIterator<"a">
 >yield "a" : any
+>类型别名 :=> 任意
 >"a" : "a"
 }
 async function * explicitReturnType10(): IterableIterator<number> {
@@ -231,6 +259,7 @@ async function * explicitReturnType10(): IterableIterator<number> {
 
     yield 1;
 >yield 1 : any
+>类型别名 :=> 任意
 >1 : 1
 }
 async function * explicitReturnType11(): Iterable<number> {
@@ -239,6 +268,7 @@ async function * explicitReturnType11(): Iterable<number> {
 
     yield 1;
 >yield 1 : any
+>类型别名 :=> 任意
 >1 : 1
 }
 async function * explicitReturnType12(): Iterator<number> {
@@ -247,6 +277,7 @@ async function * explicitReturnType12(): Iterator<number> {
 
     yield 1;
 >yield 1 : any
+>类型别名 :=> 任意
 >1 : 1
 }
 async function * yieldStar() {
@@ -254,5 +285,6 @@ async function * yieldStar() {
 
     yield* {};
 >yield* {} : any
+>类型别名 :=> 任意
 >{} : {}
 }

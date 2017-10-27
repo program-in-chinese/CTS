@@ -1,10 +1,12 @@
 === tests/cases/conformance/types/thisType/thisTypeErrors.ts ===
 var x1: this;
 >x1 : any
+>类型别名 :=> 任意
 
 var x2: { a: this };
 >x2 : { a: any; }
 >a : any
+>类型别名 :=> 任意
 
 var x3: this[];
 >x3 : any[]
@@ -12,12 +14,15 @@ var x3: this[];
 function f1(x: this): this {
 >f1 : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
     var y: this;
 >y : any
+>类型别名 :=> 任意
 
     return this;
 >this : any
+>类型别名 :=> 任意
 }
 
 interface I1 {
@@ -26,6 +31,7 @@ interface I1 {
     a: { x: this };
 >a : { x: any; }
 >x : any
+>类型别名 :=> 任意
 
     b: { (): this };
 >b : () => any
@@ -36,11 +42,13 @@ interface I1 {
     d: { [x: string]: this };
 >d : { [x: string]: any; }
 >x : string
+>类型别名 :=> 文字
 
     e: { f(x: this): this };
 >e : { f(x: any): any; }
 >f : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 }
 
 class C1 {
@@ -49,6 +57,7 @@ class C1 {
     a: { x: this };
 >a : { x: any; }
 >x : any
+>类型别名 :=> 任意
 
     b: { (): this };
 >b : () => any
@@ -59,11 +68,13 @@ class C1 {
     d: { [x: string]: this };
 >d : { [x: string]: any; }
 >x : string
+>类型别名 :=> 文字
 
     e: { f(x: this): this };
 >e : { f(x: any): any; }
 >f : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 }
 
 class C2 {
@@ -71,18 +82,24 @@ class C2 {
 
     static x: this;
 >x : any
+>类型别名 :=> 任意
 
     static y = <this>undefined;
 >y : any
+>类型别名 :=> 任意
 ><this>undefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
     static foo(x: this): this {
 >foo : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
         return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
     }
 }
 
@@ -91,10 +108,13 @@ namespace N1 {
 
     export var x: this;
 >x : any
+>类型别名 :=> 任意
 
     export var y = this;
 >y : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 }
 
 class C3 {
@@ -107,9 +127,11 @@ class C3 {
         g(x: this): this {
 >g : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
             return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
         }
     }
     f() {
@@ -118,9 +140,11 @@ class C3 {
         function g(x: this): this {
 >g : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
             return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
         }
         let x2 = {
 >x2 : { h(x: any): any; }
@@ -129,9 +153,11 @@ class C3 {
             h(x: this): this {
 >h : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
                 return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
             }
         }
     }

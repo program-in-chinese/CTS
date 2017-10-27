@@ -42,6 +42,7 @@ var f4 = function () {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return [''];
 >[''] : string[]
@@ -61,15 +62,19 @@ function f5(): number {
 
 var m;
 >m : any
+>类型别名 :=> 任意
 
 // Function signature with parameter initializer referencing in scope local variable
 function f6(n = m) {
 >f6 : (n?: number) => void
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
     var m = 4;
 >m : number
+>类型别名 :=> 数字
 >4 : 4
 }
 
@@ -77,22 +82,29 @@ function f6(n = m) {
 function f7(n = m, m?) {
 >f7 : (n?: any, m?: any) => void
 >n : any
+>类型别名 :=> 任意
 >m : any
+>类型别名 :=> 任意
 >m : any
+>类型别名 :=> 任意
 }
 
 // FunctionExpression with non -void return type annotation with a throw, no return, and other code
 // Should be error but isn't
 undefined === function (): number {
 >undefined === function (): number {    throw undefined;    var x = 4;} : boolean
+>类型别名 :=> 真假
 >undefined : undefined
+>类型别名 :=> 未定
 >function (): number {    throw undefined;    var x = 4;} : () => number
 
     throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 
     var x = 4;
 >x : number
+>类型别名 :=> 数字
 >4 : 4
 
 };
@@ -100,20 +112,24 @@ undefined === function (): number {
 class Base { private x; }
 >Base : Base
 >x : any
+>类型别名 :=> 任意
 
 class AnotherClass { private y; }
 >AnotherClass : AnotherClass
 >y : any
+>类型别名 :=> 任意
 
 class Derived1 extends Base { private m; }
 >Derived1 : Derived1
 >Base : Base
 >m : any
+>类型别名 :=> 任意
 
 class Derived2 extends Base { private n; }
 >Derived2 : Derived2
 >Base : Base
 >n : any
+>类型别名 :=> 任意
 
 function f8() {
 >f8 : () => Derived1 | Derived2

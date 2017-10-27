@@ -10,11 +10,15 @@ interface IndexedWithThis {
     willDestroy?: (this: any) => void;
 >willDestroy : (this: any) => void
 >this : any
+>类型别名 :=> 任意
 
     [propName: string]: number | string | boolean | symbol | undefined | null | {} | ((this: any, ...args:any[]) => any);
 >propName : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 >this : any
+>类型别名 :=> 任意
 >args : any[]
 }
 interface IndexedWithoutThis {
@@ -29,6 +33,7 @@ interface IndexedWithoutThis {
 
     [propName: string]: any;
 >propName : string
+>类型别名 :=> 文字
 }
 interface SimpleInterface {
 >SimpleInterface : SimpleInterface
@@ -36,6 +41,7 @@ interface SimpleInterface {
     foo(n: string);
 >foo : (n: string) => any
 >n : string
+>类型别名 :=> 文字
 
     bar(): number;
 >bar : () => number
@@ -57,6 +63,7 @@ declare function simple(arg: SimpleInterface): void;
 
 extend1({
 >extend1({    init() {        this // this: IndexedWithThis because of contextual typing.        // this.mine        this.willDestroy    },    mine: 12,    foo() {        this.url; // this: any because 'foo' matches the string indexer        this.willDestroy;    }}) : void
+>类型别名 :=> 无值
 >extend1 : (args: IndexedWithThis) => void
 >{    init() {        this // this: IndexedWithThis because of contextual typing.        // this.mine        this.willDestroy    },    mine: 12,    foo() {        this.url; // this: any because 'foo' matches the string indexer        this.willDestroy;    }} : { init(this: IndexedWithThis): void; mine: 12; foo(this: any): void; }
 
@@ -75,6 +82,7 @@ extend1({
     },
     mine: 12,
 >mine : number
+>类型别名 :=> 数字
 >12 : 12
 
     foo() {
@@ -82,17 +90,24 @@ extend1({
 
         this.url; // this: any because 'foo' matches the string indexer
 >this.url : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >url : any
+>类型别名 :=> 任意
 
         this.willDestroy;
 >this.willDestroy : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >willDestroy : any
+>类型别名 :=> 任意
     }
 });
 extend2({
 >extend2({    init() {        this // this: containing object literal type        this.mine    },    mine: 13,    foo() {        this // this: containing object literal type        this.mine    }}) : void
+>类型别名 :=> 无值
 >extend2 : (args: IndexedWithoutThis) => void
 >{    init() {        this // this: containing object literal type        this.mine    },    mine: 13,    foo() {        this // this: containing object literal type        this.mine    }} : { init(): void; mine: number; foo(): void; }
 
@@ -104,12 +119,15 @@ extend2({
 
         this.mine
 >this.mine : any
+>类型别名 :=> 任意
 >this : IndexedWithoutThis
 >mine : any
+>类型别名 :=> 任意
 
     },
     mine: 13,
 >mine : number
+>类型别名 :=> 数字
 >13 : 13
 
     foo() {
@@ -120,26 +138,35 @@ extend2({
 
         this.mine
 >this.mine : any
+>类型别名 :=> 任意
 >this : IndexedWithoutThis
 >mine : any
+>类型别名 :=> 任意
     }
 });
 
 simple({
 >simple({    foo(n) {        return n.length + this.bar();    },    bar() {        return 14;    }}) : void
+>类型别名 :=> 无值
 >simple : (arg: SimpleInterface) => void
 >{    foo(n) {        return n.length + this.bar();    },    bar() {        return 14;    }} : { foo(n: string): number; bar(): number; }
 
     foo(n) {
 >foo : (n: string) => number
 >n : string
+>类型别名 :=> 文字
 
         return n.length + this.bar();
 >n.length + this.bar() : number
+>类型别名 :=> 数字
 >n.length : number
+>类型别名 :=> 数字
 >n : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >this.bar() : number
+>类型别名 :=> 数字
 >this.bar : () => number
 >this : SimpleInterface
 >bar : () => number

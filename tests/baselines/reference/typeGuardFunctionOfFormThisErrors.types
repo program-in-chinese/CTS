@@ -8,6 +8,7 @@ class RoyalGuard {
 
         return this instanceof LeadGuard;
 >this instanceof LeadGuard : boolean
+>类型别名 :=> 真假
 >this : this
 >LeadGuard : typeof LeadGuard
     }
@@ -17,6 +18,7 @@ class RoyalGuard {
 
         return this instanceof FollowerGuard;
 >this instanceof FollowerGuard : boolean
+>类型别名 :=> 真假
 >this : this
 >FollowerGuard : typeof FollowerGuard
     }
@@ -94,9 +96,11 @@ a.isLeader = a.isFollower;
 function invalidGuard(c: any): this is number {
 >invalidGuard : (c: any) => this is number
 >c : any
+>类型别名 :=> 任意
 
     return false;
 >false : false
+>类型别名 :=> 为假
 }
 
 let c: number | number[];
@@ -104,6 +108,7 @@ let c: number | number[];
 
 if (invalidGuard(c)) {
 >invalidGuard(c) : boolean
+>类型别名 :=> 真假
 >invalidGuard : (c: any) => this is number
 >c : number | number[]
 
@@ -122,6 +127,7 @@ let holder = {invalidGuard};
 
 if (holder.invalidGuard(c)) {
 >holder.invalidGuard(c) : boolean
+>类型别名 :=> 真假
 >holder.invalidGuard : (c: any) => this is number
 >holder : { invalidGuard: (c: any) => this is number; }
 >invalidGuard : (c: any) => this is number
@@ -149,18 +155,25 @@ let detached = a.isFollower;
 
 if (detached()) {
 >detached() : boolean
+>类型别名 :=> 真假
 >detached : () => this is FollowerGuard
 
     a.follow();
 >a.follow() : any
+>类型别名 :=> 任意
 >a.follow : any
+>类型别名 :=> 任意
 >a : RoyalGuard
 >follow : any
+>类型别名 :=> 任意
 }
 else {
     a.lead();
 >a.lead() : any
+>类型别名 :=> 任意
 >a.lead : any
+>类型别名 :=> 任意
 >a : RoyalGuard
 >lead : any
+>类型别名 :=> 任意
 }

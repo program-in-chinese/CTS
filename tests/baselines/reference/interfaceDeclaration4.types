@@ -7,6 +7,7 @@ module Foo {
     export interface I1 { item: string; }
 >I1 : I1
 >item : string
+>类型别名 :=> 文字
 
     export class C1 { }
 >C1 : C1
@@ -15,43 +16,51 @@ module Foo {
 class C1 implements Foo.I1 {
 >C1 : C1
 >Foo.I1 : any
+>类型别名 :=> 任意
 >Foo : typeof Foo
 >I1 : Foo.I1
 
 	public item:string;
 >item : string
+>类型别名 :=> 文字
 }
 
 // Allowed
 interface I2 extends Foo.I1 {
 >I2 : I2
 >Foo.I1 : any
+>类型别名 :=> 任意
 >Foo : typeof Foo
 >I1 : Foo.I1
 
 	item:string;
 >item : string
+>类型别名 :=> 文字
 }
 
 // Negative Case
 interface I3 extends Foo.I1 {
 >I3 : I3
 >Foo.I1 : any
+>类型别名 :=> 任意
 >Foo : typeof Foo
 >I1 : Foo.I1
 
     item:number;
 >item : number
+>类型别名 :=> 数字
 }
 
 interface I4 extends Foo.I1 {
 >I4 : I4
 >Foo.I1 : any
+>类型别名 :=> 任意
 >Foo : typeof Foo
 >I1 : Foo.I1
 
     token:string;
 >token : string
+>类型别名 :=> 文字
 }
 
 // Err - not implemented item
@@ -61,6 +70,7 @@ class C2 implements I4 {
 
     public token: string;
 >token : string
+>类型别名 :=> 文字
 }
 
 interface I5 extends Foo { }
@@ -71,12 +81,14 @@ interface I5 extends Foo { }
 interface I6 extends Foo.C1 { }
 >I6 : I6
 >Foo.C1 : any
+>类型别名 :=> 任意
 >Foo : typeof Foo
 >C1 : Foo.C1
 
 class C3 implements Foo.I1 { }
 >C3 : C3
 >Foo.I1 : any
+>类型别名 :=> 任意
 >Foo : typeof Foo
 >I1 : Foo.I1
 
@@ -84,4 +96,5 @@ class C3 implements Foo.I1 { }
 interface Foo.I1 { }
 >Foo : Foo
 >I1 : any
+>类型别名 :=> 任意
 

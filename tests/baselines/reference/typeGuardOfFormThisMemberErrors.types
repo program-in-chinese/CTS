@@ -8,38 +8,47 @@ namespace Test {
 
 		isFSO: this is FileSystemObject;
 >isFSO : boolean
+>类型别名 :=> 真假
 >FileSystemObject : FileSystemObject
 
 		get isFile(): this is File {
 >isFile : boolean
+>类型别名 :=> 真假
 >File : File
 
 			return this instanceof File;
 >this instanceof File : boolean
+>类型别名 :=> 真假
 >this : this
 >File : typeof File
 		}
 		set isFile(param) {
 >isFile : boolean
+>类型别名 :=> 真假
 >param : boolean
+>类型别名 :=> 真假
 
 			// noop
 		}
 		get isDirectory(): this is Directory {
 >isDirectory : boolean
+>类型别名 :=> 真假
 >Directory : Directory
 
 			return this instanceof Directory;
 >this instanceof Directory : boolean
+>类型别名 :=> 真假
 >this : this
 >Directory : typeof Directory
 		}
 		isNetworked: this is (Networked & this);
 >isNetworked : boolean
+>类型别名 :=> 真假
 >Networked : Networked
 
 		constructor(public path: string) {}
 >path : string
+>类型别名 :=> 文字
 	}
 
 	export class File extends FileSystemObject {
@@ -48,10 +57,14 @@ namespace Test {
 
 		constructor(path: string, public content: string) { super(path); }
 >path : string
+>类型别名 :=> 文字
 >content : string
+>类型别名 :=> 文字
 >super(path) : void
+>类型别名 :=> 无值
 >super : typeof FileSystemObject
 >path : string
+>类型别名 :=> 文字
 	}
 	export class Directory extends FileSystemObject {
 >Directory : Directory
@@ -66,6 +79,7 @@ namespace Test {
 
 		host: string;
 >host : string
+>类型别名 :=> 文字
 	}
 
 	let file: FileSystemObject = new File("foo/bar.txt", "foo");
@@ -78,28 +92,43 @@ namespace Test {
 
 	file.isNetworked = file.isFile;
 >file.isNetworked = file.isFile : boolean
+>类型别名 :=> 真假
 >file.isNetworked : boolean
+>类型别名 :=> 真假
 >file : FileSystemObject
 >isNetworked : boolean
+>类型别名 :=> 真假
 >file.isFile : boolean
+>类型别名 :=> 真假
 >file : FileSystemObject
 >isFile : boolean
+>类型别名 :=> 真假
 
 	file.isFSO = file.isNetworked;
 >file.isFSO = file.isNetworked : boolean
+>类型别名 :=> 真假
 >file.isFSO : boolean
+>类型别名 :=> 真假
 >file : FileSystemObject
 >isFSO : boolean
+>类型别名 :=> 真假
 >file.isNetworked : boolean
+>类型别名 :=> 真假
 >file : FileSystemObject
 >isNetworked : boolean
+>类型别名 :=> 真假
 
 	file.isFile = file.isFSO;
 >file.isFile = file.isFSO : boolean
+>类型别名 :=> 真假
 >file.isFile : boolean
+>类型别名 :=> 真假
 >file : FileSystemObject
 >isFile : boolean
+>类型别名 :=> 真假
 >file.isFSO : boolean
+>类型别名 :=> 真假
 >file : FileSystemObject
 >isFSO : boolean
+>类型别名 :=> 真假
 }

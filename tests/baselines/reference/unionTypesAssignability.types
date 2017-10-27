@@ -22,9 +22,11 @@ var unionDE: D | E;
 
 var num: number;
 >num : number
+>类型别名 :=> 数字
 
 var str: string;
 >str : string
+>类型别名 :=> 文字
 
 var c: C;
 >c : C
@@ -86,32 +88,46 @@ e = unionDE; // error d is not assignable to e
 
 num = num;
 >num = num : number
+>类型别名 :=> 数字
 >num : number
+>类型别名 :=> 数字
 >num : number
+>类型别名 :=> 数字
 
 num = str;
 >num = str : string
+>类型别名 :=> 文字
 >num : number
+>类型别名 :=> 数字
 >str : string
+>类型别名 :=> 文字
 
 num = unionNumberString; // error string is not assignable to number
 >num = unionNumberString : string | number
 >num : number
+>类型别名 :=> 数字
 >unionNumberString : string | number
 
 str = num;
 >str = num : number
+>类型别名 :=> 数字
 >str : string
+>类型别名 :=> 文字
 >num : number
+>类型别名 :=> 数字
 
 str = str;
 >str = str : string
+>类型别名 :=> 文字
 >str : string
+>类型别名 :=> 文字
 >str : string
+>类型别名 :=> 文字
 
 str = unionNumberString; // error since number is not assignable to string
 >str = unionNumberString : string | number
 >str : string
+>类型别名 :=> 文字
 >unionNumberString : string | number
 
 // A type T is assignable to a union type U if T is assignable to any type in U
@@ -162,79 +178,112 @@ unionDE = e; // ok
 
 num = num;
 >num = num : number
+>类型别名 :=> 数字
 >num : number
+>类型别名 :=> 数字
 >num : number
+>类型别名 :=> 数字
 
 str = num;
 >str = num : number
+>类型别名 :=> 数字
 >str : string
+>类型别名 :=> 文字
 >num : number
+>类型别名 :=> 数字
 
 unionNumberString = num; // ok 
 >unionNumberString = num : number
+>类型别名 :=> 数字
 >unionNumberString : string | number
 >num : number
+>类型别名 :=> 数字
 
 num = str;
 >num = str : string
+>类型别名 :=> 文字
 >num : number
+>类型别名 :=> 数字
 >str : string
+>类型别名 :=> 文字
 
 str = str;
 >str = str : string
+>类型别名 :=> 文字
 >str : string
+>类型别名 :=> 文字
 >str : string
+>类型别名 :=> 文字
 
 unionNumberString = str; // ok
 >unionNumberString = str : string
+>类型别名 :=> 文字
 >unionNumberString : string | number
 >str : string
+>类型别名 :=> 文字
 
 // Any
 var anyVar: any;
 >anyVar : any
+>类型别名 :=> 任意
 
 anyVar = unionDE;
 >anyVar = unionDE : E
 >anyVar : any
+>类型别名 :=> 任意
 >unionDE : E
 
 anyVar = unionNumberString;
 >anyVar = unionNumberString : string
+>类型别名 :=> 文字
 >anyVar : any
+>类型别名 :=> 任意
 >unionNumberString : string
+>类型别名 :=> 文字
 
 unionDE = anyVar;
 >unionDE = anyVar : any
+>类型别名 :=> 任意
 >unionDE : D | E
 >anyVar : any
+>类型别名 :=> 任意
 
 unionNumberString = anyVar;
 >unionNumberString = anyVar : any
+>类型别名 :=> 任意
 >unionNumberString : string | number
 >anyVar : any
+>类型别名 :=> 任意
 
 // null
 unionDE = null;
 >unionDE = null : null
+>类型别名 :=> 空值
 >unionDE : D | E
 >null : null
+>类型别名 :=> 空值
 
 unionNumberString = null;
 >unionNumberString = null : null
+>类型别名 :=> 空值
 >unionNumberString : string | number
 >null : null
+>类型别名 :=> 空值
 
 // undefined
 unionDE = undefined;
 >unionDE = undefined : undefined
+>类型别名 :=> 未定
 >unionDE : D | E
 >undefined : undefined
+>类型别名 :=> 未定
 
 unionNumberString = undefined;
 >unionNumberString = undefined : undefined
+>类型别名 :=> 未定
 >unionNumberString : string | number
 >undefined : undefined
+>类型别名 :=> 未定
 
 // type parameters
 function foo<T, U>(t: T, u: U) {
@@ -273,8 +322,10 @@ function foo<T, U>(t: T, u: U) {
 
     x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : T | U
 >undefined : undefined
+>类型别名 :=> 未定
 
     t = x; // error U not assignable to T
 >t = x : T | U

@@ -1,6 +1,7 @@
 === tests/cases/compiler/express.d.ts ===
 declare module Express {
 >Express : any
+>类型别名 :=> 任意
 
     export interface Request { }
 >Request : Request
@@ -16,6 +17,7 @@ declare module "express" {
     function e(): e.Express;
 >e : typeof e
 >e : any
+>类型别名 :=> 任意
 >Express : Express
 
     namespace e {
@@ -51,12 +53,14 @@ declare module "express" {
             route(path: string): IRoute;
 >route : (path: string) => IRoute
 >path : string
+>类型别名 :=> 文字
 >IRoute : IRoute
         }
 
         export function Router(options?: any): Router;
 >Router : (options?: any) => Router
 >options : any
+>类型别名 :=> 任意
 >Router : Router
 
         export interface Router extends IRouter<Router> {}
@@ -72,22 +76,28 @@ declare module "express" {
         interface Request extends Express.Request {
 >Request : Request
 >Express.Request : any
+>类型别名 :=> 任意
 >Express : any
+>类型别名 :=> 任意
 >Request : Express.Request
 
             get (name: string): string;
 >get : (name: string) => string
 >name : string
+>类型别名 :=> 文字
         }
 
         interface Response extends Express.Response {
 >Response : Response
 >Express.Response : any
+>类型别名 :=> 任意
 >Express : any
+>类型别名 :=> 任意
 >Response : Express.Response
 
             charset: string;
 >charset : string
+>类型别名 :=> 文字
         }
 
         interface ErrorRequestHandler {
@@ -95,6 +105,7 @@ declare module "express" {
 
             (err: any, req: Request, res: Response, next: Function): any;
 >err : any
+>类型别名 :=> 任意
 >req : Request
 >Request : Request
 >res : Response
@@ -130,6 +141,7 @@ declare module "express" {
 >next : Function
 >Function : Function
 >param : any
+>类型别名 :=> 任意
         }
 
         interface Application extends IRouter<Application>, Express.Application {
@@ -137,11 +149,14 @@ declare module "express" {
 >IRouter : IRouter<T>
 >Application : Application
 >Express.Application : any
+>类型别名 :=> 任意
 >Express : any
+>类型别名 :=> 任意
 >Application : Express.Application
 
             routes: any;
 >routes : any
+>类型别名 :=> 任意
         }
 
         interface Express extends Application {
@@ -155,6 +170,7 @@ declare module "express" {
 
         var static: any;
 >static : any
+>类型别名 :=> 任意
     }
 
     export = e;
@@ -172,12 +188,14 @@ declare module "express" {
 
         id: number;
 >id : number
+>类型别名 :=> 数字
     }
 }
 
 === tests/cases/compiler/consumer.ts ===
 import { Request } from "express";
 >Request : any
+>类型别名 :=> 任意
 
 import "./augmentation";
 let x: Request;
@@ -186,7 +204,10 @@ let x: Request;
 
 const y = x.id;
 >y : number
+>类型别名 :=> 数字
 >x.id : number
+>类型别名 :=> 数字
 >x : Request
 >id : number
+>类型别名 :=> 数字
 

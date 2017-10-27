@@ -5,6 +5,7 @@ class Foo {
 	public pubMeth() {this.privMeth();}
 >pubMeth : () => void
 >this.privMeth() : void
+>类型别名 :=> 无值
 >this.privMeth : () => void
 >this : this
 >privMeth : () => void
@@ -14,10 +15,12 @@ class Foo {
 
 	public pubProp = 0;
 >pubProp : number
+>类型别名 :=> 数字
 >0 : 0
 
 	private privProp = 0;
 >privProp : number
+>类型别名 :=> 数字
 >0 : 0
 }
 
@@ -28,25 +31,31 @@ var f = new Foo();
 
 f.privMeth(); // should not work
 >f.privMeth() : void
+>类型别名 :=> 无值
 >f.privMeth : () => void
 >f : Foo
 >privMeth : () => void
 
 f.privProp; // should not work
 >f.privProp : number
+>类型别名 :=> 数字
 >f : Foo
 >privProp : number
+>类型别名 :=> 数字
 
 f.pubMeth(); // should work
 >f.pubMeth() : void
+>类型别名 :=> 无值
 >f.pubMeth : () => void
 >f : Foo
 >pubMeth : () => void
 
 f.pubProp; // should work
 >f.pubProp : number
+>类型别名 :=> 数字
 >f : Foo
 >pubProp : number
+>类型别名 :=> 数字
 
 module M {
 >M : typeof M
@@ -54,12 +63,15 @@ module M {
     export class C { public pub = 0; private priv = 1; }
 >C : C
 >pub : number
+>类型别名 :=> 数字
 >0 : 0
 >priv : number
+>类型别名 :=> 数字
 >1 : 1
 
     export var V = 0;
 >V : number
+>类型别名 :=> 数字
 >0 : 0
 }
 
@@ -73,12 +85,16 @@ var c = new M.C();
 
 c.pub; // should work
 >c.pub : number
+>类型别名 :=> 数字
 >c : M.C
 >pub : number
+>类型别名 :=> 数字
 
 c.priv; // should not work
 >c.priv : number
+>类型别名 :=> 数字
 >c : M.C
 >priv : number
+>类型别名 :=> 数字
 
 

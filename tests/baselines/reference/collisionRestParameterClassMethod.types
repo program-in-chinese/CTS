@@ -5,53 +5,65 @@ class c1 {
     public foo(_i: number, ...restParameters) { //_i is error
 >foo : (_i: number, ...restParameters: any[]) => void
 >_i : number
+>类型别名 :=> 数字
 >restParameters : any[]
 
         var _i = 10; // no error
 >_i : number
+>类型别名 :=> 数字
 >10 : 10
     }
     public fooNoError(_i: number) { // no error
 >fooNoError : (_i: number) => void
 >_i : number
+>类型别名 :=> 数字
 
         var _i = 10; // no error
 >_i : number
+>类型别名 :=> 数字
 >10 : 10
     }
     public f4(_i: number, ...rest); // no codegen no error
 >f4 : { (_i: number, ...rest: any[]): any; (_i: string, ...rest: any[]): any; }
 >_i : number
+>类型别名 :=> 数字
 >rest : any[]
 
     public f4(_i: string, ...rest); // no codegen no error
 >f4 : { (_i: number, ...rest: any[]): any; (_i: string, ...rest: any[]): any; }
 >_i : string
+>类型别名 :=> 文字
 >rest : any[]
 
     public f4(_i: any, ...rest) { // error
 >f4 : { (_i: number, ...rest: any[]): any; (_i: string, ...rest: any[]): any; }
 >_i : any
+>类型别名 :=> 任意
 >rest : any[]
 
         var _i: any; // no error
 >_i : any
+>类型别名 :=> 任意
     }
 
     public f4NoError(_i: number); // no error
 >f4NoError : { (_i: number): any; (_i: string): any; }
 >_i : number
+>类型别名 :=> 数字
 
     public f4NoError(_i: string); // no error
 >f4NoError : { (_i: number): any; (_i: string): any; }
 >_i : string
+>类型别名 :=> 文字
 
     public f4NoError(_i: any) { // no error
 >f4NoError : { (_i: number): any; (_i: string): any; }
 >_i : any
+>类型别名 :=> 任意
 
         var _i: any; // no error
 >_i : any
+>类型别名 :=> 任意
     }
 }
 
@@ -61,29 +73,35 @@ declare class c2 {
     public foo(_i: number, ...restParameters); // No error - no code gen
 >foo : (_i: number, ...restParameters: any[]) => any
 >_i : number
+>类型别名 :=> 数字
 >restParameters : any[]
 
     public fooNoError(_i: number); // no error
 >fooNoError : (_i: number) => any
 >_i : number
+>类型别名 :=> 数字
 
     public f4(_i: number, ...rest); // no codegen no error
 >f4 : { (_i: number, ...rest: any[]): any; (_i: string, ...rest: any[]): any; }
 >_i : number
+>类型别名 :=> 数字
 >rest : any[]
 
     public f4(_i: string, ...rest); // no codegen no error
 >f4 : { (_i: number, ...rest: any[]): any; (_i: string, ...rest: any[]): any; }
 >_i : string
+>类型别名 :=> 文字
 >rest : any[]
 
     public f4NoError(_i: number); // no error
 >f4NoError : { (_i: number): any; (_i: string): any; }
 >_i : number
+>类型别名 :=> 数字
 
     public f4NoError(_i: string); // no error
 >f4NoError : { (_i: number): any; (_i: string): any; }
 >_i : string
+>类型别名 :=> 文字
 }
 
 class c3 {
@@ -95,6 +113,7 @@ class c3 {
 
         var _i = 10; // no error
 >_i : number
+>类型别名 :=> 数字
 >10 : 10
     }
     public fooNoError() {
@@ -102,6 +121,7 @@ class c3 {
 
         var _i = 10; // no error
 >_i : number
+>类型别名 :=> 数字
 >10 : 10
     }
 }

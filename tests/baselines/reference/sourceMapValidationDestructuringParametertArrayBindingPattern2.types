@@ -5,6 +5,7 @@ declare var console: {
     log(msg: any): void;
 >log : (msg: any) => void
 >msg : any
+>类型别名 :=> 任意
 }
 type Robot = [string, [string, string]];
 >Robot : [string, [string, string]]
@@ -21,11 +22,13 @@ var robotA: Robot = ["trimmer", ["trimming", "edging"]];
 function foo1([, skillA]: Robot) {
 >foo1 : ([, skillA]: [string, [string, string]]) => void
 > : undefined
+>类型别名 :=> 未定
 >skillA : [string, string]
 >Robot : [string, [string, string]]
 
     console.log(skillA);
 >console.log(skillA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
@@ -35,29 +38,37 @@ function foo1([, skillA]: Robot) {
 function foo2([nameMB]: Robot) {
 >foo2 : ([nameMB]: [string, [string, string]]) => void
 >nameMB : string
+>类型别名 :=> 文字
 >Robot : [string, [string, string]]
 
     console.log(nameMB);
 >console.log(nameMB) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameMB : string
+>类型别名 :=> 文字
 }
 
 function foo3([nameMA, [primarySkillA, secondarySkillA]]: Robot) {
 >foo3 : ([nameMA, [primarySkillA, secondarySkillA]]: [string, [string, string]]) => void
 >nameMA : string
+>类型别名 :=> 文字
 >primarySkillA : string
+>类型别名 :=> 文字
 >secondarySkillA : string
+>类型别名 :=> 文字
 >Robot : [string, [string, string]]
 
     console.log(nameMA);
 >console.log(nameMA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameMA : string
+>类型别名 :=> 文字
 }
 
 function foo4([...multiRobotAInfo]: Robot) {
@@ -67,6 +78,7 @@ function foo4([...multiRobotAInfo]: Robot) {
 
     console.log(multiRobotAInfo);
 >console.log(multiRobotAInfo) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
@@ -75,11 +87,13 @@ function foo4([...multiRobotAInfo]: Robot) {
 
 foo1(robotA);
 >foo1(robotA) : void
+>类型别名 :=> 无值
 >foo1 : ([, skillA]: [string, [string, string]]) => void
 >robotA : [string, [string, string]]
 
 foo1(["roomba", ["vaccum", "mopping"]]);
 >foo1(["roomba", ["vaccum", "mopping"]]) : void
+>类型别名 :=> 无值
 >foo1 : ([, skillA]: [string, [string, string]]) => void
 >["roomba", ["vaccum", "mopping"]] : [string, [string, string]]
 >"roomba" : "roomba"
@@ -89,11 +103,13 @@ foo1(["roomba", ["vaccum", "mopping"]]);
 
 foo2(robotA);
 >foo2(robotA) : void
+>类型别名 :=> 无值
 >foo2 : ([nameMB]: [string, [string, string]]) => void
 >robotA : [string, [string, string]]
 
 foo2(["roomba", ["vaccum", "mopping"]]);
 >foo2(["roomba", ["vaccum", "mopping"]]) : void
+>类型别名 :=> 无值
 >foo2 : ([nameMB]: [string, [string, string]]) => void
 >["roomba", ["vaccum", "mopping"]] : [string, [string, string]]
 >"roomba" : "roomba"
@@ -103,11 +119,13 @@ foo2(["roomba", ["vaccum", "mopping"]]);
 
 foo3(robotA);
 >foo3(robotA) : void
+>类型别名 :=> 无值
 >foo3 : ([nameMA, [primarySkillA, secondarySkillA]]: [string, [string, string]]) => void
 >robotA : [string, [string, string]]
 
 foo3(["roomba", ["vaccum", "mopping"]]);
 >foo3(["roomba", ["vaccum", "mopping"]]) : void
+>类型别名 :=> 无值
 >foo3 : ([nameMA, [primarySkillA, secondarySkillA]]: [string, [string, string]]) => void
 >["roomba", ["vaccum", "mopping"]] : [string, [string, string]]
 >"roomba" : "roomba"
@@ -117,11 +135,13 @@ foo3(["roomba", ["vaccum", "mopping"]]);
 
 foo4(robotA);
 >foo4(robotA) : void
+>类型别名 :=> 无值
 >foo4 : ([...multiRobotAInfo]: [string, [string, string]]) => void
 >robotA : [string, [string, string]]
 
 foo4(["roomba", ["vaccum", "mopping"]]);
 >foo4(["roomba", ["vaccum", "mopping"]]) : void
+>类型别名 :=> 无值
 >foo4 : ([...multiRobotAInfo]: [string, [string, string]]) => void
 >["roomba", ["vaccum", "mopping"]] : [string, [string, string]]
 >"roomba" : "roomba"

@@ -2,11 +2,13 @@
 class Bar { x }
 >Bar : Bar
 >x : any
+>类型别名 :=> 任意
 
 class Foo extends Bar { y }
 >Foo : Foo
 >Bar : Bar
 >y : any
+>类型别名 :=> 任意
 
 class FooIterator {
 >FooIterator : FooIterator
@@ -24,15 +26,19 @@ class FooIterator {
 
             done: false
 >done : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
         };
     }
 
     [Symbol.iterator]() {
 >Symbol.iterator : symbol
+>类型别名 :=> 符号
 >Symbol : SymbolConstructor
 >iterator : symbol
+>类型别名 :=> 符号
 
         return this;
 >this : this
@@ -48,6 +54,7 @@ function fun([a, b] = new FooIterator) { }
 
 fun(new FooIterator);
 >fun(new FooIterator) : void
+>类型别名 :=> 无值
 >fun : ([a, b]?: FooIterator) => void
 >new FooIterator : FooIterator
 >FooIterator : typeof FooIterator

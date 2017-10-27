@@ -3,27 +3,33 @@ let o = { a: 1, b: 'no' };
 >o : { a: number; b: string; }
 >{ a: 1, b: 'no' } : { a: number; b: string; }
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 >b : string
+>类型别名 :=> 文字
 >'no' : "no"
 
 var { ...mustBeLast, a } = o;
 >mustBeLast : { b: string; }
 >a : number
+>类型别名 :=> 数字
 >o : { a: number; b: string; }
 
 var b: string;
 >b : string
+>类型别名 :=> 文字
 
 let notAssignable: { a: string };
 >notAssignable : { a: string; }
 >a : string
+>类型别名 :=> 文字
 
 ({ b, ...notAssignable } = o);
 >({ b, ...notAssignable } = o) : { a: number; b: string; }
 >{ b, ...notAssignable } = o : { a: number; b: string; }
 >{ b, ...notAssignable } : { a: string; b: string; }
 >b : string
+>类型别名 :=> 文字
 >notAssignable : { a: string; }
 >o : { a: number; b: string; }
 
@@ -32,41 +38,57 @@ function stillMustBeLast({ ...mustBeLast, a }: { a: number, b: string }): void {
 >stillMustBeLast : ({ ...mustBeLast, a }: { a: number; b: string; }) => void
 >mustBeLast : { b: string; }
 >a : number
+>类型别名 :=> 数字
 >a : number
+>类型别名 :=> 数字
 >b : string
+>类型别名 :=> 文字
 }
 function generic<T extends { x, y }>(t: T) {
 >generic : <T extends { x: any; y: any; }>(t: T) => any
 >T : T
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >t : T
 >T : T
 
     let { x, ...rest } = t;
 >x : any
+>类型别名 :=> 任意
 >rest : any
+>类型别名 :=> 任意
 >t : T
 
     return rest;
 >rest : any
+>类型别名 :=> 任意
 }
 
 let rest: { b: string }
 >rest : { b: string; }
 >b : string
+>类型别名 :=> 文字
 
 ({a, ...rest.b + rest.b} = o);
 >({a, ...rest.b + rest.b} = o) : { a: number; b: string; }
 >{a, ...rest.b + rest.b} = o : { a: number; b: string; }
 >{a, ...rest.b + rest.b} : any
+>类型别名 :=> 任意
 >a : number
+>类型别名 :=> 数字
 >rest.b + rest.b : string
+>类型别名 :=> 文字
 >rest.b : string
+>类型别名 :=> 文字
 >rest : { b: string; }
 >b : string
+>类型别名 :=> 文字
 >rest.b : string
+>类型别名 :=> 文字
 >rest : { b: string; }
 >b : string
+>类型别名 :=> 文字
 >o : { a: number; b: string; }
 

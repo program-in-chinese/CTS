@@ -1,28 +1,35 @@
 === tests/cases/conformance/statements/for-inStatements/for-inStatements.ts ===
 var aString: string;
 >aString : string
+>类型别名 :=> 文字
 
 for (aString in {}) { }
 >aString : string
+>类型别名 :=> 文字
 >{} : {}
 
 var anAny: any;
 >anAny : any
+>类型别名 :=> 任意
 
 for (anAny in {}) { }
 >anAny : any
+>类型别名 :=> 任意
 >{} : {}
 
 for (var x in {}) { }
 >x : string
+>类型别名 :=> 文字
 >{} : {}
 
 for (var x in []) { }
 >x : string
+>类型别名 :=> 文字
 >[] : undefined[]
 
 for (var x in [1, 2, 3, 4, 5]) { }
 >x : string
+>类型别名 :=> 文字
 >[1, 2, 3, 4, 5] : number[]
 >1 : 1
 >2 : 2
@@ -35,69 +42,106 @@ function fn(): any { }
 
 for (var x in fn()) { }
 >x : string
+>类型别名 :=> 文字
 >fn() : any
+>类型别名 :=> 任意
 >fn : () => any
 
 for (var x in /[a-z]/) { }
 >x : string
+>类型别名 :=> 文字
 >/[a-z]/ : RegExp
 
 for (var x in new Date()) { }
 >x : string
+>类型别名 :=> 文字
 >new Date() : Date
 >Date : DateConstructor
 
 var c: any, d: any, e: any;
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 >e : any
+>类型别名 :=> 任意
 
 for (var x in c || d) { }
 >x : string
+>类型别名 :=> 文字
 >c || d : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 
 for (var x in e ? c : d) { }
 >x : string
+>类型别名 :=> 文字
 >e ? c : d : any
+>类型别名 :=> 任意
 >e : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 
 for (var x in 42 ? c : d) { }
 >x : string
+>类型别名 :=> 文字
 >42 ? c : d : any
+>类型别名 :=> 任意
 >42 : 42
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 
 for (var x in '' ? c : d) { }
 >x : string
+>类型别名 :=> 文字
 >'' ? c : d : any
+>类型别名 :=> 任意
 >'' : ""
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 
 for (var x in 42 ? d[x] : c[x]) { }
 >x : string
+>类型别名 :=> 文字
 >42 ? d[x] : c[x] : any
+>类型别名 :=> 任意
 >42 : 42
 >d[x] : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 >x : string
+>类型别名 :=> 文字
 >c[x] : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >x : string
+>类型别名 :=> 文字
 
 for (var x in c[d]) { }
 >x : string
+>类型别名 :=> 文字
 >c[d] : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 
 for (var x in (<T>(x: T) => x)) { }
 >x : string
+>类型别名 :=> 文字
 >(<T>(x: T) => x) : <T>(x: T) => T
 ><T>(x: T) => x : <T>(x: T) => T
 >T : T
@@ -107,12 +151,18 @@ for (var x in (<T>(x: T) => x)) { }
 
 for (var x in function (x: string, y: number) { return x + y }) { }
 >x : string
+>类型别名 :=> 文字
 >function (x: string, y: number) { return x + y } : (x: string, y: string) => string
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >x + y : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 
 class A {
 >A : A
@@ -122,23 +172,28 @@ class A {
 
         for (var x in this.biz()) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz() : any
+>类型别名 :=> 任意
 >this.biz : () => any
 >this : this
 >biz : () => any
 
         for (var x in this.biz) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz : () => any
 >this : this
 >biz : () => any
 
         for (var x in this) { }
 >x : string
+>类型别名 :=> 文字
 >this : this
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 
     static baz() {
@@ -146,23 +201,28 @@ class A {
 
         for (var x in this) { }
 >x : string
+>类型别名 :=> 文字
 >this : typeof A
 
         for (var x in this.baz) { }
 >x : string
+>类型别名 :=> 文字
 >this.baz : () => any
 >this : typeof A
 >baz : () => any
 
         for (var x in this.baz()) { }
 >x : string
+>类型别名 :=> 文字
 >this.baz() : any
+>类型别名 :=> 任意
 >this.baz : () => any
 >this : typeof A
 >baz : () => any
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -175,36 +235,44 @@ class B extends A {
 
         for (var x in this.biz()) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz() : any
+>类型别名 :=> 任意
 >this.biz : () => any
 >this : this
 >biz : () => any
 
         for (var x in this.biz) { }
 >x : string
+>类型别名 :=> 文字
 >this.biz : () => any
 >this : this
 >biz : () => any
 
         for (var x in this) { }
 >x : string
+>类型别名 :=> 文字
 >this : this
 
         for (var x in super.biz) { }
 >x : string
+>类型别名 :=> 文字
 >super.biz : () => any
 >super : A
 >biz : () => any
 
         for (var x in super.biz()) { }
 >x : string
+>类型别名 :=> 文字
 >super.biz() : any
+>类型别名 :=> 任意
 >super.biz : () => any
 >super : A
 >biz : () => any
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -213,9 +281,11 @@ interface I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 
     [idx: number]: I;
 >idx : number
+>类型别名 :=> 数字
 >I : I
 }
 var i: I;
@@ -224,6 +294,7 @@ var i: I;
 
 for (var x in i[42]) { } 
 >x : string
+>类型别名 :=> 文字
 >i[42] : I
 >i : I
 >42 : 42
@@ -238,15 +309,18 @@ module M {
 
         name:string
 >name : string
+>类型别名 :=> 文字
     }
 }
 
 for (var x in M) { }
 >x : string
+>类型别名 :=> 文字
 >M : typeof M
 
 for (var x in M.X) { }
 >x : string
+>类型别名 :=> 文字
 >M.X : typeof M.X
 >M : typeof M
 >X : typeof M.X
@@ -258,10 +332,12 @@ enum Color { Red, Blue }
 
 for (var x in Color) { }
 >x : string
+>类型别名 :=> 文字
 >Color : typeof Color
 
 for (var x in Color.Blue) { }
 >x : string
+>类型别名 :=> 文字
 >Color.Blue : Color.Blue
 >Color : typeof Color
 >Blue : Color.Blue

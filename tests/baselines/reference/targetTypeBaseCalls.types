@@ -3,6 +3,7 @@ function foo(x: (s: string) => void) { }
 >foo : (x: (s: string) => void) => void
 >x : (s: string) => void
 >s : string
+>类型别名 :=> 文字
  
  
  
@@ -10,16 +11,20 @@ class Foo { constructor(x: (s: string) => void){} }
 >Foo : Foo
 >x : (s: string) => void
 >s : string
+>类型别名 :=> 文字
  
  
  
 foo(function(s) { s = 5 });  // Error, can’t assign number to string
 >foo(function(s) { s = 5 }) : void
+>类型别名 :=> 无值
 >foo : (x: (s: string) => void) => void
 >function(s) { s = 5 } : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 >s = 5 : 5
 >s : string
+>类型别名 :=> 文字
 >5 : 5
  
  
@@ -29,8 +34,10 @@ new Foo(function(s) { s = 5 });  // error, if types are applied correctly
 >Foo : typeof Foo
 >function(s) { s = 5 } : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 >s = 5 : 5
 >s : string
+>类型别名 :=> 文字
 >5 : 5
  
  
@@ -39,10 +46,13 @@ class Bar extends Foo { constructor() { super(function(s) { s = 5 }) } }  // err
 >Bar : Bar
 >Foo : Foo
 >super(function(s) { s = 5 }) : void
+>类型别名 :=> 无值
 >super : typeof Foo
 >function(s) { s = 5 } : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 >s = 5 : 5
 >s : string
+>类型别名 :=> 文字
 >5 : 5
 

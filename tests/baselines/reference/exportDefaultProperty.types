@@ -5,21 +5,30 @@ import fooBar from "foobar";
 
 import X = fooBar.X;
 >X : number
+>类型别名 :=> 数字
 >fooBar : typeof fooBar
 >X : number
+>类型别名 :=> 数字
 
 import X2 from "foobarx";
 >X2 : number
+>类型别名 :=> 数字
 
 const x: X = X;
 >x : number
+>类型别名 :=> 数字
 >X : number
+>类型别名 :=> 数字
 >X : number
+>类型别名 :=> 数字
 
 const x2: X2 = X2;
 >x2 : number
+>类型别名 :=> 数字
 >X2 : number
+>类型别名 :=> 数字
 >X2 : number
+>类型别名 :=> 数字
 
 import B from "./a";
 >B : typeof B
@@ -30,15 +39,20 @@ const b: B = new B(B.b);
 >new B(B.b) : B
 >B : typeof B
 >B.b : number
+>类型别名 :=> 数字
 >B : typeof B
 >b : number
+>类型别名 :=> 数字
 
 import fooLength from "./b";
 >fooLength : number
+>类型别名 :=> 数字
 
 fooLength + 1;
 >fooLength + 1 : number
+>类型别名 :=> 数字
 >fooLength : number
+>类型别名 :=> 数字
 >1 : 1
 
 === tests/cases/compiler/declarations.d.ts ===
@@ -50,9 +64,11 @@ declare namespace foo.bar {
 
     export type X = number;
 >X : number
+>类型别名 :=> 数字
 
     export const X: number;
 >X : number
+>类型别名 :=> 数字
 }
 
 declare module "foobar" {
@@ -65,10 +81,12 @@ declare module "foobar" {
 declare module "foobarx" {
     export default foo.bar.X;
 >foo.bar.X : number
+>类型别名 :=> 数字
 >foo.bar : typeof foo.bar
 >foo : typeof foo
 >bar : typeof foo.bar
 >X : number
+>类型别名 :=> 数字
 }
 
 === tests/cases/compiler/a.ts ===
@@ -78,10 +96,12 @@ namespace A {
     export class B { constructor(b: number) {} }
 >B : B
 >b : number
+>类型别名 :=> 数字
 
     export namespace B { export const b: number = 0; }
 >B : typeof B
 >b : number
+>类型别名 :=> 数字
 >0 : 0
 }
 export default A.B;
@@ -92,6 +112,8 @@ export default A.B;
 === tests/cases/compiler/b.ts ===
 export default "foo".length;
 >"foo".length : number
+>类型别名 :=> 数字
 >"foo" : "foo"
 >length : number
+>类型别名 :=> 数字
 

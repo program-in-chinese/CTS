@@ -7,16 +7,20 @@ module NonGeneric {
 
         x: string;
 >x : string
+>类型别名 :=> 文字
 
         get y() {
 >y : number
+>类型别名 :=> 数字
 
             return 1;
 >1 : 1
         }
         set y(v) { }
 >y : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 
         fn() { return this; }
 >fn : () => this
@@ -24,13 +28,16 @@ module NonGeneric {
 
         constructor(public a: number, private b: number) { }
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
     }
 
     class D extends C { e: string; }
 >D : D
 >C : C
 >e : string
+>类型别名 :=> 文字
 
     var d = new D(1, 2);
 >d : D
@@ -48,29 +55,41 @@ module NonGeneric {
 
     var r2 = r.x;
 >r2 : string
+>类型别名 :=> 文字
 >r.x : string
+>类型别名 :=> 文字
 >r : D
 >x : string
+>类型别名 :=> 文字
 
     var r3 = r.y;
 >r3 : number
+>类型别名 :=> 数字
 >r.y : number
+>类型别名 :=> 数字
 >r : D
 >y : number
+>类型别名 :=> 数字
 
     r.y = 4;
 >r.y = 4 : 4
 >r.y : number
+>类型别名 :=> 数字
 >r : D
 >y : number
+>类型别名 :=> 数字
 >4 : 4
 
     var r6 = d.y(); // error
 >r6 : any
+>类型别名 :=> 任意
 >d.y() : any
+>类型别名 :=> 任意
 >d.y : number
+>类型别名 :=> 数字
 >d : D
 >y : number
+>类型别名 :=> 数字
 
 }
 
@@ -91,6 +110,7 @@ module Generic {
 
             return null;
 >null : null
+>类型别名 :=> 空值
         }
         set y(v: U) { }
 >y : U
@@ -134,27 +154,39 @@ module Generic {
 
     var r2 = r.x;
 >r2 : number
+>类型别名 :=> 数字
 >r.x : number
+>类型别名 :=> 数字
 >r : D<number, string>
 >x : number
+>类型别名 :=> 数字
 
     var r3 = r.y;
 >r3 : string
+>类型别名 :=> 文字
 >r.y : string
+>类型别名 :=> 文字
 >r : D<number, string>
 >y : string
+>类型别名 :=> 文字
 
     r.y = '';
 >r.y = '' : ""
 >r.y : string
+>类型别名 :=> 文字
 >r : D<number, string>
 >y : string
+>类型别名 :=> 文字
 >'' : ""
 
     var r6 = d.y(); // error
 >r6 : any
+>类型别名 :=> 任意
 >d.y() : any
+>类型别名 :=> 任意
 >d.y : string
+>类型别名 :=> 文字
 >d : D<number, string>
 >y : string
+>类型别名 :=> 文字
 }

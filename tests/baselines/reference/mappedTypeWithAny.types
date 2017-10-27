@@ -2,6 +2,7 @@
 type Item = { value: string };
 >Item : Item
 >value : string
+>类型别名 :=> 文字
 
 type ItemMap<T> = { [P in keyof T]: Item };
 >ItemMap : ItemMap<T>
@@ -12,6 +13,7 @@ type ItemMap<T> = { [P in keyof T]: Item };
 
 declare let x0: keyof any;
 >x0 : string
+>类型别名 :=> 文字
 
 declare let x1: { [P in any]: Item };
 >x1 : { [x: string]: Item; }
@@ -39,6 +41,7 @@ type Data = {
 
   value: string;
 >value : string
+>类型别名 :=> 文字
 }
 
 type StrictDataMap<T> = {
@@ -57,6 +60,7 @@ declare let z: StrictDataMap<any>;
 
 for (let id in z) {
 >id : string
+>类型别名 :=> 文字
 >z : StrictDataMap<any>
 
   let data = z[id];
@@ -64,11 +68,15 @@ for (let id in z) {
 >z[id] : Data
 >z : StrictDataMap<any>
 >id : string
+>类型别名 :=> 文字
 
   let x = data.notAValue;  // Error
 >x : any
+>类型别名 :=> 任意
 >data.notAValue : any
+>类型别名 :=> 任意
 >data : Data
 >notAValue : any
+>类型别名 :=> 任意
 }
 

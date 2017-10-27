@@ -4,20 +4,24 @@
 class C { foo: string }
 >C : C
 >foo : string
+>类型别名 :=> 文字
 
 class D { bar: string }
 >D : D
 >bar : string
+>类型别名 :=> 文字
 
 var a: {
 >a : { new (x: boolean): C; new (x: string): D; }
 
     new(x: boolean): C;
 >x : boolean
+>类型别名 :=> 真假
 >C : C
 
     new(x: string): D;
 >x : string
+>类型别名 :=> 文字
 >D : D
 }
 
@@ -50,6 +54,7 @@ var b: {
     new<T>(x: boolean): T;
 >T : T
 >x : boolean
+>类型别名 :=> 真假
 >T : T
 
     new<T>(x: T): any;
@@ -60,7 +65,9 @@ var b: {
 
 var r2 = foo4(b); // T is {} (candidates boolean and {}), U is any (candidates any and {})
 >r2 : any
+>类型别名 :=> 任意
 >foo4(b) : any
+>类型别名 :=> 任意
 >foo4 : <T, U>(cb: new (x: T) => U) => U
 >b : { new <T>(x: boolean): T; new <T>(x: T): any; }
 

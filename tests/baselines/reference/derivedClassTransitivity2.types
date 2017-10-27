@@ -7,7 +7,9 @@ class C {
     foo(x: number, y: number) { }
 >foo : (x: number, y: number) => void
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 }
 
 class D extends C {
@@ -17,6 +19,7 @@ class D extends C {
     foo(x: number) { } // ok to drop parameters
 >foo : (x: number) => void
 >x : number
+>类型别名 :=> 数字
 }
 
 class E extends D {
@@ -26,7 +29,9 @@ class E extends D {
     foo(x: number, y?: string) { } // ok to add optional parameters
 >foo : (x: number, y?: string) => void
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 }
 
 var c: C;
@@ -48,7 +53,9 @@ c = e;
 
 var r = c.foo(1, 1);
 >r : void
+>类型别名 :=> 无值
 >c.foo(1, 1) : void
+>类型别名 :=> 无值
 >c.foo : (x: number, y: number) => void
 >c : C
 >foo : (x: number, y: number) => void
@@ -57,7 +64,9 @@ var r = c.foo(1, 1);
 
 var r2 = e.foo(1, '');
 >r2 : void
+>类型别名 :=> 无值
 >e.foo(1, '') : void
+>类型别名 :=> 无值
 >e.foo : (x: number, y?: string) => void
 >e : E
 >foo : (x: number, y?: string) => void

@@ -3,25 +3,37 @@
 //      If the declaration includes a type annotation, T is that type.
 var {a1, a2}: { a1: number, a2: string } = { a1: true, a2: 1 }               // Error
 >a1 : number
+>类型别名 :=> 数字
 >a2 : string
+>类型别名 :=> 文字
 >a1 : number
+>类型别名 :=> 数字
 >a2 : string
+>类型别名 :=> 文字
 >{ a1: true, a2: 1 } : { a1: boolean; a2: number; }
 >a1 : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >a2 : number
+>类型别名 :=> 数字
 >1 : 1
 
 var [a3, [[a4]], a5]: [number, [[string]], boolean] = [1, [[false]], true];  // Error
 >a3 : number
+>类型别名 :=> 数字
 >a4 : string
+>类型别名 :=> 文字
 >a5 : boolean
+>类型别名 :=> 真假
 >[1, [[false]], true] : [number, [[boolean]], true]
 >1 : 1
 >[[false]] : [[boolean]]
 >[false] : [boolean]
 >false : false
+>类型别名 :=> 为假
 >true : true
+>类型别名 :=> 为真
 
 // The type T associated with a destructuring variable declaration is determined as follows:
 //      Otherwise, if the declaration includes an initializer expression, T is the type of that initializer expression.
@@ -29,24 +41,34 @@ var temp = { t1: true, t2: "false" };
 >temp : { t1: boolean; t2: string; }
 >{ t1: true, t2: "false" } : { t1: boolean; t2: string; }
 >t1 : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >t2 : string
+>类型别名 :=> 文字
 >"false" : "false"
 
 var [b0 = 3, b1 = true, b2 = temp] = [3, false, { t1: false, t2: 5}];  // Error
 >b0 : number
+>类型别名 :=> 数字
 >3 : 3
 >b1 : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >b2 : { t1: boolean; t2: string; } | { t1: false; t2: number; }
 >temp : { t1: boolean; t2: string; }
 >[3, false, { t1: false, t2: 5}] : [number, false, { t1: false; t2: number; }]
 >3 : 3
 >false : false
+>类型别名 :=> 为假
 >{ t1: false, t2: 5} : { t1: false; t2: number; }
 >t1 : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 >t2 : number
+>类型别名 :=> 数字
 >5 : 5
 
 // The type T associated with a binding element is determined as follows:
@@ -56,17 +78,23 @@ var [c1, c2, { c3: c4, c5 }, , ...c6] = [1, 2, { c3: 4, c5: 0 }];  // Error
 >c1 : number | { c3: number; c5: number; }
 >c2 : number | { c3: number; c5: number; }
 >c3 : any
+>类型别名 :=> 任意
 >c4 : any
+>类型别名 :=> 任意
 >c5 : any
+>类型别名 :=> 任意
 > : undefined
+>类型别名 :=> 未定
 >c6 : (number | { c3: number; c5: number; })[]
 >[1, 2, { c3: 4, c5: 0 }] : (number | { c3: number; c5: number; })[]
 >1 : 1
 >2 : 2
 >{ c3: 4, c5: 0 } : { c3: number; c5: number; }
 >c3 : number
+>类型别名 :=> 数字
 >4 : 4
 >c5 : number
+>类型别名 :=> 数字
 >0 : 0
 
 // When a destructuring variable declaration, binding property, or binding element specifies
@@ -74,10 +102,12 @@ var [c1, c2, { c3: c4, c5 }, , ...c6] = [1, 2, { c3: 4, c5: 0 }];  // Error
 // to the widened form of the type associated with the destructuring variable declaration, binding property, or binding element.
 var {d: {d1 = ["string", null]}}: { d: { d1: number[] } } = { d: { d1: [1, 2] } };  // Error
 >d : any
+>类型别名 :=> 任意
 >d1 : string[] | number[]
 >["string", null] : string[]
 >"string" : "string"
 >null : null
+>类型别名 :=> 空值
 >d : { d1: number[]; }
 >d1 : number[]
 >{ d: { d1: [1, 2] } } : { d: { d1: number[]; }; }

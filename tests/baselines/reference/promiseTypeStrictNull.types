@@ -5,17 +5,21 @@ declare var p: Promise<boolean>;
 
 declare var x: any;
 >x : any
+>类型别名 :=> 任意
 
 async function A() {
 >A : () => Promise<boolean>
 
     const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
     return a;
 >a : boolean
+>类型别名 :=> 真假
 }
 
 async function B() {
@@ -23,7 +27,9 @@ async function B() {
 
     const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
     return 1;
@@ -36,7 +42,9 @@ async function C() {
     try {
         const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
         return 1;
@@ -44,6 +52,7 @@ async function C() {
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
 
         return 'error';
 >'error' : "error"
@@ -56,7 +65,9 @@ async function D() {
     try {
         const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
         return 1;
@@ -64,6 +75,7 @@ async function D() {
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
     }
 }
 
@@ -73,7 +85,9 @@ async function E() {
     try {
         const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
         return 1;
@@ -81,6 +95,7 @@ async function E() {
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
 
         throw Error();
 >Error() : Error
@@ -94,7 +109,9 @@ async function F() {
     try {
         const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
         return 1;
@@ -102,6 +119,7 @@ async function F() {
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
 
         return Promise.reject(Error());
 >Promise.reject(Error()) : Promise<never>
@@ -119,14 +137,18 @@ async function G() {
     try {
         const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
         return a;
 >a : boolean
+>类型别名 :=> 真假
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
 
         return;
     }
@@ -138,14 +160,18 @@ async function H() {
     try {
         const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
         return a;
 >a : boolean
+>类型别名 :=> 真假
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
 
         throw Error();
 >Error() : Error
@@ -159,14 +185,18 @@ async function I() {
     try {
         const a = await p;
 >a : boolean
+>类型别名 :=> 真假
 >await p : boolean
+>类型别名 :=> 真假
 >p : Promise<boolean>
 
         return a;
 >a : boolean
+>类型别名 :=> 真假
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
 
         return Promise.reject(Error());
 >Promise.reject(Error()) : Promise<never>
@@ -201,6 +231,7 @@ const p10 = p.catch(undefined);
 >p : Promise<boolean>
 >catch : <TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined) => Promise<boolean | TResult>
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p11 = p.catch(null);
 >p11 : Promise<boolean>
@@ -209,6 +240,7 @@ const p11 = p.catch(null);
 >p : Promise<boolean>
 >catch : <TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined) => Promise<boolean | TResult>
 >null : null
+>类型别名 :=> 空值
 
 const p12 = p.catch(() => 1);
 >p12 : Promise<number | boolean>
@@ -227,6 +259,7 @@ const p13 = p.catch(() => x);
 >catch : <TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined) => Promise<boolean | TResult>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p14 = p.catch(() => undefined);
 >p14 : Promise<boolean | undefined>
@@ -236,6 +269,7 @@ const p14 = p.catch(() => undefined);
 >catch : <TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined) => Promise<boolean | TResult>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p15 = p.catch(() => null);
 >p15 : Promise<boolean | null>
@@ -245,6 +279,7 @@ const p15 = p.catch(() => null);
 >catch : <TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined) => Promise<boolean | TResult>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p16 = p.catch(() => {});
 >p16 : Promise<boolean | void>
@@ -296,6 +331,7 @@ const p20 = p.then(undefined);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p21 = p.then(null);
 >p21 : Promise<boolean>
@@ -304,6 +340,7 @@ const p21 = p.then(null);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 
 const p22 = p.then(() => 1);
 >p22 : Promise<number>
@@ -322,6 +359,7 @@ const p23 = p.then(() => x);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p24 = p.then(() => undefined);
 >p24 : Promise<undefined>
@@ -331,6 +369,7 @@ const p24 = p.then(() => undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p25 = p.then(() => null);
 >p25 : Promise<null>
@@ -340,6 +379,7 @@ const p25 = p.then(() => null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p26 = p.then(() => {});
 >p26 : Promise<void>
@@ -391,7 +431,9 @@ const p30 = p.then(undefined, undefined);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p31 = p.then(undefined, null);
 >p31 : Promise<boolean>
@@ -400,7 +442,9 @@ const p31 = p.then(undefined, null);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >null : null
+>类型别名 :=> 空值
 
 const p32 = p.then(undefined, () => 1);
 >p32 : Promise<number | boolean>
@@ -409,6 +453,7 @@ const p32 = p.then(undefined, () => 1);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => 1 : () => number
 >1 : 1
 
@@ -419,8 +464,10 @@ const p33 = p.then(undefined, () => x);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p34 = p.then(undefined, () => undefined);
 >p34 : Promise<boolean | undefined>
@@ -429,8 +476,10 @@ const p34 = p.then(undefined, () => undefined);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p35 = p.then(undefined, () => null);
 >p35 : Promise<boolean | null>
@@ -439,8 +488,10 @@ const p35 = p.then(undefined, () => null);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p36 = p.then(undefined, () => {});
 >p36 : Promise<boolean | void>
@@ -449,6 +500,7 @@ const p36 = p.then(undefined, () => {});
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => {} : () => void
 
 const p37 = p.then(undefined, () => {throw 1});
@@ -458,6 +510,7 @@ const p37 = p.then(undefined, () => {throw 1});
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => {throw 1} : () => never
 >1 : 1
 
@@ -468,6 +521,7 @@ const p38 = p.then(undefined, () => Promise.resolve(1));
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => Promise.resolve(1) : () => Promise<number>
 >Promise.resolve(1) : Promise<number>
 >Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
@@ -482,6 +536,7 @@ const p39 = p.then(undefined, () => Promise.reject(1));
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >undefined : undefined
+>类型别名 :=> 未定
 >() => Promise.reject(1) : () => Promise<never>
 >Promise.reject(1) : Promise<never>
 >Promise.reject : { (reason: any): Promise<never>; <T>(reason: any): Promise<T>; }
@@ -496,7 +551,9 @@ const p40 = p.then(null, undefined);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p41 = p.then(null, null);
 >p41 : Promise<boolean>
@@ -505,7 +562,9 @@ const p41 = p.then(null, null);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 const p42 = p.then(null, () => 1);
 >p42 : Promise<number | boolean>
@@ -514,6 +573,7 @@ const p42 = p.then(null, () => 1);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => 1 : () => number
 >1 : 1
 
@@ -524,8 +584,10 @@ const p43 = p.then(null, () => x);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p44 = p.then(null, () => undefined);
 >p44 : Promise<boolean | undefined>
@@ -534,8 +596,10 @@ const p44 = p.then(null, () => undefined);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p45 = p.then(null, () => null);
 >p45 : Promise<boolean | null>
@@ -544,8 +608,10 @@ const p45 = p.then(null, () => null);
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p46 = p.then(null, () => {});
 >p46 : Promise<boolean | void>
@@ -554,6 +620,7 @@ const p46 = p.then(null, () => {});
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => {} : () => void
 
 const p47 = p.then(null, () => {throw 1});
@@ -563,6 +630,7 @@ const p47 = p.then(null, () => {throw 1});
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => {throw 1} : () => never
 >1 : 1
 
@@ -573,6 +641,7 @@ const p48 = p.then(null, () => Promise.resolve(1));
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => Promise.resolve(1) : () => Promise<number>
 >Promise.resolve(1) : Promise<number>
 >Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
@@ -587,6 +656,7 @@ const p49 = p.then(null, () => Promise.reject(1));
 >p : Promise<boolean>
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >null : null
+>类型别名 :=> 空值
 >() => Promise.reject(1) : () => Promise<never>
 >Promise.reject(1) : Promise<never>
 >Promise.reject : { (reason: any): Promise<never>; <T>(reason: any): Promise<T>; }
@@ -603,6 +673,7 @@ const p50 = p.then(() => "1", undefined);
 >() => "1" : () => string
 >"1" : "1"
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p51 = p.then(() => "1", null);
 >p51 : Promise<string>
@@ -613,6 +684,7 @@ const p51 = p.then(() => "1", null);
 >() => "1" : () => string
 >"1" : "1"
 >null : null
+>类型别名 :=> 空值
 
 const p52 = p.then(() => "1", () => 1);
 >p52 : Promise<string | number>
@@ -635,6 +707,7 @@ const p53 = p.then(() => "1", () => x);
 >"1" : "1"
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p54 = p.then(() => "1", () => undefined);
 >p54 : Promise<string | undefined>
@@ -646,6 +719,7 @@ const p54 = p.then(() => "1", () => undefined);
 >"1" : "1"
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p55 = p.then(() => "1", () => null);
 >p55 : Promise<string | null>
@@ -657,6 +731,7 @@ const p55 = p.then(() => "1", () => null);
 >"1" : "1"
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p56 = p.then(() => "1", () => {});
 >p56 : Promise<string | void>
@@ -717,7 +792,9 @@ const p60 = p.then(() => x, undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p61 = p.then(() => x, null);
 >p61 : Promise<any>
@@ -727,7 +804,9 @@ const p61 = p.then(() => x, null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 const p62 = p.then(() => x, () => 1);
 >p62 : Promise<any>
@@ -737,6 +816,7 @@ const p62 = p.then(() => x, () => 1);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => 1 : () => number
 >1 : 1
 
@@ -748,8 +828,10 @@ const p63 = p.then(() => x, () => x);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p64 = p.then(() => x, () => undefined);
 >p64 : Promise<any>
@@ -759,8 +841,10 @@ const p64 = p.then(() => x, () => undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p65 = p.then(() => x, () => null);
 >p65 : Promise<any>
@@ -770,8 +854,10 @@ const p65 = p.then(() => x, () => null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p66 = p.then(() => x, () => {});
 >p66 : Promise<any>
@@ -781,6 +867,7 @@ const p66 = p.then(() => x, () => {});
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => {} : () => void
 
 const p67 = p.then(() => x, () => {throw 1});
@@ -791,6 +878,7 @@ const p67 = p.then(() => x, () => {throw 1});
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => {throw 1} : () => never
 >1 : 1
 
@@ -802,6 +890,7 @@ const p68 = p.then(() => x, () => Promise.resolve(1));
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => Promise.resolve(1) : () => Promise<number>
 >Promise.resolve(1) : Promise<number>
 >Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
@@ -817,6 +906,7 @@ const p69 = p.then(() => x, () => Promise.reject(1));
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 >() => Promise.reject(1) : () => Promise<never>
 >Promise.reject(1) : Promise<never>
 >Promise.reject : { (reason: any): Promise<never>; <T>(reason: any): Promise<T>; }
@@ -832,7 +922,9 @@ const p70 = p.then(() => undefined, undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p71 = p.then(() => undefined, null);
 >p71 : Promise<undefined>
@@ -842,7 +934,9 @@ const p71 = p.then(() => undefined, null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >null : null
+>类型别名 :=> 空值
 
 const p72 = p.then(() => undefined, () => 1);
 >p72 : Promise<number | undefined>
@@ -852,6 +946,7 @@ const p72 = p.then(() => undefined, () => 1);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => 1 : () => number
 >1 : 1
 
@@ -863,8 +958,10 @@ const p73 = p.then(() => undefined, () => x);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p74 = p.then(() => undefined, () => undefined);
 >p74 : Promise<undefined>
@@ -874,8 +971,10 @@ const p74 = p.then(() => undefined, () => undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p75 = p.then(() => undefined, () => null);
 >p75 : Promise<null | undefined>
@@ -885,8 +984,10 @@ const p75 = p.then(() => undefined, () => null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p76 = p.then(() => undefined, () => {});
 >p76 : Promise<void | undefined>
@@ -896,6 +997,7 @@ const p76 = p.then(() => undefined, () => {});
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => {} : () => void
 
 const p77 = p.then(() => undefined, () => {throw 1});
@@ -906,6 +1008,7 @@ const p77 = p.then(() => undefined, () => {throw 1});
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => {throw 1} : () => never
 >1 : 1
 
@@ -917,6 +1020,7 @@ const p78 = p.then(() => undefined, () => Promise.resolve(1));
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => Promise.resolve(1) : () => Promise<number>
 >Promise.resolve(1) : Promise<number>
 >Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
@@ -932,6 +1036,7 @@ const p79 = p.then(() => undefined, () => Promise.reject(1));
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >() => Promise.reject(1) : () => Promise<never>
 >Promise.reject(1) : Promise<never>
 >Promise.reject : { (reason: any): Promise<never>; <T>(reason: any): Promise<T>; }
@@ -947,7 +1052,9 @@ const p80 = p.then(() => null, undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p81 = p.then(() => null, null);
 >p81 : Promise<null>
@@ -957,7 +1064,9 @@ const p81 = p.then(() => null, null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 const p82 = p.then(() => null, () => 1);
 >p82 : Promise<number | null>
@@ -967,6 +1076,7 @@ const p82 = p.then(() => null, () => 1);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => 1 : () => number
 >1 : 1
 
@@ -978,8 +1088,10 @@ const p83 = p.then(() => null, () => x);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p84 = p.then(() => null, () => undefined);
 >p84 : Promise<null | undefined>
@@ -989,8 +1101,10 @@ const p84 = p.then(() => null, () => undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p85 = p.then(() => null, () => null);
 >p85 : Promise<null>
@@ -1000,8 +1114,10 @@ const p85 = p.then(() => null, () => null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p86 = p.then(() => null, () => {});
 >p86 : Promise<void | null>
@@ -1011,6 +1127,7 @@ const p86 = p.then(() => null, () => {});
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => {} : () => void
 
 const p87 = p.then(() => null, () => {throw 1});
@@ -1021,6 +1138,7 @@ const p87 = p.then(() => null, () => {throw 1});
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => {throw 1} : () => never
 >1 : 1
 
@@ -1032,6 +1150,7 @@ const p88 = p.then(() => null, () => Promise.resolve(1));
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => Promise.resolve(1) : () => Promise<number>
 >Promise.resolve(1) : Promise<number>
 >Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
@@ -1047,6 +1166,7 @@ const p89 = p.then(() => null, () => Promise.reject(1));
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 >() => Promise.reject(1) : () => Promise<never>
 >Promise.reject(1) : Promise<never>
 >Promise.reject : { (reason: any): Promise<never>; <T>(reason: any): Promise<T>; }
@@ -1062,6 +1182,7 @@ const p90 = p.then(() => {}, undefined);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => {} : () => void
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p91 = p.then(() => {}, null);
 >p91 : Promise<void>
@@ -1071,6 +1192,7 @@ const p91 = p.then(() => {}, null);
 >then : <TResult1 = boolean, TResult2 = never>(onfulfilled?: ((value: boolean) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined) => Promise<TResult1 | TResult2>
 >() => {} : () => void
 >null : null
+>类型别名 :=> 空值
 
 const p92 = p.then(() => {}, () => 1);
 >p92 : Promise<number | void>
@@ -1091,6 +1213,7 @@ const p93 = p.then(() => {}, () => x);
 >() => {} : () => void
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const p94 = p.then(() => {}, () => undefined);
 >p94 : Promise<void | undefined>
@@ -1101,6 +1224,7 @@ const p94 = p.then(() => {}, () => undefined);
 >() => {} : () => void
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const p95 = p.then(() => {}, () => null);
 >p95 : Promise<void | null>
@@ -1111,6 +1235,7 @@ const p95 = p.then(() => {}, () => null);
 >() => {} : () => void
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const p96 = p.then(() => {}, () => {});
 >p96 : Promise<void>
@@ -1168,6 +1293,7 @@ const pa0 = p.then(() => {throw 1}, undefined);
 >() => {throw 1} : () => never
 >1 : 1
 >undefined : undefined
+>类型别名 :=> 未定
 
 const pa1 = p.then(() => {throw 1}, null);
 >pa1 : Promise<never>
@@ -1178,6 +1304,7 @@ const pa1 = p.then(() => {throw 1}, null);
 >() => {throw 1} : () => never
 >1 : 1
 >null : null
+>类型别名 :=> 空值
 
 const pa2 = p.then(() => {throw 1}, () => 1);
 >pa2 : Promise<number>
@@ -1200,6 +1327,7 @@ const pa3 = p.then(() => {throw 1}, () => x);
 >1 : 1
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const pa4 = p.then(() => {throw 1}, () => undefined);
 >pa4 : Promise<undefined>
@@ -1211,6 +1339,7 @@ const pa4 = p.then(() => {throw 1}, () => undefined);
 >1 : 1
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const pa5 = p.then(() => {throw 1}, () => null);
 >pa5 : Promise<null>
@@ -1222,6 +1351,7 @@ const pa5 = p.then(() => {throw 1}, () => null);
 >1 : 1
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const pa6 = p.then(() => {throw 1}, () => {});
 >pa6 : Promise<void>
@@ -1287,6 +1417,7 @@ const pb0 = p.then(() => Promise.resolve("1"), undefined);
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >"1" : "1"
 >undefined : undefined
+>类型别名 :=> 未定
 
 const pb1 = p.then(() => Promise.resolve("1"), null);
 >pb1 : Promise<string>
@@ -1301,6 +1432,7 @@ const pb1 = p.then(() => Promise.resolve("1"), null);
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >"1" : "1"
 >null : null
+>类型别名 :=> 空值
 
 const pb2 = p.then(() => Promise.resolve("1"), () => 1);
 >pb2 : Promise<string | number>
@@ -1331,6 +1463,7 @@ const pb3 = p.then(() => Promise.resolve("1"), () => x);
 >"1" : "1"
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const pb4 = p.then(() => Promise.resolve("1"), () => undefined);
 >pb4 : Promise<string | undefined>
@@ -1346,6 +1479,7 @@ const pb4 = p.then(() => Promise.resolve("1"), () => undefined);
 >"1" : "1"
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const pb5 = p.then(() => Promise.resolve("1"), () => null);
 >pb5 : Promise<string | null>
@@ -1361,6 +1495,7 @@ const pb5 = p.then(() => Promise.resolve("1"), () => null);
 >"1" : "1"
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const pb6 = p.then(() => Promise.resolve("1"), () => {});
 >pb6 : Promise<string | void>
@@ -1442,6 +1577,7 @@ const pc0 = p.then(() => Promise.reject("1"), undefined);
 >reject : { (reason: any): Promise<never>; <T>(reason: any): Promise<T>; }
 >"1" : "1"
 >undefined : undefined
+>类型别名 :=> 未定
 
 const pc1 = p.then(() => Promise.reject("1"), null);
 >pc1 : Promise<never>
@@ -1456,6 +1592,7 @@ const pc1 = p.then(() => Promise.reject("1"), null);
 >reject : { (reason: any): Promise<never>; <T>(reason: any): Promise<T>; }
 >"1" : "1"
 >null : null
+>类型别名 :=> 空值
 
 const pc2 = p.then(() => Promise.reject("1"), () => 1);
 >pc2 : Promise<number>
@@ -1486,6 +1623,7 @@ const pc3 = p.then(() => Promise.reject("1"), () => x);
 >"1" : "1"
 >() => x : () => any
 >x : any
+>类型别名 :=> 任意
 
 const pc4 = p.then(() => Promise.reject("1"), () => undefined);
 >pc4 : Promise<undefined>
@@ -1501,6 +1639,7 @@ const pc4 = p.then(() => Promise.reject("1"), () => undefined);
 >"1" : "1"
 >() => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 const pc5 = p.then(() => Promise.reject("1"), () => null);
 >pc5 : Promise<null>
@@ -1516,6 +1655,7 @@ const pc5 = p.then(() => Promise.reject("1"), () => null);
 >"1" : "1"
 >() => null : () => null
 >null : null
+>类型别名 :=> 空值
 
 const pc6 = p.then(() => Promise.reject("1"), () => {});
 >pc6 : Promise<void>

@@ -6,6 +6,7 @@ class C {
 
     prop: string;
 >prop : string
+>类型别名 :=> 文字
 }
 
 function f1<T>(x: T) {
@@ -16,6 +17,7 @@ function f1<T>(x: T) {
 
     if (x instanceof C) {
 >x instanceof C : boolean
+>类型别名 :=> 真假
 >x : T
 >C : typeof C
 
@@ -31,8 +33,10 @@ function f1<T>(x: T) {
 
         x.prop;
 >x.prop : string
+>类型别名 :=> 文字
 >x : T & C
 >prop : string
+>类型别名 :=> 文字
     }
 }
 
@@ -44,6 +48,7 @@ function f2<T>(x: T) {
 
     if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : T
 >"string" : "string"
@@ -55,12 +60,15 @@ function f2<T>(x: T) {
 
         let v2: string = x;
 >v2 : string
+>类型别名 :=> 文字
 >x : T & string
 
         x.length;
 >x.length : number
+>类型别名 :=> 数字
 >x : T & string
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -91,12 +99,14 @@ function fun<T>(item: { [P in keyof T]: T[P] }) {
 
         if (typeof value === "string") {
 >typeof value === "string" : boolean
+>类型别名 :=> 真假
 >typeof value : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >value : { [P in keyof T]: T[P]; }[keyof T]
 >"string" : "string"
 
             strings.push(value);
 >strings.push(value) : number
+>类型别名 :=> 数字
 >strings.push : (...items: string[]) => number
 >strings : string[]
 >push : (...items: string[]) => number

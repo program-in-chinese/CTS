@@ -4,6 +4,7 @@ interface A {
 
     prop: string;
 >prop : string
+>类型别名 :=> 文字
 
     m(): string;
 >m : () => string
@@ -14,22 +15,28 @@ abstract class B implements A {
 
     abstract prop: string;
 >prop : string
+>类型别名 :=> 文字
 
     public abstract readonly ro: string;
 >ro : string
+>类型别名 :=> 文字
 
     abstract get readonlyProp(): string;
 >readonlyProp : string
+>类型别名 :=> 文字
 
     abstract m(): string;
 >m : () => string
 
     abstract get mismatch(): string;
 >mismatch : string
+>类型别名 :=> 文字
 
     abstract set mismatch(val: number); // error, not same type
 >mismatch : string
+>类型别名 :=> 文字
 >val : number
+>类型别名 :=> 数字
 }
 class C extends B {
 >C : C
@@ -41,9 +48,11 @@ class C extends B {
 
     abstract notAllowed: string;
 >notAllowed : string
+>类型别名 :=> 文字
 
     get concreteWithNoBody(): string;
 >concreteWithNoBody : string
+>类型别名 :=> 文字
 }
 let c = new C();
 >c : C
@@ -53,8 +62,10 @@ let c = new C();
 c.ro = "error: lhs of assignment can't be readonly";
 >c.ro = "error: lhs of assignment can't be readonly" : "error: lhs of assignment can't be readonly"
 >c.ro : any
+>类型别名 :=> 任意
 >c : C
 >ro : any
+>类型别名 :=> 任意
 >"error: lhs of assignment can't be readonly" : "error: lhs of assignment can't be readonly"
 
 abstract class WrongTypeProperty {
@@ -62,6 +73,7 @@ abstract class WrongTypeProperty {
 
     abstract num: number;
 >num : number
+>类型别名 :=> 数字
 }
 class WrongTypePropertyImpl extends WrongTypeProperty {
 >WrongTypePropertyImpl : WrongTypePropertyImpl
@@ -69,6 +81,7 @@ class WrongTypePropertyImpl extends WrongTypeProperty {
 
     num = "nope, wrong";
 >num : string
+>类型别名 :=> 文字
 >"nope, wrong" : "nope, wrong"
 }
 abstract class WrongTypeAccessor {
@@ -76,6 +89,7 @@ abstract class WrongTypeAccessor {
 
     abstract get num(): number;
 >num : number
+>类型别名 :=> 数字
 }
 class WrongTypeAccessorImpl extends WrongTypeAccessor {
 >WrongTypeAccessorImpl : WrongTypeAccessorImpl
@@ -83,6 +97,7 @@ class WrongTypeAccessorImpl extends WrongTypeAccessor {
 
     get num() { return "nope, wrong"; }
 >num : string
+>类型别名 :=> 文字
 >"nope, wrong" : "nope, wrong"
 }
 class WrongTypeAccessorImpl2 extends WrongTypeAccessor {
@@ -91,6 +106,7 @@ class WrongTypeAccessorImpl2 extends WrongTypeAccessor {
 
     num = "nope, wrong";
 >num : string
+>类型别名 :=> 文字
 >"nope, wrong" : "nope, wrong"
 }
 
@@ -99,17 +115,23 @@ abstract class AbstractAccessorMismatch {
 
     abstract get p1(): string;
 >p1 : string
+>类型别名 :=> 文字
 
     set p1(val: string) { };
 >p1 : string
+>类型别名 :=> 文字
 >val : string
+>类型别名 :=> 文字
 
     get p2(): string { return "should work"; }
 >p2 : string
+>类型别名 :=> 文字
 >"should work" : "should work"
 
     abstract set p2(val: string);
 >p2 : string
+>类型别名 :=> 文字
 >val : string
+>类型别名 :=> 文字
 }
 

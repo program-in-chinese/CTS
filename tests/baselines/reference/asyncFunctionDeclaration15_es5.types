@@ -5,10 +5,12 @@ declare class Thenable { then(): void; }
 
 declare let a: any;
 >a : any
+>类型别名 :=> 任意
 
 declare let obj: { then: string; };
 >obj : { then: string; }
 >then : string
+>类型别名 :=> 文字
 
 declare let thenable: Thenable;
 >thenable : Thenable
@@ -44,14 +46,17 @@ async function fn8() { return 1; } // valid: Promise<number>
 async function fn9() { return null; } // valid: Promise<any>
 >fn9 : () => Promise<any>
 >null : null
+>类型别名 :=> 空值
 
 async function fn10() { return undefined; } // valid: Promise<any>
 >fn10 : () => Promise<any>
 >undefined : undefined
+>类型别名 :=> 未定
 
 async function fn11() { return a; } // valid: Promise<any>
 >fn11 : () => Promise<any>
 >a : any
+>类型别名 :=> 任意
 
 async function fn12() { return obj; } // valid: Promise<{ then: string; }>
 >fn12 : () => Promise<{ then: string; }>
@@ -69,17 +74,23 @@ async function fn14() { await 1; } // valid: Promise<void>
 async function fn15() { await null; } // valid: Promise<void>
 >fn15 : () => Promise<void>
 >await null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 async function fn16() { await undefined; } // valid: Promise<void>
 >fn16 : () => Promise<void>
 >await undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 async function fn17() { await a; } // valid: Promise<void>
 >fn17 : () => Promise<void>
 >await a : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
 async function fn18() { await obj; } // valid: Promise<void>
 >fn18 : () => Promise<void>
@@ -89,5 +100,6 @@ async function fn18() { await obj; } // valid: Promise<void>
 async function fn19() { await thenable; } // error
 >fn19 : () => Promise<void>
 >await thenable : any
+>类型别名 :=> 任意
 >thenable : Thenable
 

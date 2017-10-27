@@ -2,6 +2,7 @@
 // @ts-check
 var lol = "hello Lol"
 >lol : string
+>类型别名 :=> 文字
 >"hello Lol" : "hello Lol"
 
 const obj = {
@@ -12,6 +13,7 @@ const obj = {
   foo: undefined,
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
   /** @type {string|undefined} */
   bar: "42",
@@ -22,20 +24,25 @@ const obj = {
   method1(n1) {
 >method1 : (n1: any) => any
 >n1 : any
+>类型别名 :=> 任意
 
       return n1 + 42;
 >n1 + 42 : any
+>类型别名 :=> 任意
 >n1 : any
+>类型别名 :=> 任意
 >42 : 42
 
   },
   /** @type {string} */
   lol,
 >lol : string
+>类型别名 :=> 文字
 
   /** @type {number} */
   ['b' + 'ar1']: 42,
 >'b' + 'ar1' : string
+>类型别名 :=> 文字
 >'b' : "b"
 >'ar1' : "ar1"
 >42 : 42
@@ -45,8 +52,11 @@ const obj = {
 >arrowFunc : (arg0: number) => number
 >(num) => num + 42 : (num: any) => any
 >num : any
+>类型别名 :=> 任意
 >num + 42 : any
+>类型别名 :=> 任意
 >num : any
+>类型别名 :=> 任意
 >42 : 42
 }
 obj.foo = 'string'
@@ -58,19 +68,25 @@ obj.foo = 'string'
 
 obj.lol
 >obj.lol : string
+>类型别名 :=> 文字
 >obj : { [x: string]: any; foo: string | undefined; bar: string | undefined; method1(arg0: number): number; lol: string; arrowFunc: (arg0: number) => number; }
 >lol : string
+>类型别名 :=> 文字
 
 obj.bar = undefined;
 >obj.bar = undefined : undefined
+>类型别名 :=> 未定
 >obj.bar : string | undefined
 >obj : { [x: string]: any; foo: string | undefined; bar: string | undefined; method1(arg0: number): number; lol: string; arrowFunc: (arg0: number) => number; }
 >bar : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 var k = obj.method1(0);
 >k : number
+>类型别名 :=> 数字
 >obj.method1(0) : number
+>类型别名 :=> 数字
 >obj.method1 : (arg0: number) => number
 >obj : { [x: string]: any; foo: string | undefined; bar: string | undefined; method1(arg0: number): number; lol: string; arrowFunc: (arg0: number) => number; }
 >method1 : (arg0: number) => number
@@ -79,12 +95,15 @@ var k = obj.method1(0);
 obj.bar1 = "42";
 >obj.bar1 = "42" : "42"
 >obj.bar1 : any
+>类型别名 :=> 任意
 >obj : { [x: string]: any; foo: string | undefined; bar: string | undefined; method1(arg0: number): number; lol: string; arrowFunc: (arg0: number) => number; }
 >bar1 : any
+>类型别名 :=> 任意
 >"42" : "42"
 
 obj.arrowFunc(0);
 >obj.arrowFunc(0) : number
+>类型别名 :=> 数字
 >obj.arrowFunc : (arg0: number) => number
 >obj : { [x: string]: any; foo: string | undefined; bar: string | undefined; method1(arg0: number): number; lol: string; arrowFunc: (arg0: number) => number; }
 >arrowFunc : (arg0: number) => number

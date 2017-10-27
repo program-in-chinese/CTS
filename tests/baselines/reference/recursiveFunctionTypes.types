@@ -6,6 +6,7 @@ function fn(): typeof fn { return 1; }
 
 var x: number = fn; // error
 >x : number
+>类型别名 :=> 数字
 >fn : () => typeof fn
 
 var y: () => number = fn; // ok
@@ -45,6 +46,7 @@ function f3(): I<typeof f3> { return f3; }
 
 var a: number = f3; // error
 >a : number
+>类型别名 :=> 数字
 >f3 : () => I<typeof f3>
 
 class C {
@@ -59,6 +61,7 @@ class C {
 }
 C.g(3); // error
 >C.g(3) : void
+>类型别名 :=> 无值
 >C.g : (t: typeof C.g) => void
 >C : typeof C
 >g : (t: typeof C.g) => void
@@ -89,16 +92,19 @@ function f6(a: typeof f6): () => number;
 function f6(a?: any) { return f6; }
 >f6 : { (): typeof f6; (a: typeof f6): () => number; }
 >a : any
+>类型别名 :=> 任意
 >f6 : { (): typeof f6; (a: typeof f6): () => number; }
 
 f6("", 3); // error (arity mismatch)
 >f6("", 3) : any
+>类型别名 :=> 任意
 >f6 : { (): typeof f6; (a: typeof f6): () => number; }
 >"" : ""
 >3 : 3
 
 f6(""); // ok (function takes an any param)
 >f6("") : any
+>类型别名 :=> 任意
 >f6 : { (): typeof f6; (a: typeof f6): () => number; }
 >"" : ""
 
@@ -118,6 +124,7 @@ declare function f7(a: typeof f7): () => number;
 declare function f7(a: number): number;
 >f7 : { (): typeof f7; (a: typeof f7): () => number; (a: number): number; (a?: typeof f7): typeof f7; }
 >a : number
+>类型别名 :=> 数字
 
 declare function f7(a?: typeof f7): typeof f7;
 >f7 : { (): typeof f7; (a: typeof f7): () => number; (a: number): number; (a?: typeof f7): typeof f7; }
@@ -127,12 +134,14 @@ declare function f7(a?: typeof f7): typeof f7;
 
 f7("", 3); // error (arity mismatch)
 >f7("", 3) : any
+>类型别名 :=> 任意
 >f7 : { (): typeof f7; (a: typeof f7): () => number; (a: number): number; (a?: typeof f7): typeof f7; }
 >"" : ""
 >3 : 3
 
 f7(""); // ok (function takes an any param)
 >f7("") : any
+>类型别名 :=> 任意
 >f7 : { (): typeof f7; (a: typeof f7): () => number; (a: number): number; (a?: typeof f7): typeof f7; }
 >"" : ""
 

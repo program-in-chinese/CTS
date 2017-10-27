@@ -7,9 +7,11 @@ export interface ClickableProps {
 
     children?: string;
 >children : string
+>类型别名 :=> 文字
 
     className?: string;
 >className : string
+>类型别名 :=> 文字
 }
 
 export interface ButtonProps extends ClickableProps {
@@ -19,6 +21,7 @@ export interface ButtonProps extends ClickableProps {
     onClick: React.MouseEventHandler<any>;
 >onClick : React.EventHandler<React.MouseEvent<any>>
 >React : any
+>类型别名 :=> 任意
 >MouseEventHandler : React.EventHandler<React.MouseEvent<T>>
 }
 
@@ -28,6 +31,7 @@ export interface LinkProps extends ClickableProps {
 
     to: string;
 >to : string
+>类型别名 :=> 文字
 }
 
 export interface HyphenProps extends ClickableProps {
@@ -43,6 +47,7 @@ let obj0 = {
 
     to: "world"
 >to : string
+>类型别名 :=> 文字
 >"world" : "world"
 
 };
@@ -53,10 +58,12 @@ let obj1 = {
 
     children: "hi",
 >children : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 
     to: "boo"
 >to : string
+>类型别名 :=> 文字
 >"boo" : "boo"
 }
 
@@ -71,12 +78,14 @@ let obj2 = {
 
 let obj3: any;
 >obj3 : any
+>类型别名 :=> 任意
 
 export function MainButton(buttonProps: ButtonProps): JSX.Element;
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; (hyphenProps: HyphenProps): JSX.Element; }
 >buttonProps : ButtonProps
 >ButtonProps : ButtonProps
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 export function MainButton(linkProps: LinkProps): JSX.Element;
@@ -84,6 +93,7 @@ export function MainButton(linkProps: LinkProps): JSX.Element;
 >linkProps : LinkProps
 >LinkProps : LinkProps
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 export function MainButton(hyphenProps: HyphenProps): JSX.Element;
@@ -91,6 +101,7 @@ export function MainButton(hyphenProps: HyphenProps): JSX.Element;
 >hyphenProps : HyphenProps
 >HyphenProps : HyphenProps
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 export function MainButton(props: ButtonProps | LinkProps | HyphenProps): JSX.Element {
@@ -100,6 +111,7 @@ export function MainButton(props: ButtonProps | LinkProps | HyphenProps): JSX.El
 >LinkProps : LinkProps
 >HyphenProps : HyphenProps
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
     const linkProps = props as LinkProps;
@@ -110,22 +122,32 @@ export function MainButton(props: ButtonProps | LinkProps | HyphenProps): JSX.El
 
     if(linkProps.to) {
 >linkProps.to : string
+>类型别名 :=> 文字
 >linkProps : LinkProps
 >to : string
+>类型别名 :=> 文字
 
         return this._buildMainLink(props);
 >this._buildMainLink(props) : any
+>类型别名 :=> 任意
 >this._buildMainLink : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >_buildMainLink : any
+>类型别名 :=> 任意
 >props : ButtonProps | LinkProps | HyphenProps
     }
 
     return this._buildMainButton(props);
 >this._buildMainButton(props) : any
+>类型别名 :=> 任意
 >this._buildMainButton : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >_buildMainButton : any
+>类型别名 :=> 任意
 >props : ButtonProps | LinkProps | HyphenProps
 }
 
@@ -135,6 +157,7 @@ const b0 = <MainButton to='/some/path' onClick={(e)=>{}}>GO</MainButton>;  // ex
 ><MainButton to='/some/path' onClick={(e)=>{}}>GO</MainButton> : JSX.Element
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; (hyphenProps: HyphenProps): JSX.Element; }
 >to : string
+>类型别名 :=> 文字
 >onClick : (e: React.MouseEvent<any>) => void
 >(e)=>{} : (e: React.MouseEvent<any>) => void
 >e : React.MouseEvent<any>
@@ -147,6 +170,7 @@ const b1 = <MainButton onClick={(e: any)=> {}} {...obj0}>Hello world</MainButton
 >onClick : (e: any) => void
 >(e: any)=> {} : (e: any) => void
 >e : any
+>类型别名 :=> 任意
 >obj0 : { to: string; }
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; (hyphenProps: HyphenProps): JSX.Element; }
 
@@ -156,6 +180,7 @@ const b2 = <MainButton {...{to: "10000"}} {...obj2} />;  // extra property
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; (hyphenProps: HyphenProps): JSX.Element; }
 >{to: "10000"} : { to: string; }
 >to : string
+>类型别名 :=> 文字
 >"10000" : "10000"
 >obj2 : { onClick: () => void; }
 
@@ -165,6 +190,7 @@ const b3 = <MainButton {...{to: "10000"}} {...{onClick: (k) => {}}} />;  // extr
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; (hyphenProps: HyphenProps): JSX.Element; }
 >{to: "10000"} : { to: string; }
 >to : string
+>类型别名 :=> 文字
 >"10000" : "10000"
 >{onClick: (k) => {}} : { onClick: (k: React.MouseEvent<any>) => void; }
 >onClick : (k: React.MouseEvent<any>) => void
@@ -176,7 +202,9 @@ const b4 = <MainButton {...obj3} to />;  // Should error because Incorrect type;
 ><MainButton {...obj3} to /> : JSX.Element
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; (hyphenProps: HyphenProps): JSX.Element; }
 >obj3 : any
+>类型别名 :=> 任意
 >to : true
+>类型别名 :=> 为真
 
 const b5 = <MainButton {...{ onClick(e: any) { } }} {...obj0} />;  // Spread retain method declaration (see GitHub #13365), so now there is an extra attributes
 >b5 : JSX.Element
@@ -185,6 +213,7 @@ const b5 = <MainButton {...{ onClick(e: any) { } }} {...obj0} />;  // Spread ret
 >{ onClick(e: any) { } } : { onClick(e: any): void; }
 >onClick : (e: any) => void
 >e : any
+>类型别名 :=> 任意
 >obj0 : { to: string; }
 
 const b6 = <MainButton {...{ onClick(e: any){} }} children={10} />;  // incorrect type for optional attribute
@@ -194,7 +223,9 @@ const b6 = <MainButton {...{ onClick(e: any){} }} children={10} />;  // incorrec
 >{ onClick(e: any){} } : { onClick(e: any): void; }
 >onClick : (e: any) => void
 >e : any
+>类型别名 :=> 任意
 >children : number
+>类型别名 :=> 数字
 >10 : 10
 
 const b7 = <MainButton {...{ onClick(e: any){} }} children="hello" className />;  // incorrect type for optional attribute
@@ -204,12 +235,16 @@ const b7 = <MainButton {...{ onClick(e: any){} }} children="hello" className />;
 >{ onClick(e: any){} } : { onClick(e: any): void; }
 >onClick : (e: any) => void
 >e : any
+>类型别名 :=> 任意
 >children : string
+>类型别名 :=> 文字
 >className : true
+>类型别名 :=> 为真
 
 const b8 = <MainButton data-format />;  // incorrect type for specified hyphanated name
 >b8 : JSX.Element
 ><MainButton data-format /> : JSX.Element
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; (hyphenProps: HyphenProps): JSX.Element; }
 >data-format : true
+>类型别名 :=> 为真
 

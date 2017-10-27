@@ -4,6 +4,7 @@ module A {
 
 export var x = 'hello world'
 >x : string
+>类型别名 :=> 文字
 >'hello world' : "hello world"
 
 export class Point {
@@ -11,16 +12,20 @@ export class Point {
 
         constructor(public x: number, public y: number) { }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
     }
     export module B {
 >B : any
+>类型别名 :=> 任意
 
         export interface Id {
 >Id : Id
 
             name: string;
 >name : string
+>类型别名 :=> 文字
         }
     }
 }
@@ -34,16 +39,21 @@ module C {
 
 var a: string = C.a.x;
 >a : string
+>类型别名 :=> 文字
 >C.a.x : string
+>类型别名 :=> 文字
 >C.a : typeof A
 >C : typeof C
 >a : typeof A
 >x : string
+>类型别名 :=> 文字
 
 var b: { x: number; y: number; } = new C.a.Point(0, 0);
 >b : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >new C.a.Point(0, 0) : A.Point
 >C.a.Point : typeof A.Point
 >C.a : typeof A
@@ -56,11 +66,15 @@ var b: { x: number; y: number; } = new C.a.Point(0, 0);
 var c: { name: string };
 >c : { name: string; }
 >name : string
+>类型别名 :=> 文字
 
 var c: C.a.B.Id;
 >c : { name: string; }
 >C : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >B : any
+>类型别名 :=> 任意
 >Id : A.B.Id
 

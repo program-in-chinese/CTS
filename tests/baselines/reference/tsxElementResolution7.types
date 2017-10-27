@@ -1,6 +1,7 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
 >JSX : any
+>类型别名 :=> 任意
 
 	interface Element { }
 >Element : Element
@@ -14,21 +15,27 @@ module my {
 
     export var div: any;
 >div : any
+>类型别名 :=> 任意
 }
 // OK
 <my.div n='x' />;
 ><my.div n='x' /> : JSX.Element
 >my.div : any
+>类型别名 :=> 任意
 >my : typeof my
 >div : any
+>类型别名 :=> 任意
 >n : string
+>类型别名 :=> 文字
 
 // Error
 <my.other />;
 ><my.other /> : JSX.Element
 >my.other : any
+>类型别名 :=> 任意
 >my : typeof my
 >other : any
+>类型别名 :=> 任意
 
 module q {
 >q : typeof q
@@ -41,15 +48,20 @@ module q {
     <mine.div n='x' />;
 ><mine.div n='x' /> : JSX.Element
 >mine.div : any
+>类型别名 :=> 任意
 >mine : typeof mine
 >div : any
+>类型别名 :=> 任意
 >n : string
+>类型别名 :=> 文字
 
     // Error
     <mine.non />;
 ><mine.non /> : JSX.Element
 >mine.non : any
+>类型别名 :=> 任意
 >mine : typeof mine
 >non : any
+>类型别名 :=> 任意
 }
 

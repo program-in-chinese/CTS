@@ -7,6 +7,7 @@ interface A {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 
 interface A {
@@ -14,6 +15,7 @@ interface A {
 
     bar: number;
 >bar : number
+>类型别名 :=> 数字
 }
 
 var a: A;
@@ -22,15 +24,21 @@ var a: A;
 
 var r1 = a.foo
 >r1 : string
+>类型别名 :=> 文字
 >a.foo : string
+>类型别名 :=> 文字
 >a : A
 >foo : string
+>类型别名 :=> 文字
 
 var r2 = a.bar;
 >r2 : number
+>类型别名 :=> 数字
 >a.bar : number
+>类型别名 :=> 数字
 >a : A
 >bar : number
+>类型别名 :=> 数字
 
 // basic generic case
 interface B<T> {
@@ -39,6 +47,7 @@ interface B<T> {
 
     baz: string;
 >baz : string
+>类型别名 :=> 文字
 
     foo: T;
 >foo : T
@@ -60,15 +69,21 @@ var b: B<string>;
 
 var r3 = b.foo
 >r3 : string
+>类型别名 :=> 文字
 >b.foo : string
+>类型别名 :=> 文字
 >b : B<string>
 >foo : string
+>类型别名 :=> 文字
 
 var r4 = b.bar;
 >r4 : string
+>类型别名 :=> 文字
 >b.bar : string
+>类型别名 :=> 文字
 >b : B<string>
 >bar : string
+>类型别名 :=> 文字
 
 // basic non-generic and generic case inside a module
 module M {
@@ -79,6 +94,7 @@ module M {
 
         foo: string;
 >foo : string
+>类型别名 :=> 文字
     }
 
     interface A {
@@ -86,6 +102,7 @@ module M {
 
         bar: number;
 >bar : number
+>类型别名 :=> 数字
     }
 
     var a: A;
@@ -94,16 +111,22 @@ module M {
 
     var r1 = a.foo;
 >r1 : string
+>类型别名 :=> 文字
 >a.foo : string
+>类型别名 :=> 文字
 >a : A
 >foo : string
+>类型别名 :=> 文字
 
     // BUG 856491
     var r2 = a.bar; // any, should be number
 >r2 : number
+>类型别名 :=> 数字
 >a.bar : number
+>类型别名 :=> 数字
 >a : A
 >bar : number
+>类型别名 :=> 数字
 
     interface B<T> {
 >B : B<T>
@@ -129,14 +152,20 @@ module M {
 
     var r3 = b.foo
 >r3 : string
+>类型别名 :=> 文字
 >b.foo : string
+>类型别名 :=> 文字
 >b : B<string>
 >foo : string
+>类型别名 :=> 文字
 
     // BUG 856491
     var r4 = b.bar; // any, should be string
 >r4 : string
+>类型别名 :=> 文字
 >b.bar : string
+>类型别名 :=> 文字
 >b : B<string>
 >bar : string
+>类型别名 :=> 文字
 }

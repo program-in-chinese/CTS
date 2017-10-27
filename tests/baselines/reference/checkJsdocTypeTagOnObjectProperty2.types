@@ -2,6 +2,7 @@
 // @ts-check
 var lol;
 >lol : any
+>类型别名 :=> 任意
 
 const obj = {
 >obj : { [x: string]: any; bar: string | undefined; method1(arg0: number): number; method2: (arg0: number) => number; arrowFunc: (arg0: number) => number; lol: string; }
@@ -16,6 +17,7 @@ const obj = {
   method1(n1) {
 >method1 : (n1: any) => string
 >n1 : any
+>类型别名 :=> 任意
 
       return "42";
 >"42" : "42"
@@ -26,6 +28,7 @@ const obj = {
 >method2 : (arg0: number) => number
 >(n1) => "lol" : (n1: any) => string
 >n1 : any
+>类型别名 :=> 任意
 >"lol" : "lol"
 
   /** @type {function(number): number} */
@@ -33,24 +36,31 @@ const obj = {
 >arrowFunc : (arg0: number) => number
 >(num="0") => num + 42 : (num?: string) => string
 >num : string
+>类型别名 :=> 文字
 >"0" : "0"
 >num + 42 : string
+>类型别名 :=> 文字
 >num : string
+>类型别名 :=> 文字
 >42 : 42
 
   /** @type {string} */
   lol
 >lol : string
+>类型别名 :=> 文字
 }
 lol = "string"
 >lol = "string" : "string"
 >lol : any
+>类型别名 :=> 任意
 >"string" : "string"
 
 /** @type {string} */
 var s = obj.method1(0);
 >s : string
+>类型别名 :=> 文字
 >obj.method1(0) : number
+>类型别名 :=> 数字
 >obj.method1 : (arg0: number) => number
 >obj : { [x: string]: any; bar: string | undefined; method1(arg0: number): number; method2: (arg0: number) => number; arrowFunc: (arg0: number) => number; lol: string; }
 >method1 : (arg0: number) => number
@@ -59,7 +69,9 @@ var s = obj.method1(0);
 /** @type {string} */
 var s1 = obj.method2("0");
 >s1 : string
+>类型别名 :=> 文字
 >obj.method2("0") : number
+>类型别名 :=> 数字
 >obj.method2 : (arg0: number) => number
 >obj : { [x: string]: any; bar: string | undefined; method1(arg0: number): number; method2: (arg0: number) => number; arrowFunc: (arg0: number) => number; lol: string; }
 >method2 : (arg0: number) => number

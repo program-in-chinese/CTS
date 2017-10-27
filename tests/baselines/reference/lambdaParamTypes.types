@@ -32,18 +32,23 @@ var thing = create([{ name: "bob", id: 24 }, { name: "doug", id: 32 }]);
 >[{ name: "bob", id: 24 }, { name: "doug", id: 32 }] : { name: string; id: number; }[]
 >{ name: "bob", id: 24 } : { name: string; id: number; }
 >name : string
+>类型别名 :=> 文字
 >"bob" : "bob"
 >id : number
+>类型别名 :=> 数字
 >24 : 24
 >{ name: "doug", id: 32 } : { name: string; id: number; }
 >name : string
+>类型别名 :=> 文字
 >"doug" : "doug"
 >id : number
+>类型别名 :=> 数字
 >32 : 32
 
 // Below should all be OK
 thing.doSomething((x, y) => x.name.charAt(0));      // x.name should be string, so should be OK
 >thing.doSomething((x, y) => x.name.charAt(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -51,15 +56,19 @@ thing.doSomething((x, y) => x.name.charAt(0));      // x.name should be string, 
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >x.name.charAt(0) : string
+>类型别名 :=> 文字
 >x.name.charAt : (pos: number) => string
 >x.name : string
+>类型别名 :=> 文字
 >x : { name: string; id: number; }
 >name : string
+>类型别名 :=> 文字
 >charAt : (pos: number) => string
 >0 : 0
 
 thing.doSomething((x, y) => x.id.toExponential(0)); // x.id should be string, so should be OK
 >thing.doSomething((x, y) => x.id.toExponential(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -67,15 +76,19 @@ thing.doSomething((x, y) => x.id.toExponential(0)); // x.id should be string, so
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >x.id.toExponential(0) : string
+>类型别名 :=> 文字
 >x.id.toExponential : (fractionDigits?: number) => string
 >x.id : number
+>类型别名 :=> 数字
 >x : { name: string; id: number; }
 >id : number
+>类型别名 :=> 数字
 >toExponential : (fractionDigits?: number) => string
 >0 : 0
 
 thing.doSomething((x, y) => y.name.charAt(0));      // x.name should be string, so should be OK
 >thing.doSomething((x, y) => y.name.charAt(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -83,15 +96,19 @@ thing.doSomething((x, y) => y.name.charAt(0));      // x.name should be string, 
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >y.name.charAt(0) : string
+>类型别名 :=> 文字
 >y.name.charAt : (pos: number) => string
 >y.name : string
+>类型别名 :=> 文字
 >y : { name: string; id: number; }
 >name : string
+>类型别名 :=> 文字
 >charAt : (pos: number) => string
 >0 : 0
 
 thing.doSomething((x, y) => y.id.toExponential(0)); // x.id should be string, so should be OK
 >thing.doSomething((x, y) => y.id.toExponential(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -99,16 +116,20 @@ thing.doSomething((x, y) => y.id.toExponential(0)); // x.id should be string, so
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >y.id.toExponential(0) : string
+>类型别名 :=> 文字
 >y.id.toExponential : (fractionDigits?: number) => string
 >y.id : number
+>类型别名 :=> 数字
 >y : { name: string; id: number; }
 >id : number
+>类型别名 :=> 数字
 >toExponential : (fractionDigits?: number) => string
 >0 : 0
 
 // Below should all be in error
 thing.doSomething((x, y) => x.foo); // no such property on x
 >thing.doSomething((x, y) => x.foo) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -116,11 +137,14 @@ thing.doSomething((x, y) => x.foo); // no such property on x
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >x.foo : any
+>类型别名 :=> 任意
 >x : { name: string; id: number; }
 >foo : any
+>类型别名 :=> 任意
 
 thing.doSomething((x, y) => y.foo); // no such property on y
 >thing.doSomething((x, y) => y.foo) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -128,11 +152,14 @@ thing.doSomething((x, y) => y.foo); // no such property on y
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >y.foo : any
+>类型别名 :=> 任意
 >y : { name: string; id: number; }
 >foo : any
+>类型别名 :=> 任意
 
 thing.doSomething((x, y) => x.id.charAt(0));      // x.id should be number, no charAt member
 >thing.doSomething((x, y) => x.id.charAt(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -140,15 +167,21 @@ thing.doSomething((x, y) => x.id.charAt(0));      // x.id should be number, no c
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >x.id.charAt(0) : any
+>类型别名 :=> 任意
 >x.id.charAt : any
+>类型别名 :=> 任意
 >x.id : number
+>类型别名 :=> 数字
 >x : { name: string; id: number; }
 >id : number
+>类型别名 :=> 数字
 >charAt : any
+>类型别名 :=> 任意
 >0 : 0
 
 thing.doSomething((x, y) => x.name.toExponential(0)); // x.name should be string, no toExponential member
 >thing.doSomething((x, y) => x.name.toExponential(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -156,15 +189,21 @@ thing.doSomething((x, y) => x.name.toExponential(0)); // x.name should be string
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >x.name.toExponential(0) : any
+>类型别名 :=> 任意
 >x.name.toExponential : any
+>类型别名 :=> 任意
 >x.name : string
+>类型别名 :=> 文字
 >x : { name: string; id: number; }
 >name : string
+>类型别名 :=> 文字
 >toExponential : any
+>类型别名 :=> 任意
 >0 : 0
 
 thing.doSomething((x, y) => y.id.charAt(0));
 >thing.doSomething((x, y) => y.id.charAt(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -172,15 +211,21 @@ thing.doSomething((x, y) => y.id.charAt(0));
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >y.id.charAt(0) : any
+>类型别名 :=> 任意
 >y.id.charAt : any
+>类型别名 :=> 任意
 >y.id : number
+>类型别名 :=> 数字
 >y : { name: string; id: number; }
 >id : number
+>类型别名 :=> 数字
 >charAt : any
+>类型别名 :=> 任意
 >0 : 0
 
 thing.doSomething((x, y) => y.name.toExponential(0));
 >thing.doSomething((x, y) => y.name.toExponential(0)) : void
+>类型别名 :=> 无值
 >thing.doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
 >thing : MyArrayWrapper<{ name: string; id: number; }>
 >doSomething : (predicate: (x: { name: string; id: number; }, y: { name: string; id: number; }) => string) => void
@@ -188,10 +233,15 @@ thing.doSomething((x, y) => y.name.toExponential(0));
 >x : { name: string; id: number; }
 >y : { name: string; id: number; }
 >y.name.toExponential(0) : any
+>类型别名 :=> 任意
 >y.name.toExponential : any
+>类型别名 :=> 任意
 >y.name : string
+>类型别名 :=> 文字
 >y : { name: string; id: number; }
 >name : string
+>类型别名 :=> 文字
 >toExponential : any
+>类型别名 :=> 任意
 >0 : 0
 

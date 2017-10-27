@@ -1,9 +1,11 @@
 === tests/cases/compiler/internalAliasUninitializedModuleInsideTopLevelModuleWithExport.ts ===
 export module a {
 >a : any
+>类型别名 :=> 任意
 
     export module b {
 >b : any
+>类型别名 :=> 任意
 
         export interface I {
 >I : I
@@ -16,16 +18,21 @@ export module a {
 
 export import b = a.b;
 >b : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 
 export var x: b.I;
 >x : b.I
 >b : any
+>类型别名 :=> 任意
 >I : b.I
 
 x.foo();
 >x.foo() : any
+>类型别名 :=> 任意
 >x.foo : () => any
 >x : b.I
 >foo : () => any

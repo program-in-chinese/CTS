@@ -1,6 +1,7 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
 >JSX : any
+>类型别名 :=> 任意
 
 	interface Element { }
 >Element : Element
@@ -8,6 +9,7 @@ declare module JSX {
 	interface ElementAttributesProperty { pr: any; }
 >ElementAttributesProperty : ElementAttributesProperty
 >pr : any
+>类型别名 :=> 任意
 
 	interface IntrinsicElements { }
 >IntrinsicElements : IntrinsicElements
@@ -18,6 +20,7 @@ interface Obj1type {
 
 	new(n: string): any;
 >n : string
+>类型别名 :=> 文字
 }
 var Obj1: Obj1type;
 >Obj1 : Obj1type
@@ -27,6 +30,7 @@ var Obj1: Obj1type;
 ><Obj1 x={10} /> : JSX.Element
 >Obj1 : Obj1type
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
 interface Obj2type {
@@ -34,8 +38,11 @@ interface Obj2type {
 
 	new(n: string): { q?: number; pr: any };
 >n : string
+>类型别名 :=> 文字
 >q : number
+>类型别名 :=> 数字
 >pr : any
+>类型别名 :=> 任意
 }
 var Obj2: Obj2type;
 >Obj2 : Obj2type
@@ -45,6 +52,7 @@ var Obj2: Obj2type;
 ><Obj2 x={10} /> : JSX.Element
 >Obj2 : Obj2type
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
 interface Obj3type {
@@ -52,7 +60,9 @@ interface Obj3type {
 
 	new(n: string): { x: number; };
 >n : string
+>类型别名 :=> 文字
 >x : number
+>类型别名 :=> 数字
 }
 var Obj3: Obj3type;
 >Obj3 : Obj3type
@@ -62,15 +72,18 @@ var Obj3: Obj3type;
 ><Obj3 x={10} /> : JSX.Element
 >Obj3 : Obj3type
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
 var attributes: any;
 >attributes : any
+>类型别名 :=> 任意
 
 <Obj3 {...attributes} />; // Error
 ><Obj3 {...attributes} /> : JSX.Element
 >Obj3 : Obj3type
 >attributes : any
+>类型别名 :=> 任意
 
 <Obj3 {...{}} />; // OK
 ><Obj3 {...{}} /> : JSX.Element
@@ -82,9 +95,12 @@ interface Obj4type {
 
 	new(n: string): { x: number; pr: { x: number; } };
 >n : string
+>类型别名 :=> 文字
 >x : number
+>类型别名 :=> 数字
 >pr : { x: number; }
 >x : number
+>类型别名 :=> 数字
 }
 var Obj4: Obj4type;
 >Obj4 : Obj4type
@@ -94,11 +110,13 @@ var Obj4: Obj4type;
 ><Obj4 x={10} /> : JSX.Element
 >Obj4 : Obj4type
 >x : number
+>类型别名 :=> 数字
 >10 : 10
 
 <Obj4 x={'10'} />; // Error
 ><Obj4 x={'10'} /> : JSX.Element
 >Obj4 : Obj4type
 >x : string
+>类型别名 :=> 文字
 >'10' : "10"
 

@@ -6,20 +6,25 @@ interface I1<T> {
     commonMethodType(a: string): string;
 >commonMethodType : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
     commonPropertyType: string;
 >commonPropertyType : string
+>类型别名 :=> 文字
 
     commonMethodDifferentParameterType(a: string): string;
 >commonMethodDifferentParameterType : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
     commonMethodDifferentReturnType(a: string): string;
 >commonMethodDifferentReturnType : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
     commonPropertyDifferenType: string;
 >commonPropertyDifferenType : string
+>类型别名 :=> 文字
 
     commonMethodWithTypeParameter(a: T): T;
 >commonMethodWithTypeParameter : (a: T) => T
@@ -37,9 +42,11 @@ interface I1<T> {
     methodOnlyInI1(a: string): string;
 >methodOnlyInI1 : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
     propertyOnlyInI1: string;
 >propertyOnlyInI1 : string
+>类型别名 :=> 文字
 }
 
 interface I2<T> {
@@ -49,20 +56,25 @@ interface I2<T> {
     commonMethodType(a: string): string;
 >commonMethodType : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
     commonPropertyType: string;
 >commonPropertyType : string
+>类型别名 :=> 文字
 
     commonMethodDifferentParameterType(a: number): number;
 >commonMethodDifferentParameterType : (a: number) => number
 >a : number
+>类型别名 :=> 数字
 
     commonMethodDifferentReturnType(a: string): number;
 >commonMethodDifferentReturnType : (a: string) => number
 >a : string
+>类型别名 :=> 文字
 
     commonPropertyDifferenType: number;
 >commonPropertyDifferenType : number
+>类型别名 :=> 数字
 
     commonMethodWithTypeParameter(a: T): T;
 >commonMethodWithTypeParameter : (a: T) => T
@@ -80,9 +92,11 @@ interface I2<T> {
     methodOnlyInI2(a: string): string;
 >methodOnlyInI2 : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
     propertyOnlyInI2: string;
 >propertyOnlyInI2 : string
+>类型别名 :=> 文字
 }
 
 // a union type U has those members that are present in every one of its constituent types, 
@@ -94,9 +108,11 @@ var x : I1<number> | I2<number>;
 
 var str: string;
 >str : string
+>类型别名 :=> 文字
 
 var num: number;
 >num : number
+>类型别名 :=> 数字
 
 var strOrNum: string | number;
 >strOrNum : string | number
@@ -104,19 +120,27 @@ var strOrNum: string | number;
 // If each type in U has a property P, U has a property P of a union type of the types of P from each type in U.
 str = x.commonPropertyType; // string
 >str = x.commonPropertyType : string
+>类型别名 :=> 文字
 >str : string
+>类型别名 :=> 文字
 >x.commonPropertyType : string
+>类型别名 :=> 文字
 >x : I1<number> | I2<number>
 >commonPropertyType : string
+>类型别名 :=> 文字
 
 str = x.commonMethodType(str); // (a: string) => string so result should be string
 >str = x.commonMethodType(str) : string
+>类型别名 :=> 文字
 >str : string
+>类型别名 :=> 文字
 >x.commonMethodType(str) : string
+>类型别名 :=> 文字
 >x.commonMethodType : (a: string) => string
 >x : I1<number> | I2<number>
 >commonMethodType : (a: string) => string
 >str : string
+>类型别名 :=> 文字
 
 strOrNum = x.commonPropertyDifferenType;
 >strOrNum = x.commonPropertyDifferenType : string | number
@@ -133,6 +157,7 @@ strOrNum = x.commonMethodDifferentReturnType(str); // string | union
 >x : I1<number> | I2<number>
 >commonMethodDifferentReturnType : ((a: string) => string) | ((a: string) => number)
 >str : string
+>类型别名 :=> 文字
 
 x.commonMethodDifferentParameterType; // No error - property exists
 >x.commonMethodDifferentParameterType : ((a: string) => string) | ((a: number) => number)
@@ -141,6 +166,7 @@ x.commonMethodDifferentParameterType; // No error - property exists
 
 x.commonMethodDifferentParameterType(strOrNum); // error - no call signatures because the type of this property is ((a: string) => string) | (a: number) => number
 >x.commonMethodDifferentParameterType(strOrNum) : any
+>类型别名 :=> 任意
 >x.commonMethodDifferentParameterType : ((a: string) => string) | ((a: number) => number)
 >x : I1<number> | I2<number>
 >commonMethodDifferentParameterType : ((a: string) => string) | ((a: number) => number)
@@ -149,30 +175,42 @@ x.commonMethodDifferentParameterType(strOrNum); // error - no call signatures be
                                                 // and the call signatures arent identical
 num = x.commonMethodWithTypeParameter(num);
 >num = x.commonMethodWithTypeParameter(num) : number
+>类型别名 :=> 数字
 >num : number
+>类型别名 :=> 数字
 >x.commonMethodWithTypeParameter(num) : number
+>类型别名 :=> 数字
 >x.commonMethodWithTypeParameter : (a: number) => number
 >x : I1<number> | I2<number>
 >commonMethodWithTypeParameter : (a: number) => number
 >num : number
+>类型别名 :=> 数字
 
 num = x.commonMethodWithOwnTypeParameter(num);
 >num = x.commonMethodWithOwnTypeParameter(num) : number
+>类型别名 :=> 数字
 >num : number
+>类型别名 :=> 数字
 >x.commonMethodWithOwnTypeParameter(num) : number
+>类型别名 :=> 数字
 >x.commonMethodWithOwnTypeParameter : <U>(a: U) => U
 >x : I1<number> | I2<number>
 >commonMethodWithOwnTypeParameter : <U>(a: U) => U
 >num : number
+>类型别名 :=> 数字
 
 str = x.commonMethodWithOwnTypeParameter(str);
 >str = x.commonMethodWithOwnTypeParameter(str) : string
+>类型别名 :=> 文字
 >str : string
+>类型别名 :=> 文字
 >x.commonMethodWithOwnTypeParameter(str) : string
+>类型别名 :=> 文字
 >x.commonMethodWithOwnTypeParameter : <U>(a: U) => U
 >x : I1<number> | I2<number>
 >commonMethodWithOwnTypeParameter : <U>(a: U) => U
 >str : string
+>类型别名 :=> 文字
 
 strOrNum = x.commonMethodWithOwnTypeParameter(strOrNum);
 >strOrNum = x.commonMethodWithOwnTypeParameter(strOrNum) : string | number
@@ -185,25 +223,35 @@ strOrNum = x.commonMethodWithOwnTypeParameter(strOrNum);
 
 x.propertyOnlyInI1; // error
 >x.propertyOnlyInI1 : any
+>类型别名 :=> 任意
 >x : I1<number> | I2<number>
 >propertyOnlyInI1 : any
+>类型别名 :=> 任意
 
 x.propertyOnlyInI2; // error
 >x.propertyOnlyInI2 : any
+>类型别名 :=> 任意
 >x : I1<number> | I2<number>
 >propertyOnlyInI2 : any
+>类型别名 :=> 任意
 
 x.methodOnlyInI1("hello"); // error
 >x.methodOnlyInI1("hello") : any
+>类型别名 :=> 任意
 >x.methodOnlyInI1 : any
+>类型别名 :=> 任意
 >x : I1<number> | I2<number>
 >methodOnlyInI1 : any
+>类型别名 :=> 任意
 >"hello" : "hello"
 
 x.methodOnlyInI2(10); // error
 >x.methodOnlyInI2(10) : any
+>类型别名 :=> 任意
 >x.methodOnlyInI2 : any
+>类型别名 :=> 任意
 >x : I1<number> | I2<number>
 >methodOnlyInI2 : any
+>类型别名 :=> 任意
 >10 : 10
 

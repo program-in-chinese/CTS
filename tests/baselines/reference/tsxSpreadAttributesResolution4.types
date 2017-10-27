@@ -7,6 +7,7 @@ interface PoisonedProp {
 
     x: string;
 >x : string
+>类型别名 :=> 文字
 
     y: 2;
 >y : 2
@@ -25,7 +26,9 @@ class Poisoned extends React.Component<PoisonedProp, {}> {
         return <div>Hello</div>;
 ><div>Hello</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
     }
 }
 
@@ -36,10 +39,12 @@ const obj: PoisonedProp = {
 
     x: "hello world",
 >x : string
+>类型别名 :=> 文字
 >"hello world" : "hello world"
 
     y: 2
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 };
@@ -63,13 +68,16 @@ class EmptyProp extends React.Component<{}, {}> {
         return <div>Default hi</div>;
 ><div>Default hi</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
     }
 }
 
 // OK
 let j: any;
 >j : any
+>类型别名 :=> 任意
 
 let e1 = <EmptyProp {...{}} />;
 >e1 : JSX.Element
@@ -82,6 +90,7 @@ let e2 = <EmptyProp {...j} />
 ><EmptyProp {...j} /> : JSX.Element
 >EmptyProp : typeof EmptyProp
 >j : any
+>类型别名 :=> 任意
 
 let e3 = <EmptyProp {...{ ref: (input) => { this.textInput = input; } }} />
 >e3 : JSX.Element
@@ -93,8 +102,11 @@ let e3 = <EmptyProp {...{ ref: (input) => { this.textInput = input; } }} />
 >input : EmptyProp
 >this.textInput = input : EmptyProp
 >this.textInput : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >textInput : any
+>类型别名 :=> 任意
 >input : EmptyProp
 
 let e4 = <EmptyProp data-prop />
@@ -102,6 +114,7 @@ let e4 = <EmptyProp data-prop />
 ><EmptyProp data-prop /> : JSX.Element
 >EmptyProp : typeof EmptyProp
 >data-prop : true
+>类型别名 :=> 为真
 
 let e5 = <EmptyProp {...{ "data-prop": true}} />
 >e5 : JSX.Element
@@ -109,4 +122,5 @@ let e5 = <EmptyProp {...{ "data-prop": true}} />
 >EmptyProp : typeof EmptyProp
 >{ "data-prop": true} : { "data-prop": boolean; }
 >true : true
+>类型别名 :=> 为真
 

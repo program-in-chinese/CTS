@@ -7,9 +7,11 @@ function someGenerics1<T, U>(n: T, m: number) { }
 >n : T
 >T : T
 >m : number
+>类型别名 :=> 数字
 
 someGenerics1<string, number>(3, 4); // Error
 >someGenerics1<string, number>(3, 4) : any
+>类型别名 :=> 任意
 >someGenerics1 : <T, U>(n: T, m: number) => void
 >3 : 3
 >4 : 4
@@ -27,10 +29,12 @@ function someGenerics4<T, U>(n: T, f: (x: U) => void) { }
 
 someGenerics4<string, number>('', (x: string) => ''); // Error
 >someGenerics4<string, number>('', (x: string) => '') : any
+>类型别名 :=> 任意
 >someGenerics4 : <T, U>(n: T, f: (x: U) => void) => void
 >'' : ""
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 
 // 2 parameter generic call with argument 2 of type parameter type and argument 1 of function type whose parameter is of type parameter type
@@ -46,10 +50,12 @@ function someGenerics5<U, T>(n: T, f: (x: U) => void) { }
 
 someGenerics5<number, string>('', (x: string) => ''); // Error
 >someGenerics5<number, string>('', (x: string) => '') : any
+>类型别名 :=> 任意
 >someGenerics5 : <U, T>(n: T, f: (x: U) => void) => void
 >'' : ""
 >(x: string) => '' : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >'' : ""
 
 // Generic call with multiple arguments of function types that each have parameters of the same generic type
@@ -71,14 +77,21 @@ function someGenerics6<A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) { }
 
 someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n); // Error
 >someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n) : any
+>类型别名 :=> 任意
 >someGenerics6 : <A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
 >(n: number) => n : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >(n: string) => n : (n: string) => string
 >n : string
+>类型别名 :=> 文字
 >n : string
+>类型别名 :=> 文字
 >(n: number) => n : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 

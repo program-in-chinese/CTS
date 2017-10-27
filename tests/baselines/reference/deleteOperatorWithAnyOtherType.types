@@ -3,9 +3,11 @@
 
 var ANY: any;
 >ANY : any
+>类型别名 :=> 任意
 
 var ANY1;
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ANY2: any[] = ["", ""];
 >ANY2 : any[]
@@ -20,6 +22,7 @@ var obj1 = { x: "", y: () => { }};
 >obj1 : { x: string; y: () => void; }
 >{ x: "", y: () => { }} : { x: string; y: () => void; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 >y : () => void
 >() => { } : () => void
@@ -29,24 +32,29 @@ function foo(): any {
 
     var a;
 >a : any
+>类型别名 :=> 任意
 
     return a;
 >a : any
+>类型别名 :=> 任意
 }
 class A {
 >A : A
 
     public a: any;
 >a : any
+>类型别名 :=> 任意
 
     static foo() {
 >foo : () => any
 
         var a;
 >a : any
+>类型别名 :=> 任意
 
         return a;
 >a : any
+>类型别名 :=> 任意
     }
 }
 module M {
@@ -54,6 +62,7 @@ module M {
 
     export var n: any;
 >n : any
+>类型别名 :=> 任意
 }
 var objA = new A();
 >objA : A
@@ -63,186 +72,284 @@ var objA = new A();
 // any type var
 var ResultIsBoolean1 = delete ANY1;
 >ResultIsBoolean1 : boolean
+>类型别名 :=> 真假
 >delete ANY1 : boolean
+>类型别名 :=> 真假
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ResultIsBoolean2 = delete ANY2;
 >ResultIsBoolean2 : boolean
+>类型别名 :=> 真假
 >delete ANY2 : boolean
+>类型别名 :=> 真假
 >ANY2 : any[]
 
 var ResultIsBoolean3 = delete A;
 >ResultIsBoolean3 : boolean
+>类型别名 :=> 真假
 >delete A : boolean
+>类型别名 :=> 真假
 >A : typeof A
 
 var ResultIsBoolean4 = delete M;
 >ResultIsBoolean4 : boolean
+>类型别名 :=> 真假
 >delete M : boolean
+>类型别名 :=> 真假
 >M : typeof M
 
 var ResultIsBoolean5 = delete obj;
 >ResultIsBoolean5 : boolean
+>类型别名 :=> 真假
 >delete obj : boolean
+>类型别名 :=> 真假
 >obj : () => {}
 
 var ResultIsBoolean6 = delete obj1;
 >ResultIsBoolean6 : boolean
+>类型别名 :=> 真假
 >delete obj1 : boolean
+>类型别名 :=> 真假
 >obj1 : { x: string; y: () => void; }
 
 // any type literal
 var ResultIsBoolean7 = delete undefined;
 >ResultIsBoolean7 : boolean
+>类型别名 :=> 真假
 >delete undefined : boolean
+>类型别名 :=> 真假
 >undefined : undefined
+>类型别名 :=> 未定
 
 var ResultIsBoolean8 = delete null;
 >ResultIsBoolean8 : boolean
+>类型别名 :=> 真假
 >delete null : boolean
+>类型别名 :=> 真假
 >null : null
+>类型别名 :=> 空值
 
 // any type expressions
 var ResultIsBoolean9 = delete ANY2[0];
 >ResultIsBoolean9 : boolean
+>类型别名 :=> 真假
 >delete ANY2[0] : boolean
+>类型别名 :=> 真假
 >ANY2[0] : any
+>类型别名 :=> 任意
 >ANY2 : any[]
 >0 : 0
 
 var ResultIsBoolean10 = delete obj1.x;
 >ResultIsBoolean10 : boolean
+>类型别名 :=> 真假
 >delete obj1.x : boolean
+>类型别名 :=> 真假
 >obj1.x : string
+>类型别名 :=> 文字
 >obj1 : { x: string; y: () => void; }
 >x : string
+>类型别名 :=> 文字
 
 var ResultIsBoolean11 = delete obj1.y;
 >ResultIsBoolean11 : boolean
+>类型别名 :=> 真假
 >delete obj1.y : boolean
+>类型别名 :=> 真假
 >obj1.y : () => void
 >obj1 : { x: string; y: () => void; }
 >y : () => void
 
 var ResultIsBoolean12 = delete objA.a;
 >ResultIsBoolean12 : boolean
+>类型别名 :=> 真假
 >delete objA.a : boolean
+>类型别名 :=> 真假
 >objA.a : any
+>类型别名 :=> 任意
 >objA : A
 >a : any
+>类型别名 :=> 任意
 
 var ResultIsBoolean13 = delete M.n;
 >ResultIsBoolean13 : boolean
+>类型别名 :=> 真假
 >delete M.n : boolean
+>类型别名 :=> 真假
 >M.n : any
+>类型别名 :=> 任意
 >M : typeof M
 >n : any
+>类型别名 :=> 任意
 
 var ResultIsBoolean14 = delete foo();
 >ResultIsBoolean14 : boolean
+>类型别名 :=> 真假
 >delete foo() : boolean
+>类型别名 :=> 真假
 >foo() : any
+>类型别名 :=> 任意
 >foo : () => any
 
 var ResultIsBoolean15 = delete A.foo();
 >ResultIsBoolean15 : boolean
+>类型别名 :=> 真假
 >delete A.foo() : boolean
+>类型别名 :=> 真假
 >A.foo() : any
+>类型别名 :=> 任意
 >A.foo : () => any
 >A : typeof A
 >foo : () => any
 
 var ResultIsBoolean16 = delete (ANY + ANY1);
 >ResultIsBoolean16 : boolean
+>类型别名 :=> 真假
 >delete (ANY + ANY1) : boolean
+>类型别名 :=> 真假
 >(ANY + ANY1) : any
+>类型别名 :=> 任意
 >ANY + ANY1 : any
+>类型别名 :=> 任意
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ResultIsBoolean17 = delete (null + undefined);
 >ResultIsBoolean17 : boolean
+>类型别名 :=> 真假
 >delete (null + undefined) : boolean
+>类型别名 :=> 真假
 >(null + undefined) : any
+>类型别名 :=> 任意
 >null + undefined : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
 var ResultIsBoolean18 = delete (null + null);
 >ResultIsBoolean18 : boolean
+>类型别名 :=> 真假
 >delete (null + null) : boolean
+>类型别名 :=> 真假
 >(null + null) : any
+>类型别名 :=> 任意
 >null + null : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var ResultIsBoolean19 = delete (undefined + undefined);
 >ResultIsBoolean19 : boolean
+>类型别名 :=> 真假
 >delete (undefined + undefined) : boolean
+>类型别名 :=> 真假
 >(undefined + undefined) : any
+>类型别名 :=> 任意
 >undefined + undefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 // multiple delete  operators
 var ResultIsBoolean20 = delete delete ANY;
 >ResultIsBoolean20 : boolean
+>类型别名 :=> 真假
 >delete delete ANY : boolean
+>类型别名 :=> 真假
 >delete ANY : boolean
+>类型别名 :=> 真假
 >ANY : any
+>类型别名 :=> 任意
 
 var ResultIsBoolean21 = delete delete delete (ANY + ANY1);
 >ResultIsBoolean21 : boolean
+>类型别名 :=> 真假
 >delete delete delete (ANY + ANY1) : boolean
+>类型别名 :=> 真假
 >delete delete (ANY + ANY1) : boolean
+>类型别名 :=> 真假
 >delete (ANY + ANY1) : boolean
+>类型别名 :=> 真假
 >(ANY + ANY1) : any
+>类型别名 :=> 任意
 >ANY + ANY1 : any
+>类型别名 :=> 任意
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 // miss assignment operators
 delete ANY;
 >delete ANY : boolean
+>类型别名 :=> 真假
 >ANY : any
+>类型别名 :=> 任意
 
 delete ANY1;
 >delete ANY1 : boolean
+>类型别名 :=> 真假
 >ANY1 : any
+>类型别名 :=> 任意
 
 delete ANY2[0];
 >delete ANY2[0] : boolean
+>类型别名 :=> 真假
 >ANY2[0] : any
+>类型别名 :=> 任意
 >ANY2 : any[]
 >0 : 0
 
 delete ANY, ANY1;
 >delete ANY, ANY1 : any
+>类型别名 :=> 任意
 >delete ANY : boolean
+>类型别名 :=> 真假
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 delete obj1.x;
 >delete obj1.x : boolean
+>类型别名 :=> 真假
 >obj1.x : string
+>类型别名 :=> 文字
 >obj1 : { x: string; y: () => void; }
 >x : string
+>类型别名 :=> 文字
 
 delete obj1.y;
 >delete obj1.y : boolean
+>类型别名 :=> 真假
 >obj1.y : () => void
 >obj1 : { x: string; y: () => void; }
 >y : () => void
 
 delete objA.a;
 >delete objA.a : boolean
+>类型别名 :=> 真假
 >objA.a : any
+>类型别名 :=> 任意
 >objA : A
 >a : any
+>类型别名 :=> 任意
 
 delete M.n;
 >delete M.n : boolean
+>类型别名 :=> 真假
 >M.n : any
+>类型别名 :=> 任意
 >M : typeof M
 >n : any
+>类型别名 :=> 任意
 

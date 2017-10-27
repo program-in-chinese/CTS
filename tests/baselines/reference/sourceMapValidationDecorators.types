@@ -7,6 +7,7 @@ declare function ClassDecorator1(target: Function): void;
 declare function ClassDecorator2(x: number): (target: Function) => void;
 >ClassDecorator2 : (x: number) => (target: Function) => void
 >x : number
+>类型别名 :=> 数字
 >target : Function
 >Function : Function
 
@@ -21,6 +22,7 @@ declare function PropertyDecorator1(target: Object, key: string | symbol, descri
 declare function PropertyDecorator2(x: number): (target: Object, key: string | symbol, descriptor?: PropertyDescriptor) => void;
 >PropertyDecorator2 : (x: number) => (target: Object, key: string | symbol, descriptor?: PropertyDescriptor) => void
 >x : number
+>类型别名 :=> 数字
 >target : Object
 >Object : Object
 >key : string | symbol
@@ -33,14 +35,17 @@ declare function ParameterDecorator1(target: Object, key: string | symbol, param
 >Object : Object
 >key : string | symbol
 >paramIndex : number
+>类型别名 :=> 数字
 
 declare function ParameterDecorator2(x: number): (target: Object, key: string | symbol, paramIndex: number) => void;
 >ParameterDecorator2 : (x: number) => (target: Object, key: string | symbol, paramIndex: number) => void
 >x : number
+>类型别名 :=> 数字
 >target : Object
 >Object : Object
 >key : string | symbol
 >paramIndex : number
+>类型别名 :=> 数字
 
 @ClassDecorator1
 >ClassDecorator1 : (target: Function) => void
@@ -64,6 +69,7 @@ class Greeter {
 
       public greeting: string, 
 >greeting : string
+>类型别名 :=> 文字
       
       @ParameterDecorator1 
 >ParameterDecorator1 : (target: Object, key: string | symbol, paramIndex: number) => void
@@ -90,11 +96,15 @@ class Greeter {
 
         return "<h1>" + this.greeting + "</h1>";
 >"<h1>" + this.greeting + "</h1>" : string
+>类型别名 :=> 文字
 >"<h1>" + this.greeting : string
+>类型别名 :=> 文字
 >"<h1>" : "<h1>"
 >this.greeting : string
+>类型别名 :=> 文字
 >this : this
 >greeting : string
+>类型别名 :=> 文字
 >"</h1>" : "</h1>"
     }
 
@@ -108,6 +118,7 @@ class Greeter {
 
     private x: string;
 >x : string
+>类型别名 :=> 文字
 
     @PropertyDecorator1
 >PropertyDecorator1 : (target: Object, key: string | symbol, descriptor?: PropertyDescriptor) => void
@@ -119,6 +130,7 @@ class Greeter {
 
     private static x1: number = 10;
 >x1 : number
+>类型别名 :=> 数字
 >10 : 10
     
     private fn(
@@ -134,11 +146,14 @@ class Greeter {
 
       x: number) {
 >x : number
+>类型别名 :=> 数字
 
         return this.greeting;
 >this.greeting : string
+>类型别名 :=> 文字
 >this : this
 >greeting : string
+>类型别名 :=> 文字
     }
 
     @PropertyDecorator1
@@ -151,15 +166,19 @@ class Greeter {
 
     get greetings() {
 >greetings : string
+>类型别名 :=> 文字
 
         return this.greeting;
 >this.greeting : string
+>类型别名 :=> 文字
 >this : this
 >greeting : string
+>类型别名 :=> 文字
     }
 
     set greetings(
 >greetings : string
+>类型别名 :=> 文字
 
       @ParameterDecorator1 
 >ParameterDecorator1 : (target: Object, key: string | symbol, paramIndex: number) => void
@@ -171,12 +190,17 @@ class Greeter {
 
       greetings: string) {
 >greetings : string
+>类型别名 :=> 文字
 
         this.greeting = greetings;
 >this.greeting = greetings : string
+>类型别名 :=> 文字
 >this.greeting : string
+>类型别名 :=> 文字
 >this : this
 >greeting : string
+>类型别名 :=> 文字
 >greetings : string
+>类型别名 :=> 文字
     }    
 }

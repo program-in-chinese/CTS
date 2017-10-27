@@ -4,6 +4,7 @@ interface ICallback {
 
     (x?: string):void;
 >x : string
+>类型别名 :=> 文字
 }
 
 function load(f: ICallback) {}
@@ -16,31 +17,38 @@ var f1: ICallback = function(z?) {}
 >ICallback : ICallback
 >function(z?) {} : (z?: string) => void
 >z : string
+>类型别名 :=> 文字
 
 var f2: ICallback = function(z?) {}
 >f2 : ICallback
 >ICallback : ICallback
 >function(z?) {} : (z?: string) => void
 >z : string
+>类型别名 :=> 文字
 
 load(f1) // ok
 >load(f1) : void
+>类型别名 :=> 无值
 >load : (f: ICallback) => void
 >f1 : ICallback
 
 load(f2) // ok
 >load(f2) : void
+>类型别名 :=> 无值
 >load : (f: ICallback) => void
 >f2 : ICallback
 
 load(function() {}) // this shouldn’t be an error
 >load(function() {}) : void
+>类型别名 :=> 无值
 >load : (f: ICallback) => void
 >function() {} : () => void
 
 load(function(z?) {}) // this shouldn't be an error
 >load(function(z?) {}) : void
+>类型别名 :=> 无值
 >load : (f: ICallback) => void
 >function(z?) {} : (z?: string) => void
 >z : string
+>类型别名 :=> 文字
 

@@ -4,6 +4,7 @@ class C {
 
   test: string
 >test : string
+>类型别名 :=> 文字
 }
 
 class D extends C {
@@ -12,6 +13,7 @@ class D extends C {
 
   test2: string
 >test2 : string
+>类型别名 :=> 文字
 }
 
 declare function testError<T extends C>(a: (t: T, t1: T) => void): T
@@ -28,28 +30,37 @@ declare function testError<T extends C>(a: (t: T, t1: T) => void): T
 // more args
 testError((t1: D, t2, t3) => {})
 >testError((t1: D, t2, t3) => {}) : any
+>类型别名 :=> 任意
 >testError : <T extends C>(a: (t: T, t1: T) => void) => T
 >(t1: D, t2, t3) => {} : (t1: D, t2: any, t3: any) => void
 >t1 : D
 >D : D
 >t2 : any
+>类型别名 :=> 任意
 >t3 : any
+>类型别名 :=> 任意
 
 testError((t1, t2: D, t3) => {})
 >testError((t1, t2: D, t3) => {}) : any
+>类型别名 :=> 任意
 >testError : <T extends C>(a: (t: T, t1: T) => void) => T
 >(t1, t2: D, t3) => {} : (t1: any, t2: D, t3: any) => void
 >t1 : any
+>类型别名 :=> 任意
 >t2 : D
 >D : D
 >t3 : any
+>类型别名 :=> 任意
 
 testError((t1, t2, t3: D) => {})
 >testError((t1, t2, t3: D) => {}) : any
+>类型别名 :=> 任意
 >testError : <T extends C>(a: (t: T, t1: T) => void) => T
 >(t1, t2, t3: D) => {} : (t1: any, t2: any, t3: D) => void
 >t1 : any
+>类型别名 :=> 任意
 >t2 : any
+>类型别名 :=> 任意
 >t3 : D
 >D : D
 

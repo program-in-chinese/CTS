@@ -9,10 +9,12 @@ function foo(x: 'a');
 function foo(x: string);
 >foo : { (x: "a"): any; (x: string): any; }
 >x : string
+>类型别名 :=> 文字
 
 function foo(x: any) { }
 >foo : { (x: "a"): any; (x: string): any; }
 >x : any
+>类型别名 :=> 任意
 
 class C {
 >C : C
@@ -24,10 +26,12 @@ class C {
     foo(x: string);
 >foo : { (x: "a"): any; (x: string): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: any) { }
 >foo : { (x: "a"): any; (x: string): any; }
 >x : any
+>类型别名 :=> 任意
 }
 
 class C2<T> {
@@ -41,6 +45,7 @@ class C2<T> {
     foo(x: string);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: T);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
@@ -50,6 +55,7 @@ class C2<T> {
     foo(x: any) { }
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
 >x : any
+>类型别名 :=> 任意
 }
 
 class C3<T extends String> {
@@ -64,6 +70,7 @@ class C3<T extends String> {
     foo(x: string);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: T);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
@@ -73,6 +80,7 @@ class C3<T extends String> {
     foo(x: any) { }
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
 >x : any
+>类型别名 :=> 任意
 }
 
 interface I {
@@ -83,9 +91,11 @@ interface I {
 
     (x: number);
 >x : number
+>类型别名 :=> 数字
 
     (x: string);
 >x : string
+>类型别名 :=> 文字
 
     foo(x: 'a');
 >foo : { (x: "a"): any; (x: string): any; (x: number): any; }
@@ -94,10 +104,12 @@ interface I {
     foo(x: string);
 >foo : { (x: "a"): any; (x: string): any; (x: number): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: number);
 >foo : { (x: "a"): any; (x: string): any; (x: number): any; }
 >x : number
+>类型别名 :=> 数字
 }
 
 interface I2<T> {
@@ -113,6 +125,7 @@ interface I2<T> {
 
     (x: string);
 >x : string
+>类型别名 :=> 文字
 
     foo(x: 'a');
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
@@ -121,6 +134,7 @@ interface I2<T> {
     foo(x: string);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: T);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
@@ -138,6 +152,7 @@ interface I3<T extends String> {
 
     (x: string);
 >x : string
+>类型别名 :=> 文字
 
     (x: T);
 >x : T
@@ -150,6 +165,7 @@ interface I3<T extends String> {
     foo(x: string);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: T);
 >foo : { (x: "a"): any; (x: string): any; (x: T): any; }
@@ -162,16 +178,19 @@ var a: {
 
     (x: string);
 >x : string
+>类型别名 :=> 文字
 
     (x: 'a');
 >x : "a"
 
     (x: number);
 >x : number
+>类型别名 :=> 数字
 
     foo(x: string);
 >foo : { (x: string): any; (x: "a"): any; (x: number): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: 'a');
 >foo : { (x: string): any; (x: "a"): any; (x: number): any; }
@@ -180,6 +199,7 @@ var a: {
     foo(x: number);
 >foo : { (x: string): any; (x: "a"): any; (x: number): any; }
 >x : number
+>类型别名 :=> 数字
 }
 
 var a2: {
@@ -190,6 +210,7 @@ var a2: {
 
     (x: string);
 >x : string
+>类型别名 :=> 文字
 
     <T>(x: T);
 >T : T
@@ -199,6 +220,7 @@ var a2: {
     foo(x: string);
 >foo : { (x: string): any; (x: "a"): any; <T>(x: T): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: 'a');
 >foo : { (x: string): any; (x: "a"): any; <T>(x: T): any; }
@@ -224,10 +246,12 @@ var a3: {
 
     (x: string);
 >x : string
+>类型别名 :=> 文字
 
     foo(x: string);
 >foo : { (x: string): any; (x: "a"): any; <T extends String>(x: T): any; }
 >x : string
+>类型别名 :=> 文字
 
     foo(x: 'a');
 >foo : { (x: string): any; (x: "a"): any; <T extends String>(x: T): any; }

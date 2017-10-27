@@ -5,6 +5,7 @@ var console : {
     log(message: any);
 >log : (message: any) => any
 >message : any
+>类型别名 :=> 任意
 }
 class Foo {
 >Foo : Foo
@@ -14,6 +15,7 @@ class Foo {
 
         var _this = 10; // Local var. No this capture in x(), so no conflict.
 >_this : number
+>类型别名 :=> 数字
 >10 : 10
 
         function inner() {
@@ -21,15 +23,19 @@ class Foo {
 
             console.log(_this); // Error as this doesnt not resolve to user defined _this
 >console.log(_this) : any
+>类型别名 :=> 任意
 >console.log : (message: any) => any
 >console : { log(message: any): any; }
 >log : (message: any) => any
 >_this : number
+>类型别名 :=> 数字
 
             return x => this;   // New scope.  So should inject new _this capture into function inner
 >x => this : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
         }
     }
 }

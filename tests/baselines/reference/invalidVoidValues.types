@@ -1,21 +1,27 @@
 === tests/cases/conformance/types/primitives/void/invalidVoidValues.ts ===
 var x: void;
 >x : void
+>类型别名 :=> 无值
 
 x = 1;
 >x = 1 : 1
 >x : void
+>类型别名 :=> 无值
 >1 : 1
 
 x = '';
 >x = '' : ""
 >x : void
+>类型别名 :=> 无值
 >'' : ""
 
 x = true;
 >x = true : true
+>类型别名 :=> 为真
 >x : void
+>类型别名 :=> 无值
 >true : true
+>类型别名 :=> 为真
 
 enum E { A }
 >E : E
@@ -24,11 +30,13 @@ enum E { A }
 x = E;
 >x = E : typeof E
 >x : void
+>类型别名 :=> 无值
 >E : typeof E
 
 x = E.A;
 >x = E.A : E
 >x : void
+>类型别名 :=> 无值
 >E.A : E
 >E : typeof E
 >A : E
@@ -36,6 +44,7 @@ x = E.A;
 class C { foo: string }
 >C : C
 >foo : string
+>类型别名 :=> 文字
 
 var a: C;
 >a : C
@@ -44,11 +53,13 @@ var a: C;
 x = a;
 >x = a : C
 >x : void
+>类型别名 :=> 无值
 >a : C
 
 interface I { foo: string }
 >I : I
 >foo : string
+>类型别名 :=> 文字
 
 var b: I;
 >b : I
@@ -57,22 +68,26 @@ var b: I;
 x = b;
 >x = b : I
 >x : void
+>类型别名 :=> 无值
 >b : I
 
 x = { f() {} }
 >x = { f() {} } : { f(): void; }
 >x : void
+>类型别名 :=> 无值
 >{ f() {} } : { f(): void; }
 >f : () => void
 
 module M { export var x = 1; }
 >M : typeof M
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 x = M;
 >x = M : typeof M
 >x : void
+>类型别名 :=> 无值
 >M : typeof M
 
 function f<T>(a: T) {
@@ -84,10 +99,12 @@ function f<T>(a: T) {
     x = a;
 >x = a : T
 >x : void
+>类型别名 :=> 无值
 >a : T
 }
 x = f;
 >x = f : <T>(a: T) => void
 >x : void
+>类型别名 :=> 无值
 >f : <T>(a: T) => void
 

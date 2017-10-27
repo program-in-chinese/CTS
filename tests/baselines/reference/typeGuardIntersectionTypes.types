@@ -4,6 +4,7 @@ interface X {
 
     x: string;
 >x : string
+>类型别名 :=> 文字
 }
 
 interface Y {
@@ -11,6 +12,7 @@ interface Y {
 
     y: string;
 >y : string
+>类型别名 :=> 文字
 }
 
 interface Z {
@@ -18,24 +20,31 @@ interface Z {
 
     z: string;
 >z : string
+>类型别名 :=> 文字
 }
 
 declare function isX(obj: any): obj is X;
 >isX : (obj: any) => obj is X
 >obj : any
+>类型别名 :=> 任意
 >obj : any
+>类型别名 :=> 任意
 >X : X
 
 declare function isY(obj: any): obj is Y;
 >isY : (obj: any) => obj is Y
 >obj : any
+>类型别名 :=> 任意
 >obj : any
+>类型别名 :=> 任意
 >Y : Y
 
 declare function isZ(obj: any): obj is Z;
 >isZ : (obj: any) => obj is Z
 >obj : any
+>类型别名 :=> 任意
 >obj : any
+>类型别名 :=> 任意
 >Z : Z
 
 function f1(obj: Object) {
@@ -45,14 +54,19 @@ function f1(obj: Object) {
 
     if (isX(obj) || isY(obj) || isZ(obj)) {
 >isX(obj) || isY(obj) || isZ(obj) : boolean
+>类型别名 :=> 真假
 >isX(obj) || isY(obj) : boolean
+>类型别名 :=> 真假
 >isX(obj) : boolean
+>类型别名 :=> 真假
 >isX : (obj: any) => obj is X
 >obj : Object
 >isY(obj) : boolean
+>类型别名 :=> 真假
 >isY : (obj: any) => obj is Y
 >obj : Object
 >isZ(obj) : boolean
+>类型别名 :=> 真假
 >isZ : (obj: any) => obj is Z
 >obj : Object
 
@@ -61,14 +75,19 @@ function f1(obj: Object) {
     }
     if (isX(obj) && isY(obj) && isZ(obj)) {
 >isX(obj) && isY(obj) && isZ(obj) : boolean
+>类型别名 :=> 真假
 >isX(obj) && isY(obj) : boolean
+>类型别名 :=> 真假
 >isX(obj) : boolean
+>类型别名 :=> 真假
 >isX : (obj: any) => obj is X
 >obj : Object
 >isY(obj) : boolean
+>类型别名 :=> 真假
 >isY : (obj: any) => obj is Y
 >obj : X
 >isZ(obj) : boolean
+>类型别名 :=> 真假
 >isZ : (obj: any) => obj is Z
 >obj : X & Y
 
@@ -85,6 +104,7 @@ interface A {
 
   a: string;
 >a : string
+>类型别名 :=> 文字
 }
 
 interface B {
@@ -92,21 +112,29 @@ interface B {
 
   b: string;
 >b : string
+>类型别名 :=> 文字
 }
 
 // a type guard for B
 function isB(toTest: any): toTest is B {
 >isB : (toTest: any) => toTest is B
 >toTest : any
+>类型别名 :=> 任意
 >toTest : any
+>类型别名 :=> 任意
 >B : B
 
   return toTest && toTest.b;
 >toTest && toTest.b : any
+>类型别名 :=> 任意
 >toTest : any
+>类型别名 :=> 任意
 >toTest.b : any
+>类型别名 :=> 任意
 >toTest : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 }
 
 // a function that turns an A into an A & B
@@ -117,9 +145,11 @@ function union(a: A): A & B | null {
 >A : A
 >B : B
 >null : null
+>类型别名 :=> 空值
 
   if (isB(a)) {
 >isB(a) : boolean
+>类型别名 :=> 真假
 >isB : (toTest: any) => toTest is B
 >a : A
 
@@ -129,6 +159,7 @@ function union(a: A): A & B | null {
   } else {
     return null;
 >null : null
+>类型别名 :=> 空值
   }
 }
 
@@ -137,6 +168,7 @@ function union(a: A): A & B | null {
 declare function log(s: string): void;
 >log : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
 // Supported beast features
 interface Beast     { wings?: boolean; legs?: number }
@@ -147,10 +179,12 @@ interface Beast     { wings?: boolean; legs?: number }
 interface Legged    { legs: number; }
 >Legged : Legged
 >legs : number
+>类型别名 :=> 数字
 
 interface Winged    { wings: boolean; }
 >Winged : Winged
 >wings : boolean
+>类型别名 :=> 真假
 
 // Beast feature detection via user-defined type guards
 function hasLegs(x: Beast): x is Legged { return x && typeof x.legs === 'number'; }
@@ -158,10 +192,13 @@ function hasLegs(x: Beast): x is Legged { return x && typeof x.legs === 'number'
 >x : Beast
 >Beast : Beast
 >x : any
+>类型别名 :=> 任意
 >Legged : Legged
 >x && typeof x.legs === 'number' : boolean
+>类型别名 :=> 真假
 >x : Beast
 >typeof x.legs === 'number' : boolean
+>类型别名 :=> 真假
 >typeof x.legs : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x.legs : number | undefined
 >x : Beast
@@ -173,11 +210,15 @@ function hasWings(x: Beast): x is Winged { return x && !!x.wings; }
 >x : Beast
 >Beast : Beast
 >x : any
+>类型别名 :=> 任意
 >Winged : Winged
 >x && !!x.wings : boolean
+>类型别名 :=> 真假
 >x : Beast
 >!!x.wings : boolean
+>类型别名 :=> 真假
 >!x.wings : boolean
+>类型别名 :=> 真假
 >x.wings : boolean | undefined
 >x : Beast
 >wings : boolean | undefined
@@ -191,47 +232,61 @@ function identifyBeast(beast: Beast) {
     // All beasts with legs
     if (hasLegs(beast)) {
 >hasLegs(beast) : boolean
+>类型别名 :=> 真假
 >hasLegs : (x: Beast) => x is Legged
 >beast : Beast
 
         // All winged beasts with legs
         if (hasWings(beast)) {
 >hasWings(beast) : boolean
+>类型别名 :=> 真假
 >hasWings : (x: Beast) => x is Winged
 >beast : Legged
 
             if (beast.legs === 4) {
 >beast.legs === 4 : boolean
+>类型别名 :=> 真假
 >beast.legs : number
+>类型别名 :=> 数字
 >beast : Legged & Winged
 >legs : number
+>类型别名 :=> 数字
 >4 : 4
 
                 log(`pegasus - 4 legs, wings`);
 >log(`pegasus - 4 legs, wings`) : void
+>类型别名 :=> 无值
 >log : (s: string) => void
 >`pegasus - 4 legs, wings` : "pegasus - 4 legs, wings"
             }
             else if (beast.legs === 2) {
 >beast.legs === 2 : boolean
+>类型别名 :=> 真假
 >beast.legs : number
+>类型别名 :=> 数字
 >beast : Legged & Winged
 >legs : number
+>类型别名 :=> 数字
 >2 : 2
 
                 log(`bird - 2 legs, wings`);
 >log(`bird - 2 legs, wings`) : void
+>类型别名 :=> 无值
 >log : (s: string) => void
 >`bird - 2 legs, wings` : "bird - 2 legs, wings"
             }
             else {
                 log(`unknown - ${beast.legs} legs, wings`);
 >log(`unknown - ${beast.legs} legs, wings`) : void
+>类型别名 :=> 无值
 >log : (s: string) => void
 >`unknown - ${beast.legs} legs, wings` : string
+>类型别名 :=> 文字
 >beast.legs : number
+>类型别名 :=> 数字
 >beast : Legged & Winged
 >legs : number
+>类型别名 :=> 数字
             }
         }
 
@@ -239,11 +294,15 @@ function identifyBeast(beast: Beast) {
         else {
             log(`manbearpig - ${beast.legs} legs, no wings`);
 >log(`manbearpig - ${beast.legs} legs, no wings`) : void
+>类型别名 :=> 无值
 >log : (s: string) => void
 >`manbearpig - ${beast.legs} legs, no wings` : string
+>类型别名 :=> 文字
 >beast.legs : number
+>类型别名 :=> 数字
 >beast : Legged
 >legs : number
+>类型别名 :=> 数字
         }
     }
 
@@ -251,17 +310,20 @@ function identifyBeast(beast: Beast) {
     else {
         if (hasWings(beast)) {
 >hasWings(beast) : boolean
+>类型别名 :=> 真假
 >hasWings : (x: Beast) => x is Winged
 >beast : Beast
 
             log(`quetzalcoatl - no legs, wings`)
 >log(`quetzalcoatl - no legs, wings`) : void
+>类型别名 :=> 无值
 >log : (s: string) => void
 >`quetzalcoatl - no legs, wings` : "quetzalcoatl - no legs, wings"
         }
         else {
             log(`snake - no legs, no wings`)
 >log(`snake - no legs, no wings`) : void
+>类型别名 :=> 无值
 >log : (s: string) => void
 >`snake - no legs, no wings` : "snake - no legs, no wings"
         }
@@ -275,10 +337,13 @@ function beastFoo(beast: Object) {
 
     if (hasWings(beast) && hasLegs(beast)) {
 >hasWings(beast) && hasLegs(beast) : boolean
+>类型别名 :=> 真假
 >hasWings(beast) : boolean
+>类型别名 :=> 真假
 >hasWings : (x: Beast) => x is Winged
 >beast : Object
 >hasLegs(beast) : boolean
+>类型别名 :=> 真假
 >hasLegs : (x: Beast) => x is Legged
 >beast : Winged
 
@@ -292,10 +357,13 @@ function beastFoo(beast: Object) {
 
     if (hasLegs(beast) && hasWings(beast)) {
 >hasLegs(beast) && hasWings(beast) : boolean
+>类型别名 :=> 真假
 >hasLegs(beast) : boolean
+>类型别名 :=> 真假
 >hasLegs : (x: Beast) => x is Legged
 >beast : Object
 >hasWings(beast) : boolean
+>类型别名 :=> 真假
 >hasWings : (x: Beast) => x is Winged
 >beast : Legged
 

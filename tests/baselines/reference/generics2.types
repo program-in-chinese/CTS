@@ -2,16 +2,19 @@
 interface A { a: string; }
 >A : A
 >a : string
+>类型别名 :=> 文字
 
 interface B extends A { b: string; }
 >B : B
 >A : A
 >b : string
+>类型别名 :=> 文字
 
 interface C extends B { c: string; }
 >C : C
 >B : B
 >c : string
+>类型别名 :=> 文字
 
 interface G<T, U extends B> {
 >G : G<T, U>
@@ -35,12 +38,16 @@ var v1: {
     x: { a: string; }
 >x : { a: string; }
 >a : string
+>类型别名 :=> 文字
 
     y: { a: string; b: string; c: string };
 >y : { a: string; b: string; c: string; }
 >a : string
+>类型别名 :=> 文字
 >b : string
+>类型别名 :=> 文字
 >c : string
+>类型别名 :=> 文字
 
 }; // Ok
 
@@ -49,6 +56,7 @@ var v2: G<{ a: string }, C>;   // Ok, equivalent to G<A, C>
 >v2 : G<{ a: string; }, C>
 >G : G<T, U>
 >a : string
+>类型别名 :=> 文字
 >C : C
 
 var v3: G<A, A>;               // Error, A not valid argument for U
@@ -71,9 +79,11 @@ var v5: G<any, any>;           // Error, any does not satisfy constraint B
 
 var v6: G<any>;                // Error, wrong number of arguments
 >v6 : any
+>类型别名 :=> 任意
 >G : G<T, U>
 
 var v7: G;                     // Error, no type arguments
 >v7 : any
+>类型别名 :=> 任意
 >G : G<T, U>
 

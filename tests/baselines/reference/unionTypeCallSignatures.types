@@ -14,7 +14,9 @@ var strOrNum: string | number;
 var unionOfDifferentReturnType: { (a: number): number; } | { (a: number): Date; };
 >unionOfDifferentReturnType : ((a: number) => number) | ((a: number) => Date)
 >a : number
+>类型别名 :=> 数字
 >a : number
+>类型别名 :=> 数字
 >Date : Date
 
 numOrDate = unionOfDifferentReturnType(10);
@@ -26,23 +28,31 @@ numOrDate = unionOfDifferentReturnType(10);
 
 strOrBoolean = unionOfDifferentReturnType("hello"); // error 
 >strOrBoolean = unionOfDifferentReturnType("hello") : any
+>类型别名 :=> 任意
 >strOrBoolean : string | boolean
 >unionOfDifferentReturnType("hello") : any
+>类型别名 :=> 任意
 >unionOfDifferentReturnType : ((a: number) => number) | ((a: number) => Date)
 >"hello" : "hello"
 
 unionOfDifferentReturnType1(true); // error in type of parameter
 >unionOfDifferentReturnType1(true) : any
+>类型别名 :=> 任意
 >unionOfDifferentReturnType1 : { (a: number): number; (a: string): string; } | { (a: number): Date; (a: string): boolean; }
 >true : true
+>类型别名 :=> 为真
 
 var unionOfDifferentReturnType1: { (a: number): number; (a: string): string; } | { (a: number): Date; (a: string): boolean; };
 >unionOfDifferentReturnType1 : { (a: number): number; (a: string): string; } | { (a: number): Date; (a: string): boolean; }
 >a : number
+>类型别名 :=> 数字
 >a : string
+>类型别名 :=> 文字
 >a : number
+>类型别名 :=> 数字
 >Date : Date
 >a : string
+>类型别名 :=> 文字
 
 numOrDate = unionOfDifferentReturnType1(10);
 >numOrDate = unionOfDifferentReturnType1(10) : number | Date
@@ -60,42 +70,54 @@ strOrBoolean = unionOfDifferentReturnType1("hello");
 
 unionOfDifferentReturnType1(true); // error in type of parameter
 >unionOfDifferentReturnType1(true) : any
+>类型别名 :=> 任意
 >unionOfDifferentReturnType1 : { (a: number): number; (a: string): string; } | { (a: number): Date; (a: string): boolean; }
 >true : true
+>类型别名 :=> 为真
 
 unionOfDifferentReturnType1(); // error missing parameter
 >unionOfDifferentReturnType1() : any
+>类型别名 :=> 任意
 >unionOfDifferentReturnType1 : { (a: number): number; (a: string): string; } | { (a: number): Date; (a: string): boolean; }
 
 var unionOfDifferentParameterTypes: { (a: number): number; } | { (a: string): Date; };
 >unionOfDifferentParameterTypes : ((a: number) => number) | ((a: string) => Date)
 >a : number
+>类型别名 :=> 数字
 >a : string
+>类型别名 :=> 文字
 >Date : Date
 
 unionOfDifferentParameterTypes(10);// error - no call signatures
 >unionOfDifferentParameterTypes(10) : any
+>类型别名 :=> 任意
 >unionOfDifferentParameterTypes : ((a: number) => number) | ((a: string) => Date)
 >10 : 10
 
 unionOfDifferentParameterTypes("hello");// error - no call signatures
 >unionOfDifferentParameterTypes("hello") : any
+>类型别名 :=> 任意
 >unionOfDifferentParameterTypes : ((a: number) => number) | ((a: string) => Date)
 >"hello" : "hello"
 
 unionOfDifferentParameterTypes();// error - no call signatures
 >unionOfDifferentParameterTypes() : any
+>类型别名 :=> 任意
 >unionOfDifferentParameterTypes : ((a: number) => number) | ((a: string) => Date)
 
 var unionOfDifferentNumberOfSignatures: { (a: number): number; } | { (a: number): Date; (a: string): boolean; };
 >unionOfDifferentNumberOfSignatures : ((a: number) => number) | { (a: number): Date; (a: string): boolean; }
 >a : number
+>类型别名 :=> 数字
 >a : number
+>类型别名 :=> 数字
 >Date : Date
 >a : string
+>类型别名 :=> 文字
 
 unionOfDifferentNumberOfSignatures(); // error - no call signatures
 >unionOfDifferentNumberOfSignatures() : any
+>类型别名 :=> 任意
 >unionOfDifferentNumberOfSignatures : ((a: number) => number) | { (a: number): Date; (a: string): boolean; }
 
 unionOfDifferentNumberOfSignatures(10); // error - no call signatures
@@ -105,26 +127,33 @@ unionOfDifferentNumberOfSignatures(10); // error - no call signatures
 
 unionOfDifferentNumberOfSignatures("hello"); // error - no call signatures
 >unionOfDifferentNumberOfSignatures("hello") : any
+>类型别名 :=> 任意
 >unionOfDifferentNumberOfSignatures : ((a: number) => number) | { (a: number): Date; (a: string): boolean; }
 >"hello" : "hello"
 
 var unionWithDifferentParameterCount: { (a: string): string; } | { (a: string, b: number): number; } ;
 >unionWithDifferentParameterCount : ((a: string) => string) | ((a: string, b: number) => number)
 >a : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 
 unionWithDifferentParameterCount();// no  call signature
 >unionWithDifferentParameterCount() : any
+>类型别名 :=> 任意
 >unionWithDifferentParameterCount : ((a: string) => string) | ((a: string, b: number) => number)
 
 unionWithDifferentParameterCount("hello");// no  call signature
 >unionWithDifferentParameterCount("hello") : any
+>类型别名 :=> 任意
 >unionWithDifferentParameterCount : ((a: string) => string) | ((a: string, b: number) => number)
 >"hello" : "hello"
 
 unionWithDifferentParameterCount("hello", 10);// no  call signature
 >unionWithDifferentParameterCount("hello", 10) : any
+>类型别名 :=> 任意
 >unionWithDifferentParameterCount : ((a: string) => string) | ((a: string, b: number) => number)
 >"hello" : "hello"
 >10 : 10
@@ -132,9 +161,13 @@ unionWithDifferentParameterCount("hello", 10);// no  call signature
 var unionWithOptionalParameter1: { (a: string, b?: number): string; } | { (a: string, b?: number): number; };
 >unionWithOptionalParameter1 : ((a: string, b?: number) => string) | ((a: string, b?: number) => number)
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 
 strOrNum = unionWithOptionalParameter1('hello');
 >strOrNum = unionWithOptionalParameter1('hello') : string | number
@@ -153,29 +186,39 @@ strOrNum = unionWithOptionalParameter1('hello', 10);
 
 strOrNum = unionWithOptionalParameter1('hello', "hello"); // error in parameter type
 >strOrNum = unionWithOptionalParameter1('hello', "hello") : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter1('hello', "hello") : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter1 : ((a: string, b?: number) => string) | ((a: string, b?: number) => number)
 >'hello' : "hello"
 >"hello" : "hello"
 
 strOrNum = unionWithOptionalParameter1(); // error
 >strOrNum = unionWithOptionalParameter1() : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter1() : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter1 : ((a: string, b?: number) => string) | ((a: string, b?: number) => number)
 
 var unionWithOptionalParameter2: { (a: string, b?: number): string; } | { (a: string, b: number): number };
 >unionWithOptionalParameter2 : ((a: string, b?: number) => string) | ((a: string, b: number) => number)
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 
 strOrNum = unionWithOptionalParameter2('hello'); // error no call signature
 >strOrNum = unionWithOptionalParameter2('hello') : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter2('hello') : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter2 : ((a: string, b?: number) => string) | ((a: string, b: number) => number)
 >'hello' : "hello"
 
@@ -189,23 +232,30 @@ strOrNum = unionWithOptionalParameter2('hello', 10); // error no call signature
 
 strOrNum = unionWithOptionalParameter2('hello', "hello"); // error no call signature
 >strOrNum = unionWithOptionalParameter2('hello', "hello") : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter2('hello', "hello") : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter2 : ((a: string, b?: number) => string) | ((a: string, b: number) => number)
 >'hello' : "hello"
 >"hello" : "hello"
 
 strOrNum = unionWithOptionalParameter2(); // error no call signature
 >strOrNum = unionWithOptionalParameter2() : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter2() : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter2 : ((a: string, b?: number) => string) | ((a: string, b: number) => number)
 
 var unionWithOptionalParameter3: { (a: string, b?: number): string; } | { (a: string): number; };
 >unionWithOptionalParameter3 : ((a: string, b?: number) => string) | ((a: string) => number)
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 >a : string
+>类型别名 :=> 文字
 
 strOrNum = unionWithOptionalParameter3('hello');
 >strOrNum = unionWithOptionalParameter3('hello') : string | number
@@ -216,31 +266,39 @@ strOrNum = unionWithOptionalParameter3('hello');
 
 strOrNum = unionWithOptionalParameter3('hello', 10); // error no call signature
 >strOrNum = unionWithOptionalParameter3('hello', 10) : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter3('hello', 10) : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter3 : ((a: string, b?: number) => string) | ((a: string) => number)
 >'hello' : "hello"
 >10 : 10
 
 strOrNum = unionWithOptionalParameter3('hello', "hello"); // error no call signature
 >strOrNum = unionWithOptionalParameter3('hello', "hello") : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter3('hello', "hello") : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter3 : ((a: string, b?: number) => string) | ((a: string) => number)
 >'hello' : "hello"
 >"hello" : "hello"
 
 strOrNum = unionWithOptionalParameter3(); // error no call signature
 >strOrNum = unionWithOptionalParameter3() : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithOptionalParameter3() : any
+>类型别名 :=> 任意
 >unionWithOptionalParameter3 : ((a: string, b?: number) => string) | ((a: string) => number)
 
 var unionWithRestParameter1: { (a: string, ...b: number[]): string; } | { (a: string, ...b: number[]): number };
 >unionWithRestParameter1 : ((a: string, ...b: number[]) => string) | ((a: string, ...b: number[]) => number)
 >a : string
+>类型别名 :=> 文字
 >b : number[]
 >a : string
+>类型别名 :=> 文字
 >b : number[]
 
 strOrNum = unionWithRestParameter1('hello');
@@ -269,29 +327,38 @@ strOrNum = unionWithRestParameter1('hello', 10, 11);
 
 strOrNum = unionWithRestParameter1('hello', "hello"); // error in parameter type
 >strOrNum = unionWithRestParameter1('hello', "hello") : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter1('hello', "hello") : any
+>类型别名 :=> 任意
 >unionWithRestParameter1 : ((a: string, ...b: number[]) => string) | ((a: string, ...b: number[]) => number)
 >'hello' : "hello"
 >"hello" : "hello"
 
 strOrNum = unionWithRestParameter1(); // error
 >strOrNum = unionWithRestParameter1() : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter1() : any
+>类型别名 :=> 任意
 >unionWithRestParameter1 : ((a: string, ...b: number[]) => string) | ((a: string, ...b: number[]) => number)
 
 var unionWithRestParameter2: { (a: string, ...b: number[]): string; } | { (a: string, b: number): number };
 >unionWithRestParameter2 : ((a: string, ...b: number[]) => string) | ((a: string, b: number) => number)
 >a : string
+>类型别名 :=> 文字
 >b : number[]
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 
 strOrNum = unionWithRestParameter2('hello'); // error no call signature
 >strOrNum = unionWithRestParameter2('hello') : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter2('hello') : any
+>类型别名 :=> 任意
 >unionWithRestParameter2 : ((a: string, ...b: number[]) => string) | ((a: string, b: number) => number)
 >'hello' : "hello"
 
@@ -305,8 +372,10 @@ strOrNum = unionWithRestParameter2('hello', 10); // error no call signature
 
 strOrNum = unionWithRestParameter2('hello', 10, 11); // error no call signature
 >strOrNum = unionWithRestParameter2('hello', 10, 11) : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter2('hello', 10, 11) : any
+>类型别名 :=> 任意
 >unionWithRestParameter2 : ((a: string, ...b: number[]) => string) | ((a: string, b: number) => number)
 >'hello' : "hello"
 >10 : 10
@@ -314,23 +383,29 @@ strOrNum = unionWithRestParameter2('hello', 10, 11); // error no call signature
 
 strOrNum = unionWithRestParameter2('hello', "hello"); // error no call signature
 >strOrNum = unionWithRestParameter2('hello', "hello") : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter2('hello', "hello") : any
+>类型别名 :=> 任意
 >unionWithRestParameter2 : ((a: string, ...b: number[]) => string) | ((a: string, b: number) => number)
 >'hello' : "hello"
 >"hello" : "hello"
 
 strOrNum = unionWithRestParameter2(); // error no call signature
 >strOrNum = unionWithRestParameter2() : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter2() : any
+>类型别名 :=> 任意
 >unionWithRestParameter2 : ((a: string, ...b: number[]) => string) | ((a: string, b: number) => number)
 
 var unionWithRestParameter3: { (a: string, ...b: number[]): string; } | { (a: string): number };
 >unionWithRestParameter3 : ((a: string, ...b: number[]) => string) | ((a: string) => number)
 >a : string
+>类型别名 :=> 文字
 >b : number[]
 >a : string
+>类型别名 :=> 文字
 
 strOrNum = unionWithRestParameter3('hello');
 >strOrNum = unionWithRestParameter3('hello') : string | number
@@ -341,16 +416,20 @@ strOrNum = unionWithRestParameter3('hello');
 
 strOrNum = unionWithRestParameter3('hello', 10); // error no call signature
 >strOrNum = unionWithRestParameter3('hello', 10) : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter3('hello', 10) : any
+>类型别名 :=> 任意
 >unionWithRestParameter3 : ((a: string, ...b: number[]) => string) | ((a: string) => number)
 >'hello' : "hello"
 >10 : 10
 
 strOrNum = unionWithRestParameter3('hello', 10, 11); // error no call signature
 >strOrNum = unionWithRestParameter3('hello', 10, 11) : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter3('hello', 10, 11) : any
+>类型别名 :=> 任意
 >unionWithRestParameter3 : ((a: string, ...b: number[]) => string) | ((a: string) => number)
 >'hello' : "hello"
 >10 : 10
@@ -358,28 +437,36 @@ strOrNum = unionWithRestParameter3('hello', 10, 11); // error no call signature
 
 strOrNum = unionWithRestParameter3('hello', "hello"); // error no call signature
 >strOrNum = unionWithRestParameter3('hello', "hello") : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter3('hello', "hello") : any
+>类型别名 :=> 任意
 >unionWithRestParameter3 : ((a: string, ...b: number[]) => string) | ((a: string) => number)
 >'hello' : "hello"
 >"hello" : "hello"
 
 strOrNum = unionWithRestParameter3(); // error no call signature
 >strOrNum = unionWithRestParameter3() : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter3() : any
+>类型别名 :=> 任意
 >unionWithRestParameter3 : ((a: string, ...b: number[]) => string) | ((a: string) => number)
 
 var unionWithRestParameter4: { (...a: string[]): string; } | { (a: string, b: string): number; };
 >unionWithRestParameter4 : ((...a: string[]) => string) | ((a: string, b: string) => number)
 >a : string[]
 >a : string
+>类型别名 :=> 文字
 >b : string
+>类型别名 :=> 文字
 
 strOrNum = unionWithRestParameter4("hello"); // error supplied parameters do not match any call signature
 >strOrNum = unionWithRestParameter4("hello") : any
+>类型别名 :=> 任意
 >strOrNum : string | number
 >unionWithRestParameter4("hello") : any
+>类型别名 :=> 任意
 >unionWithRestParameter4 : ((...a: string[]) => string) | ((a: string, b: string) => number)
 >"hello" : "hello"
 

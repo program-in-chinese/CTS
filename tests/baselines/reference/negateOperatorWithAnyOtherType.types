@@ -3,9 +3,11 @@
 
 var ANY: any;
 >ANY : any
+>类型别名 :=> 任意
 
 var ANY1: any;
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ANY2: any[] = ["", ""];
 >ANY2 : any[]
@@ -20,6 +22,7 @@ var obj1 = { x: "", y: () => { }};
 >obj1 : { x: string; y: () => void; }
 >{ x: "", y: () => { }} : { x: string; y: () => void; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 >y : () => void
 >() => { } : () => void
@@ -29,24 +32,29 @@ function foo(): any {
 
     var a;
 >a : any
+>类型别名 :=> 任意
 
     return a;
 >a : any
+>类型别名 :=> 任意
 }
 class A {
 >A : A
 
     public a: any;
 >a : any
+>类型别名 :=> 任意
 
     static foo(): any {
 >foo : () => any
 
         var a;
 >a : any
+>类型别名 :=> 任意
 
         return a;
 >a : any
+>类型别名 :=> 任意
     }
 }
 module M {
@@ -54,6 +62,7 @@ module M {
 
     export var n: any;
 >n : any
+>类型别名 :=> 任意
 }
 var objA = new A();
 >objA : A
@@ -63,133 +72,197 @@ var objA = new A();
 // any type var
 var ResultIsNumber1 = -ANY1;
 >ResultIsNumber1 : number
+>类型别名 :=> 数字
 >-ANY1 : number
+>类型别名 :=> 数字
 >ANY1 : any
+>类型别名 :=> 任意
 
 var ResultIsNumber2 = -ANY2;
 >ResultIsNumber2 : number
+>类型别名 :=> 数字
 >-ANY2 : number
+>类型别名 :=> 数字
 >ANY2 : any[]
 
 var ResultIsNumber3 = -A;
 >ResultIsNumber3 : number
+>类型别名 :=> 数字
 >-A : number
+>类型别名 :=> 数字
 >A : typeof A
 
 var ResultIsNumber4 = -M;
 >ResultIsNumber4 : number
+>类型别名 :=> 数字
 >-M : number
+>类型别名 :=> 数字
 >M : typeof M
 
 var ResultIsNumber5 = -obj;
 >ResultIsNumber5 : number
+>类型别名 :=> 数字
 >-obj : number
+>类型别名 :=> 数字
 >obj : () => {}
 
 var ResultIsNumber6 = -obj1;
 >ResultIsNumber6 : number
+>类型别名 :=> 数字
 >-obj1 : number
+>类型别名 :=> 数字
 >obj1 : { x: string; y: () => void; }
 
 // any type literal
 var ResultIsNumber7 = -undefined;
 >ResultIsNumber7 : number
+>类型别名 :=> 数字
 >-undefined : number
+>类型别名 :=> 数字
 >undefined : undefined
+>类型别名 :=> 未定
 
 var ResultIsNumber = -null;
 >ResultIsNumber : number
+>类型别名 :=> 数字
 >-null : number
+>类型别名 :=> 数字
 >null : null
+>类型别名 :=> 空值
 
 // any type expressions
 var ResultIsNumber8 = -ANY2[0];
 >ResultIsNumber8 : number
+>类型别名 :=> 数字
 >-ANY2[0] : number
+>类型别名 :=> 数字
 >ANY2[0] : any
+>类型别名 :=> 任意
 >ANY2 : any[]
 >0 : 0
 
 var ResultIsNumber9 = -obj1.x;
 >ResultIsNumber9 : number
+>类型别名 :=> 数字
 >-obj1.x : number
+>类型别名 :=> 数字
 >obj1.x : string
+>类型别名 :=> 文字
 >obj1 : { x: string; y: () => void; }
 >x : string
+>类型别名 :=> 文字
 
 var ResultIsNumber10 = -obj1.y;
 >ResultIsNumber10 : number
+>类型别名 :=> 数字
 >-obj1.y : number
+>类型别名 :=> 数字
 >obj1.y : () => void
 >obj1 : { x: string; y: () => void; }
 >y : () => void
 
 var ResultIsNumber11 = -objA.a;
 >ResultIsNumber11 : number
+>类型别名 :=> 数字
 >-objA.a : number
+>类型别名 :=> 数字
 >objA.a : any
+>类型别名 :=> 任意
 >objA : A
 >a : any
+>类型别名 :=> 任意
 
 var ResultIsNumber12 = -M.n;
 >ResultIsNumber12 : number
+>类型别名 :=> 数字
 >-M.n : number
+>类型别名 :=> 数字
 >M.n : any
+>类型别名 :=> 任意
 >M : typeof M
 >n : any
+>类型别名 :=> 任意
 
 var ResultIsNumber13 = -foo();
 >ResultIsNumber13 : number
+>类型别名 :=> 数字
 >-foo() : number
+>类型别名 :=> 数字
 >foo() : any
+>类型别名 :=> 任意
 >foo : () => any
 
 var ResultIsNumber14 = -A.foo();
 >ResultIsNumber14 : number
+>类型别名 :=> 数字
 >-A.foo() : number
+>类型别名 :=> 数字
 >A.foo() : any
+>类型别名 :=> 任意
 >A.foo : () => any
 >A : typeof A
 >foo : () => any
 
 var ResultIsNumber15 = -(ANY - ANY1);
 >ResultIsNumber15 : number
+>类型别名 :=> 数字
 >-(ANY - ANY1) : number
+>类型别名 :=> 数字
 >(ANY - ANY1) : number
+>类型别名 :=> 数字
 >ANY - ANY1 : number
+>类型别名 :=> 数字
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 // miss assignment operators
 -ANY;
 >-ANY : number
+>类型别名 :=> 数字
 >ANY : any
+>类型别名 :=> 任意
 
 -ANY1;
 >-ANY1 : number
+>类型别名 :=> 数字
 >ANY1 : any
+>类型别名 :=> 任意
 
 -ANY2[0];
 >-ANY2[0] : number
+>类型别名 :=> 数字
 >ANY2[0] : any
+>类型别名 :=> 任意
 >ANY2 : any[]
 >0 : 0
 
 -ANY, ANY1;
 >-ANY, ANY1 : any
+>类型别名 :=> 任意
 >-ANY : number
+>类型别名 :=> 数字
 >ANY : any
+>类型别名 :=> 任意
 >ANY1 : any
+>类型别名 :=> 任意
 
 -objA.a;
 >-objA.a : number
+>类型别名 :=> 数字
 >objA.a : any
+>类型别名 :=> 任意
 >objA : A
 >a : any
+>类型别名 :=> 任意
 
 -M.n;
 >-M.n : number
+>类型别名 :=> 数字
 >M.n : any
+>类型别名 :=> 任意
 >M : typeof M
 >n : any
+>类型别名 :=> 任意
 

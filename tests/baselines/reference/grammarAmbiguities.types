@@ -2,14 +2,18 @@
 function f(n: any) { return null; }
 >f : (n: any) => any
 >n : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 function g<A, B>(x: any) { return null; }
 >g : <A, B>(x: any) => any
 >A : A
 >B : B
 >x : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 interface A { }
 >A : A
@@ -19,12 +23,16 @@ interface B { }
 
 var A, B;
 >A : any
+>类型别名 :=> 任意
 >B : any
+>类型别名 :=> 任意
 
 f(g<A, B>(7));
 >f(g<A, B>(7)) : any
+>类型别名 :=> 任意
 >f : (n: any) => any
 >g<A, B>(7) : any
+>类型别名 :=> 任意
 >g : <A, B>(x: any) => any
 >A : A
 >B : B
@@ -32,23 +40,34 @@ f(g<A, B>(7));
 
 f(g < A, B > 7); // Should error
 >f(g < A, B > 7) : any
+>类型别名 :=> 任意
 >f : (n: any) => any
 >g < A : boolean
+>类型别名 :=> 真假
 >g : <A, B>(x: any) => any
 >A : any
+>类型别名 :=> 任意
 >B > 7 : boolean
+>类型别名 :=> 真假
 >B : any
+>类型别名 :=> 任意
 >7 : 7
 
 f(g < A, B > +(7)); // Should error
 >f(g < A, B > +(7)) : any
+>类型别名 :=> 任意
 >f : (n: any) => any
 >g < A : boolean
+>类型别名 :=> 真假
 >g : <A, B>(x: any) => any
 >A : any
+>类型别名 :=> 任意
 >B > +(7) : boolean
+>类型别名 :=> 真假
 >B : any
+>类型别名 :=> 任意
 >+(7) : number
+>类型别名 :=> 数字
 >(7) : 7
 >7 : 7
 

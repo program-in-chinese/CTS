@@ -5,15 +5,18 @@ function foo() {
     function f1(arguments: number, ...restParameters) { //arguments is error
 >f1 : (arguments: number, ...restParameters: any[]) => void
 >arguments : number
+>类型别名 :=> 数字
 >restParameters : any[]
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
     function f12(i: number, ...arguments) { //arguments is error
 >f12 : (i: number, ...arguments: any[]) => void
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
         var arguments: any[]; // no error
@@ -22,9 +25,11 @@ function foo() {
     function f1NoError(arguments: number) { // no error
 >f1NoError : (arguments: number) => void
 >arguments : number
+>类型别名 :=> 数字
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 
@@ -34,6 +39,7 @@ function foo() {
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
     function f3NoError() {
@@ -41,40 +47,48 @@ function foo() {
 
         var arguments = 10; // no error
 >arguments : number
+>类型别名 :=> 数字
 >10 : 10
     }
 
     function f4(arguments: number, ...rest); // no codegen no error
 >f4 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : number
+>类型别名 :=> 数字
 >rest : any[]
 
     function f4(arguments: string, ...rest); // no codegen no error
 >f4 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : string
+>类型别名 :=> 文字
 >rest : any[]
 
     function f4(arguments: any, ...rest) { // error
 >f4 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
 >arguments : any
+>类型别名 :=> 任意
 >rest : any[]
 
         var arguments: any; // No error
 >arguments : any
+>类型别名 :=> 任意
     }
     function f42(i: number, ...arguments); // no codegen no error
 >f42 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : number
+>类型别名 :=> 数字
 >arguments : any[]
 
     function f42(i: string, ...arguments); // no codegen no error
 >f42 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : string
+>类型别名 :=> 文字
 >arguments : any[]
 
     function f42(i: any, ...arguments) { // error
 >f42 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
 >i : any
+>类型别名 :=> 任意
 >arguments : any[]
 
         var arguments: any[]; // No error
@@ -83,16 +97,20 @@ function foo() {
     function f4NoError(arguments: number); // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : number
+>类型别名 :=> 数字
 
     function f4NoError(arguments: string); // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : string
+>类型别名 :=> 文字
 
     function f4NoError(arguments: any) { // no error
 >f4NoError : { (arguments: number): any; (arguments: string): any; }
 >arguments : any
+>类型别名 :=> 任意
 
         var arguments: any; // No error
 >arguments : any
+>类型别名 :=> 任意
     }
 }

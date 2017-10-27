@@ -8,48 +8,71 @@ module M {
         public f(x:string,...rest:number[]) {
 >f : (x: string, ...rest: number[]) => string
 >x : string
+>类型别名 :=> 文字
 >rest : number[]
 
             var sum=0;
 >sum : number
+>类型别名 :=> 数字
 >0 : 0
 
             for (var i=0;i<rest.length;i++) {
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i<rest.length : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >rest.length : number
+>类型别名 :=> 数字
 >rest : number[]
 >length : number
+>类型别名 :=> 数字
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 
                 sum+=rest[i];
 >sum+=rest[i] : number
+>类型别名 :=> 数字
 >sum : number
+>类型别名 :=> 数字
 >rest[i] : number
+>类型别名 :=> 数字
 >rest : number[]
 >i : number
+>类型别名 :=> 数字
             }
             result+=(x+": "+sum);
 >result+=(x+": "+sum) : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >(x+": "+sum) : string
+>类型别名 :=> 文字
 >x+": "+sum : string
+>类型别名 :=> 文字
 >x+": " : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 >": " : ": "
 >sum : number
+>类型别名 :=> 数字
 
             return result;
 >result : string
+>类型别名 :=> 文字
         }
 
         public fnope(x:string,...rest:number) {
 >fnope : (x: string, ...rest: number) => void
 >x : string
+>类型别名 :=> 文字
 >rest : number
+>类型别名 :=> 数字
     
         }
 
@@ -60,28 +83,41 @@ module M {
             builder="";
 >builder="" : ""
 >builder : any
+>类型别名 :=> 任意
 >"" : ""
 
             for (var i=0;i<rest.length;i++) {
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i<rest.length : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >rest.length : number
+>类型别名 :=> 数字
 >rest : string[]
 >length : number
+>类型别名 :=> 数字
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 
                 builder+=rest[i];
 >builder+=rest[i] : string
+>类型别名 :=> 文字
 >builder : any
+>类型别名 :=> 任意
 >rest[i] : string
+>类型别名 :=> 文字
 >rest : string[]
 >i : number
+>类型别名 :=> 数字
             }
             return builder;
 >builder : any
+>类型别名 :=> 任意
         }
     }
 }
@@ -95,12 +131,16 @@ var x=new M.C();
 
 var result="";
 >result : string
+>类型别名 :=> 文字
 >"" : ""
 
 result+=x.f(x,3,3); // bad first param
 >result+=x.f(x,3,3) : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.f(x,3,3) : string
+>类型别名 :=> 文字
 >x.f : (x: string, ...rest: number[]) => string
 >x : M.C
 >f : (x: string, ...rest: number[]) => string
@@ -110,8 +150,11 @@ result+=x.f(x,3,3); // bad first param
 
 result+=x.f(3,"hello",3); // bad second param
 >result+=x.f(3,"hello",3) : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.f(3,"hello",3) : string
+>类型别名 :=> 文字
 >x.f : (x: string, ...rest: number[]) => string
 >x : M.C
 >f : (x: string, ...rest: number[]) => string
@@ -121,8 +164,11 @@ result+=x.f(3,"hello",3); // bad second param
 
 result+=x.f("hello",3,3,3,3,3); // ok
 >result+=x.f("hello",3,3,3,3,3) : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.f("hello",3,3,3,3,3) : string
+>类型别名 :=> 文字
 >x.f : (x: string, ...rest: number[]) => string
 >x : M.C
 >f : (x: string, ...rest: number[]) => string
@@ -135,8 +181,11 @@ result+=x.f("hello",3,3,3,3,3); // ok
 
 result+=x.f("hello"); // ok varargs length 0
 >result+=x.f("hello") : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.f("hello") : string
+>类型别名 :=> 文字
 >x.f : (x: string, ...rest: number[]) => string
 >x : M.C
 >f : (x: string, ...rest: number[]) => string
@@ -144,8 +193,11 @@ result+=x.f("hello"); // ok varargs length 0
 
 result+=x.fonly(3); // ok conversion
 >result+=x.fonly(3) : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.fonly(3) : any
+>类型别名 :=> 任意
 >x.fonly : (...rest: string[]) => any
 >x : M.C
 >fonly : (...rest: string[]) => any
@@ -153,8 +205,11 @@ result+=x.fonly(3); // ok conversion
 
 result+=x.fonly(x); // bad param
 >result+=x.fonly(x) : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.fonly(x) : any
+>类型别名 :=> 任意
 >x.fonly : (...rest: string[]) => any
 >x : M.C
 >fonly : (...rest: string[]) => any
@@ -162,8 +217,11 @@ result+=x.fonly(x); // bad param
 
 result+=x.fonly("a"); // ok 
 >result+=x.fonly("a") : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.fonly("a") : any
+>类型别名 :=> 任意
 >x.fonly : (...rest: string[]) => any
 >x : M.C
 >fonly : (...rest: string[]) => any
@@ -171,8 +229,11 @@ result+=x.fonly("a"); // ok
 
 result+=x.fonly("a","b","c","d"); //ok 
 >result+=x.fonly("a","b","c","d") : string
+>类型别名 :=> 文字
 >result : string
+>类型别名 :=> 文字
 >x.fonly("a","b","c","d") : any
+>类型别名 :=> 任意
 >x.fonly : (...rest: string[]) => any
 >x : M.C
 >fonly : (...rest: string[]) => any

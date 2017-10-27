@@ -6,6 +6,7 @@ module A {
 
     export var x = 'hello world'
 >x : string
+>类型别名 :=> 文字
 >'hello world' : "hello world"
 
     export class Point {
@@ -13,16 +14,20 @@ module A {
 
         constructor(public x: number, public y: number) { }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
     }
     export module B {
 >B : any
+>类型别名 :=> 任意
 
         export interface Id {
 >Id : Id
 
             name: string;
 >name : string
+>类型别名 :=> 文字
         }
     }
 }
@@ -37,16 +42,21 @@ module C {
 
 var a: string = C.a.x;
 >a : string
+>类型别名 :=> 文字
 >C.a.x : string
+>类型别名 :=> 文字
 >C.a : typeof A
 >C : typeof C
 >a : typeof A
 >x : string
+>类型别名 :=> 文字
 
 var b: { x: number; y: number; } = new C.a.Point(0, 0);
 >b : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >new C.a.Point(0, 0) : A.Point
 >C.a.Point : typeof A.Point
 >C.a : typeof A
@@ -59,12 +69,16 @@ var b: { x: number; y: number; } = new C.a.Point(0, 0);
 var c: { name: string };
 >c : { name: string; }
 >name : string
+>类型别名 :=> 文字
 
 var c: C.a.B.Id;
 >c : { name: string; }
 >C : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >B : any
+>类型别名 :=> 任意
 >Id : A.B.Id
 
 module X {
@@ -85,7 +99,9 @@ module X {
 
             constructor(public x: number, public y: number) { }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
         }
     }
 }
@@ -102,7 +118,9 @@ module Z {
 
 var m: number = Z.y();
 >m : number
+>类型别名 :=> 数字
 >Z.y() : number
+>类型别名 :=> 数字
 >Z.y : typeof X.Y
 >Z : typeof Z
 >y : typeof X.Y
@@ -110,7 +128,9 @@ var m: number = Z.y();
 var n: { x: number; y: number; } = new Z.y.Point(0, 0);
 >n : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >new Z.y.Point(0, 0) : X.Y.Point
 >Z.y.Point : typeof X.Y.Point
 >Z.y : typeof X.Y
@@ -128,6 +148,7 @@ module K {
 
         constructor(public name: string) { }
 >name : string
+>类型别名 :=> 文字
     }
 
     export module L {
@@ -135,6 +156,7 @@ module K {
 
         export var y = 12;
 >y : number
+>类型别名 :=> 数字
 >12 : 12
 
         export interface Point {
@@ -142,9 +164,11 @@ module K {
 
             x: number;
 >x : number
+>类型别名 :=> 数字
 
             y: number;
 >y : number
+>类型别名 :=> 数字
         }
     }
 }
@@ -161,6 +185,7 @@ module M {
 var o: { name: string };
 >o : { name: string; }
 >name : string
+>类型别名 :=> 文字
 
 var o = new M.D('Hello');
 >o : { name: string; }
@@ -173,11 +198,15 @@ var o = new M.D('Hello');
 var p: { x: number; y: number; }
 >p : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 var p: M.D.Point;
 >p : { x: number; y: number; }
 >M : any
+>类型别名 :=> 任意
 >D : any
+>类型别名 :=> 任意
 >Point : K.L.Point
 

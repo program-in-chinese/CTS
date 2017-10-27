@@ -17,6 +17,7 @@ interface Base<T, U> {
 class D0 extends Base<string, string> {
 >D0 : D0
 >Base : any
+>类型别名 :=> 任意
 }
 
 interface BaseConstructor {
@@ -24,7 +25,9 @@ interface BaseConstructor {
 
     new (x: string, y: string): Base<string, string>;
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >Base : Base<T, U>
 
     new <T>(x: T): Base<T, T>;
@@ -69,6 +72,7 @@ class D1 extends getBase() {
     constructor() {
         super("abc", "def");
 >super("abc", "def") : void
+>类型别名 :=> 无值
 >super : BaseConstructor
 >"abc" : "abc"
 >"def" : "def"
@@ -76,15 +80,19 @@ class D1 extends getBase() {
         this.x = "x";
 >this.x = "x" : "x"
 >this.x : string
+>类型别名 :=> 文字
 >this : this
 >x : string
+>类型别名 :=> 文字
 >"x" : "x"
 
         this.y = "y";
 >this.y = "y" : "y"
 >this.y : string
+>类型别名 :=> 文字
 >this : this
 >y : string
+>类型别名 :=> 文字
 >"y" : "y"
     }
 }
@@ -97,11 +105,13 @@ class D2 extends getBase() <number> {
     constructor() {
         super(10);
 >super(10) : void
+>类型别名 :=> 无值
 >super : BaseConstructor
 >10 : 10
 
         super(10, 20);
 >super(10, 20) : void
+>类型别名 :=> 无值
 >super : BaseConstructor
 >10 : 10
 >20 : 20
@@ -109,15 +119,19 @@ class D2 extends getBase() <number> {
         this.x = 1;
 >this.x = 1 : 1
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
         this.y = 2;
 >this.y = 2 : 2
 >this.y : number
+>类型别名 :=> 数字
 >this : this
 >y : number
+>类型别名 :=> 数字
 >2 : 2
     }
 }
@@ -130,6 +144,7 @@ class D3 extends getBase() <string, number> {
     constructor() {
         super("abc", 42);
 >super("abc", 42) : void
+>类型别名 :=> 无值
 >super : BaseConstructor
 >"abc" : "abc"
 >42 : 42
@@ -137,15 +152,19 @@ class D3 extends getBase() <string, number> {
         this.x = "x";
 >this.x = "x" : "x"
 >this.x : string
+>类型别名 :=> 文字
 >this : this
 >x : string
+>类型别名 :=> 文字
 >"x" : "x"
 
         this.y = 2;
 >this.y = 2 : 2
 >this.y : number
+>类型别名 :=> 数字
 >this : this
 >y : number
+>类型别名 :=> 数字
 >2 : 2
     }
 }
@@ -162,10 +181,12 @@ interface BadBaseConstructor {
 
     new (x: string): Base<string, string>;
 >x : string
+>类型别名 :=> 文字
 >Base : Base<T, U>
 
     new (x: number): Base<number, number>;
 >x : number
+>类型别名 :=> 数字
 >Base : Base<T, U>
 }
 

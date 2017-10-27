@@ -7,11 +7,15 @@
 function a0([a, b, [[c]]]: [number, number, string[][]]) { }
 >a0 : ([a, b, [[c]]]: [number, number, string[][]]) => void
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >c : string
+>类型别名 :=> 文字
 
 a0([1, "string", [["world"]]);      // Error
 >a0([1, "string", [["world"]]) : void
+>类型别名 :=> 无值
 >a0 : ([a, b, [[c]]]: [number, number, string[][]]) => void
 >[1, "string", [["world"]] : (string | number | string[][])[]
 >1 : 1
@@ -22,6 +26,7 @@ a0([1, "string", [["world"]]);      // Error
 
 a0([1, 2, [["world"]], "string"]);  // Error
 >a0([1, 2, [["world"]], "string"]) : void
+>类型别名 :=> 无值
 >a0 : ([a, b, [[c]]]: [number, number, string[][]]) => void
 >[1, 2, [["world"]], "string"] : (string | number | string[][])[]
 >1 : 1
@@ -42,11 +47,16 @@ interface F1 {
     b0(z = 10, [[a, b], d, {u}] = [[1, 2], "string", { u: false }]);  // Error, no function body
 >b0 : (z?: number, [[a, b], d, { u }]?: [[number, number], string, { u: boolean; }]) => any
 >z : number
+>类型别名 :=> 数字
 >10 : 10
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >d : string
+>类型别名 :=> 文字
 >u : boolean
+>类型别名 :=> 真假
 >[[1, 2], "string", { u: false }] : [[number, number], string, { u: boolean; }]
 >[1, 2] : [number, number]
 >1 : 1
@@ -54,73 +64,105 @@ interface F1 {
 >"string" : "string"
 >{ u: false } : { u: boolean; }
 >u : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 }
 
 function b1(z = null, o = { x: 0, y: undefined }) { }
 >b1 : (z?: any, o?: { x: number; y: any; }) => void
 >z : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 >o : { x: number; y: any; }
 >{ x: 0, y: undefined } : { x: number; y: undefined; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 function b2([a, z, y] = [undefined, null, undefined]) { }
 >b2 : ([a, z, y]?: [any, any, any]) => void
 >a : any
+>类型别名 :=> 任意
 >z : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >[undefined, null, undefined] : [undefined, null, undefined]
 >undefined : undefined
+>类型别名 :=> 未定
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
 function b3([[a], b, [[c, d]]] = [[undefined], undefined, [[undefined, undefined]]]) { }
 >b3 : ([[a], b, [[c, d]]]?: [[any], any, [[any, any]]]) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 >[[undefined], undefined, [[undefined, undefined]]] : [[undefined], undefined, [[undefined, undefined]]]
 >[undefined] : [undefined]
 >undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 >[[undefined, undefined]] : [[undefined, undefined]]
 >[undefined, undefined] : [undefined, undefined]
 >undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 b1("string", { x: "string", y: true });  // Error
 >b1("string", { x: "string", y: true }) : void
+>类型别名 :=> 无值
 >b1 : (z?: any, o?: { x: number; y: any; }) => void
 >"string" : "string"
 >{ x: "string", y: true } : { x: string; y: boolean; }
 >x : string
+>类型别名 :=> 文字
 >"string" : "string"
 >y : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 // If the declaration specifies a binding pattern, the parameter type is the implied type of that binding pattern (section 5.1.3)
 function c0({z: {x, y: {j}}}) { }
 >c0 : ({ z: { x, y: { j } } }: { z: { x: any; y: { j: any; }; }; }) => void
 >z : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >j : any
+>类型别名 :=> 任意
 
 function c1({z} = { z: 10 }) { }
 >c1 : ({ z }?: { z: number; }) => void
 >z : number
+>类型别名 :=> 数字
 >{ z: 10 } : { z: number; }
 >z : number
+>类型别名 :=> 数字
 >10 : 10
 
 function c2({z = 10}) { }
 >c2 : ({ z }: { z?: number; }) => void
 >z : number
+>类型别名 :=> 数字
 >10 : 10
 
 function c3({b}: { b: number|string } = { b: "hello" }) { }
@@ -129,70 +171,95 @@ function c3({b}: { b: number|string } = { b: "hello" }) { }
 >b : string | number
 >{ b: "hello" } : { b: string; }
 >b : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
 function c4([z], z: number) { }  // Error Duplicate identifier
 >c4 : ([z]: [any], z: number) => void
 >z : any
+>类型别名 :=> 任意
 >z : number
+>类型别名 :=> 数字
 
 function c5([a, b, [[c]]]) { }
 >c5 : ([a, b, [[c]]]: [any, any, [[any]]]) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
 function c6([a, b, [[c = 1]]]) { }
 >c6 : ([a, b, [[c]]]: [any, any, [[number]]]) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : number
+>类型别名 :=> 数字
 >1 : 1
 
 c0({ z: 1 });      // Error, implied type is { z: {x: any, y: {j: any}} }
 >c0({ z: 1 }) : void
+>类型别名 :=> 无值
 >c0 : ({ z: { x, y: { j } } }: { z: { x: any; y: { j: any; }; }; }) => void
 >{ z: 1 } : { z: number; }
 >z : number
+>类型别名 :=> 数字
 >1 : 1
 
 c1({});            // Error, implied type is {z:number}?
 >c1({}) : void
+>类型别名 :=> 无值
 >c1 : ({ z }?: { z: number; }) => void
 >{} : {}
 
 c1({ z: true });   // Error, implied type is {z:number}?
 >c1({ z: true }) : void
+>类型别名 :=> 无值
 >c1 : ({ z }?: { z: number; }) => void
 >{ z: true } : { z: boolean; }
 >z : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 c2({ z: false });  // Error, implied type is {z?: number}
 >c2({ z: false }) : void
+>类型别名 :=> 无值
 >c2 : ({ z }: { z?: number; }) => void
 >{ z: false } : { z: boolean; }
 >z : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
 c3({ b: true });   // Error, implied type is { b: number|string }. 
 >c3({ b: true }) : void
+>类型别名 :=> 无值
 >c3 : ({ b }?: { b: string | number; }) => void
 >{ b: true } : { b: boolean; }
 >b : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 c5([1, 2, false, true]);   // Error, implied type is [any, any, [[any]]]
 >c5([1, 2, false, true]) : void
+>类型别名 :=> 无值
 >c5 : ([a, b, [[c]]]: [any, any, [[any]]]) => void
 >[1, 2, false, true] : (number | boolean)[]
 >1 : 1
 >2 : 2
 >false : false
+>类型别名 :=> 为假
 >true : true
+>类型别名 :=> 为真
 
 c6([1, 2, [["string"]]]);  // Error, implied type is [any, any, [[number]]]  // Use initializer
 >c6([1, 2, [["string"]]]) : void
+>类型别名 :=> 无值
 >c6 : ([a, b, [[c]]]: [any, any, [[number]]]) => void
 >[1, 2, [["string"]]] : (number | string[][])[]
 >1 : 1
@@ -208,14 +275,20 @@ c6([1, 2, [["string"]]]);  // Error, implied type is [any, any, [[number]]]  // 
 function d1([a, b, c]?) { }  // Error, binding pattern can't be optional in implementation signature
 >d1 : ([a, b, c]?: [any, any, any]) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
 function d2({x, y, z}?) { }  // Error, binding pattern can't be optional in implementation signature
 >d2 : ({ x, y, z }?: { x: any; y: any; z: any; }) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >z : any
+>类型别名 :=> 任意
 
 interface F2 {
 >F2 : F2
@@ -223,20 +296,29 @@ interface F2 {
     d3([a, b, c]?);
 >d3 : ([a, b, c]?: [any, any, any]) => any
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
     d4({x, y, z}?);
 >d4 : ({ x, y, z }?: { x: any; y: any; z: any; }) => any
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >z : any
+>类型别名 :=> 任意
 
     e0([a, b, c]);
 >e0 : ([a, b, c]: [any, any, any]) => any
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 }
 
 class C4 implements F2 {
@@ -246,20 +328,29 @@ class C4 implements F2 {
     d3([a, b, c]?) { }  // Error, binding pattern can't be optional in implementation signature
 >d3 : ([a, b, c]?: [any, any, any]) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
     d4({x, y, c}) { }
 >d4 : ({ x, y, c }: { x: any; y: any; c: any; }) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
     e0([a, b, q]) { }
 >e0 : ([a, b, q]: [any, any, any]) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >q : any
+>类型别名 :=> 任意
 }
 
 // Destructuring parameter declarations do not permit type annotations on the individual binding patterns,
@@ -269,9 +360,13 @@ class C4 implements F2 {
 function e0({x: [number, number, number]}) { }  // error, duplicate identifier;
 >e0 : ({ x: [number, number, number] }: { x: [any, any, any]; }) => void
 >x : any
+>类型别名 :=> 任意
 >number : any
+>类型别名 :=> 任意
 >number : any
+>类型别名 :=> 任意
 >number : any
+>类型别名 :=> 任意
 
 
 

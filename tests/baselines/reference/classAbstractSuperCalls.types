@@ -17,6 +17,7 @@ abstract class B extends A {
     bar() { super.foo(); }
 >bar : () => void
 >super.foo() : number
+>类型别名 :=> 数字
 >super.foo : () => number
 >super : A
 >foo : () => number
@@ -39,7 +40,9 @@ class C extends B {
     qux() { return super.foo() || super.foo; } // 2 errors, foo is abstract
 >qux : () => any
 >super.foo() || super.foo : any
+>类型别名 :=> 任意
 >super.foo() : any
+>类型别名 :=> 任意
 >super.foo : () => any
 >super : B
 >foo : () => any
@@ -50,6 +53,7 @@ class C extends B {
     norf() { return super.bar(); }
 >norf : () => void
 >super.bar() : void
+>类型别名 :=> 无值
 >super.bar : () => void
 >super : B
 >bar : () => void
@@ -65,6 +69,7 @@ class AA {
     bar() { return this.foo(); }
 >bar : () => number
 >this.foo() : number
+>类型别名 :=> 数字
 >this.foo : () => number
 >this : this
 >foo : () => number

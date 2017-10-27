@@ -1,10 +1,12 @@
 === tests/cases/conformance/types/nonPrimitive/nonPrimitiveStrictNull.ts ===
 var a: object
 >a : object
+>类型别名 :=> 实例
 
 declare var b: object | null
 >b : object | null
 >null : null
+>类型别名 :=> 空值
 
 declare var c: object | undefined
 >c : object | undefined
@@ -12,66 +14,89 @@ declare var c: object | undefined
 declare var d: object | null | undefined
 >d : object | null | undefined
 >null : null
+>类型别名 :=> 空值
 
 var e: object | null
 >e : object | null
 >null : null
+>类型别名 :=> 空值
 
 a.toString; // error
 >a.toString : () => string
 >a : object
+>类型别名 :=> 实例
 >toString : () => string
 
 a = undefined; // error
 >a = undefined : undefined
+>类型别名 :=> 未定
 >a : object
+>类型别名 :=> 实例
 >undefined : undefined
+>类型别名 :=> 未定
 
 a = null; // error
 >a = null : null
+>类型别名 :=> 空值
 >a : object
+>类型别名 :=> 实例
 >null : null
+>类型别名 :=> 空值
 
 a = b; // error
 >a = b : object | null
 >a : object
+>类型别名 :=> 实例
 >b : object | null
 
 a = c; // error
 >a = c : object | undefined
 >a : object
+>类型别名 :=> 实例
 >c : object | undefined
 
 a = d; // error
 >a = d : object | null | undefined
 >a : object
+>类型别名 :=> 实例
 >d : object | null | undefined
 
 e = a; // ok
 >e = a : object
+>类型别名 :=> 实例
 >e : object | null
 >a : object
+>类型别名 :=> 实例
 
 a = e; // ok
 >a = e : object
+>类型别名 :=> 实例
 >a : object
+>类型别名 :=> 实例
 >e : object
+>类型别名 :=> 实例
 
 if (typeof b !== 'object') {
 >typeof b !== 'object' : boolean
+>类型别名 :=> 真假
 >typeof b : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >b : object | null
 >'object' : "object"
 
     b.toString(); // error, never
 >b.toString() : any
+>类型别名 :=> 任意
 >b.toString : any
+>类型别名 :=> 任意
 >b : never
+>类型别名 :=> 不及
 >toString : any
+>类型别名 :=> 任意
 }
 
 if (typeof b === 'object') {
 >typeof b === 'object' : boolean
+>类型别名 :=> 真假
 >typeof b : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >b : object | null
 >'object' : "object"
@@ -79,11 +104,13 @@ if (typeof b === 'object') {
     a = b; // error, b is not narrowed
 >a = b : object | null
 >a : object
+>类型别名 :=> 实例
 >b : object | null
 }
 
 if (typeof d === 'object') {
 >typeof d === 'object' : boolean
+>类型别名 :=> 真假
 >typeof d : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >d : object | null | undefined
 >'object' : "object"
@@ -95,6 +122,7 @@ if (typeof d === 'object') {
 
     d.toString(); // error, object | null
 >d.toString() : string
+>类型别名 :=> 文字
 >d.toString : () => string
 >d : object | null
 >toString : () => string
@@ -102,44 +130,62 @@ if (typeof d === 'object') {
 } else {
     d.toString(); // error, undefined
 >d.toString() : any
+>类型别名 :=> 任意
 >d.toString : any
+>类型别名 :=> 任意
 >d : undefined
+>类型别名 :=> 未定
 >toString : any
+>类型别名 :=> 任意
 }
 
 if (d == null) {
 >d == null : boolean
+>类型别名 :=> 真假
 >d : object | null | undefined
 >null : null
+>类型别名 :=> 空值
 
     d.toString(); // error, undefined | null
 >d.toString() : any
+>类型别名 :=> 任意
 >d.toString : any
+>类型别名 :=> 任意
 >d : null | undefined
 >toString : any
+>类型别名 :=> 任意
 
 } else {
     d.toString(); // object
 >d.toString() : string
+>类型别名 :=> 文字
 >d.toString : () => string
 >d : object
+>类型别名 :=> 实例
 >toString : () => string
 }
 
 if (d === null) {
 >d === null : boolean
+>类型别名 :=> 真假
 >d : object | null | undefined
 >null : null
+>类型别名 :=> 空值
 
     d.toString(); // error, null
 >d.toString() : any
+>类型别名 :=> 任意
 >d.toString : any
+>类型别名 :=> 任意
 >d : null
+>类型别名 :=> 空值
 >toString : any
+>类型别名 :=> 任意
 
 } else {
     d.toString(); // error, object | undefined
 >d.toString() : string
+>类型别名 :=> 文字
 >d.toString : () => string
 >d : object | undefined
 >toString : () => string
@@ -147,19 +193,25 @@ if (d === null) {
 
 if (typeof d === 'undefined') {
 >typeof d === 'undefined' : boolean
+>类型别名 :=> 真假
 >typeof d : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >d : object | null | undefined
 >'undefined' : "undefined"
 
     d.toString(); // error, undefined
 >d.toString() : any
+>类型别名 :=> 任意
 >d.toString : any
+>类型别名 :=> 任意
 >d : undefined
+>类型别名 :=> 未定
 >toString : any
+>类型别名 :=> 任意
 
 } else {
     d.toString(); // error, object | null
 >d.toString() : string
+>类型别名 :=> 文字
 >d.toString : () => string
 >d : object | null
 >toString : () => string
@@ -177,6 +229,7 @@ var y: Proxy<null>; // error
 >y : Proxy<null>
 >Proxy : Proxy<T>
 >null : null
+>类型别名 :=> 空值
 
 var z: Proxy<undefined>; // error
 >z : Proxy<undefined>
@@ -187,6 +240,7 @@ interface Blah {
 
   foo: number;
 >foo : number
+>类型别名 :=> 数字
 }
 
 var u: Proxy<Blah>; // ok

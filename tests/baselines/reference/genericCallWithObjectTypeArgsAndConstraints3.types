@@ -6,6 +6,7 @@ class Base {
 
     x: string;
 >x : string
+>类型别名 :=> 文字
 }
 class Derived extends Base {
 >Derived : Derived
@@ -13,6 +14,7 @@ class Derived extends Base {
 
     y: string;
 >y : string
+>类型别名 :=> 文字
 }
 class Derived2 extends Base {
 >Derived2 : Derived2
@@ -20,6 +22,7 @@ class Derived2 extends Base {
 
     z: string;
 >z : string
+>类型别名 :=> 文字
 }
 
 function f<T extends Base>(a: { x: T; y: T }) {
@@ -42,7 +45,9 @@ function f<T extends Base>(a: { x: T; y: T }) {
 
 var r1 = f({ x: new Derived(), y: new Derived2() }); // error because neither is supertype of the other
 >r1 : any
+>类型别名 :=> 任意
 >f({ x: new Derived(), y: new Derived2() }) : any
+>类型别名 :=> 任意
 >f : <T extends Base>(a: { x: T; y: T; }) => T
 >{ x: new Derived(), y: new Derived2() } : { x: Derived; y: Derived2; }
 >x : Derived
@@ -112,6 +117,7 @@ function f3<T extends Base>(y: (a: T) => T, x: T) {
 >y(null) : T
 >y : (a: T) => T
 >null : null
+>类型别名 :=> 空值
 }
 
 // all ok - second argument is processed before x is fixed
@@ -137,10 +143,15 @@ var r5 = f3(x => x, new Derived());
 
 var r6 = f3(x => x, null);
 >r6 : any
+>类型别名 :=> 任意
 >f3(x => x, null) : any
+>类型别名 :=> 任意
 >f3 : <T extends Base>(y: (a: T) => T, x: T) => T
 >x => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 

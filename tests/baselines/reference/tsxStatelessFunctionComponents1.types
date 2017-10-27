@@ -5,30 +5,39 @@ function EmptyPropSFC() {
     return <div> Default Greeting </div>;
 ><div> Default Greeting </div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
 }
 
 function Greet(x: {name: string}) {
 >Greet : (x: { name: string; }) => JSX.Element
 >x : { name: string; }
 >name : string
+>类型别名 :=> 文字
 
 	return <div>Hello, {x}</div>;
 ><div>Hello, {x}</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >x : { name: string; }
 >div : any
+>类型别名 :=> 任意
 }
 function Meet({name = 'world'}) {
 >Meet : ({ name }: { name?: string; }) => JSX.Element
 >name : string
+>类型别名 :=> 文字
 >'world' : "world"
 
 	return <div>Hello, {name}</div>;
 ><div>Hello, {name}</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >name : string
+>类型别名 :=> 文字
 >div : any
+>类型别名 :=> 任意
 }
 function MeetAndGreet(k: {"prop-name": string}) {
 >MeetAndGreet : (k: { "prop-name": string; }) => JSX.Element
@@ -37,7 +46,9 @@ function MeetAndGreet(k: {"prop-name": string}) {
 	return <div>Hi Hi</div>;
 ><div>Hi Hi</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
 }
 
 // OK
@@ -46,13 +57,16 @@ let a = <Greet name='world' />;
 ><Greet name='world' /> : JSX.Element
 >Greet : (x: { name: string; }) => JSX.Element
 >name : string
+>类型别名 :=> 文字
 
 let a1 = <Greet name='world' extra-prop />;
 >a1 : JSX.Element
 ><Greet name='world' extra-prop /> : JSX.Element
 >Greet : (x: { name: string; }) => JSX.Element
 >name : string
+>类型别名 :=> 文字
 >extra-prop : true
+>类型别名 :=> 为真
 
 // Error
 let b = <Greet naaame='world' />;
@@ -60,6 +74,7 @@ let b = <Greet naaame='world' />;
 ><Greet naaame='world' /> : JSX.Element
 >Greet : (x: { name: string; }) => JSX.Element
 >naaame : string
+>类型别名 :=> 文字
 
 // OK
 let c = <Meet />;
@@ -72,6 +87,7 @@ let c1 = <Meet extra-prop/>;
 ><Meet extra-prop/> : JSX.Element
 >Meet : ({ name }: { name?: string; }) => JSX.Element
 >extra-prop : true
+>类型别名 :=> 为真
 
 // OK
 let d = <Meet name='me' />;
@@ -79,6 +95,7 @@ let d = <Meet name='me' />;
 ><Meet name='me' /> : JSX.Element
 >Meet : ({ name }: { name?: string; }) => JSX.Element
 >name : string
+>类型别名 :=> 文字
 
 // Error
 let e = <Meet name={42} />;
@@ -86,6 +103,7 @@ let e = <Meet name={42} />;
 ><Meet name={42} /> : JSX.Element
 >Meet : ({ name }: { name?: string; }) => JSX.Element
 >name : number
+>类型别名 :=> 数字
 >42 : 42
 
 // Error
@@ -94,6 +112,7 @@ let f = <Meet naaaaaaame='no' />;
 ><Meet naaaaaaame='no' /> : JSX.Element
 >Meet : ({ name }: { name?: string; }) => JSX.Element
 >naaaaaaame : string
+>类型别名 :=> 文字
 
 // OK
 let g = <MeetAndGreet prop-name="Bob" />;
@@ -101,6 +120,7 @@ let g = <MeetAndGreet prop-name="Bob" />;
 ><MeetAndGreet prop-name="Bob" /> : JSX.Element
 >MeetAndGreet : (k: { "prop-name": string; }) => JSX.Element
 >prop-name : string
+>类型别名 :=> 文字
 
 // Error
 let h = <MeetAndGreet extra-prop-name="World" />;
@@ -108,6 +128,7 @@ let h = <MeetAndGreet extra-prop-name="World" />;
 ><MeetAndGreet extra-prop-name="World" /> : JSX.Element
 >MeetAndGreet : (k: { "prop-name": string; }) => JSX.Element
 >extra-prop-name : string
+>类型别名 :=> 文字
 
 // Error
 let i = <EmptyPropSFC prop1 />
@@ -115,6 +136,7 @@ let i = <EmptyPropSFC prop1 />
 ><EmptyPropSFC prop1 /> : JSX.Element
 >EmptyPropSFC : () => JSX.Element
 >prop1 : true
+>类型别名 :=> 为真
 
 let i1 = <EmptyPropSFC ref={x => x.greeting.substr(10)} />
 >i1 : JSX.Element
@@ -123,12 +145,19 @@ let i1 = <EmptyPropSFC ref={x => x.greeting.substr(10)} />
 >ref : (x: any) => any
 >x => x.greeting.substr(10) : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x.greeting.substr(10) : any
+>类型别名 :=> 任意
 >x.greeting.substr : any
+>类型别名 :=> 任意
 >x.greeting : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >greeting : any
+>类型别名 :=> 任意
 >substr : any
+>类型别名 :=> 任意
 >10 : 10
 
 let o = {
@@ -137,7 +166,9 @@ let o = {
 
     prop1: true;
 >prop1 : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 }
 
 // OK as access properties are allow when spread
@@ -149,6 +180,7 @@ let i2 = <EmptyPropSFC {...o} />
 
 let o1: any;
 >o1 : any
+>类型别名 :=> 任意
 
 // OK
 let j = <EmptyPropSFC {...o1} />
@@ -156,6 +188,7 @@ let j = <EmptyPropSFC {...o1} />
 ><EmptyPropSFC {...o1} /> : JSX.Element
 >EmptyPropSFC : () => JSX.Element
 >o1 : any
+>类型别名 :=> 任意
 
 let j1 = <EmptyPropSFC />
 >j1 : JSX.Element
@@ -167,6 +200,7 @@ let j2 = <EmptyPropSFC data-prop />
 ><EmptyPropSFC data-prop /> : JSX.Element
 >EmptyPropSFC : () => JSX.Element
 >data-prop : true
+>类型别名 :=> 为真
 
 let j3 = <EmptyPropSFC {...{}} />
 >j3 : JSX.Element

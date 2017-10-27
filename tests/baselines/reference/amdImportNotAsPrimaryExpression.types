@@ -5,41 +5,54 @@ import foo = require("./foo_0");
 // None of the below should cause a runtime dependency on foo_0
 import f = foo.M1;
 >f : any
+>类型别名 :=> 任意
 >foo : typeof foo
 >M1 : any
+>类型别名 :=> 任意
 
 var i: f.I2;
 >i : f.I2
 >f : any
+>类型别名 :=> 任意
 >I2 : f.I2
 
 var x: foo.C1 = <{m1: number}>{};
 >x : foo.C1
 >foo : any
+>类型别名 :=> 任意
 >C1 : foo.C1
 ><{m1: number}>{} : { m1: number; }
 >m1 : number
+>类型别名 :=> 数字
 >{} : {}
 
 var y: typeof foo.C1.s1 = false;
 >y : boolean
+>类型别名 :=> 真假
 >foo.C1.s1 : boolean
+>类型别名 :=> 真假
 >foo.C1 : typeof foo.C1
 >foo : typeof foo
 >C1 : typeof foo.C1
 >s1 : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
 var z: foo.M1.I2;
 >z : f.I2
 >foo : any
+>类型别名 :=> 任意
 >M1 : any
+>类型别名 :=> 任意
 >I2 : f.I2
 
 var e: number = <foo.E1>0;
 >e : number
+>类型别名 :=> 数字
 ><foo.E1>0 : foo.E1
 >foo : any
+>类型别名 :=> 任意
 >E1 : foo.E1
 >0 : 0
 
@@ -49,11 +62,14 @@ export class C1 {
 
 	m1 = 42;
 >m1 : number
+>类型别名 :=> 数字
 >42 : 42
 
 	static s1 = true;
 >s1 : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 }
 
 export interface I1 {
@@ -61,19 +77,23 @@ export interface I1 {
 
 	name: string;
 >name : string
+>类型别名 :=> 文字
 
 	age: number;
 >age : number
+>类型别名 :=> 数字
 }
 
 export module M1 {
 >M1 : any
+>类型别名 :=> 任意
 
 	export interface I2 {
 >I2 : I2
 
 		foo: string;
 >foo : string
+>类型别名 :=> 文字
 	}
 }
 

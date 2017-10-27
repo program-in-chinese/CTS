@@ -4,42 +4,57 @@ var func: {
 
     (s: string): number;
 >s : string
+>类型别名 :=> 文字
 
     (lambda: (s: string) => { a: number; b: number }): string;
 >lambda : (s: string) => { a: number; b: number; }
 >s : string
+>类型别名 :=> 文字
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
 };
 
 func(s => ({})); // Error for no applicable overload (object type is missing a and b)
 >func(s => ({})) : any
+>类型别名 :=> 任意
 >func : { (s: string): number; (lambda: (s: string) => { a: number; b: number; }): string; }
 >s => ({}) : (s: string) => {}
 >s : string
+>类型别名 :=> 文字
 >({}) : {}
 >{} : {}
 
 func(s => ({ a: blah, b: 3 })); // Only error inside the function, but not outside (since it would be applicable if not for the provisional error)
 >func(s => ({ a: blah, b: 3 })) : string
+>类型别名 :=> 文字
 >func : { (s: string): number; (lambda: (s: string) => { a: number; b: number; }): string; }
 >s => ({ a: blah, b: 3 }) : (s: string) => { a: any; b: number; }
 >s : string
+>类型别名 :=> 文字
 >({ a: blah, b: 3 }) : { a: any; b: number; }
 >{ a: blah, b: 3 } : { a: any; b: number; }
 >a : any
+>类型别名 :=> 任意
 >blah : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 >3 : 3
 
 func(s => ({ a: blah })); // Two errors here, one for blah not being defined, and one for the overload since it would not be applicable anyway
 >func(s => ({ a: blah })) : any
+>类型别名 :=> 任意
 >func : { (s: string): number; (lambda: (s: string) => { a: number; b: number; }): string; }
 >s => ({ a: blah }) : (s: string) => { a: any; }
 >s : string
+>类型别名 :=> 文字
 >({ a: blah }) : { a: any; }
 >{ a: blah } : { a: any; }
 >a : any
+>类型别名 :=> 任意
 >blah : any
+>类型别名 :=> 任意
 

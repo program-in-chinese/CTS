@@ -24,19 +24,24 @@ module O {
         f(s:string):number;
 >f : { (s: string): number; (n: number): string; }
 >s : string
+>类型别名 :=> 文字
 
         f(n:number):string;
 >f : { (s: string): number; (n: number): string; }
 >n : number
+>类型别名 :=> 数字
 
         g(n1:number,n2:number):number;
 >g : { (n1: number, n2: number): number; (n: number): string; (a: A): C; (c: C): string; }
 >n1 : number
+>类型别名 :=> 数字
 >n2 : number
+>类型别名 :=> 数字
 
         g(n:number):string;
 >g : { (n1: number, n2: number): number; (n: number): string; (a: A): C; (c: C): string; }
 >n : number
+>类型别名 :=> 数字
 
         g(a:A):C;
 >g : { (n1: number, n2: number): number; (n: number): string; (a: A): C; (c: C): string; }
@@ -52,22 +57,28 @@ module O {
         h(s1:string,s2:number):string;
 >h : { (s1: string, s2: number): string; (s1: number, s2: string): number; }
 >s1 : string
+>类型别名 :=> 文字
 >s2 : number
+>类型别名 :=> 数字
 
         h(s1:number,s2:string):number;
 >h : { (s1: string, s2: number): string; (s1: number, s2: string): number; }
 >s1 : number
+>类型别名 :=> 数字
 >s2 : string
+>类型别名 :=> 文字
     }
 }
 
 declare var x:O.I;
 >x : O.I
 >O : any
+>类型别名 :=> 任意
 >I : O.I
 
 var e:string=x.g(new O.A()); // matches overload but bad assignment
 >e : string
+>类型别名 :=> 文字
 >x.g(new O.A()) : O.C
 >x.g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
 >x : O.I
@@ -79,7 +90,9 @@ var e:string=x.g(new O.A()); // matches overload but bad assignment
 
 var y:string=x.f(3); // good
 >y : string
+>类型别名 :=> 文字
 >x.f(3) : string
+>类型别名 :=> 文字
 >x.f : { (s: string): number; (n: number): string; }
 >x : O.I
 >f : { (s: string): number; (n: number): string; }
@@ -87,8 +100,11 @@ var y:string=x.f(3); // good
 
 y=x.f("nope"); // can't assign number to string
 >y=x.f("nope") : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >x.f("nope") : number
+>类型别名 :=> 数字
 >x.f : { (s: string): number; (n: number): string; }
 >x : O.I
 >f : { (s: string): number; (n: number): string; }
@@ -96,11 +112,14 @@ y=x.f("nope"); // can't assign number to string
 
 var z:string=x.g(x.g(3,3)); // good
 >z : string
+>类型别名 :=> 文字
 >x.g(x.g(3,3)) : string
+>类型别名 :=> 文字
 >x.g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
 >x : O.I
 >g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
 >x.g(3,3) : number
+>类型别名 :=> 数字
 >x.g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
 >x : O.I
 >g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
@@ -109,8 +128,11 @@ var z:string=x.g(x.g(3,3)); // good
 
 z=x.g(2,2,2); // no match
 >z=x.g(2,2,2) : any
+>类型别名 :=> 任意
 >z : string
+>类型别名 :=> 文字
 >x.g(2,2,2) : any
+>类型别名 :=> 任意
 >x.g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
 >x : O.I
 >g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
@@ -120,8 +142,11 @@ z=x.g(2,2,2); // no match
 
 z=x.g(); // no match
 >z=x.g() : any
+>类型别名 :=> 任意
 >z : string
+>类型别名 :=> 文字
 >x.g() : any
+>类型别名 :=> 任意
 >x.g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
 >x : O.I
 >g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
@@ -129,6 +154,7 @@ z=x.g(); // no match
 z=x.g(new O.B()); // ambiguous (up and down conversion)
 >z=x.g(new O.B()) : O.C
 >z : string
+>类型别名 :=> 文字
 >x.g(new O.B()) : O.C
 >x.g : { (n1: number, n2: number): number; (n: number): string; (a: O.A): O.C; (c: O.C): string; }
 >x : O.I
@@ -140,8 +166,11 @@ z=x.g(new O.B()); // ambiguous (up and down conversion)
 
 z=x.h(2,2); // no match
 >z=x.h(2,2) : any
+>类型别名 :=> 任意
 >z : string
+>类型别名 :=> 文字
 >x.h(2,2) : any
+>类型别名 :=> 任意
 >x.h : { (s1: string, s2: number): string; (s1: number, s2: string): number; }
 >x : O.I
 >h : { (s1: string, s2: number): string; (s1: number, s2: string): number; }
@@ -150,8 +179,11 @@ z=x.h(2,2); // no match
 
 z=x.h("hello",0); // good
 >z=x.h("hello",0) : string
+>类型别名 :=> 文字
 >z : string
+>类型别名 :=> 文字
 >x.h("hello",0) : string
+>类型别名 :=> 文字
 >x.h : { (s1: string, s2: number): string; (s1: number, s2: string): number; }
 >x : O.I
 >h : { (s1: string, s2: number): string; (s1: number, s2: string): number; }

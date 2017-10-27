@@ -10,19 +10,25 @@ class B { bar() { }}
 function f(x) { return x; }
 >f : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 function g<T, U>(x) { return f(x); }
 >g : <T, U>(x: any) => any
 >T : T
 >U : U
 >x : any
+>类型别名 :=> 任意
 >f(x) : any
+>类型别名 :=> 任意
 >f : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
 g<A, B>(7)
 >g<A, B>(7) : any
+>类型别名 :=> 任意
 >g : <T, U>(x: any) => any
 >A : A
 >B : B
@@ -30,8 +36,10 @@ g<A, B>(7)
 
 f(g<A, B>(7));
 >f(g<A, B>(7)) : any
+>类型别名 :=> 任意
 >f : (x: any) => any
 >g<A, B>(7) : any
+>类型别名 :=> 任意
 >g : <T, U>(x: any) => any
 >A : A
 >B : B
@@ -39,23 +47,30 @@ f(g<A, B>(7));
 
 f(g < A, B > 7);
 >f(g < A, B > 7) : any
+>类型别名 :=> 任意
 >f : (x: any) => any
 >g < A : boolean
+>类型别名 :=> 真假
 >g : <T, U>(x: any) => any
 >A : typeof A
 >B > 7 : boolean
+>类型别名 :=> 真假
 >B : typeof B
 >7 : 7
 
 f(g < A, B > +(7));
 >f(g < A, B > +(7)) : any
+>类型别名 :=> 任意
 >f : (x: any) => any
 >g < A : boolean
+>类型别名 :=> 真假
 >g : <T, U>(x: any) => any
 >A : typeof A
 >B > +(7) : boolean
+>类型别名 :=> 真假
 >B : typeof B
 >+(7) : number
+>类型别名 :=> 数字
 >(7) : 7
 >7 : 7
 

@@ -5,6 +5,7 @@ declare module M {
     interface iBar { t: any; }
 >iBar : iBar
 >t : any
+>类型别名 :=> 任意
 
     interface iFoo extends iBar {
 >iFoo : iFoo
@@ -12,6 +13,7 @@ declare module M {
 
         s: any;
 >s : any
+>类型别名 :=> 任意
     }
 
     class cFoo {
@@ -19,11 +21,13 @@ declare module M {
 
         t: any;
 >t : any
+>类型别名 :=> 任意
     }
 
     var foo: { [index: any]; }; // expect an error here
 >foo : {}
 >index : any
+>类型别名 :=> 任意
 }
 
 interface myInt {
@@ -40,6 +44,7 @@ var strArray: string[] = [myVar.voidFn()];
 >strArray : string[]
 >[myVar.voidFn()] : void[]
 >myVar.voidFn() : void
+>类型别名 :=> 无值
 >myVar.voidFn : () => void
 >myVar : myInt
 >voidFn : () => void
@@ -60,22 +65,28 @@ function isEmpty(l: { length: number }) {
 >isEmpty : (l: { length: number; }) => boolean
 >l : { length: number; }
 >length : number
+>类型别名 :=> 数字
 
     return l.length === 0;
 >l.length === 0 : boolean
+>类型别名 :=> 真假
 >l.length : number
+>类型别名 :=> 数字
 >l : { length: number; }
 >length : number
+>类型别名 :=> 数字
 >0 : 0
 }
 
 isEmpty([]);
 >isEmpty([]) : boolean
+>类型别名 :=> 真假
 >isEmpty : (l: { length: number; }) => boolean
 >[] : undefined[]
 
 isEmpty(new Array(3));
 >isEmpty(new Array(3)) : boolean
+>类型别名 :=> 真假
 >isEmpty : (l: { length: number; }) => boolean
 >new Array(3) : any[]
 >Array : ArrayConstructor
@@ -83,6 +94,7 @@ isEmpty(new Array(3));
 
 isEmpty(new Array<string>(3));
 >isEmpty(new Array<string>(3)) : boolean
+>类型别名 :=> 真假
 >isEmpty : (l: { length: number; }) => boolean
 >new Array<string>(3) : string[]
 >Array : ArrayConstructor
@@ -90,6 +102,7 @@ isEmpty(new Array<string>(3));
 
 isEmpty(['a']);
 >isEmpty(['a']) : boolean
+>类型别名 :=> 真假
 >isEmpty : (l: { length: number; }) => boolean
 >['a'] : string[]
 >'a' : "a"

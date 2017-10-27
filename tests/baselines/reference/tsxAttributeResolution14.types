@@ -1,6 +1,7 @@
 === tests/cases/conformance/jsx/react.d.ts ===
 declare module JSX {
 >JSX : any
+>类型别名 :=> 任意
 
 	interface Element { }
 >Element : Element
@@ -10,10 +11,12 @@ declare module JSX {
 
         div: any;
 >div : any
+>类型别名 :=> 任意
 	}
     interface ElementAttributesProperty { prop: any }
 >ElementAttributesProperty : ElementAttributesProperty
 >prop : any
+>类型别名 :=> 任意
 }
 
 === tests/cases/conformance/jsx/file.tsx ===
@@ -22,9 +25,11 @@ interface IProps {
 
   primaryText: string,
 >primaryText : string
+>类型别名 :=> 文字
 
   [propName: string]: string | number
 >propName : string
+>类型别名 :=> 文字
 }
 
 function VerticalNavMenuItem(prop: IProps) {
@@ -35,7 +40,9 @@ function VerticalNavMenuItem(prop: IProps) {
   return <div>props.primaryText</div>
 ><div>props.primaryText</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
 }
 
 function VerticalNav() {
@@ -47,31 +54,39 @@ function VerticalNav() {
     <div>
 ><div>      <VerticalNavMenuItem primaryText={2} />  // error      <VerticalNavMenuItem justRandomProp={2} primaryText={"hello"} />  // ok      <VerticalNavMenuItem justRandomProp1={true} primaryText={"hello"} />  // error    </div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 
       <VerticalNavMenuItem primaryText={2} />  // error
 ><VerticalNavMenuItem primaryText={2} /> : JSX.Element
 >VerticalNavMenuItem : (prop: IProps) => JSX.Element
 >primaryText : number
+>类型别名 :=> 数字
 >2 : 2
 
       <VerticalNavMenuItem justRandomProp={2} primaryText={"hello"} />  // ok
 ><VerticalNavMenuItem justRandomProp={2} primaryText={"hello"} /> : JSX.Element
 >VerticalNavMenuItem : (prop: IProps) => JSX.Element
 >justRandomProp : number
+>类型别名 :=> 数字
 >2 : 2
 >primaryText : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
       <VerticalNavMenuItem justRandomProp1={true} primaryText={"hello"} />  // error
 ><VerticalNavMenuItem justRandomProp1={true} primaryText={"hello"} /> : JSX.Element
 >VerticalNavMenuItem : (prop: IProps) => JSX.Element
 >justRandomProp1 : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >primaryText : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 
     </div>
 >div : any
+>类型别名 :=> 任意
 
   )
 } 

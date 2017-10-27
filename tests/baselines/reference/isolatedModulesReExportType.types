@@ -2,9 +2,11 @@
 // Error, can't re-export something that's only a type.
 export { T } from "./exportT";
 >T : any
+>类型别名 :=> 任意
 
 export import T2 = require("./exportEqualsT");
 >T2 : any
+>类型别名 :=> 任意
 
 // OK, has a value side
 export { C } from "./exportValue";
@@ -20,19 +22,25 @@ export { NS };
 // OK, syntactically clear that a type is being re-exported.
 export type T3 = T;
 >T3 : number
+>类型别名 :=> 数字
 >T : number
+>类型别名 :=> 数字
 
 // Error, not clear (to an isolated module) whether `T4` is a type.
 import { T } from "./exportT";
 >T : any
+>类型别名 :=> 任意
 
 export { T as T4 };
 >T : any
+>类型别名 :=> 任意
 >T4 : any
+>类型别名 :=> 任意
 
 === /exportT.ts ===
 export type T = number;
 >T : number
+>类型别名 :=> 数字
 
 === /exportValue.ts ===
 export class C {}
@@ -41,7 +49,9 @@ export class C {}
 === /exportEqualsT.ts ===
 declare type T = number;
 >T : number
+>类型别名 :=> 数字
 
 export = T;
 >T : number
+>类型别名 :=> 数字
 

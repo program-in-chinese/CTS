@@ -1,72 +1,93 @@
 === tests/cases/compiler/transformsElideNullUndefinedType.ts ===
 var v0: null;
 >v0 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var v1: undefined;
 >v1 : undefined
+>类型别名 :=> 未定
 
 function f0(): null { return null; }
 >f0 : () => null
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 function f1(): undefined { return undefined; }
 >f1 : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 var f2 = function (): null { return null; }
 >f2 : () => null
 >function (): null { return null; } : () => null
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var f3 = function (): undefined { return undefined; }
 >f3 : () => undefined
 >function (): undefined { return undefined; } : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 var f4 = (): null => null;
 >f4 : () => null
 >(): null => null : () => null
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var f5 = (): undefined => undefined;
 >f5 : () => undefined
 >(): undefined => undefined : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
 function f6(p0: null) { }
 >f6 : (p0: null) => void
 >p0 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 function f7(p1: undefined) { }
 >f7 : (p1: undefined) => void
 >p1 : undefined
+>类型别名 :=> 未定
 
 var f8 = function (p2: null) { }
 >f8 : (p2: null) => void
 >function (p2: null) { } : (p2: null) => void
 >p2 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var f9 = function (p3: undefined) { }
 >f9 : (p3: undefined) => void
 >function (p3: undefined) { } : (p3: undefined) => void
 >p3 : undefined
+>类型别名 :=> 未定
 
 var f10 = (p4: null) => { }
 >f10 : (p4: null) => void
 >(p4: null) => { } : (p4: null) => void
 >p4 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var f11 = (p5: undefined) => { }
 >f11 : (p5: undefined) => void
 >(p5: undefined) => { } : (p5: undefined) => void
 >p5 : undefined
+>类型别名 :=> 未定
 
 class C1 {
 >C1 : C1
@@ -74,58 +95,80 @@ class C1 {
     m0(): null { return null; }
 >m0 : () => null
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
     m1(): undefined { return undefined; }
 >m1 : () => undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
     m3(p6: null) { }
 >m3 : (p6: null) => void
 >p6 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
     m4(p7: undefined) { }
 >m4 : (p7: undefined) => void
 >p7 : undefined
+>类型别名 :=> 未定
 
     get a0(): null { return null; }
 >a0 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
     get a1(): undefined { return undefined; }
 >a1 : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
     set a2(p8: null) { }
 >a2 : null
+>类型别名 :=> 空值
 >p8 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
     set a3(p9: undefined) { }
 >a3 : undefined
+>类型别名 :=> 未定
 >p9 : undefined
+>类型别名 :=> 未定
 }
 
 class C2 { constructor(p10: null) { } }
 >C2 : C2
 >p10 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 class C3 { constructor(p11: undefined) { } }
 >C3 : C3
 >p11 : undefined
+>类型别名 :=> 未定
 
 class C4 {
 >C4 : C4
 
     f1;
 >f1 : any
+>类型别名 :=> 任意
 
     constructor(p12: null) { }
 >p12 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 }
 
 class C5 {
@@ -133,21 +176,26 @@ class C5 {
 
     f2;
 >f2 : any
+>类型别名 :=> 任意
 
     constructor(p13: undefined) { }
 >p13 : undefined
+>类型别名 :=> 未定
 }
 
 var C6 = class { constructor(p12: null) { } }
 >C6 : typeof C6
 >class { constructor(p12: null) { } } : typeof C6
 >p12 : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 var C7 = class { constructor(p13: undefined) { } }
 >C7 : typeof C7
 >class { constructor(p13: undefined) { } } : typeof C7
 >p13 : undefined
+>类型别名 :=> 未定
 
 declare function fn<T>();
 >fn : <T>() => any
@@ -155,11 +203,14 @@ declare function fn<T>();
 
 fn<null>();
 >fn<null>() : any
+>类型别名 :=> 任意
 >fn : <T>() => any
 >null : null
+>类型别名 :=> 空值
 
 fn<undefined>();
 >fn<undefined>() : any
+>类型别名 :=> 任意
 >fn : <T>() => any
 
 declare class D<T> {}
@@ -170,6 +221,7 @@ new D<null>();
 >new D<null>() : D<null>
 >D : typeof D
 >null : null
+>类型别名 :=> 空值
 
 new D<undefined>();
 >new D<undefined>() : D<undefined>

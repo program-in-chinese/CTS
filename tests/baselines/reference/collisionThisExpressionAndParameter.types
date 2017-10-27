@@ -7,16 +7,20 @@ class Foo {
 
         var _this = 10; // Local var. No this capture in x(), so no conflict.
 >_this : number
+>类型别名 :=> 数字
 >10 : 10
 
         function inner(_this: number) { // Error 
 >inner : (_this: number) => (x: any) => any
 >_this : number
+>类型别名 :=> 数字
 
             return x => this;   // New scope.  So should inject new _this capture into function inner
 >x => this : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
         }
     }
     y() {
@@ -26,16 +30,19 @@ class Foo {
 >lamda : (_this: number) => (x: any) => this
 >(_this: number) => { // Error             return x => this;   // New scope.  So should inject new _this capture        } : (_this: number) => (x: any) => this
 >_this : number
+>类型别名 :=> 数字
 
             return x => this;   // New scope.  So should inject new _this capture
 >x => this : (x: any) => this
 >x : any
+>类型别名 :=> 任意
 >this : this
         }
     }
     z(_this: number) { // Error 
 >z : (_this: number) => void
 >_this : number
+>类型别名 :=> 数字
 
         var lambda = () => {
 >lambda : () => (x: any) => this
@@ -44,6 +51,7 @@ class Foo {
             return x => this;   // New scope.  So should inject new _this capture
 >x => this : (x: any) => this
 >x : any
+>类型别名 :=> 任意
 >this : this
         }
     }
@@ -53,11 +61,13 @@ class Foo {
 
         var _this = 10; // Local var. No this capture in x(), so no conflict.
 >_this : number
+>类型别名 :=> 数字
 >10 : 10
 
         function inner(_this: number) { // No Error 
 >inner : (_this: number) => void
 >_this : number
+>类型别名 :=> 数字
         }
     }
     y1() {
@@ -67,11 +77,13 @@ class Foo {
 >lamda : (_this: number) => void
 >(_this: number) => { // No Error         } : (_this: number) => void
 >_this : number
+>类型别名 :=> 数字
         }
     }
     z1(_this: number) { // No Error 
 >z1 : (_this: number) => void
 >_this : number
+>类型别名 :=> 数字
 
         var lambda = () => {
 >lambda : () => void
@@ -84,6 +96,7 @@ class Foo1 {
 
     constructor(_this: number) { // Error
 >_this : number
+>类型别名 :=> 数字
 
         var x2 = {
 >x2 : { doStuff: (callback: any) => () => any; }
@@ -93,11 +106,14 @@ class Foo1 {
 >doStuff : (callback: any) => () => any
 >(callback) => () => {                return callback(this);            } : (callback: any) => () => any
 >callback : any
+>类型别名 :=> 任意
 >() => {                return callback(this);            } : () => any
 
                 return callback(this);
 >callback(this) : any
+>类型别名 :=> 任意
 >callback : any
+>类型别名 :=> 任意
 >this : this
             }
         }
@@ -109,22 +125,29 @@ declare var console: {
     log(msg: any);
 >log : (msg: any) => any
 >msg : any
+>类型别名 :=> 任意
 }
 
 function f1(_this: number) {
 >f1 : (_this: number) => void
 >_this : number
+>类型别名 :=> 数字
 
     x => { console.log(this.x); };
 >x => { console.log(this.x); } : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 >console.log(this.x) : any
+>类型别名 :=> 任意
 >console.log : (msg: any) => any
 >console : { log(msg: any): any; }
 >log : (msg: any) => any
 >this.x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 }
 
 declare class Foo2 {
@@ -132,26 +155,32 @@ declare class Foo2 {
 
     constructor(_this: number); // no error - no code gen
 >_this : number
+>类型别名 :=> 数字
 
     z(_this: number); // no error - no code gen
 >z : (_this: number) => any
 >_this : number
+>类型别名 :=> 数字
 }
 declare function f2(_this: number); // no error
 >f2 : (_this: number) => any
 >_this : number
+>类型别名 :=> 数字
 
 class Foo3 {
 >Foo3 : Foo3
 
     constructor(_this: string); // no code gen - no error
 >_this : string
+>类型别名 :=> 文字
 
     constructor(_this: number); // no code gen - no error
 >_this : number
+>类型别名 :=> 数字
 
     constructor(_this: any) { // Error
 >_this : any
+>类型别名 :=> 任意
 
         var x2 = {
 >x2 : { doStuff: (callback: any) => () => any; }
@@ -161,11 +190,14 @@ class Foo3 {
 >doStuff : (callback: any) => () => any
 >(callback) => () => {                return callback(this);            } : (callback: any) => () => any
 >callback : any
+>类型别名 :=> 任意
 >() => {                return callback(this);            } : () => any
 
                 return callback(this);
 >callback(this) : any
+>类型别名 :=> 任意
 >callback : any
+>类型别名 :=> 任意
 >this : this
             }
         }
@@ -174,14 +206,17 @@ class Foo3 {
     z(_this: string); // no code gen - no error
 >z : { (_this: string): any; (_this: number): any; }
 >_this : string
+>类型别名 :=> 文字
 
     z(_this: number); // no code gen - no error
 >z : { (_this: string): any; (_this: number): any; }
 >_this : number
+>类型别名 :=> 数字
 
     z(_this: any) { // Error 
 >z : { (_this: string): any; (_this: number): any; }
 >_this : any
+>类型别名 :=> 任意
 
         var lambda = () => {
 >lambda : () => (x: any) => this
@@ -190,6 +225,7 @@ class Foo3 {
             return x => this;   // New scope.  So should inject new _this capture
 >x => this : (x: any) => this
 >x : any
+>类型别名 :=> 任意
 >this : this
         }
     }
@@ -200,30 +236,39 @@ declare var console: {
     log(msg: any);
 >log : (msg: any) => any
 >msg : any
+>类型别名 :=> 任意
 }
 
 function f3(_this: number); // no code gen - no error
 >f3 : { (_this: number): any; (_this: string): any; }
 >_this : number
+>类型别名 :=> 数字
 
 function f3(_this: string); // no code gen - no error
 >f3 : { (_this: number): any; (_this: string): any; }
 >_this : string
+>类型别名 :=> 文字
 
 function f3(_this: any) {
 >f3 : { (_this: number): any; (_this: string): any; }
 >_this : any
+>类型别名 :=> 任意
 
     x => { console.log(this.x); };
 >x => { console.log(this.x); } : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 >console.log(this.x) : any
+>类型别名 :=> 任意
 >console.log : (msg: any) => any
 >console : { log(msg: any): any; }
 >log : (msg: any) => any
 >this.x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 }
 
 declare class Foo4 {
@@ -231,24 +276,30 @@ declare class Foo4 {
 
     constructor(_this: string); // no code gen - no error
 >_this : string
+>类型别名 :=> 文字
 
     constructor(_this: number); // no code gen - no error
 >_this : number
+>类型别名 :=> 数字
 
     z(_this: string); // no code gen - no error
 >z : { (_this: string): any; (_this: number): any; }
 >_this : string
+>类型别名 :=> 文字
 
     z(_this: number); // no code gen - no error
 >z : { (_this: string): any; (_this: number): any; }
 >_this : number
+>类型别名 :=> 数字
 }
 
 declare function f4(_this: number); // no code gen - no error
 >f4 : { (_this: number): any; (_this: string): any; }
 >_this : number
+>类型别名 :=> 数字
 
 declare function f4(_this: string); // no code gen - no error
 >f4 : { (_this: number): any; (_this: string): any; }
 >_this : string
+>类型别名 :=> 文字
 

@@ -9,9 +9,11 @@ interface Item {
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 
     description?: string;
 >description : string
+>类型别名 :=> 文字
 }
 
 declare function foo(item: Item): string;
@@ -22,54 +24,74 @@ declare function foo(item: Item): string;
 declare function foo(item: any): number;
 >foo : { (item: Item): string; (item: any): number; }
 >item : any
+>类型别名 :=> 任意
 
 var x = foo({ name: "Sprocket" });
 >x : string
+>类型别名 :=> 文字
 >foo({ name: "Sprocket" }) : string
+>类型别名 :=> 文字
 >foo : { (item: Item): string; (item: any): number; }
 >{ name: "Sprocket" } : { name: string; }
 >name : string
+>类型别名 :=> 文字
 >"Sprocket" : "Sprocket"
 
 var x: string;
 >x : string
+>类型别名 :=> 文字
 
 var y = foo({ name: "Sprocket", description: "Bumpy wheel" });
 >y : string
+>类型别名 :=> 文字
 >foo({ name: "Sprocket", description: "Bumpy wheel" }) : string
+>类型别名 :=> 文字
 >foo : { (item: Item): string; (item: any): number; }
 >{ name: "Sprocket", description: "Bumpy wheel" } : { name: string; description: string; }
 >name : string
+>类型别名 :=> 文字
 >"Sprocket" : "Sprocket"
 >description : string
+>类型别名 :=> 文字
 >"Bumpy wheel" : "Bumpy wheel"
 
 var y: string;
 >y : string
+>类型别名 :=> 文字
 
 var z = foo({ name: "Sprocket", description: false });
 >z : number
+>类型别名 :=> 数字
 >foo({ name: "Sprocket", description: false }) : number
+>类型别名 :=> 数字
 >foo : { (item: Item): string; (item: any): number; }
 >{ name: "Sprocket", description: false } : { name: string; description: boolean; }
 >name : string
+>类型别名 :=> 文字
 >"Sprocket" : "Sprocket"
 >description : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
 var z: number;
 >z : number
+>类型别名 :=> 数字
 
 var w = foo({ a: 10 });
 >w : number
+>类型别名 :=> 数字
 >foo({ a: 10 }) : number
+>类型别名 :=> 数字
 >foo : { (item: Item): string; (item: any): number; }
 >{ a: 10 } : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >10 : 10
 
 var w: number;
 >w : number
+>类型别名 :=> 数字
 
 declare function bar<T>(param: { x?: T }): T;
 >bar : <T>(param: { x?: T; }) => T

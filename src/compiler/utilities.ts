@@ -5709,6 +5709,7 @@ namespace ts {
 }
 
 namespace ts {
+
     export function 创建空对象<T>(): T {
         let 结果 = Object.create(/** o */null)
         结果.__ = undefined
@@ -5762,20 +5763,21 @@ namespace ts {
 
     export type 可比较名称类型 = Identifier | Symbol | StringLiteralType | string | __String
 
-    export function 是标识符(标识符参数: 可比较名称类型): 标识符参数 is Identifier {
-        if (标识符参数 && (标识符参数 as any).kind) {
-            return isIdentifier(标识符参数 as Node)
+    function 是标识符(标识符参数: 可比较名称类型): 标识符参数 is Identifier {
+        if (标识符参数) {
+            return !!(标识符参数 as Identifier).escapedText
         }
+        return false;
     }
 
-    export function 是符号(符号参数: 可比较名称类型): 符号参数 is Symbol {
+    function 是符号(符号参数: 可比较名称类型): 符号参数 is Symbol {
         if (符号参数 && !(符号参数 as any).kind) {
             return !!(符号参数 as any).escapedName
         }
         return false;
     }
 
-    export function 是字面量类型(类型参数: 可比较名称类型): 类型参数 is StringLiteralType {
+    function 是字面量类型(类型参数: 可比较名称类型): 类型参数 is StringLiteralType {
         if (类型参数 && (类型参数 as any).flags && ((类型参数 as any).flags & TypeFlags.StringLiteral)) {
             return true;
         }
@@ -5831,12 +5833,15 @@ namespace ts {
 
     function 对象名称是交叉相等的(左值: 文本名称, 右值: 文本名称) {
         if (左值.名称 === 右值.名称) {
+           // console.log("真的1", 左值.名称, 右值.名称)
             return true;
         }
         else if (右值.名称 && 左值.别名 === 右值.名称) {
+            console.log("真的2", 左值.别名, 右值.名称)
             return true;
         }
         else if (左值.名称 && 右值.别名 === 左值.名称) {
+            console.log("真的3", 右值.别名,左值.名称)
             return true;
         }
         return false;

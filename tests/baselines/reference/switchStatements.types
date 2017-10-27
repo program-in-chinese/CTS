@@ -5,6 +5,7 @@ module M {
     export function fn(x: number) {
 >fn : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 
         return '';
 >'' : ""
@@ -13,9 +14,11 @@ module M {
 
 var x: any;
 >x : any
+>类型别名 :=> 任意
 
 switch (x) {
 >x : any
+>类型别名 :=> 任意
 
     case '':
 >'' : ""
@@ -25,12 +28,15 @@ switch (x) {
 
     case true:
 >true : true
+>类型别名 :=> 为真
 
     case null:
 >null : null
+>类型别名 :=> 空值
 
     case undefined:
 >undefined : undefined
+>类型别名 :=> 未定
 
     case new Date(12):
 >new Date(12) : Date
@@ -53,6 +59,7 @@ switch (x) {
     case { id: 12 }:
 >{ id: 12 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >12 : 12
 
     case['a']:
@@ -62,6 +69,7 @@ switch (x) {
     case typeof x:
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : any
+>类型别名 :=> 任意
 
     case typeof M:
 >typeof M : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
@@ -69,6 +77,7 @@ switch (x) {
 
     case M.fn(1):
 >M.fn(1) : string
+>类型别名 :=> 文字
 >M.fn : (x: number) => string
 >M : typeof M
 >fn : (x: number) => string
@@ -78,14 +87,17 @@ switch (x) {
 ><T>(x: number) => '' : <T>(x: number) => string
 >T : T
 >x : number
+>类型别名 :=> 数字
 >'' : ""
 
     case (<T>(x: number) => '')(2):
 >(<T>(x: number) => '')(2) : string
+>类型别名 :=> 文字
 >(<T>(x: number) => '') : <T>(x: number) => string
 ><T>(x: number) => '' : <T>(x: number) => string
 >T : T
 >x : number
+>类型别名 :=> 数字
 >'' : ""
 >2 : 2
 
@@ -96,11 +108,13 @@ switch (x) {
 class C { id: number; }
 >C : C
 >id : number
+>类型别名 :=> 数字
 
 class D extends C { name: string }
 >D : D
 >C : C
 >name : string
+>类型别名 :=> 文字
 
 switch (new C()) {
 >new C() : C
@@ -113,8 +127,10 @@ switch (new C()) {
     case { id: 12, name: '' }:
 >{ id: 12, name: '' } : { id: number; name: string; }
 >id : number
+>类型别名 :=> 数字
 >12 : 12
 >name : string
+>类型别名 :=> 文字
 >'' : ""
 
     case new C():
@@ -130,12 +146,15 @@ switch (12) { }
 
 switch (true) { }
 >true : true
+>类型别名 :=> 为真
 
 switch (null) { }
 >null : null
+>类型别名 :=> 空值
 
 switch (undefined) { }
 >undefined : undefined
+>类型别名 :=> 未定
 
 switch (new Date(12)) { }
 >new Date(12) : Date
@@ -158,6 +177,7 @@ switch ({}) { }
 switch ({ id: 12 }) { }
 >{ id: 12 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >12 : 12
 
 switch (['a']) { }
@@ -168,10 +188,12 @@ switch (<T>(x: number) => '') { }
 ><T>(x: number) => '' : <T>(x: number) => string
 >T : T
 >x : number
+>类型别名 :=> 数字
 >'' : ""
 
 switch ((<T>(x: T) => '')(1)) { }
 >(<T>(x: T) => '')(1) : string
+>类型别名 :=> 文字
 >(<T>(x: T) => '') : <T>(x: T) => string
 ><T>(x: T) => '' : <T>(x: T) => string
 >T : T

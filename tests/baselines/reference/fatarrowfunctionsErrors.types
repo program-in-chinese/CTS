@@ -1,50 +1,72 @@
 === tests/cases/compiler/fatarrowfunctionsErrors.ts ===
 foo((...Far:any[])=>{return 0;})
 >foo((...Far:any[])=>{return 0;}) : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 >(...Far:any[])=>{return 0;} : (...Far: any[]) => number
 >Far : any[]
 >0 : 0
 
 foo((1)=>{return 0;}); 
 >foo((1)=>{return 0;}) : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 >(1) : 1
 >1 : 1
 >{return 0;} : { return: number; }
 >return : number
+>类型别名 :=> 数字
 >0 : 0
 
 foo((x?)=>{return x;})
 >foo((x?)=>{return x;}) : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 >(x?)=>{return x;} : (x?: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 foo((x=0)=>{return x;})
 >foo((x=0)=>{return x;}) : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 >(x=0)=>{return x;} : (x?: number) => number
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >x : number
+>类型别名 :=> 数字
 
 var y = x:number => x*x;
 >y : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >number : any
+>类型别名 :=> 任意
 >x*x : number
+>类型别名 :=> 数字
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 false? (() => null): null;
 >false? (() => null): null : () => any
 >false : false
+>类型别名 :=> 为假
 >(() => null) : () => any
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 // missing fatarrow
 var x1 = () :void {};
@@ -55,11 +77,13 @@ var x2 = (a:number) :void {};
 >x2 : (a: number) => void
 >(a:number) :void {} : (a: number) => void
 >a : number
+>类型别名 :=> 数字
 
 var x3 = (a:number) {};
 >x3 : (a: number) => void
 >(a:number) {} : (a: number) => void
 >a : number
+>类型别名 :=> 数字
 
 var x4= (...a: any[]) { };
 >x4 : (...a: any[]) => void

@@ -5,6 +5,7 @@ let x: string | number | boolean | RegExp;
 
 let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 x = /a/;
 >x = /a/ : RegExp
@@ -13,14 +14,19 @@ x = /a/;
 
 if (x /* RegExp */, (x = true)) {
 >x /* RegExp */, (x = true) : true
+>类型别名 :=> 为真
 >x : RegExp
 >(x = true) : true
+>类型别名 :=> 为真
 >x = true : true
+>类型别名 :=> 为真
 >x : string | number | boolean | RegExp
 >true : true
+>类型别名 :=> 为真
 
     x; // boolean
 >x : true
+>类型别名 :=> 为真
 
     x = "";
 >x = "" : ""
@@ -30,6 +36,7 @@ if (x /* RegExp */, (x = true)) {
 else {
     x; // boolean
 >x : true
+>类型别名 :=> 为真
 
     x = 42;
 >x = 42 : 42
@@ -47,6 +54,7 @@ function a() {
 
     if (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x = 42;
 >x = 42 : 42
@@ -63,6 +71,7 @@ function a() {
     }
     x; // number
 >x : number
+>类型别名 :=> 数字
 }
 function b() {
 >b : () => void
@@ -72,6 +81,7 @@ function b() {
 
     if (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x = 42;
 >x = 42 : 42
@@ -89,6 +99,7 @@ function b() {
     }
     x; // string
 >x : string
+>类型别名 :=> 文字
 }
 function c<T>(data: string | T): T {
 >c : <T>(data: string | T) => T
@@ -99,16 +110,19 @@ function c<T>(data: string | T): T {
 
     if (typeof data === 'string') {
 >typeof data === 'string' : boolean
+>类型别名 :=> 真假
 >typeof data : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >data : string | T
 >'string' : "string"
 
         return JSON.parse(data);
 >JSON.parse(data) : any
+>类型别名 :=> 任意
 >JSON.parse : (text: string, reviver?: (key: any, value: any) => any) => any
 >JSON : JSON
 >parse : (text: string, reviver?: (key: any, value: any) => any) => any
 >data : string
+>类型别名 :=> 文字
     }
     else {
         return data;
@@ -123,6 +137,7 @@ function d<T extends string>(data: string | T): never {
 
     if (typeof data === 'string') {
 >typeof data === 'string' : boolean
+>类型别名 :=> 真假
 >typeof data : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >data : string | T
 >'string' : "string"
@@ -135,6 +150,7 @@ function d<T extends string>(data: string | T): never {
     else {
         return data;
 >data : never
+>类型别名 :=> 不及
     }
 }
 

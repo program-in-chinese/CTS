@@ -3,6 +3,7 @@
 
 let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 export type Optional<a> = Some<a> | None;
 >Optional : Optional<a>
@@ -14,6 +15,7 @@ export type Optional<a> = Some<a> | None;
 export interface None { readonly none: string; }
 >None : None
 >none : string
+>类型别名 :=> 文字
 
 export interface Some<a> { readonly some: a; }
 >Some : Some<a>
@@ -26,6 +28,7 @@ export const none : None = { none: '' };
 >None : None
 >{ none: '' } : { none: string; }
 >none : string
+>类型别名 :=> 文字
 >'' : ""
 
 export function isSome<a>(value: Optional<a>): value is Some<a> {
@@ -35,11 +38,13 @@ export function isSome<a>(value: Optional<a>): value is Some<a> {
 >Optional : Optional<a>
 >a : a
 >value : any
+>类型别名 :=> 任意
 >Some : Some<a>
 >a : a
 
     return 'some' in value;
 >'some' in value : boolean
+>类型别名 :=> 真假
 >'some' : "some"
 >value : Optional<a>
 }
@@ -72,6 +77,7 @@ export function fn<r>(makeSome: () => r): void {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         result;  // Some<r> | None
 >result : Optional<r>
@@ -83,6 +89,7 @@ export function fn<r>(makeSome: () => r): void {
 >someFrom : <a>(some: a) => { some: a; }
 >isSome(result) ? result.some : makeSome() : r
 >isSome(result) : boolean
+>类型别名 :=> 真假
 >isSome : <a>(value: Optional<a>) => value is Some<a>
 >result : Optional<r>
 >result.some : r
@@ -105,29 +112,37 @@ function foo1() {
 
     x;  // number
 >x : number
+>类型别名 :=> 数字
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x;  // number, then string | number
 >x : string | number
 
         x = typeof x === "string" ? x.slice() : "abc";
 >x = typeof x === "string" ? x.slice() : "abc" : string
+>类型别名 :=> 文字
 >x : string | number | boolean
 >typeof x === "string" ? x.slice() : "abc" : string
+>类型别名 :=> 文字
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"
 >x.slice() : string
+>类型别名 :=> 文字
 >x.slice : (start?: number | undefined, end?: number | undefined) => string
 >x : string
+>类型别名 :=> 文字
 >slice : (start?: number | undefined, end?: number | undefined) => string
 >"abc" : "abc"
 
         x;  // string
 >x : string
+>类型别名 :=> 文字
     }
     x;
 >x : string | number
@@ -142,25 +157,31 @@ function foo2() {
 
     x;  // number
 >x : number
+>类型别名 :=> 数字
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         x;  // number, then string | number
 >x : string | number
 
         if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"
 
             x = x.slice();
 >x = x.slice() : string
+>类型别名 :=> 文字
 >x : string | number | boolean
 >x.slice() : string
+>类型别名 :=> 文字
 >x.slice : (start?: number | undefined, end?: number | undefined) => string
 >x : string
+>类型别名 :=> 文字
 >slice : (start?: number | undefined, end?: number | undefined) => string
         }
         else {
@@ -171,6 +192,7 @@ function foo2() {
         }
         x;  // string
 >x : string
+>类型别名 :=> 文字
     }
     x;
 >x : string | number
@@ -184,18 +206,23 @@ function f1() {
     let x: string | number | undefined = undefined;
 >x : string | number | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
     x;  // undefined
 >x : undefined
+>类型别名 :=> 未定
 
     if (x) {
 >x : undefined
+>类型别名 :=> 未定
 
         x;  // string | number (guard as assertion)
 >x : never
+>类型别名 :=> 不及
     }
     x;  // string | number | undefined
 >x : undefined
+>类型别名 :=> 未定
 }
 
 function f2() {
@@ -204,21 +231,27 @@ function f2() {
     let x: string | number | undefined = undefined;
 >x : string | number | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
     x;  // undefined
 >x : undefined
+>类型别名 :=> 未定
 
     if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : undefined
+>类型别名 :=> 未定
 >"string" : "string"
 
         x;  // string (guard as assertion)
 >x : never
+>类型别名 :=> 不及
     }
     x;  // string | undefined
 >x : undefined
+>类型别名 :=> 未定
 }
 
 function f3() {
@@ -227,18 +260,23 @@ function f3() {
     let x: string | number | undefined = undefined;
 >x : string | number | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
     x;  // undefined
 >x : undefined
+>类型别名 :=> 未定
 
     if (!x) {
 >!x : true
+>类型别名 :=> 为真
 >x : undefined
+>类型别名 :=> 未定
 
         return;
     }
     x;  // string | number (guard as assertion)
 >x : never
+>类型别名 :=> 不及
 }
 
 function f4() {
@@ -247,21 +285,27 @@ function f4() {
     let x: string | number | undefined = undefined;
 >x : string | number | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
     x;  // undefined
 >x : undefined
+>类型别名 :=> 未定
 
     if (typeof x === "boolean") {
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : undefined
+>类型别名 :=> 未定
 >"boolean" : "boolean"
 
         x;  // nothing (boolean not in declared type)
 >x : never
+>类型别名 :=> 不及
     }
     x;  // undefined
 >x : undefined
+>类型别名 :=> 未定
 }
 
 function f5(x: string | number) {
@@ -270,17 +314,22 @@ function f5(x: string | number) {
 
     if (typeof x === "string" && typeof x === "number") {
 >typeof x === "string" && typeof x === "number" : boolean
+>类型别名 :=> 真假
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"
 >typeof x === "number" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string
+>类型别名 :=> 文字
 >"number" : "number"
 
         x;  // number (guard as assertion)
 >x : never
+>类型别名 :=> 不及
     }
     else {
         x;  // string | number
@@ -296,11 +345,14 @@ function f6() {
     let x: string | undefined | null;
 >x : string | null | undefined
 >null : null
+>类型别名 :=> 空值
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string | null | undefined
 >slice : (start?: number | undefined, end?: number | undefined) => string
 
@@ -311,32 +363,43 @@ function f6() {
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 >slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : string | null | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string | null | undefined
 >slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = null;
 >x = null : null
+>类型别名 :=> 空值
 >x : string | null | undefined
 >null : null
+>类型别名 :=> 空值
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string | null | undefined
 >slice : (start?: number | undefined, end?: number | undefined) => string
 
@@ -345,12 +408,16 @@ function f6() {
 >x : string | null | undefined
 ><undefined | null>undefined : null | undefined
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string | null | undefined
 >slice : (start?: number | undefined, end?: number | undefined) => string
 
@@ -362,8 +429,10 @@ function f6() {
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string | undefined
 >slice : (start?: number | undefined, end?: number | undefined) => string
 
@@ -372,12 +441,15 @@ function f6() {
 >x : string | null | undefined
 ><string | null>"" : string | null
 >null : null
+>类型别名 :=> 空值
 >"" : ""
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string | null
 >slice : (start?: number | undefined, end?: number | undefined) => string
 }
@@ -387,12 +459,16 @@ function f7() {
 
     let x: string;
 >x : string
+>类型别名 :=> 文字
 
     x!.slice();
 >x!.slice() : string
+>类型别名 :=> 文字
 >x!.slice : (start?: number | undefined, end?: number | undefined) => string
 >x! : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 >slice : (start?: number | undefined, end?: number | undefined) => string
 }
 

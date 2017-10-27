@@ -4,6 +4,7 @@
 function foo(x?: number = 1) { }
 >foo : (x?: number) => void
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 var f = function foo(x?: number = 1) { }
@@ -11,40 +12,49 @@ var f = function foo(x?: number = 1) { }
 >function foo(x?: number = 1) { } : (x?: number) => void
 >foo : (x?: number) => void
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 var f2 = (x: number, y? = 1) => { }
 >f2 : (x: number, y?: number) => void
 >(x: number, y? = 1) => { } : (x: number, y?: number) => void
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
 foo(1);
 >foo(1) : void
+>类型别名 :=> 无值
 >foo : (x?: number) => void
 >1 : 1
 
 foo();
 >foo() : void
+>类型别名 :=> 无值
 >foo : (x?: number) => void
 
 f(1);
 >f(1) : void
+>类型别名 :=> 无值
 >f : (x?: number) => void
 >1 : 1
 
 f();
 >f() : void
+>类型别名 :=> 无值
 >f : (x?: number) => void
 
 f2(1);
 >f2(1) : void
+>类型别名 :=> 无值
 >f2 : (x: number, y?: number) => void
 >1 : 1
 
 f2(1, 2);
 >f2(1, 2) : void
+>类型别名 :=> 无值
 >f2 : (x: number, y?: number) => void
 >1 : 1
 >2 : 2
@@ -55,6 +65,7 @@ class C {
     foo(x?: number = 1) { }
 >foo : (x?: number) => void
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 }
 
@@ -64,12 +75,14 @@ var c: C;
 
 c.foo();
 >c.foo() : void
+>类型别名 :=> 无值
 >c.foo : (x?: number) => void
 >c : C
 >foo : (x?: number) => void
 
 c.foo(1);
 >c.foo(1) : void
+>类型别名 :=> 无值
 >c.foo : (x?: number) => void
 >c : C
 >foo : (x?: number) => void
@@ -80,12 +93,15 @@ interface I {
 
     (x? = 1);
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     foo(x: number, y?: number = 1);
 >foo : (x: number, y?: number) => any
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 }
 
@@ -95,15 +111,18 @@ var i: I;
 
 i();
 >i() : any
+>类型别名 :=> 任意
 >i : I
 
 i(1);
 >i(1) : any
+>类型别名 :=> 任意
 >i : I
 >1 : 1
 
 i.foo(1);
 >i.foo(1) : any
+>类型别名 :=> 任意
 >i.foo : (x: number, y?: number) => any
 >i : I
 >foo : (x: number, y?: number) => any
@@ -111,6 +130,7 @@ i.foo(1);
 
 i.foo(1, 2);
 >i.foo(1, 2) : any
+>类型别名 :=> 任意
 >i.foo : (x: number, y?: number) => any
 >i : I
 >foo : (x: number, y?: number) => any
@@ -122,31 +142,37 @@ var a: {
 
     (x?: number = 1);
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     foo(x? = 1);
 >foo : (x?: number) => any
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 }
 
 a();
 >a() : any
+>类型别名 :=> 任意
 >a : { (x?: number): any; foo(x?: number): any; }
 
 a(1);
 >a(1) : any
+>类型别名 :=> 任意
 >a : { (x?: number): any; foo(x?: number): any; }
 >1 : 1
 
 a.foo();
 >a.foo() : any
+>类型别名 :=> 任意
 >a.foo : (x?: number) => any
 >a : { (x?: number): any; foo(x?: number): any; }
 >foo : (x?: number) => any
 
 a.foo(1);
 >a.foo(1) : any
+>类型别名 :=> 任意
 >a.foo : (x?: number) => any
 >a : { (x?: number): any; foo(x?: number): any; }
 >foo : (x?: number) => any
@@ -159,6 +185,7 @@ var b = {
     foo(x?: number = 1) { },
 >foo : (x?: number) => void
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     a: function foo(x: number, y?: number = '') { },
@@ -166,24 +193,29 @@ var b = {
 >function foo(x: number, y?: number = '') { } : (x: number, y?: number) => void
 >foo : (x: number, y?: number) => void
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >'' : ""
 
     b: (x?: any = '') => { }
 >b : (x?: any) => void
 >(x?: any = '') => { } : (x?: any) => void
 >x : any
+>类型别名 :=> 任意
 >'' : ""
 }
 
 b.foo();
 >b.foo() : void
+>类型别名 :=> 无值
 >b.foo : (x?: number) => void
 >b : { foo(x?: number): void; a: (x: number, y?: number) => void; b: (x?: any) => void; }
 >foo : (x?: number) => void
 
 b.foo(1);
 >b.foo(1) : void
+>类型别名 :=> 无值
 >b.foo : (x?: number) => void
 >b : { foo(x?: number): void; a: (x: number, y?: number) => void; b: (x?: any) => void; }
 >foo : (x?: number) => void
@@ -191,6 +223,7 @@ b.foo(1);
 
 b.a(1);
 >b.a(1) : void
+>类型别名 :=> 无值
 >b.a : (x: number, y?: number) => void
 >b : { foo(x?: number): void; a: (x: number, y?: number) => void; b: (x?: any) => void; }
 >a : (x: number, y?: number) => void
@@ -198,6 +231,7 @@ b.a(1);
 
 b.a(1, 2);
 >b.a(1, 2) : void
+>类型别名 :=> 无值
 >b.a : (x: number, y?: number) => void
 >b : { foo(x?: number): void; a: (x: number, y?: number) => void; b: (x?: any) => void; }
 >a : (x: number, y?: number) => void
@@ -206,12 +240,14 @@ b.a(1, 2);
 
 b.b();
 >b.b() : void
+>类型别名 :=> 无值
 >b.b : (x?: any) => void
 >b : { foo(x?: number): void; a: (x: number, y?: number) => void; b: (x?: any) => void; }
 >b : (x?: any) => void
 
 b.b(1);
 >b.b(1) : void
+>类型别名 :=> 无值
 >b.b : (x?: any) => void
 >b : { foo(x?: number): void; a: (x: number, y?: number) => void; b: (x?: any) => void; }
 >b : (x?: any) => void

@@ -2,86 +2,125 @@
 function f(addUndefined1 = "J", addUndefined2?: number) {
 >f : (addUndefined1?: string, addUndefined2?: number | undefined) => number
 >addUndefined1 : string
+>类型别名 :=> 文字
 >"J" : "J"
 >addUndefined2 : number | undefined
 
     return addUndefined1.length + (addUndefined2 || 0);
 >addUndefined1.length + (addUndefined2 || 0) : number
+>类型别名 :=> 数字
 >addUndefined1.length : number
+>类型别名 :=> 数字
 >addUndefined1 : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >(addUndefined2 || 0) : number
+>类型别名 :=> 数字
 >addUndefined2 || 0 : number
+>类型别名 :=> 数字
 >addUndefined2 : number | undefined
 >0 : 0
 }
 function g(addUndefined = "J", addDefined: number) {
 >g : (addUndefined: string | undefined, addDefined: number) => number
 >addUndefined : string
+>类型别名 :=> 文字
 >"J" : "J"
 >addDefined : number
+>类型别名 :=> 数字
 
     return addUndefined.length + addDefined;
 >addUndefined.length + addDefined : number
+>类型别名 :=> 数字
 >addUndefined.length : number
+>类型别名 :=> 数字
 >addUndefined : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >addDefined : number
+>类型别名 :=> 数字
 }
 let total = f() + f('a', 1) + f('b') + f(undefined, 2);
 >total : number
+>类型别名 :=> 数字
 >f() + f('a', 1) + f('b') + f(undefined, 2) : number
+>类型别名 :=> 数字
 >f() + f('a', 1) + f('b') : number
+>类型别名 :=> 数字
 >f() + f('a', 1) : number
+>类型别名 :=> 数字
 >f() : number
+>类型别名 :=> 数字
 >f : (addUndefined1?: string, addUndefined2?: number | undefined) => number
 >f('a', 1) : number
+>类型别名 :=> 数字
 >f : (addUndefined1?: string, addUndefined2?: number | undefined) => number
 >'a' : "a"
 >1 : 1
 >f('b') : number
+>类型别名 :=> 数字
 >f : (addUndefined1?: string, addUndefined2?: number | undefined) => number
 >'b' : "b"
 >f(undefined, 2) : number
+>类型别名 :=> 数字
 >f : (addUndefined1?: string, addUndefined2?: number | undefined) => number
 >undefined : undefined
+>类型别名 :=> 未定
 >2 : 2
 
 total = g('c', 3) + g(undefined, 4);
 >total = g('c', 3) + g(undefined, 4) : number
+>类型别名 :=> 数字
 >total : number
+>类型别名 :=> 数字
 >g('c', 3) + g(undefined, 4) : number
+>类型别名 :=> 数字
 >g('c', 3) : number
+>类型别名 :=> 数字
 >g : (addUndefined: string | undefined, addDefined: number) => number
 >'c' : "c"
 >3 : 3
 >g(undefined, 4) : number
+>类型别名 :=> 数字
 >g : (addUndefined: string | undefined, addDefined: number) => number
 >undefined : undefined
+>类型别名 :=> 未定
 >4 : 4
 
 function foo1(x: string = "string", b: number) {
 >foo1 : (x: string | undefined, b: number) => void
 >x : string
+>类型别名 :=> 文字
 >"string" : "string"
 >b : number
+>类型别名 :=> 数字
 
     x.length;
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 }
 
 function foo2(x = "string", b: number) {
 >foo2 : (x: string | undefined, b: number) => void
 >x : string
+>类型别名 :=> 文字
 >"string" : "string"
 >b : number
+>类型别名 :=> 数字
 
     x.length; // ok, should be string
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 }
 
 function foo3(x: string | undefined = "string", b: number) {
@@ -89,36 +128,47 @@ function foo3(x: string | undefined = "string", b: number) {
 >x : string | undefined
 >"string" : "string"
 >b : number
+>类型别名 :=> 数字
 
     x.length; // ok, should be string
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
     x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function foo4(x: string | undefined = undefined, b: number) {
 >foo4 : (x: string | undefined, b: number) => void
 >x : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >b : number
+>类型别名 :=> 数字
 
     x; // should be string | undefined
 >x : string | undefined
 
     x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 type OptionalNullableString = string | null | undefined;
 >OptionalNullableString : OptionalNullableString
 >null : null
+>类型别名 :=> 空值
 
 function allowsNull(val: OptionalNullableString = "") {
 >allowsNull : (val?: OptionalNullableString) => void
@@ -128,8 +178,10 @@ function allowsNull(val: OptionalNullableString = "") {
 
     val = null;
 >val = null : null
+>类型别名 :=> 空值
 >val : OptionalNullableString
 >null : null
+>类型别名 :=> 空值
 
     val = 'string and null are both ok';
 >val = 'string and null are both ok' : "string and null are both ok"
@@ -138,78 +190,105 @@ function allowsNull(val: OptionalNullableString = "") {
 }
 allowsNull(null); // still allows passing null
 >allowsNull(null) : void
+>类型别名 :=> 无值
 >allowsNull : (val?: OptionalNullableString) => void
 >null : null
+>类型别名 :=> 空值
 
 
 
 // .d.ts should have `string | undefined` for foo1, foo2, foo3 and foo4
 foo1(undefined, 1);
 >foo1(undefined, 1) : void
+>类型别名 :=> 无值
 >foo1 : (x: string | undefined, b: number) => void
 >undefined : undefined
+>类型别名 :=> 未定
 >1 : 1
 
 foo2(undefined, 1);
 >foo2(undefined, 1) : void
+>类型别名 :=> 无值
 >foo2 : (x: string | undefined, b: number) => void
 >undefined : undefined
+>类型别名 :=> 未定
 >1 : 1
 
 foo3(undefined, 1);
 >foo3(undefined, 1) : void
+>类型别名 :=> 无值
 >foo3 : (x: string | undefined, b: number) => void
 >undefined : undefined
+>类型别名 :=> 未定
 >1 : 1
 
 foo4(undefined, 1);
 >foo4(undefined, 1) : void
+>类型别名 :=> 无值
 >foo4 : (x: string | undefined, b: number) => void
 >undefined : undefined
+>类型别名 :=> 未定
 >1 : 1
 
 
 function removeUndefinedButNotFalse(x = true) {
 >removeUndefinedButNotFalse : (x?: boolean) => false | undefined
 >x : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
     if (x === false) {
 >x === false : boolean
+>类型别名 :=> 真假
 >x : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
         return x;
 >x : false
+>类型别名 :=> 为假
     }
 }
 
 declare const cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 function removeNothing(y = cond ? true : undefined) {
 >removeNothing : (y?: boolean | undefined) => boolean
 >y : boolean | undefined
 >cond ? true : undefined : true | undefined
 >cond : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >undefined : undefined
+>类型别名 :=> 未定
 
     if (y !== undefined) {
 >y !== undefined : boolean
+>类型别名 :=> 真假
 >y : boolean | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
         if (y === false) {
 >y === false : boolean
+>类型别名 :=> 真假
 >y : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
             return y;
 >y : false
+>类型别名 :=> 为假
         }
     }
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 

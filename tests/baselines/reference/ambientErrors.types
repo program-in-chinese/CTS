@@ -2,12 +2,14 @@
 // Ambient variable with an initializer 
 declare var x = 4;
 >x : number
+>类型别名 :=> 数字
 >4 : 4
 
 // Ambient functions with invalid overloads
 declare function fn(x: number): string;
 >fn : { (x: number): string; (x: "foo"): number; }
 >x : number
+>类型别名 :=> 数字
 
 declare function fn(x: 'foo'): number;
 >fn : { (x: number): string; (x: "foo"): number; }
@@ -17,24 +19,29 @@ declare function fn(x: 'foo'): number;
 declare function fn1(x: number): string;
 >fn1 : { (x: number): string; (x: number): string; }
 >x : number
+>类型别名 :=> 数字
 
 declare function fn1(x: number): string;
 >fn1 : { (x: number): string; (x: number): string; }
 >x : number
+>类型别名 :=> 数字
 
 // Ambient function overloads that differ only by return type
 declare function fn2(x: number): string;
 >fn2 : { (x: number): string; (x: number): number; }
 >x : number
+>类型别名 :=> 数字
 
 declare function fn2(x: number): number;
 >fn2 : { (x: number): string; (x: number): number; }
 >x : number
+>类型别名 :=> 数字
 
 // Ambient function with default parameter values
 declare function fn3(x = 3);
 >fn3 : (x?: number) => any
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 
 // Ambient function with function body
@@ -57,8 +64,10 @@ declare enum E2 {
     x = 'foo'.length
 >x : E2
 >'foo'.length : number
+>类型别名 :=> 数字
 >'foo' : "foo"
 >length : number
+>类型别名 :=> 数字
 }
 
 // Ambient module with initializers for values, bodies for functions / classes
@@ -67,6 +76,7 @@ declare module M1 {
 
     var x = 3;
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 
     function fn() { }
@@ -77,10 +87,12 @@ declare module M1 {
 
         static x = 3;
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 
         y = 4;
 >y : number
+>类型别名 :=> 数字
 >4 : 4
 
         constructor() { }
@@ -95,6 +107,7 @@ declare module M1 {
 // Ambient external module not in the global module
 module M2 {
 >M2 : any
+>类型别名 :=> 任意
 
     declare module 'nope' { }
 }
@@ -106,11 +119,14 @@ declare module '../foo' { }
 declare module 'bar' {
     var n;
 >n : any
+>类型别名 :=> 任意
 
     export var q;
 >q : any
+>类型别名 :=> 任意
 
     export = n;
 >n : any
+>类型别名 :=> 任意
 }
 

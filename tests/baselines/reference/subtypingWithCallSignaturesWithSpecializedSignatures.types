@@ -3,6 +3,7 @@
 
 module CallSignature {
 >CallSignature : any
+>类型别名 :=> 任意
 
     interface Base { // T
 >Base : Base
@@ -13,7 +14,9 @@ module CallSignature {
 
         (x: string, y: number): void;
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
     }
 
     // S's
@@ -27,7 +30,9 @@ module CallSignature {
 
         (x: string, y: number): number; // ok because base returns void
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
         <T>(x: T): string; // ok because base returns void
 >T : T
@@ -44,6 +49,7 @@ module CallSignature {
 
         (x: string): number;
 >x : string
+>类型别名 :=> 文字
     }
 
     // S's
@@ -57,6 +63,7 @@ module CallSignature {
 
         (x: string): string; // error because base returns non-void;
 >x : string
+>类型别名 :=> 文字
     }
 
     // S's
@@ -74,6 +81,7 @@ module CallSignature {
 
 module MemberWithCallSignature {
 >MemberWithCallSignature : any
+>类型别名 :=> 任意
 
     interface Base { // T
 >Base : Base
@@ -87,6 +95,7 @@ module MemberWithCallSignature {
 
             (x: string): void;
 >x : string
+>类型别名 :=> 文字
         }
         a2: {
 >a2 : { (x: "a", y: number): void; (x: string, y: number): void; }
@@ -94,10 +103,13 @@ module MemberWithCallSignature {
             (x: 'a', y: number): void;
 >x : "a"
 >y : number
+>类型别名 :=> 数字
 
             (x: string, y: number): void;
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
         }
         a3: <T>(x: T) => void;
 >a3 : <T>(x: T) => void
@@ -115,11 +127,14 @@ module MemberWithCallSignature {
         a: (x: string) => number; // ok because base returns void
 >a : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 
         a2: (x: string, y: number) => boolean; // ok because base returns void
 >a2 : (x: string, y: number) => boolean
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
         a3: <T>(x: T) => string; // ok because base returns void
 >a3 : <T>(x: T) => string
@@ -140,6 +155,7 @@ module MemberWithCallSignature {
 
             (x: string): number;
 >x : string
+>类型别名 :=> 文字
         }
         a2: <T>(x: T) => T;
 >a2 : <T>(x: T) => T
@@ -158,6 +174,7 @@ module MemberWithCallSignature {
         a: (x: string) => string; // error because base returns non-void;
 >a : (x: string) => string
 >x : string
+>类型别名 :=> 文字
     }
 
     // S's

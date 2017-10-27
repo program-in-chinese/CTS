@@ -15,12 +15,14 @@ interface I {
 
     [x: string]: any;
 >x : string
+>类型别名 :=> 文字
 
     foo: string | number; // ok
 >foo : string | number
 
     foo2: e | number; // ok
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 interface I2 {
@@ -28,6 +30,7 @@ interface I2 {
 
     [x: string]: number;
 >x : string
+>类型别名 :=> 文字
 
     // S is union type and each constituent type of S is a subtype of T
     foo: string | number; // error string is not subtype of number
@@ -35,6 +38,7 @@ interface I2 {
 
     foo2: e | number; // ok e and number both subtype of number
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -43,12 +47,14 @@ interface I3 {
 
     [x: string]: string;
 >x : string
+>类型别名 :=> 文字
 
     foo: string | number; // error numer is not subtype of string
 >foo : string | number
 
     foo2: e | number; // error e and number both not subtype of string
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -58,12 +64,14 @@ interface I4 {
 
     [x: string]: boolean;
 >x : string
+>类型别名 :=> 文字
 
     foo: string | number;
 >foo : string | number
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -73,6 +81,7 @@ interface I5 {
 
     [x: string]: Date;
 >x : string
+>类型别名 :=> 文字
 >Date : Date
 
     foo: string | number;
@@ -80,6 +89,7 @@ interface I5 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -89,6 +99,7 @@ interface I6 {
 
     [x: string]: RegExp;
 >x : string
+>类型别名 :=> 文字
 >RegExp : RegExp
 
     foo: string | number;
@@ -96,6 +107,7 @@ interface I6 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -105,13 +117,16 @@ interface I7 {
 
     [x: string]: { bar: number };
 >x : string
+>类型别名 :=> 文字
 >bar : number
+>类型别名 :=> 数字
 
     foo: string | number;
 >foo : string | number
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -121,12 +136,14 @@ interface I8 {
 
     [x: string]: number[];
 >x : string
+>类型别名 :=> 文字
 
     foo: string | number;
 >foo : string | number
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -136,6 +153,7 @@ interface I9 {
 
     [x: string]: I8;
 >x : string
+>类型别名 :=> 文字
 >I8 : I8
 
     foo: string | number;
@@ -143,18 +161,21 @@ interface I9 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
 class A { foo: number; }
 >A : A
 >foo : number
+>类型别名 :=> 数字
 
 interface I10 {
 >I10 : I10
 
     [x: string]: A;
 >x : string
+>类型别名 :=> 文字
 >A : A
 
     foo: string | number;
@@ -162,6 +183,7 @@ interface I10 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -176,6 +198,7 @@ interface I11 {
 
     [x: string]: A2<number>;
 >x : string
+>类型别名 :=> 文字
 >A2 : A2<T>
 
     foo: string | number;
@@ -183,6 +206,7 @@ interface I11 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -192,13 +216,16 @@ interface I12 {
 
     [x: string]: (x) => number;
 >x : string
+>类型别名 :=> 文字
 >x : any
+>类型别名 :=> 任意
 
     foo: string | number;
 >foo : string | number
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -208,6 +235,7 @@ interface I13 {
 
     [x: string]: <T>(x: T) => T;
 >x : string
+>类型别名 :=> 文字
 >T : T
 >x : T
 >T : T
@@ -218,6 +246,7 @@ interface I13 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -231,6 +260,7 @@ interface I14 {
 
     [x: string]: E2;
 >x : string
+>类型别名 :=> 文字
 >E2 : E2
 
     foo: string | number;
@@ -238,6 +268,7 @@ interface I14 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -250,6 +281,7 @@ module f {
 
     export var bar = 1;
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 }
 interface I15 {
@@ -257,6 +289,7 @@ interface I15 {
 
     [x: string]: typeof f;
 >x : string
+>类型别名 :=> 文字
 >f : typeof f
 
     foo: string | number;
@@ -264,6 +297,7 @@ interface I15 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -271,12 +305,14 @@ interface I15 {
 class c { baz: string }
 >c : c
 >baz : string
+>类型别名 :=> 文字
 
 module c {
 >c : typeof c
 
     export var bar = 1;
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 }
 interface I16 {
@@ -284,6 +320,7 @@ interface I16 {
 
     [x: string]: typeof c;
 >x : string
+>类型别名 :=> 文字
 >c : typeof c
 
     foo: string | number;
@@ -291,6 +328,7 @@ interface I16 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -301,6 +339,7 @@ interface I17<T> {
 
     [x: string]: T;
 >x : string
+>类型别名 :=> 文字
 >T : T
 
     foo: string | number;
@@ -308,6 +347,7 @@ interface I17<T> {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -316,6 +356,7 @@ interface I19 {
 
     [x: string]: Object;
 >x : string
+>类型别名 :=> 文字
 >Object : Object
 
     foo: string | number;
@@ -323,6 +364,7 @@ interface I19 {
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }
 
@@ -332,11 +374,13 @@ interface I20 {
 
     [x: string]: {};
 >x : string
+>类型别名 :=> 文字
 
     foo: string | number;
 >foo : string | number
 
     foo2: e | number;
 >foo2 : number
+>类型别名 :=> 数字
 >e : e
 }

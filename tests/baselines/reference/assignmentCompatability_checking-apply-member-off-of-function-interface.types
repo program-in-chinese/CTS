@@ -7,6 +7,7 @@ interface Applicable {
     apply(blah: any); // also works for 'apply'
 >apply : (blah: any) => any
 >blah : any
+>类型别名 :=> 任意
 }
 
 var x: Applicable;
@@ -52,22 +53,26 @@ function fn(c: Applicable) { }
 // Should Fail
 fn('');
 >fn('') : void
+>类型别名 :=> 无值
 >fn : (c: Applicable) => void
 >'' : ""
 
 fn(['']);
 >fn(['']) : void
+>类型别名 :=> 无值
 >fn : (c: Applicable) => void
 >[''] : string[]
 >'' : ""
 
 fn(4);
 >fn(4) : void
+>类型别名 :=> 无值
 >fn : (c: Applicable) => void
 >4 : 4
 
 fn({});
 >fn({}) : void
+>类型别名 :=> 无值
 >fn : (c: Applicable) => void
 >{} : {}
 
@@ -75,7 +80,9 @@ fn({});
 // Should work
 fn(a => { });
 >fn(a => { }) : void
+>类型别名 :=> 无值
 >fn : (c: Applicable) => void
 >a => { } : (a: any) => void
 >a : any
+>类型别名 :=> 任意
 

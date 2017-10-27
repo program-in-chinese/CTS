@@ -1,15 +1,18 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/TwoInternalModulesThatMergeEachWithExportedAndNonExportedInterfacesOfTheSameName.ts ===
 module A {
 >A : any
+>类型别名 :=> 任意
 
     export interface Point {
 >Point : Point
 
         x: number;
 >x : number
+>类型别名 :=> 数字
 
         y: number;
 >y : number
+>类型别名 :=> 数字
 
         toCarth(): Point;
 >toCarth : () => Point
@@ -19,6 +22,7 @@ module A {
 
 module A {
 >A : any
+>类型别名 :=> 任意
 
     interface Point {
 >Point : Point
@@ -33,20 +37,27 @@ module A {
 var p: { x: number; y: number; toCarth(): A.Point; };
 >p : { x: number; y: number; toCarth(): A.Point; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >toCarth : () => A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
 
 var p: A.Point;
 >p : { x: number; y: number; toCarth(): A.Point; }
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
 
 module X.Y.Z {
 >X : any
+>类型别名 :=> 任意
 >Y : any
+>类型别名 :=> 任意
 >Z : any
+>类型别名 :=> 任意
 
     export interface Line {
 >Line : Line
@@ -54,19 +65,24 @@ module X.Y.Z {
         new (start: A.Point, end: A.Point);
 >start : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
 >end : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
     }
 }
 
 module X {
 >X : any
+>类型别名 :=> 任意
 
     export module Y.Z {
 >Y : any
+>类型别名 :=> 任意
 >Z : any
+>类型别名 :=> 任意
 
         interface Line {
 >Line : Line
@@ -74,11 +90,13 @@ module X {
             start: A.Point;
 >start : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
 
             end: A.Point;
 >end : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
         }
     }
@@ -89,15 +107,20 @@ var l: { new (s: A.Point, e: A.Point); }
 >l : new (s: A.Point, e: A.Point) => any
 >s : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
 >e : A.Point
 >A : any
+>类型别名 :=> 任意
 >Point : A.Point
 
 var l: X.Y.Z.Line;
 >l : new (s: A.Point, e: A.Point) => any
 >X : any
+>类型别名 :=> 任意
 >Y : any
+>类型别名 :=> 任意
 >Z : any
+>类型别名 :=> 任意
 >Line : X.Y.Z.Line
 

@@ -77,14 +77,18 @@ export function css<S extends { [K in keyof S]: string }>(styles: S, ...classNam
 
     if (arg == null) {
 >arg == null : boolean
+>类型别名 :=> 真假
 >arg : keyof S | (object & { [K in keyof S]?: boolean; })
 >null : null
+>类型别名 :=> 空值
 
       return null;
 >null : null
+>类型别名 :=> 空值
     }
     if (typeof arg == "string") {
 >typeof arg == "string" : boolean
+>类型别名 :=> 真假
 >typeof arg : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >arg : keyof S | (object & { [K in keyof S]?: boolean; })
 >"string" : "string"
@@ -96,12 +100,14 @@ export function css<S extends { [K in keyof S]: string }>(styles: S, ...classNam
     }
     if (typeof arg == "object") {
 >typeof arg == "object" : boolean
+>类型别名 :=> 真假
 >typeof arg : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >arg : keyof S | (object & { [K in keyof S]?: boolean; })
 >"object" : "object"
 
       return Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {
 >Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      }, {}) : any
+>类型别名 :=> 任意
 >Object.keys(arg).reduce : { (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }
 >Object.keys(arg) : string[]
 >Object.keys : (o: {}) => string[]
@@ -112,6 +118,7 @@ export function css<S extends { [K in keyof S]: string }>(styles: S, ...classNam
 >ClassNameObject : No type information available!
 >(obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      } : (obj: any, key: keyof S) => any
 >obj : any
+>类型别名 :=> 任意
 >ClassNameObject : No type information available!
 >key : keyof S
 >S : S
@@ -125,7 +132,9 @@ export function css<S extends { [K in keyof S]: string }>(styles: S, ...classNam
         obj[exportedClassName] = (arg as ClassNameMap<S>)[key]; 
 >obj[exportedClassName] = (arg as ClassNameMap<S>)[key] : { [K in keyof S]?: boolean; }[keyof S]
 >obj[exportedClassName] : any
+>类型别名 :=> 任意
 >obj : any
+>类型别名 :=> 任意
 >exportedClassName : S[keyof S]
 >(arg as ClassNameMap<S>)[key] : { [K in keyof S]?: boolean; }[keyof S]
 >(arg as ClassNameMap<S>) : { [K in keyof S]?: boolean; }
@@ -137,6 +146,7 @@ export function css<S extends { [K in keyof S]: string }>(styles: S, ...classNam
 
         return obj;
 >obj : any
+>类型别名 :=> 任意
 
       }, {});
 >{} : {}

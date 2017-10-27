@@ -8,6 +8,7 @@ interface Mover {
     getStatus(): { speed: number; };
 >getStatus : () => { speed: number; }
 >speed : number
+>类型别名 :=> 数字
 }
 interface Shaker {
 >Shaker : Shaker
@@ -18,6 +19,7 @@ interface Shaker {
     getStatus(): { frequency: number; };
 >getStatus : () => { frequency: number; }
 >frequency : number
+>类型别名 :=> 数字
 }
 
 interface MoverShaker extends Mover, Shaker {
@@ -40,6 +42,7 @@ declare module MoversAndShakers {
         getStatus(): { speed: number; };
 >getStatus : () => { speed: number; }
 >speed : number
+>类型别名 :=> 数字
     }
     export interface Shaker {
 >Shaker : Shaker
@@ -50,29 +53,36 @@ declare module MoversAndShakers {
         getStatus(): { frequency: number; };
 >getStatus : () => { frequency: number; }
 >frequency : number
+>类型别名 :=> 数字
     }
 }
 
 interface MoverShaker2 extends MoversAndShakers.Mover, MoversAndShakers.Shaker { } // error
 >MoverShaker2 : MoverShaker2
 >MoversAndShakers.Mover : any
+>类型别名 :=> 任意
 >MoversAndShakers : typeof MoversAndShakers
 >Mover : MoversAndShakers.Mover
 >MoversAndShakers.Shaker : any
+>类型别名 :=> 任意
 >MoversAndShakers : typeof MoversAndShakers
 >Shaker : MoversAndShakers.Shaker
 
 interface MoverShaker3 extends MoversAndShakers.Mover, MoversAndShakers.Shaker {
 >MoverShaker3 : MoverShaker3
 >MoversAndShakers.Mover : any
+>类型别名 :=> 任意
 >MoversAndShakers : typeof MoversAndShakers
 >Mover : MoversAndShakers.Mover
 >MoversAndShakers.Shaker : any
+>类型别名 :=> 任意
 >MoversAndShakers : typeof MoversAndShakers
 >Shaker : MoversAndShakers.Shaker
 
     getStatus(): { speed: number; frequency: number; }; // ok because this getStatus overrides the conflicting ones above
 >getStatus : () => { speed: number; frequency: number; }
 >speed : number
+>类型别名 :=> 数字
 >frequency : number
+>类型别名 :=> 数字
 }

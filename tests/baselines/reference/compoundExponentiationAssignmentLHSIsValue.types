@@ -2,6 +2,7 @@
 // expected error for all the LHS of compound assignments (arithmetic and addition)
 var value: any;
 >value : any
+>类型别名 :=> 任意
 
 // this
 class C {
@@ -10,24 +11,30 @@ class C {
     constructor() {
         this **= value;
 >this **= value : number
+>类型别名 :=> 数字
 >this : this
 >value : any
+>类型别名 :=> 任意
     }
     foo() {
 >foo : () => void
 
         this **= value;
 >this **= value : number
+>类型别名 :=> 数字
 >this : this
 >value : any
+>类型别名 :=> 任意
     }
     static sfoo() {
 >sfoo : () => void
 
         this **= value;
 >this **= value : number
+>类型别名 :=> 数字
 >this : typeof C
 >value : any
+>类型别名 :=> 任意
     }
 }
 
@@ -36,87 +43,125 @@ function foo() {
 
     this **= value;
 >this **= value : number
+>类型别名 :=> 数字
 >this : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 }
 
 this **= value;
 >this **= value : number
+>类型别名 :=> 数字
 >this : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 // identifiers: module, class, enum, function
 module M { export var a; }
 >M : typeof M
 >a : any
+>类型别名 :=> 任意
 
 M **= value;
 >M **= value : number
+>类型别名 :=> 数字
 >M : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 C **= value;
 >C **= value : number
+>类型别名 :=> 数字
 >C : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 enum E { }
 >E : E
 
 E **= value;
 >E **= value : number
+>类型别名 :=> 数字
 >E : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 foo **= value;
 >foo **= value : number
+>类型别名 :=> 数字
 >foo : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 // literals
 null **= value;
 >null **= value : number
+>类型别名 :=> 数字
 >null : null
+>类型别名 :=> 空值
 >value : any
+>类型别名 :=> 任意
 
 true **= value;
 >true **= value : number
+>类型别名 :=> 数字
 >true : true
+>类型别名 :=> 为真
 >value : any
+>类型别名 :=> 任意
 
 false **= value;
 >false **= value : number
+>类型别名 :=> 数字
 >false : false
+>类型别名 :=> 为假
 >value : any
+>类型别名 :=> 任意
 
 0 **= value;
 >0 **= value : number
+>类型别名 :=> 数字
 >0 : 0
 >value : any
+>类型别名 :=> 任意
 
 '' **= value;
 >'' **= value : number
+>类型别名 :=> 数字
 >'' : ""
 >value : any
+>类型别名 :=> 任意
 
 /d+/ **= value;
 >/d+/ **= value : number
+>类型别名 :=> 数字
 >/d+/ : RegExp
 >value : any
+>类型别名 :=> 任意
 
 // object literals
 { a: 0 } **= value;
 >a : any
+>类型别名 :=> 任意
 >0 : 0
 >value : any
+>类型别名 :=> 任意
 
 // array literals
 ['', ''] **= value;
 >['', ''] **= value : number
+>类型别名 :=> 数字
 >['', ''] : [string, string]
 >'' : ""
 >'' : ""
 >value : any
+>类型别名 :=> 任意
 
 // super
 class Derived extends C {
@@ -126,14 +171,19 @@ class Derived extends C {
     constructor() {
         super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof C
 
         super **= value;
 >super **= value : number
+>类型别名 :=> 数字
 >super : any
+>类型别名 :=> 任意
 >super : C
 > : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
     }
 
     foo() {
@@ -141,10 +191,14 @@ class Derived extends C {
 
         super **= value;
 >super **= value : number
+>类型别名 :=> 数字
 >super : any
+>类型别名 :=> 任意
 >super : C
 > : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
     }
 
     static sfoo() {
@@ -152,10 +206,14 @@ class Derived extends C {
 
         super **= value;
 >super **= value : number
+>类型别名 :=> 数字
 >super : any
+>类型别名 :=> 任意
 >super : typeof C
 > : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
     }
 }
 
@@ -163,102 +221,151 @@ class Derived extends C {
 function bar1() { } **= value;
 >bar1 : () => void
 >value : any
+>类型别名 :=> 任意
 
 () => { } **= value;
 >() => { } : () => void
 >value : any
+>类型别名 :=> 任意
 
 // function calls
 foo() **= value;
 >foo() **= value : number
+>类型别名 :=> 数字
 >foo() : void
+>类型别名 :=> 无值
 >foo : () => void
 >value : any
+>类型别名 :=> 任意
 
 // parentheses, the containted expression is value
 (this) **= value;
 >(this) **= value : number
+>类型别名 :=> 数字
 >(this) : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 (M) **= value;
 >(M) **= value : number
+>类型别名 :=> 数字
 >(M) : any
+>类型别名 :=> 任意
 >M : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 (C) **= value;
 >(C) **= value : number
+>类型别名 :=> 数字
 >(C) : any
+>类型别名 :=> 任意
 >C : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 (E) **= value;
 >(E) **= value : number
+>类型别名 :=> 数字
 >(E) : any
+>类型别名 :=> 任意
 >E : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 (foo) **= value;
 >(foo) **= value : number
+>类型别名 :=> 数字
 >(foo) : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 >value : any
+>类型别名 :=> 任意
 
 (null) **= value;
 >(null) **= value : number
+>类型别名 :=> 数字
 >(null) : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 >value : any
+>类型别名 :=> 任意
 
 (true) **= value;
 >(true) **= value : number
+>类型别名 :=> 数字
 >(true) : true
+>类型别名 :=> 为真
 >true : true
+>类型别名 :=> 为真
 >value : any
+>类型别名 :=> 任意
 
 (0) **= value;
 >(0) **= value : number
+>类型别名 :=> 数字
 >(0) : 0
 >0 : 0
 >value : any
+>类型别名 :=> 任意
 
 ('') **= value;
 >('') **= value : number
+>类型别名 :=> 数字
 >('') : ""
 >'' : ""
 >value : any
+>类型别名 :=> 任意
 
 (/d+/) **= value;
 >(/d+/) **= value : number
+>类型别名 :=> 数字
 >(/d+/) : RegExp
 >/d+/ : RegExp
 >value : any
+>类型别名 :=> 任意
 
 ({}) **= value;
 >({}) **= value : number
+>类型别名 :=> 数字
 >({}) : {}
 >{} : {}
 >value : any
+>类型别名 :=> 任意
 
 ([]) **= value;
 >([]) **= value : number
+>类型别名 :=> 数字
 >([]) : undefined[]
 >[] : undefined[]
 >value : any
+>类型别名 :=> 任意
 
 (function baz1() { }) **= value;
 >(function baz1() { }) **= value : number
+>类型别名 :=> 数字
 >(function baz1() { }) : () => void
 >function baz1() { } : () => void
 >baz1 : () => void
 >value : any
+>类型别名 :=> 任意
 
 (foo()) **= value;
 >(foo()) **= value : number
+>类型别名 :=> 数字
 >(foo()) : void
+>类型别名 :=> 无值
 >foo() : void
+>类型别名 :=> 无值
 >foo : () => void
 >value : any
+>类型别名 :=> 任意
 

@@ -16,13 +16,18 @@ function f(x: ?number, y: Array.<number>) {
 
     return x ? x + y[1] : y[0];
 >x ? x + y[1] : y[0] : number
+>类型别名 :=> 数字
 >x : number | null
 >x + y[1] : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >y[1] : number
+>类型别名 :=> 数字
 >y : number[]
 >1 : 1
 >y[0] : number
+>类型别名 :=> 数字
 >y : number[]
 >0 : 0
 }
@@ -30,9 +35,11 @@ function hof(ctor: function(new: number, string)) {
 >hof : (ctor: new (arg1: string) => number) => number
 >ctor : new (arg1: string) => number
 >new : number
+>类型别名 :=> 数字
 
     return new ctor('hi');
 >new ctor('hi') : number
+>类型别名 :=> 数字
 >ctor : new (arg1: string) => number
 >'hi' : "hi"
 }
@@ -40,48 +47,63 @@ function hof2(f: function(this: number, string): string) {
 >hof2 : (f: (this: number, arg1: string) => string) => any
 >f : (this: number, arg1: string) => string
 >this : number
+>类型别名 :=> 数字
 
     return f(12, 'hullo');
 >f(12, 'hullo') : string
+>类型别名 :=> 文字
 >f : (this: number, arg1: string) => string
 >12 : 12
 >'hullo' : "hullo"
 }
 var whatevs: * = 1001;
 >whatevs : any
+>类型别名 :=> 任意
 >1001 : 1001
 
 var ques: ? = 'what';
 >ques : any
+>类型别名 :=> 任意
 >'what' : "what"
 
 var g: function(number, number): number = (n,m) => n + m;
 >g : (arg0: number, arg1: number) => number
 >(n,m) => n + m : (n: number, m: number) => number
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 >n + m : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
 var variadic: ...boolean = [true, false, true];
 >variadic : boolean[]
 >[true, false, true] : boolean[]
 >true : true
+>类型别名 :=> 为真
 >false : false
+>类型别名 :=> 为假
 >true : true
+>类型别名 :=> 为真
 
 var most: !string = 'definite';
 >most : string
+>类型别名 :=> 文字
 >'definite' : "definite"
 
 var postfixdef: number! = 101;
 >postfixdef : number
+>类型别名 :=> 数字
 >101 : 101
 
 var postfixopt: number? = undefined;
 >postfixopt : number | null
 >undefined : undefined
+>类型别名 :=> 未定
 
 var nns: Array<?number>;
 >nns : (number | null)[]

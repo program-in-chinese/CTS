@@ -2,7 +2,9 @@
 declare function all(a?: number, b?: number): void;
 >all : (a?: number, b?: number) => void
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
 declare function weird(a?: number | string, b?: number | string): void;
 >weird : (a?: string | number, b?: string | number) => void
@@ -12,19 +14,26 @@ declare function weird(a?: number | string, b?: number | string): void;
 declare function prefix(s: string, a?: number, b?: number): void;
 >prefix : (s: string, a?: number, b?: number) => void
 >s : string
+>类型别名 :=> 文字
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
 declare function rest(s: string, a?: number, b?: number,  ...rest: number[]): void;
 >rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
 >s : string
+>类型别名 :=> 文字
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >rest : number[]
 
 declare function normal(s: string): void;
 >normal : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 
 declare function thunk(): string;
 >thunk : () => string
@@ -41,53 +50,66 @@ declare var tuple: [number, string];
 // good
 all(...ns)
 >all(...ns) : void
+>类型别名 :=> 无值
 >all : (a?: number, b?: number) => void
 >...ns : number
+>类型别名 :=> 数字
 >ns : number[]
 
 weird(...ns)
 >weird(...ns) : void
+>类型别名 :=> 无值
 >weird : (a?: string | number, b?: string | number) => void
 >...ns : number
+>类型别名 :=> 数字
 >ns : number[]
 
 weird(...mixed)
 >weird(...mixed) : void
+>类型别名 :=> 无值
 >weird : (a?: string | number, b?: string | number) => void
 >...mixed : string | number
 >mixed : (string | number)[]
 
 weird(...tuple)
 >weird(...tuple) : void
+>类型别名 :=> 无值
 >weird : (a?: string | number, b?: string | number) => void
 >...tuple : string | number
 >tuple : [number, string]
 
 prefix("a", ...ns)
 >prefix("a", ...ns) : void
+>类型别名 :=> 无值
 >prefix : (s: string, a?: number, b?: number) => void
 >"a" : "a"
 >...ns : number
+>类型别名 :=> 数字
 >ns : number[]
 
 rest("d", ...ns)
 >rest("d", ...ns) : void
+>类型别名 :=> 无值
 >rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
 >"d" : "d"
 >...ns : number
+>类型别名 :=> 数字
 >ns : number[]
 
 
 // this covers the arguments case
 normal("g", ...ns)
 >normal("g", ...ns) : void
+>类型别名 :=> 无值
 >normal : (s: string) => void
 >"g" : "g"
 >...ns : number
+>类型别名 :=> 数字
 >ns : number[]
 
 normal("h", ...mixed)
 >normal("h", ...mixed) : void
+>类型别名 :=> 无值
 >normal : (s: string) => void
 >"h" : "h"
 >...mixed : string | number
@@ -95,6 +117,7 @@ normal("h", ...mixed)
 
 normal("i", ...tuple)
 >normal("i", ...tuple) : void
+>类型别名 :=> 无值
 >normal : (s: string) => void
 >"i" : "i"
 >...tuple : string | number
@@ -102,18 +125,22 @@ normal("i", ...tuple)
 
 thunk(...ns)
 >thunk(...ns) : string
+>类型别名 :=> 文字
 >thunk : () => string
 >...ns : number
+>类型别名 :=> 数字
 >ns : number[]
 
 thunk(...mixed)
 >thunk(...mixed) : string
+>类型别名 :=> 文字
 >thunk : () => string
 >...mixed : string | number
 >mixed : (string | number)[]
 
 thunk(...tuple)
 >thunk(...tuple) : string
+>类型别名 :=> 文字
 >thunk : () => string
 >...tuple : string | number
 >tuple : [number, string]
@@ -121,18 +148,21 @@ thunk(...tuple)
 // bad
 all(...mixed)
 >all(...mixed) : void
+>类型别名 :=> 无值
 >all : (a?: number, b?: number) => void
 >...mixed : string | number
 >mixed : (string | number)[]
 
 all(...tuple)
 >all(...tuple) : void
+>类型别名 :=> 无值
 >all : (a?: number, b?: number) => void
 >...tuple : string | number
 >tuple : [number, string]
 
 prefix("b", ...mixed)
 >prefix("b", ...mixed) : void
+>类型别名 :=> 无值
 >prefix : (s: string, a?: number, b?: number) => void
 >"b" : "b"
 >...mixed : string | number
@@ -140,6 +170,7 @@ prefix("b", ...mixed)
 
 prefix("c", ...tuple)
 >prefix("c", ...tuple) : void
+>类型别名 :=> 无值
 >prefix : (s: string, a?: number, b?: number) => void
 >"c" : "c"
 >...tuple : string | number
@@ -147,6 +178,7 @@ prefix("c", ...tuple)
 
 rest("e", ...mixed)
 >rest("e", ...mixed) : void
+>类型别名 :=> 无值
 >rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
 >"e" : "e"
 >...mixed : string | number
@@ -154,6 +186,7 @@ rest("e", ...mixed)
 
 rest("f", ...tuple)
 >rest("f", ...tuple) : void
+>类型别名 :=> 无值
 >rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
 >"f" : "f"
 >...tuple : string | number
@@ -161,18 +194,22 @@ rest("f", ...tuple)
 
 prefix(...ns) // required parameters are required
 >prefix(...ns) : void
+>类型别名 :=> 无值
 >prefix : (s: string, a?: number, b?: number) => void
 >...ns : number
+>类型别名 :=> 数字
 >ns : number[]
 
 prefix(...mixed)
 >prefix(...mixed) : void
+>类型别名 :=> 无值
 >prefix : (s: string, a?: number, b?: number) => void
 >...mixed : string | number
 >mixed : (string | number)[]
 
 prefix(...tuple)
 >prefix(...tuple) : void
+>类型别名 :=> 无值
 >prefix : (s: string, a?: number, b?: number) => void
 >...tuple : string | number
 >tuple : [number, string]

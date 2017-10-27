@@ -2,11 +2,14 @@
 var x: { foo: string; }
 >x : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 
 var y: { foo: string; bar: string; }
 >y : { foo: string; bar: string; }
 >foo : string
+>类型别名 :=> 文字
 >bar : string
+>类型别名 :=> 文字
 
 class Base {
 >Base : Base
@@ -116,6 +119,7 @@ class Derived extends Base {
 >a : { foo: string; bar: string; }
 >y : { foo: string; bar: string; }
 >super(x) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >x : { foo: string; }
 }
@@ -135,7 +139,9 @@ var r1 = d.a;
 
 var r2 = d.b(y);
 >r2 : void
+>类型别名 :=> 无值
 >d.b(y) : void
+>类型别名 :=> 无值
 >d.b : (a: { foo: string; bar: string; }) => void
 >d : Derived
 >b : (a: { foo: string; bar: string; }) => void
@@ -168,7 +174,9 @@ var r4 = Derived.r;
 
 var r5 = Derived.s(y);
 >r5 : void
+>类型别名 :=> 无值
 >Derived.s(y) : void
+>类型别名 :=> 无值
 >Derived.s : (a: { foo: string; bar: string; }) => void
 >Derived : typeof Derived
 >s : (a: { foo: string; bar: string; }) => void
@@ -198,10 +206,12 @@ class Base2 {
 
     [i: string]: Object;
 >i : string
+>类型别名 :=> 文字
 >Object : Object
 
     [i: number]: typeof x;
 >i : number
+>类型别名 :=> 数字
 >x : { foo: string; }
 }
 
@@ -211,10 +221,12 @@ class Derived2 extends Base2 {
 
     [i: string]: typeof x;
 >i : string
+>类型别名 :=> 文字
 >x : { foo: string; }
 
     [i: number]: typeof y;
 >i : number
+>类型别名 :=> 数字
 >y : { foo: string; bar: string; }
 }
 

@@ -24,6 +24,7 @@ interface IFoo2 {
     p1(s:string): number;
 >p1 : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 }
 
 class C2 implements IFoo2 { // incompatible on the param type
@@ -33,6 +34,7 @@ class C2 implements IFoo2 { // incompatible on the param type
     public p1(n:number) {
 >p1 : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 
         return 0;
 >0 : 0
@@ -44,6 +46,7 @@ interface IFoo3 {
 
     p1: string;
 >p1 : string
+>类型别名 :=> 文字
 }
 
 class C3 implements IFoo3 { // incompatible on the property type
@@ -52,6 +55,7 @@ class C3 implements IFoo3 { // incompatible on the property type
 
     public p1: number;
 >p1 : number
+>类型别名 :=> 数字
 }
 
 interface IFoo4 {
@@ -61,7 +65,9 @@ interface IFoo4 {
 >p1 : { a: { a: string; }; b: string; }
 >a : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >b : string
+>类型别名 :=> 文字
 }
 
 class C4 implements IFoo4 { // incompatible on the property type
@@ -72,7 +78,9 @@ class C4 implements IFoo4 { // incompatible on the property type
 >p1 : { c: { b: string; }; d: string; }
 >c : { b: string; }
 >b : string
+>类型别名 :=> 文字
 >d : string
+>类型别名 :=> 文字
 }
 
 function if1(i: IFoo1): void;
@@ -88,6 +96,7 @@ function if1(i: IFoo2): void;
 function if1(a: any) { }
 >if1 : { (i: IFoo1): void; (i: IFoo2): void; }
 >a : any
+>类型别名 :=> 任意
 
 var c1: C1;
 >c1 : C1
@@ -99,6 +108,7 @@ var c2: C2;
 
 if1(c1);
 >if1(c1) : any
+>类型别名 :=> 任意
 >if1 : { (i: IFoo1): void; (i: IFoo2): void; }
 >c1 : C1
 
@@ -108,27 +118,36 @@ function of1(n: { a: { a: string; }; b: string; }): number;
 >n : { a: { a: string; }; b: string; }
 >a : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >b : string
+>类型别名 :=> 文字
 
 function of1(s: { c: { b: string; }; d: string; }): string;
 >of1 : { (n: { a: { a: string; }; b: string; }): number; (s: { c: { b: string; }; d: string; }): string; }
 >s : { c: { b: string; }; d: string; }
 >c : { b: string; }
 >b : string
+>类型别名 :=> 文字
 >d : string
+>类型别名 :=> 文字
 
 function of1(a: any) { return null; }
 >of1 : { (n: { a: { a: string; }; b: string; }): number; (s: { c: { b: string; }; d: string; }): string; }
 >a : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 of1({ e: 0, f: 0 });
 >of1({ e: 0, f: 0 }) : any
+>类型别名 :=> 任意
 >of1 : { (n: { a: { a: string; }; b: string; }): number; (s: { c: { b: string; }; d: string; }): string; }
 >{ e: 0, f: 0 } : { e: number; f: number; }
 >e : number
+>类型别名 :=> 数字
 >0 : 0
 >f : number
+>类型别名 :=> 数字
 >0 : 0
 
 interface IMap {
@@ -136,6 +155,7 @@ interface IMap {
 
  [key:string]:string;
 >key : string
+>类型别名 :=> 文字
 }
 
 function foo(fn:() => void) {
@@ -153,6 +173,7 @@ function bar() {
 
  foo(() => {
 >foo(() => {  map = {}; }) : void
+>类型别名 :=> 无值
 >foo : (fn: () => void) => void
 >() => {  map = {}; } : () => void
 
@@ -168,11 +189,15 @@ var o1: { a: { a: string; }; b: string; } = { e: 0, f: 0 };
 >o1 : { a: { a: string; }; b: string; }
 >a : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >b : string
+>类型别名 :=> 文字
 >{ e: 0, f: 0 } : { e: number; f: number; }
 >e : number
+>类型别名 :=> 数字
 >0 : 0
 >f : number
+>类型别名 :=> 数字
 >0 : 0
 
 var a1 = [{ e: 0, f: 0 }, { e: 0, f: 0 }, { e: 0, g: 0 }];
@@ -180,18 +205,24 @@ var a1 = [{ e: 0, f: 0 }, { e: 0, f: 0 }, { e: 0, g: 0 }];
 >[{ e: 0, f: 0 }, { e: 0, f: 0 }, { e: 0, g: 0 }] : ({ e: number; f: number; } | { e: number; g: number; })[]
 >{ e: 0, f: 0 } : { e: number; f: number; }
 >e : number
+>类型别名 :=> 数字
 >0 : 0
 >f : number
+>类型别名 :=> 数字
 >0 : 0
 >{ e: 0, f: 0 } : { e: number; f: number; }
 >e : number
+>类型别名 :=> 数字
 >0 : 0
 >f : number
+>类型别名 :=> 数字
 >0 : 0
 >{ e: 0, g: 0 } : { e: number; g: number; }
 >e : number
+>类型别名 :=> 数字
 >0 : 0
 >g : number
+>类型别名 :=> 数字
 >0 : 0
 
 
@@ -204,5 +235,6 @@ var fp1: () =>any = a => 0;
 >fp1 : () => any
 >a => 0 : (a: any) => number
 >a : any
+>类型别名 :=> 任意
 >0 : 0
 

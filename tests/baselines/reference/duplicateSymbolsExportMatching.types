@@ -31,6 +31,7 @@ module M {
 
 module N {
 >N : any
+>类型别名 :=> 任意
 
     interface I { }
 >I : I
@@ -47,6 +48,7 @@ module N {
 
 module N2 {
 >N2 : any
+>类型别名 :=> 任意
 
     interface I { }
 >I : I
@@ -70,12 +72,14 @@ module M {
 
         var t;
 >t : any
+>类型别名 :=> 任意
     }
     export module inst { // one error
 >inst : typeof M.inst
 
         var t;
 >t : any
+>类型别名 :=> 任意
     }
 }
 
@@ -85,15 +89,19 @@ module M2 {
 
     var v: string;
 >v : string
+>类型别名 :=> 文字
 
     export var v: string; // one error (visibility)
 >v : string
+>类型别名 :=> 文字
 
     var w: number;
 >w : number
+>类型别名 :=> 数字
 
     export var w: string; // two errors (visibility and type mismatch)
 >w : string
+>类型别名 :=> 文字
 }
 
 module M {
@@ -104,6 +112,7 @@ module M {
 
         var t;
 >t : any
+>类型别名 :=> 任意
     }
     export function F() { } // Only one error for duplicate identifier (don't consider visibility)
 >F : () => void
@@ -123,6 +132,7 @@ module M {
 
         var t;
 >t : any
+>类型别名 :=> 任意
     }
 }
 

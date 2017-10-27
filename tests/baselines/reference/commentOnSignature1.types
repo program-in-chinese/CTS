@@ -3,15 +3,18 @@
 function foo2(n: number): void;
 >foo2 : { (n: number): void; (s: string): void; }
 >n : number
+>类型别名 :=> 数字
 
 // Don't keep this comment.
 function foo2(s: string): void;
 >foo2 : { (n: number): void; (s: string): void; }
 >s : string
+>类型别名 :=> 文字
 
 function foo2(a: any): void {
 >foo2 : { (n: number): void; (s: string): void; }
 >a : any
+>类型别名 :=> 任意
 }
 === tests/cases/compiler/a.ts ===
 /*!=================
@@ -23,15 +26,18 @@ function foo2(a: any): void {
 function foo(n: number): void;
 >foo : { (n: number): void; (s: string): void; }
 >n : number
+>类型别名 :=> 数字
 
 // Don't keep this comment.
 function foo(s: string): void;
 >foo : { (n: number): void; (s: string): void; }
 >s : string
+>类型别名 :=> 文字
 
 function foo(a: any): void {
 >foo : { (n: number): void; (s: string): void; }
 >a : any
+>类型别名 :=> 任意
 }
 
 class c {
@@ -40,28 +46,34 @@ class c {
     // dont keep this comment
     constructor(a: string);
 >a : string
+>类型别名 :=> 文字
 
     /*! keep this pinned comment */
     constructor(a: number);
 >a : number
+>类型别名 :=> 数字
 
     constructor(a: any) {
 >a : any
+>类型别名 :=> 任意
     }
 
     // dont keep this comment
     foo(a: string);
 >foo : { (a: string): any; (a: number): any; }
 >a : string
+>类型别名 :=> 文字
 
     /*! keep this pinned comment */
     foo(a: number);
 >foo : { (a: string): any; (a: number): any; }
 >a : number
+>类型别名 :=> 数字
 
     foo(a: any) {
 >foo : { (a: string): any; (a: number): any; }
 >a : any
+>类型别名 :=> 任意
     }
 }
 

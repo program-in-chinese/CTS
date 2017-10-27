@@ -6,6 +6,7 @@ interface I {
 
     (x: string): string;
 >x : string
+>类型别名 :=> 文字
 }
 
 interface I2<T> {
@@ -21,7 +22,9 @@ interface I2<T> {
 var a: { (x: string, y: string): string }
 >a : (x: string, y: string) => string
 >x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 
 function foo2(x: I);
 >foo2 : { (x: I): any; (x: I): any; }
@@ -36,6 +39,7 @@ function foo2(x: I); // error
 function foo2(x: any) { }
 >foo2 : { (x: I): any; (x: I): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo3(x: typeof a);
 >foo3 : { (x: (x: string, y: string) => string): any; (x: (x: string, y: string) => string): any; }
@@ -50,6 +54,7 @@ function foo3(x: typeof a); // error
 function foo3(x: any) { }
 >foo3 : { (x: (x: string, y: string) => string): any; (x: (x: string, y: string) => string): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo4(x: I2<string>);
 >foo4 : { (x: I2<string>): any; (x: I2<string>): any; }
@@ -64,6 +69,7 @@ function foo4(x: I2<string>); // error
 function foo4(x: any) { }
 >foo4 : { (x: I2<string>): any; (x: I2<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo5(x: I2<string>);
 >foo5 : { (x: I2<string>): any; (x: I2<number>): any; }
@@ -78,6 +84,7 @@ function foo5(x: I2<number>); // ok
 function foo5(x: any) { }
 >foo5 : { (x: I2<string>): any; (x: I2<number>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo13(x: I);
 >foo13 : { (x: I): any; (x: (x: string, y: string) => string): any; }
@@ -92,6 +99,7 @@ function foo13(x: typeof a); // ok
 function foo13(x: any) { }
 >foo13 : { (x: I): any; (x: (x: string, y: string) => string): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo14(x: I);
 >foo14 : { (x: I): any; (x: I2<string>): any; }
@@ -106,6 +114,7 @@ function foo14(x: I2<string>); // error
 function foo14(x: any) { }
 >foo14 : { (x: I): any; (x: I2<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo14b(x: typeof a);
 >foo14b : { (x: (x: string, y: string) => string): any; (x: I2<string>): any; }
@@ -120,6 +129,7 @@ function foo14b(x: I2<string>); // ok
 function foo14b(x: any) { }
 >foo14b : { (x: (x: string, y: string) => string): any; (x: I2<string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo15(x: I);
 >foo15 : { (x: I): any; (x: I2<number>): any; }
@@ -134,4 +144,5 @@ function foo15(x: I2<number>); // ok
 function foo15(x: any) { }
 >foo15 : { (x: I): any; (x: I2<number>): any; }
 >x : any
+>类型别名 :=> 任意
 

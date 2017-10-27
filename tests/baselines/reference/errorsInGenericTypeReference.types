@@ -23,10 +23,12 @@ var tc1 = new testClass1();
 
 tc1.method<{ x: V }>(); // error: could not find symbol V
 >tc1.method<{ x: V }>() : void
+>类型别名 :=> 无值
 >tc1.method : <T>() => void
 >tc1 : testClass1
 >method : <T>() => void
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 
@@ -40,6 +42,7 @@ var tc2 = new testClass2<{ x: V }>(); // error: could not find symbol V
 >new testClass2<{ x: V }>() : testClass2<{ x: any; }>
 >testClass2 : typeof testClass2
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 
@@ -51,27 +54,33 @@ class testClass3 {
 >testMethod1 : () => Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 >null : null
+>类型别名 :=> 空值
 
     static testMethod2(): Foo<{ x: V }> { return null } // error: could not find symbol V
 >testMethod2 : () => Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 >null : null
+>类型别名 :=> 空值
 
     set a(value: Foo<{ x: V }>) { } // error: could not find symbol V
 >a : Foo<{ x: any; }>
 >value : Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
     property: Foo<{ x: V }>; // error: could not find symbol V
 >property : Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 }
 
@@ -81,8 +90,10 @@ function testFunction1(): Foo<{ x: V }> { return null; } // error: could not fin
 >testFunction1 : () => Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 >null : null
+>类型别名 :=> 空值
 
 
 // in paramter types
@@ -91,6 +102,7 @@ function testFunction2(p: Foo<{ x: V }>) { }// error: could not find symbol V
 >p : Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 
@@ -99,6 +111,7 @@ var f: Foo<{ x: V }>; // error: could not find symbol V
 >f : Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 
@@ -107,6 +120,7 @@ class testClass4<T extends { x: V }> { } // error: could not find symbol V
 >testClass4 : testClass4<T>
 >T : T
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 interface testClass5<T extends Foo<{ x: V }>> { } // error: could not find symbol V
@@ -114,6 +128,7 @@ interface testClass5<T extends Foo<{ x: V }>> { } // error: could not find symbo
 >T : T
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 class testClass6<T> {
@@ -124,6 +139,7 @@ class testClass6<T> {
 >method : <M extends { x: any; }>() => void
 >M : M
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 }
 
@@ -133,6 +149,7 @@ interface testInterface1 {
     new <M extends { x: V }>(a: M); // error: could not find symbol V
 >M : M
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 >a : M
 >M : M
@@ -144,6 +161,7 @@ class testClass7 extends Foo<{ x: V }> { } // error: could not find symbol V
 >testClass7 : testClass7
 >Foo : Foo<{ x: any; }>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 
@@ -152,6 +170,7 @@ class testClass8 implements IFoo<{ x: V }> { } // error: could not find symbol V
 >testClass8 : testClass8
 >IFoo : IFoo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
 
@@ -163,15 +182,19 @@ interface testInterface2 {
 >a : Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
     [x: string]: Foo<{ x: V }>; // error: could not find symbol V
 >x : string
+>类型别名 :=> 文字
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
     method(a: Foo<{ x: V }>): Foo<{ x: V }>; //2x: error: could not find symbol V
@@ -179,15 +202,18 @@ interface testInterface2 {
 >a : Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 
     property: Foo<{ x: V }>; // error: could not find symbol V
 >property : Foo<{ x: any; }>
 >Foo : Foo<T>
 >x : any
+>类型别名 :=> 任意
 >V : No type information available!
 }
 

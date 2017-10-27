@@ -12,6 +12,7 @@ export default interface zzz {
 
     x: string;
 >x : string
+>类型别名 :=> 文字
 }
 
 import zzz from "./b";
@@ -22,6 +23,7 @@ const x: zzz = { x: "" };
 >zzz : zzz
 >{ x: "" } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 
 zzz;
@@ -34,16 +36,19 @@ export { zzz as default };
 === tests/cases/compiler/index.ts ===
 import zzz from "./a";
 >zzz : any
+>类型别名 :=> 任意
 
 const x: zzz = { x: "" };
 >x : zzz
 >zzz : zzz
 >{ x: "" } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 
 zzz;
 >zzz : any
+>类型别名 :=> 任意
 
 import originalZZZ from "./b";
 >originalZZZ : 123
@@ -53,6 +58,7 @@ originalZZZ;
 
 const y: originalZZZ = x;
 >y : any
+>类型别名 :=> 任意
 >originalZZZ : No type information available!
 >x : zzz
 

@@ -5,6 +5,7 @@ function foo<T extends (x: string) => string>(x: T): T { return x; }
 >foo : <T extends (x: string) => string>(x: T) => T
 >T : T
 >x : string
+>类型别名 :=> 文字
 >x : T
 >T : T
 >T : T
@@ -24,6 +25,7 @@ class C {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 
 var a: { (): string };
@@ -35,6 +37,7 @@ var b: { new (): string };
 var c: { (): string; (x): string };
 >c : { (): string; (x: any): string; }
 >x : any
+>类型别名 :=> 任意
 
 var r1 = foo((x) => x);
 >r1 : (x: string) => string
@@ -42,7 +45,9 @@ var r1 = foo((x) => x);
 >foo : <T extends (x: string) => string>(x: T) => T
 >(x) => x : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
 var r2 = foo((x: string) => x);
 >r2 : (x: string) => string
@@ -50,7 +55,9 @@ var r2 = foo((x: string) => x);
 >foo : <T extends (x: string) => string>(x: T) => T
 >(x: string) => x : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
 var r3 = foo(function (x) { return x });
 >r3 : (x: string) => string
@@ -58,7 +65,9 @@ var r3 = foo(function (x) { return x });
 >foo : <T extends (x: string) => string>(x: T) => T
 >function (x) { return x } : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
 var r4 = foo(function (x: string) { return x });
 >r4 : (x: string) => string
@@ -66,7 +75,9 @@ var r4 = foo(function (x: string) { return x });
 >foo : <T extends (x: string) => string>(x: T) => T
 >function (x: string) { return x } : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
 var r5 = foo(i);
 >r5 : I

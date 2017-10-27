@@ -3,52 +3,66 @@
 import {foo, baz} from "foobarbaz";
 >foo : (s: string) => void
 >baz : string
+>类型别名 :=> 文字
 
 foo(baz);
 >foo(baz) : void
+>类型别名 :=> 无值
 >foo : (s: string) => void
 >baz : string
+>类型别名 :=> 文字
 
 import {foos} from "foosball";
 >foos : string
+>类型别名 :=> 文字
 
 foo(foos);
 >foo(foos) : void
+>类型别名 :=> 无值
 >foo : (s: string) => void
 >foos : string
+>类型别名 :=> 文字
 
 // Works with relative file name
 import fileText from "./file!text";
 >fileText : string
+>类型别名 :=> 文字
 
 foo(fileText);
 >foo(fileText) : void
+>类型别名 :=> 无值
 >foo : (s: string) => void
 >fileText : string
+>类型别名 :=> 文字
 
 === tests/cases/conformance/ambient/declarations.d.ts ===
 declare module "foo*baz" {
     export function foo(s: string): void;
 >foo : (s: string) => void
 >s : string
+>类型别名 :=> 文字
 }
 // Augmentations still work
 declare module "foo*baz" {
     export const baz: string;
 >baz : string
+>类型别名 :=> 文字
 }
 
 // Longest prefix wins
 declare module "foos*" {
     export const foos: string;
 >foos : string
+>类型别名 :=> 文字
 }
 
 declare module "*!text" {
     const x: string;
 >x : string
+>类型别名 :=> 文字
 
     export default x;
 >x : string
+>类型别名 :=> 文字
 }
 

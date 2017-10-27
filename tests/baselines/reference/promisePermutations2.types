@@ -14,9 +14,11 @@ interface Promise<T> {
 >U : U
 >error : (error: any) => U
 >error : any
+>类型别名 :=> 任意
 >U : U
 >progress : (progress: any) => void
 >progress : any
+>类型别名 :=> 任意
 >Promise : Promise<T>
 >U : U
 
@@ -28,8 +30,10 @@ interface Promise<T> {
 >T : T
 >error : (error: any) => any
 >error : any
+>类型别名 :=> 任意
 >progress : (progress: any) => void
 >progress : any
+>类型别名 :=> 任意
 }
 
 interface IPromise<T> {
@@ -46,10 +50,12 @@ interface IPromise<T> {
 >U : U
 >error : (error: any) => IPromise<U>
 >error : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 >U : U
 >progress : (progress: any) => void
 >progress : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 >U : U
 
@@ -63,9 +69,11 @@ interface IPromise<T> {
 >U : U
 >error : (error: any) => U
 >error : any
+>类型别名 :=> 任意
 >U : U
 >progress : (progress: any) => void
 >progress : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 >U : U
 
@@ -78,10 +86,12 @@ interface IPromise<T> {
 >U : U
 >error : (error: any) => IPromise<U>
 >error : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 >U : U
 >progress : (progress: any) => void
 >progress : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 >U : U
 
@@ -94,9 +104,11 @@ interface IPromise<T> {
 >U : U
 >error : (error: any) => U
 >error : any
+>类型别名 :=> 任意
 >U : U
 >progress : (progress: any) => void
 >progress : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 >U : U
 
@@ -108,8 +120,10 @@ interface IPromise<T> {
 >T : T
 >error : (error: any) => any
 >error : any
+>类型别名 :=> 任意
 >progress : (progress: any) => void
 >progress : any
+>类型别名 :=> 任意
 }
 
 declare function testFunction(): IPromise<number>;
@@ -124,51 +138,64 @@ declare function testFunction2(): IPromise<{ x: number }>;
 >testFunction2 : () => IPromise<{ x: number; }>
 >IPromise : IPromise<T>
 >x : number
+>类型别名 :=> 数字
 
 declare function testFunction2P(): Promise<{ x: number }>;
 >testFunction2P : () => Promise<{ x: number; }>
 >Promise : Promise<T>
 >x : number
+>类型别名 :=> 数字
 
 declare function testFunction3(x: number): IPromise<number>;
 >testFunction3 : (x: number) => IPromise<number>
 >x : number
+>类型别名 :=> 数字
 >IPromise : IPromise<T>
 
 declare function testFunction3P(x: number): Promise<number>;
 >testFunction3P : (x: number) => Promise<number>
 >x : number
+>类型别名 :=> 数字
 >Promise : Promise<T>
 
 declare function testFunction4(x: number, y?: string): IPromise<string>;
 >testFunction4 : (x: number, y?: string) => IPromise<string>
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >IPromise : IPromise<T>
 
 declare function testFunction4P(x: number, y?: string): Promise<string>;
 >testFunction4P : (x: number, y?: string) => Promise<string>
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 >Promise : Promise<T>
 
 declare function testFunction5(x: number, cb: (a: string) => string): IPromise<string>;
 >testFunction5 : (x: number, cb: (a: string) => string) => IPromise<string>
 >x : number
+>类型别名 :=> 数字
 >cb : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 >IPromise : IPromise<T>
 
 declare function testFunction5P(x: number, cb: (a: string) => string): Promise<string>;
 >testFunction5P : (x: number, cb: (a: string) => string) => Promise<string>
 >x : number
+>类型别名 :=> 数字
 >cb : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 >Promise : Promise<T>
 
 declare function testFunction6(x: number, cb: <T>(a: T) => T): IPromise<string>;
 >testFunction6 : (x: number, cb: <T>(a: T) => T) => IPromise<string>
 >x : number
+>类型别名 :=> 数字
 >cb : <T>(a: T) => T
 >T : T
 >a : T
@@ -179,6 +206,7 @@ declare function testFunction6(x: number, cb: <T>(a: T) => T): IPromise<string>;
 declare function testFunction6P(x: number, cb: <T>(a: T) => T): Promise<string>;
 >testFunction6P : (x: number, cb: <T>(a: T) => T) => Promise<string>
 >x : number
+>类型别名 :=> 数字
 >cb : <T>(a: T) => T
 >T : T
 >a : T
@@ -279,21 +307,25 @@ declare function testFunction10P<T>(cb: <U>(a: U) => U): Promise<T>;
 declare function testFunction11(x: number): IPromise<number>;
 >testFunction11 : { (x: number): IPromise<number>; (x: string): IPromise<string>; }
 >x : number
+>类型别名 :=> 数字
 >IPromise : IPromise<T>
 
 declare function testFunction11(x: string): IPromise<string>;
 >testFunction11 : { (x: number): IPromise<number>; (x: string): IPromise<string>; }
 >x : string
+>类型别名 :=> 文字
 >IPromise : IPromise<T>
 
 declare function testFunction11P(x: number): Promise<number>;
 >testFunction11P : { (x: number): Promise<number>; (x: string): Promise<string>; }
 >x : number
+>类型别名 :=> 数字
 >Promise : Promise<T>
 
 declare function testFunction11P(x: string): Promise<string>;
 >testFunction11P : { (x: number): Promise<number>; (x: string): Promise<string>; }
 >x : string
+>类型别名 :=> 文字
 >Promise : Promise<T>
 
 declare function testFunction12<T>(x: T): IPromise<T>;
@@ -426,6 +458,7 @@ var r2: IPromise<{ x: number; }>;
 >r2 : IPromise<{ x: number; }>
 >IPromise : IPromise<T>
 >x : number
+>类型别名 :=> 数字
 
 var r2a = r2.then(testFunction2, testFunction2, testFunction2);
 >r2a : IPromise<{ x: number; }>
@@ -457,6 +490,7 @@ var s2: Promise<{ x: number; }>;
 >s2 : Promise<{ x: number; }>
 >Promise : Promise<T>
 >x : number
+>类型别名 :=> 数字
 
 var s2a = s2.then(testFunction2, testFunction2, testFunction2);
 >s2a : Promise<IPromise<{ x: number; }>>
@@ -570,7 +604,9 @@ var s3c = s3.then(testFunction3P, testFunction3, testFunction3);
 
 var s3d = s3.then(testFunction3P, testFunction3, testFunction3).then(testFunction3, testFunction3, testFunction3); // Should error
 >s3d : any
+>类型别名 :=> 任意
 >s3.then(testFunction3P, testFunction3, testFunction3).then(testFunction3, testFunction3, testFunction3) : any
+>类型别名 :=> 任意
 >s3.then(testFunction3P, testFunction3, testFunction3).then : { <TResult1 = IPromise<number>, TResult2 = never>(onfulfilled?: (value: IPromise<number>) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: IPromise<number>) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s3.then(testFunction3P, testFunction3, testFunction3) : Promise<IPromise<number>>
 >s3.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -591,16 +627,20 @@ var r4: IPromise<string>;
 var sIPromise: (x: any) => IPromise<string>;
 >sIPromise : (x: any) => IPromise<string>
 >x : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 
 var sPromise: (x: any) => Promise<string>;
 >sPromise : (x: any) => Promise<string>
 >x : any
+>类型别名 :=> 任意
 >Promise : Promise<T>
 
 var r4a = r4.then(testFunction4, testFunction4, testFunction4); // error
 >r4a : any
+>类型别名 :=> 任意
 >r4.then(testFunction4, testFunction4, testFunction4) : any
+>类型别名 :=> 任意
 >r4.then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r4 : IPromise<string>
 >then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -630,7 +670,9 @@ var s4: Promise<string>;
 
 var s4a = s4.then(testFunction4, testFunction4, testFunction4); // error
 >s4a : any
+>类型别名 :=> 任意
 >s4.then(testFunction4, testFunction4, testFunction4) : any
+>类型别名 :=> 任意
 >s4.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s4 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -640,7 +682,9 @@ var s4a = s4.then(testFunction4, testFunction4, testFunction4); // error
 
 var s4b = s4.then(testFunction4P, testFunction4P, testFunction4P); // error 
 >s4b : any
+>类型别名 :=> 任意
 >s4.then(testFunction4P, testFunction4P, testFunction4P) : any
+>类型别名 :=> 任意
 >s4.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s4 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -650,7 +694,9 @@ var s4b = s4.then(testFunction4P, testFunction4P, testFunction4P); // error
 
 var s4c = s4.then(testFunction4P, testFunction4, testFunction4); // error
 >s4c : any
+>类型别名 :=> 任意
 >s4.then(testFunction4P, testFunction4, testFunction4) : any
+>类型别名 :=> 任意
 >s4.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s4 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -680,7 +726,9 @@ var r5: IPromise<string>;
 
 var r5a = r5.then(testFunction5, testFunction5, testFunction5); // error
 >r5a : any
+>类型别名 :=> 任意
 >r5.then(testFunction5, testFunction5, testFunction5) : any
+>类型别名 :=> 任意
 >r5.then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r5 : IPromise<string>
 >then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -710,7 +758,9 @@ var s5: Promise<string>;
 
 var s5a = s5.then(testFunction5, testFunction5, testFunction5); // error
 >s5a : any
+>类型别名 :=> 任意
 >s5.then(testFunction5, testFunction5, testFunction5) : any
+>类型别名 :=> 任意
 >s5.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s5 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -720,7 +770,9 @@ var s5a = s5.then(testFunction5, testFunction5, testFunction5); // error
 
 var s5b = s5.then(testFunction5P, testFunction5P, testFunction5P); // error
 >s5b : any
+>类型别名 :=> 任意
 >s5.then(testFunction5P, testFunction5P, testFunction5P) : any
+>类型别名 :=> 任意
 >s5.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s5 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -730,7 +782,9 @@ var s5b = s5.then(testFunction5P, testFunction5P, testFunction5P); // error
 
 var s5c = s5.then(testFunction5P, testFunction5, testFunction5); // error
 >s5c : any
+>类型别名 :=> 任意
 >s5.then(testFunction5P, testFunction5, testFunction5) : any
+>类型别名 :=> 任意
 >s5.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s5 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -760,7 +814,9 @@ var r6: IPromise<string>;
 
 var r6a = r6.then(testFunction6, testFunction6, testFunction6); // error
 >r6a : any
+>类型别名 :=> 任意
 >r6.then(testFunction6, testFunction6, testFunction6) : any
+>类型别名 :=> 任意
 >r6.then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r6 : IPromise<string>
 >then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -790,7 +846,9 @@ var s6: Promise<string>;
 
 var s6a = s6.then(testFunction6, testFunction6, testFunction6); // error
 >s6a : any
+>类型别名 :=> 任意
 >s6.then(testFunction6, testFunction6, testFunction6) : any
+>类型别名 :=> 任意
 >s6.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s6 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -800,7 +858,9 @@ var s6a = s6.then(testFunction6, testFunction6, testFunction6); // error
 
 var s6b = s6.then(testFunction6P, testFunction6P, testFunction6P); // error
 >s6b : any
+>类型别名 :=> 任意
 >s6.then(testFunction6P, testFunction6P, testFunction6P) : any
+>类型别名 :=> 任意
 >s6.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s6 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -810,7 +870,9 @@ var s6b = s6.then(testFunction6P, testFunction6P, testFunction6P); // error
 
 var s6c = s6.then(testFunction6P, testFunction6, testFunction6); // error
 >s6c : any
+>类型别名 :=> 任意
 >s6.then(testFunction6P, testFunction6, testFunction6) : any
+>类型别名 :=> 任意
 >s6.then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s6 : Promise<string>
 >then : { <TResult1 = string, TResult2 = never>(onfulfilled?: (value: string) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -840,7 +902,9 @@ var r7: IPromise<string>;
 
 var r7a = r7.then(testFunction7, testFunction7, testFunction7); // error
 >r7a : any
+>类型别名 :=> 任意
 >r7.then(testFunction7, testFunction7, testFunction7) : any
+>类型别名 :=> 任意
 >r7.then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r7 : IPromise<string>
 >then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -870,7 +934,9 @@ var s7: Promise<string>;
 
 var s7a = r7.then(testFunction7, testFunction7, testFunction7); // error
 >s7a : any
+>类型别名 :=> 任意
 >r7.then(testFunction7, testFunction7, testFunction7) : any
+>类型别名 :=> 任意
 >r7.then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r7 : IPromise<string>
 >then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -880,7 +946,9 @@ var s7a = r7.then(testFunction7, testFunction7, testFunction7); // error
 
 var s7b = r7.then(testFunction7P, testFunction7P, testFunction7P); // error
 >s7b : any
+>类型别名 :=> 任意
 >r7.then(testFunction7P, testFunction7P, testFunction7P) : any
+>类型别名 :=> 任意
 >r7.then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r7 : IPromise<string>
 >then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -890,7 +958,9 @@ var s7b = r7.then(testFunction7P, testFunction7P, testFunction7P); // error
 
 var s7c = r7.then(testFunction7P, testFunction7, testFunction7); // error
 >s7c : any
+>类型别名 :=> 任意
 >r7.then(testFunction7P, testFunction7, testFunction7) : any
+>类型别名 :=> 任意
 >r7.then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r7 : IPromise<string>
 >then : { <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: string) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -921,16 +991,20 @@ var r8: IPromise<number>;
 var nIPromise: (x: any) => IPromise<number>;
 >nIPromise : (x: any) => IPromise<number>
 >x : any
+>类型别名 :=> 任意
 >IPromise : IPromise<T>
 
 var nPromise: (x: any) => Promise<number>;
 >nPromise : (x: any) => Promise<number>
 >x : any
+>类型别名 :=> 任意
 >Promise : Promise<T>
 
 var r8a = r8.then(testFunction8, testFunction8, testFunction8); // error
 >r8a : any
+>类型别名 :=> 任意
 >r8.then(testFunction8, testFunction8, testFunction8) : any
+>类型别名 :=> 任意
 >r8.then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r8 : IPromise<number>
 >then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -960,7 +1034,9 @@ var s8: Promise<number>;
 
 var s8a = s8.then(testFunction8, testFunction8, testFunction8); // error
 >s8a : any
+>类型别名 :=> 任意
 >s8.then(testFunction8, testFunction8, testFunction8) : any
+>类型别名 :=> 任意
 >s8.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s8 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -970,7 +1046,9 @@ var s8a = s8.then(testFunction8, testFunction8, testFunction8); // error
 
 var s8b = s8.then(testFunction8P, testFunction8P, testFunction8P); // error
 >s8b : any
+>类型别名 :=> 任意
 >s8.then(testFunction8P, testFunction8P, testFunction8P) : any
+>类型别名 :=> 任意
 >s8.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s8 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -980,7 +1058,9 @@ var s8b = s8.then(testFunction8P, testFunction8P, testFunction8P); // error
 
 var s8c = s8.then(testFunction8P, testFunction8, testFunction8); // error
 >s8c : any
+>类型别名 :=> 任意
 >s8.then(testFunction8P, testFunction8, testFunction8) : any
+>类型别名 :=> 任意
 >s8.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s8 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1010,7 +1090,9 @@ var r9: IPromise<number>;
 
 var r9a = r9.then(testFunction9, testFunction9, testFunction9); // error
 >r9a : any
+>类型别名 :=> 任意
 >r9.then(testFunction9, testFunction9, testFunction9) : any
+>类型别名 :=> 任意
 >r9.then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r9 : IPromise<number>
 >then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -1040,7 +1122,9 @@ var r9c = r9.then(nIPromise, nIPromise, nIPromise); // ok
 
 var r9d = r9.then(testFunction, sIPromise, nIPromise); // error
 >r9d : any
+>类型别名 :=> 任意
 >r9.then(testFunction, sIPromise, nIPromise) : any
+>类型别名 :=> 任意
 >r9.then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r9 : IPromise<number>
 >then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -1070,7 +1154,9 @@ var s9: Promise<number>;
 
 var s9a = s9.then(testFunction9, testFunction9, testFunction9); // error
 >s9a : any
+>类型别名 :=> 任意
 >s9.then(testFunction9, testFunction9, testFunction9) : any
+>类型别名 :=> 任意
 >s9.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s9 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1080,7 +1166,9 @@ var s9a = s9.then(testFunction9, testFunction9, testFunction9); // error
 
 var s9b = s9.then(testFunction9P, testFunction9P, testFunction9P); // error
 >s9b : any
+>类型别名 :=> 任意
 >s9.then(testFunction9P, testFunction9P, testFunction9P) : any
+>类型别名 :=> 任意
 >s9.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s9 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1090,7 +1178,9 @@ var s9b = s9.then(testFunction9P, testFunction9P, testFunction9P); // error
 
 var s9c = s9.then(testFunction9P, testFunction9, testFunction9); // error
 >s9c : any
+>类型别名 :=> 任意
 >s9.then(testFunction9P, testFunction9, testFunction9) : any
+>类型别名 :=> 任意
 >s9.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s9 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1120,7 +1210,9 @@ var s9e = s9.then(nPromise, nPromise, nPromise); // ok
 
 var s9f = s9.then(testFunction, sIPromise, nIPromise); // error
 >s9f : any
+>类型别名 :=> 任意
 >s9.then(testFunction, sIPromise, nIPromise) : any
+>类型别名 :=> 任意
 >s9.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s9 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1184,7 +1276,9 @@ var r10c = r10.then(nIPromise, nIPromise, nIPromise); // ok
 
 var r10d = r10.then(testFunction, sIPromise, nIPromise); // error
 >r10d : any
+>类型别名 :=> 任意
 >r10.then(testFunction, sIPromise, nIPromise) : any
+>类型别名 :=> 任意
 >r10.then : { <U>(success?: (value: {}) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: {}) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: {}) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: {}) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r10 : IPromise<{}>
 >then : { <U>(success?: (value: {}) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: {}) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: {}) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: {}) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -1268,7 +1362,9 @@ var s10e = s10.then(nIPromise, nPromise, nIPromise); // ok
 
 var s10f = s10.then(testFunctionP, sIPromise, nIPromise); // error
 >s10f : any
+>类型别名 :=> 任意
 >s10.then(testFunctionP, sIPromise, nIPromise) : any
+>类型别名 :=> 任意
 >s10.then : { <TResult1 = {}, TResult2 = never>(onfulfilled?: (value: {}) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: {}) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s10 : Promise<{}>
 >then : { <TResult1 = {}, TResult2 = never>(onfulfilled?: (value: {}) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: {}) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1298,7 +1394,9 @@ var r11: IPromise<number>;
 
 var r11a = r11.then(testFunction11, testFunction11, testFunction11); // error
 >r11a : any
+>类型别名 :=> 任意
 >r11.then(testFunction11, testFunction11, testFunction11) : any
+>类型别名 :=> 任意
 >r11.then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
 >r11 : IPromise<number>
 >then : { <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => IPromise<U>, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => IPromise<U>, progress?: (progress: any) => void): IPromise<U>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): IPromise<U>; }
@@ -1312,7 +1410,9 @@ var s11: Promise<number>;
 
 var s11a = s11.then(testFunction11, testFunction11, testFunction11); // ok
 >s11a : any
+>类型别名 :=> 任意
 >s11.then(testFunction11, testFunction11, testFunction11) : any
+>类型别名 :=> 任意
 >s11.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s11 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1322,7 +1422,9 @@ var s11a = s11.then(testFunction11, testFunction11, testFunction11); // ok
 
 var s11b = s11.then(testFunction11P, testFunction11P, testFunction11P); // ok
 >s11b : any
+>类型别名 :=> 任意
 >s11.then(testFunction11P, testFunction11P, testFunction11P) : any
+>类型别名 :=> 任意
 >s11.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s11 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1332,7 +1434,9 @@ var s11b = s11.then(testFunction11P, testFunction11P, testFunction11P); // ok
 
 var s11c = s11.then(testFunction11P, testFunction11, testFunction11); // ok
 >s11c : any
+>类型别名 :=> 任意
 >s11.then(testFunction11P, testFunction11, testFunction11) : any
+>类型别名 :=> 任意
 >s11.then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
 >s11 : Promise<number>
 >then : { <TResult1 = number, TResult2 = never>(onfulfilled?: (value: number) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(success?: (value: number) => U, error?: (error: any) => U, progress?: (progress: any) => void): Promise<U>; }
@@ -1346,7 +1450,9 @@ var r12 = testFunction12(x => x);
 >testFunction12 : { <T>(x: T): IPromise<T>; <T>(x: T, y: T): IPromise<T>; }
 >x => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 var r12a = r12.then(testFunction12, testFunction12, testFunction12); // ok
 >r12a : IPromise<any>
@@ -1364,7 +1470,9 @@ var s12 = testFunction12(x => x);
 >testFunction12 : { <T>(x: T): IPromise<T>; <T>(x: T, y: T): IPromise<T>; }
 >x => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 var s12a = s12.then(testFunction12, testFunction12, testFunction12); // ok
 >s12a : IPromise<any>

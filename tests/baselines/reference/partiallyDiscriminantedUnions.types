@@ -22,6 +22,7 @@ interface A2 {
 
     foo: number;
 >foo : number
+>类型别名 :=> 数字
 }
 
 interface B {
@@ -46,6 +47,7 @@ const ab: AB = <AB>{};
 
 if (ab.type === 'a') {
 >ab.type === 'a' : boolean
+>类型别名 :=> 真假
 >ab.type : "a" | "b"
 >ab : AB
 >type : "a" | "b"
@@ -53,6 +55,7 @@ if (ab.type === 'a') {
 
     if (ab.subtype === 2) {
 >ab.subtype === 2 : boolean
+>类型别名 :=> 真假
 >ab.subtype : 1 | 2
 >ab : A1 | A2
 >subtype : 1 | 2
@@ -60,8 +63,10 @@ if (ab.type === 'a') {
 
         ab.foo;
 >ab.foo : number
+>类型别名 :=> 数字
 >ab : A2
 >foo : number
+>类型别名 :=> 数字
     }
 }
 
@@ -91,11 +96,14 @@ function isShape(s : Shapes): s is Shape {
 >s : Shapes
 >Shapes : Shapes
 >s : any
+>类型别名 :=> 任意
 >Shape : Shape
 
     return !Array.isArray(s);
 >!Array.isArray(s) : boolean
+>类型别名 :=> 真假
 >Array.isArray(s) : boolean
+>类型别名 :=> 真假
 >Array.isArray : (arg: any) => arg is any[]
 >Array : ArrayConstructor
 >isArray : (arg: any) => arg is any[]
@@ -109,11 +117,13 @@ function fail(s: Shapes) {
 
     if (isShape(s)) {
 >isShape(s) : boolean
+>类型别名 :=> 真假
 >isShape : (s: Shapes) => s is Shape
 >s : Shapes
 
         if (s.kind === "circle") {
 >s.kind === "circle" : boolean
+>类型别名 :=> 真假
 >s.kind : "square" | "circle"
 >s : Shape
 >kind : "square" | "circle"

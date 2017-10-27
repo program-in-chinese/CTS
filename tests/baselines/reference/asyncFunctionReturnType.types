@@ -7,6 +7,7 @@ async function fAsync() {
 >[1, true] : (number | boolean)[]
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 }
 
 async function fAsyncExplicit(): Promise<[number, boolean]> {
@@ -18,6 +19,7 @@ async function fAsyncExplicit(): Promise<[number, boolean]> {
 >[1, true] : [number, true]
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 }
 
 // https://github.com/Microsoft/TypeScript/issues/13128
@@ -26,9 +28,11 @@ interface Obj {
 
     stringProp: string;
 >stringProp : string
+>类型别名 :=> 文字
 
     anyProp: any;
 >anyProp : any
+>类型别名 :=> 任意
 }
 
 async function fIndexedTypeForStringProp(obj: Obj): Promise<Obj["stringProp"]> {
@@ -40,8 +44,10 @@ async function fIndexedTypeForStringProp(obj: Obj): Promise<Obj["stringProp"]> {
 
     return obj.stringProp;
 >obj.stringProp : string
+>类型别名 :=> 文字
 >obj : Obj
 >stringProp : string
+>类型别名 :=> 文字
 }
 
 async function fIndexedTypeForPromiseOfStringProp(obj: Obj): Promise<Obj["stringProp"]> {
@@ -57,8 +63,10 @@ async function fIndexedTypeForPromiseOfStringProp(obj: Obj): Promise<Obj["string
 >Promise : PromiseConstructor
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >obj.stringProp : string
+>类型别名 :=> 文字
 >obj : Obj
 >stringProp : string
+>类型别名 :=> 文字
 }
 
 async function fIndexedTypeForExplicitPromiseOfStringProp(obj: Obj): Promise<Obj["stringProp"]> {
@@ -75,8 +83,10 @@ async function fIndexedTypeForExplicitPromiseOfStringProp(obj: Obj): Promise<Obj
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Obj : Obj
 >obj.stringProp : string
+>类型别名 :=> 文字
 >obj : Obj
 >stringProp : string
+>类型别名 :=> 文字
 }
 
 async function fIndexedTypeForAnyProp(obj: Obj): Promise<Obj["anyProp"]> {
@@ -88,8 +98,10 @@ async function fIndexedTypeForAnyProp(obj: Obj): Promise<Obj["anyProp"]> {
 
     return obj.anyProp;
 >obj.anyProp : any
+>类型别名 :=> 任意
 >obj : Obj
 >anyProp : any
+>类型别名 :=> 任意
 }
 
 async function fIndexedTypeForPromiseOfAnyProp(obj: Obj): Promise<Obj["anyProp"]> {
@@ -105,8 +117,10 @@ async function fIndexedTypeForPromiseOfAnyProp(obj: Obj): Promise<Obj["anyProp"]
 >Promise : PromiseConstructor
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >obj.anyProp : any
+>类型别名 :=> 任意
 >obj : Obj
 >anyProp : any
+>类型别名 :=> 任意
 }
 
 async function fIndexedTypeForExplicitPromiseOfAnyProp(obj: Obj): Promise<Obj["anyProp"]> {
@@ -123,8 +137,10 @@ async function fIndexedTypeForExplicitPromiseOfAnyProp(obj: Obj): Promise<Obj["a
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Obj : Obj
 >obj.anyProp : any
+>类型别名 :=> 任意
 >obj : Obj
 >anyProp : any
+>类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForStringProp<TObj extends Obj>(obj: TObj): Promise<TObj["stringProp"]> {
@@ -138,8 +154,10 @@ async function fGenericIndexedTypeForStringProp<TObj extends Obj>(obj: TObj): Pr
 
     return obj.stringProp;
 >obj.stringProp : string
+>类型别名 :=> 文字
 >obj : TObj
 >stringProp : string
+>类型别名 :=> 文字
 }
 
 async function fGenericIndexedTypeForPromiseOfStringProp<TObj extends Obj>(obj: TObj): Promise<TObj["stringProp"]> {
@@ -157,8 +175,10 @@ async function fGenericIndexedTypeForPromiseOfStringProp<TObj extends Obj>(obj: 
 >Promise : PromiseConstructor
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >obj.stringProp : string
+>类型别名 :=> 文字
 >obj : TObj
 >stringProp : string
+>类型别名 :=> 文字
 }
 
 async function fGenericIndexedTypeForExplicitPromiseOfStringProp<TObj extends Obj>(obj: TObj): Promise<TObj["stringProp"]> {
@@ -177,8 +197,10 @@ async function fGenericIndexedTypeForExplicitPromiseOfStringProp<TObj extends Ob
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >TObj : TObj
 >obj.stringProp : string
+>类型别名 :=> 文字
 >obj : TObj
 >stringProp : string
+>类型别名 :=> 文字
 }
 
 async function fGenericIndexedTypeForAnyProp<TObj extends Obj>(obj: TObj): Promise<TObj["anyProp"]> {
@@ -192,8 +214,10 @@ async function fGenericIndexedTypeForAnyProp<TObj extends Obj>(obj: TObj): Promi
 
     return obj.anyProp;
 >obj.anyProp : any
+>类型别名 :=> 任意
 >obj : TObj
 >anyProp : any
+>类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForPromiseOfAnyProp<TObj extends Obj>(obj: TObj): Promise<TObj["anyProp"]> {
@@ -211,8 +235,10 @@ async function fGenericIndexedTypeForPromiseOfAnyProp<TObj extends Obj>(obj: TOb
 >Promise : PromiseConstructor
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >obj.anyProp : any
+>类型别名 :=> 任意
 >obj : TObj
 >anyProp : any
+>类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForExplicitPromiseOfAnyProp<TObj extends Obj>(obj: TObj): Promise<TObj["anyProp"]> {
@@ -231,8 +257,10 @@ async function fGenericIndexedTypeForExplicitPromiseOfAnyProp<TObj extends Obj>(
 >resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >TObj : TObj
 >obj.anyProp : any
+>类型别名 :=> 任意
 >obj : TObj
 >anyProp : any
+>类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForKProp<TObj extends Obj, K extends keyof TObj>(obj: TObj, key: K): Promise<TObj[K]> {

@@ -7,6 +7,7 @@ class Foo { // error
 
     constructor(x: any) {
 >x : any
+>类型别名 :=> 任意
 
         // WScript.Echo("Constructor function has executed");
     }
@@ -18,16 +19,21 @@ function Foo(); // error
 function F1(s:string) {return s;} // error
 >F1 : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 function F1(a:any) { return a;} // error
 >F1 : (s: string) => string
 >a : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
 function Goo(s:string); // error - no implementation
 >Goo : (s: string) => any
 >s : string
+>类型别名 :=> 文字
 
 declare function Gar(s:String); // expect no error
 >Gar : (s: String) => any
@@ -43,11 +49,13 @@ var f1 = new Foo("hey");
 
 f1.bar1();
 >f1.bar1() : void
+>类型别名 :=> 无值
 >f1.bar1 : () => void
 >f1 : Foo
 >bar1 : () => void
 
 Foo();
 >Foo() : any
+>类型别名 :=> 任意
 >Foo : typeof Foo
 

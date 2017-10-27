@@ -5,6 +5,7 @@ declare var console: {
     log(msg: any): void;
 >log : (msg: any) => void
 >msg : any
+>类型别名 :=> 任意
 }
 type Robot = [number, string, string];
 >Robot : [number, string, string]
@@ -20,7 +21,9 @@ var robotA: Robot = [1, "mower", "mowing"];
 function foo1([, nameA = "noName"]: Robot = [-1, "name", "skill"]) {
 >foo1 : ([, nameA]?: [number, string, string]) => void
 > : undefined
+>类型别名 :=> 未定
 >nameA : string
+>类型别名 :=> 文字
 >"noName" : "noName"
 >Robot : [number, string, string]
 >[-1, "name", "skill"] : [number, string, string]
@@ -31,15 +34,18 @@ function foo1([, nameA = "noName"]: Robot = [-1, "name", "skill"]) {
 
     console.log(nameA);
 >console.log(nameA) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA : string
+>类型别名 :=> 文字
 }
 
 function foo2([numberB = -1]: Robot = [-1, "name", "skill"]) {
 >foo2 : ([numberB]?: [number, string, string]) => void
 >numberB : number
+>类型别名 :=> 数字
 >-1 : -1
 >1 : 1
 >Robot : [number, string, string]
@@ -51,20 +57,25 @@ function foo2([numberB = -1]: Robot = [-1, "name", "skill"]) {
 
     console.log(numberB);
 >console.log(numberB) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >numberB : number
+>类型别名 :=> 数字
 }
 
 function foo3([numberA2 = -1, nameA2 = "name", skillA2 = "skill"]: Robot = [-1, "name", "skill"]) {
 >foo3 : ([numberA2, nameA2, skillA2]?: [number, string, string]) => void
 >numberA2 : number
+>类型别名 :=> 数字
 >-1 : -1
 >1 : 1
 >nameA2 : string
+>类型别名 :=> 文字
 >"name" : "name"
 >skillA2 : string
+>类型别名 :=> 文字
 >"skill" : "skill"
 >Robot : [number, string, string]
 >[-1, "name", "skill"] : [number, string, string]
@@ -75,15 +86,18 @@ function foo3([numberA2 = -1, nameA2 = "name", skillA2 = "skill"]: Robot = [-1, 
 
     console.log(nameA2);
 >console.log(nameA2) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
 >nameA2 : string
+>类型别名 :=> 文字
 }
 
 function foo4([numberA3 = -1, ...robotAInfo]: Robot = [-1, "name", "skill"]) {
 >foo4 : ([numberA3, ...robotAInfo]?: [number, string, string]) => void
 >numberA3 : number
+>类型别名 :=> 数字
 >-1 : -1
 >1 : 1
 >robotAInfo : (string | number)[]
@@ -96,6 +110,7 @@ function foo4([numberA3 = -1, ...robotAInfo]: Robot = [-1, "name", "skill"]) {
 
     console.log(robotAInfo);
 >console.log(robotAInfo) : void
+>类型别名 :=> 无值
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
@@ -104,11 +119,13 @@ function foo4([numberA3 = -1, ...robotAInfo]: Robot = [-1, "name", "skill"]) {
 
 foo1(robotA);
 >foo1(robotA) : void
+>类型别名 :=> 无值
 >foo1 : ([, nameA]?: [number, string, string]) => void
 >robotA : [number, string, string]
 
 foo1([2, "trimmer", "trimming"]);
 >foo1([2, "trimmer", "trimming"]) : void
+>类型别名 :=> 无值
 >foo1 : ([, nameA]?: [number, string, string]) => void
 >[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2
@@ -117,11 +134,13 @@ foo1([2, "trimmer", "trimming"]);
 
 foo2(robotA);
 >foo2(robotA) : void
+>类型别名 :=> 无值
 >foo2 : ([numberB]?: [number, string, string]) => void
 >robotA : [number, string, string]
 
 foo2([2, "trimmer", "trimming"]);
 >foo2([2, "trimmer", "trimming"]) : void
+>类型别名 :=> 无值
 >foo2 : ([numberB]?: [number, string, string]) => void
 >[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2
@@ -130,11 +149,13 @@ foo2([2, "trimmer", "trimming"]);
 
 foo3(robotA);
 >foo3(robotA) : void
+>类型别名 :=> 无值
 >foo3 : ([numberA2, nameA2, skillA2]?: [number, string, string]) => void
 >robotA : [number, string, string]
 
 foo3([2, "trimmer", "trimming"]);
 >foo3([2, "trimmer", "trimming"]) : void
+>类型别名 :=> 无值
 >foo3 : ([numberA2, nameA2, skillA2]?: [number, string, string]) => void
 >[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2
@@ -143,11 +164,13 @@ foo3([2, "trimmer", "trimming"]);
 
 foo4(robotA);
 >foo4(robotA) : void
+>类型别名 :=> 无值
 >foo4 : ([numberA3, ...robotAInfo]?: [number, string, string]) => void
 >robotA : [number, string, string]
 
 foo4([2, "trimmer", "trimming"]);
 >foo4([2, "trimmer", "trimming"]) : void
+>类型别名 :=> 无值
 >foo4 : ([numberA3, ...robotAInfo]?: [number, string, string]) => void
 >[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2

@@ -4,14 +4,17 @@ class Base {
 
     protected static x: string;
 >x : string
+>类型别名 :=> 文字
 
     static staticMethod() {
 >staticMethod : () => void
 
         this.x;         // OK, accessed within their declaring class
 >this.x : string
+>类型别名 :=> 文字
 >this : typeof Base
 >x : string
+>类型别名 :=> 文字
     }
 }
 
@@ -24,13 +27,17 @@ class Derived1 extends Base {
 
         this.x;         // OK, accessed within a class derived from their declaring class
 >this.x : string
+>类型别名 :=> 文字
 >this : typeof Derived1
 >x : string
+>类型别名 :=> 文字
 
         super.x;        // Error, x is not public
 >super.x : string
+>类型别名 :=> 文字
 >super : typeof Base
 >x : string
+>类型别名 :=> 文字
     }
 }
 
@@ -40,18 +47,23 @@ class Derived2 extends Derived1 {
 
     protected static x: string;
 >x : string
+>类型别名 :=> 文字
 
     static staticMethod3() {
 >staticMethod3 : () => void
 
         this.x;         // OK, accessed within a class derived from their declaring class
 >this.x : string
+>类型别名 :=> 文字
 >this : typeof Derived2
 >x : string
+>类型别名 :=> 文字
 
         super.x;        // Error, x is not public
 >super.x : string
+>类型别名 :=> 文字
 >super : typeof Derived1
 >x : string
+>类型别名 :=> 文字
     }
 }

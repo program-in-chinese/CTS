@@ -2,6 +2,7 @@
 type StringMap = { [x: string]: string };
 >StringMap : StringMap
 >x : string
+>类型别名 :=> 文字
 
 const empty1 = {};
 >empty1 : {}
@@ -14,14 +15,18 @@ const names1 = { a: "foo", b: "bar" };
 >names1 : { a: string; b: string; }
 >{ a: "foo", b: "bar" } : { a: string; b: string; }
 >a : string
+>类型别名 :=> 文字
 >"foo" : "foo"
 >b : string
+>类型别名 :=> 文字
 >"bar" : "bar"
 
 let names2: { a: string, b: string };
 >names2 : { a: string; b: string; }
 >a : string
+>类型别名 :=> 文字
 >b : string
+>类型别名 :=> 文字
 
 let map: StringMap;
 >map : StringMap
@@ -32,8 +37,10 @@ map = { x: "xxx", y: "yyy" };
 >map : StringMap
 >{ x: "xxx", y: "yyy" } : { x: string; y: string; }
 >x : string
+>类型别名 :=> 文字
 >"xxx" : "xxx"
 >y : string
+>类型别名 :=> 文字
 >"yyy" : "yyy"
 
 map = empty1;
@@ -61,6 +68,7 @@ declare function getStringIndexValue<T>(map: { [x: string]: T }): T;
 >T : T
 >map : { [x: string]: T; }
 >x : string
+>类型别名 :=> 文字
 >T : T
 >T : T
 
@@ -69,6 +77,7 @@ declare function getNumberIndexValue<T>(map: { [x: number]: T }): T;
 >T : T
 >map : { [x: number]: T; }
 >x : number
+>类型别名 :=> 数字
 >T : T
 >T : T
 
@@ -79,24 +88,32 @@ function f1() {
 >o1 : { a: number; b: number; }
 >{ a: 1, b: 2 } : { a: number; b: number; }
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 >b : number
+>类型别名 :=> 数字
 >2 : 2
 
     let o2: { a: number, b: number };
 >o2 : { a: number; b: number; }
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
     const v1 = getStringIndexValue(o1);
 >v1 : number
+>类型别名 :=> 数字
 >getStringIndexValue(o1) : number
+>类型别名 :=> 数字
 >getStringIndexValue : <T>(map: { [x: string]: T; }) => T
 >o1 : { a: number; b: number; }
 
     const v2 = getStringIndexValue(o2);
 >v2 : number
+>类型别名 :=> 数字
 >getStringIndexValue(o2) : number
+>类型别名 :=> 数字
 >getStringIndexValue : <T>(map: { [x: string]: T; }) => T
 >o2 : { a: number; b: number; }
 }
@@ -108,24 +125,32 @@ function f2() {
 >o1 : { a: string; b: string; }
 >{ a: "1", b: "2" } : { a: string; b: string; }
 >a : string
+>类型别名 :=> 文字
 >"1" : "1"
 >b : string
+>类型别名 :=> 文字
 >"2" : "2"
 
     let o2: { a: string, b: string };
 >o2 : { a: string; b: string; }
 >a : string
+>类型别名 :=> 文字
 >b : string
+>类型别名 :=> 文字
 
     const v1 = getStringIndexValue(o1);
 >v1 : string
+>类型别名 :=> 文字
 >getStringIndexValue(o1) : string
+>类型别名 :=> 文字
 >getStringIndexValue : <T>(map: { [x: string]: T; }) => T
 >o1 : { a: string; b: string; }
 
     const v2 = getStringIndexValue(o2);
 >v2 : string
+>类型别名 :=> 文字
 >getStringIndexValue(o2) : string
+>类型别名 :=> 文字
 >getStringIndexValue : <T>(map: { [x: string]: T; }) => T
 >o2 : { a: string; b: string; }
 }
@@ -137,14 +162,18 @@ function f3() {
 >o1 : { a: number; b: string; }
 >{ a: 1, b: "2" } : { a: number; b: string; }
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 >b : string
+>类型别名 :=> 文字
 >"2" : "2"
 
     let o2: { a: number, b: string };
 >o2 : { a: number; b: string; }
 >a : number
+>类型别名 :=> 数字
 >b : string
+>类型别名 :=> 文字
 
     const v1 = getStringIndexValue(o1);
 >v1 : string | number
@@ -168,11 +197,13 @@ function f4() {
 >"0" : "0"
 >"1" : "1"
 >count : number
+>类型别名 :=> 数字
 >2 : 2
 
     let o2: { 0: string, 1: string, count: number };    
 >o2 : { 0: string; 1: string; count: number; }
 >count : number
+>类型别名 :=> 数字
 
     const v1 = getStringIndexValue(o1);
 >v1 : string | number
@@ -188,13 +219,17 @@ function f4() {
 
     const v3 = getNumberIndexValue(o1);
 >v3 : string
+>类型别名 :=> 文字
 >getNumberIndexValue(o1) : string
+>类型别名 :=> 文字
 >getNumberIndexValue : <T>(map: { [x: number]: T; }) => T
 >o1 : { 0: string; 1: string; count: number; }
 
     const v4 = getNumberIndexValue(o2);
 >v4 : string
+>类型别名 :=> 文字
 >getNumberIndexValue(o2) : string
+>类型别名 :=> 文字
 >getNumberIndexValue : <T>(map: { [x: number]: T; }) => T
 >o2 : { 0: string; 1: string; count: number; }
 }

@@ -17,9 +17,11 @@ class SubClass extends Class {
 
     foo: boolean;
 >foo : boolean
+>类型别名 :=> 真假
 
     constructor() { super(); }
 >super() : void
+>类型别名 :=> 无值
 >super : typeof Class
 }
 
@@ -29,6 +31,7 @@ class D implements F {
 
     foo: boolean
 >foo : boolean
+>类型别名 :=> 真假
 
     constructor() { }
 }
@@ -39,10 +42,12 @@ class SubD extends D {
 
     bar: number
 >bar : number
+>类型别名 :=> 数字
 
     constructor() {
         super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof D
     }
 }
@@ -99,13 +104,16 @@ var obj = new Class();
 
 d0({ x: 1 });
 >d0({ x: 1 }) : void
+>类型别名 :=> 无值
 >d0 : <T extends Class>({ x }?: { x: Class; }) => void
 >{ x: 1 } : { x: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 d0({ x: {} });
 >d0({ x: {} }) : void
+>类型别名 :=> 无值
 >d0 : <T extends Class>({ x }?: { x: Class; }) => void
 >{ x: {} } : { x: {}; }
 >x : {}
@@ -113,13 +121,16 @@ d0({ x: {} });
 
 d0({ x: "string" });
 >d0({ x: "string" }) : void
+>类型别名 :=> 无值
 >d0 : <T extends Class>({ x }?: { x: Class; }) => void
 >{ x: "string" } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"string" : "string"
 
 d1({ x: new Class() });
 >d1({ x: new Class() }) : void
+>类型别名 :=> 无值
 >d1 : <T extends F>({ x }: { x: F; }) => void
 >{ x: new Class() } : { x: Class; }
 >x : Class
@@ -128,6 +139,7 @@ d1({ x: new Class() });
 
 d1({ x: {} });
 >d1({ x: {} }) : void
+>类型别名 :=> 无值
 >d1 : <T extends F>({ x }: { x: F; }) => void
 >{ x: {} } : { x: {}; }
 >x : {}
@@ -135,13 +147,16 @@ d1({ x: {} });
 
 d1({ x: "string" });
 >d1({ x: "string" }) : void
+>类型别名 :=> 无值
 >d1 : <T extends F>({ x }: { x: F; }) => void
 >{ x: "string" } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"string" : "string"
 
 d2({ x: new SubClass() });
 >d2({ x: new SubClass() }) : void
+>类型别名 :=> 无值
 >d2 : <T extends Class>({ x }: { x: Class; }) => void
 >{ x: new SubClass() } : { x: SubClass; }
 >x : SubClass
@@ -150,6 +165,7 @@ d2({ x: new SubClass() });
 
 d2({ x: {} });
 >d2({ x: {} }) : void
+>类型别名 :=> 无值
 >d2 : <T extends Class>({ x }: { x: Class; }) => void
 >{ x: {} } : { x: {}; }
 >x : {}
@@ -157,6 +173,7 @@ d2({ x: {} });
 
 d3({ y: new SubD() });
 >d3({ y: new SubD() }) : void
+>类型别名 :=> 无值
 >d3 : <T extends D>({ y }: { y: D; }) => void
 >{ y: new SubD() } : { y: SubD; }
 >y : SubD
@@ -165,6 +182,7 @@ d3({ y: new SubD() });
 
 d3({ y: new SubClass() });
 >d3({ y: new SubClass() }) : void
+>类型别名 :=> 无值
 >d3 : <T extends D>({ y }: { y: D; }) => void
 >{ y: new SubClass() } : { y: SubClass; }
 >y : SubClass
@@ -174,6 +192,7 @@ d3({ y: new SubClass() });
 // Error
 d3({ y: new Class() });
 >d3({ y: new Class() }) : any
+>类型别名 :=> 任意
 >d3 : <T extends D>({ y }: { y: D; }) => void
 >{ y: new Class() } : { y: Class; }
 >y : Class
@@ -182,20 +201,25 @@ d3({ y: new Class() });
 
 d3({});
 >d3({}) : any
+>类型别名 :=> 任意
 >d3 : <T extends D>({ y }: { y: D; }) => void
 >{} : {}
 
 d3({ y: 1 });
 >d3({ y: 1 }) : any
+>类型别名 :=> 任意
 >d3 : <T extends D>({ y }: { y: D; }) => void
 >{ y: 1 } : { y: number; }
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
 d3({ y: "world" });
 >d3({ y: "world" }) : any
+>类型别名 :=> 任意
 >d3 : <T extends D>({ y }: { y: D; }) => void
 >{ y: "world" } : { y: string; }
 >y : string
+>类型别名 :=> 文字
 >"world" : "world"
 

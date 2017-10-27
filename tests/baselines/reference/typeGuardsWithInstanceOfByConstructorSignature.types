@@ -10,6 +10,7 @@ interface A {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 declare var A: AConstructor;
 >A : AConstructor
@@ -21,37 +22,49 @@ var obj1: A | string;
 
 if (obj1 instanceof A) { // narrowed to A.
 >obj1 instanceof A : boolean
+>类型别名 :=> 真假
 >obj1 : string | A
 >A : AConstructor
 
     obj1.foo;
 >obj1.foo : string
+>类型别名 :=> 文字
 >obj1 : A
 >foo : string
+>类型别名 :=> 文字
 
     obj1.bar;
 >obj1.bar : any
+>类型别名 :=> 任意
 >obj1 : A
 >bar : any
+>类型别名 :=> 任意
 }
 
 var obj2: any;
 >obj2 : any
+>类型别名 :=> 任意
 
 if (obj2 instanceof A) {
 >obj2 instanceof A : boolean
+>类型别名 :=> 真假
 >obj2 : any
+>类型别名 :=> 任意
 >A : AConstructor
 
     obj2.foo;
 >obj2.foo : string
+>类型别名 :=> 文字
 >obj2 : A
 >foo : string
+>类型别名 :=> 文字
 
     obj2.bar;
 >obj2.bar : any
+>类型别名 :=> 任意
 >obj2 : A
 >bar : any
+>类型别名 :=> 任意
 }
 
 // a construct signature with generics
@@ -81,58 +94,74 @@ var obj3: B<number> | string;
 
 if (obj3 instanceof B) { // narrowed to B<number>.
 >obj3 instanceof B : boolean
+>类型别名 :=> 真假
 >obj3 : string | B<number>
 >B : BConstructor
 
     obj3.foo = 1;
 >obj3.foo = 1 : 1
 >obj3.foo : number
+>类型别名 :=> 数字
 >obj3 : B<number>
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
 
     obj3.foo = "str";
 >obj3.foo = "str" : "str"
 >obj3.foo : number
+>类型别名 :=> 数字
 >obj3 : B<number>
 >foo : number
+>类型别名 :=> 数字
 >"str" : "str"
 
     obj3.bar = "str";
 >obj3.bar = "str" : "str"
 >obj3.bar : any
+>类型别名 :=> 任意
 >obj3 : B<number>
 >bar : any
+>类型别名 :=> 任意
 >"str" : "str"
 }
 
 var obj4: any;
 >obj4 : any
+>类型别名 :=> 任意
 
 if (obj4 instanceof B) {
 >obj4 instanceof B : boolean
+>类型别名 :=> 真假
 >obj4 : any
+>类型别名 :=> 任意
 >B : BConstructor
 
     obj4.foo = "str";
 >obj4.foo = "str" : "str"
 >obj4.foo : any
+>类型别名 :=> 任意
 >obj4 : B<any>
 >foo : any
+>类型别名 :=> 任意
 >"str" : "str"
 
     obj4.foo = 1;
 >obj4.foo = 1 : 1
 >obj4.foo : any
+>类型别名 :=> 任意
 >obj4 : B<any>
 >foo : any
+>类型别名 :=> 任意
 >1 : 1
 
     obj4.bar = "str";
 >obj4.bar = "str" : "str"
 >obj4.bar : any
+>类型别名 :=> 任意
 >obj4 : B<any>
 >bar : any
+>类型别名 :=> 任意
 >"str" : "str"
 }
 
@@ -142,10 +171,12 @@ interface CConstructor {
 
     new (value: string): C1;
 >value : string
+>类型别名 :=> 文字
 >C1 : C1
 
     new (value: number): C2;
 >value : number
+>类型别名 :=> 数字
 >C2 : C2
 }
 interface C1 {
@@ -153,24 +184,30 @@ interface C1 {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 
     c: string;
 >c : string
+>类型别名 :=> 文字
 
     bar1: number;
 >bar1 : number
+>类型别名 :=> 数字
 }
 interface C2 {
 >C2 : C2
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 
     c: string;
 >c : string
+>类型别名 :=> 文字
 
     bar2: number;
 >bar2 : number
+>类型别名 :=> 数字
 }
 declare var C: CConstructor;
 >C : CConstructor
@@ -183,52 +220,70 @@ var obj5: C1 | A;
 
 if (obj5 instanceof C) { // narrowed to C1|C2.
 >obj5 instanceof C : boolean
+>类型别名 :=> 真假
 >obj5 : A | C1
 >C : CConstructor
 
     obj5.foo;
 >obj5.foo : string
+>类型别名 :=> 文字
 >obj5 : C1
 >foo : string
+>类型别名 :=> 文字
 
     obj5.c;
 >obj5.c : string
+>类型别名 :=> 文字
 >obj5 : C1
 >c : string
+>类型别名 :=> 文字
 
     obj5.bar1;
 >obj5.bar1 : number
+>类型别名 :=> 数字
 >obj5 : C1
 >bar1 : number
+>类型别名 :=> 数字
 
     obj5.bar2;
 >obj5.bar2 : any
+>类型别名 :=> 任意
 >obj5 : C1
 >bar2 : any
+>类型别名 :=> 任意
 }
 
 var obj6: any;
 >obj6 : any
+>类型别名 :=> 任意
 
 if (obj6 instanceof C) {
 >obj6 instanceof C : boolean
+>类型别名 :=> 真假
 >obj6 : any
+>类型别名 :=> 任意
 >C : CConstructor
 
     obj6.foo;
 >obj6.foo : string
+>类型别名 :=> 文字
 >obj6 : C1 | C2
 >foo : string
+>类型别名 :=> 文字
 
     obj6.bar1;
 >obj6.bar1 : any
+>类型别名 :=> 任意
 >obj6 : C1 | C2
 >bar1 : any
+>类型别名 :=> 任意
 
     obj6.bar2;
 >obj6.bar2 : any
+>类型别名 :=> 任意
 >obj6 : C1 | C2
 >bar2 : any
+>类型别名 :=> 任意
 }
 
 // with object type literal
@@ -237,6 +292,7 @@ interface D {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 declare var D: { new (): D; };
 >D : new () => D
@@ -248,37 +304,49 @@ var obj7: D | string;
 
 if (obj7 instanceof D) { // narrowed to D.
 >obj7 instanceof D : boolean
+>类型别名 :=> 真假
 >obj7 : string | D
 >D : new () => D
 
     obj7.foo;
 >obj7.foo : string
+>类型别名 :=> 文字
 >obj7 : D
 >foo : string
+>类型别名 :=> 文字
 
     obj7.bar;
 >obj7.bar : any
+>类型别名 :=> 任意
 >obj7 : D
 >bar : any
+>类型别名 :=> 任意
 }
 
 var obj8: any;
 >obj8 : any
+>类型别名 :=> 任意
 
 if (obj8 instanceof D) {
 >obj8 instanceof D : boolean
+>类型别名 :=> 真假
 >obj8 : any
+>类型别名 :=> 任意
 >D : new () => D
 
     obj8.foo;
 >obj8.foo : string
+>类型别名 :=> 文字
 >obj8 : D
 >foo : string
+>类型别名 :=> 文字
 
     obj8.bar;
 >obj8.bar : any
+>类型别名 :=> 任意
 >obj8 : D
 >bar : any
+>类型别名 :=> 任意
 }
 
 // a construct signature that returns a union type
@@ -294,18 +362,22 @@ interface E1 {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 
     bar1: number;
 >bar1 : number
+>类型别名 :=> 数字
 }
 interface E2 {
 >E2 : E2
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 
     bar2: number;
 >bar2 : number
+>类型别名 :=> 数字
 }
 declare var E: EConstructor;
 >E : EConstructor
@@ -318,47 +390,63 @@ var obj9: E1 | A;
 
 if (obj9 instanceof E) { // narrowed to E1 | E2
 >obj9 instanceof E : boolean
+>类型别名 :=> 真假
 >obj9 : A | E1
 >E : EConstructor
 
     obj9.foo;
 >obj9.foo : string
+>类型别名 :=> 文字
 >obj9 : E1
 >foo : string
+>类型别名 :=> 文字
 
     obj9.bar1;
 >obj9.bar1 : number
+>类型别名 :=> 数字
 >obj9 : E1
 >bar1 : number
+>类型别名 :=> 数字
 
     obj9.bar2;
 >obj9.bar2 : any
+>类型别名 :=> 任意
 >obj9 : E1
 >bar2 : any
+>类型别名 :=> 任意
 }
 
 var obj10: any;
 >obj10 : any
+>类型别名 :=> 任意
 
 if (obj10 instanceof E) {
 >obj10 instanceof E : boolean
+>类型别名 :=> 真假
 >obj10 : any
+>类型别名 :=> 任意
 >E : EConstructor
 
     obj10.foo;
 >obj10.foo : string
+>类型别名 :=> 文字
 >obj10 : E1 | E2
 >foo : string
+>类型别名 :=> 文字
 
     obj10.bar1;
 >obj10.bar1 : any
+>类型别名 :=> 任意
 >obj10 : E1 | E2
 >bar1 : any
+>类型别名 :=> 任意
 
     obj10.bar2;
 >obj10.bar2 : any
+>类型别名 :=> 任意
 >obj10 : E1 | E2
 >bar2 : any
+>类型别名 :=> 任意
 }
 
 // a construct signature that returns any
@@ -372,9 +460,11 @@ interface F {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 
     bar: number;
 >bar : number
+>类型别名 :=> 数字
 }
 declare var F: FConstructor;
 >F : FConstructor
@@ -386,37 +476,51 @@ var obj11: F | string;
 
 if (obj11 instanceof F) { // can't type narrowing, construct signature returns any.
 >obj11 instanceof F : boolean
+>类型别名 :=> 真假
 >obj11 : string | F
 >F : FConstructor
 
     obj11.foo;
 >obj11.foo : any
+>类型别名 :=> 任意
 >obj11 : string | F
 >foo : any
+>类型别名 :=> 任意
 
     obj11.bar;
 >obj11.bar : any
+>类型别名 :=> 任意
 >obj11 : string | F
 >bar : any
+>类型别名 :=> 任意
 }
 
 var obj12: any;
 >obj12 : any
+>类型别名 :=> 任意
 
 if (obj12 instanceof F) {
 >obj12 instanceof F : boolean
+>类型别名 :=> 真假
 >obj12 : any
+>类型别名 :=> 任意
 >F : FConstructor
 
     obj12.foo;
 >obj12.foo : any
+>类型别名 :=> 任意
 >obj12 : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 
     obj12.bar;
 >obj12.bar : any
+>类型别名 :=> 任意
 >obj12 : any
+>类型别名 :=> 任意
 >bar : any
+>类型别名 :=> 任意
 }
 
 // a type with a prototype, it overrides the construct signature
@@ -435,12 +539,14 @@ interface G1 {
 
     foo1: number;
 >foo1 : number
+>类型别名 :=> 数字
 }
 interface G2 {
 >G2 : G2
 
     foo2: boolean;
 >foo2 : boolean
+>类型别名 :=> 真假
 }
 declare var G: GConstructor;
 >G : GConstructor
@@ -453,37 +559,49 @@ var obj13: G1 | G2;
 
 if (obj13 instanceof G) { // narrowed to G1. G1 is return type of prototype property.
 >obj13 instanceof G : boolean
+>类型别名 :=> 真假
 >obj13 : G2 | G1
 >G : GConstructor
 
     obj13.foo1;
 >obj13.foo1 : number
+>类型别名 :=> 数字
 >obj13 : G1
 >foo1 : number
+>类型别名 :=> 数字
 
     obj13.foo2;
 >obj13.foo2 : any
+>类型别名 :=> 任意
 >obj13 : G1
 >foo2 : any
+>类型别名 :=> 任意
 }
 
 var obj14: any;
 >obj14 : any
+>类型别名 :=> 任意
 
 if (obj14 instanceof G) {
 >obj14 instanceof G : boolean
+>类型别名 :=> 真假
 >obj14 : any
+>类型别名 :=> 任意
 >G : GConstructor
 
     obj14.foo1;
 >obj14.foo1 : number
+>类型别名 :=> 数字
 >obj14 : G1
 >foo1 : number
+>类型别名 :=> 数字
 
     obj14.foo2;
 >obj14.foo2 : any
+>类型别名 :=> 任意
 >obj14 : G1
 >foo2 : any
+>类型别名 :=> 任意
 }
 
 // a type with a prototype that has any type
@@ -492,6 +610,7 @@ interface HConstructor {
 
     prototype: any; // high priority, but any type is ignored. interface has implicit `prototype: any`.
 >prototype : any
+>类型别名 :=> 任意
 
     new (): H;      // low priority
 >H : H
@@ -501,6 +620,7 @@ interface H {
 
     foo: number;
 >foo : number
+>类型别名 :=> 数字
 }
 declare var H: HConstructor;
 >H : HConstructor
@@ -512,74 +632,104 @@ var obj15: H | string;
 
 if (obj15 instanceof H) { // narrowed to H.
 >obj15 instanceof H : boolean
+>类型别名 :=> 真假
 >obj15 : string | H
 >H : HConstructor
 
     obj15.foo;
 >obj15.foo : number
+>类型别名 :=> 数字
 >obj15 : H
 >foo : number
+>类型别名 :=> 数字
 
     obj15.bar;
 >obj15.bar : any
+>类型别名 :=> 任意
 >obj15 : H
 >bar : any
+>类型别名 :=> 任意
 }
 
 var obj16: any;
 >obj16 : any
+>类型别名 :=> 任意
 
 if (obj16 instanceof H) {
 >obj16 instanceof H : boolean
+>类型别名 :=> 真假
 >obj16 : any
+>类型别名 :=> 任意
 >H : HConstructor
 
     obj16.foo1;
 >obj16.foo1 : any
+>类型别名 :=> 任意
 >obj16 : H
 >foo1 : any
+>类型别名 :=> 任意
 
     obj16.foo2;
 >obj16.foo2 : any
+>类型别名 :=> 任意
 >obj16 : H
 >foo2 : any
+>类型别名 :=> 任意
 }
 
 var obj17: any;
 >obj17 : any
+>类型别名 :=> 任意
 
 if (obj17 instanceof Object) { // can't narrow type from 'any' to 'Object'
 >obj17 instanceof Object : boolean
+>类型别名 :=> 真假
 >obj17 : any
+>类型别名 :=> 任意
 >Object : ObjectConstructor
 
     obj17.foo1;
 >obj17.foo1 : any
+>类型别名 :=> 任意
 >obj17 : any
+>类型别名 :=> 任意
 >foo1 : any
+>类型别名 :=> 任意
 
     obj17.foo2;
 >obj17.foo2 : any
+>类型别名 :=> 任意
 >obj17 : any
+>类型别名 :=> 任意
 >foo2 : any
+>类型别名 :=> 任意
 }
 
 var obj18: any;
 >obj18 : any
+>类型别名 :=> 任意
 
 if (obj18 instanceof Function) { // can't narrow type from 'any' to 'Function'
 >obj18 instanceof Function : boolean
+>类型别名 :=> 真假
 >obj18 : any
+>类型别名 :=> 任意
 >Function : FunctionConstructor
 
     obj18.foo1;
 >obj18.foo1 : any
+>类型别名 :=> 任意
 >obj18 : any
+>类型别名 :=> 任意
 >foo1 : any
+>类型别名 :=> 任意
 
     obj18.foo2;
 >obj18.foo2 : any
+>类型别名 :=> 任意
 >obj18 : any
+>类型别名 :=> 任意
 >foo2 : any
+>类型别名 :=> 任意
 }
 

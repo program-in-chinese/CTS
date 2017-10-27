@@ -28,6 +28,7 @@ function boxify<T>(obj: T): Boxified<T> {
 
     if (typeof obj === "object") {
 >typeof obj === "object" : boolean
+>类型别名 :=> 真假
 >typeof obj : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >obj : T
 >"object" : "object"
@@ -59,20 +60,25 @@ function boxify<T>(obj: T): Boxified<T> {
     }
     return <any>obj;
 ><any>obj : any
+>类型别名 :=> 任意
 >obj : never
+>类型别名 :=> 不及
 }
 
 type A = { a: string };
 >A : A
 >a : string
+>类型别名 :=> 文字
 
 type B = { b: string };
 >B : B
 >b : string
+>类型别名 :=> 文字
 
 type C = { c: string };
 >C : C
 >c : string
+>类型别名 :=> 文字
 
 function f1(x: A | B | C | undefined) {
 >f1 : (x: A | B | C | undefined) => Boxified<A> | Boxified<B> | Boxified<C> | undefined
@@ -101,6 +107,7 @@ type T01 = Readonly<A | B | C | null | undefined>;
 >B : B
 >C : C
 >null : null
+>类型别名 :=> 空值
 
 type T02 = Boxified<A | B[] | C | string>
 >T02 : string | Boxified<A> | Boxified<C> | Boxified<B[]>
@@ -113,11 +120,13 @@ type T03 = Readonly<string | number | boolean | null | undefined | void>;
 >T03 : string | number | boolean | void | null | undefined
 >Readonly : Readonly<T>
 >null : null
+>类型别名 :=> 空值
 
 type T04 = Boxified<string | number | boolean | null | undefined | void>;
 >T04 : string | number | boolean | void | null | undefined
 >Boxified : Boxified<T>
 >null : null
+>类型别名 :=> 空值
 
 type T05 = Partial<"hello" | "world" | 42>;
 >T05 : "hello" | "world" | 42
@@ -144,6 +153,7 @@ type T10 = BoxifiedWithSentinel<A | B | C, null>;
 >B : B
 >C : C
 >null : null
+>类型别名 :=> 空值
 
 type T11 = BoxifiedWithSentinel<A | B | C, undefined>;
 >T11 : BoxifiedWithSentinel<A, undefined> | BoxifiedWithSentinel<B, undefined> | BoxifiedWithSentinel<C, undefined>
@@ -154,6 +164,7 @@ type T11 = BoxifiedWithSentinel<A | B | C, undefined>;
 
 type T12 = BoxifiedWithSentinel<string, undefined>;
 >T12 : string
+>类型别名 :=> 文字
 >BoxifiedWithSentinel : BoxifiedWithSentinel<T, U>
 
 type DeepReadonly<T> = {
@@ -174,14 +185,18 @@ type Foo = {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     y: { a: string, b: number };
 >y : { a: string; b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 
     z: boolean;
 >z : boolean
+>类型别名 :=> 真假
 
 };
 
@@ -190,14 +205,18 @@ type DeepReadonlyFoo = {
 
     readonly x: number;
 >x : number
+>类型别名 :=> 数字
 
     readonly y: { readonly a: string, readonly b: number };
 >y : { readonly a: string; readonly b: number; }
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 
     readonly z: boolean;
 >z : boolean
+>类型别名 :=> 真假
 
 };
 
@@ -215,6 +234,7 @@ var x1: DeepReadonlyFoo;
 type Z = { a: number };
 >Z : Z
 >a : number
+>类型别名 :=> 数字
 
 type Clone<T> = {
 >Clone : Clone<T>

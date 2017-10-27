@@ -5,6 +5,7 @@ interface I {
     x1(a: number, callback: (x: 'hi') => number);
 >x1 : (a: number, callback: (x: "hi") => number) => any
 >a : number
+>类型别名 :=> 数字
 >callback : (x: "hi") => number
 >x : "hi"
 }
@@ -15,36 +16,45 @@ class C {
     x1(a: number, callback: (x: 'hi') => number);
 >x1 : (a: number, callback: (x: "hi") => number) => any
 >a : number
+>类型别名 :=> 数字
 >callback : (x: "hi") => number
 >x : "hi"
 
     x1(a: number, callback: (x: string) => number) {
 >x1 : (a: number, callback: (x: "hi") => number) => any
 >a : number
+>类型别名 :=> 数字
 >callback : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 
         callback('hi');
 >callback('hi') : number
+>类型别名 :=> 数字
 >callback : (x: string) => number
 >'hi' : "hi"
 
         callback('bye');
 >callback('bye') : number
+>类型别名 :=> 数字
 >callback : (x: string) => number
 >'bye' : "bye"
 
         var hm = "hm";
 >hm : string
+>类型别名 :=> 文字
 >"hm" : "hm"
 
         callback(hm);
 >callback(hm) : number
+>类型别名 :=> 数字
 >callback : (x: string) => number
 >hm : string
+>类型别名 :=> 文字
 
         callback(1); // error
 >callback(1) : number
+>类型别名 :=> 数字
 >callback : (x: string) => number
 >1 : 1
     }
@@ -56,6 +66,7 @@ var c: C;
 
 c.x1(1, (x: 'hi') => { return 1; } );
 >c.x1(1, (x: 'hi') => { return 1; } ) : any
+>类型别名 :=> 任意
 >c.x1 : (a: number, callback: (x: "hi") => number) => any
 >c : C
 >x1 : (a: number, callback: (x: "hi") => number) => any
@@ -66,6 +77,7 @@ c.x1(1, (x: 'hi') => { return 1; } );
 
 c.x1(1, (x: 'bye') => { return 1; } );
 >c.x1(1, (x: 'bye') => { return 1; } ) : any
+>类型别名 :=> 任意
 >c.x1 : (a: number, callback: (x: "hi") => number) => any
 >c : C
 >x1 : (a: number, callback: (x: "hi") => number) => any
@@ -76,6 +88,7 @@ c.x1(1, (x: 'bye') => { return 1; } );
 
 c.x1(1, (x) => { return 1; } );
 >c.x1(1, (x) => { return 1; } ) : any
+>类型别名 :=> 任意
 >c.x1 : (a: number, callback: (x: "hi") => number) => any
 >c : C
 >x1 : (a: number, callback: (x: "hi") => number) => any
@@ -86,11 +99,13 @@ c.x1(1, (x) => { return 1; } );
 
 c.x1(1, (x: number) => { return 1; } );
 >c.x1(1, (x: number) => { return 1; } ) : any
+>类型别名 :=> 任意
 >c.x1 : (a: number, callback: (x: "hi") => number) => any
 >c : C
 >x1 : (a: number, callback: (x: "hi") => number) => any
 >1 : 1
 >(x: number) => { return 1; } : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 

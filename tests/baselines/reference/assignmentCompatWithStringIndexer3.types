@@ -4,34 +4,42 @@
 interface Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
 var a: A;
 >a : any
+>类型别名 :=> 任意
 >A : No type information available!
 
 var b1: { [x: string]: string; }
 >b1 : { [x: string]: string; }
 >x : string
+>类型别名 :=> 文字
 
 a = b1; // error
 >a = b1 : { [x: string]: string; }
 >a : any
+>类型别名 :=> 任意
 >b1 : { [x: string]: string; }
 
 b1 = a; // error
 >b1 = a : any
+>类型别名 :=> 任意
 >b1 : { [x: string]: string; }
 >a : any
+>类型别名 :=> 任意
 
 module Generics {
 >Generics : typeof Generics
@@ -43,6 +51,7 @@ module Generics {
 
         [x: string]: T;
 >x : string
+>类型别名 :=> 文字
 >T : T
     }
    
@@ -59,6 +68,7 @@ module Generics {
         var b: { [x: string]: string; }
 >b : { [x: string]: string; }
 >x : string
+>类型别名 :=> 文字
 
         a = b; // error
 >a = b : { [x: string]: string; }

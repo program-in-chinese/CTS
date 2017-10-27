@@ -10,6 +10,7 @@ interface C {
     count(countTitle?: string): void;
 >count : (countTitle?: string) => void
 >countTitle : string
+>类型别名 :=> 文字
 }
 interface C {
 >C : C
@@ -17,6 +18,7 @@ interface C {
     log(message?: any, ...optionalParams: any[]): void;
 >log : (message?: any, ...optionalParams: any[]) => void
 >message : any
+>类型别名 :=> 任意
 >optionalParams : any[]
 }
 
@@ -31,21 +33,26 @@ interface Q<T> {
 >item : T
 >T : T
 >index : number
+>类型别名 :=> 数字
 }
 var q1: Q<{ a: number; }>;
 >q1 : Q<{ a: number; }>
 >Q : Q<T>
 >a : number
+>类型别名 :=> 数字
 
 var x = q1.each(x => c.log(x));
 >x : void
+>类型别名 :=> 无值
 >q1.each(x => c.log(x)) : void
+>类型别名 :=> 无值
 >q1.each : (action: (item: { a: number; }, index: number) => void) => void
 >q1 : Q<{ a: number; }>
 >each : (action: (item: { a: number; }, index: number) => void) => void
 >x => c.log(x) : (x: { a: number; }) => void
 >x : { a: number; }
 >c.log(x) : void
+>类型别名 :=> 无值
 >c.log : (message?: any, ...optionalParams: any[]) => void
 >c : C
 >log : (message?: any, ...optionalParams: any[]) => void

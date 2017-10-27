@@ -12,7 +12,9 @@ var a0 = [, , 2, 3, 4]
 >a0 : number[]
 >[, , 2, 3, 4] : number[]
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 >2 : 2
 >3 : 3
 >4 : 4
@@ -27,9 +29,13 @@ var a2 = [, , , ...a0, "hello"];
 >a2 : (string | number)[]
 >[, , , ...a0, "hello"] : (string | number)[]
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 >...a0 : number
+>类型别名 :=> 数字
 >a0 : number[]
 >"hello" : "hello"
 
@@ -37,8 +43,11 @@ var a3 = [, , ...a0]
 >a3 : number[]
 >[, , ...a0] : number[]
 > : undefined
+>类型别名 :=> 未定
 > : undefined
+>类型别名 :=> 未定
 >...a0 : number
+>类型别名 :=> 数字
 >a0 : number[]
 
 var a4 = [() => 1, ];
@@ -51,8 +60,10 @@ var a5 = [...a0, , ]
 >a5 : number[]
 >[...a0, , ] : number[]
 >...a0 : number
+>类型别名 :=> 数字
 >a0 : number[]
 > : undefined
+>类型别名 :=> 未定
 
 // Each element expression in a non-empty array literal is processed as follows:
 //    - If the array literal contains no spread elements, and if the array literal is contextually typed (section 4.19)
@@ -67,8 +78,11 @@ var b0: [any, any, any] = [undefined, null, undefined];
 >b0 : [any, any, any]
 >[undefined, null, undefined] : [undefined, null, undefined]
 >undefined : undefined
+>类型别名 :=> 未定
 >null : null
+>类型别名 :=> 空值
 >undefined : undefined
+>类型别名 :=> 未定
 
 var b1: [number[], string[]] = [[1, 2, 3], ["hello", "string"]];
 >b1 : [number[], string[]]
@@ -87,18 +101,23 @@ var b1: [number[], string[]] = [[1, 2, 3], ["hello", "string"]];
 
 var [c0, c1] = [1, 2];        // tuple type [number, number]
 >c0 : number
+>类型别名 :=> 数字
 >c1 : number
+>类型别名 :=> 数字
 >[1, 2] : [number, number]
 >1 : 1
 >2 : 2
 
 var [c2, c3] = [1, 2, true];  // tuple type [number, number, boolean]
 >c2 : number
+>类型别名 :=> 数字
 >c3 : number
+>类型别名 :=> 数字
 >[1, 2, true] : [number, number, boolean]
 >1 : 1
 >2 : 2
 >true : true
+>类型别名 :=> 为真
 
 // The resulting type an array literal expression is determined as follows:
 //      - the resulting type is an array type with an element type that is the union of the types of the
@@ -144,19 +163,23 @@ var d0 = [1, true, ...temp, ];  // has type (string|number|boolean)[]
 >[1, true, ...temp, ] : (string | number | boolean)[]
 >1 : 1
 >true : true
+>类型别名 :=> 为真
 >...temp : string
+>类型别名 :=> 文字
 >temp : string[]
 
 var d1 = [...temp];            // has type string[]
 >d1 : string[]
 >[...temp] : string[]
 >...temp : string
+>类型别名 :=> 文字
 >temp : string[]
 
 var d2: number[] = [...temp1];
 >d2 : number[]
 >[...temp1] : number[]
 >...temp1 : number
+>类型别名 :=> 数字
 >temp1 : number[]
 
 var d3: myArray = [...temp1];
@@ -164,6 +187,7 @@ var d3: myArray = [...temp1];
 >myArray : myArray
 >[...temp1] : number[]
 >...temp1 : number
+>类型别名 :=> 数字
 >temp1 : number[]
 
 var d4: myArray2 = [...temp, ...temp1];
@@ -171,8 +195,10 @@ var d4: myArray2 = [...temp, ...temp1];
 >myArray2 : myArray2
 >[...temp, ...temp1] : (string | number)[]
 >...temp : string
+>类型别名 :=> 文字
 >temp : string[]
 >...temp1 : number
+>类型别名 :=> 数字
 >temp1 : number[]
 
 var d5 = [...a2];
@@ -185,6 +211,7 @@ var d6 = [...a3];
 >d6 : number[]
 >[...a3] : number[]
 >...a3 : number
+>类型别名 :=> 数字
 >a3 : number[]
 
 var d7 = [...a4];
@@ -198,6 +225,7 @@ var d8: number[][] = [[...temp1]]
 >[[...temp1]] : number[][]
 >[...temp1] : number[]
 >...temp1 : number
+>类型别名 :=> 数字
 >temp1 : number[]
 
 var d9 = [[...temp1], ...["hello"]];
@@ -205,8 +233,10 @@ var d9 = [[...temp1], ...["hello"]];
 >[[...temp1], ...["hello"]] : (string | number[])[]
 >[...temp1] : number[]
 >...temp1 : number
+>类型别名 :=> 数字
 >temp1 : number[]
 >...["hello"] : string
+>类型别名 :=> 文字
 >["hello"] : string[]
 >"hello" : "hello"
 

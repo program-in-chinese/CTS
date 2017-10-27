@@ -5,6 +5,7 @@ let o = {
 
     d: "bar",
 >d : string
+>类型别名 :=> 文字
 >"bar" : "bar"
 
     m() {
@@ -12,10 +13,14 @@ let o = {
 
         return this.d.length;
 >this.d.length : number
+>类型别名 :=> 数字
 >this.d : string
+>类型别名 :=> 文字
 >this : { d: string; m(): number; f: () => number; }
 >d : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
     },
     f: function() {
@@ -24,10 +29,14 @@ let o = {
 
         return this.d.length;
 >this.d.length : number
+>类型别名 :=> 数字
 >this.d : string
+>类型别名 :=> 文字
 >this : { d: string; m(): number; f: () => number; }
 >d : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -37,6 +46,7 @@ let mutuallyRecursive = {
 
     a: 100,
 >a : number
+>类型别名 :=> 数字
 >100 : 100
 
     start() {
@@ -44,51 +54,66 @@ let mutuallyRecursive = {
 
         return this.passthrough(this.a);
 >this.passthrough(this.a) : number
+>类型别名 :=> 数字
 >this.passthrough : (n: number) => number
 >this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
 >passthrough : (n: number) => number
 >this.a : number
+>类型别名 :=> 数字
 >this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
 >a : number
+>类型别名 :=> 数字
 
     },
     passthrough(n: number) {
 >passthrough : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 
         return this.sub1(n);
 >this.sub1(n) : number
+>类型别名 :=> 数字
 >this.sub1 : (n: number) => number
 >this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
 >sub1 : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 
     },
     sub1(n: number): number {
 >sub1 : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 
         if (n > 0) {
 >n > 0 : boolean
+>类型别名 :=> 真假
 >n : number
+>类型别名 :=> 数字
 >0 : 0
 
             return this.passthrough(n - 1);
 >this.passthrough(n - 1) : number
+>类型别名 :=> 数字
 >this.passthrough : (n: number) => number
 >this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
 >passthrough : (n: number) => number
 >n - 1 : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 >1 : 1
         }
         return n;
 >n : number
+>类型别名 :=> 数字
     }
 }
 var i: number = mutuallyRecursive.start();
 >i : number
+>类型别名 :=> 数字
 >mutuallyRecursive.start() : number
+>类型别名 :=> 数字
 >mutuallyRecursive.start : () => number
 >mutuallyRecursive : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
 >start : () => number
@@ -98,6 +123,7 @@ interface I {
 
     a: number;
 >a : number
+>类型别名 :=> 数字
 
     start(): number;
 >start : () => number
@@ -105,10 +131,12 @@ interface I {
     passthrough(n: number): number;
 >passthrough : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 
     sub1(n: number): number;
 >sub1 : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 }
 var impl: I = mutuallyRecursive;
 >impl : I

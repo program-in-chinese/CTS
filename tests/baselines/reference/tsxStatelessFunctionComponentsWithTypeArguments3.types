@@ -6,6 +6,7 @@ declare function OverloadComponent<U>(): JSX.Element;
 >OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function OverloadComponent<U>(attr: {b: U, a?: string, "ignore-prop": boolean}): JSX.Element;
@@ -15,7 +16,9 @@ declare function OverloadComponent<U>(attr: {b: U, a?: string, "ignore-prop": bo
 >b : U
 >U : U
 >a : string
+>类型别名 :=> 文字
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function OverloadComponent<T, U>(attr: {b: U, a: T}): JSX.Element;
@@ -28,6 +31,7 @@ declare function OverloadComponent<T, U>(attr: {b: U, a: T}): JSX.Element;
 >a : T
 >T : T
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // OK
@@ -35,9 +39,12 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
 >Baz : <T extends { b: number; }, U extends { a: boolean; b: string; }>(arg1: T, arg2: U) => void
 >T : T
 >b : number
+>类型别名 :=> 数字
 >U : U
 >a : boolean
+>类型别名 :=> 真假
 >b : string
+>类型别名 :=> 文字
 >arg1 : T
 >T : T
 >arg2 : U
@@ -49,7 +56,9 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
 >OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg1 : T
 >a : string
+>类型别名 :=> 文字
 >ignore-prop : true
+>类型别名 :=> 为真
 
     let a1 = <OverloadComponent {...arg2} ignore-pro="hello world" />;
 >a1 : JSX.Element
@@ -57,6 +66,7 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
 >OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg2 : U
 >ignore-pro : string
+>类型别名 :=> 文字
 
     let a2 = <OverloadComponent {...arg2} />;
 >a2 : JSX.Element
@@ -70,6 +80,7 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
 >OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg1 : T
 >ignore-prop : true
+>类型别名 :=> 为真
 
     let a4 = <OverloadComponent />;
 >a4 : JSX.Element
@@ -82,6 +93,7 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
 >OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg2 : U
 >ignore-prop : string
+>类型别名 :=> 文字
 >arg1 : T
 
     let a6 = <OverloadComponent {...arg2} ignore-prop {...arg1} />;
@@ -90,6 +102,7 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
 >OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg2 : U
 >ignore-prop : true
+>类型别名 :=> 为真
 >arg1 : T
 }
 
@@ -101,6 +114,7 @@ declare function Link<U>(l: {func: (arg: U)=>void}): JSX.Element;
 >arg : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function Link<U>(l: {func: (arg1:U, arg2: string)=>void}): JSX.Element;
@@ -111,13 +125,16 @@ declare function Link<U>(l: {func: (arg1:U, arg2: string)=>void}): JSX.Element;
 >arg1 : U
 >U : U
 >arg2 : string
+>类型别名 :=> 文字
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 function createLink(func: (a: number)=>void) {
 >createLink : (func: (a: number) => void) => void
 >func : (a: number) => void
 >a : number
+>类型别名 :=> 数字
 
     let o = <Link func={func} />
 >o : JSX.Element
@@ -133,5 +150,7 @@ function createLink(func: (a: number)=>void) {
 >func : (a: number, b: string) => any
 >(a:number, b:string)=>{} : (a: number, b: string) => any
 >a : number
+>类型别名 :=> 数字
 >b : string
+>类型别名 :=> 文字
 }

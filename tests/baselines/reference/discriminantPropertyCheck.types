@@ -9,6 +9,7 @@ interface Base {
 
     bar: boolean;
 >bar : boolean
+>类型别名 :=> 真假
 }
 
 interface Item1 extends Base {
@@ -23,10 +24,13 @@ interface Item1 extends Base {
 
     baz: boolean;
 >baz : boolean
+>类型别名 :=> 真假
 
     qux: true;
 >qux : true
+>类型别名 :=> 为真
 >true : true
+>类型别名 :=> 为真
 }
 
 interface Item2 extends Base {
@@ -41,10 +45,13 @@ interface Item2 extends Base {
 
     baz: boolean;
 >baz : boolean
+>类型别名 :=> 真假
 
     qux: false;
 >qux : false
+>类型别名 :=> 为假
 >false : false
+>类型别名 :=> 为假
 }
 
 function goo1(x: Item) {
@@ -54,23 +61,31 @@ function goo1(x: Item) {
 
     if (x.kind === "A" && x.foo !== undefined) {
 >x.kind === "A" && x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.kind === "A" : boolean
+>类型别名 :=> 真假
 >x.kind : "A" | "B"
 >x : Item
 >kind : "A" | "B"
 >"A" : "A"
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item1
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
         x.foo.length;
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string
+>类型别名 :=> 文字
 >x : Item1
 >foo : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -81,12 +96,16 @@ function goo2(x: Item) {
 
     if (x.foo !== undefined && x.kind === "A") {
 >x.foo !== undefined && x.kind === "A" : boolean
+>类型别名 :=> 真假
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >x.kind === "A" : boolean
+>类型别名 :=> 真假
 >x.kind : "A" | "B"
 >x : Item
 >kind : "A" | "B"
@@ -94,10 +113,12 @@ function goo2(x: Item) {
 
         x.foo.length;  // Error, intervening discriminant guard
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string | undefined
 >x : Item1
 >foo : string | undefined
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -108,21 +129,30 @@ function foo1(x: Item) {
 
     if (x.bar && x.foo !== undefined) {
 >x.bar && x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.bar : boolean
+>类型别名 :=> 真假
 >x : Item
 >bar : boolean
+>类型别名 :=> 真假
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
         x.foo.length;
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string
+>类型别名 :=> 文字
 >x : Item
 >foo : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -133,21 +163,30 @@ function foo2(x: Item) {
 
     if (x.foo !== undefined && x.bar) {
 >x.foo !== undefined && x.bar : boolean
+>类型别名 :=> 真假
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >x.bar : boolean
+>类型别名 :=> 真假
 >x : Item
 >bar : boolean
+>类型别名 :=> 真假
 
         x.foo.length;
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string
+>类型别名 :=> 文字
 >x : Item
 >foo : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -158,21 +197,30 @@ function foo3(x: Item) {
 
     if (x.baz && x.foo !== undefined) {
 >x.baz && x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.baz : boolean
+>类型别名 :=> 真假
 >x : Item
 >baz : boolean
+>类型别名 :=> 真假
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
         x.foo.length;
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string
+>类型别名 :=> 文字
 >x : Item
 >foo : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -183,21 +231,30 @@ function foo4(x: Item) {
 
     if (x.foo !== undefined && x.baz) {
 >x.foo !== undefined && x.baz : boolean
+>类型别名 :=> 真假
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >x.baz : boolean
+>类型别名 :=> 真假
 >x : Item
 >baz : boolean
+>类型别名 :=> 真假
 
         x.foo.length;
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string
+>类型别名 :=> 文字
 >x : Item
 >foo : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -208,21 +265,30 @@ function foo5(x: Item) {
 
     if (x.qux && x.foo !== undefined) {
 >x.qux && x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.qux : boolean
+>类型别名 :=> 真假
 >x : Item
 >qux : boolean
+>类型别名 :=> 真假
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item1
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 
         x.foo.length;
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string
+>类型别名 :=> 文字
 >x : Item1
 >foo : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
     }
 }
 
@@ -233,20 +299,27 @@ function foo6(x: Item) {
 
     if (x.foo !== undefined && x.qux) {
 >x.foo !== undefined && x.qux : boolean
+>类型别名 :=> 真假
 >x.foo !== undefined : boolean
+>类型别名 :=> 真假
 >x.foo : string | undefined
 >x : Item
 >foo : string | undefined
 >undefined : undefined
+>类型别名 :=> 未定
 >x.qux : boolean
+>类型别名 :=> 真假
 >x : Item
 >qux : boolean
+>类型别名 :=> 真假
 
         x.foo.length;  // Error, intervening discriminant guard
 >x.foo.length : number
+>类型别名 :=> 数字
 >x.foo : string | undefined
 >x : Item1
 >foo : string | undefined
 >length : number
+>类型别名 :=> 数字
     }
 }

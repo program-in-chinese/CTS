@@ -7,6 +7,7 @@ namespace foo {
 
     export var v = 1;
 >v : number
+>类型别名 :=> 数字
 >1 : 1
 }
 export = foo;
@@ -19,8 +20,10 @@ import x = require("./file1");
 x.b = 1;
 >x.b = 1 : 1
 >x.b : number
+>类型别名 :=> 数字
 >x : typeof x
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 
 // OK - './file1' is a namespace
@@ -28,9 +31,11 @@ declare module "./file1" {
     interface A { a }
 >A : A
 >a : any
+>类型别名 :=> 任意
 
     let b: number;
 >b : number
+>类型别名 :=> 数字
 }
 
 === tests/cases/compiler/file3.ts ===
@@ -41,11 +46,15 @@ import "./file2";
 let a: x.A;
 >a : x.A
 >x : any
+>类型别名 :=> 任意
 >A : x.A
 
 let b = x.b;
 >b : number
+>类型别名 :=> 数字
 >x.b : number
+>类型别名 :=> 数字
 >x : typeof x
 >b : number
+>类型别名 :=> 数字
 

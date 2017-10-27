@@ -4,22 +4,26 @@
 interface Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
 class A {
 >A : A
 
     [x: number]: Base;
 >x : number
+>类型别名 :=> 数字
 >Base : Base
 }
 
@@ -30,6 +34,7 @@ var a: A;
 var b: { [x: number]: Derived; }
 >b : { [x: number]: Derived; }
 >x : number
+>类型别名 :=> 数字
 >Derived : Derived
 
 a = b;
@@ -45,6 +50,7 @@ b = a; // error
 var b2: { [x: number]: Derived2; }
 >b2 : { [x: number]: Derived2; }
 >x : number
+>类型别名 :=> 数字
 >Derived2 : Derived2
 
 a = b2;
@@ -67,6 +73,7 @@ module Generics {
 
         [x: number]: T;
 >x : number
+>类型别名 :=> 数字
 >T : T
     }
 
@@ -77,6 +84,7 @@ module Generics {
 
         [x: number]: Derived; // ok
 >x : number
+>类型别名 :=> 数字
 >Derived : Derived
     }
 
@@ -93,6 +101,7 @@ module Generics {
         var b: { [x: number]: Derived; }
 >b : { [x: number]: Derived; }
 >x : number
+>类型别名 :=> 数字
 >Derived : Derived
 
         a = b; // error
@@ -108,6 +117,7 @@ module Generics {
         var b2: { [x: number]: Derived2; }
 >b2 : { [x: number]: Derived2; }
 >x : number
+>类型别名 :=> 数字
 >Derived2 : Derived2
 
         a = b2; // error
@@ -123,6 +133,7 @@ module Generics {
         var b3: { [x: number]: T; }
 >b3 : { [x: number]: T; }
 >x : number
+>类型别名 :=> 数字
 >T : T
 
         a = b3; // ok

@@ -6,6 +6,7 @@ interface I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class C implements I {
@@ -14,6 +15,7 @@ class C implements I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class D<T>{
@@ -39,6 +41,7 @@ class D<T>{
 function F(x: string): number { return 42; }
 >F : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >42 : 42
 
 module M {
@@ -49,30 +52,38 @@ module M {
 
         name: string;
 >name : string
+>类型别名 :=> 文字
     }
 
     export function F2(x: number): string { return x.toString(); }
 >F2 : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 }
 
 var aNumber = 9.9;
 >aNumber : number
+>类型别名 :=> 数字
 >9.9 : 9.9
 
 throw aNumber;
 >aNumber : number
+>类型别名 :=> 数字
 
 var aString = 'this is a string';
 >aString : string
+>类型别名 :=> 文字
 >'this is a string' : "this is a string"
 
 throw aString;
 >aString : string
+>类型别名 :=> 文字
 
 var aDate = new Date(12);
 >aDate : Date
@@ -93,26 +104,35 @@ throw anObject;
 
 var anAny = null;
 >anAny : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 throw anAny;
 >anAny : any
+>类型别名 :=> 任意
 
 var anOtherAny = <any> new C();
 >anOtherAny : any
+>类型别名 :=> 任意
 ><any> new C() : any
+>类型别名 :=> 任意
 >new C() : C
 >C : typeof C
 
 throw anOtherAny;
 >anOtherAny : any
+>类型别名 :=> 任意
 
 var anUndefined = undefined;
 >anUndefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 throw anUndefined;
 >anUndefined : any
+>类型别名 :=> 任意
 
 var aClass = new C();
 >aClass : C
@@ -134,6 +154,7 @@ var anObjectLiteral = { id: 12 };
 >anObjectLiteral : { id: number; }
 >{ id: 12 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >12 : 12
 
 throw anObjectLiteral;
@@ -148,6 +169,7 @@ throw aFunction;
 
 throw aFunction('');
 >aFunction('') : number
+>类型别名 :=> 数字
 >aFunction : (x: string) => number
 >'' : ""
 
@@ -155,6 +177,7 @@ var aLambda = (x) => 2;
 >aLambda : (x: any) => number
 >(x) => 2 : (x: any) => number
 >x : any
+>类型别名 :=> 任意
 >2 : 2
 
 throw aLambda;
@@ -162,6 +185,7 @@ throw aLambda;
 
 throw aLambda(1);
 >aLambda(1) : number
+>类型别名 :=> 数字
 >aLambda : (x: any) => number
 >1 : 1
 
@@ -198,9 +222,11 @@ throw aFunctionInModule;
 // no initializer or annotation, so this is an 'any'
 var x;
 >x : any
+>类型别名 :=> 任意
 
 throw x;
 >x : any
+>类型别名 :=> 任意
 
 // literals
 throw 0.0;
@@ -208,12 +234,15 @@ throw 0.0;
 
 throw false;
 >false : false
+>类型别名 :=> 为假
 
 throw null;
 >null : null
+>类型别名 :=> 空值
 
 throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 
 throw 'a string';
 >'a string' : "a string"
@@ -232,8 +261,10 @@ throw <T>(x:T) => 42;
 throw { x: 12, y: 13 };
 >{ x: 12, y: 13 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >12 : 12
 >y : number
+>类型别名 :=> 数字
 >13 : 13
 
 throw [];

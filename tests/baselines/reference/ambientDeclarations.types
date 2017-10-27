@@ -2,10 +2,12 @@
 // Ambient variable without type annotation
 declare var n;
 >n : any
+>类型别名 :=> 任意
 
 // Ambient variable with type annotation
 declare var m: string;
 >m : string
+>类型别名 :=> 文字
 
 // Ambient function with no type annotations
 declare function fn1();
@@ -15,36 +17,46 @@ declare function fn1();
 declare function fn2(n: string): number;
 >fn2 : (n: string) => number
 >n : string
+>类型别名 :=> 文字
 
 // Ambient function with valid overloads
 declare function fn3(n: string): number;
 >fn3 : (n: string) => number
 >n : string
+>类型别名 :=> 文字
 
 declare function fn4(n: number, y: number): string;
 >fn4 : (n: number, y: number) => string
 >n : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 // Ambient function with optional parameters
 declare function fn5(x, y?);
 >fn5 : (x: any, y?: any) => any
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
 declare function fn6(e?);
 >fn6 : (e?: any) => any
 >e : any
+>类型别名 :=> 任意
 
 declare function fn7(x, y?, ...z);
 >fn7 : (x: any, y?: any, ...z: any[]) => any
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >z : any[]
 
 declare function fn8(y?, ...z: number[]);
 >fn8 : (y?: any, ...z: number[]) => any
 >y : any
+>类型别名 :=> 任意
 >z : number[]
 
 declare function fn9(...q: {}[]);
@@ -69,9 +81,11 @@ declare class cls {
     static static(p): number;
 >static : (p: any) => number
 >p : any
+>类型别名 :=> 任意
 
     static q;
 >q : any
+>类型别名 :=> 任意
 
     private fn();
 >fn : () => any
@@ -128,12 +142,16 @@ declare module E3 {
 
     var B;
 >B : any
+>类型别名 :=> 任意
 }
 var x = E3.B;
 >x : any
+>类型别名 :=> 任意
 >E3.B : any
+>类型别名 :=> 任意
 >E3 : typeof E3
 >B : any
+>类型别名 :=> 任意
 
 // Ambient module
 declare module M1 {
@@ -141,6 +159,7 @@ declare module M1 {
 
     var x;
 >x : any
+>类型别名 :=> 任意
 
     function fn(): number;
 >fn : () => number
@@ -149,13 +168,18 @@ declare module M1 {
 // Ambient module members are always exported with or without export keyword
 var p = M1.x;
 >p : any
+>类型别名 :=> 任意
 >M1.x : any
+>类型别名 :=> 任意
 >M1 : typeof M1
 >x : any
+>类型别名 :=> 任意
 
 var q = M1.fn();
 >q : number
+>类型别名 :=> 数字
 >M1.fn() : number
+>类型别名 :=> 数字
 >M1.fn : () => number
 >M1 : typeof M1
 >fn : () => number
@@ -165,6 +189,7 @@ var q = M1.fn();
 declare module 'external1' {
     var q;
 >q : any
+>类型别名 :=> 任意
 }
 
 

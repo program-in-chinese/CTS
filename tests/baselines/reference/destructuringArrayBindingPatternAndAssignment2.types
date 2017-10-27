@@ -3,21 +3,29 @@
 //      S is the type Any, or
 var [[a0], [[a1]]] = []         // Error
 >a0 : any
+>类型别名 :=> 任意
 >a1 : any
+>类型别名 :=> 任意
 >[] : [any, any]
 
 var [[a2], [[a3]]] = undefined  // Error
 >a2 : any
+>类型别名 :=> 任意
 >a3 : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 // V is an array assignment pattern, S is the type Any or an array-like type (section 3.3.2), and, for each assignment element E in V,
 //      S is a tuple- like type (section 3.3.3) with a property named N of a type that is assignable to the target given in E,
 //        where N is the numeric index of E in the array assignment pattern, or
 var [b0, b1, b2]: [number, boolean, string] = [1, 2, "string"];  // Error
 >b0 : number
+>类型别名 :=> 数字
 >b1 : boolean
+>类型别名 :=> 真假
 >b2 : string
+>类型别名 :=> 文字
 >[1, 2, "string"] : [number, 2, string]
 >1 : 1
 >2 : 2
@@ -61,16 +69,22 @@ var temp = [1, 2, 3]
 
 var [c0, c1]: [number, number] = [...temp];  // Error
 >c0 : number
+>类型别名 :=> 数字
 >c1 : number
+>类型别名 :=> 数字
 >[...temp] : number[]
 >...temp : number
+>类型别名 :=> 数字
 >temp : number[]
 
 var [c2, c3]: [string, string] = [...temp];  // Error
 >c2 : string
+>类型别名 :=> 文字
 >c3 : string
+>类型别名 :=> 文字
 >[...temp] : number[]
 >...temp : number
+>类型别名 :=> 数字
 >temp : number[]
 
 interface F {
@@ -78,11 +92,13 @@ interface F {
 
     [idx: number]: boolean
 >idx : number
+>类型别名 :=> 数字
 }
 
 function foo(idx: number): F {
 >foo : (idx: number) => F
 >idx : number
+>类型别名 :=> 数字
 >F : F
 
     return {
@@ -90,12 +106,16 @@ function foo(idx: number): F {
 
         2: true
 >true : true
+>类型别名 :=> 为真
     }
 }
 var [c4, c5, c6] = foo(1);  // Error
 >c4 : any
+>类型别名 :=> 任意
 >c5 : any
+>类型别名 :=> 任意
 >c6 : any
+>类型别名 :=> 任意
 >foo(1) : F
 >foo : (idx: number) => F
 >1 : 1

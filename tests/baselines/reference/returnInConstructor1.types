@@ -51,11 +51,13 @@ class E {
 
     public foo: number;
 >foo : number
+>类型别名 :=> 数字
 
     constructor() {
         return { foo: 1 };
 >{ foo: 1 } : { foo: number; }
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
     }
 }
@@ -65,11 +67,13 @@ class F {
 
     public foo: string;
 >foo : string
+>类型别名 :=> 文字
 
     constructor() {
         return { foo: 1 }; //error
 >{ foo: 1 } : { foo: number; }
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
     }
 }
@@ -79,6 +83,7 @@ class G {
 
     private test: number;
 >test : number
+>类型别名 :=> 数字
 
     public test1() { }
 >test1 : () => void
@@ -90,8 +95,10 @@ class G {
         this.test = 2;
 >this.test = 2 : 2
 >this.test : number
+>类型别名 :=> 数字
 >this : this
 >test : number
+>类型别名 :=> 数字
 >2 : 2
     }
 }
@@ -103,6 +110,7 @@ class H extends F {
     constructor() {
         super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof F
 
         return new G(); //error
@@ -118,6 +126,7 @@ class I extends G {
     constructor() {
         super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof G
 
         return new G();

@@ -3,11 +3,14 @@ function f(x: { y: string } | undefined): { y: string } {
 >f : (x: { y: string; } | undefined) => { y: string; }
 >x : { y: string; } | undefined
 >y : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 
     return { y: 123, ...x } // y: string | number
 >{ y: 123, ...x } : { y: number; } | { y: string; }
 >y : number
+>类型别名 :=> 数字
 >123 : 123
 >x : { y: string; } | undefined
 }
@@ -15,13 +18,16 @@ f(undefined)
 >f(undefined) : { y: string; }
 >f : (x: { y: string; } | undefined) => { y: string; }
 >undefined : undefined
+>类型别名 :=> 未定
 
 
 function g(t?: { a: number } | null): void {
 >g : (t?: { a: number; } | null | undefined) => void
 >t : { a: number; } | null | undefined
 >a : number
+>类型别名 :=> 数字
 >null : null
+>类型别名 :=> 空值
 
     let b = { ...t };
 >b : {} | {} | { a: number; }
@@ -30,37 +36,50 @@ function g(t?: { a: number } | null): void {
 
     let c: number = b.a;  // might not have 'a'
 >c : number
+>类型别名 :=> 数字
 >b.a : any
+>类型别名 :=> 任意
 >b : {} | {} | { a: number; }
 >a : any
+>类型别名 :=> 任意
 }
 g()
 >g() : void
+>类型别名 :=> 无值
 >g : (t?: { a: number; } | null | undefined) => void
 
 g(undefined)
 >g(undefined) : void
+>类型别名 :=> 无值
 >g : (t?: { a: number; } | null | undefined) => void
 >undefined : undefined
+>类型别名 :=> 未定
 
 g(null)
 >g(null) : void
+>类型别名 :=> 无值
 >g : (t?: { a: number; } | null | undefined) => void
 >null : null
+>类型别名 :=> 空值
 
 // spreading nothing but null and undefined is not allowed
 declare const nullAndUndefinedUnion: null | undefined;
 >nullAndUndefinedUnion : null | undefined
 >null : null
+>类型别名 :=> 空值
 
 var x = { ...nullAndUndefinedUnion, ...nullAndUndefinedUnion };
 >x : any
+>类型别名 :=> 任意
 >{ ...nullAndUndefinedUnion, ...nullAndUndefinedUnion } : any
+>类型别名 :=> 任意
 >nullAndUndefinedUnion : null | undefined
 >nullAndUndefinedUnion : null | undefined
 
 var y = { ...nullAndUndefinedUnion };
 >y : any
+>类型别名 :=> 任意
 >{ ...nullAndUndefinedUnion } : any
+>类型别名 :=> 任意
 >nullAndUndefinedUnion : null | undefined
 

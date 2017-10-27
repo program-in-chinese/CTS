@@ -7,6 +7,7 @@ interface Base {
 
 	optional?: number;
 >optional : number
+>类型别名 :=> 数字
 }
 
 // Derived1 is assignable to, but not a subtype of, Base
@@ -16,6 +17,7 @@ class Derived1 implements Base {
 
 	foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 // Derived2 is a subtype of Base that is not assignable to Derived1
 class Derived2 implements Base {
@@ -24,9 +26,11 @@ class Derived2 implements Base {
 
 	foo: number;
 >foo : number
+>类型别名 :=> 数字
 
 	optional: number;
 >optional : number
+>类型别名 :=> 数字
 }
 
 class Animal {
@@ -34,16 +38,19 @@ class Animal {
 
 	move;
 >move : any
+>类型别名 :=> 任意
 }
 class Mammal extends Animal { milk; }
 >Mammal : Mammal
 >Animal : Animal
 >milk : any
+>类型别名 :=> 任意
 
 class Giraffe extends Mammal { neck; }
 >Giraffe : Giraffe
 >Mammal : Mammal
 >neck : any
+>类型别名 :=> 任意
 
 function fn1(x: Array<number>|Array<string>|boolean) {
 >fn1 : (x: boolean | number[] | string[]) => void
@@ -53,6 +60,7 @@ function fn1(x: Array<number>|Array<string>|boolean) {
 
 	if(x instanceof Array) {
 >x instanceof Array : boolean
+>类型别名 :=> 真假
 >x : boolean | number[] | string[]
 >Array : ArrayConstructor
 
@@ -71,6 +79,7 @@ function fn2(x: Base) {
 
 	if(x instanceof Derived1) {
 >x instanceof Derived1 : boolean
+>类型别名 :=> 真假
 >x : Base
 >Derived1 : typeof Derived1
 
@@ -90,6 +99,7 @@ function fn3(x: Base|Derived1) {
 
 	if(x instanceof Derived2) {
 >x instanceof Derived2 : boolean
+>类型别名 :=> 真假
 >x : Base | Derived1
 >Derived2 : typeof Derived2
 
@@ -109,6 +119,7 @@ function fn4(x: Base|Derived2) {
 
 	if(x instanceof Derived1) {
 >x instanceof Derived1 : boolean
+>类型别名 :=> 真假
 >x : Base | Derived2
 >Derived1 : typeof Derived1
 
@@ -127,6 +138,7 @@ function fn5(x: Derived1) {
 
 	if(x instanceof Derived2) {
 >x instanceof Derived2 : boolean
+>类型别名 :=> 真假
 >x : Derived1
 >Derived2 : typeof Derived2
 
@@ -146,6 +158,7 @@ function fn6(x: Animal|Mammal) {
 
 	if(x instanceof Giraffe) {
 >x instanceof Giraffe : boolean
+>类型别名 :=> 真假
 >x : Animal | Mammal
 >Giraffe : typeof Giraffe
 
@@ -165,6 +178,7 @@ function fn7(x: Array<number>|Array<string>) {
 
 	if(x instanceof Array) {
 >x instanceof Array : boolean
+>类型别名 :=> 真假
 >x : number[] | string[]
 >Array : ArrayConstructor
 
@@ -179,20 +193,26 @@ function fn7(x: Array<number>|Array<string>) {
 interface Alpha { a }
 >Alpha : Alpha
 >a : any
+>类型别名 :=> 任意
 
 interface Beta { b }
 >Beta : Beta
 >b : any
+>类型别名 :=> 任意
 
 interface Gamma { c }
 >Gamma : Gamma
 >c : any
+>类型别名 :=> 任意
 
 class ABC { a; b; c; }
 >ABC : ABC
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 
 function fn8(x: Alpha|Beta|Gamma) {
 >fn8 : (x: Alpha | Beta | Gamma) => void
@@ -203,6 +223,7 @@ function fn8(x: Alpha|Beta|Gamma) {
 
 	if(x instanceof ABC) {
 >x instanceof ABC : boolean
+>类型别名 :=> 真假
 >x : Alpha | Beta | Gamma
 >ABC : typeof ABC
 

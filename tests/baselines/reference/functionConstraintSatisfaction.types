@@ -24,6 +24,7 @@ class C {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 
 var a: { (): string };
@@ -35,6 +36,7 @@ var b: { new (): string };
 var c: { (): string; (x): string };
 >c : { (): string; (x: any): string; }
 >x : any
+>类型别名 :=> 任意
 
 var r = foo(new Function());
 >r : Function
@@ -49,7 +51,9 @@ var r1 = foo((x) => x);
 >foo : <T extends Function>(x: T) => T
 >(x) => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 var r2 = foo((x: string[]) => x);
 >r2 : (x: string[]) => string[]
@@ -65,7 +69,9 @@ var r3 = foo(function (x) { return x });
 >foo : <T extends Function>(x: T) => T
 >function (x) { return x } : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
 var r4 = foo(function (x: string[]) { return x });
 >r4 : (x: string[]) => string[]
@@ -220,6 +226,7 @@ interface F2 extends Function { foo: string; }
 >F2 : F2
 >Function : Function
 >foo : string
+>类型别名 :=> 文字
 
 var f2: F2;
 >f2 : F2

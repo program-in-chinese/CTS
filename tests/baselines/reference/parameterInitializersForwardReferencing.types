@@ -2,58 +2,83 @@
 function left(a, b = a, c = b) {
 >left : (a: any, b?: any, c?: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 
     a;
 >a : any
+>类型别名 :=> 任意
 
     b;
 >b : any
+>类型别名 :=> 任意
 }
 
 function right(a = b, b = a) {
 >right : (a?: any, b?: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
     a;
 >a : any
+>类型别名 :=> 任意
 
     b;
 >b : any
+>类型别名 :=> 任意
 }
 
 function right2(a = b, b = c, c = a) {
 >right2 : (a?: any, b?: any, c?: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
     a;
 >a : any
+>类型别名 :=> 任意
 
     b;
 >b : any
+>类型别名 :=> 任意
 
     c;
 >c : any
+>类型别名 :=> 任意
 }
 
 function inside(a = b) {
 >inside : (a?: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 
     var b;
 >b : any
+>类型别名 :=> 任意
 }
 
 function outside() {
@@ -61,14 +86,18 @@ function outside() {
 
     var b;
 >b : any
+>类型别名 :=> 任意
 
     function inside(a = b) { // Still an error because b is declared inside the function
 >inside : (a?: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 
         var b;
 >b : any
+>类型别名 :=> 任意
     }
 }
 
@@ -77,7 +106,9 @@ function defaultArgFunction(a = function () { return b; }, b = 1) { }
 >a : () => number
 >function () { return b; } : () => number
 >b : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 
 function defaultArgArrow(a = () => () => b, b = 3) { }
@@ -86,7 +117,9 @@ function defaultArgArrow(a = () => () => b, b = 3) { }
 >() => () => b : () => () => number
 >() => b : () => number
 >b : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >3 : 3
 
 class C {
@@ -94,15 +127,21 @@ class C {
 
     constructor(a = b, b = 1) { }
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 
     method(a = b, b = 1) { }
 >method : (a?: number, b?: number) => void
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 }
 
@@ -111,21 +150,32 @@ var x = (a = b, b = c, c = d) => { var d; };
 >x : (a?: any, b?: any, c?: any) => void
 >(a = b, b = c, c = d) => { var d; } : (a?: any, b?: any, c?: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 >d : any
+>类型别名 :=> 任意
 
 // Should not produce errors - can reference later parameters if they occur within a function expression initializer.
 function f(a, b = function () { return c; }, c = b()) {
 >f : (a: any, b?: () => any, c?: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : () => any
 >function () { return c; } : () => any
 >c : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >b() : any
+>类型别名 :=> 任意
 >b : () => any
 }

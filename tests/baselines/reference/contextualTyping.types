@@ -5,14 +5,18 @@ interface IFoo {
 
     n: number;
 >n : number
+>类型别名 :=> 数字
 
     s: string;
 >s : string
+>类型别名 :=> 文字
 
     f(i: number, s: string): string;
 >f : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     a: number[];
 >a : number[]
@@ -33,12 +37,16 @@ class C1T5 {
     foo: (i: number, s: string) => number = function(i) {
 >foo : (i: number, s: string) => number
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >function(i) {        return i;    } : (i: number) => number
 >i : number
+>类型别名 :=> 数字
 
         return i;
 >i : number
+>类型别名 :=> 数字
     }
 }
 
@@ -49,12 +57,16 @@ module C2T5 {
     export var foo: (i: number, s: string) => number = function(i) {
 >foo : (i: number, s: string) => number
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >function(i) {        return i;    } : (i: number) => number
 >i : number
+>类型别名 :=> 数字
 
         return i;
 >i : number
+>类型别名 :=> 数字
     }
 }
 
@@ -62,10 +74,13 @@ module C2T5 {
 var c3t1: (s: string) => string = (function(s) { return s });
 >c3t1 : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 >(function(s) { return s }) : (s: string) => string
 >function(s) { return s } : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 var c3t2 = <IFoo>({
 >c3t2 : IFoo
@@ -76,6 +91,7 @@ var c3t2 = <IFoo>({
 
     n: 1
 >n : number
+>类型别名 :=> 数字
 >1 : 1
 
 })
@@ -95,9 +111,11 @@ var c3t4: () => IFoo = function() { return <IFoo>({}) };
 var c3t5: (n: number) => IFoo = function(n) { return <IFoo>({}) };
 >c3t5 : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 >function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -106,11 +124,15 @@ var c3t5: (n: number) => IFoo = function(n) { return <IFoo>({}) };
 var c3t6: (n: number, s: string) => IFoo = function(n, s) { return <IFoo>({}) };
 >c3t6 : (n: number, s: string) => IFoo
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >IFoo : IFoo
 >function(n, s) { return <IFoo>({}) } : (n: number, s: string) => IFoo
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -121,22 +143,30 @@ var c3t7: {
 
     (n: number): number;    
 >n : number
+>类型别名 :=> 数字
 
     (s1: string): number;
 >s1 : string
+>类型别名 :=> 文字
 
 } = function(n) { return n; };
 >function(n) { return n; } : (n: any) => any
 >n : any
+>类型别名 :=> 任意
 >n : any
+>类型别名 :=> 任意
 
 var c3t8: (n: number, s: string) => number = function(n) { return n; };
 >c3t8 : (n: number, s: string) => number
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >function(n) { return n; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 var c3t9: number[][] = [[],[]];
 >c3t9 : number[][]
@@ -160,12 +190,17 @@ var c3t10: IFoo[] = [<IFoo>({}),<IFoo>({})];
 var c3t11: {(n: number, s: string): string;}[] = [function(n, s) { return s; }];
 >c3t11 : ((n: number, s: string) => string)[]
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >[function(n, s) { return s; }] : ((n: number, s: string) => string)[]
 >function(n, s) { return s; } : (n: number, s: string) => string
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 var c3t12: IBar = {
 >c3t12 : IBar
@@ -190,8 +225,11 @@ var c3t13 = <IFoo>({
 >f : (i: number, s: string) => string
 >function(i, s) { return s; } : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 })
 var c3t14 = <IFoo>({
@@ -214,7 +252,9 @@ class C4T5 {
     foo: (i: number, s: string) => string;
 >foo : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     constructor() {
         this.foo = function(i, s) {
@@ -224,10 +264,13 @@ class C4T5 {
 >foo : (i: number, s: string) => string
 >function(i, s) {            return s;        } : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
             return s;
 >s : string
+>类型别名 :=> 文字
         }
     }
 }
@@ -239,17 +282,22 @@ module C5T5 {
     export var foo: (i: number, s: string) => string;
 >foo : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     foo = function(i, s) {
 >foo = function(i, s) {        return s;    } : (i: number, s: string) => string
 >foo : (i: number, s: string) => string
 >function(i, s) {        return s;    } : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
         return s;
 >s : string
+>类型别名 :=> 文字
     }
 }
 
@@ -257,6 +305,7 @@ module C5T5 {
 var c6t5: (n: number) => IFoo;
 >c6t5 : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 
 c6t5 = <(n: number) => IFoo>function(n) { return <IFoo>({}) };
@@ -264,9 +313,11 @@ c6t5 = <(n: number) => IFoo>function(n) { return <IFoo>({}) };
 >c6t5 : (n: number) => IFoo
 ><(n: number) => IFoo>function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 >function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -287,6 +338,7 @@ c7t2[0] = <IFoo>({n: 1});
 >({n: 1}) : { n: number; }
 >{n: 1} : { n: number; }
 >n : number
+>类型别名 :=> 数字
 >1 : 1
 
 // CONTEXT: Object property assignment
@@ -296,6 +348,7 @@ interface IPlaceHolder {
     t1: (s: string) => string;
 >t1 : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 
     t2: IFoo;
 >t2 : IFoo
@@ -311,12 +364,15 @@ interface IPlaceHolder {
     t5: (n: number) => IFoo;
 >t5 : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 
     t6: (n: number, s: string) => IFoo;
 >t6 : (n: number, s: string) => IFoo
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >IFoo : IFoo
 
     t7: {
@@ -324,14 +380,18 @@ interface IPlaceHolder {
 
             (n: number, s: string): number;    
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
             //(s1: string, s2: string): number;
         };
     t8: (n: number, s: string) => number;
 >t8 : (n: number, s: string) => number
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     t9: number[][];
 >t9 : number[][]
@@ -343,7 +403,9 @@ interface IPlaceHolder {
     t11: {(n: number, s: string): string;}[];
 >t11 : ((n: number, s: string) => string)[]
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     t12: IBar;
 >t12 : IBar
@@ -364,6 +426,7 @@ var objc8: {
     t1: (s: string) => string;
 >t1 : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 
     t2: IFoo;
 >t2 : IFoo
@@ -379,12 +442,15 @@ var objc8: {
     t5: (n: number) => IFoo;
 >t5 : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 
     t6: (n: number, s: string) => IFoo;
 >t6 : (n: number, s: string) => IFoo
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >IFoo : IFoo
 
     t7: {
@@ -392,14 +458,18 @@ var objc8: {
 
             (n: number, s: string): number;    
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
             //(s1: string, s2: string): number;
         };
     t8: (n: number, s: string) => number;
 >t8 : (n: number, s: string) => number
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     t9: number[][];
 >t9 : number[][]
@@ -411,7 +481,9 @@ var objc8: {
     t11: {(n: number, s: string): string;}[];
 >t11 : ((n: number, s: string) => string)[]
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     t12: IBar;
 >t12 : IBar
@@ -439,7 +511,9 @@ objc8.t1 = (function(s) { return s });
 >(function(s) { return s }) : (s: string) => string
 >function(s) { return s } : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 objc8.t2 = <IFoo>({
 >objc8.t2 = <IFoo>({    n: 1}) : IFoo
@@ -453,6 +527,7 @@ objc8.t2 = <IFoo>({
 
     n: 1
 >n : number
+>类型别名 :=> 数字
 >1 : 1
 
 });
@@ -481,6 +556,7 @@ objc8.t5 = function(n) { return <IFoo>({}) };
 >t5 : (n: number) => IFoo
 >function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -493,7 +569,9 @@ objc8.t6 = function(n, s) { return <IFoo>({}) };
 >t6 : (n: number, s: string) => IFoo
 >function(n, s) { return <IFoo>({}) } : (n: number, s: string) => IFoo
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -506,7 +584,9 @@ objc8.t7 = function(n: number) { return n };
 >t7 : (n: number, s: string) => number
 >function(n: number) { return n } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 objc8.t8 = function(n) { return n; };
 >objc8.t8 = function(n) { return n; } : (n: number) => number
@@ -515,7 +595,9 @@ objc8.t8 = function(n) { return n; };
 >t8 : (n: number, s: string) => number
 >function(n) { return n; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 objc8.t9 = [[],[]];
 >objc8.t9 = [[],[]] : undefined[][]
@@ -549,8 +631,11 @@ objc8.t11 = [function(n, s) { return s; }];
 >[function(n, s) { return s; }] : ((n: number, s: string) => string)[]
 >function(n, s) { return s; } : (n: number, s: string) => string
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 objc8.t12 = {
 >objc8.t12 = {    foo: <IFoo>({})} : { foo: IFoo; }
@@ -580,8 +665,11 @@ objc8.t13 = <IFoo>({
 >f : (i: number, s: string) => string
 >function(i, s) { return s; } : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 })
 objc8.t14 = <IFoo>({
@@ -604,13 +692,16 @@ function c9t5(f: (n: number) => IFoo) {};
 >c9t5 : (f: (n: number) => IFoo) => void
 >f : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 
 c9t5(function(n) {
 >c9t5(function(n) {    return <IFoo>({});}) : void
+>类型别名 :=> 无值
 >c9t5 : (f: (n: number) => IFoo) => void
 >function(n) {    return <IFoo>({});} : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 
     return <IFoo>({});
 ><IFoo>({}) : IFoo
@@ -624,10 +715,12 @@ c9t5(function(n) {
 var c10t5: () => (n: number) => IFoo = function() { return function(n) { return <IFoo>({}) } };
 >c10t5 : () => (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 >function() { return function(n) { return <IFoo>({}) } } : () => (n: number) => IFoo
 >function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -638,6 +731,7 @@ class C11t5 { constructor(f: (n: number) => IFoo) { } };
 >C11t5 : C11t5
 >f : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 
 var i = new C11t5(function(n) { return <IFoo>({}) });
@@ -646,6 +740,7 @@ var i = new C11t5(function(n) { return <IFoo>({}) });
 >C11t5 : typeof C11t5
 >function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -656,10 +751,13 @@ var c12t1 = <(s: string) => string> (function(s) { return s });
 >c12t1 : (s: string) => string
 ><(s: string) => string> (function(s) { return s }) : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 >(function(s) { return s }) : (s: string) => string
 >function(s) { return s } : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 var c12t2 = <IFoo> ({
 >c12t2 : IFoo
@@ -670,6 +768,7 @@ var c12t2 = <IFoo> ({
 
     n: 1
 >n : number
+>类型别名 :=> 数字
 >1 : 1
 
 });
@@ -692,9 +791,11 @@ var c12t5 = <(n: number) => IFoo> function(n) { return <IFoo>({}) };
 >c12t5 : (n: number) => IFoo
 ><(n: number) => IFoo> function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 >IFoo : IFoo
 >function(n) { return <IFoo>({}) } : (n: number) => IFoo
 >n : number
+>类型别名 :=> 数字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -704,11 +805,15 @@ var c12t6 = <(n: number, s: string) => IFoo> function(n, s) { return <IFoo>({}) 
 >c12t6 : (n: number, s: string) => IFoo
 ><(n: number, s: string) => IFoo> function(n, s) { return <IFoo>({}) } : (n: number, s: string) => IFoo
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >IFoo : IFoo
 >function(n, s) { return <IFoo>({}) } : (n: number, s: string) => IFoo
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 ><IFoo>({}) : IFoo
 >IFoo : IFoo
 >({}) : {}
@@ -720,22 +825,30 @@ var c12t7 = <{
 
     (n: number, s: string): number;    
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 
     //(s1: string, s2: string): number;
 }> function(n:number) { return n };
 >function(n:number) { return n } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 var c12t8 = <(n: number, s: string) => number> function(n) { return n; };
 >c12t8 : (n: number, s: string) => number
 ><(n: number, s: string) => number> function(n) { return n; } : (n: number, s: string) => number
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >function(n) { return n; } : (n: number) => number
 >n : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
 var c12t9 = <number[][]> [[],[]];
 >c12t9 : number[][]
@@ -762,12 +875,17 @@ var c12t11 = <{(n: number, s: string): string;}[]> [function(n, s) { return s; }
 >c12t11 : ((n: number, s: string) => string)[]
 ><{(n: number, s: string): string;}[]> [function(n, s) { return s; }] : ((n: number, s: string) => string)[]
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >[function(n, s) { return s; }] : ((n: number, s: string) => string)[]
 >function(n, s) { return s; } : (n: number, s: string) => string
 >n : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 var c12t12 = <IBar> {
 >c12t12 : IBar
@@ -793,8 +911,11 @@ var c12t13 = <IFoo> ({
 >f : (i: number, s: string) => string
 >function(i, s) { return s; } : (i: number, s: string) => string
 >i : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >s : string
+>类型别名 :=> 文字
 
 })
 var c12t14 = <IFoo> ({
@@ -816,19 +937,28 @@ var c12t14 = <IFoo> ({
 declare function EF1(a:number, b:number):number;
 >EF1 : (a: number, b: number) => number
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
 function EF1(a,b) { return a+b; }
 >EF1 : (a: number, b: number) => number
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >a+b : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 
 var efv = EF1(1,2);
 >efv : number
+>类型别名 :=> 数字
 >EF1(1,2) : number
+>类型别名 :=> 数字
 >EF1 : (a: number, b: number) => number
 >1 : 1
 >2 : 2
@@ -840,18 +970,24 @@ declare class Point
 {
       constructor(x: number, y: number);
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
       x: number;
 >x : number
+>类型别名 :=> 数字
 
       y: number;
 >y : number
+>类型别名 :=> 数字
 
       add(dx: number, dy: number): Point;
 >add : (dx: number, dy: number) => Point
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 >Point : Point
 
       static origin: Point;
@@ -863,24 +999,37 @@ declare class Point
 function Point(x, y) {
 >Point : (x: any, y: any) => any
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     this.x = x;
 >this.x = x : any
+>类型别名 :=> 任意
 >this.x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
     this.y = y;
 >this.y = y : any
+>类型别名 :=> 任意
 >this.y : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     return this;
 >this : any
+>类型别名 :=> 任意
 }
 
 Point.origin = new Point(0, 0);
@@ -902,21 +1051,33 @@ Point.prototype.add = function(dx, dy) {
 >add : (dx: number, dy: number) => Point
 >function(dx, dy) {    return new Point(this.x + dx, this.y + dy);} : (dx: number, dy: number) => Point
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
     return new Point(this.x + dx, this.y + dy);
 >new Point(this.x + dx, this.y + dy) : Point
 >Point : typeof Point
 >this.x + dx : any
+>类型别名 :=> 任意
 >this.x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >dx : number
+>类型别名 :=> 数字
 >this.y + dy : any
+>类型别名 :=> 任意
 >this.y : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >dy : number
+>类型别名 :=> 数字
 
 };
 
@@ -929,37 +1090,52 @@ Point.prototype = {
 
     x: 0,
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 
     y: 0,
 >y : number
+>类型别名 :=> 数字
 >0 : 0
 
     add: function(dx, dy) {
 >add : (dx: number, dy: number) => Point
 >function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    } : (dx: number, dy: number) => Point
 >dx : number
+>类型别名 :=> 数字
 >dy : number
+>类型别名 :=> 数字
 
         return new Point(this.x + dx, this.y + dy);
 >new Point(this.x + dx, this.y + dy) : Point
 >Point : typeof Point
 >this.x + dx : any
+>类型别名 :=> 任意
 >this.x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >dx : number
+>类型别名 :=> 数字
 >this.y + dy : any
+>类型别名 :=> 任意
 >this.y : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 >dy : number
+>类型别名 :=> 数字
     }
 };
 
 interface A { x: string; }
 >A : A
 >x : string
+>类型别名 :=> 文字
 
 interface B extends A { }
 >B : B

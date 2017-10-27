@@ -2,7 +2,9 @@
 declare function isFooError(x: any): x is { type: 'foo'; dontPanic(); };
 >isFooError : (x: any) => x is { type: "foo"; dontPanic(): any; }
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >type : "foo"
 >dontPanic : () => any
 
@@ -14,44 +16,58 @@ function tryCatch() {
     }
     catch (err) { // err is implicitly 'any' and cannot be annotated
 >err : any
+>类型别名 :=> 任意
 
         if (isFooError(err)) {
 >isFooError(err) : boolean
+>类型别名 :=> 真假
 >isFooError : (x: any) => x is { type: "foo"; dontPanic(): any; }
 >err : any
+>类型别名 :=> 任意
 
             err.dontPanic(); // OK
 >err.dontPanic() : any
+>类型别名 :=> 任意
 >err.dontPanic : () => any
 >err : { type: "foo"; dontPanic(): any; }
 >dontPanic : () => any
 
             err.doPanic(); // ERROR: Property 'doPanic' does not exist on type '{...}'
 >err.doPanic() : any
+>类型别名 :=> 任意
 >err.doPanic : any
+>类型别名 :=> 任意
 >err : { type: "foo"; dontPanic(): any; }
 >doPanic : any
+>类型别名 :=> 任意
         }
 
         else if (err instanceof Error) {
 >err instanceof Error : boolean
+>类型别名 :=> 真假
 >err : any
+>类型别名 :=> 任意
 >Error : ErrorConstructor
 
             err.message;
 >err.message : string
+>类型别名 :=> 文字
 >err : Error
 >message : string
+>类型别名 :=> 文字
 
             err.massage; // ERROR: Property 'massage' does not exist on type 'Error'
 >err.massage : any
+>类型别名 :=> 任意
 >err : Error
 >massage : any
+>类型别名 :=> 任意
         }
 
         else {
             throw err;
 >err : any
+>类型别名 :=> 任意
         }
     }
 }

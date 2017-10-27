@@ -2,6 +2,7 @@
 function takeObject(o: object) {}
 >takeObject : (o: object) => void
 >o : object
+>类型别名 :=> 实例
 
 function returnObject(): object {
 >returnObject : () => object
@@ -12,30 +13,42 @@ function returnObject(): object {
 
 var nonPrimitive: object;
 >nonPrimitive : object
+>类型别名 :=> 实例
 
 var primitive: boolean;
 >primitive : boolean
+>类型别名 :=> 真假
 
 takeObject(nonPrimitive);
 >takeObject(nonPrimitive) : void
+>类型别名 :=> 无值
 >takeObject : (o: object) => void
 >nonPrimitive : object
+>类型别名 :=> 实例
 
 nonPrimitive = returnObject();
 >nonPrimitive = returnObject() : object
+>类型别名 :=> 实例
 >nonPrimitive : object
+>类型别名 :=> 实例
 >returnObject() : object
+>类型别名 :=> 实例
 >returnObject : () => object
 
 takeObject(primitive); // expect error
 >takeObject(primitive) : void
+>类型别名 :=> 无值
 >takeObject : (o: object) => void
 >primitive : boolean
+>类型别名 :=> 真假
 
 primitive = returnObject(); // expect error
 >primitive = returnObject() : object
+>类型别名 :=> 实例
 >primitive : boolean
+>类型别名 :=> 真假
 >returnObject() : object
+>类型别名 :=> 实例
 >returnObject : () => object
 
 function returnError(): object {
@@ -43,9 +56,11 @@ function returnError(): object {
 
     var ret = 123;
 >ret : number
+>类型别名 :=> 数字
 >123 : 123
 
     return ret; // expect error
 >ret : number
+>类型别名 :=> 数字
 }
 

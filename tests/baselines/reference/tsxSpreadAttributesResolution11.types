@@ -13,21 +13,28 @@ const obj1: { x: 2 } = {
 
     x: 2
 >x : number
+>类型别名 :=> 数字
 >2 : 2
 }
 const obj3: {y: true, overwrite: string } = {
 >obj3 : { y: true; overwrite: string; }
 >y : true
+>类型别名 :=> 为真
 >true : true
+>类型别名 :=> 为真
 >overwrite : string
+>类型别名 :=> 文字
 >{    y: true,    overwrite: "hi"} : { y: true; overwrite: string; }
 
     y: true,
 >y : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
     overwrite: "hi"
 >overwrite : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 }
 
@@ -39,10 +46,13 @@ interface Prop {
 
     y: true
 >y : true
+>类型别名 :=> 为真
 >true : true
+>类型别名 :=> 为真
 
     overwrite: string
 >overwrite : string
+>类型别名 :=> 文字
 }
 
 class OverWriteAttr extends React.Component<Prop, {}> {
@@ -58,12 +68,15 @@ class OverWriteAttr extends React.Component<Prop, {}> {
         return <div>Hello</div>;
 ><div>Hello</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
     }
 }
 
 let anyobj: any;
 >anyobj : any
+>类型别名 :=> 任意
 
 // OK
 let x = <OverWriteAttr {...obj} y overwrite="hi" {...obj1} />
@@ -72,7 +85,9 @@ let x = <OverWriteAttr {...obj} y overwrite="hi" {...obj1} />
 >OverWriteAttr : typeof OverWriteAttr
 >obj : {}
 >y : true
+>类型别名 :=> 为真
 >overwrite : string
+>类型别名 :=> 文字
 >obj1 : { x: 2; }
 
 let x1 = <OverWriteAttr {...obj1} {...obj3} />
@@ -87,27 +102,37 @@ let x2 = <OverWriteAttr x={3} overwrite="hi" {...obj1} {...{y: true}} />
 ><OverWriteAttr x={3} overwrite="hi" {...obj1} {...{y: true}} /> : JSX.Element
 >OverWriteAttr : typeof OverWriteAttr
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 >overwrite : string
+>类型别名 :=> 文字
 >obj1 : { x: 2; }
 >{y: true} : { y: true; }
 >y : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 let x3 = <OverWriteAttr overwrite="hi" {...obj1} x={3} {...{y: true, x: 2, overwrite:"world"}} />
 >x3 : JSX.Element
 ><OverWriteAttr overwrite="hi" {...obj1} x={3} {...{y: true, x: 2, overwrite:"world"}} /> : JSX.Element
 >OverWriteAttr : typeof OverWriteAttr
 >overwrite : string
+>类型别名 :=> 文字
 >obj1 : { x: 2; }
 >x : number
+>类型别名 :=> 数字
 >3 : 3
 >{y: true, x: 2, overwrite:"world"} : { y: true; x: 2; overwrite: string; }
 >y : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >x : number
+>类型别名 :=> 数字
 >2 : 2
 >overwrite : string
+>类型别名 :=> 文字
 >"world" : "world"
 
 let x4 = <OverWriteAttr {...{x: 2}} {...{overwrite: "world"}} {...{y: true}} />
@@ -116,17 +141,22 @@ let x4 = <OverWriteAttr {...{x: 2}} {...{overwrite: "world"}} {...{y: true}} />
 >OverWriteAttr : typeof OverWriteAttr
 >{x: 2} : { x: 2; }
 >x : number
+>类型别名 :=> 数字
 >2 : 2
 >{overwrite: "world"} : { overwrite: string; }
 >overwrite : string
+>类型别名 :=> 文字
 >"world" : "world"
 >{y: true} : { y: true; }
 >y : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 let x5 = <OverWriteAttr {...anyobj} />
 >x5 : JSX.Element
 ><OverWriteAttr {...anyobj} /> : JSX.Element
 >OverWriteAttr : typeof OverWriteAttr
 >anyobj : any
+>类型别名 :=> 任意
 

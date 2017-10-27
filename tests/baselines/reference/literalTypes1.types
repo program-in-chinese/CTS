@@ -47,6 +47,7 @@ function f1(x: 0 | 1 | 2) {
         default:
             x;
 >x : never
+>类型别名 :=> 不及
     }
 }
 
@@ -80,7 +81,9 @@ function f2(x: 0 | 1 | 2) {
 type Falsy = false | 0 | "" | null | undefined;
 >Falsy : Falsy
 >false : false
+>类型别名 :=> 为假
 >null : null
+>类型别名 :=> 空值
 
 function f3(x: Falsy) {
 >f3 : (x: Falsy) => void
@@ -92,6 +95,7 @@ function f3(x: Falsy) {
 
         x;
 >x : never
+>类型别名 :=> 不及
     }
     else {
         x;
@@ -103,6 +107,7 @@ function f4(x: 0 | 1 | true | string) {
 >f4 : (x: string | true | 0 | 1) => void
 >x : string | true | 0 | 1
 >true : true
+>类型别名 :=> 为真
 
     switch (x) {
 >x : string | true | 0 | 1
@@ -133,16 +138,20 @@ function f4(x: 0 | 1 | true | string) {
             break;
         case null:
 >null : null
+>类型别名 :=> 空值
 
             x;
 >x : never
+>类型别名 :=> 不及
 
             break;
         case undefined:
 >undefined : undefined
+>类型别名 :=> 未定
 
             x;
 >x : never
+>类型别名 :=> 不及
 
             break;
         default:
@@ -177,9 +186,11 @@ function f5(x: string | number | boolean) {
             break;
         case true:
 >true : true
+>类型别名 :=> 为真
 
             x;
 >x : true
+>类型别名 :=> 为真
 
             break;
         case "hello":

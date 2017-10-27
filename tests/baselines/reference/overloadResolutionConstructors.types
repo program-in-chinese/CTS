@@ -4,9 +4,11 @@ class SomeBase {
 
     private n;
 >n : any
+>类型别名 :=> 任意
 
     public s: string;
 >s : string
+>类型别名 :=> 文字
 }
 class SomeDerived1 extends SomeBase {
 >SomeDerived1 : SomeDerived1
@@ -14,6 +16,7 @@ class SomeDerived1 extends SomeBase {
 
     private m;
 >m : any
+>类型别名 :=> 任意
 }
 class SomeDerived2 extends SomeBase {
 >SomeDerived2 : SomeDerived2
@@ -21,6 +24,7 @@ class SomeDerived2 extends SomeBase {
 
     private m;
 >m : any
+>类型别名 :=> 任意
 }
 class SomeDerived3 extends SomeBase {
 >SomeDerived3 : SomeDerived3
@@ -28,6 +32,7 @@ class SomeDerived3 extends SomeBase {
 
     private m;
 >m : any
+>类型别名 :=> 任意
 }
 
 interface fn1 {
@@ -35,9 +40,11 @@ interface fn1 {
 
     new (s: string): string;
 >s : string
+>类型别名 :=> 文字
 
     new (s: number): number;
 >s : number
+>类型别名 :=> 数字
 }
 var fn1: fn1;
 >fn1 : fn1
@@ -46,16 +53,21 @@ var fn1: fn1;
 // Ambiguous call picks the first overload in declaration order
 var s = new fn1(undefined);
 >s : string
+>类型别名 :=> 文字
 >new fn1(undefined) : string
+>类型别名 :=> 文字
 >fn1 : fn1
 >undefined : undefined
+>类型别名 :=> 未定
 
 var s: string;
 >s : string
+>类型别名 :=> 文字
 
 // No candidate overloads found
 new fn1({}); // Error
 >new fn1({}) : any
+>类型别名 :=> 任意
 >fn1 : fn1
 >{} : {}
 
@@ -65,11 +77,14 @@ interface fn2 {
 
     new (s: string, n: number): number;
 >s : string
+>类型别名 :=> 文字
 >n : number
+>类型别名 :=> 数字
 
     new <T>(n: number, t: T): T;
 >T : T
 >n : number
+>类型别名 :=> 数字
 >t : T
 >T : T
 >T : T
@@ -85,6 +100,7 @@ var d = new fn2<Date>(0, undefined);
 >Date : Date
 >0 : 0
 >undefined : undefined
+>类型别名 :=> 未定
 
 var d: Date;
 >d : Date
@@ -93,6 +109,7 @@ var d: Date;
 // Generic and non - generic overload where generic overload is the only candidate when called without type arguments
 var s = new fn2(0, '');
 >s : string
+>类型别名 :=> 文字
 >new fn2(0, '') : ""
 >fn2 : fn2
 >0 : 0
@@ -101,6 +118,7 @@ var s = new fn2(0, '');
 // Generic and non - generic overload where non - generic overload is the only candidate when called with type arguments
 new fn2<Date>('', 0); // Error
 >new fn2<Date>('', 0) : any
+>类型别名 :=> 任意
 >fn2 : fn2
 >Date : Date
 >'' : ""
@@ -109,6 +127,7 @@ new fn2<Date>('', 0); // Error
 // Generic and non - generic overload where non - generic overload is the only candidate when called without type arguments
 new fn2('', 0); // OK
 >new fn2('', 0) : number
+>类型别名 :=> 数字
 >fn2 : fn2
 >'' : ""
 >0 : 0
@@ -126,6 +145,7 @@ interface fn3 {
 >T : T
 >U : U
 >s : string
+>类型别名 :=> 文字
 >t : T
 >T : T
 >u : U
@@ -149,12 +169,15 @@ var fn3: fn3;
 
 var s = new fn3(3);
 >s : string
+>类型别名 :=> 文字
 >new fn3(3) : string
+>类型别名 :=> 文字
 >fn3 : fn3
 >3 : 3
 
 var s = new fn3('', 3, '');
 >s : string
+>类型别名 :=> 文字
 >new fn3('', 3, '') : ""
 >fn3 : fn3
 >'' : ""
@@ -163,7 +186,9 @@ var s = new fn3('', 3, '');
 
 var n = new fn3(5, 5, 5);
 >n : number
+>类型别名 :=> 数字
 >new fn3(5, 5, 5) : number
+>类型别名 :=> 数字
 >fn3 : fn3
 >5 : 5
 >5 : 5
@@ -171,17 +196,22 @@ var n = new fn3(5, 5, 5);
 
 var n: number;
 >n : number
+>类型别名 :=> 数字
 
 // Generic overloads with differing arity called with type arguments matching each overload type parameter count
 var s = new fn3<number>(4);
 >s : string
+>类型别名 :=> 文字
 >new fn3<number>(4) : string
+>类型别名 :=> 文字
 >fn3 : fn3
 >4 : 4
 
 var s = new fn3<string, string>('', '', '');
 >s : string
+>类型别名 :=> 文字
 >new fn3<string, string>('', '', '') : string
+>类型别名 :=> 文字
 >fn3 : fn3
 >'' : ""
 >'' : ""
@@ -189,7 +219,9 @@ var s = new fn3<string, string>('', '', '');
 
 var n = new fn3<number, string, string>('', '', 3);
 >n : number
+>类型别名 :=> 数字
 >new fn3<number, string, string>('', '', 3) : number
+>类型别名 :=> 数字
 >fn3 : fn3
 >'' : ""
 >'' : ""
@@ -198,6 +230,7 @@ var n = new fn3<number, string, string>('', '', 3);
 // Generic overloads with differing arity called with type argument count that doesn't match any overload
 new fn3<number, number, number, number>(); // Error
 >new fn3<number, number, number, number>() : any
+>类型别名 :=> 任意
 >fn3 : fn3
 
 // Generic overloads with constraints called with type arguments that satisfy the constraints
@@ -226,24 +259,28 @@ var fn4: fn4;
 
 new fn4<string, number>('', 3);
 >new fn4<string, number>('', 3) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >'' : ""
 >3 : 3
 
 new fn4<string, number>(3, ''); // Error
 >new fn4<string, number>(3, '') : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >3 : 3
 >'' : ""
 
 new fn4<number, string>('', 3); // Error
 >new fn4<number, string>('', 3) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >'' : ""
 >3 : 3
 
 new fn4<number, string>(3, ''); 
 >new fn4<number, string>(3, '') : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >3 : 3
 >'' : ""
@@ -251,48 +288,63 @@ new fn4<number, string>(3, '');
 // Generic overloads with constraints called without type arguments but with types that satisfy the constraints
 new fn4('', 3);
 >new fn4('', 3) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >'' : ""
 >3 : 3
 
 new fn4(3, '');
 >new fn4(3, '') : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >3 : 3
 >'' : ""
 
 new fn4(3, undefined);
 >new fn4(3, undefined) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >3 : 3
 >undefined : undefined
+>类型别名 :=> 未定
 
 new fn4('', null);
 >new fn4('', null) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >'' : ""
 >null : null
+>类型别名 :=> 空值
 
 // Generic overloads with constraints called with type arguments that do not satisfy the constraints
 new fn4<boolean, Date>(null, null); // Error
 >new fn4<boolean, Date>(null, null) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >Date : Date
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 // Generic overloads with constraints called without type arguments but with types that do not satisfy the constraints
 new fn4(true, null); // Error
 >new fn4(true, null) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >true : true
+>类型别名 :=> 为真
 >null : null
+>类型别名 :=> 空值
 
 new fn4(null, true); // Error
 >new fn4(null, true) : any
+>类型别名 :=> 任意
 >fn4 : fn4
 >null : null
+>类型别名 :=> 空值
 >true : true
+>类型别名 :=> 为真
 
 // Non - generic overloads where contextual typing of function arguments has errors
 interface fn5 {
@@ -301,10 +353,12 @@ interface fn5 {
     new(f: (n: string) => void): string;
 >f : (n: string) => void
 >n : string
+>类型别名 :=> 文字
 
     new(f: (n: number) => void): number;
 >f : (n: number) => void
 >n : number
+>类型别名 :=> 数字
 }
 var fn5: fn5;
 >fn5 : fn5
@@ -312,24 +366,36 @@ var fn5: fn5;
 
 var n = new fn5((n) => n.toFixed());
 >n : number
+>类型别名 :=> 数字
 >new fn5((n) => n.toFixed()) : string
+>类型别名 :=> 文字
 >fn5 : fn5
 >(n) => n.toFixed() : (n: string) => any
 >n : string
+>类型别名 :=> 文字
 >n.toFixed() : any
+>类型别名 :=> 任意
 >n.toFixed : any
+>类型别名 :=> 任意
 >n : string
+>类型别名 :=> 文字
 >toFixed : any
+>类型别名 :=> 任意
 
 var s = new fn5((n) => n.substr(0));
 >s : string
+>类型别名 :=> 文字
 >new fn5((n) => n.substr(0)) : string
+>类型别名 :=> 文字
 >fn5 : fn5
 >(n) => n.substr(0) : (n: string) => string
 >n : string
+>类型别名 :=> 文字
 >n.substr(0) : string
+>类型别名 :=> 文字
 >n.substr : (from: number, length?: number) => string
 >n : string
+>类型别名 :=> 文字
 >substr : (from: number, length?: number) => string
 >0 : 0
 

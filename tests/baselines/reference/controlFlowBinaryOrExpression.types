@@ -4,6 +4,7 @@ let x: string | number | boolean;
 
 let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 (x = "") || (x = 0);
 >(x = "") || (x = 0) : 0
@@ -27,6 +28,7 @@ x = "";
 cond || (x = 0);
 >cond || (x = 0) : true | 0
 >cond : boolean
+>类型别名 :=> 真假
 >(x = 0) : 0
 >x = 0 : 0
 >x : string | number | boolean
@@ -40,6 +42,7 @@ export interface NodeList {
 
     length: number;
 >length : number
+>类型别名 :=> 数字
 }
 
 export interface HTMLCollection {
@@ -47,23 +50,29 @@ export interface HTMLCollection {
 
     length: number;
 >length : number
+>类型别名 :=> 数字
 }
 
 declare function isNodeList(sourceObj: any): sourceObj is NodeList;
 >isNodeList : (sourceObj: any) => sourceObj is NodeList
 >sourceObj : any
+>类型别名 :=> 任意
 >sourceObj : any
+>类型别名 :=> 任意
 >NodeList : NodeList
 
 declare function isHTMLCollection(sourceObj: any): sourceObj is HTMLCollection;
 >isHTMLCollection : (sourceObj: any) => sourceObj is HTMLCollection
 >sourceObj : any
+>类型别名 :=> 任意
 >sourceObj : any
+>类型别名 :=> 任意
 >HTMLCollection : HTMLCollection
 
 type EventTargetLike = {a: string} | HTMLCollection | NodeList;
 >EventTargetLike : NodeList | HTMLCollection | { a: string; }
 >a : string
+>类型别名 :=> 文字
 >HTMLCollection : HTMLCollection
 >NodeList : NodeList
 
@@ -71,42 +80,55 @@ var sourceObj: EventTargetLike = <any>undefined;
 >sourceObj : NodeList | HTMLCollection | { a: string; }
 >EventTargetLike : NodeList | HTMLCollection | { a: string; }
 ><any>undefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 if (isNodeList(sourceObj)) {
 >isNodeList(sourceObj) : boolean
+>类型别名 :=> 真假
 >isNodeList : (sourceObj: any) => sourceObj is NodeList
 >sourceObj : NodeList | HTMLCollection | { a: string; }
 
     sourceObj.length;
 >sourceObj.length : number
+>类型别名 :=> 数字
 >sourceObj : NodeList | HTMLCollection
 >length : number
+>类型别名 :=> 数字
 }
 
 if (isHTMLCollection(sourceObj)) {
 >isHTMLCollection(sourceObj) : boolean
+>类型别名 :=> 真假
 >isHTMLCollection : (sourceObj: any) => sourceObj is HTMLCollection
 >sourceObj : NodeList | HTMLCollection | { a: string; }
 
     sourceObj.length;
 >sourceObj.length : number
+>类型别名 :=> 数字
 >sourceObj : NodeList | HTMLCollection
 >length : number
+>类型别名 :=> 数字
 }
 
 if (isNodeList(sourceObj) || isHTMLCollection(sourceObj)) {
 >isNodeList(sourceObj) || isHTMLCollection(sourceObj) : boolean
+>类型别名 :=> 真假
 >isNodeList(sourceObj) : boolean
+>类型别名 :=> 真假
 >isNodeList : (sourceObj: any) => sourceObj is NodeList
 >sourceObj : NodeList | HTMLCollection | { a: string; }
 >isHTMLCollection(sourceObj) : boolean
+>类型别名 :=> 真假
 >isHTMLCollection : (sourceObj: any) => sourceObj is HTMLCollection
 >sourceObj : { a: string; }
 
     sourceObj.length;
 >sourceObj.length : number
+>类型别名 :=> 数字
 >sourceObj : NodeList
 >length : number
+>类型别名 :=> 数字
 }
 

@@ -1,12 +1,14 @@
 === tests/cases/conformance/types/typeRelationships/assignmentCompatibility/everyTypeAssignableToAny.ts ===
 var a: any;
 >a : any
+>类型别名 :=> 任意
 
 class C {
 >C : C
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 var ac: C;
 >ac : C
@@ -17,6 +19,7 @@ interface I {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 var ai: I;
 >ai : I
@@ -32,12 +35,15 @@ var ae: E;
 
 var b: number;
 >b : number
+>类型别名 :=> 数字
 
 var c: string;
 >c : string
+>类型别名 :=> 文字
 
 var d: boolean;
 >d : boolean
+>类型别名 :=> 真假
 
 var e: Date;
 >e : Date
@@ -45,9 +51,11 @@ var e: Date;
 
 var f: any;
 >f : any
+>类型别名 :=> 任意
 
 var g: void;
 >g : void
+>类型别名 :=> 无值
 
 var h: Object;
 >h : Object
@@ -66,6 +74,7 @@ var k: Function;
 var l: (x: number) => string;
 >l : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 
 var m: number[];
 >m : number[]
@@ -73,6 +82,7 @@ var m: number[];
 var n: { foo: string };
 >n : { foo: string; }
 >foo : string
+>类型别名 :=> 文字
 
 var o: <T>(x: T) => T;
 >o : <T>(x: T) => T
@@ -91,92 +101,120 @@ var q: String;
 
 a = b;
 >a = b : number
+>类型别名 :=> 数字
 >a : any
+>类型别名 :=> 任意
 >b : number
+>类型别名 :=> 数字
 
 a = c;
 >a = c : string
+>类型别名 :=> 文字
 >a : any
+>类型别名 :=> 任意
 >c : string
+>类型别名 :=> 文字
 
 a = d;
 >a = d : boolean
+>类型别名 :=> 真假
 >a : any
+>类型别名 :=> 任意
 >d : boolean
+>类型别名 :=> 真假
 
 a = e;
 >a = e : Date
 >a : any
+>类型别名 :=> 任意
 >e : Date
 
 a = f;
 >a = f : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >f : any
+>类型别名 :=> 任意
 
 a = g;
 >a = g : void
+>类型别名 :=> 无值
 >a : any
+>类型别名 :=> 任意
 >g : void
+>类型别名 :=> 无值
 
 a = h;
 >a = h : Object
 >a : any
+>类型别名 :=> 任意
 >h : Object
 
 a = i;
 >a = i : {}
 >a : any
+>类型别名 :=> 任意
 >i : {}
 
 a = j;
 >a = j : () => {}
 >a : any
+>类型别名 :=> 任意
 >j : () => {}
 
 a = k;
 >a = k : Function
 >a : any
+>类型别名 :=> 任意
 >k : Function
 
 a = l;
 >a = l : (x: number) => string
 >a : any
+>类型别名 :=> 任意
 >l : (x: number) => string
 
 a = m;
 >a = m : number[]
 >a : any
+>类型别名 :=> 任意
 >m : number[]
 
 a = o;
 >a = o : <T>(x: T) => T
 >a : any
+>类型别名 :=> 任意
 >o : <T>(x: T) => T
 
 a = p; 
 >a = p : Number
 >a : any
+>类型别名 :=> 任意
 >p : Number
 
 a = q;
 >a = q : String
 >a : any
+>类型别名 :=> 任意
 >q : String
 
 a = ac;
 >a = ac : C
 >a : any
+>类型别名 :=> 任意
 >ac : C
 
 a = ai;
 >a = ai : I
 >a : any
+>类型别名 :=> 任意
 >ai : I
 
 a = ae;
 >a = ae : E
 >a : any
+>类型别名 :=> 任意
 >ae : E
 
 function foo<T, U /*extends T*/, V extends Date>(x: T, y: U, z: V) {
@@ -195,16 +233,19 @@ function foo<T, U /*extends T*/, V extends Date>(x: T, y: U, z: V) {
     a = x;
 >a = x : T
 >a : any
+>类型别名 :=> 任意
 >x : T
 
     a = y;
 >a = y : U
 >a : any
+>类型别名 :=> 任意
 >y : U
 
     a = z;
 >a = z : V
 >a : any
+>类型别名 :=> 任意
 >z : V
 }
 //function foo<T, U extends T, V extends Date>(x: T, y: U, z: V) {

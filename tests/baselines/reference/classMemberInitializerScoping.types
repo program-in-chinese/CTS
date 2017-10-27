@@ -1,6 +1,7 @@
 === tests/cases/compiler/classMemberInitializerScoping.ts ===
 var aaa = 1;
 >aaa : number
+>类型别名 :=> 数字
 >1 : 1
 
 class CCC {
@@ -8,20 +9,27 @@ class CCC {
 
     y: number = aaa;
 >y : number
+>类型别名 :=> 数字
 >aaa : any
+>类型别名 :=> 任意
 
     static staticY: number = aaa; // This shouldnt be error
 >staticY : number
+>类型别名 :=> 数字
 >aaa : number
+>类型别名 :=> 数字
 
     constructor(aaa) {
 >aaa : any
+>类型别名 :=> 任意
 
         this.y = ''; // was: error, cannot assign string to number
 >this.y = '' : ""
 >this.y : number
+>类型别名 :=> 数字
 >this : this
 >y : number
+>类型别名 :=> 数字
 >'' : ""
     }
 }
@@ -29,6 +37,7 @@ class CCC {
 // above is equivalent to this:
 var aaaa = 1;
 >aaaa : number
+>类型别名 :=> 数字
 >1 : 1
 
 class CCCC {
@@ -36,22 +45,30 @@ class CCCC {
 
     y: any;
 >y : any
+>类型别名 :=> 任意
 
     constructor(aaaa) {
 >aaaa : any
+>类型别名 :=> 任意
 
         this.y = aaaa;
 >this.y = aaaa : any
+>类型别名 :=> 任意
 >this.y : any
+>类型别名 :=> 任意
 >this : this
 >y : any
+>类型别名 :=> 任意
 >aaaa : any
+>类型别名 :=> 任意
 
         this.y = '';
 >this.y = '' : ""
 >this.y : any
+>类型别名 :=> 任意
 >this : this
 >y : any
+>类型别名 :=> 任意
 >'' : ""
     }
 }

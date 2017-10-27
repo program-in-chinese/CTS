@@ -4,6 +4,7 @@ class Foo2 {
 
     constructor(_this: number) { //Error
 >_this : number
+>类型别名 :=> 数字
 
         var lambda = () => {
 >lambda : () => (x: any) => this
@@ -12,6 +13,7 @@ class Foo2 {
             return x => this;   // New scope.  So should inject new _this capture
 >x => this : (x: any) => this
 >x : any
+>类型别名 :=> 任意
 >this : this
         }
     }
@@ -22,6 +24,7 @@ class Foo3 {
 
     constructor(private _this: number) { // Error
 >_this : number
+>类型别名 :=> 数字
 
         var lambda = () => {
 >lambda : () => (x: any) => this
@@ -30,6 +33,7 @@ class Foo3 {
             return x => this;   // New scope.  So should inject new _this capture
 >x => this : (x: any) => this
 >x : any
+>类型别名 :=> 任意
 >this : this
         }
     }
@@ -40,12 +44,15 @@ class Foo4 {
 
     constructor(_this: number); // No code gen - no error
 >_this : number
+>类型别名 :=> 数字
 
     constructor(_this: string); // No code gen - no error
 >_this : string
+>类型别名 :=> 文字
 
     constructor(_this: any) { // Error
 >_this : any
+>类型别名 :=> 任意
 
         var lambda = () => {
 >lambda : () => (x: any) => this
@@ -54,6 +61,7 @@ class Foo4 {
             return x => this;   // New scope.  So should inject new _this capture
 >x => this : (x: any) => this
 >x : any
+>类型别名 :=> 任意
 >this : this
         }
     }
@@ -64,12 +72,15 @@ class Foo5 {
 
     constructor(_this: number); // No code gen - no error
 >_this : number
+>类型别名 :=> 数字
 
     constructor(_this: string); // No code gen - no error
 >_this : string
+>类型别名 :=> 文字
 
     constructor(private _this: any) { // Error
 >_this : any
+>类型别名 :=> 任意
 
         var lambda = () => {
 >lambda : () => (x: any) => this
@@ -78,6 +89,7 @@ class Foo5 {
             return x => this;   // New scope.  So should inject new _this capture
 >x => this : (x: any) => this
 >x : any
+>类型别名 :=> 任意
 >this : this
         }
     }

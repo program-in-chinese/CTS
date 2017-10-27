@@ -7,6 +7,7 @@ module M {
 
 	z;
 >z : any
+>类型别名 :=> 任意
     }
 
     export class C {
@@ -14,6 +15,7 @@ module M {
 
 	public x=0;
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 
 	f(x:I) {
@@ -23,21 +25,27 @@ module M {
 
 	    x.e;  // e not found
 >x.e : any
+>类型别名 :=> 任意
 >x : I
 >e : any
+>类型别名 :=> 任意
 
 	    x.z;  // ok 
 >x.z : any
+>类型别名 :=> 任意
 >x : I
 >z : any
+>类型别名 :=> 任意
 	}
     constructor() {
 	({z:10,f:this.f}).f(<I>({}));
 >({z:10,f:this.f}).f(<I>({})) : void
+>类型别名 :=> 无值
 >({z:10,f:this.f}).f : (x: I) => void
 >({z:10,f:this.f}) : { z: number; f: (x: I) => void; }
 >{z:10,f:this.f} : { z: number; f: (x: I) => void; }
 >z : number
+>类型别名 :=> 数字
 >10 : 10
 >f : (x: I) => void
 >this.f : (x: I) => void
@@ -58,5 +66,6 @@ class C {
     f(x: number) {
 >f : (x: number) => void
 >x : number
+>类型别名 :=> 数字
     }
 }

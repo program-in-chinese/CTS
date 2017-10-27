@@ -2,10 +2,13 @@
 declare function require(id: string): any;
 >require : (id: string) => any
 >id : string
+>类型别名 :=> 文字
 
 declare var module: any, exports: any;
 >module : any
+>类型别名 :=> 任意
 >exports : any
+>类型别名 :=> 任意
 
 === tests/cases/conformance/salsa/index.js ===
 const A = require("./other");
@@ -16,40 +19,55 @@ const A = require("./other");
 
 const a = new A().id;
 >a : number
+>类型别名 :=> 数字
 >new A().id : number
+>类型别名 :=> 数字
 >new A() : { id: number; }
 >A : () => void
 >id : number
+>类型别名 :=> 数字
 
 const B = function() { this.id = 1; }
 >B : () => void
 >function() { this.id = 1; } : () => void
 >this.id = 1 : 1
 >this.id : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 >1 : 1
 
 const b = new B().id;
 >b : number
+>类型别名 :=> 数字
 >new B().id : number
+>类型别名 :=> 数字
 >new B() : { id: number; }
 >B : () => void
 >id : number
+>类型别名 :=> 数字
 
 === tests/cases/conformance/salsa/other.js ===
 function A() { this.id = 1; }
 >A : () => void
 >this.id = 1 : 1
 >this.id : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >id : any
+>类型别名 :=> 任意
 >1 : 1
 
 module.exports = A;
 >module.exports = A : () => void
 >module.exports : any
+>类型别名 :=> 任意
 >module : any
+>类型别名 :=> 任意
 >exports : any
+>类型别名 :=> 任意
 >A : () => void
 

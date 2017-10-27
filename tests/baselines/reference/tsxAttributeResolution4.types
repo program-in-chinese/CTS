@@ -1,6 +1,7 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
 >JSX : any
+>类型别名 :=> 任意
 
 	interface Element { }
 >Element : Element
@@ -19,27 +20,35 @@ interface Attribs1 {
 	x(n: string): void;
 >x : (n: string) => void
 >n : string
+>类型别名 :=> 文字
 }
 
 // OK
 <test1 {... {x: (n) => 0} } />;
 ><test1 {... {x: (n) => 0} } /> : JSX.Element
 >test1 : any
+>类型别名 :=> 任意
 >{x: (n) => 0} : { x: (n: string) => number; }
 >x : (n: string) => number
 >(n) => 0 : (n: string) => number
 >n : string
+>类型别名 :=> 文字
 >0 : 0
 
 // Error, no member 'len' on 'string'
 <test1 {... {x: (n) => n.len} } />;
 ><test1 {... {x: (n) => n.len} } /> : JSX.Element
 >test1 : any
+>类型别名 :=> 任意
 >{x: (n) => n.len} : { x: (n: string) => any; }
 >x : (n: string) => any
 >(n) => n.len : (n: string) => any
 >n : string
+>类型别名 :=> 文字
 >n.len : any
+>类型别名 :=> 任意
 >n : string
+>类型别名 :=> 文字
 >len : any
+>类型别名 :=> 任意
 

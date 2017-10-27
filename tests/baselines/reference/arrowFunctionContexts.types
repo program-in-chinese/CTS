@@ -2,11 +2,15 @@
 // Arrow function used in with statement
 with (window) {
 >window : any
+>类型别名 :=> 任意
 
     var p = () => this;
 >p : any
+>类型别名 :=> 任意
 >() => this : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 }
 
 // Arrow function as argument to super call
@@ -15,6 +19,7 @@ class Base {
 
     constructor(n: any) { }
 >n : any
+>类型别名 :=> 任意
 }
 
 class Derived extends Base {
@@ -24,6 +29,7 @@ class Derived extends Base {
     constructor() {
         super(() => this);
 >super(() => this) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >() => this : () => this
 >this : this
@@ -33,11 +39,16 @@ class Derived extends Base {
 // Arrow function as function argument
 window.setTimeout(() => null, 100);
 >window.setTimeout(() => null, 100) : any
+>类型别名 :=> 任意
 >window.setTimeout : any
+>类型别名 :=> 任意
 >window : any
+>类型别名 :=> 任意
 >setTimeout : any
+>类型别名 :=> 任意
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 >100 : 100
 
 // Arrow function as value in array literal
@@ -46,22 +57,26 @@ var obj = (n: number) => '';
 >obj : (n: number) => string
 >(n: number) => '' : (n: number) => string
 >n : number
+>类型别名 :=> 数字
 >'' : ""
 
 var obj: { (n: number): string; }; // OK
 >obj : (n: number) => string
 >n : number
+>类型别名 :=> 数字
 
 var arr = [(n: number) => ''];
 >arr : ((n: number) => string)[]
 >[(n: number) => ''] : ((n: number) => string)[]
 >(n: number) => '' : (n: number) => string
 >n : number
+>类型别名 :=> 数字
 >'' : ""
 
 var arr: { (n: number): string; }[]; // Incorrect error here (bug 829597)
 >arr : ((n: number) => string)[]
 >n : number
+>类型别名 :=> 数字
 
 // Arrow function as enum value
 enum E {
@@ -75,10 +90,13 @@ enum E {
     y = (() => this).length // error, can't use this in enum
 >y : E
 >(() => this).length : number
+>类型别名 :=> 数字
 >(() => this) : () => any
 >() => this : () => any
 >this : any
+>类型别名 :=> 任意
 >length : number
+>类型别名 :=> 数字
 }
 
 // Arrow function as module variable initializer
@@ -89,13 +107,16 @@ module M {
 >a : (s: any) => string
 >(s) => '' : (s: any) => string
 >s : any
+>类型别名 :=> 任意
 >'' : ""
 
     var b = (s) => s;
 >b : (s: any) => any
 >(s) => s : (s: any) => any
 >s : any
+>类型别名 :=> 任意
 >s : any
+>类型别名 :=> 任意
 }
 
 // Repeat above for module members that are functions? (necessary to redo all of them?)
@@ -105,11 +126,15 @@ module M2 {
     // Arrow function used in with statement
     with (window) {
 >window : any
+>类型别名 :=> 任意
 
         var p = () => this;
 >p : any
+>类型别名 :=> 任意
 >() => this : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
     }
 
     // Arrow function as argument to super call
@@ -118,6 +143,7 @@ module M2 {
 
         constructor(n: any) { }
 >n : any
+>类型别名 :=> 任意
     }
 
     class Derived extends Base {
@@ -127,6 +153,7 @@ module M2 {
         constructor() {
             super(() => this);
 >super(() => this) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >() => this : () => this
 >this : this
@@ -136,11 +163,16 @@ module M2 {
     // Arrow function as function argument
     window.setTimeout(() => null, 100);
 >window.setTimeout(() => null, 100) : any
+>类型别名 :=> 任意
 >window.setTimeout : any
+>类型别名 :=> 任意
 >window : any
+>类型别名 :=> 任意
 >setTimeout : any
+>类型别名 :=> 任意
 >() => null : () => any
 >null : null
+>类型别名 :=> 空值
 >100 : 100
 
     // Arrow function as value in array literal
@@ -149,22 +181,26 @@ module M2 {
 >obj : (n: number) => string
 >(n: number) => '' : (n: number) => string
 >n : number
+>类型别名 :=> 数字
 >'' : ""
 
     var obj: { (n: number): string; }; // OK
 >obj : (n: number) => string
 >n : number
+>类型别名 :=> 数字
 
     var arr = [(n: number) => ''];
 >arr : ((n: number) => string)[]
 >[(n: number) => ''] : ((n: number) => string)[]
 >(n: number) => '' : (n: number) => string
 >n : number
+>类型别名 :=> 数字
 >'' : ""
 
     var arr: { (n: number): string; }[]; // Incorrect error here (bug 829597)
 >arr : ((n: number) => string)[]
 >n : number
+>类型别名 :=> 数字
 
     // Arrow function as enum value
     enum E {
@@ -178,10 +214,13 @@ module M2 {
         y = (() => this).length
 >y : E
 >(() => this).length : number
+>类型别名 :=> 数字
 >(() => this) : () => any
 >() => this : () => any
 >this : any
+>类型别名 :=> 任意
 >length : number
+>类型别名 :=> 数字
     }
 
     // Arrow function as module variable initializer
@@ -192,13 +231,16 @@ module M2 {
 >a : (s: any) => string
 >(s) => '' : (s: any) => string
 >s : any
+>类型别名 :=> 任意
 >'' : ""
 
         var b = (s) => s;
 >b : (s: any) => any
 >(s) => s : (s: any) => any
 >s : any
+>类型别名 :=> 任意
 >s : any
+>类型别名 :=> 任意
     }
 
 }
@@ -239,25 +281,35 @@ var generic2: { <T>(n: T): T[] };
 // <Identifier> ((ParamList) => { ... } ) is a type assertion to an arrow function
 var asserted1 = <any>((n) => [n]);
 >asserted1 : any
+>类型别名 :=> 任意
 ><any>((n) => [n]) : any
+>类型别名 :=> 任意
 >((n) => [n]) : (n: any) => any[]
 >(n) => [n] : (n: any) => any[]
 >n : any
+>类型别名 :=> 任意
 >[n] : any[]
 >n : any
+>类型别名 :=> 任意
 
 var asserted1: any;
 >asserted1 : any
+>类型别名 :=> 任意
 
 var asserted2 = <any>((n) => { return n; });
 >asserted2 : any
+>类型别名 :=> 任意
 ><any>((n) => { return n; }) : any
+>类型别名 :=> 任意
 >((n) => { return n; }) : (n: any) => any
 >(n) => { return n; } : (n: any) => any
 >n : any
+>类型别名 :=> 任意
 >n : any
+>类型别名 :=> 任意
 
 var asserted2: any;
 >asserted2 : any
+>类型别名 :=> 任意
 
 

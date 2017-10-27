@@ -2,21 +2,25 @@
 function error(message: string): never {
 >error : (message: string) => never
 >message : string
+>类型别名 :=> 文字
 
     throw new Error(message);
 >new Error(message) : Error
 >Error : ErrorConstructor
 >message : string
+>类型别名 :=> 文字
 }
 
 function errorVoid(message: string) {
 >errorVoid : (message: string) => void
 >message : string
+>类型别名 :=> 文字
 
     throw new Error(message);
 >new Error(message) : Error
 >Error : ErrorConstructor
 >message : string
+>类型别名 :=> 文字
 }
 
 function fail() {
@@ -24,6 +28,7 @@ function fail() {
 
     return error("Something failed");
 >error("Something failed") : never
+>类型别名 :=> 不及
 >error : (message: string) => never
 >"Something failed" : "Something failed"
 }
@@ -31,12 +36,15 @@ function fail() {
 function failOrThrow(shouldFail: boolean) {
 >failOrThrow : (shouldFail: boolean) => never
 >shouldFail : boolean
+>类型别名 :=> 真假
 
     if (shouldFail) {
 >shouldFail : boolean
+>类型别名 :=> 真假
 
         return fail();
 >fail() : never
+>类型别名 :=> 不及
 >fail : () => never
     }
     throw new Error();
@@ -49,6 +57,7 @@ function infiniteLoop1() {
 
     while (true) {
 >true : true
+>类型别名 :=> 为真
     }
 }
 
@@ -57,6 +66,7 @@ function infiniteLoop2(): never {
 
     while (true) {
 >true : true
+>类型别名 :=> 为真
     }
 }
 
@@ -82,6 +92,7 @@ function move1(direction: "up" | "down") {
     }
     return error("Should never get here");
 >error("Should never get here") : never
+>类型别名 :=> 不及
 >error : (message: string) => never
 >"Should never get here" : "Should never get here"
 }
@@ -93,6 +104,7 @@ function move2(direction: "up" | "down") {
     return direction === "up" ? 1 :
 >direction === "up" ? 1 :        direction === "down" ? -1 :        error("Should never get here") : 1 | -1
 >direction === "up" : boolean
+>类型别名 :=> 真假
 >direction : "up" | "down"
 >"up" : "up"
 >1 : 1
@@ -100,6 +112,7 @@ function move2(direction: "up" | "down") {
         direction === "down" ? -1 :
 >direction === "down" ? -1 :        error("Should never get here") : -1
 >direction === "down" : boolean
+>类型别名 :=> 真假
 >direction : "down"
 >"down" : "down"
 >-1 : -1
@@ -107,6 +120,7 @@ function move2(direction: "up" | "down") {
 
         error("Should never get here");
 >error("Should never get here") : never
+>类型别名 :=> 不及
 >error : (message: string) => never
 >"Should never get here" : "Should never get here"
 }
@@ -121,6 +135,7 @@ function check<T>(x: T | undefined) {
 >x || error("Undefined value") : T
 >x : T | undefined
 >error("Undefined value") : never
+>类型别名 :=> 不及
 >error : (message: string) => never
 >"Undefined value" : "Undefined value"
 }
@@ -140,6 +155,7 @@ class C {
 
         while (true) {}
 >true : true
+>类型别名 :=> 为真
     }
     never1(): never {
 >never1 : () => never
@@ -153,6 +169,7 @@ class C {
 
         while (true) {}
 >true : true
+>类型别名 :=> 为真
     }
 }
 
@@ -162,12 +179,14 @@ function f1(x: string | number) {
 
     if (typeof x === "boolean") {
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"boolean" : "boolean"
 
         x;  // never
 >x : never
+>类型别名 :=> 不及
     }
 }
 
@@ -177,15 +196,18 @@ function f2(x: string | number) {
 
     while (true) {
 >true : true
+>类型别名 :=> 为真
 
         if (typeof x === "boolean") {
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"boolean" : "boolean"
 
             return x;  // never
 >x : never
+>类型别名 :=> 不及
         }
     }
 }
@@ -196,35 +218,43 @@ function test(cb: () => string) {
 
     let s = cb();
 >s : string
+>类型别名 :=> 文字
 >cb() : string
+>类型别名 :=> 文字
 >cb : () => string
 
     return s;
 >s : string
+>类型别名 :=> 文字
 }
 
 let errorCallback = () => error("Error callback");
 >errorCallback : () => never
 >() => error("Error callback") : () => never
 >error("Error callback") : never
+>类型别名 :=> 不及
 >error : (message: string) => never
 >"Error callback" : "Error callback"
 
 test(() => "hello");
 >test(() => "hello") : string
+>类型别名 :=> 文字
 >test : (cb: () => string) => string
 >() => "hello" : () => string
 >"hello" : "hello"
 
 test(() => fail());
 >test(() => fail()) : string
+>类型别名 :=> 文字
 >test : (cb: () => string) => string
 >() => fail() : () => never
 >fail() : never
+>类型别名 :=> 不及
 >fail : () => never
 
 test(() => { throw new Error(); })
 >test(() => { throw new Error(); }) : string
+>类型别名 :=> 文字
 >test : (cb: () => string) => string
 >() => { throw new Error(); } : () => never
 >new Error() : Error
@@ -232,6 +262,7 @@ test(() => { throw new Error(); })
 
 test(errorCallback);
 >test(errorCallback) : string
+>类型别名 :=> 文字
 >test : (cb: () => string) => string
 >errorCallback : () => never
 

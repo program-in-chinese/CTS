@@ -10,6 +10,7 @@ class B<U, V> {
 >x : U
 >U : U
 >null : null
+>类型别名 :=> 空值
 }
 
 class C<V, W, X> {
@@ -22,6 +23,7 @@ class C<V, W, X> {
 >x : V
 >V : V
 >null : null
+>类型别名 :=> 空值
 }
 
 interface I<X, Y, Z, A> {
@@ -96,6 +98,7 @@ function foo1b(x: B<string, string>); // error
 function foo1b(x: any) { }
 >foo1b : { (x: B<string, string>): any; (x: B<string, string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo1c(x: C<string, number, boolean>);
 >foo1c : { (x: C<string, number, boolean>): any; (x: C<string, number, boolean>): any; }
@@ -110,6 +113,7 @@ function foo1c(x: C<string, number, boolean>); // error
 function foo1c(x: any) { }
 >foo1c : { (x: C<string, number, boolean>): any; (x: C<string, number, boolean>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo2(x: I<string, boolean, number, string>);
 >foo2 : { (x: I<string, boolean, number, string>): any; (x: I<string, boolean, number, string>): any; }
@@ -124,6 +128,7 @@ function foo2(x: I<string, boolean, number, string>); // error
 function foo2(x: any) { }
 >foo2 : { (x: I<string, boolean, number, string>): any; (x: I<string, boolean, number, string>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo3(x: typeof a);
 >foo3 : { (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; }
@@ -138,6 +143,7 @@ function foo3(x: typeof a); // error
 function foo3(x: any) { }
 >foo3 : { (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo4(x: typeof b);
 >foo4 : { (x: { new<A, B, C, D, E, F>(x: A): A; }): any; (x: { new<A, B, C, D, E, F>(x: A): A; }): any; }
@@ -152,6 +158,7 @@ function foo4(x: typeof b); // error
 function foo4(x: any) { }
 >foo4 : { (x: { new<A, B, C, D, E, F>(x: A): A; }): any; (x: { new<A, B, C, D, E, F>(x: A): A; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo8(x: B<string, string>);
 >foo8 : { (x: B<string, string>): any; (x: I<string, string, boolean, Date>): any; }
@@ -167,6 +174,7 @@ function foo8(x: I<string, string, boolean, Date>); // BUG 832086
 function foo8(x: any) { }
 >foo8 : { (x: B<string, string>): any; (x: I<string, string, boolean, Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo9(x: B<string, number>);
 >foo9 : { (x: B<string, number>): any; (x: C<string, number, B<string, string>>): any; }
@@ -182,6 +190,7 @@ function foo9(x: C<string, number, B<string, string>>); // error
 function foo9(x: any) { }
 >foo9 : { (x: B<string, number>): any; (x: C<string, number, B<string, string>>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo10(x: B<string, boolean>);
 >foo10 : { (x: B<string, boolean>): any; (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; }
@@ -196,6 +205,7 @@ function foo10(x: typeof a); // ok
 function foo10(x: any) { }
 >foo10 : { (x: B<string, boolean>): any; (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo11(x: B<string, boolean>);
 >foo11 : { (x: B<string, boolean>): any; (x: { new<A, B, C, D, E, F>(x: A): A; }): any; }
@@ -210,6 +220,7 @@ function foo11(x: typeof b); // ok
 function foo11(x: any) { }
 >foo11 : { (x: B<string, boolean>): any; (x: { new<A, B, C, D, E, F>(x: A): A; }): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12(x: I<B<string, number>, number, Date, string>);
 >foo12 : { (x: I<B<string, number>, number, Date, string>): any; (x: C<B<string, number>, number, Date>): any; }
@@ -228,6 +239,7 @@ function foo12(x: C<B<string, number>, number, Date>); // ok
 function foo12(x: any) { }
 >foo12 : { (x: I<B<string, number>, number, Date, string>): any; (x: C<B<string, number>, number, Date>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo12b(x: I2);
 >foo12b : { (x: I2): any; (x: C<string, string, boolean>): any; }
@@ -242,6 +254,7 @@ function foo12b(x: C<string, string, boolean>); // BUG 832086
 function foo12b(x: any) { }
 >foo12b : { (x: I2): any; (x: C<string, string, boolean>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo13(x: I<string, Date, RegExp, Date>);
 >foo13 : { (x: I<string, Date, RegExp, Date>): any; (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; }
@@ -259,6 +272,7 @@ function foo13(x: typeof a); // ok
 function foo13(x: any) { }
 >foo13 : { (x: I<string, Date, RegExp, Date>): any; (x: new <Z, A, B, CC, D>(x: Z) => C<Z, A, B>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo14(x: I<string, Date, RegExp, boolean>);
 >foo14 : { (x: I<string, Date, RegExp, boolean>): any; (x: { new<A, B, C, D, E, F>(x: A): A; }): any; }
@@ -275,4 +289,5 @@ function foo14(x: typeof b); // ok
 function foo14(x: any) { }
 >foo14 : { (x: I<string, Date, RegExp, boolean>): any; (x: { new<A, B, C, D, E, F>(x: A): A; }): any; }
 >x : any
+>类型别名 :=> 任意
 

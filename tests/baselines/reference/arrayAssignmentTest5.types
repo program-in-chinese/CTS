@@ -10,6 +10,7 @@ module Test {
 
         startIndex: number;
 >startIndex : number
+>类型别名 :=> 数字
     }
     interface IStateToken extends IToken {
 >IStateToken : IStateToken
@@ -39,17 +40,21 @@ module Test {
         onEnter(line:string, state:IState, offset:number):IAction;
 >onEnter : (line: string, state: IState, offset: number) => IAction
 >line : string
+>类型别名 :=> 文字
 >state : IState
 >IState : IState
 >offset : number
+>类型别名 :=> 数字
 >IAction : IAction
 
         tokenize(line:string, state:IState, includeStates:boolean):ILineTokens;
 >tokenize : (line: string, state: IState, includeStates: boolean) => ILineTokens
 >line : string
+>类型别名 :=> 文字
 >state : IState
 >IState : IState
 >includeStates : boolean
+>类型别名 :=> 真假
 >ILineTokens : ILineTokens
     }
     export class Bug implements IMode {
@@ -59,9 +64,11 @@ module Test {
         public onEnter(line:string, state:IState, offset:number):IAction {
 >onEnter : (line: string, state: IState, offset: number) => IAction
 >line : string
+>类型别名 :=> 文字
 >state : IState
 >IState : IState
 >offset : number
+>类型别名 :=> 数字
 >IAction : IAction
 
             var lineTokens:ILineTokens= this.tokenize(line, state, true);
@@ -72,8 +79,10 @@ module Test {
 >this : this
 >tokenize : (line: string, state: IState, includeStates: boolean) => ILineTokens
 >line : string
+>类型别名 :=> 文字
 >state : IState
 >true : true
+>类型别名 :=> 为真
 
             var tokens:IStateToken[]= lineTokens.tokens;
 >tokens : IStateToken[]
@@ -84,9 +93,12 @@ module Test {
 
             if (tokens.length === 0) {
 >tokens.length === 0 : boolean
+>类型别名 :=> 真假
 >tokens.length : number
+>类型别名 :=> 数字
 >tokens : IStateToken[]
 >length : number
+>类型别名 :=> 数字
 >0 : 0
 
                 return this.onEnter(line, tokens, offset);        // <== this should produce an error since onEnter can not be called with (string, IStateToken[], offset)
@@ -95,20 +107,25 @@ module Test {
 >this : this
 >onEnter : (line: string, state: IState, offset: number) => IAction
 >line : string
+>类型别名 :=> 文字
 >tokens : IStateToken[]
 >offset : number
+>类型别名 :=> 数字
             }
         }
         public tokenize(line:string, state:IState, includeStates:boolean):ILineTokens {
 >tokenize : (line: string, state: IState, includeStates: boolean) => ILineTokens
 >line : string
+>类型别名 :=> 文字
 >state : IState
 >IState : IState
 >includeStates : boolean
+>类型别名 :=> 真假
 >ILineTokens : ILineTokens
 
             return null;
 >null : null
+>类型别名 :=> 空值
         }
     }
 }

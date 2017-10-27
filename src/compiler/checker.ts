@@ -33,10 +33,9 @@ namespace ts {
         return moduleState === ModuleInstanceState.Instantiated ||
             (preserveConstEnums && moduleState === ModuleInstanceState.ConstEnumOnly);
     }
-    /*
-    const  基本类型别名对应表 = createMapFromTemplate({
+    const 基本类型别名对应表 = createMapFromTemplate({
         "any": "任意",
-        "unknown": "未知",
+        "unknown": "任意",
         "undefined": "未定",
         "null": "空值",
         "string": "文字",
@@ -46,9 +45,8 @@ namespace ts {
         "symbol": "符号",
         "void": "无值",
         "never": "不及",
-        "object": "对象",
+        "object": "实例",
     })
-    */
 
     export function createTypeChecker(host: TypeCheckerHost, produceDiagnostics: boolean): TypeChecker {
         // Cancellation that controls whether or not we can cancel in the middle of type checking.
@@ -634,7 +632,7 @@ namespace ts {
                 const 节点文本 = isIdentifier(name) ? name.escapedText : name.text
                 const 符号别名 = 符号.别名
                 if (节点文本 !== 符号.escapedName) {
-                    name.别名 = 新建别名( 符号.escapedName,翻转别名旗帜(符号别名.旗帜),)
+                    name.别名 = 创建别名(符号.escapedName, 翻转别名旗帜(符号别名.旗帜), )
                 } else {
                     name.别名 = 符号别名
                 }
@@ -658,7 +656,7 @@ namespace ts {
         }
         */
 
-        function 新建别名(别名名称: string | __String, 别名旗帜参数: 别名旗帜, ) {
+        function 创建别名(别名名称: string | __String, 别名旗帜参数: 别名旗帜, ) {
             别名旗帜参数 = 别名旗帜参数 | 别名旗帜.内置词典 | 别名旗帜.全局词典 | 别名旗帜.英汉
             return new 别名构造(别名旗帜参数, 别名名称 as __String)
         }
@@ -2127,7 +2125,7 @@ namespace ts {
         function createIntrinsicType(kind: TypeFlags, intrinsicName: string): IntrinsicType {
             const type = <IntrinsicType>createType(kind);
             type.intrinsicName = intrinsicName;
-           // type.别名 = 新建别名(基本类型别名对应表.get(intrinsicName), undefined)
+            type.别名 = 创建别名(基本类型别名对应表.get(intrinsicName), undefined)
             return type;
         }
 
@@ -2135,7 +2133,7 @@ namespace ts {
             const type = <IntrinsicType & UnionType>getUnionType(trueFalseTypes);
             type.flags |= TypeFlags.Boolean;
             type.intrinsicName = "boolean";
-           // type.别名 = 新建别名("真假", undefined)
+            type.别名 = 创建别名("真假", undefined)
             return type;
         }
 
@@ -2144,7 +2142,7 @@ namespace ts {
             type.objectFlags = objectFlags;
             type.symbol = symbol;
             if (symbol && symbol.别名) {
-              //  type.别名 = symbol.别名
+                type.别名 = symbol.别名
             }
             return type;
         }
@@ -2618,7 +2616,7 @@ namespace ts {
                     return createLiteralTypeNode((createLiteral((<NumberLiteralType>type).value)));
                 }
                 if (type.flags & TypeFlags.BooleanLiteral) {
-                    return (<IntrinsicType>type).intrinsicName === "true"||(<IntrinsicType>type).intrinsicName === "为真" ? createTrue() : createFalse();
+                    return (<IntrinsicType>type).intrinsicName === "true" || (<IntrinsicType>type).intrinsicName === "为真" ? createTrue() : createFalse();
                 }
                 if (type.flags & TypeFlags.Void) {
                     return createKeywordTypeNode(SyntaxKind.VoidKeyword);
@@ -4238,12 +4236,9 @@ namespace ts {
         }
 
         // Return the type of the given property in the given type, or undefined if no such property exists
-        function getTypeOfPropertyOfType(type: Type, name: __String, 节点?: Identifier | StringLiteral): Type {
+        function getTypeOfPropertyOfType(type: Type, name: __String): Type {
             const prop = getPropertyOfType(type, name);
             const 类型结果 = prop ? getTypeOfSymbol(prop) : undefined;
-            if (类型结果) {
-                创建节点别名根据符号别名(节点, prop)
-            }
             return 类型结果
         }
 
@@ -4334,8 +4329,7 @@ namespace ts {
                     // Use type of the specified property, or otherwise, for a numeric name, the type of the numeric index signature,
                     // or otherwise the type of the string index signature.
                     const text = getTextOfPropertyName(name);
-                    const 属性名标识符 = 取属性名的标识符(name)
-                    const declaredType = getTypeOfPropertyOfType(parentType, text, 属性名标识符);
+                    const declaredType = getTypeOfPropertyOfType(parentType, text);
                     type = declaredType && getFlowTypeOfReference(declaration, declaredType) ||
                         isNumericLiteralName(text) && getIndexTypeOfType(parentType, IndexKind.Number) ||
                         getIndexTypeOfType(parentType, IndexKind.String);
@@ -5360,8 +5354,7 @@ namespace ts {
                 for (const declaration of symbol.declarations) {
                     if (declaration.kind === SyntaxKind.EnumDeclaration) {
                         for (const member of (<EnumDeclaration>declaration).members) {
-                            const 枚举符号 = getSymbolOfNode(member)
-                            const memberType = getLiteralType(getEnumMemberValue(member), 枚举符号, enumCount, getSymbolOfNode(member));
+                            const memberType = getLiteralType(getEnumMemberValue(member), enumCount, getSymbolOfNode(member));
                             getSymbolLinks(getSymbolOfNode(member)).declaredType = memberType;
                             memberTypeList.push(memberType);
                         }
@@ -6352,7 +6345,7 @@ namespace ts {
             type = getApparentType(type);
             if (type.flags & TypeFlags.Object) {
                 const resolved = resolveStructuredTypeMembers(<ObjectType>type);
-                const symbol =resolved.members.get(name) //取符号从符号表按名称(resolved.members, name, undefined)
+                const symbol = resolved.members.get(name) //取符号从符号表按名称(resolved.members, name, undefined)
 
                 if (symbol && symbolIsValue(symbol)) {
                     return symbol;
@@ -7774,7 +7767,7 @@ namespace ts {
         function getLiteralTypeFromPropertyName(prop: Symbol) {
             return getDeclarationModifierFlagsFromSymbol(prop) & ModifierFlags.NonPublicAccessibilityModifier || startsWith(prop.escapedName as string, "__@") ?
                 neverType :
-                getLiteralType(symbolName(prop), prop);
+                getLiteralType(symbolName(prop));
         }
 
         function getLiteralTypeFromPropertyNames(type: Type) {
@@ -8147,7 +8140,7 @@ namespace ts {
             return type.flags & TypeFlags.StringOrNumberLiteral && type.flags & TypeFlags.FreshLiteral ? (<LiteralType>type).regularType : type;
         }
 
-        function getLiteralType(value: string | number, 实体参数?: Node | Type | Symbol | string, enumId?: number, symbol?: Symbol) {
+        function getLiteralType(value: string | number, enumId?: number, symbol?: Symbol) {
             // We store all literal types in a single map with keys of the form '#NNN' and '@SSS',
             // where NNN is the text representation of a numeric literal and SSS are the characters
             // of a string literal. For literal enum members we use 'EEE#NNN' and 'EEE@SSS', where
@@ -8155,15 +8148,9 @@ namespace ts {
             const qualifier = typeof value === "number" ? "#" : "@";
             const key = enumId ? enumId + qualifier + value : qualifier + value;
             let type = literalTypes.get(key)
-            let 别名常量
-            if (!type && typeof value === "string") {
-                别名常量 = isString(实体参数) ? 新建别名( 实体参数, /** 别名旗帜参数 */ undefined) : 实体参数 && 实体参数.别名
-                const key2 = 别名常量 ? enumId ? enumId + qualifier + 别名常量.名称 : qualifier + 别名常量.名称 : undefined;
-                type = (key2 && literalTypes.get(key2))
-            }
             if (!type) {
                 const flags = (typeof value === "number" ? TypeFlags.NumberLiteral : TypeFlags.StringLiteral) | (enumId ? TypeFlags.EnumLiteral : 0);
-                literalTypes.set(key, type = createLiteralType(flags, value, symbol, 别名常量));
+                literalTypes.set(key, type = createLiteralType(flags, value, symbol, undefined));
             }
             return type;
         }
@@ -11379,7 +11366,7 @@ namespace ts {
             }
             if (expr.kind === SyntaxKind.PropertyAccessExpression) {
                 const type = getDeclaredTypeOfReference((<PropertyAccessExpression>expr).expression);
-                return type && getTypeOfPropertyOfType(type, (<PropertyAccessExpression>expr).name.escapedText,(<PropertyAccessExpression>expr).name);
+                return type && getTypeOfPropertyOfType(type, (<PropertyAccessExpression>expr).name.escapedText);
             }
             return undefined;
         }
@@ -11559,8 +11546,7 @@ namespace ts {
 
         function getTypeOfDestructuredProperty(type: Type, name: PropertyName) {
             const text = getTextOfPropertyName(name);
-            const 属性名结果 = 取属性名的标识符(name)
-            return getTypeOfPropertyOfType(type, text, 属性名结果) ||
+            return getTypeOfPropertyOfType(type, text) ||
                 isNumericLiteralName(text) && getIndexTypeOfType(type, IndexKind.Number) ||
                 getIndexTypeOfType(type, IndexKind.String) ||
                 unknownType;
@@ -12263,9 +12249,9 @@ namespace ts {
 
             function narrowTypeByDiscriminant(type: Type, propAccess: PropertyAccessExpression, narrowType: (t: Type) => Type): Type {
                 const propName = propAccess.name.escapedText;
-                const propType = getTypeOfPropertyOfType(type, propName, propAccess.name);
+                const propType = getTypeOfPropertyOfType(type, propName);
                 const narrowedPropType = propType && narrowType(propType);
-                return propType === narrowedPropType ? type : filterType(type, t => isTypeComparableTo(getTypeOfPropertyOfType(t, propName, propAccess.name), narrowedPropType));
+                return propType === narrowedPropType ? type : filterType(type, t => isTypeComparableTo(getTypeOfPropertyOfType(t, propName, ), narrowedPropType));
             }
 
             function narrowTypeByTruthiness(type: Type, expr: Expression, assumeTrue: boolean): Type {
@@ -13431,9 +13417,8 @@ namespace ts {
                         const parentTypeNode = getEffectiveTypeAnnotationNode(parentDeclaration);
                         if (parentTypeNode && !isBindingPattern(name)) {
                             const text = getTextOfPropertyName(name);
-                            const 属性名结果 = 取属性名的标识符(name)
                             if (text) {
-                                return getTypeOfPropertyOfType(getTypeFromTypeNode(parentTypeNode), text,属性名结果);
+                                return getTypeOfPropertyOfType(getTypeFromTypeNode(parentTypeNode), text);
                             }
                         }
                     }
@@ -16174,10 +16159,10 @@ namespace ts {
                 const element = <ClassElement>node;
                 switch (element.name.kind) {
                     case SyntaxKind.Identifier:
-                        return getLiteralType(idText(element.name), element);
+                        return getLiteralType(idText(element.name));
                     case SyntaxKind.NumericLiteral:
                     case SyntaxKind.StringLiteral:
-                        return getLiteralType(element.name.text, element.name);
+                        return getLiteralType(element.name.text);
 
                     case SyntaxKind.ComputedPropertyName:
                         const nameType = checkComputedPropertyName(element.name);
@@ -17728,13 +17713,13 @@ namespace ts {
                 if (isStringLiteral(左)) {
                     let 词典值 = 内置typeof类型标识符对应.get(左.text);
                     if (词典值) {
-                        左.别名 = 新建别名( 词典值, undefined);
+                        左.别名 = 创建别名(词典值, undefined);
                     }
                 }
                 else if (isStringLiteral(右)) {
                     let 词典值 = 内置typeof类型标识符对应.get(右.text);
                     if (词典值) {
-                        右.别名 = 新建别名(词典值, undefined);
+                        右.别名 = 创建别名(词典值, undefined);
                     }
                 }
             }
@@ -17923,10 +17908,9 @@ namespace ts {
                 }
 
                 const text = getTextOfPropertyName(name);
-                const 属性名结果 = 取属性名的标识符(name)
                 const type = isTypeAny(objectLiteralType)
                     ? objectLiteralType
-                    : getTypeOfPropertyOfType(objectLiteralType, text,属性名结果) ||
+                    : getTypeOfPropertyOfType(objectLiteralType, text) ||
                     isNumericLiteralName(text) && getIndexTypeOfType(objectLiteralType, IndexKind.Number) ||
                     getIndexTypeOfType(objectLiteralType, IndexKind.String);
                 if (type) {
@@ -18652,7 +18636,7 @@ namespace ts {
                     return nullWideningType;
                 case SyntaxKind.NoSubstitutionTemplateLiteral:
                 case SyntaxKind.StringLiteral:
-                    return getFreshTypeOfLiteralType(getLiteralType((node as LiteralExpression).text, node));
+                    return getFreshTypeOfLiteralType(getLiteralType((node as LiteralExpression).text));
                 case SyntaxKind.NumericLiteral:
                     checkGrammarNumericLiteral(node as NumericLiteral);
                     return getFreshTypeOfLiteralType(getLiteralType(+(node as NumericLiteral).text));
@@ -19834,7 +19818,7 @@ namespace ts {
                 return typeAsPromise.promisedTypeOfPromise = (<GenericType>promise).typeArguments[0];
             }
 
-            const thenFunction = getTypeOfPropertyOfType(promise, "then" as __String)|| getTypeOfPropertyOfType(promise, "然后" as __String);
+            const thenFunction = getTypeOfPropertyOfType(promise, "then" as __String) || getTypeOfPropertyOfType(promise, "然后" as __String);
             if (isTypeAny(thenFunction)) {
                 return undefined;
             }
@@ -21393,8 +21377,8 @@ namespace ts {
                     }
                 }
 
-                const asyncMethodType = allowAsyncIterables && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("asyncIterator")||getPropertyNameForKnownSymbolName("异步迭代器"));
-                const methodType = asyncMethodType || (allowSyncIterables && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("iterator")||getPropertyNameForKnownSymbolName("迭代器")));
+                const asyncMethodType = allowAsyncIterables && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("asyncIterator") || getPropertyNameForKnownSymbolName("异步迭代器"));
+                const methodType = asyncMethodType || (allowSyncIterables && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("iterator") || getPropertyNameForKnownSymbolName("迭代器")));
                 if (isTypeAny(methodType)) {
                     return undefined;
                 }
@@ -21472,7 +21456,7 @@ namespace ts {
             }
 
             // Both async and non-async iterators must have a `next` method.
-            const nextMethod = getTypeOfPropertyOfType(type, "next" as __String)||getTypeOfPropertyOfType(type, "下个" as __String);
+            const nextMethod = getTypeOfPropertyOfType(type, "next" as __String) || getTypeOfPropertyOfType(type, "下个" as __String);
             if (isTypeAny(nextMethod)) {
                 return undefined;
             }

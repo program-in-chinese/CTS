@@ -12,6 +12,7 @@ declare function ComponentWithTwoAttributes<K,V>(l: {key1: K, value: V}): JSX.El
 >value : V
 >V : V
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // OK
@@ -42,6 +43,7 @@ function Baz<T,U>(key1: T, value: U) {
 >value : U
 >value : U
 >key : string
+>类型别名 :=> 文字
 }
 
 declare function Link<U>(l: {func: (arg: U)=>void}): JSX.Element;
@@ -52,6 +54,7 @@ declare function Link<U>(l: {func: (arg: U)=>void}): JSX.Element;
 >arg : U
 >U : U
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // OK
@@ -59,6 +62,7 @@ function createLink(func: (a: number)=>void) {
 >createLink : (func: (a: number) => void) => void
 >func : (a: number) => void
 >a : number
+>类型别名 :=> 数字
 
     let o = <Link func={func} />
 >o : JSX.Element
@@ -72,6 +76,7 @@ function createLink1(func: (a: number)=>boolean) {
 >createLink1 : (func: (a: number) => boolean) => void
 >func : (a: number) => boolean
 >a : number
+>类型别名 :=> 数字
 
     let o = <Link func={func} />
 >o : JSX.Element
@@ -103,6 +108,7 @@ declare function InferParamComponent<T>(attr: InferParamProp<T>): JSX.Element;
 >InferParamProp : InferParamProp<T>
 >T : T
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
 // OK
@@ -119,4 +125,5 @@ let i = <InferParamComponent values={[1, 2, 3, 4]} selectHandler={(val) => { }} 
 >selectHandler : (val: number) => void
 >(val) => { } : (val: number) => void
 >val : number
+>类型别名 :=> 数字
 

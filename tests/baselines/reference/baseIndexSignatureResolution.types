@@ -2,11 +2,13 @@
 class Base { private a: string; }
 >Base : Base
 >a : string
+>类型别名 :=> 文字
 
 class Derived extends Base { private b: string; }
 >Derived : Derived
 >Base : Base
 >b : string
+>类型别名 :=> 文字
 
 // Note - commmenting "extends Foo" prevents the error
 interface Foo {
@@ -14,6 +16,7 @@ interface Foo {
 
     [i: number]: Base;
 >i : number
+>类型别名 :=> 数字
 >Base : Base
 }
 interface FooOf<TBase extends Base> extends Foo {
@@ -24,6 +27,7 @@ interface FooOf<TBase extends Base> extends Foo {
 
     [i: number]: TBase;
 >i : number
+>类型别名 :=> 数字
 >TBase : TBase
 }
 var x: FooOf<Derived> = null;
@@ -31,6 +35,7 @@ var x: FooOf<Derived> = null;
 >FooOf : FooOf<TBase>
 >Derived : Derived
 >null : null
+>类型别名 :=> 空值
 
 var y: Derived = x[0];
 >y : Derived

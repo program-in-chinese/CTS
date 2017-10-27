@@ -3,10 +3,12 @@
 
 let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 function foo(x: number): number { return 1; }
 >foo : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 function test1() {
@@ -17,17 +19,22 @@ function test1() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         while (cond) {
 >cond : true
+>类型别名 :=> 为真
 
             while (cond) {
 >cond : true
+>类型别名 :=> 为真
 
                 x = foo(x);
 >x = foo(x) : any
+>类型别名 :=> 任意
 >x : number | undefined
 >foo(x) : number
+>类型别名 :=> 数字
 >foo : (x: number) => number
 >x : number | undefined
             }
@@ -54,16 +61,21 @@ function test2() {
 
     while (cond) {
 >cond : boolean
+>类型别名 :=> 真假
 
         while (cond) {
 >cond : true
+>类型别名 :=> 为真
 
             x = foo(x);
 >x = foo(x) : number
+>类型别名 :=> 数字
 >x : number | undefined
 >foo(x) : number
+>类型别名 :=> 数字
 >foo : (x: number) => number
 >x : number
+>类型别名 :=> 数字
         }
     }
 }
@@ -84,12 +96,14 @@ function mapUntilCant<a, b>(
 >value : a
 >a : a
 >index : number
+>类型别名 :=> 数字
 
     mapping: (value: a, index: number) => b
 >mapping : (value: a, index: number) => b
 >value : a
 >a : a
 >index : number
+>类型别名 :=> 数字
 >b : b
 
 ): b[] {
@@ -102,31 +116,44 @@ function mapUntilCant<a, b>(
 
     for (let index = 0, length = values.length; index < length; index++) {
 >index : number
+>类型别名 :=> 数字
 >0 : 0
 >length : number
+>类型别名 :=> 数字
 >values.length : number
+>类型别名 :=> 数字
 >values : a[]
 >length : number
+>类型别名 :=> 数字
 >index < length : boolean
+>类型别名 :=> 真假
 >index : number
+>类型别名 :=> 数字
 >length : number
+>类型别名 :=> 数字
 >index++ : number
+>类型别名 :=> 数字
 >index : number
+>类型别名 :=> 数字
 
         let value = values[index];
 >value : a
 >values[index] : a
 >values : a[]
 >index : number
+>类型别名 :=> 数字
 
         if (canTake(value, index)) {
 >canTake(value, index) : boolean
+>类型别名 :=> 真假
 >canTake : (value: a, index: number) => boolean
 >value : a
 >index : number
+>类型别名 :=> 数字
 
             result.push(mapping(value, index));
 >result.push(mapping(value, index)) : number
+>类型别名 :=> 数字
 >result.push : (...items: b[]) => number
 >result : b[]
 >push : (...items: b[]) => number
@@ -134,6 +161,7 @@ function mapUntilCant<a, b>(
 >mapping : (value: a, index: number) => b
 >value : a
 >index : number
+>类型别名 :=> 数字
 
         } else {
             return result;

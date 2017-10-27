@@ -10,9 +10,11 @@ module NonGenericParameter {
 
         (x: boolean): boolean;
 >x : boolean
+>类型别名 :=> 真假
 
         (x: string): string;
 >x : string
+>类型别名 :=> 文字
     }
 
     function foo4(cb: typeof a) {
@@ -46,7 +48,9 @@ module NonGenericParameter {
 >foo4 : (cb: { (x: boolean): boolean; (x: string): string; }) => { (x: boolean): boolean; (x: string): string; }
 >x => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 }
 
 module GenericParameter {
@@ -59,6 +63,7 @@ module GenericParameter {
 >x : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
         return cb;
@@ -71,7 +76,9 @@ module GenericParameter {
 >foo5 : <T>(cb: { (x: T): string; (x: number): T; }) => { (x: T): string; (x: number): T; }
 >x => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
     var a: { <T>(x: T): string; <T>(x: number): T; }
 >a : { <T>(x: T): string; <T>(x: number): T; }
@@ -80,6 +87,7 @@ module GenericParameter {
 >T : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
     var r7 = foo5(a); // any => string (+1 overload)
@@ -109,7 +117,9 @@ module GenericParameter {
 >foo6 : <T>(cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
 >x => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
     var r9 = foo6(<T>(x: T) => ''); // any => string (+1 overload)
 >r9 : { (x: any): string; (x: any, y?: any): string; }
@@ -157,7 +167,9 @@ module GenericParameter {
 >1 : 1
 >(x) => x : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
     var r13 = foo7(1, <T>(x: T) => ''); // any => string (+1 overload) [inferences are made for T, but lambda not contextually typed]
 >r13 : { (x: any): string; (x: any, y?: any): string; }
@@ -177,6 +189,7 @@ module GenericParameter {
 >T : T
 >T : T
 >x : number
+>类型别名 :=> 数字
 >T : T
 
     var r14 = foo7(1, a); // any => string (+1 overload) [inferences are made for T, but lambda not contextually typed]

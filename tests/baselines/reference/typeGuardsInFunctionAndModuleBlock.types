@@ -7,16 +7,20 @@ function foo(x: number | string | boolean) {
 
     return typeof x === "string"
 >typeof x === "string"        ? x        : function f() {            var b = x; // number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } () : string
+>类型别名 :=> 文字
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
 
         ? x
 >x : string
+>类型别名 :=> 文字
 
         : function f() {
 >function f() {            var b = x; // number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } () : string
+>类型别名 :=> 文字
 >function f() {            var b = x; // number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } : () => string
 >f : () => string
 
@@ -26,21 +30,27 @@ function foo(x: number | string | boolean) {
 
             return typeof x === "boolean"
 >typeof x === "boolean"                ? x.toString() // boolean                : x.toString() : string
+>类型别名 :=> 文字
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : number | boolean
 >"boolean" : "boolean"
 
                 ? x.toString() // boolean
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : () => string
 >x : boolean
+>类型别名 :=> 真假
 >toString : () => string
 
                 : x.toString(); // number
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 
         } ();
@@ -51,16 +61,20 @@ function foo2(x: number | string | boolean) {
 
     return typeof x === "string"
 >typeof x === "string"        ? x        : function f(a: number | boolean) {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } (x) : string
+>类型别名 :=> 文字
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
 
         ? x
 >x : string
+>类型别名 :=> 文字
 
         : function f(a: number | boolean) {
 >function f(a: number | boolean) {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } (x) : string
+>类型别名 :=> 文字
 >function f(a: number | boolean) {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } : (a: number | boolean) => string
 >f : (a: number | boolean) => string
 >a : number | boolean
@@ -71,21 +85,27 @@ function foo2(x: number | string | boolean) {
 
             return typeof x === "boolean"
 >typeof x === "boolean"                ? x.toString() // boolean                : x.toString() : string
+>类型别名 :=> 文字
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : number | boolean
 >"boolean" : "boolean"
 
                 ? x.toString() // boolean
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : () => string
 >x : boolean
+>类型别名 :=> 真假
 >toString : () => string
 
                 : x.toString(); // number
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 
         } (x); // x here is narrowed to number | boolean
@@ -97,16 +117,20 @@ function foo3(x: number | string | boolean) {
 
     return typeof x === "string"
 >typeof x === "string"        ? x        : (() => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        })() : string
+>类型别名 :=> 文字
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
 
         ? x
 >x : string
+>类型别名 :=> 文字
 
         : (() => {
 >(() => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        })() : string
+>类型别名 :=> 文字
 >(() => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        }) : () => string
 >() => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } : () => string
 
@@ -116,21 +140,27 @@ function foo3(x: number | string | boolean) {
 
             return typeof x === "boolean"
 >typeof x === "boolean"                ? x.toString() // boolean                : x.toString() : string
+>类型别名 :=> 文字
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : number | boolean
 >"boolean" : "boolean"
 
                 ? x.toString() // boolean
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : () => string
 >x : boolean
+>类型别名 :=> 真假
 >toString : () => string
 
                 : x.toString(); // number
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 
         })();
@@ -141,16 +171,20 @@ function foo4(x: number | string | boolean) {
 
     return typeof x === "string"
 >typeof x === "string"        ? x        : ((a: number | boolean) => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        })(x) : string
+>类型别名 :=> 文字
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
 
         ? x
 >x : string
+>类型别名 :=> 文字
 
         : ((a: number | boolean) => {
 >((a: number | boolean) => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        })(x) : string
+>类型别名 :=> 文字
 >((a: number | boolean) => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        }) : (a: number | boolean) => string
 >(a: number | boolean) => {            var b = x; // new scope - number | boolean            return typeof x === "boolean"                ? x.toString() // boolean                : x.toString(); // number        } : (a: number | boolean) => string
 >a : number | boolean
@@ -161,21 +195,27 @@ function foo4(x: number | string | boolean) {
 
             return typeof x === "boolean"
 >typeof x === "boolean"                ? x.toString() // boolean                : x.toString() : string
+>类型别名 :=> 文字
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : number | boolean
 >"boolean" : "boolean"
 
                 ? x.toString() // boolean
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : () => string
 >x : boolean
+>类型别名 :=> 真假
 >toString : () => string
 
                 : x.toString(); // number
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 
         })(x); // x here is narrowed to number | boolean
@@ -188,13 +228,16 @@ function foo5(x: number | string | boolean) {
 
     if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
 
         var y = x; // string;
 >y : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
         function foo() {
 >foo : () => void
@@ -220,38 +263,51 @@ module m {
 
         var y: string;
 >y : string
+>类型别名 :=> 文字
 
         if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
 
             y = x // string;
 >y = x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
         } else {
             y = typeof x === "boolean"
 >y = typeof x === "boolean"            ? x.toString() // boolean            : x.toString() : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >typeof x === "boolean"            ? x.toString() // boolean            : x.toString() : string
+>类型别名 :=> 文字
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : number | boolean
 >"boolean" : "boolean"
 
             ? x.toString() // boolean
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : () => string
 >x : boolean
+>类型别名 :=> 真假
 >toString : () => string
 
             : x.toString(); // number
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
         }
     }
@@ -272,38 +328,51 @@ module m1 {
 
         var y: string;
 >y : string
+>类型别名 :=> 文字
 
         if (typeof x === "string") {
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
 
             y = x // string;
 >y = x : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
         } else {
             y = typeof x === "boolean"
 >y = typeof x === "boolean"            ? x.toString() // boolean            : x.toString() : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
 >typeof x === "boolean"            ? x.toString() // boolean            : x.toString() : string
+>类型别名 :=> 文字
 >typeof x === "boolean" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : number | boolean
 >"boolean" : "boolean"
 
             ? x.toString() // boolean
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : () => string
 >x : boolean
+>类型别名 :=> 真假
 >toString : () => string
 
             : x.toString(); // number
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
         }
     }

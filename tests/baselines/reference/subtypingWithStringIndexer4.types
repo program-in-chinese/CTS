@@ -4,22 +4,26 @@
 interface Base { foo: string; }
 >Base : Base
 >foo : string
+>类型别名 :=> 文字
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
 >bar : string
+>类型别名 :=> 文字
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
 >baz : string
+>类型别名 :=> 文字
 
 class A {
 >A : A
 
     [x: string]: Derived;
 >x : string
+>类型别名 :=> 文字
 >Derived : Derived
 }
 
@@ -29,6 +33,7 @@ class B extends A {
 
     [x: string]: string; // error
 >x : string
+>类型别名 :=> 文字
 }
 
 module Generics {
@@ -41,6 +46,7 @@ module Generics {
 
         [x: string]: T;
 >x : string
+>类型别名 :=> 文字
 >T : T
     }
 
@@ -51,6 +57,7 @@ module Generics {
 
         [x: string]: string; // error
 >x : string
+>类型别名 :=> 文字
     }
 
     class B3<T extends Derived> extends A<T> {
@@ -62,5 +69,6 @@ module Generics {
 
         [x: string]: string; // error
 >x : string
+>类型别名 :=> 文字
     }
 }

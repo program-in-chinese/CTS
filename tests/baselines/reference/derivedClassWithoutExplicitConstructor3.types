@@ -6,15 +6,21 @@ class Base {
 
     a = 1;
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 
     constructor(x: number) { this.a = x; }
 >x : number
+>类型别名 :=> 数字
 >this.a = x : number
+>类型别名 :=> 数字
 >this.a : number
+>类型别名 :=> 数字
 >this : this
 >a : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 }
 
 class Derived extends Base {
@@ -23,23 +29,31 @@ class Derived extends Base {
 
     b = '';
 >b : string
+>类型别名 :=> 文字
 >'' : ""
 
     constructor(y: string, z: string) {
 >y : string
+>类型别名 :=> 文字
 >z : string
+>类型别名 :=> 文字
 
         super(2);
 >super(2) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >2 : 2
 
         this.b = y;
 >this.b = y : string
+>类型别名 :=> 文字
 >this.b : string
+>类型别名 :=> 文字
 >this : this
 >b : string
+>类型别名 :=> 文字
 >y : string
+>类型别名 :=> 文字
     }
 }
 
@@ -49,21 +63,27 @@ class Derived2 extends Derived {
 
     x = 1
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     y = 'hello';
 >y : string
+>类型别名 :=> 文字
 >'hello' : "hello"
 }
 
 var r = new Derived(); // error
 >r : any
+>类型别名 :=> 任意
 >new Derived() : any
+>类型别名 :=> 任意
 >Derived : typeof Derived
 
 var r2 = new Derived2(1); // error
 >r2 : any
+>类型别名 :=> 任意
 >new Derived2(1) : any
+>类型别名 :=> 任意
 >Derived2 : typeof Derived2
 >1 : 1
 
@@ -101,6 +121,7 @@ class D<T> extends Base {
 >b : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 
     constructor(y: T, z: T) {
 >y : T
@@ -110,6 +131,7 @@ class D<T> extends Base {
 
         super(2);
 >super(2) : void
+>类型别名 :=> 无值
 >super : typeof Base
 >2 : 2
 
@@ -132,22 +154,28 @@ class D2<T extends Date> extends D<T> {
 
     x = 2
 >x : number
+>类型别名 :=> 数字
 >2 : 2
 
     y: T = null;
 >y : T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 var d = new D2(); // error
 >d : any
+>类型别名 :=> 任意
 >new D2() : any
+>类型别名 :=> 任意
 >D2 : typeof D2
 
 var d2 = new D2(new Date()); // error
 >d2 : any
+>类型别名 :=> 任意
 >new D2(new Date()) : any
+>类型别名 :=> 任意
 >D2 : typeof D2
 >new Date() : Date
 >Date : DateConstructor

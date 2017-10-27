@@ -14,21 +14,27 @@ declare function ValidSomeCondition(): boolean;
 
 declare var whatToLoad: boolean;
 >whatToLoad : boolean
+>类型别名 :=> 真假
 
 declare const directory: string;
 >directory : string
+>类型别名 :=> 文字
 
 declare const moduleFile: number;
 >moduleFile : number
+>类型别名 :=> 数字
 
 import(`${directory}\${moduleFile}`);
 >import(`${directory}\${moduleFile}`) : Promise<any>
 >`${directory}\${moduleFile}` : string
+>类型别名 :=> 文字
 >directory : string
+>类型别名 :=> 文字
 
 import(getSpecifier());
 >import(getSpecifier()) : Promise<any>
 >getSpecifier() : string
+>类型别名 :=> 文字
 >getSpecifier : () => string
 
 var p1 = import(ValidSomeCondition() ? "./0" : "externalModule");
@@ -36,6 +42,7 @@ var p1 = import(ValidSomeCondition() ? "./0" : "externalModule");
 >import(ValidSomeCondition() ? "./0" : "externalModule") : Promise<any>
 >ValidSomeCondition() ? "./0" : "externalModule" : "./0" | "externalModule"
 >ValidSomeCondition() : boolean
+>类型别名 :=> 真假
 >ValidSomeCondition : () => boolean
 >"./0" : "./0"
 >"externalModule" : "externalModule"
@@ -45,6 +52,7 @@ var p1: Promise<any> = import(getSpecifier());
 >Promise : Promise<T>
 >import(getSpecifier()) : Promise<any>
 >getSpecifier() : string
+>类型别名 :=> 文字
 >getSpecifier : () => string
 
 var p11: Promise<typeof defaultModule> = import(getSpecifier());
@@ -53,6 +61,7 @@ var p11: Promise<typeof defaultModule> = import(getSpecifier());
 >defaultModule : typeof defaultModule
 >import(getSpecifier()) : Promise<any>
 >getSpecifier() : string
+>类型别名 :=> 文字
 >getSpecifier : () => string
 
 const p2 = import(whatToLoad ? getSpecifier() : "defaulPath") as Promise<typeof defaultModule>;
@@ -60,8 +69,11 @@ const p2 = import(whatToLoad ? getSpecifier() : "defaulPath") as Promise<typeof 
 >import(whatToLoad ? getSpecifier() : "defaulPath") as Promise<typeof defaultModule> : Promise<typeof defaultModule>
 >import(whatToLoad ? getSpecifier() : "defaulPath") : Promise<any>
 >whatToLoad ? getSpecifier() : "defaulPath" : string
+>类型别名 :=> 文字
 >whatToLoad : boolean
+>类型别名 :=> 真假
 >getSpecifier() : string
+>类型别名 :=> 文字
 >getSpecifier : () => string
 >"defaulPath" : "defaulPath"
 >Promise : Promise<T>
@@ -74,17 +86,23 @@ p1.then(zero => {
 >then : <TResult1 = any, TResult2 = never>(onfulfilled?: (value: any) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>) => Promise<TResult1 | TResult2>
 >zero => {    return zero.foo();  // ok, zero is any} : (zero: any) => any
 >zero : any
+>类型别名 :=> 任意
 
     return zero.foo();  // ok, zero is any
 >zero.foo() : any
+>类型别名 :=> 任意
 >zero.foo : any
+>类型别名 :=> 任意
 >zero : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 
 });
 
 let j: string;
 >j : string
+>类型别名 :=> 文字
 
 var p3: Promise<typeof defaultModule> = import(j=getSpecifier());
 >p3 : Promise<typeof defaultModule>
@@ -92,8 +110,11 @@ var p3: Promise<typeof defaultModule> = import(j=getSpecifier());
 >defaultModule : typeof defaultModule
 >import(j=getSpecifier()) : Promise<any>
 >j=getSpecifier() : string
+>类型别名 :=> 文字
 >j : string
+>类型别名 :=> 文字
 >getSpecifier() : string
+>类型别名 :=> 文字
 >getSpecifier : () => string
 
 function * loadModule(directories: string[]) {
@@ -102,17 +123,23 @@ function * loadModule(directories: string[]) {
 
     for (const directory of directories) {
 >directory : string
+>类型别名 :=> 文字
 >directories : string[]
 
         const path = `${directory}\moduleFile`;
 >path : string
+>类型别名 :=> 文字
 >`${directory}\moduleFile` : string
+>类型别名 :=> 文字
 >directory : string
+>类型别名 :=> 文字
 
         import(yield path);
 >import(yield path) : Promise<any>
 >yield path : any
+>类型别名 :=> 任意
 >path : string
+>类型别名 :=> 文字
     }
 }
 

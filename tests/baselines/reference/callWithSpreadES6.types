@@ -5,14 +5,18 @@ interface X {
     foo(x: number, y: number, ...z: string[]);
 >foo : (x: number, y: number, ...z: string[]) => any
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : string[]
 }
 
 function foo(x: number, y: number, ...z: string[]) {
 >foo : (x: number, y: number, ...z: string[]) => void
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : string[]
 }
 
@@ -32,6 +36,7 @@ var xa: X[];
 
 foo(1, 2, "abc");
 >foo(1, 2, "abc") : void
+>类型别名 :=> 无值
 >foo : (x: number, y: number, ...z: string[]) => void
 >1 : 1
 >2 : 2
@@ -39,23 +44,28 @@ foo(1, 2, "abc");
 
 foo(1, 2, ...a);
 >foo(1, 2, ...a) : void
+>类型别名 :=> 无值
 >foo : (x: number, y: number, ...z: string[]) => void
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 
 foo(1, 2, ...a, "abc");
 >foo(1, 2, ...a, "abc") : void
+>类型别名 :=> 无值
 >foo : (x: number, y: number, ...z: string[]) => void
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 >"abc" : "abc"
 
 obj.foo(1, 2, "abc");
 >obj.foo(1, 2, "abc") : any
+>类型别名 :=> 任意
 >obj.foo : (x: number, y: number, ...z: string[]) => any
 >obj : X
 >foo : (x: number, y: number, ...z: string[]) => any
@@ -65,27 +75,32 @@ obj.foo(1, 2, "abc");
 
 obj.foo(1, 2, ...a);
 >obj.foo(1, 2, ...a) : any
+>类型别名 :=> 任意
 >obj.foo : (x: number, y: number, ...z: string[]) => any
 >obj : X
 >foo : (x: number, y: number, ...z: string[]) => any
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 
 obj.foo(1, 2, ...a, "abc");
 >obj.foo(1, 2, ...a, "abc") : any
+>类型别名 :=> 任意
 >obj.foo : (x: number, y: number, ...z: string[]) => any
 >obj : X
 >foo : (x: number, y: number, ...z: string[]) => any
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 >"abc" : "abc"
 
 (obj.foo)(1, 2, "abc");
 >(obj.foo)(1, 2, "abc") : any
+>类型别名 :=> 任意
 >(obj.foo) : (x: number, y: number, ...z: string[]) => any
 >obj.foo : (x: number, y: number, ...z: string[]) => any
 >obj : X
@@ -96,6 +111,7 @@ obj.foo(1, 2, ...a, "abc");
 
 (obj.foo)(1, 2, ...a);
 >(obj.foo)(1, 2, ...a) : any
+>类型别名 :=> 任意
 >(obj.foo) : (x: number, y: number, ...z: string[]) => any
 >obj.foo : (x: number, y: number, ...z: string[]) => any
 >obj : X
@@ -103,10 +119,12 @@ obj.foo(1, 2, ...a, "abc");
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 
 (obj.foo)(1, 2, ...a, "abc");
 >(obj.foo)(1, 2, ...a, "abc") : any
+>类型别名 :=> 任意
 >(obj.foo) : (x: number, y: number, ...z: string[]) => any
 >obj.foo : (x: number, y: number, ...z: string[]) => any
 >obj : X
@@ -114,11 +132,13 @@ obj.foo(1, 2, ...a, "abc");
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 >"abc" : "abc"
 
 xa[1].foo(1, 2, "abc");
 >xa[1].foo(1, 2, "abc") : any
+>类型别名 :=> 任意
 >xa[1].foo : (x: number, y: number, ...z: string[]) => any
 >xa[1] : X
 >xa : X[]
@@ -130,6 +150,7 @@ xa[1].foo(1, 2, "abc");
 
 xa[1].foo(1, 2, ...a);
 >xa[1].foo(1, 2, ...a) : any
+>类型别名 :=> 任意
 >xa[1].foo : (x: number, y: number, ...z: string[]) => any
 >xa[1] : X
 >xa : X[]
@@ -138,10 +159,12 @@ xa[1].foo(1, 2, ...a);
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 
 xa[1].foo(1, 2, ...a, "abc");
 >xa[1].foo(1, 2, ...a, "abc") : any
+>类型别名 :=> 任意
 >xa[1].foo : (x: number, y: number, ...z: string[]) => any
 >xa[1] : X
 >xa : X[]
@@ -150,11 +173,13 @@ xa[1].foo(1, 2, ...a, "abc");
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
 >"abc" : "abc"
 
 (<Function>xa[1].foo)(...[1, 2, "abc"]);
 >(<Function>xa[1].foo)(...[1, 2, "abc"]) : any
+>类型别名 :=> 任意
 >(<Function>xa[1].foo) : Function
 ><Function>xa[1].foo : Function
 >Function : Function
@@ -174,31 +199,42 @@ class C {
 
     constructor(x: number, y: number, ...z: string[]) {
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : string[]
 
         this.foo(x, y);
 >this.foo(x, y) : void
+>类型别名 :=> 无值
 >this.foo : (x: number, y: number, ...z: string[]) => void
 >this : this
 >foo : (x: number, y: number, ...z: string[]) => void
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
         this.foo(x, y, ...z);
 >this.foo(x, y, ...z) : void
+>类型别名 :=> 无值
 >this.foo : (x: number, y: number, ...z: string[]) => void
 >this : this
 >foo : (x: number, y: number, ...z: string[]) => void
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >...z : string
+>类型别名 :=> 文字
 >z : string[]
     }
     foo(x: number, y: number, ...z: string[]) {
 >foo : (x: number, y: number, ...z: string[]) => void
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 >z : string[]
     }
 }
@@ -210,16 +246,19 @@ class D extends C {
     constructor() {
         super(1, 2);
 >super(1, 2) : void
+>类型别名 :=> 无值
 >super : typeof C
 >1 : 1
 >2 : 2
 
         super(1, 2, ...a);
 >super(1, 2, ...a) : void
+>类型别名 :=> 无值
 >super : typeof C
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
     }
     foo() {
@@ -227,6 +266,7 @@ class D extends C {
 
         super.foo(1, 2);
 >super.foo(1, 2) : void
+>类型别名 :=> 无值
 >super.foo : (x: number, y: number, ...z: string[]) => void
 >super : C
 >foo : (x: number, y: number, ...z: string[]) => void
@@ -235,12 +275,14 @@ class D extends C {
 
         super.foo(1, 2, ...a);
 >super.foo(1, 2, ...a) : void
+>类型别名 :=> 无值
 >super.foo : (x: number, y: number, ...z: string[]) => void
 >super : C
 >foo : (x: number, y: number, ...z: string[]) => void
 >1 : 1
 >2 : 2
 >...a : string
+>类型别名 :=> 文字
 >a : string[]
     }
 }

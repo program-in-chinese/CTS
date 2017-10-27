@@ -2,16 +2,19 @@
 interface Foo { a }
 >Foo : Foo
 >a : any
+>类型别名 :=> 任意
 
 interface Bar { b }
 >Bar : Bar
 >b : any
+>类型别名 :=> 任意
 
 interface Object {
 >Object : Object
 
     [n: number]: Foo;
 >n : number
+>类型别名 :=> 数字
 >Foo : Foo
 }
 
@@ -20,18 +23,23 @@ interface Function {
 
     [n: number]: Bar;
 >n : number
+>类型别名 :=> 数字
 >Bar : Bar
 }
 
 var a = {}[0]; // Should be Foo
 >a : any
+>类型别名 :=> 任意
 >{}[0] : any
+>类型别名 :=> 任意
 >{} : {}
 >0 : 0
 
 var b = (() => { })[0]; // Should be Bar
 >b : any
+>类型别名 :=> 任意
 >(() => { })[0] : any
+>类型别名 :=> 任意
 >(() => { }) : () => void
 >() => { } : () => void
 >0 : 0

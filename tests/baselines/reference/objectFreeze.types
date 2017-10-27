@@ -8,20 +8,27 @@ const f = Object.freeze(function foo(a: number, b: string) { return false; });
 >function foo(a: number, b: string) { return false; } : (a: number, b: string) => false
 >foo : (a: number, b: string) => false
 >a : number
+>类型别名 :=> 数字
 >b : string
+>类型别名 :=> 文字
 >false : false
+>类型别名 :=> 为假
 
 f(1, "") === false;
 >f(1, "") === false : boolean
+>类型别名 :=> 真假
 >f(1, "") : false
+>类型别名 :=> 为假
 >f : (a: number, b: string) => false
 >1 : 1
 >"" : ""
 >false : false
+>类型别名 :=> 为假
 
 class C { constructor(a: number) { } }
 >C : C
 >a : number
+>类型别名 :=> 数字
 
 const c = Object.freeze(C);
 >c : typeof C
@@ -49,12 +56,16 @@ const a = Object.freeze([1, 2, 3]);
 
 a[0] = a[2].toString();
 >a[0] = a[2].toString() : string
+>类型别名 :=> 文字
 >a[0] : number
+>类型别名 :=> 数字
 >a : ReadonlyArray<number>
 >0 : 0
 >a[2].toString() : string
+>类型别名 :=> 文字
 >a[2].toString : (radix?: number) => string
 >a[2] : number
+>类型别名 :=> 数字
 >a : ReadonlyArray<number>
 >2 : 2
 >toString : (radix?: number) => string
@@ -67,19 +78,27 @@ const o = Object.freeze({ a: 1, b: "string" });
 >freeze : { <T>(a: T[]): ReadonlyArray<T>; <T extends Function>(f: T): T; <T>(o: T): Readonly<T>; }
 >{ a: 1, b: "string" } : { a: number; b: string; }
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 >b : string
+>类型别名 :=> 文字
 >"string" : "string"
 
 o.b = o.a.toString();
 >o.b = o.a.toString() : string
+>类型别名 :=> 文字
 >o.b : any
+>类型别名 :=> 任意
 >o : Readonly<{ a: number; b: string; }>
 >b : any
+>类型别名 :=> 任意
 >o.a.toString() : string
+>类型别名 :=> 文字
 >o.a.toString : (radix?: number) => string
 >o.a : number
+>类型别名 :=> 数字
 >o : Readonly<{ a: number; b: string; }>
 >a : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 

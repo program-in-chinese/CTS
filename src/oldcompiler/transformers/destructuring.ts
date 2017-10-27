@@ -32,6 +32,7 @@ namespace ts {
      * the destructuring assignment is needed as part of a larger expression.
      * @param createAssignmentCallback An optional callback used to create the assignment expression.
      */
+    // 扁平化解构的任务
     export function flattenDestructuringAssignment(
         node: VariableDeclaration | DestructuringAssignment,
         visitor: ((node: Node) => VisitResult<Node>) | undefined,
@@ -411,7 +412,7 @@ namespace ts {
         }
         else if (isStringOrNumericLiteral(propertyName)) {
             const argumentExpression = getSynthesizedClone(propertyName);
-            argumentExpression.text = argumentExpression.text;
+            argumentExpression.text = (argumentExpression.别名 && argumentExpression.别名.名称) as string || argumentExpression.text;
             return createElementAccess(value, argumentExpression);
         }
         else {

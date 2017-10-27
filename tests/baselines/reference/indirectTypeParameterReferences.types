@@ -4,6 +4,7 @@
 type B = {b: string}
 >B : B
 >b : string
+>类型别名 :=> 文字
 
 const flowtypes = <A>(b: B) => {
 >flowtypes : <A>(b: B) => { combined: (fn: (combined: A & B) => void) => any; literal: (fn: (aPlusB: A & B) => void) => any; }
@@ -24,6 +25,7 @@ const flowtypes = <A>(b: B) => {
 >combined : A & B
 >Combined : A & B
 >null : null
+>类型别名 :=> 空值
 
   const literal = (fn: (aPlusB: A & B) => void) => null
 >literal : (fn: (aPlusB: A & B) => void) => any
@@ -33,6 +35,7 @@ const flowtypes = <A>(b: B) => {
 >A : A
 >B : B
 >null : null
+>类型别名 :=> 空值
 
   return {combined, literal}
 >{combined, literal} : { combined: (fn: (combined: A & B) => void) => any; literal: (fn: (aPlusB: A & B) => void) => any; }
@@ -46,43 +49,55 @@ const {combined, literal} = flowtypes<{a: string}>({b: 'b-value'})
 >flowtypes<{a: string}>({b: 'b-value'}) : { combined: (fn: (combined: { a: string; } & B) => void) => any; literal: (fn: (aPlusB: { a: string; } & B) => void) => any; }
 >flowtypes : <A>(b: B) => { combined: (fn: (combined: A & B) => void) => any; literal: (fn: (aPlusB: A & B) => void) => any; }
 >a : string
+>类型别名 :=> 文字
 >{b: 'b-value'} : { b: string; }
 >b : string
+>类型别名 :=> 文字
 >'b-value' : "b-value"
 
 literal(aPlusB => {
 >literal(aPlusB => {  aPlusB.b  aPlusB.a}) : any
+>类型别名 :=> 任意
 >literal : (fn: (aPlusB: { a: string; } & B) => void) => any
 >aPlusB => {  aPlusB.b  aPlusB.a} : (aPlusB: { a: string; } & B) => void
 >aPlusB : { a: string; } & B
 
   aPlusB.b
 >aPlusB.b : string
+>类型别名 :=> 文字
 >aPlusB : { a: string; } & B
 >b : string
+>类型别名 :=> 文字
 
   aPlusB.a
 >aPlusB.a : string
+>类型别名 :=> 文字
 >aPlusB : { a: string; } & B
 >a : string
+>类型别名 :=> 文字
 
 })
 
 combined(comb => {
 >combined(comb => {  comb.b  comb.a}) : any
+>类型别名 :=> 任意
 >combined : (fn: (combined: { a: string; } & B) => void) => any
 >comb => {  comb.b  comb.a} : (comb: { a: string; } & B) => void
 >comb : { a: string; } & B
 
   comb.b
 >comb.b : string
+>类型别名 :=> 文字
 >comb : { a: string; } & B
 >b : string
+>类型别名 :=> 文字
 
   comb.a
 >comb.a : string
+>类型别名 :=> 文字
 >comb : { a: string; } & B
 >a : string
+>类型别名 :=> 文字
 
 })
 
@@ -98,9 +113,12 @@ declare function f<T>(a: T): { a: typeof a };
 
 let n: number = f(2).a;
 >n : number
+>类型别名 :=> 数字
 >f(2).a : number
+>类型别名 :=> 数字
 >f(2) : { a: number; }
 >f : <T>(a: T) => { a: T; }
 >2 : 2
 >a : number
+>类型别名 :=> 数字
 

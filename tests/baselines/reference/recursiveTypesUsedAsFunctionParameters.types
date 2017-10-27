@@ -69,6 +69,7 @@ function foo2<T>(x: any) {
 >foo2 : { <T>(x: List<T>): any; <U>(x: MyList<U>): any; }
 >T : T
 >x : any
+>类型别名 :=> 任意
 }
 
 function other<T extends List<U>, U>() {
@@ -133,7 +134,9 @@ function other<T extends List<U>, U>() {
 >foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
 >V : V
 >x : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
     var list: List<string>;
 >list : List<string>
@@ -145,13 +148,17 @@ function other<T extends List<U>, U>() {
 
     var r = foo5(list);
 >r : number
+>类型别名 :=> 数字
 >foo5(list) : number
+>类型别名 :=> 数字
 >foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
 >list : List<string>
 
     var r2 = foo5(myList);
 >r2 : number
+>类型别名 :=> 数字
 >foo5(myList) : number
+>类型别名 :=> 数字
 >foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
 >myList : MyList<string>
 }

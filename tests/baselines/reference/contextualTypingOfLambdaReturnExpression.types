@@ -3,31 +3,44 @@ function callb(lam: (l: number) => void);
 >callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
 >lam : (l: number) => void
 >l : number
+>类型别名 :=> 数字
 
 function callb(lam: (n: string) => void);
 >callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
 >lam : (n: string) => void
 >n : string
+>类型别名 :=> 文字
 
 function callb(a) { }
 >callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
 >a : any
+>类型别名 :=> 任意
 
 callb((a) => a.length); // Ok, we choose the second overload because the first one gave us an error when trying to resolve the lambda return type
 >callb((a) => a.length) : any
+>类型别名 :=> 任意
 >callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
 >(a) => a.length : (a: number) => any
 >a : number
+>类型别名 :=> 数字
 >a.length : any
+>类型别名 :=> 任意
 >a : number
+>类型别名 :=> 数字
 >length : any
+>类型别名 :=> 任意
 
 callb((a) => { a.length; }); // Error, we picked the first overload and errored when type checking the lambda body
 >callb((a) => { a.length; }) : any
+>类型别名 :=> 任意
 >callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
 >(a) => { a.length; } : (a: number) => void
 >a : number
+>类型别名 :=> 数字
 >a.length : any
+>类型别名 :=> 任意
 >a : number
+>类型别名 :=> 数字
 >length : any
+>类型别名 :=> 任意
 

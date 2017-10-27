@@ -5,14 +5,18 @@ interface Show {
     show: (x: number) => string;
 >show : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 }
 function f({ show: showRename = v => v }: Show) {}
 >f : ({ show: showRename }: Show) => void
 >show : any
+>类型别名 :=> 任意
 >showRename : ((x: number) => string) | ((v: number) => number)
 >v => v : (v: number) => number
 >v : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 >Show : Show
 
 function f2({ "show": showRename = v => v }: Show) {}
@@ -20,7 +24,9 @@ function f2({ "show": showRename = v => v }: Show) {}
 >showRename : ((x: number) => string) | ((v: number) => number)
 >v => v : (v: number) => number
 >v : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 >Show : Show
 
 function f3({ ["show"]: showRename = v => v }: Show) {}
@@ -29,7 +35,9 @@ function f3({ ["show"]: showRename = v => v }: Show) {}
 >showRename : ((x: number) => string) | ((v: number) => number)
 >v => v : (v: number) => number
 >v : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 >Show : Show
 
 interface Nested {
@@ -42,12 +50,15 @@ interface Nested {
 function ff({ nested: nestedRename = { show: v => v } }: Nested) {}
 >ff : ({ nested: nestedRename }: Nested) => void
 >nested : any
+>类型别名 :=> 任意
 >nestedRename : Show | { show: (v: number) => number; }
 >{ show: v => v } : { show: (v: number) => number; }
 >show : (v: number) => number
 >v => v : (v: number) => number
 >v : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 >Nested : Nested
 
 interface StringIdentity {
@@ -56,21 +67,29 @@ interface StringIdentity {
     stringIdentity(s: string): string;
 >stringIdentity : (s: string) => string
 >s : string
+>类型别名 :=> 文字
 }
 let { stringIdentity: id = arg => arg.length }: StringIdentity = { stringIdentity: x => x};
 >stringIdentity : any
+>类型别名 :=> 任意
 >id : ((s: string) => string) | ((arg: string) => number)
 >arg => arg.length : (arg: string) => number
 >arg : string
+>类型别名 :=> 文字
 >arg.length : number
+>类型别名 :=> 数字
 >arg : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >StringIdentity : StringIdentity
 >{ stringIdentity: x => x} : { stringIdentity: (x: string) => string; }
 >stringIdentity : (x: string) => string
 >x => x : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x : string
+>类型别名 :=> 文字
 
 interface Tuples {
 >Tuples : Tuples

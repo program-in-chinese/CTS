@@ -29,6 +29,7 @@ class Chain<T> {
         // Ok to go down the chain, but error to climb up the chain
         (new Chain(t)).then(tt => s).then(ss => t);
 >(new Chain(t)).then(tt => s).then(ss => t) : any
+>类型别名 :=> 任意
 >(new Chain(t)).then(tt => s).then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >(new Chain(t)).then(tt => s) : Chain<S>
 >(new Chain(t)).then : <S extends T>(cb: (x: T) => S) => Chain<S>
@@ -48,6 +49,7 @@ class Chain<T> {
         // But error to try to climb up the chain
         (new Chain(s)).then(ss => t);
 >(new Chain(s)).then(ss => t) : any
+>类型别名 :=> 任意
 >(new Chain(s)).then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >(new Chain(s)) : Chain<S>
 >new Chain(s) : Chain<S>
@@ -109,6 +111,7 @@ class Chain<T> {
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -118,6 +121,7 @@ interface I {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 }
 class Chain2<T extends I> {
 >Chain2 : Chain2<T>
@@ -156,6 +160,7 @@ class Chain2<T extends I> {
         (new Chain2(i)).then(ii => t).then(tt => s).value.x = "";
 >(new Chain2(i)).then(ii => t).then(tt => s).value.x = "" : ""
 >(new Chain2(i)).then(ii => t).then(tt => s).value.x : number
+>类型别名 :=> 数字
 >(new Chain2(i)).then(ii => t).then(tt => s).value : S
 >(new Chain2(i)).then(ii => t).then(tt => s) : Chain2<S>
 >(new Chain2(i)).then(ii => t).then : <S extends T>(cb: (x: T) => S) => Chain2<S>
@@ -175,6 +180,7 @@ class Chain2<T extends I> {
 >s : S
 >value : S
 >x : number
+>类型别名 :=> 数字
 >"" : ""
 
         // Staying at T or S should keep the constraint.
@@ -182,6 +188,7 @@ class Chain2<T extends I> {
         (new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value.x = "";
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value.x = "" : ""
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value.x : number
+>类型别名 :=> 数字
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value : T
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t) : Chain2<T>
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then : <S extends T>(cb: (x: T) => S) => Chain2<S>
@@ -213,11 +220,13 @@ class Chain2<T extends I> {
 >t : T
 >value : T
 >x : number
+>类型别名 :=> 数字
 >"" : ""
 
         (new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value.x = "";
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value.x = "" : ""
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value.x : number
+>类型别名 :=> 数字
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value : S
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s) : Chain2<S>
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then : <S extends S>(cb: (x: S) => S) => Chain2<S>
@@ -249,9 +258,11 @@ class Chain2<T extends I> {
 >s : S
 >value : S
 >x : number
+>类型别名 :=> 数字
 >"" : ""
 
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }

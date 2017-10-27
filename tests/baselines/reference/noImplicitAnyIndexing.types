@@ -9,14 +9,18 @@ enum MyEmusEnum {
 // Should be okay; should be a string.
 var strRepresentation1 = MyEmusEnum[0]
 >strRepresentation1 : string
+>类型别名 :=> 文字
 >MyEmusEnum[0] : string
+>类型别名 :=> 文字
 >MyEmusEnum : typeof MyEmusEnum
 >0 : 0
 
 // Should be okay; should be a string.
 var strRepresentation2 = MyEmusEnum[MyEmusEnum.emu]
 >strRepresentation2 : string
+>类型别名 :=> 文字
 >MyEmusEnum[MyEmusEnum.emu] : string
+>类型别名 :=> 文字
 >MyEmusEnum : typeof MyEmusEnum
 >MyEmusEnum.emu : MyEmusEnum
 >MyEmusEnum : typeof MyEmusEnum
@@ -25,7 +29,9 @@ var strRepresentation2 = MyEmusEnum[MyEmusEnum.emu]
 // Should be implicit 'any' ; property access fails, no string indexer.
 var strRepresentation3 = MyEmusEnum["monehh"];
 >strRepresentation3 : any
+>类型别名 :=> 任意
 >MyEmusEnum["monehh"] : any
+>类型别名 :=> 任意
 >MyEmusEnum : typeof MyEmusEnum
 >"monehh" : "monehh"
 
@@ -40,20 +46,25 @@ var strRepresentation4 = MyEmusEnum["emu"];
 // Should report an implicit 'any'.
 var x = {}["hi"];
 >x : any
+>类型别名 :=> 任意
 >{}["hi"] : any
+>类型别名 :=> 任意
 >{} : {}
 >"hi" : "hi"
 
 // Should report an implicit 'any'.
 var y = {}[10];
 >y : any
+>类型别名 :=> 任意
 >{}[10] : any
+>类型别名 :=> 任意
 >{} : {}
 >10 : 10
 
 
 var hi: any = "hi";
 >hi : any
+>类型别名 :=> 任意
 >"hi" : "hi"
 
 var emptyObj = {};
@@ -63,17 +74,25 @@ var emptyObj = {};
 // Should report an implicit 'any'.
 var z1 = emptyObj[hi];
 >z1 : any
+>类型别名 :=> 任意
 >emptyObj[hi] : any
+>类型别名 :=> 任意
 >emptyObj : {}
 >hi : any
+>类型别名 :=> 任意
 
 var z2 = (<any>emptyObj)[hi];
 >z2 : any
+>类型别名 :=> 任意
 >(<any>emptyObj)[hi] : any
+>类型别名 :=> 任意
 >(<any>emptyObj) : any
+>类型别名 :=> 任意
 ><any>emptyObj : any
+>类型别名 :=> 任意
 >emptyObj : {}
 >hi : any
+>类型别名 :=> 任意
 
 interface MyMap<T> {
 >MyMap : MyMap<T>
@@ -81,6 +100,7 @@ interface MyMap<T> {
 
     [key: string]: T;
 >key : string
+>类型别名 :=> 文字
 >T : T
 }
 
@@ -100,12 +120,15 @@ var m: MyMap<number> = {
 
     "Okay that's enough for today.": NaN
 >NaN : number
+>类型别名 :=> 数字
 
 };
 
 var mResult1 = m[MyEmusEnum.emu];
 >mResult1 : number
+>类型别名 :=> 数字
 >m[MyEmusEnum.emu] : number
+>类型别名 :=> 数字
 >m : MyMap<number>
 >MyEmusEnum.emu : MyEmusEnum
 >MyEmusEnum : typeof MyEmusEnum
@@ -113,9 +136,12 @@ var mResult1 = m[MyEmusEnum.emu];
 
 var mResult2 = m[MyEmusEnum[MyEmusEnum.emu]];
 >mResult2 : number
+>类型别名 :=> 数字
 >m[MyEmusEnum[MyEmusEnum.emu]] : number
+>类型别名 :=> 数字
 >m : MyMap<number>
 >MyEmusEnum[MyEmusEnum.emu] : string
+>类型别名 :=> 文字
 >MyEmusEnum : typeof MyEmusEnum
 >MyEmusEnum.emu : MyEmusEnum
 >MyEmusEnum : typeof MyEmusEnum
@@ -123,8 +149,11 @@ var mResult2 = m[MyEmusEnum[MyEmusEnum.emu]];
 
 var mResult3 = m[hi];
 >mResult3 : number
+>类型别名 :=> 数字
 >m[hi] : number
+>类型别名 :=> 数字
 >m : MyMap<number>
 >hi : any
+>类型别名 :=> 任意
 
 

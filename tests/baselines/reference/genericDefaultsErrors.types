@@ -1,6 +1,7 @@
 === tests/cases/compiler/genericDefaultsErrors.ts ===
 declare const x: any;
 >x : any
+>类型别名 :=> 任意
 
 declare function f03<T extends string = number>(): void; // error
 >f03 : <T extends string = number>() => void
@@ -32,22 +33,27 @@ declare function f11<T, U, V = number>(): void;
 
 f11(); // ok
 >f11() : void
+>类型别名 :=> 无值
 >f11 : <T, U, V = number>() => void
 
 f11<1>(); // error
 >f11<1>() : any
+>类型别名 :=> 任意
 >f11 : <T, U, V = number>() => void
 
 f11<1, 2>(); // ok
 >f11<1, 2>() : void
+>类型别名 :=> 无值
 >f11 : <T, U, V = number>() => void
 
 f11<1, 2, 3>(); // ok
 >f11<1, 2, 3>() : void
+>类型别名 :=> 无值
 >f11 : <T, U, V = number>() => void
 
 f11<1, 2, 3, 4>(); // error
 >f11<1, 2, 3, 4>() : any
+>类型别名 :=> 任意
 >f11 : <T, U, V = number>() => void
 
 declare function f12<T, U = T>(a?: U): void;
@@ -60,10 +66,12 @@ declare function f12<T, U = T>(a?: U): void;
 
 f12<number>(); // ok
 >f12<number>() : void
+>类型别名 :=> 无值
 >f12 : <T, U = T>(a?: U) => void
 
 f12<number>("a"); // error
 >f12<number>("a") : any
+>类型别名 :=> 任意
 >f12 : <T, U = T>(a?: U) => void
 >"a" : "a"
 
@@ -118,10 +126,12 @@ interface i09<T, U, V = number> { }
 
 type i09t00 = i09; // error
 >i09t00 : any
+>类型别名 :=> 任意
 >i09 : i09<T, U, V>
 
 type i09t01 = i09<1>; // error
 >i09t01 : any
+>类型别名 :=> 任意
 >i09 : i09<T, U, V>
 
 type i09t02 = i09<1, 2>; // ok
@@ -134,11 +144,13 @@ type i09t03 = i09<1, 2, 3>; // ok
 
 type i09t04 = i09<1, 2, 3, 4>; // error
 >i09t04 : any
+>类型别名 :=> 任意
 >i09 : i09<T, U, V>
 
 interface i10 { x: T; } // error
 >i10 : i10<T>
 >x : any
+>类型别名 :=> 任意
 >T : No type information available!
 
 interface i10<T = number> {}

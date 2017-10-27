@@ -4,6 +4,7 @@ declare function extractIndexer<T>(p: { [n: number]: T }): T;
 >T : T
 >p : { [n: number]: T; }
 >n : number
+>类型别名 :=> 数字
 >T : T
 >T : T
 
@@ -13,20 +14,24 @@ enum E { x }
 
 var a: any;
 >a : any
+>类型别名 :=> 任意
 
 extractIndexer({
 >extractIndexer({    [a]: ""}) : string
+>类型别名 :=> 文字
 >extractIndexer : <T>(p: { [n: number]: T; }) => T
 >{    [a]: ""} : { [x: number]: string; }
 
     [a]: ""
 >a : any
+>类型别名 :=> 任意
 >"" : ""
 
 }); // Should return string
 
 extractIndexer({
 >extractIndexer({    [E.x]: ""}) : string
+>类型别名 :=> 文字
 >extractIndexer : <T>(p: { [n: number]: T; }) => T
 >{    [E.x]: ""} : { [E.x]: string; }
 
@@ -40,6 +45,7 @@ extractIndexer({
 
 extractIndexer({
 >extractIndexer({    ["" || 0]: ""}) : string
+>类型别名 :=> 文字
 >extractIndexer : <T>(p: { [n: number]: T; }) => T
 >{    ["" || 0]: ""} : { ["" || 0]: string; }
 

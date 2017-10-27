@@ -15,8 +15,10 @@ function isA(x: A | B): x is A { return x.type === 'A'; }
 >A : A
 >B : B
 >x : any
+>类型别名 :=> 任意
 >A : A
 >x.type === 'A' : boolean
+>类型别名 :=> 真假
 >x.type : "A" | "B"
 >x : A | B
 >type : "A" | "B"
@@ -28,8 +30,10 @@ function isB(x: A | B): x is B { return x.type === 'B'; }
 >A : A
 >B : B
 >x : any
+>类型别名 :=> 任意
 >B : B
 >x.type === 'B' : boolean
+>类型别名 :=> 真假
 >x.type : "A" | "B"
 >x : A | B
 >type : "A" | "B"
@@ -46,6 +50,7 @@ function foo1(x: A | B): any {
 
     if (isA(x)) {
 >isA(x) : boolean
+>类型别名 :=> 真假
 >isA : (x: A | B) => x is A
 >x : A | B
 
@@ -57,6 +62,7 @@ function foo1(x: A | B): any {
 
     if (isB(x)) {
 >isB(x) : boolean
+>类型别名 :=> 真假
 >isB : (x: A | B) => x is B
 >x : B
 
@@ -65,6 +71,7 @@ function foo1(x: A | B): any {
     }
     x;  // never
 >x : never
+>类型别名 :=> 不及
 }
 
 function foo2(x: A | B): any {
@@ -78,6 +85,7 @@ function foo2(x: A | B): any {
 
     if (x.type === 'A') {
 >x.type === 'A' : boolean
+>类型别名 :=> 真假
 >x.type : "A" | "B"
 >x : A | B
 >type : "A" | "B"
@@ -91,6 +99,7 @@ function foo2(x: A | B): any {
 
     if (x.type === 'B') {
 >x.type === 'B' : boolean
+>类型别名 :=> 真假
 >x.type : "B"
 >x : B
 >type : "B"
@@ -101,4 +110,5 @@ function foo2(x: A | B): any {
     }
     x;  // never
 >x : never
+>类型别名 :=> 不及
 }

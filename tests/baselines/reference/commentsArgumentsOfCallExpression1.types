@@ -2,19 +2,23 @@
 function foo(/*c1*/ x: any) { }
 >foo : (x: any) => void
 >x : any
+>类型别名 :=> 任意
 
 foo(/*c2*/ 1);
 >foo(/*c2*/ 1) : void
+>类型别名 :=> 无值
 >foo : (x: any) => void
 >1 : 1
 
 foo(/*c3*/ function () { });
 >foo(/*c3*/ function () { }) : void
+>类型别名 :=> 无值
 >foo : (x: any) => void
 >function () { } : () => void
 
 foo(
 >foo(    /*c4*/    () => { }) : void
+>类型别名 :=> 无值
 >foo : (x: any) => void
 
     /*c4*/
@@ -23,6 +27,7 @@ foo(
 
 foo(
 >foo(    /*c5*/    /*c6*/    () => { }) : void
+>类型别名 :=> 无值
 >foo : (x: any) => void
 
     /*c5*/
@@ -32,6 +37,7 @@ foo(
 
 foo(/*c7*/
 >foo(/*c7*/    () => { }) : void
+>类型别名 :=> 无值
 >foo : (x: any) => void
 
     () => { });
@@ -39,6 +45,7 @@ foo(/*c7*/
 
 foo(
 >foo(    /*c7*/    /*c8*/() => { }) : void
+>类型别名 :=> 无值
 >foo : (x: any) => void
 
     /*c7*/

@@ -4,26 +4,34 @@
 function foo(public x, private y) { }
 >foo : (public x: any, private y: any) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
 var f = function foo(public x, private y) { }
 >f : (public x: any, private y: any) => void
 >function foo(public x, private y) { } : (public x: any, private y: any) => void
 >foo : (public x: any, private y: any) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
 var f2 = function (public x, private y) { }
 >f2 : (public x: any, private y: any) => void
 >function (public x, private y) { } : (public x: any, private y: any) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
 var f3 = (x, private y) => { }
 >f3 : (x: any, private y: any) => void
 >(x, private y) => { } : (x: any, private y: any) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
 var f4 = <T>(public x: T, y: T) => { }
 >f4 : <T>(public x: T, y: T) => void
@@ -37,26 +45,34 @@ var f4 = <T>(public x: T, y: T) => { }
 function foo2(private x: string, public y: number) { }
 >foo2 : (private x: string, public y: number) => void
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
 var f5 = function foo(private x: string, public y: number) { }
 >f5 : (private x: string, public y: number) => void
 >function foo(private x: string, public y: number) { } : (private x: string, public y: number) => void
 >foo : (private x: string, public y: number) => void
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
 var f6 = function (private x: string, public y: number) { }
 >f6 : (private x: string, public y: number) => void
 >function (private x: string, public y: number) { } : (private x: string, public y: number) => void
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
 var f7 = (private x: string, public y: number) => { }
 >f7 : (private x: string, public y: number) => void
 >(private x: string, public y: number) => { } : (private x: string, public y: number) => void
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
 var f8 = <T>(private x: T, public y: T) => { }
 >f8 : <T>(private x: T, public y: T) => void
@@ -73,12 +89,16 @@ class C {
     foo(public x, private y) { }
 >foo : (public x: any, private y: any) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     foo2(public x: number, private y: string) { }
 >foo2 : (public x: number, private y: string) => void
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     foo3<T>(public x: T, private y: T) { }
 >foo3 : <T>(public x: T, private y: T) => void
@@ -94,21 +114,29 @@ interface I {
 
     (private x, public y);
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     (private x: string, public y: number);
 >x : string
+>类型别名 :=> 文字
 >y : number
+>类型别名 :=> 数字
 
     foo(private x, public y);
 >foo : { (private x: any, public y: any): any; (public x: number, y: string): any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     foo(public x: number, y: string);
 >foo : { (private x: any, public y: any): any; (public x: number, y: string): any; }
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     foo3<T>(x: T, private y: T);
 >foo3 : <T>(x: T, private y: T) => any
@@ -125,12 +153,16 @@ var a: {
     foo(public x, private y);
 >foo : (public x: any, private y: any) => any
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     foo2(private x: number, public y: string);
 >foo2 : (private x: number, public y: string) => any
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
 };
 
@@ -141,14 +173,18 @@ var b = {
     foo(public x, y) { },
 >foo : (public x: any, y: any) => void
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 
     a: function foo(x: number, private y: string) { },
 >a : (x: number, private y: string) => void
 >function foo(x: number, private y: string) { } : (x: number, private y: string) => void
 >foo : (x: number, private y: string) => void
 >x : number
+>类型别名 :=> 数字
 >y : string
+>类型别名 :=> 文字
 
     b: <T>(public x: T, private y: T) => { }
 >b : <T>(public x: T, private y: T) => void

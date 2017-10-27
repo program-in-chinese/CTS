@@ -4,6 +4,7 @@
 class C1 { item: string }
 >C1 : C1
 >item : string
+>类型别名 :=> 文字
 
 class C2 { item: string[] }
 >C2 : C2
@@ -12,6 +13,7 @@ class C2 { item: string[] }
 class C3 { item: string }
 >C3 : C3
 >item : string
+>类型别名 :=> 文字
 
 function foo1(x: C1 | C2 | C3): string {
 >foo1 : (x: C1 | C2 | C3) => string
@@ -22,21 +24,26 @@ function foo1(x: C1 | C2 | C3): string {
 
     if (x instanceof C1) {
 >x instanceof C1 : boolean
+>类型别名 :=> 真假
 >x : C1 | C2 | C3
 >C1 : typeof C1
 
         return x.item;
 >x.item : string
+>类型别名 :=> 文字
 >x : C1
 >item : string
+>类型别名 :=> 文字
     }
     else if (x instanceof C2) {
 >x instanceof C2 : boolean
+>类型别名 :=> 真假
 >x : C2 | C3
 >C2 : typeof C2
 
         return x.item[0];
 >x.item[0] : string
+>类型别名 :=> 文字
 >x.item : string[]
 >x : C2
 >item : string[]
@@ -44,13 +51,16 @@ function foo1(x: C1 | C2 | C3): string {
     }
     else if (x instanceof C3) {
 >x instanceof C3 : boolean
+>类型别名 :=> 真假
 >x : C3
 >C3 : typeof C3
 
         return x.item;
 >x.item : string
+>类型别名 :=> 文字
 >x : C3
 >item : string
+>类型别名 :=> 文字
     }
     return "error";
 >"error" : "error"
@@ -63,8 +73,10 @@ function isC1(c: C1 | C2 | C3): c is C1 { return c instanceof C1 }
 >C2 : C2
 >C3 : C3
 >c : any
+>类型别名 :=> 任意
 >C1 : C1
 >c instanceof C1 : boolean
+>类型别名 :=> 真假
 >c : C1 | C2 | C3
 >C1 : typeof C1
 
@@ -75,8 +87,10 @@ function isC2(c: C1 | C2 | C3): c is C2 { return c instanceof C2 }
 >C2 : C2
 >C3 : C3
 >c : any
+>类型别名 :=> 任意
 >C2 : C2
 >c instanceof C2 : boolean
+>类型别名 :=> 真假
 >c : C1 | C2 | C3
 >C2 : typeof C2
 
@@ -87,8 +101,10 @@ function isC3(c: C1 | C2 | C3): c is C3 { return c instanceof C3 }
 >C2 : C2
 >C3 : C3
 >c : any
+>类型别名 :=> 任意
 >C3 : C3
 >c instanceof C3 : boolean
+>类型别名 :=> 真假
 >c : C1 | C2 | C3
 >C3 : typeof C3
 
@@ -101,21 +117,26 @@ function foo2(x: C1 | C2 | C3): string {
 
     if (isC1(x)) {
 >isC1(x) : boolean
+>类型别名 :=> 真假
 >isC1 : (c: C1 | C2 | C3) => c is C1
 >x : C1 | C2 | C3
 
         return x.item;
 >x.item : string
+>类型别名 :=> 文字
 >x : C1 | C3
 >item : string
+>类型别名 :=> 文字
     }
     else if (isC2(x)) {
 >isC2(x) : boolean
+>类型别名 :=> 真假
 >isC2 : (c: C1 | C2 | C3) => c is C2
 >x : C2
 
         return x.item[0];
 >x.item[0] : string
+>类型别名 :=> 文字
 >x.item : string[]
 >x : C2
 >item : string[]
@@ -123,13 +144,18 @@ function foo2(x: C1 | C2 | C3): string {
     }
     else if (isC3(x)) {
 >isC3(x) : boolean
+>类型别名 :=> 真假
 >isC3 : (c: C1 | C2 | C3) => c is C3
 >x : never
+>类型别名 :=> 不及
 
         return x.item;
 >x.item : any
+>类型别名 :=> 任意
 >x : never
+>类型别名 :=> 不及
 >item : any
+>类型别名 :=> 任意
     }
     return "error";
 >"error" : "error"
@@ -140,6 +166,7 @@ function foo2(x: C1 | C2 | C3): string {
 class A { a: string }
 >A : A
 >a : string
+>类型别名 :=> 文字
 
 class A1 extends A { }
 >A1 : A1
@@ -148,11 +175,13 @@ class A1 extends A { }
 class A2 { a: string }
 >A2 : A2
 >a : string
+>类型别名 :=> 文字
 
 class B extends A { b: string }
 >B : B
 >A : A
 >b : string
+>类型别名 :=> 文字
 
 function goo(x: A) {
 >goo : (x: A) => void
@@ -161,6 +190,7 @@ function goo(x: A) {
 
     if (x instanceof A) {
 >x instanceof A : boolean
+>类型别名 :=> 真假
 >x : A
 >A : typeof A
 
@@ -170,9 +200,11 @@ function goo(x: A) {
     else {
         x;  // never
 >x : never
+>类型别名 :=> 不及
     }
     if (x instanceof A1) {
 >x instanceof A1 : boolean
+>类型别名 :=> 真假
 >x : A
 >A1 : typeof A1
 
@@ -185,6 +217,7 @@ function goo(x: A) {
     }
     if (x instanceof A2) {
 >x instanceof A2 : boolean
+>类型别名 :=> 真假
 >x : A
 >A2 : typeof A2
 
@@ -197,6 +230,7 @@ function goo(x: A) {
     }
     if (x instanceof B) {
 >x instanceof B : boolean
+>类型别名 :=> 真假
 >x : A
 >B : typeof B
 

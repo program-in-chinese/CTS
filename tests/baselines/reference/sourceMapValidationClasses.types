@@ -11,6 +11,7 @@ module Foo.Bar {
 
         constructor(public greeting: string) {
 >greeting : string
+>类型别名 :=> 文字
         }
 
         greet() {
@@ -18,11 +19,15 @@ module Foo.Bar {
 
             return "<h1>" + this.greeting + "</h1>";
 >"<h1>" + this.greeting + "</h1>" : string
+>类型别名 :=> 文字
 >"<h1>" + this.greeting : string
+>类型别名 :=> 文字
 >"<h1>" : "<h1>"
 >this.greeting : string
+>类型别名 :=> 文字
 >this : this
 >greeting : string
+>类型别名 :=> 文字
 >"</h1>" : "</h1>"
         }
     }
@@ -31,12 +36,14 @@ module Foo.Bar {
     function foo(greeting: string): Greeter {
 >foo : (greeting: string) => Greeter
 >greeting : string
+>类型别名 :=> 文字
 >Greeter : Greeter
 
         return new Greeter(greeting);
 >new Greeter(greeting) : Greeter
 >Greeter : typeof Greeter
 >greeting : string
+>类型别名 :=> 文字
     }
 
     var greeter = new Greeter("Hello, world!");
@@ -47,7 +54,9 @@ module Foo.Bar {
 
     var str = greeter.greet();
 >str : string
+>类型别名 :=> 文字
 >greeter.greet() : string
+>类型别名 :=> 文字
 >greeter.greet : () => string
 >greeter : Greeter
 >greet : () => string
@@ -55,6 +64,7 @@ module Foo.Bar {
     function foo2(greeting: string, ...restGreetings /* more greeting */: string[]) {
 >foo2 : (greeting: string, ...restGreetings: string[]) => Greeter[]
 >greeting : string
+>类型别名 :=> 文字
 >restGreetings : string[]
 
         var greeters: Greeter[] = []; /* inline block comment */
@@ -70,28 +80,39 @@ module Foo.Bar {
 >new Greeter(greeting) : Greeter
 >Greeter : typeof Greeter
 >greeting : string
+>类型别名 :=> 文字
 
         for (var i = 0; i < restGreetings.length; i++) {
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 >i < restGreetings.length : boolean
+>类型别名 :=> 真假
 >i : number
+>类型别名 :=> 数字
 >restGreetings.length : number
+>类型别名 :=> 数字
 >restGreetings : string[]
 >length : number
+>类型别名 :=> 数字
 >i++ : number
+>类型别名 :=> 数字
 >i : number
+>类型别名 :=> 数字
 
             greeters.push(new Greeter(restGreetings[i]));
 >greeters.push(new Greeter(restGreetings[i])) : number
+>类型别名 :=> 数字
 >greeters.push : (...items: Greeter[]) => number
 >greeters : Greeter[]
 >push : (...items: Greeter[]) => number
 >new Greeter(restGreetings[i]) : Greeter
 >Greeter : typeof Greeter
 >restGreetings[i] : string
+>类型别名 :=> 文字
 >restGreetings : string[]
 >i : number
+>类型别名 :=> 数字
         }
 
         return greeters;
@@ -109,21 +130,30 @@ module Foo.Bar {
     // This is simple signle line comment
     for (var j = 0; j < b.length; j++) {
 >j : number
+>类型别名 :=> 数字
 >0 : 0
 >j < b.length : boolean
+>类型别名 :=> 真假
 >j : number
+>类型别名 :=> 数字
 >b.length : number
+>类型别名 :=> 数字
 >b : Greeter[]
 >length : number
+>类型别名 :=> 数字
 >j++ : number
+>类型别名 :=> 数字
 >j : number
+>类型别名 :=> 数字
 
         b[j].greet();
 >b[j].greet() : string
+>类型别名 :=> 文字
 >b[j].greet : () => string
 >b[j] : Greeter
 >b : Greeter[]
 >j : number
+>类型别名 :=> 数字
 >greet : () => string
     }
 }

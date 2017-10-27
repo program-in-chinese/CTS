@@ -1,19 +1,23 @@
 === tests/cases/conformance/internalModules/codeGeneration/importStatementsInterfaces.ts ===
 module A {
 >A : any
+>类型别名 :=> 任意
 
     export interface Point {
 >Point : Point
 
         x: number;
 >x : number
+>类型别名 :=> 数字
 
         y: number;
 >y : number
+>类型别名 :=> 数字
     }
 
     export module inA {
 >inA : any
+>类型别名 :=> 任意
 
         export interface Point3D extends Point {
 >Point3D : Point3D
@@ -21,6 +25,7 @@ module A {
 
             z: number;
 >z : number
+>类型别名 :=> 数字
         }
     }
 }
@@ -28,10 +33,13 @@ module A {
 // no code gen expected
 module B {
 >B : any
+>类型别名 :=> 任意
 
     import a = A;
 >a : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
 }
 
 // no code gen expected
@@ -40,30 +48,41 @@ module C {
 
     import a = A;
 >a : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
 
     import b = a.inA;
 >b : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >inA : any
+>类型别名 :=> 任意
 
     var m: typeof a;
 >m : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
     var p: b.Point3D;
 >p : b.Point3D
 >b : any
+>类型别名 :=> 任意
 >Point3D : b.Point3D
 
     var p = {x:0, y:0, z: 0 };
 >p : b.Point3D
 >{x:0, y:0, z: 0 } : { x: number; y: number; z: number; }
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >y : number
+>类型别名 :=> 数字
 >0 : 0
 >z : number
+>类型别名 :=> 数字
 >0 : 0
 }
 
@@ -73,11 +92,14 @@ module D {
 
     import a = A;
 >a : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
 
     var p : a.Point;
 >p : a.Point
 >a : any
+>类型别名 :=> 任意
 >Point : a.Point
 }
 
@@ -87,20 +109,27 @@ module E {
 
     import a = A.inA;
 >a : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
 >inA : any
+>类型别名 :=> 任意
 
     export function xDist(x: a.Point3D) {
 >xDist : (x: a.Point3D) => number
 >x : a.Point3D
 >a : any
+>类型别名 :=> 任意
 >Point3D : a.Point3D
 
         return 0 - x.x;
 >0 - x.x : number
+>类型别名 :=> 数字
 >0 : 0
 >x.x : number
+>类型别名 :=> 数字
 >x : a.Point3D
 >x : number
+>类型别名 :=> 数字
     }
 }

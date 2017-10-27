@@ -1,6 +1,7 @@
 === tests/cases/conformance/expressions/typeGuards/typeGuardsInDoStatement.ts ===
 let cond: boolean;
 >cond : boolean
+>类型别名 :=> 真假
 
 function a(x: string | number | boolean) {
 >a : (x: string | number | boolean) => void
@@ -8,8 +9,10 @@ function a(x: string | number | boolean) {
 
     x = true;
 >x = true : true
+>类型别名 :=> 为真
 >x : string | number | boolean
 >true : true
+>类型别名 :=> 为真
 
     do {
         x; // boolean | string
@@ -17,11 +20,14 @@ function a(x: string | number | boolean) {
 
         x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : string | number | boolean
 >undefined : undefined
+>类型别名 :=> 未定
 
     } while (typeof x === "string")
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
@@ -35,8 +41,10 @@ function b(x: string | number | boolean) {
 
     x = true;
 >x = true : true
+>类型别名 :=> 为真
 >x : string | number | boolean
 >true : true
+>类型别名 :=> 为真
 
     do {
         x; // boolean | string
@@ -44,14 +52,18 @@ function b(x: string | number | boolean) {
 
         if (cond) continue;
 >cond : boolean
+>类型别名 :=> 真假
 
         x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : string | number | boolean
 >undefined : undefined
+>类型别名 :=> 未定
 
     } while (typeof x === "string")
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number | boolean
 >"string" : "string"
@@ -71,17 +83,22 @@ function c(x: string | number) {
     do {
         x; // string
 >x : string
+>类型别名 :=> 文字
 
         if (cond) break;
 >cond : boolean
+>类型别名 :=> 真假
 
         x = undefined;
 >x = undefined : undefined
+>类型别名 :=> 未定
 >x : string | number
 >undefined : undefined
+>类型别名 :=> 未定
 
     } while (typeof x === "string")
 >typeof x === "string" : boolean
+>类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
 >x : string | number
 >"string" : "string"

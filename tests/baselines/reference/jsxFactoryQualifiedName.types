@@ -1,26 +1,32 @@
 === tests/cases/compiler/Element.ts ===
 declare namespace JSX {
 >JSX : any
+>类型别名 :=> 任意
 
     interface Element {
 >Element : Element
 
         name: string;
 >name : string
+>类型别名 :=> 文字
 
         isIntrinsic: boolean;
 >isIntrinsic : boolean
+>类型别名 :=> 真假
 
         isCustomElement: boolean;
 >isCustomElement : boolean
+>类型别名 :=> 真假
 
         toString(renderId?: number): string;
 >toString : (renderId?: number) => string
 >renderId : number
+>类型别名 :=> 数字
 
         bindDOM(renderId?: number): number;
 >bindDOM : (renderId?: number) => number
 >renderId : number
+>类型别名 :=> 数字
 
         resetComponent(): void;
 >resetComponent : () => void
@@ -28,9 +34,11 @@ declare namespace JSX {
         instantiateComponents(renderId?: number): number;
 >instantiateComponents : (renderId?: number) => number
 >renderId : number
+>类型别名 :=> 数字
 
         props: any;
 >props : any
+>类型别名 :=> 任意
     }
 }
 export namespace Element {
@@ -39,16 +47,24 @@ export namespace Element {
     export function isElement(el: any): el is JSX.Element {
 >isElement : (el: any) => el is JSX.Element
 >el : any
+>类型别名 :=> 任意
 >el : any
+>类型别名 :=> 任意
 >JSX : any
+>类型别名 :=> 任意
 >Element : JSX.Element
 
         return el.markAsChildOfRootElement !== undefined;
 >el.markAsChildOfRootElement !== undefined : boolean
+>类型别名 :=> 真假
 >el.markAsChildOfRootElement : any
+>类型别名 :=> 任意
 >el : any
+>类型别名 :=> 任意
 >markAsChildOfRootElement : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
     }
 
     export function createElement(args: any[]) {
@@ -70,18 +86,25 @@ export let createElement = Element.createElement;
 function toCamelCase(text: string): string {
 >toCamelCase : (text: string) => string
 >text : string
+>类型别名 :=> 文字
 
     return text[0].toLowerCase() + text.substring(1);
 >text[0].toLowerCase() + text.substring(1) : string
+>类型别名 :=> 文字
 >text[0].toLowerCase() : string
+>类型别名 :=> 文字
 >text[0].toLowerCase : () => string
 >text[0] : string
+>类型别名 :=> 文字
 >text : string
+>类型别名 :=> 文字
 >0 : 0
 >toLowerCase : () => string
 >text.substring(1) : string
+>类型别名 :=> 文字
 >text.substring : (start: number, end?: number) => string
 >text : string
+>类型别名 :=> 文字
 >substring : (start: number, end?: number) => string
 >1 : 1
 }
@@ -98,6 +121,7 @@ let c: {
 
 		b: string
 >b : string
+>类型别名 :=> 文字
 	}
 };
 
@@ -112,21 +136,31 @@ class A {
 
 			<meta content="helloworld"></meta>,
 ><meta content="helloworld"></meta> : any
+>类型别名 :=> 任意
 >meta : any
+>类型别名 :=> 任意
 >content : string
+>类型别名 :=> 文字
 >meta : any
+>类型别名 :=> 任意
 
 			<meta content={c.a!.b}></meta>
 ><meta content={c.a!.b}></meta> : any
+>类型别名 :=> 任意
 >meta : any
+>类型别名 :=> 任意
 >content : string
+>类型别名 :=> 文字
 >c.a!.b : string
+>类型别名 :=> 文字
 >c.a! : { b: string; }
 >c.a : { b: string; }
 >c : { a?: { b: string; }; }
 >a : { b: string; }
 >b : string
+>类型别名 :=> 文字
 >meta : any
+>类型别名 :=> 任意
 
 		];
 	}

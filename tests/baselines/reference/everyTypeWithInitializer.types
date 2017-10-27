@@ -4,6 +4,7 @@ interface I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class C implements I {
@@ -12,6 +13,7 @@ class C implements I {
 
     id: number;
 >id : number
+>类型别名 :=> 数字
 }
 
 class D<T>{
@@ -37,6 +39,7 @@ class D<T>{
 function F(x: string): number { return 42; }
 >F : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >42 : 42
 
 module M {
@@ -47,23 +50,29 @@ module M {
 
         name: string;
 >name : string
+>类型别名 :=> 文字
     }
 
     export function F2(x: number): string { return x.toString(); }
 >F2 : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 }
 
 var aNumber = 9.9;
 >aNumber : number
+>类型别名 :=> 数字
 >9.9 : 9.9
 
 var aString = 'this is a string';
 >aString : string
+>类型别名 :=> 文字
 >'this is a string' : "this is a string"
 
 var aDate = new Date(12);
@@ -79,17 +88,23 @@ var anObject = new Object();
 
 var anAny = null;
 >anAny : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 var anOtherAny = <any> new C();
 >anOtherAny : any
+>类型别名 :=> 任意
 ><any> new C() : any
+>类型别名 :=> 任意
 >new C() : C
 >C : typeof C
 
 var anUndefined = undefined;
 >anUndefined : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 
 var aClass = new C();
@@ -106,6 +121,7 @@ var anObjectLiteral = { id: 12 };
 >anObjectLiteral : { id: number; }
 >{ id: 12 } : { id: number; }
 >id : number
+>类型别名 :=> 数字
 >12 : 12
 
 var aFunction = F;
@@ -116,6 +132,7 @@ var aLambda = (x) => 2;
 >aLambda : (x: any) => number
 >(x) => 2 : (x: any) => number
 >x : any
+>类型别名 :=> 任意
 >2 : 2
 
 var aModule = M;
@@ -138,5 +155,6 @@ var aFunctionInModule = M.F2;
 // no initializer or annotation, so this is an 'any'
 var x;
 >x : any
+>类型别名 :=> 任意
 
 

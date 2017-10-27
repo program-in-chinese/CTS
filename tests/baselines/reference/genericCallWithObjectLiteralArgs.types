@@ -14,12 +14,16 @@ function foo<T>(x: { bar: T; baz: T }) {
 
 var r = foo({ bar: 1, baz: '' }); // error
 >r : any
+>类型别名 :=> 任意
 >foo({ bar: 1, baz: '' }) : any
+>类型别名 :=> 任意
 >foo : <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }
 >{ bar: 1, baz: '' } : { bar: number; baz: string; }
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 >baz : string
+>类型别名 :=> 文字
 >'' : ""
 
 var r2 = foo({ bar: 1, baz: 1 }); // T = number
@@ -28,8 +32,10 @@ var r2 = foo({ bar: 1, baz: 1 }); // T = number
 >foo : <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }
 >{ bar: 1, baz: 1 } : { bar: number; baz: number; }
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 >baz : number
+>类型别名 :=> 数字
 >1 : 1
 
 var r3 = foo({ bar: foo, baz: foo }); // T = typeof foo
@@ -49,7 +55,9 @@ var r4 = foo<Object>({ bar: 1, baz: '' }); // T = Object
 >Object : Object
 >{ bar: 1, baz: '' } : { bar: number; baz: string; }
 >bar : number
+>类型别名 :=> 数字
 >1 : 1
 >baz : string
+>类型别名 :=> 文字
 >'' : ""
 

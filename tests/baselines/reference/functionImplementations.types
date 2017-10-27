@@ -2,12 +2,15 @@
 // FunctionExpression with no return type annotation and no return statement returns void
 var v: void = function () { } ();
 >v : void
+>类型别名 :=> 无值
 >function () { } () : void
+>类型别名 :=> 无值
 >function () { } : () => void
 
 // FunctionExpression f with no return type annotation and directly references f in its body returns any
 var a: any = function f() {
 >a : any
+>类型别名 :=> 任意
 >function f() {    return f;} : () => any
 >f : () => any
 
@@ -17,11 +20,13 @@ var a: any = function f() {
 };
 var a: any = function f() {
 >a : any
+>类型别名 :=> 任意
 >function f() {    return f();} : () => any
 >f : () => any
 
     return f();
 >f() : any
+>类型别名 :=> 任意
 >f : () => any
 
 };
@@ -29,6 +34,7 @@ var a: any = function f() {
 // FunctionExpression f with no return type annotation and indirectly references f in its body returns any
 var a: any = function f() {
 >a : any
+>类型别名 :=> 任意
 >function f() {    var x = f;    return x;} : () => any
 >f : () => any
 
@@ -47,6 +53,7 @@ function rec1() {
 
     return rec2();
 >rec2() : any
+>类型别名 :=> 任意
 >rec2 : () => any
 }
 function rec2() {
@@ -54,16 +61,21 @@ function rec2() {
 
     return rec1();
 >rec1() : any
+>类型别名 :=> 任意
 >rec1 : () => any
 }
 var a = rec1();
 >a : any
+>类型别名 :=> 任意
 >rec1() : any
+>类型别名 :=> 任意
 >rec1 : () => any
 
 var a = rec2();
 >a : any
+>类型别名 :=> 任意
 >rec2() : any
+>类型别名 :=> 任意
 >rec2 : () => any
 
 // Two mutually recursive function implementations with return type annotation in one
@@ -72,6 +84,7 @@ function rec3(): number {
 
     return rec4();
 >rec4() : number
+>类型别名 :=> 数字
 >rec4 : () => number
 }
 function rec4() {
@@ -79,25 +92,33 @@ function rec4() {
 
     return rec3();
 >rec3() : number
+>类型别名 :=> 数字
 >rec3 : () => number
 }
 var n: number;
 >n : number
+>类型别名 :=> 数字
 
 var n = rec3();
 >n : number
+>类型别名 :=> 数字
 >rec3() : number
+>类型别名 :=> 数字
 >rec3 : () => number
 
 var n = rec4();
 >n : number
+>类型别名 :=> 数字
 >rec4() : number
+>类型别名 :=> 数字
 >rec4 : () => number
 
 // FunctionExpression with no return type annotation and returns a number
 var n = function () {
 >n : number
+>类型别名 :=> 数字
 >function () {    return 3;} () : number
+>类型别名 :=> 数字
 >function () {    return 3;} : () => number
 
     return 3;
@@ -108,36 +129,47 @@ var n = function () {
 // FunctionExpression with no return type annotation and returns null
 var nu = null;
 >nu : any
+>类型别名 :=> 任意
 >null : null
+>类型别名 :=> 空值
 
 var nu = function () {
 >nu : any
+>类型别名 :=> 任意
 >function () {    return null;} () : any
+>类型别名 :=> 任意
 >function () {    return null;} : () => any
 
     return null;
 >null : null
+>类型别名 :=> 空值
 
 } ();
 
 // FunctionExpression with no return type annotation and returns undefined
 var un = undefined;
 >un : any
+>类型别名 :=> 任意
 >undefined : undefined
+>类型别名 :=> 未定
 
 var un = function () {
 >un : any
+>类型别名 :=> 任意
 >function () {    return undefined;} () : any
+>类型别名 :=> 任意
 >function () {    return undefined;} : () => any
 
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 
 } ();
 
 // FunctionExpression with no return type annotation and returns a type parameter type
 var n = function <T>(x: T) {
 >n : number
+>类型别名 :=> 数字
 >function <T>(x: T) {    return x;} (4) : 4
 >function <T>(x: T) {    return x;} : <T>(x: T) => T
 >T : T
@@ -153,6 +185,7 @@ var n = function <T>(x: T) {
 // FunctionExpression with no return type annotation and returns a constrained type parameter type
 var n = function <T extends {}>(x: T) {
 >n : number
+>类型别名 :=> 数字
 >function <T extends {}>(x: T) {    return x;} (4) : 4
 >function <T extends {}>(x: T) {    return x;} : <T extends {}>(x: T) => T
 >T : T
@@ -168,6 +201,7 @@ var n = function <T extends {}>(x: T) {
 // FunctionExpression with no return type annotation with multiple return statements with identical types
 var n = function () {
 >n : number
+>类型别名 :=> 数字
 >function () {    return 3;    return 5;}() : 3 | 5
 >function () {    return 3;    return 5;} : () => 3 | 5
 
@@ -187,11 +221,13 @@ var n = function () {
 class Base { private m; }
 >Base : Base
 >m : any
+>类型别名 :=> 任意
 
 class Derived extends Base { private q; }
 >Derived : Derived
 >Base : Base
 >q : any
+>类型别名 :=> 任意
 
 var b: Base;
 >b : Base
@@ -213,7 +249,9 @@ var b = function () {
 // FunctionExpression with no return type annotation with multiple return statements with one a recursive call
 var a = function f() {
 >a : any
+>类型别名 :=> 任意
 >function f() {    return new Base(); return new Derived(); return f(); // ?} () : any
+>类型别名 :=> 任意
 >function f() {    return new Base(); return new Derived(); return f(); // ?} : () => any
 >f : () => any
 
@@ -223,6 +261,7 @@ var a = function f() {
 >new Derived() : Derived
 >Derived : typeof Derived
 >f() : any
+>类型别名 :=> 任意
 >f : () => any
 
 } ();
@@ -230,11 +269,14 @@ var a = function f() {
 // FunctionExpression with non -void return type annotation with a single throw statement
 undefined === function (): number {
 >undefined === function (): number {    throw undefined;} : boolean
+>类型别名 :=> 真假
 >undefined : undefined
+>类型别名 :=> 未定
 >function (): number {    throw undefined;} : () => number
 
     throw undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 
 };
 
@@ -244,24 +286,31 @@ function thisFunc() {
 
     var x = this;
 >x : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 
     var x: any;
 >x : any
+>类型别名 :=> 任意
 }
 
 // Function signature with optional parameter, no type annotation and initializer has initializer's type
 function opt1(n = 4) {
 >opt1 : (n?: number) => void
 >n : number
+>类型别名 :=> 数字
 >4 : 4
 
     var m = n;
 >m : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
     var m: number;
 >m : number
+>类型别名 :=> 数字
 }
 
 // Function signature with optional parameter, no type annotation and initializer has initializer's widened type
@@ -270,9 +319,13 @@ function opt2(n = { x: null, y: undefined }) {
 >n : { x: any; y: any; }
 >{ x: null, y: undefined } : { x: null; y: undefined; }
 >x : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 >y : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
     var m = n;
 >m : { x: any; y: any; }
@@ -281,22 +334,30 @@ function opt2(n = { x: null, y: undefined }) {
     var m: { x: any; y: any };
 >m : { x: any; y: any; }
 >x : any
+>类型别名 :=> 任意
 >y : any
+>类型别名 :=> 任意
 }
 
 // Function signature with initializer referencing other parameter to the left
 function opt3(n: number, m = n) {
 >opt3 : (n: number, m?: number) => void
 >n : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 >n : number
+>类型别名 :=> 数字
 
     var y = m;
 >y : number
+>类型别名 :=> 数字
 >m : number
+>类型别名 :=> 数字
 
     var y: number;
 >y : number
+>类型别名 :=> 数字
 }
 
 // Function signature with optional parameter has correct codegen 
@@ -313,10 +374,12 @@ class Derived2 extends Base { private r: string; }
 >Derived2 : Derived2
 >Base : Base
 >r : string
+>类型别名 :=> 文字
 
 class AnotherClass { private x }
 >AnotherClass : AnotherClass
 >x : any
+>类型别名 :=> 任意
 
 // if f is a contextually typed function expression, the inferred return type is the union type
 // of the types of the return statement expressions in the function body, 
@@ -324,26 +387,35 @@ class AnotherClass { private x }
 var f7: (x: number) => string | number = x => { // should be (x: number) => number | string
 >f7 : (x: number) => string | number
 >x : number
+>类型别名 :=> 数字
 >x => { // should be (x: number) => number | string    if (x < 0) { return x; }    return x.toString();} : (x: number) => string | number
 >x : number
+>类型别名 :=> 数字
 
     if (x < 0) { return x; }
 >x < 0 : boolean
+>类型别名 :=> 真假
 >x : number
+>类型别名 :=> 数字
 >0 : 0
 >x : number
+>类型别名 :=> 数字
 
     return x.toString();
 >x.toString() : string
+>类型别名 :=> 文字
 >x.toString : (radix?: number) => string
 >x : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 }
 var f8: (x: number) => any = x => { // should be (x: number) => Base
 >f8 : (x: number) => any
 >x : number
+>类型别名 :=> 数字
 >x => { // should be (x: number) => Base    return new Base();    return new Derived2();} : (x: number) => Base
 >x : number
+>类型别名 :=> 数字
 
     return new Base();
 >new Base() : Base
@@ -356,8 +428,10 @@ var f8: (x: number) => any = x => { // should be (x: number) => Base
 var f9: (x: number) => any = x => { // should be (x: number) => Base
 >f9 : (x: number) => any
 >x : number
+>类型别名 :=> 数字
 >x => { // should be (x: number) => Base    return new Base();    return new Derived();    return new Derived2();} : (x: number) => Base
 >x : number
+>类型别名 :=> 数字
 
     return new Base();
 >new Base() : Base
@@ -374,8 +448,10 @@ var f9: (x: number) => any = x => { // should be (x: number) => Base
 var f10: (x: number) => any = x => { // should be (x: number) => Derived | Derived1
 >f10 : (x: number) => any
 >x : number
+>类型别名 :=> 数字
 >x => { // should be (x: number) => Derived | Derived1    return new Derived();    return new Derived2();} : (x: number) => Derived | Derived2
 >x : number
+>类型别名 :=> 数字
 
     return new Derived();
 >new Derived() : Derived
@@ -388,8 +464,10 @@ var f10: (x: number) => any = x => { // should be (x: number) => Derived | Deriv
 var f11: (x: number) => any = x => { // should be (x: number) => Base | AnotherClass
 >f11 : (x: number) => any
 >x : number
+>类型别名 :=> 数字
 >x => { // should be (x: number) => Base | AnotherClass    return new Base();    return new AnotherClass();} : (x: number) => Base | AnotherClass
 >x : number
+>类型别名 :=> 数字
 
     return new Base();
 >new Base() : Base
@@ -402,8 +480,10 @@ var f11: (x: number) => any = x => { // should be (x: number) => Base | AnotherC
 var f12: (x: number) => any = x => { // should be (x: number) => Base | AnotherClass
 >f12 : (x: number) => any
 >x : number
+>类型别名 :=> 数字
 >x => { // should be (x: number) => Base | AnotherClass    return new Base();    return; // should be ignored    return new AnotherClass();} : (x: number) => Base | AnotherClass
 >x : number
+>类型别名 :=> 数字
 
     return new Base();
 >new Base() : Base

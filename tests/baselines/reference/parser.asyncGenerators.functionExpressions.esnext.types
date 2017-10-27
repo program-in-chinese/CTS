@@ -26,6 +26,7 @@ const f4 = async function * (await) {
 >f4 : () => any
 >async function * ( : () => any
 >await : any
+>类型别名 :=> 任意
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldParameterIsError.ts ===
@@ -33,6 +34,7 @@ const f5 = async function * (yield) {
 >f5 : () => any
 >async function * ( : () => any
 >yield : any
+>类型别名 :=> 任意
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitInParameterInitializerIsError.ts ===
@@ -40,6 +42,7 @@ const f6 = async function * (a = await 1) {
 >f6 : (a?: number) => AsyncIterableIterator<any>
 >async function * (a = await 1) {} : (a?: number) => AsyncIterableIterator<any>
 >a : number
+>类型别名 :=> 数字
 >await 1 : 1
 >1 : 1
 
@@ -49,7 +52,9 @@ const f7 = async function * (a = yield) {
 >f7 : (a?: any) => AsyncIterableIterator<any>
 >async function * (a = yield) {} : (a?: any) => AsyncIterableIterator<any>
 >a : any
+>类型别名 :=> 任意
 >yield : any
+>类型别名 :=> 任意
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedAsyncGeneratorIsOk.ts ===
@@ -69,6 +74,7 @@ const f9 = async function * () {
     function yield() {
 > : () => any
 >yield() {    } : any
+>类型别名 :=> 任意
 >() {    } : () => void
     }
 };
@@ -81,6 +87,7 @@ const f10 = async function * () {
 >x : () => any
 >function : () => any
 >yield() {    } : any
+>类型别名 :=> 任意
 >() {    } : () => void
 
     };
@@ -93,8 +100,11 @@ const f11 = async function * () {
     function await() {
 > : () => any
 >await() : any
+>类型别名 :=> 任意
 >() : any
+>类型别名 :=> 任意
 > : any
+>类型别名 :=> 任意
     }
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedFunctionExpressionNamedAwaitIsError.ts ===
@@ -106,8 +116,11 @@ const f12 = async function * () {
 >x : () => any
 >function : () => any
 >await() : any
+>类型别名 :=> 任意
 >() : any
+>类型别名 :=> 任意
 > : any
+>类型别名 :=> 任意
 
     };
 };
@@ -118,6 +131,7 @@ const f13 = async function * () {
 
     yield;
 >yield : any
+>类型别名 :=> 任意
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldWithValueIsOk.ts ===
@@ -127,6 +141,7 @@ const f14 = async function * () {
 
     yield 1;
 >yield 1 : any
+>类型别名 :=> 任意
 >1 : 1
 
 };
@@ -137,7 +152,9 @@ const f15 = async function * () {
 
     yield *;
 >yield * : any
+>类型别名 :=> 任意
 > : any
+>类型别名 :=> 任意
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldStarWithValueIsOk.ts ===
@@ -147,6 +164,7 @@ const f16 = async function * () {
 
     yield * [];
 >yield * [] : any
+>类型别名 :=> 任意
 >[] : undefined[]
 
 };
@@ -167,7 +185,9 @@ const f18 = async function * () {
 
     await;
 >await : any
+>类型别名 :=> 任意
 > : any
+>类型别名 :=> 任意
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitAsTypeIsOk.ts ===
@@ -205,6 +225,7 @@ const f21 = async function *() {
 >x : { [x: number]: number; }
 >{ [yield]: 1 } : { [x: number]: number; }
 >yield : any
+>类型别名 :=> 任意
 >1 : 1
 
 };

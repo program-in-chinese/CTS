@@ -2,27 +2,32 @@
 interface Animal { animal }
 >Animal : Animal
 >animal : any
+>类型别名 :=> 任意
 
 interface Dog extends Animal { dog }
 >Dog : Dog
 >Animal : Animal
 >dog : any
+>类型别名 :=> 任意
 
 interface Cat extends Animal { cat }
 >Cat : Cat
 >Animal : Animal
 >cat : any
+>类型别名 :=> 任意
 
 function foo1(bar: { a:number }[]): Dog;
 >foo1 : { (bar: { a: number; }[]): Dog; (bar: { a: string; }[]): Animal; }
 >bar : { a: number; }[]
 >a : number
+>类型别名 :=> 数字
 >Dog : Dog
 
 function foo1(bar: { a:string }[]): Animal;
 >foo1 : { (bar: { a: number; }[]): Dog; (bar: { a: string; }[]): Animal; }
 >bar : { a: string; }[]
 >a : string
+>类型别名 :=> 文字
 >Animal : Animal
 
 function foo1([x]: { a:number | string }[]): Dog {
@@ -33,18 +38,21 @@ function foo1([x]: { a:number | string }[]): Dog {
 
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 function foo2(bar: { a:number }[]): Cat;
 >foo2 : { (bar: { a: number; }[]): Cat; (bar: { a: string; }[]): Dog | Cat; }
 >bar : { a: number; }[]
 >a : number
+>类型别名 :=> 数字
 >Cat : Cat
 
 function foo2(bar: { a:string }[]): Cat | Dog;
 >foo2 : { (bar: { a: number; }[]): Cat; (bar: { a: string; }[]): Dog | Cat; }
 >bar : { a: string; }[]
 >a : string
+>类型别名 :=> 文字
 >Cat : Cat
 >Dog : Dog
 
@@ -56,6 +64,7 @@ function foo2([x]: { a:number | string }[]): Cat {
 
     return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
 }
 
 
@@ -66,6 +75,7 @@ var x1 = foo1([{a: "str"}]);
 >[{a: "str"}] : { a: string; }[]
 >{a: "str"} : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >"str" : "str"
 
 var y1 = foo1([{a: 100}]);
@@ -75,6 +85,7 @@ var y1 = foo1([{a: 100}]);
 >[{a: 100}] : { a: number; }[]
 >{a: 100} : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >100 : 100
 
 var x2 = foo2([{a: "str"}]);
@@ -84,6 +95,7 @@ var x2 = foo2([{a: "str"}]);
 >[{a: "str"}] : { a: string; }[]
 >{a: "str"} : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >"str" : "str"
 
 var y2 = foo2([{a: 100}]);
@@ -93,5 +105,6 @@ var y2 = foo2([{a: 100}]);
 >[{a: 100}] : { a: number; }[]
 >{a: 100} : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >100 : 100
 

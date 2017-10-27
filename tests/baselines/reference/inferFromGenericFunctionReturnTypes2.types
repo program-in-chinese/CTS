@@ -58,9 +58,13 @@ let f1: Mapper<string, number> = s => s.length;
 >Mapper : Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let f2: Mapper<string, number> = wrap(s => s.length);
 >f2 : Mapper<string, number>
@@ -69,9 +73,13 @@ let f2: Mapper<string, number> = wrap(s => s.length);
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let f3: Mapper<string, number[]> = arrayize(wrap(s => s.length));
 >f3 : Mapper<string, number[]>
@@ -82,9 +90,13 @@ let f3: Mapper<string, number[]> = arrayize(wrap(s => s.length));
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let f4: Mapper<string, boolean> = combine(wrap(s => s.length), wrap(n => n >= 10));
 >f4 : Mapper<string, boolean>
@@ -95,27 +107,39 @@ let f4: Mapper<string, boolean> = combine(wrap(s => s.length), wrap(n => n >= 10
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >wrap(n => n >= 10) : Mapper<number, boolean>
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >n => n >= 10 : (n: number) => boolean
 >n : number
+>类型别名 :=> 数字
 >n >= 10 : boolean
+>类型别名 :=> 真假
 >n : number
+>类型别名 :=> 数字
 >10 : 10
 
 foo(wrap(s => s.length));
 >foo(wrap(s => s.length)) : void
+>类型别名 :=> 无值
 >foo : (f: Mapper<string, number>) => void
 >wrap(s => s.length) : Mapper<string, number>
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let a1 = ["a", "b"].map(s => s.length);
 >a1 : number[]
@@ -127,9 +151,13 @@ let a1 = ["a", "b"].map(s => s.length);
 >map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let a2 = ["a", "b"].map(wrap(s => s.length));
 >a2 : number[]
@@ -143,9 +171,13 @@ let a2 = ["a", "b"].map(wrap(s => s.length));
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let a3 = ["a", "b"].map(wrap(arrayize(s => s.length)));
 >a3 : number[][]
@@ -161,9 +193,13 @@ let a3 = ["a", "b"].map(wrap(arrayize(s => s.length)));
 >arrayize : <T, U>(cb: Mapper<T, U>) => Mapper<T, U[]>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let a4 = ["a", "b"].map(combine(wrap(s => s.length), wrap(n => n > 10)));
 >a4 : boolean[]
@@ -179,15 +215,22 @@ let a4 = ["a", "b"].map(combine(wrap(s => s.length), wrap(n => n > 10)));
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >wrap(n => n > 10) : Mapper<number, boolean>
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >n => n > 10 : (n: number) => boolean
 >n : number
+>类型别名 :=> 数字
 >n > 10 : boolean
+>类型别名 :=> 真假
 >n : number
+>类型别名 :=> 数字
 >10 : 10
 
 let a5 = ["a", "b"].map(combine(identity, wrap(s => s.length)));
@@ -205,9 +248,13 @@ let a5 = ["a", "b"].map(combine(identity, wrap(s => s.length)));
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 let a6 = ["a", "b"].map(combine(wrap(s => s.length), identity));
 >a6 : number[]
@@ -223,9 +270,13 @@ let a6 = ["a", "b"].map(combine(wrap(s => s.length), identity));
 >wrap : <T, U>(cb: Mapper<T, U>) => Mapper<T, U>
 >s => s.length : (s: string) => number
 >s : string
+>类型别名 :=> 文字
 >s.length : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 >identity : <T>(x: T) => T
 
 // This is a contrived class. We could do the same thing with Observables, etc.
@@ -244,6 +295,7 @@ class SetOf<A> {
 
     this._store.push(a);
 >this._store.push(a) : number
+>类型别名 :=> 数字
 >this._store.push : (...items: A[]) => number
 >this._store : A[]
 >this : this
@@ -276,9 +328,11 @@ class SetOf<A> {
 >a : A
 >A : A
 >index : number
+>类型别名 :=> 数字
 
       this._store.forEach((a, i) => fn(a, i));
 >this._store.forEach((a, i) => fn(a, i)) : void
+>类型别名 :=> 无值
 >this._store.forEach : (callbackfn: (value: A, index: number, array: A[]) => void, thisArg?: any) => void
 >this._store : A[]
 >this : this
@@ -287,10 +341,13 @@ class SetOf<A> {
 >(a, i) => fn(a, i) : (a: A, i: number) => void
 >a : A
 >i : number
+>类型别名 :=> 数字
 >fn(a, i) : void
+>类型别名 :=> 无值
 >fn : (a: A, index: number) => void
 >a : A
 >i : number
+>类型别名 :=> 数字
   }
 }
 
@@ -399,12 +456,14 @@ function map<A, B>(fn: (a: A) => B): (s: SetOf<A>) => SetOf<B> {
 
     a.forEach(x => b.add(fn(x)));
 >a.forEach(x => b.add(fn(x))) : void
+>类型别名 :=> 无值
 >a.forEach : (fn: (a: A, index: number) => void) => void
 >a : SetOf<A>
 >forEach : (fn: (a: A, index: number) => void) => void
 >x => b.add(fn(x)) : (x: A) => void
 >x : A
 >b.add(fn(x)) : void
+>类型别名 :=> 无值
 >b.add : (a: B) => void
 >b : SetOf<B>
 >add : (a: B) => void
@@ -443,6 +502,7 @@ function filter<A>(predicate: (a: A) => boolean): (s: SetOf<A>) => SetOf<A> {
 
     a.forEach(x => {
 >a.forEach(x => {      if (predicate(x)) result.add(x);    }) : void
+>类型别名 :=> 无值
 >a.forEach : (fn: (a: A, index: number) => void) => void
 >a : SetOf<A>
 >forEach : (fn: (a: A, index: number) => void) => void
@@ -451,9 +511,11 @@ function filter<A>(predicate: (a: A) => boolean): (s: SetOf<A>) => SetOf<A> {
 
       if (predicate(x)) result.add(x);
 >predicate(x) : boolean
+>类型别名 :=> 真假
 >predicate : (a: A) => boolean
 >x : A
 >result.add(x) : void
+>类型别名 :=> 无值
 >result.add : (a: A) => void
 >result : SetOf<A>
 >add : (a: A) => void
@@ -472,6 +534,7 @@ const testSet = new SetOf<number>();
 
 testSet.add(1);
 >testSet.add(1) : void
+>类型别名 :=> 无值
 >testSet.add : (a: number) => void
 >testSet : SetOf<number>
 >add : (a: number) => void
@@ -479,6 +542,7 @@ testSet.add(1);
 
 testSet.add(2);
 >testSet.add(2) : void
+>类型别名 :=> 无值
 >testSet.add : (a: number) => void
 >testSet : SetOf<number>
 >add : (a: number) => void
@@ -486,6 +550,7 @@ testSet.add(2);
 
 testSet.add(3);
 >testSet.add(3) : void
+>类型别名 :=> 无值
 >testSet.add : (a: number) => void
 >testSet : SetOf<number>
 >add : (a: number) => void
@@ -507,9 +572,13 @@ const t1 = testSet.transform(
 >filter : <A>(predicate: (a: A) => boolean) => (s: SetOf<A>) => SetOf<A>
 >x => x % 1 === 0 : (x: number) => boolean
 >x : number
+>类型别名 :=> 数字
 >x % 1 === 0 : boolean
+>类型别名 :=> 真假
 >x % 1 : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >0 : 0
 
@@ -518,17 +587,24 @@ const t1 = testSet.transform(
 >map : <A, B>(fn: (a: A) => B) => (s: SetOf<A>) => SetOf<B>
 >x => x + x : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >x + x : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 
     map(x => x + '!!!'),
 >map(x => x + '!!!') : (s: SetOf<number>) => SetOf<string>
 >map : <A, B>(fn: (a: A) => B) => (s: SetOf<A>) => SetOf<B>
 >x => x + '!!!' : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x + '!!!' : string
+>类型别名 :=> 文字
 >x : number
+>类型别名 :=> 数字
 >'!!!' : "!!!"
 
     map(x => x.toUpperCase())
@@ -536,9 +612,12 @@ const t1 = testSet.transform(
 >map : <A, B>(fn: (a: A) => B) => (s: SetOf<A>) => SetOf<B>
 >x => x.toUpperCase() : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x.toUpperCase() : string
+>类型别名 :=> 文字
 >x.toUpperCase : () => string
 >x : string
+>类型别名 :=> 文字
 >toUpperCase : () => string
 
   )
@@ -567,9 +646,13 @@ const t2 = testSet.transform(
 >filter : <A>(predicate: (a: A) => boolean) => (s: SetOf<A>) => SetOf<A>
 >x => x % 1 === 0 : (x: number) => boolean
 >x : number
+>类型别名 :=> 数字
 >x % 1 === 0 : boolean
+>类型别名 :=> 真假
 >x % 1 : number
+>类型别名 :=> 数字
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >0 : 0
 
@@ -581,8 +664,11 @@ const t2 = testSet.transform(
 >map : <A, B>(fn: (a: A) => B) => (s: SetOf<A>) => SetOf<B>
 >x => x + '!!!' : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >x + '!!!' : string
+>类型别名 :=> 文字
 >x : number
+>类型别名 :=> 数字
 >'!!!' : "!!!"
 
     map(x => x.toUpperCase())
@@ -590,9 +676,12 @@ const t2 = testSet.transform(
 >map : <A, B>(fn: (a: A) => B) => (s: SetOf<A>) => SetOf<B>
 >x => x.toUpperCase() : (x: string) => string
 >x : string
+>类型别名 :=> 文字
 >x.toUpperCase() : string
+>类型别名 :=> 文字
 >x.toUpperCase : () => string
 >x : string
+>类型别名 :=> 文字
 >toUpperCase : () => string
 
   )

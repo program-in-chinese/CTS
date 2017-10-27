@@ -7,6 +7,7 @@ class C<T> {
 >foo : () => T
 >T : T
 >null : null
+>类型别名 :=> 空值
 }
 
 interface I<T> {
@@ -20,10 +21,12 @@ interface I<T> {
 
 var c1: C;
 >c1 : any
+>类型别名 :=> 任意
 >C : C<T>
 
 var i1: I;
 >i1 : any
+>类型别名 :=> 任意
 >I : I<T>
 
 var c2: C<I>;
@@ -39,8 +42,10 @@ var i2: I<C>;
 function foo(x: C, y: I) { }
 >foo : (x: any, y: any) => void
 >x : any
+>类型别名 :=> 任意
 >C : C<T>
 >y : any
+>类型别名 :=> 任意
 >I : I<T>
 
 function foo2(x: C<I>, y: I<C>) { }
@@ -55,6 +60,7 @@ function foo2(x: C<I>, y: I<C>) { }
 var x: { a: C } = { a: new C<number>() };
 >x : { a: any; }
 >a : any
+>类型别名 :=> 任意
 >C : C<T>
 >{ a: new C<number>() } : { a: C<number>; }
 >a : C<number>
@@ -64,6 +70,7 @@ var x: { a: C } = { a: new C<number>() };
 var x2: { a: I } = { a: { bar() { return 1 } } };
 >x2 : { a: any; }
 >a : any
+>类型别名 :=> 任意
 >I : I<T>
 >{ a: { bar() { return 1 } } } : { a: { bar(): number; }; }
 >a : { bar(): number; }
@@ -77,10 +84,12 @@ class D<T> {
 
     x: C;
 >x : any
+>类型别名 :=> 任意
 >C : C<T>
 
     y: D;
 >y : any
+>类型别名 :=> 任意
 >D : D<T>
 }
 
@@ -90,10 +99,12 @@ interface J<T> {
 
     x: I;
 >x : any
+>类型别名 :=> 任意
 >I : I<T>
 
     y: J;
 >y : any
+>类型别名 :=> 任意
 >J : J<T>
 }
 
@@ -110,4 +121,5 @@ function f<T>(x: T): A {
 
     return null;
 >null : null
+>类型别名 :=> 空值
 }

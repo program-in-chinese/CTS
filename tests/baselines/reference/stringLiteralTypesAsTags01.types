@@ -19,6 +19,7 @@ interface A extends Entity {
 
     a: number;
 >a : number
+>类型别名 :=> 数字
 }
 
 interface B extends Entity {
@@ -30,6 +31,7 @@ interface B extends Entity {
 
     b: string;
 >b : string
+>类型别名 :=> 文字
 }
 
 function hasKind(entity: Entity, kind: "A"): entity is A;
@@ -38,6 +40,7 @@ function hasKind(entity: Entity, kind: "A"): entity is A;
 >Entity : Entity
 >kind : "A"
 >entity : any
+>类型别名 :=> 任意
 >A : A
 
 function hasKind(entity: Entity, kind: "B"): entity is B;
@@ -46,6 +49,7 @@ function hasKind(entity: Entity, kind: "B"): entity is B;
 >Entity : Entity
 >kind : "B"
 >entity : any
+>类型别名 :=> 任意
 >B : B
 
 function hasKind(entity: Entity, kind: Kind): entity is Entity;
@@ -55,6 +59,7 @@ function hasKind(entity: Entity, kind: Kind): entity is Entity;
 >kind : Kind
 >Kind : Kind
 >entity : any
+>类型别名 :=> 任意
 >Entity : Entity
 
 function hasKind(entity: Entity, kind: Kind): boolean {
@@ -66,6 +71,7 @@ function hasKind(entity: Entity, kind: Kind): boolean {
 
     return entity.kind === kind;
 >entity.kind === kind : boolean
+>类型别名 :=> 真假
 >entity.kind : Kind
 >entity : Entity
 >kind : Kind
@@ -79,15 +85,18 @@ let x: A = {
 
     kind: "A",
 >kind : string
+>类型别名 :=> 文字
 >"A" : "A"
 
     a: 100,
 >a : number
+>类型别名 :=> 数字
 >100 : 100
 }
 
 if (hasKind(x, "A")) {
 >hasKind(x, "A") : boolean
+>类型别名 :=> 真假
 >hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; (entity: Entity, kind: Kind): entity is Entity; }
 >x : A
 >"A" : "A"
@@ -99,12 +108,16 @@ if (hasKind(x, "A")) {
 else {
     let b = x;
 >b : never
+>类型别名 :=> 不及
 >x : never
+>类型别名 :=> 不及
 }
 
 if (!hasKind(x, "B")) {
 >!hasKind(x, "B") : boolean
+>类型别名 :=> 真假
 >hasKind(x, "B") : boolean
+>类型别名 :=> 真假
 >hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; (entity: Entity, kind: Kind): entity is Entity; }
 >x : A
 >"B" : "B"

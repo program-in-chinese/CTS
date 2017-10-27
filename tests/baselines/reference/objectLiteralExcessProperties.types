@@ -4,6 +4,7 @@ interface Book {
 
     foreword: string;
 >foreword : string
+>类型别名 :=> 文字
 }
 
 interface Cover {
@@ -11,6 +12,7 @@ interface Cover {
 
     color?: string;
 >color : string
+>类型别名 :=> 文字
 }
 
 var b1: Book = { forword: "oops" };
@@ -18,6 +20,7 @@ var b1: Book = { forword: "oops" };
 >Book : Book
 >{ forword: "oops" } : { forword: string; }
 >forword : string
+>类型别名 :=> 文字
 >"oops" : "oops"
 
 var b2: Book | string = { foreward: "nope" };
@@ -25,6 +28,7 @@ var b2: Book | string = { foreward: "nope" };
 >Book : Book
 >{ foreward: "nope" } : { foreward: string; }
 >foreward : string
+>类型别名 :=> 文字
 >"nope" : "nope"
 
 var b3: Book | (Book[]) = [{ foreword: "hello" }, { forwards: "back" }];
@@ -34,9 +38,11 @@ var b3: Book | (Book[]) = [{ foreword: "hello" }, { forwards: "back" }];
 >[{ foreword: "hello" }, { forwards: "back" }] : ({ foreword: string; } | { forwards: string; })[]
 >{ foreword: "hello" } : { foreword: string; }
 >foreword : string
+>类型别名 :=> 文字
 >"hello" : "hello"
 >{ forwards: "back" } : { forwards: string; }
 >forwards : string
+>类型别名 :=> 文字
 >"back" : "back"
 
 var b4: Book & Cover = { foreword: "hi", colour: "blue" };
@@ -45,8 +51,10 @@ var b4: Book & Cover = { foreword: "hi", colour: "blue" };
 >Cover : Cover
 >{ foreword: "hi", colour: "blue" } : { foreword: string; colour: string; }
 >foreword : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 >colour : string
+>类型别名 :=> 文字
 >"blue" : "blue"
 
 var b5: Book & Cover = { foreward: "hi", color: "blue" };
@@ -55,8 +63,10 @@ var b5: Book & Cover = { foreward: "hi", color: "blue" };
 >Cover : Cover
 >{ foreward: "hi", color: "blue" } : { foreward: string; color: string; }
 >foreward : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 >color : string
+>类型别名 :=> 文字
 >"blue" : "blue"
 
 var b6: Book & Cover = { foreword: "hi", color: "blue", price: 10.99 };
@@ -65,10 +75,13 @@ var b6: Book & Cover = { foreword: "hi", color: "blue", price: 10.99 };
 >Cover : Cover
 >{ foreword: "hi", color: "blue", price: 10.99 } : { foreword: string; color: string; price: number; }
 >foreword : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 >color : string
+>类型别名 :=> 文字
 >"blue" : "blue"
 >price : number
+>类型别名 :=> 数字
 >10.99 : 10.99
 
 var b7: Book & number = { foreword: "hi", price: 10.99 };
@@ -76,8 +89,10 @@ var b7: Book & number = { foreword: "hi", price: 10.99 };
 >Book : Book
 >{ foreword: "hi", price: 10.99 } : { foreword: string; price: number; }
 >foreword : string
+>类型别名 :=> 文字
 >"hi" : "hi"
 >price : number
+>类型别名 :=> 数字
 >10.99 : 10.99
 
 var b8: Cover | Cover[] = { couleur : "non" };
@@ -86,6 +101,7 @@ var b8: Cover | Cover[] = { couleur : "non" };
 >Cover : Cover
 >{ couleur : "non" } : { couleur: string; }
 >couleur : string
+>类型别名 :=> 文字
 >"non" : "non"
 
 var b9: Book | Book[] = { forewarned: "still no" };
@@ -94,6 +110,7 @@ var b9: Book | Book[] = { forewarned: "still no" };
 >Book : Book
 >{ forewarned: "still no" } : { forewarned: string; }
 >forewarned : string
+>类型别名 :=> 文字
 >"still no" : "still no"
 
 interface Indexed {
@@ -101,6 +118,7 @@ interface Indexed {
 
     [n: number]: Cover;
 >n : number
+>类型别名 :=> 数字
 >Cover : Cover
 }
 
@@ -117,5 +135,6 @@ var b11: Indexed = { 0: { colour: "blue" } }; // nested object literal still err
 >{ 0: { colour: "blue" } } : { 0: { colour: string; }; }
 >{ colour: "blue" } : { colour: string; }
 >colour : string
+>类型别名 :=> 文字
 >"blue" : "blue"
 

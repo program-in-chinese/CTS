@@ -3,12 +3,14 @@
 
 module M {
 >M : any
+>类型别名 :=> 任意
 
     export interface A {
 >A : A
 
         foo: string;
 >foo : string
+>类型别名 :=> 文字
     }
 
     export interface B<T> {
@@ -29,6 +31,7 @@ module M2 {
 
         bar: number;
 >bar : number
+>类型别名 :=> 数字
     }
 
     var a: A;
@@ -37,15 +40,21 @@ module M2 {
 
     var r1 = a.foo; // error
 >r1 : any
+>类型别名 :=> 任意
 >a.foo : any
+>类型别名 :=> 任意
 >a : A
 >foo : any
+>类型别名 :=> 任意
 
     var r2 = a.bar; 
 >r2 : number
+>类型别名 :=> 数字
 >a.bar : number
+>类型别名 :=> 数字
 >a : A
 >bar : number
+>类型别名 :=> 数字
 
     export interface B<T> {
 >B : B<T>
@@ -62,13 +71,19 @@ module M2 {
 
     var r3 = b.foo; // error
 >r3 : any
+>类型别名 :=> 任意
 >b.foo : any
+>类型别名 :=> 任意
 >b : B<string>
 >foo : any
+>类型别名 :=> 任意
 
     var r4 = b.bar; 
 >r4 : string
+>类型别名 :=> 文字
 >b.bar : string
+>类型别名 :=> 文字
 >b : B<string>
 >bar : string
+>类型别名 :=> 文字
 }

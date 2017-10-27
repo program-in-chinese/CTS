@@ -7,6 +7,7 @@ module NonGeneric {
 
         foo: string;
 >foo : string
+>类型别名 :=> 文字
     }
 
     class D extends C {
@@ -15,6 +16,7 @@ module NonGeneric {
 
         bar: string;
 >bar : string
+>类型别名 :=> 文字
     }
 
     var r = C.prototype;
@@ -25,8 +27,10 @@ module NonGeneric {
 
     r.foo;
 >r.foo : string
+>类型别名 :=> 文字
 >r : C
 >foo : string
+>类型别名 :=> 文字
 
     var r2 = D.prototype;
 >r2 : D
@@ -36,8 +40,10 @@ module NonGeneric {
 
     r2.bar;
 >r2.bar : string
+>类型别名 :=> 文字
 >r2 : D
 >bar : string
+>类型别名 :=> 文字
 }
 
 module Generic {
@@ -82,9 +88,12 @@ module Generic {
 
     var ra = r.foo; // any
 >ra : any
+>类型别名 :=> 任意
 >r.foo : any
+>类型别名 :=> 任意
 >r : C<any, any>
 >foo : any
+>类型别名 :=> 任意
 
     var r2 = D.prototype; // D<any, any>
 >r2 : D<any, any>
@@ -94,7 +103,10 @@ module Generic {
 
     var rb = r2.baz; // any
 >rb : any
+>类型别名 :=> 任意
 >r2.baz : any
+>类型别名 :=> 任意
 >r2 : D<any, any>
 >baz : any
+>类型别名 :=> 任意
 }

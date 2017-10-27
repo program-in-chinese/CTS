@@ -7,24 +7,32 @@ export function foo() {
 export function fooWithParameters(/** this is comment about a*/a: string,
 >fooWithParameters : (a: string, b: number) => void
 >a : string
+>类型别名 :=> 文字
 
     /** this is comment for b*/
     b: number) {
 >b : number
+>类型别名 :=> 数字
 
     var d = a;
 >d : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 }
 export function fooWithRestParameters(a: string, ...rests: string[]) {
 >fooWithRestParameters : (a: string, ...rests: string[]) => string
 >a : string
+>类型别名 :=> 文字
 >rests : string[]
 
     return a + rests.join("");
 >a + rests.join("") : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 >rests.join("") : string
+>类型别名 :=> 文字
 >rests.join : (separator?: string) => string
 >rests : string[]
 >join : (separator?: string) => string
@@ -34,67 +42,88 @@ export function fooWithRestParameters(a: string, ...rests: string[]) {
 export function fooWithOverloads(a: string): string;
 >fooWithOverloads : { (a: string): string; (a: number): number; }
 >a : string
+>类型别名 :=> 文字
 
 export function fooWithOverloads(a: number): number;
 >fooWithOverloads : { (a: string): string; (a: number): number; }
 >a : number
+>类型别名 :=> 数字
 
 export function fooWithOverloads(a: any): any {
 >fooWithOverloads : { (a: string): string; (a: number): number; }
 >a : any
+>类型别名 :=> 任意
 
     return a;
 >a : any
+>类型别名 :=> 任意
 }
 
 export function fooWithSingleOverload(a: string): string;
 >fooWithSingleOverload : (a: string) => string
 >a : string
+>类型别名 :=> 文字
 
 export function fooWithSingleOverload(a: any) {
 >fooWithSingleOverload : (a: string) => string
 >a : any
+>类型别名 :=> 任意
 
     return a;
 >a : any
+>类型别名 :=> 任意
 }
 
 export function fooWithTypePredicate(a: any): a is number {
 >fooWithTypePredicate : (a: any) => a is number
 >a : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 export function fooWithTypePredicateAndMulitpleParams(a: any, b: any, c: any): a is number {
 >fooWithTypePredicateAndMulitpleParams : (a: any, b: any, c: any) => a is number
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 export function fooWithTypeTypePredicateAndGeneric<T>(a: any): a is T {
 >fooWithTypeTypePredicateAndGeneric : <T>(a: any) => a is T
 >T : T
 >a : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >T : T
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 export function fooWithTypeTypePredicateAndRestParam(a: any, ...rest): a is number {
 >fooWithTypeTypePredicateAndRestParam : (a: any, ...rest: any[]) => a is number
 >a : any
+>类型别名 :=> 任意
 >rest : any[]
 >a : any
+>类型别名 :=> 任意
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 /** This comment should appear for nonExportedFoo*/
@@ -105,24 +134,32 @@ function nonExportedFoo() {
 function nonExportedFooWithParameters(/** this is comment about a*/a: string,
 >nonExportedFooWithParameters : (a: string, b: number) => void
 >a : string
+>类型别名 :=> 文字
 
     /** this is comment for b*/
     b: number) {
 >b : number
+>类型别名 :=> 数字
 
     var d = a;
 >d : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 }
 function nonExportedFooWithRestParameters(a: string, ...rests: string[]) {
 >nonExportedFooWithRestParameters : (a: string, ...rests: string[]) => string
 >a : string
+>类型别名 :=> 文字
 >rests : string[]
 
     return a + rests.join("");
 >a + rests.join("") : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 >rests.join("") : string
+>类型别名 :=> 文字
 >rests.join : (separator?: string) => string
 >rests : string[]
 >join : (separator?: string) => string
@@ -132,17 +169,21 @@ function nonExportedFooWithRestParameters(a: string, ...rests: string[]) {
 function nonExportedFooWithOverloads(a: string): string;
 >nonExportedFooWithOverloads : { (a: string): string; (a: number): number; }
 >a : string
+>类型别名 :=> 文字
 
 function nonExportedFooWithOverloads(a: number): number;
 >nonExportedFooWithOverloads : { (a: string): string; (a: number): number; }
 >a : number
+>类型别名 :=> 数字
 
 function nonExportedFooWithOverloads(a: any): any {
 >nonExportedFooWithOverloads : { (a: string): string; (a: number): number; }
 >a : any
+>类型别名 :=> 任意
 
     return a;
 >a : any
+>类型别名 :=> 任意
 }
 
 === tests/cases/compiler/declFileFunctions_1.ts ===
@@ -154,24 +195,32 @@ function globalfoo() {
 function globalfooWithParameters(/** this is comment about a*/a: string,
 >globalfooWithParameters : (a: string, b: number) => void
 >a : string
+>类型别名 :=> 文字
 
     /** this is comment for b*/
     b: number) {
 >b : number
+>类型别名 :=> 数字
 
     var d = a;
 >d : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 }
 function globalfooWithRestParameters(a: string, ...rests: string[]) {
 >globalfooWithRestParameters : (a: string, ...rests: string[]) => string
 >a : string
+>类型别名 :=> 文字
 >rests : string[]
 
     return a + rests.join("");
 >a + rests.join("") : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 >rests.join("") : string
+>类型别名 :=> 文字
 >rests.join : (separator?: string) => string
 >rests : string[]
 >join : (separator?: string) => string
@@ -180,15 +229,19 @@ function globalfooWithRestParameters(a: string, ...rests: string[]) {
 function globalfooWithOverloads(a: string): string;
 >globalfooWithOverloads : { (a: string): string; (a: number): number; }
 >a : string
+>类型别名 :=> 文字
 
 function globalfooWithOverloads(a: number): number;
 >globalfooWithOverloads : { (a: string): string; (a: number): number; }
 >a : number
+>类型别名 :=> 数字
 
 function globalfooWithOverloads(a: any): any {
 >globalfooWithOverloads : { (a: string): string; (a: number): number; }
 >a : any
+>类型别名 :=> 任意
 
     return a;
 >a : any
+>类型别名 :=> 任意
 }

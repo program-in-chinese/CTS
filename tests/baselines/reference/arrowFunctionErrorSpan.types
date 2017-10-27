@@ -6,12 +6,14 @@ function f(a: () => number) { }
 // oneliner
 f(() => { });
 >f(() => { }) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 >() => { } : () => void
 
 // multiline, body
 f(() => {
 >f(() => {}) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 >() => {} : () => void
 
@@ -20,6 +22,7 @@ f(() => {
 // multiline 2, body
 f(() => {
 >f(() => {}) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 >() => {} : () => void
 
@@ -28,6 +31,7 @@ f(() => {
 // multiline 3, arrow on a new line
 f(()
 >f(()    => { }) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 >()    => { } : () => void
 
@@ -36,22 +40,28 @@ f(()
 // multiline 4, arguments
 f((a,
 >f((a,    b,    c,    d) => { }) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 >(a,    b,    c,    d) => { } : (a: any, b: any, c: any, d: any) => void
 >a : any
+>类型别名 :=> 任意
 
     b,
 >b : any
+>类型别名 :=> 任意
 
     c,
 >c : any
+>类型别名 :=> 任意
 
     d) => { });
 >d : any
+>类型别名 :=> 任意
 
 // single line with a comment
 f(/*
 >f(/*    */() => { }) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 
     */() => { });
@@ -60,6 +70,7 @@ f(/*
 // multi line with a comment
 f(/*
 >f(/*    */() => { }) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 
     */() => { });
@@ -68,6 +79,7 @@ f(/*
 // multi line with a comment 2
 f(/*
 >f(/*    */() => {     }) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 
     */() => { 
@@ -78,6 +90,7 @@ f(/*
 // multi line with a comment 3
 f(  // comment 1
 >f(  // comment 1    // comment 2    () =>    // comment 3    {        // comment 4    }    // comment 5) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 
     // comment 2
@@ -94,10 +107,13 @@ f(  // comment 1
 // body is not a block
 f(_ => 1 +
 >f(_ => 1 +    2) : void
+>类型别名 :=> 无值
 >f : (a: () => number) => void
 >_ => 1 +    2 : (_: any) => number
 >_ : any
+>类型别名 :=> 任意
 >1 +    2 : number
+>类型别名 :=> 数字
 >1 : 1
 
     2);

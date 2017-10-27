@@ -1,17 +1,22 @@
 === tests/cases/compiler/unknownSymbols1.ts ===
 var x = asdf;
 >x : any
+>类型别名 :=> 任意
 >asdf : any
+>类型别名 :=> 任意
 
 var y: asdf;
 >y : any
+>类型别名 :=> 任意
 >asdf : No type information available!
 
 function foo(x: asdf, y: number): asdf { }
 >foo : (x: any, y: number) => any
 >x : any
+>类型别名 :=> 任意
 >asdf : No type information available!
 >y : number
+>类型别名 :=> 数字
 >asdf : No type information available!
 
 function foo2() {
@@ -19,13 +24,17 @@ function foo2() {
 
     return asdf;
 >asdf : any
+>类型别名 :=> 任意
 }
 
 var z = <asdf>x; // should be an error
 >z : any
+>类型别名 :=> 任意
 ><asdf>x : any
+>类型别名 :=> 任意
 >asdf : No type information available!
 >x : any
+>类型别名 :=> 任意
 
 class C<T> {
 >C : C<T>
@@ -33,6 +42,7 @@ class C<T> {
 
     foo: asdf;
 >foo : any
+>类型别名 :=> 任意
 >asdf : No type information available!
 
     bar: C<asdf>;
@@ -52,6 +62,7 @@ interface I extends adsf { }
 class C3 { constructor(x: any) { } }
 >C3 : C3
 >x : any
+>类型别名 :=> 任意
 
 class C4 extends C3 {
 >C4 : C4
@@ -60,16 +71,22 @@ class C4 extends C3 {
     constructor() {
         super(asdf);
 >super(asdf) : void
+>类型别名 :=> 无值
 >super : typeof C3
 >asdf : any
+>类型别名 :=> 任意
     }
 }
 
 var x2 = this.asdf; // no error, this is any
 >x2 : any
+>类型别名 :=> 任意
 >this.asdf : any
+>类型别名 :=> 任意
 >this : any
+>类型别名 :=> 任意
 >asdf : any
+>类型别名 :=> 任意
 
 class C5 {
 >C5 : C5
@@ -77,9 +94,13 @@ class C5 {
     constructor() {
         this.asdf = asdf;
 >this.asdf = asdf : any
+>类型别名 :=> 任意
 >this.asdf : any
+>类型别名 :=> 任意
 >this : this
 >asdf : any
+>类型别名 :=> 任意
 >asdf : any
+>类型别名 :=> 任意
     }
 }

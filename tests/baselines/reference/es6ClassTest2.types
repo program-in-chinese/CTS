@@ -4,20 +4,25 @@ class BasicMonster {
 
     constructor(public name: string, public health: number) {
 >name : string
+>类型别名 :=> 文字
 >health : number
+>类型别名 :=> 数字
 
     }
 
     attack(target) {
 >attack : (target: any) => void
 >target : any
+>类型别名 :=> 任意
 
       // WScript.Echo("Attacks " + target);
     }
 
     isAlive = true;
 >isAlive : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 }
 
 var m1 = new BasicMonster("1", 100);
@@ -36,6 +41,7 @@ var m2 = new BasicMonster("2", 100);
 
 m1.attack(m2);
 >m1.attack(m2) : void
+>类型别名 :=> 无值
 >m1.attack : (target: any) => void
 >m1 : BasicMonster
 >attack : (target: any) => void
@@ -44,36 +50,52 @@ m1.attack(m2);
 m1.health = 0;
 >m1.health = 0 : 0
 >m1.health : number
+>类型别名 :=> 数字
 >m1 : BasicMonster
 >health : number
+>类型别名 :=> 数字
 >0 : 0
 
 console.log((<any>m5.isAlive).toString());
 >console.log((<any>m5.isAlive).toString()) : any
+>类型别名 :=> 任意
 >console.log : any
+>类型别名 :=> 任意
 >console : any
+>类型别名 :=> 任意
 >log : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive).toString() : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive).toString : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive) : any
+>类型别名 :=> 任意
 ><any>m5.isAlive : any
+>类型别名 :=> 任意
 >m5.isAlive : boolean
+>类型别名 :=> 真假
 >m5 : OverloadedMonster
 >isAlive : boolean
+>类型别名 :=> 真假
 >toString : any
+>类型别名 :=> 任意
 
 class GetSetMonster {
 >GetSetMonster : GetSetMonster
 
     constructor(public name: string, private _health: number) {
 >name : string
+>类型别名 :=> 文字
 >_health : number
+>类型别名 :=> 数字
 
     }
 
     attack(target) {
 >attack : (target: any) => void
 >target : any
+>类型别名 :=> 任意
 
       // WScript.Echo("Attacks " + target);
     }
@@ -82,23 +104,31 @@ class GetSetMonster {
   // defines one in an object literal.
     get isAlive() {
 >isAlive : boolean
+>类型别名 :=> 真假
 
         return this._health > 0;
 >this._health > 0 : boolean
+>类型别名 :=> 真假
 >this._health : number
+>类型别名 :=> 数字
 >this : this
 >_health : number
+>类型别名 :=> 数字
 >0 : 0
     }
 
   // Likewise, "set" can be used to define setters.
     set health(value: number) {
 >health : number
+>类型别名 :=> 数字
 >value : number
+>类型别名 :=> 数字
 
         if (value < 0) {
 >value < 0 : boolean
+>类型别名 :=> 真假
 >value : number
+>类型别名 :=> 数字
 >0 : 0
 
             throw new Error('Health must be non-negative.')
@@ -108,10 +138,14 @@ class GetSetMonster {
     }
         this._health = value
 >this._health = value : number
+>类型别名 :=> 数字
 >this._health : number
+>类型别名 :=> 数字
 >this : this
 >_health : number
+>类型别名 :=> 数字
 >value : number
+>类型别名 :=> 数字
   }
 }
 
@@ -131,6 +165,7 @@ var m4 = new BasicMonster("2", 100);
 
 m3.attack(m4);
 >m3.attack(m4) : void
+>类型别名 :=> 无值
 >m3.attack : (target: any) => void
 >m3 : BasicMonster
 >attack : (target: any) => void
@@ -139,30 +174,43 @@ m3.attack(m4);
 m3.health = 0;
 >m3.health = 0 : 0
 >m3.health : number
+>类型别名 :=> 数字
 >m3 : BasicMonster
 >health : number
+>类型别名 :=> 数字
 >0 : 0
 
 var x = (<any>m5.isAlive).toString()
 >x : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive).toString() : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive).toString : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive) : any
+>类型别名 :=> 任意
 ><any>m5.isAlive : any
+>类型别名 :=> 任意
 >m5.isAlive : boolean
+>类型别名 :=> 真假
 >m5 : OverloadedMonster
 >isAlive : boolean
+>类型别名 :=> 真假
 >toString : any
+>类型别名 :=> 任意
 
 class OverloadedMonster {
 >OverloadedMonster : OverloadedMonster
 
     constructor(name: string);
 >name : string
+>类型别名 :=> 文字
 
     constructor(public name: string, public health?: number) {
 >name : string
+>类型别名 :=> 文字
 >health : number
+>类型别名 :=> 数字
 
     }
 
@@ -172,17 +220,21 @@ class OverloadedMonster {
     attack(a: any);
 >attack : { (): any; (a: any): any; }
 >a : any
+>类型别名 :=> 任意
 
     attack(target?) {
 >attack : { (): any; (a: any): any; }
 >target : any
+>类型别名 :=> 任意
 
         //WScript.Echo("Attacks " + target);
     }
 
     isAlive = true;
 >isAlive : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 }
 
 var m5 = new OverloadedMonster("1");
@@ -199,6 +251,7 @@ var m6 = new OverloadedMonster("2");
 
 m5.attack(m6);
 >m5.attack(m6) : any
+>类型别名 :=> 任意
 >m5.attack : { (): any; (a: any): any; }
 >m5 : OverloadedMonster
 >attack : { (): any; (a: any): any; }
@@ -207,20 +260,30 @@ m5.attack(m6);
 m5.health = 0;
 >m5.health = 0 : 0
 >m5.health : number
+>类型别名 :=> 数字
 >m5 : OverloadedMonster
 >health : number
+>类型别名 :=> 数字
 >0 : 0
 
 var y = (<any>m5.isAlive).toString()
 >y : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive).toString() : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive).toString : any
+>类型别名 :=> 任意
 >(<any>m5.isAlive) : any
+>类型别名 :=> 任意
 ><any>m5.isAlive : any
+>类型别名 :=> 任意
 >m5.isAlive : boolean
+>类型别名 :=> 真假
 >m5 : OverloadedMonster
 >isAlive : boolean
+>类型别名 :=> 真假
 >toString : any
+>类型别名 :=> 任意
 
 class SplatMonster {
 >SplatMonster : SplatMonster
@@ -231,6 +294,7 @@ class SplatMonster {
     roar(name: string, ...args: number[]) { }
 >roar : (name: string, ...args: number[]) => void
 >name : string
+>类型别名 :=> 文字
 >args : number[]
 }
 
@@ -238,20 +302,25 @@ class SplatMonster {
 function foo() { return true; }
 >foo : () => boolean
 >true : true
+>类型别名 :=> 为真
 
 class PrototypeMonster {
 >PrototypeMonster : PrototypeMonster
 
     age: number = 1;
 >age : number
+>类型别名 :=> 数字
 >1 : 1
 
     name: string;
 >name : string
+>类型别名 :=> 文字
 
     b = foo();
 >b : boolean
+>类型别名 :=> 真假
 >foo() : boolean
+>类型别名 :=> 真假
 >foo : () => boolean
 }
 
@@ -260,12 +329,14 @@ class SuperParent {
 
     constructor(a: number) {
 >a : number
+>类型别名 :=> 数字
 
     }
 
     b(b: string) {
 >b : (b: string) => void
 >b : string
+>类型别名 :=> 文字
 
     }
 
@@ -282,6 +353,7 @@ class SuperChild extends SuperParent {
     constructor() {
         super(1);
 >super(1) : void
+>类型别名 :=> 无值
 >super : typeof SuperParent
 >1 : 1
     }
@@ -291,6 +363,7 @@ class SuperChild extends SuperParent {
 
         super.b('str');
 >super.b('str') : void
+>类型别名 :=> 无值
 >super.b : (b: string) => void
 >super : SuperParent
 >b : (b: string) => void
@@ -302,6 +375,7 @@ class SuperChild extends SuperParent {
 
         super.c();
 >super.c() : void
+>类型别名 :=> 无值
 >super.c : () => void
 >super : SuperParent
 >c : () => void
@@ -313,10 +387,12 @@ class Statics {
 
     static foo = 1;
 >foo : number
+>类型别名 :=> 数字
 >1 : 1
 
     static bar: string;
 >bar : string
+>类型别名 :=> 文字
 
     static baz() {
 >baz : () => string
@@ -336,9 +412,11 @@ interface IFoo {
 
     x: number;
 >x : number
+>类型别名 :=> 数字
 
     z: string;
 >z : string
+>类型别名 :=> 文字
 }
 
 class ImplementsInterface implements IFoo {
@@ -347,23 +425,29 @@ class ImplementsInterface implements IFoo {
 
     public x: number;
 >x : number
+>类型别名 :=> 数字
 
     public z: string;
 >z : string
+>类型别名 :=> 文字
 
     constructor() {
         this.x = 1;
 >this.x = 1 : 1
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
         this.z = "foo";
 >this.z = "foo" : "foo"
 >this.z : string
+>类型别名 :=> 文字
 >this : this
 >z : string
+>类型别名 :=> 文字
 >"foo" : "foo"
     }
 }
@@ -379,26 +463,33 @@ class Visibility {
 
     private x: number;
 >x : number
+>类型别名 :=> 数字
 
     public y: number;
 >y : number
+>类型别名 :=> 数字
 
     public z: number;
 >z : number
+>类型别名 :=> 数字
 
     constructor() {
         this.x = 1;
 >this.x = 1 : 1
 >this.x : number
+>类型别名 :=> 数字
 >this : this
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
         this.y = 2;
 >this.y = 2 : 2
 >this.y : number
+>类型别名 :=> 数字
 >this : this
 >y : number
+>类型别名 :=> 数字
 >2 : 2
     }
 }
@@ -408,7 +499,9 @@ class BaseClassWithConstructor {
 
     constructor(public x: number, public s: string) { }
 >x : number
+>类型别名 :=> 数字
 >s : string
+>类型别名 :=> 文字
 }
 
 // used to test codegen

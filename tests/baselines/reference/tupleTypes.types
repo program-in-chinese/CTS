@@ -16,21 +16,27 @@ var t: [number, string];
 
 var t0 = t[0];   // number
 >t0 : number
+>类型别名 :=> 数字
 >t[0] : number
+>类型别名 :=> 数字
 >t : [number, string]
 >0 : 0
 
 var t0: number;
 >t0 : number
+>类型别名 :=> 数字
 
 var t1 = t[1];   // string
 >t1 : string
+>类型别名 :=> 文字
 >t[1] : string
+>类型别名 :=> 文字
 >t : [number, string]
 >1 : 1
 
 var t1: string;
 >t1 : string
+>类型别名 :=> 文字
 
 var t2 = t[2];   // number|string
 >t2 : string | number
@@ -77,13 +83,18 @@ t = [1, "hello", 2];  // Ok
 var tf: [string, (x: string) => number] = ["hello", x => x.length];
 >tf : [string, (x: string) => number]
 >x : string
+>类型别名 :=> 文字
 >["hello", x => x.length] : [string, (x: string) => number]
 >"hello" : "hello"
 >x => x.length : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 declare function ff<T, U>(a: T, b: [T, (x: T) => U]): U;
 >ff : <T, U>(a: T, b: [T, (x: T) => U]) => U
@@ -100,19 +111,26 @@ declare function ff<T, U>(a: T, b: [T, (x: T) => U]): U;
 
 var ff1 = ff("hello", ["foo", x => x.length]);
 >ff1 : number
+>类型别名 :=> 数字
 >ff("hello", ["foo", x => x.length]) : number
+>类型别名 :=> 数字
 >ff : <T, U>(a: T, b: [T, (x: T) => U]) => U
 >"hello" : "hello"
 >["foo", x => x.length] : [string, (x: string) => number]
 >"foo" : "foo"
 >x => x.length : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >x.length : number
+>类型别名 :=> 数字
 >x : string
+>类型别名 :=> 文字
 >length : number
+>类型别名 :=> 数字
 
 var ff1: number;
 >ff1 : number
+>类型别名 :=> 数字
 
 function tuple2<T0, T1>(item0: T0, item1: T1): [T0, T1]{
 >tuple2 : <T0, T1>(item0: T0, item1: T1) => [T0, T1]
@@ -140,21 +158,27 @@ var tt = tuple2(1, "string");
 
 var tt0 = tt[0];
 >tt0 : number
+>类型别名 :=> 数字
 >tt[0] : number
+>类型别名 :=> 数字
 >tt : [number, string]
 >0 : 0
 
 var tt0: number;
 >tt0 : number
+>类型别名 :=> 数字
 
 var tt1 = tt[1];
 >tt1 : string
+>类型别名 :=> 文字
 >tt[1] : string
+>类型别名 :=> 文字
 >tt : [number, string]
 >1 : 1
 
 var tt1: string;
 >tt1 : string
+>类型别名 :=> 文字
 
 var tt2 = tt[2]; 
 >tt2 : string | number
@@ -172,6 +196,7 @@ tt = tuple2(1, undefined);
 >tuple2 : <T0, T1>(item0: T0, item1: T1) => [T0, T1]
 >1 : 1
 >undefined : undefined
+>类型别名 :=> 未定
 
 tt = [1, undefined];
 >tt = [1, undefined] : [number, undefined]
@@ -179,13 +204,16 @@ tt = [1, undefined];
 >[1, undefined] : [number, undefined]
 >1 : 1
 >undefined : undefined
+>类型别名 :=> 未定
 
 tt = [undefined, undefined];
 >tt = [undefined, undefined] : [undefined, undefined]
 >tt : [number, string]
 >[undefined, undefined] : [undefined, undefined]
 >undefined : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
 tt = [];  // Error
 >tt = [] : undefined[]

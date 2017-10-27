@@ -4,33 +4,43 @@ var e1 = { a: 0, a: 0 };
 >e1 : { a: number; }
 >{ a: 0, a: 0 } : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 var e2 = { a: '', a: '' };
 >e2 : { a: string; }
 >{ a: '', a: '' } : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >'' : ""
 >a : string
+>类型别名 :=> 文字
 >'' : ""
 
 var e3 = { a: 0, a: '' };
 >e3 : { a: string; }
 >{ a: 0, a: '' } : { a: string; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >a : number
+>类型别名 :=> 数字
 >'' : ""
 
 var e4 = { a: true, a: false };
 >e4 : { a: boolean; }
 >{ a: true, a: false } : { a: boolean; }
 >a : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >a : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
 var e5 = { a: {}, a: {} };
 >e5 : { a: {}; }
@@ -44,6 +54,7 @@ var e6 = { a: 0, 'a': 0 };
 >e6 : { a: number; }
 >{ a: 0, 'a': 0 } : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >0 : 0
 
@@ -52,6 +63,7 @@ var e7 = { 'a': 0, a: 0 };
 >{ 'a': 0, a: 0 } : { 'a': number; }
 >0 : 0
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 var e8 = { 'a': 0, "a": 0 };
@@ -118,10 +130,13 @@ var e17 = { a: 0, b: 1, a: 0 };
 >e17 : { a: number; b: number; }
 >{ a: 0, b: 1, a: 0 } : { a: number; b: number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 // Accessor and property with the same name
@@ -129,33 +144,43 @@ var f1 = { a: 0, get a() { return 0; } };
 >f1 : { readonly a: number; }
 >{ a: 0, get a() { return 0; } } : { readonly a: number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 var f2 = { a: '', get a() { return ''; } };
 >f2 : { readonly a: string; }
 >{ a: '', get a() { return ''; } } : { readonly a: string; }
 >a : string
+>类型别名 :=> 文字
 >'' : ""
 >a : string
+>类型别名 :=> 文字
 >'' : ""
 
 var f3 = { a: 0, get a() { return ''; } };
 >f3 : { readonly a: string; }
 >{ a: 0, get a() { return ''; } } : { readonly a: string; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >a : string
+>类型别名 :=> 文字
 >'' : ""
 
 var f4 = { a: true, get a() { return false; } };
 >f4 : { readonly a: boolean; }
 >{ a: true, get a() { return false; } } : { readonly a: boolean; }
 >a : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 >a : boolean
+>类型别名 :=> 真假
 >false : false
+>类型别名 :=> 为假
 
 var f5 = { a: {}, get a() { return {}; } };
 >f5 : { readonly a: {}; }
@@ -169,6 +194,7 @@ var f6 = { a: 0, get 'a'() { return 0; } };
 >f6 : { readonly 'a': number; }
 >{ a: 0, get 'a'() { return 0; } } : { readonly 'a': number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >0 : 0
 
@@ -177,6 +203,7 @@ var f7 = { 'a': 0, get a() { return 0; } };
 >{ 'a': 0, get a() { return 0; } } : { readonly a: number; }
 >0 : 0
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 var f8 = { 'a': 0, get "a"() { return 0; } };
@@ -243,10 +270,13 @@ var f17 = { a: 0, get b() { return 1; }, get a() { return 0; } };
 >f17 : { readonly a: number; readonly b: number; }
 >{ a: 0, get b() { return 1; }, get a() { return 0; } } : { readonly a: number; readonly b: number; }
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 >b : number
+>类型别名 :=> 数字
 >1 : 1
 >a : number
+>类型别名 :=> 数字
 >0 : 0
 
 // Get and set accessor with mismatched type annotations
@@ -254,23 +284,33 @@ var g1 = { get a(): number { return 4; }, set a(n: string) { } };
 >g1 : { a: number; }
 >{ get a(): number { return 4; }, set a(n: string) { } } : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >4 : 4
 >a : number
+>类型别名 :=> 数字
 >n : string
+>类型别名 :=> 文字
 
 var g2 = { get a() { return 4; }, set a(n: string) { } };
 >g2 : { a: string; }
 >{ get a() { return 4; }, set a(n: string) { } } : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >4 : 4
 >a : string
+>类型别名 :=> 文字
 >n : string
+>类型别名 :=> 文字
 
 var g3 = { get a(): number { return undefined; }, set a(n: string) { } };
 >g3 : { a: number; }
 >{ get a(): number { return undefined; }, set a(n: string) { } } : { a: number; }
 >a : number
+>类型别名 :=> 数字
 >undefined : undefined
+>类型别名 :=> 未定
 >a : number
+>类型别名 :=> 数字
 >n : string
+>类型别名 :=> 文字
 

@@ -2,47 +2,58 @@
 function x1(a: number, cb: (x: 'hi') => number);
 >x1 : { (a: number, cb: (x: "hi") => number): any; (a: number, cb: (x: "bye") => number): any; }
 >a : number
+>类型别名 :=> 数字
 >cb : (x: "hi") => number
 >x : "hi"
 
 function x1(a: number, cb: (x: 'bye') => number);
 >x1 : { (a: number, cb: (x: "hi") => number): any; (a: number, cb: (x: "bye") => number): any; }
 >a : number
+>类型别名 :=> 数字
 >cb : (x: "bye") => number
 >x : "bye"
 
 function x1(a: number, cb: (x: string) => number) {
 >x1 : { (a: number, cb: (x: "hi") => number): any; (a: number, cb: (x: "bye") => number): any; }
 >a : number
+>类型别名 :=> 数字
 >cb : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 
     cb('hi');
 >cb('hi') : number
+>类型别名 :=> 数字
 >cb : (x: string) => number
 >'hi' : "hi"
 
     cb('bye');
 >cb('bye') : number
+>类型别名 :=> 数字
 >cb : (x: string) => number
 >'bye' : "bye"
 
     var hm = 'hm';
 >hm : string
+>类型别名 :=> 文字
 >'hm' : "hm"
 
     cb(hm);
 >cb(hm) : number
+>类型别名 :=> 数字
 >cb : (x: string) => number
 >hm : string
+>类型别名 :=> 文字
 
     cb('uh');
 >cb('uh') : number
+>类型别名 :=> 数字
 >cb : (x: string) => number
 >'uh' : "uh"
 
     cb(1); // error
 >cb(1) : number
+>类型别名 :=> 数字
 >cb : (x: string) => number
 >1 : 1
 }
@@ -50,18 +61,22 @@ function x1(a: number, cb: (x: string) => number) {
 var cb: (number) => number = (x: number) => 1;
 >cb : (number: any) => number
 >number : any
+>类型别名 :=> 任意
 >(x: number) => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 x1(1, cb);
 >x1(1, cb) : any
+>类型别名 :=> 任意
 >x1 : { (a: number, cb: (x: "hi") => number): any; (a: number, cb: (x: "bye") => number): any; }
 >1 : 1
 >cb : (number: any) => number
 
 x1(1, (x: 'hi') => 1); // error
 >x1(1, (x: 'hi') => 1) : any
+>类型别名 :=> 任意
 >x1 : { (a: number, cb: (x: "hi") => number): any; (a: number, cb: (x: "bye") => number): any; }
 >1 : 1
 >(x: 'hi') => 1 : (x: "hi") => number
@@ -70,9 +85,11 @@ x1(1, (x: 'hi') => 1); // error
 
 x1(1, (x: string) => 1);
 >x1(1, (x: string) => 1) : any
+>类型别名 :=> 任意
 >x1 : { (a: number, cb: (x: "hi") => number): any; (a: number, cb: (x: "bye") => number): any; }
 >1 : 1
 >(x: string) => 1 : (x: string) => number
 >x : string
+>类型别名 :=> 文字
 >1 : 1
 

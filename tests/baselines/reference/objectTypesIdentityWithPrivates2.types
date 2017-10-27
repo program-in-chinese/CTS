@@ -30,6 +30,7 @@ function foo1(x: C<number>); // ok
 function foo1(x: any) { }
 >foo1 : { (x: C<string>): any; (x: C<number>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo2(x: D<string>);
 >foo2 : { (x: D<string>): any; (x: D<number>): any; }
@@ -44,6 +45,7 @@ function foo2(x: D<number>); // ok
 function foo2(x: any) { }
 >foo2 : { (x: D<string>): any; (x: D<number>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo3(x: C<string>);
 >foo3 : { (x: C<string>): any; (x: D<number>): any; }
@@ -58,6 +60,7 @@ function foo3(x: D<number>); // ok
 function foo3(x: any) { }
 >foo3 : { (x: C<string>): any; (x: D<number>): any; }
 >x : any
+>类型别名 :=> 任意
 
 function foo4(x: C<number>): number; 
 >foo4 : { (x: C<number>): number; (x: D<number>): string; }
@@ -72,17 +75,22 @@ function foo4(x: D<number>): string; // BUG 831926
 function foo4(x: any): any { }
 >foo4 : { (x: C<number>): number; (x: D<number>): string; }
 >x : any
+>类型别名 :=> 任意
 
 var r = foo4(new C<number>());
 >r : number
+>类型别名 :=> 数字
 >foo4(new C<number>()) : number
+>类型别名 :=> 数字
 >foo4 : { (x: C<number>): number; (x: D<number>): string; }
 >new C<number>() : C<number>
 >C : typeof C
 
 var r = foo4(new D<number>());
 >r : number
+>类型别名 :=> 数字
 >foo4(new D<number>()) : number
+>类型别名 :=> 数字
 >foo4 : { (x: C<number>): number; (x: D<number>): string; }
 >new D<number>() : D<number>
 >D : typeof D
@@ -100,6 +108,7 @@ function foo5(x: C<number>): string; // error
 function foo5(x: any): any { }
 >foo5 : { (x: C<number>): number; (x: C<number>): string; }
 >x : any
+>类型别名 :=> 任意
 
 function foo6(x: D<number>): number;
 >foo6 : { (x: D<number>): number; (x: D<number>): string; }
@@ -114,6 +123,7 @@ function foo6(x: D<number>): string; // error
 function foo6(x: any): any { }
 >foo6 : { (x: D<number>): number; (x: D<number>): string; }
 >x : any
+>类型别名 :=> 任意
 
 
 

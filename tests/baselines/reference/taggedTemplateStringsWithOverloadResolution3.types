@@ -5,29 +5,38 @@ function fn1(strs: TemplateStringsArray, s: string): string;
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >s : string
+>类型别名 :=> 文字
 
 function fn1(strs: TemplateStringsArray, n: number): number;
 >fn1 : { (strs: TemplateStringsArray, s: string): string; (strs: TemplateStringsArray, n: number): number; }
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >n : number
+>类型别名 :=> 数字
 
 function fn1() { return null; }
 >fn1 : { (strs: TemplateStringsArray, s: string): string; (strs: TemplateStringsArray, n: number): number; }
 >null : null
+>类型别名 :=> 空值
 
 var s: string = fn1 `${ undefined }`;
 >s : string
+>类型别名 :=> 文字
 >fn1 `${ undefined }` : string
+>类型别名 :=> 文字
 >fn1 : { (strs: TemplateStringsArray, s: string): string; (strs: TemplateStringsArray, n: number): number; }
 >`${ undefined }` : string
+>类型别名 :=> 文字
 >undefined : undefined
+>类型别名 :=> 未定
 
 // No candidate overloads found
 fn1 `${ {} }`; // Error
 >fn1 `${ {} }` : any
+>类型别名 :=> 任意
 >fn1 : { (strs: TemplateStringsArray, s: string): string; (strs: TemplateStringsArray, n: number): number; }
 >`${ {} }` : string
+>类型别名 :=> 文字
 >{} : {}
 
 function fn2(strs: TemplateStringsArray, s: string, n: number): number;
@@ -35,7 +44,9 @@ function fn2(strs: TemplateStringsArray, s: string, n: number): number;
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >s : string
+>类型别名 :=> 文字
 >n : number
+>类型别名 :=> 数字
 
 function fn2<T>(strs: TemplateStringsArray, n: number, t: T): T;
 >fn2 : { (strs: TemplateStringsArray, s: string, n: number): number; <T>(strs: TemplateStringsArray, n: number, t: T): T; }
@@ -43,6 +54,7 @@ function fn2<T>(strs: TemplateStringsArray, n: number, t: T): T;
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >n : number
+>类型别名 :=> 数字
 >t : T
 >T : T
 >T : T
@@ -50,47 +62,63 @@ function fn2<T>(strs: TemplateStringsArray, n: number, t: T): T;
 function fn2() { return undefined; }
 >fn2 : { (strs: TemplateStringsArray, s: string, n: number): number; <T>(strs: TemplateStringsArray, n: number, t: T): T; }
 >undefined : undefined
+>类型别名 :=> 未定
 
 var d1: Date = fn2 `${ 0 }${ undefined }`; // contextually typed
 >d1 : Date
 >Date : Date
 >fn2 `${ 0 }${ undefined }` : any
+>类型别名 :=> 任意
 >fn2 : { (strs: TemplateStringsArray, s: string, n: number): number; <T>(strs: TemplateStringsArray, n: number, t: T): T; }
 >`${ 0 }${ undefined }` : string
+>类型别名 :=> 文字
 >0 : 0
 >undefined : undefined
+>类型别名 :=> 未定
 
 var d2       = fn2 `${ 0 }${ undefined }`; // any
 >d2 : any
+>类型别名 :=> 任意
 >fn2 `${ 0 }${ undefined }` : any
+>类型别名 :=> 任意
 >fn2 : { (strs: TemplateStringsArray, s: string, n: number): number; <T>(strs: TemplateStringsArray, n: number, t: T): T; }
 >`${ 0 }${ undefined }` : string
+>类型别名 :=> 文字
 >0 : 0
 >undefined : undefined
+>类型别名 :=> 未定
 
 d1.foo(); // error
 >d1.foo() : any
+>类型别名 :=> 任意
 >d1.foo : any
+>类型别名 :=> 任意
 >d1 : Date
 >foo : any
+>类型别名 :=> 任意
 
 d2();     // no error (typed as any)
 >d2() : any
+>类型别名 :=> 任意
 >d2 : any
+>类型别名 :=> 任意
 
 // Generic and non-generic overload where generic overload is the only candidate
 fn2 `${ 0 }${ '' }`; // OK
 >fn2 `${ 0 }${ '' }` : ""
 >fn2 : { (strs: TemplateStringsArray, s: string, n: number): number; <T>(strs: TemplateStringsArray, n: number, t: T): T; }
 >`${ 0 }${ '' }` : string
+>类型别名 :=> 文字
 >0 : 0
 >'' : ""
 
 // Generic and non-generic overload where non-generic overload is the only candidate
 fn2 `${ '' }${ 0 }`; // OK
 >fn2 `${ '' }${ 0 }` : number
+>类型别名 :=> 数字
 >fn2 : { (strs: TemplateStringsArray, s: string, n: number): number; <T>(strs: TemplateStringsArray, n: number, t: T): T; }
 >`${ '' }${ 0 }` : string
+>类型别名 :=> 文字
 >'' : ""
 >0 : 0
 
@@ -110,6 +138,7 @@ function fn3<T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U;
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
 >s : string
+>类型别名 :=> 文字
 >t : T
 >T : T
 >u : U
@@ -133,57 +162,74 @@ function fn3<T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number;
 function fn3() { return null; }
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >null : null
+>类型别名 :=> 空值
 
 var s = fn3 `${ 3 }`;
 >s : string
+>类型别名 :=> 文字
 >fn3 `${ 3 }` : string
+>类型别名 :=> 文字
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >`${ 3 }` : string
+>类型别名 :=> 文字
 >3 : 3
 
 var s = fn3 `${'' }${ 3 }${ '' }`;
 >s : string
+>类型别名 :=> 文字
 >fn3 `${'' }${ 3 }${ '' }` : ""
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >`${'' }${ 3 }${ '' }` : string
+>类型别名 :=> 文字
 >'' : ""
 >3 : 3
 >'' : ""
 
 var n = fn3 `${ 5 }${ 5 }${ 5 }`;
 >n : number
+>类型别名 :=> 数字
 >fn3 `${ 5 }${ 5 }${ 5 }` : number
+>类型别名 :=> 数字
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >`${ 5 }${ 5 }${ 5 }` : string
+>类型别名 :=> 文字
 >5 : 5
 >5 : 5
 >5 : 5
 
 var n: number;
 >n : number
+>类型别名 :=> 数字
 
 // Generic overloads with differing arity tagging with arguments matching each overload type parameter count
 var s = fn3 `${ 4 }`
 >s : string
+>类型别名 :=> 文字
 >fn3 `${ 4 }` : string
+>类型别名 :=> 文字
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >`${ 4 }` : string
+>类型别名 :=> 文字
 >4 : 4
 
 var s = fn3 `${ '' }${ '' }${ '' }`;
 >s : string
+>类型别名 :=> 文字
 >fn3 `${ '' }${ '' }${ '' }` : ""
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >`${ '' }${ '' }${ '' }` : string
+>类型别名 :=> 文字
 >'' : ""
 >'' : ""
 >'' : ""
 
 var n = fn3 `${ '' }${ '' }${ 3 }`;
 >n : number
+>类型别名 :=> 数字
 >fn3 `${ '' }${ '' }${ 3 }` : 3
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >`${ '' }${ '' }${ 3 }` : string
+>类型别名 :=> 文字
 >'' : ""
 >'' : ""
 >3 : 3
@@ -191,6 +237,7 @@ var n = fn3 `${ '' }${ '' }${ 3 }`;
 // Generic overloads with differing arity tagging with argument count that doesn't match any overload
 fn3 ``; // Error
 >fn3 `` : any
+>类型别名 :=> 任意
 >fn3 : { <T>(strs: TemplateStringsArray, n: T): string; <T, U>(strs: TemplateStringsArray, s: string, t: T, u: U): U; <T, U, V>(strs: TemplateStringsArray, v: V, u: U, t: T): number; }
 >`` : ""
 
@@ -228,54 +275,76 @@ function fn4() { }
 // Generic overloads with constraints tagged with types that satisfy the constraints
 fn4 `${ '' }${ 3  }`;
 >fn4 `${ '' }${ 3  }` : any
+>类型别名 :=> 任意
 >fn4 : { <T extends string, U extends number>(strs: TemplateStringsArray, n: T, m: U): any; <T extends number, U extends string>(strs: TemplateStringsArray, n: T, m: U): any; (strs: TemplateStringsArray): any; }
 >`${ '' }${ 3  }` : string
+>类型别名 :=> 文字
 >'' : ""
 >3 : 3
 
 fn4 `${ 3  }${ '' }`;
 >fn4 `${ 3  }${ '' }` : any
+>类型别名 :=> 任意
 >fn4 : { <T extends string, U extends number>(strs: TemplateStringsArray, n: T, m: U): any; <T extends number, U extends string>(strs: TemplateStringsArray, n: T, m: U): any; (strs: TemplateStringsArray): any; }
 >`${ 3  }${ '' }` : string
+>类型别名 :=> 文字
 >3 : 3
 >'' : ""
 
 fn4 `${ 3  }${ undefined }`;
 >fn4 `${ 3  }${ undefined }` : any
+>类型别名 :=> 任意
 >fn4 : { <T extends string, U extends number>(strs: TemplateStringsArray, n: T, m: U): any; <T extends number, U extends string>(strs: TemplateStringsArray, n: T, m: U): any; (strs: TemplateStringsArray): any; }
 >`${ 3  }${ undefined }` : string
+>类型别名 :=> 文字
 >3 : 3
 >undefined : undefined
+>类型别名 :=> 未定
 
 fn4 `${ '' }${ null }`;
 >fn4 `${ '' }${ null }` : any
+>类型别名 :=> 任意
 >fn4 : { <T extends string, U extends number>(strs: TemplateStringsArray, n: T, m: U): any; <T extends number, U extends string>(strs: TemplateStringsArray, n: T, m: U): any; (strs: TemplateStringsArray): any; }
 >`${ '' }${ null }` : string
+>类型别名 :=> 文字
 >'' : ""
 >null : null
+>类型别名 :=> 空值
 
 // Generic overloads with constraints called with type arguments that do not satisfy the constraints
 fn4 `${ null }${ null }`; // Error
 >fn4 `${ null }${ null }` : any
+>类型别名 :=> 任意
 >fn4 : { <T extends string, U extends number>(strs: TemplateStringsArray, n: T, m: U): any; <T extends number, U extends string>(strs: TemplateStringsArray, n: T, m: U): any; (strs: TemplateStringsArray): any; }
 >`${ null }${ null }` : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 // Generic overloads with constraints called without type arguments but with types that do not satisfy the constraints
 fn4 `${ true }${ null }`;
 >fn4 `${ true }${ null }` : any
+>类型别名 :=> 任意
 >fn4 : { <T extends string, U extends number>(strs: TemplateStringsArray, n: T, m: U): any; <T extends number, U extends string>(strs: TemplateStringsArray, n: T, m: U): any; (strs: TemplateStringsArray): any; }
 >`${ true }${ null }` : string
+>类型别名 :=> 文字
 >true : true
+>类型别名 :=> 为真
 >null : null
+>类型别名 :=> 空值
 
 fn4 `${ null }${ true }`;
 >fn4 `${ null }${ true }` : any
+>类型别名 :=> 任意
 >fn4 : { <T extends string, U extends number>(strs: TemplateStringsArray, n: T, m: U): any; <T extends number, U extends string>(strs: TemplateStringsArray, n: T, m: U): any; (strs: TemplateStringsArray): any; }
 >`${ null }${ true }` : string
+>类型别名 :=> 文字
 >null : null
+>类型别名 :=> 空值
 >true : true
+>类型别名 :=> 为真
 
 // Non - generic overloads where contextual typing of function arguments has errors
 function fn5(strs: TemplateStringsArray, f: (n: string) => void): string;
@@ -284,6 +353,7 @@ function fn5(strs: TemplateStringsArray, f: (n: string) => void): string;
 >TemplateStringsArray : TemplateStringsArray
 >f : (n: string) => void
 >n : string
+>类型别名 :=> 文字
 
 function fn5(strs: TemplateStringsArray, f: (n: number) => void): number;
 >fn5 : { (strs: TemplateStringsArray, f: (n: string) => void): string; (strs: TemplateStringsArray, f: (n: number) => void): number; }
@@ -291,31 +361,45 @@ function fn5(strs: TemplateStringsArray, f: (n: number) => void): number;
 >TemplateStringsArray : TemplateStringsArray
 >f : (n: number) => void
 >n : number
+>类型别名 :=> 数字
 
 function fn5() { return undefined; }
 >fn5 : { (strs: TemplateStringsArray, f: (n: string) => void): string; (strs: TemplateStringsArray, f: (n: number) => void): number; }
 >undefined : undefined
+>类型别名 :=> 未定
 
 fn5 `${ (n) => n.toFixed() }`; // will error; 'n' should have type 'string'.
 >fn5 `${ (n) => n.toFixed() }` : string
+>类型别名 :=> 文字
 >fn5 : { (strs: TemplateStringsArray, f: (n: string) => void): string; (strs: TemplateStringsArray, f: (n: number) => void): number; }
 >`${ (n) => n.toFixed() }` : string
+>类型别名 :=> 文字
 >(n) => n.toFixed() : (n: string) => any
 >n : string
+>类型别名 :=> 文字
 >n.toFixed() : any
+>类型别名 :=> 任意
 >n.toFixed : any
+>类型别名 :=> 任意
 >n : string
+>类型别名 :=> 文字
 >toFixed : any
+>类型别名 :=> 任意
 
 fn5 `${ (n) => n.substr(0) }`;
 >fn5 `${ (n) => n.substr(0) }` : string
+>类型别名 :=> 文字
 >fn5 : { (strs: TemplateStringsArray, f: (n: string) => void): string; (strs: TemplateStringsArray, f: (n: number) => void): number; }
 >`${ (n) => n.substr(0) }` : string
+>类型别名 :=> 文字
 >(n) => n.substr(0) : (n: string) => string
 >n : string
+>类型别名 :=> 文字
 >n.substr(0) : string
+>类型别名 :=> 文字
 >n.substr : (from: number, length?: number) => string
 >n : string
+>类型别名 :=> 文字
 >substr : (from: number, length?: number) => string
 >0 : 0
 

@@ -1,21 +1,27 @@
 === tests/cases/compiler/letConstMatchingParameterNames.ts ===
 let parent = true;
 >parent : boolean
+>类型别名 :=> 真假
 >true : true
+>类型别名 :=> 为真
 
 const parent2 = true;
 >parent2 : true
+>类型别名 :=> 为真
 >true : true
+>类型别名 :=> 为真
 
 declare function use(a: any);
 >use : (a: any) => any
 >a : any
+>类型别名 :=> 任意
 
 function a() {
 >a : () => void
     
     let parent = 1;
 >parent : number
+>类型别名 :=> 数字
 >1 : 1
 
     const parent2 = 2;
@@ -25,17 +31,23 @@ function a() {
     function b(parent: string, parent2: number) {
 >b : (parent: string, parent2: number) => void
 >parent : string
+>类型别名 :=> 文字
 >parent2 : number
+>类型别名 :=> 数字
 
         use(parent);
 >use(parent) : any
+>类型别名 :=> 任意
 >use : (a: any) => any
 >parent : string
+>类型别名 :=> 文字
 
         use(parent2);
 >use(parent2) : any
+>类型别名 :=> 任意
 >use : (a: any) => any
 >parent2 : number
+>类型别名 :=> 数字
     }
 }
 

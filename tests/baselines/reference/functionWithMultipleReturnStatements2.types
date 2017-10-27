@@ -7,6 +7,7 @@ function f1() {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return 1;
 >1 : 1
@@ -14,6 +15,7 @@ function f1() {
     } else {
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -22,15 +24,18 @@ function f2() {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return 1;
 >1 : 1
 
     } else if (false) {
 >false : false
+>类型别名 :=> 为假
 
         return null;
 >null : null
+>类型别名 :=> 空值
 
     } else {
         return 2;
@@ -47,9 +52,11 @@ function f4() {
     }
     catch (e) {
 >e : any
+>类型别名 :=> 任意
 
         return undefined;
 >undefined : undefined
+>类型别名 :=> 未定
     }
     finally {
         return 1;
@@ -76,6 +83,7 @@ function f6<T>(x: T) {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return x;
 >x : T
@@ -83,6 +91,7 @@ function f6<T>(x: T) {
     } else {
         return null;
 >null : null
+>类型别名 :=> 空值
     }
 }
 
@@ -97,12 +106,16 @@ function f6<T>(x: T) {
 var a: { x: number; y?: number };
 >a : { x: number; y?: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 
 var b: { x: number; z?: number };
 >b : { x: number; z?: number; }
 >x : number
+>类型别名 :=> 数字
 >z : number
+>类型别名 :=> 数字
 
 // returns typeof a
 function f9() {
@@ -110,6 +123,7 @@ function f9() {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return a;
 >a : { x: number; y?: number; }
@@ -126,6 +140,7 @@ function f10() {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return b;
 >b : { x: number; z?: number; }
@@ -142,10 +157,12 @@ function f11() {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return (x: number) => { }
 >(x: number) => { } : (x: number) => void
 >x : number
+>类型别名 :=> 数字
 
     } else {
         return (x: Object) => { }
@@ -161,6 +178,7 @@ function f12() {
 
     if (true) {
 >true : true
+>类型别名 :=> 为真
 
         return (x: Object) => { }
 >(x: Object) => { } : (x: Object) => void
@@ -171,5 +189,6 @@ function f12() {
         return (x: number) => { }        
 >(x: number) => { } : (x: number) => void
 >x : number
+>类型别名 :=> 数字
     }
 }

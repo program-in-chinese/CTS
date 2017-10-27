@@ -11,34 +11,41 @@ interface IWithNoCallSignatures {
 
     foo: string;
 >foo : string
+>类型别名 :=> 文字
 }
 interface IWithCallSignatures {
 >IWithCallSignatures : IWithCallSignatures
 
     (a: number): string;
 >a : number
+>类型别名 :=> 数字
 }
 interface IWithCallSignatures2 {
 >IWithCallSignatures2 : IWithCallSignatures2
 
     (a: number): number;
 >a : number
+>类型别名 :=> 数字
 }
 interface IWithCallSignatures3 {
 >IWithCallSignatures3 : IWithCallSignatures3
 
     (b: string): number;
 >b : string
+>类型别名 :=> 文字
 }
 interface IWithCallSignatures4 {
 >IWithCallSignatures4 : IWithCallSignatures4
 
     (a: number): string;
 >a : number
+>类型别名 :=> 数字
 
     (a: string, b: number): number;
 >a : string
+>类型别名 :=> 文字
 >b : number
+>类型别名 :=> 数字
 }
 
 // With no call signature | callSignatures
@@ -48,9 +55,12 @@ var x: IWithNoCallSignatures | IWithCallSignatures = a => a.toString();
 >IWithCallSignatures : IWithCallSignatures
 >a => a.toString() : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 >a.toString() : string
+>类型别名 :=> 文字
 >a.toString : (radix?: number) => string
 >a : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 
 // With call signatures with different return type
@@ -60,9 +70,12 @@ var x2: IWithCallSignatures | IWithCallSignatures2 = a => a.toString(); // Like 
 >IWithCallSignatures2 : IWithCallSignatures2
 >a => a.toString() : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 >a.toString() : string
+>类型别名 :=> 文字
 >a.toString : (radix?: number) => string
 >a : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 
 var x2: IWithCallSignatures | IWithCallSignatures2 = a => a; // Like iWithCallSignatures2
@@ -71,7 +84,9 @@ var x2: IWithCallSignatures | IWithCallSignatures2 = a => a; // Like iWithCallSi
 >IWithCallSignatures2 : IWithCallSignatures2
 >a => a : (a: number) => number
 >a : number
+>类型别名 :=> 数字
 >a : number
+>类型别名 :=> 数字
 
 // With call signatures of mismatching parameter type
 var x3: IWithCallSignatures | IWithCallSignatures3 = a => /*here a should be any*/ a.toString();
@@ -80,10 +95,15 @@ var x3: IWithCallSignatures | IWithCallSignatures3 = a => /*here a should be any
 >IWithCallSignatures3 : IWithCallSignatures3
 >a => /*here a should be any*/ a.toString() : (a: any) => any
 >a : any
+>类型别名 :=> 任意
 >a.toString() : any
+>类型别名 :=> 任意
 >a.toString : any
+>类型别名 :=> 任意
 >a : any
+>类型别名 :=> 任意
 >toString : any
+>类型别名 :=> 任意
 
 // With call signature count mismatch
 var x4: IWithCallSignatures | IWithCallSignatures4 = a => /*here a should be any*/ a.toString();
@@ -92,8 +112,11 @@ var x4: IWithCallSignatures | IWithCallSignatures4 = a => /*here a should be any
 >IWithCallSignatures4 : IWithCallSignatures4
 >a => /*here a should be any*/ a.toString() : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 >a.toString() : string
+>类型别名 :=> 文字
 >a.toString : (radix?: number) => string
 >a : number
+>类型别名 :=> 数字
 >toString : (radix?: number) => string
 

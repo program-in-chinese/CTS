@@ -7,14 +7,17 @@ class A {
 
 	public p1 = 0;
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 
 	private p2 = 0;
 >p2 : number
+>类型别名 :=> 数字
 >0 : 0
 
 	p3;
 >p3 : any
+>类型别名 :=> 任意
 }
 
 class B {
@@ -22,14 +25,17 @@ class B {
 
 	public p1 = 0;
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 
 	private p2 = 0;
 >p2 : number
+>类型别名 :=> 数字
 >0 : 0
 
 	p3;
 >p3 : any
+>类型别名 :=> 任意
 
 	constructor() {}
 }
@@ -39,10 +45,13 @@ class C {
 
 	constructor(public p1=0, private p2=0, p3=0) {}
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 >p2 : number
+>类型别名 :=> 数字
 >0 : 0
 >p3 : number
+>类型别名 :=> 数字
 >0 : 0
 }
 
@@ -60,6 +69,7 @@ class E extends D { // NO ERROR
 
 	public p1 = 0;
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 }
 
@@ -76,10 +86,12 @@ class G extends D {
 
 	public p1 = 0;
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 
 	constructor() { super(); } // NO ERROR
 >super() : void
+>类型别名 :=> 无值
 >super : typeof D
 }
 
@@ -88,7 +100,9 @@ class H {
 
 	constructor() { super(); } // ERROR - no super call allowed
 >super() : void
+>类型别名 :=> 无值
 >super : any
+>类型别名 :=> 任意
 }
 
 class I extends Object {
@@ -97,6 +111,7 @@ class I extends Object {
 
 	constructor() { super(); } // ERROR - no super call allowed
 >super() : void
+>类型别名 :=> 无值
 >super : ObjectConstructor
 }
 
@@ -106,9 +121,11 @@ class J extends G {
 
 	constructor(public p1:number) {
 >p1 : number
+>类型别名 :=> 数字
 
 		super(); // NO ERROR
 >super() : void
+>类型别名 :=> 无值
 >super : typeof G
 	}
 }
@@ -119,13 +136,16 @@ class K extends G {
 
 	constructor(public p1:number) { // ERROR
 >p1 : number
+>类型别名 :=> 数字
 
 		var i = 0;
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 
 		super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof G
 	}
 }
@@ -136,9 +156,11 @@ class L extends G {
 
 	constructor(private p1:number) {
 >p1 : number
+>类型别名 :=> 数字
 
 		super(); // NO ERROR
 >super() : void
+>类型别名 :=> 无值
 >super : typeof G
 	}
 }
@@ -149,13 +171,16 @@ class M extends G {
 
 	constructor(private p1:number) { // ERROR
 >p1 : number
+>类型别名 :=> 数字
 
 		var i = 0;
 >i : number
+>类型别名 :=> 数字
 >0 : 0
 
 		super();
 >super() : void
+>类型别名 :=> 无值
 >super : typeof G
 	}
 }
@@ -168,20 +193,26 @@ class N {
 
 	public p1 = 0;
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 
 	public p2 = this.p1;
 >p2 : number
+>类型别名 :=> 数字
 >this.p1 : number
+>类型别名 :=> 数字
 >this : this
 >p1 : number
+>类型别名 :=> 数字
 
 	constructor() {
 		this.p2 = 0;
 >this.p2 = 0 : 0
 >this.p2 : number
+>类型别名 :=> 数字
 >this : this
 >p2 : number
+>类型别名 :=> 数字
 >0 : 0
 	}
 }
@@ -195,6 +226,7 @@ class O {
 	constructor() {
 		public p1 = 0; // ERROR
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 	}
 }
@@ -205,6 +237,7 @@ class P {
 	constructor() {
 		private p1 = 0; // ERROR
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 	}
 }
@@ -215,7 +248,9 @@ class Q {
 	constructor() {
 		public this.p1 = 0; // ERROR
 >this : any
+>类型别名 :=> 任意
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 	}
 }
@@ -226,7 +261,9 @@ class R {
 	constructor() {
 		private this.p1 = 0; // ERROR
 >this : any
+>类型别名 :=> 任意
 >p1 : number
+>类型别名 :=> 数字
 >0 : 0
 	}
 }

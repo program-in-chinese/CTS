@@ -6,8 +6,10 @@ function f1() {
 >a : { x: number; y: number; }
 >{ x: 1, y: 2 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 	a = {}; // error
@@ -20,6 +22,7 @@ function f1() {
 >a : { x: number; y: number; }
 >{ x: 1 } : { x: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
 	a = { x: 1, y: 2, z: 3 };
@@ -27,10 +30,13 @@ function f1() {
 >a : { x: number; y: number; }
 >{ x: 1, y: 2, z: 3 } : { x: number; y: number; z: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 >z : number
+>类型别名 :=> 数字
 >3 : 3
 
     a = { x: 1, z: 3 };  // error
@@ -38,19 +44,23 @@ function f1() {
 >a : { x: number; y: number; }
 >{ x: 1, z: 3 } : { x: number; z: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >z : number
+>类型别名 :=> 数字
 >3 : 3
 }
 
 class Animal { private a; }
 >Animal : Animal
 >a : any
+>类型别名 :=> 任意
 
 class Giraffe extends Animal { private g; }
 >Giraffe : Giraffe
 >Animal : Animal
 >g : any
+>类型别名 :=> 任意
 
 function f2() {
 >f2 : () => void
@@ -93,6 +103,7 @@ function f2() {
 >xa : { f1: number; f2: Animal[]; }
 >{ f1: 5, f2: aa } : { f1: number; f2: Animal[]; }
 >f1 : number
+>类型别名 :=> 数字
 >5 : 5
 >f2 : Animal[]
 >aa : Animal[]
@@ -101,6 +112,7 @@ function f2() {
 >xb : { f1: number; f2: Giraffe[]; }
 >{ f1: 5, f2: gg } : { f1: number; f2: Giraffe[]; }
 >f1 : number
+>类型别名 :=> 数字
 >5 : 5
 >f2 : Giraffe[]
 >gg : Giraffe[]
@@ -121,28 +133,38 @@ function f4() {
 
     var _any: any = 0;
 >_any : any
+>类型别名 :=> 任意
 >0 : 0
 
     var i = 5;
 >i : number
+>类型别名 :=> 数字
 >5 : 5
 
     i = null; 
 >i = null : null
+>类型别名 :=> 空值
 >i : number
+>类型别名 :=> 数字
 >null : null
+>类型别名 :=> 空值
 
     i = undefined;
 >i = undefined : undefined
+>类型别名 :=> 未定
 >i : number
+>类型别名 :=> 数字
 >undefined : undefined
+>类型别名 :=> 未定
 
     var a = { x: 1, y: 1 };
 >a : { x: number; y: number; }
 >{ x: 1, y: 1 } : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >1 : 1
 
     a = { x: 1, y: null }; 
@@ -150,37 +172,50 @@ function f4() {
 >a : { x: number; y: number; }
 >{ x: 1, y: null } : { x: number; y: null; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
     a = { x: 1, y: undefined }; 
 >a = { x: 1, y: undefined } : { x: number; y: undefined; }
 >a : { x: number; y: number; }
 >{ x: 1, y: undefined } : { x: number; y: undefined; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : undefined
+>类型别名 :=> 未定
 >undefined : undefined
+>类型别名 :=> 未定
 
     a = { x: 1, y: _any }; 
 >a = { x: 1, y: _any } : { x: number; y: any; }
 >a : { x: number; y: number; }
 >{ x: 1, y: _any } : { x: number; y: any; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : any
+>类型别名 :=> 任意
 >_any : any
+>类型别名 :=> 任意
 
     a = { x: 1, y: _any, z:1 }; 
 >a = { x: 1, y: _any, z:1 } : { x: number; y: any; z: number; }
 >a : { x: number; y: number; }
 >{ x: 1, y: _any, z:1 } : { x: number; y: any; z: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : any
+>类型别名 :=> 任意
 >_any : any
+>类型别名 :=> 任意
 >z : number
+>类型别名 :=> 数字
 >1 : 1
 
     a = { x: 1 }; // error
@@ -188,6 +223,7 @@ function f4() {
 >a : { x: number; y: number; }
 >{ x: 1 } : { x: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 
     var mf = function m(n) { return false; };
@@ -195,14 +231,18 @@ function f4() {
 >function m(n) { return false; } : (n: any) => boolean
 >m : (n: any) => boolean
 >n : any
+>类型别名 :=> 任意
 >false : false
+>类型别名 :=> 为假
 
     var zf = function z(n: number) { return true; };
 >zf : (n: number) => boolean
 >function z(n: number) { return true; } : (n: number) => boolean
 >z : (n: number) => boolean
 >n : number
+>类型别名 :=> 数字
 >true : true
+>类型别名 :=> 为真
 
     mf=zf;
 >mf=zf : (n: number) => boolean
@@ -211,13 +251,17 @@ function f4() {
 
     mf(_any);
 >mf(_any) : boolean
+>类型别名 :=> 真假
 >mf : (n: any) => boolean
 >_any : any
+>类型别名 :=> 任意
 
     zf(_any);
 >zf(_any) : boolean
+>类型别名 :=> 真假
 >zf : (n: number) => boolean
 >_any : any
+>类型别名 :=> 任意
 }
 
 

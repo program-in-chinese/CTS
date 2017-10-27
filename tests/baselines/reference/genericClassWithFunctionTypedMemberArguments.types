@@ -21,6 +21,7 @@ module ImmediatelyFix {
 >x(null) : T
 >x : (a: T) => T
 >null : null
+>类型别名 :=> 空值
         }
     }
 
@@ -43,7 +44,9 @@ module ImmediatelyFix {
 
     var r2 = c.foo<string>(<U>(x: U) => ''); // string 
 >r2 : string
+>类型别名 :=> 文字
 >c.foo<string>(<U>(x: U) => '') : string
+>类型别名 :=> 文字
 >c.foo : <T>(x: (a: T) => T) => T
 >c : C<number>
 >foo : <T>(x: (a: T) => T) => T
@@ -78,6 +81,7 @@ module ImmediatelyFix {
 >x(null) : T
 >x : (a: T) => T
 >null : null
+>类型别名 :=> 空值
         }
     }
 
@@ -88,7 +92,9 @@ module ImmediatelyFix {
 
     var ra = c2.foo(<U>(x: U) => 1); // number
 >ra : number
+>类型别名 :=> 数字
 >c2.foo(<U>(x: U) => 1) : number
+>类型别名 :=> 数字
 >c2.foo : (x: (a: number) => number) => number
 >c2 : C2<number>
 >foo : (x: (a: number) => number) => number
@@ -100,12 +106,15 @@ module ImmediatelyFix {
 
     var r3a = c2.foo(x => 1); // number
 >r3a : number
+>类型别名 :=> 数字
 >c2.foo(x => 1) : number
+>类型别名 :=> 数字
 >c2.foo : (x: (a: number) => number) => number
 >c2 : C2<number>
 >foo : (x: (a: number) => number) => number
 >x => 1 : (x: number) => number
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 }
 
@@ -140,7 +149,9 @@ module WithCandidates {
 
     var r4 = c.foo2(1, function <Z>(a: Z) { return '' }); // string, contextual signature instantiation is applied to generic functions
 >r4 : string
+>类型别名 :=> 文字
 >c.foo2(1, function <Z>(a: Z) { return '' }) : string
+>类型别名 :=> 文字
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
@@ -153,18 +164,23 @@ module WithCandidates {
 
     var r5 = c.foo2(1, (a) => ''); // string
 >r5 : string
+>类型别名 :=> 文字
 >c.foo2(1, (a) => '') : string
+>类型别名 :=> 文字
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >1 : 1
 >(a) => '' : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 >'' : ""
 
     var r6 = c.foo2<string, number>('', <Z>(a: Z) => 1); // number
 >r6 : number
+>类型别名 :=> 数字
 >c.foo2<string, number>('', <Z>(a: Z) => 1) : number
+>类型别名 :=> 数字
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
@@ -204,7 +220,9 @@ module WithCandidates {
 
     var r7 = c2.foo3(1, <Z>(a: Z) => '', ''); // string
 >r7 : string
+>类型别名 :=> 文字
 >c2.foo3(1, <Z>(a: Z) => '', '') : string
+>类型别名 :=> 文字
 >c2.foo3 : (x: number, cb: (a: number) => string, y: string) => string
 >c2 : C2<number, string>
 >foo3 : (x: number, cb: (a: number) => string, y: string) => string
@@ -218,13 +236,16 @@ module WithCandidates {
 
     var r8 = c2.foo3(1, function (a) { return '' }, ''); // string
 >r8 : string
+>类型别名 :=> 文字
 >c2.foo3(1, function (a) { return '' }, '') : string
+>类型别名 :=> 文字
 >c2.foo3 : (x: number, cb: (a: number) => string, y: string) => string
 >c2 : C2<number, string>
 >foo3 : (x: number, cb: (a: number) => string, y: string) => string
 >1 : 1
 >function (a) { return '' } : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 >'' : ""
 >'' : ""
 
@@ -267,7 +288,9 @@ module WithCandidates {
 
         var r10 = c.foo2(1, (x: T) => ''); // error
 >r10 : any
+>类型别名 :=> 任意
 >c.foo2(1, (x: T) => '') : any
+>类型别名 :=> 任意
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
@@ -279,18 +302,23 @@ module WithCandidates {
 
         var r10 = c.foo2(1, (x) => ''); // string
 >r10 : any
+>类型别名 :=> 任意
 >c.foo2(1, (x) => '') : string
+>类型别名 :=> 文字
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >1 : 1
 >(x) => '' : (x: number) => string
 >x : number
+>类型别名 :=> 数字
 >'' : ""
 
         var r11 = c3.foo3(1, (x: T) => '', ''); // error
 >r11 : any
+>类型别名 :=> 任意
 >c3.foo3(1, (x: T) => '', '') : any
+>类型别名 :=> 任意
 >c3.foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
 >c3 : C3<number, string>
 >foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
@@ -303,7 +331,9 @@ module WithCandidates {
 
         var r11b = c3.foo3(1, (x: T) => '', 1); // error
 >r11b : any
+>类型别名 :=> 任意
 >c3.foo3(1, (x: T) => '', 1) : any
+>类型别名 :=> 任意
 >c3.foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
 >c3 : C3<number, string>
 >foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
@@ -316,13 +346,16 @@ module WithCandidates {
 
         var r12 = c3.foo3(1, function (a) { return '' }, 1); // error
 >r12 : any
+>类型别名 :=> 任意
 >c3.foo3(1, function (a) { return '' }, 1) : any
+>类型别名 :=> 任意
 >c3.foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
 >c3 : C3<number, string>
 >foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
 >1 : 1
 >function (a) { return '' } : (a: number) => string
 >a : number
+>类型别名 :=> 数字
 >'' : ""
 >1 : 1
     }

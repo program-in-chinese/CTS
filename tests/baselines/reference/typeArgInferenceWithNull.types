@@ -9,27 +9,34 @@ function fn4<T extends string>(n: T) { }
 
 fn4(null);
 >fn4(null) : void
+>类型别名 :=> 无值
 >fn4 : <T extends string>(n: T) => void
 >null : null
+>类型别名 :=> 空值
 
 function fn5<T extends { x: string }>(n: T) { }
 >fn5 : <T extends { x: string; }>(n: T) => void
 >T : T
 >x : string
+>类型别名 :=> 文字
 >n : T
 >T : T
 
 fn5({ x: null });
 >fn5({ x: null }) : void
+>类型别名 :=> 无值
 >fn5 : <T extends { x: string; }>(n: T) => void
 >{ x: null } : { x: null; }
 >x : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 
 function fn6<T extends { x: string }>(n: T, fun: (x: T) => void, n2: T) { }
 >fn6 : <T extends { x: string; }>(n: T, fun: (x: T) => void, n2: T) => void
 >T : T
 >x : string
+>类型别名 :=> 文字
 >n : T
 >T : T
 >fun : (x: T) => void
@@ -40,13 +47,17 @@ function fn6<T extends { x: string }>(n: T, fun: (x: T) => void, n2: T) { }
 
 fn6({ x: null }, y => { }, { x: "" }); // y has type { x: any }, but ideally would have type { x: string }
 >fn6({ x: null }, y => { }, { x: "" }) : void
+>类型别名 :=> 无值
 >fn6 : <T extends { x: string; }>(n: T, fun: (x: T) => void, n2: T) => void
 >{ x: null } : { x: null; }
 >x : null
+>类型别名 :=> 空值
 >null : null
+>类型别名 :=> 空值
 >y => { } : (y: { x: string; }) => void
 >y : { x: string; }
 >{ x: "" } : { x: string; }
 >x : string
+>类型别名 :=> 文字
 >"" : ""
 

@@ -11,6 +11,7 @@ module E {
 
     var x = 1;
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 }
 
@@ -27,12 +28,15 @@ const enum E1 {
     Y = E1.Z,
 >Y : E1
 >E1.Z : any
+>类型别名 :=> 任意
 >E1 : typeof E1
 >Z : any
+>类型别名 :=> 任意
 
     Y1 = E1["Z"]
 >Y1 : E1
 >E1["Z"] : any
+>类型别名 :=> 任意
 >E1 : typeof E1
 >"Z" : "Z"
 }
@@ -46,19 +50,25 @@ const enum E2 {
 
 var y0 = E2[1]
 >y0 : any
+>类型别名 :=> 任意
 >E2[1] : any
+>类型别名 :=> 任意
 >E2 : typeof E2
 >1 : 1
 
 var name = "A";
 >name : string
+>类型别名 :=> 文字
 >"A" : "A"
 
 var y1 = E2[name];
 >y1 : any
+>类型别名 :=> 任意
 >E2[name] : any
+>类型别名 :=> 任意
 >E2 : typeof E2
 >name : string
+>类型别名 :=> 文字
 
 var x = E2;
 >x : typeof E2
@@ -72,10 +82,12 @@ var y = [E2];
 function foo(t: any): void {
 >foo : (t: any) => void
 >t : any
+>类型别名 :=> 任意
 }
 
 foo(E2);
 >foo(E2) : void
+>类型别名 :=> 无值
 >foo : (t: any) => void
 >E2 : typeof E2
 
@@ -89,42 +101,49 @@ const enum NaNOrInfinity {
     B = A * A,
 >B : NaNOrInfinity
 >A * A : number
+>类型别名 :=> 数字
 >A : NaNOrInfinity
 >A : NaNOrInfinity
 
     C = B * B,
 >C : NaNOrInfinity
 >B * B : number
+>类型别名 :=> 数字
 >B : NaNOrInfinity
 >B : NaNOrInfinity
 
     D = C * C,
 >D : NaNOrInfinity
 >C * C : number
+>类型别名 :=> 数字
 >C : NaNOrInfinity
 >C : NaNOrInfinity
 
     E = D * D,
 >E : NaNOrInfinity
 >D * D : number
+>类型别名 :=> 数字
 >D : NaNOrInfinity
 >D : NaNOrInfinity
 
     F = E * E, // overflow
 >F : NaNOrInfinity
 >E * E : number
+>类型别名 :=> 数字
 >E : NaNOrInfinity
 >E : NaNOrInfinity
 
     G = 1 / 0, // overflow
 >G : NaNOrInfinity
 >1 / 0 : number
+>类型别名 :=> 数字
 >1 : 1
 >0 : 0
 
     H = 0 / 0  // NaN
 >H : NaNOrInfinity
 >0 / 0 : number
+>类型别名 :=> 数字
 >0 : 0
 >0 : 0
 }

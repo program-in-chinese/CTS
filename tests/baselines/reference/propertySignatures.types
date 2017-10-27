@@ -3,25 +3,32 @@
 var foo1: { a:string; a: string; };
 >foo1 : { a: string; }
 >a : string
+>类型别名 :=> 文字
 >a : string
+>类型别名 :=> 文字
 
 // Should be OK
 var foo2: { a; };
 >foo2 : { a: any; }
 >a : any
+>类型别名 :=> 任意
 
 foo2.a = 2;
 >foo2.a = 2 : 2
 >foo2.a : any
+>类型别名 :=> 任意
 >foo2 : { a: any; }
 >a : any
+>类型别名 :=> 任意
 >2 : 2
 
 foo2.a = "0";
 >foo2.a = "0" : "0"
 >foo2.a : any
+>类型别名 :=> 任意
 >foo2 : { a: any; }
 >a : any
+>类型别名 :=> 任意
 >"0" : "0"
 
 // Should be error
@@ -34,8 +41,11 @@ var foo4: { (): void; };
 
 var test = foo();
 >test : any
+>类型别名 :=> 任意
 >foo() : any
+>类型别名 :=> 任意
 >foo : any
+>类型别名 :=> 任意
 
 // Should be OK
 var foo5: {();};
@@ -43,13 +53,18 @@ var foo5: {();};
 
 var test = foo5();
 >test : any
+>类型别名 :=> 任意
 >foo5() : any
+>类型别名 :=> 任意
 >foo5 : () => any
 
 test.bar = 2;
 >test.bar = 2 : 2
 >test.bar : any
+>类型别名 :=> 任意
 >test : any
+>类型别名 :=> 任意
 >bar : any
+>类型别名 :=> 任意
 >2 : 2
 

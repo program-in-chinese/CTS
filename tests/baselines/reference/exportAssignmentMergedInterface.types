@@ -1,6 +1,7 @@
 === tests/cases/conformance/externalModules/foo_1.ts ===
 import foo = require("./foo_0");
 >foo : any
+>类型别名 :=> 任意
 
 var x: foo;
 >x : foo
@@ -8,33 +9,44 @@ var x: foo;
 
 x("test");
 >x("test") : void
+>类型别名 :=> 无值
 >x : foo
 >"test" : "test"
 
 x(42);
 >x(42) : number
+>类型别名 :=> 数字
 >x : foo
 >42 : 42
 
 var y: string = x.b;
 >y : string
+>类型别名 :=> 文字
 >x.b : string
+>类型别名 :=> 文字
 >x : foo
 >b : string
+>类型别名 :=> 文字
 
 if(!!x.c){ }
 >!!x.c : boolean
+>类型别名 :=> 真假
 >!x.c : boolean
+>类型别名 :=> 真假
 >x.c : boolean
+>类型别名 :=> 真假
 >x : foo
 >c : boolean
+>类型别名 :=> 真假
 
 var z = {x: 1, y: 2};
 >z : { x: number; y: number; }
 >{x: 1, y: 2} : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >1 : 1
 >y : number
+>类型别名 :=> 数字
 >2 : 2
 
 z = x.d;
@@ -50,23 +62,29 @@ interface Foo {
 
 	(a: string): void;
 >a : string
+>类型别名 :=> 文字
 
 	b: string;
 >b : string
+>类型别名 :=> 文字
 }
 interface Foo {
 >Foo : Foo
 
 	(a: number): number;
 >a : number
+>类型别名 :=> 数字
 
 	c: boolean;
 >c : boolean
+>类型别名 :=> 真假
 
 	d: {x: number; y: number};
 >d : { x: number; y: number; }
 >x : number
+>类型别名 :=> 数字
 >y : number
+>类型别名 :=> 数字
 }
 export = Foo;
 >Foo : Foo

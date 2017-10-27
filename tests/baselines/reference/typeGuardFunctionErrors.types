@@ -4,6 +4,7 @@ class A {
 
     propA: number;
 >propA : number
+>类型别名 :=> 数字
 }
 
 class B {
@@ -11,6 +12,7 @@ class B {
 
     propB: number;
 >propB : number
+>类型别名 :=> 数字
 }
 
 class C extends A {
@@ -19,12 +21,15 @@ class C extends A {
 
     propC: number;
 >propC : number
+>类型别名 :=> 数字
 }
 
 function hasANonBooleanReturnStatement(x): x is A {
 >hasANonBooleanReturnStatement : (x: any) => x is A
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >A : A
 
     return '';
@@ -34,13 +39,17 @@ function hasANonBooleanReturnStatement(x): x is A {
 function hasTypeGuardTypeInsideTypeGuardType(x): x is x is A {
 >hasTypeGuardTypeInsideTypeGuardType : (x: any) => x is any
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >x : No type information available!
 >is : any
+>类型别名 :=> 任意
 >A : typeof A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function hasMissingIsKeyword(): x {
@@ -49,34 +58,43 @@ function hasMissingIsKeyword(): x {
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function hasMissingParameter(): x is A {
 >hasMissingParameter : () => x is A
 >x : any
+>类型别名 :=> 任意
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function hasMissingTypeInTypeGuardType(x): x is {
 >hasMissingTypeInTypeGuardType : (x: any) => x is {}
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function hasNonMatchingParameter(y): x is A {
 >hasNonMatchingParameter : (y: any) => x is A
 >y : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function hasNonMatchingParameterType1(x: A): x is B {
@@ -84,30 +102,38 @@ function hasNonMatchingParameterType1(x: A): x is B {
 >x : A
 >A : A
 >x : any
+>类型别名 :=> 任意
 >B : B
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function hasNonMatchingParameterType2(x: string): x is number {
 >hasNonMatchingParameterType2 : (x: string) => x is number
 >x : string
+>类型别名 :=> 文字
 >x : any
+>类型别名 :=> 任意
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function hasNonMathcingGenericType<T>(a: string): a is T[] {
 >hasNonMathcingGenericType : <T>(a: string) => a is T[]
 >T : T
 >a : string
+>类型别名 :=> 文字
 >a : any
+>类型别名 :=> 任意
 >T : T
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 let a: A;
@@ -121,61 +147,78 @@ let b: B;
 declare function isB(p1): p1 is B;
 >isB : (p1: any) => p1 is B
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >B : B
 
 declare function isC(p1): p1 is C;
 >isC : (p1: any) => p1 is C
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
 declare function funA(p1: any, p2: any): p1 is B;
 >funA : (p1: any, p2: any) => p1 is B
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >B : B
 
 declare function hasNoTypeGuard(x);
 >hasNoTypeGuard : (x: any) => any
 >x : any
+>类型别名 :=> 任意
 
 // Passed argument is not the same as the one being guarded.
 if (isB(b)) {
 >isB(b) : boolean
+>类型别名 :=> 真假
 >isB : (p1: any) => p1 is B
 >b : B
 
     a.propB;
 >a.propB : any
+>类型别名 :=> 任意
 >a : A
 >propB : any
+>类型别名 :=> 任意
 }
 
 // Parameter index and argument index for the type guard target is not matching.
 if (funA(0, a)) {
 >funA(0, a) : boolean
+>类型别名 :=> 真假
 >funA : (p1: any, p2: any) => p1 is B
 >0 : 0
 >a : A
 
     a.propB; // Error
 >a.propB : any
+>类型别名 :=> 任意
 >a : A
 >propB : any
+>类型别名 :=> 任意
 }
 
 // No type guard in if statement
 if (hasNoTypeGuard(a)) {
 >hasNoTypeGuard(a) : any
+>类型别名 :=> 任意
 >hasNoTypeGuard : (x: any) => any
 >a : A
 
     a.propB;
 >a.propB : any
+>类型别名 :=> 任意
 >a : A
 >propB : any
+>类型别名 :=> 任意
 }
 
 // Type predicate type is not assignable
@@ -183,11 +226,14 @@ declare function acceptingDifferentSignatureTypeGuardFunction(p1: (p1) => p1 is 
 >acceptingDifferentSignatureTypeGuardFunction : (p1: (p1: any) => p1 is B) => any
 >p1 : (p1: any) => p1 is B
 >p1 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >B : B
 
 acceptingDifferentSignatureTypeGuardFunction(isC);
 >acceptingDifferentSignatureTypeGuardFunction(isC) : any
+>类型别名 :=> 任意
 >acceptingDifferentSignatureTypeGuardFunction : (p1: (p1: any) => p1 is B) => any
 >isC : (p1: any) => p1 is C
 
@@ -195,8 +241,11 @@ acceptingDifferentSignatureTypeGuardFunction(isC);
 var assign1: (p1, p2) => p1 is A;
 >assign1 : (p1: any, p2: any) => p1 is A
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >A : A
 
 assign1 = function(p1, p2): boolean {
@@ -204,10 +253,13 @@ assign1 = function(p1, p2): boolean {
 >assign1 : (p1: any, p2: any) => p1 is A
 >function(p1, p2): boolean {    return true;} : (p1: any, p2: any) => boolean
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 
     return true;
 >true : true
+>类型别名 :=> 为真
 
 };
 
@@ -215,8 +267,11 @@ assign1 = function(p1, p2): boolean {
 var assign2: (p1, p2) => p1 is A;
 >assign2 : (p1: any, p2: any) => p1 is A
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >A : A
 
 assign2 = function(p1, p2): p2 is A {
@@ -224,12 +279,16 @@ assign2 = function(p1, p2): p2 is A {
 >assign2 : (p1: any, p2: any) => p1 is A
 >function(p1, p2): p2 is A {    return true;} : (p1: any, p2: any) => p2 is A
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 
 };
 
@@ -237,8 +296,11 @@ assign2 = function(p1, p2): p2 is A {
 var assign3: (p1, p2) => p1 is A;
 >assign3 : (p1: any, p2: any) => p1 is A
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >A : A
 
 assign3 = function(p1, p2, p3): p1 is A {
@@ -246,39 +308,52 @@ assign3 = function(p1, p2, p3): p1 is A {
 >assign3 : (p1: any, p2: any) => p1 is A
 >function(p1, p2, p3): p1 is A {    return true;} : (p1: any, p2: any, p3: any) => p1 is A
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p3 : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 
 };
 
 // Type predicates in non-return type positions
 var b1: b is A;
 >b1 : any
+>类型别名 :=> 任意
 >b : No type information available!
 >is : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
 
 function b2(a: b is A) {};
 >b2 : (a: any, A: any) => void
 >a : any
+>类型别名 :=> 任意
 >b : No type information available!
 >is : any
+>类型别名 :=> 任意
 >A : any
+>类型别名 :=> 任意
 
 function b3(): A | b is A {
 >b3 : () => any
 >A : A
 >b : No type information available!
 >is : any
+>类型别名 :=> 任意
 >A : typeof A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 
 };
 
@@ -290,30 +365,37 @@ class D {
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
         return true;
 >true : true
+>类型别名 :=> 为真
     }
     get m1(p1: A): p1 is C {
 >m1 : boolean
+>类型别名 :=> 真假
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
         return true;
 >true : true
+>类型别名 :=> 为真
     }
     set m2(p1: A): p1 is C {
 >m2 : A
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 
         return true;
 >true : true
+>类型别名 :=> 为真
     }
 }
 
@@ -324,6 +406,7 @@ interface I1 {
 >p1 : A
 >A : A
 >p1 : any
+>类型别名 :=> 任意
 >C : C
 }
 
@@ -332,8 +415,10 @@ interface I2 {
 
     [index: number]: p1 is C;
 >index : number
+>类型别名 :=> 数字
 >p1 : No type information available!
 >is : any
+>类型别名 :=> 任意
 >C : typeof C
 }
 
@@ -342,54 +427,75 @@ function b4(...a): a is A {
 >b4 : (...a: any[]) => a is A
 >a : any[]
 >a : any
+>类型别名 :=> 任意
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 // Reference to binding pattern
 function b5({a, b, p1}, p2, p3): p1 is A {
 >b5 : ({ a, b, p1 }: { a: any; b: any; p1: any; }, p2: any, p3: any) => p1 is A
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p3 : any
+>类型别名 :=> 任意
 >p1 : No type information available!
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function b6([a, b, p1], p2, p3): p1 is A {
 >b6 : ([a, b, p1]: [any, any, any], p2: any, p3: any) => p1 is A
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p3 : any
+>类型别名 :=> 任意
 >p1 : No type information available!
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 function b7({a, b, c: {p1}}, p2, p3): p1 is A {
 >b7 : ({ a, b, c: { p1 } }: { a: any; b: any; c: { p1: any; }; }, p2: any, p3: any) => p1 is A
 >a : any
+>类型别名 :=> 任意
 >b : any
+>类型别名 :=> 任意
 >c : any
+>类型别名 :=> 任意
 >p1 : any
+>类型别名 :=> 任意
 >p2 : any
+>类型别名 :=> 任意
 >p3 : any
+>类型别名 :=> 任意
 >p1 : No type information available!
 >A : A
 
     return true;
 >true : true
+>类型别名 :=> 为真
 }
 
 // Should not crash the compiler
@@ -399,12 +505,15 @@ var x: A;
 
 if (hasMissingParameter()) {
 >hasMissingParameter() : boolean
+>类型别名 :=> 真假
 >hasMissingParameter : () => x is A
 
     x.propA;
 >x.propA : number
+>类型别名 :=> 数字
 >x : A
 >propA : number
+>类型别名 :=> 数字
 }
 
 // repro #17297
@@ -419,6 +528,7 @@ type KeySet<T extends Keys> = { [k in T]: true }
 >k : k
 >T : T
 >true : true
+>类型别名 :=> 为真
 
 // expected an error, since Keys doesn't have a 'd'
 declare function hasKey<T extends Keys>(x: KeySet<T>): x is KeySet<T|'d'>;
@@ -429,6 +539,7 @@ declare function hasKey<T extends Keys>(x: KeySet<T>): x is KeySet<T|'d'>;
 >KeySet : KeySet<T>
 >T : T
 >x : any
+>类型别名 :=> 任意
 >KeySet : KeySet<T>
 >T : T
 
@@ -466,19 +577,25 @@ declare var alsoAnError: NeedsFoo<number>; // also error, as expected
 declare function newError1(x: any): x is NeedsFoo<Bar>; // should error
 >newError1 : (x: any) => x is NeedsFoo<Bar>
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >NeedsFoo : NeedsFoo<T>
 >Bar : Bar
 
 declare function newError2(x: any): x is NeedsFoo<number>; // should error
 >newError2 : (x: any) => x is NeedsFoo<number>
 >x : any
+>类型别名 :=> 任意
 >x : any
+>类型别名 :=> 任意
 >NeedsFoo : NeedsFoo<T>
 
 declare function newError3(x: number): x is NeedsFoo<number>; // should error
 >newError3 : (x: number) => x is NeedsFoo<number>
 >x : number
+>类型别名 :=> 数字
 >x : any
+>类型别名 :=> 任意
 >NeedsFoo : NeedsFoo<T>
 

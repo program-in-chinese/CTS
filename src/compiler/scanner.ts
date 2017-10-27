@@ -240,7 +240,7 @@ namespace ts {
         "新建": SyntaxKind.NewKeyword,
         "空值": SyntaxKind.NullKeyword,
         "数字": SyntaxKind.NumberKeyword,
-        "对象": SyntaxKind.ObjectKeyword,
+        "实例": SyntaxKind.ObjectKeyword,
 
         "包装": SyntaxKind.PackageKeyword,
 

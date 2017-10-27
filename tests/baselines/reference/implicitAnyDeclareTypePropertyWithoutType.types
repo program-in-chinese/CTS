@@ -9,13 +9,16 @@ class C {
 var x: { y; z; }             // error at "y,z"
 >x : { y: any; z: any; }
 >y : any
+>类型别名 :=> 任意
 >z : any
+>类型别名 :=> 任意
 
 var x1: { y1: C; z1; };      // error at "z1" 
 >x1 : { y1: C; z1: any; }
 >y1 : C
 >C : C
 >z1 : any
+>类型别名 :=> 任意
 
 var x11: { new (); };        // error at "new"
 >x11 : new () => any
@@ -23,23 +26,29 @@ var x11: { new (); };        // error at "new"
 var x2: (y2) => number;      // error at "y2"
 >x2 : (y2: any) => number
 >y2 : any
+>类型别名 :=> 任意
 
 var x3: (x3: string, y3) => void ; // error at "y3"
 >x3 : (x3: string, y3: any) => void
 >x3 : string
+>类型别名 :=> 文字
 >y3 : any
+>类型别名 :=> 任意
 
 // this should not be an error
 var bar: { a: number; b: number };
 >bar : { a: number; b: number; }
 >a : number
+>类型别名 :=> 数字
 >b : number
+>类型别名 :=> 数字
 
 var foo: { littleC: C; c: string };
 >foo : { littleC: C; c: string; }
 >littleC : C
 >C : C
 >c : string
+>类型别名 :=> 文字
 
 var x4: new () => any;
 >x4 : new () => any

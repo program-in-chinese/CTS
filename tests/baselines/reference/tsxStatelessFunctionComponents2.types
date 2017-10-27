@@ -6,12 +6,15 @@ function Greet(x: {name?: string}) {
 >Greet : (x: { name?: string; }) => JSX.Element
 >x : { name?: string; }
 >name : string
+>类型别名 :=> 文字
 
 	return <div>Hello, {x}</div>;
 ><div>Hello, {x}</div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >x : { name?: string; }
 >div : any
+>类型别名 :=> 任意
 }
 
 class BigGreeter extends React.Component<{ name?: string }, {}> {
@@ -20,6 +23,7 @@ class BigGreeter extends React.Component<{ name?: string }, {}> {
 >React : typeof React
 >Component : typeof React.Component
 >name : string
+>类型别名 :=> 文字
 
 	render() {
 >render : () => JSX.Element
@@ -27,10 +31,13 @@ class BigGreeter extends React.Component<{ name?: string }, {}> {
 		return <div></div>;
 ><div></div> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >div : any
+>类型别名 :=> 任意
 	}
 	greeting: string;
 >greeting : string
+>类型别名 :=> 文字
 }
 
 // OK
@@ -45,6 +52,7 @@ let b = <Greet key="k" />;
 ><Greet key="k" /> : JSX.Element
 >Greet : (x: { name?: string; }) => JSX.Element
 >key : string
+>类型别名 :=> 文字
 
 // Error - not allowed to specify 'ref' on SFCs
 let c = <Greet ref="myRef" />;
@@ -52,6 +60,7 @@ let c = <Greet ref="myRef" />;
 ><Greet ref="myRef" /> : JSX.Element
 >Greet : (x: { name?: string; }) => JSX.Element
 >ref : string
+>类型别名 :=> 文字
 
 
 // OK - ref is valid for classes
@@ -63,10 +72,13 @@ let d = <BigGreeter ref={x => x.greeting.substr(10)} />;
 >x => x.greeting.substr(10) : (x: BigGreeter) => string
 >x : BigGreeter
 >x.greeting.substr(10) : string
+>类型别名 :=> 文字
 >x.greeting.substr : (from: number, length?: number) => string
 >x.greeting : string
+>类型别名 :=> 文字
 >x : BigGreeter
 >greeting : string
+>类型别名 :=> 文字
 >substr : (from: number, length?: number) => string
 >10 : 10
 
@@ -79,11 +91,16 @@ let e = <BigGreeter ref={x => x.greeting.subtr(10)} />;
 >x => x.greeting.subtr(10) : (x: BigGreeter) => any
 >x : BigGreeter
 >x.greeting.subtr(10) : any
+>类型别名 :=> 任意
 >x.greeting.subtr : any
+>类型别名 :=> 任意
 >x.greeting : string
+>类型别名 :=> 文字
 >x : BigGreeter
 >greeting : string
+>类型别名 :=> 文字
 >subtr : any
+>类型别名 :=> 任意
 >10 : 10
 
 // Error (ref callback is contextually typed)
@@ -95,8 +112,10 @@ let f = <BigGreeter ref={x => x.notARealProperty} />;
 >x => x.notARealProperty : (x: BigGreeter) => any
 >x : BigGreeter
 >x.notARealProperty : any
+>类型别名 :=> 任意
 >x : BigGreeter
 >notARealProperty : any
+>类型别名 :=> 任意
 
 // OK - key is always valid
 let g = <BigGreeter key={100} />;
@@ -104,6 +123,7 @@ let g = <BigGreeter key={100} />;
 ><BigGreeter key={100} /> : JSX.Element
 >BigGreeter : typeof BigGreeter
 >key : number
+>类型别名 :=> 数字
 >100 : 100
 
 // OK - contextually typed intrinsic ref callback parameter
@@ -111,23 +131,29 @@ let h = <div ref={x => x.innerText} />;
 >h : JSX.Element
 ><div ref={x => x.innerText} /> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >ref : (x: HTMLDivElement) => string
 >x => x.innerText : (x: HTMLDivElement) => string
 >x : HTMLDivElement
 >x.innerText : string
+>类型别名 :=> 文字
 >x : HTMLDivElement
 >innerText : string
+>类型别名 :=> 文字
 
 // Error - property not on ontextually typed intrinsic ref callback parameter
 let i = <div ref={x => x.propertyNotOnHtmlDivElement} />;
 >i : JSX.Element
 ><div ref={x => x.propertyNotOnHtmlDivElement} /> : JSX.Element
 >div : any
+>类型别名 :=> 任意
 >ref : (x: HTMLDivElement) => any
 >x => x.propertyNotOnHtmlDivElement : (x: HTMLDivElement) => any
 >x : HTMLDivElement
 >x.propertyNotOnHtmlDivElement : any
+>类型别名 :=> 任意
 >x : HTMLDivElement
 >propertyNotOnHtmlDivElement : any
+>类型别名 :=> 任意
 
 

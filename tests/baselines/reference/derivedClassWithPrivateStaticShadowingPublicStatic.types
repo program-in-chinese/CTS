@@ -4,6 +4,7 @@ class Base {
 
     public static x: string;
 >x : string
+>类型别名 :=> 文字
 
     public static fn(): string {
 >fn : () => string
@@ -14,11 +15,14 @@ class Base {
 
     public static get a() { return 1; }
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 
     public static set a(v) { }
 >a : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 }
 
 // BUG 847404
@@ -29,6 +33,7 @@ class Derived extends Base {
 
     private static x: string; 
 >x : string
+>类型别名 :=> 文字
 
     private static fn(): string {
 >fn : () => string
@@ -39,62 +44,85 @@ class Derived extends Base {
 
     private static get a() { return 1; }
 >a : number
+>类型别名 :=> 数字
 >1 : 1
 
     private static set a(v) { }
 >a : number
+>类型别名 :=> 数字
 >v : number
+>类型别名 :=> 数字
 }
 
 var r = Base.x; // ok
 >r : string
+>类型别名 :=> 文字
 >Base.x : string
+>类型别名 :=> 文字
 >Base : typeof Base
 >x : string
+>类型别名 :=> 文字
 
 var r2 = Derived.x; // error
 >r2 : string
+>类型别名 :=> 文字
 >Derived.x : string
+>类型别名 :=> 文字
 >Derived : typeof Derived
 >x : string
+>类型别名 :=> 文字
 
 var r3 = Base.fn(); // ok
 >r3 : string
+>类型别名 :=> 文字
 >Base.fn() : string
+>类型别名 :=> 文字
 >Base.fn : () => string
 >Base : typeof Base
 >fn : () => string
 
 var r4 = Derived.fn(); // error
 >r4 : string
+>类型别名 :=> 文字
 >Derived.fn() : string
+>类型别名 :=> 文字
 >Derived.fn : () => string
 >Derived : typeof Derived
 >fn : () => string
 
 var r5 = Base.a; // ok
 >r5 : number
+>类型别名 :=> 数字
 >Base.a : number
+>类型别名 :=> 数字
 >Base : typeof Base
 >a : number
+>类型别名 :=> 数字
 
 Base.a = 2; // ok
 >Base.a = 2 : 2
 >Base.a : number
+>类型别名 :=> 数字
 >Base : typeof Base
 >a : number
+>类型别名 :=> 数字
 >2 : 2
 
 var r6 = Derived.a; // error
 >r6 : number
+>类型别名 :=> 数字
 >Derived.a : number
+>类型别名 :=> 数字
 >Derived : typeof Derived
 >a : number
+>类型别名 :=> 数字
 
 Derived.a = 2; // error
 >Derived.a = 2 : 2
 >Derived.a : number
+>类型别名 :=> 数字
 >Derived : typeof Derived
 >a : number
+>类型别名 :=> 数字
 >2 : 2
 
