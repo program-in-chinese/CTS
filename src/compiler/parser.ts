@@ -7053,15 +7053,15 @@ namespace ts {
                         值.name = 创建字面量词典标识符(是词典字面量标识符(), /** 诊断信息 */ undefined);
                         值 = finishNode(值);
                     }
-                    else if (token() === SyntaxKind.StringLiteral) {
-                        文本字面量标识符 = false;
+                    else if (!文本字面量标识符 && token() === SyntaxKind.StringLiteral) {
                         值 = <词典值>createNode(SyntaxKind.词典值);
                         值.name = 创建字面量词典标识符( /** 是字面量标识符 */ false, /** 诊断信息 */ undefined);
                         值 = finishNode(值);
+                    } else {
+                        值 = <词典值>createNode(SyntaxKind.词典值);
+                        值.name = 创建词典标识符(是词典标识符(), /** 诊断信息 */ undefined);
+                        值 = finishNode(值);
                     }
-                    值 = <词典值>createNode(SyntaxKind.词典值);
-                    值.name = 创建词典标识符(是词典标识符(), /** 诊断信息 */ undefined);
-                    值 = finishNode(值);
                 }
                 if (键 && 值) {
                     返回值.键 = 键;

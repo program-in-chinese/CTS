@@ -832,8 +832,6 @@ namespace ts {
     export interface Node extends TextRange {
         kind: SyntaxKind;
         flags: NodeFlags;
-        别名?: 别名;
-        别名id?: number;
         局部词典语句?: 局部词典语句[];
         /* @internal */ modifierFlagsCache?: ModifierFlags;
         /* @internal */ transformFlags?: TransformFlags;
@@ -947,6 +945,8 @@ namespace ts {
          * Text of identifier, but if the identifier begins with two underscores, this will begin with three.
          */
         escapedText: __String;
+        别名?: 别名;
+        别名id?: number;
         originalKeywordKind?: SyntaxKind;                         // Original syntaxKind which get set so that we can report an error later
         /*@internal*/ autoGenerateKind?: GeneratedIdentifierKind; // Specifies whether to auto-generate the text for an identifier.
         /*@internal*/ autoGenerateId?: number;                    // Ensures unique generated identifiers get unique names, but clones get the same name.
@@ -1383,6 +1383,8 @@ namespace ts {
 
     export interface StringLiteral extends LiteralExpression {
         kind: SyntaxKind.StringLiteral;
+        别名?: 别名;
+        别名id?: number;
         /* @internal */ textSourceNode?: Identifier | StringLiteral | NumericLiteral; // Allows a StringLiteral to get its text from another node (used by transforms).
         /** Note: this is only set when synthesizing a node, not during parsing. */
         /* @internal */ singleQuote?: boolean;
@@ -1757,6 +1759,8 @@ namespace ts {
 
     export interface NoSubstitutionTemplateLiteral extends LiteralExpression {
         kind: SyntaxKind.NoSubstitutionTemplateLiteral;
+        别名?: 别名;
+        别名id?: number;
     }
 
     /* @internal */
@@ -3711,7 +3715,7 @@ namespace ts {
         RequiresWidening = ContainsWideningType | ContainsObjectLiteral,
         /* @internal */
         PropagatingFlags = ContainsWideningType | ContainsObjectLiteral | ContainsAnyFunctionType,
-        Cts类型转换 = String | StringLiteral | EnumLiteral | Object | Union | Index
+        Cts类型转换 = String | StringLiteral | EnumLiteral | Object | Union | Index,
     }
 
     export type DestructuringPattern = BindingPattern | ObjectLiteralExpression | ArrayLiteralExpression;
@@ -3722,8 +3726,6 @@ namespace ts {
         /* @internal */ id: number;      // Unique ID
         /* @internal */ checker: TypeChecker;
         symbol?: Symbol;                 // Symbol associated with type (if any)
-        别名?: 别名;
-        别名id?: number;
         pattern?: DestructuringPattern;  // Destructuring pattern represented by type (if any)
         aliasSymbol?: Symbol;            // Alias associated with type
         aliasTypeArguments?: Type[];     // Alias type arguments (if any)
@@ -3733,6 +3735,8 @@ namespace ts {
     // Intrinsic types (TypeFlags.Intrinsic)
     export interface IntrinsicType extends Type {
         intrinsicName: string;        // Name of intrinsic type
+        别名?: 别名;
+        别名id?: number;
     }
 
     // String literal types (TypeFlags.StringLiteral)
@@ -3745,6 +3749,8 @@ namespace ts {
 
     export interface StringLiteralType extends LiteralType {
         value: string;
+        别名?: 别名;
+        别名id?: number;
     }
 
     export interface NumberLiteralType extends LiteralType {
@@ -3753,6 +3759,8 @@ namespace ts {
 
     // Enum types (TypeFlags.Enum)
     export interface EnumType extends Type {
+        别名?: 别名;
+        别名id?: number;
     }
 
     export const enum ObjectFlags {
@@ -3772,6 +3780,8 @@ namespace ts {
     // Object types (TypeFlags.ObjectType)
     export interface ObjectType extends Type {
         objectFlags: ObjectFlags;
+        别名?: 别名;
+        别名id?: number;
     }
 
     /** Class and interface types (ObjectFlags.Class and ObjectFlags.Interface). */

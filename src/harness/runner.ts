@@ -148,10 +148,10 @@ function handleTestConfig() {
                         runners.push(new CompilerBaselineRunner(CompilerTestType.Regressions));
                         runners.push(new ProjectRunner());
                         break;
-                    case "conformance":
+                   /*  case "conformance":
                         runners.push(new CompilerBaselineRunner(CompilerTestType.Conformance));
                         break;
-                    case "project":
+                   case "project":
                         runners.push(new ProjectRunner());
                         break;
                     case "fourslash":
@@ -175,6 +175,7 @@ function handleTestConfig() {
                     case "test262":
                         runners.push(new Test262BaselineRunner());
                         break;
+                        */
                 }
             }
         }

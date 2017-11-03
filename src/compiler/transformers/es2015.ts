@@ -3074,6 +3074,7 @@ namespace ts {
          * @param receiver The receiver for the assignment.
          */
         function transformPropertyAssignmentToExpression(property: PropertyAssignment, receiver: Expression, startsOnNewLine: boolean) {
+
             const expression = createAssignment(
                 createMemberAccessForPropertyName(
                     receiver,
@@ -3224,10 +3225,20 @@ namespace ts {
          * @param node A ShorthandPropertyAssignment node.
          */
         function visitShorthandPropertyAssignment(node: ShorthandPropertyAssignment): ObjectLiteralElementLike {
+            const 合成的克隆 = getSynthesizedClone(node.name)
+            let 标识符: Identifier
+            if (合成的克隆.别名) {
+                合成的克隆.别名 = undefined
+                标识符 = createIdentifier(解码文本(node.name.别名))
+               // console.log("111: ",node.name)
+                node.name.别名 = undefined
+            } else {
+                标识符 = node.name
+            }
             return setTextRange(
                 createPropertyAssignment(
-                    node.name,
-                    getSynthesizedClone(node.name)
+                    标识符,
+                    合成的克隆
                 ),
                 /*location*/ node
             );

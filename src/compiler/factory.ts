@@ -820,7 +820,7 @@ namespace ts {
         const node = <BindingElement>createSynthesizedNode(SyntaxKind.BindingElement);
         node.dotDotDotToken = dotDotDotToken;
         node.propertyName = asName(propertyName);
-        node.name = asName(name);
+        node.name = asName(name)
         node.initializer = initializer;
         return node;
     }
@@ -2882,14 +2882,14 @@ namespace ts {
 
     export function createMemberAccessForPropertyName(target: Expression, memberName: PropertyName, location?: TextRange): MemberExpression {
         if (isComputedPropertyName(memberName)) {
-             return setTextRange(createElementAccess(target, memberName.expression), location);
+            return setTextRange(createElementAccess(target, memberName.expression), location);
         }
         else {
             const expression = setTextRange(
                 isIdentifier(memberName)
                     ? createPropertyAccess(target, memberName)
                     : createElementAccess(target, memberName),
-                memberName
+                    memberName
             );
             getOrCreateEmitNode(expression).flags |= EmitFlags.NoNestedSourceMaps;
             return expression;

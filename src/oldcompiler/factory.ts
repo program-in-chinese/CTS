@@ -126,7 +126,7 @@ namespace ts {
 
     export function updateIdentifier(node: Identifier, typeArguments: NodeArray<TypeNode> | undefined): Identifier {
         return node.typeArguments !== typeArguments
-            ? updateNode(createIdentifier(unescapeLeadingUnderscores(node.别名 && node.别名.名称 || node.text), typeArguments), node)
+            ? updateNode(createIdentifier(unescapeLeadingUnderscores(node.text), typeArguments), node)
             : node;
     }
 
@@ -2647,12 +2647,12 @@ namespace ts {
     function createJsxFactoryExpressionFromEntityName(jsxFactory: EntityName, parent: JsxOpeningLikeElement): Expression {
         if (isQualifiedName(jsxFactory)) {
             const left = createJsxFactoryExpressionFromEntityName(jsxFactory.left, parent);
-            const right = createIdentifier(unescapeLeadingUnderscores(jsxFactory.right.别名 && jsxFactory.right.别名.名称 || jsxFactory.right.text));
+            const right = createIdentifier(unescapeLeadingUnderscores(jsxFactory.right.text));
             right.text = jsxFactory.right.text;
             return createPropertyAccess(left, right);
         }
         else {
-            return createReactNamespace(unescapeLeadingUnderscores(jsxFactory.别名 && jsxFactory.别名.名称 || jsxFactory.text), parent);
+            return createReactNamespace(unescapeLeadingUnderscores(jsxFactory.text), parent);
         }
     }
 

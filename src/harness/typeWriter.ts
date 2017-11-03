@@ -37,7 +37,7 @@ class TypeWriterWalker {
         const sourceFile = this.program.getSourceFile(fileName);
         this.currentSourceFile = sourceFile;
         const gen = this.visitNode(sourceFile, /*isSymbolWalk*/ true);
-        for (let {done, value} = gen.next(); !done; { done, value } = gen.next()) {
+        for (let { done, value } = gen.next(); !done; { done, value } = gen.next()) {
             yield value as TypeWriterSymbolResult;
         }
     }
@@ -46,7 +46,7 @@ class TypeWriterWalker {
         const sourceFile = this.program.getSourceFile(fileName);
         this.currentSourceFile = sourceFile;
         const gen = this.visitNode(sourceFile, /*isSymbolWalk*/ false);
-        for (let {done, value} = gen.next(); !done; { done, value } = gen.next()) {
+        for (let { done, value } = gen.next(); !done; { done, value } = gen.next()) {
             yield value as TypeWriterTypeResult;
         }
     }
@@ -63,7 +63,7 @@ class TypeWriterWalker {
         ts.forEachChild(node, child => void children.push(child));
         for (const child of children) {
             const gen = this.visitNode(child, isSymbolWalk);
-            for (let {done, value} = gen.next(); !done; { done, value } = gen.next()) {
+            for (let { done, value } = gen.next(); !done; { done, value } = gen.next()) {
                 yield value;
             }
         }
@@ -80,8 +80,8 @@ class TypeWriterWalker {
             // let type = this.checker.getTypeAtLocation(node);
             const type = node.parent && ts.isExpressionWithTypeArgumentsInClassExtendsClause(node.parent) && this.checker.getTypeAtLocation(node.parent) || this.checker.getTypeAtLocation(node);
             let typeString = type ? this.checker.typeToString(type, node.parent, ts.TypeFormatFlags.NoTruncation) : "No type information available!";
-            if (type && type.别名) {
-                typeString += "\n>类型别名 :=> " + type.别名.名称
+            if (type && (type as any).别名) {
+                typeString += "\n>类型别名 :=> " + (type as any).别名.名称
 
             }
             return {
@@ -98,8 +98,8 @@ class TypeWriterWalker {
         const 符号名 = this.checker.symbolToString(symbol, node.parent)
         let symbolString = "Symbol(" + 符号名;
         let node别名: string
-        if (node.别名) {
-            node别名 = ">节点别名 : #" + 符号名 + " => " + node.别名.名称;
+        if ((node as any).别名) {
+            node别名 = ">节点别名 : #" + 符号名 + " => " + (node as any).别名.名称;
         }
         if (symbol.别名) {
             if (node别名) {
@@ -125,7 +125,7 @@ class TypeWriterWalker {
                 const declLineAndCharacter = declSourceFile.getLineAndCharacterOfPosition(declaration.pos);
                 const fileName = ts.getBaseFileName(declSourceFile.fileName);
                 const isLibFile = /lib(.*)\.d\.ts/i.test(fileName);
-                const declText = `Decl(${ fileName }, ${ isLibFile ? "--" : declLineAndCharacter.line }, ${ isLibFile ? "--" : declLineAndCharacter.character })`;
+                const declText = `Decl(${fileName}, ${isLibFile ? "--" : declLineAndCharacter.line}, ${isLibFile ? "--" : declLineAndCharacter.character})`;
                 symbolString += declText;
                 (declaration as any).__symbolTestOutputCache = declText;
             }

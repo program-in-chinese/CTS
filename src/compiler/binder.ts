@@ -166,7 +166,6 @@ namespace ts {
             Symbol = objectAllocator.getSymbolConstructor();
             别名构造 = objectAllocator.get别名构造函数()
 
-
             if (!file.locals) {
                 bind(file);
                 file.symbolCount = symbolCount;
@@ -366,7 +365,6 @@ namespace ts {
                 // you have multiple 'vars' with the same name in the same container).  In this case
                 // just add this node into the declarations list of the symbol.
                 symbol = symbolTable.get(name);
-
                 if (includes & SymbolFlags.Classifiable) {
                     classifiableNames.set(name, true);
                 }
@@ -1991,12 +1989,23 @@ namespace ts {
 
             // Note: the node text must be exactly "use strict" or 'use strict'.  It is not ok for the
             // string to contain unicode escapes (as per ES5).
-            return nodeText === '"use strict"' || nodeText === "'use strict'"||nodeText === '"严格模式"' || nodeText === "'严格模式'";
+            return nodeText === '"use strict"' || nodeText === "'use strict'" || nodeText === '"严格模式"' || nodeText === "'严格模式'";
         }
 
         function bindWorker(node: Node) {
             switch (node.kind) {
                 /* Strict mode checks */
+                case SyntaxKind.StringLiteral:
+                    if (file.isDeclarationFile && file.全局词典) {
+                        let 名称 = (<StringLiteral>node)
+                        if (名称 && !名称.别名) {
+                            const 词典 = file.全局词典.get(名称.text as string)
+                            if (词典) {
+                                const 别名名称变量 = isIdentifier(词典.值.name) ? 词典.值.name.escapedText : 词典.值.name.text;
+                                名称.别名 = new 别名构造(取别名旗帜(词典), 别名名称变量 as __String)
+                            }
+                        }
+                    }
                 case SyntaxKind.Identifier:
                     // for typedef type names with namespaces, bind the new jsdoc type symbol here
                     // because it requires all containing namespaces to be in effect, namely the

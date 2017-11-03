@@ -234,6 +234,11 @@ namespace ts {
             }
         }
         const bindingTarget = getTargetOfBindingOrAssignmentElement(element);
+        if(isIdentifier(bindingTarget)){
+            if(bindingTarget.别名){
+                bindingTarget.别名=undefined
+            }
+        }
         if (isObjectBindingOrAssignmentPattern(bindingTarget)) {
             flattenObjectBindingOrAssignmentPattern(flattenContext, element, bindingTarget, value, location);
         }
@@ -418,7 +423,7 @@ namespace ts {
             return createElementAccess(value, argumentExpression);
         }
         else {
-            const 名字 = propertyName.别名 ? unescapeLeadingUnderscores(propertyName.别名.名称) : unescapeLeadingUnderscores(propertyName.escapedText);
+            const 名字 =  propertyName.别名 ? unescapeLeadingUnderscores(propertyName.别名.名称) :unescapeLeadingUnderscores(propertyName.escapedText);
             const name = createIdentifier(名字);
             return createPropertyAccess(value, name);
         }

@@ -2817,13 +2817,13 @@ namespace ts {
                 return generateName(node);
             }
             else if (isIdentifier(node) && (nodeIsSynthesized(node) || !node.parent)) {
-                return idText(node);
+                return node.别名 && 解码文本(node.别名) || idText(node);
             }
             else if (node.kind === SyntaxKind.StringLiteral && (<StringLiteral>node).textSourceNode) {
                 return getTextOfNode((<StringLiteral>node).textSourceNode, includeTrivia);
             }
             else if (isLiteralExpression(node) && (nodeIsSynthesized(node) || !node.parent)) {
-                return node.text;
+                return (<StringLiteral>node).别名 && (<StringLiteral>node).别名.名称 as string || node.text;
             }
 
             return 取输出文本从源文件按节点(currentSourceFile, node, includeTrivia);
