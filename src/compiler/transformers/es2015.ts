@@ -3633,6 +3633,9 @@ namespace ts {
          * @param node A string literal.
          */
         function visitStringLiteral(node: StringLiteral) {
+            if (node.别名) {
+                return setTextRange(createLiteral(node.别名.名称 as string), node);
+            }
             if (node.hasExtendedUnicodeEscape) {
                 return setTextRange(createLiteral(node.text), node);
             }

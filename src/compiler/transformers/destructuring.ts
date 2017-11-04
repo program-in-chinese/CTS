@@ -234,11 +234,13 @@ namespace ts {
             }
         }
         const bindingTarget = getTargetOfBindingOrAssignmentElement(element);
-        if(isIdentifier(bindingTarget)){
-            if(bindingTarget.别名){
-                bindingTarget.别名=undefined
+        /*
+        if (isIdentifier(bindingTarget)) {
+            if (bindingTarget.别名) {
+                bindingTarget.别名 = undefined
             }
         }
+        */
         if (isObjectBindingOrAssignmentPattern(bindingTarget)) {
             flattenObjectBindingOrAssignmentPattern(flattenContext, element, bindingTarget, value, location);
         }

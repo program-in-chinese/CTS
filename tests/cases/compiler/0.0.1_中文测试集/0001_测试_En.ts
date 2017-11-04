@@ -1,55 +1,37 @@
-// @target: ES5
-// @removeComments: false
-
-
-// @filename: /a/node_modules/@types/testEn/index.d.ts
-export declare interface C {
-    t: string
-    n: string
-}
-
-export declare class Te {
-    private v: string
-    private tn: C
-    constructor(v: string, tn: C)
-    V: string
-    Tn: C
-}
-
-export declare class Te2 {
-    private v: string
-    private tn: C
-    constructor(v: string, tn: C)
-    V: string
-    Tn: C
-}
-// @filename: /a/测试_1.ts
-import { Te, Te2 } from "testEn"
-
-let B1 = new Te("vvvvv", { t: "ttttt", n: "nnnnn" })
-
-let v = "vvvvv"
-let c = {
-    t: "ttttt",
-    n: "nnnnn"
-}
-
-let B2 = new Te2(v, c)
-
-let v2 = "vvvvv"
-let t = "ttttt"
-let n = "nnnnn"
-let c2 = { t, n }
-
-let B3 = new Te(v2, c2)
-
-if (B1 && B2 && B3) {
-    B1.V
-    B1.Tn
-
-    B2.V
-    B2.Tn
-
-    B3["V"]
-    B3["Tn"]
-}
+// @strictNullChecks: true
+type foo = {
+    bar: number | null;
+    baz: string;
+    nested: {
+      a: number;
+      b: string | null;
+    }
+  };
+  
+  const aFoo: foo = { bar: 3, baz: "b", nested: { a: 1, b: "y" } };
+  
+  if (aFoo.bar && aFoo.nested.b) {
+    const { bar, baz, nested: {a, b: text} } = aFoo;
+    const right: number = aFoo.bar;
+    const wrong: number = bar;
+    const another: string = baz;
+    const aAgain: number = a;
+    const bAgain: string = text;
+  }
+  
+  type bar = {
+    elem1: number | null;
+    elem2: foo | null;
+  };
+  
+  const bBar = { elem1: 7, elem2: aFoo };
+  
+  if (bBar.elem2 && bBar.elem2.bar && bBar.elem2.nested.b) {
+    const { bar, baz, nested: {a, b: text} } = bBar.elem2;
+    const right: number = bBar.elem2.bar;
+    const wrong: number = bar;
+    const another: string = baz;
+    const aAgain: number = a;
+    const bAgain: string = text;
+  }
+  

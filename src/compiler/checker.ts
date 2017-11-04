@@ -24,7 +24,6 @@ namespace ts {
             symbol.id = nextSymbolId;
             nextSymbolId++;
         }
-
         return symbol.id;
     }
 
@@ -47,6 +46,7 @@ namespace ts {
         "never": "不及",
         "object": "实例",
     })
+    let 临时表 = createMultiMap<Symbol>()
     /*
     const 内置符号别名对应表 = createMapFromTemplate({
         "undefined": "未定",
@@ -680,6 +680,7 @@ namespace ts {
             if (symbol.exports) result.exports = cloneMap(symbol.exports);
             if (symbol.别名) result.别名 = symbol.别名;
             if (symbol.别名id) result.别名id = symbol.别名id;
+            词典携带者交换别名(result, symbol)
 
             recordMergedSymbol(result, symbol);
             return result;
@@ -1307,7 +1308,6 @@ namespace ts {
                     }
                 }
             }
-
             return result;
         }
 
@@ -1566,12 +1566,22 @@ namespace ts {
             if (valueSymbol.valueDeclaration) result.valueDeclaration = valueSymbol.valueDeclaration;
             if (typeSymbol.members) result.members = typeSymbol.members;
             if (valueSymbol.exports) result.exports = valueSymbol.exports;
+            let 别名参数 = typeSymbol.别名
+            if (别名参数) {
+                词典携带者交换别名(result, typeSymbol)
+
+            } else {
+                别名参数 = valueSymbol.别名
+                if (别名参数) {
+                    词典携带者交换别名(result, valueSymbol)
+                }
+            }
             return result;
         }
 
         function getExportOfModule(symbol: Symbol, name: __String, dontResolveAlias: boolean): Symbol {
             if (symbol.flags & SymbolFlags.Module) {
-                return resolveSymbol(getExportsOfSymbol(symbol).get(name), dontResolveAlias);
+                return resolveSymbol(取符号从符号表按名称(getExportsOfSymbol(symbol), name, undefined), dontResolveAlias);
             }
         }
 
@@ -1596,10 +1606,10 @@ namespace ts {
                     let symbolFromVariable: Symbol;
                     // First check if module was specified with "export=". If so, get the member from the resolved type
                     if (moduleSymbol && moduleSymbol.exports && moduleSymbol.exports.get("export=" as __String)) {
-                        symbolFromVariable = getPropertyOfType(getTypeOfSymbol(targetSymbol), name.escapedText, moduleSymbol.exports.get("export=" as __String));
+                        symbolFromVariable = getPropertyOfType(getTypeOfSymbol(targetSymbol), name.escapedText, name);
                     }
                     else {
-                        symbolFromVariable = getPropertyOfVariable(targetSymbol, name.escapedText, moduleSymbol);
+                        symbolFromVariable = getPropertyOfVariable(targetSymbol, name.escapedText, name);
                     }
                     // if symbolFromVariable is export - get its final target
                     symbolFromVariable = resolveSymbol(symbolFromVariable, dontResolveAlias);
@@ -1803,9 +1813,6 @@ namespace ts {
                     return namespace;
                 }
                 symbol = getSymbol(getExportsOfSymbol(namespace), right.escapedText, meaning, right);
-
-                // 创建节点别名根据符号别名(right, symbol)
-
                 if (!symbol) {
                     if (!ignoreErrors) {
                         error(right, Diagnostics.Namespace_0_has_no_exported_member_1, getFullyQualifiedName(namespace), declarationNameToString(right));
@@ -1826,7 +1833,6 @@ namespace ts {
                 Debug.assertNever(name, "Unknown entity name kind.");
             }
             Debug.assert((getCheckFlags(symbol) & CheckFlags.Instantiated) === 0, "Should never get an instantiated symbol here.");
-            // TODO : 有别名的情况 还要考虑
             return (symbol.flags & meaning) || dontResolveAlias ? symbol : resolveAlias(symbol);
         }
 
@@ -1957,7 +1963,7 @@ namespace ts {
         function tryGetMemberInModuleExports(memberName: __String, moduleSymbol: Symbol): Symbol | undefined {
             const symbolTable = getExportsOfModule(moduleSymbol);
             if (symbolTable) {
-                return symbolTable.get(memberName);
+                return 取符号从符号表按名称(symbolTable, memberName, undefined)
             }
         }
 
@@ -1984,6 +1990,7 @@ namespace ts {
         interface ExportCollisionTracker {
             specifierText: string;
             exportsWithDuplicate: ExportDeclaration[];
+            相关符号:Symbol;
         }
 
         type ExportCollisionTrackerTable = UnderscoreEscapedMap<ExportCollisionTracker>;
@@ -1998,16 +2005,17 @@ namespace ts {
 
                 const targetSymbol = 取符号从符号表按名称(target, id, sourceSymbol);
                 if (!targetSymbol) {
-                     词典携带者交换别名(targetSymbol, sourceSymbol)
+                    词典携带者交换别名(targetSymbol, sourceSymbol)
                     target.set(id, sourceSymbol);
                     if (lookupTable && exportNode) {
                         lookupTable.set(id, {
-                            specifierText: getTextOfNode(exportNode.moduleSpecifier)
+                            specifierText: getTextOfNode(exportNode.moduleSpecifier),
+                            相关符号: sourceSymbol
                         } as ExportCollisionTracker);
                     }
                 }
                 else if (lookupTable && exportNode && targetSymbol && resolveSymbol(targetSymbol) !== resolveSymbol(sourceSymbol)) {
-                    const collisionTracker = lookupTable.get(id);
+                    const collisionTracker = lookupTable.get(id) || (sourceSymbol && sourceSymbol.别名 && lookupTable.get(sourceSymbol.别名.名称));
                     if (!collisionTracker.exportsWithDuplicate) {
                         collisionTracker.exportsWithDuplicate = [exportNode];
                     }
@@ -2048,9 +2056,10 @@ namespace ts {
                             node as ExportDeclaration
                         );
                     }
-                    lookupTable.forEach(({ exportsWithDuplicate }, id) => {
+                    lookupTable.forEach(({ exportsWithDuplicate, 相关符号 }, id) => {
                         // It's not an error if the file with multiple `export *`s with duplicate names exports a member with that name itself
-                        if (id === "export=" || !(exportsWithDuplicate && exportsWithDuplicate.length) || symbols.has(id)) {
+                        const 别名名称 = 相关符号 && 相关符号.别名 && 相关符号.别名.名称 || id
+                        if (id === "export=" || !(exportsWithDuplicate && exportsWithDuplicate.length) || (symbols.has(id) || symbols.has(别名名称))) {
                             return;
                         }
                         for (const node of exportsWithDuplicate) {
@@ -12390,7 +12399,7 @@ namespace ts {
                     // We narrow a non-union type to an exact primitive type if the non-union type
                     // is a supertype of that primitive type. For example, type 'any' can be narrowed
                     // to one of the primitive types.
-                    const targetType = typeofTypesByName.get(literal.text);
+                    const targetType = typeofTypesByName.get(literal.text) ;
                     if (targetType) {
                         if (isTypeSubtypeOf(targetType, type)) {
                             return targetType;
@@ -14137,6 +14146,9 @@ namespace ts {
 
                     prop.type = type;
                     prop.target = member;
+                    if (member.别名) {
+                        词典携带者交换别名(prop, member)
+                    }
                     member = prop;
                 }
                 else if (memberDecl.kind === SyntaxKind.SpreadAssignment) {
@@ -18703,6 +18715,7 @@ namespace ts {
                             词典携带者交换别名(<StringLiteral>node, <StringLiteralType>结果类型)
                         }
                     }
+                   // console.log(getSourceFileOfNode(node).fileName, "222222222")
                     return 结果类型
                 case SyntaxKind.NumericLiteral:
                     checkGrammarNumericLiteral(node as NumericLiteral);
@@ -23290,27 +23303,64 @@ namespace ts {
                     forEach(potentialNewTargetCollisions, checkIfNewTargetIsCapturedInEnclosingScope);
                     clear(potentialNewTargetCollisions);
                 }
+                临时表 = createMultiMap<Symbol>()
                 forEachChild(node, 回调)
-                links.flags |= NodeCheckFlags.TypeChecked;
-            }
-        }
 
-        function 回调(n: Node) {
-            const kind = n.kind
-            switch (kind) {
-                case SyntaxKind.VariableStatement:
-                    forEach((<VariableStatement>n).declarationList.declarations, e => {
-                        if (isIdentifier(e.name) && e.name.别名) {
-                            e.name.别名 = undefined
-                        }
+                if (临时表 && 临时表.size > 0) {
+                    临时表.forEach(容器 => {
+                        let 别名容器 = createUnderscoreEscapedMap<string>()
+                        容器.forEach(s => {
+                            let 存在 = 别名容器.get(s.escapedName)
+                            if (!存在) {
+                                if (s.别名) {
+                                    别名容器.set(s.别名.名称, symbolToString(s))
+                                }
+                            } else {
+                                const 位置 = s.declarations && s.declarations.length && getNameOfDeclaration(s.declarations[0]) || undefined
+                                error(位置, Diagnostics.变量_0_与变量_1_的别名冲突, symbolToString(s), 存在);
+                            }
+                        })
                     })
-                case SyntaxKind.StringLiteral:
+                    临时表 = createMultiMap<Symbol>()
+                }
 
-                default:
-                    forEachChild(n, 回调)
+                links.flags |= NodeCheckFlags.TypeChecked;
+
             }
-
+            function 回调(n: Node) {
+                const kind = n.kind
+                switch (kind) {
+                    case SyntaxKind.VariableStatement:
+                        forEach((<VariableStatement>n).declarationList.declarations, e => {
+                            let 列表 = 取变量声明名(e)
+                            if (列表 && 列表[0]) {
+                                for (let i = 0; i < 列表.length; i++) {
+                                    const 节点的符号 = getSymbolOfNode(列表[i])
+                                    if (节点的符号 && 节点的符号.flags & SymbolFlags.BlockScopedVariable) {
+                                        const 容器 = getEnclosingBlockScopeContainer(e)
+                                        临时表.add(getNodeId(容器) + "", 节点的符号)
+                                    }
+                                }
+                            }
+                        })
+                    default:
+                        forEachChild(n, 回调)
+                }
+            }
         }
+
+        function 取变量声明名(v: VariableDeclaration) {
+            let 返回数组: (VariableDeclaration | BindingElement | ArrayBindingElement)[] = []
+            if (isIdentifier(v.name)) {
+                返回数组.push(v)
+            } else {
+                forEach(v.name.elements, e => {
+                    返回数组.push(e)
+                })
+            }
+            return 返回数组
+        }
+
         function getDiagnostics(sourceFile: SourceFile, ct: CancellationToken): Diagnostic[] {
             try {
                 // Record the cancellation token so it can be checked later on during checkSourceElement.
@@ -25340,7 +25390,16 @@ namespace ts {
                 const jsxAttr = (<JsxAttribute>attr);
                 const name = jsxAttr.name;
                 if (!seen.get(name.escapedText)) {
-                    seen.set(name.escapedText, true);
+                    if (name.别名) {
+                        if (!seen.get(name.别名.名称)) {
+                            seen.set(name.escapedText, true);
+                        }
+                    }
+                    else {
+                        seen.set(name.escapedText, true);
+
+                    }
+
                 }
                 else {
                     return grammarErrorOnNode(name, Diagnostics.JSX_elements_cannot_have_multiple_attributes_with_the_same_name);
