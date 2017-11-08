@@ -833,6 +833,8 @@ namespace ts {
         kind: SyntaxKind;
         flags: NodeFlags;
         局部词典语句?: 局部词典语句[];
+        别名?: 别名;
+        别名id?: number;
         /* @internal */ modifierFlagsCache?: ModifierFlags;
         /* @internal */ transformFlags?: TransformFlags;
         decorators?: NodeArray<Decorator>;                    // Array of decorators (in document order)
@@ -945,8 +947,6 @@ namespace ts {
          * Text of identifier, but if the identifier begins with two underscores, this will begin with three.
          */
         escapedText: __String;
-        别名?: 别名;
-        别名id?: number;
         originalKeywordKind?: SyntaxKind;                         // Original syntaxKind which get set so that we can report an error later
         /*@internal*/ autoGenerateKind?: GeneratedIdentifierKind; // Specifies whether to auto-generate the text for an identifier.
         /*@internal*/ autoGenerateId?: number;                    // Ensures unique generated identifiers get unique names, but clones get the same name.
@@ -1355,7 +1355,6 @@ namespace ts {
         kind: SyntaxKind.ParenthesizedType;
         type: TypeNode;
     }
-
     export interface TypeOperatorNode extends TypeNode {
         kind: SyntaxKind.TypeOperator;
         operator: SyntaxKind.KeyOfKeyword;
@@ -2458,7 +2457,6 @@ namespace ts {
         kind: SyntaxKind.JSDocNullableType;
         type: TypeNode;
     }
-
     export interface JSDocOptionalType extends JSDocType {
         kind: SyntaxKind.JSDocOptionalType;
         type: TypeNode;
@@ -2554,19 +2552,19 @@ namespace ts {
     }
 
     export const enum FlowFlags {
-        Unreachable = 1 << 0,  // Unreachable code
-        Start = 1 << 1,  // Start of flow graph
-        BranchLabel = 1 << 2,  // Non-looping junction
-        LoopLabel = 1 << 3,  // Looping junction
-        Assignment = 1 << 4,  // Assignment
-        TrueCondition = 1 << 5,  // Condition known to be true
-        FalseCondition = 1 << 6,  // Condition known to be false
-        SwitchClause = 1 << 7,  // Switch statement clause
-        ArrayMutation = 1 << 8,  // Potential array mutation
-        Referenced = 1 << 9,  // Referenced as antecedent once
-        Shared = 1 << 10, // Referenced as antecedent more than once
-        PreFinally = 1 << 11, // Injected edge that links pre-finally label and pre-try flow
-        AfterFinally = 1 << 12, // Injected edge that links post-finally flow with the rest of the graph
+        Unreachable = 1 << 0,  // Unreachable code //执行不到的代码
+        Start = 1 << 1,  // Start of flow graph //流图开始
+        BranchLabel = 1 << 2,  // Non-looping junction // 分支标签
+        LoopLabel = 1 << 3,  // Looping junction // 循环标签
+        Assignment = 1 << 4,  // Assignment // 赋值
+        TrueCondition = 1 << 5,  // Condition known to be true 真条件
+        FalseCondition = 1 << 6,  // Condition known to be false 假条件
+        SwitchClause = 1 << 7,  // Switch statement clause  假如分支
+        ArrayMutation = 1 << 8,  // Potential array mutation  潜在的阵列突变
+        Referenced = 1 << 9,  // Referenced as antecedent once 先行引用一次
+        Shared = 1 << 10, // Referenced as antecedent more than once 作为先行引用不止一次
+        PreFinally = 1 << 11, // Injected edge that links pre-finally label and pre-try flow 注入边缘链接前最后标签和预试流
+        AfterFinally = 1 << 12, // Injected edge that links post-finally flow with the rest of the graph 注入的边缘，连接最后与图的其余部分流动。
         Label = BranchLabel | LoopLabel,
         Condition = TrueCondition | FalseCondition
     }
@@ -5164,6 +5162,11 @@ namespace ts {
         外部 = 9,
         JSON = 10,
     }
+    export interface 别名数据{
+        别名数据:string[],
+        添加:(数据:string)=>number
+        元素数量:number
+    }
 
     export interface 文本名称 {
         名称: __String | string;
@@ -5243,4 +5246,28 @@ namespace ts {
         词典旗帜: 词典旗帜
         注释范围: CommentRange | undefined
     }
+
+    export type 类型节点携带者 = Identifier | TypeParameterDeclaration | SignatureDeclaration | VariableDeclaration
+        | ParameterDeclaration | PropertySignature | PropertyDeclaration | VariableLikeDeclaration | TypeReferenceNode | TypePredicateNode
+        | ArrayTypeNode | TupleTypeNode | UnionOrIntersectionTypeNode | ParenthesizedTypeNode | TypeOperatorNode | IndexedAccessTypeNode
+        | MappedTypeNode | CallExpression | ExpressionWithTypeArguments | NewExpression | AssertionExpression | TypeAliasDeclaration
+        | JSDocTypeExpression | JSDocNonNullableType | JSDocNullableType | JSDocOptionalType | JSDocVariadicType
+
+    export type 单类型节点携带者 = SignatureDeclaration | VariableDeclaration | ParameterDeclaration | PropertySignature | PropertyDeclaration
+        | VariableLikeDeclaration | TypePredicateNode | ParenthesizedTypeNode | TypeOperatorNode | MappedTypeNode | AssertionExpression | TypeAliasDeclaration
+        | JSDocTypeExpression | JSDocNonNullableType | JSDocNullableType | JSDocOptionalType | JSDocVariadicType
+
+    export type 类型集节点携带者 = UnionOrIntersectionTypeNode
+
+    export type 类型参数节点携带者 = Identifier | TypeReferenceNode | CallExpression | ExpressionWithTypeArguments | NewExpression
+
+    export type 元素类型节点携带者 = ArrayTypeNode
+
+    export type 元素集类型节点携带者 = TupleTypeNode
+
+    export type 默认及约束类型节点携带者 = TypeParameterDeclaration
+
+    export type 对象及索引类型节点携带者 =  IndexedAccessTypeNode
+
+
 }

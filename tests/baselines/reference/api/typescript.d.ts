@@ -768,9 +768,9 @@ declare namespace ts {
     interface Node extends TextRange {
         kind: SyntaxKind;
         flags: NodeFlags;
+        局部词典语句?: 局部词典语句[];
         别名?: 别名;
         别名id?: number;
-        局部词典语句?: 局部词典语句[];
         decorators?: NodeArray<Decorator>;
         modifiers?: ModifiersArray;
         parent?: Node;
@@ -1086,6 +1086,8 @@ declare namespace ts {
     }
     interface StringLiteral extends LiteralExpression {
         kind: SyntaxKind.StringLiteral;
+        别名?: 别名;
+        别名id?: number;
     }
     interface Expression extends Node {
         _expressionBrand: any;
@@ -1240,6 +1242,8 @@ declare namespace ts {
     }
     interface NoSubstitutionTemplateLiteral extends LiteralExpression {
         kind: SyntaxKind.NoSubstitutionTemplateLiteral;
+        别名?: 别名;
+        别名id?: number;
     }
     interface NumericLiteral extends LiteralExpression {
         kind: SyntaxKind.NumericLiteral;
@@ -2395,8 +2399,6 @@ declare namespace ts {
     interface Type {
         flags: TypeFlags;
         symbol?: Symbol;
-        别名?: 别名;
-        别名id?: number;
         pattern?: DestructuringPattern;
         aliasSymbol?: Symbol;
         aliasTypeArguments?: Type[];
@@ -2408,11 +2410,15 @@ declare namespace ts {
     }
     interface StringLiteralType extends LiteralType {
         value: string;
+        别名?: 别名;
+        别名id?: number;
     }
     interface NumberLiteralType extends LiteralType {
         value: number;
     }
     interface EnumType extends Type {
+        别名?: 别名;
+        别名id?: number;
     }
     enum ObjectFlags {
         Class = 1,
@@ -2429,6 +2435,8 @@ declare namespace ts {
     }
     interface ObjectType extends Type {
         objectFlags: ObjectFlags;
+        别名?: 别名;
+        别名id?: number;
     }
     /** Class and interface types (ObjectFlags.Class and ObjectFlags.Interface). */
     interface InterfaceType extends ObjectType {
@@ -3095,6 +3103,11 @@ declare namespace ts {
         外部 = 9,
         JSON = 10,
     }
+    interface 别名数据 {
+        别名数据: string[];
+        添加: (数据: string) => number;
+        元素数量: number;
+    }
     interface 文本名称 {
         名称: __String | string;
         别名: __String | string;
@@ -3158,6 +3171,14 @@ declare namespace ts {
         词典旗帜: 词典旗帜;
         注释范围: CommentRange | undefined;
     }
+    type 类型节点携带者 = Identifier | TypeParameterDeclaration | SignatureDeclaration | VariableDeclaration | ParameterDeclaration | PropertySignature | PropertyDeclaration | VariableLikeDeclaration | TypeReferenceNode | TypePredicateNode | ArrayTypeNode | TupleTypeNode | UnionOrIntersectionTypeNode | ParenthesizedTypeNode | TypeOperatorNode | IndexedAccessTypeNode | MappedTypeNode | CallExpression | ExpressionWithTypeArguments | NewExpression | AssertionExpression | TypeAliasDeclaration | JSDocTypeExpression | JSDocNonNullableType | JSDocNullableType | JSDocOptionalType | JSDocVariadicType;
+    type 单类型节点携带者 = SignatureDeclaration | VariableDeclaration | ParameterDeclaration | PropertySignature | PropertyDeclaration | VariableLikeDeclaration | TypePredicateNode | ParenthesizedTypeNode | TypeOperatorNode | MappedTypeNode | AssertionExpression | TypeAliasDeclaration | JSDocTypeExpression | JSDocNonNullableType | JSDocNullableType | JSDocOptionalType | JSDocVariadicType;
+    type 类型集节点携带者 = UnionOrIntersectionTypeNode;
+    type 类型参数节点携带者 = Identifier | TypeReferenceNode | CallExpression | ExpressionWithTypeArguments | NewExpression;
+    type 元素类型节点携带者 = ArrayTypeNode;
+    type 元素集类型节点携带者 = TupleTypeNode;
+    type 默认及约束类型节点携带者 = TypeParameterDeclaration;
+    type 对象及索引类型节点携带者 = IndexedAccessTypeNode;
 }
 declare namespace ts {
     const versionMajorMinor = "2.7";
@@ -3622,17 +3643,35 @@ declare namespace ts {
 }
 declare namespace ts {
     function 创建空对象<T>(): T;
+    function 取字典注释范围(node: Node, text: string): 词典注释范围[] | undefined;
     function 取声明的标识符或字面量标识符(声明节点: Declaration): Identifier | StringLiteral | undefined;
     function 是局部词典语句(词典参数: 词典语句): 词典参数 is 局部词典语句;
     function 是全局词典语句(词典参数: 词典语句): 词典参数 is 全局词典语句;
-    function 取字典注释范围(node: Node, text: string): 词典注释范围[] | undefined;
-    type 可比较名称类型 = Identifier | Symbol | StringLiteralType | string | __String;
+    type 可比较名称类型 = 可携带词典类型 | string;
+    type 可携带词典类型 = Identifier | StringLiteral | NoSubstitutionTemplateLiteral | Symbol | StringLiteralType;
     function 对象名称比较(左值: 可比较名称类型, 右值: 可比较名称类型): boolean;
     function 交换词典键值(词典: 词典): 词典;
     function 取别名旗帜(词典: 词典, 旗帜?: 别名旗帜): number;
     function 翻转别名旗帜(旗帜: 别名旗帜): number;
+    function 取符号从符号表按名称<T extends 可携带词典类型>(符号表: UnderscoreEscapedMap<T>, 名称: __String, 备选别名: 可携带词典类型 | string): T;
+    function 创建别名数据(数据?: string): 别名数据;
+    function 词典携带组生成别名数据单元组(...元素: 可携带词典类型[]): string;
+    function 词典携带者交换别名(源符号: 可比较名称类型, 目标: 可比较名称类型): void;
+    function 传递别名(别名接受者: 可携带词典类型, 别名提供者: 可携带词典类型): void;
     function 取属性名的标识符(name: PropertyName): Identifier | StringLiteral | undefined;
+    function 取节点的文本(node: Node, includeTrivia?: boolean): string;
     function 取输出文本从源文件按节点(sourceFile: SourceFile, node: Node, includeTrivia?: boolean): string;
+    function 解码文本(别名参数: 别名): string;
+    function 取文本从标识符或字面量(node: Identifier | LiteralLikeNode): string;
+    function 取属性别名名称从声明名(name: DeclarationName): __String;
+    function 取别名从属性名(node: PropertyName): 别名;
+    function 是单类型节点携带者(node: Node): node is 单类型节点携带者;
+    function 是类型集节点携带者(node: Node): node is 类型集节点携带者;
+    function 是类型参数节点携带者(node: Node): node is 类型参数节点携带者;
+    function 是元素类型节点携带者(node: Node): node is 元素类型节点携带者;
+    function 是元素集类型节点携带者(node: Node): node is 元素集类型节点携带者;
+    function 是默认及约束类型节点携带者(node: Node): node is 默认及约束类型节点携带者;
+    function 是对象及索引类型节点携带者(node: Node): node is 对象及索引类型节点携带者;
 }
 declare namespace ts {
     function createNode(kind: SyntaxKind, pos?: number, end?: number): Node;

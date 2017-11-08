@@ -20,7 +20,7 @@
   元素2: 测试 | 空值;
 }
 
-// @filename: /a/测试_1.ts
+// @filename: /a/测试_3.ts
 
 导入 { 测试, 属性1 } 来自 "testCh"
 

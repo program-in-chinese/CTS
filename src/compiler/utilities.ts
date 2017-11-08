@@ -349,7 +349,7 @@ namespace ts {
         }
 
         const escapeText = getEmitFlags(node) & EmitFlags.NoAsciiEscaping ? escapeString : escapeNonAsciiString;
-        const 输出文本 =(<StringLiteral>node).别名?(<StringLiteral>node).别名.名称 as string:node.text
+        const 输出文本 = (<StringLiteral>node).别名 ? (<StringLiteral>node).别名.名称 as string : node.text
 
         // If we can't reach the original source text, use the canonical form if it's a number,
         // or a (possibly escaped) quoted form of the original text if it's string-like.
@@ -5772,13 +5772,13 @@ namespace ts {
 
     function 是符号(符号参数: any): 符号参数 is Symbol {
         if (符号参数) {
-            return !!符号参数 .escapedName
+            return !!符号参数.escapedName
         }
         return false;
     }
 
     function 是字面量类型(类型参数: any): 类型参数 is StringLiteralType {
-        if (类型参数 && 类型参数 .flags && (类型参数 .flags & TypeFlags.StringLiteral)) {
+        if (类型参数 && 类型参数.flags && (类型参数.flags & TypeFlags.StringLiteral)) {
             return true;
         }
         return false;
@@ -5792,11 +5792,11 @@ namespace ts {
     }
 
     function 是字面量节点(node: any): node is StringLiteral {
-        return node && node.kind &&( node.kind === SyntaxKind.StringLiteral);
+        return node && node.kind && (node.kind === SyntaxKind.StringLiteral);
     }
 
     function 是模板字面量节点(node: any): node is NoSubstitutionTemplateLiteral {
-        return node && node.kind &&( node.kind === SyntaxKind.NoSubstitutionTemplateLiteral);
+        return node && node.kind && (node.kind === SyntaxKind.NoSubstitutionTemplateLiteral);
     }
 
     export function 对象名称比较(左值: 可比较名称类型, 右值: 可比较名称类型) {
@@ -5910,6 +5910,69 @@ namespace ts {
         return 结果 as T
     }
 
+    export function 创建别名数据(数据?: string): 别名数据 {
+        let 别名数据集: string[] = [null]
+        function 添加(数据: string) {
+            if (!数据) {
+                return -1
+            }
+            let 索引 = 别名数据集.lastIndexOf(数据)
+            if (索引 === -1) {
+                索引 = 别名数据集.push(数据)-1
+            }
+            return 索引
+        }
+
+        if (数据) {
+            添加(数据)
+        }
+        let 元素数量 = 别名数据集.length - 1
+        return {
+            别名数据: 别名数据集,
+            添加,
+            元素数量
+        }
+    }
+
+    export function 词典携带组生成别名数据单元组(...元素: 可携带词典类型[]): string {
+        const 返回值: string[] = []
+        for (const 值 of 元素) {
+            const 临时 = 词典携带者生成别名数据(值)
+            if (临时) 返回值.push(临时)
+        }
+        return 返回值[0] && `{ ${(stableSort(返回值, compareStrings)).join(", ")} }` || undefined
+    }
+
+    function 词典携带者生成别名数据(元素: 可携带词典类型): string {
+        let 原始文本: __String
+        if (是符号(元素)) {
+            原始文本 = 元素.escapedName
+        } else if (是标识符(元素)) {
+            原始文本 = 元素.escapedText
+        } else if (是字面量类型(元素)) {
+            原始文本 = 元素.value as __String
+        } else if (是内置类型(元素)) {
+            原始文本 = 元素.intrinsicName as __String
+        } else if (是字面量节点(元素) || 是模板字面量节点(元素)) {
+            原始文本 = 元素.text as __String
+        }
+        if(!原始文本){
+            return undefined
+        }
+        let 别名 = 元素.别名
+        let 名称值: string
+        let 别名值: string
+        if (别名) {
+            名称值 = `"${unescapeLeadingUnderscores(原始文本)}"`
+            别名值 = `"${unescapeLeadingUnderscores(别名.名称)}"`
+            if (别名.旗帜 & 别名旗帜.汉英) {
+                return `${名称值}:${别名值}`
+            } else {
+                return `${别名值}:${名称值}`
+            }
+        }
+        return undefined
+    }
 
     export function 词典携带者交换别名(源符号: 可比较名称类型, 目标: 可比较名称类型) {
         if (isString(源符号) || isString(目标) || (源符号 && 源符号.别名 && 目标 && 目标.别名)) {
@@ -5924,15 +5987,16 @@ namespace ts {
             if (源符号.别名) {
                 词典携带者交换别名(目标, 源符号)
             }
-        }else if(是符号(目标)){
+        } else if (是符号(目标)) {
             传递符号声明的别名(目标)
             if (目标.别名) {
                 词典携带者交换别名(源符号, 目标)
             }
         }
     }
-    function 传递符号声明的别名(符号参数:Symbol){
-        if(是符号(符号参数)){
+
+    function 传递符号声明的别名(符号参数: Symbol) {
+        if (是符号(符号参数)) {
             if (符号参数.declarations && 符号参数.declarations.length) {
                 let 别名携带者
                 for (let 声明参数 of 符号参数.declarations) {
@@ -5949,7 +6013,7 @@ namespace ts {
         }
     }
 
-    function 传递别名(别名接受者: 可携带词典类型, 别名提供者: 可携带词典类型) {
+    export  function 传递别名(别名接受者: 可携带词典类型, 别名提供者: 可携带词典类型) {
         const 源的原始文本 = 取原始文本(别名提供者)
         const 目标的原始文本 = 取原始文本(别名接受者)
         const 别名参数 = 取别名(别名提供者)
@@ -6089,6 +6153,94 @@ namespace ts {
 
     export function 取别名从属性名(node: PropertyName) {
         return 取属性名的标识符(node) ? 取属性名的标识符(node).别名 : undefined
+    }
+
+    export function 是单类型节点携带者(node: Node): node is 单类型节点携带者 {
+        switch (node.kind) {
+            case SyntaxKind.CallSignature:
+            case SyntaxKind.ConstructSignature:
+            case SyntaxKind.MethodSignature:
+            case SyntaxKind.IndexSignature:
+            case SyntaxKind.FunctionType:
+            case SyntaxKind.ConstructorType:
+            case SyntaxKind.JSDocFunctionType:
+            case SyntaxKind.FunctionDeclaration:
+            case SyntaxKind.MethodDeclaration:
+            case SyntaxKind.Constructor:
+            case SyntaxKind.GetAccessor:
+            case SyntaxKind.SetAccessor:
+            case SyntaxKind.FunctionExpression:
+            case SyntaxKind.ArrowFunction:
+            case SyntaxKind.VariableDeclaration:
+            case SyntaxKind.Parameter:
+            case SyntaxKind.PropertySignature:
+            case SyntaxKind.PropertyDeclaration:
+            case SyntaxKind.BindingElement:
+            case SyntaxKind.PropertyAssignment:
+            case SyntaxKind.JsxAttribute:
+            case SyntaxKind.ShorthandPropertyAssignment:
+            case SyntaxKind.EnumMember:
+            case SyntaxKind.JSDocPropertyTag:
+            case SyntaxKind.JSDocParameterTag:
+            case SyntaxKind.TypePredicate:
+            case SyntaxKind.ParenthesizedType:
+            case SyntaxKind.TypeOperator:
+            case SyntaxKind.MappedType:
+            case SyntaxKind.TypeAssertionExpression:
+            case SyntaxKind.AsExpression:
+            case SyntaxKind.TypeAliasDeclaration:
+            case SyntaxKind.JSDocTypeExpression:
+            case SyntaxKind.JSDocNonNullableType:
+            case SyntaxKind.JSDocNullableType:
+            case SyntaxKind.JSDocOptionalType:
+            case SyntaxKind.JSDocVariadicType:
+                return true
+            default:
+                return false
+
+        }
+    }
+
+    export function 是类型集节点携带者(node: Node): node is 类型集节点携带者 {
+        switch (node.kind) {
+            case SyntaxKind.UnionType:
+            case SyntaxKind.IntersectionType:
+                return true
+            default:
+                return false
+
+        }
+    }
+
+    export function 是类型参数节点携带者(node: Node): node is 类型参数节点携带者 {
+        switch (node.kind) {
+            case SyntaxKind.Identifier:
+            case SyntaxKind.TypeReference:
+            case SyntaxKind.CallExpression:
+            case SyntaxKind.ExpressionWithTypeArguments:
+            case SyntaxKind.NewExpression:
+                return true
+            default:
+                return false
+
+        }
+    }
+
+    export function 是元素类型节点携带者(node: Node): node is 元素类型节点携带者 {
+        return node.kind === SyntaxKind.ArrayType
+    }
+
+    export function 是元素集类型节点携带者(node: Node): node is 元素集类型节点携带者 {
+        return node.kind === SyntaxKind.TupleType
+
+    }
+
+    export function 是默认及约束类型节点携带者(node: Node): node is 默认及约束类型节点携带者 {
+        return node.kind === SyntaxKind.TypeParameter
+    }
+
+    export function 是对象及索引类型节点携带者(node: Node): node is 对象及索引类型节点携带者 {
+        return node.kind === SyntaxKind.IndexedAccessType
     }
 
 }

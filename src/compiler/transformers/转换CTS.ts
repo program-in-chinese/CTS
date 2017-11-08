@@ -8,8 +8,6 @@ namespace ts {
         const resolver = context.getEmitResolver();
         const 数据 = resolver.取别名助手数据();
         let 数据使用数组: number[] = [0];
-
-        let currentSourceFile: SourceFile;
         const previousOnSubstituteNode = context.onSubstituteNode;
         context.onSubstituteNode = onSubstituteNode;
         context.enableSubstitution(SyntaxKind.StringLiteral);
@@ -19,14 +17,13 @@ namespace ts {
             if (node.isDeclarationFile) {
                 return node;
             }
-            currentSourceFile = node;
             const visited = visitEachChild(node, visitor, context);
 
             if (数据 && 数据.length > 0 && 数据使用数组.length > 1) {
                 const propName: EmitHelper = {
                     name: "typescript:propName",
                     scoped: false,
-                    priority: 100,
+                    priority: 15,
                     text: 生成助手数据(数据)
                 };
                 context.requestEmitHelper(propName);
@@ -35,7 +32,6 @@ namespace ts {
             if (数据 && 数据.length > 0 && 数据使用数组.length > 1) {
                 addEmitHelpers(visited, context.readEmitHelpers());
             }
-            currentSourceFile = undefined;
             数据使用数组 = [0];
             return visited;
         }
@@ -52,14 +48,14 @@ namespace ts {
             let 结果 = "";
             for (let i = 1; i < 数据.length; i++) {
                 if (数据使用数组.indexOf(i) > 0) {
-                    结果 += `      _${i}: ${数据[i]}\n`;
+                    结果 += `        __${i}: ${数据[i]},\n`;
                 }
             }
             return `
-var  __propName = function(v, i) {
-    var _d = {\n${结果}
+var __propName = function(v, i) {
+    var __d = {\n${结果}
     }
-    return _d["_" + i][v] || v
+    return __d["__" + i][v] || v
 }
 `;
 }
