@@ -1813,6 +1813,11 @@ namespace ts {
                 const withoutAtTypePrefix = removePrefix(moduleReference, "@types/");
                 error(errorNode, diag, withoutAtTypePrefix, moduleReference);
             }
+            else if (startsWith(moduleReference, "@typesch/")) {
+                const diag = Diagnostics.Cannot_import_type_declaration_files_Consider_importing_0_instead_of_1;
+                const withoutAtTypePrefix = removePrefix(moduleReference, "@typesch/");
+                error(errorNode, diag, withoutAtTypePrefix, moduleReference);
+            }
 
             const ambientModule = tryFindAmbientModule(moduleReference, /*withAugmentations*/ true);
             if (ambientModule) {

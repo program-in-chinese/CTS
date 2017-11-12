@@ -449,9 +449,15 @@ namespace ts {
                         "File 'node_modules/a/index.ts' does not exist.",
                         "File 'node_modules/a/index.tsx' does not exist.",
                         "File 'node_modules/a/index.d.ts' does not exist.",
+
+                        "File 'node_modules/@typesch/a/package.json' does not exist.",
+                        "File 'node_modules/@typesch/a.d.ts' does not exist.",
+                        "File 'node_modules/@typesch/a/index.d.ts' does not exist.",
+
                         "File 'node_modules/@types/a/package.json' does not exist.",
                         "File 'node_modules/@types/a.d.ts' does not exist.",
                         "File 'node_modules/@types/a/index.d.ts' does not exist.",
+
                         "Loading module 'a' from 'node_modules' folder, target file type 'JavaScript'.",
                         "File 'node_modules/a/package.json' does not exist.",
                         "File 'node_modules/a.js' does not exist.",
@@ -511,15 +517,32 @@ namespace ts {
                     "File '/fs.ts' does not exist.",
                     "File '/fs.tsx' does not exist.",
                     "File '/fs.d.ts' does not exist.",
+
+                    "File '/a/b/node_modules/@typesch/fs/package.json' does not exist.",
+                    "File '/a/b/node_modules/@typesch/fs.d.ts' does not exist.",
+                    "File '/a/b/node_modules/@typesch/fs/index.d.ts' does not exist.",
+
                     "File '/a/b/node_modules/@types/fs/package.json' does not exist.",
                     "File '/a/b/node_modules/@types/fs.d.ts' does not exist.",
                     "File '/a/b/node_modules/@types/fs/index.d.ts' does not exist.",
+
+                    "File '/a/node_modules/@typesch/fs/package.json' does not exist.",
+                    "File '/a/node_modules/@typesch/fs.d.ts' does not exist.",
+                    "File '/a/node_modules/@typesch/fs/index.d.ts' does not exist.",
+
                     "File '/a/node_modules/@types/fs/package.json' does not exist.",
                     "File '/a/node_modules/@types/fs.d.ts' does not exist.",
                     "File '/a/node_modules/@types/fs/index.d.ts' does not exist.",
+
+                    "File '/node_modules/@typesch/fs/package.json' does not exist.",
+                    "File '/node_modules/@typesch/fs.d.ts' does not exist.",
+                    "File '/node_modules/@typesch/fs/index.d.ts' does not exist.",
+
                     "File '/node_modules/@types/fs/package.json' does not exist.",
                     "File '/node_modules/@types/fs.d.ts' does not exist.",
                     "File '/node_modules/@types/fs/index.d.ts' does not exist.",
+
+
                     "File '/a/b/fs.js' does not exist.",
                     "File '/a/b/fs.jsx' does not exist.",
                     "File '/a/fs.js' does not exist.",
@@ -553,15 +576,30 @@ namespace ts {
                     "File '/fs.ts' does not exist.",
                     "File '/fs.tsx' does not exist.",
                     "File '/fs.d.ts' does not exist.",
+                    "File '/a/b/node_modules/@typesch/fs/package.json' does not exist.",
+                    "File '/a/b/node_modules/@typesch/fs.d.ts' does not exist.",
+                    "File '/a/b/node_modules/@typesch/fs/index.d.ts' does not exist.",
+
                     "File '/a/b/node_modules/@types/fs/package.json' does not exist.",
                     "File '/a/b/node_modules/@types/fs.d.ts' does not exist.",
                     "File '/a/b/node_modules/@types/fs/index.d.ts' does not exist.",
+
+                    "File '/a/node_modules/@typesch/fs/package.json' does not exist.",
+                    "File '/a/node_modules/@typesch/fs.d.ts' does not exist.",
+                    "File '/a/node_modules/@typesch/fs/index.d.ts' does not exist.",
+
                     "File '/a/node_modules/@types/fs/package.json' does not exist.",
                     "File '/a/node_modules/@types/fs.d.ts' does not exist.",
                     "File '/a/node_modules/@types/fs/index.d.ts' does not exist.",
+
+                    "File '/node_modules/@typesch/fs/package.json' does not exist.",
+                    "File '/node_modules/@typesch/fs.d.ts' does not exist.",
+                    "File '/node_modules/@typesch/fs/index.d.ts' does not exist.",
+
                     "File '/node_modules/@types/fs/package.json' does not exist.",
                     "File '/node_modules/@types/fs.d.ts' does not exist.",
                     "File '/node_modules/@types/fs/index.d.ts' does not exist.",
+
                     "File '/a/b/fs.js' does not exist.",
                     "File '/a/b/fs.jsx' does not exist.",
                     "File '/a/fs.js' does not exist.",

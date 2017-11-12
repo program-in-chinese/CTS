@@ -2662,6 +2662,7 @@ declare namespace ts {
         types?: string[];
         /** Paths used to compute primary types search locations */
         typeRoots?: string[];
+        使用中文支持库?: boolean;
         中文关键字?: boolean;
         转译Ts?: boolean;
         转译Cts?: boolean;
@@ -4260,6 +4261,7 @@ declare namespace ts {
     function createProgram(rootNames: ReadonlyArray<string>, options: CompilerOptions, host?: CompilerHost, oldProgram?: Program): Program;
 }
 declare namespace ts {
+    const 编译选项别名对照表: Map<string>;
     function parseCommandLine(commandLine: ReadonlyArray<string>, readFile?: (path: string) => string | undefined): ParsedCommandLine;
     /**
      * Read tsconfig.json file

@@ -1,0 +1,368 @@
+=== /a/node_modules/@typesch/testEn/index.d.ts ===
+export type foo = {
+>foo : foo
+
+    bar: number | null;
+>bar : number | null
+>null : null
+>类型别名 :=> 空值
+
+    baz: string;
+>baz : string
+>类型别名 :=> 文字
+
+    nested: {
+>nested : { a: number; b: string | null; }
+
+      a: number;
+>a : number
+>类型别名 :=> 数字
+
+      b: string | null;
+>b : string | null
+>null : null
+>类型别名 :=> 空值
+    }
+  }
+  
+  export type foo2 = {
+>foo2 : foo2
+
+    elem1: number | null;
+>elem1 : number | null
+>null : null
+>类型别名 :=> 空值
+
+    elem2: foo | null;
+>elem2 : foo | null
+>foo : foo
+>null : null
+>类型别名 :=> 空值
+  }
+  
+  export function 取属性< T, K extends keyof T> (对象值:T, 键: K): T[K]
+>取属性 : <T, K extends keyof T>(对象值: T, 键: K) => T[K]
+>T : T
+>K : K
+>T : T
+>对象值 : T
+>T : T
+>键 : K
+>K : K
+>T : T
+>K : K
+
+  export function 置属性< T, K extends keyof T> (对象值:T, 键: K, 值: T[K]): T[K]
+>置属性 : <T, K extends keyof T>(对象值: T, 键: K, 值: T[K]) => T[K]
+>T : T
+>K : K
+>T : T
+>对象值 : T
+>T : T
+>键 : K
+>K : K
+>值 : T[K]
+>T : T
+>K : K
+>T : T
+>K : K
+
+  export interface 事件类型{
+>事件类型 : 事件类型
+
+    "ev1":foo2;
+>foo2 : foo2
+
+    "ev2":foo2
+>foo2 : foo2
+  }
+  
+  export function  引发事件< K extends keyof 事件类型> (事件:K, 实体:foo):void
+>引发事件 : <K extends "ev1" | "ev2">(事件: K, 实体: foo) => void
+>K : K
+>事件类型 : 事件类型
+>事件 : K
+>K : K
+>实体 : foo
+>foo : foo
+  
+  //**************** 分割线 *******************//
+  
+=== /a/测试_3_en.ts ===
+  import { foo, 取属性, 置属性, 引发事件, 事件类型 } from "testEn"
+>foo : any
+>类型别名 :=> 任意
+>取属性 : <T, K extends keyof T>(对象值: T, 键: K) => T[K]
+>置属性 : <T, K extends keyof T>(对象值: T, 键: K, 值: T[K]) => T[K]
+>引发事件 : <K extends "ev1" | "ev2">(事件: K, 实体: foo) => void
+>事件类型 : any
+>类型别名 :=> 任意
+  
+  const aFoo: foo = { bar: 3, baz: "b", nested: { a: 1, b: "y" } };
+>aFoo : foo
+>foo : foo
+>{ bar: 3, baz: "b", nested: { a: 1, b: "y" } } : { bar: number; baz: string; nested: { a: number; b: string; }; }
+>bar : number
+>类型别名 :=> 数字
+>3 : 3
+>baz : string
+>类型别名 :=> 文字
+>"b" : "b"
+>nested : { a: number; b: string; }
+>{ a: 1, b: "y" } : { a: number; b: string; }
+>a : number
+>类型别名 :=> 数字
+>1 : 1
+>b : string
+>类型别名 :=> 文字
+>"y" : "y"
+
+  const aFoo2: foo = { bar: 4, baz: "c", nested: { a: 2, b: "z" } };
+>aFoo2 : foo
+>foo : foo
+>{ bar: 4, baz: "c", nested: { a: 2, b: "z" } } : { bar: number; baz: string; nested: { a: number; b: string; }; }
+>bar : number
+>类型别名 :=> 数字
+>4 : 4
+>baz : string
+>类型别名 :=> 文字
+>"c" : "c"
+>nested : { a: number; b: string; }
+>{ a: 2, b: "z" } : { a: number; b: string; }
+>a : number
+>类型别名 :=> 数字
+>2 : 2
+>b : string
+>类型别名 :=> 文字
+>"z" : "z"
+
+  const 数组值: foo[] = [aFoo, aFoo2]
+>数组值 : foo[]
+>foo : foo
+>[aFoo, aFoo2] : foo[]
+>aFoo : foo
+>aFoo2 : foo
+
+  function 组合(A:string, B:string){
+>组合 : (A: string, B: string) => string
+>A : string
+>类型别名 :=> 文字
+>B : string
+>类型别名 :=> 文字
+
+    return(A + B)
+>(A + B) : string
+>类型别名 :=> 文字
+>A + B : string
+>类型别名 :=> 文字
+>A : string
+>类型别名 :=> 文字
+>B : string
+>类型别名 :=> 文字
+  }
+  // 1
+  aFoo["bar"]
+>aFoo["bar"] : number | null
+>aFoo : foo
+>"bar" : "bar"
+
+  const B: keyof foo = "bar"
+>B : "bar" | "baz" | "nested"
+>foo : foo
+>"bar" : "bar"
+
+  // 2
+  aFoo[B]
+>aFoo[B] : number | null
+>aFoo : foo
+>B : "bar"
+
+  // 3
+  aFoo[组合("bar", "1") as keyof foo]
+>aFoo[组合("bar", "1") as keyof foo] : string | number | { a: number; b: string | null; } | null
+>aFoo : foo
+>组合("bar", "1") as keyof foo : "bar" | "baz" | "nested"
+>组合("bar", "1") : string
+>类型别名 :=> 文字
+>组合 : (A: string, B: string) => string
+>"bar" : "bar"
+>"1" : "1"
+>foo : foo
+
+  // 5
+  组合("bar" as keyof foo , "")
+>组合("bar" as keyof foo , "") : string
+>类型别名 :=> 文字
+>组合 : (A: string, B: string) => string
+>"bar" as keyof foo : "bar" | "baz" | "nested"
+>"bar" : "bar"
+>foo : foo
+>"" : ""
+
+  // 6
+  组合(组合("bar", "1") as keyof foo, "")
+>组合(组合("bar", "1") as keyof foo, "") : string
+>类型别名 :=> 文字
+>组合 : (A: string, B: string) => string
+>组合("bar", "1") as keyof foo : "bar" | "baz" | "nested"
+>组合("bar", "1") : string
+>类型别名 :=> 文字
+>组合 : (A: string, B: string) => string
+>"bar" : "bar"
+>"1" : "1"
+>foo : foo
+>"" : ""
+
+  // 7
+  取属性(aFoo, "bar")
+>取属性(aFoo, "bar") : number | null
+>取属性 : <T, K extends keyof T>(对象值: T, 键: K) => T[K]
+>aFoo : foo
+>"bar" : "bar"
+
+  // 8
+  置属性(aFoo, "baz", "baz")
+>置属性(aFoo, "baz", "baz") : string
+>类型别名 :=> 文字
+>置属性 : <T, K extends keyof T>(对象值: T, 键: K, 值: T[K]) => T[K]
+>aFoo : foo
+>"baz" : "baz"
+>"baz" : "baz"
+
+  // 9
+  置属性(aFoo, 组合("bar", "1") as keyof foo, 1)
+>置属性(aFoo, 组合("bar", "1") as keyof foo, 1) : string | number | { a: number; b: string | null; } | null
+>置属性 : <T, K extends keyof T>(对象值: T, 键: K, 值: T[K]) => T[K]
+>aFoo : foo
+>组合("bar", "1") as keyof foo : "bar" | "baz" | "nested"
+>组合("bar", "1") : string
+>类型别名 :=> 文字
+>组合 : (A: string, B: string) => string
+>"bar" : "bar"
+>"1" : "1"
+>foo : foo
+>1 : 1
+
+  // 10 
+  引发事件("ev1", aFoo)
+>引发事件("ev1", aFoo) : void
+>类型别名 :=> 无值
+>引发事件 : <K extends "ev1" | "ev2">(事件: K, 实体: foo) => void
+>"ev1" : "ev1"
+>aFoo : foo
+
+  // 11 
+  引发事件(组合("ev", "2") as keyof 事件类型, aFoo)
+>引发事件(组合("ev", "2") as keyof 事件类型, aFoo) : void
+>类型别名 :=> 无值
+>引发事件 : <K extends "ev1" | "ev2">(事件: K, 实体: foo) => void
+>组合("ev", "2") as keyof 事件类型 : "ev1" | "ev2"
+>组合("ev", "2") : string
+>类型别名 :=> 文字
+>组合 : (A: string, B: string) => string
+>"ev" : "ev"
+>"2" : "2"
+>事件类型 : 事件类型
+>aFoo : foo
+
+  for (const aF of 数组值) {
+>aF : foo
+>数组值 : foo[]
+
+      if (aF.bar === 1) {
+>aF.bar === 1 : boolean
+>类型别名 :=> 真假
+>aF.bar : number | null
+>aF : foo
+>bar : number | null
+>1 : 1
+
+          aF["bar"]
+>aF["bar"] : number | null
+>aF : foo
+>"bar" : "bar"
+
+      } else if (aF.baz === "c") {
+>aF.baz === "c" : boolean
+>类型别名 :=> 真假
+>aF.baz : string
+>类型别名 :=> 文字
+>aF : foo
+>baz : string
+>类型别名 :=> 文字
+>"c" : "c"
+
+          aF["baz"]
+>aF["baz"] : string
+>类型别名 :=> 文字
+>aF : foo
+>"baz" : "baz"
+
+          const { baz } = aF
+>baz : "c"
+>aF : foo
+
+          if (baz) { }
+>baz : "c"
+      }
+  }
+
+  for (const aF in 数组值) {
+>aF : string
+>类型别名 :=> 文字
+>数组值 : foo[]
+
+      if (数组值[aF].bar === 1) {
+>数组值[aF].bar === 1 : boolean
+>类型别名 :=> 真假
+>数组值[aF].bar : number | null
+>数组值[aF] : foo
+>数组值 : foo[]
+>aF : string
+>类型别名 :=> 文字
+>bar : number | null
+>1 : 1
+
+          数组值[aF]["bar"]
+>数组值[aF]["bar"] : number | null
+>数组值[aF] : foo
+>数组值 : foo[]
+>aF : string
+>类型别名 :=> 文字
+>"bar" : "bar"
+
+      } else if (数组值[aF].baz === "c") {
+>数组值[aF].baz === "c" : boolean
+>类型别名 :=> 真假
+>数组值[aF].baz : string
+>类型别名 :=> 文字
+>数组值[aF] : foo
+>数组值 : foo[]
+>aF : string
+>类型别名 :=> 文字
+>baz : string
+>类型别名 :=> 文字
+>"c" : "c"
+
+          数组值[aF]["baz"]
+>数组值[aF]["baz"] : string
+>类型别名 :=> 文字
+>数组值[aF] : foo
+>数组值 : foo[]
+>aF : string
+>类型别名 :=> 文字
+>"baz" : "baz"
+
+          const { baz } = 数组值[aF]
+>baz : string
+>类型别名 :=> 文字
+>数组值[aF] : foo
+>数组值 : foo[]
+>aF : string
+>类型别名 :=> 文字
+
+          if (baz) { }
+>baz : string
+>类型别名 :=> 文字
+      }
+  }

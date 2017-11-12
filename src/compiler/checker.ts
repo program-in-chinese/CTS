@@ -47,14 +47,6 @@ namespace ts {
         "object": "实例",
     })
     let 临时表 = createMultiMap<{ 符号: Symbol, 是Let: boolean }>()
-    /*
-    const 内置符号别名对应表 = createMapFromTemplate({
-        "undefined": "未定",
-        "arguments":"增强参数集",
-        "unknown":"未知",
-        "args":"参数集",
-    })
-    */
 
     export function createTypeChecker(host: TypeCheckerHost, produceDiagnostics: boolean): TypeChecker {
         // Cancellation that controls whether or not we can cancel in the middle of type checking.
@@ -1856,10 +1848,10 @@ namespace ts {
                 return;
             }
             const 包含types = startsWith(moduleReference, "@types/")
-            const 包含chtypes = startsWith(moduleReference, "@chtypes/")
-            if (包含types || 包含chtypes) {
+            const 包含typesch = startsWith(moduleReference, "@typesch/")
+            if (包含types || 包含typesch) {
                 const diag = Diagnostics.Cannot_import_type_declaration_files_Consider_importing_0_instead_of_1;
-                const withoutAtTypePrefix = removePrefix(moduleReference, 包含types ? "@types/" : "@chtypes/");
+                const withoutAtTypePrefix = removePrefix(moduleReference, 包含types ? "@types/" : "@typesch/");
                 error(errorNode, diag, withoutAtTypePrefix, moduleReference);
             }
 
@@ -11363,8 +11355,8 @@ namespace ts {
             switch (source.kind) {
                 case SyntaxKind.Identifier:
                     return target.kind === SyntaxKind.Identifier && getResolvedSymbol(<Identifier>source) === getResolvedSymbol(<Identifier>target) ||
-                        (target.kind === SyntaxKind.VariableDeclaration || target.kind === SyntaxKind.BindingElement) &&
-                        getExportSymbolOfValueSymbolIfExported(getResolvedSymbol(<Identifier>source)) === getSymbolOfNode(target);
+                    (target.kind === SyntaxKind.VariableDeclaration || target.kind === SyntaxKind.BindingElement) &&
+                    getExportSymbolOfValueSymbolIfExported(getResolvedSymbol(<Identifier>source)) === getSymbolOfNode(target);
                 case SyntaxKind.ThisKeyword:
                     return target.kind === SyntaxKind.ThisKeyword;
                 case SyntaxKind.SuperKeyword:
@@ -11372,7 +11364,6 @@ namespace ts {
                 case SyntaxKind.PropertyAccessExpression:
                     return target.kind === SyntaxKind.PropertyAccessExpression &&
                         对象名称比较((<PropertyAccessExpression>source).name, (<PropertyAccessExpression>target).name) &&
-
                         isMatchingReference((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression);
                 case SyntaxKind.BindingElement:
                     if (target.kind !== SyntaxKind.PropertyAccessExpression) return false;
@@ -11387,6 +11378,62 @@ namespace ts {
                     }
             }
             return false;
+        }
+
+        interface 匹配单元 {
+            对比结果: boolean;
+            源符号: Symbol;
+            目标符号: Symbol
+        }
+
+        function 取解析符号(node: Identifier): Symbol {
+            const links = getNodeLinks(node);
+            if (!links.别名解析缓存符号) {
+                links.别名解析缓存符号 = links.resolvedSymbol || !nodeIsMissing(node) &&
+                    resolveName(
+                        node,
+                        node.escapedText,
+                        SymbolFlags.Value | SymbolFlags.ExportValue,
+                        undefined,
+                        node,
+                        undefined,
+                        undefined) || unknownSymbol;
+            }
+            return links.别名解析缓存符号;
+        }
+
+        function 取引用匹配节点(source: Node, target: Node): 匹配单元 {
+            switch (source.kind) {
+                case SyntaxKind.Identifier:
+                    if (target.kind === SyntaxKind.Identifier && 取解析符号(<Identifier>source) === 取解析符号(<Identifier>target)) {
+                        return { 对比结果: true, 源符号: 取解析符号(<Identifier>source), 目标符号: 取解析符号(<Identifier>target) }
+                    } else if ((target.kind === SyntaxKind.VariableDeclaration || target.kind === SyntaxKind.BindingElement) &&
+                        getExportSymbolOfValueSymbolIfExported(取解析符号(<Identifier>source)) === getSymbolOfNode(target)) {
+                        return { 对比结果: true, 源符号: getExportSymbolOfValueSymbolIfExported(取解析符号(<Identifier>source)), 目标符号: getSymbolOfNode(target) }
+                    }
+                case SyntaxKind.ThisKeyword:
+                    return { 对比结果: target.kind === SyntaxKind.ThisKeyword, 源符号: undefined, 目标符号: undefined };
+                case SyntaxKind.SuperKeyword:
+                    return { 对比结果: target.kind === SyntaxKind.SuperKeyword, 源符号: undefined, 目标符号: undefined };
+                case SyntaxKind.PropertyAccessExpression:
+                    return {
+                        对比结果: target.kind === SyntaxKind.PropertyAccessExpression &&
+                        对象名称比较((<PropertyAccessExpression>source).name, (<PropertyAccessExpression>target).name) &&
+                        取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).对比结果, 源符号: 取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).源符号, 目标符号: 取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).目标符号
+                    };
+                case SyntaxKind.BindingElement:
+                    if (target.kind !== SyntaxKind.PropertyAccessExpression) return { 对比结果: false, 源符号: undefined, 目标符号: undefined };
+                    const t = target as PropertyAccessExpression;
+                    if (!对象名称比较(t.name, getBindingElementNameText(source as BindingElement))) return { 对比结果: false, 源符号: undefined, 目标符号: undefined };
+                    if (source.parent.parent.kind === SyntaxKind.BindingElement && 取引用匹配节点(source.parent.parent, t.expression).对比结果) {
+                        return { 对比结果: true, 源符号: 取引用匹配节点(source.parent.parent, t.expression).源符号, 目标符号: 取引用匹配节点(source.parent.parent, t.expression).目标符号 }
+                    }
+                    if (source.parent.parent.kind === SyntaxKind.VariableDeclaration) {
+                        const maybeId = (source.parent.parent as VariableDeclaration).initializer;
+                        return { 对比结果: maybeId && 取引用匹配节点(maybeId, t.expression).对比结果, 源符号: 取引用匹配节点(maybeId, t.expression).源符号, 目标符号: 取引用匹配节点(maybeId, t.expression).目标符号 };
+                    }
+            }
+            return { 对比结果: false, 源符号: undefined, 目标符号: undefined };
         }
 
         function containsMatchingReference(source: Node, target: Node) {
@@ -18720,14 +18767,22 @@ namespace ts {
                 case SyntaxKind.StringLiteral:
                     const 结果类型 = getFreshTypeOfLiteralType(getLiteralType((node as LiteralExpression).text, undefined, undefined, (<StringLiteral>node)));
                     if ((结果类型.flags & TypeFlags.String) === 0) {
-                        if ((node as LiteralExpression).text === "属性3") {
-                            // console.log("发现")
-                        }
                         if (node.contextualType) {
                             创建字面量节点别名根据类型别名(node as StringLiteral)
                         }
                         else {
                             词典携带者交换别名(<StringLiteral>node, <StringLiteralType>结果类型)
+                        }
+                    }
+                    if (node.别名) {
+                        const 约束类型 = getContextualType(node)
+                        if (约束类型) {
+                            if (((约束类型.flags & TypeFlags.UnionOrIntersection) && ((约束类型.flags & TypeFlags.BooleanLike) === 0)) || isStringLiteralType(约束类型)) {
+                                let 节点连接 = getNodeLinks(node)
+                                if (!节点连接.字面量类型约束缓存) {
+                                    节点连接.字面量类型约束缓存 = 约束类型
+                                }
+                            }
                         }
                     }
                     return 结果类型
@@ -23317,9 +23372,9 @@ namespace ts {
                     forEach(potentialNewTargetCollisions, checkIfNewTargetIsCapturedInEnclosingScope);
                     clear(potentialNewTargetCollisions);
                 }
+                forEachChild(node, 逆向传递别名)
                 临时表 = createMultiMap<{ 符号: Symbol, 是Let: boolean }>()
                 forEachChild(node, 检查别名冲突回调)
-
                 if (临时表 && 临时表.size > 0) {
                     临时表.forEach(容器 => {
                         let 别名容器 = createUnderscoreEscapedMap<{ 符号名: string, 是Let: boolean }>()
@@ -23362,23 +23417,63 @@ namespace ts {
                 links.flags |= NodeCheckFlags.TypeChecked;
 
             }
+
+            function 逆向传递别名(n: Node) {
+                const kind = n.kind
+                switch (kind) {
+                    case SyntaxKind.ObjectLiteralExpression:
+                        if (isObjectLiteralExpression(n)) {
+                            let 特性数组 = n.properties
+                            if (特性数组 && 特性数组[0]) {
+                                for (let 声明值 of 特性数组) {
+                                    let 成员符号 = 声明值.symbol
+                                    let 成员声明 = 成员符号 && 成员符号.declarations
+                                    if (成员声明 && 成员声明[0]) {
+                                        for (let 成员 of 成员声明) {
+                                            let 名称 = 取声明的标识符或字面量标识符(成员)
+                                            if (名称 && 名称.别名 && 名称.flowNode) {
+                                                let 目标 = 名称.flowNode
+                                                while (目标) {
+                                                    if (目标.flags & FlowFlags.Assignment) {
+                                                        let { 对比结果, 源符号, 目标符号 } = 取引用匹配节点(名称, (<FlowAssignment>目标).node)
+                                                        if (对比结果 && 源符号 && 目标符号 && (!源符号.别名 || !目标符号.别名)) {
+                                                            if (!目标符号.别名) 词典携带者交换别名(目标符号, 名称)
+                                                            if (!源符号.别名) 词典携带者交换别名(源符号, 名称)
+                                                            break
+                                                        }
+                                                    }
+                                                    目标 = (<FlowAssignment>目标).antecedent
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    default:
+                        forEachChild(n, 逆向传递别名)
+                }
+            }
+
             function 检查别名冲突回调(n: Node) {
                 const kind = n.kind
                 switch (kind) {
                     case SyntaxKind.VariableStatement:
-                        forEach((<VariableStatement>n).declarationList.declarations, e => {
-                            let 列表 = 取变量声明主体数组(e)
-                            if (列表 && 列表[0]) {
-                                for (let i = 0; i < 列表.length; i++) {
-                                    const 节点的符号 = getSymbolOfNode(列表[i])
-                                    if (节点的符号 && 节点的符号.flags & SymbolFlags.BlockScopedVariable) {
-                                        const 容器 = getEnclosingBlockScopeContainer(e)
-                                        const 是Let = isLet(e)
-                                        临时表.add(getNodeId(容器) + "", { 符号: 节点的符号, 是Let })
+                        if (isVariableStatement(n)) {
+                            forEach((<VariableStatement>n).declarationList.declarations, e => {
+                                let 列表 = 取变量声明主体数组(e)
+                                if (列表 && 列表[0]) {
+                                    for (let i = 0; i < 列表.length; i++) {
+                                        const 节点的符号 = getSymbolOfNode(列表[i])
+                                        if (节点的符号 && 节点的符号.flags & SymbolFlags.BlockScopedVariable) {
+                                            const 容器 = getEnclosingBlockScopeContainer(e)
+                                            const 是Let = isLet(e)
+                                            临时表.add(getNodeId(容器) + "", { 符号: 节点的符号, 是Let })
+                                        }
                                     }
                                 }
-                            }
-                        })
+                            })
+                        }
                     case SyntaxKind.CallExpression:
                     case SyntaxKind.NewExpression:
                         if (isCallExpression(n)) {
@@ -23449,10 +23544,14 @@ namespace ts {
                             }
                         }
                     case SyntaxKind.StringLiteral:
-                        if ((<StringLiteral>n).别名) {
-                            if ((<StringLiteral>n).别名id !== -1) {
-                                delete (<StringLiteral>n).别名id
-                                delete (<StringLiteral>n).别名
+                        if (isStringLiteral(n)) {
+                            if (n.别名) {
+                                if (n.别名id !== -1) {
+                                    if (!getNodeLinks(n).字面量类型约束缓存) {
+                                        delete n.别名id
+                                        delete n.别名
+                                    }
+                                }
                             }
                         }
                     default:
@@ -24859,6 +24958,7 @@ namespace ts {
                 case ExternalEmitHelpers.AsyncValues: return "__asyncValues";
                 case ExternalEmitHelpers.ExportStar: return "__exportStar";
                 case ExternalEmitHelpers.MakeTemplateObject: return "__makeTemplateObject";
+                case ExternalEmitHelpers.PropName: return "__propName";
                 default: Debug.fail("Unrecognized helper");
             }
         }

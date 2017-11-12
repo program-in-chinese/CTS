@@ -347,8 +347,12 @@ namespace ts.projectSystem {
     }
 
     export const nodeModulesAtTypes = "node_modules/@types";
+    export const nodeModulesAtTypesCh = "node_modules/@typesch";
     export function getTypeRootsFromLocation(currentDirectory: string) {
-        return getRootsToWatchWithAncestorDirectory(currentDirectory, nodeModulesAtTypes);
+        const 结果1 =getRootsToWatchWithAncestorDirectory(currentDirectory, nodeModulesAtTypes);
+        const 结果2 =getRootsToWatchWithAncestorDirectory(currentDirectory, nodeModulesAtTypesCh);
+        结果1.push(...结果2)
+        return 结果1
     }
 
     function getNumberOfWatchesInvokedForRecursiveWatches(recursiveWatchedDirs: string[], file: string) {
@@ -475,7 +479,7 @@ namespace ts.projectSystem {
             const configFiles = flatMap(configFileLocations, location => [location + "tsconfig.json", location + "jsconfig.json"]);
             checkWatchedFiles(host, configFiles.concat(libFile.path, moduleFile.path));
             checkWatchedDirectories(host, [], /*recursive*/ false);
-            checkWatchedDirectories(host, ["/a/b/c", combinePaths(getDirectoryPath(appFile.path), nodeModulesAtTypes)], /*recursive*/ true);
+            checkWatchedDirectories(host, ["/a/b/c", combinePaths(getDirectoryPath(appFile.path), nodeModulesAtTypesCh), combinePaths(getDirectoryPath(appFile.path), nodeModulesAtTypes)], /*recursive*/ true);
         });
 
         it("can handle tsconfig file name with difference casing", () => {
@@ -547,7 +551,7 @@ namespace ts.projectSystem {
             // watching all files except one that was open
             checkWatchedFiles(host, [configFile.path, file2.path, libFile.path]);
             const configFileDirectory = getDirectoryPath(configFile.path);
-            checkWatchedDirectories(host, [configFileDirectory, combinePaths(configFileDirectory, nodeModulesAtTypes)], /*recursive*/ true);
+            checkWatchedDirectories(host, [configFileDirectory,combinePaths(configFileDirectory, nodeModulesAtTypesCh), combinePaths(configFileDirectory, nodeModulesAtTypes)], /*recursive*/ true);
         });
 
         it("create configured project with the file list", () => {
@@ -636,7 +640,7 @@ namespace ts.projectSystem {
             const projectService = createProjectService(host);
             projectService.openClientFile(commonFile1.path);
             const configFileDir = getDirectoryPath(configFile.path);
-            checkWatchedDirectories(host, [configFileDir, combinePaths(configFileDir, nodeModulesAtTypes)], /*recursive*/ true);
+            checkWatchedDirectories(host, [configFileDir,combinePaths(configFileDir, nodeModulesAtTypesCh), combinePaths(configFileDir, nodeModulesAtTypes)], /*recursive*/ true);
             checkNumberOfConfiguredProjects(projectService, 1);
 
             const project = configuredProjectAt(projectService, 0);
@@ -2658,7 +2662,7 @@ namespace ts.projectSystem {
             checkProjectActualFiles(project, map(files, file => file.path));
             checkWatchedFiles(host, mapDefined(files, file => file === file1 ? undefined : file.path));
             checkWatchedDirectories(host, [], /*recursive*/ false);
-            const watchedRecursiveDirectories = ["/a/b/node_modules/@types"];
+            const watchedRecursiveDirectories = ["/a/b/node_modules/@types","/a/b/node_modules/@typesch"];
             watchedRecursiveDirectories.push("/a/b");
             checkWatchedDirectories(host, watchedRecursiveDirectories, /*recursive*/ true);
 
@@ -4922,7 +4926,7 @@ namespace ts.projectSystem {
             verifyImportedDiagnostics();
             const f1Lookups = f2Lookups.map(s => s.replace("f2", "f1"));
             f1Lookups.length = f1Lookups.indexOf(imported.path) + 1;
-            const f1DirLookups = ["/c/d", "/c", ...mapCombinedPathsInAncestor(getDirectoryPath(root.path), nodeModulesAtTypes, returnTrue)];
+            const f1DirLookups = ["/c/d", "/c", ...mapCombinedPathsInAncestor(getDirectoryPath(root.path), nodeModulesAtTypes, returnTrue), ...mapCombinedPathsInAncestor(getDirectoryPath(root.path), nodeModulesAtTypesCh, returnTrue)];
             vertifyF1Lookups();
 
             // setting compiler options discards module resolution cache
@@ -4979,6 +4983,7 @@ namespace ts.projectSystem {
                     // for type roots
                     result.set(combinePaths(ancestor, nodeModules), 1);
                     result.set(combinePaths(ancestor, nodeModulesAtTypes), 1);
+                    result.set(combinePaths(ancestor, nodeModulesAtTypesCh), 1);
                 });
                 return result;
             }
@@ -6007,8 +6012,9 @@ namespace ts.projectSystem {
             checkWatchedDirectories(host, [], /*recursive*/ false);
             checkWatchedDirectories(host, [
                 root + "project",
-                root + "project/node_modules/@types"
-            ].concat(useProjectAtRoot ? [] : [root + nodeModulesAtTypes]), /*recursive*/ true);
+                root + "project/node_modules/@types",
+                root + "project/node_modules/@typesch"
+            ].concat(useProjectAtRoot ? [] : [root + nodeModulesAtTypes, root + nodeModulesAtTypesCh]), /*recursive*/ true);
         }
 
         it("When project is in rootFolder", () => {

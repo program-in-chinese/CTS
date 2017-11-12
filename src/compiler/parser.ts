@@ -6116,7 +6116,8 @@ namespace ts {
                 }
                 else {
                     const amdModuleNameRegEx = /^\/\/\/\s*<amd-module\s+name\s*=\s*('|")(.+?)\1/gim;
-                    const amdModuleNameMatchResult = amdModuleNameRegEx.exec(comment);
+                    const amdModuleNameRegExCH = /^\/\/\/\s*<AMD模块\s+名称\s*=\s*('|")(.+?)\1/gim;
+                    const amdModuleNameMatchResult = amdModuleNameRegEx.exec(comment)||amdModuleNameRegExCH.exec(comment);
                     if (amdModuleNameMatchResult) {
                         if (amdModuleName) {
                             parseDiagnostics.push(createFileDiagnostic(sourceFile, range.pos, range.end - range.pos, Diagnostics.An_AMD_module_cannot_have_multiple_name_assignments));
@@ -6125,12 +6126,15 @@ namespace ts {
                     }
 
                     const amdDependencyRegEx = /^\/\/\/\s*<amd-dependency\s/gim;
+                    const amdDependencyRegExCH = /^\/\/\/\s*<AMD附件\s/gim;
                     const pathRegex = /\spath\s*=\s*('|")(.+?)\1/gim;
                     const nameRegex = /\sname\s*=\s*('|")(.+?)\1/gim;
-                    const amdDependencyMatchResult = amdDependencyRegEx.exec(comment);
+                    const pathRegexCH = /\s路径\s*=\s*('|")(.+?)\1/gim;
+                    const nameRegexCH = /\s名称\s*=\s*('|")(.+?)\1/gim;
+                    const amdDependencyMatchResult = amdDependencyRegEx.exec(comment)||amdDependencyRegExCH.exec(comment);
                     if (amdDependencyMatchResult) {
-                        const pathMatchResult = pathRegex.exec(comment);
-                        const nameMatchResult = nameRegex.exec(comment);
+                        const pathMatchResult = pathRegex.exec(comment)||pathRegexCH.exec(comment);
+                        const nameMatchResult = nameRegex.exec(comment)||nameRegexCH.exec(comment);
                         if (pathMatchResult) {
                             const amdDependency = { path: pathMatchResult[2], name: nameMatchResult ? nameMatchResult[2] : undefined };
                             amdDependencies.push(amdDependency);
@@ -6138,10 +6142,11 @@ namespace ts {
                     }
 
                     const checkJsDirectiveRegEx = /^\/\/\/?\s*(@ts-check|@ts-nocheck)\s*$/gim;
-                    const checkJsDirectiveMatchResult = checkJsDirectiveRegEx.exec(comment);
+                    const checkJsDirectiveRegExCH = /^\/\/\/?\s*(@Cts-检查|@Cts-不检查)\s*$/gim;
+                    const checkJsDirectiveMatchResult = checkJsDirectiveRegEx.exec(comment) || checkJsDirectiveRegExCH.exec(comment);
                     if (checkJsDirectiveMatchResult) {
                         checkJsDirective = {
-                            enabled: compareStrings(checkJsDirectiveMatchResult[1], "@ts-check", /*ignoreCase*/ true) === Comparison.EqualTo,
+                            enabled: compareStrings(checkJsDirectiveMatchResult[1], "@ts-check", /*ignoreCase*/ true) === Comparison.EqualTo ? compareStrings(checkJsDirectiveMatchResult[1], "@ts-check", /*ignoreCase*/ true) === Comparison.EqualTo : compareStrings(checkJsDirectiveMatchResult[1], "@Cts-检查", /*ignoreCase*/ true) === Comparison.EqualTo,
                             end: range.end,
                             pos: range.pos
                         };

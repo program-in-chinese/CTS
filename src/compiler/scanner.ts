@@ -198,7 +198,8 @@ namespace ts {
         "如为": SyntaxKind.CaseKeyword,
         "捕获": SyntaxKind.CatchKeyword,
 
-        "种类": SyntaxKind.ClassKeyword,
+        "类别": SyntaxKind.ClassKeyword,
+        "类": SyntaxKind.ClassKeyword,
 
         "继续": SyntaxKind.ContinueKeyword,
         "常量": SyntaxKind.ConstKeyword,
@@ -213,7 +214,10 @@ namespace ts {
         "导出": SyntaxKind.ExportKeyword,
         "扩展": SyntaxKind.ExtendsKeyword,
 
+        "为假": SyntaxKind.FalseKeyword,
+        "假值": SyntaxKind.FalseKeyword,
         "假的": SyntaxKind.FalseKeyword,
+        "假": SyntaxKind.FalseKeyword,
 
         "善后": SyntaxKind.FinallyKeyword,
         "循环": SyntaxKind.ForKeyword,
@@ -227,7 +231,7 @@ namespace ts {
         "身为": SyntaxKind.InstanceOfKeyword,
         "接口": SyntaxKind.InterfaceKeyword,
 
-        "是为": SyntaxKind.IsKeyword,
+        "作为": SyntaxKind.IsKeyword,
         "键集": SyntaxKind.KeyOfKeyword,
 
         "变量": SyntaxKind.LetKeyword,
@@ -235,7 +239,7 @@ namespace ts {
         "模块": SyntaxKind.ModuleKeyword,
 
         "名域": SyntaxKind.NamespaceKeyword,
-        "不达": SyntaxKind.NeverKeyword,
+        "不及": SyntaxKind.NeverKeyword,
 
         "新建": SyntaxKind.NewKeyword,
         "空值": SyntaxKind.NullKeyword,
@@ -256,7 +260,7 @@ namespace ts {
         "文字": SyntaxKind.StringKeyword,
 
         "父级": SyntaxKind.SuperKeyword,
-        "分拣": SyntaxKind.SwitchKeyword,
+        "假如": SyntaxKind.SwitchKeyword,
 
         "符号": SyntaxKind.SymbolKeyword,
 
@@ -264,7 +268,10 @@ namespace ts {
 
         "抛出": SyntaxKind.ThrowKeyword,
 
+        "为真": SyntaxKind.TrueKeyword,
+        "真值": SyntaxKind.TrueKeyword,
         "真的": SyntaxKind.TrueKeyword,
+        "真": SyntaxKind.TrueKeyword,
 
         "尝试": SyntaxKind.TryKeyword,
         "类型": SyntaxKind.TypeKeyword,
@@ -272,11 +279,9 @@ namespace ts {
         "类为": SyntaxKind.TypeOfKeyword,
         "未定": SyntaxKind.UndefinedKeyword,
 
-        "可变": SyntaxKind.VarKeyword,
+        "量值": SyntaxKind.VarKeyword,
         "无值": SyntaxKind.VoidKeyword,
-
-        "只要": SyntaxKind.WhileKeyword,
-
+        "判断": SyntaxKind.WhileKeyword,
         "外扩": SyntaxKind.WithKeyword,
         "获得": SyntaxKind.YieldKeyword,
         "异步": SyntaxKind.AsyncKeyword,
@@ -431,7 +436,9 @@ namespace ts {
     function makeReverseMap(source: Map<number>): string[] {
         const result: string[] = [];
         source.forEach((value, name) => {
-            result[value] = name;
+            if (!result[value]) {
+                result[value] = name;
+            }
         });
         return result;
     }
@@ -1359,17 +1366,17 @@ namespace ts {
         function getIdentifierToken(): SyntaxKind {
             /** 保留字在2到11个字符之间，以小写字母开头 */
             const len = tokenValue.length;
+
+            if (len >= 1 && len <= 2) {
+                token = 中文关键字映射表.get(tokenValue);
+                if (token !== undefined) {
+                    return token;
+                }
+            }
             if (len >= 2 && len <= 11) {
                 const ch = tokenValue.charCodeAt(0);
                 if (len >= 2 && ch >= CharacterCodes.a && ch <= CharacterCodes.z) {
                     token = textToToken.get(tokenValue);
-                    if (token !== undefined) {
-                        return token;
-                    }
-                }
-                // TODO: 目前放在下面以后上移
-                if (len === 2) {
-                    token = 中文关键字映射表.get(tokenValue);
                     if (token !== undefined) {
                         return token;
                     }

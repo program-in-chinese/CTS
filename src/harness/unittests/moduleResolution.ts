@@ -207,9 +207,11 @@ namespace ts {
                     "/a/b/c/d/node_modules/foo/index.tsx",
                     "/a/b/c/d/node_modules/foo/index.d.ts",
 
+                    "/a/b/c/d/node_modules/@typesch/foo/package.json",
+                    "/a/b/c/d/node_modules/@typesch/foo.d.ts",
+                    "/a/b/c/d/node_modules/@typesch/foo/index.d.ts",
                     "/a/b/c/d/node_modules/@types/foo/package.json",
                     "/a/b/c/d/node_modules/@types/foo.d.ts",
-
                     "/a/b/c/d/node_modules/@types/foo/index.d.ts",
 
                     "/a/b/c/node_modules/foo/package.json",
@@ -221,10 +223,13 @@ namespace ts {
                     "/a/b/c/node_modules/foo/index.tsx",
                     "/a/b/c/node_modules/foo/index.d.ts",
 
+                    "/a/b/c/node_modules/@typesch/foo/package.json",
+                    "/a/b/c/node_modules/@typesch/foo.d.ts",
+                    "/a/b/c/node_modules/@typesch/foo/index.d.ts",
                     "/a/b/c/node_modules/@types/foo/package.json",
                     "/a/b/c/node_modules/@types/foo.d.ts",
-
                     "/a/b/c/node_modules/@types/foo/index.d.ts",
+
                     "/a/b/node_modules/foo/package.json",
                 ]);
             }
@@ -260,9 +265,12 @@ namespace ts {
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.tsx",
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.d.ts",
 
+                    "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo/package.json",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo.d.ts",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo/index.d.ts",
+
                     "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo/package.json",
                     "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo.d.ts",
-
                     "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo/index.d.ts",
 
                     "/a/node_modules/b/c/node_modules/foo/package.json",
@@ -274,9 +282,12 @@ namespace ts {
                     "/a/node_modules/b/c/node_modules/foo/index.tsx",
                     "/a/node_modules/b/c/node_modules/foo/index.d.ts",
 
+                    "/a/node_modules/b/c/node_modules/@typesch/foo/package.json",
+                    "/a/node_modules/b/c/node_modules/@typesch/foo.d.ts",
+                    "/a/node_modules/b/c/node_modules/@typesch/foo/index.d.ts",
+
                     "/a/node_modules/b/c/node_modules/@types/foo/package.json",
                     "/a/node_modules/b/c/node_modules/@types/foo.d.ts",
-
                     "/a/node_modules/b/c/node_modules/@types/foo/index.d.ts",
 
                     "/a/node_modules/b/node_modules/foo/package.json",
@@ -288,9 +299,12 @@ namespace ts {
                     "/a/node_modules/b/node_modules/foo/index.tsx",
                     "/a/node_modules/b/node_modules/foo/index.d.ts",
 
+                    "/a/node_modules/b/node_modules/@typesch/foo/package.json",
+                    "/a/node_modules/b/node_modules/@typesch/foo.d.ts",
+                    "/a/node_modules/b/node_modules/@typesch/foo/index.d.ts",
+
                     "/a/node_modules/b/node_modules/@types/foo/package.json",
                     "/a/node_modules/b/node_modules/@types/foo.d.ts",
-
                     "/a/node_modules/b/node_modules/@types/foo/index.d.ts",
 
                     "/a/node_modules/foo/package.json",
@@ -722,6 +736,10 @@ import b = require("./moduleB");
                     "/root/folder1/node_modules/file6/index.ts",
                     "/root/folder1/node_modules/file6/index.tsx",
                     "/root/folder1/node_modules/file6/index.d.ts",
+
+                    "/root/folder1/node_modules/@typesch/file6/package.json",
+                    "/root/folder1/node_modules/@typesch/file6.d.ts",
+                    "/root/folder1/node_modules/@typesch/file6/index.d.ts",
 
                     "/root/folder1/node_modules/@types/file6/package.json",
                     "/root/folder1/node_modules/@types/file6.d.ts",

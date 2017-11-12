@@ -253,9 +253,13 @@ namespace ts {
             text.charCodeAt(commentPos + 2) === CharacterCodes.slash) {
             const textSubStr = text.substring(commentPos, commentEnd);
             return textSubStr.match(fullTripleSlashReferencePathRegEx) ||
+                textSubStr.match(fullTripleSlashReferencePathRegExCH) ||
                 textSubStr.match(fullTripleSlashAMDReferencePathRegEx) ||
+                textSubStr.match(fullTripleSlashAMDReferencePathRegExCH) ||
                 textSubStr.match(fullTripleSlashReferenceTypeReferenceDirectiveRegEx) ||
-                textSubStr.match(defaultLibReferenceRegEx) ?
+                textSubStr.match(fullTripleSlashReferenceTypeReferenceDirectiveRegExCH) ||
+                textSubStr.match(defaultLibReferenceRegEx) ||
+                textSubStr.match(defaultLibReferenceRegExCH) ?
                 true : false;
         }
         return false;
@@ -725,9 +729,16 @@ namespace ts {
 
 
     export const fullTripleSlashReferencePathRegEx = /^(\/\/\/\s*<reference\s+path\s*=\s*)('|")(.+?)\2.*?\/>/;
+    export const fullTripleSlashReferencePathRegExCH = /^(\/\/\/\s*<引用\s+路径\s*=\s*)('|")(.+?)\2.*?\/>/;
+
     const fullTripleSlashReferenceTypeReferenceDirectiveRegEx = /^(\/\/\/\s*<reference\s+types\s*=\s*)('|")(.+?)\2.*?\/>/;
+    const fullTripleSlashReferenceTypeReferenceDirectiveRegExCH = /^(\/\/\/\s*<引用\s+类型集\s*=\s*)('|")(.+?)\2.*?\/>/;
+
     export const fullTripleSlashAMDReferencePathRegEx = /^(\/\/\/\s*<amd-dependency\s+path\s*=\s*)('|")(.+?)\2.*?\/>/;
+    export const fullTripleSlashAMDReferencePathRegExCH = /^(\/\/\/\s*<AMD附件\s+路径\s*=\s*)('|")(.+?)\2.*?\/>/;
+
     const defaultLibReferenceRegEx = /^(\/\/\/\s*<reference\s+no-default-lib\s*=\s*)('|")(.+?)\2\s*\/>/;
+    const defaultLibReferenceRegExCH = /^(\/\/\/\s*<引用\s+不使用默认支持库\s*=\s*)('|")(.+?)\2\s*\/>/;
 
     export function isPartOfTypeNode(node: Node): boolean {
         if (SyntaxKind.FirstTypeNode <= node.kind && node.kind <= SyntaxKind.LastTypeNode) {
@@ -1871,14 +1882,16 @@ namespace ts {
 
     export function getFileReferenceFromReferencePath(comment: string, commentRange: CommentRange): ReferencePathMatchResult {
         const simpleReferenceRegEx = /^\/\/\/\s*<reference\s+/gim;
+        const simpleReferenceRegExCH = /^\/\/\/\s*<引用\s+/gim;
         const isNoDefaultLibRegEx = new RegExp(defaultLibReferenceRegEx.source, "gim");
-        if (simpleReferenceRegEx.test(comment)) {
-            if (isNoDefaultLibRegEx.test(comment)) {
+        const isNoDefaultLibRegExCH = new RegExp(defaultLibReferenceRegExCH.source, "gim");
+        if (simpleReferenceRegEx.test(comment)||simpleReferenceRegExCH.test(comment)) {
+            if (isNoDefaultLibRegEx.test(comment)||isNoDefaultLibRegExCH.test(comment) ) {
                 return { isNoDefaultLib: true };
             }
             else {
-                const refMatchResult = fullTripleSlashReferencePathRegEx.exec(comment);
-                const refLibResult = !refMatchResult && fullTripleSlashReferenceTypeReferenceDirectiveRegEx.exec(comment);
+                const refMatchResult = fullTripleSlashReferencePathRegEx.exec(comment) || fullTripleSlashReferencePathRegExCH.exec(comment);
+                const refLibResult = !refMatchResult && (fullTripleSlashReferenceTypeReferenceDirectiveRegEx.exec(comment) || fullTripleSlashReferenceTypeReferenceDirectiveRegExCH.exec(comment));
                 const match = refMatchResult || refLibResult;
                 if (match) {
                     const pos = commentRange.pos + match[1].length + match[2].length;
@@ -5836,7 +5849,8 @@ namespace ts {
                 右别名 = (右值 as StringLiteralType).别名 && (右值 as StringLiteralType).别名.名称;
             }
             if (左名称 || 右名称 || (左名称 && 右别名) || (右名称 && 左别名)) {
-                return 对象名称是交叉相等的(创建文本别名(左名称, 左别名), 创建文本别名(右名称, 右别名));
+                const 结果 = 对象名称是交叉相等的(创建文本别名(左名称, 左别名), 创建文本别名(右名称, 右别名));
+                return 结果
             }
             else {
                 return false
@@ -6013,7 +6027,7 @@ namespace ts {
         }
     }
 
-    export  function 传递别名(别名接受者: 可携带词典类型, 别名提供者: 可携带词典类型) {
+    export function 传递别名(别名接受者: 可携带词典类型, 别名提供者: 可携带词典类型) {
         const 源的原始文本 = 取原始文本(别名提供者)
         const 目标的原始文本 = 取原始文本(别名接受者)
         const 别名参数 = 取别名(别名提供者)
@@ -6026,12 +6040,22 @@ namespace ts {
             别名接受者.别名 = 别名
         }
         if (是符号(别名接受者) && 别名接受者.别名) {
+
             for (const 声明节点 of 别名接受者.declarations) {
                 let 声明名 = 取声明的标识符或字面量标识符(声明节点)
                 if (声明名 && !声明名.别名) {
                     声明名.别名 = 别名接受者.别名
+                    if (声明名.flowNode) {
+                        if (声明名.flowNode.flags & FlowFlags.Assignment) {
+                            let 流程节点 = (<FlowAssignment>声明名.flowNode).node
+                            if (流程节点 && 流程节点.symbol) {
+                                传递别名(流程节点.symbol, 声明名)
+                            }
+                        }
+                    }
                 }
             }
+
         }
     }
 

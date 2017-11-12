@@ -24,8 +24,8 @@ namespace ts.codefix {
             // If !registry, registry not available yet, can't do anything.
             return undefined;
         }
-
-        const typesPackageName = getTypesPackageName(packageName);
+        let 使用中文库 = host.getCompilationSettings().使用中文支持库
+        const typesPackageName = getTypesPackageName(packageName, 使用中文库);
         return {
             description: `Install '${typesPackageName}'`,
             changes: [],

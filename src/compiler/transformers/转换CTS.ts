@@ -21,9 +21,9 @@ namespace ts {
 
             if (数据 && 数据.length > 0 && 数据使用数组.length > 1) {
                 const propName: EmitHelper = {
-                    name: "typescript:propName",
+                    name: "typescript:PropName",
                     scoped: false,
-                    priority: 15,
+                    priority: 17,
                     text: 生成助手数据(数据)
                 };
                 context.requestEmitHelper(propName);
@@ -52,7 +52,7 @@ namespace ts {
                 }
             }
             return `
-var __propName = function(v, i) {
+var __propName = (this && this.__propName) || function(v, i) {
     var __d = {\n${结果}
     }
     return __d["__" + i][v] || v

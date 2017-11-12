@@ -3636,6 +3636,8 @@ namespace ts {
         resolvedType?: Type;              // Cached type of type node
         resolvedSignature?: Signature;    // Cached signature of signature node or call expression
         resolvedSymbol?: Symbol;          // Cached name resolution result
+        别名解析缓存符号?: Symbol;
+        字面量类型约束缓存?:Type;
         resolvedIndexInfo?: IndexInfo;    // Cached indexing info resolution result
         maybeTypePredicate?: boolean;     // Cached check whether call expression might reference a type predicate
         enumMemberValue?: string | number;  // Constant value of enum member
@@ -4211,7 +4213,7 @@ namespace ts {
         typeRoots?: string[];
         /*@internal*/ version?: boolean;
         /*@internal*/ watch?: boolean;
-
+        使用中文支持库?: boolean;
         中文关键字?: boolean;
         转译Ts?: boolean;
         转译Cts?: boolean;
@@ -4823,10 +4825,10 @@ namespace ts {
         ExportStar = 1 << 15,           // __exportStar (used by CommonJS/AMD/UMD module transformation)
 
         MakeTemplateObject = 1 << 16,   // __makeTemplateObject (used for constructing template string array objects)
-        助手 = 1 << 17,       // __助手 (used by CommonJS/AMD/UMD module transformation)
+        PropName = 1 << 17,                 // __propName (used by 转换CTS module transformation)
 
         FirstEmitHelper = Extends,
-        LastEmitHelper = 助手,
+        LastEmitHelper = PropName,
 
         // Helpers included by ES2015 for..of
         ForOfIncludes = Values,

@@ -15,8 +15,6 @@ namespace ts {
     interface 输出声明编辑器 extends EmitTextWriter, SymbolWriter {
     }
 
-
-
     function 生成声明结果(host: EmitHost,
         源文件或绑定集: SourceFile | Bundle): DeclarationEmit {
         const 源码文件集 = 源文件或绑定集.kind === SyntaxKind.Bundle ? 源文件或绑定集.sourceFiles : [源文件或绑定集];

@@ -131,7 +131,11 @@ namespace ts {
         let typeRoots: string[];
         forEachAncestorDirectory(ts.normalizePath(currentDirectory), directory => {
             const atTypes = combinePaths(directory, nodeModulesAtTypes);
-            if (host.directoryExists(atTypes)) {
+            const atTypesch = combinePaths(directory, nodeModulesAtTypesch);
+            if (host.directoryExists(atTypesch)) {
+                (typeRoots || (typeRoots = [])).push(atTypesch);
+            }
+            else if (host.directoryExists(atTypes)) {
                 (typeRoots || (typeRoots = [])).push(atTypes);
             }
             return undefined;
@@ -139,6 +143,7 @@ namespace ts {
         return typeRoots;
     }
     const nodeModulesAtTypes = combinePaths("node_modules", "@types");
+    const nodeModulesAtTypesch = combinePaths("node_modules", "@typesch");
 
     /**
      * @param {string | undefined} containingFile - file that contains type reference directive, can be undefined if containing file is unknown.
@@ -954,14 +959,15 @@ namespace ts {
         }
         if (extensions !== Extensions.JavaScript) {
             const nodeModulesAtTypes = combinePaths(nodeModulesFolder, "@types");
+            const nodeModulesAtTypesch = combinePaths(nodeModulesFolder, "@typesch");
             let nodeModulesAtTypesExists = nodeModulesFolderExists;
-            if (nodeModulesFolderExists && !directoryProbablyExists(nodeModulesAtTypes, state.host)) {
+            if (nodeModulesFolderExists && !directoryProbablyExists(nodeModulesAtTypes, state.host) && !directoryProbablyExists(nodeModulesAtTypesch, state.host)) {
                 if (state.traceEnabled) {
                     trace(state.host, Diagnostics.Directory_0_does_not_exist_skipping_all_lookups_in_it, nodeModulesAtTypes);
                 }
                 nodeModulesAtTypesExists = false;
             }
-            return loadModuleFromNodeModulesFolder(Extensions.DtsOnly, mangleScopedPackage(moduleName, state), nodeModulesAtTypes, nodeModulesAtTypesExists, failedLookupLocations, state);
+            return loadModuleFromNodeModulesFolder(Extensions.DtsOnly, mangleScopedPackage(moduleName, state), nodeModulesAtTypes, nodeModulesAtTypesExists, failedLookupLocations, state) || loadModuleFromNodeModulesFolder(Extensions.DtsOnly, mangleScopedPackage(moduleName, state), nodeModulesAtTypesch, nodeModulesAtTypesExists, failedLookupLocations, state);
         }
     }
 

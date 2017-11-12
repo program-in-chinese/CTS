@@ -163,6 +163,10 @@ namespace ts {
         let typeRoots: string[];
         forEachAncestorDirectory(ts.normalizePath(currentDirectory), directory => {
             const atTypes = combinePaths(directory, nodeModulesAtTypes);
+            const atTypesch = combinePaths(directory, nodeModulesAtTypesch);
+            if (host.directoryExists(atTypesch)) {
+                (typeRoots || (typeRoots = [])).push(atTypesch);
+            }
             if (host.directoryExists(atTypes)) {
                 (typeRoots || (typeRoots = [])).push(atTypes);
             }
@@ -171,6 +175,7 @@ namespace ts {
         return typeRoots;
     }
     const nodeModulesAtTypes = combinePaths("node_modules", "@types");
+    const nodeModulesAtTypesch = combinePaths("node_modules", "@typesch");
 
     /**
      * @param {string | undefined} containingFile - file that contains type reference directive, can be undefined if containing file is unknown.
@@ -1049,14 +1054,17 @@ namespace ts {
         }
         if (extensions !== Extensions.JavaScript) {
             const nodeModulesAtTypes = combinePaths(nodeModulesFolder, "@types");
+            const nodeModulesAtTypesCH = combinePaths(nodeModulesFolder, "@typesch");
             let nodeModulesAtTypesExists = nodeModulesFolderExists;
-            if (nodeModulesFolderExists && !directoryProbablyExists(nodeModulesAtTypes, state.host)) {
+            if (nodeModulesFolderExists && !directoryProbablyExists(nodeModulesAtTypes, state.host) && !directoryProbablyExists(nodeModulesAtTypesCH, state.host)) {
                 if (state.traceEnabled) {
                     trace(state.host, Diagnostics.Directory_0_does_not_exist_skipping_all_lookups_in_it, nodeModulesAtTypes);
                 }
                 nodeModulesAtTypesExists = false;
             }
-            return loadModuleFromNodeModulesFolder(Extensions.DtsOnly, mangleScopedPackage(moduleName, state), nodeModulesAtTypes, nodeModulesAtTypesExists, failedLookupLocations, state);
+            const 结果 = loadModuleFromNodeModulesFolder(Extensions.DtsOnly, mangleScopedPackage(moduleName, state), nodeModulesAtTypesCH, nodeModulesAtTypesExists, failedLookupLocations, state) || loadModuleFromNodeModulesFolder(Extensions.DtsOnly, mangleScopedPackage(moduleName, state), nodeModulesAtTypes, nodeModulesAtTypesExists, failedLookupLocations, state);
+
+            return 结果
         }
     }
 
@@ -1073,8 +1081,8 @@ namespace ts {
     }
 
     /* @internal */
-    export function getTypesPackageName(packageName: string): string {
-        return `@types/${getMangledNameForScopedPackage(packageName)}`;
+    export function getTypesPackageName(packageName: string, 使用中文库: boolean): string {
+        return 使用中文库 ? `@typesch/${getMangledNameForScopedPackage(packageName)}` : `@types/${getMangledNameForScopedPackage(packageName)}`;
     }
 
     function getMangledNameForScopedPackage(packageName: string): string {
@@ -1089,7 +1097,13 @@ namespace ts {
 
     /* @internal */
     export function getPackageNameFromAtTypesDirectory(mangledName: string): string {
-        const withoutAtTypePrefix = removePrefix(mangledName, "@types/");
+        let withoutAtTypePrefix = removePrefix(mangledName, "@types/");
+        if (withoutAtTypePrefix !== mangledName) {
+            return stringContains(withoutAtTypePrefix, mangledScopedPackageSeparator) ?
+                "@" + withoutAtTypePrefix.replace(mangledScopedPackageSeparator, ts.directorySeparator) :
+                withoutAtTypePrefix;
+        }
+        withoutAtTypePrefix = removePrefix(mangledName, "@typesch/")
         if (withoutAtTypePrefix !== mangledName) {
             return stringContains(withoutAtTypePrefix, mangledScopedPackageSeparator) ?
                 "@" + withoutAtTypePrefix.replace(mangledScopedPackageSeparator, ts.directorySeparator) :

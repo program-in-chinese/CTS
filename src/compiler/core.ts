@@ -2022,10 +2022,13 @@ namespace ts {
     const wildcardMatchers = {
         files: filesMatcher,
         directories: directoriesMatcher,
-        exclude: excludeMatcher
+        exclude: excludeMatcher,
+        文件集: filesMatcher,
+        目录集: directoriesMatcher,
+        排除: filesMatcher
     };
 
-    export function getRegularExpressionForWildcard(specs: ReadonlyArray<string>, basePath: string, usage: "files" | "directories" | "exclude"): string | undefined {
+    export function getRegularExpressionForWildcard(specs: ReadonlyArray<string>, basePath: string, usage: "files" | "directories" | "exclude" | "文件集" | "目录集" | "排除"): string | undefined {
         const patterns = getRegularExpressionsForWildcards(specs, basePath, usage);
         if (!patterns || !patterns.length) {
             return undefined;
@@ -2033,11 +2036,11 @@ namespace ts {
 
         const pattern = patterns.map(pattern => `(${pattern})`).join("|");
         // If excluding, match "foo/bar/baz...", but if including, only allow "foo".
-        const terminator = usage === "exclude" ? "($|/)" : "$";
+        const terminator = usage === "exclude" || usage === "排除"  ? "($|/)" : "$";
         return `^(${pattern})${terminator}`;
     }
 
-    function getRegularExpressionsForWildcards(specs: ReadonlyArray<string>, basePath: string, usage: "files" | "directories" | "exclude"): string[] | undefined {
+    function getRegularExpressionsForWildcards(specs: ReadonlyArray<string>, basePath: string, usage: "files" | "directories" | "exclude" | "文件集" | "目录集" | "排除"): string[] | undefined {
         if (specs === undefined || specs.length === 0) {
             return undefined;
         }
@@ -2054,13 +2057,13 @@ namespace ts {
         return !/[.*?]/.test(lastPathComponent);
     }
 
-    function getSubPatternFromSpec(spec: string, basePath: string, usage: "files" | "directories" | "exclude", { singleAsteriskRegexFragment, doubleAsteriskRegexFragment, replaceWildcardCharacter }: WildcardMatcher): string | undefined {
+    function getSubPatternFromSpec(spec: string, basePath: string, usage: "files" | "directories" | "exclude" | "文件集" | "目录集" | "排除", { singleAsteriskRegexFragment, doubleAsteriskRegexFragment, replaceWildcardCharacter }: WildcardMatcher): string | undefined {
         let subpattern = "";
         let hasRecursiveDirectoryWildcard = false;
         let hasWrittenComponent = false;
         const components = getNormalizedPathComponents(spec, basePath);
         const lastComponent = lastOrUndefined(components);
-        if (usage !== "exclude" && lastComponent === "**") {
+        if (usage !== "exclude"&& usage !== "排除"  && lastComponent === "**") {
             return undefined;
         }
 
@@ -2083,7 +2086,7 @@ namespace ts {
                 hasRecursiveDirectoryWildcard = true;
             }
             else {
-                if (usage === "directories") {
+                if (usage === "directories" || usage === "目录集") {
                     subpattern += "(";
                     optionalCount++;
                 }
@@ -2092,7 +2095,7 @@ namespace ts {
                     subpattern += directorySeparator;
                 }
 
-                if (usage !== "exclude") {
+                if (usage !== "exclude"&& usage !== "排除") {
                     let componentPattern = "";
                     // The * and ? wildcards should not match directories or files that start with . if they
                     // appear first in a component. Dotted directories and files can be included explicitly

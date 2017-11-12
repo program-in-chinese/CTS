@@ -6,12 +6,114 @@
 
 namespace ts {
     /* @internal */
-    export const compileOnSaveCommandLineOption: CommandLineOption = { name: "compileOnSave", type: "boolean" };
+    export const compileOnSaveCommandLineOption: CommandLineOption = { name: "compileOnSave", 别名: "保存时编译", type: "boolean" };
+
+
+    export const 编译选项别名对照表 = createMapFromTemplate({
+        "编译选项": "compilerOptions",
+        "保存时编译": "compileOnSave",
+        "帮助": "help",
+        "UsingChineseLib":"使用中文支持库",
+        "CompileToCts": "转译Cts",
+        "ChineseKeywords": "中文关键字",
+        "CompileToTs": "转译Ts",
+        "CompileToDcts": "转译声明",
+        "EmitNoDictionaryIdentifiers": "输出无词典标识符",
+        "DictionaryOnFileEnd": "词典在文件尾",
+        "DictionaryNoRepeat": "词典不重复输出",
+        "所有": "all",
+        "版本": "version",
+        "初始化": "init",
+        "项目": "project",
+        "错误样式": "pretty",
+        "监控": "watch",
+        "目标": "target",
+        "模块": "module",
+        "支持库": "lib",
+        "允许JS": "allowJs",
+        "检查JS": "checkJs",
+        "输出声明文件": "declaration",
+        "源码映射": "sourceMap",
+        "输出文件": "outFile",
+        "输出目录": "outDir",
+        "根目录": "rootDir",
+        "删除注释": "removeComments",
+        "不输出": "noEmit",
+        "引入帮助": "importHelpers",
+        "低级迭代": "downlevelIteration",
+        "是隔离模块": "isolatedModules",
+        "严格": "strict",
+        "有隐性通用型不输出": "noImplicitAny",
+        "严格空检查": "strictNullChecks",
+        "有隐性本对象不输出": "noImplicitThis",
+        "严格模式": "alwaysStrict",
+        "不允许未使用变量": "noUnusedLocals",
+        "不允许未使用参数": "noUnusedParameters",
+        "不允许无返回": "noImplicitReturns",
+        "不允许贯穿": "noFallthroughCasesInSwitch",
+        "模块解析": "moduleResolution",
+        "基URL": "baseUrl",
+        "路径集": "paths",
+        "根目录集": "rootDirs",
+        "类型根集": "typeRoots",
+        "类型集": "types",
+        "允许从未设置默认导出模块默认导入": "allowSyntheticDefaultImports",
+        "源码根": "sourceRoot",
+        "映射根": "mapRoot",
+        "内联源映射": "inlineSourceMap",
+        "内联源": "inlineSources",
+        "试验装饰器": "experimentalDecorators",
+        "试验装饰器元数据": "emitDecoratorMetadata",
+        "JSX工厂": "jsxFactory",
+        "诊断": "diagnostics",
+        "详细诊断": "extendedDiagnostics",
+        "生成模块解析日志": "traceResolution",
+        "打印列表": "listFiles",
+        "打印发射文件列表": "listEmittedFiles",
+        "输出": "out",
+        "REACT名称空间": "reactNamespace",
+        "忽略默认库类型检查": "skipDefaultLibCheck",
+        "设置编码": "charset",
+        "输出BOM": "emitBOM",
+        "本地化": "locale",
+        "换行符": "newLine",
+        "有错误截断": "noErrorTruncation",
+        "不包含默认库": "noLib",
+        "不包含引用": "noResolve",
+        "不生成内部标签": "stripInternal",
+        "禁用大小限制": "disableSizeLimit",
+        "不隐式严格模式": "noImplicitUseStrict",
+        "不输出助手": "noEmitHelpers",
+        "有错误不输出": "noEmitOnError",
+        "保留常量及枚举": "preserveConstEnums",
+        "声明目录": "declarationDir",
+        "忽略库类型检查": "skipLibCheck",
+        "允许检测不到": "allowUnusedLabels",
+        "允许未使用": "allowUnreachableCode",
+        "阻止过度属性错误检查": "suppressExcessPropertyErrors",
+        "阻止隐性通用型索引错误检查": "suppressImplicitAnyIndexErrors",
+        "不允许不一致引用": "forceConsistentCasingInFileNames",
+        "依赖最大深度": "maxNodeModuleJsDepth",
+        "不使用严格通用检查": "noStrictGenericChecks",
+        "插件": "plugins",
+        "启用自动发现": "enableAutoDiscovery",
+        "启用": "enable",
+        "包含": "include",
+        "排除": "exclude",
+        "分类选项": "typingOptions",
+        "类型收集": "typeAcquisition",
+        "外部扩展": "extends",
+        "文件集": "files",
+        "严格函数类型集": "strictFunctionTypes",
+        "保持符号连接": "preserveSymlinks"
+    });
+
     /* @internal */
     export const optionDeclarations: CommandLineOption[] = [
         // CommandLine only options
         {
             name: "help",
+            别名: "帮助",
             shortName: "h",
             type: "boolean",
             showInSimplifiedHelpView: true,
@@ -20,11 +122,54 @@ namespace ts {
         },
         {
             name: "help",
+            别名: "帮助",
             shortName: "?",
             type: "boolean"
         },
         {
+            name: "使用中文支持库",
+            别名: "UsingChineseLib",
+            type: "boolean",
+        },
+        {
+            name: "转译Cts",
+            别名: "CompileToCts",
+            type: "boolean",
+        },
+        {
+            name: "中文关键字",
+            别名: "ChineseKeywords",
+            type: "boolean",
+
+        },
+        {
+            name: "转译Ts",
+            别名: "CompileToTs",
+            type: "boolean",
+        },
+        {
+            name: "转译声明",
+            别名: "CompileToDcts",
+            type: "boolean",
+        },
+        {
+            name: "输出无词典标识符",
+            别名: "EmitNoDictionaryIdentifiers",
+            type: "boolean",
+        },
+        {
+            name: "词典在文件尾",
+            别名: "DictionaryOnFileEnd",
+            type: "boolean",
+        },
+        {
+            name: "词典不重复输出",
+            别名: "DictionaryNoRepeat",
+            type: "boolean",
+        },
+        {
             name: "all",
+            别名: "所有",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Command_line_Options,
@@ -32,6 +177,7 @@ namespace ts {
         },
         {
             name: "version",
+            别名: "版本",
             shortName: "v",
             type: "boolean",
             showInSimplifiedHelpView: true,
@@ -40,6 +186,7 @@ namespace ts {
         },
         {
             name: "init",
+            别名: "初始化",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Command_line_Options,
@@ -47,6 +194,7 @@ namespace ts {
         },
         {
             name: "project",
+            别名: "项目",
             shortName: "p",
             type: "string",
             isFilePath: true,
@@ -57,6 +205,7 @@ namespace ts {
         },
         {
             name: "pretty",
+            别名: "错误样式",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Command_line_Options,
@@ -64,6 +213,7 @@ namespace ts {
         },
         {
             name: "watch",
+            别名: "监控",
             shortName: "w",
             type: "boolean",
             showInSimplifiedHelpView: true,
@@ -74,6 +224,7 @@ namespace ts {
         // Basic
         {
             name: "target",
+            别名: "目标",
             shortName: "t",
             type: createMapFromTemplate({
                 "es3": ScriptTarget.ES3,
@@ -91,6 +242,7 @@ namespace ts {
         },
         {
             name: "module",
+            别名: "模块",
             shortName: "m",
             type: createMapFromTemplate({
                 "none": ModuleKind.None,
@@ -109,9 +261,11 @@ namespace ts {
         },
         {
             name: "lib",
+            别名: "支持库",
             type: "list",
             element: {
                 name: "lib",
+                别名: "支持库",
                 type: createMapFromTemplate({
                     // JavaScript only
                     "es5": "lib.es5.d.ts",
@@ -150,6 +304,7 @@ namespace ts {
         },
         {
             name: "allowJs",
+            别名: "允许JS",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Basic_Options,
@@ -157,6 +312,7 @@ namespace ts {
         },
         {
             name: "checkJs",
+            别名: "检查JS",
             type: "boolean",
             category: Diagnostics.Basic_Options,
             description: Diagnostics.Report_errors_in_js_files
@@ -175,6 +331,7 @@ namespace ts {
         },
         {
             name: "declaration",
+            别名: "输出声明文件",
             shortName: "d",
             type: "boolean",
             showInSimplifiedHelpView: true,
@@ -183,6 +340,7 @@ namespace ts {
         },
         {
             name: "sourceMap",
+            别名: "源码映射",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Basic_Options,
@@ -190,6 +348,7 @@ namespace ts {
         },
         {
             name: "outFile",
+            别名: "输出文件",
             type: "string",
             isFilePath: true,
             paramType: Diagnostics.FILE,
@@ -199,6 +358,7 @@ namespace ts {
         },
         {
             name: "outDir",
+            别名: "输出目录",
             type: "string",
             isFilePath: true,
             paramType: Diagnostics.DIRECTORY,
@@ -208,6 +368,7 @@ namespace ts {
         },
         {
             name: "rootDir",
+            别名: "根目录",
             type: "string",
             isFilePath: true,
             paramType: Diagnostics.LOCATION,
@@ -216,6 +377,7 @@ namespace ts {
         },
         {
             name: "removeComments",
+            别名: "删除注释",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Basic_Options,
@@ -223,6 +385,7 @@ namespace ts {
         },
         {
             name: "noEmit",
+            别名: "不输出",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Basic_Options,
@@ -230,18 +393,21 @@ namespace ts {
         },
         {
             name: "importHelpers",
+            别名: "引入帮助",
             type: "boolean",
             category: Diagnostics.Basic_Options,
             description: Diagnostics.Import_emit_helpers_from_tslib
         },
         {
             name: "downlevelIteration",
+            别名: "低级迭代",
             type: "boolean",
             category: Diagnostics.Basic_Options,
             description: Diagnostics.Provide_full_support_for_iterables_in_for_of_spread_and_destructuring_when_targeting_ES5_or_ES3
         },
         {
             name: "isolatedModules",
+            别名: "是隔离模块",
             type: "boolean",
             category: Diagnostics.Basic_Options,
             description: Diagnostics.Transpile_each_file_as_a_separate_module_similar_to_ts_transpileModule
@@ -250,6 +416,7 @@ namespace ts {
         // Strict Type Checks
         {
             name: "strict",
+            别名: "严格",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Strict_Type_Checking_Options,
@@ -257,6 +424,7 @@ namespace ts {
         },
         {
             name: "noImplicitAny",
+            别名: "有隐性通用型不输出",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Strict_Type_Checking_Options,
@@ -264,6 +432,7 @@ namespace ts {
         },
         {
             name: "strictNullChecks",
+            别名: "严格空检查",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Strict_Type_Checking_Options,
@@ -271,6 +440,7 @@ namespace ts {
         },
         {
             name: "strictFunctionTypes",
+            别名: "严格函数类型集",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Strict_Type_Checking_Options,
@@ -278,6 +448,7 @@ namespace ts {
         },
         {
             name: "noImplicitThis",
+            别名: "有隐性本对象不输出",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Strict_Type_Checking_Options,
@@ -285,6 +456,7 @@ namespace ts {
         },
         {
             name: "alwaysStrict",
+            别名: "严格模式",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Strict_Type_Checking_Options,
@@ -294,6 +466,7 @@ namespace ts {
         // Additional Checks
         {
             name: "noUnusedLocals",
+            别名: "不允许未使用变量",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Additional_Checks,
@@ -301,6 +474,7 @@ namespace ts {
         },
         {
             name: "noUnusedParameters",
+            别名: "不允许未使用参数",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Additional_Checks,
@@ -308,6 +482,7 @@ namespace ts {
         },
         {
             name: "noImplicitReturns",
+            别名: "不允许无返回",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Additional_Checks,
@@ -315,6 +490,7 @@ namespace ts {
         },
         {
             name: "noFallthroughCasesInSwitch",
+            别名: "不允许贯穿",
             type: "boolean",
             showInSimplifiedHelpView: true,
             category: Diagnostics.Additional_Checks,
@@ -324,6 +500,7 @@ namespace ts {
         // Module Resolution
         {
             name: "moduleResolution",
+            别名: "模块解析",
             type: createMapFromTemplate({
                 "node": ModuleResolutionKind.NodeJs,
                 "classic": ModuleResolutionKind.Classic,
@@ -334,6 +511,7 @@ namespace ts {
         },
         {
             name: "baseUrl",
+            别名: "基URL",
             type: "string",
             isFilePath: true,
             category: Diagnostics.Module_Resolution_Options,
@@ -343,19 +521,23 @@ namespace ts {
             // this option can only be specified in tsconfig.json
             // use type = object to copy the value as-is
             name: "paths",
+            别名: "路径集",
             type: "object",
             isTSConfigOnly: true,
             category: Diagnostics.Module_Resolution_Options,
             description: Diagnostics.A_series_of_entries_which_re_map_imports_to_lookup_locations_relative_to_the_baseUrl
+
         },
         {
             // this option can only be specified in tsconfig.json
             // use type = object to copy the value as-is
             name: "rootDirs",
+            别名: "根目录集",
             type: "list",
             isTSConfigOnly: true,
             element: {
                 name: "rootDirs",
+                别名: "根目录集",
                 type: "string",
                 isFilePath: true
             },
@@ -364,9 +546,11 @@ namespace ts {
         },
         {
             name: "typeRoots",
+            别名: "类型根集",
             type: "list",
             element: {
                 name: "typeRoots",
+                别名: "类型根集",
                 type: "string",
                 isFilePath: true
             },
@@ -375,9 +559,11 @@ namespace ts {
         },
         {
             name: "types",
+            别名: "类型集",
             type: "list",
             element: {
                 name: "types",
+                别名: "类型集",
                 type: "string"
             },
             showInSimplifiedHelpView: true,
@@ -386,12 +572,14 @@ namespace ts {
         },
         {
             name: "allowSyntheticDefaultImports",
+            别名: "允许从未设置默认导出模块默认导入",
             type: "boolean",
             category: Diagnostics.Module_Resolution_Options,
             description: Diagnostics.Allow_default_imports_from_modules_with_no_default_export_This_does_not_affect_code_emit_just_typechecking
         },
         {
             name: "preserveSymlinks",
+            别名: "保持符号连接",
             type: "boolean",
             category: Diagnostics.Module_Resolution_Options,
             description: Diagnostics.Do_not_resolve_the_real_path_of_symlinks,
@@ -400,6 +588,7 @@ namespace ts {
         // Source Maps
         {
             name: "sourceRoot",
+            别名: "源码根",
             type: "string",
             isFilePath: true,
             paramType: Diagnostics.LOCATION,
@@ -408,6 +597,7 @@ namespace ts {
         },
         {
             name: "mapRoot",
+            别名: "映射根",
             type: "string",
             isFilePath: true,
             paramType: Diagnostics.LOCATION,
@@ -416,12 +606,14 @@ namespace ts {
         },
         {
             name: "inlineSourceMap",
+            别名: "内联源映射",
             type: "boolean",
             category: Diagnostics.Source_Map_Options,
             description: Diagnostics.Emit_a_single_file_with_source_maps_instead_of_having_a_separate_file
         },
         {
             name: "inlineSources",
+            别名: "内联源",
             type: "boolean",
             category: Diagnostics.Source_Map_Options,
             description: Diagnostics.Emit_the_source_alongside_the_sourcemaps_within_a_single_file_requires_inlineSourceMap_or_sourceMap_to_be_set
@@ -430,12 +622,14 @@ namespace ts {
         // Experimental
         {
             name: "experimentalDecorators",
+            别名: "试验装饰器",
             type: "boolean",
             category: Diagnostics.Experimental_Options,
             description: Diagnostics.Enables_experimental_support_for_ES7_decorators
         },
         {
             name: "emitDecoratorMetadata",
+            别名: "试验装饰器元数据",
             type: "boolean",
             category: Diagnostics.Experimental_Options,
             description: Diagnostics.Enables_experimental_support_for_emitting_type_metadata_for_decorators
@@ -444,36 +638,42 @@ namespace ts {
         // Advanced
         {
             name: "jsxFactory",
+            别名: "JSX工厂",
             type: "string",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Specify_the_JSX_factory_function_to_use_when_targeting_react_JSX_emit_e_g_React_createElement_or_h
         },
         {
             name: "diagnostics",
+            别名: "诊断",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Show_diagnostic_information
         },
         {
             name: "extendedDiagnostics",
+            别名: "详细诊断",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Show_verbose_diagnostic_information
         },
         {
             name: "traceResolution",
+            别名: "生成模块解析日志",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Enable_tracing_of_the_name_resolution_process
         },
         {
             name: "listFiles",
+            别名: "打印列表",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Print_names_of_files_part_of_the_compilation
         },
         {
             name: "listEmittedFiles",
+            别名: "打印发射文件列表",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Print_names_of_generated_files_part_of_the_compilation
@@ -481,6 +681,7 @@ namespace ts {
 
         {
             name: "out",
+            别名: "输出",
             type: "string",
             isFilePath: false, // This is intentionally broken to support compatability with existing tsconfig files
             // for correct behaviour, please use outFile
@@ -490,36 +691,42 @@ namespace ts {
         },
         {
             name: "reactNamespace",
+            别名: "REACT名称空间",
             type: "string",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Deprecated_Use_jsxFactory_instead_Specify_the_object_invoked_for_createElement_when_targeting_react_JSX_emit
         },
         {
             name: "skipDefaultLibCheck",
+            别名: "忽略默认库类型检查",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Deprecated_Use_skipLibCheck_instead_Skip_type_checking_of_default_library_declaration_files
         },
         {
             name: "charset",
+            别名: "设置编码",
             type: "string",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.The_character_set_of_the_input_files
         },
         {
             name: "emitBOM",
+            别名: "输出BOM",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Emit_a_UTF_8_Byte_Order_Mark_BOM_in_the_beginning_of_output_files
         },
         {
             name: "locale",
+            别名: "本地化",
             type: "string",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.The_locale_used_when_displaying_messages_to_the_user_e_g_en_us
         },
         {
             name: "newLine",
+            别名: "换行符",
             type: createMapFromTemplate({
                 "crlf": NewLineKind.CarriageReturnLineFeed,
                 "lf": NewLineKind.LineFeed
@@ -530,60 +737,70 @@ namespace ts {
         },
         {
             name: "noErrorTruncation",
+            别名: "有错误截断",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_truncate_error_messages
         },
         {
             name: "noLib",
+            别名: "不包含默认库",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_include_the_default_library_file_lib_d_ts
         },
         {
             name: "noResolve",
+            别名: "不包含引用",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_add_triple_slash_references_or_imported_modules_to_the_list_of_compiled_files
         },
         {
             name: "stripInternal",
+            别名: "不生成内部标签",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_emit_declarations_for_code_that_has_an_internal_annotation,
         },
         {
             name: "disableSizeLimit",
+            别名: "禁用大小限制",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Disable_size_limitations_on_JavaScript_projects
         },
         {
             name: "noImplicitUseStrict",
+            别名: "不隐式严格模式",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_emit_use_strict_directives_in_module_output
         },
         {
             name: "noEmitHelpers",
+            别名: "不输出助手",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_generate_custom_helper_functions_like_extends_in_compiled_output
         },
         {
             name: "noEmitOnError",
+            别名: "有错误不输出",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_emit_outputs_if_any_errors_were_reported,
         },
         {
             name: "preserveConstEnums",
+            别名: "保留常量及枚举",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_erase_const_enum_declarations_in_generated_code
         },
         {
             name: "declarationDir",
+            别名: "声明目录",
             type: "string",
             isFilePath: true,
             paramType: Diagnostics.DIRECTORY,
@@ -592,48 +809,56 @@ namespace ts {
         },
         {
             name: "skipLibCheck",
+            别名: "忽略库类型检查",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Skip_type_checking_of_declaration_files,
         },
         {
             name: "allowUnusedLabels",
+            别名: "允许检测不到",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_report_errors_on_unused_labels
         },
         {
             name: "allowUnreachableCode",
+            别名: "允许未使用",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Do_not_report_errors_on_unreachable_code
         },
         {
             name: "suppressExcessPropertyErrors",
+            别名: "阻止过度属性错误检查",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Suppress_excess_property_checks_for_object_literals,
         },
         {
             name: "suppressImplicitAnyIndexErrors",
+            别名: "阻止隐性通用型索引错误检查",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Suppress_noImplicitAny_errors_for_indexing_objects_lacking_index_signatures,
         },
         {
             name: "forceConsistentCasingInFileNames",
+            别名: "不允许不一致引用",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Disallow_inconsistently_cased_references_to_the_same_file
         },
         {
             name: "maxNodeModuleJsDepth",
+            别名: "依赖最大深度",
             type: "number",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.The_maximum_dependency_depth_to_search_under_node_modules_and_load_JavaScript_files
         },
         {
             name: "noStrictGenericChecks",
+            别名: "不使用严格通用检查",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
             description: Diagnostics.Disable_strict_checking_of_generic_signatures_in_function_types,
@@ -641,10 +866,12 @@ namespace ts {
         {
             // A list of plugins to load in the language service
             name: "plugins",
+            别名: "插件",
             type: "list",
             isTSConfigOnly: true,
             element: {
                 name: "plugin",
+                别名: "插件",
                 type: "object"
             },
             description: Diagnostics.List_of_language_service_plugins
@@ -658,25 +885,31 @@ namespace ts {
              * Use typeAcquisition.enable instead.
              */
             name: "enableAutoDiscovery",
+            别名: "启用自动发现",
             type: "boolean",
         },
         {
             name: "enable",
+            别名: "启用",
             type: "boolean",
         },
         {
             name: "include",
+            别名: "包含",
             type: "list",
             element: {
                 name: "include",
+                别名: "包含",
                 type: "string"
             }
         },
         {
             name: "exclude",
+            别名: "排除",
             type: "list",
             element: {
                 name: "exclude",
+                别名: "排除",
                 type: "string"
             }
         }
@@ -686,6 +919,7 @@ namespace ts {
     export interface OptionNameMap {
         optionNameMap: Map<CommandLineOption>;
         shortOptionNames: Map<string>;
+        别名集: Map<string>;
     }
 
     /* @internal */
@@ -718,17 +952,20 @@ namespace ts {
 
         const optionNameMap = createMap<CommandLineOption>();
         const shortOptionNames = createMap<string>();
+        const 别名集 = createMap<string>();
         forEach(optionDeclarations, option => {
             optionNameMap.set(option.name.toLowerCase(), option);
+            if (option.别名) {
+                别名集.set(option.别名.toLowerCase(), option.name.toLowerCase());
+            }
             if (option.shortName) {
                 shortOptionNames.set(option.shortName, option.name);
             }
         });
 
-        optionNameMapCache = { optionNameMap, shortOptionNames };
+        optionNameMapCache = { optionNameMap, shortOptionNames, 别名集 };
         return optionNameMapCache;
     }
-
     /* @internal */
     export function createCompilerDiagnosticForInvalidCustomType(opt: CommandLineOptionOfCustomType): Diagnostic {
         return createDiagnosticForInvalidCustomType(opt, createCompilerDiagnostic);
@@ -875,10 +1112,17 @@ namespace ts {
 
     function getOptionFromName(optionName: string, allowShort = false): CommandLineOption | undefined {
         optionName = optionName.toLowerCase();
-        const { optionNameMap, shortOptionNames } = getOptionNameMap();
+        const { optionNameMap, shortOptionNames, 别名集 } = getOptionNameMap();
         // Try to translate short option names to their full equivalents.
         if (allowShort) {
-            const short = shortOptionNames.get(optionName);
+            let short = shortOptionNames.get(optionName);
+            const 别名 = 别名集.get(optionName);
+            if (别名 !== undefined) {
+                short = 别名;
+            }
+            if (short !== undefined) {
+                short = short;
+            }
             if (short !== undefined) {
                 optionName = short;
             }
@@ -938,47 +1182,58 @@ namespace ts {
             _tsconfigRootOptions = commandLineOptionsToMap([
                 {
                     name: "compilerOptions",
+                    别名: "编译选项",
                     type: "object",
                     elementOptions: commandLineOptionsToMap(optionDeclarations),
                     extraKeyDiagnosticMessage: Diagnostics.Unknown_compiler_option_0
                 },
                 {
                     name: "typingOptions",
+                    别名: "分类选项",
                     type: "object",
                     elementOptions: commandLineOptionsToMap(typeAcquisitionDeclarations),
                     extraKeyDiagnosticMessage: Diagnostics.Unknown_type_acquisition_option_0
                 },
                 {
                     name: "typeAcquisition",
+                    别名: "类型收集",
                     type: "object",
                     elementOptions: commandLineOptionsToMap(typeAcquisitionDeclarations),
                     extraKeyDiagnosticMessage: Diagnostics.Unknown_type_acquisition_option_0
                 },
                 {
                     name: "extends",
+                    别名: "外部扩展",
                     type: "string"
                 },
                 {
                     name: "files",
+                    别名: "文件集",
                     type: "list",
                     element: {
                         name: "files",
+                        别名: "文件集",
                         type: "string"
                     }
                 },
                 {
                     name: "include",
+                    别名: "包含",
                     type: "list",
                     element: {
                         name: "include",
+
+                        别名: "包含",
                         type: "string"
                     }
                 },
                 {
                     name: "exclude",
+                    别名: "排除",
                     type: "list",
                     element: {
                         name: "exclude",
+                        别名: "排除",
                         type: "string"
                     }
                 },
@@ -1058,7 +1313,11 @@ namespace ts {
                     errors.push(createDiagnosticForNodeInSourceFile(sourceFile, element.name, Diagnostics.String_literal_with_double_quotes_expected));
                 }
 
-                const keyText = unescapeLeadingUnderscores(getTextOfPropertyName(element.name));
+                let keyText = unescapeLeadingUnderscores(getTextOfPropertyName(element.name));
+                const 别名 = 编译选项别名对照表.get(keyText);
+                if (别名) {
+                    keyText = 别名;
+                }
                 const option = knownOptions ? knownOptions.get(keyText) : undefined;
                 if (extraKeyDiagnosticMessage && !option) {
                     errors.push(createDiagnosticForNodeInSourceFile(sourceFile, element.name, extraKeyDiagnosticMessage, keyText));
@@ -1440,7 +1699,7 @@ namespace ts {
 
         function getFileNames(): ExpandResult {
             let filesSpecs: ReadonlyArray<string>;
-            if (hasProperty(raw, "files") && !isNullOrUndefined(raw.files)) {
+            if ((hasProperty(raw, "files")|| hasProperty(raw, "文件集")) && !isNullOrUndefined(raw.files)) {
                 if (isArray(raw.files)) {
                     filesSpecs = <ReadonlyArray<string>>raw.files;
                     if (filesSpecs.length === 0) {
@@ -1448,27 +1707,27 @@ namespace ts {
                     }
                 }
                 else {
-                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1, "files", "Array");
+                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1, "文件集", "数组类");
                 }
             }
 
             let includeSpecs: ReadonlyArray<string>;
-            if (hasProperty(raw, "include") && !isNullOrUndefined(raw.include)) {
+            if ((hasProperty(raw, "include") || hasProperty(raw, "包含")) && !isNullOrUndefined(raw.include)) {
                 if (isArray(raw.include)) {
                     includeSpecs = <ReadonlyArray<string>>raw.include;
                 }
                 else {
-                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1, "include", "Array");
+                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1, "包含", "数组类");
                 }
             }
 
             let excludeSpecs: ReadonlyArray<string>;
-            if (hasProperty(raw, "exclude") && !isNullOrUndefined(raw.exclude)) {
+            if ((hasProperty(raw, "exclude") || hasProperty(raw, "排除")) && !isNullOrUndefined(raw.exclude)) {
                 if (isArray(raw.exclude)) {
                     excludeSpecs = <ReadonlyArray<string>>raw.exclude;
                 }
                 else {
-                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1, "exclude", "Array");
+                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1,  "排除", "数组类");
                 }
             }
             else {
@@ -1483,7 +1742,7 @@ namespace ts {
             }
 
             const result = matchFileNames(filesSpecs, includeSpecs, excludeSpecs, configFileName ? directoryOfCombinedPath(configFileName, basePath) : basePath, options, host, errors, extraFileExtensions, sourceFile);
-            if (result.fileNames.length === 0 && !hasProperty(raw, "files") && resolutionStack.length === 0) {
+            if (result.fileNames.length === 0 && (!hasProperty(raw, "files")&&!hasProperty(raw, "文件集")) && resolutionStack.length === 0) {
                 errors.push(getErrorForNoInputFiles(result.spec, configFileName));
             }
 
@@ -1565,6 +1824,9 @@ namespace ts {
                 setPropertyInRawIfNotUndefined("include");
                 setPropertyInRawIfNotUndefined("exclude");
                 setPropertyInRawIfNotUndefined("files");
+                setPropertyInRawIfNotUndefined("包含");
+                setPropertyInRawIfNotUndefined("排除");
+                setPropertyInRawIfNotUndefined("文件集");
                 if (raw.compileOnSave === undefined) {
                     raw.compileOnSave = baseRaw.compileOnSave;
                 }
@@ -1584,7 +1846,7 @@ namespace ts {
         configFileName: string | undefined,
         errors: Push<Diagnostic>
     ): ParsedTsconfig {
-        if (hasProperty(json, "excludes")) {
+        if (hasProperty(json, "excludes") || hasProperty(json, "排除集")) {
             errors.push(createCompilerDiagnostic(Diagnostics.Unknown_option_excludes_Did_you_mean_exclude));
         }
 
@@ -1621,10 +1883,10 @@ namespace ts {
 
         const optionsIterator: JsonConversionNotifier = {
             onSetValidOptionKeyValueInParent(parentOption: string, option: CommandLineOption, value: CompilerOptionsValue) {
-                Debug.assert(parentOption === "compilerOptions" || parentOption === "typeAcquisition" || parentOption === "typingOptions");
-                const currentOption = parentOption === "compilerOptions" ?
+                Debug.assert(parentOption === "编译选项" || parentOption === "compilerOptions" || parentOption === "类型收集" || parentOption === "typeAcquisition" || parentOption === "分类选项" || parentOption === "typingOptions");
+                const currentOption = parentOption === "compilerOptions" || parentOption === "编译选项" ?
                     options :
-                    parentOption === "typeAcquisition" ?
+                    parentOption === "typeAcquisition" || parentOption === "类型收集" ?
                         (typeAcquisition || (typeAcquisition = getDefaultTypeAcquisition(configFileName))) :
                         (typingOptionstypeAcquisition || (typingOptionstypeAcquisition = getDefaultTypeAcquisition(configFileName)));
 
@@ -1633,6 +1895,7 @@ namespace ts {
             onSetValidOptionKeyValueInRoot(key: string, _keyNode: PropertyName, value: CompilerOptionsValue, valueNode: Expression) {
                 switch (key) {
                     case "extends":
+                    case "外部扩展":
                         const newBase = configFileName ? directoryOfCombinedPath(configFileName, basePath) : basePath;
                         extendedConfigPath = getExtendsConfigPath(
                             <string>value,
@@ -1645,6 +1908,7 @@ namespace ts {
                         );
                         return;
                     case "files":
+                    case "文件集":
                         if ((<ReadonlyArray<string>>value).length === 0) {
                             errors.push(createDiagnosticForNodeInSourceFile(sourceFile, valueNode, Diagnostics.The_files_list_in_config_file_0_is_empty, configFileName || "tsconfig.json"));
                         }
@@ -1652,7 +1916,7 @@ namespace ts {
                 }
             },
             onSetUnknownOptionKeyValueInRoot(key: string, keyNode: PropertyName, _value: CompilerOptionsValue, _valueNode: Expression) {
-                if (key === "excludes") {
+                if (key === "excludes" || key === "排除集") {
                     errors.push(createDiagnosticForNodeInSourceFile(sourceFile, keyNode, Diagnostics.Unknown_option_excludes_Did_you_mean_exclude));
                 }
             }
@@ -1980,11 +2244,11 @@ namespace ts {
         // file system.
 
         if (includeSpecs) {
-            validatedIncludeSpecs = validateSpecs(includeSpecs, errors, /*allowTrailingRecursion*/ false, jsonSourceFile, "include");
+            validatedIncludeSpecs = validateSpecs(includeSpecs, errors, /*allowTrailingRecursion*/ false, jsonSourceFile,  "include", "包含");
         }
 
         if (excludeSpecs) {
-            validatedExcludeSpecs = validateSpecs(excludeSpecs, errors, /*allowTrailingRecursion*/ true, jsonSourceFile, "exclude");
+            validatedExcludeSpecs = validateSpecs(excludeSpecs, errors, /*allowTrailingRecursion*/ true, jsonSourceFile,"exclude", "排除");
         }
 
         // Wildcard directories (provided as part of a wildcard path) are stored in a
@@ -2071,7 +2335,7 @@ namespace ts {
         };
     }
 
-    function validateSpecs(specs: ReadonlyArray<string>, errors: Push<Diagnostic>, allowTrailingRecursion: boolean, jsonSourceFile: JsonSourceFile, specKey: string): ReadonlyArray<string> {
+    function validateSpecs(specs: ReadonlyArray<string>, errors: Push<Diagnostic>, allowTrailingRecursion: boolean, jsonSourceFile: JsonSourceFile, specKey: string, specKey2: string): ReadonlyArray<string> {
         return specs.filter(spec => {
             const diag = specToDiagnostic(spec, allowTrailingRecursion);
             if (diag !== undefined) {
@@ -2082,7 +2346,7 @@ namespace ts {
 
         function createDiagnostic(message: DiagnosticMessage, spec: string): Diagnostic {
             if (jsonSourceFile && jsonSourceFile.jsonObject) {
-                for (const property of getPropertyAssignment(jsonSourceFile.jsonObject, specKey)) {
+                for (const property of getPropertyAssignment(jsonSourceFile.jsonObject, specKey, specKey2)) {
                     if (isArrayLiteralExpression(property.initializer)) {
                         for (const element of property.initializer.elements) {
                             if (isStringLiteral(element) && element.text === spec) {
@@ -2126,14 +2390,19 @@ namespace ts {
         //  /a/b/a?z    - Watch /a/b directly to catch any new file matching a?z
         const rawExcludeRegex = getRegularExpressionForWildcard(exclude, path, "exclude");
         const excludeRegex = rawExcludeRegex && new RegExp(rawExcludeRegex, useCaseSensitiveFileNames ? "" : "i");
+
+        const rawExcludeRegexCH = getRegularExpressionForWildcard(exclude, path, "排除");
+        const excludeRegexCH = rawExcludeRegex && new RegExp(rawExcludeRegexCH, useCaseSensitiveFileNames ? "" : "i");
+
         const wildcardDirectories: ts.MapLike<WatchDirectoryFlags> = {};
         if (include !== undefined) {
             const recursiveKeys: string[] = [];
             for (const file of include) {
                 const spec = normalizePath(combinePaths(path, file));
-                if (excludeRegex && excludeRegex.test(spec)) {
+                if (excludeRegex && excludeRegex.test(spec) || excludeRegexCH && excludeRegexCH.test(spec)) {
                     continue;
                 }
+
 
                 const match = getWildcardDirectoryFromSpec(spec, useCaseSensitiveFileNames);
                 if (match) {
