@@ -183,6 +183,7 @@ declare namespace FourSlashInterface {
         }): void;
     }
     class verify extends verifyNegatable {
+        public 验证转为CTS(fileName:string,text:string): void;
         assertHasRanges(ranges: Range[]): void;
         caretAtMarker(markerName?: string): void;
         completionsAt(markerName: string, completions: string[], options?: { isNewIdentifierLocation?: boolean }): void;

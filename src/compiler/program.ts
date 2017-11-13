@@ -1713,7 +1713,7 @@ namespace ts {
                 }
 
                 const sourceFileWithAddedExtension = forEach(supportedExtensions, extension => getSourceFile(fileName + extension));
-                if (fail && !sourceFileWithAddedExtension) fail(Diagnostics.File_0_not_found, fileName + Extension.Ts);
+                if (fail && !sourceFileWithAddedExtension) fail(Diagnostics.File_0_not_found, fileName + Extension.Ts +" Or "+fileName + Extension.CTs);
                 return sourceFileWithAddedExtension;
             }
         }
@@ -2342,9 +2342,12 @@ namespace ts {
         switch (extension) {
             case Extension.Ts:
             case Extension.Dts:
+            case Extension.CTs:
+            case Extension.DCts:
                 // These are always allowed.
                 return undefined;
             case Extension.Tsx:
+            case Extension.CTsx:
                 return needJsx();
             case Extension.Jsx:
                 return needJsx() || needAllowJs();

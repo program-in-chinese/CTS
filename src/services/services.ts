@@ -26,6 +26,7 @@
 /// <reference path='textChanges.ts' />
 /// <reference path='codeFixProvider.ts' />
 /// <reference path='refactorProvider.ts' />
+/// <reference path='转为CTS.ts' />
 /// <reference path='codefixes\fixes.ts' />
 /// <reference path='refactors\refactors.ts' />
 
@@ -2022,6 +2023,15 @@ namespace ts {
             synchronizeHostData();
             const file = getValidSourceFile(fileName);
             return refactor.getEditsForRefactor(getRefactorContext(file, positionOrRange, formatOptions), refactorName, actionName);
+
+        }
+
+        function 转为CTS(fileName: string): string {
+            synchronizeHostData();
+            const 文件 = getValidSourceFile(fileName)
+            if (文件) {
+              return  ts.转为CTS.转为CTS(文件)
+            }
         }
 
         return {
@@ -2071,6 +2081,7 @@ namespace ts {
             getProgram,
             getApplicableRefactors,
             getEditsForRefactor,
+            转为CTS
         };
     }
 

@@ -103,6 +103,7 @@ namespace ts.server.protocol {
         GetEditsForRefactor = "getEditsForRefactor",
         /* @internal */
         GetEditsForRefactorFull = "getEditsForRefactor-full",
+        转为CTS = "转为CTS"
 
         // NOTE: If updating this, be sure to also update `allCommandNames` in `harness/unittests/session.ts`.
     }
@@ -195,6 +196,11 @@ namespace ts.server.protocol {
          */
         body?: any;
     }
+
+    export interface 转换CTS结果 extends Response {
+        body: string
+    }
+
 
     /**
      * Arguments for FileRequest messages.

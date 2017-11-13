@@ -2296,8 +2296,12 @@ namespace ts {
                 return ScriptKind.JSX;
             case Extension.Ts:
                 return ScriptKind.TS;
+            case Extension.CTs:
+                return ScriptKind.CTS;
             case Extension.Tsx:
                 return ScriptKind.TSX;
+            case Extension.CTsx:
+                return ScriptKind.CTSX;
             case Extension.Json:
                 return ScriptKind.JSON;
             default:
@@ -2308,9 +2312,9 @@ namespace ts {
     /**
      *  List of supported extensions in order of file resolution precedence.
      */
-    export const supportedTypeScriptExtensions: ReadonlyArray<Extension> = [Extension.Ts, Extension.Tsx, Extension.Dts];
+    export const supportedTypeScriptExtensions: ReadonlyArray<Extension> = [Extension.Ts,Extension.CTs, Extension.Tsx, Extension.CTsx, Extension.Dts, Extension.DCts];
     /** Must have ".d.ts" first because if ".ts" goes first, that will be detected as the extension instead of ".d.ts". */
-    export const supportedTypescriptExtensionsForExtractExtension: ReadonlyArray<Extension> = [Extension.Dts, Extension.Ts, Extension.Tsx];
+    export const supportedTypescriptExtensionsForExtractExtension: ReadonlyArray<Extension> = [Extension.Dts,Extension.DCts, Extension.Ts, Extension.CTs, Extension.Tsx, Extension.CTsx];
     export const supportedJavascriptExtensions: ReadonlyArray<Extension> = [Extension.Js, Extension.Jsx];
     const allSupportedExtensions: ReadonlyArray<Extension> = [...supportedTypeScriptExtensions, ...supportedJavascriptExtensions];
 
@@ -2393,7 +2397,7 @@ namespace ts {
         }
     }
 
-    const extensionsToRemove = [Extension.Dts, Extension.Ts, Extension.Js, Extension.Tsx, Extension.Jsx];
+    const extensionsToRemove = [Extension.Dts,Extension.DCts, Extension.Ts,  Extension.CTs,Extension.Js, Extension.Tsx, Extension.CTsx, Extension.Jsx];
     export function removeFileExtension(path: string): string {
         for (const ext of extensionsToRemove) {
             const extensionless = tryRemoveExtension(path, ext);
@@ -2678,7 +2682,7 @@ namespace ts {
 
     /** True if an extension is one of the supported TypeScript extensions. */
     export function extensionIsTypeScript(ext: Extension): boolean {
-        return ext === Extension.Ts || ext === Extension.Tsx || ext === Extension.Dts;
+        return ext === Extension.Ts || ext === Extension.CTs || ext === Extension.Tsx || ext === Extension.CTsx || ext === Extension.Dts|| ext === Extension.DCts;
     }
 
     /**

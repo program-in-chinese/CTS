@@ -1685,6 +1685,11 @@ namespace ts.server {
             return { response, responseRequired: true };
         }
 
+        private 转为CTS(req: protocol.FileRequest): string {
+            let project = this.getProject(req.arguments.file)
+            return project.getLanguageService().转为CTS(req.arguments.file)
+        }
+
         private handlers = createMapFromTemplate<(request: protocol.Request) => HandlerResponse>({
             [CommandNames.OpenExternalProject]: (request: protocol.OpenExternalProjectRequest) => {
                 this.projectService.openExternalProject(request.arguments, /*suppressRefreshOfInferredProjects*/ false);
@@ -1945,6 +1950,10 @@ namespace ts.server {
             },
             [CommandNames.GetEditsForRefactorFull]: (request: protocol.GetEditsForRefactorRequest) => {
                 return this.requiredResponse(this.getEditsForRefactor(request.arguments, /*simplifiedResult*/ false));
+            }
+            ,
+            [CommandNames.转为CTS]: (request: protocol.FileRequest) => {
+                return this.requiredResponse(this.转为CTS(request))
             }
         });
 

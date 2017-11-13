@@ -303,7 +303,7 @@ namespace ts {
          * @deprecated Use ts.createSourceFile instead.
          */
         getSourceFile(fileName: string): SourceFile;
-
+        转为CTS(fileName: string):string;
         dispose(): void;
     }
 

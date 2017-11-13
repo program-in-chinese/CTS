@@ -322,7 +322,7 @@ namespace ts {
     }
 
     export function getTextOfNode(node: Node, includeTrivia = false): string {
-        return getSourceTextOfNodeFromSourceFile(getSourceFileOfNode(node), node, includeTrivia);
+        return  getSourceTextOfNodeFromSourceFile(getSourceFileOfNode(node), node, includeTrivia);
     }
 
     /**
@@ -1885,8 +1885,8 @@ namespace ts {
         const simpleReferenceRegExCH = /^\/\/\/\s*<引用\s+/gim;
         const isNoDefaultLibRegEx = new RegExp(defaultLibReferenceRegEx.source, "gim");
         const isNoDefaultLibRegExCH = new RegExp(defaultLibReferenceRegExCH.source, "gim");
-        if (simpleReferenceRegEx.test(comment)||simpleReferenceRegExCH.test(comment)) {
-            if (isNoDefaultLibRegEx.test(comment)||isNoDefaultLibRegExCH.test(comment) ) {
+        if (simpleReferenceRegEx.test(comment) || simpleReferenceRegExCH.test(comment)) {
+            if (isNoDefaultLibRegEx.test(comment) || isNoDefaultLibRegExCH.test(comment)) {
                 return { isNoDefaultLib: true };
             }
             else {
@@ -2586,7 +2586,7 @@ namespace ts {
         const path = outputDir
             ? getSourceFilePathInNewDir(sourceFile, host, outputDir)
             : sourceFile.fileName;
-        return removeFileExtension(path) + Extension.Dts;
+        return removeFileExtension(path) + options.中文关键字 ? Extension.DCts : Extension.Dts;
     }
 
     export interface EmitFileNames {
@@ -5932,7 +5932,7 @@ namespace ts {
             }
             let 索引 = 别名数据集.lastIndexOf(数据)
             if (索引 === -1) {
-                索引 = 别名数据集.push(数据)-1
+                索引 = 别名数据集.push(数据) - 1
             }
             return 索引
         }
@@ -5970,7 +5970,7 @@ namespace ts {
         } else if (是字面量节点(元素) || 是模板字面量节点(元素)) {
             原始文本 = 元素.text as __String
         }
-        if(!原始文本){
+        if (!原始文本) {
             return undefined
         }
         let 别名 = 元素.别名

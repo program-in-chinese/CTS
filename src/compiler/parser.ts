@@ -865,7 +865,7 @@ namespace ts {
             sourceFile.languageVersion = languageVersion;
             sourceFile.fileName = normalizePath(fileName);
             sourceFile.languageVariant = getLanguageVariant(scriptKind);
-            sourceFile.isDeclarationFile = fileExtensionIs(sourceFile.fileName, Extension.Dts);
+            sourceFile.isDeclarationFile = fileExtensionIs(sourceFile.fileName, Extension.Dts)||fileExtensionIs(sourceFile.fileName, Extension.DCts);
             sourceFile.scriptKind = scriptKind;
 
             return sourceFile;

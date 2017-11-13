@@ -860,9 +860,9 @@ namespace ts {
 
         switch (extensions) {
             case Extensions.DtsOnly:
-                return tryExtension(Extension.Dts);
+                return tryExtension(Extension.Dts)||tryExtension(Extension.DCts);
             case Extensions.TypeScript:
-                return tryExtension(Extension.Ts) || tryExtension(Extension.Tsx) || tryExtension(Extension.Dts);
+                return tryExtension(Extension.Ts) ||tryExtension(Extension.CTs) || tryExtension(Extension.Tsx) ||tryExtension(Extension.CTsx) || tryExtension(Extension.Dts) || tryExtension(Extension.DCts);
             case Extensions.JavaScript:
                 return tryExtension(Extension.Js) || tryExtension(Extension.Jsx);
         }
@@ -978,9 +978,9 @@ namespace ts {
             case Extensions.JavaScript:
                 return extension === Extension.Js || extension === Extension.Jsx;
             case Extensions.TypeScript:
-                return extension === Extension.Ts || extension === Extension.Tsx || extension === Extension.Dts;
+                return extension === Extension.Ts ||extension === Extension.CTs || extension === Extension.Tsx|| extension === Extension.CTsx || extension === Extension.Dts|| extension === Extension.DCts;
             case Extensions.DtsOnly:
-                return extension === Extension.Dts;
+                return extension === Extension.Dts||extension === Extension.DCts;
         }
     }
 

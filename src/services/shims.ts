@@ -261,6 +261,7 @@ namespace ts {
 
         getEmitOutput(fileName: string): string;
         getEmitOutputObject(fileName: string): EmitOutput;
+        转为CTS(fileName: string):string
     }
 
     export interface ClassifierShim extends Shim {
@@ -990,6 +991,13 @@ namespace ts {
                 /*returnJson*/ false,
                 () => this.languageService.getEmitOutput(fileName),
                 this.logPerformance) as EmitOutput;
+        }
+
+        public 转为CTS(fileName: string): string {
+            return this.forwardJSONCall(
+                `转为CTS('${fileName}')`,
+                () => this.languageService.转为CTS(fileName)
+            );
         }
     }
 

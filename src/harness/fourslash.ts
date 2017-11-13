@@ -554,6 +554,11 @@ namespace FourSlash {
             });
         }
 
+        public 转为CTS(fileName: string, text: string) {
+            let 返回值 = this.languageService.转为CTS(fileName)
+            if (text) throw new Error("现在是错误的 " + this.activeFile.fileName + ": " + 返回值);
+        }
+
         public verifyNumberOfErrorsInCurrentFile(expected: number) {
             const errors = this.getDiagnostics(this.activeFile.fileName);
             const actual = errors.length;
@@ -3839,6 +3844,9 @@ namespace FourSlashInterface {
     export class Verify extends VerifyNegatable {
         constructor(state: FourSlash.TestState) {
             super(state);
+        }
+        public 验证转为CTS(fileName:string, text:string){
+          this.state.转为CTS(fileName,text)
         }
 
         public completionsAt(markerName: string, completions: string[], options?: CompletionsAtOptions) {

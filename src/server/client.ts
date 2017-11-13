@@ -554,6 +554,9 @@ namespace ts.server {
             const { line, offset } = this.positionToOneBasedLineOffset(file, position);
             return { file, line, offset };
         }
+        private createFileRequestArgs(file: string): protocol.FileRequestArgs {
+            return { file };
+        }
 
         private createFileRangeRequestArgs(file: string, start: number, end: number): protocol.FileRangeRequestArgs {
             const { line: startLine, offset: startOffset } = this.positionToOneBasedLineOffset(file, start);
@@ -642,6 +645,13 @@ namespace ts.server {
             const response = this.processResponse<protocol.BraceResponse>(request);
 
             return response.body.map(entry => this.decodeSpan(entry, fileName));
+        }
+
+        转为CTS(fileName: string): string {
+            const args: protocol.FileRequestArgs = this.createFileRequestArgs(fileName)
+            const 请求结果 = this.processRequest<protocol.FileRequest>(CommandNames.转为CTS, args)
+            const 回复结果 = this.processResponse<protocol.转换CTS结果>(请求结果)
+            return 回复结果.body
         }
 
         getIndentationAtPosition(_fileName: string, _position: number, _options: EditorOptions): number {

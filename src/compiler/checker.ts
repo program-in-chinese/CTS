@@ -85,6 +85,8 @@ namespace ts {
         const noImplicitAny = compilerOptions.noImplicitAny === undefined ? compilerOptions.strict : compilerOptions.noImplicitAny;
         const noImplicitThis = compilerOptions.noImplicitThis === undefined ? compilerOptions.strict : compilerOptions.noImplicitThis;
 
+        const 中文关键字 = compilerOptions.中文关键字
+
         const emitResolver = createResolver();
         const nodeBuilder = createNodeBuilder();
 
@@ -2473,11 +2475,11 @@ namespace ts {
         }
 
         function writeKeyword(writer: SymbolWriter, kind: SyntaxKind) {
-            writer.writeKeyword(tokenToString(kind));
+            中文关键字 ? writer.writeKeyword(令牌转为中文关键字(kind)) : writer.writeKeyword(tokenToString(kind));
         }
 
         function writePunctuation(writer: SymbolWriter, kind: SyntaxKind) {
-            writer.writePunctuation(tokenToString(kind));
+            writer.writePunctuation(令牌转为中文关键字(kind));
         }
 
         function writeSpace(writer: SymbolWriter) {
@@ -3380,14 +3382,15 @@ namespace ts {
                     if (type.flags & TypeFlags.Intrinsic) {
                         // Special handling for unknown / resolving types, they should show up as any and not unknown or __resolving
                         writer.writeKeyword(!(globalFlags & TypeFormatFlags.WriteOwnNameForAnyLike) && isTypeAny(type)
-                            ? "any"
-                            : (<IntrinsicType>type).intrinsicName);
+                            ? 中文关键字 ? "任意" : "any"
+                            : 中文关键字 ? (<IntrinsicType>type).别名.名称 as string : (<IntrinsicType>type).intrinsicName);
+
                     }
                     else if (type.flags & TypeFlags.TypeParameter && (type as TypeParameter).isThisType) {
                         if (inObjectTypeLiteral) {
                             writer.reportInaccessibleThisError();
                         }
-                        writer.writeKeyword("this");
+                        writer.writeKeyword(中文关键字 ? "本体" : "this");
                     }
                     else if (getObjectFlags(type) & ObjectFlags.Reference) {
                         writeTypeReference(<TypeReference>type, nextFlags);
@@ -3424,7 +3427,7 @@ namespace ts {
                         if (flags & TypeFormatFlags.InElementType) {
                             writePunctuation(writer, SyntaxKind.OpenParenToken);
                         }
-                        writer.writeKeyword("keyof");
+                        writer.writeKeyword(中文关键字 ? "键集" : "keyof");
                         writeSpace(writer);
                         writeType((<IndexType>type).type, TypeFormatFlags.InElementType);
                         if (flags & TypeFormatFlags.InElementType) {
@@ -11355,8 +11358,8 @@ namespace ts {
             switch (source.kind) {
                 case SyntaxKind.Identifier:
                     return target.kind === SyntaxKind.Identifier && getResolvedSymbol(<Identifier>source) === getResolvedSymbol(<Identifier>target) ||
-                    (target.kind === SyntaxKind.VariableDeclaration || target.kind === SyntaxKind.BindingElement) &&
-                    getExportSymbolOfValueSymbolIfExported(getResolvedSymbol(<Identifier>source)) === getSymbolOfNode(target);
+                        (target.kind === SyntaxKind.VariableDeclaration || target.kind === SyntaxKind.BindingElement) &&
+                        getExportSymbolOfValueSymbolIfExported(getResolvedSymbol(<Identifier>source)) === getSymbolOfNode(target);
                 case SyntaxKind.ThisKeyword:
                     return target.kind === SyntaxKind.ThisKeyword;
                 case SyntaxKind.SuperKeyword:
@@ -24632,6 +24635,7 @@ namespace ts {
 
         function writeTypeOfDeclaration(declaration: AccessorDeclaration | VariableLikeDeclaration, enclosingDeclaration: Node, flags: TypeFormatFlags, writer: SymbolWriter) {
             // Get type of the symbol if this is the valid symbol otherwise get type at location
+
             const symbol = getSymbolOfNode(declaration);
             let type = symbol && !(symbol.flags & (SymbolFlags.TypeLiteral | SymbolFlags.Signature))
                 ? getWidenedLiteralType(getTypeOfSymbol(symbol))
@@ -24640,16 +24644,19 @@ namespace ts {
                 type = getNullableType(type, TypeFlags.Undefined);
             }
             getSymbolDisplayBuilder().buildTypeDisplay(type, writer, enclosingDeclaration, flags);
+
         }
 
         function writeReturnTypeOfSignatureDeclaration(signatureDeclaration: SignatureDeclaration, enclosingDeclaration: Node, flags: TypeFormatFlags, writer: SymbolWriter) {
             const signature = getSignatureFromDeclaration(signatureDeclaration);
             getSymbolDisplayBuilder().buildTypeDisplay(getReturnTypeOfSignature(signature), writer, enclosingDeclaration, flags);
+
         }
 
         function writeTypeOfExpression(expr: Expression, enclosingDeclaration: Node, flags: TypeFormatFlags, writer: SymbolWriter) {
             const type = getWidenedType(getRegularTypeOfExpression(expr));
             getSymbolDisplayBuilder().buildTypeDisplay(type, writer, enclosingDeclaration, flags);
+
         }
 
         function hasGlobalName(name: string): boolean {
