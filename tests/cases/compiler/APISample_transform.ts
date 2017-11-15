@@ -12,7 +12,7 @@
 
 declare var console: any;
 
-import * as ts from "typescript";
+import * as ts from "ctsScript";
 
 const source = "let x: string  = 'string'";
 

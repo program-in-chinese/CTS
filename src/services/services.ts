@@ -1630,7 +1630,7 @@ namespace ts {
 
         function isTsOrTsxFile(fileName: string): boolean {
             const kind = getScriptKind(fileName, host);
-            return kind === ScriptKind.TS || kind === ScriptKind.TSX;
+            return kind === ScriptKind.TS || kind === ScriptKind.CTS || kind === ScriptKind.TSX || kind === ScriptKind.CTSX;
         }
 
         function getSemanticClassifications(fileName: string, span: TextSpan): ClassifiedSpan[] {

@@ -34,7 +34,7 @@ namespace ts.projectSystem {
         });
 
         it("counts files by extension", () => {
-            const files = ["ts.ts", "tsx.tsx", "moo.ts", "dts.d.ts", "jsx.jsx", "js.js", "badExtension.badExtension"].map(f => makeFile(`/src/${f}`));
+            const files = ["ts.ts", "ts.cts", "tsx.tsx", "tsx.ctsx", "moo.ts", "moo.cts", "dts.d.ts", "dts.d.cts", "jsx.jsx", "js.js", "badExtension.badExtension"].map(f => makeFile(`/src/${f}`));
             const notIncludedFile = makeFile("/bin/ts.js");
             const compilerOptions: ts.CompilerOptions = { allowJs: true };
             const tsconfig = makeFile("/tsconfig.json", { compilerOptions, include: ["src"] });
@@ -42,7 +42,7 @@ namespace ts.projectSystem {
             const et = new TestServerEventManager([...files, notIncludedFile, tsconfig]);
             et.service.openClientFile(files[0].path);
             et.assertProjectInfoTelemetryEvent({
-                fileStats: { ts: 2, tsx: 1, js: 1, jsx: 1, dts: 1 },
+                fileStats: { ts: 2, cts: 2, tsx: 1, ctsx: 1, js: 1, jsx: 1, dts: 1, dcts: 1 },
                 compilerOptions,
                 include: true,
             });

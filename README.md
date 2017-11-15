@@ -60,7 +60,7 @@ gulp help             # 查看相关命令.
 ## 使用
 
 ```bash
-node built/local/ctsc.js hello.ts
+node built/local/cts.js hello.ts
 ```
 
 ## 主页

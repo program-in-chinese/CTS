@@ -9,7 +9,7 @@ declare var process: any;
 declare var console: any;
 declare var os: any;
 
-import ts = require("typescript");
+import ts = require("ctsScript");
 
 export function compile(fileNames: string[], options: ts.CompilerOptions): void {
     var program = ts.createProgram(fileNames, options);
@@ -46,7 +46,7 @@ compile(process.argv.slice(2), {
  *       Please log a "breaking change" issue for any API breaking change affecting this issue
  */
 exports.__esModule = true;
-var ts = require("typescript");
+var ts = require("ctsScript");
 function compile(fileNames, options) {
     var program = ts.createProgram(fileNames, options);
     var emitResult = program.emit();

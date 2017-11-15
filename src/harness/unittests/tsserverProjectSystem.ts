@@ -136,7 +136,7 @@ namespace ts.projectSystem {
     }
 
     export function fileStats(nonZeroStats: Partial<server.FileStats>): server.FileStats {
-        return { ts: 0, tsx: 0, dts: 0, js: 0, jsx: 0, ...nonZeroStats };
+        return { ts: 0, cts: 0, tsx: 0, ctsx: 0, dts: 0, dcts: 0, js: 0, jsx: 0, ...nonZeroStats };
     }
 
     export class TestServerEventManager {
@@ -2807,8 +2807,10 @@ namespace ts.projectSystem {
                 "======== Module name 'lib' was not resolved. ========",
                 `Auto discovery for typings is enabled in project '${proj.getProjectName()}'. Running extra resolution pass for module 'lib' using cache location '/a/cache'.`,
                 "File '/a/cache/node_modules/lib.d.ts' does not exist.",
+                "File '/a/cache/node_modules/lib.d.cts' does not exist.",
                 "File '/a/cache/node_modules/@types/lib/package.json' does not exist.",
                 "File '/a/cache/node_modules/@types/lib.d.ts' does not exist.",
+                "File '/a/cache/node_modules/@types/lib.d.cts' does not exist.",
                 "File '/a/cache/node_modules/@types/lib/index.d.ts' exist - use it as a name resolution result.",
             ]);
             checkProjectActualFiles(proj, [file1.path, lib.path]);
@@ -4962,8 +4964,11 @@ namespace ts.projectSystem {
                 forEachAncestorDirectory(getDirectoryPath(root.path), ancestor => {
                     locations.push(
                         combinePaths(ancestor, `${module}.ts`),
+                        combinePaths(ancestor, `${module}.cts`),
                         combinePaths(ancestor, `${module}.tsx`),
-                        combinePaths(ancestor, `${module}.d.ts`)
+                        combinePaths(ancestor, `${module}.ctsx`),
+                        combinePaths(ancestor, `${module}.d.ts`),
+                        combinePaths(ancestor, `${module}.d.cts`)
                     );
                 });
                 forEachAncestorDirectory(getDirectoryPath(root.path), ancestor => {

@@ -6,7 +6,7 @@ var os = require("os");
 var path = require("path");
 var child_process = require("child_process");
 var fold = require("travis-fold");
-var ts = require("./lib/typescript");
+var ts = require("./lib/ctsScript");
 
 
 // Variables
@@ -289,7 +289,7 @@ function concatenateFiles(destinationFile, sourceFiles) {
 
 var useDebugMode = true;
 var host = process.env.TYPESCRIPT_HOST || process.env.host || "node";
-var compilerFilename = "tsc.js";
+var compilerFilename = "cts.js";
 var LKGCompiler = path.join(LKGDirectory, compilerFilename);
 var builtLocalCompiler = path.join(builtLocalDirectory, compilerFilename);
 
@@ -483,7 +483,7 @@ task("localize", [generatedLCGFile]);
 var buildProtocolTs = path.join(scriptsDirectory, "buildProtocol.ts");
 var buildProtocolJs = path.join(scriptsDirectory, "buildProtocol.js");
 var buildProtocolDts = path.join(builtLocalDirectory, "protocol.d.ts");
-var typescriptServicesDts = path.join(builtLocalDirectory, "typescriptServices.d.ts");
+var typescriptServicesDts = path.join(builtLocalDirectory, "ctsServices.d.ts");
 var typesMapJson = path.join(builtLocalDirectory, "typesMap.json");
 
 file(buildProtocolTs);
@@ -595,11 +595,11 @@ task("importDefinitelyTypedTests", [importDefinitelyTypedTestsJs], function () {
 var tscFile = path.join(builtLocalDirectory, compilerFilename);
 compileFile(tscFile, compilerSources, [builtLocalDirectory, copyright].concat(compilerSources), [copyright], /*useBuiltCompiler:*/ false);
 
-var servicesFile = path.join(builtLocalDirectory, "typescriptServices.js");
-var standaloneDefinitionsFile = path.join(builtLocalDirectory, "typescriptServices.d.ts");
-var nodePackageFile = path.join(builtLocalDirectory, "typescript.js");
-var nodeDefinitionsFile = path.join(builtLocalDirectory, "typescript.d.ts");
-var nodeStandaloneDefinitionsFile = path.join(builtLocalDirectory, "typescript_standalone.d.ts");
+var servicesFile = path.join(builtLocalDirectory, "ctsServices.js");
+var standaloneDefinitionsFile = path.join(builtLocalDirectory, "ctsServices.d.ts");
+var nodePackageFile = path.join(builtLocalDirectory, "ctsScript.js");
+var nodeDefinitionsFile = path.join(builtLocalDirectory, "ctsScript.d.ts");
+var nodeStandaloneDefinitionsFile = path.join(builtLocalDirectory, "ctsScript_standalone.d.ts");
 
 compileFile(servicesFile, servicesSources, [builtLocalDirectory, copyright].concat(servicesSources),
             /*prefixes*/[copyright],
@@ -639,16 +639,16 @@ file(typescriptServicesDts, [servicesFile]);
 var cancellationTokenFile = path.join(builtLocalDirectory, "cancellationToken.js");
 compileFile(cancellationTokenFile, cancellationTokenSources, [builtLocalDirectory].concat(cancellationTokenSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], outDir: builtLocalDirectory, noOutFile: true, lib: "es6" });
 
-var typingsInstallerFile = path.join(builtLocalDirectory, "typingsInstaller.js");
+var typingsInstallerFile = path.join(builtLocalDirectory, "ctsInstaller.js");
 compileFile(typingsInstallerFile, typingsInstallerSources, [builtLocalDirectory].concat(typingsInstallerSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], outDir: builtLocalDirectory, noOutFile: false, lib: "es6" });
 
 var watchGuardFile = path.join(builtLocalDirectory, "watchGuard.js");
 compileFile(watchGuardFile, watchGuardSources, [builtLocalDirectory].concat(watchGuardSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], outDir: builtLocalDirectory, noOutFile: false, lib: "es6" });
 
-var serverFile = path.join(builtLocalDirectory, "tsserver.js");
+var serverFile = path.join(builtLocalDirectory, "ctsServer.js");
 compileFile(serverFile, serverSources, [builtLocalDirectory, copyright, cancellationTokenFile, typingsInstallerFile, watchGuardFile].concat(serverSources).concat(servicesSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], preserveConstEnums: true, lib: "es6" });
-var tsserverLibraryFile = path.join(builtLocalDirectory, "tsserverlibrary.js");
-var tsserverLibraryDefinitionFile = path.join(builtLocalDirectory, "tsserverlibrary.d.ts");
+var tsserverLibraryFile = path.join(builtLocalDirectory, "ctsServerlibrary.js");
+var tsserverLibraryDefinitionFile = path.join(builtLocalDirectory, "ctsServerlibrary.d.ts");
 file(typesMapOutputPath, function() {
     var content = fs.readFileSync(path.join(serverDirectory, 'typesMap.json'));
     // Validate that it's valid JSON
@@ -699,7 +699,7 @@ task("local", ["build-fold-start", "generate-diagnostics", "lib", tscFile, servi
 
 // Local target to build only tsc.js
 desc("Builds only the compiler");
-task("tsc", ["generate-diagnostics", "lib", tscFile]);
+task("cts", ["generate-diagnostics", "lib", tscFile]);
 
 // Local target to build the compiler and services
 desc("Sets release mode flag");
@@ -1126,7 +1126,7 @@ var webhostPath = "tests/webhost/webtsc.ts";
 var webhostJsPath = "tests/webhost/webtsc.js";
 compileFile(webhostJsPath, [webhostPath], [tscFile, webhostPath].concat(libraryTargets), [], /*useBuiltCompiler*/true);
 
-desc("Builds the tsc web host");
+desc("Builds the cts web host");
 task("webhost", [webhostJsPath], function () {
     jake.cpR(path.join(builtLocalDirectory, "lib.d.ts"), "tests/webhost/", { silent: true });
 });
@@ -1160,7 +1160,7 @@ var instrumenterPath = harnessDirectory + 'instrumenter.ts';
 var instrumenterJsPath = builtLocalDirectory + 'instrumenter.js';
 compileFile(instrumenterJsPath, [instrumenterPath], [tscFile, instrumenterPath].concat(libraryTargets), [], /*useBuiltCompiler*/ true, { lib: "es6", types: ["node"], noOutFile: true, outDir: builtLocalDirectory });
 
-desc("Builds an instrumented tsc.js - run with test=[testname]");
+desc("Builds an instrumented cts.js - run with test=[testname]");
 task('tsc-instrumented', [loggedIOJsPath, instrumenterJsPath, tscFile], function () {
     var test = process.env.test || process.env.tests || process.env.t || "iocapture";
     var cmd = host + ' ' + instrumenterJsPath + " record " + test + " " + builtLocalDirectory + compilerFilename;
@@ -1174,8 +1174,8 @@ task('tsc-instrumented', [loggedIOJsPath, instrumenterJsPath, tscFile], function
 
 desc("Updates the sublime plugin's tsserver");
 task("update-sublime", ["local", serverFile], function () {
-    jake.cpR(serverFile, "../TypeScript-Sublime-Plugin/tsserver/");
-    jake.cpR(serverFile + ".map", "../TypeScript-Sublime-Plugin/tsserver/");
+    jake.cpR(serverFile, "../TypeScript-Sublime-Plugin/ctsServer/");
+    jake.cpR(serverFile + ".map", "../TypeScript-Sublime-Plugin/ctsServer/");
 });
 
 var tslintRuleDir = "scripts/tslint/rules";

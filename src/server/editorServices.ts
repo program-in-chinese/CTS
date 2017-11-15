@@ -74,6 +74,9 @@ namespace ts.server {
         readonly ts: number;
         readonly tsx: number;
         readonly dts: number;
+        readonly cts: number;
+        readonly ctsx: number;
+        readonly dcts: number;
     }
 
     export type ProjectServiceEvent = ProjectsUpdatedInBackgroundEvent | ConfigFileDiagEvent | ProjectLanguageServiceStateEvent | ProjectInfoTelemetryEvent;
@@ -192,8 +195,12 @@ namespace ts.server {
                 return ScriptKind.JSX;
             case "TS":
                 return ScriptKind.TS;
+            case "CTS":
+                return ScriptKind.CTS;
             case "TSX":
                 return ScriptKind.TSX;
+            case "CTSX":
+                return ScriptKind.CTSX;
             default:
                 return ScriptKind.Unknown;
         }
@@ -1487,7 +1494,7 @@ namespace ts.server {
             }
 
             project.setProjectErrors(configFileErrors);
-            const filesToAdd = projectOptions.files.concat(project.getExternalFiles());
+            const filesToAdd = projectOptions.files.concat(...project.getExternalFiles());
             this.addFilesToNonInferredProjectAndUpdateGraph(project, filesToAdd, fileNamePropertyReader, projectOptions.typeAcquisition);
             this.configuredProjects.set(project.canonicalConfigFilePath, project);
             this.setConfigFileExistenceByNewConfiguredProject(project);

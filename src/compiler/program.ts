@@ -333,12 +333,12 @@ namespace ts {
                 }
 
                 output += host.getNewLine();
-                output += `${ relativeFileName }(${ firstLine + 1 },${ firstLineChar + 1 }): `;
+                output += `${relativeFileName}(${firstLine + 1},${firstLineChar + 1}): `;
             }
 
             const categoryColor = getCategoryFormat(diagnostic.category);
             const category = DiagnosticCategory[diagnostic.category].toLowerCase();
-            output += `${ formatAndReset(category, categoryColor) } TS${ diagnostic.code }: ${ flattenDiagnosticMessageText(diagnostic.messageText, host.getNewLine()) }`;
+            output += `${formatAndReset(category, categoryColor)} TS${diagnostic.code}: ${flattenDiagnosticMessageText(diagnostic.messageText, host.getNewLine())}`;
 
             if (diagnostic.file) {
                 output += host.getNewLine();
@@ -1098,7 +1098,7 @@ namespace ts {
             // If '--lib' is not specified, include default library file according to '--target'
             // otherwise, using options specified in '--lib' instead of '--target' default library file
             if (!options.lib) {
-               return compareStrings(file.fileName, getDefaultLibraryFileName(), /*ignoreCase*/ !host.useCaseSensitiveFileNames()) === Comparison.EqualTo;
+                return compareStrings(file.fileName, getDefaultLibraryFileName(), /*ignoreCase*/ !host.useCaseSensitiveFileNames()) === Comparison.EqualTo;
             }
             else {
                 return forEach(options.lib, libFileName => compareStrings(file.fileName, combinePaths(defaultLibraryPath, libFileName), /*ignoreCase*/ !host.useCaseSensitiveFileNames()) === Comparison.EqualTo);
@@ -1280,7 +1280,7 @@ namespace ts {
                 Debug.assert(!!sourceFile.bindDiagnostics);
 
                 // By default, only type-check .ts, .tsx, and 'External' files (external files are added by plugins)
-                const includeBindAndCheckDiagnostics = sourceFile.scriptKind === ScriptKind.TS || sourceFile.scriptKind === ScriptKind.TSX ||
+                const includeBindAndCheckDiagnostics = sourceFile.scriptKind === ScriptKind.TS || sourceFile.scriptKind === ScriptKind.CTS || sourceFile.scriptKind === ScriptKind.TSX || sourceFile.scriptKind === ScriptKind.CTSX ||
                     sourceFile.scriptKind === ScriptKind.External || isCheckJsEnabledForFile(sourceFile, options);
                 const bindDiagnostics = includeBindAndCheckDiagnostics ? sourceFile.bindDiagnostics : emptyArray;
                 const checkDiagnostics = includeBindAndCheckDiagnostics ? typeChecker.getDiagnostics(sourceFile, cancellationToken) : emptyArray;
@@ -1713,7 +1713,7 @@ namespace ts {
                 }
 
                 const sourceFileWithAddedExtension = forEach(supportedExtensions, extension => getSourceFile(fileName + extension));
-                if (fail && !sourceFileWithAddedExtension) fail(Diagnostics.File_0_not_found, fileName + Extension.Ts +" Or "+fileName + Extension.CTs);
+                if (fail && !sourceFileWithAddedExtension) fail(Diagnostics.File_0_not_found, fileName + Extension.Ts + " Or " + fileName + Extension.CTs);
                 return sourceFileWithAddedExtension;
             }
         }

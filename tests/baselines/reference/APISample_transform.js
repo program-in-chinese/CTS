@@ -7,7 +7,7 @@
 
 declare var console: any;
 
-import * as ts from "typescript";
+import * as ts from "ctsScript";
 
 const source = "let x: string  = 'string'";
 
@@ -23,7 +23,7 @@ console.log(JSON.stringify(result));
  *       Please log a "breaking change" issue for any API breaking change affecting this issue
  */
 exports.__esModule = true;
-var ts = require("typescript");
+var ts = require("ctsScript");
 var source = "let x: string  = 'string'";
 var result = ts.transpile(source, { module: ts.ModuleKind.CommonJS });
 console.log(JSON.stringify(result));

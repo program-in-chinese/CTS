@@ -8,7 +8,7 @@
 
 declare var console: any;
 
-import * as ts from "typescript";
+import * as ts from "ctsScript";
 
 // excerpted from https://github.com/YousefED/typescript-json-schema
 // (converted from a method and modified; for example, `this: any` to compensate, among other changes)
@@ -122,7 +122,7 @@ function getSomeOtherTags(node: ts.Node) {
  *       Please log a "breaking change" issue for any API breaking change affecting this issue
  */
 exports.__esModule = true;
-var ts = require("typescript");
+var ts = require("ctsScript");
 // excerpted from https://github.com/YousefED/typescript-json-schema
 // (converted from a method and modified; for example, `this: any` to compensate, among other changes)
 function parseCommentsIntoDefinition(symbol, definition, otherAnnotations) {

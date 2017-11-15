@@ -2583,10 +2583,13 @@ namespace ts {
         const options = host.getCompilerOptions();
         const outputDir = options.declarationDir || options.outDir; // Prefer declaration folder if specified
 
+
         const path = outputDir
             ? getSourceFilePathInNewDir(sourceFile, host, outputDir)
             : sourceFile.fileName;
-        return removeFileExtension(path) + options.中文关键字 ? Extension.DCts : Extension.Dts;
+
+        const 扩展名 = options.中文关键字 ? Extension.DCts : Extension.Dts
+        return removeFileExtension(path) + 扩展名;
     }
 
     export interface EmitFileNames {

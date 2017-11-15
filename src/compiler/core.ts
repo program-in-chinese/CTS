@@ -2165,9 +2165,9 @@ namespace ts {
 
         return {
             includeFilePatterns: map(getRegularExpressionsForWildcards(includes, absolutePath, "files"), pattern => `^${pattern}$`),
-            includeFilePattern: getRegularExpressionForWildcard(includes, absolutePath, "files"),
-            includeDirectoryPattern: getRegularExpressionForWildcard(includes, absolutePath, "directories"),
-            excludePattern: getRegularExpressionForWildcard(excludes, absolutePath, "exclude"),
+            includeFilePattern: getRegularExpressionForWildcard(includes, absolutePath, "files") || getRegularExpressionForWildcard(includes, absolutePath, "文件集"),
+            includeDirectoryPattern: getRegularExpressionForWildcard(includes, absolutePath, "directories") || getRegularExpressionForWildcard(includes, absolutePath, "目录集"),
+            excludePattern: getRegularExpressionForWildcard(excludes, absolutePath, "exclude") || getRegularExpressionForWildcard(excludes, absolutePath, "排除"),
             basePaths: getBasePaths(path, includes, useCaseSensitiveFileNames)
         };
     }
@@ -2312,9 +2312,9 @@ namespace ts {
     /**
      *  List of supported extensions in order of file resolution precedence.
      */
-    export const supportedTypeScriptExtensions: ReadonlyArray<Extension> = [Extension.Ts,Extension.CTs, Extension.Tsx, Extension.CTsx, Extension.Dts, Extension.DCts];
+    export const supportedTypeScriptExtensions: ReadonlyArray<Extension> = [Extension.Ts, Extension.CTs, Extension.Tsx, Extension.CTsx, Extension.Dts, Extension.DCts];
     /** Must have ".d.ts" first because if ".ts" goes first, that will be detected as the extension instead of ".d.ts". */
-    export const supportedTypescriptExtensionsForExtractExtension: ReadonlyArray<Extension> = [Extension.Dts,Extension.DCts, Extension.Ts, Extension.CTs, Extension.Tsx, Extension.CTsx];
+    export const supportedTypescriptExtensionsForExtractExtension: ReadonlyArray<Extension> = [Extension.Dts, Extension.DCts, Extension.Ts, Extension.CTs, Extension.Tsx, Extension.CTsx];
     export const supportedJavascriptExtensions: ReadonlyArray<Extension> = [Extension.Js, Extension.Jsx];
     const allSupportedExtensions: ReadonlyArray<Extension> = [...supportedTypeScriptExtensions, ...supportedJavascriptExtensions];
 
@@ -2352,7 +2352,7 @@ namespace ts {
      */
     export const enum ExtensionPriority {
         TypeScriptFiles = 0,
-        DeclarationAndJavaScriptFiles = 2,
+        DeclarationAndJavaScriptFiles = 4,
 
         Highest = TypeScriptFiles,
         Lowest = DeclarationAndJavaScriptFiles,

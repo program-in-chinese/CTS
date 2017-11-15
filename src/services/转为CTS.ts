@@ -39,6 +39,5 @@ namespace ts.转为CTS {
             let 文本 = node.getFullText()
             return 文本 ? 文本.substr(0, node.getStart(undefined, true) - node.getFullStart()) : ""
         }
-
     }
 }

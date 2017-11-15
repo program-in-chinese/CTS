@@ -4282,8 +4282,8 @@ namespace ts {
         JS = 1,
         JSX = 2,
         TS = 3,
-        TSX = 4,
-        CTS = 5,
+        CTS = 4,
+        TSX = 5,
         CTSX = 6,
         External = 7,
         JSON = 8

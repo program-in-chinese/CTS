@@ -15,7 +15,7 @@ namespace ts.server {
 
     /* @internal */
     export function countEachFileTypes(infos: ScriptInfo[]): FileStats {
-        const result = { js: 0, jsx: 0, ts: 0, tsx: 0, dts: 0 };
+        const result = { js: 0, jsx: 0, ts: 0, cts: 0, tsx: 0, ctsx: 0, dts: 0, dcts: 0 };
         for (const info of infos) {
             switch (info.scriptKind) {
                 case ScriptKind.JS:
@@ -29,8 +29,16 @@ namespace ts.server {
                         ? result.dts += 1
                         : result.ts += 1;
                     break;
+                case ScriptKind.CTS:
+                    fileExtensionIs(info.fileName, Extension.DCts)
+                        ? result.dcts += 1
+                        : result.cts += 1;
+                    break;
                 case ScriptKind.TSX:
                     result.tsx += 1;
+                    break;
+                case ScriptKind.CTSX:
+                    result.ctsx += 1;
                     break;
             }
         }

@@ -9,7 +9,7 @@ declare var process: any;
 declare var console: any;
 declare var readFileSync: any;
 
-import * as ts from "typescript";
+import * as ts from "ctsScript";
 
 export function delint(sourceFile: ts.SourceFile) {
     delintNode(sourceFile);
@@ -71,7 +71,7 @@ fileNames.forEach(fileName => {
  *       Please log a "breaking change" issue for any API breaking change affecting this issue
  */
 exports.__esModule = true;
-var ts = require("typescript");
+var ts = require("ctsScript");
 function delint(sourceFile) {
     delintNode(sourceFile);
     function delintNode(node) {

@@ -58,7 +58,7 @@ namespace ts {
                 realpath,
                 directoryExists: path => directories.has(path),
                 fileExists: path => {
-                    assert.isTrue(directories.has(getDirectoryPath(path)), `'fileExists' '${path}' request in non-existing directory`);
+                    assert.isTrue(directories.has(getDirectoryPath(path)), `'fileExists' '${path}' request in nonexisting directory`);
                     return map.has(path);
                 }
             };
@@ -75,7 +75,7 @@ namespace ts {
         }
     }
 
-    describe("Node module resolution - relative paths", () => {
+    describe("Node module resolution  relative paths", () => {
 
         function testLoadAsFile(containingFileName: string, moduleFileNameNoExt: string, moduleName: string): void {
             for (const ext of supportedTypeScriptExtensions) {
@@ -131,12 +131,12 @@ namespace ts {
                 const moduleFile = { name: moduleFileName };
                 const resolution = nodeModuleNameResolver(moduleName, containingFile.name, {}, createModuleResolutionHost(hasDirectoryExists, containingFile, packageJson, moduleFile));
                 checkResolvedModule(resolution.resolvedModule, createResolvedModule(moduleFile.name));
-                // expect three failed lookup location - attempt to load module as file with all supported extensions
+                // expect three failed lookup location  attempt to load module as file with all supported extensions
                 assert.equal(resolution.failedLookupLocations.length, supportedTypeScriptExtensions.length);
             }
         }
 
-        it("module name as directory - load from 'typings'", () => {
+        it("module name as directory  load from 'typings'", () => {
             testLoadingFromPackageJson("/a/b/c/d.ts", "/a/b/c/bar/package.json", "c/d/e.d.ts", "/a/b/c/bar/c/d/e.d.ts", "./bar");
             testLoadingFromPackageJson("/a/b/c/d.ts", "/a/bar/package.json", "e.d.ts", "/a/bar/e.d.ts", "../../bar");
             testLoadingFromPackageJson("/a/b/c/d.ts", "/bar/package.json", "e.d.ts", "/bar/e.d.ts", "/bar");
@@ -161,14 +161,14 @@ namespace ts {
             }
         }
 
-        it("module name as directory - handle invalid 'typings'", () => {
+        it("module name as directory  handle invalid 'typings'", () => {
             testTypingsIgnored(["a", "b"]);
             testTypingsIgnored({ "a": "b" });
             testTypingsIgnored(/*typings*/ true);
-            testTypingsIgnored(/*typings*/ null); // tslint:disable-line no-null-keyword
+            testTypingsIgnored(/*typings*/ null); // tslint:disableline nonullkeyword
             testTypingsIgnored(/*typings*/ undefined);
         });
-        it("module name as directory - load index.d.ts", () => {
+        it("module name as directory  load index.d.ts", () => {
             test(/*hasDirectoryExists*/ false);
             test(/*hasDirectoryExists*/ true);
 
@@ -179,17 +179,22 @@ namespace ts {
                 const resolution = nodeModuleNameResolver("./foo", containingFile.name, {}, createModuleResolutionHost(hasDirectoryExists, containingFile, packageJson, indexFile));
                 checkResolvedModuleWithFailedLookupLocations(resolution, createResolvedModule(indexFile.name), [
                     "/a/b/foo.ts",
+                    "/a/b/foo.cts",
                     "/a/b/foo.tsx",
+                    "/a/b/foo.ctsx",
                     "/a/b/foo.d.ts",
+                    "/a/b/foo.d.cts",
                     "/a/b/foo/index.ts",
+                    "/a/b/foo/index.cts",
                     "/a/b/foo/index.tsx",
+                    "/a/b/foo/index.ctsx",
                 ]);
             }
         });
     });
 
-    describe("Node module resolution - non-relative paths", () => {
-        it("load module as file - ts files not loaded", () => {
+    describe("Node module resolution  nonrelative paths", () => {
+        it("load module as file  ts files not loaded", () => {
             test(/*hasDirectoryExists*/ false);
             test(/*hasDirectoryExists*/ true);
 
@@ -200,37 +205,51 @@ namespace ts {
                 checkResolvedModuleWithFailedLookupLocations(resolution, createResolvedModule(moduleFile.name, /*isExternalLibraryImport*/ true), [
                     "/a/b/c/d/node_modules/foo/package.json",
                     "/a/b/c/d/node_modules/foo.ts",
+                    "/a/b/c/d/node_modules/foo.cts",
                     "/a/b/c/d/node_modules/foo.tsx",
+                    "/a/b/c/d/node_modules/foo.ctsx",
                     "/a/b/c/d/node_modules/foo.d.ts",
-
+                    "/a/b/c/d/node_modules/foo.d.cts",
                     "/a/b/c/d/node_modules/foo/index.ts",
+                    "/a/b/c/d/node_modules/foo/index.cts",
                     "/a/b/c/d/node_modules/foo/index.tsx",
+                    "/a/b/c/d/node_modules/foo/index.ctsx",
                     "/a/b/c/d/node_modules/foo/index.d.ts",
-
+                    "/a/b/c/d/node_modules/foo/index.d.cts",
                     "/a/b/c/d/node_modules/@typesch/foo/package.json",
                     "/a/b/c/d/node_modules/@typesch/foo.d.ts",
+                    "/a/b/c/d/node_modules/@typesch/foo.d.cts",
                     "/a/b/c/d/node_modules/@typesch/foo/index.d.ts",
+                    "/a/b/c/d/node_modules/@typesch/foo/index.d.cts",
                     "/a/b/c/d/node_modules/@types/foo/package.json",
                     "/a/b/c/d/node_modules/@types/foo.d.ts",
+                    "/a/b/c/d/node_modules/@types/foo.d.cts",
                     "/a/b/c/d/node_modules/@types/foo/index.d.ts",
-
+                    "/a/b/c/d/node_modules/@types/foo/index.d.cts",
                     "/a/b/c/node_modules/foo/package.json",
                     "/a/b/c/node_modules/foo.ts",
+                    "/a/b/c/node_modules/foo.cts",
                     "/a/b/c/node_modules/foo.tsx",
+                    "/a/b/c/node_modules/foo.ctsx",
                     "/a/b/c/node_modules/foo.d.ts",
-
+                    "/a/b/c/node_modules/foo.d.cts",
                     "/a/b/c/node_modules/foo/index.ts",
+                    "/a/b/c/node_modules/foo/index.cts",
                     "/a/b/c/node_modules/foo/index.tsx",
+                    "/a/b/c/node_modules/foo/index.ctsx",
                     "/a/b/c/node_modules/foo/index.d.ts",
-
+                    "/a/b/c/node_modules/foo/index.d.cts",
                     "/a/b/c/node_modules/@typesch/foo/package.json",
                     "/a/b/c/node_modules/@typesch/foo.d.ts",
+                    "/a/b/c/node_modules/@typesch/foo.d.cts",
                     "/a/b/c/node_modules/@typesch/foo/index.d.ts",
+                    "/a/b/c/node_modules/@typesch/foo/index.d.cts",
                     "/a/b/c/node_modules/@types/foo/package.json",
                     "/a/b/c/node_modules/@types/foo.d.ts",
+                    "/a/b/c/node_modules/@types/foo.d.cts",
                     "/a/b/c/node_modules/@types/foo/index.d.ts",
-
-                    "/a/b/node_modules/foo/package.json",
+                    "/a/b/c/node_modules/@types/foo/index.d.cts",
+                    "/a/b/node_modules/foo/package.json"
                 ]);
             }
         });
@@ -258,62 +277,84 @@ namespace ts {
                 checkResolvedModuleWithFailedLookupLocations(resolution, createResolvedModule(moduleFile.name, /*isExternalLibraryImport*/ true), [
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo/package.json",
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo.ts",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/foo.cts",
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo.tsx",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/foo.ctsx",
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/d/node_modules/foo.d.cts",
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.ts",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.cts",
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.tsx",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.ctsx",
                     "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/d/node_modules/foo/index.d.cts",
                     "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo/package.json",
                     "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo.d.ts",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo.d.cts",
                     "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo/index.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/d/node_modules/@typesch/foo/index.d.cts",
                     "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo/package.json",
                     "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo.d.ts",
+                    "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo.d.cts",
                     "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo/index.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/d/node_modules/@types/foo/index.d.cts",
                     "/a/node_modules/b/c/node_modules/foo/package.json",
                     "/a/node_modules/b/c/node_modules/foo.ts",
+                    "/a/node_modules/b/c/node_modules/foo.cts",
                     "/a/node_modules/b/c/node_modules/foo.tsx",
+                    "/a/node_modules/b/c/node_modules/foo.ctsx",
                     "/a/node_modules/b/c/node_modules/foo.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/foo.d.cts",
                     "/a/node_modules/b/c/node_modules/foo/index.ts",
+                    "/a/node_modules/b/c/node_modules/foo/index.cts",
                     "/a/node_modules/b/c/node_modules/foo/index.tsx",
+                    "/a/node_modules/b/c/node_modules/foo/index.ctsx",
                     "/a/node_modules/b/c/node_modules/foo/index.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/foo/index.d.cts",
                     "/a/node_modules/b/c/node_modules/@typesch/foo/package.json",
                     "/a/node_modules/b/c/node_modules/@typesch/foo.d.ts",
+                    "/a/node_modules/b/c/node_modules/@typesch/foo.d.cts",
                     "/a/node_modules/b/c/node_modules/@typesch/foo/index.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/@typesch/foo/index.d.cts",
                     "/a/node_modules/b/c/node_modules/@types/foo/package.json",
                     "/a/node_modules/b/c/node_modules/@types/foo.d.ts",
+                    "/a/node_modules/b/c/node_modules/@types/foo.d.cts",
                     "/a/node_modules/b/c/node_modules/@types/foo/index.d.ts",
-
+                    "/a/node_modules/b/c/node_modules/@types/foo/index.d.cts",
                     "/a/node_modules/b/node_modules/foo/package.json",
                     "/a/node_modules/b/node_modules/foo.ts",
+                    "/a/node_modules/b/node_modules/foo.cts",
                     "/a/node_modules/b/node_modules/foo.tsx",
+                    "/a/node_modules/b/node_modules/foo.ctsx",
                     "/a/node_modules/b/node_modules/foo.d.ts",
-
+                    "/a/node_modules/b/node_modules/foo.d.cts",
                     "/a/node_modules/b/node_modules/foo/index.ts",
+                    "/a/node_modules/b/node_modules/foo/index.cts",
                     "/a/node_modules/b/node_modules/foo/index.tsx",
+                    "/a/node_modules/b/node_modules/foo/index.ctsx",
                     "/a/node_modules/b/node_modules/foo/index.d.ts",
-
+                    "/a/node_modules/b/node_modules/foo/index.d.cts",
                     "/a/node_modules/b/node_modules/@typesch/foo/package.json",
                     "/a/node_modules/b/node_modules/@typesch/foo.d.ts",
+                    "/a/node_modules/b/node_modules/@typesch/foo.d.cts",
                     "/a/node_modules/b/node_modules/@typesch/foo/index.d.ts",
-
+                    "/a/node_modules/b/node_modules/@typesch/foo/index.d.cts",
                     "/a/node_modules/b/node_modules/@types/foo/package.json",
                     "/a/node_modules/b/node_modules/@types/foo.d.ts",
+                    "/a/node_modules/b/node_modules/@types/foo.d.cts",
                     "/a/node_modules/b/node_modules/@types/foo/index.d.ts",
-
+                    "/a/node_modules/b/node_modules/@types/foo/index.d.cts",
                     "/a/node_modules/foo/package.json",
                     "/a/node_modules/foo.ts",
+                    "/a/node_modules/foo.cts",
                     "/a/node_modules/foo.tsx",
+                    "/a/node_modules/foo.ctsx",
                     "/a/node_modules/foo.d.ts",
-
+                    "/a/node_modules/foo.d.cts",
                     "/a/node_modules/foo/index.ts",
-                    "/a/node_modules/foo/index.tsx"
+                    "/a/node_modules/foo/index.cts",
+                    "/a/node_modules/foo/index.tsx",
+                    "/a/node_modules/foo/index.ctsx"
                 ]);
             }
         });
@@ -332,7 +373,7 @@ namespace ts {
         }
     });
 
-    describe("Module resolution - relative imports", () => {
+    describe("Module resolution  relative imports", () => {
         function test(files: Map<string>, currentDirectory: string, rootFiles: string[], expectedFilesCount: number, relativeNamesToCheck: string[]) {
             const options: CompilerOptions = { module: ModuleKind.CommonJS };
             const host: CompilerHost = {
@@ -455,7 +496,7 @@ export = C;
                 "/a/b/c.ts": `/// <reference path="d.ts"/>`,
                 "/a/b/d.ts": "var x"
             });
-            test(files, { module: ts.ModuleKind.AMD },  "/a/b", /*useCaseSensitiveFileNames*/ false, ["c.ts", "/a/b/d.ts"], []);
+            test(files, { module: ts.ModuleKind.AMD }, "/a/b", /*useCaseSensitiveFileNames*/ false, ["c.ts", "/a/b/d.ts"], []);
         });
 
         it("should fail when two files used in program differ only in casing (tripleslash references)", () => {
@@ -463,7 +504,7 @@ export = C;
                 "/a/b/c.ts": `/// <reference path="D.ts"/>`,
                 "/a/b/d.ts": "var x"
             });
-            test(files, { module: ts.ModuleKind.AMD, forceConsistentCasingInFileNames: true },  "/a/b", /*useCaseSensitiveFileNames*/ false, ["c.ts", "d.ts"], [1149]);
+            test(files, { module: ts.ModuleKind.AMD, forceConsistentCasingInFileNames: true }, "/a/b", /*useCaseSensitiveFileNames*/ false, ["c.ts", "d.ts"], [1149]);
         });
 
         it("should fail when two files used in program differ only in casing (imports)", () => {
@@ -471,7 +512,7 @@ export = C;
                 "/a/b/c.ts": `import {x} from "D"`,
                 "/a/b/d.ts": "export var x"
             });
-            test(files, { module: ts.ModuleKind.AMD, forceConsistentCasingInFileNames: true },  "/a/b", /*useCaseSensitiveFileNames*/ false, ["c.ts", "d.ts"], [1149]);
+            test(files, { module: ts.ModuleKind.AMD, forceConsistentCasingInFileNames: true }, "/a/b", /*useCaseSensitiveFileNames*/ false, ["c.ts", "d.ts"], [1149]);
         });
 
         it("should fail when two files used in program differ only in casing (imports, relative module names)", () => {
@@ -479,7 +520,7 @@ export = C;
                 "moduleA.ts": `import {x} from "./ModuleB"`,
                 "moduleB.ts": "export var x"
             });
-            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true },  "", /*useCaseSensitiveFileNames*/ false, ["moduleA.ts", "moduleB.ts"], [1149]);
+            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true }, "", /*useCaseSensitiveFileNames*/ false, ["moduleA.ts", "moduleB.ts"], [1149]);
         });
 
         it("should fail when two files exist on disk that differs only in casing", () => {
@@ -488,7 +529,7 @@ export = C;
                 "/a/b/D.ts": "export var x",
                 "/a/b/d.ts": "export var y"
             });
-            test(files, { module: ts.ModuleKind.AMD },  "/a/b", /*useCaseSensitiveFileNames*/ true, ["c.ts", "d.ts"], [1149]);
+            test(files, { module: ts.ModuleKind.AMD }, "/a/b", /*useCaseSensitiveFileNames*/ true, ["c.ts", "d.ts"], [1149]);
         });
 
         it("should fail when module name in 'require' calls has inconsistent casing", () => {
@@ -497,7 +538,7 @@ export = C;
                 "moduleB.ts": `import a = require("./moduleC")`,
                 "moduleC.ts": "export var x"
             });
-            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true },  "", /*useCaseSensitiveFileNames*/ false, ["moduleA.ts", "moduleB.ts", "moduleC.ts"], [1149, 1149]);
+            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true }, "", /*useCaseSensitiveFileNames*/ false, ["moduleA.ts", "moduleB.ts", "moduleC.ts"], [1149, 1149]);
         });
 
         it("should fail when module names in 'require' calls has inconsistent casing and current directory has uppercase chars", () => {
@@ -510,7 +551,7 @@ import a = require("./moduleA");
 import b = require("./moduleB");
                 `
             });
-            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true },  "/a/B/c", /*useCaseSensitiveFileNames*/ false, ["moduleD.ts"], [1149]);
+            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true }, "/a/B/c", /*useCaseSensitiveFileNames*/ false, ["moduleD.ts"], [1149]);
         });
         it("should not fail when module names in 'require' calls has consistent casing and current directory has uppercase chars", () => {
             const files = createMapFromTemplate({
@@ -522,7 +563,7 @@ import a = require("./moduleA");
 import b = require("./moduleB");
                 `
             });
-            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true },  "/a/B/c", /*useCaseSensitiveFileNames*/ false, ["moduleD.ts"], []);
+            test(files, { module: ts.ModuleKind.CommonJS, forceConsistentCasingInFileNames: true }, "/a/B/c", /*useCaseSensitiveFileNames*/ false, ["moduleD.ts"], []);
         });
     });
 
@@ -537,7 +578,7 @@ import b = require("./moduleB");
                 const file2: File = { name: "/root/folder2/file2.ts" };
                 const file3: File = { name: "/root/folder2/file3.ts" };
                 const host = createModuleResolutionHost(hasDirectoryExists, file1, file2, file3);
-                for (const moduleResolution of [ ModuleResolutionKind.NodeJs, ModuleResolutionKind.Classic ]) {
+                for (const moduleResolution of [ModuleResolutionKind.NodeJs, ModuleResolutionKind.Classic]) {
                     const options: CompilerOptions = { moduleResolution, baseUrl: "/root" };
                     {
                         const result = resolveModuleName("folder2/file2", file1.name, options, host);
@@ -639,111 +680,151 @@ import b = require("./moduleB");
                 check("folder1/file2", file2, [
                     // first try the '*'
                     "/root/folder1/file2.ts",
+                    "/root/folder1/file2.cts",
                     "/root/folder1/file2.tsx",
+                    "/root/folder1/file2.ctsx",
                     "/root/folder1/file2.d.ts",
+                    "/root/folder1/file2.d.cts",
                     "/root/folder1/file2/package.json",
-
                     "/root/folder1/file2/index.ts",
+                    "/root/folder1/file2/index.cts",
                     "/root/folder1/file2/index.tsx",
+                    "/root/folder1/file2/index.ctsx",
                     "/root/folder1/file2/index.d.ts",
+                    "/root/folder1/file2/index.d.cts",
                     // then first attempt on 'generated/*' was successful
                 ]);
                 check("folder2/file3", file3, [
                     // first try '*'
                     "/root/folder2/file3.ts",
+                    "/root/folder2/file3.cts",
                     "/root/folder2/file3.tsx",
+                    "/root/folder2/file3.ctsx",
                     "/root/folder2/file3.d.ts",
+                    "/root/folder2/file3.d.cts",
                     "/root/folder2/file3/package.json",
-
                     "/root/folder2/file3/index.ts",
+                    "/root/folder2/file3/index.cts",
                     "/root/folder2/file3/index.tsx",
+                    "/root/folder2/file3/index.ctsx",
                     "/root/folder2/file3/index.d.ts",
-
-                    // then use remapped location
+                    "/root/folder2/file3/index.d.cts",
                     "/root/generated/folder2/file3.ts",
+                    "/root/generated/folder2/file3.cts",
                     "/root/generated/folder2/file3.tsx",
+                    "/root/generated/folder2/file3.ctsx",
                     "/root/generated/folder2/file3.d.ts",
+                    "/root/generated/folder2/file3.d.cts",
                     "/root/generated/folder2/file3/package.json",
-
                     "/root/generated/folder2/file3/index.ts",
+                    "/root/generated/folder2/file3/index.cts",
                     "/root/generated/folder2/file3/index.tsx",
+                    "/root/generated/folder2/file3/index.ctsx",
                     // success on index.d.ts
                 ]);
                 check("folder2/file4", file4, [
-                    // first try '*'
                     "/root/folder2/file4.ts",
+                    "/root/folder2/file4.cts",
                     "/root/folder2/file4.tsx",
+                    "/root/folder2/file4.ctsx",
                     "/root/folder2/file4.d.ts",
+                    "/root/folder2/file4.d.cts",
                     "/root/folder2/file4/package.json",
-
                     "/root/folder2/file4/index.ts",
+                    "/root/folder2/file4/index.cts",
                     "/root/folder2/file4/index.tsx",
+                    "/root/folder2/file4/index.ctsx",
                     "/root/folder2/file4/index.d.ts",
-
-                    // try to load from file from remapped location
+                    "/root/folder2/file4/index.d.cts",
                     "/root/generated/folder2/file4.ts",
+                    "/root/generated/folder2/file4.cts",
                     "/root/generated/folder2/file4.tsx",
+                    "/root/generated/folder2/file4.ctsx",
                     "/root/generated/folder2/file4.d.ts",
+                    "/root/generated/folder2/file4.d.cts",
                     // success on loading as from folder
                 ]);
                 check("somefolder/file5", file5, [
-                    // load from remapped location
-                    // first load from fle
                     "/root/someanotherfolder/file5.ts",
+                    "/root/someanotherfolder/file5.cts",
                     "/root/someanotherfolder/file5.tsx",
+                    "/root/someanotherfolder/file5.ctsx",
                     "/root/someanotherfolder/file5.d.ts",
-
-                    // load from folder
+                    "/root/someanotherfolder/file5.d.cts",
                     "/root/someanotherfolder/file5/package.json",
                     "/root/someanotherfolder/file5/index.ts",
+                    "/root/someanotherfolder/file5/index.cts",
                     "/root/someanotherfolder/file5/index.tsx",
+                    "/root/someanotherfolder/file5/index.ctsx",
                     // success on index.d.ts
                 ]);
                 check("file6", file6, [
                     // first try *
                     // load from file
                     "/root/file6.ts",
+                    "/root/file6.cts",
                     "/root/file6.tsx",
+                    "/root/file6.ctsx",
                     "/root/file6.d.ts",
+                    "/root/file6.d.cts",
 
                     // load from folder
                     "/root/file6/package.json",
                     "/root/file6/index.ts",
+                    "/root/file6/index.cts",
                     "/root/file6/index.tsx",
+                    "/root/file6/index.ctsx",
                     "/root/file6/index.d.ts",
+                    "/root/file6/index.d.cts",
 
                     // then try 'generated/*'
                     // load from file
                     "/root/generated/file6.ts",
+                    "/root/generated/file6.cts",
                     "/root/generated/file6.tsx",
+                    "/root/generated/file6.ctsx",
                     "/root/generated/file6.d.ts",
+                    "/root/generated/file6.d.cts",
 
                     // load from folder
                     "/root/generated/file6/package.json",
                     "/root/generated/file6/index.ts",
+                    "/root/generated/file6/index.cts",
                     "/root/generated/file6/index.tsx",
+                    "/root/generated/file6/index.ctsx",
                     "/root/generated/file6/index.d.ts",
+                    "/root/generated/file6/index.d.cts",
 
                     // fallback to standard node behavior
                     "/root/folder1/node_modules/file6/package.json",
 
                     // load from file
                     "/root/folder1/node_modules/file6.ts",
+                    "/root/folder1/node_modules/file6.cts",
                     "/root/folder1/node_modules/file6.tsx",
+                    "/root/folder1/node_modules/file6.ctsx",
                     "/root/folder1/node_modules/file6.d.ts",
+                    "/root/folder1/node_modules/file6.d.cts",
 
                     // load from folder
                     "/root/folder1/node_modules/file6/index.ts",
+                    "/root/folder1/node_modules/file6/index.cts",
                     "/root/folder1/node_modules/file6/index.tsx",
+                    "/root/folder1/node_modules/file6/index.ctsx",
                     "/root/folder1/node_modules/file6/index.d.ts",
+                    "/root/folder1/node_modules/file6/index.d.cts",
 
                     "/root/folder1/node_modules/@typesch/file6/package.json",
                     "/root/folder1/node_modules/@typesch/file6.d.ts",
+                    "/root/folder1/node_modules/@typesch/file6.d.cts",
                     "/root/folder1/node_modules/@typesch/file6/index.d.ts",
+                    "/root/folder1/node_modules/@typesch/file6/index.d.cts",
 
                     "/root/folder1/node_modules/@types/file6/package.json",
                     "/root/folder1/node_modules/@types/file6.d.ts",
+                    "/root/folder1/node_modules/@types/file6.d.cts",
                     "/root/folder1/node_modules/@types/file6/index.d.ts",
+                    "/root/folder1/node_modules/@types/file6/index.d.cts",
 
                     "/root/node_modules/file6/package.json",
                     // success on /root/node_modules/file6.ts
@@ -756,7 +837,7 @@ import b = require("./moduleB");
             }
         });
 
-        it ("classic + baseUrl + path mappings", () => {
+        it("classic + baseUrl + path mappings", () => {
             // classic mode does not use directoryExists
             test(/*hasDirectoryExists*/ false);
 
@@ -786,26 +867,38 @@ import b = require("./moduleB");
                 check("folder1/file2", file2, [
                     // first try '*'
                     "/root/folder1/file2.ts",
+                    "/root/folder1/file2.cts",
                     "/root/folder1/file2.tsx",
+                    "/root/folder1/file2.ctsx",
                     "/root/folder1/file2.d.ts",
+                    "/root/folder1/file2.d.cts",
                     // success when using 'generated/*'
                 ]);
                 check("folder1/file3", file3, [
-                    // first try '*'
                     "/root/folder1/file3.ts",
+                    "/root/folder1/file3.cts",
                     "/root/folder1/file3.tsx",
+                    "/root/folder1/file3.ctsx",
                     "/root/folder1/file3.d.ts",
-                    // then try 'generated/*'
+                    "/root/folder1/file3.d.cts",
                     "/root/generated/folder1/file3.ts",
+                    "/root/generated/folder1/file3.cts",
                     "/root/generated/folder1/file3.tsx",
+                    "/root/generated/folder1/file3.ctsx",
                     "/root/generated/folder1/file3.d.ts",
-                    // fallback to classic
+                    "/root/generated/folder1/file3.d.cts",
                     "/root/folder1/folder1/file3.ts",
+                    "/root/folder1/folder1/file3.cts",
                     "/root/folder1/folder1/file3.tsx",
+                    "/root/folder1/folder1/file3.ctsx",
                     "/root/folder1/folder1/file3.d.ts",
+                    "/root/folder1/folder1/file3.d.cts",
                     "/root/folder1/file3.ts",
+                    "/root/folder1/file3.cts",
                     "/root/folder1/file3.tsx",
+                    "/root/folder1/file3.ctsx",
                     "/root/folder1/file3.d.ts",
+                    "/root/folder1/file3.d.cts",
                 ]);
 
                 function check(name: string, expected: File, expectedFailedLookups: string[]) {
@@ -815,7 +908,7 @@ import b = require("./moduleB");
             }
         });
 
-        it ("node + rootDirs", () => {
+        it("node + rootDirs", () => {
             test(/*hasDirectoryExists*/ false);
             test(/*hasDirectoryExists*/ true);
 
@@ -836,48 +929,61 @@ import b = require("./moduleB");
                     // first try current location
                     // load from file
                     "/root/folder1/file2.ts",
+                    "/root/folder1/file2.cts",
                     "/root/folder1/file2.tsx",
+                    "/root/folder1/file2.ctsx",
                     "/root/folder1/file2.d.ts",
-                    // load from folder
+                    "/root/folder1/file2.d.cts",
                     "/root/folder1/file2/package.json",
                     "/root/folder1/file2/index.ts",
+                    "/root/folder1/file2/index.cts",
                     "/root/folder1/file2/index.tsx",
+                    "/root/folder1/file2/index.ctsx",
                     "/root/folder1/file2/index.d.ts",
+                    "/root/folder1/file2/index.d.cts",
                     // success after using alternative rootDir entry
                 ]);
                 check("../folder1/file1", file3, file1, [
-                    // first try current location
-                    // load from file
                     "/root/generated/folder1/file1.ts",
+                    "/root/generated/folder1/file1.cts",
                     "/root/generated/folder1/file1.tsx",
+                    "/root/generated/folder1/file1.ctsx",
                     "/root/generated/folder1/file1.d.ts",
-                    // load from module
+                    "/root/generated/folder1/file1.d.cts",
                     "/root/generated/folder1/file1/package.json",
                     "/root/generated/folder1/file1/index.ts",
+                    "/root/generated/folder1/file1/index.cts",
                     "/root/generated/folder1/file1/index.tsx",
+                    "/root/generated/folder1/file1/index.ctsx",
                     "/root/generated/folder1/file1/index.d.ts",
+                    "/root/generated/folder1/file1/index.d.cts",
                     // success after using alternative rootDir entry
                 ]);
                 check("../folder1/file1_1", file3, file1_1, [
-                    // first try current location
-                    // load from file
                     "/root/generated/folder1/file1_1.ts",
+                    "/root/generated/folder1/file1_1.cts",
                     "/root/generated/folder1/file1_1.tsx",
+                    "/root/generated/folder1/file1_1.ctsx",
                     "/root/generated/folder1/file1_1.d.ts",
-                    // load from folder
+                    "/root/generated/folder1/file1_1.d.cts",
                     "/root/generated/folder1/file1_1/package.json",
                     "/root/generated/folder1/file1_1/index.ts",
+                    "/root/generated/folder1/file1_1/index.cts",
                     "/root/generated/folder1/file1_1/index.tsx",
+                    "/root/generated/folder1/file1_1/index.ctsx",
                     "/root/generated/folder1/file1_1/index.d.ts",
-                    // try alternative rootDir entry
-                    // load from file
+                    "/root/generated/folder1/file1_1/index.d.cts",
                     "/root/folder1/file1_1.ts",
+                    "/root/folder1/file1_1.cts",
                     "/root/folder1/file1_1.tsx",
+                    "/root/folder1/file1_1.ctsx",
                     "/root/folder1/file1_1.d.ts",
-                    // load from directory
+                    "/root/folder1/file1_1.d.cts",
                     "/root/folder1/file1_1/package.json",
                     "/root/folder1/file1_1/index.ts",
+                    "/root/folder1/file1_1/index.cts",
                     "/root/folder1/file1_1/index.tsx",
+                    "/root/folder1/file1_1/index.ctsx",
                     // success on loading '/root/folder1/file1_1/index.d.ts'
                 ]);
 
@@ -888,7 +994,7 @@ import b = require("./moduleB");
             }
         });
 
-        it ("classic + rootDirs", () => {
+        it("classic + rootDirs", () => {
             test(/*hasDirectoryExists*/ false);
 
             function test(hasDirectoryExists: boolean) {
@@ -908,30 +1014,43 @@ import b = require("./moduleB");
                 check("./file2", file1, file2, [
                     // first load from current location
                     "/root/folder1/file2.ts",
+                    "/root/folder1/file2.cts",
                     "/root/folder1/file2.tsx",
+                    "/root/folder1/file2.ctsx",
                     "/root/folder1/file2.d.ts",
+                    "/root/folder1/file2.d.cts",
                     // then try alternative rootDir entry
                 ]);
                 check("../folder1/file1", file3, file1, [
-                    // first load from current location
                     "/root/generated/folder1/file1.ts",
+                    "/root/generated/folder1/file1.cts",
                     "/root/generated/folder1/file1.tsx",
+                    "/root/generated/folder1/file1.ctsx",
                     "/root/generated/folder1/file1.d.ts",
-                    // then try alternative rootDir entry
+                    "/root/generated/folder1/file1.d.cts",
                 ]);
                 check("folder1/file1_1", file3, file4, [
                     // current location
                     "/root/generated/folder2/folder1/file1_1.ts",
+                    "/root/generated/folder2/folder1/file1_1.cts",
                     "/root/generated/folder2/folder1/file1_1.tsx",
+                    "/root/generated/folder2/folder1/file1_1.ctsx",
                     "/root/generated/folder2/folder1/file1_1.d.ts",
+                    "/root/generated/folder2/folder1/file1_1.d.cts",
                     // other entry in rootDirs
                     "/root/generated/folder1/file1_1.ts",
+                    "/root/generated/folder1/file1_1.cts",
                     "/root/generated/folder1/file1_1.tsx",
+                    "/root/generated/folder1/file1_1.ctsx",
                     "/root/generated/folder1/file1_1.d.ts",
+                    "/root/generated/folder1/file1_1.d.cts",
                     // fallback
                     "/root/folder1/file1_1.ts",
+                    "/root/folder1/file1_1.cts",
                     "/root/folder1/file1_1.tsx",
+                    "/root/folder1/file1_1.ctsx",
                     "/root/folder1/file1_1.d.ts",
+                    "/root/folder1/file1_1.d.cts",
                     // found one
                 ]);
 
@@ -942,7 +1061,7 @@ import b = require("./moduleB");
             }
         });
 
-        it ("nested node module", () => {
+        it("nested node module", () => {
             test(/*hasDirectoryExists*/ false);
             test(/*hasDirectoryExists*/ true);
 
@@ -955,15 +1074,18 @@ import b = require("./moduleB");
                     moduleResolution: ModuleResolutionKind.NodeJs,
                     baseUrl: "/root",
                     paths: {
-                        "libs/guid": [ "src/libs/guid" ]
+                        "libs/guid": ["src/libs/guid"]
                     }
-                 };
+                };
                 const result = resolveModuleName("libs/guid", app.name, options, host);
                 checkResolvedModuleWithFailedLookupLocations(result, createResolvedModule(libsTypings.name), [
                     // first try to load module as file
                     "/root/src/libs/guid.ts",
+                    "/root/src/libs/guid.cts",
                     "/root/src/libs/guid.tsx",
+                    "/root/src/libs/guid.ctsx",
                     "/root/src/libs/guid.d.ts",
+                    "/root/src/libs/guid.d.cts",
                 ]);
             }
         });
@@ -1073,7 +1195,7 @@ import b = require("./moduleB");
             const names = map(files, f => f.name);
             const sourceFiles = arrayToMap(map(files, f => createSourceFile(f.name, f.content, ScriptTarget.ES2015)), f => f.fileName);
             const compilerHost: CompilerHost = {
-                fileExists : fileName => sourceFiles.has(fileName),
+                fileExists: fileName => sourceFiles.has(fileName),
                 getSourceFile: fileName => sourceFiles.get(fileName),
                 getDefaultLibFileName: () => "lib.d.ts",
                 writeFile: notImplemented,
@@ -1098,21 +1220,21 @@ import b = require("./moduleB");
             assert.equal(diagnostics1[0].messageText, diagnostics2[0].messageText, "expected one diagnostic");
         });
 
-        it ("Modules in the same .d.ts file are preferred to external files", () => {
+        it("Modules in the same .d.ts file are preferred to external files", () => {
             const f = {
                 name: "/a/b/c/c/app.d.ts",
                 content: `
                 declare module "fs" {
                     export interface Stat { id: number }
                 }
-                declare module "fs-client" {
+                declare module "fsclient" {
                     import { Stat } from "fs";
                     export function foo(): Stat;
                 }`
             };
             const file = createSourceFile(f.name, f.content, ScriptTarget.ES2015);
             const compilerHost: CompilerHost = {
-                fileExists : fileName => fileName === file.fileName,
+                fileExists: fileName => fileName === file.fileName,
                 getSourceFile: fileName => fileName === file.fileName ? file : undefined,
                 getDefaultLibFileName: () => "lib.d.ts",
                 writeFile: notImplemented,
@@ -1130,21 +1252,21 @@ import b = require("./moduleB");
             createProgram([f.name], {}, compilerHost);
         });
 
-        it ("Modules in .ts file are not checked in the same file", () => {
+        it("Modules in .ts file are not checked in the same file", () => {
             const f = {
                 name: "/a/b/c/c/app.ts",
                 content: `
                 declare module "fs" {
                     export interface Stat { id: number }
                 }
-                declare module "fs-client" {
+                declare module "fsclient" {
                     import { Stat } from "fs";
                     export function foo(): Stat;
                 }`
             };
             const file = createSourceFile(f.name, f.content, ScriptTarget.ES2015);
             const compilerHost: CompilerHost = {
-                fileExists : fileName => fileName === file.fileName,
+                fileExists: fileName => fileName === file.fileName,
                 getSourceFile: fileName => fileName === file.fileName ? file : undefined,
                 getDefaultLibFileName: () => "lib.d.ts",
                 writeFile: notImplemented,

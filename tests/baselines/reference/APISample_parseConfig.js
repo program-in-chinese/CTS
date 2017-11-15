@@ -9,7 +9,7 @@ declare var process: any;
 declare var console: any;
 declare var os: any;
 
-import ts = require("typescript");
+import ts = require("ctsScript");
 
 function printError(error: ts.Diagnostic): void {
     if (!error) {
@@ -43,7 +43,7 @@ export function createProgram(rootFiles: string[], compilerOptionsJson: string):
  *       Please log a "breaking change" issue for any API breaking change affecting this issue
  */
 exports.__esModule = true;
-var ts = require("typescript");
+var ts = require("ctsScript");
 function printError(error) {
     if (!error) {
         return;

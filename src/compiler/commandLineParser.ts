@@ -13,14 +13,14 @@ namespace ts {
         "编译选项": "compilerOptions",
         "保存时编译": "compileOnSave",
         "帮助": "help",
-        "UsingChineseLib":"使用中文支持库",
-        "CompileToCts": "转译Cts",
-        "ChineseKeywords": "中文关键字",
-        "CompileToTs": "转译Ts",
-        "CompileToDcts": "转译声明",
-        "EmitNoDictionaryIdentifiers": "输出无词典标识符",
-        "DictionaryOnFileEnd": "词典在文件尾",
-        "DictionaryNoRepeat": "词典不重复输出",
+        "osingChineseLib":"使用中文支持库",
+        "compileToCts": "转译Cts",
+        "chineseKeywords": "中文关键字",
+        "compileToTs": "转译Ts",
+        "compileToDcts": "转译声明",
+        "emitNoDictionaryIdentifiers": "输出无词典标识符",
+        "dictionaryOnFileEnd": "词典在文件尾",
+        "dictionaryNoRepeat": "词典不重复输出",
         "所有": "all",
         "版本": "version",
         "初始化": "init",
@@ -128,43 +128,43 @@ namespace ts {
         },
         {
             name: "使用中文支持库",
-            别名: "UsingChineseLib",
+            别名: "usingChineseLib",
             type: "boolean",
         },
         {
             name: "转译Cts",
-            别名: "CompileToCts",
+            别名: "compileToCts",
             type: "boolean",
         },
         {
             name: "中文关键字",
-            别名: "ChineseKeywords",
+            别名: "chineseKeywords",
             type: "boolean",
 
         },
         {
             name: "转译Ts",
-            别名: "CompileToTs",
+            别名: "compileToTs",
             type: "boolean",
         },
         {
             name: "转译声明",
-            别名: "CompileToDcts",
+            别名: "compileToDcts",
             type: "boolean",
         },
         {
             name: "输出无词典标识符",
-            别名: "EmitNoDictionaryIdentifiers",
+            别名: "emitNoDictionaryIdentifiers",
             type: "boolean",
         },
         {
             name: "词典在文件尾",
-            别名: "DictionaryOnFileEnd",
+            别名: "dictionaryOnFileEnd",
             type: "boolean",
         },
         {
             name: "词典不重复输出",
-            别名: "DictionaryNoRepeat",
+            别名: "dictionaryNoRepeat",
             type: "boolean",
         },
         {
@@ -1041,9 +1041,9 @@ namespace ts {
                                 case "boolean":
                                     // boolean flag has optional value true, false, others
                                     const optValue = args[i];
-                                    options[opt.name] = optValue !== "false";
+                                    options[opt.name] = optValue !== "false" && optValue !== "假";
                                     // consume next argument as boolean flag value
-                                    if (optValue === "false" || optValue === "true") {
+                                    if (optValue === "false" || optValue === "假" || optValue === "true" || optValue === "真") {
                                         i++;
                                     }
                                     break;
@@ -1500,8 +1500,10 @@ namespace ts {
         function serializeCompilerOptions(options: CompilerOptions): Map<CompilerOptionsValue> {
             const result = createMap<CompilerOptionsValue>();
             const optionsNameMap = getOptionNameMap().optionNameMap;
+            const 别名集 = getOptionNameMap().别名集
 
-            for (const name in options) {
+            for (let name in options) {
+                name = 别名集.get(name) || name
                 if (hasProperty(options, name)) {
                     // tsconfig only options cannot be specified via command line,
                     // so we can assume that only types that can appear here string | number | boolean
@@ -1699,9 +1701,9 @@ namespace ts {
 
         function getFileNames(): ExpandResult {
             let filesSpecs: ReadonlyArray<string>;
-            if ((hasProperty(raw, "files")|| hasProperty(raw, "文件集")) && !isNullOrUndefined(raw.files)) {
-                if (isArray(raw.files)) {
-                    filesSpecs = <ReadonlyArray<string>>raw.files;
+            if ((hasProperty(raw, "files") || hasProperty(raw, "文件集")) && !isNullOrUndefined(raw.files)) {
+                if (isArray(raw.files) || isArray(raw.文件集)) {
+                    filesSpecs = hasProperty(raw, "files") ? <ReadonlyArray<string>>raw.files : <ReadonlyArray<string>>raw.文件集;
                     if (filesSpecs.length === 0) {
                         createCompilerDiagnosticOnlyIfJson(Diagnostics.The_files_list_in_config_file_0_is_empty, configFileName || "tsconfig.json");
                     }
@@ -1713,8 +1715,8 @@ namespace ts {
 
             let includeSpecs: ReadonlyArray<string>;
             if ((hasProperty(raw, "include") || hasProperty(raw, "包含")) && !isNullOrUndefined(raw.include)) {
-                if (isArray(raw.include)) {
-                    includeSpecs = <ReadonlyArray<string>>raw.include;
+                if (isArray(raw.include) || isArray(raw.包含)) {
+                    includeSpecs = hasProperty(raw, "include") ? <ReadonlyArray<string>>raw.include : <ReadonlyArray<string>>raw.包含;
                 }
                 else {
                     createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1, "包含", "数组类");
@@ -1723,11 +1725,11 @@ namespace ts {
 
             let excludeSpecs: ReadonlyArray<string>;
             if ((hasProperty(raw, "exclude") || hasProperty(raw, "排除")) && !isNullOrUndefined(raw.exclude)) {
-                if (isArray(raw.exclude)) {
-                    excludeSpecs = <ReadonlyArray<string>>raw.exclude;
+                if (isArray(raw.exclude) || isArray(raw.排除)) {
+                    excludeSpecs = hasProperty(raw, "exclude") ? <ReadonlyArray<string>>raw.exclude : <ReadonlyArray<string>>raw.排除;
                 }
                 else {
-                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1,  "排除", "数组类");
+                    createCompilerDiagnosticOnlyIfJson(Diagnostics.Compiler_option_0_requires_a_value_of_type_1, "排除", "数组类");
                 }
             }
             else {
@@ -1742,7 +1744,7 @@ namespace ts {
             }
 
             const result = matchFileNames(filesSpecs, includeSpecs, excludeSpecs, configFileName ? directoryOfCombinedPath(configFileName, basePath) : basePath, options, host, errors, extraFileExtensions, sourceFile);
-            if (result.fileNames.length === 0 && (!hasProperty(raw, "files")&&!hasProperty(raw, "文件集")) && resolutionStack.length === 0) {
+            if (result.fileNames.length === 0 && (!hasProperty(raw, "files") && !hasProperty(raw, "文件集")) && resolutionStack.length === 0) {
                 errors.push(getErrorForNoInputFiles(result.spec, configFileName));
             }
 
@@ -2001,15 +2003,18 @@ namespace ts {
 
             const { raw } = extendedConfig;
             mapPropertiesInRawIfNotUndefined("include");
+            mapPropertiesInRawIfNotUndefined("包含");
             mapPropertiesInRawIfNotUndefined("exclude");
+            mapPropertiesInRawIfNotUndefined("排除");
             mapPropertiesInRawIfNotUndefined("files");
+            mapPropertiesInRawIfNotUndefined("文件集");
         }
 
         return extendedConfig;
     }
 
     function convertCompileOnSaveOptionFromJson(jsonOption: any, basePath: string, errors: Push<Diagnostic>): boolean {
-        if (!hasProperty(jsonOption, compileOnSaveCommandLineOption.name)) {
+        if (!hasProperty(jsonOption, compileOnSaveCommandLineOption.name) && !hasProperty(jsonOption, compileOnSaveCommandLineOption.别名)) {
             return undefined;
         }
         const result = convertJsonOption(compileOnSaveCommandLineOption, jsonOption.compileOnSave, basePath, errors);

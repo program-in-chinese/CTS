@@ -319,8 +319,8 @@ class ProjectRunner extends RunnerBase {
                     // we need to instead create files that can live in the project reference folder
                     // but make sure extension of these files matches with the fileName the compiler asked to write
                     diskRelativeName = "diskFile" + nonSubfolderDiskFiles +
-                    (Harness.Compiler.isDTS(fileName) ? ts.Extension.Dts :
-                    Harness.Compiler.isJS(fileName) ? ts.Extension.Js : ".js.map");
+                        (Harness.Compiler.isDTS(fileName) || Harness.Compiler.isDCTS(fileName) ? ts.Extension.Dts :
+                            Harness.Compiler.isJS(fileName) ? ts.Extension.Js : ".js.map");
                     nonSubfolderDiskFiles++;
                 }
 

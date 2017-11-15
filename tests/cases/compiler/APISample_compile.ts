@@ -14,7 +14,7 @@ declare var process: any;
 declare var console: any;
 declare var os: any;
 
-import ts = require("typescript");
+import ts = require("ctsScript");
 
 export function compile(fileNames: string[], options: ts.CompilerOptions): void {
     var program = ts.createProgram(fileNames, options);

@@ -14,7 +14,7 @@ declare var process: any;
 declare var console: any;
 declare var readFileSync: any;
 
-import * as ts from "typescript";
+import * as ts from "ctsScript";
 
 export function delint(sourceFile: ts.SourceFile) {
     delintNode(sourceFile);

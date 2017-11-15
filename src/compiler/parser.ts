@@ -663,7 +663,7 @@ namespace ts {
 
         function getLanguageVariant(scriptKind: ScriptKind) {
             // .tsx and .jsx files are treated as jsx language variant.
-            return scriptKind === ScriptKind.TSX || scriptKind === ScriptKind.JSX || scriptKind === ScriptKind.JS || scriptKind === ScriptKind.JSON ? LanguageVariant.JSX : LanguageVariant.Standard;
+            return scriptKind === ScriptKind.TSX || scriptKind === ScriptKind.CTSX || scriptKind === ScriptKind.JSX || scriptKind === ScriptKind.JS || scriptKind === ScriptKind.JSON ? LanguageVariant.JSX : LanguageVariant.Standard;
         }
 
         function initializeState(_sourceText: string, languageVersion: ScriptTarget, _syntaxCursor: IncrementalParser.SyntaxCursor, scriptKind: ScriptKind) {
@@ -671,7 +671,7 @@ namespace ts {
             TokenConstructor = objectAllocator.getTokenConstructor();
             IdentifierConstructor = objectAllocator.getIdentifierConstructor();
             SourceFileConstructor = objectAllocator.getSourceFileConstructor();
-            别名构造函数=objectAllocator.get别名构造函数();
+            别名构造函数 = objectAllocator.get别名构造函数();
 
             sourceText = _sourceText;
             syntaxCursor = _syntaxCursor;
@@ -786,8 +786,8 @@ namespace ts {
                             语句.表达式.forEach(v => {
                                 const 键文本: string = ts.isIdentifier(v.键.name) ? v.键.name.escapedText as string : v.键.name.text;
                                 局部词典组.set(键文本, v);
-                                if (!v.是单向词典){
-                                    const 值文本:string = ts.isIdentifier(v.值.name) ? v.值.name.escapedText as string : v.值.name.text;
+                                if (!v.是单向词典) {
+                                    const 值文本: string = ts.isIdentifier(v.值.name) ? v.值.name.escapedText as string : v.值.name.text;
                                     局部词典组.set(值文本, 交换词典键值(v));
                                 }
                             });
@@ -865,7 +865,7 @@ namespace ts {
             sourceFile.languageVersion = languageVersion;
             sourceFile.fileName = normalizePath(fileName);
             sourceFile.languageVariant = getLanguageVariant(scriptKind);
-            sourceFile.isDeclarationFile = fileExtensionIs(sourceFile.fileName, Extension.Dts)||fileExtensionIs(sourceFile.fileName, Extension.DCts);
+            sourceFile.isDeclarationFile = fileExtensionIs(sourceFile.fileName, Extension.Dts) || fileExtensionIs(sourceFile.fileName, Extension.DCts);
             sourceFile.scriptKind = scriptKind;
 
             return sourceFile;
@@ -6117,7 +6117,7 @@ namespace ts {
                 else {
                     const amdModuleNameRegEx = /^\/\/\/\s*<amd-module\s+name\s*=\s*('|")(.+?)\1/gim;
                     const amdModuleNameRegExCH = /^\/\/\/\s*<AMD模块\s+名称\s*=\s*('|")(.+?)\1/gim;
-                    const amdModuleNameMatchResult = amdModuleNameRegEx.exec(comment)||amdModuleNameRegExCH.exec(comment);
+                    const amdModuleNameMatchResult = amdModuleNameRegEx.exec(comment) || amdModuleNameRegExCH.exec(comment);
                     if (amdModuleNameMatchResult) {
                         if (amdModuleName) {
                             parseDiagnostics.push(createFileDiagnostic(sourceFile, range.pos, range.end - range.pos, Diagnostics.An_AMD_module_cannot_have_multiple_name_assignments));
@@ -6131,10 +6131,10 @@ namespace ts {
                     const nameRegex = /\sname\s*=\s*('|")(.+?)\1/gim;
                     const pathRegexCH = /\s路径\s*=\s*('|")(.+?)\1/gim;
                     const nameRegexCH = /\s名称\s*=\s*('|")(.+?)\1/gim;
-                    const amdDependencyMatchResult = amdDependencyRegEx.exec(comment)||amdDependencyRegExCH.exec(comment);
+                    const amdDependencyMatchResult = amdDependencyRegEx.exec(comment) || amdDependencyRegExCH.exec(comment);
                     if (amdDependencyMatchResult) {
-                        const pathMatchResult = pathRegex.exec(comment)||pathRegexCH.exec(comment);
-                        const nameMatchResult = nameRegex.exec(comment)||nameRegexCH.exec(comment);
+                        const pathMatchResult = pathRegex.exec(comment) || pathRegexCH.exec(comment);
+                        const nameMatchResult = nameRegex.exec(comment) || nameRegexCH.exec(comment);
                         if (pathMatchResult) {
                             const amdDependency = { path: pathMatchResult[2], name: nameMatchResult ? nameMatchResult[2] : undefined };
                             amdDependencies.push(amdDependency);
@@ -6969,7 +6969,7 @@ namespace ts {
 
         export namespace 编译词典标签 {
 
-            export function 编译词典( start: number, length: number, 词典头部长度 = 4,父节点?: Node) {
+            export function 编译词典(start: number, length: number, 词典头部长度 = 4, 父节点?: Node) {
                 const saveToken = currentToken;
                 const saveParseDiagnosticsLength = parseDiagnostics.length;
                 const saveParseErrorBeforeNextFinishedNode = parseErrorBeforeNextFinishedNode;

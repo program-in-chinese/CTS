@@ -776,7 +776,7 @@ namespace Harness {
 
 namespace Harness {
     export const libFolder = "built/local/";
-    const tcServicesFileName = ts.combinePaths(libFolder, Utils.getExecutionEnvironment() === Utils.ExecutionEnvironment.Browser ? "typescriptServicesInBrowserTest.js" : "typescriptServices.js");
+    const tcServicesFileName = ts.combinePaths(libFolder, Utils.getExecutionEnvironment() === Utils.ExecutionEnvironment.Browser ? "ctsscriptServicesInBrowserTest.js" : "ctsscriptServices.js");
     export const tcServicesFile = IO.readFile(tcServicesFileName) + (Utils.getExecutionEnvironment() !== Utils.ExecutionEnvironment.Browser
         ? IO.newLine() + `//# sourceURL=${IO.resolvePath(tcServicesFileName)}`
         : "");
@@ -1236,10 +1236,10 @@ namespace Harness {
             }
 
             function addDtsFile(file: TestFile, dtsFiles: TestFile[]) {
-                if (isDTS(file.unitName)) {
+                if (isDTS(file.unitName) || isDCTS(file.unitName)) {
                     dtsFiles.push(file);
                 }
-                else if (isTS(file.unitName)) {
+                else if (isTS(file.unitName) || isCTS(file.unitName)) {
                     const declFile = findResultCodeFile(file.unitName);
                     if (declFile && !findUnit(declFile.fileName, declInputFiles) && !findUnit(declFile.fileName, declOtherFiles)) {
                         dtsFiles.push({ unitName: declFile.fileName, content: declFile.code });
@@ -1511,7 +1511,7 @@ namespace Harness {
                 // As rwc test- file is stored in json which ".json" will get stripped off.
                 // When calling this function from compiler-runner, the baselinePath will then has either ".ts" or ".tsx" extension
                 const outputFileName = ts.endsWith(baselinePath, ts.Extension.Ts) || ts.endsWith(baselinePath, ts.Extension.Tsx) ?
-                    baselinePath.replace(/\.tsx?/, "") : baselinePath;
+                    baselinePath.replace(/\.tsx?/, "") : ts.endsWith(baselinePath, ts.Extension.CTs) || ts.endsWith(baselinePath, ts.Extension.CTsx) ? baselinePath.replace(/\.ctsx?/, "") : baselinePath;
 
                 if (!multifile) {
                     const fullBaseLine = generateBaseLine(isSymbolBaseLine, skipTypeAndSymbolbaselines);
@@ -1630,7 +1630,7 @@ namespace Harness {
             }
 
             // check js output
-            Harness.Baseline.runBaseline(baselinePath.replace(/\.tsx?/, ts.Extension.Js), () => {
+            Harness.Baseline.runBaseline(baselinePath.replace(/(\.tsx?|\.ctsx?)/, ts.Extension.Js), () => {
                 let tsCode = "";
                 const tsSources = otherFiles.concat(toBeCompiled);
                 if (tsSources.length > 1) {
@@ -1749,17 +1749,30 @@ namespace Harness {
             return ts.endsWith(fileName, ts.Extension.Ts);
         }
 
+        export function isCTS(fileName: string) {
+            return ts.endsWith(fileName, ts.Extension.CTs);
+        }
+
         export function isTSX(fileName: string) {
             return ts.endsWith(fileName, ts.Extension.Tsx);
+        }
+
+        export function isCTSX(fileName: string) {
+            return ts.endsWith(fileName, ts.Extension.CTsx);
         }
 
         export function isDTS(fileName: string) {
             return ts.endsWith(fileName, ts.Extension.Dts);
         }
 
+        export function isDCTS(fileName: string) {
+            return ts.endsWith(fileName, ts.Extension.DCts);
+        }
+
         export function isJS(fileName: string) {
             return ts.endsWith(fileName, ts.Extension.Js);
         }
+
         export function isJSX(fileName: string) {
             return ts.endsWith(fileName, ts.Extension.Jsx);
         }
@@ -1780,7 +1793,7 @@ namespace Harness {
                 public currentDirectoryForProgram: string, private sourceMapData: ts.SourceMapData[], public traceResults: string[]) {
 
                 for (const emittedFile of fileResults) {
-                    if (isDTS(emittedFile.fileName)) {
+                    if (isDTS(emittedFile.fileName)||isDCTS(emittedFile.fileName)) {
                         // .d.ts file, add to declFiles emit
                         this.declFilesCode.push(emittedFile);
                     }
@@ -2098,6 +2111,10 @@ namespace Harness {
             if (extension === ".ts" || referencedExtensions && referencedExtensions.indexOf(".ts") > -1 && referencedExtensions.indexOf(".d.ts") === -1) {
                 // special-case and filter .d.ts out of .ts results
                 existing = existing.filter(f => !ts.endsWith(f, ".d.ts"));
+            }
+            if (extension === ".cts" || referencedExtensions && referencedExtensions.indexOf(".cts") > -1 && referencedExtensions.indexOf(".d.cts") === -1) {
+                // special-case and filter .d.ts out of .ts results
+                existing = existing.filter(f => !ts.endsWith(f, ".d.cts"));
             }
             const missing: string[] = [];
             for (const name of existing) {

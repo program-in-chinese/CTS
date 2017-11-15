@@ -31,7 +31,7 @@ export function Component(x: Config): any;`
                     return "";
                 },
                 getScriptSnapshot(fileName) {
-                    if (fileName === ".ts") {
+                    if (fileName === ".ts"||fileName === ".cts") {
                         return ts.ScriptSnapshot.fromString("");
                     }
                     return ts.ScriptSnapshot.fromString(files[fileName] || "");

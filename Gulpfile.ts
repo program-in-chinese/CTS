@@ -103,7 +103,7 @@ const LKGDirectory = "lib/";
 
 const copyright = "CopyrightNotice.txt";
 
-const compilerFilename = "tsc.js";
+const compilerFilename = "cts.js";
 const LKGCompiler = path.join(LKGDirectory, compilerFilename);
 const builtLocalCompiler = path.join(builtLocalDirectory, compilerFilename);
 
@@ -289,10 +289,10 @@ function getCompilerSettings(base: tsc.Settings, useBuiltCompiler?: boolean): ts
     }
     copy.newLine = "lf";
     if (useBuiltCompiler === true) {
-        copy.typescript = require("./built/local/typescript.js");
+        copy.typescript = require("./built/local/ctsScript.js");
     }
     else if (useBuiltCompiler === false) {
-        copy.typescript = require("./lib/typescript.js");
+        copy.typescript = require("./lib/ctsScript.js");
     }
     return copy;
 }
@@ -423,11 +423,11 @@ gulp.task(generatedLCGFile, [generateLocalizedDiagnosticMessagesJs, diagnosticIn
 
 gulp.task("localize", [generatedLCGFile]);
 
-const servicesFile = path.join(builtLocalDirectory, "typescriptServices.js");
-const standaloneDefinitionsFile = path.join(builtLocalDirectory, "typescriptServices.d.ts");
-const nodePackageFile = path.join(builtLocalDirectory, "typescript.js");
-const nodeDefinitionsFile = path.join(builtLocalDirectory, "typescript.d.ts");
-const nodeStandaloneDefinitionsFile = path.join(builtLocalDirectory, "typescript_standalone.d.ts");
+const servicesFile = path.join(builtLocalDirectory, "ctsServices.js");
+const standaloneDefinitionsFile = path.join(builtLocalDirectory, "ctsServices.d.ts");
+const nodePackageFile = path.join(builtLocalDirectory, "ctsScript.js");
+const nodeDefinitionsFile = path.join(builtLocalDirectory, "ctsScript.d.ts");
+const nodeStandaloneDefinitionsFile = path.join(builtLocalDirectory, "ctsScript_standalone.d.ts");
 
 let copyrightContent: string;
 function prependCopyright(outputCopyright: boolean = !useDebugMode) {
@@ -491,7 +491,7 @@ gulp.task(cancellationTokenJs, /*help*/ false, [servicesFile], () => {
 });
 
 // typingsInstallerFile.js
-const typingsInstallerJs = path.join(builtLocalDirectory, "typingsInstaller.js");
+const typingsInstallerJs = path.join(builtLocalDirectory, "ctsInstaller.js");
 gulp.task(typingsInstallerJs, /*help*/ false, [servicesFile], () => {
     const cancellationTokenProject = tsc.createProject("src/server/typingsInstaller/tsconfig.json", getCompilerSettings({}, /*useBuiltCompiler*/ true));
     return cancellationTokenProject.src()
@@ -503,7 +503,7 @@ gulp.task(typingsInstallerJs, /*help*/ false, [servicesFile], () => {
         .pipe(gulp.dest("src/server/typingsInstaller"));
 });
 
-const serverFile = path.join(builtLocalDirectory, "tsserver.js");
+const serverFile = path.join(builtLocalDirectory, "ctsServer.js");
 
 gulp.task(serverFile, /*help*/ false, [servicesFile, typingsInstallerJs, cancellationTokenJs], () => {
     const serverProject = tsc.createProject("src/server/tsconfig.json", getCompilerSettings({}, /*useBuiltCompiler*/ true));
@@ -517,8 +517,8 @@ gulp.task(serverFile, /*help*/ false, [servicesFile, typingsInstallerJs, cancell
 });
 
 const typesMapJson = path.join(builtLocalDirectory, "typesMap.json");
-const tsserverLibraryFile = path.join(builtLocalDirectory, "tsserverlibrary.js");
-const tsserverLibraryDefinitionFile = path.join(builtLocalDirectory, "tsserverlibrary.d.ts");
+const tsserverLibraryFile = path.join(builtLocalDirectory, "ctsServerlibrary.js");
+const tsserverLibraryDefinitionFile = path.join(builtLocalDirectory, "ctsServerlibrary.d.ts");
 
 gulp.task(tsserverLibraryFile, /*help*/ false, [servicesFile, typesMapJson], (done) => {
     const serverLibraryProject = tsc.createProject("src/server/tsconfig.library.json", getCompilerSettings({ removeComments: false }, /*useBuiltCompiler*/ true));
@@ -550,7 +550,7 @@ gulp.task(typesMapJson, /*help*/ false, [], () => {
 
 gulp.task("lssl", "Builds language service server library", [tsserverLibraryFile]);
 gulp.task("local", "Builds the full compiler and services", [builtLocalCompiler, servicesFile, serverFile, builtGeneratedDiagnosticMessagesJSON, tsserverLibraryFile, "localize"]);
-gulp.task("tsc", "Builds only the compiler", [builtLocalCompiler]);
+gulp.task("cts", "Builds only the compiler", [builtLocalCompiler]);
 
 // Generate Markdown spec
 const word2mdJs = path.join(scriptsDirectory, "word2md.js");
@@ -1038,8 +1038,8 @@ gulp.task("tsc-instrumented", "Builds an instrumented tsc.js - run with --test=[
     exec(host, [instrumenterJsPath, "record", test, builtLocalCompiler], done, done);
 });
 
-gulp.task("update-sublime", "Updates the sublime plugin's tsserver", ["local", serverFile], () => {
-    return gulp.src([serverFile, serverFile + ".map"]).pipe(gulp.dest("../TypeScript-Sublime-Plugin/tsserver/"));
+gulp.task("update-sublime", "Updates the sublime plugin's ctsserver", ["local", serverFile], () => {
+    return gulp.src([serverFile, serverFile + ".map"]).pipe(gulp.dest("../TypeScript-Sublime-Plugin/ctsServer/"));
 });
 
 gulp.task("build-rules", "Compiles tslint rules to js", () => {
