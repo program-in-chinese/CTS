@@ -3,11 +3,11 @@
 // to inferences made directly to that type parameter
 
 function f<T>(x: T, y: string|T): T {
->f : <T>(x: T, y: string | T) => T
+>f : <T>(x: T, y: 文字 | T) => T
 >T : T
 >x : T
 >T : T
->y : string | T
+>y : 文字 | T
 >T : T
 >T : T
 
@@ -16,133 +16,133 @@ function f<T>(x: T, y: string|T): T {
 }
 
 var a1: number;
->a1 : number
+>a1 : 数字
 >类型别名 :=> 数字
 
 var a1 = f(1, 2);
->a1 : number
+>a1 : 数字
 >类型别名 :=> 数字
->f(1, 2) : any
+>f(1, 2) : 任意
 >类型别名 :=> 任意
->f : <T>(x: T, y: string | T) => T
+>f : <T>(x: T, y: 文字 | T) => T
 >1 : 1
 >2 : 2
 
 var a2: number;
->a2 : number
+>a2 : 数字
 >类型别名 :=> 数字
 
 var a2 = f(1, "hello");
->a2 : number
+>a2 : 数字
 >类型别名 :=> 数字
 >f(1, "hello") : 1
->f : <T>(x: T, y: string | T) => T
+>f : <T>(x: T, y: 文字 | T) => T
 >1 : 1
 >"hello" : "hello"
 
 var a3: number;
->a3 : number
+>a3 : 数字
 >类型别名 :=> 数字
 
 var a3 = f(1, a1 || "hello");
->a3 : number
+>a3 : 数字
 >类型别名 :=> 数字
->f(1, a1 || "hello") : number
+>f(1, a1 || "hello") : 数字
 >类型别名 :=> 数字
->f : <T>(x: T, y: string | T) => T
+>f : <T>(x: T, y: 文字 | T) => T
 >1 : 1
->a1 || "hello" : number | "hello"
->a1 : number
+>a1 || "hello" : 数字 | "hello"
+>a1 : 数字
 >类型别名 :=> 数字
 >"hello" : "hello"
 
 var a4: any;
->a4 : any
+>a4 : 任意
 >类型别名 :=> 任意
 
 var a4 = f(undefined, "abc");
->a4 : any
+>a4 : 任意
 >类型别名 :=> 任意
->f(undefined, "abc") : any
+>f(undefined, "abc") : 任意
 >类型别名 :=> 任意
->f : <T>(x: T, y: string | T) => T
->undefined : undefined
+>f : <T>(x: T, y: 文字 | T) => T
+>undefined : 未定
 >类型别名 :=> 未定
 >"abc" : "abc"
 
 function g<T>(value: [string, T]): T {
->g : <T>(value: [string, T]) => T
+>g : <T>(value: [文字, T]) => T
 >T : T
->value : [string, T]
+>value : [文字, T]
 >T : T
 >T : T
 
     return value[1];
 >value[1] : T
->value : [string, T]
+>value : [文字, T]
 >1 : 1
 }
 
 var b1: boolean;
->b1 : boolean
+>b1 : 真假
 >类型别名 :=> 真假
 
 var b1 = g(["string", true]);
->b1 : boolean
+>b1 : 真假
 >类型别名 :=> 真假
->g(["string", true]) : boolean
+>g(["string", true]) : 真假
 >类型别名 :=> 真假
->g : <T>(value: [string, T]) => T
->["string", true] : [string, true]
+>g : <T>(value: [文字, T]) => T
+>["string", true] : [文字, 为真]
 >"string" : "string"
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 function h<T>(x: string|boolean|T): T {
->h : <T>(x: string | boolean | T) => T
+>h : <T>(x: 文字 | 真假 | T) => T
 >T : T
->x : string | boolean | T
+>x : 文字 | 真假 | T
 >T : T
 >T : T
 
     return typeof x === "string" || typeof x === "boolean" ? undefined : x;
 >typeof x === "string" || typeof x === "boolean" ? undefined : x : T
->typeof x === "string" || typeof x === "boolean" : boolean
+>typeof x === "string" || typeof x === "boolean" : 真假
 >类型别名 :=> 真假
->typeof x === "string" : boolean
+>typeof x === "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | boolean | T
+>x : 文字 | 真假 | T
 >"string" : "string"
->typeof x === "boolean" : boolean
+>typeof x === "boolean" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : boolean | T
+>x : 真假 | T
 >"boolean" : "boolean"
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 >x : T
 }
 
 var c1: number;
->c1 : number
+>c1 : 数字
 >类型别名 :=> 数字
 
 var c1 = h(5);
->c1 : number
+>c1 : 数字
 >类型别名 :=> 数字
 >h(5) : 5
->h : <T>(x: string | boolean | T) => T
+>h : <T>(x: 文字 | 真假 | T) => T
 >5 : 5
 
 var c2: string;
->c2 : string
+>c2 : 文字
 >类型别名 :=> 文字
 
 var c2 = h("abc");
->c2 : string
+>c2 : 文字
 >类型别名 :=> 文字
 >h("abc") : "abc"
->h : <T>(x: string | boolean | T) => T
+>h : <T>(x: 文字 | 真假 | T) => T
 >"abc" : "abc"
 

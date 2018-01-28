@@ -239,6 +239,8 @@ namespace ts {
         getIndentationAtPosition(fileName: string, position: number, options: string/*Services.EditorOptions*/): string;
 
         getFormattingEditsForRange(fileName: string, start: number, end: number, options: string/*Services.FormatCodeOptions*/): string;
+        
+        取词典自动完成项目新?(fileName: string, position: number, ignoreName: string): string
         getFormattingEditsForDocument(fileName: string, options: string/*Services.FormatCodeOptions*/): string;
         getFormattingEditsAfterKeystroke(fileName: string, position: number, key: string, options: string/*Services.FormatCodeOptions*/): string;
 
@@ -261,7 +263,8 @@ namespace ts {
 
         getEmitOutput(fileName: string): string;
         getEmitOutputObject(fileName: string): EmitOutput;
-        转为CTS(fileName: string):string
+        转为CTS?(fileName: string):string
+        格式化词典语句?(fileName: string):string
     }
 
     export interface ClassifierShim extends Shim {
@@ -913,6 +916,14 @@ namespace ts {
                 });
         }
 
+        public 取词典自动完成项目新(fileName: string, position: number, ignoreName: string) {
+            return this.forwardJSONCall(
+                `取词典自动完成项目新('${fileName}', ${position},${ignoreName})`,
+                () => this.languageService.取词典自动完成项目新(fileName, position, ignoreName)
+            );
+        }
+
+
         public getFormattingEditsForDocument(fileName: string, options: string/*Services.FormatCodeOptions*/): string {
             return this.forwardJSONCall(
                 `getFormattingEditsForDocument('${fileName}')`,
@@ -997,6 +1008,13 @@ namespace ts {
             return this.forwardJSONCall(
                 `转为CTS('${fileName}')`,
                 () => this.languageService.转为CTS(fileName)
+            );
+        }
+
+        public 格式化词典语句(fileName: string): string {
+            return this.forwardJSONCall(
+                `格式化词典语句('${fileName}')`,
+                () => this.languageService.格式化词典语句(fileName)
             );
         }
     }

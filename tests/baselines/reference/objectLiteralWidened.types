@@ -2,46 +2,46 @@
 // object literal properties are widened to any
 
 var x1 = {
->x1 : { foo: any; bar: any; }
->{    foo: null,    bar: undefined} : { foo: null; bar: undefined; }
+>x1 : { foo: 任意; bar: 任意; }
+>{    foo: null,    bar: undefined} : { foo: 空值; bar: 未定; }
 
     foo: null,
->foo : null
+>foo : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     bar: undefined
->bar : undefined
+>bar : 未定
 >类型别名 :=> 未定
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 var y1 = {
->y1 : { foo: any; bar: { baz: any; boo: any; }; }
->{    foo: null,    bar: {        baz: null,        boo: undefined    }} : { foo: null; bar: { baz: null; boo: undefined; }; }
+>y1 : { foo: 任意; bar: { baz: 任意; boo: 任意; }; }
+>{    foo: null,    bar: {        baz: null,        boo: undefined    }} : { foo: 空值; bar: { baz: 空值; boo: 未定; }; }
 
     foo: null,
->foo : null
+>foo : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     bar: {
->bar : { baz: null; boo: undefined; }
->{        baz: null,        boo: undefined    } : { baz: null; boo: undefined; }
+>bar : { baz: 空值; boo: 未定; }
+>{        baz: null,        boo: undefined    } : { baz: 空值; boo: 未定; }
 
         baz: null,
->baz : null
+>baz : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
         boo: undefined
->boo : undefined
+>boo : 未定
 >类型别名 :=> 未定
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
     }
 }
@@ -49,60 +49,60 @@ var y1 = {
 // these are not widened
 
 var u: undefined = undefined;
->u : undefined
+>u : 未定
 >类型别名 :=> 未定
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var n: null = null;
->n : null
+>n : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var x2 = {
->x2 : { foo: null; bar: undefined; }
->{    foo: n,    bar: u} : { foo: null; bar: undefined; }
+>x2 : { foo: 空值; bar: 未定; }
+>{    foo: n,    bar: u} : { foo: 空值; bar: 未定; }
 
     foo: n,
->foo : null
+>foo : 空值
 >类型别名 :=> 空值
->n : null
+>n : 空值
 >类型别名 :=> 空值
 
     bar: u
->bar : undefined
+>bar : 未定
 >类型别名 :=> 未定
->u : undefined
+>u : 未定
 >类型别名 :=> 未定
 }
 
 var y2 = {
->y2 : { foo: null; bar: { baz: null; boo: undefined; }; }
->{    foo: n,    bar: {        baz: n,        boo: u    }} : { foo: null; bar: { baz: null; boo: undefined; }; }
+>y2 : { foo: 空值; bar: { baz: 空值; boo: 未定; }; }
+>{    foo: n,    bar: {        baz: n,        boo: u    }} : { foo: 空值; bar: { baz: 空值; boo: 未定; }; }
 
     foo: n,
->foo : null
+>foo : 空值
 >类型别名 :=> 空值
->n : null
+>n : 空值
 >类型别名 :=> 空值
 
     bar: {
->bar : { baz: null; boo: undefined; }
->{        baz: n,        boo: u    } : { baz: null; boo: undefined; }
+>bar : { baz: 空值; boo: 未定; }
+>{        baz: n,        boo: u    } : { baz: 空值; boo: 未定; }
 
         baz: n,
->baz : null
+>baz : 空值
 >类型别名 :=> 空值
->n : null
+>n : 空值
 >类型别名 :=> 空值
 
         boo: u
->boo : undefined
+>boo : 未定
 >类型别名 :=> 未定
->u : undefined
+>u : 未定
 >类型别名 :=> 未定
     }
 }

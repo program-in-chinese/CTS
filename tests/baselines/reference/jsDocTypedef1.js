@@ -5,7 +5,7 @@
       "position": 189
     },
     "quickInfo": {
-      "kind": "parameter",
+      "kind": "参数",
       "kindModifiers": "",
       "textSpan": {
         "start": 189,
@@ -17,7 +17,7 @@
           "kind": "punctuation"
         },
         {
-          "text": "parameter",
+          "text": "参数",
           "kind": "text"
         },
         {
@@ -187,7 +187,7 @@
       "position": 424
     },
     "quickInfo": {
-      "kind": "parameter",
+      "kind": "参数",
       "kindModifiers": "",
       "textSpan": {
         "start": 424,
@@ -199,7 +199,7 @@
           "kind": "punctuation"
         },
         {
-          "text": "parameter",
+          "text": "参数",
           "kind": "text"
         },
         {

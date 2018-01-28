@@ -1,0 +1,66 @@
+tests/cases/compiler/capturedLetConstInLoop10_ES6.ts(3,23): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/capturedLetConstInLoop10_ES6.ts(12,23): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/capturedLetConstInLoop10_ES6.ts(14,27): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/capturedLetConstInLoop10_ES6.ts(22,23): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/capturedLetConstInLoop10_ES6.ts(25,27): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/capturedLetConstInLoop10_ES6.ts(37,31): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+
+
+==== tests/cases/compiler/capturedLetConstInLoop10_ES6.ts (6 errors) ====
+    class A {
+        foo() {
+            for (let x of [0]) {
+                          ~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                let f = function() { return x; };
+                this.bar(f());
+            }
+        }
+        bar(a: number) {
+        }
+    
+        baz() {
+            for (let x of [1]) {
+                          ~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                let a = function() {  return x; };
+                for (let y of [1]) {
+                              ~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                    let b = function() { return y; };
+                    this.bar(b());
+                }
+                this.bar(a());
+            }
+        }
+        baz2() {
+            for (let x of [1]) {
+                          ~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                let a = function() {  return x; };
+                this.bar(a());
+                for (let y of [1]) {
+                              ~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                    let b = function() { return y; };
+                    this.bar(b());
+                }
+            }
+        }
+    }
+    
+    class B {
+        foo() {
+            let a =
+                () => {
+                    for (let x of [0]) {
+                                  ~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                        let f = () => x;
+                        this.bar(f());
+                    }
+                }
+        }
+        bar(a: number) {
+        }
+    }

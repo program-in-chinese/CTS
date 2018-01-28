@@ -1,45 +1,45 @@
 === /user.ts ===
 // Error, can't re-export something that's only a type.
 export { T } from "./exportT";
->T : any
+>T : 任意
 >类型别名 :=> 任意
 
 export import T2 = require("./exportEqualsT");
->T2 : any
+>T2 : 任意
 >类型别名 :=> 任意
 
 // OK, has a value side
 export { C } from "./exportValue";
->C : typeof C
+>C : 类为 C
 
 // OK, even though the namespace it exports is only types.
 import * as NS from "./exportT";
->NS : typeof NS
+>NS : 类为 NS
 
 export { NS };
->NS : typeof NS
+>NS : 类为 NS
 
 // OK, syntactically clear that a type is being re-exported.
 export type T3 = T;
->T3 : number
+>T3 : 数字
 >类型别名 :=> 数字
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 // Error, not clear (to an isolated module) whether `T4` is a type.
 import { T } from "./exportT";
->T : any
+>T : 任意
 >类型别名 :=> 任意
 
 export { T as T4 };
->T : any
+>T : 任意
 >类型别名 :=> 任意
->T4 : any
+>T4 : 任意
 >类型别名 :=> 任意
 
 === /exportT.ts ===
 export type T = number;
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 === /exportValue.ts ===
@@ -48,10 +48,10 @@ export class C {}
 
 === /exportEqualsT.ts ===
 declare type T = number;
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 export = T;
->T : number
+>T : 数字
 >类型别名 :=> 数字
 

@@ -5,7 +5,7 @@ declare module "foo" {
 
         constructor();
         method1(): any;
->method1 : () => any
+>method1 : () => 任意
     }
 }
 
@@ -15,20 +15,20 @@ declare module "foo" {
 >Foo : Foo
 
         method2(): any;
->method2 : () => any
+>method2 : () => 任意
     }
 }
 
 === tests/cases/compiler/index.ts ===
 import * as foo from "foo";
->foo : typeof foo
+>foo : 类为 foo
 
 class Test {
 >Test : Test
 
     bar: foo.Foo;
 >bar : foo.Foo
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 >Foo : foo.Foo
 
@@ -36,12 +36,12 @@ class Test {
         this.bar = new foo.Foo();
 >this.bar = new foo.Foo() : foo.Foo
 >this.bar : foo.Foo
->this : this
+>this : 本体
 >bar : foo.Foo
 >new foo.Foo() : foo.Foo
->foo.Foo : typeof foo.Foo
->foo : typeof foo
->Foo : typeof foo.Foo
+>foo.Foo : 类为 foo.Foo
+>foo : 类为 foo
+>Foo : 类为 foo.Foo
     }
 }
 

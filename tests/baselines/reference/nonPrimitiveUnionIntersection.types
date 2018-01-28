@@ -1,41 +1,41 @@
 === tests/cases/conformance/types/nonPrimitive/nonPrimitiveUnionIntersection.ts ===
 var a: object & string = ""; // error
->a : object & string
+>a : 实例 & 文字
 >"" : ""
 
 var b: object | string = ""; // ok
->b : string | object
+>b : 文字 | 实例
 >"" : ""
 
 var c: object & {} = 123; // error
->c : object & {}
+>c : 实例 & {}
 >123 : 123
 
 a = b; // error
->a = b : string
+>a = b : 文字
 >类型别名 :=> 文字
->a : object & string
->b : string
+>a : 实例 & 文字
+>b : 文字
 >类型别名 :=> 文字
 
 b = a; // ok
->b = a : object & string
->b : string | object
->a : object & string
+>b = a : 实例 & 文字
+>b : 文字 | 实例
+>a : 实例 & 文字
 
 const foo: object & {} = {bar: 'bar'}; // ok
->foo : object & {}
->{bar: 'bar'} : { bar: string; }
->bar : string
+>foo : 实例 & {}
+>{bar: 'bar'} : { bar: 文字; }
+>bar : 文字
 >类型别名 :=> 文字
 >'bar' : "bar"
 
 const bar: object & {err: string} = {bar: 'bar'}; // error
->bar : object & { err: string; }
->err : string
+>bar : 实例 & { err: 文字; }
+>err : 文字
 >类型别名 :=> 文字
->{bar: 'bar'} : { bar: string; }
->bar : string
+>{bar: 'bar'} : { bar: 文字; }
+>bar : 文字
 >类型别名 :=> 文字
 >'bar' : "bar"
 

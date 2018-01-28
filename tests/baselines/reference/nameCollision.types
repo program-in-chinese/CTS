@@ -1,31 +1,31 @@
 === tests/cases/conformance/internalModules/codeGeneration/nameCollision.ts ===
 module A {
->A : typeof A
+>A : 类为 A
 
     // these 2 statements force an underscore before the 'A' 
     // in the generated function call.
     var A = 12;
->A : number
+>A : 数字
 >类型别名 :=> 数字
 >12 : 12
 
     var _A = '';
->_A : string
+>_A : 文字
 >类型别名 :=> 文字
 >'' : ""
 }
 
 module B {
->B : typeof B
+>B : 类为 B
 
     var A = 12;
->A : number
+>A : 数字
 >类型别名 :=> 数字
 >12 : 12
 }
 
 module B {
->B : typeof B
+>B : 类为 B
 
     // re-opened module with colliding name
     // this should add an underscore.
@@ -33,42 +33,42 @@ module B {
 >B : B
 
         name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
     }
 }
 
 module X {
->X : typeof X
+>X : 类为 X
 
     var X = 13;
->X : number
+>X : 数字
 >类型别名 :=> 数字
 >13 : 13
 
     export module Y {
->Y : typeof X.Y
+>Y : 类为 X.Y
 
         var Y = 13;
->Y : number
+>Y : 数字
 >类型别名 :=> 数字
 >13 : 13
 
         export module Z {
->Z : typeof X.Y.Z
+>Z : 类为 X.Y.Z
 
             var X = 12;
->X : number
+>X : 数字
 >类型别名 :=> 数字
 >12 : 12
 
             var Y = 12;
->Y : number
+>Y : 数字
 >类型别名 :=> 数字
 >12 : 12
 
             var Z = 12;
->Z : number
+>Z : 数字
 >类型别名 :=> 数字
 >12 : 12
         }
@@ -76,8 +76,8 @@ module X {
 }
 
 module Y.Y {
->Y : typeof Y
->Y : typeof Y.Y
+>Y : 类为 Y
+>Y : 类为 Y.Y
 
     export enum Y {
 >Y : Y
@@ -91,18 +91,18 @@ module Y.Y {
 // no collision, since interface doesn't
 // generate code.
 module D {
->D : typeof D
+>D : 类为 D
 
     export interface D {
 >D : D
 
         id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
     }
 
     export var E = 'hello';
->E : string
+>E : 文字
 >类型别名 :=> 文字
 >'hello' : "hello"
 }

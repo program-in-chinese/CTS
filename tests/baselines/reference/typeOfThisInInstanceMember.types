@@ -3,53 +3,53 @@ class C {
 >C : C
 
     x = this;
->x : this
->this : this
+>x : 本体
+>this : 本体
 
     foo() {
->foo : () => this
+>foo : () => 本体
 
         return this;
->this : this
+>this : 本体
     }
     constructor(x: number) {
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         var t = this;
->t : this
->this : this
+>t : 本体
+>this : 本体
 
         t.x;
->t.x : this
->t : this
->x : this
+>t.x : 本体
+>t : 本体
+>x : 本体
 
         t.y;
->t.y : this
->t : this
->y : this
+>t.y : 本体
+>t : 本体
+>y : 本体
 
         t.z;
->t.z : any
+>t.z : 任意
 >类型别名 :=> 任意
->t : this
->z : any
+>t : 本体
+>z : 任意
 >类型别名 :=> 任意
 
         var r = t.foo();
->r : this
->t.foo() : this
->t.foo : () => this
->t : this
->foo : () => this
+>r : 本体
+>t.foo() : 本体
+>t.foo : () => 本体
+>t : 本体
+>foo : () => 本体
     }
 
     get y() {
->y : this
+>y : 本体
 
         return this;
->this : this
+>this : 本体
     }
 }
 
@@ -95,12 +95,12 @@ var rs = [r, r2, r3];
 >r3 : C
 
 rs.forEach(x => {
->rs.forEach(x => {    x.foo;    x.x;    x.y;}) : void
+>rs.forEach(x => {    x.foo;    x.x;    x.y;}) : 无值
 >类型别名 :=> 无值
->rs.forEach : (callbackfn: (value: C, index: number, array: C[]) => void, thisArg?: any) => void
+>rs.forEach : (callbackfn: (value: C, index: 数字, array: C[]) => 无值, thisArg?: 任意) => 无值
 >rs : C[]
->forEach : (callbackfn: (value: C, index: number, array: C[]) => void, thisArg?: any) => void
->x => {    x.foo;    x.x;    x.y;} : (x: C) => void
+>forEach : (callbackfn: (value: C, index: 数字, array: C[]) => 无值, thisArg?: 任意) => 无值
+>x => {    x.foo;    x.x;    x.y;} : (x: C) => 无值
 >x : C
 
     x.foo;

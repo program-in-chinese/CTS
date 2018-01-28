@@ -10,7 +10,7 @@ class B<T> {
     constructor(x: T) { return null; }
 >x : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -21,7 +21,7 @@ class C<T> {
     constructor(x: T) { return null; }
 >x : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -46,7 +46,7 @@ interface I2 {
 }
 
 var a: { new<T>(x: T): T }
->a : new <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 >T : T
 >x : T
 >T : T
@@ -60,231 +60,231 @@ var b = { new<T>(x: T): T { return null; } }; // not a construct signature, func
 >x : T
 >T : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 function foo1b(x: B<string>);
->foo1b : { (x: B<string>): any; (x: B<string>): any; }
->x : B<string>
+>foo1b : { (x: B<文字>): 任意; (x: B<文字>): 任意; }
+>x : B<文字>
 >B : B<T>
 
 function foo1b(x: B<string>); // error
->foo1b : { (x: B<string>): any; (x: B<string>): any; }
->x : B<string>
+>foo1b : { (x: B<文字>): 任意; (x: B<文字>): 任意; }
+>x : B<文字>
 >B : B<T>
 
 function foo1b(x: any) { }
->foo1b : { (x: B<string>): any; (x: B<string>): any; }
->x : any
+>foo1b : { (x: B<文字>): 任意; (x: B<文字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo1c(x: C<string>);
->foo1c : { (x: C<string>): any; (x: C<string>): any; }
->x : C<string>
+>foo1c : { (x: C<文字>): 任意; (x: C<文字>): 任意; }
+>x : C<文字>
 >C : C<T>
 
 function foo1c(x: C<string>); // error
->foo1c : { (x: C<string>): any; (x: C<string>): any; }
->x : C<string>
+>foo1c : { (x: C<文字>): 任意; (x: C<文字>): 任意; }
+>x : C<文字>
 >C : C<T>
 
 function foo1c(x: any) { }
->foo1c : { (x: C<string>): any; (x: C<string>): any; }
->x : any
+>foo1c : { (x: C<文字>): 任意; (x: C<文字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo2(x: I<string>);
->foo2 : { (x: I<string>): any; (x: I<string>): any; }
->x : I<string>
+>foo2 : { (x: I<文字>): 任意; (x: I<文字>): 任意; }
+>x : I<文字>
 >I : I<T>
 
 function foo2(x: I<string>); // error
->foo2 : { (x: I<string>): any; (x: I<string>): any; }
->x : I<string>
+>foo2 : { (x: I<文字>): 任意; (x: I<文字>): 任意; }
+>x : I<文字>
 >I : I<T>
 
 function foo2(x: any) { }
->foo2 : { (x: I<string>): any; (x: I<string>): any; }
->x : any
+>foo2 : { (x: I<文字>): 任意; (x: I<文字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo3(x: typeof a);
->foo3 : { (x: new <T>(x: T) => T): any; (x: new <T>(x: T) => T): any; }
->x : new <T>(x: T) => T
->a : new <T>(x: T) => T
+>foo3 : { (x: 新建 <T>(x: T) => T): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : 新建 <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 
 function foo3(x: typeof a); // error
->foo3 : { (x: new <T>(x: T) => T): any; (x: new <T>(x: T) => T): any; }
->x : new <T>(x: T) => T
->a : new <T>(x: T) => T
+>foo3 : { (x: 新建 <T>(x: T) => T): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : 新建 <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 
 function foo3(x: any) { }
->foo3 : { (x: new <T>(x: T) => T): any; (x: new <T>(x: T) => T): any; }
->x : any
+>foo3 : { (x: 新建 <T>(x: T) => T): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo4(x: typeof b);
->foo4 : { (x: { new<T>(x: T): T; }): any; (x: { new<T>(x: T): T; }): any; }
+>foo4 : { (x: { new<T>(x: T): T; }): 任意; (x: { new<T>(x: T): T; }): 任意; }
 >x : { new<T>(x: T): T; }
 >b : { new<T>(x: T): T; }
 
 function foo4(x: typeof b); // error
->foo4 : { (x: { new<T>(x: T): T; }): any; (x: { new<T>(x: T): T; }): any; }
+>foo4 : { (x: { new<T>(x: T): T; }): 任意; (x: { new<T>(x: T): T; }): 任意; }
 >x : { new<T>(x: T): T; }
 >b : { new<T>(x: T): T; }
 
 function foo4(x: any) { }
->foo4 : { (x: { new<T>(x: T): T; }): any; (x: { new<T>(x: T): T; }): any; }
->x : any
+>foo4 : { (x: { new<T>(x: T): T; }): 任意; (x: { new<T>(x: T): T; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo5(x: typeof a): number;
->foo5 : { (x: new <T>(x: T) => T): number; (x: { new<T>(x: T): T; }): string; }
->x : new <T>(x: T) => T
->a : new <T>(x: T) => T
+>foo5 : { (x: 新建 <T>(x: T) => T): 数字; (x: { new<T>(x: T): T; }): 文字; }
+>x : 新建 <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 
 function foo5(x: typeof b): string; // ok
->foo5 : { (x: new <T>(x: T) => T): number; (x: { new<T>(x: T): T; }): string; }
+>foo5 : { (x: 新建 <T>(x: T) => T): 数字; (x: { new<T>(x: T): T; }): 文字; }
 >x : { new<T>(x: T): T; }
 >b : { new<T>(x: T): T; }
 
 function foo5(x: any): any { }
->foo5 : { (x: new <T>(x: T) => T): number; (x: { new<T>(x: T): T; }): string; }
->x : any
+>foo5 : { (x: 新建 <T>(x: T) => T): 数字; (x: { new<T>(x: T): T; }): 文字; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo8(x: B<string>);
->foo8 : { (x: B<string>): any; (x: I<string>): any; }
->x : B<string>
+>foo8 : { (x: B<文字>): 任意; (x: I<文字>): 任意; }
+>x : B<文字>
 >B : B<T>
 
 function foo8(x: I<string>); // ok
->foo8 : { (x: B<string>): any; (x: I<string>): any; }
->x : I<string>
+>foo8 : { (x: B<文字>): 任意; (x: I<文字>): 任意; }
+>x : I<文字>
 >I : I<T>
 
 function foo8(x: any) { }
->foo8 : { (x: B<string>): any; (x: I<string>): any; }
->x : any
+>foo8 : { (x: B<文字>): 任意; (x: I<文字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo9(x: B<string>);
->foo9 : { (x: B<string>): any; (x: C<string>): any; }
->x : B<string>
+>foo9 : { (x: B<文字>): 任意; (x: C<文字>): 任意; }
+>x : B<文字>
 >B : B<T>
 
 function foo9(x: C<string>); // error since types are structurally equal
->foo9 : { (x: B<string>): any; (x: C<string>): any; }
->x : C<string>
+>foo9 : { (x: B<文字>): 任意; (x: C<文字>): 任意; }
+>x : C<文字>
 >C : C<T>
 
 function foo9(x: any) { }
->foo9 : { (x: B<string>): any; (x: C<string>): any; }
->x : any
+>foo9 : { (x: B<文字>): 任意; (x: C<文字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo10(x: B<string>);
->foo10 : { (x: B<string>): any; (x: new <T>(x: T) => T): any; }
->x : B<string>
+>foo10 : { (x: B<文字>): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : B<文字>
 >B : B<T>
 
 function foo10(x: typeof a); // ok
->foo10 : { (x: B<string>): any; (x: new <T>(x: T) => T): any; }
->x : new <T>(x: T) => T
->a : new <T>(x: T) => T
+>foo10 : { (x: B<文字>): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : 新建 <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 
 function foo10(x: any) { }
->foo10 : { (x: B<string>): any; (x: new <T>(x: T) => T): any; }
->x : any
+>foo10 : { (x: B<文字>): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo11(x: B<string>);
->foo11 : { (x: B<string>): any; (x: { new<T>(x: T): T; }): any; }
->x : B<string>
+>foo11 : { (x: B<文字>): 任意; (x: { new<T>(x: T): T; }): 任意; }
+>x : B<文字>
 >B : B<T>
 
 function foo11(x: typeof b); // ok
->foo11 : { (x: B<string>): any; (x: { new<T>(x: T): T; }): any; }
+>foo11 : { (x: B<文字>): 任意; (x: { new<T>(x: T): T; }): 任意; }
 >x : { new<T>(x: T): T; }
 >b : { new<T>(x: T): T; }
 
 function foo11(x: any) { }
->foo11 : { (x: B<string>): any; (x: { new<T>(x: T): T; }): any; }
->x : any
+>foo11 : { (x: B<文字>): 任意; (x: { new<T>(x: T): T; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo12(x: I<string>);
->foo12 : { (x: I<string>): any; (x: C<string>): any; }
->x : I<string>
+>foo12 : { (x: I<文字>): 任意; (x: C<文字>): 任意; }
+>x : I<文字>
 >I : I<T>
 
 function foo12(x: C<string>); // ok
->foo12 : { (x: I<string>): any; (x: C<string>): any; }
->x : C<string>
+>foo12 : { (x: I<文字>): 任意; (x: C<文字>): 任意; }
+>x : C<文字>
 >C : C<T>
 
 function foo12(x: any) { }
->foo12 : { (x: I<string>): any; (x: C<string>): any; }
->x : any
+>foo12 : { (x: I<文字>): 任意; (x: C<文字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo12b(x: I2);
->foo12b : { (x: I2): any; (x: C<string>): any; }
+>foo12b : { (x: I2): 任意; (x: C<文字>): 任意; }
 >x : I2
 >I2 : I2
 
 function foo12b(x: C<string>); // ok
->foo12b : { (x: I2): any; (x: C<string>): any; }
->x : C<string>
+>foo12b : { (x: I2): 任意; (x: C<文字>): 任意; }
+>x : C<文字>
 >C : C<T>
 
 function foo12b(x: any) { }
->foo12b : { (x: I2): any; (x: C<string>): any; }
->x : any
+>foo12b : { (x: I2): 任意; (x: C<文字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo13(x: I<string>);
->foo13 : { (x: I<string>): any; (x: new <T>(x: T) => T): any; }
->x : I<string>
+>foo13 : { (x: I<文字>): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : I<文字>
 >I : I<T>
 
 function foo13(x: typeof a); // ok
->foo13 : { (x: I<string>): any; (x: new <T>(x: T) => T): any; }
->x : new <T>(x: T) => T
->a : new <T>(x: T) => T
+>foo13 : { (x: I<文字>): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : 新建 <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 
 function foo13(x: any) { }
->foo13 : { (x: I<string>): any; (x: new <T>(x: T) => T): any; }
->x : any
+>foo13 : { (x: I<文字>): 任意; (x: 新建 <T>(x: T) => T): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo14(x: I<string>);
->foo14 : { (x: I<string>): any; (x: { new<T>(x: T): T; }): any; }
->x : I<string>
+>foo14 : { (x: I<文字>): 任意; (x: { new<T>(x: T): T; }): 任意; }
+>x : I<文字>
 >I : I<T>
 
 function foo14(x: typeof b); // ok
->foo14 : { (x: I<string>): any; (x: { new<T>(x: T): T; }): any; }
+>foo14 : { (x: I<文字>): 任意; (x: { new<T>(x: T): T; }): 任意; }
 >x : { new<T>(x: T): T; }
 >b : { new<T>(x: T): T; }
 
 function foo14(x: any) { }
->foo14 : { (x: I<string>): any; (x: { new<T>(x: T): T; }): any; }
->x : any
+>foo14 : { (x: I<文字>): 任意; (x: { new<T>(x: T): T; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo15(x: I2);
->foo15 : { (x: I2): any; (x: C<number>): any; }
+>foo15 : { (x: I2): 任意; (x: C<数字>): 任意; }
 >x : I2
 >I2 : I2
 
 function foo15(x: C<number>); // ok
->foo15 : { (x: I2): any; (x: C<number>): any; }
->x : C<number>
+>foo15 : { (x: I2): 任意; (x: C<数字>): 任意; }
+>x : C<数字>
 >C : C<T>
 
 function foo15(x: any) { }
->foo15 : { (x: I2): any; (x: C<number>): any; }
->x : any
+>foo15 : { (x: I2): 任意; (x: C<数字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 

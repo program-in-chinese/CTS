@@ -1,79 +1,79 @@
 === tests/cases/compiler/castTest.ts ===
 var x : any = 0;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >0 : 0
 
 var z = <number> x;
->z : number
+>z : 数字
 >类型别名 :=> 数字
-><number> x : number
+><number> x : 数字
 >类型别名 :=> 数字
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 var y = x + z;
->y : any
+>y : 任意
 >类型别名 :=> 任意
->x + z : any
+>x + z : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
->z : number
+>z : 数字
 >类型别名 :=> 数字
 
 var a = <any>0;
->a : any
+>a : 任意
 >类型别名 :=> 任意
-><any>0 : any
+><any>0 : 任意
 >类型别名 :=> 任意
 >0 : 0
 
 var b = <boolean>true;
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
-><boolean>true : boolean
+><boolean>true : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 var s = <string>"";
->s : string
+>s : 文字
 >类型别名 :=> 文字
-><string>"" : string
+><string>"" : 文字
 >类型别名 :=> 文字
 >"" : ""
 
 var ar = <any[]>null;
->ar : any[]
-><any[]>null : any[]
->null : null
+>ar : 任意[]
+><any[]>null : 任意[]
+>null : 空值
 >类型别名 :=> 空值
 
 var f = <(res : number) => void>null;
->f : (res: number) => void
-><(res : number) => void>null : (res: number) => void
->res : number
+>f : (res: 数字) => 无值
+><(res : number) => void>null : (res: 数字) => 无值
+>res : 数字
 >类型别名 :=> 数字
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 declare class Point
 >Point : Point
 {
     x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
     add(dx: number, dy: number): Point;
->add : (dx: number, dy: number) => Point
->dx : number
+>add : (dx: 数字, dy: 数字) => Point
+>dx : 数字
 >类型别名 :=> 数字
->dy : number
+>dy : 数字
 >类型别名 :=> 数字
 >Point : Point
 
@@ -84,9 +84,9 @@ declare class Point
 >Point : Point
 
     constructor(x: number, y: number);
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 }
 
@@ -94,49 +94,49 @@ var p_cast = <Point> ({
 >p_cast : Point
 ><Point> ({    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    },    mult: function(p) { return p; }}) : Point
 >Point : Point
->({    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    },    mult: function(p) { return p; }}) : { x: number; y: number; add: (dx: number, dy: number) => Point; mult: (p: Point) => Point; }
->{    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    },    mult: function(p) { return p; }} : { x: number; y: number; add: (dx: number, dy: number) => Point; mult: (p: Point) => Point; }
+>({    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    },    mult: function(p) { return p; }}) : { x: 数字; y: 数字; add: (dx: 数字, dy: 数字) => Point; mult: (p: Point) => Point; }
+>{    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    },    mult: function(p) { return p; }} : { x: 数字; y: 数字; add: (dx: 数字, dy: 数字) => Point; mult: (p: Point) => Point; }
 
     x: 0,
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
 
     y: 0,
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
 
     add: function(dx, dy) {
->add : (dx: number, dy: number) => Point
->function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    } : (dx: number, dy: number) => Point
->dx : number
+>add : (dx: 数字, dy: 数字) => Point
+>function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    } : (dx: 数字, dy: 数字) => Point
+>dx : 数字
 >类型别名 :=> 数字
->dy : number
+>dy : 数字
 >类型别名 :=> 数字
 
         return new Point(this.x + dx, this.y + dy);
 >new Point(this.x + dx, this.y + dy) : Point
->Point : typeof Point
->this.x + dx : any
+>Point : 类为 Point
+>this.x + dx : 任意
 >类型别名 :=> 任意
->this.x : any
+>this.x : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
->dx : number
+>dx : 数字
 >类型别名 :=> 数字
->this.y + dy : any
+>this.y + dy : 任意
 >类型别名 :=> 任意
->this.y : any
+>this.y : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->y : any
+>y : 任意
 >类型别名 :=> 任意
->dy : number
+>dy : 数字
 >类型别名 :=> 数字
 
     },

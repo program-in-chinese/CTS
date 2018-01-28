@@ -3,11 +3,11 @@ class Base {
 >Base : Base
 
     x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     constructor(a) { }
->a : any
+>a : 任意
 >类型别名 :=> 任意
 }
 
@@ -17,10 +17,10 @@ class Derived extends Base {
 
     constructor() {
         super(this); // ok
->super(this) : void
+>super(this) : 无值
 >类型别名 :=> 无值
->super : typeof Base
->this : this
+>super : 类为 Base
+>this : 本体
     }
 }
 
@@ -29,14 +29,14 @@ class Derived2 extends Base {
 >Base : Base
 
     constructor(public a: string) {
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         super(this); // error
->super(this) : void
+>super(this) : 无值
 >类型别名 :=> 无值
->super : typeof Base
->this : this
+>super : 类为 Base
+>this : 本体
     }
 }
 
@@ -45,15 +45,15 @@ class Derived3 extends Base {
 >Base : Base
 
     constructor(public a: string) {
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         super(() => this); // error
->super(() => this) : void
+>super(() => this) : 无值
 >类型别名 :=> 无值
->super : typeof Base
->() => this : () => this
->this : this
+>super : 类为 Base
+>() => this : () => 本体
+>this : 本体
     }
 }
 
@@ -62,15 +62,15 @@ class Derived4 extends Base {
 >Base : Base
 
     constructor(public a: string) {
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         super(function () { return this; }); // ok
->super(function () { return this; }) : void
+>super(function () { return this; }) : 无值
 >类型别名 :=> 无值
->super : typeof Base
->function () { return this; } : () => any
->this : any
+>super : 类为 Base
+>function () { return this; } : () => 任意
+>this : 任意
 >类型别名 :=> 任意
     }
 }

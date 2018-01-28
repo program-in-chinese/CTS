@@ -1,56 +1,56 @@
 === tests/cases/compiler/arrayFind.ts ===
 // test fix for #18112, type guard predicates should narrow returned element
 function isNumber(x: any): x is number {
->isNumber : (x: any) => x is number
->x : any
+>isNumber : (x: 任意) => x 作为 数字
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
   return typeof x === "number";
->typeof x === "number" : boolean
+>typeof x === "number" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >"number" : "number"
 }
 
 const arrayOfStringsNumbersAndBooleans = ["string", false, 0, "strung", 1, true];
->arrayOfStringsNumbersAndBooleans : (string | number | boolean)[]
->["string", false, 0, "strung", 1, true] : (string | number | boolean)[]
+>arrayOfStringsNumbersAndBooleans : (文字 | 数字 | 真假)[]
+>["string", false, 0, "strung", 1, true] : (文字 | 数字 | 真假)[]
 >"string" : "string"
->false : false
+>false : 为假
 >类型别名 :=> 为假
 >0 : 0
 >"strung" : "strung"
 >1 : 1
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 const foundNumber: number | undefined = arrayOfStringsNumbersAndBooleans.find(isNumber);
->foundNumber : number
+>foundNumber : 数字
 >类型别名 :=> 数字
->arrayOfStringsNumbersAndBooleans.find(isNumber) : number
+>arrayOfStringsNumbersAndBooleans.find(isNumber) : 数字
 >类型别名 :=> 数字
->arrayOfStringsNumbersAndBooleans.find : { <S extends string | number | boolean>(predicate: (this: void, value: string | number | boolean, index: number, obj: (string | number | boolean)[]) => value is S, thisArg?: any): S; (predicate: (value: string | number | boolean, index: number, obj: (string | number | boolean)[]) => boolean, thisArg?: any): string | number | boolean; }
->arrayOfStringsNumbersAndBooleans : (string | number | boolean)[]
->find : { <S extends string | number | boolean>(predicate: (this: void, value: string | number | boolean, index: number, obj: (string | number | boolean)[]) => value is S, thisArg?: any): S; (predicate: (value: string | number | boolean, index: number, obj: (string | number | boolean)[]) => boolean, thisArg?: any): string | number | boolean; }
->isNumber : (x: any) => x is number
+>arrayOfStringsNumbersAndBooleans.find : { <S 扩展 文字 | 数字 | 真假>(predicate: (this: 无值, value: 文字 | 数字 | 真假, index: 数字, obj: (文字 | 数字 | 真假)[]) => value 作为 S, thisArg?: 任意): S; (predicate: (value: 文字 | 数字 | 真假, index: 数字, obj: (文字 | 数字 | 真假)[]) => 真假, thisArg?: 任意): 文字 | 数字 | 真假; }
+>arrayOfStringsNumbersAndBooleans : (文字 | 数字 | 真假)[]
+>find : { <S 扩展 文字 | 数字 | 真假>(predicate: (this: 无值, value: 文字 | 数字 | 真假, index: 数字, obj: (文字 | 数字 | 真假)[]) => value 作为 S, thisArg?: 任意): S; (predicate: (value: 文字 | 数字 | 真假, index: 数字, obj: (文字 | 数字 | 真假)[]) => 真假, thisArg?: 任意): 文字 | 数字 | 真假; }
+>isNumber : (x: 任意) => x 作为 数字
 
 const readonlyArrayOfStringsNumbersAndBooleans = arrayOfStringsNumbersAndBooleans as ReadonlyArray<string | number | boolean>;
->readonlyArrayOfStringsNumbersAndBooleans : ReadonlyArray<string | number | boolean>
->arrayOfStringsNumbersAndBooleans as ReadonlyArray<string | number | boolean> : ReadonlyArray<string | number | boolean>
->arrayOfStringsNumbersAndBooleans : (string | number | boolean)[]
+>readonlyArrayOfStringsNumbersAndBooleans : ReadonlyArray<文字 | 数字 | 真假>
+>arrayOfStringsNumbersAndBooleans as ReadonlyArray<string | number | boolean> : ReadonlyArray<文字 | 数字 | 真假>
+>arrayOfStringsNumbersAndBooleans : (文字 | 数字 | 真假)[]
 >ReadonlyArray : ReadonlyArray<T>
 
 const readonlyFoundNumber: number | undefined = readonlyArrayOfStringsNumbersAndBooleans.find(isNumber);
->readonlyFoundNumber : number
+>readonlyFoundNumber : 数字
 >类型别名 :=> 数字
->readonlyArrayOfStringsNumbersAndBooleans.find(isNumber) : number
+>readonlyArrayOfStringsNumbersAndBooleans.find(isNumber) : 数字
 >类型别名 :=> 数字
->readonlyArrayOfStringsNumbersAndBooleans.find : { <S extends string | number | boolean>(predicate: (this: void, value: string | number | boolean, index: number, obj: ReadonlyArray<string | number | boolean>) => value is S, thisArg?: any): S; (predicate: (value: string | number | boolean, index: number, obj: ReadonlyArray<string | number | boolean>) => boolean, thisArg?: any): string | number | boolean; }
->readonlyArrayOfStringsNumbersAndBooleans : ReadonlyArray<string | number | boolean>
->find : { <S extends string | number | boolean>(predicate: (this: void, value: string | number | boolean, index: number, obj: ReadonlyArray<string | number | boolean>) => value is S, thisArg?: any): S; (predicate: (value: string | number | boolean, index: number, obj: ReadonlyArray<string | number | boolean>) => boolean, thisArg?: any): string | number | boolean; }
->isNumber : (x: any) => x is number
+>readonlyArrayOfStringsNumbersAndBooleans.find : { <S 扩展 文字 | 数字 | 真假>(predicate: (this: 无值, value: 文字 | 数字 | 真假, index: 数字, obj: ReadonlyArray<文字 | 数字 | 真假>) => value 作为 S, thisArg?: 任意): S; (predicate: (value: 文字 | 数字 | 真假, index: 数字, obj: ReadonlyArray<文字 | 数字 | 真假>) => 真假, thisArg?: 任意): 文字 | 数字 | 真假; }
+>readonlyArrayOfStringsNumbersAndBooleans : ReadonlyArray<文字 | 数字 | 真假>
+>find : { <S 扩展 文字 | 数字 | 真假>(predicate: (this: 无值, value: 文字 | 数字 | 真假, index: 数字, obj: ReadonlyArray<文字 | 数字 | 真假>) => value 作为 S, thisArg?: 任意): S; (predicate: (value: 文字 | 数字 | 真假, index: 数字, obj: ReadonlyArray<文字 | 数字 | 真假>) => 真假, thisArg?: 任意): 文字 | 数字 | 真假; }
+>isNumber : (x: 任意) => x 作为 数字
 

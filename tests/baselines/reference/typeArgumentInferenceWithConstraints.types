@@ -1,315 +1,315 @@
 === tests/cases/conformance/expressions/functionCalls/typeArgumentInferenceWithConstraints.ts ===
 // Generic call with no parameters
 function noParams<T extends {}>() { }
->noParams : <T extends {}>() => void
+>noParams : <T 扩展 {}>() => 无值
 >T : T
 
 noParams();
->noParams() : void
+>noParams() : 无值
 >类型别名 :=> 无值
->noParams : <T extends {}>() => void
+>noParams : <T 扩展 {}>() => 无值
 
 noParams<string>();
->noParams<string>() : void
+>noParams<string>() : 无值
 >类型别名 :=> 无值
->noParams : <T extends {}>() => void
+>noParams : <T 扩展 {}>() => 无值
 
 noParams<{}>();
->noParams<{}>() : void
+>noParams<{}>() : 无值
 >类型别名 :=> 无值
->noParams : <T extends {}>() => void
+>noParams : <T 扩展 {}>() => 无值
 
 // Generic call with parameters but none use type parameter type
 function noGenericParams<T extends number>(n: string) { }
->noGenericParams : <T extends number>(n: string) => void
+>noGenericParams : <T 扩展 数字>(n: 文字) => 无值
 >T : T
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 noGenericParams(''); // Valid
->noGenericParams('') : void
+>noGenericParams('') : 无值
 >类型别名 :=> 无值
->noGenericParams : <T extends number>(n: string) => void
+>noGenericParams : <T 扩展 数字>(n: 文字) => 无值
 >'' : ""
 
 noGenericParams<number>('');
->noGenericParams<number>('') : void
+>noGenericParams<number>('') : 无值
 >类型别名 :=> 无值
->noGenericParams : <T extends number>(n: string) => void
+>noGenericParams : <T 扩展 数字>(n: 文字) => 无值
 >'' : ""
 
 noGenericParams<{}>(''); // Error
->noGenericParams<{}>('') : any
+>noGenericParams<{}>('') : 任意
 >类型别名 :=> 任意
->noGenericParams : <T extends number>(n: string) => void
+>noGenericParams : <T 扩展 数字>(n: 文字) => 无值
 >'' : ""
 
 // Generic call with multiple type parameters and only one used in parameter type annotation
 function someGenerics1<T, U extends T>(n: T, m: number) { }
->someGenerics1 : <T, U extends T>(n: T, m: number) => void
+>someGenerics1 : <T, U 扩展 T>(n: T, m: 数字) => 无值
 >T : T
 >U : U
 >T : T
 >n : T
 >T : T
->m : number
+>m : 数字
 >类型别名 :=> 数字
 
 someGenerics1(3, 4); // Valid
->someGenerics1(3, 4) : void
+>someGenerics1(3, 4) : 无值
 >类型别名 :=> 无值
->someGenerics1 : <T, U extends T>(n: T, m: number) => void
+>someGenerics1 : <T, U 扩展 T>(n: T, m: 数字) => 无值
 >3 : 3
 >4 : 4
 
 someGenerics1<string, number>(3, 4); // Error
->someGenerics1<string, number>(3, 4) : any
+>someGenerics1<string, number>(3, 4) : 任意
 >类型别名 :=> 任意
->someGenerics1 : <T, U extends T>(n: T, m: number) => void
+>someGenerics1 : <T, U 扩展 T>(n: T, m: 数字) => 无值
 >3 : 3
 >4 : 4
 
 someGenerics1<number, {}>(3, 4); // Error
->someGenerics1<number, {}>(3, 4) : any
+>someGenerics1<number, {}>(3, 4) : 任意
 >类型别名 :=> 任意
->someGenerics1 : <T, U extends T>(n: T, m: number) => void
+>someGenerics1 : <T, U 扩展 T>(n: T, m: 数字) => 无值
 >3 : 3
 >4 : 4
 
 someGenerics1<number, number>(3, 4);
->someGenerics1<number, number>(3, 4) : void
+>someGenerics1<number, number>(3, 4) : 无值
 >类型别名 :=> 无值
->someGenerics1 : <T, U extends T>(n: T, m: number) => void
+>someGenerics1 : <T, U 扩展 T>(n: T, m: 数字) => 无值
 >3 : 3
 >4 : 4
 
 // Generic call with argument of function type whose parameter is of type parameter type
 function someGenerics2a<T extends string>(n: (x: T) => void) { }
->someGenerics2a : <T extends string>(n: (x: T) => void) => void
+>someGenerics2a : <T 扩展 文字>(n: (x: T) => 无值) => 无值
 >T : T
->n : (x: T) => void
+>n : (x: T) => 无值
 >x : T
 >T : T
 
 someGenerics2a((n: string) => n);
->someGenerics2a((n: string) => n) : void
+>someGenerics2a((n: string) => n) : 无值
 >类型别名 :=> 无值
->someGenerics2a : <T extends string>(n: (x: T) => void) => void
->(n: string) => n : (n: string) => string
->n : string
+>someGenerics2a : <T 扩展 文字>(n: (x: T) => 无值) => 无值
+>(n: string) => n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 someGenerics2a<string>((n: string) => n);
->someGenerics2a<string>((n: string) => n) : void
+>someGenerics2a<string>((n: string) => n) : 无值
 >类型别名 :=> 无值
->someGenerics2a : <T extends string>(n: (x: T) => void) => void
->(n: string) => n : (n: string) => string
->n : string
+>someGenerics2a : <T 扩展 文字>(n: (x: T) => 无值) => 无值
+>(n: string) => n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 someGenerics2a<string>((n) => n.substr(0));
->someGenerics2a<string>((n) => n.substr(0)) : void
+>someGenerics2a<string>((n) => n.substr(0)) : 无值
 >类型别名 :=> 无值
->someGenerics2a : <T extends string>(n: (x: T) => void) => void
->(n) => n.substr(0) : (n: string) => string
->n : string
+>someGenerics2a : <T 扩展 文字>(n: (x: T) => 无值) => 无值
+>(n) => n.substr(0) : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n.substr(0) : string
+>n.substr(0) : 文字
 >类型别名 :=> 文字
->n.substr : (from: number, length?: number) => string
->n : string
+>n.substr : (from: 数字, length?: 数字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->substr : (from: number, length?: number) => string
+>substr : (from: 数字, length?: 数字) => 文字
 >0 : 0
 
 function someGenerics2b<T extends string, U extends number>(n: (x: T, y: U) => void) { }
->someGenerics2b : <T extends string, U extends number>(n: (x: T, y: U) => void) => void
+>someGenerics2b : <T 扩展 文字, U 扩展 数字>(n: (x: T, y: U) => 无值) => 无值
 >T : T
 >U : U
->n : (x: T, y: U) => void
+>n : (x: T, y: U) => 无值
 >x : T
 >T : T
 >y : U
 >U : U
 
 someGenerics2b((n: string, x: number) => n);
->someGenerics2b((n: string, x: number) => n) : void
+>someGenerics2b((n: string, x: number) => n) : 无值
 >类型别名 :=> 无值
->someGenerics2b : <T extends string, U extends number>(n: (x: T, y: U) => void) => void
->(n: string, x: number) => n : (n: string, x: number) => string
->n : string
+>someGenerics2b : <T 扩展 文字, U 扩展 数字>(n: (x: T, y: U) => 无值) => 无值
+>(n: string, x: number) => n : (n: 文字, x: 数字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->x : number
+>x : 数字
 >类型别名 :=> 数字
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 someGenerics2b<string, number>((n: string, t: number) => n);
->someGenerics2b<string, number>((n: string, t: number) => n) : void
+>someGenerics2b<string, number>((n: string, t: number) => n) : 无值
 >类型别名 :=> 无值
->someGenerics2b : <T extends string, U extends number>(n: (x: T, y: U) => void) => void
->(n: string, t: number) => n : (n: string, t: number) => string
->n : string
+>someGenerics2b : <T 扩展 文字, U 扩展 数字>(n: (x: T, y: U) => 无值) => 无值
+>(n: string, t: number) => n : (n: 文字, t: 数字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->t : number
+>t : 数字
 >类型别名 :=> 数字
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 someGenerics2b<string, number>((n, t) => n.substr(t * t));
->someGenerics2b<string, number>((n, t) => n.substr(t * t)) : void
+>someGenerics2b<string, number>((n, t) => n.substr(t * t)) : 无值
 >类型别名 :=> 无值
->someGenerics2b : <T extends string, U extends number>(n: (x: T, y: U) => void) => void
->(n, t) => n.substr(t * t) : (n: string, t: number) => string
->n : string
+>someGenerics2b : <T 扩展 文字, U 扩展 数字>(n: (x: T, y: U) => 无值) => 无值
+>(n, t) => n.substr(t * t) : (n: 文字, t: 数字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->t : number
+>t : 数字
 >类型别名 :=> 数字
->n.substr(t * t) : string
+>n.substr(t * t) : 文字
 >类型别名 :=> 文字
->n.substr : (from: number, length?: number) => string
->n : string
+>n.substr : (from: 数字, length?: 数字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->substr : (from: number, length?: number) => string
->t * t : number
+>substr : (from: 数字, length?: 数字) => 文字
+>t * t : 数字
 >类型别名 :=> 数字
->t : number
+>t : 数字
 >类型别名 :=> 数字
->t : number
+>t : 数字
 >类型别名 :=> 数字
 
 // Generic call with argument of function type whose parameter is not of type parameter type but body/return type uses type parameter
 function someGenerics3<T extends Window>(producer: () => T) { }
->someGenerics3 : <T extends any>(producer: () => T) => void
+>someGenerics3 : <T 扩展 任意>(producer: () => T) => 无值
 >T : T
 >Window : No type information available!
 >producer : () => T
 >T : T
 
 someGenerics3(() => ''); // Error
->someGenerics3(() => '') : void
+>someGenerics3(() => '') : 无值
 >类型别名 :=> 无值
->someGenerics3 : <T extends any>(producer: () => T) => void
->() => '' : () => string
+>someGenerics3 : <T 扩展 任意>(producer: () => T) => 无值
+>() => '' : () => 文字
 >'' : ""
 
 someGenerics3<Window>(() => undefined);
->someGenerics3<Window>(() => undefined) : void
+>someGenerics3<Window>(() => undefined) : 无值
 >类型别名 :=> 无值
->someGenerics3 : <T extends any>(producer: () => T) => void
+>someGenerics3 : <T 扩展 任意>(producer: () => T) => 无值
 >Window : No type information available!
->() => undefined : () => any
->undefined : undefined
+>() => undefined : () => 任意
+>undefined : 未定
 >类型别名 :=> 未定
 
 someGenerics3<number>(() => 3); // Error
->someGenerics3<number>(() => 3) : void
+>someGenerics3<number>(() => 3) : 无值
 >类型别名 :=> 无值
->someGenerics3 : <T extends any>(producer: () => T) => void
->() => 3 : () => number
+>someGenerics3 : <T 扩展 任意>(producer: () => T) => 无值
+>() => 3 : () => 数字
 >3 : 3
 
 // 2 parameter generic call with argument 1 of type parameter type and argument 2 of function type whose parameter is of type parameter type
 function someGenerics4<T, U extends number>(n: T, f: (x: U) => void) { }
->someGenerics4 : <T, U extends number>(n: T, f: (x: U) => void) => void
+>someGenerics4 : <T, U 扩展 数字>(n: T, f: (x: U) => 无值) => 无值
 >T : T
 >U : U
 >n : T
 >T : T
->f : (x: U) => void
+>f : (x: U) => 无值
 >x : U
 >U : U
 
 someGenerics4(4, () => null); // Valid
->someGenerics4(4, () => null) : void
+>someGenerics4(4, () => null) : 无值
 >类型别名 :=> 无值
->someGenerics4 : <T, U extends number>(n: T, f: (x: U) => void) => void
+>someGenerics4 : <T, U 扩展 数字>(n: T, f: (x: U) => 无值) => 无值
 >4 : 4
->() => null : () => any
->null : null
+>() => null : () => 任意
+>null : 空值
 >类型别名 :=> 空值
 
 someGenerics4<string, number>('', () => 3);
->someGenerics4<string, number>('', () => 3) : void
+>someGenerics4<string, number>('', () => 3) : 无值
 >类型别名 :=> 无值
->someGenerics4 : <T, U extends number>(n: T, f: (x: U) => void) => void
+>someGenerics4 : <T, U 扩展 数字>(n: T, f: (x: U) => 无值) => 无值
 >'' : ""
->() => 3 : () => number
+>() => 3 : () => 数字
 >3 : 3
 
 someGenerics4<string, number>('', (x: string) => ''); // Error
->someGenerics4<string, number>('', (x: string) => '') : any
+>someGenerics4<string, number>('', (x: string) => '') : 任意
 >类型别名 :=> 任意
->someGenerics4 : <T, U extends number>(n: T, f: (x: U) => void) => void
+>someGenerics4 : <T, U 扩展 数字>(n: T, f: (x: U) => 无值) => 无值
 >'' : ""
->(x: string) => '' : (x: string) => string
->x : string
+>(x: string) => '' : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 someGenerics4<string, number>(null, null);
->someGenerics4<string, number>(null, null) : void
+>someGenerics4<string, number>(null, null) : 无值
 >类型别名 :=> 无值
->someGenerics4 : <T, U extends number>(n: T, f: (x: U) => void) => void
->null : null
+>someGenerics4 : <T, U 扩展 数字>(n: T, f: (x: U) => 无值) => 无值
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // 2 parameter generic call with argument 2 of type parameter type and argument 1 of function type whose parameter is of type parameter type
 function someGenerics5<U extends number, T>(n: T, f: (x: U) => void) { }
->someGenerics5 : <U extends number, T>(n: T, f: (x: U) => void) => void
+>someGenerics5 : <U 扩展 数字, T>(n: T, f: (x: U) => 无值) => 无值
 >U : U
 >T : T
 >n : T
 >T : T
->f : (x: U) => void
+>f : (x: U) => 无值
 >x : U
 >U : U
 
 someGenerics5(4, () => null); // Valid
->someGenerics5(4, () => null) : void
+>someGenerics5(4, () => null) : 无值
 >类型别名 :=> 无值
->someGenerics5 : <U extends number, T>(n: T, f: (x: U) => void) => void
+>someGenerics5 : <U 扩展 数字, T>(n: T, f: (x: U) => 无值) => 无值
 >4 : 4
->() => null : () => any
->null : null
+>() => null : () => 任意
+>null : 空值
 >类型别名 :=> 空值
 
 someGenerics5<number, string>('', () => 3);
->someGenerics5<number, string>('', () => 3) : void
+>someGenerics5<number, string>('', () => 3) : 无值
 >类型别名 :=> 无值
->someGenerics5 : <U extends number, T>(n: T, f: (x: U) => void) => void
+>someGenerics5 : <U 扩展 数字, T>(n: T, f: (x: U) => 无值) => 无值
 >'' : ""
->() => 3 : () => number
+>() => 3 : () => 数字
 >3 : 3
 
 someGenerics5<number, string>('', (x: string) => ''); // Error
->someGenerics5<number, string>('', (x: string) => '') : any
+>someGenerics5<number, string>('', (x: string) => '') : 任意
 >类型别名 :=> 任意
->someGenerics5 : <U extends number, T>(n: T, f: (x: U) => void) => void
+>someGenerics5 : <U 扩展 数字, T>(n: T, f: (x: U) => 无值) => 无值
 >'' : ""
->(x: string) => '' : (x: string) => string
->x : string
+>(x: string) => '' : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 someGenerics5<string, number>(null, null); // Error
->someGenerics5<string, number>(null, null) : any
+>someGenerics5<string, number>(null, null) : 任意
 >类型别名 :=> 任意
->someGenerics5 : <U extends number, T>(n: T, f: (x: U) => void) => void
->null : null
+>someGenerics5 : <U 扩展 数字, T>(n: T, f: (x: U) => 无值) => 无值
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // Generic call with multiple arguments of function types that each have parameters of the same generic type
 function someGenerics6<A extends number>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) { }
->someGenerics6 : <A extends number>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
+>someGenerics6 : <A 扩展 数字>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => 无值
 >A : A
 >a : (a: A) => A
 >a : A
@@ -325,88 +325,88 @@ function someGenerics6<A extends number>(a: (a: A) => A, b: (b: A) => A, c: (c: 
 >A : A
 
 someGenerics6(n => n, n => n, n => n); // Valid
->someGenerics6(n => n, n => n, n => n) : void
+>someGenerics6(n => n, n => n, n => n) : 无值
 >类型别名 :=> 无值
->someGenerics6 : <A extends number>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
->n => n : (n: number) => number
->n : number
+>someGenerics6 : <A 扩展 数字>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => 无值
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->n => n : (n: number) => number
->n : number
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->n => n : (n: number) => number
->n : number
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 someGenerics6<number>(n => n, n => n, n => n);
->someGenerics6<number>(n => n, n => n, n => n) : void
+>someGenerics6<number>(n => n, n => n, n => n) : 无值
 >类型别名 :=> 无值
->someGenerics6 : <A extends number>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
->n => n : (n: number) => number
->n : number
+>someGenerics6 : <A 扩展 数字>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => 无值
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->n => n : (n: number) => number
->n : number
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->n => n : (n: number) => number
->n : number
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n); // Error
->someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n) : any
+>someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n) : 任意
 >类型别名 :=> 任意
->someGenerics6 : <A extends number>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
->(n: number) => n : (n: number) => number
->n : number
+>someGenerics6 : <A 扩展 数字>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => 无值
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->(n: string) => n : (n: string) => string
->n : string
+>(n: string) => n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n : string
+>n : 文字
 >类型别名 :=> 文字
->(n: number) => n : (n: number) => number
->n : number
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 someGenerics6<number>((n: number) => n, (n: number) => n, (n: number) => n);
->someGenerics6<number>((n: number) => n, (n: number) => n, (n: number) => n) : void
+>someGenerics6<number>((n: number) => n, (n: number) => n, (n: number) => n) : 无值
 >类型别名 :=> 无值
->someGenerics6 : <A extends number>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
->(n: number) => n : (n: number) => number
->n : number
+>someGenerics6 : <A 扩展 数字>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => 无值
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->(n: number) => n : (n: number) => number
->n : number
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->(n: number) => n : (n: number) => number
->n : number
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 // Generic call with multiple arguments of function types that each have parameters of different generic type
 function someGenerics7<A, B extends string, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) { }
->someGenerics7 : <A, B extends string, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
+>someGenerics7 : <A, B 扩展 文字, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => 无值
 >A : A
 >B : B
 >C : C
@@ -424,64 +424,64 @@ function someGenerics7<A, B extends string, C>(a: (a: A) => A, b: (b: B) => B, c
 >C : C
 
 someGenerics7(n => n, n => n, n => n); // Valid, types of n are <any, string, any> respectively
->someGenerics7(n => n, n => n, n => n) : void
+>someGenerics7(n => n, n => n, n => n) : 无值
 >类型别名 :=> 无值
->someGenerics7 : <A, B extends string, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
+>someGenerics7 : <A, B 扩展 文字, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => 无值
 >n => n : (n: {}) => {}
 >n : {}
 >n : {}
->n => n : (n: string) => string
->n : string
+>n => n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n : string
+>n : 文字
 >类型别名 :=> 文字
 >n => n : (n: {}) => {}
 >n : {}
 >n : {}
 
 someGenerics7<number, string, number>(n => n, n => n, n => n);
->someGenerics7<number, string, number>(n => n, n => n, n => n) : void
+>someGenerics7<number, string, number>(n => n, n => n, n => n) : 无值
 >类型别名 :=> 无值
->someGenerics7 : <A, B extends string, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
->n => n : (n: number) => number
->n : number
+>someGenerics7 : <A, B 扩展 文字, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => 无值
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->n => n : (n: string) => string
->n : string
+>n => n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n : string
+>n : 文字
 >类型别名 :=> 文字
->n => n : (n: number) => number
->n : number
+>n => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 someGenerics7<number, string, number>((n: number) => n, (n: string) => n, (n: number) => n);
->someGenerics7<number, string, number>((n: number) => n, (n: string) => n, (n: number) => n) : void
+>someGenerics7<number, string, number>((n: number) => n, (n: string) => n, (n: number) => n) : 无值
 >类型别名 :=> 无值
->someGenerics7 : <A, B extends string, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
->(n: number) => n : (n: number) => number
->n : number
+>someGenerics7 : <A, B 扩展 文字, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => 无值
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->(n: string) => n : (n: string) => string
->n : string
+>(n: string) => n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n : string
+>n : 文字
 >类型别名 :=> 文字
->(n: number) => n : (n: number) => number
->n : number
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 // Generic call with argument of generic function type
 function someGenerics8<T extends string>(n: T): T { return n; }
->someGenerics8 : <T extends string>(n: T) => T
+>someGenerics8 : <T 扩展 文字>(n: T) => T
 >T : T
 >n : T
 >T : T
@@ -489,28 +489,28 @@ function someGenerics8<T extends string>(n: T): T { return n; }
 >n : T
 
 var x = someGenerics8<string>(someGenerics7); // Error
->x : any
+>x : 任意
 >类型别名 :=> 任意
->someGenerics8<string>(someGenerics7) : any
+>someGenerics8<string>(someGenerics7) : 任意
 >类型别名 :=> 任意
->someGenerics8 : <T extends string>(n: T) => T
->someGenerics7 : <A, B extends string, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => void
+>someGenerics8 : <T 扩展 文字>(n: T) => T
+>someGenerics7 : <A, B 扩展 文字, C>(a: (a: A) => A, b: (b: B) => B, c: (c: C) => C) => 无值
 
 x<string, string, string>(null, null, null); // Error
->x<string, string, string>(null, null, null) : any
+>x<string, string, string>(null, null, null) : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // Generic call with multiple parameters of generic type passed arguments with no best common type
 function someGenerics9<T extends any>(a: T, b: T, c: T): T {
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
 >T : T
 >a : T
 >T : T
@@ -521,47 +521,47 @@ function someGenerics9<T extends any>(a: T, b: T, c: T): T {
 >T : T
 
     return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 var a9a = someGenerics9('', 0, []);
->a9a : any
+>a9a : 任意
 >类型别名 :=> 任意
->someGenerics9('', 0, []) : any
+>someGenerics9('', 0, []) : 任意
 >类型别名 :=> 任意
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
 >'' : ""
 >0 : 0
->[] : undefined[]
+>[] : 未定[]
 
 var a9a: {};
->a9a : any
+>a9a : 任意
 >类型别名 :=> 任意
 
 var a9b = someGenerics9<{ a?: number; b?: string; }>({ a: 0 }, { b: '' }, null);
->a9b : { a?: number; b?: string; }
->someGenerics9<{ a?: number; b?: string; }>({ a: 0 }, { b: '' }, null) : { a?: number; b?: string; }
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
->a : number
+>a9b : { a?: 数字; b?: 文字; }
+>someGenerics9<{ a?: number; b?: string; }>({ a: 0 }, { b: '' }, null) : { a?: 数字; b?: 文字; }
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->{ a: 0 } : { a: number; }
->a : number
+>{ a: 0 } : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >0 : 0
->{ b: '' } : { b: string; }
->b : string
+>{ b: '' } : { b: 文字; }
+>b : 文字
 >类型别名 :=> 文字
 >'' : ""
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var a9b: { a?: number; b?: string; };
->a9b : { a?: number; b?: string; }
->a : number
+>a9b : { a?: 数字; b?: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
 // Generic call with multiple parameters of generic type passed arguments with multiple best common types
@@ -569,138 +569,138 @@ interface A91 {
 >A91 : A91
 
     x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     y?: string;
->y : string
+>y : 文字
 >类型别名 :=> 文字
 }
 interface A92 {
 >A92 : A92
 
     x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     z?: Window;
->z : any
+>z : 任意
 >类型别名 :=> 任意
 >Window : No type information available!
 }
 var a9e = someGenerics9(undefined, { x: 6, z: window }, { x: 6, y: '' });
->a9e : any
+>a9e : 任意
 >类型别名 :=> 任意
->someGenerics9(undefined, { x: 6, z: window }, { x: 6, y: '' }) : any
+>someGenerics9(undefined, { x: 6, z: window }, { x: 6, y: '' }) : 任意
 >类型别名 :=> 任意
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
->undefined : undefined
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
+>undefined : 未定
 >类型别名 :=> 未定
->{ x: 6, z: window } : { x: number; z: any; }
->x : number
+>{ x: 6, z: window } : { x: 数字; z: 任意; }
+>x : 数字
 >类型别名 :=> 数字
 >6 : 6
->z : any
+>z : 任意
 >类型别名 :=> 任意
->window : any
+>window : 任意
 >类型别名 :=> 任意
->{ x: 6, y: '' } : { x: number; y: string; }
->x : number
+>{ x: 6, y: '' } : { x: 数字; y: 文字; }
+>x : 数字
 >类型别名 :=> 数字
 >6 : 6
->y : string
+>y : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 var a9e: {};
->a9e : any
+>a9e : 任意
 >类型别名 :=> 任意
 
 var a9f = someGenerics9<A92>(undefined, { x: 6, z: window }, { x: 6, y: '' });
->a9f : any
+>a9f : 任意
 >类型别名 :=> 任意
->someGenerics9<A92>(undefined, { x: 6, z: window }, { x: 6, y: '' }) : any
+>someGenerics9<A92>(undefined, { x: 6, z: window }, { x: 6, y: '' }) : 任意
 >类型别名 :=> 任意
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
 >A92 : A92
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
->{ x: 6, z: window } : { x: number; z: any; }
->x : number
+>{ x: 6, z: window } : { x: 数字; z: 任意; }
+>x : 数字
 >类型别名 :=> 数字
 >6 : 6
->z : any
+>z : 任意
 >类型别名 :=> 任意
->window : any
+>window : 任意
 >类型别名 :=> 任意
->{ x: 6, y: '' } : { x: number; y: string; }
->x : number
+>{ x: 6, y: '' } : { x: 数字; y: 文字; }
+>x : 数字
 >类型别名 :=> 数字
 >6 : 6
->y : string
+>y : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 var a9f: A92;
->a9f : any
+>a9f : 任意
 >类型别名 :=> 任意
 >A92 : A92
 
 // Generic call with multiple parameters of generic type passed arguments with a single best common type
 var a9d = someGenerics9({ x: 3 }, { x: 6 }, { x: 6 });
->a9d : { x: number; }
->someGenerics9({ x: 3 }, { x: 6 }, { x: 6 }) : { x: number; }
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
->{ x: 3 } : { x: number; }
->x : number
+>a9d : { x: 数字; }
+>someGenerics9({ x: 3 }, { x: 6 }, { x: 6 }) : { x: 数字; }
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
+>{ x: 3 } : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >3 : 3
->{ x: 6 } : { x: number; }
->x : number
+>{ x: 6 } : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >6 : 6
->{ x: 6 } : { x: number; }
->x : number
+>{ x: 6 } : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >6 : 6
 
 var a9d: { x: number; };
->a9d : { x: number; }
->x : number
+>a9d : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 
 // Generic call with multiple parameters of generic type where one argument is of type 'any'
 var anyVar: any;
->anyVar : any
+>anyVar : 任意
 >类型别名 :=> 任意
 
 var a = someGenerics9(7, anyVar, 4);
->a : any
+>a : 任意
 >类型别名 :=> 任意
->someGenerics9(7, anyVar, 4) : any
+>someGenerics9(7, anyVar, 4) : 任意
 >类型别名 :=> 任意
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
 >7 : 7
->anyVar : any
+>anyVar : 任意
 >类型别名 :=> 任意
 >4 : 4
 
 var a: any;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 // Generic call with multiple parameters of generic type where one argument is [] and the other is not 'any'
 var arr = someGenerics9([], null, undefined);
->arr : any[]
->someGenerics9([], null, undefined) : any[]
->someGenerics9 : <T extends any>(a: T, b: T, c: T) => T
->[] : undefined[]
->null : null
+>arr : 任意[]
+>someGenerics9([], null, undefined) : 任意[]
+>someGenerics9 : <T 扩展 任意>(a: T, b: T, c: T) => T
+>[] : 未定[]
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var arr: any[];
->arr : any[]
+>arr : 任意[]
 
 

@@ -14,7 +14,7 @@ declare var process: any;
 declare var console: any;
 declare var os: any;
 
-import ts = require("ctsScript");
+import ts = require("typescript");
 
 function printError(error: ts.Diagnostic): void {
     if (!error) {

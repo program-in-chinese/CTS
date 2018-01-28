@@ -1,38 +1,38 @@
 === tests/cases/compiler/superErrors.ts ===
 function foo() {
->foo : () => void
+>foo : () => 无值
 
     // super in a non class context
     var x = super;
->x : any
+>x : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
-> : any
+> : 任意
 >类型别名 :=> 任意
 
     var y = () => super;
->y : () => any
->() => super : () => any
->super : any
+>y : () => 任意
+>() => super : () => 任意
+>super : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
-> : any
+> : 任意
 >类型别名 :=> 任意
 
     var z = () => () => () => super;
->z : () => () => () => any
->() => () => () => super : () => () => () => any
->() => () => super : () => () => any
->() => super : () => any
->super : any
+>z : () => () => () => 任意
+>() => () => () => super : () => () => () => 任意
+>() => () => super : () => () => 任意
+>() => super : () => 任意
+>super : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
-> : any
+> : 任意
 >类型别名 :=> 任意
 }
 
@@ -40,12 +40,12 @@ class User {
 >User : User
 
     name: string = "Bob";
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >"Bob" : "Bob"
 
     sayHello(): void {
->sayHello : () => void
+>sayHello : () => 无值
 
         //console.log("Hello, " + this.name);
     }
@@ -56,133 +56,133 @@ class RegisteredUser extends User {
 >User : User
 
     name: string = "Frank";
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >"Frank" : "Frank"
 
     constructor() {
         super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof User
+>super : 类为 User
 
         // super call in an inner function in a constructor
         function inner() {
->inner : () => void
+>inner : () => 无值
 
             super.sayHello();
->super.sayHello() : any
+>super.sayHello() : 任意
 >类型别名 :=> 任意
->super.sayHello : any
+>super.sayHello : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->sayHello : any
+>sayHello : 任意
 >类型别名 :=> 任意
         }
 
         // super call in a lambda in an inner function in a constructor 
         function inner2() {
->inner2 : () => void
+>inner2 : () => 无值
 
             var x = () => super.sayHello();
->x : () => any
->() => super.sayHello() : () => any
->super.sayHello() : any
+>x : () => 任意
+>() => super.sayHello() : () => 任意
+>super.sayHello() : 任意
 >类型别名 :=> 任意
->super.sayHello : any
+>super.sayHello : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->sayHello : any
+>sayHello : 任意
 >类型别名 :=> 任意
         }
 
         // super call in a lambda in a function expression in a constructor 
         (function() { return () => super; })();
->(function() { return () => super; })() : () => any
->(function() { return () => super; }) : () => () => any
->function() { return () => super; } : () => () => any
->() => super : () => any
->super : any
+>(function() { return () => super; })() : () => 任意
+>(function() { return () => super; }) : () => () => 任意
+>function() { return () => super; } : () => () => 任意
+>() => super : () => 任意
+>super : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
-> : any
+> : 任意
 >类型别名 :=> 任意
     }
     sayHello(): void {
->sayHello : () => void
+>sayHello : () => 无值
 
         // super call in a method
         super.sayHello();
->super.sayHello() : void
+>super.sayHello() : 无值
 >类型别名 :=> 无值
->super.sayHello : () => void
+>super.sayHello : () => 无值
 >super : User
->sayHello : () => void
+>sayHello : () => 无值
 
         // super call in a lambda in an inner function in a method
         function inner() {
->inner : () => void
+>inner : () => 无值
 
             var x = () => super.sayHello();
->x : () => any
->() => super.sayHello() : () => any
->super.sayHello() : any
+>x : () => 任意
+>() => super.sayHello() : () => 任意
+>super.sayHello() : 任意
 >类型别名 :=> 任意
->super.sayHello : any
+>super.sayHello : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->sayHello : any
+>sayHello : 任意
 >类型别名 :=> 任意
         }
 
         // super call in a lambda in a function expression in a constructor 
         (function() { return () => super; })();
->(function() { return () => super; })() : () => any
->(function() { return () => super; }) : () => () => any
->function() { return () => super; } : () => () => any
->() => super : () => any
->super : any
+>(function() { return () => super; })() : () => 任意
+>(function() { return () => super; }) : () => () => 任意
+>function() { return () => super; } : () => () => 任意
+>() => super : () => 任意
+>super : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
-> : any
+> : 任意
 >类型别名 :=> 任意
     }
     static staticFunction(): void {
->staticFunction : () => void
+>staticFunction : () => 无值
 
         // super in static functions
         var s = super;
->s : any
+>s : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->super : typeof User
-> : any
+>super : 类为 User
+> : 任意
 >类型别名 :=> 任意
 
         var x = () => super;
->x : () => any
->() => super : () => any
->super : any
+>x : () => 任意
+>() => super : () => 任意
+>super : 任意
 >类型别名 :=> 任意
->super : typeof User
-> : any
+>super : 类为 User
+> : 任意
 >类型别名 :=> 任意
 
         var y = () => () => () => super;
->y : () => () => () => any
->() => () => () => super : () => () => () => any
->() => () => super : () => () => any
->() => super : () => any
->super : any
+>y : () => () => () => 任意
+>() => () => () => super : () => () => () => 任意
+>() => () => super : () => () => 任意
+>() => super : () => 任意
+>super : 任意
 >类型别名 :=> 任意
->super : typeof User
-> : any
+>super : 类为 User
+> : 任意
 >类型别名 :=> 任意
     }
 }

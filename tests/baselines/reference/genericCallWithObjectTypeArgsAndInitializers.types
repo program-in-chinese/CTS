@@ -6,7 +6,7 @@ function foo<T>(x: T = null) { return x; } // ok
 >T : T
 >x : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 >x : T
 
@@ -15,12 +15,12 @@ function foo2<T>(x: T = undefined) { return x; } // ok
 >T : T
 >x : T
 >T : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 >x : T
 
 function foo3<T extends Number>(x: T = 1) { } // error
->foo3 : <T extends Number>(x?: T) => void
+>foo3 : <T 扩展 Number>(x?: T) => 无值
 >T : T
 >Number : Number
 >x : T
@@ -28,7 +28,7 @@ function foo3<T extends Number>(x: T = 1) { } // error
 >1 : 1
 
 function foo4<T, U extends T>(x: T, y: U = x) { } // error
->foo4 : <T, U extends T>(x: T, y?: U) => void
+>foo4 : <T, U 扩展 T>(x: T, y?: U) => 无值
 >T : T
 >U : U
 >T : T
@@ -39,7 +39,7 @@ function foo4<T, U extends T>(x: T, y: U = x) { } // error
 >x : T
 
 function foo5<T, U extends T>(x: U, y: T = x) { } // ok
->foo5 : <T, U extends T>(x: U, y?: T) => void
+>foo5 : <T, U 扩展 T>(x: U, y?: T) => 无值
 >T : T
 >U : U
 >T : T
@@ -50,7 +50,7 @@ function foo5<T, U extends T>(x: U, y: T = x) { } // ok
 >x : U
 
 function foo6<T, U extends T, V extends U>(x: T, y: U, z: V = y) { } // error
->foo6 : <T, U extends T, V extends U>(x: T, y: U, z?: V) => void
+>foo6 : <T, U 扩展 T, V 扩展 U>(x: T, y: U, z?: V) => 无值
 >T : T
 >U : U
 >T : T
@@ -65,7 +65,7 @@ function foo6<T, U extends T, V extends U>(x: T, y: U, z: V = y) { } // error
 >y : U
 
 function foo7<T, U extends T, V extends U>(x: V, y: U = x) { } // should be ok
->foo7 : <T, U extends T, V extends U>(x: V, y?: U) => void
+>foo7 : <T, U 扩展 T, V 扩展 U>(x: V, y?: U) => 无值
 >T : T
 >U : U
 >T : T

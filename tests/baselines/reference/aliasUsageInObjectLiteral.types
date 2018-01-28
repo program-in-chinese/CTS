@@ -1,64 +1,64 @@
 === tests/cases/compiler/aliasUsageInObjectLiteral_main.ts ===
 import Backbone = require("./aliasUsageInObjectLiteral_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 import moduleA = require("./aliasUsageInObjectLiteral_moduleA");
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 
 interface IHasVisualizationModel {
 >IHasVisualizationModel : IHasVisualizationModel
 
     VisualizationModel: typeof Backbone.Model;
->VisualizationModel : typeof Backbone.Model
->Backbone.Model : typeof Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>VisualizationModel : 类为 Backbone.Model
+>Backbone.Model : 类为 Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 }
 var a: { x: typeof moduleA } = { x: moduleA };
->a : { x: typeof moduleA; }
->x : typeof moduleA
->moduleA : typeof moduleA
->{ x: moduleA } : { x: typeof moduleA; }
->x : typeof moduleA
->moduleA : typeof moduleA
+>a : { x: 类为 moduleA; }
+>x : 类为 moduleA
+>moduleA : 类为 moduleA
+>{ x: moduleA } : { x: 类为 moduleA; }
+>x : 类为 moduleA
+>moduleA : 类为 moduleA
 
 var b: { x: IHasVisualizationModel } = { x: moduleA };
 >b : { x: IHasVisualizationModel; }
 >x : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
->{ x: moduleA } : { x: typeof moduleA; }
->x : typeof moduleA
->moduleA : typeof moduleA
+>{ x: moduleA } : { x: 类为 moduleA; }
+>x : 类为 moduleA
+>moduleA : 类为 moduleA
 
 var c: { y: { z: IHasVisualizationModel } } = { y: { z: moduleA } };
 >c : { y: { z: IHasVisualizationModel; }; }
 >y : { z: IHasVisualizationModel; }
 >z : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
->{ y: { z: moduleA } } : { y: { z: typeof moduleA; }; }
->y : { z: typeof moduleA; }
->{ z: moduleA } : { z: typeof moduleA; }
->z : typeof moduleA
->moduleA : typeof moduleA
+>{ y: { z: moduleA } } : { y: { z: 类为 moduleA; }; }
+>y : { z: 类为 moduleA; }
+>{ z: moduleA } : { z: 类为 moduleA; }
+>z : 类为 moduleA
+>moduleA : 类为 moduleA
 
 === tests/cases/compiler/aliasUsageInObjectLiteral_backbone.ts ===
 export class Model {
 >Model : Model
 
     public someData: string;
->someData : string
+>someData : 文字
 >类型别名 :=> 文字
 }
 
 === tests/cases/compiler/aliasUsageInObjectLiteral_moduleA.ts ===
 import Backbone = require("./aliasUsageInObjectLiteral_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 export class VisualizationModel extends Backbone.Model {
 >VisualizationModel : VisualizationModel
 >Backbone.Model : Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 
     // interesting stuff here
 }

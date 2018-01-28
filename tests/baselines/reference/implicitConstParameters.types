@@ -1,86 +1,86 @@
 === tests/cases/compiler/implicitConstParameters.ts ===
 function doSomething(cb: () => void) {
->doSomething : (cb: () => void) => void
->cb : () => void
+>doSomething : (cb: () => 无值) => 无值
+>cb : () => 无值
 
     cb();
->cb() : void
+>cb() : 无值
 >类型别名 :=> 无值
->cb : () => void
+>cb : () => 无值
 }
 
 function fn(x: number | string) {
->fn : (x: string | number) => void
->x : string | number
+>fn : (x: 文字 | 数字) => 无值
+>x : 文字 | 数字
 
   if (typeof x === 'number') {
->typeof x === 'number' : boolean
+>typeof x === 'number' : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number
+>x : 文字 | 数字
 >'number' : "number"
 
       doSomething(() => x.toFixed());
->doSomething(() => x.toFixed()) : void
+>doSomething(() => x.toFixed()) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => x.toFixed() : () => string
->x.toFixed() : string
+>doSomething : (cb: () => 无值) => 无值
+>() => x.toFixed() : () => 文字
+>x.toFixed() : 文字
 >类型别名 :=> 文字
->x.toFixed : (fractionDigits?: number | undefined) => string
->x : number
+>x.toFixed : (fractionDigits?: 数字 | 未定) => 文字
+>x : 数字
 >类型别名 :=> 数字
->toFixed : (fractionDigits?: number | undefined) => string
+>toFixed : (fractionDigits?: 数字 | 未定) => 文字
   }
 }
 
 function f1(x: string | undefined) {
->f1 : (x: string | undefined) => void
->x : string | undefined
+>f1 : (x: 文字 | 未定) => 无值
+>x : 文字 | 未定
 
     if (!x) {
->!x : boolean
+>!x : 真假
 >类型别名 :=> 真假
->x : string | undefined
+>x : 文字 | 未定
 
         return;
     }
     doSomething(() => x.length);
->doSomething(() => x.length) : void
+>doSomething(() => x.length) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => x.length : () => number
->x.length : number
+>doSomething : (cb: () => 无值) => 无值
+>() => x.length : () => 数字
+>x.length : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
 }
 
 function f2(x: string | undefined) {
->f2 : (x: string | undefined) => void
->x : string | undefined
+>f2 : (x: 文字 | 未定) => 无值
+>x : 文字 | 未定
 
     if (x) {
->x : string | undefined
+>x : 文字 | 未定
 
         doSomething(() => {
->doSomething(() => {            doSomething(() => x.length);        }) : void
+>doSomething(() => {            doSomething(() => x.length);        }) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => {            doSomething(() => x.length);        } : () => void
+>doSomething : (cb: () => 无值) => 无值
+>() => {            doSomething(() => x.length);        } : () => 无值
 
             doSomething(() => x.length);
->doSomething(() => x.length) : void
+>doSomething(() => x.length) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => x.length : () => number
->x.length : number
+>doSomething : (cb: () => 无值) => 无值
+>() => x.length : () => 数字
+>x.length : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
         });
@@ -88,111 +88,111 @@ function f2(x: string | undefined) {
 }
 
 function f3(x: string | undefined) {
->f3 : (x: string | undefined) => void
->x : string | undefined
+>f3 : (x: 文字 | 未定) => 无值
+>x : 文字 | 未定
 
     inner();
->inner() : void
+>inner() : 无值
 >类型别名 :=> 无值
->inner : () => void
+>inner : () => 无值
 
     function inner() {
->inner : () => void
+>inner : () => 无值
 
         if (x) {
->x : string | undefined
+>x : 文字 | 未定
 
             doSomething(() => x.length);
->doSomething(() => x.length) : void
+>doSomething(() => x.length) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => x.length : () => number
->x.length : number
+>doSomething : (cb: () => 无值) => 无值
+>() => x.length : () => 数字
+>x.length : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
         }
     }
 }
 
 function f4(x: string | undefined) {
->f4 : (x: string | undefined) => void
->x : string | undefined
+>f4 : (x: 文字 | 未定) => 无值
+>x : 文字 | 未定
 
     x = "abc";  // causes x to be considered non-const
 >x = "abc" : "abc"
->x : string | undefined
+>x : 文字 | 未定
 >"abc" : "abc"
 
     if (x) {
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         doSomething(() => x.length);
->doSomething(() => x.length) : void
+>doSomething(() => x.length) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => x.length : () => number
->x.length : number
+>doSomething : (cb: () => 无值) => 无值
+>() => x.length : () => 数字
+>x.length : 数字
 >类型别名 :=> 数字
->x : string | undefined
->length : number
+>x : 文字 | 未定
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function f5(x: string | undefined) {
->f5 : (x: string | undefined) => void
->x : string | undefined
+>f5 : (x: 文字 | 未定) => 无值
+>x : 文字 | 未定
 
     if (x) {
->x : string | undefined
+>x : 文字 | 未定
 
         doSomething(() => x.length);
->doSomething(() => x.length) : void
+>doSomething(() => x.length) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => x.length : () => number
->x.length : number
+>doSomething : (cb: () => 无值) => 无值
+>() => x.length : () => 数字
+>x.length : 数字
 >类型别名 :=> 数字
->x : string | undefined
->length : number
+>x : 文字 | 未定
+>length : 数字
 >类型别名 :=> 数字
     }
     x = "abc";  // causes x to be considered non-const
 >x = "abc" : "abc"
->x : string | undefined
+>x : 文字 | 未定
 >"abc" : "abc"
 }
 
 
 function f6(x: string | undefined) {
->f6 : (x: string | undefined) => void
->x : string | undefined
+>f6 : (x: 文字 | 未定) => 无值
+>x : 文字 | 未定
 
     const y = x || "";
->y : string
+>y : 文字
 >类型别名 :=> 文字
->x || "" : string
+>x || "" : 文字
 >类型别名 :=> 文字
->x : string | undefined
+>x : 文字 | 未定
 >"" : ""
 
     if (x) {
->x : string | undefined
+>x : 文字 | 未定
 
         doSomething(() => y.length);
->doSomething(() => y.length) : void
+>doSomething(() => y.length) : 无值
 >类型别名 :=> 无值
->doSomething : (cb: () => void) => void
->() => y.length : () => number
->y.length : number
+>doSomething : (cb: () => 无值) => 无值
+>() => y.length : () => 数字
+>y.length : 数字
 >类型别名 :=> 数字
->y : string
+>y : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }

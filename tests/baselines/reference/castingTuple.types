@@ -4,32 +4,32 @@ interface I { }
 
 class A { a = 10; }
 >A : A
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >10 : 10
 
 class C implements I { c };
 >C : C
 >I : I
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
 class D implements I { d };
 >D : D
 >I : I
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
 class E extends A { e };
 >E : E
 >A : A
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
 class F extends A { f };
 >F : F
 >A : A
->f : any
+>f : 任意
 >类型别名 :=> 任意
 
 enum E1 { one }
@@ -42,20 +42,20 @@ enum E2 { one }
 
 // no error
 var numStrTuple: [number, string] = [5, "foo"];
->numStrTuple : [number, string]
->[5, "foo"] : [number, string]
+>numStrTuple : [数字, 文字]
+>[5, "foo"] : [数字, 文字]
 >5 : 5
 >"foo" : "foo"
 
 var emptyObjTuple = <[{}, {}]>numStrTuple;
 >emptyObjTuple : [{}, {}]
 ><[{}, {}]>numStrTuple : [{}, {}]
->numStrTuple : [number, string]
+>numStrTuple : [数字, 文字]
 
 var numStrBoolTuple = <[number, string, boolean]>numStrTuple;
->numStrBoolTuple : [number, string, boolean]
-><[number, string, boolean]>numStrTuple : [number, string, boolean]
->numStrTuple : [number, string]
+>numStrBoolTuple : [数字, 文字, 真假]
+><[number, string, boolean]>numStrTuple : [数字, 文字, 真假]
+>numStrTuple : [数字, 文字]
 
 var classCDTuple: [C, D] = [new C(), new D()];
 >classCDTuple : [C, D]
@@ -63,9 +63,9 @@ var classCDTuple: [C, D] = [new C(), new D()];
 >D : D
 >[new C(), new D()] : [C, D]
 >new C() : C
->C : typeof C
+>C : 类为 C
 >new D() : D
->D : typeof D
+>D : 类为 D
 
 var interfaceIITuple = <[I, I]>classCDTuple;
 >interfaceIITuple : [I, I]
@@ -100,15 +100,15 @@ var t10: [E1, E2] = [E1.one, E2.one];
 >E2 : E2
 >[E1.one, E2.one] : [E1, E2]
 >E1.one : E1
->E1 : typeof E1
+>E1 : 类为 E1
 >one : E1
 >E2.one : E2
->E2 : typeof E2
+>E2 : 类为 E2
 >one : E2
 
 var t11 = <[number, number]>t10;
->t11 : [number, number]
-><[number, number]>t10 : [number, number]
+>t11 : [数字, 数字]
+><[number, number]>t10 : [数字, 数字]
 >t10 : [E1, E2]
 
 var array1 = <{}[]>emptyObjTuple;
@@ -117,40 +117,40 @@ var array1 = <{}[]>emptyObjTuple;
 >emptyObjTuple : [{}, {}]
 
 var unionTuple: [C, string | number] = [new C(), "foo"];
->unionTuple : [C, string | number]
+>unionTuple : [C, 文字 | 数字]
 >C : C
->[new C(), "foo"] : [C, string]
+>[new C(), "foo"] : [C, 文字]
 >new C() : C
->C : typeof C
+>C : 类为 C
 >"foo" : "foo"
 
 var unionTuple2: [C, string | number, D] = [new C(), "foo", new D()];
->unionTuple2 : [C, string | number, D]
+>unionTuple2 : [C, 文字 | 数字, D]
 >C : C
 >D : D
->[new C(), "foo", new D()] : [C, string, D]
+>[new C(), "foo", new D()] : [C, 文字, D]
 >new C() : C
->C : typeof C
+>C : 类为 C
 >"foo" : "foo"
 >new D() : D
->D : typeof D
+>D : 类为 D
 
 var unionTuple3: [number, string| number] = [10, "foo"]; 
->unionTuple3 : [number, string | number]
->[10, "foo"] : [number, string]
+>unionTuple3 : [数字, 文字 | 数字]
+>[10, "foo"] : [数字, 文字]
 >10 : 10
 >"foo" : "foo"
 
 var unionTuple4 = <[number, number]>unionTuple3; 
->unionTuple4 : [number, number]
-><[number, number]>unionTuple3 : [number, number]
->unionTuple3 : [number, string | number]
+>unionTuple4 : [数字, 数字]
+><[number, number]>unionTuple3 : [数字, 数字]
+>unionTuple3 : [数字, 文字 | 数字]
 
 // error
 var t3 = <[number, number]>numStrTuple;
->t3 : [number, number]
-><[number, number]>numStrTuple : [number, number]
->numStrTuple : [number, string]
+>t3 : [数字, 数字]
+><[number, number]>numStrTuple : [数字, 数字]
+>numStrTuple : [数字, 文字]
 
 var t9 = <[A, I]>classCDTuple;
 >t9 : [A, I]
@@ -161,14 +161,14 @@ var t9 = <[A, I]>classCDTuple;
 
 var array1 = <number[]>numStrTuple;
 >array1 : {}[]
-><number[]>numStrTuple : number[]
->numStrTuple : [number, string]
+><number[]>numStrTuple : 数字[]
+>numStrTuple : [数字, 文字]
 
 t4[2] = 10;
 >t4[2] = 10 : 10
->t4[2] : any
+>t4[2] : 任意
 >类型别名 :=> 任意
->t4 : any
+>t4 : 任意
 >类型别名 :=> 任意
 >2 : 2
 >10 : 10

@@ -1,0 +1,89 @@
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(14,14): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(15,14): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(18,18): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(19,18): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(22,20): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(23,20): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(26,20): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(27,20): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(29,26): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(34,27): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(43,24): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts(47,28): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+
+
+==== tests/cases/conformance/expressions/functionCalls/callWithSpreadES6.ts (12 errors) ====
+    interface X {
+        foo(x: number, y: number, ...z: string[]);
+    }
+    
+    function foo(x: number, y: number, ...z: string[]) {
+    }
+    
+    var a: string[];
+    var z: number[];
+    var obj: X;
+    var xa: X[];
+    
+    foo(1, 2, "abc");
+    foo(1, 2, ...a);
+                 ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    foo(1, 2, ...a, "abc");
+                 ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    
+    obj.foo(1, 2, "abc");
+    obj.foo(1, 2, ...a);
+                     ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    obj.foo(1, 2, ...a, "abc");
+                     ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    
+    (obj.foo)(1, 2, "abc");
+    (obj.foo)(1, 2, ...a);
+                       ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    (obj.foo)(1, 2, ...a, "abc");
+                       ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    
+    xa[1].foo(1, 2, "abc");
+    xa[1].foo(1, 2, ...a);
+                       ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    xa[1].foo(1, 2, ...a, "abc");
+                       ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    
+    (<Function>xa[1].foo)(...[1, 2, "abc"]);
+                             ~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    
+    class C {
+        constructor(x: number, y: number, ...z: string[]) {
+            this.foo(x, y);
+            this.foo(x, y, ...z);
+                              ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+        }
+        foo(x: number, y: number, ...z: string[]) {
+        }
+    }
+    
+    class D extends C {
+        constructor() {
+            super(1, 2);
+            super(1, 2, ...a);
+                           ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+        }
+        foo() {
+            super.foo(1, 2);
+            super.foo(1, 2, ...a);
+                               ~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+        }
+    }
+    

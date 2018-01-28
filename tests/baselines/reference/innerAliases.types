@@ -1,12 +1,12 @@
 === tests/cases/compiler/innerAliases.ts ===
 module A {
->A : typeof A
+>A : 类为 A
 
     export module B {
->B : typeof B
+>B : 类为 B
 
         export module C {
->C : typeof C
+>C : 类为 C
 
             export class Class1 {}
 >Class1 : Class1
@@ -15,23 +15,23 @@ module A {
 }
 
 module D {
->D : typeof D
+>D : 类为 D
 
     import inner = A.B.C; 
->inner : typeof inner
->A : typeof A
->B : typeof A.B
->C : typeof inner
+>inner : 类为 inner
+>A : 类为 A
+>B : 类为 A.B
+>C : 类为 inner
    
     var c1 = new inner.Class1(); 
 >c1 : inner.Class1
 >new inner.Class1() : inner.Class1
->inner.Class1 : typeof inner.Class1
->inner : typeof inner
->Class1 : typeof inner.Class1
+>inner.Class1 : 类为 inner.Class1
+>inner : 类为 inner
+>Class1 : 类为 inner.Class1
 
     export module E { 
->E : typeof E
+>E : 类为 E
 
         export class Class2 {}
 >Class2 : Class2
@@ -39,29 +39,29 @@ module D {
 }
 
 var c: D.inner.Class1;
->c : any
+>c : 任意
 >类型别名 :=> 任意
->D : any
+>D : 任意
 >类型别名 :=> 任意
->inner : any
+>inner : 任意
 >类型别名 :=> 任意
 >Class1 : No type information available!
 
 c = new D.inner.Class1();
->c = new D.inner.Class1() : any
+>c = new D.inner.Class1() : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->new D.inner.Class1() : any
+>new D.inner.Class1() : 任意
 >类型别名 :=> 任意
->D.inner.Class1 : any
+>D.inner.Class1 : 任意
 >类型别名 :=> 任意
->D.inner : any
+>D.inner : 任意
 >类型别名 :=> 任意
->D : typeof D
->inner : any
+>D : 类为 D
+>inner : 任意
 >类型别名 :=> 任意
->Class1 : any
+>Class1 : 任意
 >类型别名 :=> 任意
 
 

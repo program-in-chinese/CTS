@@ -1,36 +1,36 @@
 === tests/cases/compiler/optionalParameterRetainsNull.ts ===
 interface Bar {  bar: number; foo: object | null;  }
 >Bar : Bar
->bar : number
+>bar : 数字
 >类型别名 :=> 数字
->foo : object | null
->null : null
+>foo : 实例 | 空值
+>null : 空值
 >类型别名 :=> 空值
 
 let a = {
->a : { test<K extends "bar" | "foo">(a: K, b?: Bar[K] | null | undefined): void; }
->{  test<K extends keyof Bar> (a: K,  b?: Bar[K]  |  null)  { }} : { test<K extends "bar" | "foo">(a: K, b?: Bar[K] | null | undefined): void; }
+>a : { test<K 扩展 "bar" | "foo">(a: K, b?: Bar[K] | 空值 | 未定): 无值; }
+>{  test<K extends keyof Bar> (a: K,  b?: Bar[K]  |  null)  { }} : { test<K 扩展 "bar" | "foo">(a: K, b?: Bar[K] | 空值 | 未定): 无值; }
 
   test<K extends keyof Bar> (a: K,  b?: Bar[K]  |  null)  { }
->test : <K extends "bar" | "foo">(a: K, b?: Bar[K] | null | undefined) => void
+>test : <K 扩展 "bar" | "foo">(a: K, b?: Bar[K] | 空值 | 未定) => 无值
 >K : K
 >Bar : Bar
 >a : K
 >K : K
->b : Bar[K] | null | undefined
+>b : Bar[K] | 空值 | 未定
 >Bar : Bar
 >K : K
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 };
 a.test("bar", null); // ok, null is assignable to number | null | undefined
->a.test("bar", null) : void
+>a.test("bar", null) : 无值
 >类型别名 :=> 无值
->a.test : <K extends "bar" | "foo">(a: K, b?: Bar[K] | null | undefined) => void
->a : { test<K extends "bar" | "foo">(a: K, b?: Bar[K] | null | undefined): void; }
->test : <K extends "bar" | "foo">(a: K, b?: Bar[K] | null | undefined) => void
+>a.test : <K 扩展 "bar" | "foo">(a: K, b?: Bar[K] | 空值 | 未定) => 无值
+>a : { test<K 扩展 "bar" | "foo">(a: K, b?: Bar[K] | 空值 | 未定): 无值; }
+>test : <K 扩展 "bar" | "foo">(a: K, b?: Bar[K] | 空值 | 未定) => 无值
 >"bar" : "bar"
->null : null
+>null : 空值
 >类型别名 :=> 空值
 

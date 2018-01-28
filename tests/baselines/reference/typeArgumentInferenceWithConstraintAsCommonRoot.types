@@ -1,23 +1,23 @@
 === tests/cases/compiler/typeArgumentInferenceWithConstraintAsCommonRoot.ts ===
 interface Animal { x }
 >Animal : Animal
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 interface Giraffe extends Animal { y }
 >Giraffe : Giraffe
 >Animal : Animal
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
 interface Elephant extends Animal { z }
 >Elephant : Elephant
 >Animal : Animal
->z : any
+>z : 任意
 >类型别名 :=> 任意
 
 function f<T extends Animal>(x: T, y: T): T { return undefined; }
->f : <T extends Animal>(x: T, y: T) => T
+>f : <T 扩展 Animal>(x: T, y: T) => T
 >T : T
 >Animal : Animal
 >x : T
@@ -25,7 +25,7 @@ function f<T extends Animal>(x: T, y: T): T { return undefined; }
 >y : T
 >T : T
 >T : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var g: Giraffe;
@@ -37,9 +37,9 @@ var e: Elephant;
 >Elephant : Elephant
 
 f(g, e); // valid because both Giraffe and Elephant satisfy the constraint. T is Animal
->f(g, e) : any
+>f(g, e) : 任意
 >类型别名 :=> 任意
->f : <T extends Animal>(x: T, y: T) => T
+>f : <T 扩展 Animal>(x: T, y: T) => T
 >g : Giraffe
 >e : Elephant
 

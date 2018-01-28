@@ -12,7 +12,7 @@
 
 declare var console: any;
 
-import * as ts from "ctsScript";
+import * as ts from ""typescript"";
 
 // excerpted from https://github.com/YousefED/typescript-json-schema
 // (converted from a method and modified; for example, `this: any` to compensate, among other changes)

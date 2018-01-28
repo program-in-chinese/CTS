@@ -768,19 +768,21 @@ namespace ts {
                             let 全局语句 = 编译词典标签.编译词典(注释.注释范围.pos, 注释.注释范围.end - 注释.注释范围.pos, /** 头部长度 */  "//@@".length)
                             if (全局语句) {
                                 if (!sourceFile.全局词典) {
-                                    sourceFile.全局词典 = createMap<词典>()
+                                    sourceFile.全局词典 = createMap<词典[]>()
                                 }
                                 全局语句.表达式.forEach(词典节点 => {
                                     const 键文本 = ts.isIdentifier(词典节点.键.name) ? 词典节点.键.name.escapedText : 词典节点.键.name.text
-                                    const 存在 = sourceFile.全局词典.get(键文本 as string)
+                                    const 存在 = sourceFile.全局词典.has(键文本 as string)
                                     if (!存在) {
-                                        sourceFile.全局词典.set(键文本 as string, 词典节点)
+                                        sourceFile.全局词典.set(键文本 as string, [词典节点])
+                                    } else {
+                                        sourceFile.全局词典.get(键文本 as string).push(词典节点)
                                     }
                                 })
                             }
                         }
                     }
-                    if (node && node.局部词典语句 && node.局部词典语句[0]) {
+                    if (node && node.局部词典语句 && node.局部词典语句.length) {
                         局部词典组 = createMap<词典>();
                         node.局部词典语句.forEach(语句 => {
                             语句.表达式.forEach(v => {
@@ -7082,7 +7084,7 @@ namespace ts {
                         返回值.是文本字面量词典 = 别名旗帜.字面量;
                         文本字面量标识符 = false;
                     }
-                    返回值.词典类别 = 取词典类别(返回值.键);
+                    返回值.词典类别 = 别名旗帜.汉英 //取词典类别(返回值.键);
                     while (!(token() === SyntaxKind.EndOfFileToken || token() === SyntaxKind.NewLineTrivia || token() === SyntaxKind.CloseBraceToken || token() === SyntaxKind.CommaToken)) {
                         parseErrorBeforeNextFinishedNode = true;
                         下个();
@@ -7094,7 +7096,8 @@ namespace ts {
                     return finishNode(返回值);
                 }
             }
-
+            
+            /*
             function 取词典类别(键: 词典键) {
                 let text = ""
                 if (ts.isIdentifier(键.name)) {
@@ -7108,8 +7111,9 @@ namespace ts {
                         return 别名旗帜.汉英
                     }
                 }
-                return 别名旗帜.英汉
+                return 别名旗帜.汉英
             }
+            */
 
             function 创建词典标识符(是标识符: boolean, 诊断信息: DiagnosticMessage) {
                 if (是标识符) {
@@ -7148,14 +7152,12 @@ namespace ts {
 
             function 是词典标识符() {
                 if (token() === SyntaxKind.Identifier) return true;
-                return token() > SyntaxKind.LastKeyword;
+                return  false
 
             }
 
             function 是词典字面量标识符() {
-                if (token() === SyntaxKind.StringLiteral) {
-                    return true;
-                }
+                if (token() === SyntaxKind.StringLiteral) return true;
                 return false;
             }
 

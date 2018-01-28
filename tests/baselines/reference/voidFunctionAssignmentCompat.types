@@ -1,93 +1,93 @@
 === tests/cases/compiler/voidFunctionAssignmentCompat.ts ===
 var fa = function(): any { return 3; }
->fa : () => any
->function(): any { return 3; } : () => any
+>fa : () => 任意
+>function(): any { return 3; } : () => 任意
 >3 : 3
 
 fa = function() { } // should not work
->fa = function() { } : () => void
->fa : () => any
->function() { } : () => void
+>fa = function() { } : () => 无值
+>fa : () => 任意
+>function() { } : () => 无值
 
 var fv = function(): void {}
->fv : () => void
->function(): void {} : () => void
+>fv : () => 无值
+>function(): void {} : () => 无值
 
 fv = function() { return 0; } // should work
->fv = function() { return 0; } : () => number
->fv : () => void
->function() { return 0; } : () => number
+>fv = function() { return 0; } : () => 数字
+>fv : () => 无值
+>function() { return 0; } : () => 数字
 >0 : 0
 
 function execAny(callback:(val:any)=>any) { return callback(0) }
->execAny : (callback: (val: any) => any) => any
->callback : (val: any) => any
->val : any
+>execAny : (callback: (val: 任意) => 任意) => 任意
+>callback : (val: 任意) => 任意
+>val : 任意
 >类型别名 :=> 任意
->callback(0) : any
+>callback(0) : 任意
 >类型别名 :=> 任意
->callback : (val: any) => any
+>callback : (val: 任意) => 任意
 >0 : 0
 
 execAny(function () {}); // should work
->execAny(function () {}) : any
+>execAny(function () {}) : 任意
 >类型别名 :=> 任意
->execAny : (callback: (val: any) => any) => any
->function () {} : () => void
+>execAny : (callback: (val: 任意) => 任意) => 任意
+>function () {} : () => 无值
 
 function execVoid(callback:(val:any)=>void) { callback(0); }
->execVoid : (callback: (val: any) => void) => void
->callback : (val: any) => void
->val : any
+>execVoid : (callback: (val: 任意) => 无值) => 无值
+>callback : (val: 任意) => 无值
+>val : 任意
 >类型别名 :=> 任意
->callback(0) : void
+>callback(0) : 无值
 >类型别名 :=> 无值
->callback : (val: any) => void
+>callback : (val: 任意) => 无值
 >0 : 0
 
 execVoid(function () {return 0;}); // should work
->execVoid(function () {return 0;}) : void
+>execVoid(function () {return 0;}) : 无值
 >类型别名 :=> 无值
->execVoid : (callback: (val: any) => void) => void
->function () {return 0;} : () => number
+>execVoid : (callback: (val: 任意) => 无值) => 无值
+>function () {return 0;} : () => 数字
 >0 : 0
 
 var fra: (v:any)=>any = function() { return function () {}; } // should work
->fra : (v: any) => any
->v : any
+>fra : (v: 任意) => 任意
+>v : 任意
 >类型别名 :=> 任意
->function() { return function () {}; } : () => () => void
->function () {} : () => void
+>function() { return function () {}; } : () => () => 无值
+>function () {} : () => 无值
 
 var frv: (v:any)=>void = function() { return function () { return 0; } } // should work
->frv : (v: any) => void
->v : any
+>frv : (v: 任意) => 无值
+>v : 任意
 >类型别名 :=> 任意
->function() { return function () { return 0; } } : () => () => number
->function () { return 0; } : () => number
+>function() { return function () { return 0; } } : () => () => 数字
+>function () { return 0; } : () => 数字
 >0 : 0
 
 var fra3: (v:any)=>string = (function() { return function (v:string) {return v;}; })() // should work
->fra3 : (v: any) => string
->v : any
+>fra3 : (v: 任意) => 文字
+>v : 任意
 >类型别名 :=> 任意
->(function() { return function (v:string) {return v;}; })() : (v: string) => string
->(function() { return function (v:string) {return v;}; }) : () => (v: string) => string
->function() { return function (v:string) {return v;}; } : () => (v: string) => string
->function (v:string) {return v;} : (v: string) => string
->v : string
+>(function() { return function (v:string) {return v;}; })() : (v: 文字) => 文字
+>(function() { return function (v:string) {return v;}; }) : () => (v: 文字) => 文字
+>function() { return function (v:string) {return v;}; } : () => (v: 文字) => 文字
+>function (v:string) {return v;} : (v: 文字) => 文字
+>v : 文字
 >类型别名 :=> 文字
->v : string
+>v : 文字
 >类型别名 :=> 文字
 
 var frv3: (v:any)=>number = (function() { return function () { return 0; } })() // should work
->frv3 : (v: any) => number
->v : any
+>frv3 : (v: 任意) => 数字
+>v : 任意
 >类型别名 :=> 任意
->(function() { return function () { return 0; } })() : () => number
->(function() { return function () { return 0; } }) : () => () => number
->function() { return function () { return 0; } } : () => () => number
->function () { return 0; } : () => number
+>(function() { return function () { return 0; } })() : () => 数字
+>(function() { return function () { return 0; } }) : () => () => 数字
+>function() { return function () { return 0; } } : () => () => 数字
+>function () { return 0; } : () => 数字
 >0 : 0
 
 

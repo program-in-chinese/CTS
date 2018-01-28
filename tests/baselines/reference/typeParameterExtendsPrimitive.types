@@ -1,7 +1,7 @@
 === tests/cases/compiler/typeParameterExtendsPrimitive.ts ===
 // #14473
 function f<T extends number>() {
->f : <T extends number>() => number
+>f : <T 扩展 数字>() => 数字
 >T : T
 
     var t: T;
@@ -9,15 +9,15 @@ function f<T extends number>() {
 >T : T
 
     var v = {
->v : { [x: number]: number; }
->{        [t]: 0    } : { [x: number]: number; }
+>v : { [x: 数字]: 数字; }
+>{        [t]: 0    } : { [x: 数字]: 数字; }
 
         [t]: 0
 >t : T
 >0 : 0
     }
     return t + t;
->t + t : number
+>t + t : 数字
 >类型别名 :=> 数字
 >t : T
 >t : T
@@ -26,7 +26,7 @@ function f<T extends number>() {
 // #15501
 interface I { x: number }
 >I : I
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 type IdMap<T> = { [P in keyof T]: T[P] };
@@ -38,7 +38,7 @@ type IdMap<T> = { [P in keyof T]: T[P] };
 >P : P
 
 function g<T extends I>(i: IdMap<T>) {
->g : <T extends I>(i: IdMap<T>) => number
+>g : <T 扩展 I>(i: IdMap<T>) => 数字
 >T : T
 >I : I
 >i : IdMap<T>
@@ -46,14 +46,14 @@ function g<T extends I>(i: IdMap<T>) {
 >T : T
 
     const n: number = i.x;
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >i.x : T["x"]
 >i : IdMap<T>
 >x : T["x"]
 
     return i.x * 2;
->i.x * 2 : number
+>i.x * 2 : 数字
 >类型别名 :=> 数字
 >i.x : T["x"]
 >i : IdMap<T>
@@ -63,7 +63,7 @@ function g<T extends I>(i: IdMap<T>) {
 
 // #17069
 function h<T extends Record<K, number>, K extends string>(array: T[], prop: K): number {
->h : <T extends Record<K, number>, K extends string>(array: T[], prop: K) => number
+>h : <T 扩展 Record<K, 数字>, K 扩展 文字>(array: T[], prop: K) => 数字
 >T : T
 >Record : Record<K, T>
 >K : K
@@ -74,7 +74,7 @@ function h<T extends Record<K, number>, K extends string>(array: T[], prop: K): 
 >K : K
 
     let result = 0;
->result : number
+>result : 数字
 >类型别名 :=> 数字
 >0 : 0
 
@@ -83,16 +83,16 @@ function h<T extends Record<K, number>, K extends string>(array: T[], prop: K): 
 >array : T[]
 
         result += v[prop];
->result += v[prop] : number
+>result += v[prop] : 数字
 >类型别名 :=> 数字
->result : number
+>result : 数字
 >类型别名 :=> 数字
 >v[prop] : T[K]
 >v : T
 >prop : K
     }
     return result;
->result : number
+>result : 数字
 >类型别名 :=> 数字
 }
 

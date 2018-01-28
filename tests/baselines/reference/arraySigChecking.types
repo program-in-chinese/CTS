@@ -1,10 +1,10 @@
 === tests/cases/compiler/arraySigChecking.ts ===
 declare module M {
->M : typeof M
+>M : 类为 M
 
     interface iBar { t: any; }
 >iBar : iBar
->t : any
+>t : 任意
 >类型别名 :=> 任意
 
     interface iFoo extends iBar {
@@ -12,7 +12,7 @@ declare module M {
 >iBar : iBar
 
         s: any;
->s : any
+>s : 任意
 >类型别名 :=> 任意
     }
 
@@ -20,13 +20,13 @@ declare module M {
 >cFoo : cFoo
 
         t: any;
->t : any
+>t : 任意
 >类型别名 :=> 任意
     }
 
     var foo: { [index: any]; }; // expect an error here
 >foo : {}
->index : any
+>index : 任意
 >类型别名 :=> 任意
 }
 
@@ -34,76 +34,76 @@ interface myInt {
 >myInt : myInt
 
     voidFn(): void;
->voidFn : () => void
+>voidFn : () => 无值
 }
 var myVar: myInt;
 >myVar : myInt
 >myInt : myInt
 
 var strArray: string[] = [myVar.voidFn()];
->strArray : string[]
->[myVar.voidFn()] : void[]
->myVar.voidFn() : void
+>strArray : 文字[]
+>[myVar.voidFn()] : 无值[]
+>myVar.voidFn() : 无值
 >类型别名 :=> 无值
->myVar.voidFn : () => void
+>myVar.voidFn : () => 无值
 >myVar : myInt
->voidFn : () => void
+>voidFn : () => 无值
 
 
 var myArray: number[][][];
->myArray : number[][][]
+>myArray : 数字[][][]
 
 myArray = [[1, 2]];
->myArray = [[1, 2]] : number[][]
->myArray : number[][][]
->[[1, 2]] : number[][]
->[1, 2] : number[]
+>myArray = [[1, 2]] : 数字[][]
+>myArray : 数字[][][]
+>[[1, 2]] : 数字[][]
+>[1, 2] : 数字[]
 >1 : 1
 >2 : 2
 
 function isEmpty(l: { length: number }) {
->isEmpty : (l: { length: number; }) => boolean
->l : { length: number; }
->length : number
+>isEmpty : (l: { length: 数字; }) => 真假
+>l : { length: 数字; }
+>length : 数字
 >类型别名 :=> 数字
 
     return l.length === 0;
->l.length === 0 : boolean
+>l.length === 0 : 真假
 >类型别名 :=> 真假
->l.length : number
+>l.length : 数字
 >类型别名 :=> 数字
->l : { length: number; }
->length : number
+>l : { length: 数字; }
+>length : 数字
 >类型别名 :=> 数字
 >0 : 0
 }
 
 isEmpty([]);
->isEmpty([]) : boolean
+>isEmpty([]) : 真假
 >类型别名 :=> 真假
->isEmpty : (l: { length: number; }) => boolean
->[] : undefined[]
+>isEmpty : (l: { length: 数字; }) => 真假
+>[] : 未定[]
 
 isEmpty(new Array(3));
->isEmpty(new Array(3)) : boolean
+>isEmpty(new Array(3)) : 真假
 >类型别名 :=> 真假
->isEmpty : (l: { length: number; }) => boolean
->new Array(3) : any[]
+>isEmpty : (l: { length: 数字; }) => 真假
+>new Array(3) : 任意[]
 >Array : ArrayConstructor
 >3 : 3
 
 isEmpty(new Array<string>(3));
->isEmpty(new Array<string>(3)) : boolean
+>isEmpty(new Array<string>(3)) : 真假
 >类型别名 :=> 真假
->isEmpty : (l: { length: number; }) => boolean
->new Array<string>(3) : string[]
+>isEmpty : (l: { length: 数字; }) => 真假
+>new Array<string>(3) : 文字[]
 >Array : ArrayConstructor
 >3 : 3
 
 isEmpty(['a']);
->isEmpty(['a']) : boolean
+>isEmpty(['a']) : 真假
 >类型别名 :=> 真假
->isEmpty : (l: { length: number; }) => boolean
->['a'] : string[]
+>isEmpty : (l: { length: 数字; }) => 真假
+>['a'] : 文字[]
 >'a' : "a"
 

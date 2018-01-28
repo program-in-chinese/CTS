@@ -3,40 +3,40 @@ interface Show {
 >Show : Show
 
     show: (x: number) => string;
->show : (x: number) => string
->x : number
+>show : (x: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
 }
 function f({ show: showRename = v => v }: Show) {}
->f : ({ show: showRename }: Show) => void
->show : any
+>f : ({ show: showRename }: Show) => 无值
+>show : 任意
 >类型别名 :=> 任意
->showRename : ((x: number) => string) | ((v: number) => number)
->v => v : (v: number) => number
->v : number
+>showRename : ((x: 数字) => 文字) | ((v: 数字) => 数字)
+>v => v : (v: 数字) => 数字
+>v : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
 >Show : Show
 
 function f2({ "show": showRename = v => v }: Show) {}
->f2 : ({ "show": showRename }: Show) => void
->showRename : ((x: number) => string) | ((v: number) => number)
->v => v : (v: number) => number
->v : number
+>f2 : ({ "show": showRename }: Show) => 无值
+>showRename : ((x: 数字) => 文字) | ((v: 数字) => 数字)
+>v => v : (v: 数字) => 数字
+>v : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
 >Show : Show
 
 function f3({ ["show"]: showRename = v => v }: Show) {}
->f3 : ({ ["show"]: showRename }: Show) => void
+>f3 : ({ ["show"]: showRename }: Show) => 无值
 >"show" : "show"
->showRename : ((x: number) => string) | ((v: number) => number)
->v => v : (v: number) => number
->v : number
+>showRename : ((x: 数字) => 文字) | ((v: 数字) => 数字)
+>v => v : (v: 数字) => 数字
+>v : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
 >Show : Show
 
@@ -48,16 +48,16 @@ interface Nested {
 >Show : Show
 }
 function ff({ nested: nestedRename = { show: v => v } }: Nested) {}
->ff : ({ nested: nestedRename }: Nested) => void
->nested : any
+>ff : ({ nested: nestedRename }: Nested) => 无值
+>nested : 任意
 >类型别名 :=> 任意
->nestedRename : Show | { show: (v: number) => number; }
->{ show: v => v } : { show: (v: number) => number; }
->show : (v: number) => number
->v => v : (v: number) => number
->v : number
+>nestedRename : Show | { show: (v: 数字) => 数字; }
+>{ show: v => v } : { show: (v: 数字) => 数字; }
+>show : (v: 数字) => 数字
+>v => v : (v: 数字) => 数字
+>v : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
 >Nested : Nested
 
@@ -65,42 +65,42 @@ interface StringIdentity {
 >StringIdentity : StringIdentity
 
     stringIdentity(s: string): string;
->stringIdentity : (s: string) => string
->s : string
+>stringIdentity : (s: 文字) => 文字
+>s : 文字
 >类型别名 :=> 文字
 }
 let { stringIdentity: id = arg => arg.length }: StringIdentity = { stringIdentity: x => x};
->stringIdentity : any
+>stringIdentity : 任意
 >类型别名 :=> 任意
->id : ((s: string) => string) | ((arg: string) => number)
->arg => arg.length : (arg: string) => number
->arg : string
+>id : ((s: 文字) => 文字) | ((arg: 文字) => 数字)
+>arg => arg.length : (arg: 文字) => 数字
+>arg : 文字
 >类型别名 :=> 文字
->arg.length : number
+>arg.length : 数字
 >类型别名 :=> 数字
->arg : string
+>arg : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
 >StringIdentity : StringIdentity
->{ stringIdentity: x => x} : { stringIdentity: (x: string) => string; }
->stringIdentity : (x: string) => string
->x => x : (x: string) => string
->x : string
+>{ stringIdentity: x => x} : { stringIdentity: (x: 文字) => 文字; }
+>stringIdentity : (x: 文字) => 文字
+>x => x : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 interface Tuples {
 >Tuples : Tuples
 
     prop: [string, number];
->prop : [string, number]
+>prop : [文字, 数字]
 }
 function g({ prop = [101, 1234] }: Tuples) {}
->g : ({ prop }: Tuples) => void
->prop : [string, number] | [number, number]
->[101, 1234] : [number, number]
+>g : ({ prop }: Tuples) => 无值
+>prop : [文字, 数字] | [数字, 数字]
+>[101, 1234] : [数字, 数字]
 >101 : 101
 >1234 : 1234
 >Tuples : Tuples
@@ -112,7 +112,7 @@ interface StringUnion {
 >prop : "foo" | "bar"
 }
 function h({ prop = "baz" }: StringUnion) {}
->h : ({ prop }: StringUnion) => void
+>h : ({ prop }: StringUnion) => 无值
 >prop : "foo" | "bar" | "baz"
 >"baz" : "baz"
 >StringUnion : StringUnion

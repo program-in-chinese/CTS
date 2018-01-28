@@ -1,7 +1,7 @@
 === tests/cases/conformance/types/mapped/mappedTypeWithAny.ts ===
 type Item = { value: string };
 >Item : Item
->value : string
+>value : 文字
 >类型别名 :=> 文字
 
 type ItemMap<T> = { [P in keyof T]: Item };
@@ -12,26 +12,26 @@ type ItemMap<T> = { [P in keyof T]: Item };
 >Item : Item
 
 declare let x0: keyof any;
->x0 : string
+>x0 : 文字
 >类型别名 :=> 文字
 
 declare let x1: { [P in any]: Item };
->x1 : { [x: string]: Item; }
+>x1 : { [x: 文字]: Item; }
 >P : P
 >Item : Item
 
 declare let x2: { [P in string]: Item };
->x2 : { [x: string]: Item; }
+>x2 : { [x: 文字]: Item; }
 >P : P
 >Item : Item
 
 declare let x3: { [P in keyof any]: Item };
->x3 : { [x: string]: Item; }
+>x3 : { [x: 文字]: Item; }
 >P : P
 >Item : Item
 
 declare let x4: ItemMap<any>;
->x4 : ItemMap<any>
+>x4 : ItemMap<任意>
 >ItemMap : ItemMap<T>
 
 // Repro from #19152
@@ -40,7 +40,7 @@ type Data = {
 >Data : Data
 
   value: string;
->value : string
+>value : 文字
 >类型别名 :=> 文字
 }
 
@@ -55,28 +55,28 @@ type StrictDataMap<T> = {
 }
 
 declare let z: StrictDataMap<any>;
->z : StrictDataMap<any>
+>z : StrictDataMap<任意>
 >StrictDataMap : StrictDataMap<T>
 
 for (let id in z) {
->id : string
+>id : 文字
 >类型别名 :=> 文字
->z : StrictDataMap<any>
+>z : StrictDataMap<任意>
 
   let data = z[id];
 >data : Data
 >z[id] : Data
->z : StrictDataMap<any>
->id : string
+>z : StrictDataMap<任意>
+>id : 文字
 >类型别名 :=> 文字
 
   let x = data.notAValue;  // Error
->x : any
+>x : 任意
 >类型别名 :=> 任意
->data.notAValue : any
+>data.notAValue : 任意
 >类型别名 :=> 任意
 >data : Data
->notAValue : any
+>notAValue : 任意
 >类型别名 :=> 任意
 }
 

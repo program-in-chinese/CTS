@@ -1,6 +1,6 @@
 === tests/cases/compiler/overloadResolutionOverNonCTLambdas.ts ===
 module Bugs {
->Bugs : typeof Bugs
+>Bugs : 类为 Bugs
 
   class A {
 >A : A
@@ -8,95 +8,95 @@ module Bugs {
   
   // replace(searchValue: RegExp, replaceValue: (substring: string, ...args: any[]) => string): string;
   function bug2(message:string, ...args:any[]):string {
->bug2 : (message: string, ...args: any[]) => string
->message : string
+>bug2 : (message: 文字, ...args: 任意[]) => 文字
+>message : 文字
 >类型别名 :=> 文字
->args : any[]
+>args : 任意[]
 
     var result= message.replace(/\{(\d+)\}/g, function(match, ...rest) {
->result : string
+>result : 文字
 >类型别名 :=> 文字
->message.replace(/\{(\d+)\}/g, function(match, ...rest) {      var index= rest[0];      return typeof args[index] !== 'undefined'        ? args[index]        : match;    }) : string
+>message.replace(/\{(\d+)\}/g, function(match, ...rest) {      var index= rest[0];      return typeof args[index] !== 'undefined'        ? args[index]        : match;    }) : 文字
 >类型别名 :=> 文字
->message.replace : { (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }
->message : string
+>message.replace : { (searchValue: 文字 | RegExp, replaceValue: 文字): 文字; (searchValue: 文字 | RegExp, replacer: (substring: 文字, ...args: 任意[]) => 文字): 文字; }
+>message : 文字
 >类型别名 :=> 文字
->replace : { (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }
+>replace : { (searchValue: 文字 | RegExp, replaceValue: 文字): 文字; (searchValue: 文字 | RegExp, replacer: (substring: 文字, ...args: 任意[]) => 文字): 文字; }
 >/\{(\d+)\}/g : RegExp
->function(match, ...rest) {      var index= rest[0];      return typeof args[index] !== 'undefined'        ? args[index]        : match;    } : (match: string, ...rest: any[]) => any
->match : string
+>function(match, ...rest) {      var index= rest[0];      return typeof args[index] !== 'undefined'        ? args[index]        : match;    } : (match: 文字, ...rest: 任意[]) => 任意
+>match : 文字
 >类型别名 :=> 文字
->rest : any[]
+>rest : 任意[]
 
       var index= rest[0];
->index : any
+>index : 任意
 >类型别名 :=> 任意
->rest[0] : any
+>rest[0] : 任意
 >类型别名 :=> 任意
->rest : any[]
+>rest : 任意[]
 >0 : 0
 
       return typeof args[index] !== 'undefined'
->typeof args[index] !== 'undefined'        ? args[index]        : match : any
+>typeof args[index] !== 'undefined'        ? args[index]        : match : 任意
 >类型别名 :=> 任意
->typeof args[index] !== 'undefined' : boolean
+>typeof args[index] !== 'undefined' : 真假
 >类型别名 :=> 真假
 >typeof args[index] : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->args[index] : any
+>args[index] : 任意
 >类型别名 :=> 任意
->args : any[]
->index : any
+>args : 任意[]
+>index : 任意
 >类型别名 :=> 任意
 >'undefined' : "undefined"
 
         ? args[index]
->args[index] : any
+>args[index] : 任意
 >类型别名 :=> 任意
->args : any[]
->index : any
+>args : 任意[]
+>index : 任意
 >类型别名 :=> 任意
 
         : match;
->match : string
+>match : 文字
 >类型别名 :=> 文字
 
     });
     return result;
->result : string
+>result : 文字
 >类型别名 :=> 文字
   }
 }
 
 function bug3(f:(x:string)=>string) { return f("s") }
->bug3 : (f: (x: string) => string) => string
->f : (x: string) => string
->x : string
+>bug3 : (f: (x: 文字) => 文字) => 文字
+>f : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
->f("s") : string
+>f("s") : 文字
 >类型别名 :=> 文字
->f : (x: string) => string
+>f : (x: 文字) => 文字
 >"s" : "s"
 
 function fprime(x:string):string { return x; }
->fprime : (x: string) => string
->x : string
+>fprime : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 bug3(fprime);
->bug3(fprime) : string
+>bug3(fprime) : 文字
 >类型别名 :=> 文字
->bug3 : (f: (x: string) => string) => string
->fprime : (x: string) => string
+>bug3 : (f: (x: 文字) => 文字) => 文字
+>fprime : (x: 文字) => 文字
 
 bug3(function(x:string):string { return x; });
->bug3(function(x:string):string { return x; }) : string
+>bug3(function(x:string):string { return x; }) : 文字
 >类型别名 :=> 文字
->bug3 : (f: (x: string) => string) => string
->function(x:string):string { return x; } : (x: string) => string
->x : string
+>bug3 : (f: (x: 文字) => 文字) => 文字
+>function(x:string):string { return x; } : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 

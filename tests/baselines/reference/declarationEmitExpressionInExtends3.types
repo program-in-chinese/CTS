@@ -26,7 +26,7 @@ export interface ExportedInterface {
 >ExportedInterface : ExportedInterface
 
     x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 
@@ -34,48 +34,48 @@ interface LocalInterface {
 >LocalInterface : LocalInterface
 
     x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 
 function getLocalClass<T>(c: T) {
->getLocalClass : <T>(c: T) => typeof LocalClass
+>getLocalClass : <T>(c: T) => 类为 LocalClass
 >T : T
 >c : T
 >T : T
 
     return LocalClass;
->LocalClass : typeof LocalClass
+>LocalClass : 类为 LocalClass
 }
 
 function getExportedClass<T>(c: T) {
->getExportedClass : <T>(c: T) => typeof ExportedClass
+>getExportedClass : <T>(c: T) => 类为 ExportedClass
 >T : T
 >c : T
 >T : T
 
     return ExportedClass;
->ExportedClass : typeof ExportedClass
+>ExportedClass : 类为 ExportedClass
 }
 
 
 
 export class MyClass extends getLocalClass<LocalInterface>(undefined)<string, number> { // error LocalClass is inaccisible
 >MyClass : MyClass
->getLocalClass<LocalInterface>(undefined) : LocalClass<string, number>
->getLocalClass : <T>(c: T) => typeof LocalClass
+>getLocalClass<LocalInterface>(undefined) : LocalClass<文字, 数字>
+>getLocalClass : <T>(c: T) => 类为 LocalClass
 >LocalInterface : LocalInterface
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 
 export class MyClass2 extends getExportedClass<LocalInterface>(undefined)<string> { // OK
 >MyClass2 : MyClass2
->getExportedClass<LocalInterface>(undefined) : ExportedClass<string>
->getExportedClass : <T>(c: T) => typeof ExportedClass
+>getExportedClass<LocalInterface>(undefined) : ExportedClass<文字>
+>getExportedClass : <T>(c: T) => 类为 ExportedClass
 >LocalInterface : LocalInterface
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
@@ -83,9 +83,9 @@ export class MyClass2 extends getExportedClass<LocalInterface>(undefined)<string
 export class MyClass3 extends getExportedClass<LocalInterface>(undefined)<LocalInterface> { // Error LocalInterface is inaccisble
 >MyClass3 : MyClass3
 >getExportedClass<LocalInterface>(undefined) : ExportedClass<LocalInterface>
->getExportedClass : <T>(c: T) => typeof ExportedClass
+>getExportedClass : <T>(c: T) => 类为 ExportedClass
 >LocalInterface : LocalInterface
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 >LocalInterface : LocalInterface
 }
@@ -94,9 +94,9 @@ export class MyClass3 extends getExportedClass<LocalInterface>(undefined)<LocalI
 export class MyClass4 extends getExportedClass<LocalInterface>(undefined)<ExportedInterface> { // OK
 >MyClass4 : MyClass4
 >getExportedClass<LocalInterface>(undefined) : ExportedClass<ExportedInterface>
->getExportedClass : <T>(c: T) => typeof ExportedClass
+>getExportedClass : <T>(c: T) => 类为 ExportedClass
 >LocalInterface : LocalInterface
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 >ExportedInterface : ExportedInterface
 }

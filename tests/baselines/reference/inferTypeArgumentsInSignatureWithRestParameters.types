@@ -1,33 +1,33 @@
 === tests/cases/compiler/inferTypeArgumentsInSignatureWithRestParameters.ts ===
 function f<T>(array: T[], ...args) { }
->f : <T>(array: T[], ...args: any[]) => void
+>f : <T>(array: T[], ...args: 任意[]) => 无值
 >T : T
 >array : T[]
 >T : T
->args : any[]
+>args : 任意[]
 
 function g(array: number[], ...args) { }
->g : (array: number[], ...args: any[]) => void
->array : number[]
->args : any[]
+>g : (array: 数字[], ...args: 任意[]) => 无值
+>array : 数字[]
+>args : 任意[]
 
 function h<T>(nonarray: T, ...args) { }
->h : <T>(nonarray: T, ...args: any[]) => void
+>h : <T>(nonarray: T, ...args: 任意[]) => 无值
 >T : T
 >nonarray : T
 >T : T
->args : any[]
+>args : 任意[]
 
 function i<T>(array: T[], opt?: any[]) { }
->i : <T>(array: T[], opt?: any[]) => void
+>i : <T>(array: T[], opt?: 任意[]) => 无值
 >T : T
 >array : T[]
 >T : T
->opt : any[]
+>opt : 任意[]
 
 var a = [1, 2, 3, 4, 5];
->a : number[]
->[1, 2, 3, 4, 5] : number[]
+>a : 数字[]
+>[1, 2, 3, 4, 5] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
@@ -35,26 +35,26 @@ var a = [1, 2, 3, 4, 5];
 >5 : 5
 
 f(a); // OK
->f(a) : void
+>f(a) : 无值
 >类型别名 :=> 无值
->f : <T>(array: T[], ...args: any[]) => void
->a : number[]
+>f : <T>(array: T[], ...args: 任意[]) => 无值
+>a : 数字[]
 
 g(a); // OK
->g(a) : void
+>g(a) : 无值
 >类型别名 :=> 无值
->g : (array: number[], ...args: any[]) => void
->a : number[]
+>g : (array: 数字[], ...args: 任意[]) => 无值
+>a : 数字[]
 
 h(a); // OK
->h(a) : void
+>h(a) : 无值
 >类型别名 :=> 无值
->h : <T>(nonarray: T, ...args: any[]) => void
->a : number[]
+>h : <T>(nonarray: T, ...args: 任意[]) => 无值
+>a : 数字[]
 
 i(a); // OK
->i(a) : void
+>i(a) : 无值
 >类型别名 :=> 无值
->i : <T>(array: T[], opt?: any[]) => void
->a : number[]
+>i : <T>(array: T[], opt?: 任意[]) => 无值
+>a : 数字[]
 

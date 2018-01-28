@@ -1,42 +1,42 @@
 === tests/cases/conformance/classes/members/classTypes/instancePropertyInClassType.ts ===
 module NonGeneric {
->NonGeneric : typeof NonGeneric
+>NonGeneric : 类为 NonGeneric
 
     class C {
 >C : C
 
         x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         get y() {
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
             return 1;
 >1 : 1
         }
         set y(v) { }
->y : number
+>y : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
 
         fn() { return this; }
->fn : () => this
->this : this
+>fn : () => 本体
+>this : 本体
 
         constructor(public a: number, private b: number) { }
->a : number
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
     }
 
     var c = new C(1, 2);
 >c : C
 >new C(1, 2) : C
->C : typeof C
+>C : 类为 C
 >1 : 1
 >2 : 2
 
@@ -48,47 +48,47 @@ module NonGeneric {
 >fn : () => C
 
     var r2 = r.x;
->r2 : string
+>r2 : 文字
 >类型别名 :=> 文字
->r.x : string
+>r.x : 文字
 >类型别名 :=> 文字
 >r : C
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     var r3 = r.y;
->r3 : number
+>r3 : 数字
 >类型别名 :=> 数字
->r.y : number
+>r.y : 数字
 >类型别名 :=> 数字
 >r : C
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
     r.y = 4;
 >r.y = 4 : 4
->r.y : number
+>r.y : 数字
 >类型别名 :=> 数字
 >r : C
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >4 : 4
 
     var r6 = c.y(); // error
->r6 : any
+>r6 : 任意
 >类型别名 :=> 任意
->c.y() : any
+>c.y() : 任意
 >类型别名 :=> 任意
->c.y : number
+>c.y : 数字
 >类型别名 :=> 数字
 >c : C
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 }
 
 module Generic {
->Generic : typeof Generic
+>Generic : 类为 Generic
 
     class C<T,U> {
 >C : C<T, U>
@@ -103,7 +103,7 @@ module Generic {
 >y : U
 
             return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
         }
         set y(v: U) { }
@@ -112,8 +112,8 @@ module Generic {
 >U : U
 
         fn() { return this; }
->fn : () => this
->this : this
+>fn : () => 本体
+>this : 本体
 
         constructor(public a: T, private b: U) { }
 >a : T
@@ -123,54 +123,54 @@ module Generic {
     }
 
     var c = new C(1, '');
->c : C<number, string>
->new C(1, '') : C<number, string>
->C : typeof C
+>c : C<数字, 文字>
+>new C(1, '') : C<数字, 文字>
+>C : 类为 C
 >1 : 1
 >'' : ""
 
     var r = c.fn();
->r : C<number, string>
->c.fn() : C<number, string>
->c.fn : () => C<number, string>
->c : C<number, string>
->fn : () => C<number, string>
+>r : C<数字, 文字>
+>c.fn() : C<数字, 文字>
+>c.fn : () => C<数字, 文字>
+>c : C<数字, 文字>
+>fn : () => C<数字, 文字>
 
     var r2 = r.x;
->r2 : number
+>r2 : 数字
 >类型别名 :=> 数字
->r.x : number
+>r.x : 数字
 >类型别名 :=> 数字
->r : C<number, string>
->x : number
+>r : C<数字, 文字>
+>x : 数字
 >类型别名 :=> 数字
 
     var r3 = r.y;
->r3 : string
+>r3 : 文字
 >类型别名 :=> 文字
->r.y : string
+>r.y : 文字
 >类型别名 :=> 文字
->r : C<number, string>
->y : string
+>r : C<数字, 文字>
+>y : 文字
 >类型别名 :=> 文字
 
     r.y = '';
 >r.y = '' : ""
->r.y : string
+>r.y : 文字
 >类型别名 :=> 文字
->r : C<number, string>
->y : string
+>r : C<数字, 文字>
+>y : 文字
 >类型别名 :=> 文字
 >'' : ""
 
     var r6 = c.y(); // error
->r6 : any
+>r6 : 任意
 >类型别名 :=> 任意
->c.y() : any
+>c.y() : 任意
 >类型别名 :=> 任意
->c.y : string
+>c.y : 文字
 >类型别名 :=> 文字
->c : C<number, string>
->y : string
+>c : C<数字, 文字>
+>y : 文字
 >类型别名 :=> 文字
 }

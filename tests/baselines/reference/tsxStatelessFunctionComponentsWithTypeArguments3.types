@@ -1,28 +1,28 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react')
->React : typeof React
+>React : 类为 React
 
 declare function OverloadComponent<U>(): JSX.Element;
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >U : U
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function OverloadComponent<U>(attr: {b: U, a?: string, "ignore-prop": boolean}): JSX.Element;
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >U : U
->attr : { b: U; a?: string; "ignore-prop": boolean; }
+>attr : { b: U; a?: 文字; "ignore-prop": 真假; }
 >b : U
 >U : U
->a : string
+>a : 文字
 >类型别名 :=> 文字
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function OverloadComponent<T, U>(attr: {b: U, a: T}): JSX.Element;
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >T : T
 >U : U
 >attr : { b: U; a: T; }
@@ -30,20 +30,20 @@ declare function OverloadComponent<T, U>(attr: {b: U, a: T}): JSX.Element;
 >U : U
 >a : T
 >T : T
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 // OK
 function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, arg2: U) {
->Baz : <T extends { b: number; }, U extends { a: boolean; b: string; }>(arg1: T, arg2: U) => void
+>Baz : <T 扩展 { b: 数字; }, U 扩展 { a: 真假; b: 文字; }>(arg1: T, arg2: U) => 无值
 >T : T
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >U : U
->a : boolean
+>a : 真假
 >类型别名 :=> 真假
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >arg1 : T
 >T : T
@@ -53,104 +53,104 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
     let a0 = <OverloadComponent {...arg1} a="hello" ignore-prop />;
 >a0 : JSX.Element
 ><OverloadComponent {...arg1} a="hello" ignore-prop /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg1 : T
->a : string
+>a : 文字
 >类型别名 :=> 文字
->ignore-prop : true
+>ignore-prop : 为真
 >类型别名 :=> 为真
 
     let a1 = <OverloadComponent {...arg2} ignore-pro="hello world" />;
 >a1 : JSX.Element
 ><OverloadComponent {...arg2} ignore-pro="hello world" /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg2 : U
->ignore-pro : string
+>ignore-pro : 文字
 >类型别名 :=> 文字
 
     let a2 = <OverloadComponent {...arg2} />;
 >a2 : JSX.Element
 ><OverloadComponent {...arg2} /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg2 : U
 
     let a3 = <OverloadComponent {...arg1} ignore-prop />;
 >a3 : JSX.Element
 ><OverloadComponent {...arg1} ignore-prop /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg1 : T
->ignore-prop : true
+>ignore-prop : 为真
 >类型别名 :=> 为真
 
     let a4 = <OverloadComponent />;
 >a4 : JSX.Element
 ><OverloadComponent /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 
     let a5 = <OverloadComponent {...arg2} ignore-prop="hello" {...arg1} />;
 >a5 : JSX.Element
 ><OverloadComponent {...arg2} ignore-prop="hello" {...arg1} /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg2 : U
->ignore-prop : string
+>ignore-prop : 文字
 >类型别名 :=> 文字
 >arg1 : T
 
     let a6 = <OverloadComponent {...arg2} ignore-prop {...arg1} />;
 >a6 : JSX.Element
 ><OverloadComponent {...arg2} ignore-prop {...arg1} /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a?: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg2 : U
->ignore-prop : true
+>ignore-prop : 为真
 >类型别名 :=> 为真
 >arg1 : T
 }
 
 declare function Link<U>(l: {func: (arg: U)=>void}): JSX.Element;
->Link : { <U>(l: { func: (arg: U) => void; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: string) => void; }): JSX.Element; }
+>Link : { <U>(l: { func: (arg: U) => 无值; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: 文字) => 无值; }): JSX.Element; }
 >U : U
->l : { func: (arg: U) => void; }
->func : (arg: U) => void
+>l : { func: (arg: U) => 无值; }
+>func : (arg: U) => 无值
 >arg : U
 >U : U
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function Link<U>(l: {func: (arg1:U, arg2: string)=>void}): JSX.Element;
->Link : { <U>(l: { func: (arg: U) => void; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: string) => void; }): JSX.Element; }
+>Link : { <U>(l: { func: (arg: U) => 无值; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: 文字) => 无值; }): JSX.Element; }
 >U : U
->l : { func: (arg1: U, arg2: string) => void; }
->func : (arg1: U, arg2: string) => void
+>l : { func: (arg1: U, arg2: 文字) => 无值; }
+>func : (arg1: U, arg2: 文字) => 无值
 >arg1 : U
 >U : U
->arg2 : string
+>arg2 : 文字
 >类型别名 :=> 文字
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 function createLink(func: (a: number)=>void) {
->createLink : (func: (a: number) => void) => void
->func : (a: number) => void
->a : number
+>createLink : (func: (a: 数字) => 无值) => 无值
+>func : (a: 数字) => 无值
+>a : 数字
 >类型别名 :=> 数字
 
     let o = <Link func={func} />
 >o : JSX.Element
 ><Link func={func} /> : JSX.Element
->Link : { <U>(l: { func: (arg: U) => void; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: string) => void; }): JSX.Element; }
->func : (a: number) => void
->func : (a: number) => void
+>Link : { <U>(l: { func: (arg: U) => 无值; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: 文字) => 无值; }): JSX.Element; }
+>func : (a: 数字) => 无值
+>func : (a: 数字) => 无值
 
     let o1 = <Link func={(a:number, b:string)=>{}} />;
 >o1 : JSX.Element
 ><Link func={(a:number, b:string)=>{}} /> : JSX.Element
->Link : { <U>(l: { func: (arg: U) => void; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: string) => void; }): JSX.Element; }
->func : (a: number, b: string) => any
->(a:number, b:string)=>{} : (a: number, b: string) => any
->a : number
+>Link : { <U>(l: { func: (arg: U) => 无值; }): JSX.Element; <U>(l: { func: (arg1: U, arg2: 文字) => 无值; }): JSX.Element; }
+>func : (a: 数字, b: 文字) => 任意
+>(a:number, b:string)=>{} : (a: 数字, b: 文字) => 任意
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 }

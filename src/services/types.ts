@@ -37,8 +37,8 @@ namespace ts {
     }
 
     export interface 别名 {
-        取旗帜(): 别名旗帜;
-        取名称(): string;
+         旗帜: 别名旗帜;
+         名称: __String
     }
 
     export interface Type {
@@ -64,11 +64,48 @@ namespace ts {
         getJsDocTags(): JSDocTagInfo[];
     }
 
+    export interface 词典完成条目 {
+        name: string;
+        range: 范围类型;
+        isStringLiteral: boolean;
+        rangeMap?: RangeMap;
+    }
+
+    export interface 名称引用 {
+        kind?: ScriptElementKind,
+        fileName: string,
+        textSpan: TextSpan,
+        isInString: boolean,
+        name: string
+        parent: Position
+    }
+
+    export interface Position {
+        readonly line: number;
+        readonly character: number;
+    }
+
+    export interface RangeMap {
+        [x: string]: RangeInfo[];
+    }
+
+    export interface 范围类型 {
+        readonly start: Position;
+        readonly end: Position;
+    }
+
+
+    export interface RangeInfo {
+        readonly start: Position;
+        readonly end: Position;
+        readonly parent: Position;
+        readonly isStringLiteral: boolean;
+    }
+
     export interface SourceFile {
         /* @internal */ version: string;
         /* @internal */ scriptSnapshot: IScriptSnapshot;
         /* @internal */ nameTable: UnderscoreEscapedMap<number>;
-
         /* @internal */ getNamedDeclarations(): Map<Declaration[]>;
 
         getLineAndCharacterOfPosition(pos: number): LineAndCharacter;
@@ -245,7 +282,6 @@ namespace ts {
         // "options" is optional only for backwards-compatibility
         getCompletionEntryDetails(fileName: string, position: number, entryName: string, options?: FormatCodeOptions | FormatCodeSettings): CompletionEntryDetails;
         getCompletionEntrySymbol(fileName: string, position: number, entryName: string): Symbol;
-
         getQuickInfoAtPosition(fileName: string, position: number): QuickInfo;
 
         getNameOrDottedNameSpan(fileName: string, startPos: number, endPos: number): TextSpan;
@@ -256,7 +292,7 @@ namespace ts {
 
         getRenameInfo(fileName: string, position: number): RenameInfo;
         findRenameLocations(fileName: string, position: number, findInStrings: boolean, findInComments: boolean): RenameLocation[];
-
+        取词典自动完成项目新?(fileName: string, position: number, ignoreName: string):名称引用[]
         getDefinitionAtPosition(fileName: string, position: number): DefinitionInfo[];
         getTypeDefinitionAtPosition(fileName: string, position: number): DefinitionInfo[];
         getImplementationAtPosition(fileName: string, position: number): ImplementationLocation[];
@@ -304,6 +340,7 @@ namespace ts {
          */
         getSourceFile(fileName: string): SourceFile;
         转为CTS(fileName: string):string;
+        格式化词典语句?(fileName: string):string;
         dispose(): void;
     }
 
@@ -795,138 +832,138 @@ namespace ts {
 
     export const enum ScriptElementKind {
         unknown = "",
-        warning = "warning",
+        warning = "警告",
 
         /** predefined type (void) or keyword (class) */
-        keyword = "keyword",
+        keyword = "关键字",
 
         /** top level script node */
-        scriptElement = "script",
+        scriptElement = "脚本",
 
         /** module foo {} */
-        moduleElement = "module",
+        moduleElement = "模块",
 
         /** class X {} */
-        classElement = "class",
+        classElement = "类别",
 
         /** var x = class X {} */
-        localClassElement = "local class",
+        localClassElement = "本地类别",
 
         /** interface Y {} */
-        interfaceElement = "interface",
+        interfaceElement = "接口",
 
         /** type T = ... */
-        typeElement = "type",
+        typeElement = "类型",
 
         /** enum E */
-        enumElement = "enum",
-        enumMemberElement = "enum member",
+        enumElement = "枚举",
+        enumMemberElement = "枚举成员",
 
         /**
          * Inside module and script only
          * const v = ..
          */
-        variableElement = "var",
+        variableElement = "值量",
 
         /** Inside function */
-        localVariableElement = "local var",
+        localVariableElement = "本地值量",
 
         /**
          * Inside module and script only
          * function f() { }
          */
-        functionElement = "function",
+        functionElement = "函数",
 
         /** Inside function */
-        localFunctionElement = "local function",
+        localFunctionElement = "本地函数",
 
         /** class X { [public|private]* foo() {} } */
-        memberFunctionElement = "method",
+        memberFunctionElement = "方法",
 
         /** class X { [public|private]* [get|set] foo:number; } */
-        memberGetAccessorElement = "getter",
-        memberSetAccessorElement = "setter",
+        memberGetAccessorElement = "获取",
+        memberSetAccessorElement = "设置",
 
         /**
          * class X { [public|private]* foo:number; }
          * interface Y { foo:number; }
          */
-        memberVariableElement = "property",
+        memberVariableElement = "属性",
 
         /** class X { constructor() { } } */
-        constructorImplementationElement = "constructor",
+        constructorImplementationElement = "构造",
 
         /** interface Y { ():number; } */
-        callSignatureElement = "call",
+        callSignatureElement = "调用",
 
         /** interface Y { []:number; } */
-        indexSignatureElement = "index",
+        indexSignatureElement = "索引",
 
         /** interface Y { new():Y; } */
-        constructSignatureElement = "construct",
+        constructSignatureElement = "构建",
 
         /** function foo(*Y*: string) */
-        parameterElement = "parameter",
+        parameterElement = "参数",
 
-        typeParameterElement = "type parameter",
+        typeParameterElement = "类型参数",
 
-        primitiveType = "primitive type",
+        primitiveType = "原始类型",
 
-        label = "label",
+        label = "标签",
 
-        alias = "alias",
+        alias = "别名",
 
-        constElement = "const",
+        constElement = "常量",
 
-        letElement = "let",
+        letElement = "变量",
 
-        directory = "directory",
+        directory = "目录",
 
-        externalModuleName = "external module name",
+        externalModuleName = "外部模块名",
 
         /**
          * <JsxTagName attribute1 attribute2={0} />
          */
-        jsxAttribute = "JSX attribute",
+        jsxAttribute = "JSX属性",
     }
 
     export const enum ScriptElementKindModifier {
         none = "",
-        publicMemberModifier = "public",
-        privateMemberModifier = "private",
-        protectedMemberModifier = "protected",
-        exportedModifier = "export",
-        ambientModifier = "declare",
-        staticModifier = "static",
-        abstractModifier = "abstract",
+        publicMemberModifier = "公开",
+        privateMemberModifier = "私有",
+        protectedMemberModifier = "保护",
+        exportedModifier = "导出",
+        ambientModifier = "声明",
+        staticModifier = "静态",
+        abstractModifier = "抽象",
     }
 
     export const enum ClassificationTypeNames {
-        comment = "comment",
-        identifier = "identifier",
-        keyword = "keyword",
-        numericLiteral = "number",
-        operator = "operator",
-        stringLiteral = "string",
-        whiteSpace = "whitespace",
-        text = "text",
+        comment = "评论",
+        identifier = "标识符",
+        keyword = "关键字",
+        numericLiteral = "数字",
+        operator = "运算符",
+        stringLiteral = "文字",
+        whiteSpace = "空格",
+        text = "文本",
 
-        punctuation = "punctuation",
+        punctuation = "标点符号",
 
-        className = "class name",
-        enumName = "enum name",
-        interfaceName = "interface name",
-        moduleName = "module name",
-        typeParameterName = "type parameter name",
-        typeAliasName = "type alias name",
-        parameterName = "parameter name",
-        docCommentTagName = "doc comment tag name",
-        jsxOpenTagName = "jsx open tag name",
-        jsxCloseTagName = "jsx close tag name",
-        jsxSelfClosingTagName = "jsx self closing tag name",
-        jsxAttribute = "jsx attribute",
-        jsxText = "jsx text",
-        jsxAttributeStringLiteralValue = "jsx attribute string literal value",
+        className = "类名",
+        enumName = "枚举名",
+        interfaceName = "接口名",
+        moduleName = "模块名",
+        typeParameterName = "类型参数名",
+        typeAliasName = "类型别名名",
+        parameterName = "参数名",
+        docCommentTagName = "注释标签名",
+        jsxOpenTagName = "JSX开始标签名",
+        jsxCloseTagName = "JSX结尾标签名",
+        jsxSelfClosingTagName = "JSX自闭标签名",
+        jsxAttribute = "JSX特性",
+        jsxText = "JSX文本",
+        jsxAttributeStringLiteralValue = "JSX特性字面值",
     }
 
     export const enum ClassificationType {

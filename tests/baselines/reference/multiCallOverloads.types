@@ -3,52 +3,52 @@ interface ICallback {
 >ICallback : ICallback
 
     (x?: string):void;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 
 function load(f: ICallback) {}
->load : (f: ICallback) => void
+>load : (f: ICallback) => 无值
 >f : ICallback
 >ICallback : ICallback
 
 var f1: ICallback = function(z?) {}
 >f1 : ICallback
 >ICallback : ICallback
->function(z?) {} : (z?: string) => void
->z : string
+>function(z?) {} : (z?: 文字) => 无值
+>z : 文字
 >类型别名 :=> 文字
 
 var f2: ICallback = function(z?) {}
 >f2 : ICallback
 >ICallback : ICallback
->function(z?) {} : (z?: string) => void
->z : string
+>function(z?) {} : (z?: 文字) => 无值
+>z : 文字
 >类型别名 :=> 文字
 
 load(f1) // ok
->load(f1) : void
+>load(f1) : 无值
 >类型别名 :=> 无值
->load : (f: ICallback) => void
+>load : (f: ICallback) => 无值
 >f1 : ICallback
 
 load(f2) // ok
->load(f2) : void
+>load(f2) : 无值
 >类型别名 :=> 无值
->load : (f: ICallback) => void
+>load : (f: ICallback) => 无值
 >f2 : ICallback
 
 load(function() {}) // this shouldn’t be an error
->load(function() {}) : void
+>load(function() {}) : 无值
 >类型别名 :=> 无值
->load : (f: ICallback) => void
->function() {} : () => void
+>load : (f: ICallback) => 无值
+>function() {} : () => 无值
 
 load(function(z?) {}) // this shouldn't be an error
->load(function(z?) {}) : void
+>load(function(z?) {}) : 无值
 >类型别名 :=> 无值
->load : (f: ICallback) => void
->function(z?) {} : (z?: string) => void
->z : string
+>load : (f: ICallback) => 无值
+>function(z?) {} : (z?: 文字) => 无值
+>z : 文字
 >类型别名 :=> 文字
 

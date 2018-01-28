@@ -3,7 +3,7 @@ class X{
 >X : X
 
       name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 
@@ -11,7 +11,7 @@ class Y{
 >Y : Y
 
       name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 
@@ -19,7 +19,7 @@ class X_1 {
 >X_1 : X_1
 
     private name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 
@@ -27,24 +27,24 @@ class Y_1 {
 >Y_1 : Y_1
 
     private name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 
 function foo(arg: X){}
->foo : (arg: X) => void
+>foo : (arg: X) => 无值
 >arg : X
 >X : X
  
 var a = new Y();
 >a : Y
 >new Y() : Y
->Y : typeof Y
+>Y : 类为 Y
 
 var b = new X();
 >b : X
 >new X() : X
->X : typeof X
+>X : 类为 X
  
 a = b; // ok
 >a = b : X
@@ -52,23 +52,23 @@ a = b; // ok
 >b : X
 
 foo(a); // ok
->foo(a) : void
+>foo(a) : 无值
 >类型别名 :=> 无值
->foo : (arg: X) => void
+>foo : (arg: X) => 无值
 >a : Y
 
 var a2 = new Y_1();
 >a2 : Y_1
 >new Y_1() : Y_1
->Y_1 : typeof Y_1
+>Y_1 : 类为 Y_1
 
 var b2 = new X_1();
 >b2 : X_1
 >new X_1() : X_1
->X_1 : typeof X_1
+>X_1 : 类为 X_1
 
 function foo2(arg: X_1) { }
->foo2 : (arg: X_1) => void
+>foo2 : (arg: X_1) => 无值
 >arg : X_1
 >X_1 : X_1
 
@@ -78,8 +78,8 @@ a2 = b2; // should error
 >b2 : X_1
 
 foo2(a2); // should error
->foo2(a2) : void
+>foo2(a2) : 无值
 >类型别名 :=> 无值
->foo2 : (arg: X_1) => void
+>foo2 : (arg: X_1) => 无值
 >a2 : Y_1
 

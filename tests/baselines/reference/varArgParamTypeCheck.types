@@ -1,56 +1,56 @@
 === tests/cases/compiler/varArgParamTypeCheck.ts ===
 function sequence(...sequences:{():void;}[]) {
->sequence : (...sequences: (() => void)[]) => void
->sequences : (() => void)[]
+>sequence : (...sequences: (() => 无值)[]) => 无值
+>sequences : (() => 无值)[]
 }
 
 function callback(clb:()=>void) {
->callback : (clb: () => void) => void
->clb : () => void
+>callback : (clb: () => 无值) => 无值
+>clb : () => 无值
 }
 
 sequence(
->sequence(    function bar() {    },    function foo() {        callback(()=>{            this();        });    },    function baz() {        callback(()=>{            this();        });    }) : void
+>sequence(    function bar() {    },    function foo() {        callback(()=>{            this();        });    },    function baz() {        callback(()=>{            this();        });    }) : 无值
 >类型别名 :=> 无值
->sequence : (...sequences: (() => void)[]) => void
+>sequence : (...sequences: (() => 无值)[]) => 无值
 
     function bar() {
->function bar() {    } : () => void
->bar : () => void
+>function bar() {    } : () => 无值
+>bar : () => 无值
 
     },
     function foo() {
->function foo() {        callback(()=>{            this();        });    } : () => void
->foo : () => void
+>function foo() {        callback(()=>{            this();        });    } : () => 无值
+>foo : () => 无值
 
         callback(()=>{
->callback(()=>{            this();        }) : void
+>callback(()=>{            this();        }) : 无值
 >类型别名 :=> 无值
->callback : (clb: () => void) => void
->()=>{            this();        } : () => void
+>callback : (clb: () => 无值) => 无值
+>()=>{            this();        } : () => 无值
 
             this();
->this() : any
+>this() : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
 
         });
     },
     function baz() {
->function baz() {        callback(()=>{            this();        });    } : () => void
->baz : () => void
+>function baz() {        callback(()=>{            this();        });    } : () => 无值
+>baz : () => 无值
 
         callback(()=>{
->callback(()=>{            this();        }) : void
+>callback(()=>{            this();        }) : 无值
 >类型别名 :=> 无值
->callback : (clb: () => void) => void
->()=>{            this();        } : () => void
+>callback : (clb: () => 无值) => 无值
+>()=>{            this();        } : () => 无值
 
             this();
->this() : any
+>this() : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
 
         });

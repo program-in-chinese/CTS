@@ -3,7 +3,7 @@ interface I {
 >I : I
 
     id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
 }
 
@@ -12,7 +12,7 @@ class C implements I {
 >I : I
 
     id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
 }
 
@@ -37,74 +37,74 @@ class D<T>{
 }
 
 function F(x: string): number { return 42; }
->F : (x: string) => number
->x : string
+>F : (x: 文字) => 数字
+>x : 文字
 >类型别名 :=> 文字
 >42 : 42
 
 function F2(x: number): boolean { return x < 42; }
->F2 : (x: number) => boolean
->x : number
+>F2 : (x: 数字) => 真假
+>x : 数字
 >类型别名 :=> 数字
->x < 42 : boolean
+>x < 42 : 真假
 >类型别名 :=> 真假
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >42 : 42
 
 module M {
->M : typeof M
+>M : 类为 M
 
     export class A {
 >A : A
 
         name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
     }
 
     export function F2(x: number): string { return x.toString(); }
->F2 : (x: number) => string
->x : number
+>F2 : (x: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
->x.toString() : string
+>x.toString() : 文字
 >类型别名 :=> 文字
->x.toString : (radix?: number) => string
->x : number
+>x.toString : (radix?: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
->toString : (radix?: number) => string
+>toString : (radix?: 数字) => 文字
 }
 
 module N {
->N : typeof N
+>N : 类为 N
 
     export class A {
 >A : A
 
         id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
     }
 
     export function F2(x: number): string { return x.toString(); }
->F2 : (x: number) => string
->x : number
+>F2 : (x: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
->x.toString() : string
+>x.toString() : 文字
 >类型别名 :=> 文字
->x.toString : (radix?: number) => string
->x : number
+>x.toString : (radix?: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
->toString : (radix?: number) => string
+>toString : (radix?: 数字) => 文字
 }
 
 var aNumber: number = 'this is a string';
->aNumber : number
+>aNumber : 数字
 >类型别名 :=> 数字
 >'this is a string' : "this is a string"
 
 var aString: string = 9.9;
->aString : string
+>aString : 文字
 >类型别名 :=> 文字
 >9.9 : 9.9
 
@@ -114,7 +114,7 @@ var aDate: Date = 9.9;
 >9.9 : 9.9
 
 var aVoid: void = 9.9;
->aVoid : void
+>aVoid : 无值
 >类型别名 :=> 无值
 >9.9 : 9.9
 
@@ -122,74 +122,74 @@ var anInterface: I = new D();
 >anInterface : I
 >I : I
 >new D() : D<{}>
->D : typeof D
+>D : 类为 D
 
 var aClass: C = new D();
 >aClass : C
 >C : C
 >new D() : D<{}>
->D : typeof D
+>D : 类为 D
 
 var aGenericClass: D<string> = new C();
->aGenericClass : D<string>
+>aGenericClass : D<文字>
 >D : D<T>
 >new C() : C
->C : typeof C
+>C : 类为 C
 
 var anObjectLiteral: I = { id: 'a string' };
 >anObjectLiteral : I
 >I : I
->{ id: 'a string' } : { id: string; }
->id : string
+>{ id: 'a string' } : { id: 文字; }
+>id : 文字
 >类型别名 :=> 文字
 >'a string' : "a string"
 
 var anOtherObjectLiteral: { id: string } = new C();
->anOtherObjectLiteral : { id: string; }
->id : string
+>anOtherObjectLiteral : { id: 文字; }
+>id : 文字
 >类型别名 :=> 文字
 >new C() : C
->C : typeof C
+>C : 类为 C
 
 var aFunction: typeof F = F2;
->aFunction : (x: string) => number
->F : (x: string) => number
->F2 : (x: number) => boolean
+>aFunction : (x: 文字) => 数字
+>F : (x: 文字) => 数字
+>F2 : (x: 数字) => 真假
 
 var anOtherFunction: (x: string) => number = F2;
->anOtherFunction : (x: string) => number
->x : string
+>anOtherFunction : (x: 文字) => 数字
+>x : 文字
 >类型别名 :=> 文字
->F2 : (x: number) => boolean
+>F2 : (x: 数字) => 真假
 
 var aLambda: typeof F = (x) => 'a string';
->aLambda : (x: string) => number
->F : (x: string) => number
->(x) => 'a string' : (x: string) => string
->x : string
+>aLambda : (x: 文字) => 数字
+>F : (x: 文字) => 数字
+>(x) => 'a string' : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 >'a string' : "a string"
 
 var aModule: typeof M = N;
->aModule : typeof M
->M : typeof M
->N : typeof N
+>aModule : 类为 M
+>M : 类为 M
+>N : 类为 N
 
 var aClassInModule: M.A = new N.A();
 >aClassInModule : M.A
->M : any
+>M : 任意
 >类型别名 :=> 任意
 >A : M.A
 >new N.A() : N.A
->N.A : typeof N.A
->N : typeof N
->A : typeof N.A
+>N.A : 类为 N.A
+>N : 类为 N
+>A : 类为 N.A
 
 var aFunctionInModule: typeof M.F2 = F2;
->aFunctionInModule : (x: number) => string
->M.F2 : (x: number) => string
->M : typeof M
->F2 : (x: number) => string
->F2 : (x: number) => boolean
+>aFunctionInModule : (x: 数字) => 文字
+>M.F2 : (x: 数字) => 文字
+>M : 类为 M
+>F2 : (x: 数字) => 文字
+>F2 : (x: 数字) => 真假
 
 

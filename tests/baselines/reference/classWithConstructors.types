@@ -1,61 +1,61 @@
 === tests/cases/conformance/classes/members/constructorFunctionTypes/classWithConstructors.ts ===
 module NonGeneric {
->NonGeneric : typeof NonGeneric
+>NonGeneric : 类为 NonGeneric
 
     class C {
 >C : C
 
         constructor(x: string) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
     }
 
     var c = new C(); // error
->c : any
+>c : 任意
 >类型别名 :=> 任意
->new C() : any
+>new C() : 任意
 >类型别名 :=> 任意
->C : typeof C
+>C : 类为 C
 
     var c2 = new C(''); // ok
 >c2 : C
 >new C('') : C
->C : typeof C
+>C : 类为 C
 >'' : ""
 
     class C2 {
 >C2 : C2
 
         constructor(x: number);
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         constructor(x: string);
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         constructor(x: any) { }
->x : any
+>x : 任意
 >类型别名 :=> 任意
     }
 
     var c3 = new C2(); // error
->c3 : any
+>c3 : 任意
 >类型别名 :=> 任意
->new C2() : any
+>new C2() : 任意
 >类型别名 :=> 任意
->C2 : typeof C2
+>C2 : 类为 C2
 
     var c4 = new C2(''); // ok
 >c4 : C2
 >new C2('') : C2
->C2 : typeof C2
+>C2 : 类为 C2
 >'' : ""
 
     var c5 = new C2(1); // ok
 >c5 : C2
 >new C2(1) : C2
->C2 : typeof C2
+>C2 : 类为 C2
 >1 : 1
 
     class D extends C2 { }
@@ -63,27 +63,27 @@ module NonGeneric {
 >C2 : C2
 
     var d = new D(); // error
->d : any
+>d : 任意
 >类型别名 :=> 任意
->new D() : any
+>new D() : 任意
 >类型别名 :=> 任意
->D : typeof D
+>D : 类为 D
 
     var d2 = new D(1); // ok
 >d2 : D
 >new D(1) : D
->D : typeof D
+>D : 类为 D
 >1 : 1
 
     var d3 = new D(''); // ok
 >d3 : D
 >new D('') : D
->D : typeof D
+>D : 类为 D
 >'' : ""
 }
 
 module Generics {
->Generics : typeof Generics
+>Generics : 类为 Generics
 
     class C<T> {
 >C : C<T>
@@ -95,16 +95,16 @@ module Generics {
     }
 
     var c = new C(); // error
->c : any
+>c : 任意
 >类型别名 :=> 任意
->new C() : any
+>new C() : 任意
 >类型别名 :=> 任意
->C : typeof C
+>C : 类为 C
 
     var c2 = new C(''); // ok
->c2 : C<string>
->new C('') : C<string>
->C : typeof C
+>c2 : C<文字>
+>new C('') : C<文字>
+>C : 类为 C
 >'' : ""
 
     class C2<T,U> {
@@ -123,27 +123,27 @@ module Generics {
 >U : U
 
         constructor(x: any) { }
->x : any
+>x : 任意
 >类型别名 :=> 任意
     }
 
     var c3 = new C2(); // error
->c3 : any
+>c3 : 任意
 >类型别名 :=> 任意
->new C2() : any
+>new C2() : 任意
 >类型别名 :=> 任意
->C2 : typeof C2
+>C2 : 类为 C2
 
     var c4 = new C2(''); // ok
->c4 : C2<string, {}>
->new C2('') : C2<string, {}>
->C2 : typeof C2
+>c4 : C2<文字, {}>
+>new C2('') : C2<文字, {}>
+>C2 : 类为 C2
 >'' : ""
 
     var c5 = new C2(1, 2); // ok
->c5 : C2<number, number>
->new C2(1, 2) : C2<number, number>
->C2 : typeof C2
+>c5 : C2<数字, 数字>
+>new C2(1, 2) : C2<数字, 数字>
+>C2 : 类为 C2
 >1 : 1
 >2 : 2
 
@@ -156,21 +156,21 @@ module Generics {
 >U : U
 
     var d = new D(); // error
->d : any
+>d : 任意
 >类型别名 :=> 任意
->new D() : any
+>new D() : 任意
 >类型别名 :=> 任意
->D : typeof D
+>D : 类为 D
 
     var d2 = new D(1); // ok
->d2 : D<number, {}>
->new D(1) : D<number, {}>
->D : typeof D
+>d2 : D<数字, {}>
+>new D(1) : D<数字, {}>
+>D : 类为 D
 >1 : 1
 
     var d3 = new D(''); // ok
->d3 : D<string, {}>
->new D('') : D<string, {}>
->D : typeof D
+>d3 : D<文字, {}>
+>new D('') : D<文字, {}>
+>D : 类为 D
 >'' : ""
 }

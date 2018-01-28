@@ -5,8 +5,8 @@ interface Callable {
 >Callable : Callable
 
     call(blah: any); // also works for 'apply'
->call : (blah: any) => any
->blah : any
+>call : (blah: 任意) => 任意
+>blah : 任意
 >类型别名 :=> 任意
 }
 
@@ -21,9 +21,9 @@ x = '';
 >'' : ""
 
 x = [''];
->x = [''] : string[]
+>x = [''] : 文字[]
 >x : Callable
->[''] : string[]
+>[''] : 文字[]
 >'' : ""
 
 x = 4;
@@ -38,51 +38,51 @@ x = {};
 
 // Should work
 function f() { };
->f : () => void
+>f : () => 无值
 
 x = f;
->x = f : () => void
+>x = f : () => 无值
 >x : Callable
->f : () => void
+>f : () => 无值
 
 function fn(c: Callable) { }
->fn : (c: Callable) => void
+>fn : (c: Callable) => 无值
 >c : Callable
 >Callable : Callable
 
 // Should Fail
 fn('');
->fn('') : void
+>fn('') : 无值
 >类型别名 :=> 无值
->fn : (c: Callable) => void
+>fn : (c: Callable) => 无值
 >'' : ""
 
 fn(['']);
->fn(['']) : void
+>fn(['']) : 无值
 >类型别名 :=> 无值
->fn : (c: Callable) => void
->[''] : string[]
+>fn : (c: Callable) => 无值
+>[''] : 文字[]
 >'' : ""
 
 fn(4);
->fn(4) : void
+>fn(4) : 无值
 >类型别名 :=> 无值
->fn : (c: Callable) => void
+>fn : (c: Callable) => 无值
 >4 : 4
 
 fn({});
->fn({}) : void
+>fn({}) : 无值
 >类型别名 :=> 无值
->fn : (c: Callable) => void
+>fn : (c: Callable) => 无值
 >{} : {}
 
 
 // Should work
 fn(a => { });
->fn(a => { }) : void
+>fn(a => { }) : 无值
 >类型别名 :=> 无值
->fn : (c: Callable) => void
->a => { } : (a: any) => void
->a : any
+>fn : (c: Callable) => 无值
+>a => { } : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
 

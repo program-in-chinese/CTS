@@ -6,7 +6,7 @@ class C<T> {
     foo(): T { return null }
 >foo : () => T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -20,62 +20,62 @@ interface I<T> {
 }
 
 var c1: C;
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 >C : C<T>
 
 var i1: I;
->i1 : any
+>i1 : 任意
 >类型别名 :=> 任意
 >I : I<T>
 
 var c2: C<I>;
->c2 : C<any>
+>c2 : C<任意>
 >C : C<T>
 >I : I<T>
 
 var i2: I<C>;
->i2 : I<any>
+>i2 : I<任意>
 >I : I<T>
 >C : C<T>
 
 function foo(x: C, y: I) { }
->foo : (x: any, y: any) => void
->x : any
+>foo : (x: 任意, y: 任意) => 无值
+>x : 任意
 >类型别名 :=> 任意
 >C : C<T>
->y : any
+>y : 任意
 >类型别名 :=> 任意
 >I : I<T>
 
 function foo2(x: C<I>, y: I<C>) { }
->foo2 : (x: C<any>, y: I<any>) => void
->x : C<any>
+>foo2 : (x: C<任意>, y: I<任意>) => 无值
+>x : C<任意>
 >C : C<T>
 >I : I<T>
->y : I<any>
+>y : I<任意>
 >I : I<T>
 >C : C<T>
 
 var x: { a: C } = { a: new C<number>() };
->x : { a: any; }
->a : any
+>x : { a: 任意; }
+>a : 任意
 >类型别名 :=> 任意
 >C : C<T>
->{ a: new C<number>() } : { a: C<number>; }
->a : C<number>
->new C<number>() : C<number>
->C : typeof C
+>{ a: new C<number>() } : { a: C<数字>; }
+>a : C<数字>
+>new C<number>() : C<数字>
+>C : 类为 C
 
 var x2: { a: I } = { a: { bar() { return 1 } } };
->x2 : { a: any; }
->a : any
+>x2 : { a: 任意; }
+>a : 任意
 >类型别名 :=> 任意
 >I : I<T>
->{ a: { bar() { return 1 } } } : { a: { bar(): number; }; }
->a : { bar(): number; }
->{ bar() { return 1 } } : { bar(): number; }
->bar : () => number
+>{ a: { bar() { return 1 } } } : { a: { bar(): 数字; }; }
+>a : { bar(): 数字; }
+>{ bar() { return 1 } } : { bar(): 数字; }
+>bar : () => 数字
 >1 : 1
 
 class D<T> {
@@ -83,12 +83,12 @@ class D<T> {
 >T : T
 
     x: C;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >C : C<T>
 
     y: D;
->y : any
+>y : 任意
 >类型别名 :=> 任意
 >D : D<T>
 }
@@ -98,12 +98,12 @@ interface J<T> {
 >T : T
 
     x: I;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >I : I<T>
 
     y: J;
->y : any
+>y : 任意
 >类型别名 :=> 任意
 >J : J<T>
 }
@@ -113,13 +113,13 @@ class A<T> { }
 >T : T
 
 function f<T>(x: T): A {
->f : <T>(x: T) => any
+>f : <T>(x: T) => 任意
 >T : T
 >x : T
 >T : T
 >A : A<T>
 
     return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }

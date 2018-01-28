@@ -3,38 +3,38 @@ interface A {
 >A : A
 
     foo;
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 }
 interface B { }
 >B : B
 
 function callb(lam: (l: A) => void);
->callb : { (lam: (l: A) => void): any; (lam: (n: B) => void): any; }
->lam : (l: A) => void
+>callb : { (lam: (l: A) => 无值): 任意; (lam: (n: B) => 无值): 任意; }
+>lam : (l: A) => 无值
 >l : A
 >A : A
 
 function callb(lam: (n: B) => void);
->callb : { (lam: (l: A) => void): any; (lam: (n: B) => void): any; }
->lam : (n: B) => void
+>callb : { (lam: (l: A) => 无值): 任意; (lam: (n: B) => 无值): 任意; }
+>lam : (n: B) => 无值
 >n : B
 >B : B
 
 function callb(a) { }
->callb : { (lam: (l: A) => void): any; (lam: (n: B) => void): any; }
->a : any
+>callb : { (lam: (l: A) => 无值): 任意; (lam: (n: B) => 无值): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 callb((a) => { a.foo; }); // error, chose first overload
->callb((a) => { a.foo; }) : any
+>callb((a) => { a.foo; }) : 任意
 >类型别名 :=> 任意
->callb : { (lam: (l: A) => void): any; (lam: (n: B) => void): any; }
->(a) => { a.foo; } : (a: A) => void
+>callb : { (lam: (l: A) => 无值): 任意; (lam: (n: B) => 无值): 任意; }
+>(a) => { a.foo; } : (a: A) => 无值
 >a : A
->a.foo : any
+>a.foo : 任意
 >类型别名 :=> 任意
 >a : A
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 

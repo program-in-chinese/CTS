@@ -1,69 +1,69 @@
 === tests/cases/compiler/implicitAnyDeclareFunctionExprWithoutFormalType.ts ===
 // these should be errors for implicit any parameter
 var lambda = (l1) => { };       // Error at "l1"
->lambda : (l1: any) => void
->(l1) => { } : (l1: any) => void
->l1 : any
+>lambda : (l1: 任意) => 无值
+>(l1) => { } : (l1: 任意) => 无值
+>l1 : 任意
 >类型别名 :=> 任意
 
 var lambd2 = (ll1, ll2: string) => { }  // Error at "ll1"
->lambd2 : (ll1: any, ll2: string) => void
->(ll1, ll2: string) => { } : (ll1: any, ll2: string) => void
->ll1 : any
+>lambd2 : (ll1: 任意, ll2: 文字) => 无值
+>(ll1, ll2: string) => { } : (ll1: 任意, ll2: 文字) => 无值
+>ll1 : 任意
 >类型别名 :=> 任意
->ll2 : string
+>ll2 : 文字
 >类型别名 :=> 文字
 
 var lamda3 = function myLambda3(myParam) { }
->lamda3 : (myParam: any) => void
->function myLambda3(myParam) { } : (myParam: any) => void
->myLambda3 : (myParam: any) => void
->myParam : any
+>lamda3 : (myParam: 任意) => 无值
+>function myLambda3(myParam) { } : (myParam: 任意) => 无值
+>myLambda3 : (myParam: 任意) => 无值
+>myParam : 任意
 >类型别名 :=> 任意
 
 var lamda4 = () => { return null };
->lamda4 : () => any
->() => { return null } : () => any
->null : null
+>lamda4 : () => 任意
+>() => { return null } : () => 任意
+>null : 空值
 >类型别名 :=> 空值
 
 // these should be error for implicit any return type
 var lambda5 = function temp() { return null; }
->lambda5 : () => any
->function temp() { return null; } : () => any
->temp : () => any
->null : null
+>lambda5 : () => 任意
+>function temp() { return null; } : () => 任意
+>temp : () => 任意
+>null : 空值
 >类型别名 :=> 空值
 
 var lambda6 = () => { return null; }
->lambda6 : () => any
->() => { return null; } : () => any
->null : null
+>lambda6 : () => 任意
+>() => { return null; } : () => 任意
+>null : 空值
 >类型别名 :=> 空值
 
 var lambda7 = function temp() { return undefined; }
->lambda7 : () => any
->function temp() { return undefined; } : () => any
->temp : () => any
->undefined : undefined
+>lambda7 : () => 任意
+>function temp() { return undefined; } : () => 任意
+>temp : () => 任意
+>undefined : 未定
 >类型别名 :=> 未定
 
 var lambda8 = () => { return undefined; }
->lambda8 : () => any
->() => { return undefined; } : () => any
->undefined : undefined
+>lambda8 : () => 任意
+>() => { return undefined; } : () => 任意
+>undefined : 未定
 >类型别名 :=> 未定
 
 // this shouldn't be an error
 var lambda9 = () => { return 5; }
->lambda9 : () => number
->() => { return 5; } : () => number
+>lambda9 : () => 数字
+>() => { return 5; } : () => 数字
 >5 : 5
 
 var lambda10 = function temp1() { return 5; }
->lambda10 : () => number
->function temp1() { return 5; } : () => number
->temp1 : () => number
+>lambda10 : () => 数字
+>function temp1() { return 5; } : () => 数字
+>temp1 : () => 数字
 >5 : 5
 
 

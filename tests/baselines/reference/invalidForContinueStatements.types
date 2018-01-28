@@ -6,40 +6,40 @@ continue;
 
 // non-existent label
 ONE:
->ONE : any
+>ONE : 任意
 >类型别名 :=> 任意
 
 for(;;) continue TWO;
->TWO : any
+>TWO : 任意
 >类型别名 :=> 任意
 
 // continue from inside function
 TWO:
->TWO : any
+>TWO : 任意
 >类型别名 :=> 任意
 
 for(;;) {
     var x = () => {
->x : () => void
->() => {        continue TWO;    } : () => void
+>x : () => 无值
+>() => {        continue TWO;    } : () => 无值
 
         continue TWO;
->TWO : any
+>TWO : 任意
 >类型别名 :=> 任意
     }
 }
 
 THREE:
->THREE : any
+>THREE : 任意
 >类型别名 :=> 任意
 
 for(;;) {
     var fn = function () {
->fn : () => void
->function () {        continue THREE;    } : () => void
+>fn : () => 无值
+>function () {        continue THREE;    } : () => 无值
 
         continue THREE;
->THREE : any
+>THREE : 任意
 >类型别名 :=> 任意
     }
 }
@@ -47,27 +47,27 @@ for(;;) {
 // continue forward
 for(;;) {
     continue FIVE;
->FIVE : any
+>FIVE : 任意
 >类型别名 :=> 任意
 
     FIVE:
->FIVE : any
+>FIVE : 任意
 >类型别名 :=> 任意
 
     for (; ;) { }
 }
 // label on non-loop statement
 NINE:
->NINE : any
+>NINE : 任意
 >类型别名 :=> 任意
 
 var y = 12;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 for(;;) {
     continue NINE;
->NINE : any
+>NINE : 任意
 >类型别名 :=> 任意
 }

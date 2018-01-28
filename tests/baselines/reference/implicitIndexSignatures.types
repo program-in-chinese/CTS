@@ -1,7 +1,7 @@
 === tests/cases/compiler/implicitIndexSignatures.ts ===
 type StringMap = { [x: string]: string };
 >StringMap : StringMap
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 const empty1 = {};
@@ -12,20 +12,20 @@ let empty2: {};
 >empty2 : {}
 
 const names1 = { a: "foo", b: "bar" };
->names1 : { a: string; b: string; }
->{ a: "foo", b: "bar" } : { a: string; b: string; }
->a : string
+>names1 : { a: 文字; b: 文字; }
+>{ a: "foo", b: "bar" } : { a: 文字; b: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >"foo" : "foo"
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"bar" : "bar"
 
 let names2: { a: string, b: string };
->names2 : { a: string; b: string; }
->a : string
+>names2 : { a: 文字; b: 文字; }
+>a : 文字
 >类型别名 :=> 文字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
 let map: StringMap;
@@ -33,13 +33,13 @@ let map: StringMap;
 >StringMap : StringMap
 
 map = { x: "xxx", y: "yyy" };
->map = { x: "xxx", y: "yyy" } : { x: string; y: string; }
+>map = { x: "xxx", y: "yyy" } : { x: 文字; y: 文字; }
 >map : StringMap
->{ x: "xxx", y: "yyy" } : { x: string; y: string; }
->x : string
+>{ x: "xxx", y: "yyy" } : { x: 文字; y: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 >"xxx" : "xxx"
->y : string
+>y : 文字
 >类型别名 :=> 文字
 >"yyy" : "yyy"
 
@@ -54,183 +54,183 @@ map = empty2;
 >empty2 : {}
 
 map = names1;
->map = names1 : { a: string; b: string; }
+>map = names1 : { a: 文字; b: 文字; }
 >map : StringMap
->names1 : { a: string; b: string; }
+>names1 : { a: 文字; b: 文字; }
 
 map = names2;
->map = names2 : { a: string; b: string; }
+>map = names2 : { a: 文字; b: 文字; }
 >map : StringMap
->names2 : { a: string; b: string; }
+>names2 : { a: 文字; b: 文字; }
 
 declare function getStringIndexValue<T>(map: { [x: string]: T }): T;
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
 >T : T
->map : { [x: string]: T; }
->x : string
+>map : { [x: 文字]: T; }
+>x : 文字
 >类型别名 :=> 文字
 >T : T
 >T : T
 
 declare function getNumberIndexValue<T>(map: { [x: number]: T }): T;
->getNumberIndexValue : <T>(map: { [x: number]: T; }) => T
+>getNumberIndexValue : <T>(map: { [x: 数字]: T; }) => T
 >T : T
->map : { [x: number]: T; }
->x : number
+>map : { [x: 数字]: T; }
+>x : 数字
 >类型别名 :=> 数字
 >T : T
 >T : T
 
 function f1() {
->f1 : () => void
+>f1 : () => 无值
 
     const o1 = { a: 1, b: 2 };
->o1 : { a: number; b: number; }
->{ a: 1, b: 2 } : { a: number; b: number; }
->a : number
+>o1 : { a: 数字; b: 数字; }
+>{ a: 1, b: 2 } : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >2 : 2
 
     let o2: { a: number, b: number };
->o2 : { a: number; b: number; }
->a : number
+>o2 : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     const v1 = getStringIndexValue(o1);
->v1 : number
+>v1 : 数字
 >类型别名 :=> 数字
->getStringIndexValue(o1) : number
+>getStringIndexValue(o1) : 数字
 >类型别名 :=> 数字
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o1 : { a: number; b: number; }
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o1 : { a: 数字; b: 数字; }
 
     const v2 = getStringIndexValue(o2);
->v2 : number
+>v2 : 数字
 >类型别名 :=> 数字
->getStringIndexValue(o2) : number
+>getStringIndexValue(o2) : 数字
 >类型别名 :=> 数字
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o2 : { a: number; b: number; }
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o2 : { a: 数字; b: 数字; }
 }
 
 function f2() {
->f2 : () => void
+>f2 : () => 无值
 
     const o1 = { a: "1", b: "2" };
->o1 : { a: string; b: string; }
->{ a: "1", b: "2" } : { a: string; b: string; }
->a : string
+>o1 : { a: 文字; b: 文字; }
+>{ a: "1", b: "2" } : { a: 文字; b: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >"1" : "1"
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"2" : "2"
 
     let o2: { a: string, b: string };
->o2 : { a: string; b: string; }
->a : string
+>o2 : { a: 文字; b: 文字; }
+>a : 文字
 >类型别名 :=> 文字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     const v1 = getStringIndexValue(o1);
->v1 : string
+>v1 : 文字
 >类型别名 :=> 文字
->getStringIndexValue(o1) : string
+>getStringIndexValue(o1) : 文字
 >类型别名 :=> 文字
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o1 : { a: string; b: string; }
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o1 : { a: 文字; b: 文字; }
 
     const v2 = getStringIndexValue(o2);
->v2 : string
+>v2 : 文字
 >类型别名 :=> 文字
->getStringIndexValue(o2) : string
+>getStringIndexValue(o2) : 文字
 >类型别名 :=> 文字
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o2 : { a: string; b: string; }
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o2 : { a: 文字; b: 文字; }
 }
 
 function f3() {
->f3 : () => void
+>f3 : () => 无值
 
     const o1 = { a: 1, b: "2" };
->o1 : { a: number; b: string; }
->{ a: 1, b: "2" } : { a: number; b: string; }
->a : number
+>o1 : { a: 数字; b: 文字; }
+>{ a: 1, b: "2" } : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"2" : "2"
 
     let o2: { a: number, b: string };
->o2 : { a: number; b: string; }
->a : number
+>o2 : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     const v1 = getStringIndexValue(o1);
->v1 : string | number
->getStringIndexValue(o1) : string | number
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o1 : { a: number; b: string; }
+>v1 : 文字 | 数字
+>getStringIndexValue(o1) : 文字 | 数字
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o1 : { a: 数字; b: 文字; }
 
     const v2 = getStringIndexValue(o2);
->v2 : string | number
->getStringIndexValue(o2) : string | number
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o2 : { a: number; b: string; }
+>v2 : 文字 | 数字
+>getStringIndexValue(o2) : 文字 | 数字
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o2 : { a: 数字; b: 文字; }
 }
 
 function f4() {
->f4 : () => void
+>f4 : () => 无值
 
     const o1 = { 0: "0", 1: "1", count: 2 };
->o1 : { 0: string; 1: string; count: number; }
->{ 0: "0", 1: "1", count: 2 } : { 0: string; 1: string; count: number; }
+>o1 : { 0: 文字; 1: 文字; count: 数字; }
+>{ 0: "0", 1: "1", count: 2 } : { 0: 文字; 1: 文字; count: 数字; }
 >"0" : "0"
 >"1" : "1"
->count : number
+>count : 数字
 >类型别名 :=> 数字
 >2 : 2
 
     let o2: { 0: string, 1: string, count: number };    
->o2 : { 0: string; 1: string; count: number; }
->count : number
+>o2 : { 0: 文字; 1: 文字; count: 数字; }
+>count : 数字
 >类型别名 :=> 数字
 
     const v1 = getStringIndexValue(o1);
->v1 : string | number
->getStringIndexValue(o1) : string | number
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o1 : { 0: string; 1: string; count: number; }
+>v1 : 文字 | 数字
+>getStringIndexValue(o1) : 文字 | 数字
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o1 : { 0: 文字; 1: 文字; count: 数字; }
 
     const v2 = getStringIndexValue(o2);
->v2 : string | number
->getStringIndexValue(o2) : string | number
->getStringIndexValue : <T>(map: { [x: string]: T; }) => T
->o2 : { 0: string; 1: string; count: number; }
+>v2 : 文字 | 数字
+>getStringIndexValue(o2) : 文字 | 数字
+>getStringIndexValue : <T>(map: { [x: 文字]: T; }) => T
+>o2 : { 0: 文字; 1: 文字; count: 数字; }
 
     const v3 = getNumberIndexValue(o1);
->v3 : string
+>v3 : 文字
 >类型别名 :=> 文字
->getNumberIndexValue(o1) : string
+>getNumberIndexValue(o1) : 文字
 >类型别名 :=> 文字
->getNumberIndexValue : <T>(map: { [x: number]: T; }) => T
->o1 : { 0: string; 1: string; count: number; }
+>getNumberIndexValue : <T>(map: { [x: 数字]: T; }) => T
+>o1 : { 0: 文字; 1: 文字; count: 数字; }
 
     const v4 = getNumberIndexValue(o2);
->v4 : string
+>v4 : 文字
 >类型别名 :=> 文字
->getNumberIndexValue(o2) : string
+>getNumberIndexValue(o2) : 文字
 >类型别名 :=> 文字
->getNumberIndexValue : <T>(map: { [x: number]: T; }) => T
->o2 : { 0: string; 1: string; count: number; }
+>getNumberIndexValue : <T>(map: { [x: 数字]: T; }) => T
+>o2 : { 0: 文字; 1: 文字; count: 数字; }
 }
 

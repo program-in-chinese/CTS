@@ -1,7 +1,7 @@
 === tests/cases/compiler/aliasOnMergedModuleInterface_1.ts ===
 ///<reference path='aliasOnMergedModuleInterface_0.ts' />
 import foo = require("foo")
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
 var z: foo;
@@ -10,23 +10,23 @@ var z: foo;
 
 z.bar("hello"); // This should be ok
 >z.bar("hello") : foo.A
->z.bar : (name: string) => foo.A
+>z.bar : (name: 文字) => foo.A
 >z : foo
->bar : (name: string) => foo.A
+>bar : (name: 文字) => foo.A
 >"hello" : "hello"
 
 var x: foo.A = foo.bar("hello"); // foo.A should be ok but foo.bar should be error
 >x : foo.A
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 >A : foo.A
->foo.bar("hello") : any
+>foo.bar("hello") : 任意
 >类型别名 :=> 任意
->foo.bar : any
+>foo.bar : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 >"hello" : "hello"
 
@@ -34,7 +34,7 @@ var x: foo.A = foo.bar("hello"); // foo.A should be ok but foo.bar should be err
 declare module "foo"
 {
     module B {
->B : any
+>B : 任意
 >类型别名 :=> 任意
 
         export interface A {
@@ -45,10 +45,10 @@ declare module "foo"
 >B : B
 
         bar(name: string): B.A;
->bar : (name: string) => B.A
->name : string
+>bar : (name: 文字) => B.A
+>name : 文字
 >类型别名 :=> 文字
->B : any
+>B : 任意
 >类型别名 :=> 任意
 >A : B.A
     }

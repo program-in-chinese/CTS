@@ -1,9 +1,9 @@
-tests/cases/compiler/assignmentCompat1.ts(4,1): error TS2322: Type '{ [index: string]: any; }' is not assignable to type '{ one: number; }'.
-  Property 'one' is missing in type '{ [index: string]: any; }'.
-tests/cases/compiler/assignmentCompat1.ts(6,1): error TS2322: Type '{ [index: number]: any; }' is not assignable to type '{ one: number; }'.
-  Property 'one' is missing in type '{ [index: number]: any; }'.
-tests/cases/compiler/assignmentCompat1.ts(8,1): error TS2322: Type '"foo"' is not assignable to type '{ [index: string]: any; }'.
-tests/cases/compiler/assignmentCompat1.ts(10,1): error TS2322: Type 'false' is not assignable to type '{ [index: number]: any; }'.
+tests/cases/compiler/assignmentCompat1.ts(4,1): error TS2322: Type '{ [index: 文字]: 任意; }' is not assignable to type '{ one: 数字; }'.
+  Property 'one' is missing in type '{ [index: 文字]: 任意; }'.
+tests/cases/compiler/assignmentCompat1.ts(6,1): error TS2322: Type '{ [index: 数字]: 任意; }' is not assignable to type '{ one: 数字; }'.
+  Property 'one' is missing in type '{ [index: 数字]: 任意; }'.
+tests/cases/compiler/assignmentCompat1.ts(8,1): error TS2322: Type '"foo"' is not assignable to type '{ [index: 文字]: 任意; }'.
+tests/cases/compiler/assignmentCompat1.ts(10,1): error TS2322: Type '为假' is not assignable to type '{ [index: 数字]: 任意; }'.
 
 
 ==== tests/cases/compiler/assignmentCompat1.ts (4 errors) ====
@@ -12,20 +12,20 @@ tests/cases/compiler/assignmentCompat1.ts(10,1): error TS2322: Type 'false' is n
     var z: { [index: number]: any };
     x = y;  // Error
     ~
-!!! error TS2322: Type '{ [index: string]: any; }' is not assignable to type '{ one: number; }'.
-!!! error TS2322:   Property 'one' is missing in type '{ [index: string]: any; }'.
+!!! error TS2322: Type '{ [index: 文字]: 任意; }' is not assignable to type '{ one: 数字; }'.
+!!! error TS2322:   Property 'one' is missing in type '{ [index: 文字]: 任意; }'.
     y = x;  // Ok because index signature type is any
     x = z;  // Error
     ~
-!!! error TS2322: Type '{ [index: number]: any; }' is not assignable to type '{ one: number; }'.
-!!! error TS2322:   Property 'one' is missing in type '{ [index: number]: any; }'.
+!!! error TS2322: Type '{ [index: 数字]: 任意; }' is not assignable to type '{ one: 数字; }'.
+!!! error TS2322:   Property 'one' is missing in type '{ [index: 数字]: 任意; }'.
     z = x;  // Ok because index signature type is any
     y = "foo"; // Error
     ~
-!!! error TS2322: Type '"foo"' is not assignable to type '{ [index: string]: any; }'.
+!!! error TS2322: Type '"foo"' is not assignable to type '{ [index: 文字]: 任意; }'.
     z = "foo"; // OK, string has numeric indexer
     z = false; // Error
     ~
-!!! error TS2322: Type 'false' is not assignable to type '{ [index: number]: any; }'.
+!!! error TS2322: Type '为假' is not assignable to type '{ [index: 数字]: 任意; }'.
     
     

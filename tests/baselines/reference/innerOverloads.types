@@ -1,36 +1,36 @@
 === tests/cases/compiler/innerOverloads.ts ===
 function outer() {
->outer : () => any
+>outer : () => 任意
 
     function inner(x:number); // should work
->inner : { (x: number): any; (x: string): any; }
->x : number
+>inner : { (x: 数字): 任意; (x: 文字): 任意; }
+>x : 数字
 >类型别名 :=> 数字
 
     function inner(x:string);
->inner : { (x: number): any; (x: string): any; }
->x : string
+>inner : { (x: 数字): 任意; (x: 文字): 任意; }
+>x : 文字
 >类型别名 :=> 文字
 
     function inner(a:any) { return a; }
->inner : { (x: number): any; (x: string): any; }
->a : any
+>inner : { (x: 数字): 任意; (x: 文字): 任意; }
+>a : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     return inner(0);
->inner(0) : any
+>inner(0) : 任意
 >类型别名 :=> 任意
->inner : { (x: number): any; (x: string): any; }
+>inner : { (x: 数字): 任意; (x: 文字): 任意; }
 >0 : 0
 }
 
 var x = outer(); // should work
->x : any
+>x : 任意
 >类型别名 :=> 任意
->outer() : any
+>outer() : 任意
 >类型别名 :=> 任意
->outer : () => any
+>outer : () => 任意
 
 

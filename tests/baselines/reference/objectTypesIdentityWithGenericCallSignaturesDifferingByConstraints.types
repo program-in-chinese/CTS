@@ -7,12 +7,12 @@ class A {
 >A : A
 
     foo<T extends Date>(x: T): string { return null; }
->foo : <T extends Date>(x: T) => string
+>foo : <T 扩展 Date>(x: T) => 文字
 >T : T
 >Date : Date
 >x : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -22,10 +22,10 @@ class B<T extends Array<number>> {
 >Array : T[]
 
     foo(x: T): string { return null; }
->foo : (x: T) => string
+>foo : (x: T) => 文字
 >x : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -35,10 +35,10 @@ class C<T extends String> {
 >String : String
 
     foo(x: T): string { return null; }
->foo : (x: T) => string
+>foo : (x: T) => 文字
 >x : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -48,7 +48,7 @@ interface I<T extends Number> {
 >Number : Number
 
     foo(x: T): string;
->foo : (x: T) => string
+>foo : (x: T) => 文字
 >x : T
 >T : T
 }
@@ -57,7 +57,7 @@ interface I2 {
 >I2 : I2
 
     foo<T extends Boolean>(x: T): string;
->foo : <T extends Boolean>(x: T) => string
+>foo : <T 扩展 Boolean>(x: T) => 文字
 >T : T
 >Boolean : Boolean
 >x : T
@@ -65,17 +65,17 @@ interface I2 {
 }
 
 var a: { foo<T extends Array<string>>(x: T): string }
->a : { foo<T extends string[]>(x: T): string; }
->foo : <T extends string[]>(x: T) => string
+>a : { foo<T 扩展 文字[]>(x: T): 文字; }
+>foo : <T 扩展 文字[]>(x: T) => 文字
 >T : T
 >Array : T[]
 >x : T
 >T : T
 
 var b = { foo<T extends RegExp>(x: T) { return ''; } };
->b : { foo<T extends RegExp>(x: T): string; }
->{ foo<T extends RegExp>(x: T) { return ''; } } : { foo<T extends RegExp>(x: T): string; }
->foo : <T extends RegExp>(x: T) => string
+>b : { foo<T 扩展 RegExp>(x: T): 文字; }
+>{ foo<T extends RegExp>(x: T) { return ''; } } : { foo<T 扩展 RegExp>(x: T): 文字; }
+>foo : <T 扩展 RegExp>(x: T) => 文字
 >T : T
 >RegExp : RegExp
 >x : T
@@ -83,308 +83,308 @@ var b = { foo<T extends RegExp>(x: T) { return ''; } };
 >'' : ""
 
 function foo1(x: A);
->foo1 : { (x: A): any; (x: A): any; }
+>foo1 : { (x: A): 任意; (x: A): 任意; }
 >x : A
 >A : A
 
 function foo1(x: A); // error
->foo1 : { (x: A): any; (x: A): any; }
+>foo1 : { (x: A): 任意; (x: A): 任意; }
 >x : A
 >A : A
 
 function foo1(x: any) { }
->foo1 : { (x: A): any; (x: A): any; }
->x : any
+>foo1 : { (x: A): 任意; (x: A): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo1b(x: B<Array<number>>);
->foo1b : { (x: B<number[]>): any; (x: B<number[]>): any; }
->x : B<number[]>
+>foo1b : { (x: B<数字[]>): 任意; (x: B<数字[]>): 任意; }
+>x : B<数字[]>
 >B : B<T>
 >Array : T[]
 
 function foo1b(x: B<Array<number>>); // error
->foo1b : { (x: B<number[]>): any; (x: B<number[]>): any; }
->x : B<number[]>
+>foo1b : { (x: B<数字[]>): 任意; (x: B<数字[]>): 任意; }
+>x : B<数字[]>
 >B : B<T>
 >Array : T[]
 
 function foo1b(x: any) { }
->foo1b : { (x: B<number[]>): any; (x: B<number[]>): any; }
->x : any
+>foo1b : { (x: B<数字[]>): 任意; (x: B<数字[]>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo1c(x: C<String>);
->foo1c : { (x: C<String>): any; (x: C<String>): any; }
+>foo1c : { (x: C<String>): 任意; (x: C<String>): 任意; }
 >x : C<String>
 >C : C<T>
 >String : String
 
 function foo1c(x: C<String>); // error
->foo1c : { (x: C<String>): any; (x: C<String>): any; }
+>foo1c : { (x: C<String>): 任意; (x: C<String>): 任意; }
 >x : C<String>
 >C : C<T>
 >String : String
 
 function foo1c(x: any) { }
->foo1c : { (x: C<String>): any; (x: C<String>): any; }
->x : any
+>foo1c : { (x: C<String>): 任意; (x: C<String>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo2(x: I<Number>);
->foo2 : { (x: I<Number>): any; (x: I<Number>): any; }
+>foo2 : { (x: I<Number>): 任意; (x: I<Number>): 任意; }
 >x : I<Number>
 >I : I<T>
 >Number : Number
 
 function foo2(x: I<Number>); // error
->foo2 : { (x: I<Number>): any; (x: I<Number>): any; }
+>foo2 : { (x: I<Number>): 任意; (x: I<Number>): 任意; }
 >x : I<Number>
 >I : I<T>
 >Number : Number
 
 function foo2(x: any) { }
->foo2 : { (x: I<Number>): any; (x: I<Number>): any; }
->x : any
+>foo2 : { (x: I<Number>): 任意; (x: I<Number>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo3(x: typeof a);
->foo3 : { (x: { foo<T extends string[]>(x: T): string; }): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : { foo<T extends string[]>(x: T): string; }
->a : { foo<T extends string[]>(x: T): string; }
+>foo3 : { (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 文字[]>(x: T): 文字; }
+>a : { foo<T 扩展 文字[]>(x: T): 文字; }
 
 function foo3(x: typeof a); // error
->foo3 : { (x: { foo<T extends string[]>(x: T): string; }): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : { foo<T extends string[]>(x: T): string; }
->a : { foo<T extends string[]>(x: T): string; }
+>foo3 : { (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 文字[]>(x: T): 文字; }
+>a : { foo<T 扩展 文字[]>(x: T): 文字; }
 
 function foo3(x: any) { }
->foo3 : { (x: { foo<T extends string[]>(x: T): string; }): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : any
+>foo3 : { (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo4(x: typeof b);
->foo4 : { (x: { foo<T extends RegExp>(x: T): string; }): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : { foo<T extends RegExp>(x: T): string; }
->b : { foo<T extends RegExp>(x: T): string; }
+>foo4 : { (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 RegExp>(x: T): 文字; }
+>b : { foo<T 扩展 RegExp>(x: T): 文字; }
 
 function foo4(x: typeof b); // error
->foo4 : { (x: { foo<T extends RegExp>(x: T): string; }): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : { foo<T extends RegExp>(x: T): string; }
->b : { foo<T extends RegExp>(x: T): string; }
+>foo4 : { (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 RegExp>(x: T): 文字; }
+>b : { foo<T 扩展 RegExp>(x: T): 文字; }
 
 function foo4(x: any) { }
->foo4 : { (x: { foo<T extends RegExp>(x: T): string; }): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : any
+>foo4 : { (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo5(x: A);
->foo5 : { (x: A): any; (x: B<number[]>): any; }
+>foo5 : { (x: A): 任意; (x: B<数字[]>): 任意; }
 >x : A
 >A : A
 
 function foo5(x: B<Array<number>>); // ok
->foo5 : { (x: A): any; (x: B<number[]>): any; }
->x : B<number[]>
+>foo5 : { (x: A): 任意; (x: B<数字[]>): 任意; }
+>x : B<数字[]>
 >B : B<T>
 >Array : T[]
 
 function foo5(x: any) { }
->foo5 : { (x: A): any; (x: B<number[]>): any; }
->x : any
+>foo5 : { (x: A): 任意; (x: B<数字[]>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo5b(x: A);
->foo5b : { (x: A): any; (x: C<String>): any; }
+>foo5b : { (x: A): 任意; (x: C<String>): 任意; }
 >x : A
 >A : A
 
 function foo5b(x: C<String>); // ok
->foo5b : { (x: A): any; (x: C<String>): any; }
+>foo5b : { (x: A): 任意; (x: C<String>): 任意; }
 >x : C<String>
 >C : C<T>
 >String : String
 
 function foo5b(x: any) { }
->foo5b : { (x: A): any; (x: C<String>): any; }
->x : any
+>foo5b : { (x: A): 任意; (x: C<String>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo6(x: A);
->foo6 : { (x: A): any; (x: I<Number>): any; }
+>foo6 : { (x: A): 任意; (x: I<Number>): 任意; }
 >x : A
 >A : A
 
 function foo6(x: I<Number>); // ok
->foo6 : { (x: A): any; (x: I<Number>): any; }
+>foo6 : { (x: A): 任意; (x: I<Number>): 任意; }
 >x : I<Number>
 >I : I<T>
 >Number : Number
 
 function foo6(x: any) { }
->foo6 : { (x: A): any; (x: I<Number>): any; }
->x : any
+>foo6 : { (x: A): 任意; (x: I<Number>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo7(x: A);
->foo7 : { (x: A): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
+>foo7 : { (x: A): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
 >x : A
 >A : A
 
 function foo7(x: typeof a); // ok
->foo7 : { (x: A): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : { foo<T extends string[]>(x: T): string; }
->a : { foo<T extends string[]>(x: T): string; }
+>foo7 : { (x: A): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 文字[]>(x: T): 文字; }
+>a : { foo<T 扩展 文字[]>(x: T): 文字; }
 
 function foo7(x: any) { }
->foo7 : { (x: A): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : any
+>foo7 : { (x: A): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo8(x: B<Array<number>>);
->foo8 : { (x: B<number[]>): any; (x: I<Number>): any; }
->x : B<number[]>
+>foo8 : { (x: B<数字[]>): 任意; (x: I<Number>): 任意; }
+>x : B<数字[]>
 >B : B<T>
 >Array : T[]
 
 function foo8(x: I<Number>); // ok
->foo8 : { (x: B<number[]>): any; (x: I<Number>): any; }
+>foo8 : { (x: B<数字[]>): 任意; (x: I<Number>): 任意; }
 >x : I<Number>
 >I : I<T>
 >Number : Number
 
 function foo8(x: any) { }
->foo8 : { (x: B<number[]>): any; (x: I<Number>): any; }
->x : any
+>foo8 : { (x: B<数字[]>): 任意; (x: I<Number>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo9(x: B<Array<number>>);
->foo9 : { (x: B<number[]>): any; (x: C<String>): any; }
->x : B<number[]>
+>foo9 : { (x: B<数字[]>): 任意; (x: C<String>): 任意; }
+>x : B<数字[]>
 >B : B<T>
 >Array : T[]
 
 function foo9(x: C<String>); // ok
->foo9 : { (x: B<number[]>): any; (x: C<String>): any; }
+>foo9 : { (x: B<数字[]>): 任意; (x: C<String>): 任意; }
 >x : C<String>
 >C : C<T>
 >String : String
 
 function foo9(x: any) { }
->foo9 : { (x: B<number[]>): any; (x: C<String>): any; }
->x : any
+>foo9 : { (x: B<数字[]>): 任意; (x: C<String>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo10(x: B<Array<number>>);
->foo10 : { (x: B<number[]>): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : B<number[]>
+>foo10 : { (x: B<数字[]>): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : B<数字[]>
 >B : B<T>
 >Array : T[]
 
 function foo10(x: typeof a); // ok
->foo10 : { (x: B<number[]>): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : { foo<T extends string[]>(x: T): string; }
->a : { foo<T extends string[]>(x: T): string; }
+>foo10 : { (x: B<数字[]>): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 文字[]>(x: T): 文字; }
+>a : { foo<T 扩展 文字[]>(x: T): 文字; }
 
 function foo10(x: any) { }
->foo10 : { (x: B<number[]>): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : any
+>foo10 : { (x: B<数字[]>): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo11(x: B<Array<number>>);
->foo11 : { (x: B<number[]>): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : B<number[]>
+>foo11 : { (x: B<数字[]>): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : B<数字[]>
 >B : B<T>
 >Array : T[]
 
 function foo11(x: typeof b); // ok
->foo11 : { (x: B<number[]>): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : { foo<T extends RegExp>(x: T): string; }
->b : { foo<T extends RegExp>(x: T): string; }
+>foo11 : { (x: B<数字[]>): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 RegExp>(x: T): 文字; }
+>b : { foo<T 扩展 RegExp>(x: T): 文字; }
 
 function foo11(x: any) { }
->foo11 : { (x: B<number[]>): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : any
+>foo11 : { (x: B<数字[]>): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo12(x: I<Number>);
->foo12 : { (x: I<Number>): any; (x: C<String>): any; }
+>foo12 : { (x: I<Number>): 任意; (x: C<String>): 任意; }
 >x : I<Number>
 >I : I<T>
 >Number : Number
 
 function foo12(x: C<String>); // ok
->foo12 : { (x: I<Number>): any; (x: C<String>): any; }
+>foo12 : { (x: I<Number>): 任意; (x: C<String>): 任意; }
 >x : C<String>
 >C : C<T>
 >String : String
 
 function foo12(x: any) { }
->foo12 : { (x: I<Number>): any; (x: C<String>): any; }
->x : any
+>foo12 : { (x: I<Number>): 任意; (x: C<String>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo12b(x: I2);
->foo12b : { (x: I2): any; (x: C<String>): any; }
+>foo12b : { (x: I2): 任意; (x: C<String>): 任意; }
 >x : I2
 >I2 : I2
 
 function foo12b(x: C<String>); // ok
->foo12b : { (x: I2): any; (x: C<String>): any; }
+>foo12b : { (x: I2): 任意; (x: C<String>): 任意; }
 >x : C<String>
 >C : C<T>
 >String : String
 
 function foo12b(x: any) { }
->foo12b : { (x: I2): any; (x: C<String>): any; }
->x : any
+>foo12b : { (x: I2): 任意; (x: C<String>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo13(x: I<Number>);
->foo13 : { (x: I<Number>): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
+>foo13 : { (x: I<Number>): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
 >x : I<Number>
 >I : I<T>
 >Number : Number
 
 function foo13(x: typeof a); // ok
->foo13 : { (x: I<Number>): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : { foo<T extends string[]>(x: T): string; }
->a : { foo<T extends string[]>(x: T): string; }
+>foo13 : { (x: I<Number>): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 文字[]>(x: T): 文字; }
+>a : { foo<T 扩展 文字[]>(x: T): 文字; }
 
 function foo13(x: any) { }
->foo13 : { (x: I<Number>): any; (x: { foo<T extends string[]>(x: T): string; }): any; }
->x : any
+>foo13 : { (x: I<Number>): 任意; (x: { foo<T 扩展 文字[]>(x: T): 文字; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo14(x: I<Number>);
->foo14 : { (x: I<Number>): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
+>foo14 : { (x: I<Number>): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
 >x : I<Number>
 >I : I<T>
 >Number : Number
 
 function foo14(x: typeof b); // ok
->foo14 : { (x: I<Number>): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : { foo<T extends RegExp>(x: T): string; }
->b : { foo<T extends RegExp>(x: T): string; }
+>foo14 : { (x: I<Number>): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : { foo<T 扩展 RegExp>(x: T): 文字; }
+>b : { foo<T 扩展 RegExp>(x: T): 文字; }
 
 function foo14(x: any) { }
->foo14 : { (x: I<Number>): any; (x: { foo<T extends RegExp>(x: T): string; }): any; }
->x : any
+>foo14 : { (x: I<Number>): 任意; (x: { foo<T 扩展 RegExp>(x: T): 文字; }): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo15(x: I2);
->foo15 : { (x: I2): any; (x: C<String>): any; }
+>foo15 : { (x: I2): 任意; (x: C<String>): 任意; }
 >x : I2
 >I2 : I2
 
 function foo15(x: C<String>); // ok
->foo15 : { (x: I2): any; (x: C<String>): any; }
+>foo15 : { (x: I2): 任意; (x: C<String>): 任意; }
 >x : C<String>
 >C : C<T>
 >String : String
 
 function foo15(x: any) { }
->foo15 : { (x: I2): any; (x: C<String>): any; }
->x : any
+>foo15 : { (x: I2): 任意; (x: C<String>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 

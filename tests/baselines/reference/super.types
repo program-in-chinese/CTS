@@ -4,18 +4,18 @@ class Base {
 
     constructor() {
         var x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
     }
     public foo() {
->foo : () => string
+>foo : () => 文字
 
         return "base";
 >"base" : "base"
     }
 
     public bar() {
->bar : () => string
+>bar : () => 文字
 
         return "basebar";
 >"basebar" : "basebar"
@@ -27,24 +27,24 @@ class Sub1 extends Base {
 >Base : Base
 
     public foo() {
->foo : () => string
+>foo : () => 文字
 
         return "sub1" + super.foo() + super.bar();
->"sub1" + super.foo() + super.bar() : string
+>"sub1" + super.foo() + super.bar() : 文字
 >类型别名 :=> 文字
->"sub1" + super.foo() : string
+>"sub1" + super.foo() : 文字
 >类型别名 :=> 文字
 >"sub1" : "sub1"
->super.foo() : string
+>super.foo() : 文字
 >类型别名 :=> 文字
->super.foo : () => string
+>super.foo : () => 文字
 >super : Base
->foo : () => string
->super.bar() : string
+>foo : () => 文字
+>super.bar() : 文字
 >类型别名 :=> 文字
->super.bar : () => string
+>super.bar : () => 文字
 >super : Base
->bar : () => string
+>bar : () => 文字
     }
 }
 
@@ -54,17 +54,17 @@ class SubSub1 extends Sub1 {
 >Sub1 : Sub1
 
     public foo() {
->foo : () => string
+>foo : () => 文字
 
         return "subsub1" + super.foo();
->"subsub1" + super.foo() : string
+>"subsub1" + super.foo() : 文字
 >类型别名 :=> 文字
 >"subsub1" : "subsub1"
->super.foo() : string
+>super.foo() : 文字
 >类型别名 :=> 文字
->super.foo : () => string
+>super.foo : () => 文字
 >super : Sub1
->foo : () => string
+>foo : () => 文字
     }
 }
 
@@ -72,16 +72,16 @@ class Base2 {
 >Base2 : Base2
 
     public foo() {
->foo : () => void
+>foo : () => 无值
 
         super.foo();
->super.foo() : any
+>super.foo() : 任意
 >类型别名 :=> 任意
->super.foo : any
+>super.foo : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
     }
 }
@@ -89,25 +89,25 @@ class Base2 {
 var s = new Sub1();
 >s : Sub1
 >new Sub1() : Sub1
->Sub1 : typeof Sub1
+>Sub1 : 类为 Sub1
 
 var ss = new SubSub1();
 >ss : SubSub1
 >new SubSub1() : SubSub1
->SubSub1 : typeof SubSub1
+>SubSub1 : 类为 SubSub1
 
 s.foo() + ss.foo();
->s.foo() + ss.foo() : string
+>s.foo() + ss.foo() : 文字
 >类型别名 :=> 文字
->s.foo() : string
+>s.foo() : 文字
 >类型别名 :=> 文字
->s.foo : () => string
+>s.foo : () => 文字
 >s : Sub1
->foo : () => string
->ss.foo() : string
+>foo : () => 文字
+>ss.foo() : 文字
 >类型别名 :=> 文字
->ss.foo : () => string
+>ss.foo : () => 文字
 >ss : SubSub1
->foo : () => string
+>foo : () => 文字
 
 

@@ -2,7 +2,7 @@
 // Checking basic subtype relations with construct signatures
 
 module ConstructSignature {
->ConstructSignature : any
+>ConstructSignature : 任意
 >类型别名 :=> 任意
 
     interface Base { // T
@@ -10,13 +10,13 @@ module ConstructSignature {
 
         // M's
         new (x: number): void; // BUG 842221
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         new (x: number, y: number): number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
@@ -27,13 +27,13 @@ module ConstructSignature {
 
         // N's
         new (x: number): number; // satisfies subtype for both of base's call signatures
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         new (x: number, y: number): boolean; // so this one hides the base type member that is identical modulo return types
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
@@ -42,7 +42,7 @@ module ConstructSignature {
 
         // M's
         new (x: number): number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
     }
 
@@ -53,7 +53,7 @@ module ConstructSignature {
 
         // N's
         new (x: number): string; // error because return types don't match
->x : number
+>x : 数字
 >类型别名 :=> 数字
     }
 
@@ -71,26 +71,26 @@ module ConstructSignature {
 }
 
 module MemberWithConstructSignature {
->MemberWithConstructSignature : typeof MemberWithConstructSignature
+>MemberWithConstructSignature : 类为 MemberWithConstructSignature
 
     interface Base { // T
 >Base : Base
 
         // M's
         a: new (x: number) => void;
->a : new (x: number) => void
->x : number
+>a : 新建 (x: 数字) => 无值
+>x : 数字
 >类型别名 :=> 数字
 
         a2: new (x: number, y: number) => void;
->a2 : new (x: number, y: number) => void
->x : number
+>a2 : 新建 (x: 数字, y: 数字) => 无值
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
         a3: new <T>(x: T) => void;
->a3 : new <T>(x: T) => void
+>a3 : 新建 <T>(x: T) => 无值
 >T : T
 >x : T
 >T : T
@@ -101,13 +101,13 @@ module MemberWithConstructSignature {
 >Base : Base
 
     var r = new b.a(1);
->r : void
+>r : 无值
 >类型别名 :=> 无值
->new b.a(1) : void
+>new b.a(1) : 无值
 >类型别名 :=> 无值
->b.a : new (x: number) => void
+>b.a : 新建 (x: 数字) => 无值
 >b : Base
->a : new (x: number) => void
+>a : 新建 (x: 数字) => 无值
 >1 : 1
 
     // S's
@@ -117,19 +117,19 @@ module MemberWithConstructSignature {
 
         // N's
         a: new (x: number) => number; // ok because base returns void
->a : new (x: number) => number
->x : number
+>a : 新建 (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 
         a2: new (x: number, y: number) => boolean; // ok because base returns void
->a2 : new (x: number, y: number) => boolean
->x : number
+>a2 : 新建 (x: 数字, y: 数字) => 真假
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
         a3: new <T>(x: T) => string; // ok because base returns void
->a3 : new <T>(x: T) => string
+>a3 : 新建 <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T
@@ -140,12 +140,12 @@ module MemberWithConstructSignature {
 
         // M's
         a: new (x: number) => number;
->a : new (x: number) => number
->x : number
+>a : 新建 (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 
         a2: new <T>(x: T) => T;
->a2 : new <T>(x: T) => T
+>a2 : 新建 <T>(x: T) => T
 >T : T
 >x : T
 >T : T
@@ -159,8 +159,8 @@ module MemberWithConstructSignature {
 
         // N's
         a: new (x: number) => string; // error because base returns non-void;
->a : new (x: number) => string
->x : number
+>a : 新建 (x: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
     }
 
@@ -171,7 +171,7 @@ module MemberWithConstructSignature {
 
         // N's
         a2: new <T>(x: T) => string; // error because base returns non-void;
->a2 : new <T>(x: T) => string
+>a2 : 新建 <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T

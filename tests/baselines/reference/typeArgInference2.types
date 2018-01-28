@@ -3,12 +3,12 @@ interface Item {
 >Item : Item
 
     name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 
 declare function foo<T extends Item>(x?: T, y?: T): T;
->foo : <T extends Item>(x?: T, y?: T) => T
+>foo : <T 扩展 Item>(x?: T, y?: T) => T
 >T : T
 >Item : Item
 >x : T
@@ -18,68 +18,68 @@ declare function foo<T extends Item>(x?: T, y?: T): T;
 >T : T
 
 var z1 = foo(null);                   // any
->z1 : any
+>z1 : 任意
 >类型别名 :=> 任意
->foo(null) : any
+>foo(null) : 任意
 >类型别名 :=> 任意
->foo : <T extends Item>(x?: T, y?: T) => T
->null : null
+>foo : <T 扩展 Item>(x?: T, y?: T) => T
+>null : 空值
 >类型别名 :=> 空值
 
 var z2 = foo();                       // Item
 >z2 : Item
 >foo() : Item
->foo : <T extends Item>(x?: T, y?: T) => T
+>foo : <T 扩展 Item>(x?: T, y?: T) => T
 
 var z3 = foo({ name: null });         // { name: any }
->z3 : { name: any; }
->foo({ name: null }) : { name: any; }
->foo : <T extends Item>(x?: T, y?: T) => T
->{ name: null } : { name: null; }
->name : null
+>z3 : { name: 任意; }
+>foo({ name: null }) : { name: 任意; }
+>foo : <T 扩展 Item>(x?: T, y?: T) => T
+>{ name: null } : { name: 空值; }
+>name : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var z4 = foo({ name: "abc" });        // { name: string }
->z4 : { name: string; }
->foo({ name: "abc" }) : { name: string; }
->foo : <T extends Item>(x?: T, y?: T) => T
->{ name: "abc" } : { name: string; }
->name : string
+>z4 : { name: 文字; }
+>foo({ name: "abc" }) : { name: 文字; }
+>foo : <T 扩展 Item>(x?: T, y?: T) => T
+>{ name: "abc" } : { name: 文字; }
+>name : 文字
 >类型别名 :=> 文字
 >"abc" : "abc"
 
 var z5 = foo({ name: "abc", a: 5 });  // { name: string; a: number }
->z5 : { name: string; a: number; }
->foo({ name: "abc", a: 5 }) : { name: string; a: number; }
->foo : <T extends Item>(x?: T, y?: T) => T
->{ name: "abc", a: 5 } : { name: string; a: number; }
->name : string
+>z5 : { name: 文字; a: 数字; }
+>foo({ name: "abc", a: 5 }) : { name: 文字; a: 数字; }
+>foo : <T 扩展 Item>(x?: T, y?: T) => T
+>{ name: "abc", a: 5 } : { name: 文字; a: 数字; }
+>name : 文字
 >类型别名 :=> 文字
 >"abc" : "abc"
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >5 : 5
 
 var z6 = foo({ name: "abc", a: 5 }, { name: "def", b: 5 });  // error
->z6 : any
+>z6 : 任意
 >类型别名 :=> 任意
->foo({ name: "abc", a: 5 }, { name: "def", b: 5 }) : any
+>foo({ name: "abc", a: 5 }, { name: "def", b: 5 }) : 任意
 >类型别名 :=> 任意
->foo : <T extends Item>(x?: T, y?: T) => T
->{ name: "abc", a: 5 } : { name: string; a: number; }
->name : string
+>foo : <T 扩展 Item>(x?: T, y?: T) => T
+>{ name: "abc", a: 5 } : { name: 文字; a: 数字; }
+>name : 文字
 >类型别名 :=> 文字
 >"abc" : "abc"
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >5 : 5
->{ name: "def", b: 5 } : { name: string; b: number; }
->name : string
+>{ name: "def", b: 5 } : { name: 文字; b: 数字; }
+>name : 文字
 >类型别名 :=> 文字
 >"def" : "def"
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >5 : 5
 

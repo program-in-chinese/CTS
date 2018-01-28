@@ -27,6 +27,8 @@
 /// <reference path='codeFixProvider.ts' />
 /// <reference path='refactorProvider.ts' />
 /// <reference path='转为CTS.ts' />
+/// <reference path='词典完成新.ts' />
+/// <reference path='格式化词典语句.ts' />
 /// <reference path='codefixes\fixes.ts' />
 /// <reference path='refactors\refactors.ts' />
 
@@ -725,9 +727,9 @@ namespace ts {
 
                     case SyntaxKind.BinaryExpression:
                         if (getSpecialPropertyAssignmentKind(node as BinaryExpression) !== SpecialPropertyAssignmentKind.None) {
-                           addDeclaration(node as BinaryExpression);
+                            addDeclaration(node as BinaryExpression);
                         }
-                        // falls through
+                    // falls through
 
                     default:
                         forEachChild(node, visit);
@@ -751,12 +753,6 @@ namespace ts {
         constructor(旗帜: 别名旗帜, 名称: __String) {
             this.旗帜 = 旗帜
             this.名称 = 名称
-        }
-        取旗帜() {
-            return this.旗帜
-        }
-        取名称() {
-            return this.名称 as string
         }
     }
 
@@ -1487,6 +1483,13 @@ namespace ts {
             }
         }
 
+        function 取词典自动完成项目新(fileName: string, position: number, ignoreName: string): 名称引用[] {
+            synchronizeHostData();
+            const sourceFile = getValidSourceFile(fileName);
+            let 名称及位置 = 词典完成新.取词典自动完成项目新(program, cancellationToken, sourceFile, position, ignoreName)
+            return 名称及位置
+        }
+
         function findRenameLocations(fileName: string, position: number, findInStrings: boolean, findInComments: boolean): RenameLocation[] {
             return getReferences(fileName, position, { findInStrings, findInComments, isForRename: true });
         }
@@ -1788,7 +1791,7 @@ namespace ts {
                         : Promise.reject("Host does not implement `installPackage`");
                 default:
                     Debug.fail();
-                    // TODO: Debug.assertNever(action); will only work if there is more than one type.
+                // TODO: Debug.assertNever(action); will only work if there is more than one type.
             }
         }
 
@@ -2030,7 +2033,14 @@ namespace ts {
             synchronizeHostData();
             const 文件 = getValidSourceFile(fileName)
             if (文件) {
-              return  ts.转为CTS.转为CTS(文件)
+                return ts.转为CTS.转为CTS(文件)
+            }
+        }
+        function 格式化词典语句(fileName: string): string {
+            synchronizeHostData();
+            const 文件 = getValidSourceFile(fileName)
+            if (文件) {
+                return ts.格式化词典.写声明文件(文件)
             }
         }
 
@@ -2061,6 +2071,7 @@ namespace ts {
             getNavigateToItems,
             getRenameInfo,
             findRenameLocations,
+            取词典自动完成项目新,
             getNavigationBarItems,
             getNavigationTree,
             getOutliningSpans,
@@ -2081,7 +2092,8 @@ namespace ts {
             getProgram,
             getApplicableRefactors,
             getEditsForRefactor,
-            转为CTS
+            转为CTS,
+            格式化词典语句
         };
     }
 
@@ -2093,6 +2105,14 @@ namespace ts {
         }
 
         return sourceFile.nameTable;
+    }
+
+
+    
+
+
+    export function 转换位置为行数及字符偏移(sourceFile: SourceFile, 位置: number) {
+        return ts.getLineAndCharacterOfPosition(sourceFile, 位置);
     }
 
     function initializeNameTable(sourceFile: SourceFile): void {

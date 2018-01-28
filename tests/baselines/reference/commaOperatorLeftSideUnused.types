@@ -1,24 +1,24 @@
 === tests/cases/compiler/commaOperatorLeftSideUnused.ts ===
 var xx: any;
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 
 var yy: any;
->yy : any
+>yy : 任意
 >类型别名 :=> 任意
 
 function fn() {
 >fn : () => "zero or one" | "more than one"
 
   let arr: any[] = [];
->arr : any[]
->[] : undefined[]
+>arr : 任意[]
+>[] : 未定[]
 
   switch(arr.length) {
->arr.length : number
+>arr.length : 数字
 >类型别名 :=> 数字
->arr : any[]
->length : number
+>arr : 任意[]
+>length : 数字
 >类型别名 :=> 数字
 
     // Should error
@@ -38,13 +38,13 @@ function fn() {
 
 // Should error
 let x = Math.pow((3, 5), 2);
->x : number
+>x : 数字
 >类型别名 :=> 数字
->Math.pow((3, 5), 2) : number
+>Math.pow((3, 5), 2) : 数字
 >类型别名 :=> 数字
->Math.pow : (x: number, y: number) => number
+>Math.pow : (x: 数字, y: 数字) => 数字
 >Math : Math
->pow : (x: number, y: number) => number
+>pow : (x: 数字, y: 数字) => 数字
 >(3, 5) : 5
 >3, 5 : 5
 >3 : 3
@@ -53,21 +53,21 @@ let x = Math.pow((3, 5), 2);
 
 // Should error
 let a = [(3 + 4), ((1 + 1, 8) * 4)];
->a : number[]
->[(3 + 4), ((1 + 1, 8) * 4)] : number[]
->(3 + 4) : number
+>a : 数字[]
+>[(3 + 4), ((1 + 1, 8) * 4)] : 数字[]
+>(3 + 4) : 数字
 >类型别名 :=> 数字
->3 + 4 : number
+>3 + 4 : 数字
 >类型别名 :=> 数字
 >3 : 3
 >4 : 4
->((1 + 1, 8) * 4) : number
+>((1 + 1, 8) * 4) : 数字
 >类型别名 :=> 数字
->(1 + 1, 8) * 4 : number
+>(1 + 1, 8) * 4 : 数字
 >类型别名 :=> 数字
 >(1 + 1, 8) : 8
 >1 + 1, 8 : 8
->1 + 1 : number
+>1 + 1 : 数字
 >类型别名 :=> 数字
 >1 : 1
 >1 : 1
@@ -77,7 +77,7 @@ let a = [(3 + 4), ((1 + 1, 8) * 4)];
 // Error cases
 xx = (1, 2);
 >xx = (1, 2) : 2
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(1, 2) : 2
 >1, 2 : 2
@@ -85,21 +85,21 @@ xx = (1, 2);
 >2 : 2
 
 xx = ('', xx);
->xx = ('', xx) : any
+>xx = ('', xx) : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->('', xx) : any
+>('', xx) : 任意
 >类型别名 :=> 任意
->'', xx : any
+>'', xx : 任意
 >类型别名 :=> 任意
 >'' : ""
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 
 xx = (/323/, 5);
 >xx = (/323/, 5) : 5
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(/323/, 5) : 5
 >/323/, 5 : 5
@@ -107,10 +107,10 @@ xx = (/323/, 5);
 >5 : 5
 
 xx = (`wat`, 'ok'),
->xx = (`wat`, 'ok'),xx = (true, false) : false
+>xx = (`wat`, 'ok'),xx = (true, false) : 为假
 >类型别名 :=> 为假
 >xx = (`wat`, 'ok') : "ok"
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(`wat`, 'ok') : "ok"
 >`wat`, 'ok' : "ok"
@@ -118,78 +118,78 @@ xx = (`wat`, 'ok'),
 >'ok' : "ok"
 
 xx = (true, false);
->xx = (true, false) : false
+>xx = (true, false) : 为假
 >类型别名 :=> 为假
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->(true, false) : false
+>(true, false) : 为假
 >类型别名 :=> 为假
->true, false : false
+>true, false : 为假
 >类型别名 :=> 为假
->true : true
+>true : 为真
 >类型别名 :=> 为真
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 xx = (false, true);
->xx = (false, true) : true
+>xx = (false, true) : 为真
 >类型别名 :=> 为真
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->(false, true) : true
+>(false, true) : 为真
 >类型别名 :=> 为真
->false, true : true
+>false, true : 为真
 >类型别名 :=> 为真
->false : false
+>false : 为假
 >类型别名 :=> 为假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 xx = (null, xx);
->xx = (null, xx) : any
+>xx = (null, xx) : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->(null, xx) : any
+>(null, xx) : 任意
 >类型别名 :=> 任意
->null, xx : any
+>null, xx : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 
 xx = (undefined, 10);
 >xx = (undefined, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(undefined, 10) : 10
 >undefined, 10 : 10
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 >10 : 10
 
 xx = (() => {}, 'no');
 >xx = (() => {}, 'no') : "no"
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(() => {}, 'no') : "no"
 >() => {}, 'no' : "no"
->() => {} : () => void
+>() => {} : () => 无值
 >'no' : "no"
 
 xx = (function() { }, 100);
 >xx = (function() { }, 100) : 100
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(function() { }, 100) : 100
 >function() { }, 100 : 100
->function() { } : () => void
+>function() { } : () => 无值
 >100 : 100
 
 xx = ({}, {});
 >xx = ({}, {}) : {}
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >({}, {}) : {}
 >{}, {} : {}
@@ -198,58 +198,58 @@ xx = ({}, {});
 
 xx = (typeof xx, 'unused');
 >xx = (typeof xx, 'unused') : "unused"
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(typeof xx, 'unused') : "unused"
 >typeof xx, 'unused' : "unused"
 >typeof xx : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >'unused' : "unused"
 
 xx = ([1, 2, x++], xx);
->xx = ([1, 2, x++], xx) : any
+>xx = ([1, 2, x++], xx) : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->([1, 2, x++], xx) : any
+>([1, 2, x++], xx) : 任意
 >类型别名 :=> 任意
->[1, 2, x++], xx : any
+>[1, 2, x++], xx : 任意
 >类型别名 :=> 任意
->[1, 2, x++] : number[]
+>[1, 2, x++] : 数字[]
 >1 : 1
 >2 : 2
->x++ : number
+>x++ : 数字
 >类型别名 :=> 数字
->x : number
+>x : 数字
 >类型别名 :=> 数字
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 
 xx = (xx!, xx);
->xx = (xx!, xx) : any
+>xx = (xx!, xx) : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->(xx!, xx) : any
+>(xx!, xx) : 任意
 >类型别名 :=> 任意
->xx!, xx : any
+>xx!, xx : 任意
 >类型别名 :=> 任意
->xx! : any
+>xx! : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 
 xx = (xx ? 3 : 4, 10);
 >xx = (xx ? 3 : 4, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(xx ? 3 : 4, 10) : 10
 >xx ? 3 : 4, 10 : 10
 >xx ? 3 : 4 : 3 | 4
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >3 : 3
 >4 : 4
@@ -257,11 +257,11 @@ xx = (xx ? 3 : 4, 10);
 
 xx = (3 + 4, 10);
 >xx = (3 + 4, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(3 + 4, 10) : 10
 >3 + 4, 10 : 10
->3 + 4 : number
+>3 + 4 : 数字
 >类型别名 :=> 数字
 >3 : 3
 >4 : 4
@@ -269,179 +269,179 @@ xx = (3 + 4, 10);
 
 xx = (!xx, 10);
 >xx = (!xx, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(!xx, 10) : 10
 >!xx, 10 : 10
->!xx : boolean
+>!xx : 真假
 >类型别名 :=> 真假
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >10 : 10
 
 xx = (~xx, 10);
 >xx = (~xx, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(~xx, 10) : 10
 >~xx, 10 : 10
->~xx : number
+>~xx : 数字
 >类型别名 :=> 数字
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >10 : 10
 
 xx = (-xx, 10);
 >xx = (-xx, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(-xx, 10) : 10
 >-xx, 10 : 10
->-xx : number
+>-xx : 数字
 >类型别名 :=> 数字
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >10 : 10
 
 xx = (+xx, 10);
 >xx = (+xx, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(+xx, 10) : 10
 >+xx, 10 : 10
->+xx : number
+>+xx : 数字
 >类型别名 :=> 数字
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >10 : 10
 
 // OK cases
 xx = (xx ? x++ : 4, 10);
 >xx = (xx ? x++ : 4, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(xx ? x++ : 4, 10) : 10
 >xx ? x++ : 4, 10 : 10
->xx ? x++ : 4 : number
+>xx ? x++ : 4 : 数字
 >类型别名 :=> 数字
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->x++ : number
+>x++ : 数字
 >类型别名 :=> 数字
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >4 : 4
 >10 : 10
 
 xx = (--xx, 3);
 >xx = (--xx, 3) : 3
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(--xx, 3) : 3
 >--xx, 3 : 3
->--xx : number
+>--xx : 数字
 >类型别名 :=> 数字
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >3 : 3
 
 xx = (xx = 3, 1);
 >xx = (xx = 3, 1) : 1
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(xx = 3, 1) : 1
 >xx = 3, 1 : 1
 >xx = 3 : 3
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >3 : 3
 >1 : 1
 
 xx = ((xx = 3), 5);
 >xx = ((xx = 3), 5) : 5
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >((xx = 3), 5) : 5
 >(xx = 3), 5 : 5
 >(xx = 3) : 3
 >xx = 3 : 3
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >3 : 3
 >5 : 5
 
 xx = (xx+= 4, xx);
->xx = (xx+= 4, xx) : any
+>xx = (xx+= 4, xx) : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->(xx+= 4, xx) : any
+>(xx+= 4, xx) : 任意
 >类型别名 :=> 任意
->xx+= 4, xx : any
+>xx+= 4, xx : 任意
 >类型别名 :=> 任意
->xx+= 4 : any
+>xx+= 4 : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >4 : 4
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 
 xx = ((xx+= 4), xx);
->xx = ((xx+= 4), xx) : any
+>xx = ((xx+= 4), xx) : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
->((xx+= 4), xx) : any
+>((xx+= 4), xx) : 任意
 >类型别名 :=> 任意
->(xx+= 4), xx : any
+>(xx+= 4), xx : 任意
 >类型别名 :=> 任意
->(xx+= 4) : any
+>(xx+= 4) : 任意
 >类型别名 :=> 任意
->xx+= 4 : any
+>xx+= 4 : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >4 : 4
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 
 xx = (Math.pow(3, 2), 4);
 >xx = (Math.pow(3, 2), 4) : 4
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(Math.pow(3, 2), 4) : 4
 >Math.pow(3, 2), 4 : 4
->Math.pow(3, 2) : number
+>Math.pow(3, 2) : 数字
 >类型别名 :=> 数字
->Math.pow : (x: number, y: number) => number
+>Math.pow : (x: 数字, y: 数字) => 数字
 >Math : Math
->pow : (x: number, y: number) => number
+>pow : (x: 数字, y: 数字) => 数字
 >3 : 3
 >2 : 2
 >4 : 4
 
 xx = (void xx, 10);
 >xx = (void xx, 10) : 10
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(void xx, 10) : 10
 >void xx, 10 : 10
->void xx : undefined
+>void xx : 未定
 >类型别名 :=> 未定
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >10 : 10
 
 xx = (xx as any, 100);
 >xx = (xx as any, 100) : 100
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >(xx as any, 100) : 100
 >xx as any, 100 : 100
->xx as any : any
+>xx as any : 任意
 >类型别名 :=> 任意
->xx : any
+>xx : 任意
 >类型别名 :=> 任意
 >100 : 100
 

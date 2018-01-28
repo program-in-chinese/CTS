@@ -1,9 +1,9 @@
 === tests/cases/compiler/privacyGloImportParseErrors.ts ===
 module m1 {
->m1 : typeof m1
+>m1 : 类为 m1
 
     export module m1_M1_public {
->m1_M1_public : typeof m1_im1_private
+>m1_M1_public : 类为 m1_im1_private
 
         export class c1 {
 >c1 : c1
@@ -13,11 +13,11 @@ module m1 {
 
             return new c1;
 >new c1 : c1
->c1 : typeof c1
+>c1 : 类为 c1
         }
         export var v1 = c1;
->v1 : typeof c1
->c1 : typeof c1
+>v1 : 类为 c1
+>c1 : 类为 c1
 
         export var v2: c1;
 >v2 : c1
@@ -25,7 +25,7 @@ module m1 {
     }
 
     module m1_M2_private {
->m1_M2_private : typeof m1_M2_private
+>m1_M2_private : 类为 m1_M2_private
 
         export class c1 {
 >c1 : c1
@@ -35,11 +35,11 @@ module m1 {
 
             return new c1;
 >new c1 : c1
->c1 : typeof c1
+>c1 : 类为 c1
         }
         export var v1 = c1;
->v1 : typeof c1
->c1 : typeof c1
+>v1 : 类为 c1
+>c1 : 类为 c1
 
         export var v2: c1;
 >v2 : c1
@@ -48,13 +48,13 @@ module m1 {
 
     export declare module "m1_M3_public" {
         export function f1();
->f1 : () => any
+>f1 : () => 任意
 
         export class c1 {
 >c1 : c1
         }
         export var v1: { new (): c1; };
->v1 : new () => c1
+>v1 : 新建 () => c1
 >c1 : c1
 
         export var v2: c1;
@@ -64,13 +64,13 @@ module m1 {
 
     declare module "m1_M4_private" {
         export function f1();
->f1 : () => any
+>f1 : () => 任意
 
         export class c1 {
 >c1 : c1
         }
         export var v1: { new (): c1; };
->v1 : new () => c1
+>v1 : 新建 () => c1
 >c1 : c1
 
         export var v2: c1;
@@ -79,321 +79,321 @@ module m1 {
     }
 
     import m1_im1_private = m1_M1_public;
->m1_im1_private : typeof m1_im1_private
->m1_M1_public : typeof m1_im1_private
+>m1_im1_private : 类为 m1_im1_private
+>m1_M1_public : 类为 m1_im1_private
 
     export var m1_im1_private_v1_public = m1_im1_private.c1;
->m1_im1_private_v1_public : typeof m1_im1_private.c1
->m1_im1_private.c1 : typeof m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
->c1 : typeof m1_im1_private.c1
+>m1_im1_private_v1_public : 类为 m1_im1_private.c1
+>m1_im1_private.c1 : 类为 m1_im1_private.c1
+>m1_im1_private : 类为 m1_im1_private
+>c1 : 类为 m1_im1_private.c1
 
     export var m1_im1_private_v2_public = new m1_im1_private.c1();
 >m1_im1_private_v2_public : m1_im1_private.c1
 >new m1_im1_private.c1() : m1_im1_private.c1
->m1_im1_private.c1 : typeof m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
->c1 : typeof m1_im1_private.c1
+>m1_im1_private.c1 : 类为 m1_im1_private.c1
+>m1_im1_private : 类为 m1_im1_private
+>c1 : 类为 m1_im1_private.c1
 
     export var m1_im1_private_v3_public = m1_im1_private.f1;
 >m1_im1_private_v3_public : () => m1_im1_private.c1
 >m1_im1_private.f1 : () => m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
+>m1_im1_private : 类为 m1_im1_private
 >f1 : () => m1_im1_private.c1
 
     export var m1_im1_private_v4_public = m1_im1_private.f1();
 >m1_im1_private_v4_public : m1_im1_private.c1
 >m1_im1_private.f1() : m1_im1_private.c1
 >m1_im1_private.f1 : () => m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
+>m1_im1_private : 类为 m1_im1_private
 >f1 : () => m1_im1_private.c1
 
     var m1_im1_private_v1_private = m1_im1_private.c1;
->m1_im1_private_v1_private : typeof m1_im1_private.c1
->m1_im1_private.c1 : typeof m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
->c1 : typeof m1_im1_private.c1
+>m1_im1_private_v1_private : 类为 m1_im1_private.c1
+>m1_im1_private.c1 : 类为 m1_im1_private.c1
+>m1_im1_private : 类为 m1_im1_private
+>c1 : 类为 m1_im1_private.c1
 
     var m1_im1_private_v2_private = new m1_im1_private.c1();
 >m1_im1_private_v2_private : m1_im1_private.c1
 >new m1_im1_private.c1() : m1_im1_private.c1
->m1_im1_private.c1 : typeof m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
->c1 : typeof m1_im1_private.c1
+>m1_im1_private.c1 : 类为 m1_im1_private.c1
+>m1_im1_private : 类为 m1_im1_private
+>c1 : 类为 m1_im1_private.c1
 
     var m1_im1_private_v3_private = m1_im1_private.f1;
 >m1_im1_private_v3_private : () => m1_im1_private.c1
 >m1_im1_private.f1 : () => m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
+>m1_im1_private : 类为 m1_im1_private
 >f1 : () => m1_im1_private.c1
 
     var m1_im1_private_v4_private = m1_im1_private.f1();
 >m1_im1_private_v4_private : m1_im1_private.c1
 >m1_im1_private.f1() : m1_im1_private.c1
 >m1_im1_private.f1 : () => m1_im1_private.c1
->m1_im1_private : typeof m1_im1_private
+>m1_im1_private : 类为 m1_im1_private
 >f1 : () => m1_im1_private.c1
 
 
     import m1_im2_private = m1_M2_private;
->m1_im2_private : typeof m1_M2_private
->m1_M2_private : typeof m1_M2_private
+>m1_im2_private : 类为 m1_M2_private
+>m1_M2_private : 类为 m1_M2_private
 
     export var m1_im2_private_v1_public = m1_im2_private.c1;
->m1_im2_private_v1_public : typeof m1_im2_private.c1
->m1_im2_private.c1 : typeof m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
->c1 : typeof m1_im2_private.c1
+>m1_im2_private_v1_public : 类为 m1_im2_private.c1
+>m1_im2_private.c1 : 类为 m1_im2_private.c1
+>m1_im2_private : 类为 m1_M2_private
+>c1 : 类为 m1_im2_private.c1
 
     export var m1_im2_private_v2_public = new m1_im2_private.c1();
 >m1_im2_private_v2_public : m1_im2_private.c1
 >new m1_im2_private.c1() : m1_im2_private.c1
->m1_im2_private.c1 : typeof m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
->c1 : typeof m1_im2_private.c1
+>m1_im2_private.c1 : 类为 m1_im2_private.c1
+>m1_im2_private : 类为 m1_M2_private
+>c1 : 类为 m1_im2_private.c1
 
     export var m1_im2_private_v3_public = m1_im2_private.f1;
 >m1_im2_private_v3_public : () => m1_im2_private.c1
 >m1_im2_private.f1 : () => m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
+>m1_im2_private : 类为 m1_M2_private
 >f1 : () => m1_im2_private.c1
 
     export var m1_im2_private_v4_public = m1_im2_private.f1();
 >m1_im2_private_v4_public : m1_im2_private.c1
 >m1_im2_private.f1() : m1_im2_private.c1
 >m1_im2_private.f1 : () => m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
+>m1_im2_private : 类为 m1_M2_private
 >f1 : () => m1_im2_private.c1
 
     var m1_im2_private_v1_private = m1_im2_private.c1;
->m1_im2_private_v1_private : typeof m1_im2_private.c1
->m1_im2_private.c1 : typeof m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
->c1 : typeof m1_im2_private.c1
+>m1_im2_private_v1_private : 类为 m1_im2_private.c1
+>m1_im2_private.c1 : 类为 m1_im2_private.c1
+>m1_im2_private : 类为 m1_M2_private
+>c1 : 类为 m1_im2_private.c1
 
     var m1_im2_private_v2_private = new m1_im2_private.c1();
 >m1_im2_private_v2_private : m1_im2_private.c1
 >new m1_im2_private.c1() : m1_im2_private.c1
->m1_im2_private.c1 : typeof m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
->c1 : typeof m1_im2_private.c1
+>m1_im2_private.c1 : 类为 m1_im2_private.c1
+>m1_im2_private : 类为 m1_M2_private
+>c1 : 类为 m1_im2_private.c1
 
     var m1_im2_private_v3_private = m1_im2_private.f1;
 >m1_im2_private_v3_private : () => m1_im2_private.c1
 >m1_im2_private.f1 : () => m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
+>m1_im2_private : 类为 m1_M2_private
 >f1 : () => m1_im2_private.c1
 
     var m1_im2_private_v4_private = m1_im2_private.f1();
 >m1_im2_private_v4_private : m1_im2_private.c1
 >m1_im2_private.f1() : m1_im2_private.c1
 >m1_im2_private.f1 : () => m1_im2_private.c1
->m1_im2_private : typeof m1_M2_private
+>m1_im2_private : 类为 m1_M2_private
 >f1 : () => m1_im2_private.c1
 
     import m1_im3_private = require("m1_M3_public");
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
 
     export var m1_im3_private_v1_public = m1_im3_private.c1;
->m1_im3_private_v1_public : any
+>m1_im3_private_v1_public : 任意
 >类型别名 :=> 任意
->m1_im3_private.c1 : any
+>m1_im3_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     export var m1_im3_private_v2_public = new m1_im3_private.c1();
->m1_im3_private_v2_public : any
+>m1_im3_private_v2_public : 任意
 >类型别名 :=> 任意
->new m1_im3_private.c1() : any
+>new m1_im3_private.c1() : 任意
 >类型别名 :=> 任意
->m1_im3_private.c1 : any
+>m1_im3_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     export var m1_im3_private_v3_public = m1_im3_private.f1;
->m1_im3_private_v3_public : any
+>m1_im3_private_v3_public : 任意
 >类型别名 :=> 任意
->m1_im3_private.f1 : any
+>m1_im3_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     export var m1_im3_private_v4_public = m1_im3_private.f1();
->m1_im3_private_v4_public : any
+>m1_im3_private_v4_public : 任意
 >类型别名 :=> 任意
->m1_im3_private.f1() : any
+>m1_im3_private.f1() : 任意
 >类型别名 :=> 任意
->m1_im3_private.f1 : any
+>m1_im3_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     var m1_im3_private_v1_private = m1_im3_private.c1;
->m1_im3_private_v1_private : any
+>m1_im3_private_v1_private : 任意
 >类型别名 :=> 任意
->m1_im3_private.c1 : any
+>m1_im3_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     var m1_im3_private_v2_private = new m1_im3_private.c1();
->m1_im3_private_v2_private : any
+>m1_im3_private_v2_private : 任意
 >类型别名 :=> 任意
->new m1_im3_private.c1() : any
+>new m1_im3_private.c1() : 任意
 >类型别名 :=> 任意
->m1_im3_private.c1 : any
+>m1_im3_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     var m1_im3_private_v3_private = m1_im3_private.f1;
->m1_im3_private_v3_private : any
+>m1_im3_private_v3_private : 任意
 >类型别名 :=> 任意
->m1_im3_private.f1 : any
+>m1_im3_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     var m1_im3_private_v4_private = m1_im3_private.f1();
->m1_im3_private_v4_private : any
+>m1_im3_private_v4_private : 任意
 >类型别名 :=> 任意
->m1_im3_private.f1() : any
+>m1_im3_private.f1() : 任意
 >类型别名 :=> 任意
->m1_im3_private.f1 : any
+>m1_im3_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im3_private : any
+>m1_im3_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     import m1_im4_private = require("m1_M4_private");
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
 
     export var m1_im4_private_v1_public = m1_im4_private.c1;
->m1_im4_private_v1_public : any
+>m1_im4_private_v1_public : 任意
 >类型别名 :=> 任意
->m1_im4_private.c1 : any
+>m1_im4_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     export var m1_im4_private_v2_public = new m1_im4_private.c1();
->m1_im4_private_v2_public : any
+>m1_im4_private_v2_public : 任意
 >类型别名 :=> 任意
->new m1_im4_private.c1() : any
+>new m1_im4_private.c1() : 任意
 >类型别名 :=> 任意
->m1_im4_private.c1 : any
+>m1_im4_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     export var m1_im4_private_v3_public = m1_im4_private.f1;
->m1_im4_private_v3_public : any
+>m1_im4_private_v3_public : 任意
 >类型别名 :=> 任意
->m1_im4_private.f1 : any
+>m1_im4_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     export var m1_im4_private_v4_public = m1_im4_private.f1();
->m1_im4_private_v4_public : any
+>m1_im4_private_v4_public : 任意
 >类型别名 :=> 任意
->m1_im4_private.f1() : any
+>m1_im4_private.f1() : 任意
 >类型别名 :=> 任意
->m1_im4_private.f1 : any
+>m1_im4_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     var m1_im4_private_v1_private = m1_im4_private.c1;
->m1_im4_private_v1_private : any
+>m1_im4_private_v1_private : 任意
 >类型别名 :=> 任意
->m1_im4_private.c1 : any
+>m1_im4_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     var m1_im4_private_v2_private = new m1_im4_private.c1();
->m1_im4_private_v2_private : any
+>m1_im4_private_v2_private : 任意
 >类型别名 :=> 任意
->new m1_im4_private.c1() : any
+>new m1_im4_private.c1() : 任意
 >类型别名 :=> 任意
->m1_im4_private.c1 : any
+>m1_im4_private.c1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->c1 : any
+>c1 : 任意
 >类型别名 :=> 任意
 
     var m1_im4_private_v3_private = m1_im4_private.f1;
->m1_im4_private_v3_private : any
+>m1_im4_private_v3_private : 任意
 >类型别名 :=> 任意
->m1_im4_private.f1 : any
+>m1_im4_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     var m1_im4_private_v4_private = m1_im4_private.f1();
->m1_im4_private_v4_private : any
+>m1_im4_private_v4_private : 任意
 >类型别名 :=> 任意
->m1_im4_private.f1() : any
+>m1_im4_private.f1() : 任意
 >类型别名 :=> 任意
->m1_im4_private.f1 : any
+>m1_im4_private.f1 : 任意
 >类型别名 :=> 任意
->m1_im4_private : any
+>m1_im4_private : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
 
     export import m1_im1_public = m1_M1_public;
->m1_im1_public : typeof m1_im1_private
->m1_M1_public : typeof m1_im1_private
+>m1_im1_public : 类为 m1_im1_private
+>m1_M1_public : 类为 m1_im1_private
 
     export import m1_im2_public = m1_M2_private;
->m1_im2_public : typeof m1_M2_private
->m1_M2_private : typeof m1_M2_private
+>m1_im2_public : 类为 m1_M2_private
+>m1_M2_private : 类为 m1_M2_private
 
     export import m1_im3_public = require("m1_M3_public");
->m1_im3_public : any
+>m1_im3_public : 任意
 >类型别名 :=> 任意
 
     export import m1_im4_public = require("m1_M4_private");
->m1_im4_public : any
+>m1_im4_public : 任意
 >类型别名 :=> 任意
 }
 
 module glo_M1_public {
->glo_M1_public : typeof glo_M1_public
+>glo_M1_public : 类为 glo_M1_public
 
     export class c1 {
 >c1 : c1
@@ -403,11 +403,11 @@ module glo_M1_public {
 
         return new c1;
 >new c1 : c1
->c1 : typeof c1
+>c1 : 类为 c1
     }
     export var v1 = c1;
->v1 : typeof c1
->c1 : typeof c1
+>v1 : 类为 c1
+>c1 : 类为 c1
 
     export var v2: c1;
 >v2 : c1
@@ -416,13 +416,13 @@ module glo_M1_public {
 
 declare module "glo_M2_public" {
     export function f1();
->f1 : () => any
+>f1 : () => 任意
 
     export class c1 {
 >c1 : c1
     }
     export var v1: { new (): c1; };
->v1 : new () => c1
+>v1 : 新建 () => c1
 >c1 : c1
 
     export var v2: c1;
@@ -432,104 +432,104 @@ declare module "glo_M2_public" {
 
 declare module "use_glo_M1_public" {
     import use_glo_M1_public = glo_M1_public;
->use_glo_M1_public : typeof use_glo_M1_public
->glo_M1_public : typeof use_glo_M1_public
+>use_glo_M1_public : 类为 use_glo_M1_public
+>glo_M1_public : 类为 use_glo_M1_public
 
     export var use_glo_M1_public_v1_public: { new (): use_glo_M1_public.c1; };
->use_glo_M1_public_v1_public : new () => use_glo_M1_public.c1
->use_glo_M1_public : any
+>use_glo_M1_public_v1_public : 新建 () => use_glo_M1_public.c1
+>use_glo_M1_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M1_public.c1
 
     export var use_glo_M1_public_v2_public: typeof use_glo_M1_public;
->use_glo_M1_public_v2_public : typeof use_glo_M1_public
->use_glo_M1_public : typeof use_glo_M1_public
+>use_glo_M1_public_v2_public : 类为 use_glo_M1_public
+>use_glo_M1_public : 类为 use_glo_M1_public
 
     export var use_glo_M1_public_v3_public: ()=> use_glo_M1_public.c1;
 >use_glo_M1_public_v3_public : () => use_glo_M1_public.c1
->use_glo_M1_public : any
+>use_glo_M1_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M1_public.c1
 
     var use_glo_M1_public_v1_private: { new (): use_glo_M1_public.c1; };
->use_glo_M1_public_v1_private : new () => use_glo_M1_public.c1
->use_glo_M1_public : any
+>use_glo_M1_public_v1_private : 新建 () => use_glo_M1_public.c1
+>use_glo_M1_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M1_public.c1
 
     var use_glo_M1_public_v2_private: typeof use_glo_M1_public;
->use_glo_M1_public_v2_private : typeof use_glo_M1_public
->use_glo_M1_public : typeof use_glo_M1_public
+>use_glo_M1_public_v2_private : 类为 use_glo_M1_public
+>use_glo_M1_public : 类为 use_glo_M1_public
 
     var use_glo_M1_public_v3_private: () => use_glo_M1_public.c1;
 >use_glo_M1_public_v3_private : () => use_glo_M1_public.c1
->use_glo_M1_public : any
+>use_glo_M1_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M1_public.c1
 
     import use_glo_M2_public = require("glo_M2_public");
->use_glo_M2_public : typeof use_glo_M2_public
+>use_glo_M2_public : 类为 use_glo_M2_public
 
     export var use_glo_M2_public_v1_public: { new (): use_glo_M2_public.c1; };
->use_glo_M2_public_v1_public : new () => use_glo_M2_public.c1
->use_glo_M2_public : any
+>use_glo_M2_public_v1_public : 新建 () => use_glo_M2_public.c1
+>use_glo_M2_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M2_public.c1
 
     export var use_glo_M2_public_v2_public: typeof use_glo_M2_public;
->use_glo_M2_public_v2_public : typeof use_glo_M2_public
->use_glo_M2_public : typeof use_glo_M2_public
+>use_glo_M2_public_v2_public : 类为 use_glo_M2_public
+>use_glo_M2_public : 类为 use_glo_M2_public
 
     export var use_glo_M2_public_v3_public: () => use_glo_M2_public.c1;
 >use_glo_M2_public_v3_public : () => use_glo_M2_public.c1
->use_glo_M2_public : any
+>use_glo_M2_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M2_public.c1
 
     var use_glo_M2_public_v1_private: { new (): use_glo_M2_public.c1; };
->use_glo_M2_public_v1_private : new () => use_glo_M2_public.c1
->use_glo_M2_public : any
+>use_glo_M2_public_v1_private : 新建 () => use_glo_M2_public.c1
+>use_glo_M2_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M2_public.c1
 
     var use_glo_M2_public_v2_private: typeof use_glo_M2_public;
->use_glo_M2_public_v2_private : typeof use_glo_M2_public
->use_glo_M2_public : typeof use_glo_M2_public
+>use_glo_M2_public_v2_private : 类为 use_glo_M2_public
+>use_glo_M2_public : 类为 use_glo_M2_public
 
     var use_glo_M2_public_v3_private: () => use_glo_M2_public.c1;
 >use_glo_M2_public_v3_private : () => use_glo_M2_public.c1
->use_glo_M2_public : any
+>use_glo_M2_public : 任意
 >类型别名 :=> 任意
 >c1 : use_glo_M2_public.c1
 
     module m2 {
->m2 : any
+>m2 : 任意
 >类型别名 :=> 任意
 
         import errorImport = require("glo_M2_public");
->errorImport : typeof errorImport
+>errorImport : 类为 errorImport
 
         import nonerrorImport = glo_M1_public;
->nonerrorImport : typeof nonerrorImport
->glo_M1_public : typeof nonerrorImport
+>nonerrorImport : 类为 nonerrorImport
+>glo_M1_public : 类为 nonerrorImport
 
         module m5 {
->m5 : any
+>m5 : 任意
 >类型别名 :=> 任意
 
             import m5_errorImport = require("glo_M2_public");
->m5_errorImport : typeof m5_errorImport
+>m5_errorImport : 类为 m5_errorImport
 
             import m5_nonerrorImport = glo_M1_public;
->m5_nonerrorImport : typeof m5_nonerrorImport
->glo_M1_public : typeof m5_nonerrorImport
+>m5_nonerrorImport : 类为 m5_nonerrorImport
+>glo_M1_public : 类为 m5_nonerrorImport
         }
     }
 }
 
 declare module "anotherParseError" {
     module m2 {
->m2 : any
+>m2 : 任意
 >类型别名 :=> 任意
 
         declare module "abc" {
@@ -537,7 +537,7 @@ declare module "anotherParseError" {
     }
 
     module m2 {
->m2 : any
+>m2 : 任意
 >类型别名 :=> 任意
 
         module "abc2" {
@@ -548,21 +548,21 @@ declare module "anotherParseError" {
 }
 
 module m2 {
->m2 : typeof m2
+>m2 : 类为 m2
 
     import m3 = require("use_glo_M1_public");
->m3 : typeof m3
+>m3 : 类为 m3
 
     module m4 {
->m4 : typeof m4
+>m4 : 类为 m4
 
         var a = 10;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >10 : 10
 
         import m2 = require("use_glo_M1_public");
->m2 : typeof m2
+>m2 : 类为 m2
     }
 
 }

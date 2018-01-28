@@ -1,17 +1,17 @@
 === tests/cases/conformance/internalModules/exportDeclarations/ModuleWithExportedAndNonExportedImportAlias.ts ===
 module A {
->A : any
+>A : 任意
 >类型别名 :=> 任意
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
@@ -20,127 +20,127 @@ module A {
 >Point : Point
 
         z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 }
 
 module B {
->B : typeof B
+>B : 类为 B
 
     export class Line {
 >Line : Line
 
         constructor(public start: A.Point, public end: A.Point) { }
 >start : A.Point
->A : any
+>A : 任意
 >类型别名 :=> 任意
 >Point : A.Point
 >end : A.Point
->A : any
+>A : 任意
 >类型别名 :=> 任意
 >Point : A.Point
     }
 }
 
 module Geometry {
->Geometry : typeof Geometry
+>Geometry : 类为 Geometry
 
     export import Points = A;
->Points : any
+>Points : 任意
 >类型别名 :=> 任意
->A : any
+>A : 任意
 >类型别名 :=> 任意
 
     import Lines = B;
->Lines : typeof Lines
->B : typeof Lines
+>Lines : 类为 Lines
+>B : 类为 Lines
 
     export var Origin: Points.Point = { x: 0, y: 0 };
 >Origin : Points.Point
->Points : any
+>Points : 任意
 >类型别名 :=> 任意
 >Point : Points.Point
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
 
     // this is valid since B.Line _is_ visible outside Geometry
     export var Unit: Lines.Line = new Lines.Line(Origin, { x: 1, y: 0 });
 >Unit : Lines.Line
->Lines : any
+>Lines : 任意
 >类型别名 :=> 任意
 >Line : Lines.Line
 >new Lines.Line(Origin, { x: 1, y: 0 }) : Lines.Line
->Lines.Line : typeof Lines.Line
->Lines : typeof Lines
->Line : typeof Lines.Line
+>Lines.Line : 类为 Lines.Line
+>Lines : 类为 Lines
+>Line : 类为 Lines.Line
 >Origin : Points.Point
->{ x: 1, y: 0 } : { x: number; y: number; }
->x : number
+>{ x: 1, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
 }
 
 // expected to work since all are exported
 var p: { x: number; y: number };
->p : { x: number; y: number; }
->x : number
+>p : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var p: Geometry.Points.Point;
->p : { x: number; y: number; }
->Geometry : any
+>p : { x: 数字; y: 数字; }
+>Geometry : 任意
 >类型别名 :=> 任意
->Points : any
+>Points : 任意
 >类型别名 :=> 任意
 >Point : A.Point
 
 var p = Geometry.Origin;
->p : { x: number; y: number; }
+>p : { x: 数字; y: 数字; }
 >Geometry.Origin : A.Point
->Geometry : typeof Geometry
+>Geometry : 类为 Geometry
 >Origin : A.Point
 
 var line: { start: { x: number; y: number }; end: { x: number; y: number; } };
->line : { start: { x: number; y: number; }; end: { x: number; y: number; }; }
->start : { x: number; y: number; }
->x : number
+>line : { start: { x: 数字; y: 数字; }; end: { x: 数字; y: 数字; }; }
+>start : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
->end : { x: number; y: number; }
->x : number
+>end : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var line = Geometry.Unit;
->line : { start: { x: number; y: number; }; end: { x: number; y: number; }; }
+>line : { start: { x: 数字; y: 数字; }; end: { x: 数字; y: 数字; }; }
 >Geometry.Unit : B.Line
->Geometry : typeof Geometry
+>Geometry : 类为 Geometry
 >Unit : B.Line
 
 // not expected to work since non are exported
 var line = Geometry.Lines.Line;
->line : { start: { x: number; y: number; }; end: { x: number; y: number; }; }
->Geometry.Lines.Line : any
+>line : { start: { x: 数字; y: 数字; }; end: { x: 数字; y: 数字; }; }
+>Geometry.Lines.Line : 任意
 >类型别名 :=> 任意
->Geometry.Lines : any
+>Geometry.Lines : 任意
 >类型别名 :=> 任意
->Geometry : typeof Geometry
->Lines : any
+>Geometry : 类为 Geometry
+>Lines : 任意
 >类型别名 :=> 任意
->Line : any
+>Line : 任意
 >类型别名 :=> 任意
 
 

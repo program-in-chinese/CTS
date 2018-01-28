@@ -1,53 +1,53 @@
 === tests/cases/conformance/jsdoc/a.ts ===
 var W: string;
->W : string
+>W : 文字
 >类型别名 :=> 文字
 
 === tests/cases/conformance/jsdoc/b.js ===
 // @ts-check
 var W = /** @type {string} */(/** @type {*} */ (4));
->W : string
+>W : 文字
 >类型别名 :=> 文字
->(/** @type {*} */ (4)) : string
+>(/** @type {*} */ (4)) : 文字
 >类型别名 :=> 文字
->(4) : any
+>(4) : 任意
 >类型别名 :=> 任意
 >4 : 4
 
 var W = /** @type {string} */(4); // Error
->W : string
+>W : 文字
 >类型别名 :=> 文字
->(4) : string
+>(4) : 文字
 >类型别名 :=> 文字
 >4 : 4
 
 /** @type {*} */
 var a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 /** @type {string} */
 var s;
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
 var a = /** @type {*} */("" + 4);
->a : any
+>a : 任意
 >类型别名 :=> 任意
->("" + 4) : any
+>("" + 4) : 任意
 >类型别名 :=> 任意
->"" + 4 : string
+>"" + 4 : 文字
 >类型别名 :=> 文字
 >"" : ""
 >4 : 4
 
 var s = "" + /** @type {*} */(4);
->s : string
+>s : 文字
 >类型别名 :=> 文字
->"" + /** @type {*} */(4) : string
+>"" + /** @type {*} */(4) : 文字
 >类型别名 :=> 文字
 >"" : ""
->(4) : any
+>(4) : 任意
 >类型别名 :=> 任意
 >4 : 4
 
@@ -57,10 +57,10 @@ class SomeBase {
     constructor() {
         this.p = 42;
 >this.p = 42 : 42
->this.p : number
+>this.p : 数字
 >类型别名 :=> 数字
->this : this
->p : number
+>this : 本体
+>p : 数字
 >类型别名 :=> 数字
 >42 : 42
     }
@@ -71,16 +71,16 @@ class SomeDerived extends SomeBase {
 
     constructor() {
         super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof SomeBase
+>super : 类为 SomeBase
 
         this.x = 42;
 >this.x = 42 : 42
->this.x : number
+>this.x : 数字
 >类型别名 :=> 数字
->this : this
->x : number
+>this : 本体
+>x : 数字
 >类型别名 :=> 数字
 >42 : 42
     }
@@ -91,26 +91,26 @@ class SomeOther {
     constructor() {
         this.q = 42;
 >this.q = 42 : 42
->this.q : number
+>this.q : 数字
 >类型别名 :=> 数字
->this : this
->q : number
+>this : 本体
+>q : 数字
 >类型别名 :=> 数字
 >42 : 42
     }
 }
 
 function SomeFakeClass() {
->SomeFakeClass : () => void
+>SomeFakeClass : () => 无值
 
     /** @type {string|number} */
     this.p = "bar";
 >this.p = "bar" : "bar"
->this.p : any
+>this.p : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->p : any
+>p : 任意
 >类型别名 :=> 任意
 >"bar" : "bar"
 }
@@ -119,22 +119,22 @@ function SomeFakeClass() {
 var someBase = new SomeBase();
 >someBase : SomeBase
 >new SomeBase() : SomeBase
->SomeBase : typeof SomeBase
+>SomeBase : 类为 SomeBase
 
 var someDerived = new SomeDerived();
 >someDerived : SomeDerived
 >new SomeDerived() : SomeDerived
->SomeDerived : typeof SomeDerived
+>SomeDerived : 类为 SomeDerived
 
 var someOther = new SomeOther();
 >someOther : SomeOther
 >new SomeOther() : SomeOther
->SomeOther : typeof SomeOther
+>SomeOther : 类为 SomeOther
 
 var someFakeClass = new SomeFakeClass();
->someFakeClass : { p: string | number | undefined; }
->new SomeFakeClass() : { p: string | number | undefined; }
->SomeFakeClass : () => void
+>someFakeClass : { p: 文字 | 数字 | 未定; }
+>new SomeFakeClass() : { p: 文字 | 数字 | 未定; }
+>SomeFakeClass : () => 无值
 
 someBase = /** @type {SomeBase} */(someDerived);
 >someBase = /** @type {SomeBase} */(someDerived) : SomeBase
@@ -192,48 +192,48 @@ someOther = /** @type {SomeOther} */(someOther);
 
 someFakeClass = someBase;
 >someFakeClass = someBase : SomeBase
->someFakeClass : { p: string | number | undefined; }
+>someFakeClass : { p: 文字 | 数字 | 未定; }
 >someBase : SomeBase
 
 someFakeClass = someDerived;
 >someFakeClass = someDerived : SomeDerived
->someFakeClass : { p: string | number | undefined; }
+>someFakeClass : { p: 文字 | 数字 | 未定; }
 >someDerived : SomeDerived
 
 someBase = someFakeClass; // Error
->someBase = someFakeClass : { p: string | number | undefined; }
+>someBase = someFakeClass : { p: 文字 | 数字 | 未定; }
 >someBase : SomeBase
->someFakeClass : { p: string | number | undefined; }
+>someFakeClass : { p: 文字 | 数字 | 未定; }
 
 someBase = /** @type {SomeBase} */(someFakeClass);
 >someBase = /** @type {SomeBase} */(someFakeClass) : SomeBase
 >someBase : SomeBase
 >(someFakeClass) : SomeBase
->someFakeClass : { p: string | number | undefined; }
+>someFakeClass : { p: 文字 | 数字 | 未定; }
 
 // Type assertion cannot be a type-predicate type
 /** @type {number | string} */
 var numOrStr;
->numOrStr : string | number
+>numOrStr : 文字 | 数字
 
 /** @type {string} */
 var str;
->str : string
+>str : 文字
 >类型别名 :=> 文字
 
 if(/** @type {numOrStr is string} */(numOrStr === undefined)) { // Error
->(numOrStr === undefined) : string | number
->numOrStr === undefined : boolean
+>(numOrStr === undefined) : 文字 | 数字
+>numOrStr === undefined : 真假
 >类型别名 :=> 真假
->numOrStr : string | number
->undefined : undefined
+>numOrStr : 文字 | 数字
+>undefined : 未定
 >类型别名 :=> 未定
 
 	str = numOrStr; // Error, no narrowing occurred
->str = numOrStr : string | number
->str : string
+>str = numOrStr : 文字 | 数字
+>str : 文字
 >类型别名 :=> 文字
->numOrStr : string | number
+>numOrStr : 文字 | 数字
 }
 
 

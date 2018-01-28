@@ -8,12 +8,12 @@ class A<T> {
 >T : T
 }
 function B1<U>() {
->B1 : <U>() => typeof (Anonymous class)
+>B1 : <U>() => 类为 (Anonymous class)
 >U : U
 
     // class expression can use T
     return class extends A<U> { }
->class extends A<U> { } : typeof (Anonymous class)
+>class extends A<U> { } : 类为 (Anonymous class)
 >A : A<U>
 >U : U
 }
@@ -22,18 +22,18 @@ class B2<V> {
 >V : V
 
     anon = class extends A<V> { }
->anon : typeof (Anonymous class)
->class extends A<V> { } : typeof (Anonymous class)
+>anon : 类为 (Anonymous class)
+>class extends A<V> { } : 类为 (Anonymous class)
 >A : A<V>
 >V : V
 }
 function B3<W>() {
->B3 : <W>() => typeof Inner
+>B3 : <W>() => 类为 Inner
 >W : W
 
     return class Inner<TInner> extends A<W> { }
->class Inner<TInner> extends A<W> { } : typeof Inner
->Inner : typeof Inner
+>class Inner<TInner> extends A<W> { } : 类为 Inner
+>Inner : 类为 Inner
 >TInner : TInner
 >A : A<W>
 >W : W
@@ -41,77 +41,77 @@ function B3<W>() {
 // extends can call B
 class K extends B1<number>() {
 >K : K
->B1<number>() : B1<number>.(Anonymous class)
->B1 : <U>() => typeof (Anonymous class)
+>B1<number>() : B1<数字>.(Anonymous class)
+>B1 : <U>() => 类为 (Anonymous class)
 
     namae: string;
->namae : string
+>namae : 文字
 >类型别名 :=> 文字
 }
 class C extends (new B2<number>().anon) {
 >C : C
->(new B2<number>().anon) : B2<number>.(Anonymous class)
->new B2<number>().anon : typeof (Anonymous class)
->new B2<number>() : B2<number>
->B2 : typeof B2
->anon : typeof (Anonymous class)
+>(new B2<number>().anon) : B2<数字>.(Anonymous class)
+>new B2<number>().anon : 类为 (Anonymous class)
+>new B2<number>() : B2<数字>
+>B2 : 类为 B2
+>anon : 类为 (Anonymous class)
 
     name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 let b3Number = B3<number>();
->b3Number : typeof Inner
->B3<number>() : typeof Inner
->B3 : <W>() => typeof Inner
+>b3Number : 类为 Inner
+>B3<number>() : 类为 Inner
+>B3 : <W>() => 类为 Inner
 
 class S extends b3Number<string> {
 >S : S
->b3Number : B3<number>.Inner<string>
+>b3Number : B3<数字>.Inner<文字>
 
     nom: string;
->nom : string
+>nom : 文字
 >类型别名 :=> 文字
 }
 var c = new C();
 >c : C
 >new C() : C
->C : typeof C
+>C : 类为 C
 
 var k = new K();
 >k : K
 >new K() : K
->K : typeof K
+>K : 类为 K
 
 var s = new S();
 >s : S
 >new S() : S
->S : typeof S
+>S : 类为 S
 
 c.genericVar = 12;
 >c.genericVar = 12 : 12
->c.genericVar : number
+>c.genericVar : 数字
 >类型别名 :=> 数字
 >c : C
->genericVar : number
+>genericVar : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 k.genericVar = 12;
 >k.genericVar = 12 : 12
->k.genericVar : number
+>k.genericVar : 数字
 >类型别名 :=> 数字
 >k : K
->genericVar : number
+>genericVar : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 s.genericVar = 12;
 >s.genericVar = 12 : 12
->s.genericVar : number
+>s.genericVar : 数字
 >类型别名 :=> 数字
 >s : S
->genericVar : number
+>genericVar : 数字
 >类型别名 :=> 数字
 >12 : 12
 

@@ -26,12 +26,12 @@ function compose<A, B, C>(f: (b: B) => C, g: (a:A) => B): (a:A) => C {
         return f(g.apply(null, a));
 >f(g.apply(null, a)) : C
 >f : (b: B) => C
->g.apply(null, a) : any
+>g.apply(null, a) : 任意
 >类型别名 :=> 任意
->g.apply : (this: Function, thisArg: any, argArray?: any) => any
+>g.apply : (this: Function, thisArg: 任意, argArray?: 任意) => 任意
 >g : (a: A) => B
->apply : (this: Function, thisArg: any, argArray?: any) => any
->null : null
+>apply : (this: Function, thisArg: 任意, argArray?: 任意) => 任意
+>null : 空值
 >类型别名 :=> 空值
 >a : A
 
@@ -40,52 +40,52 @@ function compose<A, B, C>(f: (b: B) => C, g: (a:A) => B): (a:A) => C {
 
 // forEach :: [a] -> (a -> ()) -> ()
 function forEach<A>(list: A[], f: (a: A, n?: number) => void ): void {
->forEach : <A>(list: A[], f: (a: A, n?: number) => void) => void
+>forEach : <A>(list: A[], f: (a: A, n?: 数字) => 无值) => 无值
 >A : A
 >list : A[]
 >A : A
->f : (a: A, n?: number) => void
+>f : (a: A, n?: 数字) => 无值
 >a : A
 >A : A
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
     for (var i = 0; i < list.length; ++i) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < list.length : boolean
+>i < list.length : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->list.length : number
+>list.length : 数字
 >类型别名 :=> 数字
 >list : A[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
->++i : number
+>++i : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
         f(list[i], i);
->f(list[i], i) : void
+>f(list[i], i) : 无值
 >类型别名 :=> 无值
->f : (a: A, n?: number) => void
+>f : (a: A, n?: 数字) => 无值
 >list[i] : A
 >list : A[]
->i : number
+>i : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
     }
 }
 
 // filter :: (a->bool) -> [a] -> [a]
 function filter<A>(f: (a: A) => boolean, ar: A[]): A[] {
->filter : <A>(f: (a: A) => boolean, ar: A[]) => A[]
+>filter : <A>(f: (a: A) => 真假, ar: A[]) => A[]
 >A : A
->f : (a: A) => boolean
+>f : (a: A) => 真假
 >a : A
 >A : A
 >ar : A[]
@@ -93,49 +93,49 @@ function filter<A>(f: (a: A) => boolean, ar: A[]): A[] {
 >A : A
 
     var ret = [];
->ret : any[]
->[] : undefined[]
+>ret : 任意[]
+>[] : 未定[]
 
     forEach(ar, (el) => {
->forEach(ar, (el) => {        if (f(el)) {            ret.push(el);        }    } ) : void
+>forEach(ar, (el) => {        if (f(el)) {            ret.push(el);        }    } ) : 无值
 >类型别名 :=> 无值
->forEach : <A>(list: A[], f: (a: A, n?: number) => void) => void
+>forEach : <A>(list: A[], f: (a: A, n?: 数字) => 无值) => 无值
 >ar : A[]
->(el) => {        if (f(el)) {            ret.push(el);        }    } : (el: A) => void
+>(el) => {        if (f(el)) {            ret.push(el);        }    } : (el: A) => 无值
 >el : A
 
         if (f(el)) {
->f(el) : boolean
+>f(el) : 真假
 >类型别名 :=> 真假
->f : (a: A) => boolean
+>f : (a: A) => 真假
 >el : A
 
             ret.push(el);
->ret.push(el) : number
+>ret.push(el) : 数字
 >类型别名 :=> 数字
->ret.push : (...items: any[]) => number
->ret : any[]
->push : (...items: any[]) => number
+>ret.push : (...items: 任意[]) => 数字
+>ret : 任意[]
+>push : (...items: 任意[]) => 数字
 >el : A
         }
     } );
 
     return ret;
->ret : any[]
+>ret : 任意[]
 }
 
 // length :: [a] -> Num
 function length2<A>(ar: A[]): number {
->length2 : <A>(ar: A[]) => number
+>length2 : <A>(ar: A[]) => 数字
 >A : A
 >ar : A[]
 >A : A
 
     return ar.length;
->ar.length : number
+>ar.length : 数字
 >类型别名 :=> 数字
 >ar : A[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
 }
 
@@ -181,7 +181,7 @@ var cfilter = curry1(filter);
 >cfilter : (ax: {}) => (bx: {}) => {}[]
 >curry1(filter) : (ax: {}) => (bx: {}) => {}[]
 >curry1 : <A, B, C>(f: (a: A, b: B) => C) => (ax: A) => (bx: B) => C
->filter : <A>(f: (a: A) => boolean, ar: A[]) => A[]
+>filter : <A>(f: (a: A) => 真假, ar: A[]) => A[]
 
 // compose :: (b->c) -> (a->b) -> (a->c)
 // length :: [a] -> Num
@@ -192,27 +192,27 @@ var cfilter = curry1(filter);
 // countWhere :: (a -> Bool) -> [a] -> Num
 
 function countWhere_1<A>(pred: (a: A) => boolean): (a: A[]) => number {
->countWhere_1 : <A>(pred: (a: A) => boolean) => (a: A[]) => number
+>countWhere_1 : <A>(pred: (a: A) => 真假) => (a: A[]) => 数字
 >A : A
->pred : (a: A) => boolean
+>pred : (a: A) => 真假
 >a : A
 >A : A
 >a : A[]
 >A : A
 
     return compose(length2, cfilter(pred));
->compose(length2, cfilter(pred)) : (a: {}) => number
+>compose(length2, cfilter(pred)) : (a: {}) => 数字
 >compose : <A, B, C>(f: (b: B) => C, g: (a: A) => B) => (a: A) => C
->length2 : <A>(ar: A[]) => number
+>length2 : <A>(ar: A[]) => 数字
 >cfilter(pred) : (bx: {}) => {}[]
 >cfilter : (ax: {}) => (bx: {}) => {}[]
->pred : (a: A) => boolean
+>pred : (a: A) => 真假
 }
 
 function countWhere_2<A>(pred: (a: A) => boolean): (a: A[]) => number {
->countWhere_2 : <A>(pred: (a: A) => boolean) => (a: A[]) => number
+>countWhere_2 : <A>(pred: (a: A) => 真假) => (a: A[]) => 数字
 >A : A
->pred : (a: A) => boolean
+>pred : (a: A) => 真假
 >a : A
 >A : A
 >a : A[]
@@ -222,11 +222,11 @@ function countWhere_2<A>(pred: (a: A) => boolean): (a: A[]) => number {
 >where : (bx: {}) => {}[]
 >cfilter(pred) : (bx: {}) => {}[]
 >cfilter : (ax: {}) => (bx: {}) => {}[]
->pred : (a: A) => boolean
+>pred : (a: A) => 真假
 
     return compose(length2, where);
->compose(length2, where) : (a: {}) => number
+>compose(length2, where) : (a: {}) => 数字
 >compose : <A, B, C>(f: (b: B) => C, g: (a: A) => B) => (a: A) => C
->length2 : <A>(ar: A[]) => number
+>length2 : <A>(ar: A[]) => 数字
 >where : (bx: {}) => {}[]
 }

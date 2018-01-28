@@ -1,24 +1,24 @@
 === tests/cases/compiler/asyncFunctionReturnType.ts ===
 async function fAsync() {
->fAsync : () => Promise<(number | boolean)[]>
+>fAsync : () => Promise<(数字 | 真假)[]>
 
     // Without explicit type annotation, this is just an array.
     return [1, true];
->[1, true] : (number | boolean)[]
+>[1, true] : (数字 | 真假)[]
 >1 : 1
->true : true
+>true : 为真
 >类型别名 :=> 为真
 }
 
 async function fAsyncExplicit(): Promise<[number, boolean]> {
->fAsyncExplicit : () => Promise<[number, boolean]>
+>fAsyncExplicit : () => Promise<[数字, 真假]>
 >Promise : Promise<T>
 
     // This is contextually typed as a tuple.
     return [1, true];
->[1, true] : [number, true]
+>[1, true] : [数字, 为真]
 >1 : 1
->true : true
+>true : 为真
 >类型别名 :=> 为真
 }
 
@@ -27,124 +27,124 @@ interface Obj {
 >Obj : Obj
 
     stringProp: string;
->stringProp : string
+>stringProp : 文字
 >类型别名 :=> 文字
 
     anyProp: any;
->anyProp : any
+>anyProp : 任意
 >类型别名 :=> 任意
 }
 
 async function fIndexedTypeForStringProp(obj: Obj): Promise<Obj["stringProp"]> {
->fIndexedTypeForStringProp : (obj: Obj) => Promise<string>
+>fIndexedTypeForStringProp : (obj: Obj) => Promise<文字>
 >obj : Obj
 >Obj : Obj
 >Promise : Promise<T>
 >Obj : Obj
 
     return obj.stringProp;
->obj.stringProp : string
+>obj.stringProp : 文字
 >类型别名 :=> 文字
 >obj : Obj
->stringProp : string
+>stringProp : 文字
 >类型别名 :=> 文字
 }
 
 async function fIndexedTypeForPromiseOfStringProp(obj: Obj): Promise<Obj["stringProp"]> {
->fIndexedTypeForPromiseOfStringProp : (obj: Obj) => Promise<string>
+>fIndexedTypeForPromiseOfStringProp : (obj: Obj) => Promise<文字>
 >obj : Obj
 >Obj : Obj
 >Promise : Promise<T>
 >Obj : Obj
 
     return Promise.resolve(obj.stringProp);
->Promise.resolve(obj.stringProp) : Promise<string>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve(obj.stringProp) : Promise<文字>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
->obj.stringProp : string
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>obj.stringProp : 文字
 >类型别名 :=> 文字
 >obj : Obj
->stringProp : string
+>stringProp : 文字
 >类型别名 :=> 文字
 }
 
 async function fIndexedTypeForExplicitPromiseOfStringProp(obj: Obj): Promise<Obj["stringProp"]> {
->fIndexedTypeForExplicitPromiseOfStringProp : (obj: Obj) => Promise<string>
+>fIndexedTypeForExplicitPromiseOfStringProp : (obj: Obj) => Promise<文字>
 >obj : Obj
 >Obj : Obj
 >Promise : Promise<T>
 >Obj : Obj
 
     return Promise.resolve<Obj["stringProp"]>(obj.stringProp);
->Promise.resolve<Obj["stringProp"]>(obj.stringProp) : Promise<string>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve<Obj["stringProp"]>(obj.stringProp) : Promise<文字>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Obj : Obj
->obj.stringProp : string
+>obj.stringProp : 文字
 >类型别名 :=> 文字
 >obj : Obj
->stringProp : string
+>stringProp : 文字
 >类型别名 :=> 文字
 }
 
 async function fIndexedTypeForAnyProp(obj: Obj): Promise<Obj["anyProp"]> {
->fIndexedTypeForAnyProp : (obj: Obj) => Promise<any>
+>fIndexedTypeForAnyProp : (obj: Obj) => Promise<任意>
 >obj : Obj
 >Obj : Obj
 >Promise : Promise<T>
 >Obj : Obj
 
     return obj.anyProp;
->obj.anyProp : any
+>obj.anyProp : 任意
 >类型别名 :=> 任意
 >obj : Obj
->anyProp : any
+>anyProp : 任意
 >类型别名 :=> 任意
 }
 
 async function fIndexedTypeForPromiseOfAnyProp(obj: Obj): Promise<Obj["anyProp"]> {
->fIndexedTypeForPromiseOfAnyProp : (obj: Obj) => Promise<any>
+>fIndexedTypeForPromiseOfAnyProp : (obj: Obj) => Promise<任意>
 >obj : Obj
 >Obj : Obj
 >Promise : Promise<T>
 >Obj : Obj
 
     return Promise.resolve(obj.anyProp);
->Promise.resolve(obj.anyProp) : Promise<any>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve(obj.anyProp) : Promise<任意>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
->obj.anyProp : any
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>obj.anyProp : 任意
 >类型别名 :=> 任意
 >obj : Obj
->anyProp : any
+>anyProp : 任意
 >类型别名 :=> 任意
 }
 
 async function fIndexedTypeForExplicitPromiseOfAnyProp(obj: Obj): Promise<Obj["anyProp"]> {
->fIndexedTypeForExplicitPromiseOfAnyProp : (obj: Obj) => Promise<any>
+>fIndexedTypeForExplicitPromiseOfAnyProp : (obj: Obj) => Promise<任意>
 >obj : Obj
 >Obj : Obj
 >Promise : Promise<T>
 >Obj : Obj
 
     return Promise.resolve<Obj["anyProp"]>(obj.anyProp);
->Promise.resolve<Obj["anyProp"]>(obj.anyProp) : Promise<any>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve<Obj["anyProp"]>(obj.anyProp) : Promise<任意>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Obj : Obj
->obj.anyProp : any
+>obj.anyProp : 任意
 >类型别名 :=> 任意
 >obj : Obj
->anyProp : any
+>anyProp : 任意
 >类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForStringProp<TObj extends Obj>(obj: TObj): Promise<TObj["stringProp"]> {
->fGenericIndexedTypeForStringProp : <TObj extends Obj>(obj: TObj) => Promise<TObj["stringProp"]>
+>fGenericIndexedTypeForStringProp : <TObj 扩展 Obj>(obj: TObj) => Promise<TObj["stringProp"]>
 >TObj : TObj
 >Obj : Obj
 >obj : TObj
@@ -153,15 +153,15 @@ async function fGenericIndexedTypeForStringProp<TObj extends Obj>(obj: TObj): Pr
 >TObj : TObj
 
     return obj.stringProp;
->obj.stringProp : string
+>obj.stringProp : 文字
 >类型别名 :=> 文字
 >obj : TObj
->stringProp : string
+>stringProp : 文字
 >类型别名 :=> 文字
 }
 
 async function fGenericIndexedTypeForPromiseOfStringProp<TObj extends Obj>(obj: TObj): Promise<TObj["stringProp"]> {
->fGenericIndexedTypeForPromiseOfStringProp : <TObj extends Obj>(obj: TObj) => Promise<TObj["stringProp"]>
+>fGenericIndexedTypeForPromiseOfStringProp : <TObj 扩展 Obj>(obj: TObj) => Promise<TObj["stringProp"]>
 >TObj : TObj
 >Obj : Obj
 >obj : TObj
@@ -170,19 +170,19 @@ async function fGenericIndexedTypeForPromiseOfStringProp<TObj extends Obj>(obj: 
 >TObj : TObj
 
     return Promise.resolve(obj.stringProp);
->Promise.resolve(obj.stringProp) : Promise<string>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve(obj.stringProp) : Promise<文字>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
->obj.stringProp : string
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>obj.stringProp : 文字
 >类型别名 :=> 文字
 >obj : TObj
->stringProp : string
+>stringProp : 文字
 >类型别名 :=> 文字
 }
 
 async function fGenericIndexedTypeForExplicitPromiseOfStringProp<TObj extends Obj>(obj: TObj): Promise<TObj["stringProp"]> {
->fGenericIndexedTypeForExplicitPromiseOfStringProp : <TObj extends Obj>(obj: TObj) => Promise<TObj["stringProp"]>
+>fGenericIndexedTypeForExplicitPromiseOfStringProp : <TObj 扩展 Obj>(obj: TObj) => Promise<TObj["stringProp"]>
 >TObj : TObj
 >Obj : Obj
 >obj : TObj
@@ -192,19 +192,19 @@ async function fGenericIndexedTypeForExplicitPromiseOfStringProp<TObj extends Ob
 
     return Promise.resolve<TObj["stringProp"]>(obj.stringProp);
 >Promise.resolve<TObj["stringProp"]>(obj.stringProp) : Promise<TObj["stringProp"]>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >TObj : TObj
->obj.stringProp : string
+>obj.stringProp : 文字
 >类型别名 :=> 文字
 >obj : TObj
->stringProp : string
+>stringProp : 文字
 >类型别名 :=> 文字
 }
 
 async function fGenericIndexedTypeForAnyProp<TObj extends Obj>(obj: TObj): Promise<TObj["anyProp"]> {
->fGenericIndexedTypeForAnyProp : <TObj extends Obj>(obj: TObj) => Promise<TObj["anyProp"]>
+>fGenericIndexedTypeForAnyProp : <TObj 扩展 Obj>(obj: TObj) => Promise<TObj["anyProp"]>
 >TObj : TObj
 >Obj : Obj
 >obj : TObj
@@ -213,15 +213,15 @@ async function fGenericIndexedTypeForAnyProp<TObj extends Obj>(obj: TObj): Promi
 >TObj : TObj
 
     return obj.anyProp;
->obj.anyProp : any
+>obj.anyProp : 任意
 >类型别名 :=> 任意
 >obj : TObj
->anyProp : any
+>anyProp : 任意
 >类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForPromiseOfAnyProp<TObj extends Obj>(obj: TObj): Promise<TObj["anyProp"]> {
->fGenericIndexedTypeForPromiseOfAnyProp : <TObj extends Obj>(obj: TObj) => Promise<TObj["anyProp"]>
+>fGenericIndexedTypeForPromiseOfAnyProp : <TObj 扩展 Obj>(obj: TObj) => Promise<TObj["anyProp"]>
 >TObj : TObj
 >Obj : Obj
 >obj : TObj
@@ -230,19 +230,19 @@ async function fGenericIndexedTypeForPromiseOfAnyProp<TObj extends Obj>(obj: TOb
 >TObj : TObj
 
     return Promise.resolve(obj.anyProp);
->Promise.resolve(obj.anyProp) : Promise<any>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve(obj.anyProp) : Promise<任意>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
->obj.anyProp : any
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>obj.anyProp : 任意
 >类型别名 :=> 任意
 >obj : TObj
->anyProp : any
+>anyProp : 任意
 >类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForExplicitPromiseOfAnyProp<TObj extends Obj>(obj: TObj): Promise<TObj["anyProp"]> {
->fGenericIndexedTypeForExplicitPromiseOfAnyProp : <TObj extends Obj>(obj: TObj) => Promise<TObj["anyProp"]>
+>fGenericIndexedTypeForExplicitPromiseOfAnyProp : <TObj 扩展 Obj>(obj: TObj) => Promise<TObj["anyProp"]>
 >TObj : TObj
 >Obj : Obj
 >obj : TObj
@@ -252,19 +252,19 @@ async function fGenericIndexedTypeForExplicitPromiseOfAnyProp<TObj extends Obj>(
 
     return Promise.resolve<TObj["anyProp"]>(obj.anyProp);
 >Promise.resolve<TObj["anyProp"]>(obj.anyProp) : Promise<TObj["anyProp"]>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >TObj : TObj
->obj.anyProp : any
+>obj.anyProp : 任意
 >类型别名 :=> 任意
 >obj : TObj
->anyProp : any
+>anyProp : 任意
 >类型别名 :=> 任意
 }
 
 async function fGenericIndexedTypeForKProp<TObj extends Obj, K extends keyof TObj>(obj: TObj, key: K): Promise<TObj[K]> {
->fGenericIndexedTypeForKProp : <TObj extends Obj, K extends keyof TObj>(obj: TObj, key: K) => Promise<TObj[K]>
+>fGenericIndexedTypeForKProp : <TObj 扩展 Obj, K 扩展 键集 TObj>(obj: TObj, key: K) => Promise<TObj[K]>
 >TObj : TObj
 >Obj : Obj
 >K : K
@@ -284,7 +284,7 @@ async function fGenericIndexedTypeForKProp<TObj extends Obj, K extends keyof TOb
 }
 
 async function fGenericIndexedTypeForPromiseOfKProp<TObj extends Obj, K extends keyof TObj>(obj: TObj, key: K): Promise<TObj[K]> {
->fGenericIndexedTypeForPromiseOfKProp : <TObj extends Obj, K extends keyof TObj>(obj: TObj, key: K) => Promise<TObj[K]>
+>fGenericIndexedTypeForPromiseOfKProp : <TObj 扩展 Obj, K 扩展 键集 TObj>(obj: TObj, key: K) => Promise<TObj[K]>
 >TObj : TObj
 >Obj : Obj
 >K : K
@@ -299,16 +299,16 @@ async function fGenericIndexedTypeForPromiseOfKProp<TObj extends Obj, K extends 
 
     return Promise.resolve(obj[key]);
 >Promise.resolve(obj[key]) : Promise<TObj[K]>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >obj[key] : TObj[K]
 >obj : TObj
 >key : K
 }
 
 async function fGenericIndexedTypeForExplicitPromiseOfKProp<TObj extends Obj, K extends keyof TObj>(obj: TObj, key: K): Promise<TObj[K]> {
->fGenericIndexedTypeForExplicitPromiseOfKProp : <TObj extends Obj, K extends keyof TObj>(obj: TObj, key: K) => Promise<TObj[K]>
+>fGenericIndexedTypeForExplicitPromiseOfKProp : <TObj 扩展 Obj, K 扩展 键集 TObj>(obj: TObj, key: K) => Promise<TObj[K]>
 >TObj : TObj
 >Obj : Obj
 >K : K
@@ -323,9 +323,9 @@ async function fGenericIndexedTypeForExplicitPromiseOfKProp<TObj extends Obj, K 
 
     return Promise.resolve<TObj[K]>(obj[key]);
 >Promise.resolve<TObj[K]>(obj[key]) : Promise<TObj[K]>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >TObj : TObj
 >K : K
 >obj[key] : TObj[K]

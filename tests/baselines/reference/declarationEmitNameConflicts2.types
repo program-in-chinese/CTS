@@ -1,20 +1,20 @@
 === tests/cases/compiler/declarationEmitNameConflicts2.ts ===
 module X.Y.base {
->X : typeof X
->Y : typeof Y
->base : typeof base
+>X : 类为 X
+>Y : 类为 Y
+>base : 类为 base
 
     export function f() { }
->f : () => void
+>f : () => 无值
 
     export class C { }
 >C : C
 
     export module M {
->M : typeof M
+>M : 类为 M
 
         export var v;
->v : any
+>v : 任意
 >类型别名 :=> 任意
     }
     export enum E { }
@@ -22,48 +22,48 @@ module X.Y.base {
 }
 
 module X.Y.base.Z {
->X : typeof X
->Y : typeof Y
->base : typeof base
->Z : typeof Z
+>X : 类为 X
+>Y : 类为 Y
+>base : 类为 base
+>Z : 类为 Z
 
     export var f = X.Y.base.f; // Should be base.f
->f : () => void
->X.Y.base.f : () => void
->X.Y.base : typeof base
->X.Y : typeof Y
->X : typeof X
->Y : typeof Y
->base : typeof base
->f : () => void
+>f : () => 无值
+>X.Y.base.f : () => 无值
+>X.Y.base : 类为 base
+>X.Y : 类为 Y
+>X : 类为 X
+>Y : 类为 Y
+>base : 类为 base
+>f : () => 无值
 
     export var C = X.Y.base.C; // Should be base.C
->C : typeof base.C
->X.Y.base.C : typeof base.C
->X.Y.base : typeof base
->X.Y : typeof Y
->X : typeof X
->Y : typeof Y
->base : typeof base
->C : typeof base.C
+>C : 类为 base.C
+>X.Y.base.C : 类为 base.C
+>X.Y.base : 类为 base
+>X.Y : 类为 Y
+>X : 类为 X
+>Y : 类为 Y
+>base : 类为 base
+>C : 类为 base.C
 
     export var M = X.Y.base.M; // Should be base.M
->M : typeof base.M
->X.Y.base.M : typeof base.M
->X.Y.base : typeof base
->X.Y : typeof Y
->X : typeof X
->Y : typeof Y
->base : typeof base
->M : typeof base.M
+>M : 类为 base.M
+>X.Y.base.M : 类为 base.M
+>X.Y.base : 类为 base
+>X.Y : 类为 Y
+>X : 类为 X
+>Y : 类为 Y
+>base : 类为 base
+>M : 类为 base.M
 
     export var E = X.Y.base.E; // Should be base.E
->E : typeof base.E
->X.Y.base.E : typeof base.E
->X.Y.base : typeof base
->X.Y : typeof Y
->X : typeof X
->Y : typeof Y
->base : typeof base
->E : typeof base.E
+>E : 类为 base.E
+>X.Y.base.E : 类为 base.E
+>X.Y.base : 类为 base
+>X.Y : 类为 Y
+>X : 类为 X
+>Y : 类为 Y
+>base : 类为 base
+>E : 类为 base.E
 }

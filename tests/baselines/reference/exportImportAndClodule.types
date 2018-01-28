@@ -1,19 +1,19 @@
 === tests/cases/compiler/exportImportAndClodule.ts ===
 module K {
->K : typeof K
+>K : 类为 K
 
     export class L {
 >L : L
 
         constructor(public name: string) { }
->name : string
+>name : 文字
 >类型别名 :=> 文字
     }
     export module L {
->L : typeof L
+>L : 类为 L
 
         export var y = 12;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >12 : 12
 
@@ -21,48 +21,48 @@ module K {
 >Point : Point
 
             x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
             y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
         }
     }
 }
 module M {
->M : typeof M
+>M : 类为 M
 
     export import D = K.L;
->D : typeof D
->K : typeof K
+>D : 类为 D
+>K : 类为 K
 >L : D
 }
 var o: { name: string };
->o : { name: string; }
->name : string
+>o : { name: 文字; }
+>name : 文字
 >类型别名 :=> 文字
 
 var o = new M.D('Hello');
->o : { name: string; }
+>o : { name: 文字; }
 >new M.D('Hello') : K.L
->M.D : typeof K.L
->M : typeof M
->D : typeof K.L
+>M.D : 类为 K.L
+>M : 类为 M
+>D : 类为 K.L
 >'Hello' : "Hello"
 
 var p: { x: number; y: number; }
->p : { x: number; y: number; }
->x : number
+>p : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var p: M.D.Point;
->p : { x: number; y: number; }
->M : any
+>p : { x: 数字; y: 数字; }
+>M : 任意
 >类型别名 :=> 任意
->D : any
+>D : 任意
 >类型别名 :=> 任意
 >Point : K.L.Point
 

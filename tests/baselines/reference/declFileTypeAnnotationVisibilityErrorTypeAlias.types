@@ -3,49 +3,49 @@ interface Window {
 >Window : Window
 
     someMethod();
->someMethod : () => any
+>someMethod : () => 任意
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
     type W = Window | string;
->W : string | Window
+>W : 文字 | Window
 >Window : Window
 
     export module N {
->N : typeof N
+>N : 类为 N
 
         export class Window { }
 >Window : Window
 
         export var p: W; // Should report error that W is private
->p : string | Window
->W : string | Window
+>p : 文字 | Window
+>W : 文字 | Window
     }
 }
 
 module M1 {
->M1 : typeof M1
+>M1 : 类为 M1
 
     export type W = Window | string;
->W : string | Window
+>W : 文字 | Window
 >Window : Window
 
     export module N {
->N : typeof N
+>N : 类为 N
 
         export class Window { }
 >Window : Window
 
         export var p: W; // No error
->p : string | Window
->W : string | Window
+>p : 文字 | Window
+>W : 文字 | Window
     }
 }
 
 module M2 {
->M2 : typeof M2
+>M2 : 类为 M2
 
     class private1 {
 >private1 : private1
@@ -54,7 +54,7 @@ module M2 {
 >public1 : public1
     }
     module m3 {
->m3 : typeof m3
+>m3 : 类为 m3
 
         export class public1 {
 >public1 : public1
@@ -79,13 +79,13 @@ module M2 {
 
     type t111 = m3.public1;
 >t111 : m3.public1
->m3 : any
+>m3 : 任意
 >类型别名 :=> 任意
 >public1 : m3.public1
 
     export type t112 = m3.public1; // error
 >t112 : m3.public1
->m3 : any
+>m3 : 任意
 >类型别名 :=> 任意
 >public1 : m3.public1
 }

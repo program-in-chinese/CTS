@@ -5,7 +5,7 @@ class A {
 >A : A
 
     foo(): string { return ''; }
->foo : () => string
+>foo : () => 文字
 >'' : ""
 }
 
@@ -14,7 +14,7 @@ class B extends A {
 >A : A
 
     bar(): string {
->bar : () => string
+>bar : () => 文字
 
         return '';
 >'' : ""
@@ -29,7 +29,7 @@ class C<U extends A, T extends U> {
 >U : U
 
     f() {
->f : () => string
+>f : () => 文字
 
         var x: T;
 >x : T
@@ -37,81 +37,81 @@ class C<U extends A, T extends U> {
 
         // BUG 823818
         var a = x['foo'](); // should be string
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x['foo']() : string
+>x['foo']() : 文字
 >类型别名 :=> 文字
->x['foo'] : () => string
+>x['foo'] : () => 文字
 >x : T
 >'foo' : "foo"
 
         return a + x.foo();
->a + x.foo() : string
+>a + x.foo() : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x.foo() : string
+>x.foo() : 文字
 >类型别名 :=> 文字
->x.foo : () => string
+>x.foo : () => 文字
 >x : T
->foo : () => string
+>foo : () => 文字
     }
 
     g(x: U) {
->g : (x: U) => string
+>g : (x: U) => 文字
 >x : U
 >U : U
 
         // BUG 823818
         var a = x['foo'](); // should be string
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x['foo']() : string
+>x['foo']() : 文字
 >类型别名 :=> 文字
->x['foo'] : () => string
+>x['foo'] : () => 文字
 >x : U
 >'foo' : "foo"
 
         return a + x.foo();
->a + x.foo() : string
+>a + x.foo() : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x.foo() : string
+>x.foo() : 文字
 >类型别名 :=> 文字
->x.foo : () => string
+>x.foo : () => 文字
 >x : U
->foo : () => string
+>foo : () => 文字
     }
 }
 
 var r1a = (new C<A, B>()).f();
->r1a : string
+>r1a : 文字
 >类型别名 :=> 文字
->(new C<A, B>()).f() : string
+>(new C<A, B>()).f() : 文字
 >类型别名 :=> 文字
->(new C<A, B>()).f : () => string
+>(new C<A, B>()).f : () => 文字
 >(new C<A, B>()) : C<A, B>
 >new C<A, B>() : C<A, B>
->C : typeof C
+>C : 类为 C
 >A : A
 >B : B
->f : () => string
+>f : () => 文字
 
 var r1b = (new C<A, B>()).g(new B());
->r1b : string
+>r1b : 文字
 >类型别名 :=> 文字
->(new C<A, B>()).g(new B()) : string
+>(new C<A, B>()).g(new B()) : 文字
 >类型别名 :=> 文字
->(new C<A, B>()).g : (x: A) => string
+>(new C<A, B>()).g : (x: A) => 文字
 >(new C<A, B>()) : C<A, B>
 >new C<A, B>() : C<A, B>
->C : typeof C
+>C : 类为 C
 >A : A
 >B : B
->g : (x: A) => string
+>g : (x: A) => 文字
 >new B() : B
->B : typeof B
+>B : 类为 B
 
 interface I<U extends A, T extends U> {
 >I : I<U, T>
@@ -131,29 +131,29 @@ var i: I<A, B>;
 >B : B
 
 var r2 = i.foo.foo();
->r2 : string
+>r2 : 文字
 >类型别名 :=> 文字
->i.foo.foo() : string
+>i.foo.foo() : 文字
 >类型别名 :=> 文字
->i.foo.foo : () => string
+>i.foo.foo : () => 文字
 >i.foo : B
 >i : I<A, B>
 >foo : B
->foo : () => string
+>foo : () => 文字
 
 var r2b = i.foo['foo']();
->r2b : string
+>r2b : 文字
 >类型别名 :=> 文字
->i.foo['foo']() : string
+>i.foo['foo']() : 文字
 >类型别名 :=> 文字
->i.foo['foo'] : () => string
+>i.foo['foo'] : () => 文字
 >i.foo : B
 >i : I<A, B>
 >foo : B
 >'foo' : "foo"
 
 var a: {
->a : { <U extends A, T extends U>(): T; <U extends T, T extends A>(x: U): U; }
+>a : { <U 扩展 A, T 扩展 U>(): T; <U 扩展 T, T 扩展 A>(x: U): U; }
 
     <U extends A, T extends U>(): T;
 >U : U
@@ -172,57 +172,57 @@ var a: {
 >U : U
 }
 var r3 = a().foo(); // error, no inferences for U so it doesn't satisfy constraint
->r3 : string
+>r3 : 文字
 >类型别名 :=> 文字
->a().foo() : string
+>a().foo() : 文字
 >类型别名 :=> 文字
->a().foo : () => string
+>a().foo : () => 文字
 >a() : A
->a : { <U extends A, T extends U>(): T; <U extends T, T extends A>(x: U): U; }
->foo : () => string
+>a : { <U 扩展 A, T 扩展 U>(): T; <U 扩展 T, T 扩展 A>(x: U): U; }
+>foo : () => 文字
 
 var r3b = a()['foo']();
->r3b : string
+>r3b : 文字
 >类型别名 :=> 文字
->a()['foo']() : string
+>a()['foo']() : 文字
 >类型别名 :=> 文字
->a()['foo'] : () => string
+>a()['foo'] : () => 文字
 >a() : A
->a : { <U extends A, T extends U>(): T; <U extends T, T extends A>(x: U): U; }
+>a : { <U 扩展 A, T 扩展 U>(): T; <U 扩展 T, T 扩展 A>(x: U): U; }
 >'foo' : "foo"
 
 // parameter supplied for type argument inference for U
 var r3c = a(new B()).foo(); // valid call to an invalid function, U is inferred as B, which has a foo
->r3c : string
+>r3c : 文字
 >类型别名 :=> 文字
->a(new B()).foo() : string
+>a(new B()).foo() : 文字
 >类型别名 :=> 文字
->a(new B()).foo : () => string
+>a(new B()).foo : () => 文字
 >a(new B()) : B
->a : { <U extends A, T extends U>(): T; <U extends T, T extends A>(x: U): U; }
+>a : { <U 扩展 A, T 扩展 U>(): T; <U 扩展 T, T 扩展 A>(x: U): U; }
 >new B() : B
->B : typeof B
->foo : () => string
+>B : 类为 B
+>foo : () => 文字
 
 var r3d = a(new B())['foo'](); // valid call to an invalid function, U is inferred as B, which has a foo
->r3d : string
+>r3d : 文字
 >类型别名 :=> 文字
->a(new B())['foo']() : string
+>a(new B())['foo']() : 文字
 >类型别名 :=> 文字
->a(new B())['foo'] : () => string
+>a(new B())['foo'] : () => 文字
 >a(new B()) : B
->a : { <U extends A, T extends U>(): T; <U extends T, T extends A>(x: U): U; }
+>a : { <U 扩展 A, T 扩展 U>(): T; <U 扩展 T, T 扩展 A>(x: U): U; }
 >new B() : B
->B : typeof B
+>B : 类为 B
 >'foo' : "foo"
 
 var b = {
->b : { foo: <U extends A, T extends U>(x: T) => string; }
->{    foo: <U extends A, T extends U>(x: T) => {        // BUG 823818        var a = x['foo'](); // should be string        return a + x.foo();    }} : { foo: <U extends A, T extends U>(x: T) => string; }
+>b : { foo: <U 扩展 A, T 扩展 U>(x: T) => 文字; }
+>{    foo: <U extends A, T extends U>(x: T) => {        // BUG 823818        var a = x['foo'](); // should be string        return a + x.foo();    }} : { foo: <U 扩展 A, T 扩展 U>(x: T) => 文字; }
 
     foo: <U extends A, T extends U>(x: T) => {
->foo : <U extends A, T extends U>(x: T) => string
-><U extends A, T extends U>(x: T) => {        // BUG 823818        var a = x['foo'](); // should be string        return a + x.foo();    } : <U extends A, T extends U>(x: T) => string
+>foo : <U 扩展 A, T 扩展 U>(x: T) => 文字
+><U extends A, T extends U>(x: T) => {        // BUG 823818        var a = x['foo'](); // should be string        return a + x.foo();    } : <U 扩展 A, T 扩展 U>(x: T) => 文字
 >U : U
 >A : A
 >T : T
@@ -232,35 +232,35 @@ var b = {
 
         // BUG 823818
         var a = x['foo'](); // should be string
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x['foo']() : string
+>x['foo']() : 文字
 >类型别名 :=> 文字
->x['foo'] : () => string
+>x['foo'] : () => 文字
 >x : T
 >'foo' : "foo"
 
         return a + x.foo();
->a + x.foo() : string
+>a + x.foo() : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x.foo() : string
+>x.foo() : 文字
 >类型别名 :=> 文字
->x.foo : () => string
+>x.foo : () => 文字
 >x : T
->foo : () => string
+>foo : () => 文字
     }
 }
 
 var r4 = b.foo(new B()); // valid call to an invalid function
->r4 : string
+>r4 : 文字
 >类型别名 :=> 文字
->b.foo(new B()) : string
+>b.foo(new B()) : 文字
 >类型别名 :=> 文字
->b.foo : <U extends A, T extends U>(x: T) => string
->b : { foo: <U extends A, T extends U>(x: T) => string; }
->foo : <U extends A, T extends U>(x: T) => string
+>b.foo : <U 扩展 A, T 扩展 U>(x: T) => 文字
+>b : { foo: <U 扩展 A, T 扩展 U>(x: T) => 文字; }
+>foo : <U 扩展 A, T 扩展 U>(x: T) => 文字
 >new B() : B
->B : typeof B
+>B : 类为 B
 

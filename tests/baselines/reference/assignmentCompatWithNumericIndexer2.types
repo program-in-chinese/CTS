@@ -3,26 +3,26 @@
 
 interface Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 interface A {
 >A : A
 
     [x: number]: Base;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >Base : Base
 }
@@ -32,39 +32,39 @@ var a: A;
 >A : A
 
 var b: { [x: number]: Derived; }
->b : { [x: number]: Derived; }
->x : number
+>b : { [x: 数字]: Derived; }
+>x : 数字
 >类型别名 :=> 数字
 >Derived : Derived
 
 a = b;
->a = b : { [x: number]: Derived; }
+>a = b : { [x: 数字]: Derived; }
 >a : A
->b : { [x: number]: Derived; }
+>b : { [x: 数字]: Derived; }
 
 b = a; // error
 >b = a : A
->b : { [x: number]: Derived; }
+>b : { [x: 数字]: Derived; }
 >a : A
 
 var b2: { [x: number]: Derived2; }
->b2 : { [x: number]: Derived2; }
->x : number
+>b2 : { [x: 数字]: Derived2; }
+>x : 数字
 >类型别名 :=> 数字
 >Derived2 : Derived2
 
 a = b2;
->a = b2 : { [x: number]: Derived2; }
+>a = b2 : { [x: 数字]: Derived2; }
 >a : A
->b2 : { [x: number]: Derived2; }
+>b2 : { [x: 数字]: Derived2; }
 
 b2 = a; // error
 >b2 = a : A
->b2 : { [x: number]: Derived2; }
+>b2 : { [x: 数字]: Derived2; }
 >a : A
 
 module Generics {
->Generics : typeof Generics
+>Generics : 类为 Generics
 
     interface A<T extends Base> {
 >A : A<T>
@@ -72,7 +72,7 @@ module Generics {
 >Base : Base
 
         [x: number]: T;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >T : T
     }
@@ -83,13 +83,13 @@ module Generics {
 >Base : Base
 
         [x: number]: Derived; // ok
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >Derived : Derived
     }
 
     function foo<T extends Base>() {
->foo : <T extends Base>() => void
+>foo : <T 扩展 Base>() => 无值
 >T : T
 >Base : Base
 
@@ -99,51 +99,51 @@ module Generics {
 >T : T
 
         var b: { [x: number]: Derived; }
->b : { [x: number]: Derived; }
->x : number
+>b : { [x: 数字]: Derived; }
+>x : 数字
 >类型别名 :=> 数字
 >Derived : Derived
 
         a = b; // error
->a = b : { [x: number]: Derived; }
+>a = b : { [x: 数字]: Derived; }
 >a : A<T>
->b : { [x: number]: Derived; }
+>b : { [x: 数字]: Derived; }
 
         b = a; // error
 >b = a : A<T>
->b : { [x: number]: Derived; }
+>b : { [x: 数字]: Derived; }
 >a : A<T>
 
         var b2: { [x: number]: Derived2; }
->b2 : { [x: number]: Derived2; }
->x : number
+>b2 : { [x: 数字]: Derived2; }
+>x : 数字
 >类型别名 :=> 数字
 >Derived2 : Derived2
 
         a = b2; // error
->a = b2 : { [x: number]: Derived2; }
+>a = b2 : { [x: 数字]: Derived2; }
 >a : A<T>
->b2 : { [x: number]: Derived2; }
+>b2 : { [x: 数字]: Derived2; }
 
         b2 = a; // error
 >b2 = a : A<T>
->b2 : { [x: number]: Derived2; }
+>b2 : { [x: 数字]: Derived2; }
 >a : A<T>
 
         var b3: { [x: number]: T; }
->b3 : { [x: number]: T; }
->x : number
+>b3 : { [x: 数字]: T; }
+>x : 数字
 >类型别名 :=> 数字
 >T : T
 
         a = b3; // ok
->a = b3 : { [x: number]: T; }
+>a = b3 : { [x: 数字]: T; }
 >a : A<T>
->b3 : { [x: number]: T; }
+>b3 : { [x: 数字]: T; }
 
         b3 = a; // ok
 >b3 = a : A<T>
->b3 : { [x: number]: T; }
+>b3 : { [x: 数字]: T; }
 >a : A<T>
     }
 }

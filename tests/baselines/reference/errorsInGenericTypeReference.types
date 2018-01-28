@@ -13,21 +13,21 @@ class testClass1 {
 >testClass1 : testClass1
 
     method<T>(): void { }
->method : <T>() => void
+>method : <T>() => 无值
 >T : T
 }
 var tc1 = new testClass1();
 >tc1 : testClass1
 >new testClass1() : testClass1
->testClass1 : typeof testClass1
+>testClass1 : 类为 testClass1
 
 tc1.method<{ x: V }>(); // error: could not find symbol V
->tc1.method<{ x: V }>() : void
+>tc1.method<{ x: V }>() : 无值
 >类型别名 :=> 无值
->tc1.method : <T>() => void
+>tc1.method : <T>() => 无值
 >tc1 : testClass1
->method : <T>() => void
->x : any
+>method : <T>() => 无值
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
@@ -38,10 +38,10 @@ class testClass2<T> {
 >T : T
 }
 var tc2 = new testClass2<{ x: V }>(); // error: could not find symbol V
->tc2 : testClass2<{ x: any; }>
->new testClass2<{ x: V }>() : testClass2<{ x: any; }>
->testClass2 : typeof testClass2
->x : any
+>tc2 : testClass2<{ x: 任意; }>
+>new testClass2<{ x: V }>() : testClass2<{ x: 任意; }>
+>testClass2 : 类为 testClass2
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
@@ -51,35 +51,35 @@ class testClass3 {
 >testClass3 : testClass3
 
     testMethod1(): Foo<{ x: V }> { return null; } // error: could not find symbol V
->testMethod1 : () => Foo<{ x: any; }>
+>testMethod1 : () => Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     static testMethod2(): Foo<{ x: V }> { return null } // error: could not find symbol V
->testMethod2 : () => Foo<{ x: any; }>
+>testMethod2 : () => Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     set a(value: Foo<{ x: V }>) { } // error: could not find symbol V
->a : Foo<{ x: any; }>
->value : Foo<{ x: any; }>
+>a : Foo<{ x: 任意; }>
+>value : Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
     property: Foo<{ x: V }>; // error: could not find symbol V
->property : Foo<{ x: any; }>
+>property : Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 }
@@ -87,30 +87,30 @@ class testClass3 {
 
 // in function return type annotation
 function testFunction1(): Foo<{ x: V }> { return null; } // error: could not find symbol V
->testFunction1 : () => Foo<{ x: any; }>
+>testFunction1 : () => Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 
 // in paramter types
 function testFunction2(p: Foo<{ x: V }>) { }// error: could not find symbol V
->testFunction2 : (p: Foo<{ x: any; }>) => void
->p : Foo<{ x: any; }>
+>testFunction2 : (p: Foo<{ x: 任意; }>) => 无值
+>p : Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
 
 // in var type annotation
 var f: Foo<{ x: V }>; // error: could not find symbol V
->f : Foo<{ x: any; }>
+>f : Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
@@ -119,7 +119,7 @@ var f: Foo<{ x: V }>; // error: could not find symbol V
 class testClass4<T extends { x: V }> { } // error: could not find symbol V
 >testClass4 : testClass4<T>
 >T : T
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
@@ -127,7 +127,7 @@ interface testClass5<T extends Foo<{ x: V }>> { } // error: could not find symbo
 >testClass5 : testClass5<T>
 >T : T
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
@@ -136,9 +136,9 @@ class testClass6<T> {
 >T : T
 
     method<M extends { x: V }>(): void { } // error: could not find symbol V
->method : <M extends { x: any; }>() => void
+>method : <M 扩展 { x: 任意; }>() => 无值
 >M : M
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 }
@@ -148,7 +148,7 @@ interface testInterface1 {
 
     new <M extends { x: V }>(a: M); // error: could not find symbol V
 >M : M
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 >a : M
@@ -159,8 +159,8 @@ interface testInterface1 {
 // in extends clause
 class testClass7 extends Foo<{ x: V }> { } // error: could not find symbol V
 >testClass7 : testClass7
->Foo : Foo<{ x: any; }>
->x : any
+>Foo : Foo<{ x: 任意; }>
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
@@ -169,7 +169,7 @@ class testClass7 extends Foo<{ x: V }> { } // error: could not find symbol V
 class testClass8 implements IFoo<{ x: V }> { } // error: could not find symbol V
 >testClass8 : testClass8
 >IFoo : IFoo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
@@ -179,40 +179,40 @@ interface testInterface2 {
 >testInterface2 : testInterface2
 
     new (a: Foo<{ x: V }>): Foo<{ x: V }>; //2x: error: could not find symbol V
->a : Foo<{ x: any; }>
+>a : Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
     [x: string]: Foo<{ x: V }>; // error: could not find symbol V
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
     method(a: Foo<{ x: V }>): Foo<{ x: V }>; //2x: error: could not find symbol V
->method : (a: Foo<{ x: any; }>) => Foo<{ x: any; }>
->a : Foo<{ x: any; }>
+>method : (a: Foo<{ x: 任意; }>) => Foo<{ x: 任意; }>
+>a : Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 
     property: Foo<{ x: V }>; // error: could not find symbol V
->property : Foo<{ x: any; }>
+>property : Foo<{ x: 任意; }>
 >Foo : Foo<T>
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >V : No type information available!
 }

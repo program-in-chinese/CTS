@@ -1,9 +1,9 @@
 === tests/cases/compiler/es6ClassTest8.ts ===
 function f1(x:any) {return x;}
->f1 : (x: any) => any
->x : any
+>f1 : (x: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 class C {
@@ -11,26 +11,26 @@ class C {
 
     constructor() {
         var bar:any = (function() {
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
->(function() {            return bar; // 'bar' should be resolvable        }) : () => any
->function() {            return bar; // 'bar' should be resolvable        } : () => any
+>(function() {            return bar; // 'bar' should be resolvable        }) : () => 任意
+>function() {            return bar; // 'bar' should be resolvable        } : () => 任意
 
             return bar; // 'bar' should be resolvable
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 
         });
         var b = f1(f1(bar));
->b : any
+>b : 任意
 >类型别名 :=> 任意
->f1(f1(bar)) : any
+>f1(f1(bar)) : 任意
 >类型别名 :=> 任意
->f1 : (x: any) => any
->f1(bar) : any
+>f1 : (x: 任意) => 任意
+>f1(bar) : 任意
 >类型别名 :=> 任意
->f1 : (x: any) => any
->bar : any
+>f1 : (x: 任意) => 任意
+>bar : 任意
 >类型别名 :=> 任意
     }
   
@@ -44,7 +44,7 @@ class Vector {
 >v : Vector
 >Vector : Vector
 >Vector : Vector
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     static minus(v1:Vector, v2:Vector):Vector {return null;}
@@ -54,7 +54,7 @@ class Vector {
 >v2 : Vector
 >Vector : Vector
 >Vector : Vector
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     static times(v1:Vector, v2:Vector):Vector {return null;}
@@ -64,7 +64,7 @@ class Vector {
 >v2 : Vector
 >Vector : Vector
 >Vector : Vector
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     static cross(v1:Vector, v2:Vector):Vector {return null;}
@@ -74,19 +74,19 @@ class Vector {
 >v2 : Vector
 >Vector : Vector
 >Vector : Vector
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     constructor(public x: number,
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
                 public y: number,
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
                 public z: number) { 
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 
@@ -97,7 +97,7 @@ class Vector {
 >v2 : Vector
 >Vector : Vector
 >Vector : Vector
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 }              
@@ -126,7 +126,7 @@ class Camera {
         var down = new Vector(0.0, -1.0, 0.0);
 >down : Vector
 >new Vector(0.0, -1.0, 0.0) : Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >0.0 : 0
 >-1.0 : -1
 >1.0 : 1
@@ -135,67 +135,67 @@ class Camera {
         this.forward = Vector.norm(Vector.minus(lookAt,this.pos));
 >this.forward = Vector.norm(Vector.minus(lookAt,this.pos)) : Vector
 >this.forward : Vector
->this : this
+>this : 本体
 >forward : Vector
 >Vector.norm(Vector.minus(lookAt,this.pos)) : Vector
 >Vector.norm : (v: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >norm : (v: Vector) => Vector
 >Vector.minus(lookAt,this.pos) : Vector
 >Vector.minus : (v1: Vector, v2: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >minus : (v1: Vector, v2: Vector) => Vector
 >lookAt : Vector
 >this.pos : Vector
->this : this
+>this : 本体
 >pos : Vector
 
         this.right = Vector.times(down, Vector.norm(Vector.cross(this.forward, down)));
 >this.right = Vector.times(down, Vector.norm(Vector.cross(this.forward, down))) : Vector
 >this.right : Vector
->this : this
+>this : 本体
 >right : Vector
 >Vector.times(down, Vector.norm(Vector.cross(this.forward, down))) : Vector
 >Vector.times : (v1: Vector, v2: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >times : (v1: Vector, v2: Vector) => Vector
 >down : Vector
 >Vector.norm(Vector.cross(this.forward, down)) : Vector
 >Vector.norm : (v: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >norm : (v: Vector) => Vector
 >Vector.cross(this.forward, down) : Vector
 >Vector.cross : (v1: Vector, v2: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >cross : (v1: Vector, v2: Vector) => Vector
 >this.forward : Vector
->this : this
+>this : 本体
 >forward : Vector
 >down : Vector
 
         this.up = Vector.times(down, Vector.norm(Vector.cross(this.forward, this.right)));    
 >this.up = Vector.times(down, Vector.norm(Vector.cross(this.forward, this.right))) : Vector
 >this.up : Vector
->this : this
+>this : 本体
 >up : Vector
 >Vector.times(down, Vector.norm(Vector.cross(this.forward, this.right))) : Vector
 >Vector.times : (v1: Vector, v2: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >times : (v1: Vector, v2: Vector) => Vector
 >down : Vector
 >Vector.norm(Vector.cross(this.forward, this.right)) : Vector
 >Vector.norm : (v: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >norm : (v: Vector) => Vector
 >Vector.cross(this.forward, this.right) : Vector
 >Vector.cross : (v1: Vector, v2: Vector) => Vector
->Vector : typeof Vector
+>Vector : 类为 Vector
 >cross : (v1: Vector, v2: Vector) => Vector
 >this.forward : Vector
->this : this
+>this : 本体
 >forward : Vector
 >this.right : Vector
->this : this
+>this : 本体
 >right : Vector
     }
 }

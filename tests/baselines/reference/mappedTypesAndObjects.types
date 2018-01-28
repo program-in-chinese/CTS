@@ -1,6 +1,6 @@
 === tests/cases/conformance/types/mapped/mappedTypesAndObjects.ts ===
 function f1<T>(x: Partial<T>, y: Readonly<T>) {
->f1 : <T>(x: Partial<T>, y: Readonly<T>) => void
+>f1 : <T>(x: Partial<T>, y: Readonly<T>) => 无值
 >T : T
 >x : Partial<T>
 >Partial : Partial<T>
@@ -24,7 +24,7 @@ function f1<T>(x: Partial<T>, y: Readonly<T>) {
 }
 
 function f2<T>(x: Partial<T>, y: Readonly<T>) {
->f2 : <T>(x: Partial<T>, y: Readonly<T>) => void
+>f2 : <T>(x: Partial<T>, y: Readonly<T>) => 无值
 >T : T
 >x : Partial<T>
 >Partial : Partial<T>
@@ -34,23 +34,23 @@ function f2<T>(x: Partial<T>, y: Readonly<T>) {
 >T : T
 
     let obj: { [x: string]: any };
->obj : { [x: string]: any; }
->x : string
+>obj : { [x: 文字]: 任意; }
+>x : 文字
 >类型别名 :=> 文字
 
     obj = x;
 >obj = x : Partial<T>
->obj : { [x: string]: any; }
+>obj : { [x: 文字]: 任意; }
 >x : Partial<T>
 
     obj = y;
 >obj = y : Readonly<T>
->obj : { [x: string]: any; }
+>obj : { [x: 文字]: 任意; }
 >y : Readonly<T>
 }
 
 function f3<T>(x: Partial<T>) {
->f3 : <T>(x: Partial<T>) => void
+>f3 : <T>(x: Partial<T>) => 无值
 >T : T
 >x : Partial<T>
 >Partial : Partial<T>
@@ -68,16 +68,16 @@ interface Base {
 >Base : Base
 
     foo: { [key: string]: any };
->foo : { [key: string]: any; }
->key : string
+>foo : { [key: 文字]: 任意; }
+>key : 文字
 >类型别名 :=> 文字
 
     bar: any;
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 
     baz: any;
->baz : any
+>baz : 任意
 >类型别名 :=> 任意
 }
 
@@ -93,9 +93,9 @@ interface E1<T> extends Base {
 
 interface Something { name: string, value: string };
 >Something : Something
->name : string
+>name : 文字
 >类型别名 :=> 文字
->value : string
+>value : 文字
 >类型别名 :=> 文字
 
 interface E2 extends Base {
@@ -126,7 +126,7 @@ class Form<T> {
 >T : T
 
     private values: {[P in keyof T]?: T[P]} = {}
->values : { [P in keyof T]?: T[P] | undefined; }
+>values : { [P 位于 键集 T]?: T[P] | 未定; }
 >P : P
 >T : T
 >T : T

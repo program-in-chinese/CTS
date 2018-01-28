@@ -3,55 +3,55 @@ class MyClass {
 >MyClass : MyClass
 
     t: number;
->t : number
+>t : 数字
 >类型别名 :=> 数字
 
     fn() {
->fn : () => void
+>fn : () => 无值
 
         type ContainingThis = this;
->ContainingThis : this
+>ContainingThis : 本体
 
         //type of 'this' in an object literal is the containing scope's this
         var t = { x: this, y: this.t };
->t : { x: this; y: number; }
->{ x: this, y: this.t } : { x: this; y: number; }
->x : this
->this : this
->y : number
+>t : { x: 本体; y: 数字; }
+>{ x: this, y: this.t } : { x: 本体; y: 数字; }
+>x : 本体
+>this : 本体
+>y : 数字
 >类型别名 :=> 数字
->this.t : number
+>this.t : 数字
 >类型别名 :=> 数字
->this : this
->t : number
+>this : 本体
+>t : 数字
 >类型别名 :=> 数字
 
         var t: { x: ContainingThis; y: number };
->t : { x: this; y: number; }
->x : this
->ContainingThis : this
->y : number
+>t : { x: 本体; y: 数字; }
+>x : 本体
+>ContainingThis : 本体
+>y : 数字
 >类型别名 :=> 数字
     }
 }
 
 //type of 'this' in an object literal method is the type of the object literal
 var obj = {
->obj : { f(): any; }
->{    f() {        return this.spaaace;    }} : { f(): any; }
+>obj : { f(): 任意; }
+>{    f() {        return this.spaaace;    }} : { f(): 任意; }
 
     f() {
->f : () => any
+>f : () => 任意
 
         return this.spaaace;
->this.spaaace : any
+>this.spaaace : 任意
 >类型别名 :=> 任意
->this : { f(): any; }
->spaaace : any
+>this : { f(): 任意; }
+>spaaace : 任意
 >类型别名 :=> 任意
     }
 };
 var obj: { f: () => any; };
->obj : { f(): any; }
->f : () => any
+>obj : { f(): 任意; }
+>f : () => 任意
 

@@ -2,16 +2,16 @@
 type Constructor<T> = new(...args: any[]) => T;
 >Constructor : Constructor<T>
 >T : T
->args : any[]
+>args : 任意[]
 >T : T
 
 class Base {
 >Base : Base
 
     constructor(public x: number, public y: number) {}
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 }
 
@@ -20,20 +20,20 @@ class Derived extends Base {
 >Base : Base
 
     constructor(x: number, y: number, public z: number) {
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
->z : number
+>z : 数字
 >类型别名 :=> 数字
 
         super(x, y);
->super(x, y) : void
+>super(x, y) : 无值
 >类型别名 :=> 无值
->super : typeof Base
->x : number
+>super : 类为 Base
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 }
@@ -42,12 +42,12 @@ interface Printable {
 >Printable : Printable
 
     print(): void;
->print : () => void
+>print : () => 无值
 }
 
 const Printable = <T extends Constructor<Base>>(superClass: T): Constructor<Printable> & { message: string } & T =>
->Printable : <T extends Constructor<Base>>(superClass: T) => Constructor<Printable> & { message: string; } & T
-><T extends Constructor<Base>>(superClass: T): Constructor<Printable> & { message: string } & T =>    class extends superClass {        static message = "hello";        print() {            const output = this.x + "," + this.y;        }    } : <T extends Constructor<Base>>(superClass: T) => Constructor<Printable> & { message: string; } & T
+>Printable : <T 扩展 Constructor<Base>>(superClass: T) => Constructor<Printable> & { message: 文字; } & T
+><T extends Constructor<Base>>(superClass: T): Constructor<Printable> & { message: string } & T =>    class extends superClass {        static message = "hello";        print() {            const output = this.x + "," + this.y;        }    } : <T 扩展 Constructor<Base>>(superClass: T) => Constructor<Printable> & { message: 文字; } & T
 >T : T
 >Constructor : Constructor<T>
 >Base : Base
@@ -55,39 +55,39 @@ const Printable = <T extends Constructor<Base>>(superClass: T): Constructor<Prin
 >T : T
 >Constructor : Constructor<T>
 >Printable : Printable
->message : string
+>message : 文字
 >类型别名 :=> 文字
 >T : T
 
     class extends superClass {
->class extends superClass {        static message = "hello";        print() {            const output = this.x + "," + this.y;        }    } : { new (...args: any[]): (Anonymous class); prototype: <any>.(Anonymous class); message: string; } & T
+>class extends superClass {        static message = "hello";        print() {            const output = this.x + "," + this.y;        }    } : { 新建 (...args: 任意[]): (Anonymous class); prototype: <任意>.(Anonymous class); message: 文字; } & T
 >superClass : Base
 
         static message = "hello";
->message : string
+>message : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
         print() {
->print : () => void
+>print : () => 无值
 
             const output = this.x + "," + this.y;
->output : string
+>output : 文字
 >类型别名 :=> 文字
->this.x + "," + this.y : string
+>this.x + "," + this.y : 文字
 >类型别名 :=> 文字
->this.x + "," : string
+>this.x + "," : 文字
 >类型别名 :=> 文字
->this.x : number
+>this.x : 数字
 >类型别名 :=> 数字
->this : this
->x : number
+>this : 本体
+>x : 数字
 >类型别名 :=> 数字
 >"," : ","
->this.y : number
+>this.y : 数字
 >类型别名 :=> 数字
->this : this
->y : number
+>this : 本体
+>y : 数字
 >类型别名 :=> 数字
         }
     }
@@ -96,12 +96,12 @@ interface Tagged {
 >Tagged : Tagged
 
     _tag: string;
->_tag : string
+>_tag : 文字
 >类型别名 :=> 文字
 }
 
 function Tagged<T extends Constructor<{}>>(superClass: T): Constructor<Tagged> & T {
->Tagged : <T extends Constructor<{}>>(superClass: T) => Constructor<Tagged> & T
+>Tagged : <T 扩展 Constructor<{}>>(superClass: T) => Constructor<Tagged> & T
 >T : T
 >Constructor : Constructor<T>
 >superClass : T
@@ -115,112 +115,112 @@ function Tagged<T extends Constructor<{}>>(superClass: T): Constructor<Tagged> &
 >superClass : {}
 
         _tag: string;
->_tag : string
+>_tag : 文字
 >类型别名 :=> 文字
 
         constructor(...args: any[]) {
->args : any[]
+>args : 任意[]
 
             super(...args);
->super(...args) : void
+>super(...args) : 无值
 >类型别名 :=> 无值
 >super : T
->...args : any
+>...args : 任意
 >类型别名 :=> 任意
->args : any[]
+>args : 任意[]
 
             this._tag = "hello";
 >this._tag = "hello" : "hello"
->this._tag : string
+>this._tag : 文字
 >类型别名 :=> 文字
->this : this
->_tag : string
+>this : 本体
+>_tag : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
         }
     }
     return C;
->C : { new (...args: any[]): C; prototype: Tagged<any>.C; } & T
+>C : { 新建 (...args: 任意[]): C; prototype: Tagged<任意>.C; } & T
 }
 
 const Thing1 = Tagged(Derived);
->Thing1 : Constructor<Tagged> & typeof Derived
->Tagged(Derived) : Constructor<Tagged> & typeof Derived
->Tagged : <T extends Constructor<{}>>(superClass: T) => Constructor<Tagged> & T
->Derived : typeof Derived
+>Thing1 : Constructor<Tagged> & 类为 Derived
+>Tagged(Derived) : Constructor<Tagged> & 类为 Derived
+>Tagged : <T 扩展 Constructor<{}>>(superClass: T) => Constructor<Tagged> & T
+>Derived : 类为 Derived
 
 const Thing2 = Tagged(Printable(Derived));
->Thing2 : Constructor<Tagged> & Constructor<Printable> & { message: string; } & typeof Derived
->Tagged(Printable(Derived)) : Constructor<Tagged> & Constructor<Printable> & { message: string; } & typeof Derived
->Tagged : <T extends Constructor<{}>>(superClass: T) => Constructor<Tagged> & T
->Printable(Derived) : Constructor<Printable> & { message: string; } & typeof Derived
->Printable : <T extends Constructor<Base>>(superClass: T) => Constructor<Printable> & { message: string; } & T
->Derived : typeof Derived
+>Thing2 : Constructor<Tagged> & Constructor<Printable> & { message: 文字; } & 类为 Derived
+>Tagged(Printable(Derived)) : Constructor<Tagged> & Constructor<Printable> & { message: 文字; } & 类为 Derived
+>Tagged : <T 扩展 Constructor<{}>>(superClass: T) => Constructor<Tagged> & T
+>Printable(Derived) : Constructor<Printable> & { message: 文字; } & 类为 Derived
+>Printable : <T 扩展 Constructor<Base>>(superClass: T) => Constructor<Printable> & { message: 文字; } & T
+>Derived : 类为 Derived
 
 Thing2.message;
->Thing2.message : string
+>Thing2.message : 文字
 >类型别名 :=> 文字
->Thing2 : Constructor<Tagged> & Constructor<Printable> & { message: string; } & typeof Derived
->message : string
+>Thing2 : Constructor<Tagged> & Constructor<Printable> & { message: 文字; } & 类为 Derived
+>message : 文字
 >类型别名 :=> 文字
 
 function f1() {
->f1 : () => void
+>f1 : () => 无值
 
     const thing = new Thing1(1, 2, 3);
 >thing : Tagged & Derived
 >new Thing1(1, 2, 3) : Tagged & Derived
->Thing1 : Constructor<Tagged> & typeof Derived
+>Thing1 : Constructor<Tagged> & 类为 Derived
 >1 : 1
 >2 : 2
 >3 : 3
 
     thing.x;
->thing.x : number
+>thing.x : 数字
 >类型别名 :=> 数字
 >thing : Tagged & Derived
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     thing._tag;
->thing._tag : string
+>thing._tag : 文字
 >类型别名 :=> 文字
 >thing : Tagged & Derived
->_tag : string
+>_tag : 文字
 >类型别名 :=> 文字
 }
 
 function f2() {
->f2 : () => void
+>f2 : () => 无值
 
     const thing = new Thing2(1, 2, 3);
 >thing : Tagged & Printable & Derived
 >new Thing2(1, 2, 3) : Tagged & Printable & Derived
->Thing2 : Constructor<Tagged> & Constructor<Printable> & { message: string; } & typeof Derived
+>Thing2 : Constructor<Tagged> & Constructor<Printable> & { message: 文字; } & 类为 Derived
 >1 : 1
 >2 : 2
 >3 : 3
 
     thing.x;
->thing.x : number
+>thing.x : 数字
 >类型别名 :=> 数字
 >thing : Tagged & Printable & Derived
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     thing._tag;
->thing._tag : string
+>thing._tag : 文字
 >类型别名 :=> 文字
 >thing : Tagged & Printable & Derived
->_tag : string
+>_tag : 文字
 >类型别名 :=> 文字
 
     thing.print();
->thing.print() : void
+>thing.print() : 无值
 >类型别名 :=> 无值
->thing.print : () => void
+>thing.print : () => 无值
 >thing : Tagged & Printable & Derived
->print : () => void
+>print : () => 无值
 }
 
 class Thing3 extends Thing2 {
@@ -228,37 +228,37 @@ class Thing3 extends Thing2 {
 >Thing2 : Tagged & Printable & Derived
 
     constructor(tag: string) {
->tag : string
+>tag : 文字
 >类型别名 :=> 文字
 
         super(10, 20, 30);
->super(10, 20, 30) : void
+>super(10, 20, 30) : 无值
 >类型别名 :=> 无值
->super : Constructor<Tagged> & Constructor<Printable> & { message: string; } & typeof Derived
+>super : Constructor<Tagged> & Constructor<Printable> & { message: 文字; } & 类为 Derived
 >10 : 10
 >20 : 20
 >30 : 30
 
         this._tag = tag;
->this._tag = tag : string
+>this._tag = tag : 文字
 >类型别名 :=> 文字
->this._tag : string
+>this._tag : 文字
 >类型别名 :=> 文字
->this : this
->_tag : string
+>this : 本体
+>_tag : 文字
 >类型别名 :=> 文字
->tag : string
+>tag : 文字
 >类型别名 :=> 文字
     }
     test() {
->test : () => void
+>test : () => 无值
 
         this.print();
->this.print() : void
+>this.print() : 无值
 >类型别名 :=> 无值
->this.print : () => void
->this : this
->print : () => void
+>this.print : () => 无值
+>this : 本体
+>print : () => 无值
     }
 }
 

@@ -3,18 +3,18 @@ interface A {   // interface before module declaration
 >A : A
 
     (): B.C;    // uses defined below class in module
->B : any
+>B : 任意
 >类型别名 :=> 任意
 >C : B.C
 }
 declare function B(): B.C;  // function merged with module
->B : typeof B
->B : any
+>B : 类为 B
+>B : 任意
 >类型别名 :=> 任意
 >C : B.C
 
 declare module B {
->B : typeof B
+>B : 类为 B
 
     export class C {    // class defined in module 
 >C : C
@@ -22,7 +22,7 @@ declare module B {
 }
 new B.C(); 
 >new B.C() : B.C
->B.C : typeof B.C
->B : typeof B
->C : typeof B.C
+>B.C : 类为 B.C
+>B : 类为 B
+>C : 类为 B.C
 

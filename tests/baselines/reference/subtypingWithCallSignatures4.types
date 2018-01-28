@@ -3,29 +3,29 @@
 
 class Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
->bing : string
+>bing : 文字
 >类型别名 :=> 文字
 
 declare function foo1(a: <T>(x: T) => T[]);
->foo1 : { (a: <T>(x: T) => T[]): any; (a: any): any; }
+>foo1 : { (a: <T>(x: T) => T[]): 任意; (a: 任意): 任意; }
 >a : <T>(x: T) => T[]
 >T : T
 >x : T
@@ -33,37 +33,37 @@ declare function foo1(a: <T>(x: T) => T[]);
 >T : T
 
 declare function foo1(a: any): any;
->foo1 : { (a: <T>(x: T) => T[]): any; (a: any): any; }
->a : any
+>foo1 : { (a: <T>(x: T) => T[]): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo2(a2: <T>(x: T) => string[]);
->foo2 : { (a2: <T>(x: T) => string[]): any; (a: any): any; }
->a2 : <T>(x: T) => string[]
+>foo2 : { (a2: <T>(x: T) => 文字[]): 任意; (a: 任意): 任意; }
+>a2 : <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
 
 declare function foo2(a: any): any;
->foo2 : { (a2: <T>(x: T) => string[]): any; (a: any): any; }
->a : any
+>foo2 : { (a2: <T>(x: T) => 文字[]): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo3(a3: <T>(x: T) => void);
->foo3 : { (a3: <T>(x: T) => void): any; (a: any): any; }
->a3 : <T>(x: T) => void
+>foo3 : { (a3: <T>(x: T) => 无值): 任意; (a: 任意): 任意; }
+>a3 : <T>(x: T) => 无值
 >T : T
 >x : T
 >T : T
 
 declare function foo3(a: any): any;
->foo3 : { (a3: <T>(x: T) => void): any; (a: any): any; }
->a : any
+>foo3 : { (a3: <T>(x: T) => 无值): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo4(a4: <T, U>(x: T, y: U) => string);
->foo4 : { (a4: <T, U>(x: T, y: U) => string): any; (a: any): any; }
->a4 : <T, U>(x: T, y: U) => string
+>foo4 : { (a4: <T, U>(x: T, y: U) => 文字): 任意; (a: 任意): 任意; }
+>a4 : <T, U>(x: T, y: U) => 文字
 >T : T
 >U : U
 >x : T
@@ -72,12 +72,12 @@ declare function foo4(a4: <T, U>(x: T, y: U) => string);
 >U : U
 
 declare function foo4(a: any): any;
->foo4 : { (a4: <T, U>(x: T, y: U) => string): any; (a: any): any; }
->a : any
+>foo4 : { (a4: <T, U>(x: T, y: U) => 文字): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo5(a5: <T, U>(x: (arg: T) => U) => T);
->foo5 : { (a5: <T, U>(x: (arg: T) => U) => T): any; (a: any): any; }
+>foo5 : { (a5: <T, U>(x: (arg: T) => U) => T): 任意; (a: 任意): 任意; }
 >a5 : <T, U>(x: (arg: T) => U) => T
 >T : T
 >U : U
@@ -88,13 +88,13 @@ declare function foo5(a5: <T, U>(x: (arg: T) => U) => T);
 >T : T
 
 declare function foo5(a: any): any;
->foo5 : { (a5: <T, U>(x: (arg: T) => U) => T): any; (a: any): any; }
->a : any
+>foo5 : { (a5: <T, U>(x: (arg: T) => U) => T): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo6(a6: <T extends Base>(x: (arg: T) => Derived) => T);
->foo6 : { (a6: <T extends Base>(x: (arg: T) => Derived) => T): any; (a: any): any; }
->a6 : <T extends Base>(x: (arg: T) => Derived) => T
+>foo6 : { (a6: <T 扩展 Base>(x: (arg: T) => Derived) => T): 任意; (a: 任意): 任意; }
+>a6 : <T 扩展 Base>(x: (arg: T) => Derived) => T
 >T : T
 >Base : Base
 >x : (arg: T) => Derived
@@ -104,12 +104,12 @@ declare function foo6(a6: <T extends Base>(x: (arg: T) => Derived) => T);
 >T : T
 
 declare function foo6(a: any): any;
->foo6 : { (a6: <T extends Base>(x: (arg: T) => Derived) => T): any; (a: any): any; }
->a : any
+>foo6 : { (a6: <T 扩展 Base>(x: (arg: T) => Derived) => T): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo11(a11: <T>(x: { foo: T }, y: { foo: T; bar: T }) => Base);
->foo11 : { (a11: <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base): any; (a: any): any; }
+>foo11 : { (a11: <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base): 任意; (a: 任意): 任意; }
 >a11 : <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
 >T : T
 >x : { foo: T; }
@@ -123,12 +123,12 @@ declare function foo11(a11: <T>(x: { foo: T }, y: { foo: T; bar: T }) => Base);
 >Base : Base
 
 declare function foo11(a: any): any;
->foo11 : { (a11: <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base): any; (a: any): any; }
->a : any
+>foo11 : { (a11: <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo15(a15: <T>(x: { a: T; b: T }) => T[]);
->foo15 : { (a15: <T>(x: { a: T; b: T; }) => T[]): any; (a: any): any; }
+>foo15 : { (a15: <T>(x: { a: T; b: T; }) => T[]): 任意; (a: 任意): 任意; }
 >a15 : <T>(x: { a: T; b: T; }) => T[]
 >T : T
 >x : { a: T; b: T; }
@@ -139,13 +139,13 @@ declare function foo15(a15: <T>(x: { a: T; b: T }) => T[]);
 >T : T
 
 declare function foo15(a: any): any;
->foo15 : { (a15: <T>(x: { a: T; b: T; }) => T[]): any; (a: any): any; }
->a : any
+>foo15 : { (a15: <T>(x: { a: T; b: T; }) => T[]): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo16(a16: <T extends Base>(x: { a: T; b: T }) => T[]);
->foo16 : { (a16: <T extends Base>(x: { a: T; b: T; }) => T[]): any; (a: any): any; }
->a16 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>foo16 : { (a16: <T 扩展 Base>(x: { a: T; b: T; }) => T[]): 任意; (a: 任意): 任意; }
+>a16 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >T : T
 >Base : Base
 >x : { a: T; b: T; }
@@ -156,13 +156,13 @@ declare function foo16(a16: <T extends Base>(x: { a: T; b: T }) => T[]);
 >T : T
 
 declare function foo16(a: any): any;
->foo16 : { (a16: <T extends Base>(x: { a: T; b: T; }) => T[]): any; (a: any): any; }
->a : any
+>foo16 : { (a16: <T 扩展 Base>(x: { a: T; b: T; }) => T[]): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo17(a17: {
->foo17 : { (a17: { <T extends Derived>(x: (a: T) => T): T[]; <T extends Base>(x: (a: T) => T): T[]; }): any; (a: any): any; }
->a17 : { <T extends Derived>(x: (a: T) => T): T[]; <T extends Base>(x: (a: T) => T): T[]; }
+>foo17 : { (a17: { <T 扩展 Derived>(x: (a: T) => T): T[]; <T 扩展 Base>(x: (a: T) => T): T[]; }): 任意; (a: 任意): 任意; }
+>a17 : { <T 扩展 Derived>(x: (a: T) => T): T[]; <T 扩展 Base>(x: (a: T) => T): T[]; }
 
     <T extends Derived>(x: (a: T) => T): T[];
 >T : T
@@ -184,16 +184,16 @@ declare function foo17(a17: {
 
 });
 declare function foo17(a: any): any;
->foo17 : { (a17: { <T extends Derived>(x: (a: T) => T): T[]; <T extends Base>(x: (a: T) => T): T[]; }): any; (a: any): any; }
->a : any
+>foo17 : { (a17: { <T 扩展 Derived>(x: (a: T) => T): T[]; <T 扩展 Base>(x: (a: T) => T): T[]; }): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 declare function foo18(a18: {
->foo18 : { (a18: { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }): any; (a: any): any; }
->a18 : { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }
+>foo18 : { (a18: { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }): 任意; (a: 任意): 任意; }
+>a18 : { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }
 
     (x: {
->x : { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }
+>x : { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }
 
         <T extends Derived>(a: T): T;
 >T : T
@@ -211,7 +211,7 @@ declare function foo18(a18: {
 
     }): any[];
     (x: {
->x : { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }
+>x : { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }
 
         <T extends Derived2>(a: T): T;
 >T : T
@@ -230,8 +230,8 @@ declare function foo18(a18: {
     }): any[];
 });
 declare function foo18(a: any): any;
->foo18 : { (a18: { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }): any; (a: any): any; }
->a : any
+>foo18 : { (a18: { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }): 任意; (a: 任意): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 var r1arg = <T>(x: T) => <T[]>null;
@@ -242,7 +242,7 @@ var r1arg = <T>(x: T) => <T[]>null;
 >T : T
 ><T[]>null : T[]
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r1arg2 = <T>(x: T) => <T[]>null;
@@ -253,15 +253,15 @@ var r1arg2 = <T>(x: T) => <T[]>null;
 >T : T
 ><T[]>null : T[]
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r1 = foo1(r1arg);
->r1 : any
+>r1 : 任意
 >类型别名 :=> 任意
->foo1(r1arg) : any
+>foo1(r1arg) : 任意
 >类型别名 :=> 任意
->foo1 : { (a: <T>(x: T) => T[]): any; (a: any): any; }
+>foo1 : { (a: <T>(x: T) => T[]): 任意; (a: 任意): 任意; }
 >r1arg : <T>(x: T) => T[]
 
 var r1a = [r1arg, r1arg2];
@@ -277,42 +277,42 @@ var r1b = [r1arg2, r1arg];
 >r1arg : <T>(x: T) => T[]
 
 var r2arg = <T>(x: T) => [''];
->r2arg : <T>(x: T) => string[]
-><T>(x: T) => [''] : <T>(x: T) => string[]
+>r2arg : <T>(x: T) => 文字[]
+><T>(x: T) => [''] : <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
->[''] : string[]
+>[''] : 文字[]
 >'' : ""
 
 var r2arg2 = <T>(x: T) => [''];
->r2arg2 : <T>(x: T) => string[]
-><T>(x: T) => [''] : <T>(x: T) => string[]
+>r2arg2 : <T>(x: T) => 文字[]
+><T>(x: T) => [''] : <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
->[''] : string[]
+>[''] : 文字[]
 >'' : ""
 
 var r2 = foo2(r2arg);
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->foo2(r2arg) : any
+>foo2(r2arg) : 任意
 >类型别名 :=> 任意
->foo2 : { (a2: <T>(x: T) => string[]): any; (a: any): any; }
->r2arg : <T>(x: T) => string[]
+>foo2 : { (a2: <T>(x: T) => 文字[]): 任意; (a: 任意): 任意; }
+>r2arg : <T>(x: T) => 文字[]
 
 var r2a = [r2arg, r2arg2];
->r2a : (<T>(x: T) => string[])[]
->[r2arg, r2arg2] : (<T>(x: T) => string[])[]
->r2arg : <T>(x: T) => string[]
->r2arg2 : <T>(x: T) => string[]
+>r2a : (<T>(x: T) => 文字[])[]
+>[r2arg, r2arg2] : (<T>(x: T) => 文字[])[]
+>r2arg : <T>(x: T) => 文字[]
+>r2arg2 : <T>(x: T) => 文字[]
 
 var r2b = [r2arg2, r2arg];
->r2b : (<T>(x: T) => string[])[]
->[r2arg2, r2arg] : (<T>(x: T) => string[])[]
->r2arg2 : <T>(x: T) => string[]
->r2arg : <T>(x: T) => string[]
+>r2b : (<T>(x: T) => 文字[])[]
+>[r2arg2, r2arg] : (<T>(x: T) => 文字[])[]
+>r2arg2 : <T>(x: T) => 文字[]
+>r2arg : <T>(x: T) => 文字[]
 
 var r3arg = <T>(x: T) => <T>null;
 >r3arg : <T>(x: T) => T
@@ -322,39 +322,39 @@ var r3arg = <T>(x: T) => <T>null;
 >T : T
 ><T>null : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r3arg2 = <T>(x: T) => { };
->r3arg2 : <T>(x: T) => void
-><T>(x: T) => { } : <T>(x: T) => void
+>r3arg2 : <T>(x: T) => 无值
+><T>(x: T) => { } : <T>(x: T) => 无值
 >T : T
 >x : T
 >T : T
 
 var r3 = foo3(r3arg);
->r3 : any
+>r3 : 任意
 >类型别名 :=> 任意
->foo3(r3arg) : any
+>foo3(r3arg) : 任意
 >类型别名 :=> 任意
->foo3 : { (a3: <T>(x: T) => void): any; (a: any): any; }
+>foo3 : { (a3: <T>(x: T) => 无值): 任意; (a: 任意): 任意; }
 >r3arg : <T>(x: T) => T
 
 var r3a = [r3arg, r3arg2];
->r3a : (<T>(x: T) => void)[]
->[r3arg, r3arg2] : (<T>(x: T) => void)[]
+>r3a : (<T>(x: T) => 无值)[]
+>[r3arg, r3arg2] : (<T>(x: T) => 无值)[]
 >r3arg : <T>(x: T) => T
->r3arg2 : <T>(x: T) => void
+>r3arg2 : <T>(x: T) => 无值
 
 var r3b = [r3arg2, r3arg];
->r3b : (<T>(x: T) => void)[]
->[r3arg2, r3arg] : (<T>(x: T) => void)[]
->r3arg2 : <T>(x: T) => void
+>r3b : (<T>(x: T) => 无值)[]
+>[r3arg2, r3arg] : (<T>(x: T) => 无值)[]
+>r3arg2 : <T>(x: T) => 无值
 >r3arg : <T>(x: T) => T
 
 var r4arg = <T, U>(x: T, y: U) => '';
->r4arg : <T, U>(x: T, y: U) => string
-><T, U>(x: T, y: U) => '' : <T, U>(x: T, y: U) => string
+>r4arg : <T, U>(x: T, y: U) => 文字
+><T, U>(x: T, y: U) => '' : <T, U>(x: T, y: U) => 文字
 >T : T
 >U : U
 >x : T
@@ -364,8 +364,8 @@ var r4arg = <T, U>(x: T, y: U) => '';
 >'' : ""
 
 var r4arg2 = <T, U>(x: T, y: U) => '';
->r4arg2 : <T, U>(x: T, y: U) => string
-><T, U>(x: T, y: U) => '' : <T, U>(x: T, y: U) => string
+>r4arg2 : <T, U>(x: T, y: U) => 文字
+><T, U>(x: T, y: U) => '' : <T, U>(x: T, y: U) => 文字
 >T : T
 >U : U
 >x : T
@@ -375,24 +375,24 @@ var r4arg2 = <T, U>(x: T, y: U) => '';
 >'' : ""
 
 var r4 = foo4(r4arg);
->r4 : any
+>r4 : 任意
 >类型别名 :=> 任意
->foo4(r4arg) : any
+>foo4(r4arg) : 任意
 >类型别名 :=> 任意
->foo4 : { (a4: <T, U>(x: T, y: U) => string): any; (a: any): any; }
->r4arg : <T, U>(x: T, y: U) => string
+>foo4 : { (a4: <T, U>(x: T, y: U) => 文字): 任意; (a: 任意): 任意; }
+>r4arg : <T, U>(x: T, y: U) => 文字
 
 var r4a = [r4arg, r4arg2];
->r4a : (<T, U>(x: T, y: U) => string)[]
->[r4arg, r4arg2] : (<T, U>(x: T, y: U) => string)[]
->r4arg : <T, U>(x: T, y: U) => string
->r4arg2 : <T, U>(x: T, y: U) => string
+>r4a : (<T, U>(x: T, y: U) => 文字)[]
+>[r4arg, r4arg2] : (<T, U>(x: T, y: U) => 文字)[]
+>r4arg : <T, U>(x: T, y: U) => 文字
+>r4arg2 : <T, U>(x: T, y: U) => 文字
 
 var r4b = [r4arg2, r4arg];
->r4b : (<T, U>(x: T, y: U) => string)[]
->[r4arg2, r4arg] : (<T, U>(x: T, y: U) => string)[]
->r4arg2 : <T, U>(x: T, y: U) => string
->r4arg : <T, U>(x: T, y: U) => string
+>r4b : (<T, U>(x: T, y: U) => 文字)[]
+>[r4arg2, r4arg] : (<T, U>(x: T, y: U) => 文字)[]
+>r4arg2 : <T, U>(x: T, y: U) => 文字
+>r4arg : <T, U>(x: T, y: U) => 文字
 
 var r5arg = <T, U>(x: (arg: T) => U) => <T>null;
 >r5arg : <T, U>(x: (arg: T) => U) => T
@@ -405,7 +405,7 @@ var r5arg = <T, U>(x: (arg: T) => U) => <T>null;
 >U : U
 ><T>null : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r5arg2 = <T, U>(x: (arg: T) => U) => <T>null;
@@ -419,15 +419,15 @@ var r5arg2 = <T, U>(x: (arg: T) => U) => <T>null;
 >U : U
 ><T>null : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r5 = foo5(r5arg);
->r5 : any
+>r5 : 任意
 >类型别名 :=> 任意
->foo5(r5arg) : any
+>foo5(r5arg) : 任意
 >类型别名 :=> 任意
->foo5 : { (a5: <T, U>(x: (arg: T) => U) => T): any; (a: any): any; }
+>foo5 : { (a5: <T, U>(x: (arg: T) => U) => T): 任意; (a: 任意): 任意; }
 >r5arg : <T, U>(x: (arg: T) => U) => T
 
 var r5a = [r5arg, r5arg2];
@@ -443,8 +443,8 @@ var r5b = [r5arg2, r5arg];
 >r5arg : <T, U>(x: (arg: T) => U) => T
 
 var r6arg = <T extends Base, U extends Derived>(x: (arg: T) => U) => <T>null;
->r6arg : <T extends Base, U extends Derived>(x: (arg: T) => U) => T
-><T extends Base, U extends Derived>(x: (arg: T) => U) => <T>null : <T extends Base, U extends Derived>(x: (arg: T) => U) => T
+>r6arg : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T
+><T extends Base, U extends Derived>(x: (arg: T) => U) => <T>null : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T
 >T : T
 >Base : Base
 >U : U
@@ -455,12 +455,12 @@ var r6arg = <T extends Base, U extends Derived>(x: (arg: T) => U) => <T>null;
 >U : U
 ><T>null : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r6arg2 = <T extends Base>(x: (arg: T) => Derived) => <T>null;
->r6arg2 : <T extends Base>(x: (arg: T) => Derived) => T
-><T extends Base>(x: (arg: T) => Derived) => <T>null : <T extends Base>(x: (arg: T) => Derived) => T
+>r6arg2 : <T 扩展 Base>(x: (arg: T) => Derived) => T
+><T extends Base>(x: (arg: T) => Derived) => <T>null : <T 扩展 Base>(x: (arg: T) => Derived) => T
 >T : T
 >Base : Base
 >x : (arg: T) => Derived
@@ -469,28 +469,28 @@ var r6arg2 = <T extends Base>(x: (arg: T) => Derived) => <T>null;
 >Derived : Derived
 ><T>null : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r6 = foo6(r6arg);
->r6 : any
+>r6 : 任意
 >类型别名 :=> 任意
->foo6(r6arg) : any
+>foo6(r6arg) : 任意
 >类型别名 :=> 任意
->foo6 : { (a6: <T extends Base>(x: (arg: T) => Derived) => T): any; (a: any): any; }
->r6arg : <T extends Base, U extends Derived>(x: (arg: T) => U) => T
+>foo6 : { (a6: <T 扩展 Base>(x: (arg: T) => Derived) => T): 任意; (a: 任意): 任意; }
+>r6arg : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T
 
 var r6a = [r6arg, r6arg2];
->r6a : (<T extends Base, U extends Derived>(x: (arg: T) => U) => T)[]
->[r6arg, r6arg2] : (<T extends Base, U extends Derived>(x: (arg: T) => U) => T)[]
->r6arg : <T extends Base, U extends Derived>(x: (arg: T) => U) => T
->r6arg2 : <T extends Base>(x: (arg: T) => Derived) => T
+>r6a : (<T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T)[]
+>[r6arg, r6arg2] : (<T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T)[]
+>r6arg : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T
+>r6arg2 : <T 扩展 Base>(x: (arg: T) => Derived) => T
 
 var r6b = [r6arg2, r6arg];
->r6b : (<T extends Base, U extends Derived>(x: (arg: T) => U) => T)[]
->[r6arg2, r6arg] : (<T extends Base, U extends Derived>(x: (arg: T) => U) => T)[]
->r6arg2 : <T extends Base>(x: (arg: T) => Derived) => T
->r6arg : <T extends Base, U extends Derived>(x: (arg: T) => U) => T
+>r6b : (<T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T)[]
+>[r6arg2, r6arg] : (<T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T)[]
+>r6arg2 : <T 扩展 Base>(x: (arg: T) => Derived) => T
+>r6arg : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T
 
 var r11arg = <T, U>(x: { foo: T }, y: { foo: U; bar: U }) => <Base>null;
 >r11arg : <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
@@ -507,7 +507,7 @@ var r11arg = <T, U>(x: { foo: T }, y: { foo: U; bar: U }) => <Base>null;
 >U : U
 ><Base>null : Base
 >Base : Base
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r11arg2 = <T>(x: { foo: T }, y: { foo: T; bar: T }) => <Base>null;
@@ -524,15 +524,15 @@ var r11arg2 = <T>(x: { foo: T }, y: { foo: T; bar: T }) => <Base>null;
 >T : T
 ><Base>null : Base
 >Base : Base
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r11 = foo11(r11arg);
->r11 : any
+>r11 : 任意
 >类型别名 :=> 任意
->foo11(r11arg) : any
+>foo11(r11arg) : 任意
 >类型别名 :=> 任意
->foo11 : { (a11: <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base): any; (a: any): any; }
+>foo11 : { (a11: <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base): 任意; (a: 任意): 任意; }
 >r11arg : <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
 
 var r11a = [r11arg, r11arg2];
@@ -559,7 +559,7 @@ var r15arg = <U, V>(x: { a: U; b: V; }) => <U[]>null;
 >V : V
 ><U[]>null : U[]
 >U : U
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r15arg2 = <T>(x: { a: T; b: T }) => <T[]>null;
@@ -573,15 +573,15 @@ var r15arg2 = <T>(x: { a: T; b: T }) => <T[]>null;
 >T : T
 ><T[]>null : T[]
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r15 = foo15(r15arg);
->r15 : any
+>r15 : 任意
 >类型别名 :=> 任意
->foo15(r15arg) : any
+>foo15(r15arg) : 任意
 >类型别名 :=> 任意
->foo15 : { (a15: <T>(x: { a: T; b: T; }) => T[]): any; (a: any): any; }
+>foo15 : { (a15: <T>(x: { a: T; b: T; }) => T[]): 任意; (a: 任意): 任意; }
 >r15arg : <U, V>(x: { a: U; b: V; }) => U[]
 
 var r15a = [r15arg, r15arg2];
@@ -597,8 +597,8 @@ var r15b = [r15arg2, r15arg];
 >r15arg : <U, V>(x: { a: U; b: V; }) => U[]
 
 var r16arg = <T extends Base>(x: { a: T; b: T }) => <T[]>null;
->r16arg : <T extends Base>(x: { a: T; b: T; }) => T[]
-><T extends Base>(x: { a: T; b: T }) => <T[]>null : <T extends Base>(x: { a: T; b: T; }) => T[]
+>r16arg : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
+><T extends Base>(x: { a: T; b: T }) => <T[]>null : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >T : T
 >Base : Base
 >x : { a: T; b: T; }
@@ -608,12 +608,12 @@ var r16arg = <T extends Base>(x: { a: T; b: T }) => <T[]>null;
 >T : T
 ><T[]>null : T[]
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r16arg2 = <T extends Base>(x: { a: T; b: T }) => <T[]>null;
->r16arg2 : <T extends Base>(x: { a: T; b: T; }) => T[]
-><T extends Base>(x: { a: T; b: T }) => <T[]>null : <T extends Base>(x: { a: T; b: T; }) => T[]
+>r16arg2 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
+><T extends Base>(x: { a: T; b: T }) => <T[]>null : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >T : T
 >Base : Base
 >x : { a: T; b: T; }
@@ -623,28 +623,28 @@ var r16arg2 = <T extends Base>(x: { a: T; b: T }) => <T[]>null;
 >T : T
 ><T[]>null : T[]
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r16 = foo16(r16arg);
->r16 : any
+>r16 : 任意
 >类型别名 :=> 任意
->foo16(r16arg) : any
+>foo16(r16arg) : 任意
 >类型别名 :=> 任意
->foo16 : { (a16: <T extends Base>(x: { a: T; b: T; }) => T[]): any; (a: any): any; }
->r16arg : <T extends Base>(x: { a: T; b: T; }) => T[]
+>foo16 : { (a16: <T 扩展 Base>(x: { a: T; b: T; }) => T[]): 任意; (a: 任意): 任意; }
+>r16arg : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 
 var r16a = [r16arg, r16arg2];
->r16a : (<T extends Base>(x: { a: T; b: T; }) => T[])[]
->[r16arg, r16arg2] : (<T extends Base>(x: { a: T; b: T; }) => T[])[]
->r16arg : <T extends Base>(x: { a: T; b: T; }) => T[]
->r16arg2 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>r16a : (<T 扩展 Base>(x: { a: T; b: T; }) => T[])[]
+>[r16arg, r16arg2] : (<T 扩展 Base>(x: { a: T; b: T; }) => T[])[]
+>r16arg : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
+>r16arg2 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 
 var r16b = [r16arg2, r16arg];
->r16b : (<T extends Base>(x: { a: T; b: T; }) => T[])[]
->[r16arg2, r16arg] : (<T extends Base>(x: { a: T; b: T; }) => T[])[]
->r16arg2 : <T extends Base>(x: { a: T; b: T; }) => T[]
->r16arg : <T extends Base>(x: { a: T; b: T; }) => T[]
+>r16b : (<T 扩展 Base>(x: { a: T; b: T; }) => T[])[]
+>[r16arg2, r16arg] : (<T 扩展 Base>(x: { a: T; b: T; }) => T[])[]
+>r16arg2 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
+>r16arg : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 
 var r17arg = <T>(x: (a: T) => T) => <T[]>null;
 >r17arg : <T>(x: (a: T) => T) => T[]
@@ -656,34 +656,34 @@ var r17arg = <T>(x: (a: T) => T) => <T[]>null;
 >T : T
 ><T[]>null : T[]
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r17 = foo17(r17arg);
->r17 : any
+>r17 : 任意
 >类型别名 :=> 任意
->foo17(r17arg) : any
+>foo17(r17arg) : 任意
 >类型别名 :=> 任意
->foo17 : { (a17: { <T extends Derived>(x: (a: T) => T): T[]; <T extends Base>(x: (a: T) => T): T[]; }): any; (a: any): any; }
+>foo17 : { (a17: { <T 扩展 Derived>(x: (a: T) => T): T[]; <T 扩展 Base>(x: (a: T) => T): T[]; }): 任意; (a: 任意): 任意; }
 >r17arg : <T>(x: (a: T) => T) => T[]
 
 var r18arg = (x: <T>(a: T) => T) => <any[]>null;
->r18arg : (x: <T>(a: T) => T) => any[]
->(x: <T>(a: T) => T) => <any[]>null : (x: <T>(a: T) => T) => any[]
+>r18arg : (x: <T>(a: T) => T) => 任意[]
+>(x: <T>(a: T) => T) => <any[]>null : (x: <T>(a: T) => T) => 任意[]
 >x : <T>(a: T) => T
 >T : T
 >a : T
 >T : T
 >T : T
-><any[]>null : any[]
->null : null
+><any[]>null : 任意[]
+>null : 空值
 >类型别名 :=> 空值
 
 var r18 = foo18(r18arg);
->r18 : any
+>r18 : 任意
 >类型别名 :=> 任意
->foo18(r18arg) : any
+>foo18(r18arg) : 任意
 >类型别名 :=> 任意
->foo18 : { (a18: { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }): any; (a: any): any; }
->r18arg : (x: <T>(a: T) => T) => any[]
+>foo18 : { (a18: { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }): 任意; (a: 任意): 任意; }
+>r18arg : (x: <T>(a: T) => T) => 任意[]
 

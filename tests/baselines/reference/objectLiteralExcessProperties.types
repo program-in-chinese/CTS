@@ -3,7 +3,7 @@ interface Book {
 >Book : Book
 
     foreword: string;
->foreword : string
+>foreword : 文字
 >类型别名 :=> 文字
 }
 
@@ -11,23 +11,23 @@ interface Cover {
 >Cover : Cover
 
     color?: string;
->color : string
+>color : 文字
 >类型别名 :=> 文字
 }
 
 var b1: Book = { forword: "oops" };
 >b1 : Book
 >Book : Book
->{ forword: "oops" } : { forword: string; }
->forword : string
+>{ forword: "oops" } : { forword: 文字; }
+>forword : 文字
 >类型别名 :=> 文字
 >"oops" : "oops"
 
 var b2: Book | string = { foreward: "nope" };
->b2 : string | Book
+>b2 : 文字 | Book
 >Book : Book
->{ foreward: "nope" } : { foreward: string; }
->foreward : string
+>{ foreward: "nope" } : { foreward: 文字; }
+>foreward : 文字
 >类型别名 :=> 文字
 >"nope" : "nope"
 
@@ -35,13 +35,13 @@ var b3: Book | (Book[]) = [{ foreword: "hello" }, { forwards: "back" }];
 >b3 : Book | Book[]
 >Book : Book
 >Book : Book
->[{ foreword: "hello" }, { forwards: "back" }] : ({ foreword: string; } | { forwards: string; })[]
->{ foreword: "hello" } : { foreword: string; }
->foreword : string
+>[{ foreword: "hello" }, { forwards: "back" }] : ({ foreword: 文字; } | { forwards: 文字; })[]
+>{ foreword: "hello" } : { foreword: 文字; }
+>foreword : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
->{ forwards: "back" } : { forwards: string; }
->forwards : string
+>{ forwards: "back" } : { forwards: 文字; }
+>forwards : 文字
 >类型别名 :=> 文字
 >"back" : "back"
 
@@ -49,11 +49,11 @@ var b4: Book & Cover = { foreword: "hi", colour: "blue" };
 >b4 : Book & Cover
 >Book : Book
 >Cover : Cover
->{ foreword: "hi", colour: "blue" } : { foreword: string; colour: string; }
->foreword : string
+>{ foreword: "hi", colour: "blue" } : { foreword: 文字; colour: 文字; }
+>foreword : 文字
 >类型别名 :=> 文字
 >"hi" : "hi"
->colour : string
+>colour : 文字
 >类型别名 :=> 文字
 >"blue" : "blue"
 
@@ -61,11 +61,11 @@ var b5: Book & Cover = { foreward: "hi", color: "blue" };
 >b5 : Book & Cover
 >Book : Book
 >Cover : Cover
->{ foreward: "hi", color: "blue" } : { foreward: string; color: string; }
->foreward : string
+>{ foreward: "hi", color: "blue" } : { foreward: 文字; color: 文字; }
+>foreward : 文字
 >类型别名 :=> 文字
 >"hi" : "hi"
->color : string
+>color : 文字
 >类型别名 :=> 文字
 >"blue" : "blue"
 
@@ -73,25 +73,25 @@ var b6: Book & Cover = { foreword: "hi", color: "blue", price: 10.99 };
 >b6 : Book & Cover
 >Book : Book
 >Cover : Cover
->{ foreword: "hi", color: "blue", price: 10.99 } : { foreword: string; color: string; price: number; }
->foreword : string
+>{ foreword: "hi", color: "blue", price: 10.99 } : { foreword: 文字; color: 文字; price: 数字; }
+>foreword : 文字
 >类型别名 :=> 文字
 >"hi" : "hi"
->color : string
+>color : 文字
 >类型别名 :=> 文字
 >"blue" : "blue"
->price : number
+>price : 数字
 >类型别名 :=> 数字
 >10.99 : 10.99
 
 var b7: Book & number = { foreword: "hi", price: 10.99 };
->b7 : Book & number
+>b7 : Book & 数字
 >Book : Book
->{ foreword: "hi", price: 10.99 } : { foreword: string; price: number; }
->foreword : string
+>{ foreword: "hi", price: 10.99 } : { foreword: 文字; price: 数字; }
+>foreword : 文字
 >类型别名 :=> 文字
 >"hi" : "hi"
->price : number
+>price : 数字
 >类型别名 :=> 数字
 >10.99 : 10.99
 
@@ -99,8 +99,8 @@ var b8: Cover | Cover[] = { couleur : "non" };
 >b8 : Cover | Cover[]
 >Cover : Cover
 >Cover : Cover
->{ couleur : "non" } : { couleur: string; }
->couleur : string
+>{ couleur : "non" } : { couleur: 文字; }
+>couleur : 文字
 >类型别名 :=> 文字
 >"non" : "non"
 
@@ -108,8 +108,8 @@ var b9: Book | Book[] = { forewarned: "still no" };
 >b9 : Book | Book[]
 >Book : Book
 >Book : Book
->{ forewarned: "still no" } : { forewarned: string; }
->forewarned : string
+>{ forewarned: "still no" } : { forewarned: 文字; }
+>forewarned : 文字
 >类型别名 :=> 文字
 >"still no" : "still no"
 
@@ -117,7 +117,7 @@ interface Indexed {
 >Indexed : Indexed
 
     [n: number]: Cover;
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >Cover : Cover
 }
@@ -132,9 +132,9 @@ var b10: Indexed = { 0: { }, '1': { } }; // ok
 var b11: Indexed = { 0: { colour: "blue" } }; // nested object literal still errors
 >b11 : Indexed
 >Indexed : Indexed
->{ 0: { colour: "blue" } } : { 0: { colour: string; }; }
->{ colour: "blue" } : { colour: string; }
->colour : string
+>{ 0: { colour: "blue" } } : { 0: { colour: 文字; }; }
+>{ colour: "blue" } : { colour: 文字; }
+>colour : 文字
 >类型别名 :=> 文字
 >"blue" : "blue"
 

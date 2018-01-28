@@ -1,33 +1,33 @@
 === tests/cases/compiler/narrowedConstInMethod.ts ===
 // Fixes #10501, possibly null 'x'
 function f() {
->f : () => { bar(): number; } | undefined
+>f : () => { bar(): 数字; } | 未定
 
     const x: string | null = <any>{};
->x : string | null
->null : null
+>x : 文字 | 空值
+>null : 空值
 >类型别名 :=> 空值
-><any>{} : any
+><any>{} : 任意
 >类型别名 :=> 任意
 >{} : {}
 
     if (x !== null) {
->x !== null : boolean
+>x !== null : 真假
 >类型别名 :=> 真假
->x : string | null
->null : null
+>x : 文字 | 空值
+>null : 空值
 >类型别名 :=> 空值
 
         return {
->{            bar() { return x.length; }  // ok        } : { bar(): number; }
+>{            bar() { return x.length; }  // ok        } : { bar(): 数字; }
 
             bar() { return x.length; }  // ok
->bar : () => number
->x.length : number
+>bar : () => 数字
+>x.length : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
         };
@@ -35,33 +35,33 @@ function f() {
 }
 
 function f2() {
->f2 : () => typeof (Anonymous class) | undefined
+>f2 : () => 类为 (Anonymous class) | 未定
 
     const x: string | null = <any>{};
->x : string | null
->null : null
+>x : 文字 | 空值
+>null : 空值
 >类型别名 :=> 空值
-><any>{} : any
+><any>{} : 任意
 >类型别名 :=> 任意
 >{} : {}
 
     if (x !== null) {
->x !== null : boolean
+>x !== null : 真假
 >类型别名 :=> 真假
->x : string | null
->null : null
+>x : 文字 | 空值
+>null : 空值
 >类型别名 :=> 空值
 
         return class {
->class {            bar() { return x.length; }  // ok        } : typeof (Anonymous class)
+>class {            bar() { return x.length; }  // ok        } : 类为 (Anonymous class)
 
             bar() { return x.length; }  // ok
->bar : () => number
->x.length : number
+>bar : () => 数字
+>x.length : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
         };

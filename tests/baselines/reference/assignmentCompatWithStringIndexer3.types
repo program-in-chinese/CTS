@@ -3,46 +3,46 @@
 
 interface Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 var a: A;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >A : No type information available!
 
 var b1: { [x: string]: string; }
->b1 : { [x: string]: string; }
->x : string
+>b1 : { [x: 文字]: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 
 a = b1; // error
->a = b1 : { [x: string]: string; }
->a : any
+>a = b1 : { [x: 文字]: 文字; }
+>a : 任意
 >类型别名 :=> 任意
->b1 : { [x: string]: string; }
+>b1 : { [x: 文字]: 文字; }
 
 b1 = a; // error
->b1 = a : any
+>b1 = a : 任意
 >类型别名 :=> 任意
->b1 : { [x: string]: string; }
->a : any
+>b1 : { [x: 文字]: 文字; }
+>a : 任意
 >类型别名 :=> 任意
 
 module Generics {
->Generics : typeof Generics
+>Generics : 类为 Generics
 
     class A<T extends Derived> {
 >A : A<T>
@@ -50,13 +50,13 @@ module Generics {
 >Derived : Derived
 
         [x: string]: T;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >T : T
     }
    
     function foo<T extends Derived>() {
->foo : <T extends Derived>() => void
+>foo : <T 扩展 Derived>() => 无值
 >T : T
 >Derived : Derived
 
@@ -66,18 +66,18 @@ module Generics {
 >T : T
 
         var b: { [x: string]: string; }
->b : { [x: string]: string; }
->x : string
+>b : { [x: 文字]: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 
         a = b; // error
->a = b : { [x: string]: string; }
+>a = b : { [x: 文字]: 文字; }
 >a : A<T>
->b : { [x: string]: string; }
+>b : { [x: 文字]: 文字; }
 
         b = a; // error
 >b = a : A<T>
->b : { [x: string]: string; }
+>b : { [x: 文字]: 文字; }
 >a : A<T>
     }
 }

@@ -5,7 +5,7 @@
       "position": 26
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 26,
@@ -47,7 +47,7 @@
       "position": 55
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 55,
@@ -89,7 +89,7 @@
       "position": 85
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 85,
@@ -131,7 +131,7 @@
       "position": 112
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 112,
@@ -173,7 +173,7 @@
       "position": 144
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 144,
@@ -215,7 +215,7 @@
       "position": 171
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 171,
@@ -257,7 +257,7 @@
       "position": 200
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 200,
@@ -307,7 +307,7 @@
       "position": 230
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 230,
@@ -361,7 +361,7 @@
       "position": 259
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 259,
@@ -403,7 +403,7 @@
       "position": 292
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 292,
@@ -445,7 +445,7 @@
       "position": 319
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 319,
@@ -487,7 +487,7 @@
       "position": 349
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 349,
@@ -529,7 +529,7 @@
       "position": 389
     },
     "quickInfo": {
-      "kind": "var",
+      "kind": "值量",
       "kindModifiers": "",
       "textSpan": {
         "start": 389,

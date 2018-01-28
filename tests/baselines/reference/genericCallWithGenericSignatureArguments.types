@@ -29,96 +29,96 @@ var r1b = foo((x) => 1, (x) => ''); // {} => {}
 >r1b : (x: {}) => {}
 >foo((x) => 1, (x) => '') : (x: {}) => {}
 >foo : <T>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->(x) => 1 : (x: {}) => number
+>(x) => 1 : (x: {}) => 数字
 >x : {}
 >1 : 1
->(x) => '' : (x: {}) => string
+>(x) => '' : (x: {}) => 文字
 >x : {}
 >'' : ""
 
 var r2 = foo((x: Object) => null, (x: string) => ''); // Object => Object
->r2 : (x: any) => any
->foo((x: Object) => null, (x: string) => '') : (x: any) => any
+>r2 : (x: 任意) => 任意
+>foo((x: Object) => null, (x: string) => '') : (x: 任意) => 任意
 >foo : <T>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->(x: Object) => null : (x: Object) => any
+>(x: Object) => null : (x: Object) => 任意
 >x : Object
 >Object : Object
->null : null
+>null : 空值
 >类型别名 :=> 空值
->(x: string) => '' : (x: string) => string
->x : string
+>(x: string) => '' : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 var r3 = foo((x: number) => 1, (x: Object) => null); // number => number
->r3 : (x: any) => any
->foo((x: number) => 1, (x: Object) => null) : (x: any) => any
+>r3 : (x: 任意) => 任意
+>foo((x: number) => 1, (x: Object) => null) : (x: 任意) => 任意
 >foo : <T>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->(x: number) => 1 : (x: number) => number
->x : number
+>(x: number) => 1 : (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
->(x: Object) => null : (x: Object) => any
+>(x: Object) => null : (x: Object) => 任意
 >x : Object
 >Object : Object
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r3ii = foo((x: number) => 1, (x: number) => 1); // number => number
->r3ii : (x: number) => number
->foo((x: number) => 1, (x: number) => 1) : (x: number) => number
+>r3ii : (x: 数字) => 数字
+>foo((x: number) => 1, (x: number) => 1) : (x: 数字) => 数字
 >foo : <T>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->(x: number) => 1 : (x: number) => number
->x : number
+>(x: number) => 1 : (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
->(x: number) => 1 : (x: number) => number
->x : number
+>(x: number) => 1 : (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 var a: { x: number; y?: number; };
->a : { x: number; y?: number; }
->x : number
+>a : { x: 数字; y?: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var b: { x: number; z?: number; };
->b : { x: number; z?: number; }
->x : number
+>b : { x: 数字; z?: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->z : number
+>z : 数字
 >类型别名 :=> 数字
 
 var r4 = foo((x: typeof a) => a, (x: typeof b) => b); // typeof a => typeof a
->r4 : (x: { x: number; y?: number; }) => { x: number; y?: number; }
->foo((x: typeof a) => a, (x: typeof b) => b) : (x: { x: number; y?: number; }) => { x: number; y?: number; }
+>r4 : (x: { x: 数字; y?: 数字; }) => { x: 数字; y?: 数字; }
+>foo((x: typeof a) => a, (x: typeof b) => b) : (x: { x: 数字; y?: 数字; }) => { x: 数字; y?: 数字; }
 >foo : <T>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->(x: typeof a) => a : (x: { x: number; y?: number; }) => { x: number; y?: number; }
->x : { x: number; y?: number; }
->a : { x: number; y?: number; }
->a : { x: number; y?: number; }
->(x: typeof b) => b : (x: { x: number; z?: number; }) => { x: number; z?: number; }
->x : { x: number; z?: number; }
->b : { x: number; z?: number; }
->b : { x: number; z?: number; }
+>(x: typeof a) => a : (x: { x: 数字; y?: 数字; }) => { x: 数字; y?: 数字; }
+>x : { x: 数字; y?: 数字; }
+>a : { x: 数字; y?: 数字; }
+>a : { x: 数字; y?: 数字; }
+>(x: typeof b) => b : (x: { x: 数字; z?: 数字; }) => { x: 数字; z?: 数字; }
+>x : { x: 数字; z?: 数字; }
+>b : { x: 数字; z?: 数字; }
+>b : { x: 数字; z?: 数字; }
 
 var r5 = foo((x: typeof b) => b, (x: typeof a) => a); // typeof b => typeof b
->r5 : (x: { x: number; z?: number; }) => { x: number; z?: number; }
->foo((x: typeof b) => b, (x: typeof a) => a) : (x: { x: number; z?: number; }) => { x: number; z?: number; }
+>r5 : (x: { x: 数字; z?: 数字; }) => { x: 数字; z?: 数字; }
+>foo((x: typeof b) => b, (x: typeof a) => a) : (x: { x: 数字; z?: 数字; }) => { x: 数字; z?: 数字; }
 >foo : <T>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->(x: typeof b) => b : (x: { x: number; z?: number; }) => { x: number; z?: number; }
->x : { x: number; z?: number; }
->b : { x: number; z?: number; }
->b : { x: number; z?: number; }
->(x: typeof a) => a : (x: { x: number; y?: number; }) => { x: number; y?: number; }
->x : { x: number; y?: number; }
->a : { x: number; y?: number; }
->a : { x: number; y?: number; }
+>(x: typeof b) => b : (x: { x: 数字; z?: 数字; }) => { x: 数字; z?: 数字; }
+>x : { x: 数字; z?: 数字; }
+>b : { x: 数字; z?: 数字; }
+>b : { x: 数字; z?: 数字; }
+>(x: typeof a) => a : (x: { x: 数字; y?: 数字; }) => { x: 数字; y?: 数字; }
+>x : { x: 数字; y?: 数字; }
+>a : { x: 数字; y?: 数字; }
+>a : { x: 数字; y?: 数字; }
 
 function other<T>(x: T) {
->other : <T>(x: T) => void
+>other : <T>(x: T) => 无值
 >T : T
 >x : T
 >T : T
@@ -149,7 +149,7 @@ function other<T>(x: T) {
 }
 
 function other2<T extends Date>(x: T) {
->other2 : <T extends Date>(x: T) => void
+>other2 : <T 扩展 Date>(x: T) => 无值
 >T : T
 >Date : Date
 >x : T
@@ -183,7 +183,7 @@ function other2<T extends Date>(x: T) {
 >r8 : T
 >r7(null) : T
 >r7 : (x: T) => T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     // BUG 835518
@@ -192,7 +192,7 @@ function other2<T extends Date>(x: T) {
 
 
 function foo2<T extends Date>(a: (x: T) => T, b: (x: T) => T) {
->foo2 : <T extends Date>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
+>foo2 : <T 扩展 Date>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >T : T
 >Date : Date
 >a : (x: T) => T
@@ -215,7 +215,7 @@ function foo2<T extends Date>(a: (x: T) => T, b: (x: T) => T) {
 }
 
 function other3<T extends RegExp>(x: T) {
->other3 : <T extends RegExp>(x: T) => void
+>other3 : <T 扩展 RegExp>(x: T) => 无值
 >T : T
 >RegExp : RegExp
 >x : T
@@ -224,7 +224,7 @@ function other3<T extends RegExp>(x: T) {
     var r8 = foo2((a: Date) => a, (b: Date) => b); // Date => Date
 >r8 : (x: Date) => Date
 >foo2((a: Date) => a, (b: Date) => b) : (x: Date) => Date
->foo2 : <T extends Date>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
+>foo2 : <T 扩展 Date>(a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >(a: Date) => a : (a: Date) => Date
 >a : Date
 >Date : Date

@@ -1,95 +1,99 @@
 === tests/cases/conformance/types/rest/objectRestAssignment.ts ===
 let ka: any;
->ka : any
+>ka : 任意
 >类型别名 :=> 任意
 
 let nested: { ki };
->nested : { ki: any; }
->ki : any
+>nested : { ki: 任意; }
+>ki : 任意
 >类型别名 :=> 任意
 
 let other: number;
->other : number
+>other : 数字
 >类型别名 :=> 数字
 
 let rest: { };
 >rest : {}
 
 let complex: { x: { ka, ki }, y: number };
->complex : { x: { ka: any; ki: any; }; y: number; }
->x : { ka: any; ki: any; }
->ka : any
+>complex : { x: { ka: 任意; ki: 任意; }; y: 数字; }
+>x : { ka: 任意; ki: 任意; }
+>ka : 任意
 >类型别名 :=> 任意
->ki : any
+>ki : 任意
 >类型别名 :=> 任意
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 ({x: { ka, ...nested }, y: other, ...rest} = complex);
->({x: { ka, ...nested }, y: other, ...rest} = complex) : { x: { ka: any; ki: any; }; y: number; }
->{x: { ka, ...nested }, y: other, ...rest} = complex : { x: { ka: any; ki: any; }; y: number; }
->{x: { ka, ...nested }, y: other, ...rest} : { x: { ki: any; ka: any; }; y: number; }
->x : { ki: any; ka: any; }
->{ ka, ...nested } : { ki: any; ka: any; }
->ka : any
+>({x: { ka, ...nested }, y: other, ...rest} = complex) : { x: { ka: 任意; ki: 任意; }; y: 数字; }
+>{x: { ka, ...nested }, y: other, ...rest} = complex : { x: { ka: 任意; ki: 任意; }; y: 数字; }
+>{x: { ka, ...nested }, y: other, ...rest} : { x: { ki: 任意; ka: 任意; }; y: 数字; }
+>x : { ki: 任意; ka: 任意; }
+>{ ka, ...nested } : { ki: 任意; ka: 任意; }
+>ka : 任意
 >类型别名 :=> 任意
->nested : { ki: any; }
->y : number
+>nested : { ki: 任意; }
+>y : 数字
 >类型别名 :=> 数字
->other : number
+>other : 数字
 >类型别名 :=> 数字
 >rest : {}
->complex : { x: { ka: any; ki: any; }; y: number; }
+>complex : { x: { ka: 任意; ki: 任意; }; y: 数字; }
 
 // should be:
 let overEmit: { a: { ka: string, x: string }[], b: { z: string, ki: string, ku: string }, ke: string, ko: string };
->overEmit : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }
->a : { ka: string; x: string; }[]
->ka : string
+>overEmit : { a: { ka: 文字; x: 文字; }[]; b: { z: 文字; ki: 文字; ku: 文字; }; ke: 文字; ko: 文字; }
+>a : { ka: 文字; x: 文字; }[]
+>ka : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->b : { z: string; ki: string; ku: string; }
->z : string
+>b : { z: 文字; ki: 文字; ku: 文字; }
+>z : 文字
 >类型别名 :=> 文字
->ki : string
+>ki : 文字
 >类型别名 :=> 文字
->ku : string
+>ku : 文字
 >类型别名 :=> 文字
->ke : string
+>ke : 文字
 >类型别名 :=> 文字
->ko : string
+>ko : 文字
 >类型别名 :=> 文字
 
 // var _g = overEmit.a, [_h, ...y] = _g, nested2 = __rest(_h, []), _j = overEmit.b, { z } = _j, c = __rest(_j, ["z"]), rest2 = __rest(overEmit, ["a", "b"]);
 var { a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit;
->a : any
+>a : 任意
 >类型别名 :=> 任意
->nested2 : { ka: string; x: string; }
->y : { ka: string; x: string; }[]
->b : any
+>nested2 : 任意
 >类型别名 :=> 任意
->z : string
+>y : 任意[]
+>b : 任意
+>类型别名 :=> 任意
+>z : 文字
 >类型别名 :=> 文字
->c : { ki: string; ku: string; }
->rest2 : { ke: string; ko: string; }
->overEmit : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }
+>c : { ki: 文字; ku: 文字; }
+>rest2 : { ke: 文字; ko: 文字; }
+>overEmit : { a: { ka: 文字; x: 文字; }[]; b: { z: 文字; ki: 文字; ku: 文字; }; ke: 文字; ko: 文字; }
 
 ({ a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit);
->({ a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit) : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }
->{ a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }
->{ a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } : { ke: string; ko: string; a: { ka: string; x: string; }[]; b: { ki: string; ku: string; z: string; }; }
->a : { ka: string; x: string; }[]
->[{ ...nested2 }, ...y] : { ka: string; x: string; }[]
->{ ...nested2 } : { ka: string; x: string; }
->nested2 : { ka: string; x: string; }
->...y : { ka: string; x: string; }
->y : { ka: string; x: string; }[]
->b : { ki: string; ku: string; z: string; }
->{ z, ...c } : { ki: string; ku: string; z: string; }
->z : string
+>({ a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit) : { a: { ka: 文字; x: 文字; }[]; b: { z: 文字; ki: 文字; ku: 文字; }; ke: 文字; ko: 文字; }
+>{ a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } = overEmit : { a: { ka: 文字; x: 文字; }[]; b: { z: 文字; ki: 文字; ku: 文字; }; ke: 文字; ko: 文字; }
+>{ a: [{ ...nested2 }, ...y], b: { z, ...c }, ...rest2 } : { ke: 文字; ko: 文字; a: 任意[]; b: { ki: 文字; ku: 文字; z: 文字; }; }
+>a : 任意[]
+>[{ ...nested2 }, ...y] : 任意[]
+>{ ...nested2 } : 任意
+>类型别名 :=> 任意
+>nested2 : 任意
+>类型别名 :=> 任意
+>...y : 任意
+>类型别名 :=> 任意
+>y : 任意[]
+>b : { ki: 文字; ku: 文字; z: 文字; }
+>{ z, ...c } : { ki: 文字; ku: 文字; z: 文字; }
+>z : 文字
 >类型别名 :=> 文字
->c : { ki: string; ku: string; }
->rest2 : { ke: string; ko: string; }
->overEmit : { a: { ka: string; x: string; }[]; b: { z: string; ki: string; ku: string; }; ke: string; ko: string; }
+>c : { ki: 文字; ku: 文字; }
+>rest2 : { ke: 文字; ko: 文字; }
+>overEmit : { a: { ka: 文字; x: 文字; }[]; b: { z: 文字; ki: 文字; ku: 文字; }; ke: 文字; ko: 文字; }
 

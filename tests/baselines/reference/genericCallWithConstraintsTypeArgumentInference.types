@@ -3,19 +3,19 @@
 
 class Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 var b: Base;
@@ -31,7 +31,7 @@ var d2: Derived2;
 >Derived2 : Derived2
 
 function foo<T extends Base>(t: T) {
->foo : <T extends Base>(t: T) => T
+>foo : <T 扩展 Base>(t: T) => T
 >T : T
 >Base : Base
 >t : T
@@ -44,17 +44,17 @@ function foo<T extends Base>(t: T) {
 var r = foo(b); // Base
 >r : Base
 >foo(b) : Base
->foo : <T extends Base>(t: T) => T
+>foo : <T 扩展 Base>(t: T) => T
 >b : Base
 
 var r2 = foo(d1); // Derived
 >r2 : Derived
 >foo(d1) : Derived
->foo : <T extends Base>(t: T) => T
+>foo : <T 扩展 Base>(t: T) => T
 >d1 : Derived
 
 function foo2<T extends Base, U extends Derived>(t: T, u: U) {
->foo2 : <T extends Base, U extends Derived>(t: T, u: U) => U
+>foo2 : <T 扩展 Base, U 扩展 Derived>(t: T, u: U) => U
 >T : T
 >Base : Base
 >U : U
@@ -69,7 +69,7 @@ function foo2<T extends Base, U extends Derived>(t: T, u: U) {
 }
 
 function foo2b<T extends Base, U extends Derived>(u: U) {
->foo2b : <T extends Base, U extends Derived>(u: U) => T
+>foo2b : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >T : T
 >Base : Base
 >U : U
@@ -86,7 +86,7 @@ function foo2b<T extends Base, U extends Derived>(u: U) {
 }
 
 function foo2c<T extends Base, U extends Derived>() {
->foo2c : <T extends Base, U extends Derived>() => T
+>foo2c : <T 扩展 Base, U 扩展 Derived>() => T
 >T : T
 >Base : Base
 >U : U
@@ -103,13 +103,13 @@ function foo2c<T extends Base, U extends Derived>() {
 var r3 = foo2b(d1); // Base
 >r3 : Base
 >foo2b(d1) : Base
->foo2b : <T extends Base, U extends Derived>(u: U) => T
+>foo2b : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >d1 : Derived
 
 var r3b = foo2c(); // Base
 >r3b : Base
 >foo2c() : Base
->foo2c : <T extends Base, U extends Derived>() => T
+>foo2c : <T 扩展 Base, U 扩展 Derived>() => T
 
 class C<T extends Base, U extends Derived> {
 >C : C<T, U>
@@ -148,7 +148,7 @@ class C<T extends Base, U extends Derived> {
     }
 
     foo3<T extends Derived>(t: T, u: U) {
->foo3 : <T extends Derived>(t: T, u: U) => T
+>foo3 : <T 扩展 Derived>(t: T, u: U) => T
 >T : T
 >Derived : Derived
 >t : T
@@ -161,7 +161,7 @@ class C<T extends Base, U extends Derived> {
     }
 
     foo4<U extends Derived2>(t: T, u: U) {
->foo4 : <U extends Derived2>(t: T, u: U) => T
+>foo4 : <U 扩展 Derived2>(t: T, u: U) => T
 >U : U
 >Derived2 : Derived2
 >t : T
@@ -174,7 +174,7 @@ class C<T extends Base, U extends Derived> {
     }
 
     foo5<T extends Derived, U extends Derived2>(t: T, u: U) {
->foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >T : T
 >Derived : Derived
 >U : U
@@ -189,7 +189,7 @@ class C<T extends Base, U extends Derived> {
     }
 
     foo6<T extends Derived, U extends Derived2>() {
->foo6 : <T extends Derived, U extends Derived2>() => T
+>foo6 : <T 扩展 Derived, U 扩展 Derived2>() => T
 >T : T
 >Derived : Derived
 >U : U
@@ -204,7 +204,7 @@ class C<T extends Base, U extends Derived> {
     }
 
     foo7<T extends Base, U extends Derived>(u: U) {
->foo7 : <T extends Base, U extends Derived>(u: U) => T
+>foo7 : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >T : T
 >Base : Base
 >U : U
@@ -221,7 +221,7 @@ class C<T extends Base, U extends Derived> {
     }
 
     foo8<T extends Base, U extends Derived>() {
->foo8 : <T extends Base, U extends Derived>() => T
+>foo8 : <T 扩展 Base, U 扩展 Derived>() => T
 >T : T
 >Base : Base
 >U : U
@@ -239,7 +239,7 @@ class C<T extends Base, U extends Derived> {
 var c = new C(b, d1);
 >c : C<Base, Derived>
 >new C(b, d1) : C<Base, Derived>
->C : typeof C
+>C : 类为 C
 >b : Base
 >d1 : Derived
 
@@ -264,60 +264,60 @@ var r5 = c.foo2(b, d2); // Derived
 var r6 = c.foo3(d1, d1); // Derived
 >r6 : Derived
 >c.foo3(d1, d1) : Derived
->c.foo3 : <T extends Derived>(t: T, u: Derived) => T
+>c.foo3 : <T 扩展 Derived>(t: T, u: Derived) => T
 >c : C<Base, Derived>
->foo3 : <T extends Derived>(t: T, u: Derived) => T
+>foo3 : <T 扩展 Derived>(t: T, u: Derived) => T
 >d1 : Derived
 >d1 : Derived
 
 var r7 = c.foo4(d1, d2); // Base
 >r7 : Base
 >c.foo4(d1, d2) : Base
->c.foo4 : <U extends Derived2>(t: Base, u: U) => Base
+>c.foo4 : <U 扩展 Derived2>(t: Base, u: U) => Base
 >c : C<Base, Derived>
->foo4 : <U extends Derived2>(t: Base, u: U) => Base
+>foo4 : <U 扩展 Derived2>(t: Base, u: U) => Base
 >d1 : Derived
 >d2 : Derived2
 
 var r8 = c.foo5(d1, d2); // Derived
 >r8 : Derived
 >c.foo5(d1, d2) : Derived
->c.foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>c.foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >c : C<Base, Derived>
->foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >d1 : Derived
 >d2 : Derived2
 
 var r8b = c.foo5(d2, d2); // Derived2
 >r8b : Derived2
 >c.foo5(d2, d2) : Derived2
->c.foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>c.foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >c : C<Base, Derived>
->foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >d2 : Derived2
 >d2 : Derived2
 
 var r9 = c.foo6(); // Derived
 >r9 : Derived
 >c.foo6() : Derived
->c.foo6 : <T extends Derived, U extends Derived2>() => T
+>c.foo6 : <T 扩展 Derived, U 扩展 Derived2>() => T
 >c : C<Base, Derived>
->foo6 : <T extends Derived, U extends Derived2>() => T
+>foo6 : <T 扩展 Derived, U 扩展 Derived2>() => T
 
 var r10 = c.foo7(d1); // Base
 >r10 : Base
 >c.foo7(d1) : Base
->c.foo7 : <T extends Base, U extends Derived>(u: U) => T
+>c.foo7 : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >c : C<Base, Derived>
->foo7 : <T extends Base, U extends Derived>(u: U) => T
+>foo7 : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >d1 : Derived
 
 var r11 = c.foo8(); // Base
 >r11 : Base
 >c.foo8() : Base
->c.foo8 : <T extends Base, U extends Derived>() => T
+>c.foo8 : <T 扩展 Base, U 扩展 Derived>() => T
 >c : C<Base, Derived>
->foo8 : <T extends Base, U extends Derived>() => T
+>foo8 : <T 扩展 Base, U 扩展 Derived>() => T
 
 interface I<T extends Base, U extends Derived> {
 >I : I<T, U>
@@ -349,7 +349,7 @@ interface I<T extends Base, U extends Derived> {
 >U : U
 
     foo3<T extends Derived>(t: T, u: U): T;
->foo3 : <T extends Derived>(t: T, u: U) => T
+>foo3 : <T 扩展 Derived>(t: T, u: U) => T
 >T : T
 >Derived : Derived
 >t : T
@@ -359,7 +359,7 @@ interface I<T extends Base, U extends Derived> {
 >T : T
 
     foo4<U extends Derived2>(t: T, u: U): T;
->foo4 : <U extends Derived2>(t: T, u: U) => T
+>foo4 : <U 扩展 Derived2>(t: T, u: U) => T
 >U : U
 >Derived2 : Derived2
 >t : T
@@ -369,7 +369,7 @@ interface I<T extends Base, U extends Derived> {
 >T : T
 
     foo5<T extends Derived, U extends Derived2>(t: T, u: U): T;
->foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >T : T
 >Derived : Derived
 >U : U
@@ -381,7 +381,7 @@ interface I<T extends Base, U extends Derived> {
 >T : T
 
     foo6<T extends Derived, U extends Derived2>(): T;
->foo6 : <T extends Derived, U extends Derived2>() => T
+>foo6 : <T 扩展 Derived, U 扩展 Derived2>() => T
 >T : T
 >Derived : Derived
 >U : U
@@ -389,7 +389,7 @@ interface I<T extends Base, U extends Derived> {
 >T : T
 
     foo7<T extends Base, U extends Derived>(u: U): T;
->foo7 : <T extends Base, U extends Derived>(u: U) => T
+>foo7 : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >T : T
 >Base : Base
 >U : U
@@ -399,7 +399,7 @@ interface I<T extends Base, U extends Derived> {
 >T : T
 
     foo8<T extends Base, U extends Derived>(): T;
->foo8 : <T extends Base, U extends Derived>() => T
+>foo8 : <T 扩展 Base, U 扩展 Derived>() => T
 >T : T
 >Base : Base
 >U : U
@@ -434,58 +434,58 @@ var r5 = i.foo2(b, d2); // Derived
 var r6 = i.foo3(d1, d1); // Derived
 >r6 : Derived
 >i.foo3(d1, d1) : Derived
->i.foo3 : <T extends Derived>(t: T, u: Derived) => T
+>i.foo3 : <T 扩展 Derived>(t: T, u: Derived) => T
 >i : I<Base, Derived>
->foo3 : <T extends Derived>(t: T, u: Derived) => T
+>foo3 : <T 扩展 Derived>(t: T, u: Derived) => T
 >d1 : Derived
 >d1 : Derived
 
 var r7 = i.foo4(d1, d2); // Base
 >r7 : Base
 >i.foo4(d1, d2) : Base
->i.foo4 : <U extends Derived2>(t: Base, u: U) => Base
+>i.foo4 : <U 扩展 Derived2>(t: Base, u: U) => Base
 >i : I<Base, Derived>
->foo4 : <U extends Derived2>(t: Base, u: U) => Base
+>foo4 : <U 扩展 Derived2>(t: Base, u: U) => Base
 >d1 : Derived
 >d2 : Derived2
 
 var r8 = i.foo5(d1, d2); // Derived
 >r8 : Derived
 >i.foo5(d1, d2) : Derived
->i.foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>i.foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >i : I<Base, Derived>
->foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >d1 : Derived
 >d2 : Derived2
 
 var r8b = i.foo5(d2, d2); // Derived2
 >r8b : Derived2
 >i.foo5(d2, d2) : Derived2
->i.foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>i.foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >i : I<Base, Derived>
->foo5 : <T extends Derived, U extends Derived2>(t: T, u: U) => T
+>foo5 : <T 扩展 Derived, U 扩展 Derived2>(t: T, u: U) => T
 >d2 : Derived2
 >d2 : Derived2
 
 var r9 = i.foo6(); // Derived
 >r9 : Derived
 >i.foo6() : Derived
->i.foo6 : <T extends Derived, U extends Derived2>() => T
+>i.foo6 : <T 扩展 Derived, U 扩展 Derived2>() => T
 >i : I<Base, Derived>
->foo6 : <T extends Derived, U extends Derived2>() => T
+>foo6 : <T 扩展 Derived, U 扩展 Derived2>() => T
 
 var r10 = i.foo7(d1); // Base
 >r10 : Base
 >i.foo7(d1) : Base
->i.foo7 : <T extends Base, U extends Derived>(u: U) => T
+>i.foo7 : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >i : I<Base, Derived>
->foo7 : <T extends Base, U extends Derived>(u: U) => T
+>foo7 : <T 扩展 Base, U 扩展 Derived>(u: U) => T
 >d1 : Derived
 
 var r11 = i.foo8(); // Base
 >r11 : Base
 >i.foo8() : Base
->i.foo8 : <T extends Base, U extends Derived>() => T
+>i.foo8 : <T 扩展 Base, U 扩展 Derived>() => T
 >i : I<Base, Derived>
->foo8 : <T extends Base, U extends Derived>() => T
+>foo8 : <T 扩展 Base, U 扩展 Derived>() => T
 

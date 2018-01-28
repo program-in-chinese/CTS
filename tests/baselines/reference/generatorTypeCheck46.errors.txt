@@ -1,0 +1,19 @@
+tests/cases/conformance/es6/yieldExpressions/generatorTypeCheck46.ts(4,12): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+
+
+==== tests/cases/conformance/es6/yieldExpressions/generatorTypeCheck46.ts (1 errors) ====
+    declare function foo<T, U>(x: T, fun: () => Iterable<(x: T) => U>, fun2: (y: U) => T): T;
+    
+    foo("", function* () {
+        yield* {
+               ~
+            *[Symbol.iterator]() {
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                yield x => x.length
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            }
+    ~~~~~~~~~
+        }
+    ~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    }, p => undefined); // T is fixed, should be string

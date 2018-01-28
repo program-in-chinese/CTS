@@ -1,14 +1,14 @@
 === tests/cases/compiler/functionArgShadowing.ts ===
 class A { foo() { } }
 >A : A
->foo : () => void
+>foo : () => 无值
 
 class B { bar() { } }
 >B : B
->bar : () => void
+>bar : () => 无值
 
 function foo(x: A) {
->foo : (x: A) => void
+>foo : (x: A) => 无值
 >x : A
 >A : A
 
@@ -16,15 +16,15 @@ function foo(x: A) {
 >x : A
 >B : B
 >new B() : B
->B : typeof B
+>B : 类为 B
 
      x.bar(); // the property bar does not exist on a value of type A
->x.bar() : any
+>x.bar() : 任意
 >类型别名 :=> 任意
->x.bar : any
+>x.bar : 任意
 >类型别名 :=> 任意
 >x : A
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 }
  
@@ -32,17 +32,17 @@ class C {
 >C : C
 
 	constructor(public p: number) {
->p : number
+>p : 数字
 >类型别名 :=> 数字
 
 		var p: string;
->p : number
+>p : 数字
 >类型别名 :=> 数字
 
 		var n: number = p;
->n : number
+>n : 数字
 >类型别名 :=> 数字
->p : number
+>p : 数字
 >类型别名 :=> 数字
 	}
 }

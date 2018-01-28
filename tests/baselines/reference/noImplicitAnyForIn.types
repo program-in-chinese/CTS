@@ -1,43 +1,43 @@
 === tests/cases/compiler/noImplicitAnyForIn.ts ===
 var x: {}[] = [[1, 2, 3], ["hello"]];
 >x : {}[]
->[[1, 2, 3], ["hello"]] : (number[] | string[])[]
->[1, 2, 3] : number[]
+>[[1, 2, 3], ["hello"]] : (数字[] | 文字[])[]
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
->["hello"] : string[]
+>["hello"] : 文字[]
 >"hello" : "hello"
 
 for (var i in x) {
->i : string
+>i : 文字
 >类型别名 :=> 文字
 >x : {}[]
 
     for (var j in x[i]) {
->j : string
+>j : 文字
 >类型别名 :=> 文字
 >x[i] : {}
 >x : {}[]
->i : string
+>i : 文字
 >类型别名 :=> 文字
 
         //Should yield an implicit 'any' error
         var _j = x[i][j];
->_j : any
+>_j : 任意
 >类型别名 :=> 任意
->x[i][j] : any
+>x[i][j] : 任意
 >类型别名 :=> 任意
 >x[i] : {}
 >x : {}[]
->i : string
+>i : 文字
 >类型别名 :=> 文字
->j : string
+>j : 文字
 >类型别名 :=> 文字
     }
 
     for (var k in x[0]) {
->k : string
+>k : 文字
 >类型别名 :=> 文字
 >x[0] : {}
 >x : {}[]
@@ -51,45 +51,45 @@ for (var i in x) {
 
         //Should yield an implicit 'any' error
         var k2 = k1[k];
->k2 : any
+>k2 : 任意
 >类型别名 :=> 任意
->k1[k] : any
+>k1[k] : 任意
 >类型别名 :=> 任意
 >k1 : {}
->k : string
+>k : 文字
 >类型别名 :=> 文字
     }
 }
 
 for (var a in x) {
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >x : {}[]
 
     // Should yield an implicit 'any' error.
     var b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     var c = a || b;
->c : string
+>c : 文字
 >类型别名 :=> 文字
->a || b : string
+>a || b : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->b : undefined
+>b : 未定
 >类型别名 :=> 未定
 }
 
 var idx = 0;
->idx : number
+>idx : 数字
 >类型别名 :=> 数字
 >0 : 0
 
 var m = [1, 2, 3, 4, 5];
->m : number[]
->[1, 2, 3, 4, 5] : number[]
+>m : 数字[]
+>[1, 2, 3, 4, 5] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
@@ -98,18 +98,18 @@ var m = [1, 2, 3, 4, 5];
 
 // Should yield an implicit 'any' error.
 var n = [[]] || [];
->n : any[][]
->[[]] || [] : undefined[][]
->[[]] : undefined[][]
->[] : undefined[]
->[] : undefined[]
+>n : 任意[][]
+>[[]] || [] : 未定[][]
+>[[]] : 未定[][]
+>[] : 未定[]
+>[] : 未定[]
 
 for (n[idx++] in m);
->n[idx++] : any[]
->n : any[][]
->idx++ : number
+>n[idx++] : 任意[]
+>n : 任意[][]
+>idx++ : 数字
 >类型别名 :=> 数字
->idx : number
+>idx : 数字
 >类型别名 :=> 数字
->m : number[]
+>m : 数字[]
 

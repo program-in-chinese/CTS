@@ -1,67 +1,67 @@
 === tests/cases/compiler/noImplicitThisFunctions.ts ===
 function f1(x) {
->f1 : (x: any) => any
->x : any
+>f1 : (x: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
 
     // implicit any is still allowed
     return x + 1;
->x + 1 : any
+>x + 1 : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >1 : 1
 }
 
 function f2(y: number) {
->f2 : (y: number) => number
->y : number
+>f2 : (y: 数字) => 数字
+>y : 数字
 >类型别名 :=> 数字
 
     // ok: no reference to this
     return y + 1;
->y + 1 : number
+>y + 1 : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
 
 function f3(z: number): number {
->f3 : (z: number) => number
->z : number
+>f3 : (z: 数字) => 数字
+>z : 数字
 >类型别名 :=> 数字
 
     // error: this is implicitly any
     return this.a + z;
->this.a + z : any
+>this.a + z : 任意
 >类型别名 :=> 任意
->this.a : any
+>this.a : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->z : number
+>z : 数字
 >类型别名 :=> 数字
 }
 
 // error: `this` is `window`, but is still of type `any`
 let f4: (b: number) => number = b => this.c + b;
->f4 : (b: number) => number
->b : number
+>f4 : (b: 数字) => 数字
+>b : 数字
 >类型别名 :=> 数字
->b => this.c + b : (b: number) => any
->b : number
+>b => this.c + b : (b: 数字) => 任意
+>b : 数字
 >类型别名 :=> 数字
->this.c + b : any
+>this.c + b : 任意
 >类型别名 :=> 任意
->this.c : any
+>this.c : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->b : number
+>b : 数字
 >类型别名 :=> 数字
 

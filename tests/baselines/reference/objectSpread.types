@@ -1,298 +1,298 @@
 === tests/cases/conformance/types/spread/objectSpread.ts ===
 let o = { a: 1, b: 'no' }
->o : { a: number; b: string; }
->{ a: 1, b: 'no' } : { a: number; b: string; }
->a : number
+>o : { a: 数字; b: 文字; }
+>{ a: 1, b: 'no' } : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >'no' : "no"
 
 let o2 = { b: 'yes', c: true }
->o2 : { b: string; c: boolean; }
->{ b: 'yes', c: true } : { b: string; c: boolean; }
->b : string
+>o2 : { b: 文字; c: 真假; }
+>{ b: 'yes', c: true } : { b: 文字; c: 真假; }
+>b : 文字
 >类型别名 :=> 文字
 >'yes' : "yes"
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 let swap = { a: 'yes', b: -1 };
->swap : { a: string; b: number; }
->{ a: 'yes', b: -1 } : { a: string; b: number; }
->a : string
+>swap : { a: 文字; b: 数字; }
+>{ a: 'yes', b: -1 } : { a: 文字; b: 数字; }
+>a : 文字
 >类型别名 :=> 文字
 >'yes' : "yes"
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >-1 : -1
 >1 : 1
 
 let addAfter: { a: number, b: string, c: boolean } =
->addAfter : { a: number; b: string; c: boolean; }
->a : number
+>addAfter : { a: 数字; b: 文字; c: 真假; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
     { ...o, c: false }
->{ ...o, c: false } : { c: false; a: number; b: string; }
->o : { a: number; b: string; }
->c : boolean
+>{ ...o, c: false } : { c: 为假; a: 数字; b: 文字; }
+>o : { a: 数字; b: 文字; }
+>c : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 let addBefore: { a: number, b: string, c: boolean } =
->addBefore : { a: number; b: string; c: boolean; }
->a : number
+>addBefore : { a: 数字; b: 文字; c: 真假; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
     { c: false, ...o }
->{ c: false, ...o } : { a: number; b: string; c: false; }
->c : boolean
+>{ c: false, ...o } : { a: 数字; b: 文字; c: 为假; }
+>c : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
->o : { a: number; b: string; }
+>o : { a: 数字; b: 文字; }
 
 // Note: ignore still changes the order that properties are printed
 let ignore: { a: number, b: string } =
->ignore : { a: number; b: string; }
->a : number
+>ignore : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     { b: 'ignored', ...o }
->{ b: 'ignored', ...o } : { a: number; b: string; }
->b : string
+>{ b: 'ignored', ...o } : { a: 数字; b: 文字; }
+>b : 文字
 >类型别名 :=> 文字
 >'ignored' : "ignored"
->o : { a: number; b: string; }
+>o : { a: 数字; b: 文字; }
 
 let override: { a: number, b: string } =
->override : { a: number; b: string; }
->a : number
+>override : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     { ...o, b: 'override' }
->{ ...o, b: 'override' } : { b: string; a: number; }
->o : { a: number; b: string; }
->b : string
+>{ ...o, b: 'override' } : { b: 文字; a: 数字; }
+>o : { a: 数字; b: 文字; }
+>b : 文字
 >类型别名 :=> 文字
 >'override' : "override"
 
 let nested: { a: number, b: boolean, c: string } =
->nested : { a: number; b: boolean; c: string; }
->a : number
+>nested : { a: 数字; b: 真假; c: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
->c : string
+>c : 文字
 >类型别名 :=> 文字
 
     { ...{ a: 3, ...{ b: false, c: 'overriden' } }, c: 'whatever' }
->{ ...{ a: 3, ...{ b: false, c: 'overriden' } }, c: 'whatever' } : { c: string; b: false; a: number; }
->{ a: 3, ...{ b: false, c: 'overriden' } } : { b: false; c: string; a: number; }
->a : number
+>{ ...{ a: 3, ...{ b: false, c: 'overriden' } }, c: 'whatever' } : { c: 文字; b: 为假; a: 数字; }
+>{ a: 3, ...{ b: false, c: 'overriden' } } : { b: 为假; c: 文字; a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >3 : 3
->{ b: false, c: 'overriden' } : { b: false; c: string; }
->b : boolean
+>{ b: false, c: 'overriden' } : { b: 为假; c: 文字; }
+>b : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >'overriden' : "overriden"
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >'whatever' : "whatever"
 
 let combined: { a: number, b: string, c: boolean } =
->combined : { a: number; b: string; c: boolean; }
->a : number
+>combined : { a: 数字; b: 文字; c: 真假; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
     { ...o, ...o2 }
->{ ...o, ...o2 } : { b: string; c: boolean; a: number; }
->o : { a: number; b: string; }
->o2 : { b: string; c: boolean; }
+>{ ...o, ...o2 } : { b: 文字; c: 真假; a: 数字; }
+>o : { a: 数字; b: 文字; }
+>o2 : { b: 文字; c: 真假; }
 
 let combinedBefore: { a: number, b: string, c: boolean } =
->combinedBefore : { a: number; b: string; c: boolean; }
->a : number
+>combinedBefore : { a: 数字; b: 文字; c: 真假; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
     { b: 'ok', ...o, ...o2 }
->{ b: 'ok', ...o, ...o2 } : { b: string; c: boolean; a: number; }
->b : string
+>{ b: 'ok', ...o, ...o2 } : { b: 文字; c: 真假; a: 数字; }
+>b : 文字
 >类型别名 :=> 文字
 >'ok' : "ok"
->o : { a: number; b: string; }
->o2 : { b: string; c: boolean; }
+>o : { a: 数字; b: 文字; }
+>o2 : { b: 文字; c: 真假; }
 
 let combinedMid: { a: number, b: string, c: boolean } =
->combinedMid : { a: number; b: string; c: boolean; }
->a : number
+>combinedMid : { a: 数字; b: 文字; c: 真假; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
     { ...o, b: 'ok', ...o2 }
->{ ...o, b: 'ok', ...o2 } : { b: string; c: boolean; a: number; }
->o : { a: number; b: string; }
->b : string
+>{ ...o, b: 'ok', ...o2 } : { b: 文字; c: 真假; a: 数字; }
+>o : { a: 数字; b: 文字; }
+>b : 文字
 >类型别名 :=> 文字
 >'ok' : "ok"
->o2 : { b: string; c: boolean; }
+>o2 : { b: 文字; c: 真假; }
 
 let combinedAfter: { a: number, b: string, c: boolean } =
->combinedAfter : { a: number; b: string; c: boolean; }
->a : number
+>combinedAfter : { a: 数字; b: 文字; c: 真假; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
     { ...o, ...o2, b: 'ok' }
->{ ...o, ...o2, b: 'ok' } : { b: string; c: boolean; a: number; }
->o : { a: number; b: string; }
->o2 : { b: string; c: boolean; }
->b : string
+>{ ...o, ...o2, b: 'ok' } : { b: 文字; c: 真假; a: 数字; }
+>o : { a: 数字; b: 文字; }
+>o2 : { b: 文字; c: 真假; }
+>b : 文字
 >类型别名 :=> 文字
 >'ok' : "ok"
 
 let combinedNested: { a: number, b: boolean, c: string, d: string } =
->combinedNested : { a: number; b: boolean; c: string; d: string; }
->a : number
+>combinedNested : { a: 数字; b: 真假; c: 文字; d: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
->c : string
+>c : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
     { ...{ a: 4, ...{ b: false, c: 'overriden' } }, d: 'actually new', ...{ a: 5, d: 'maybe new' } }
->{ ...{ a: 4, ...{ b: false, c: 'overriden' } }, d: 'actually new', ...{ a: 5, d: 'maybe new' } } : { a: number; d: string; b: false; c: string; }
->{ a: 4, ...{ b: false, c: 'overriden' } } : { b: false; c: string; a: number; }
->a : number
+>{ ...{ a: 4, ...{ b: false, c: 'overriden' } }, d: 'actually new', ...{ a: 5, d: 'maybe new' } } : { a: 数字; d: 文字; b: 为假; c: 文字; }
+>{ a: 4, ...{ b: false, c: 'overriden' } } : { b: 为假; c: 文字; a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >4 : 4
->{ b: false, c: 'overriden' } : { b: false; c: string; }
->b : boolean
+>{ b: false, c: 'overriden' } : { b: 为假; c: 文字; }
+>b : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >'overriden' : "overriden"
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >'actually new' : "actually new"
->{ a: 5, d: 'maybe new' } : { a: number; d: string; }
->a : number
+>{ a: 5, d: 'maybe new' } : { a: 数字; d: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >5 : 5
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >'maybe new' : "maybe new"
 
 let combinedNestedChangeType: { a: number, b: boolean, c: number } =
->combinedNestedChangeType : { a: number; b: boolean; c: number; }
->a : number
+>combinedNestedChangeType : { a: 数字; b: 真假; c: 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
->c : number
+>c : 数字
 >类型别名 :=> 数字
 
     { ...{ a: 1, ...{ b: false, c: 'overriden' } }, c: -1 }
->{ ...{ a: 1, ...{ b: false, c: 'overriden' } }, c: -1 } : { c: number; b: false; a: number; }
->{ a: 1, ...{ b: false, c: 'overriden' } } : { b: false; c: string; a: number; }
->a : number
+>{ ...{ a: 1, ...{ b: false, c: 'overriden' } }, c: -1 } : { c: 数字; b: 为假; a: 数字; }
+>{ a: 1, ...{ b: false, c: 'overriden' } } : { b: 为假; c: 文字; a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->{ b: false, c: 'overriden' } : { b: false; c: string; }
->b : boolean
+>{ b: false, c: 'overriden' } : { b: 为假; c: 文字; }
+>b : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >'overriden' : "overriden"
->c : number
+>c : 数字
 >类型别名 :=> 数字
 >-1 : -1
 >1 : 1
 
 let propertyNested: { a: { a: number, b: string } } =
->propertyNested : { a: { a: number; b: string; }; }
->a : { a: number; b: string; }
->a : number
+>propertyNested : { a: { a: 数字; b: 文字; }; }
+>a : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     { a: { ... o } }
->{ a: { ... o } } : { a: { a: number; b: string; }; }
->a : { a: number; b: string; }
->{ ... o } : { a: number; b: string; }
->o : { a: number; b: string; }
+>{ a: { ... o } } : { a: { a: 数字; b: 文字; }; }
+>a : { a: 数字; b: 文字; }
+>{ ... o } : { a: 数字; b: 文字; }
+>o : { a: 数字; b: 文字; }
 
 // accessors don't copy the descriptor
 // (which means that readonly getters become read/write properties)
 let op = { get a () { return 6 } };
->op : { readonly a: number; }
->{ get a () { return 6 } } : { readonly a: number; }
->a : number
+>op : { 只读 a: 数字; }
+>{ get a () { return 6 } } : { 只读 a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >6 : 6
 
 let getter: { a: number, c: number } =
->getter : { a: number; c: number; }
->a : number
+>getter : { a: 数字; c: 数字; }
+>a : 数字
 >类型别名 :=> 数字
->c : number
+>c : 数字
 >类型别名 :=> 数字
 
     { ...op, c: 7 }
->{ ...op, c: 7 } : { c: number; a: number; }
->op : { readonly a: number; }
->c : number
+>{ ...op, c: 7 } : { c: 数字; a: 数字; }
+>op : { 只读 a: 数字; }
+>c : 数字
 >类型别名 :=> 数字
 >7 : 7
 
 getter.a = 12;
 >getter.a = 12 : 12
->getter.a : number
+>getter.a : 数字
 >类型别名 :=> 数字
->getter : { a: number; c: number; }
->a : number
+>getter : { a: 数字; c: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >12 : 12
 
@@ -300,31 +300,31 @@ getter.a = 12;
 let spreadFunc = { ...(function () { }) };
 >spreadFunc : {}
 >{ ...(function () { }) } : {}
->(function () { }) : () => void
->function () { } : () => void
+>(function () { }) : () => 无值
+>function () { } : () => 无值
 
 type Header = { head: string, body: string, authToken: string }
 >Header : Header
->head : string
+>head : 文字
 >类型别名 :=> 文字
->body : string
+>body : 文字
 >类型别名 :=> 文字
->authToken : string
+>authToken : 文字
 >类型别名 :=> 文字
 
 function from16326(this: { header: Header }, header: Header, authToken: string): Header {
->from16326 : (this: { header: Header; }, header: Header, authToken: string) => Header
+>from16326 : (this: { header: Header; }, header: Header, authToken: 文字) => Header
 >this : { header: Header; }
 >header : Header
 >Header : Header
 >header : Header
 >Header : Header
->authToken : string
+>authToken : 文字
 >类型别名 :=> 文字
 >Header : Header
 
     return {
->{        ...this.header,        ...header,        ...authToken && { authToken }    } : { head: string; body: string; authToken: string; } | { authToken: string; head: string; body: string; }
+>{        ...this.header,        ...header,        ...authToken && { authToken }    } : { head: 文字; body: 文字; authToken: 文字; } | { authToken: 文字; head: 文字; body: 文字; }
 
         ...this.header,
 >this.header : Header
@@ -335,364 +335,364 @@ function from16326(this: { header: Header }, header: Header, authToken: string):
 >header : Header
 
         ...authToken && { authToken }
->authToken && { authToken } : "" | { authToken: string; }
->authToken : string
+>authToken && { authToken } : "" | { authToken: 文字; }
+>authToken : 文字
 >类型别名 :=> 文字
->{ authToken } : { authToken: string; }
->authToken : string
+>{ authToken } : { authToken: 文字; }
+>authToken : 文字
 >类型别名 :=> 文字
     }
 }
 // boolean && T results in Partial<T>
 function conditionalSpreadBoolean(b: boolean) : { x: number, y: number } {
->conditionalSpreadBoolean : (b: boolean) => { x: number; y: number; }
->b : boolean
+>conditionalSpreadBoolean : (b: 真假) => { x: 数字; y: 数字; }
+>b : 真假
 >类型别名 :=> 真假
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
     let o = { x: 12, y: 13 }
->o : { x: number; y: number; }
->{ x: 12, y: 13 } : { x: number; y: number; }
->x : number
+>o : { x: 数字; y: 数字; }
+>{ x: 12, y: 13 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >12 : 12
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >13 : 13
 
     o = {
->o = {        ...o,        ...b && { x: 14 }    } : { x: number; y: number; } | { x: number; y: number; }
->o : { x: number; y: number; }
->{        ...o,        ...b && { x: 14 }    } : { x: number; y: number; } | { x: number; y: number; }
+>o = {        ...o,        ...b && { x: 14 }    } : { x: 数字; y: 数字; } | { x: 数字; y: 数字; }
+>o : { x: 数字; y: 数字; }
+>{        ...o,        ...b && { x: 14 }    } : { x: 数字; y: 数字; } | { x: 数字; y: 数字; }
 
         ...o,
->o : { x: number; y: number; }
+>o : { x: 数字; y: 数字; }
 
         ...b && { x: 14 }
->b && { x: 14 } : false | { x: number; }
->b : boolean
+>b && { x: 14 } : 为假 | { x: 数字; }
+>b : 真假
 >类型别名 :=> 真假
->{ x: 14 } : { x: number; }
->x : number
+>{ x: 14 } : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >14 : 14
     }
     let o2 = { ...b && { x: 21 }}
->o2 : {} | { x: number; }
->{ ...b && { x: 21 }} : {} | { x: number; }
->b && { x: 21 } : false | { x: number; }
->b : boolean
+>o2 : {} | { x: 数字; }
+>{ ...b && { x: 21 }} : {} | { x: 数字; }
+>b && { x: 21 } : 为假 | { x: 数字; }
+>b : 真假
 >类型别名 :=> 真假
->{ x: 21 } : { x: number; }
->x : number
+>{ x: 21 } : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >21 : 21
 
     return o;
->o : { x: number; y: number; }
+>o : { x: 数字; y: 数字; }
 }
 function conditionalSpreadNumber(nt: number): { x: number, y: number } {
->conditionalSpreadNumber : (nt: number) => { x: number; y: number; }
->nt : number
+>conditionalSpreadNumber : (nt: 数字) => { x: 数字; y: 数字; }
+>nt : 数字
 >类型别名 :=> 数字
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
     let o = { x: 15, y: 16 }
->o : { x: number; y: number; }
->{ x: 15, y: 16 } : { x: number; y: number; }
->x : number
+>o : { x: 数字; y: 数字; }
+>{ x: 15, y: 16 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >15 : 15
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >16 : 16
 
     o = {
->o = {        ...o,        ...nt && { x: nt }    } : { x: number; y: number; } | { x: number; y: number; }
->o : { x: number; y: number; }
->{        ...o,        ...nt && { x: nt }    } : { x: number; y: number; } | { x: number; y: number; }
+>o = {        ...o,        ...nt && { x: nt }    } : { x: 数字; y: 数字; } | { x: 数字; y: 数字; }
+>o : { x: 数字; y: 数字; }
+>{        ...o,        ...nt && { x: nt }    } : { x: 数字; y: 数字; } | { x: 数字; y: 数字; }
 
         ...o,
->o : { x: number; y: number; }
+>o : { x: 数字; y: 数字; }
 
         ...nt && { x: nt }
->nt && { x: nt } : 0 | { x: number; }
->nt : number
+>nt && { x: nt } : 0 | { x: 数字; }
+>nt : 数字
 >类型别名 :=> 数字
->{ x: nt } : { x: number; }
->x : number
+>{ x: nt } : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->nt : number
+>nt : 数字
 >类型别名 :=> 数字
     }
     let o2 = { ...nt && { x: nt }}
->o2 : {} | { x: number; }
->{ ...nt && { x: nt }} : {} | { x: number; }
->nt && { x: nt } : 0 | { x: number; }
->nt : number
+>o2 : {} | { x: 数字; }
+>{ ...nt && { x: nt }} : {} | { x: 数字; }
+>nt && { x: nt } : 0 | { x: 数字; }
+>nt : 数字
 >类型别名 :=> 数字
->{ x: nt } : { x: number; }
->x : number
+>{ x: nt } : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->nt : number
+>nt : 数字
 >类型别名 :=> 数字
 
     return o;
->o : { x: number; y: number; }
+>o : { x: 数字; y: 数字; }
 }
 function conditionalSpreadString(st: string): { x: string, y: number } {
->conditionalSpreadString : (st: string) => { x: string; y: number; }
->st : string
+>conditionalSpreadString : (st: 文字) => { x: 文字; y: 数字; }
+>st : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
     let o = { x: 'hi', y: 17 }
->o : { x: string; y: number; }
->{ x: 'hi', y: 17 } : { x: string; y: number; }
->x : string
+>o : { x: 文字; y: 数字; }
+>{ x: 'hi', y: 17 } : { x: 文字; y: 数字; }
+>x : 文字
 >类型别名 :=> 文字
 >'hi' : "hi"
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >17 : 17
 
     o = {
->o = {        ...o,        ...st && { x: st }    } : { x: string; y: number; } | { x: string; y: number; }
->o : { x: string; y: number; }
->{        ...o,        ...st && { x: st }    } : { x: string; y: number; } | { x: string; y: number; }
+>o = {        ...o,        ...st && { x: st }    } : { x: 文字; y: 数字; } | { x: 文字; y: 数字; }
+>o : { x: 文字; y: 数字; }
+>{        ...o,        ...st && { x: st }    } : { x: 文字; y: 数字; } | { x: 文字; y: 数字; }
 
         ...o,
->o : { x: string; y: number; }
+>o : { x: 文字; y: 数字; }
 
         ...st && { x: st }
->st && { x: st } : "" | { x: string; }
->st : string
+>st && { x: st } : "" | { x: 文字; }
+>st : 文字
 >类型别名 :=> 文字
->{ x: st } : { x: string; }
->x : string
+>{ x: st } : { x: 文字; }
+>x : 文字
 >类型别名 :=> 文字
->st : string
+>st : 文字
 >类型别名 :=> 文字
     }
     let o2 = { ...st && { x: st }}
->o2 : {} | { x: string; }
->{ ...st && { x: st }} : {} | { x: string; }
->st && { x: st } : "" | { x: string; }
->st : string
+>o2 : {} | { x: 文字; }
+>{ ...st && { x: st }} : {} | { x: 文字; }
+>st && { x: st } : "" | { x: 文字; }
+>st : 文字
 >类型别名 :=> 文字
->{ x: st } : { x: string; }
->x : string
+>{ x: st } : { x: 文字; }
+>x : 文字
 >类型别名 :=> 文字
->st : string
+>st : 文字
 >类型别名 :=> 文字
 
     return o;
->o : { x: string; y: number; }
+>o : { x: 文字; y: 数字; }
 }
 
 // any results in any
 let anything: any;
->anything : any
+>anything : 任意
 >类型别名 :=> 任意
 
 let spreadAny = { ...anything };
->spreadAny : any
+>spreadAny : 任意
 >类型别名 :=> 任意
->{ ...anything } : any
+>{ ...anything } : 任意
 >类型别名 :=> 任意
->anything : any
+>anything : 任意
 >类型别名 :=> 任意
 
 // methods are not enumerable
 class C { p = 1; m() { } }
 >C : C
->p : number
+>p : 数字
 >类型别名 :=> 数字
 >1 : 1
->m : () => void
+>m : () => 无值
 
 let c: C = new C()
 >c : C
 >C : C
 >new C() : C
->C : typeof C
+>C : 类为 C
 
 let spreadC: { p: number } = { ...c }
->spreadC : { p: number; }
->p : number
+>spreadC : { p: 数字; }
+>p : 数字
 >类型别名 :=> 数字
->{ ...c } : { p: number; }
+>{ ...c } : { p: 数字; }
 >c : C
 
 // own methods are enumerable
 let cplus: { p: number, plus(): void } = { ...c, plus() { return this.p + 1; } };
->cplus : { p: number; plus(): void; }
->p : number
+>cplus : { p: 数字; plus(): 无值; }
+>p : 数字
 >类型别名 :=> 数字
->plus : () => void
->{ ...c, plus() { return this.p + 1; } } : { plus(): any; p: number; }
+>plus : () => 无值
+>{ ...c, plus() { return this.p + 1; } } : { plus(): 任意; p: 数字; }
 >c : C
->plus : () => any
->this.p + 1 : any
+>plus : () => 任意
+>this.p + 1 : 任意
 >类型别名 :=> 任意
->this.p : any
+>this.p : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->p : any
+>p : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 cplus.plus();
->cplus.plus() : void
+>cplus.plus() : 无值
 >类型别名 :=> 无值
->cplus.plus : () => void
->cplus : { p: number; plus(): void; }
->plus : () => void
+>cplus.plus : () => 无值
+>cplus : { p: 数字; plus(): 无值; }
+>plus : () => 无值
 
 // new field's type conflicting with existing field is OK
 let changeTypeAfter: { a: string, b: string } =
->changeTypeAfter : { a: string; b: string; }
->a : string
+>changeTypeAfter : { a: 文字; b: 文字; }
+>a : 文字
 >类型别名 :=> 文字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     { ...o, a: 'wrong type?' }
->{ ...o, a: 'wrong type?' } : { a: string; b: string; }
->o : { a: number; b: string; }
->a : string
+>{ ...o, a: 'wrong type?' } : { a: 文字; b: 文字; }
+>o : { a: 数字; b: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >'wrong type?' : "wrong type?"
 
 let changeTypeBefore: { a: number, b: string } =
->changeTypeBefore : { a: number; b: string; }
->a : number
+>changeTypeBefore : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     { a: 'wrong type?', ...o };
->{ a: 'wrong type?', ...o } : { a: number; b: string; }
->a : string
+>{ a: 'wrong type?', ...o } : { a: 数字; b: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >'wrong type?' : "wrong type?"
->o : { a: number; b: string; }
+>o : { a: 数字; b: 文字; }
 
 let changeTypeBoth: { a: string, b: number } =
->changeTypeBoth : { a: string; b: number; }
->a : string
+>changeTypeBoth : { a: 文字; b: 数字; }
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     { ...o, ...swap };
->{ ...o, ...swap } : { a: string; b: number; }
->o : { a: number; b: string; }
->swap : { a: string; b: number; }
+>{ ...o, ...swap } : { a: 文字; b: 数字; }
+>o : { a: 数字; b: 文字; }
+>swap : { a: 文字; b: 数字; }
 
 // optional
 function container(
->container : (definiteBoolean: { sn: boolean; }, definiteString: { sn: string; }, optionalString: { sn?: string | undefined; }, optionalNumber: { sn?: number | undefined; }) => void
+>container : (definiteBoolean: { sn: 真假; }, definiteString: { sn: 文字; }, optionalString: { sn?: 文字 | 未定; }, optionalNumber: { sn?: 数字 | 未定; }) => 无值
 
     definiteBoolean: { sn: boolean },
->definiteBoolean : { sn: boolean; }
->sn : boolean
+>definiteBoolean : { sn: 真假; }
+>sn : 真假
 >类型别名 :=> 真假
 
     definiteString: { sn: string },
->definiteString : { sn: string; }
->sn : string
+>definiteString : { sn: 文字; }
+>sn : 文字
 >类型别名 :=> 文字
 
     optionalString: { sn?: string },
->optionalString : { sn?: string | undefined; }
->sn : string | undefined
+>optionalString : { sn?: 文字 | 未定; }
+>sn : 文字 | 未定
 
     optionalNumber: { sn?: number }) {
->optionalNumber : { sn?: number | undefined; }
->sn : number | undefined
+>optionalNumber : { sn?: 数字 | 未定; }
+>sn : 数字 | 未定
 
     let optionalUnionStops: { sn: string | number | boolean } = { ...definiteBoolean, ...definiteString, ...optionalNumber };
->optionalUnionStops : { sn: string | number | boolean; }
->sn : string | number | boolean
->{ ...definiteBoolean, ...definiteString, ...optionalNumber } : { sn: string | number; }
->definiteBoolean : { sn: boolean; }
->definiteString : { sn: string; }
->optionalNumber : { sn?: number | undefined; }
+>optionalUnionStops : { sn: 文字 | 数字 | 真假; }
+>sn : 文字 | 数字 | 真假
+>{ ...definiteBoolean, ...definiteString, ...optionalNumber } : { sn: 文字 | 数字; }
+>definiteBoolean : { sn: 真假; }
+>definiteString : { sn: 文字; }
+>optionalNumber : { sn?: 数字 | 未定; }
 
     let optionalUnionDuplicates: { sn: string | number } = { ...definiteBoolean, ...definiteString, ...optionalString, ...optionalNumber };
->optionalUnionDuplicates : { sn: string | number; }
->sn : string | number
->{ ...definiteBoolean, ...definiteString, ...optionalString, ...optionalNumber } : { sn: string | number; }
->definiteBoolean : { sn: boolean; }
->definiteString : { sn: string; }
->optionalString : { sn?: string | undefined; }
->optionalNumber : { sn?: number | undefined; }
+>optionalUnionDuplicates : { sn: 文字 | 数字; }
+>sn : 文字 | 数字
+>{ ...definiteBoolean, ...definiteString, ...optionalString, ...optionalNumber } : { sn: 文字 | 数字; }
+>definiteBoolean : { sn: 真假; }
+>definiteString : { sn: 文字; }
+>optionalString : { sn?: 文字 | 未定; }
+>optionalNumber : { sn?: 数字 | 未定; }
 
     let allOptional: { sn?: string | number } = { ...optionalString, ...optionalNumber };
->allOptional : { sn?: string | number | undefined; }
->sn : string | number | undefined
->{ ...optionalString, ...optionalNumber } : { sn?: string | number | undefined; }
->optionalString : { sn?: string | undefined; }
->optionalNumber : { sn?: number | undefined; }
+>allOptional : { sn?: 文字 | 数字 | 未定; }
+>sn : 文字 | 数字 | 未定
+>{ ...optionalString, ...optionalNumber } : { sn?: 文字 | 数字 | 未定; }
+>optionalString : { sn?: 文字 | 未定; }
+>optionalNumber : { sn?: 数字 | 未定; }
 
     // computed property
     let computedFirst: { a: number, b: string, "before everything": number } =
->computedFirst : { a: number; b: string; "before everything": number; }
->a : number
+>computedFirst : { a: 数字; b: 文字; "before everything": 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
         { ['before everything']: 12, ...o, b: 'yes' }
->{ ['before everything']: 12, ...o, b: 'yes' } : { b: string; a: number; ['before everything']: number; }
+>{ ['before everything']: 12, ...o, b: 'yes' } : { b: 文字; a: 数字; ['before everything']: 数字; }
 >'before everything' : "before everything"
 >12 : 12
->o : { a: number; b: string; }
->b : string
+>o : { a: 数字; b: 文字; }
+>b : 文字
 >类型别名 :=> 文字
 >'yes' : "yes"
 
     let computedMiddle: { a: number, b: string, c: boolean, "in the middle": number } =
->computedMiddle : { a: number; b: string; c: boolean; "in the middle": number; }
->a : number
+>computedMiddle : { a: 数字; b: 文字; c: 真假; "in the middle": 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
         { ...o, ['in the middle']: 13, b: 'maybe?', ...o2 }
->{ ...o, ['in the middle']: 13, b: 'maybe?', ...o2 } : { b: string; c: boolean; ['in the middle']: number; a: number; }
->o : { a: number; b: string; }
+>{ ...o, ['in the middle']: 13, b: 'maybe?', ...o2 } : { b: 文字; c: 真假; ['in the middle']: 数字; a: 数字; }
+>o : { a: 数字; b: 文字; }
 >'in the middle' : "in the middle"
 >13 : 13
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >'maybe?' : "maybe?"
->o2 : { b: string; c: boolean; }
+>o2 : { b: 文字; c: 真假; }
 
     let computedAfter: { a: number, b: string, "at the end": number } =
->computedAfter : { a: number; b: string; "at the end": number; }
->a : number
+>computedAfter : { a: 数字; b: 文字; "at the end": 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
         { ...o, b: 'yeah', ['at the end']: 14 }
->{ ...o, b: 'yeah', ['at the end']: 14 } : { b: string; ['at the end']: number; a: number; }
->o : { a: number; b: string; }
->b : string
+>{ ...o, b: 'yeah', ['at the end']: 14 } : { b: 文字; ['at the end']: 数字; a: 数字; }
+>o : { a: 数字; b: 文字; }
+>b : 文字
 >类型别名 :=> 文字
 >'yeah' : "yeah"
 >'at the end' : "at the end"
@@ -700,28 +700,28 @@ function container(
 }
 // shortcut syntax
 let a = 12;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 let shortCutted: { a: number, b: string } = { ...o, a }
->shortCutted : { a: number; b: string; }
->a : number
+>shortCutted : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->{ ...o, a } : { a: number; b: string; }
->o : { a: number; b: string; }
->a : number
+>{ ...o, a } : { a: 数字; b: 文字; }
+>o : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 
 // non primitive
 let spreadNonPrimitive = { ...<object>{}};
->spreadNonPrimitive : object
+>spreadNonPrimitive : 实例
 >类型别名 :=> 实例
->{ ...<object>{}} : object
+>{ ...<object>{}} : 实例
 >类型别名 :=> 实例
-><object>{} : object
+><object>{} : 实例
 >类型别名 :=> 实例
 >{} : {}
 

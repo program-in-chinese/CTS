@@ -1,6 +1,6 @@
 === tests/cases/compiler/getAccessorWithImpliedReturnTypeAndFunctionClassMerge.ts ===
 declare function _<T>(value: Array<T>): _<T>;
->_ : typeof _
+>_ : 类为 _
 >T : T
 >value : T[]
 >Array : T[]
@@ -9,7 +9,7 @@ declare function _<T>(value: Array<T>): _<T>;
 >T : T
 
 declare function _<T>(value: T): _<T>;
->_ : typeof _
+>_ : 类为 _
 >T : T
 >value : T
 >T : T
@@ -17,16 +17,16 @@ declare function _<T>(value: T): _<T>;
 >T : T
 
 declare module _ {
->_ : typeof _
+>_ : 类为 _
 
     export function each<T>(
->each : <T>(context?: any) => void
+>each : <T>(context?: 任意) => 无值
 >T : T
 
         //list: List<T>,
         //iterator: ListIterator<T, void>,
         context?: any): void;
->context : any
+>context : 任意
 >类型别名 :=> 任意
 
     interface ListIterator<T, TResult> {
@@ -37,7 +37,7 @@ declare module _ {
         (value: T, index: number, list: T[]): TResult;
 >value : T
 >T : T
->index : number
+>index : 数字
 >类型别名 :=> 数字
 >list : T[]
 >T : T
@@ -50,33 +50,33 @@ declare class _<T> {
 >T : T
 
     each(iterator: _.ListIterator<T, void>, context?: any): void;
->each : (iterator: _.ListIterator<T, void>, context?: any) => void
->iterator : _.ListIterator<T, void>
->_ : any
+>each : (iterator: _.ListIterator<T, 无值>, context?: 任意) => 无值
+>iterator : _.ListIterator<T, 无值>
+>_ : 任意
 >类型别名 :=> 任意
 >ListIterator : _.ListIterator<T, TResult>
 >T : T
->context : any
+>context : 任意
 >类型别名 :=> 任意
 }
 
 module MyModule { 
->MyModule : typeof MyModule
+>MyModule : 类为 MyModule
 
     export class MyClass {
 >MyClass : MyClass
 
         public get myGetter() {
->myGetter : any
+>myGetter : 任意
 >类型别名 :=> 任意
 
             var obj:any = {};
->obj : any
+>obj : 任意
 >类型别名 :=> 任意
 >{} : {}
             
             return obj;
->obj : any
+>obj : 任意
 >类型别名 :=> 任意
         }
     }

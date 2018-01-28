@@ -1,42 +1,42 @@
 === tests/cases/compiler/internalAliasUninitializedModuleInsideLocalModuleWithoutExport.ts ===
 export module a {
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     export module b {
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
         export interface I {
 >I : I
 
             foo();
->foo : () => any
+>foo : () => 任意
         }
     }
 }
 
 export module c {
->c : typeof c
+>c : 类为 c
 
     import b = a.b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     export var x: b.I;
 >x : b.I
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >I : b.I
 
     x.foo();
->x.foo() : any
+>x.foo() : 任意
 >类型别名 :=> 任意
->x.foo : () => any
+>x.foo : () => 任意
 >x : b.I
->foo : () => any
+>foo : () => 任意
 }

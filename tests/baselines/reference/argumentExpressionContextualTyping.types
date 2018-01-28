@@ -1,176 +1,176 @@
 === tests/cases/conformance/expressions/contextualTyping/argumentExpressionContextualTyping.ts ===
 // In a typed function call, argument expressions are contextually typed by their corresponding parameter types.
 function foo({x: [a, b], y: {c, d, e}}) { }
->foo : ({ x: [a, b], y: { c, d, e } }: { x: [any, any]; y: { c: any; d: any; e: any; }; }) => void
->x : any
+>foo : ({ x: [a, b], y: { c, d, e } }: { x: [任意, 任意]; y: { c: 任意; d: 任意; e: 任意; }; }) => 无值
+>x : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->y : any
+>y : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->d : any
+>d : 任意
 >类型别名 :=> 任意
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
 function bar({x: [a, b = 10], y: {c, d, e = { f:1 }}}) { }
->bar : ({ x: [a, b], y: { c, d, e } }: { x: [any, number]; y: { c: any; d: any; e?: { f: number; }; }; }) => void
->x : any
+>bar : ({ x: [a, b], y: { c, d, e } }: { x: [任意, 数字]; y: { c: 任意; d: 任意; e?: { f: 数字; }; }; }) => 无值
+>x : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >10 : 10
->y : any
+>y : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->d : any
+>d : 任意
 >类型别名 :=> 任意
->e : { f: number; }
->{ f:1 } : { f: number; }
->f : number
+>e : { f: 数字; }
+>{ f:1 } : { f: 数字; }
+>f : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 function baz(x: [string, number, boolean]) { }
->baz : (x: [string, number, boolean]) => void
->x : [string, number, boolean]
+>baz : (x: [文字, 数字, 真假]) => 无值
+>x : [文字, 数字, 真假]
 
 var o = { x: ["string", 1], y: { c: true, d: "world", e: 3 } };
->o : { x: (string | number)[]; y: { c: boolean; d: string; e: number; }; }
->{ x: ["string", 1], y: { c: true, d: "world", e: 3 } } : { x: (string | number)[]; y: { c: boolean; d: string; e: number; }; }
->x : (string | number)[]
->["string", 1] : (string | number)[]
+>o : { x: (文字 | 数字)[]; y: { c: 真假; d: 文字; e: 数字; }; }
+>{ x: ["string", 1], y: { c: true, d: "world", e: 3 } } : { x: (文字 | 数字)[]; y: { c: 真假; d: 文字; e: 数字; }; }
+>x : (文字 | 数字)[]
+>["string", 1] : (文字 | 数字)[]
 >"string" : "string"
 >1 : 1
->y : { c: boolean; d: string; e: number; }
->{ c: true, d: "world", e: 3 } : { c: boolean; d: string; e: number; }
->c : boolean
+>y : { c: 真假; d: 文字; e: 数字; }
+>{ c: true, d: "world", e: 3 } : { c: 真假; d: 文字; e: 数字; }
+>c : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >"world" : "world"
->e : number
+>e : 数字
 >类型别名 :=> 数字
 >3 : 3
 
 var o1: { x: [string, number], y: { c: boolean, d: string, e: number } } = { x: ["string", 1], y: { c: true, d: "world", e: 3 } };
->o1 : { x: [string, number]; y: { c: boolean; d: string; e: number; }; }
->x : [string, number]
->y : { c: boolean; d: string; e: number; }
->c : boolean
+>o1 : { x: [文字, 数字]; y: { c: 真假; d: 文字; e: 数字; }; }
+>x : [文字, 数字]
+>y : { c: 真假; d: 文字; e: 数字; }
+>c : 真假
 >类型别名 :=> 真假
->d : string
+>d : 文字
 >类型别名 :=> 文字
->e : number
+>e : 数字
 >类型别名 :=> 数字
->{ x: ["string", 1], y: { c: true, d: "world", e: 3 } } : { x: [string, number]; y: { c: true; d: string; e: number; }; }
->x : [string, number]
->["string", 1] : [string, number]
+>{ x: ["string", 1], y: { c: true, d: "world", e: 3 } } : { x: [文字, 数字]; y: { c: 为真; d: 文字; e: 数字; }; }
+>x : [文字, 数字]
+>["string", 1] : [文字, 数字]
 >"string" : "string"
 >1 : 1
->y : { c: true; d: string; e: number; }
->{ c: true, d: "world", e: 3 } : { c: true; d: string; e: number; }
->c : boolean
+>y : { c: 为真; d: 文字; e: 数字; }
+>{ c: true, d: "world", e: 3 } : { c: 为真; d: 文字; e: 数字; }
+>c : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >"world" : "world"
->e : number
+>e : 数字
 >类型别名 :=> 数字
 >3 : 3
 
 foo(o1); // Not error since x has contextual type of tuple namely [string, number]
->foo(o1) : void
+>foo(o1) : 无值
 >类型别名 :=> 无值
->foo : ({ x: [a, b], y: { c, d, e } }: { x: [any, any]; y: { c: any; d: any; e: any; }; }) => void
->o1 : { x: [string, number]; y: { c: boolean; d: string; e: number; }; }
+>foo : ({ x: [a, b], y: { c, d, e } }: { x: [任意, 任意]; y: { c: 任意; d: 任意; e: 任意; }; }) => 无值
+>o1 : { x: [文字, 数字]; y: { c: 真假; d: 文字; e: 数字; }; }
 
 foo({ x: ["string", 1], y: { c: true, d: "world", e: 3 } }); // Not error
->foo({ x: ["string", 1], y: { c: true, d: "world", e: 3 } }) : void
+>foo({ x: ["string", 1], y: { c: true, d: "world", e: 3 } }) : 无值
 >类型别名 :=> 无值
->foo : ({ x: [a, b], y: { c, d, e } }: { x: [any, any]; y: { c: any; d: any; e: any; }; }) => void
->{ x: ["string", 1], y: { c: true, d: "world", e: 3 } } : { x: [string, number]; y: { c: boolean; d: string; e: number; }; }
->x : [string, number]
->["string", 1] : [string, number]
+>foo : ({ x: [a, b], y: { c, d, e } }: { x: [任意, 任意]; y: { c: 任意; d: 任意; e: 任意; }; }) => 无值
+>{ x: ["string", 1], y: { c: true, d: "world", e: 3 } } : { x: [文字, 数字]; y: { c: 真假; d: 文字; e: 数字; }; }
+>x : [文字, 数字]
+>["string", 1] : [文字, 数字]
 >"string" : "string"
 >1 : 1
->y : { c: boolean; d: string; e: number; }
->{ c: true, d: "world", e: 3 } : { c: boolean; d: string; e: number; }
->c : boolean
+>y : { c: 真假; d: 文字; e: 数字; }
+>{ c: true, d: "world", e: 3 } : { c: 真假; d: 文字; e: 数字; }
+>c : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >"world" : "world"
->e : number
+>e : 数字
 >类型别名 :=> 数字
 >3 : 3
 
 var array = ["string", 1, true];
->array : (string | number | boolean)[]
->["string", 1, true] : (string | number | boolean)[]
+>array : (文字 | 数字 | 真假)[]
+>["string", 1, true] : (文字 | 数字 | 真假)[]
 >"string" : "string"
 >1 : 1
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 var tuple: [string, number, boolean] = ["string", 1, true];
->tuple : [string, number, boolean]
->["string", 1, true] : [string, number, true]
+>tuple : [文字, 数字, 真假]
+>["string", 1, true] : [文字, 数字, 为真]
 >"string" : "string"
 >1 : 1
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 baz(tuple);
->baz(tuple) : void
+>baz(tuple) : 无值
 >类型别名 :=> 无值
->baz : (x: [string, number, boolean]) => void
->tuple : [string, number, boolean]
+>baz : (x: [文字, 数字, 真假]) => 无值
+>tuple : [文字, 数字, 真假]
 
 baz(["string", 1, true]);
->baz(["string", 1, true]) : void
+>baz(["string", 1, true]) : 无值
 >类型别名 :=> 无值
->baz : (x: [string, number, boolean]) => void
->["string", 1, true] : [string, number, true]
+>baz : (x: [文字, 数字, 真假]) => 无值
+>["string", 1, true] : [文字, 数字, 为真]
 >"string" : "string"
 >1 : 1
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 baz(array);                          // Error
->baz(array) : void
+>baz(array) : 无值
 >类型别名 :=> 无值
->baz : (x: [string, number, boolean]) => void
->array : (string | number | boolean)[]
+>baz : (x: [文字, 数字, 真假]) => 无值
+>array : (文字 | 数字 | 真假)[]
 
 baz(["string", 1, true, ...array]);  // Error
->baz(["string", 1, true, ...array]) : void
+>baz(["string", 1, true, ...array]) : 无值
 >类型别名 :=> 无值
->baz : (x: [string, number, boolean]) => void
->["string", 1, true, ...array] : (string | number | boolean)[]
+>baz : (x: [文字, 数字, 真假]) => 无值
+>["string", 1, true, ...array] : (文字 | 数字 | 真假)[]
 >"string" : "string"
 >1 : 1
->true : true
+>true : 为真
 >类型别名 :=> 为真
->...array : string | number | boolean
->array : (string | number | boolean)[]
+>...array : 文字 | 数字 | 真假
+>array : (文字 | 数字 | 真假)[]
 
 foo(o);                              // Error because x has an array type namely (string|number)[]
->foo(o) : void
+>foo(o) : 无值
 >类型别名 :=> 无值
->foo : ({ x: [a, b], y: { c, d, e } }: { x: [any, any]; y: { c: any; d: any; e: any; }; }) => void
->o : { x: (string | number)[]; y: { c: boolean; d: string; e: number; }; }
+>foo : ({ x: [a, b], y: { c, d, e } }: { x: [任意, 任意]; y: { c: 任意; d: 任意; e: 任意; }; }) => 无值
+>o : { x: (文字 | 数字)[]; y: { c: 真假; d: 文字; e: 数字; }; }
 

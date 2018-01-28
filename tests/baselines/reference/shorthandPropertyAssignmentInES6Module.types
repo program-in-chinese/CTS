@@ -1,42 +1,42 @@
 === tests/cases/compiler/existingModule.ts ===
 export var x = 1;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 === tests/cases/compiler/test.ts ===
 import {x} from './existingModule';
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 import {foo} from './missingModule';
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
 declare function use(a: any): void;
->use : (a: any) => void
->a : any
+>use : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
 
 const test = { x, foo };
->test : { x: number; foo: any; }
->{ x, foo } : { x: number; foo: any; }
->x : number
+>test : { x: 数字; foo: 任意; }
+>{ x, foo } : { x: 数字; foo: 任意; }
+>x : 数字
 >类型别名 :=> 数字
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
 use(x);
->use(x) : void
+>use(x) : 无值
 >类型别名 :=> 无值
->use : (a: any) => void
->x : number
+>use : (a: 任意) => 无值
+>x : 数字
 >类型别名 :=> 数字
 
 use(foo);
->use(foo) : void
+>use(foo) : 无值
 >类型别名 :=> 无值
->use : (a: any) => void
->foo : any
+>use : (a: 任意) => 无值
+>foo : 任意
 >类型别名 :=> 任意
 

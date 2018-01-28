@@ -1,41 +1,41 @@
 === tests/cases/conformance/classes/members/classTypes/staticPropertyNotInClassType.ts ===
 module NonGeneric {
->NonGeneric : typeof NonGeneric
+>NonGeneric : 类为 NonGeneric
 
     class C {
 >C : C
 
         fn() { return this; }
->fn : () => this
->this : this
+>fn : () => 本体
+>this : 本体
 
         static get x() { return 1; }
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 
         static set x(v) { }
->x : number
+>x : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
 
         constructor(public a: number, private b: number) { }
->a : number
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
         static foo: string; // not reflected in class type
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
     }
 
     module C {
->C : typeof C
+>C : 类为 C
 
         export var bar = ''; // not reflected in class type
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 >'' : ""
     }
@@ -43,7 +43,7 @@ module NonGeneric {
     var c = new C(1, 2);
 >c : C
 >new C(1, 2) : C
->C : typeof C
+>C : 类为 C
 >1 : 1
 >2 : 2
 
@@ -55,35 +55,35 @@ module NonGeneric {
 >fn : () => C
 
     var r4 = c.foo; // error
->r4 : any
+>r4 : 任意
 >类型别名 :=> 任意
->c.foo : any
+>c.foo : 任意
 >类型别名 :=> 任意
 >c : C
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
     var r5 = c.bar; // error
->r5 : any
+>r5 : 任意
 >类型别名 :=> 任意
->c.bar : any
+>c.bar : 任意
 >类型别名 :=> 任意
 >c : C
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 
     var r6 = c.x; // error
->r6 : any
+>r6 : 任意
 >类型别名 :=> 任意
->c.x : any
+>c.x : 任意
 >类型别名 :=> 任意
 >c : C
->x : any
+>x : 任意
 >类型别名 :=> 任意
 }
 
 module Generic {
->Generic : typeof Generic
+>Generic : 类为 Generic
 
     class C<T, U> {
 >C : C<T, U>
@@ -91,18 +91,18 @@ module Generic {
 >U : U
 
         fn() { return this; }
->fn : () => this
->this : this
+>fn : () => 本体
+>this : 本体
 
         static get x() { return 1; }
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 
         static set x(v) { }
->x : number
+>x : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
 
         constructor(public a: T, private b: U) { }
@@ -112,58 +112,58 @@ module Generic {
 >U : U
 
         static foo: T; // not reflected in class type
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 >T : No type information available!
     }
 
     module C {
->C : typeof C
+>C : 类为 C
 
         export var bar = ''; // not reflected in class type
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 >'' : ""
     }
 
     var c = new C(1, '');
->c : C<number, string>
->new C(1, '') : C<number, string>
->C : typeof C
+>c : C<数字, 文字>
+>new C(1, '') : C<数字, 文字>
+>C : 类为 C
 >1 : 1
 >'' : ""
 
     var r = c.fn();
->r : C<number, string>
->c.fn() : C<number, string>
->c.fn : () => C<number, string>
->c : C<number, string>
->fn : () => C<number, string>
+>r : C<数字, 文字>
+>c.fn() : C<数字, 文字>
+>c.fn : () => C<数字, 文字>
+>c : C<数字, 文字>
+>fn : () => C<数字, 文字>
 
     var r4 = c.foo; // error
->r4 : any
+>r4 : 任意
 >类型别名 :=> 任意
->c.foo : any
+>c.foo : 任意
 >类型别名 :=> 任意
->c : C<number, string>
->foo : any
+>c : C<数字, 文字>
+>foo : 任意
 >类型别名 :=> 任意
 
     var r5 = c.bar; // error
->r5 : any
+>r5 : 任意
 >类型别名 :=> 任意
->c.bar : any
+>c.bar : 任意
 >类型别名 :=> 任意
->c : C<number, string>
->bar : any
+>c : C<数字, 文字>
+>bar : 任意
 >类型别名 :=> 任意
 
     var r6 = c.x; // error
->r6 : any
+>r6 : 任意
 >类型别名 :=> 任意
->c.x : any
+>c.x : 任意
 >类型别名 :=> 任意
->c : C<number, string>
->x : any
+>c : C<数字, 文字>
+>x : 任意
 >类型别名 :=> 任意
 }

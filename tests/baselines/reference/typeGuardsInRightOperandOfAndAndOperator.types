@@ -2,253 +2,253 @@
 // In the right operand of a && operation, 
 // the type of a variable or parameter is narrowed by any type guard in the left operand when true.
 function foo(x: number | string) {
->foo : (x: string | number) => boolean
->x : string | number
+>foo : (x: 文字 | 数字) => 真假
+>x : 文字 | 数字
 
     return typeof x === "string" && x.length === 10; // string
->typeof x === "string" && x.length === 10 : boolean
+>typeof x === "string" && x.length === 10 : 真假
 >类型别名 :=> 真假
->typeof x === "string" : boolean
+>typeof x === "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number
+>x : 文字 | 数字
 >"string" : "string"
->x.length === 10 : boolean
+>x.length === 10 : 真假
 >类型别名 :=> 真假
->x.length : number
+>x.length : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
 >10 : 10
 }
 function foo2(x: number | string) {
->foo2 : (x: string | number) => number
->x : string | number
+>foo2 : (x: 文字 | 数字) => 数字
+>x : 文字 | 数字
 
     // modify x in right hand operand
     return typeof x === "string" && ((x = 10) && x); // string | number
->typeof x === "string" && ((x = 10) && x) : number
+>typeof x === "string" && ((x = 10) && x) : 数字
 >类型别名 :=> 数字
->typeof x === "string" : boolean
+>typeof x === "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number
+>x : 文字 | 数字
 >"string" : "string"
->((x = 10) && x) : number
+>((x = 10) && x) : 数字
 >类型别名 :=> 数字
->(x = 10) && x : number
+>(x = 10) && x : 数字
 >类型别名 :=> 数字
 >(x = 10) : 10
 >x = 10 : 10
->x : string | number
+>x : 文字 | 数字
 >10 : 10
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 function foo3(x: number | string) {
->foo3 : (x: string | number) => string
->x : string | number
+>foo3 : (x: 文字 | 数字) => 文字
+>x : 文字 | 数字
 
     // modify x in right hand operand with string type itself
     return typeof x === "string" && ((x = "hello") && x); // string | number
->typeof x === "string" && ((x = "hello") && x) : string
+>typeof x === "string" && ((x = "hello") && x) : 文字
 >类型别名 :=> 文字
->typeof x === "string" : boolean
+>typeof x === "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number
+>x : 文字 | 数字
 >"string" : "string"
->((x = "hello") && x) : string
+>((x = "hello") && x) : 文字
 >类型别名 :=> 文字
->(x = "hello") && x : string
+>(x = "hello") && x : 文字
 >类型别名 :=> 文字
 >(x = "hello") : "hello"
 >x = "hello" : "hello"
->x : string | number
+>x : 文字 | 数字
 >"hello" : "hello"
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 function foo4(x: number | string | boolean) {
->foo4 : (x: string | number | boolean) => boolean
->x : string | number | boolean
+>foo4 : (x: 文字 | 数字 | 真假) => 真假
+>x : 文字 | 数字 | 真假
 
     return typeof x !== "string" // string | number | boolean
->typeof x !== "string" // string | number | boolean        && typeof x !== "number"  // number | boolean        && x : boolean
+>typeof x !== "string" // string | number | boolean        && typeof x !== "number"  // number | boolean        && x : 真假
 >类型别名 :=> 真假
->typeof x !== "string" // string | number | boolean        && typeof x !== "number" : boolean
+>typeof x !== "string" // string | number | boolean        && typeof x !== "number" : 真假
 >类型别名 :=> 真假
->typeof x !== "string" : boolean
+>typeof x !== "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number | boolean
+>x : 文字 | 数字 | 真假
 >"string" : "string"
 
         && typeof x !== "number"  // number | boolean
->typeof x !== "number" : boolean
+>typeof x !== "number" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : number | boolean
+>x : 数字 | 真假
 >"number" : "number"
 
         && x;   // boolean
->x : boolean
+>x : 真假
 >类型别名 :=> 真假
 }
 function foo5(x: number | string | boolean) {
->foo5 : (x: string | number | boolean) => boolean
->x : string | number | boolean
+>foo5 : (x: 文字 | 数字 | 真假) => 真假
+>x : 文字 | 数字 | 真假
 
     // usage of x or assignment to separate variable shouldn't cause narrowing of type to stop
     var b: number | boolean;
->b : number | boolean
+>b : 数字 | 真假
 
     return typeof x !== "string" // string | number | boolean
->typeof x !== "string" // string | number | boolean        && ((b = x) && (typeof x !== "number"  // number | boolean        && x)) : boolean
+>typeof x !== "string" // string | number | boolean        && ((b = x) && (typeof x !== "number"  // number | boolean        && x)) : 真假
 >类型别名 :=> 真假
->typeof x !== "string" : boolean
+>typeof x !== "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number | boolean
+>x : 文字 | 数字 | 真假
 >"string" : "string"
 
         && ((b = x) && (typeof x !== "number"  // number | boolean
->((b = x) && (typeof x !== "number"  // number | boolean        && x)) : boolean
+>((b = x) && (typeof x !== "number"  // number | boolean        && x)) : 真假
 >类型别名 :=> 真假
->(b = x) && (typeof x !== "number"  // number | boolean        && x) : boolean
+>(b = x) && (typeof x !== "number"  // number | boolean        && x) : 真假
 >类型别名 :=> 真假
->(b = x) : number | boolean
->b = x : number | boolean
->b : number | boolean
->x : number | boolean
->(typeof x !== "number"  // number | boolean        && x) : boolean
+>(b = x) : 数字 | 真假
+>b = x : 数字 | 真假
+>b : 数字 | 真假
+>x : 数字 | 真假
+>(typeof x !== "number"  // number | boolean        && x) : 真假
 >类型别名 :=> 真假
->typeof x !== "number"  // number | boolean        && x : boolean
+>typeof x !== "number"  // number | boolean        && x : 真假
 >类型别名 :=> 真假
->typeof x !== "number" : boolean
+>typeof x !== "number" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : number | boolean
+>x : 数字 | 真假
 >"number" : "number"
 
         && x));   // boolean
->x : boolean
+>x : 真假
 >类型别名 :=> 真假
 }
 function foo6(x: number | string | boolean) {
->foo6 : (x: string | number | boolean) => boolean
->x : string | number | boolean
+>foo6 : (x: 文字 | 数字 | 真假) => 真假
+>x : 文字 | 数字 | 真假
 
     // Mixing typeguard narrowing in if statement with conditional expression typeguard
     return typeof x !== "string" // string | number | boolean
->typeof x !== "string" // string | number | boolean        && (typeof x !== "number" // number | boolean        ? x // boolean        : x === 10) : boolean
+>typeof x !== "string" // string | number | boolean        && (typeof x !== "number" // number | boolean        ? x // boolean        : x === 10) : 真假
 >类型别名 :=> 真假
->typeof x !== "string" : boolean
+>typeof x !== "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number | boolean
+>x : 文字 | 数字 | 真假
 >"string" : "string"
 
         && (typeof x !== "number" // number | boolean
->(typeof x !== "number" // number | boolean        ? x // boolean        : x === 10) : boolean
+>(typeof x !== "number" // number | boolean        ? x // boolean        : x === 10) : 真假
 >类型别名 :=> 真假
->typeof x !== "number" // number | boolean        ? x // boolean        : x === 10 : boolean
+>typeof x !== "number" // number | boolean        ? x // boolean        : x === 10 : 真假
 >类型别名 :=> 真假
->typeof x !== "number" : boolean
+>typeof x !== "number" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : number | boolean
+>x : 数字 | 真假
 >"number" : "number"
 
         ? x // boolean
->x : boolean
+>x : 真假
 >类型别名 :=> 真假
 
         : x === 10) // number 
->x === 10 : boolean
+>x === 10 : 真假
 >类型别名 :=> 真假
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >10 : 10
 }
 function foo7(x: number | string | boolean) {
->foo7 : (x: string | number | boolean) => string
->x : string | number | boolean
+>foo7 : (x: 文字 | 数字 | 真假) => 文字
+>x : 文字 | 数字 | 真假
 
     var y: number| boolean | string;
->y : string | number | boolean
+>y : 文字 | 数字 | 真假
 
     var z: number| boolean | string;
->z : string | number | boolean
+>z : 文字 | 数字 | 真假
 
     // Mixing typeguard narrowing
     return typeof x !== "string"
->typeof x !== "string"        && ((z = x) // number | boolean        && (typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString()))) : string
+>typeof x !== "string"        && ((z = x) // number | boolean        && (typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString()))) : 文字
 >类型别名 :=> 文字
->typeof x !== "string" : boolean
+>typeof x !== "string" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : string | number | boolean
+>x : 文字 | 数字 | 真假
 >"string" : "string"
 
         && ((z = x) // number | boolean
->((z = x) // number | boolean        && (typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString()))) : string
+>((z = x) // number | boolean        && (typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString()))) : 文字
 >类型别名 :=> 文字
->(z = x) // number | boolean        && (typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString())) : string
+>(z = x) // number | boolean        && (typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString())) : 文字
 >类型别名 :=> 文字
->(z = x) : number | boolean
->z = x : number | boolean
->z : string | number | boolean
->x : number | boolean
+>(z = x) : 数字 | 真假
+>z = x : 数字 | 真假
+>z : 文字 | 数字 | 真假
+>x : 数字 | 真假
 
         && (typeof x === "number"
->(typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString())) : string
+>(typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString())) : 文字
 >类型别名 :=> 文字
->typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString()) : string
+>typeof x === "number"        // change value of x        ? ((x = 10) && x.toString()) // x is number        // do not change value        : ((y = x) && x.toString()) : 文字
 >类型别名 :=> 文字
->typeof x === "number" : boolean
+>typeof x === "number" : 真假
 >类型别名 :=> 真假
 >typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : number | boolean
+>x : 数字 | 真假
 >"number" : "number"
 
         // change value of x
         ? ((x = 10) && x.toString()) // x is number
->((x = 10) && x.toString()) : string
+>((x = 10) && x.toString()) : 文字
 >类型别名 :=> 文字
->(x = 10) && x.toString() : string
+>(x = 10) && x.toString() : 文字
 >类型别名 :=> 文字
 >(x = 10) : 10
 >x = 10 : 10
->x : string | number | boolean
+>x : 文字 | 数字 | 真假
 >10 : 10
->x.toString() : string
+>x.toString() : 文字
 >类型别名 :=> 文字
->x.toString : (radix?: number) => string
->x : number
+>x.toString : (radix?: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
->toString : (radix?: number) => string
+>toString : (radix?: 数字) => 文字
 
         // do not change value
         : ((y = x) && x.toString()))); // x is boolean
->((y = x) && x.toString()) : string
+>((y = x) && x.toString()) : 文字
 >类型别名 :=> 文字
->(y = x) && x.toString() : string
+>(y = x) && x.toString() : 文字
 >类型别名 :=> 文字
->(y = x) : boolean
+>(y = x) : 真假
 >类型别名 :=> 真假
->y = x : boolean
+>y = x : 真假
 >类型别名 :=> 真假
->y : string | number | boolean
->x : boolean
+>y : 文字 | 数字 | 真假
+>x : 真假
 >类型别名 :=> 真假
->x.toString() : string
+>x.toString() : 文字
 >类型别名 :=> 文字
->x.toString : () => string
->x : boolean
+>x.toString : () => 文字
+>x : 真假
 >类型别名 :=> 真假
->toString : () => string
+>toString : () => 文字
 }
 

@@ -1,110 +1,110 @@
 === tests/cases/conformance/expressions/assignmentOperator/assignmentTypeNarrowing.ts ===
 let x: string | number | boolean | RegExp;
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >RegExp : RegExp
 
 x = "";
 >x = "" : ""
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >"" : ""
 
 x; // string
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 [x] = [true];
->[x] = [true] : [true]
->[x] : [string | number | boolean | RegExp]
->x : string | number | boolean | RegExp
->[true] : [true]
->true : true
+>[x] = [true] : [为真]
+>[x] : [文字 | 数字 | 真假 | RegExp]
+>x : 文字 | 数字 | 真假 | RegExp
+>[true] : [为真]
+>true : 为真
 >类型别名 :=> 为真
 
 x; // boolean
->x : true
+>x : 为真
 >类型别名 :=> 为真
 
 [x = ""] = [1];
->[x = ""] = [1] : [number]
->[x = ""] : [string]
+>[x = ""] = [1] : [数字]
+>[x = ""] : [文字]
 >x = "" : ""
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >"" : ""
->[1] : [number]
+>[1] : [数字]
 >1 : 1
 
 x; // string | number
->x : string | number
+>x : 文字 | 数字
 
 ({x} = {x: true});
->({x} = {x: true}) : { x: true; }
->{x} = {x: true} : { x: true; }
->{x} : { x: string | number | boolean | RegExp; }
->x : string | number | boolean | RegExp
->{x: true} : { x: true; }
->x : boolean
+>({x} = {x: true}) : { x: 为真; }
+>{x} = {x: true} : { x: 为真; }
+>{x} : { x: 文字 | 数字 | 真假 | RegExp; }
+>x : 文字 | 数字 | 真假 | RegExp
+>{x: true} : { x: 为真; }
+>x : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 x; // boolean
->x : true
+>x : 为真
 >类型别名 :=> 为真
 
 ({y: x} = {y: 1});
 >({y: x} = {y: 1}) : { y: 1; }
 >{y: x} = {y: 1} : { y: 1; }
->{y: x} : { y: string | number | boolean | RegExp; }
->y : string | number | boolean | RegExp
->x : string | number | boolean | RegExp
+>{y: x} : { y: 文字 | 数字 | 真假 | RegExp; }
+>y : 文字 | 数字 | 真假 | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >{y: 1} : { y: 1; }
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 x; // number
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 ({x = ""} = {x: true});
->({x = ""} = {x: true}) : { x?: true; }
->{x = ""} = {x: true} : { x?: true; }
->{x = ""} : { x?: string | number | boolean | RegExp; }
->x : string | number | boolean | RegExp
->{x: true} : { x?: true; }
->x : boolean
+>({x = ""} = {x: true}) : { x?: 为真; }
+>{x = ""} = {x: true} : { x?: 为真; }
+>{x = ""} : { x?: 文字 | 数字 | 真假 | RegExp; }
+>x : 文字 | 数字 | 真假 | RegExp
+>{x: true} : { x?: 为真; }
+>x : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 x; // string | boolean
->x : string | true
+>x : 文字 | 为真
 
 ({y: x = /a/} = {y: 1});
->({y: x = /a/} = {y: 1}) : { y?: number; }
->{y: x = /a/} = {y: 1} : { y?: number; }
+>({y: x = /a/} = {y: 1}) : { y?: 数字; }
+>{y: x = /a/} = {y: 1} : { y?: 数字; }
 >{y: x = /a/} : { y?: RegExp; }
 >y : RegExp
 >x = /a/ : RegExp
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >/a/ : RegExp
->{y: 1} : { y?: number; }
->y : number
+>{y: 1} : { y?: 数字; }
+>y : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 x; // number | RegExp
->x : number | RegExp
+>x : 数字 | RegExp
 
 let a: string[];
->a : string[]
+>a : 文字[]
 
 for (x of a) {
->x : string | number | boolean | RegExp
->a : string[]
+>x : 文字 | 数字 | 真假 | RegExp
+>a : 文字[]
 
     x; // string
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 

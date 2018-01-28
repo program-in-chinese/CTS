@@ -4,11 +4,11 @@ interface ifc { }
 
 // Attempting to 'new' an interface yields poor error
 var i = new ifc();
->i : any
+>i : 任意
 >类型别名 :=> 任意
->new ifc() : any
+>new ifc() : 任意
 >类型别名 :=> 任意
->ifc : any
+>ifc : 任意
 >类型别名 :=> 任意
 
 // Parens are optional
@@ -24,58 +24,58 @@ var y = new Date();
 
 // Target is not a class or var, good error
 var t1 = new 53();
->t1 : any
+>t1 : 任意
 >类型别名 :=> 任意
->new 53() : any
+>new 53() : 任意
 >类型别名 :=> 任意
 >53 : 53
 
 var t2 = new ''();
->t2 : any
+>t2 : 任意
 >类型别名 :=> 任意
->new ''() : any
+>new ''() : 任意
 >类型别名 :=> 任意
 >'' : ""
 
 new string;
->new string : any
+>new string : 任意
 >类型别名 :=> 任意
->string : any
+>string : 任意
 >类型别名 :=> 任意
 
 // Use in LHS of expression?
 (new Date()).toString();
->(new Date()).toString() : string
+>(new Date()).toString() : 文字
 >类型别名 :=> 文字
->(new Date()).toString : () => string
+>(new Date()).toString : () => 文字
 >(new Date()) : Date
 >new Date() : Date
 >Date : DateConstructor
->toString : () => string
+>toString : () => 文字
 
 // Various spacing
 var t3 = new string[]( );
->t3 : any
+>t3 : 任意
 >类型别名 :=> 任意
->new string[]( ) : any
+>new string[]( ) : 任意
 >类型别名 :=> 任意
->string[] : any
+>string[] : 任意
 >类型别名 :=> 任意
->string : any
+>string : 任意
 >类型别名 :=> 任意
 
 var t4 =
->t4 : any
+>t4 : 任意
 >类型别名 :=> 任意
 
 new
->newstring[    ]    (        ) : any
+>newstring[    ]    (        ) : 任意
 >类型别名 :=> 任意
 
 string
->string[    ] : any
+>string[    ] : 任意
 >类型别名 :=> 任意
->string : any
+>string : 任意
 >类型别名 :=> 任意
 
 [
@@ -85,18 +85,18 @@ string
 
 // Unresolved symbol
 var f = new q();
->f : any
+>f : 任意
 >类型别名 :=> 任意
->new q() : any
+>new q() : 任意
 >类型别名 :=> 任意
->q : any
+>q : 任意
 >类型别名 :=> 任意
 
 // not legal
 var t5 = new new Date;
->t5 : any
+>t5 : 任意
 >类型别名 :=> 任意
->new new Date : any
+>new new Date : 任意
 >类型别名 :=> 任意
 >new Date : Date
 >Date : DateConstructor
@@ -108,13 +108,13 @@ new String;
 
 
 module M {
->M : typeof M
+>M : 类为 M
 
     export class T {
 >T : T
 
         x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
     }
 }
@@ -124,18 +124,18 @@ class S {
 
     public get xs(): M.T[] {
 >xs : M.T[]
->M : any
+>M : 任意
 >类型别名 :=> 任意
 >T : M.T
 
         return new M.T[];
->new M.T[] : any
+>new M.T[] : 任意
 >类型别名 :=> 任意
->M.T[] : any
+>M.T[] : 任意
 >类型别名 :=> 任意
->M.T : typeof M.T
->M : typeof M
->T : typeof M.T
+>M.T : 类为 M.T
+>M : 类为 M
+>T : 类为 M.T
     }
 }
 

@@ -1,24 +1,24 @@
 === tests/cases/compiler/duplicateLocalVariable1.ts ===
 / /@module: commonjs
 >/ / : RegExp
->module : any
+>module : 任意
 >类型别名 :=> 任意
->commonjs : any
+>commonjs : 任意
 >类型别名 :=> 任意
 
 //import FileManager = require('filemanager');
 //import App = require('app');
 
 declare var FileManager: any;
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
 
 declare var App: any;
->App : any
+>App : 任意
 >类型别名 :=> 任意
 
 var TestFileDir = ".\\TempTestFiles";
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >".\\TempTestFiles" : ".\\TempTestFiles"
 
@@ -26,10 +26,10 @@ export class TestCase {
 >TestCase : TestCase
 
     constructor (public name: string, public test: ()=>boolean, public errorMessageRegEx?: string) {
->name : string
+>name : 文字
 >类型别名 :=> 文字
->test : () => boolean
->errorMessageRegEx : string
+>test : () => 真假
+>errorMessageRegEx : 文字
 >类型别名 :=> 文字
     }
 }
@@ -39,72 +39,72 @@ export class TestRunner {
     private tests: TestCase[] = [];
 >tests : TestCase[]
 >TestCase : TestCase
->[] : undefined[]
+>[] : 未定[]
 
     static arrayCompare(arg1: any[], arg2: any[]): boolean {
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->arg1 : any[]
->arg2 : any[]
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>arg1 : 任意[]
+>arg2 : 任意[]
 
         return (arg1.every(function (val, index) { return val === arg2[index] }));
->(arg1.every(function (val, index) { return val === arg2[index] })) : boolean
+>(arg1.every(function (val, index) { return val === arg2[index] })) : 真假
 >类型别名 :=> 真假
->arg1.every(function (val, index) { return val === arg2[index] }) : boolean
+>arg1.every(function (val, index) { return val === arg2[index] }) : 真假
 >类型别名 :=> 真假
->arg1.every : (callbackfn: (value: any, index: number, array: any[]) => boolean, thisArg?: any) => boolean
->arg1 : any[]
->every : (callbackfn: (value: any, index: number, array: any[]) => boolean, thisArg?: any) => boolean
->function (val, index) { return val === arg2[index] } : (val: any, index: number) => boolean
->val : any
+>arg1.every : (callbackfn: (value: 任意, index: 数字, array: 任意[]) => 真假, thisArg?: 任意) => 真假
+>arg1 : 任意[]
+>every : (callbackfn: (value: 任意, index: 数字, array: 任意[]) => 真假, thisArg?: 任意) => 真假
+>function (val, index) { return val === arg2[index] } : (val: 任意, index: 数字) => 真假
+>val : 任意
 >类型别名 :=> 任意
->index : number
+>index : 数字
 >类型别名 :=> 数字
->val === arg2[index] : boolean
+>val === arg2[index] : 真假
 >类型别名 :=> 真假
->val : any
+>val : 任意
 >类型别名 :=> 任意
->arg2[index] : any
+>arg2[index] : 任意
 >类型别名 :=> 任意
->arg2 : any[]
->index : number
+>arg2 : 任意[]
+>index : 数字
 >类型别名 :=> 数字
     }
 
     public addTest(test: TestCase) {
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >test : TestCase
 >TestCase : TestCase
 
         this.tests.push(test);
->this.tests.push(test) : number
+>this.tests.push(test) : 数字
 >类型别名 :=> 数字
->this.tests.push : (...items: TestCase[]) => number
+>this.tests.push : (...items: TestCase[]) => 数字
 >this.tests : TestCase[]
->this : this
+>this : 本体
 >tests : TestCase[]
->push : (...items: TestCase[]) => number
+>push : (...items: TestCase[]) => 数字
 >test : TestCase
     }
     public run() {
->run : () => void
+>run : () => 无值
 
         var success = true;
->success : boolean
+>success : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         for (var test in this.tests) {
->test : string
+>test : 文字
 >类型别名 :=> 文字
 >this.tests : TestCase[]
->this : this
+>this : 本体
 >tests : TestCase[]
 
             var exception = false;
->exception : boolean
+>exception : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
             var testcase = <TestCase>this.tests[test]
@@ -113,169 +113,169 @@ export class TestRunner {
 >TestCase : TestCase
 >this.tests[test] : TestCase
 >this.tests : TestCase[]
->this : this
+>this : 本体
 >tests : TestCase[]
->test : string
+>test : 文字
 >类型别名 :=> 文字
 
             var testResult: boolean = false;
->testResult : boolean
+>testResult : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
             try {
                 testResult = testcase.test();
->testResult = testcase.test() : boolean
+>testResult = testcase.test() : 真假
 >类型别名 :=> 真假
->testResult : boolean
+>testResult : 真假
 >类型别名 :=> 真假
->testcase.test() : boolean
+>testcase.test() : 真假
 >类型别名 :=> 真假
->testcase.test : () => boolean
+>testcase.test : () => 真假
 >testcase : TestCase
->test : () => boolean
+>test : () => 真假
             }
             catch (e) {
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
                 exception = true;
->exception = true : true
+>exception = true : 为真
 >类型别名 :=> 为真
->exception : boolean
+>exception : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
                 testResult = false;
->testResult = false : false
+>testResult = false : 为假
 >类型别名 :=> 为假
->testResult : boolean
+>testResult : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
                 if (typeof testcase.errorMessageRegEx === "string") {
->typeof testcase.errorMessageRegEx === "string" : boolean
+>typeof testcase.errorMessageRegEx === "string" : 真假
 >类型别名 :=> 真假
 >typeof testcase.errorMessageRegEx : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->testcase.errorMessageRegEx : string
+>testcase.errorMessageRegEx : 文字
 >类型别名 :=> 文字
 >testcase : TestCase
->errorMessageRegEx : string
+>errorMessageRegEx : 文字
 >类型别名 :=> 文字
 >"string" : "string"
 
                     if (testcase.errorMessageRegEx === "") { // Any error is fine
->testcase.errorMessageRegEx === "" : boolean
+>testcase.errorMessageRegEx === "" : 真假
 >类型别名 :=> 真假
->testcase.errorMessageRegEx : string
+>testcase.errorMessageRegEx : 文字
 >类型别名 :=> 文字
 >testcase : TestCase
->errorMessageRegEx : string
+>errorMessageRegEx : 文字
 >类型别名 :=> 文字
 >"" : ""
 
                         testResult = true;
->testResult = true : true
+>testResult = true : 为真
 >类型别名 :=> 为真
->testResult : boolean
+>testResult : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
                     } else if (e.message) {
->e.message : any
+>e.message : 任意
 >类型别名 :=> 任意
->e : any
+>e : 任意
 >类型别名 :=> 任意
->message : any
+>message : 任意
 >类型别名 :=> 任意
 
                         var regex = new RegExp(testcase.errorMessageRegEx);
 >regex : RegExp
 >new RegExp(testcase.errorMessageRegEx) : RegExp
 >RegExp : RegExpConstructor
->testcase.errorMessageRegEx : string
+>testcase.errorMessageRegEx : 文字
 >类型别名 :=> 文字
 >testcase : TestCase
->errorMessageRegEx : string
+>errorMessageRegEx : 文字
 >类型别名 :=> 文字
 
                         testResult = regex.test(e.message);
->testResult = regex.test(e.message) : boolean
+>testResult = regex.test(e.message) : 真假
 >类型别名 :=> 真假
->testResult : boolean
+>testResult : 真假
 >类型别名 :=> 真假
->regex.test(e.message) : boolean
+>regex.test(e.message) : 真假
 >类型别名 :=> 真假
->regex.test : (string: string) => boolean
+>regex.test : (string: 文字) => 真假
 >regex : RegExp
->test : (string: string) => boolean
->e.message : any
+>test : (string: 文字) => 真假
+>e.message : 任意
 >类型别名 :=> 任意
->e : any
+>e : 任意
 >类型别名 :=> 任意
->message : any
+>message : 任意
 >类型别名 :=> 任意
                     }
                 } 
                 if (testResult === false) {
->testResult === false : boolean
+>testResult === false : 真假
 >类型别名 :=> 真假
->testResult : boolean
+>testResult : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
                     //console.log(e.message);
                 }
             }
             if ((testcase.errorMessageRegEx !== undefined) && !exception) {
->(testcase.errorMessageRegEx !== undefined) && !exception : boolean
+>(testcase.errorMessageRegEx !== undefined) && !exception : 真假
 >类型别名 :=> 真假
->(testcase.errorMessageRegEx !== undefined) : boolean
+>(testcase.errorMessageRegEx !== undefined) : 真假
 >类型别名 :=> 真假
->testcase.errorMessageRegEx !== undefined : boolean
+>testcase.errorMessageRegEx !== undefined : 真假
 >类型别名 :=> 真假
->testcase.errorMessageRegEx : string
+>testcase.errorMessageRegEx : 文字
 >类型别名 :=> 文字
 >testcase : TestCase
->errorMessageRegEx : string
+>errorMessageRegEx : 文字
 >类型别名 :=> 文字
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
->!exception : boolean
+>!exception : 真假
 >类型别名 :=> 真假
->exception : boolean
+>exception : 真假
 >类型别名 :=> 真假
 
                 success = false;
->success = false : false
+>success = false : 为假
 >类型别名 :=> 为假
->success : boolean
+>success : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
             } else if (!testResult) {
->!testResult : boolean
+>!testResult : 真假
 >类型别名 :=> 真假
->testResult : boolean
+>testResult : 真假
 >类型别名 :=> 真假
 
                 success = false;
->success = false : false
+>success = false : 为假
 >类型别名 :=> 为假
->success : boolean
+>success : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
             }
         }
         if (success) {
->success : boolean
+>success : 真假
 >类型别名 :=> 真假
 
         } else {
@@ -293,170 +293,170 @@ export var tests: TestRunner = (function () {
     var testRunner = new TestRunner();
 >testRunner : TestRunner
 >new TestRunner() : TestRunner
->TestRunner : typeof TestRunner
+>TestRunner : 类为 TestRunner
 
     // First 3 are for simple harness validation
     testRunner.addTest(new TestCase("Basic test", function () { return true; }));
->testRunner.addTest(new TestCase("Basic test", function () { return true; })) : void
+>testRunner.addTest(new TestCase("Basic test", function () { return true; })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Basic test", function () { return true; }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Basic test" : "Basic test"
->function () { return true; } : () => true
->true : true
+>function () { return true; } : () => 为真
+>true : 为真
 >类型别名 :=> 为真
 
     testRunner.addTest(new TestCase("Test for any error", function () { throw new Error(); return false; }, ""));
->testRunner.addTest(new TestCase("Test for any error", function () { throw new Error(); return false; }, "")) : void
+>testRunner.addTest(new TestCase("Test for any error", function () { throw new Error(); return false; }, "")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test for any error", function () { throw new Error(); return false; }, "") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test for any error" : "Test for any error"
->function () { throw new Error(); return false; } : () => false
+>function () { throw new Error(); return false; } : () => 为假
 >new Error() : Error
 >Error : ErrorConstructor
->false : false
+>false : 为假
 >类型别名 :=> 为假
 >"" : ""
 
     testRunner.addTest(new TestCase("Test RegEx error message match", function () { throw new Error("Should also pass"); return false; }, "Should [also]+ pass"));
->testRunner.addTest(new TestCase("Test RegEx error message match", function () { throw new Error("Should also pass"); return false; }, "Should [also]+ pass")) : void
+>testRunner.addTest(new TestCase("Test RegEx error message match", function () { throw new Error("Should also pass"); return false; }, "Should [also]+ pass")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test RegEx error message match", function () { throw new Error("Should also pass"); return false; }, "Should [also]+ pass") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test RegEx error message match" : "Test RegEx error message match"
->function () { throw new Error("Should also pass"); return false; } : () => false
+>function () { throw new Error("Should also pass"); return false; } : () => 为假
 >new Error("Should also pass") : Error
 >Error : ErrorConstructor
 >"Should also pass" : "Should also pass"
->false : false
+>false : 为假
 >类型别名 :=> 为假
 >"Should [also]+ pass" : "Should [also]+ pass"
 
     testRunner.addTest(new TestCase("Test array compare true", function () { return TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]); }));
->testRunner.addTest(new TestCase("Test array compare true", function () { return TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]); })) : void
+>testRunner.addTest(new TestCase("Test array compare true", function () { return TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]); })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test array compare true", function () { return TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]); }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test array compare true" : "Test array compare true"
->function () { return TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]); } : () => boolean
->TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]) : boolean
+>function () { return TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]); } : () => 真假
+>TestRunner.arrayCompare([1, 2, 3], [1, 2, 3]) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare : (arg1: any[], arg2: any[]) => boolean
->TestRunner : typeof TestRunner
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->[1, 2, 3] : number[]
+>TestRunner.arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>TestRunner : 类为 TestRunner
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
->[1, 2, 3] : number[]
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
 
     testRunner.addTest(new TestCase("Test array compare false", function () { return !TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]); }));
->testRunner.addTest(new TestCase("Test array compare false", function () { return !TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]); })) : void
+>testRunner.addTest(new TestCase("Test array compare false", function () { return !TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]); })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test array compare false", function () { return !TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]); }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test array compare false" : "Test array compare false"
->function () { return !TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]); } : () => boolean
->!TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]) : boolean
+>function () { return !TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]); } : () => 真假
+>!TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]) : boolean
+>TestRunner.arrayCompare([3, 2, 3], [1, 2, 3]) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare : (arg1: any[], arg2: any[]) => boolean
->TestRunner : typeof TestRunner
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->[3, 2, 3] : number[]
+>TestRunner.arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>TestRunner : 类为 TestRunner
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>[3, 2, 3] : 数字[]
 >3 : 3
 >2 : 2
 >3 : 3
->[1, 2, 3] : number[]
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
 
     // File detection tests
     testRunner.addTest(new TestCase("Check file exists",
->testRunner.addTest(new TestCase("Check file exists",        function () {            return FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt");        })) : void
+>testRunner.addTest(new TestCase("Check file exists",        function () {            return FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt");        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check file exists",        function () {            return FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt");        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check file exists" : "Check file exists"
 
         function () {
->function () {            return FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt");        } : () => any
+>function () {            return FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt");        } : () => 任意
 
             return FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt");
->FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt") : any
+>FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test.txt") : 任意
 >类型别名 :=> 任意
->FileManager.DirectoryManager.fileExists : any
+>FileManager.DirectoryManager.fileExists : 任意
 >类型别名 :=> 任意
->FileManager.DirectoryManager : any
+>FileManager.DirectoryManager : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->DirectoryManager : any
+>DirectoryManager : 任意
 >类型别名 :=> 任意
->fileExists : any
+>fileExists : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\Test.txt" : string
+>TestFileDir + "\\Test.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\Test.txt" : "\\Test.txt"
 
         }));
     testRunner.addTest(new TestCase("Check file doesn't exist",
->testRunner.addTest(new TestCase("Check file doesn't exist",        function () {            return !FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt");        })) : void
+>testRunner.addTest(new TestCase("Check file doesn't exist",        function () {            return !FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt");        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check file doesn't exist",        function () {            return !FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt");        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check file doesn't exist" : "Check file doesn't exist"
 
         function () {
->function () {            return !FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt");        } : () => boolean
+>function () {            return !FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt");        } : () => 真假
 
             return !FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt");
->!FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt") : boolean
+>!FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt") : 真假
 >类型别名 :=> 真假
->FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt") : any
+>FileManager.DirectoryManager.fileExists(TestFileDir + "\\Test2.txt") : 任意
 >类型别名 :=> 任意
->FileManager.DirectoryManager.fileExists : any
+>FileManager.DirectoryManager.fileExists : 任意
 >类型别名 :=> 任意
->FileManager.DirectoryManager : any
+>FileManager.DirectoryManager : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->DirectoryManager : any
+>DirectoryManager : 任意
 >类型别名 :=> 任意
->fileExists : any
+>fileExists : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\Test2.txt" : string
+>TestFileDir + "\\Test2.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\Test2.txt" : "\\Test2.txt"
 
@@ -464,147 +464,147 @@ export var tests: TestRunner = (function () {
 
     // File pattern matching tests
     testRunner.addTest(new TestCase("Check text file match",
->testRunner.addTest(new TestCase("Check text file match",        function () {            return (FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js"))        })) : void
+>testRunner.addTest(new TestCase("Check text file match",        function () {            return (FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js"))        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check text file match",        function () {            return (FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js"))        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check text file match" : "Check text file match"
 
         function () {
->function () {            return (FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js"))        } : () => any
+>function () {            return (FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js"))        } : () => 任意
 
             return (FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&
->(FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js")) : any
+>(FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js")) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js") : any
+>FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&                FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") : any
+>FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") &&                FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") : any
+>FileManager.FileBuffer.isTextFile("C:\\somedir\\readme.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile : any
+>FileManager.FileBuffer.isTextFile : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->isTextFile : any
+>isTextFile : 任意
 >类型别名 :=> 任意
 >"C:\\somedir\\readme.txt" : "C:\\somedir\\readme.txt"
 
                 FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") &&
->FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") : any
+>FileManager.FileBuffer.isTextFile("C:\\spaces path\\myapp.str") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile : any
+>FileManager.FileBuffer.isTextFile : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->isTextFile : any
+>isTextFile : 任意
 >类型别名 :=> 任意
 >"C:\\spaces path\\myapp.str" : "C:\\spaces path\\myapp.str"
 
                 FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js"))
->FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js") : any
+>FileManager.FileBuffer.isTextFile("C:\\somedir\\code.js") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile : any
+>FileManager.FileBuffer.isTextFile : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->isTextFile : any
+>isTextFile : 任意
 >类型别名 :=> 任意
 >"C:\\somedir\\code.js" : "C:\\somedir\\code.js"
 
         }));
     testRunner.addTest(new TestCase("Check makefile match",
->testRunner.addTest(new TestCase("Check makefile match",        function () {            return FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile");        })) : void
+>testRunner.addTest(new TestCase("Check makefile match",        function () {            return FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile");        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check makefile match",        function () {            return FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile");        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check makefile match" : "Check makefile match"
 
         function () {
->function () {            return FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile");        } : () => any
+>function () {            return FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile");        } : () => 任意
 
             return FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile");
->FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile") : any
+>FileManager.FileBuffer.isTextFile("C:\\some dir\\makefile") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile : any
+>FileManager.FileBuffer.isTextFile : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->isTextFile : any
+>isTextFile : 任意
 >类型别名 :=> 任意
 >"C:\\some dir\\makefile" : "C:\\some dir\\makefile"
 
         }));
     testRunner.addTest(new TestCase("Check binary file doesn't match",
->testRunner.addTest(new TestCase("Check binary file doesn't match",        function () {            return (!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll"));        })) : void
+>testRunner.addTest(new TestCase("Check binary file doesn't match",        function () {            return (!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll"));        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check binary file doesn't match",        function () {            return (!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll"));        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check binary file doesn't match" : "Check binary file doesn't match"
 
         function () {
->function () {            return (!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll"));        } : () => boolean
+>function () {            return (!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll"));        } : () => 真假
 
             return (!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&
->(!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll")) : boolean
+>(!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll")) : 真假
 >类型别名 :=> 真假
->!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll") : boolean
+>!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") &&            !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll") : 真假
 >类型别名 :=> 真假
->!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") : boolean
+>!FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") : 真假
 >类型别名 :=> 真假
->FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") : any
+>FileManager.FileBuffer.isTextFile("C:\\somedir\\app.exe") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile : any
+>FileManager.FileBuffer.isTextFile : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->isTextFile : any
+>isTextFile : 任意
 >类型别名 :=> 任意
 >"C:\\somedir\\app.exe" : "C:\\somedir\\app.exe"
 
             !FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll"));
->!FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll") : boolean
+>!FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll") : 真假
 >类型别名 :=> 真假
->FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll") : any
+>FileManager.FileBuffer.isTextFile("C:\\somedir\\my lib.dll") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer.isTextFile : any
+>FileManager.FileBuffer.isTextFile : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->isTextFile : any
+>isTextFile : 任意
 >类型别名 :=> 任意
 >"C:\\somedir\\my lib.dll" : "C:\\somedir\\my lib.dll"
 
@@ -612,157 +612,157 @@ export var tests: TestRunner = (function () {
 
     // Command-line parameter tests
     testRunner.addTest(new TestCase("Check App defaults",
->testRunner.addTest(new TestCase("Check App defaults",        function () {            var app = new App.App([]);            return (app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom");        })) : void
+>testRunner.addTest(new TestCase("Check App defaults",        function () {            var app = new App.App([]);            return (app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom");        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check App defaults",        function () {            var app = new App.App([]);            return (app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom");        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check App defaults" : "Check App defaults"
 
         function () {
->function () {            var app = new App.App([]);            return (app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom");        } : () => boolean
+>function () {            var app = new App.App([]);            return (app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom");        } : () => 真假
 
             var app = new App.App([]);
->app : any
+>app : 任意
 >类型别名 :=> 任意
->new App.App([]) : any
+>new App.App([]) : 任意
 >类型别名 :=> 任意
->App.App : any
+>App.App : 任意
 >类型别名 :=> 任意
->App : any
+>App : 任意
 >类型别名 :=> 任意
->App : any
+>App : 任意
 >类型别名 :=> 任意
->[] : undefined[]
+>[] : 未定[]
 
             return (app.fixLines === false &&
->(app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom") : boolean
+>(app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom") : 真假
 >类型别名 :=> 真假
->app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom" : boolean
+>app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" &&                   app.encodings[1] === "utf8nobom" : 真假
 >类型别名 :=> 真假
->app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" : boolean
+>app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" &&                   app.encodings[0] === "ascii" : 真假
 >类型别名 :=> 真假
->app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" : boolean
+>app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined &&                   app.rootDirectory === ".\\" : 真假
 >类型别名 :=> 真假
->app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined : boolean
+>app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" &&                   app.matchPattern === undefined : 真假
 >类型别名 :=> 真假
->app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" : boolean
+>app.fixLines === false &&                   app.recurse === true &&                   app.lineEndings === "CRLF" : 真假
 >类型别名 :=> 真假
->app.fixLines === false &&                   app.recurse === true : boolean
+>app.fixLines === false &&                   app.recurse === true : 真假
 >类型别名 :=> 真假
->app.fixLines === false : boolean
+>app.fixLines === false : 真假
 >类型别名 :=> 真假
->app.fixLines : any
+>app.fixLines : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->fixLines : any
+>fixLines : 任意
 >类型别名 :=> 任意
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
                    app.recurse === true &&
->app.recurse === true : boolean
+>app.recurse === true : 真假
 >类型别名 :=> 真假
->app.recurse : any
+>app.recurse : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->recurse : any
+>recurse : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
                    app.lineEndings === "CRLF" &&
->app.lineEndings === "CRLF" : boolean
+>app.lineEndings === "CRLF" : 真假
 >类型别名 :=> 真假
->app.lineEndings : any
+>app.lineEndings : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->lineEndings : any
+>lineEndings : 任意
 >类型别名 :=> 任意
 >"CRLF" : "CRLF"
 
                    app.matchPattern === undefined &&
->app.matchPattern === undefined : boolean
+>app.matchPattern === undefined : 真假
 >类型别名 :=> 真假
->app.matchPattern : any
+>app.matchPattern : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->matchPattern : any
+>matchPattern : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
                    app.rootDirectory === ".\\" &&
->app.rootDirectory === ".\\" : boolean
+>app.rootDirectory === ".\\" : 真假
 >类型别名 :=> 真假
->app.rootDirectory : any
+>app.rootDirectory : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->rootDirectory : any
+>rootDirectory : 任意
 >类型别名 :=> 任意
 >".\\" : ".\\"
 
                    app.encodings[0] === "ascii" &&
->app.encodings[0] === "ascii" : boolean
+>app.encodings[0] === "ascii" : 真假
 >类型别名 :=> 真假
->app.encodings[0] : any
+>app.encodings[0] : 任意
 >类型别名 :=> 任意
->app.encodings : any
+>app.encodings : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->encodings : any
+>encodings : 任意
 >类型别名 :=> 任意
 >0 : 0
 >"ascii" : "ascii"
 
                    app.encodings[1] === "utf8nobom");
->app.encodings[1] === "utf8nobom" : boolean
+>app.encodings[1] === "utf8nobom" : 真假
 >类型别名 :=> 真假
->app.encodings[1] : any
+>app.encodings[1] : 任意
 >类型别名 :=> 任意
->app.encodings : any
+>app.encodings : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->encodings : any
+>encodings : 任意
 >类型别名 :=> 任意
 >1 : 1
 >"utf8nobom" : "utf8nobom"
 
         }));
     testRunner.addTest(new TestCase("Check App params",
->testRunner.addTest(new TestCase("Check App params",        function () {            var app = new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]);            return (app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2);        })) : void
+>testRunner.addTest(new TestCase("Check App params",        function () {            var app = new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]);            return (app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2);        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check App params",        function () {            var app = new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]);            return (app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2);        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check App params" : "Check App params"
 
         function () {
->function () {            var app = new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]);            return (app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2);        } : () => boolean
+>function () {            var app = new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]);            return (app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2);        } : () => 真假
 
             var app = new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]);
->app : any
+>app : 任意
 >类型别名 :=> 任意
->new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]) : any
+>new App.App(["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"]) : 任意
 >类型别名 :=> 任意
->App.App : any
+>App.App : 任意
 >类型别名 :=> 任意
->App : any
+>App : 任意
 >类型别名 :=> 任意
->App : any
+>App : 任意
 >类型别名 :=> 任意
->["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"] : string[]
+>["-dir=C:\\test dir", "-lineEndings=LF", "-encodings=utf16be,ascii", "-recurse=false", "-fixlines"] : 文字[]
 >"-dir=C:\\test dir" : "-dir=C:\\test dir"
 >"-lineEndings=LF" : "-lineEndings=LF"
 >"-encodings=utf16be,ascii" : "-encodings=utf16be,ascii"
@@ -770,119 +770,119 @@ export var tests: TestRunner = (function () {
 >"-fixlines" : "-fixlines"
 
             return (app.fixLines === true &&
->(app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2) : boolean
+>(app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2) : 真假
 >类型别名 :=> 真假
->app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2 : boolean
+>app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" &&                   app.encodings.length === 2 : 真假
 >类型别名 :=> 真假
->app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" : boolean
+>app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" &&                   app.encodings[1] === "ascii" : 真假
 >类型别名 :=> 真假
->app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" : boolean
+>app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" &&                   app.encodings[0] === "utf16be" : 真假
 >类型别名 :=> 真假
->app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" : boolean
+>app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined &&                   app.rootDirectory === "C:\\test dir" : 真假
 >类型别名 :=> 真假
->app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined : boolean
+>app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false &&                   app.matchPattern === undefined : 真假
 >类型别名 :=> 真假
->app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false : boolean
+>app.fixLines === true &&                   app.lineEndings === "LF" &&                   app.recurse === false : 真假
 >类型别名 :=> 真假
->app.fixLines === true &&                   app.lineEndings === "LF" : boolean
+>app.fixLines === true &&                   app.lineEndings === "LF" : 真假
 >类型别名 :=> 真假
->app.fixLines === true : boolean
+>app.fixLines === true : 真假
 >类型别名 :=> 真假
->app.fixLines : any
+>app.fixLines : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->fixLines : any
+>fixLines : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
                    app.lineEndings === "LF" &&
->app.lineEndings === "LF" : boolean
+>app.lineEndings === "LF" : 真假
 >类型别名 :=> 真假
->app.lineEndings : any
+>app.lineEndings : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->lineEndings : any
+>lineEndings : 任意
 >类型别名 :=> 任意
 >"LF" : "LF"
 
                    app.recurse === false &&
->app.recurse === false : boolean
+>app.recurse === false : 真假
 >类型别名 :=> 真假
->app.recurse : any
+>app.recurse : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->recurse : any
+>recurse : 任意
 >类型别名 :=> 任意
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
                    app.matchPattern === undefined &&
->app.matchPattern === undefined : boolean
+>app.matchPattern === undefined : 真假
 >类型别名 :=> 真假
->app.matchPattern : any
+>app.matchPattern : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->matchPattern : any
+>matchPattern : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
                    app.rootDirectory === "C:\\test dir" &&
->app.rootDirectory === "C:\\test dir" : boolean
+>app.rootDirectory === "C:\\test dir" : 真假
 >类型别名 :=> 真假
->app.rootDirectory : any
+>app.rootDirectory : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->rootDirectory : any
+>rootDirectory : 任意
 >类型别名 :=> 任意
 >"C:\\test dir" : "C:\\test dir"
 
                    app.encodings[0] === "utf16be" &&
->app.encodings[0] === "utf16be" : boolean
+>app.encodings[0] === "utf16be" : 真假
 >类型别名 :=> 真假
->app.encodings[0] : any
+>app.encodings[0] : 任意
 >类型别名 :=> 任意
->app.encodings : any
+>app.encodings : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->encodings : any
+>encodings : 任意
 >类型别名 :=> 任意
 >0 : 0
 >"utf16be" : "utf16be"
 
                    app.encodings[1] === "ascii" &&
->app.encodings[1] === "ascii" : boolean
+>app.encodings[1] === "ascii" : 真假
 >类型别名 :=> 真假
->app.encodings[1] : any
+>app.encodings[1] : 任意
 >类型别名 :=> 任意
->app.encodings : any
+>app.encodings : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->encodings : any
+>encodings : 任意
 >类型别名 :=> 任意
 >1 : 1
 >"ascii" : "ascii"
 
                    app.encodings.length === 2);
->app.encodings.length === 2 : boolean
+>app.encodings.length === 2 : 真假
 >类型别名 :=> 真假
->app.encodings.length : any
+>app.encodings.length : 任意
 >类型别名 :=> 任意
->app.encodings : any
+>app.encodings : 任意
 >类型别名 :=> 任意
->app : any
+>app : 任意
 >类型别名 :=> 任意
->encodings : any
+>encodings : 任意
 >类型别名 :=> 任意
->length : any
+>length : 任意
 >类型别名 :=> 任意
 >2 : 2
 
@@ -890,319 +890,319 @@ export var tests: TestRunner = (function () {
 
     // File BOM detection tests
     testRunner.addTest(new TestCase("Check encoding detection no BOM",
->testRunner.addTest(new TestCase("Check encoding detection no BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        })) : void
+>testRunner.addTest(new TestCase("Check encoding detection no BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check encoding detection no BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check encoding detection no BOM" : "Check encoding detection no BOM"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\noBOM.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\noBOM.txt" : string
+>TestFileDir + "\\noBOM.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\noBOM.txt" : "\\noBOM.txt"
 
             return fb.bom === 'none' && fb.encoding === 'utf8';
->fb.bom === 'none' && fb.encoding === 'utf8' : boolean
+>fb.bom === 'none' && fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.bom === 'none' : boolean
+>fb.bom === 'none' : 真假
 >类型别名 :=> 真假
->fb.bom : any
+>fb.bom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->bom : any
+>bom : 任意
 >类型别名 :=> 任意
 >'none' : "none"
->fb.encoding === 'utf8' : boolean
+>fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.encoding : any
+>fb.encoding : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf8' : "utf8"
 
         }));
     testRunner.addTest(new TestCase("Check encoding detection UTF8 BOM",
->testRunner.addTest(new TestCase("Check encoding detection UTF8 BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            return fb.bom === 'utf8' && fb.encoding === 'utf8';        })) : void
+>testRunner.addTest(new TestCase("Check encoding detection UTF8 BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            return fb.bom === 'utf8' && fb.encoding === 'utf8';        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check encoding detection UTF8 BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            return fb.bom === 'utf8' && fb.encoding === 'utf8';        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check encoding detection UTF8 BOM" : "Check encoding detection UTF8 BOM"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            return fb.bom === 'utf8' && fb.encoding === 'utf8';        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            return fb.bom === 'utf8' && fb.encoding === 'utf8';        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\UTF8BOM.txt" : string
+>TestFileDir + "\\UTF8BOM.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF8BOM.txt" : "\\UTF8BOM.txt"
 
             return fb.bom === 'utf8' && fb.encoding === 'utf8';
->fb.bom === 'utf8' && fb.encoding === 'utf8' : boolean
+>fb.bom === 'utf8' && fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.bom === 'utf8' : boolean
+>fb.bom === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.bom : any
+>fb.bom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->bom : any
+>bom : 任意
 >类型别名 :=> 任意
 >'utf8' : "utf8"
->fb.encoding === 'utf8' : boolean
+>fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.encoding : any
+>fb.encoding : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf8' : "utf8"
 
         }));
     testRunner.addTest(new TestCase("Check encoding detection UTF16be BOM",
->testRunner.addTest(new TestCase("Check encoding detection UTF16be BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt");            return fb.bom === 'utf16be' && fb.encoding === 'utf16be';        })) : void
+>testRunner.addTest(new TestCase("Check encoding detection UTF16be BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt");            return fb.bom === 'utf16be' && fb.encoding === 'utf16be';        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check encoding detection UTF16be BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt");            return fb.bom === 'utf16be' && fb.encoding === 'utf16be';        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check encoding detection UTF16be BOM" : "Check encoding detection UTF16be BOM"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt");            return fb.bom === 'utf16be' && fb.encoding === 'utf16be';        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt");            return fb.bom === 'utf16be' && fb.encoding === 'utf16be';        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\UTF16BE.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\UTF16BE.txt" : string
+>TestFileDir + "\\UTF16BE.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF16BE.txt" : "\\UTF16BE.txt"
 
             return fb.bom === 'utf16be' && fb.encoding === 'utf16be';
->fb.bom === 'utf16be' && fb.encoding === 'utf16be' : boolean
+>fb.bom === 'utf16be' && fb.encoding === 'utf16be' : 真假
 >类型别名 :=> 真假
->fb.bom === 'utf16be' : boolean
+>fb.bom === 'utf16be' : 真假
 >类型别名 :=> 真假
->fb.bom : any
+>fb.bom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->bom : any
+>bom : 任意
 >类型别名 :=> 任意
 >'utf16be' : "utf16be"
->fb.encoding === 'utf16be' : boolean
+>fb.encoding === 'utf16be' : 真假
 >类型别名 :=> 真假
->fb.encoding : any
+>fb.encoding : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf16be' : "utf16be"
 
         }));
     testRunner.addTest(new TestCase("Check encoding detection UTF16le BOM",
->testRunner.addTest(new TestCase("Check encoding detection UTF16le BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt");            return fb.bom === 'utf16le' && fb.encoding === 'utf16le';        })) : void
+>testRunner.addTest(new TestCase("Check encoding detection UTF16le BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt");            return fb.bom === 'utf16le' && fb.encoding === 'utf16le';        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check encoding detection UTF16le BOM",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt");            return fb.bom === 'utf16le' && fb.encoding === 'utf16le';        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check encoding detection UTF16le BOM" : "Check encoding detection UTF16le BOM"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt");            return fb.bom === 'utf16le' && fb.encoding === 'utf16le';        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt");            return fb.bom === 'utf16le' && fb.encoding === 'utf16le';        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\UTF16LE.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\UTF16LE.txt" : string
+>TestFileDir + "\\UTF16LE.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF16LE.txt" : "\\UTF16LE.txt"
 
             return fb.bom === 'utf16le' && fb.encoding === 'utf16le';
->fb.bom === 'utf16le' && fb.encoding === 'utf16le' : boolean
+>fb.bom === 'utf16le' && fb.encoding === 'utf16le' : 真假
 >类型别名 :=> 真假
->fb.bom === 'utf16le' : boolean
+>fb.bom === 'utf16le' : 真假
 >类型别名 :=> 真假
->fb.bom : any
+>fb.bom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->bom : any
+>bom : 任意
 >类型别名 :=> 任意
 >'utf16le' : "utf16le"
->fb.encoding === 'utf16le' : boolean
+>fb.encoding === 'utf16le' : 真假
 >类型别名 :=> 真假
->fb.encoding : any
+>fb.encoding : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf16le' : "utf16le"
 
         }));
     testRunner.addTest(new TestCase("Check encoding on 1 bytes file",
->testRunner.addTest(new TestCase("Check encoding on 1 bytes file",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        })) : void
+>testRunner.addTest(new TestCase("Check encoding on 1 bytes file",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check encoding on 1 bytes file",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check encoding on 1 bytes file" : "Check encoding on 1 bytes file"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\1bytefile.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\1bytefile.txt" : string
+>TestFileDir + "\\1bytefile.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\1bytefile.txt" : "\\1bytefile.txt"
 
             return fb.bom === 'none' && fb.encoding === 'utf8';
->fb.bom === 'none' && fb.encoding === 'utf8' : boolean
+>fb.bom === 'none' && fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.bom === 'none' : boolean
+>fb.bom === 'none' : 真假
 >类型别名 :=> 真假
->fb.bom : any
+>fb.bom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->bom : any
+>bom : 任意
 >类型别名 :=> 任意
 >'none' : "none"
->fb.encoding === 'utf8' : boolean
+>fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.encoding : any
+>fb.encoding : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf8' : "utf8"
 
         }));
     testRunner.addTest(new TestCase("Check encoding on 0 bytes file",
->testRunner.addTest(new TestCase("Check encoding on 0 bytes file",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        })) : void
+>testRunner.addTest(new TestCase("Check encoding on 0 bytes file",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check encoding on 0 bytes file",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check encoding on 0 bytes file" : "Check encoding on 0 bytes file"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt");            return fb.bom === 'none' && fb.encoding === 'utf8';        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\0bytefile.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\0bytefile.txt" : string
+>TestFileDir + "\\0bytefile.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\0bytefile.txt" : "\\0bytefile.txt"
 
             return fb.bom === 'none' && fb.encoding === 'utf8';
->fb.bom === 'none' && fb.encoding === 'utf8' : boolean
+>fb.bom === 'none' && fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.bom === 'none' : boolean
+>fb.bom === 'none' : 真假
 >类型别名 :=> 真假
->fb.bom : any
+>fb.bom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->bom : any
+>bom : 任意
 >类型别名 :=> 任意
 >'none' : "none"
->fb.encoding === 'utf8' : boolean
+>fb.encoding === 'utf8' : 真假
 >类型别名 :=> 真假
->fb.encoding : any
+>fb.encoding : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf8' : "utf8"
 
@@ -1210,76 +1210,76 @@ export var tests: TestRunner = (function () {
 
     // UTF8 encoding tests
     testRunner.addTest(new TestCase("Check byte reader",
->testRunner.addTest(new TestCase("Check byte reader",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 11; i++) {                chars.push(fb.readByte());            }            return TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]);        })) : void
+>testRunner.addTest(new TestCase("Check byte reader",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 11; i++) {                chars.push(fb.readByte());            }            return TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]);        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check byte reader",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 11; i++) {                chars.push(fb.readByte());            }            return TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]);        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check byte reader" : "Check byte reader"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 11; i++) {                chars.push(fb.readByte());            }            return TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]);        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 11; i++) {                chars.push(fb.readByte());            }            return TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]);        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\UTF8BOM.txt" : string
+>TestFileDir + "\\UTF8BOM.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF8BOM.txt" : "\\UTF8BOM.txt"
 
             var chars = [];
->chars : any[]
->[] : undefined[]
+>chars : 任意[]
+>[] : 未定[]
 
             for (var i = 0; i < 11; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < 11 : boolean
+>i < 11 : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >11 : 11
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
                 chars.push(fb.readByte());
->chars.push(fb.readByte()) : number
+>chars.push(fb.readByte()) : 数字
 >类型别名 :=> 数字
->chars.push : (...items: any[]) => number
->chars : any[]
->push : (...items: any[]) => number
->fb.readByte() : any
+>chars.push : (...items: 任意[]) => 数字
+>chars : 任意[]
+>push : (...items: 任意[]) => 数字
+>fb.readByte() : 任意
 >类型别名 :=> 任意
->fb.readByte : any
+>fb.readByte : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->readByte : any
+>readByte : 任意
 >类型别名 :=> 任意
             }
             return TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]);
->TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]) : boolean
+>TestRunner.arrayCompare(chars, [0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A]) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare : (arg1: any[], arg2: any[]) => boolean
->TestRunner : typeof TestRunner
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->chars : any[]
->[0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A] : number[]
+>TestRunner.arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>TestRunner : 类为 TestRunner
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>chars : 任意[]
+>[0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A] : 数字[]
 >0x54 : 84
 >0xC3 : 195
 >0xA8 : 168
@@ -1296,76 +1296,76 @@ export var tests: TestRunner = (function () {
 
 
     testRunner.addTest(new TestCase("Check UTF8 decoding",
->testRunner.addTest(new TestCase("Check UTF8 decoding",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 6; i++) {                chars.push(fb.readUtf8CodePoint());            }            return TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]);        })) : void
+>testRunner.addTest(new TestCase("Check UTF8 decoding",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 6; i++) {                chars.push(fb.readUtf8CodePoint());            }            return TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]);        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check UTF8 decoding",        function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 6; i++) {                chars.push(fb.readUtf8CodePoint());            }            return TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]);        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check UTF8 decoding" : "Check UTF8 decoding"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 6; i++) {                chars.push(fb.readUtf8CodePoint());            }            return TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]);        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");            var chars = [];            for (var i = 0; i < 6; i++) {                chars.push(fb.readUtf8CodePoint());            }            return TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]);        } : () => 真假
 
             var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\UTF8BOM.txt" : string
+>TestFileDir + "\\UTF8BOM.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF8BOM.txt" : "\\UTF8BOM.txt"
 
             var chars = [];
->chars : any[]
->[] : undefined[]
+>chars : 任意[]
+>[] : 未定[]
 
             for (var i = 0; i < 6; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < 6 : boolean
+>i < 6 : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >6 : 6
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
                 chars.push(fb.readUtf8CodePoint());
->chars.push(fb.readUtf8CodePoint()) : number
+>chars.push(fb.readUtf8CodePoint()) : 数字
 >类型别名 :=> 数字
->chars.push : (...items: any[]) => number
->chars : any[]
->push : (...items: any[]) => number
->fb.readUtf8CodePoint() : any
+>chars.push : (...items: 任意[]) => 数字
+>chars : 任意[]
+>push : (...items: 任意[]) => 数字
+>fb.readUtf8CodePoint() : 任意
 >类型别名 :=> 任意
->fb.readUtf8CodePoint : any
+>fb.readUtf8CodePoint : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->readUtf8CodePoint : any
+>readUtf8CodePoint : 任意
 >类型别名 :=> 任意
             }
             return TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]);
->TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]) : boolean
+>TestRunner.arrayCompare(chars, [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A]) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare : (arg1: any[], arg2: any[]) => boolean
->TestRunner : typeof TestRunner
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->chars : any[]
->[0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A] : number[]
+>TestRunner.arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>TestRunner : 类为 TestRunner
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>chars : 任意[]
+>[0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A] : 数字[]
 >0x0054 : 84
 >0x00E8 : 232
 >0x1D23 : 7459
@@ -1376,44 +1376,44 @@ export var tests: TestRunner = (function () {
         }));
 
     testRunner.addTest(new TestCase("Check UTF8 encoding",
->testRunner.addTest(new TestCase("Check UTF8 encoding",        function () {            var fb = new FileManager.FileBuffer(20);            fb.writeUtf8Bom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            for (var i in chars) {                fb.writeUtf8CodePoint(chars[i]);            }            fb.index = 0;            var bytes = [];            for (var i = 0; i < 14; i++) {                bytes.push(fb.readByte());            }            var expected = [0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A];            return TestRunner.arrayCompare(bytes, expected);        })) : void
+>testRunner.addTest(new TestCase("Check UTF8 encoding",        function () {            var fb = new FileManager.FileBuffer(20);            fb.writeUtf8Bom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            for (var i in chars) {                fb.writeUtf8CodePoint(chars[i]);            }            fb.index = 0;            var bytes = [];            for (var i = 0; i < 14; i++) {                bytes.push(fb.readByte());            }            var expected = [0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A];            return TestRunner.arrayCompare(bytes, expected);        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check UTF8 encoding",        function () {            var fb = new FileManager.FileBuffer(20);            fb.writeUtf8Bom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            for (var i in chars) {                fb.writeUtf8CodePoint(chars[i]);            }            fb.index = 0;            var bytes = [];            for (var i = 0; i < 14; i++) {                bytes.push(fb.readByte());            }            var expected = [0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A];            return TestRunner.arrayCompare(bytes, expected);        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check UTF8 encoding" : "Check UTF8 encoding"
 
         function () {
->function () {            var fb = new FileManager.FileBuffer(20);            fb.writeUtf8Bom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            for (var i in chars) {                fb.writeUtf8CodePoint(chars[i]);            }            fb.index = 0;            var bytes = [];            for (var i = 0; i < 14; i++) {                bytes.push(fb.readByte());            }            var expected = [0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A];            return TestRunner.arrayCompare(bytes, expected);        } : () => boolean
+>function () {            var fb = new FileManager.FileBuffer(20);            fb.writeUtf8Bom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            for (var i in chars) {                fb.writeUtf8CodePoint(chars[i]);            }            fb.index = 0;            var bytes = [];            for (var i = 0; i < 14; i++) {                bytes.push(fb.readByte());            }            var expected = [0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A];            return TestRunner.arrayCompare(bytes, expected);        } : () => 真假
 
             var fb = new FileManager.FileBuffer(20);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(20) : any
+>new FileManager.FileBuffer(20) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
 >20 : 20
 
             fb.writeUtf8Bom();
->fb.writeUtf8Bom() : any
+>fb.writeUtf8Bom() : 任意
 >类型别名 :=> 任意
->fb.writeUtf8Bom : any
+>fb.writeUtf8Bom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->writeUtf8Bom : any
+>writeUtf8Bom : 任意
 >类型别名 :=> 任意
 
             var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];
->chars : number[]
->[0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A] : number[]
+>chars : 数字[]
+>[0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A] : 数字[]
 >0x0054 : 84
 >0x00E8 : 232
 >0x1D23 : 7459
@@ -1422,71 +1422,71 @@ export var tests: TestRunner = (function () {
 >0x000A : 10
 
             for (var i in chars) {
->i : string
+>i : 文字
 >类型别名 :=> 文字
->chars : number[]
+>chars : 数字[]
 
                 fb.writeUtf8CodePoint(chars[i]);
->fb.writeUtf8CodePoint(chars[i]) : any
+>fb.writeUtf8CodePoint(chars[i]) : 任意
 >类型别名 :=> 任意
->fb.writeUtf8CodePoint : any
+>fb.writeUtf8CodePoint : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->writeUtf8CodePoint : any
+>writeUtf8CodePoint : 任意
 >类型别名 :=> 任意
->chars[i] : number
+>chars[i] : 数字
 >类型别名 :=> 数字
->chars : number[]
->i : string
+>chars : 数字[]
+>i : 文字
 >类型别名 :=> 文字
             }
             fb.index = 0;
 >fb.index = 0 : 0
->fb.index : any
+>fb.index : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->index : any
+>index : 任意
 >类型别名 :=> 任意
 >0 : 0
 
             var bytes = [];
->bytes : any[]
->[] : undefined[]
+>bytes : 任意[]
+>[] : 未定[]
 
             for (var i = 0; i < 14; i++) {
->i : string
+>i : 文字
 >类型别名 :=> 文字
 >0 : 0
->i < 14 : boolean
+>i < 14 : 真假
 >类型别名 :=> 真假
->i : string
+>i : 文字
 >类型别名 :=> 文字
 >14 : 14
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : string
+>i : 文字
 >类型别名 :=> 文字
 
                 bytes.push(fb.readByte());
->bytes.push(fb.readByte()) : number
+>bytes.push(fb.readByte()) : 数字
 >类型别名 :=> 数字
->bytes.push : (...items: any[]) => number
->bytes : any[]
->push : (...items: any[]) => number
->fb.readByte() : any
+>bytes.push : (...items: 任意[]) => 数字
+>bytes : 任意[]
+>push : (...items: 任意[]) => 数字
+>fb.readByte() : 任意
 >类型别名 :=> 任意
->fb.readByte : any
+>fb.readByte : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->readByte : any
+>readByte : 任意
 >类型别名 :=> 任意
             }
             var expected = [0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A];
->expected : number[]
->[0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A] : number[]
+>expected : 数字[]
+>[0xEF, 0xBB, 0xBF, 0x54, 0xC3, 0xA8, 0xE1, 0xB4, 0xA3, 0xE2, 0x80, 0xA0, 0x0D, 0x0A] : 数字[]
 >0xEF : 239
 >0xBB : 187
 >0xBF : 191
@@ -1503,65 +1503,65 @@ export var tests: TestRunner = (function () {
 >0x0A : 10
 
             return TestRunner.arrayCompare(bytes, expected);
->TestRunner.arrayCompare(bytes, expected) : boolean
+>TestRunner.arrayCompare(bytes, expected) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare : (arg1: any[], arg2: any[]) => boolean
->TestRunner : typeof TestRunner
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->bytes : any[]
->expected : number[]
+>TestRunner.arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>TestRunner : 类为 TestRunner
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>bytes : 任意[]
+>expected : 数字[]
 
         }));
 
     // Test reading and writing files
     testRunner.addTest(new TestCase("Check saving a file",
->testRunner.addTest(new TestCase("Check saving a file",        function () {            var filename = TestFileDir + "\\tmpUTF16LE.txt";            var fb = new FileManager.FileBuffer(14);            fb.writeUtf16leBom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00]            savedFile.index = 0;            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        })) : void
+>testRunner.addTest(new TestCase("Check saving a file",        function () {            var filename = TestFileDir + "\\tmpUTF16LE.txt";            var fb = new FileManager.FileBuffer(14);            fb.writeUtf16leBom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00]            savedFile.index = 0;            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check saving a file",        function () {            var filename = TestFileDir + "\\tmpUTF16LE.txt";            var fb = new FileManager.FileBuffer(14);            fb.writeUtf16leBom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00]            savedFile.index = 0;            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check saving a file" : "Check saving a file"
 
         function () {
->function () {            var filename = TestFileDir + "\\tmpUTF16LE.txt";            var fb = new FileManager.FileBuffer(14);            fb.writeUtf16leBom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00]            savedFile.index = 0;            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\tmpUTF16LE.txt";            var fb = new FileManager.FileBuffer(14);            fb.writeUtf16leBom();            var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];            chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00]            savedFile.index = 0;            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\tmpUTF16LE.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\tmpUTF16LE.txt" : string
+>TestFileDir + "\\tmpUTF16LE.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\tmpUTF16LE.txt" : "\\tmpUTF16LE.txt"
 
             var fb = new FileManager.FileBuffer(14);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(14) : any
+>new FileManager.FileBuffer(14) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
 >14 : 14
 
             fb.writeUtf16leBom();
->fb.writeUtf16leBom() : any
+>fb.writeUtf16leBom() : 任意
 >类型别名 :=> 任意
->fb.writeUtf16leBom : any
+>fb.writeUtf16leBom : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->writeUtf16leBom : any
+>writeUtf16leBom : 任意
 >类型别名 :=> 任意
 
             var chars = [0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A];
->chars : number[]
->[0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A] : number[]
+>chars : 数字[]
+>[0x0054, 0x00E8, 0x1D23, 0x2020, 0x000D, 0x000A] : 数字[]
 >0x0054 : 84
 >0x00E8 : 232
 >0x1D23 : 7459
@@ -1570,61 +1570,61 @@ export var tests: TestRunner = (function () {
 >0x000A : 10
 
             chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); });
->chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); }) : void
+>chars.forEach(function (val) { fb.writeUtf16CodePoint(val, false); }) : 无值
 >类型别名 :=> 无值
->chars.forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->chars : number[]
->forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->function (val) { fb.writeUtf16CodePoint(val, false); } : (val: number) => void
->val : number
+>chars.forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>chars : 数字[]
+>forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>function (val) { fb.writeUtf16CodePoint(val, false); } : (val: 数字) => 无值
+>val : 数字
 >类型别名 :=> 数字
->fb.writeUtf16CodePoint(val, false) : any
+>fb.writeUtf16CodePoint(val, false) : 任意
 >类型别名 :=> 任意
->fb.writeUtf16CodePoint : any
+>fb.writeUtf16CodePoint : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->writeUtf16CodePoint : any
+>writeUtf16CodePoint : 任意
 >类型别名 :=> 任意
->val : number
+>val : 数字
 >类型别名 :=> 数字
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
             fb.save(filename);
->fb.save(filename) : any
+>fb.save(filename) : 任意
 >类型别名 :=> 任意
->fb.save : any
+>fb.save : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->save : any
+>save : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             var savedFile = new FileManager.FileBuffer(filename);
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             if (savedFile.encoding !== 'utf16le') {
->savedFile.encoding !== 'utf16le' : boolean
+>savedFile.encoding !== 'utf16le' : 真假
 >类型别名 :=> 真假
->savedFile.encoding : any
+>savedFile.encoding : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf16le' : "utf16le"
 
@@ -1634,8 +1634,8 @@ export var tests: TestRunner = (function () {
 >"Incorrect encoding" : "Incorrect encoding"
             }
             var expectedBytes = [0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00]
->expectedBytes : number[]
->[0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00] : number[]
+>expectedBytes : 数字[]
+>[0xFF, 0xFE, 0x54, 0x00, 0xE8, 0x00, 0x23, 0x1D, 0x20, 0x20, 0x0D, 0x00, 0x0A, 0x00] : 数字[]
 >0xFF : 255
 >0xFE : 254
 >0x54 : 84
@@ -1653,42 +1653,42 @@ export var tests: TestRunner = (function () {
 
             savedFile.index = 0;
 >savedFile.index = 0 : 0
->savedFile.index : any
+>savedFile.index : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->index : any
+>index : 任意
 >类型别名 :=> 任意
 >0 : 0
 
             expectedBytes.forEach(function (val) {
->expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            }) : void
+>expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            }) : 无值
 >类型别名 :=> 无值
->expectedBytes.forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->expectedBytes : number[]
->forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            } : (val: number) => void
->val : number
+>expectedBytes.forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>expectedBytes : 数字[]
+>forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            } : (val: 数字) => 无值
+>val : 数字
 >类型别名 :=> 数字
 
                 var byteVal = savedFile.readByte();
->byteVal : any
+>byteVal : 任意
 >类型别名 :=> 任意
->savedFile.readByte() : any
+>savedFile.readByte() : 任意
 >类型别名 :=> 任意
->savedFile.readByte : any
+>savedFile.readByte : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->readByte : any
+>readByte : 任意
 >类型别名 :=> 任意
 
                 if (byteVal !== val) {
->byteVal !== val : boolean
+>byteVal !== val : 真假
 >类型别名 :=> 真假
->byteVal : any
+>byteVal : 任意
 >类型别名 :=> 任意
->val : number
+>val : 数字
 >类型别名 :=> 数字
 
                     throw Error("Incorrect byte value");
@@ -1698,105 +1698,105 @@ export var tests: TestRunner = (function () {
                 }
             });
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }));
 
     testRunner.addTest(new TestCase("Check reading past buffer asserts",
->testRunner.addTest(new TestCase("Check reading past buffer asserts",    function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        var result = fb.readByte(200);        return true;    }, "read beyond buffer length")) : void
+>testRunner.addTest(new TestCase("Check reading past buffer asserts",    function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        var result = fb.readByte(200);        return true;    }, "read beyond buffer length")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check reading past buffer asserts",    function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        var result = fb.readByte(200);        return true;    }, "read beyond buffer length") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check reading past buffer asserts" : "Check reading past buffer asserts"
 
     function () {
->function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        var result = fb.readByte(200);        return true;    } : () => true
+>function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        var result = fb.readByte(200);        return true;    } : () => 为真
 
         var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\UTF8BOM.txt" : string
+>TestFileDir + "\\UTF8BOM.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF8BOM.txt" : "\\UTF8BOM.txt"
 
         var result = fb.readByte(200);
->result : any
+>result : 任意
 >类型别名 :=> 任意
->fb.readByte(200) : any
+>fb.readByte(200) : 任意
 >类型别名 :=> 任意
->fb.readByte : any
+>fb.readByte : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->readByte : any
+>readByte : 任意
 >类型别名 :=> 任意
 >200 : 200
 
         return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     }, "read beyond buffer length"));
 >"read beyond buffer length" : "read beyond buffer length"
 
     testRunner.addTest(new TestCase("Check writing past buffer asserts",
->testRunner.addTest(new TestCase("Check writing past buffer asserts",    function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        fb.writeByte(5, 200);        return true;    }, "write beyond buffer length")) : void
+>testRunner.addTest(new TestCase("Check writing past buffer asserts",    function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        fb.writeByte(5, 200);        return true;    }, "write beyond buffer length")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Check writing past buffer asserts",    function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        fb.writeByte(5, 200);        return true;    }, "write beyond buffer length") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Check writing past buffer asserts" : "Check writing past buffer asserts"
 
     function () {
->function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        fb.writeByte(5, 200);        return true;    } : () => true
+>function () {        var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");        fb.writeByte(5, 200);        return true;    } : () => 为真
 
         var fb = new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt");
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\UTF8BOM.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\UTF8BOM.txt" : string
+>TestFileDir + "\\UTF8BOM.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF8BOM.txt" : "\\UTF8BOM.txt"
 
         fb.writeByte(5, 200);
->fb.writeByte(5, 200) : any
+>fb.writeByte(5, 200) : 任意
 >类型别名 :=> 任意
->fb.writeByte : any
+>fb.writeByte : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->writeByte : any
+>writeByte : 任意
 >类型别名 :=> 任意
 >5 : 5
 >200 : 200
 
         return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     }, "write beyond buffer length"));
@@ -1804,43 +1804,43 @@ export var tests: TestRunner = (function () {
 
     // Non-BMP unicode char tests
     testRunner.addTest(new TestCase("Read non-BMP utf16 chars",
->testRunner.addTest(new TestCase("Read non-BMP utf16 chars",        function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt");            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf16CodePoint(false));            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        })) : void
+>testRunner.addTest(new TestCase("Read non-BMP utf16 chars",        function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt");            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf16CodePoint(false));            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Read non-BMP utf16 chars",        function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt");            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf16CodePoint(false));            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Read non-BMP utf16 chars" : "Read non-BMP utf16 chars"
 
         function () {
->function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt");            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf16CodePoint(false));            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        } : () => boolean
+>function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt");            if (savedFile.encoding !== 'utf16le') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf16CodePoint(false));            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        } : () => 真假
 
             var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt");
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\utf16leNonBmp.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\utf16leNonBmp.txt" : string
+>TestFileDir + "\\utf16leNonBmp.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\utf16leNonBmp.txt" : "\\utf16leNonBmp.txt"
 
             if (savedFile.encoding !== 'utf16le') {
->savedFile.encoding !== 'utf16le' : boolean
+>savedFile.encoding !== 'utf16le' : 真假
 >类型别名 :=> 真假
->savedFile.encoding : any
+>savedFile.encoding : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf16le' : "utf16le"
 
@@ -1851,43 +1851,43 @@ export var tests: TestRunner = (function () {
             }
 
             var codePoints = [];
->codePoints : any[]
->[] : undefined[]
+>codePoints : 任意[]
+>[] : 未定[]
 
             for (var i = 0; i < 6; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < 6 : boolean
+>i < 6 : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >6 : 6
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
                 codePoints.push(savedFile.readUtf16CodePoint(false));
->codePoints.push(savedFile.readUtf16CodePoint(false)) : number
+>codePoints.push(savedFile.readUtf16CodePoint(false)) : 数字
 >类型别名 :=> 数字
->codePoints.push : (...items: any[]) => number
->codePoints : any[]
->push : (...items: any[]) => number
->savedFile.readUtf16CodePoint(false) : any
+>codePoints.push : (...items: 任意[]) => 数字
+>codePoints : 任意[]
+>push : (...items: 任意[]) => 数字
+>savedFile.readUtf16CodePoint(false) : 任意
 >类型别名 :=> 任意
->savedFile.readUtf16CodePoint : any
+>savedFile.readUtf16CodePoint : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->readUtf16CodePoint : any
+>readUtf16CodePoint : 任意
 >类型别名 :=> 任意
->false : false
+>false : 为假
 >类型别名 :=> 为假
             }
             var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];
->expectedCodePoints : number[]
->[0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69] : number[]
+>expectedCodePoints : 数字[]
+>[0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69] : 数字[]
 >0x10480 : 66688
 >0x10481 : 66689
 >0x10482 : 66690
@@ -1896,54 +1896,54 @@ export var tests: TestRunner = (function () {
 >0x69 : 105
 
             return TestRunner.arrayCompare(codePoints, expectedCodePoints);
->TestRunner.arrayCompare(codePoints, expectedCodePoints) : boolean
+>TestRunner.arrayCompare(codePoints, expectedCodePoints) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare : (arg1: any[], arg2: any[]) => boolean
->TestRunner : typeof TestRunner
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->codePoints : any[]
->expectedCodePoints : number[]
+>TestRunner.arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>TestRunner : 类为 TestRunner
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>codePoints : 任意[]
+>expectedCodePoints : 数字[]
 
         }));
 
     testRunner.addTest(new TestCase("Read non-BMP utf8 chars",
->testRunner.addTest(new TestCase("Read non-BMP utf8 chars",        function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt");            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf8CodePoint());            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        })) : void
+>testRunner.addTest(new TestCase("Read non-BMP utf8 chars",        function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt");            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf8CodePoint());            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Read non-BMP utf8 chars",        function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt");            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf8CodePoint());            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Read non-BMP utf8 chars" : "Read non-BMP utf8 chars"
 
         function () {
->function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt");            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf8CodePoint());            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        } : () => boolean
+>function () {            var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt");            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var codePoints = [];            for (var i = 0; i < 6; i++) {                codePoints.push(savedFile.readUtf8CodePoint());            }            var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            return TestRunner.arrayCompare(codePoints, expectedCodePoints);        } : () => 真假
 
             var savedFile = new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt");
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt") : any
+>new FileManager.FileBuffer(TestFileDir + "\\utf8NonBmp.txt") : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->TestFileDir + "\\utf8NonBmp.txt" : string
+>TestFileDir + "\\utf8NonBmp.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\utf8NonBmp.txt" : "\\utf8NonBmp.txt"
 
             if (savedFile.encoding !== 'utf8') {
->savedFile.encoding !== 'utf8' : boolean
+>savedFile.encoding !== 'utf8' : 真假
 >类型别名 :=> 真假
->savedFile.encoding : any
+>savedFile.encoding : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf8' : "utf8"
 
@@ -1954,41 +1954,41 @@ export var tests: TestRunner = (function () {
             }
 
             var codePoints = [];
->codePoints : any[]
->[] : undefined[]
+>codePoints : 任意[]
+>[] : 未定[]
 
             for (var i = 0; i < 6; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < 6 : boolean
+>i < 6 : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >6 : 6
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
                 codePoints.push(savedFile.readUtf8CodePoint());
->codePoints.push(savedFile.readUtf8CodePoint()) : number
+>codePoints.push(savedFile.readUtf8CodePoint()) : 数字
 >类型别名 :=> 数字
->codePoints.push : (...items: any[]) => number
->codePoints : any[]
->push : (...items: any[]) => number
->savedFile.readUtf8CodePoint() : any
+>codePoints.push : (...items: 任意[]) => 数字
+>codePoints : 任意[]
+>push : (...items: 任意[]) => 数字
+>savedFile.readUtf8CodePoint() : 任意
 >类型别名 :=> 任意
->savedFile.readUtf8CodePoint : any
+>savedFile.readUtf8CodePoint : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->readUtf8CodePoint : any
+>readUtf8CodePoint : 任意
 >类型别名 :=> 任意
             }
             var expectedCodePoints = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];
->expectedCodePoints : number[]
->[0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69] : number[]
+>expectedCodePoints : 数字[]
+>[0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69] : 数字[]
 >0x10480 : 66688
 >0x10481 : 66689
 >0x10482 : 66690
@@ -1997,54 +1997,54 @@ export var tests: TestRunner = (function () {
 >0x69 : 105
 
             return TestRunner.arrayCompare(codePoints, expectedCodePoints);
->TestRunner.arrayCompare(codePoints, expectedCodePoints) : boolean
+>TestRunner.arrayCompare(codePoints, expectedCodePoints) : 真假
 >类型别名 :=> 真假
->TestRunner.arrayCompare : (arg1: any[], arg2: any[]) => boolean
->TestRunner : typeof TestRunner
->arrayCompare : (arg1: any[], arg2: any[]) => boolean
->codePoints : any[]
->expectedCodePoints : number[]
+>TestRunner.arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>TestRunner : 类为 TestRunner
+>arrayCompare : (arg1: 任意[], arg2: 任意[]) => 真假
+>codePoints : 任意[]
+>expectedCodePoints : 数字[]
 
         }));
 
     testRunner.addTest(new TestCase("Write non-BMP utf8 chars",
->testRunner.addTest(new TestCase("Write non-BMP utf8 chars",        function () {            var filename = TestFileDir + "\\tmpUTF8nonBmp.txt";            var fb = new FileManager.FileBuffer(15);            var chars = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            chars.forEach(function (val) { fb.writeUtf8CodePoint(val); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69];            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        })) : void
+>testRunner.addTest(new TestCase("Write non-BMP utf8 chars",        function () {            var filename = TestFileDir + "\\tmpUTF8nonBmp.txt";            var fb = new FileManager.FileBuffer(15);            var chars = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            chars.forEach(function (val) { fb.writeUtf8CodePoint(val); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69];            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Write non-BMP utf8 chars",        function () {            var filename = TestFileDir + "\\tmpUTF8nonBmp.txt";            var fb = new FileManager.FileBuffer(15);            var chars = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            chars.forEach(function (val) { fb.writeUtf8CodePoint(val); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69];            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Write non-BMP utf8 chars" : "Write non-BMP utf8 chars"
 
         function () {
->function () {            var filename = TestFileDir + "\\tmpUTF8nonBmp.txt";            var fb = new FileManager.FileBuffer(15);            var chars = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            chars.forEach(function (val) { fb.writeUtf8CodePoint(val); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69];            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\tmpUTF8nonBmp.txt";            var fb = new FileManager.FileBuffer(15);            var chars = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];            chars.forEach(function (val) { fb.writeUtf8CodePoint(val); });            fb.save(filename);            var savedFile = new FileManager.FileBuffer(filename);            if (savedFile.encoding !== 'utf8') {                throw Error("Incorrect encoding");            }            var expectedBytes = [0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69];            expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            });            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\tmpUTF8nonBmp.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\tmpUTF8nonBmp.txt" : string
+>TestFileDir + "\\tmpUTF8nonBmp.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\tmpUTF8nonBmp.txt" : "\\tmpUTF8nonBmp.txt"
 
             var fb = new FileManager.FileBuffer(15);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(15) : any
+>new FileManager.FileBuffer(15) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
 >15 : 15
 
             var chars = [0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69];
->chars : number[]
->[0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69] : number[]
+>chars : 数字[]
+>[0x10480, 0x10481, 0x10482, 0x54, 0x68, 0x69] : 数字[]
 >0x10480 : 66688
 >0x10481 : 66689
 >0x10482 : 66690
@@ -2053,59 +2053,59 @@ export var tests: TestRunner = (function () {
 >0x69 : 105
 
             chars.forEach(function (val) { fb.writeUtf8CodePoint(val); });
->chars.forEach(function (val) { fb.writeUtf8CodePoint(val); }) : void
+>chars.forEach(function (val) { fb.writeUtf8CodePoint(val); }) : 无值
 >类型别名 :=> 无值
->chars.forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->chars : number[]
->forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->function (val) { fb.writeUtf8CodePoint(val); } : (val: number) => void
->val : number
+>chars.forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>chars : 数字[]
+>forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>function (val) { fb.writeUtf8CodePoint(val); } : (val: 数字) => 无值
+>val : 数字
 >类型别名 :=> 数字
->fb.writeUtf8CodePoint(val) : any
+>fb.writeUtf8CodePoint(val) : 任意
 >类型别名 :=> 任意
->fb.writeUtf8CodePoint : any
+>fb.writeUtf8CodePoint : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->writeUtf8CodePoint : any
+>writeUtf8CodePoint : 任意
 >类型别名 :=> 任意
->val : number
+>val : 数字
 >类型别名 :=> 数字
 
             fb.save(filename);
->fb.save(filename) : any
+>fb.save(filename) : 任意
 >类型别名 :=> 任意
->fb.save : any
+>fb.save : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->save : any
+>save : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             var savedFile = new FileManager.FileBuffer(filename);
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             if (savedFile.encoding !== 'utf8') {
->savedFile.encoding !== 'utf8' : boolean
+>savedFile.encoding !== 'utf8' : 真假
 >类型别名 :=> 真假
->savedFile.encoding : any
+>savedFile.encoding : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->encoding : any
+>encoding : 任意
 >类型别名 :=> 任意
 >'utf8' : "utf8"
 
@@ -2115,8 +2115,8 @@ export var tests: TestRunner = (function () {
 >"Incorrect encoding" : "Incorrect encoding"
             }
             var expectedBytes = [0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69];
->expectedBytes : number[]
->[0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69] : number[]
+>expectedBytes : 数字[]
+>[0xF0, 0x90, 0x92, 0x80, 0xF0, 0x90, 0x92, 0x81, 0xF0, 0x90, 0x92, 0x82, 0x54, 0x68, 0x69] : 数字[]
 >0xF0 : 240
 >0x90 : 144
 >0x92 : 146
@@ -2134,33 +2134,33 @@ export var tests: TestRunner = (function () {
 >0x69 : 105
 
             expectedBytes.forEach(function (val) {
->expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            }) : void
+>expectedBytes.forEach(function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            }) : 无值
 >类型别名 :=> 无值
->expectedBytes.forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->expectedBytes : number[]
->forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
->function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            } : (val: number) => void
->val : number
+>expectedBytes.forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>expectedBytes : 数字[]
+>forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
+>function (val) {                var byteVal = savedFile.readByte();                if (byteVal !== val) {                    throw Error("Incorrect byte value");                }            } : (val: 数字) => 无值
+>val : 数字
 >类型别名 :=> 数字
 
                 var byteVal = savedFile.readByte();
->byteVal : any
+>byteVal : 任意
 >类型别名 :=> 任意
->savedFile.readByte() : any
+>savedFile.readByte() : 任意
 >类型别名 :=> 任意
->savedFile.readByte : any
+>savedFile.readByte : 任意
 >类型别名 :=> 任意
->savedFile : any
+>savedFile : 任意
 >类型别名 :=> 任意
->readByte : any
+>readByte : 任意
 >类型别名 :=> 任意
 
                 if (byteVal !== val) {
->byteVal !== val : boolean
+>byteVal !== val : 真假
 >类型别名 :=> 真假
->byteVal : any
+>byteVal : 任意
 >类型别名 :=> 任意
->val : number
+>val : 数字
 >类型别名 :=> 数字
 
                     throw Error("Incorrect byte value");
@@ -2170,264 +2170,264 @@ export var tests: TestRunner = (function () {
                 }
             });
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }));
 
     testRunner.addTest(new TestCase("Test invalid lead UTF8 byte",
->testRunner.addTest(new TestCase("Test invalid lead UTF8 byte",        function () {            var filename = TestFileDir + "\\utf8BadLeadByte.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Invalid UTF8 byte sequence at index: 4")) : void
+>testRunner.addTest(new TestCase("Test invalid lead UTF8 byte",        function () {            var filename = TestFileDir + "\\utf8BadLeadByte.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Invalid UTF8 byte sequence at index: 4")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test invalid lead UTF8 byte",        function () {            var filename = TestFileDir + "\\utf8BadLeadByte.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Invalid UTF8 byte sequence at index: 4") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test invalid lead UTF8 byte" : "Test invalid lead UTF8 byte"
 
         function () {
->function () {            var filename = TestFileDir + "\\utf8BadLeadByte.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\utf8BadLeadByte.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\utf8BadLeadByte.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\utf8BadLeadByte.txt" : string
+>TestFileDir + "\\utf8BadLeadByte.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\utf8BadLeadByte.txt" : "\\utf8BadLeadByte.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }, "Invalid UTF8 byte sequence at index: 4"));
 >"Invalid UTF8 byte sequence at index: 4" : "Invalid UTF8 byte sequence at index: 4"
 
     testRunner.addTest(new TestCase("Test invalid tail UTF8 byte",
->testRunner.addTest(new TestCase("Test invalid tail UTF8 byte",        function () {            var filename = TestFileDir + "\\utf8InvalidTail.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trailing byte invalid at index: 8")) : void
+>testRunner.addTest(new TestCase("Test invalid tail UTF8 byte",        function () {            var filename = TestFileDir + "\\utf8InvalidTail.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trailing byte invalid at index: 8")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test invalid tail UTF8 byte",        function () {            var filename = TestFileDir + "\\utf8InvalidTail.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trailing byte invalid at index: 8") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test invalid tail UTF8 byte" : "Test invalid tail UTF8 byte"
 
         function () {
->function () {            var filename = TestFileDir + "\\utf8InvalidTail.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\utf8InvalidTail.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\utf8InvalidTail.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\utf8InvalidTail.txt" : string
+>TestFileDir + "\\utf8InvalidTail.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\utf8InvalidTail.txt" : "\\utf8InvalidTail.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }, "Trailing byte invalid at index: 8"));
 >"Trailing byte invalid at index: 8" : "Trailing byte invalid at index: 8"
 
     testRunner.addTest(new TestCase("Test ANSI fails validation",
->testRunner.addTest(new TestCase("Test ANSI fails validation",        function () {            var filename = TestFileDir + "\\ansi.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trailing byte invalid at index: 6")) : void
+>testRunner.addTest(new TestCase("Test ANSI fails validation",        function () {            var filename = TestFileDir + "\\ansi.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trailing byte invalid at index: 6")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test ANSI fails validation",        function () {            var filename = TestFileDir + "\\ansi.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trailing byte invalid at index: 6") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test ANSI fails validation" : "Test ANSI fails validation"
 
         function () {
->function () {            var filename = TestFileDir + "\\ansi.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\ansi.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\ansi.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\ansi.txt" : string
+>TestFileDir + "\\ansi.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\ansi.txt" : "\\ansi.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }, "Trailing byte invalid at index: 6"));
 >"Trailing byte invalid at index: 6" : "Trailing byte invalid at index: 6"
 
     testRunner.addTest(new TestCase("Test UTF-16LE with invalid surrogate trail fails",
->testRunner.addTest(new TestCase("Test UTF-16LE with invalid surrogate trail fails",        function () {            var filename = TestFileDir + "\\utf16leInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trail surrogate has an invalid value")) : void
+>testRunner.addTest(new TestCase("Test UTF-16LE with invalid surrogate trail fails",        function () {            var filename = TestFileDir + "\\utf16leInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trail surrogate has an invalid value")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test UTF-16LE with invalid surrogate trail fails",        function () {            var filename = TestFileDir + "\\utf16leInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trail surrogate has an invalid value") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test UTF-16LE with invalid surrogate trail fails" : "Test UTF-16LE with invalid surrogate trail fails"
 
         function () {
->function () {            var filename = TestFileDir + "\\utf16leInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\utf16leInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\utf16leInvalidSurrogate.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\utf16leInvalidSurrogate.txt" : string
+>TestFileDir + "\\utf16leInvalidSurrogate.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\utf16leInvalidSurrogate.txt" : "\\utf16leInvalidSurrogate.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }, "Trail surrogate has an invalid value"));
 >"Trail surrogate has an invalid value" : "Trail surrogate has an invalid value"
 
     testRunner.addTest(new TestCase("Test UTF-16BE with invalid surrogate head fails",
->testRunner.addTest(new TestCase("Test UTF-16BE with invalid surrogate head fails",        function () {            var filename = TestFileDir + "\\UTF16BEInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Byte sequence starts with a trail surrogate")) : void
+>testRunner.addTest(new TestCase("Test UTF-16BE with invalid surrogate head fails",        function () {            var filename = TestFileDir + "\\UTF16BEInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Byte sequence starts with a trail surrogate")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test UTF-16BE with invalid surrogate head fails",        function () {            var filename = TestFileDir + "\\UTF16BEInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Byte sequence starts with a trail surrogate") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test UTF-16BE with invalid surrogate head fails" : "Test UTF-16BE with invalid surrogate head fails"
 
         function () {
->function () {            var filename = TestFileDir + "\\UTF16BEInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\UTF16BEInvalidSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\UTF16BEInvalidSurrogate.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\UTF16BEInvalidSurrogate.txt" : string
+>TestFileDir + "\\UTF16BEInvalidSurrogate.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\UTF16BEInvalidSurrogate.txt" : "\\UTF16BEInvalidSurrogate.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }, "Byte sequence starts with a trail surrogate"));
 >"Byte sequence starts with a trail surrogate" : "Byte sequence starts with a trail surrogate"
 
     testRunner.addTest(new TestCase("Test UTF-16LE with missing trail surrogate fails",
->testRunner.addTest(new TestCase("Test UTF-16LE with missing trail surrogate fails",        function () {            var filename = TestFileDir + "\\utf16leMissingTrailSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trail surrogate has an invalid value")) : void
+>testRunner.addTest(new TestCase("Test UTF-16LE with missing trail surrogate fails",        function () {            var filename = TestFileDir + "\\utf16leMissingTrailSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trail surrogate has an invalid value")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test UTF-16LE with missing trail surrogate fails",        function () {            var filename = TestFileDir + "\\utf16leMissingTrailSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Trail surrogate has an invalid value") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test UTF-16LE with missing trail surrogate fails" : "Test UTF-16LE with missing trail surrogate fails"
 
         function () {
->function () {            var filename = TestFileDir + "\\utf16leMissingTrailSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\utf16leMissingTrailSurrogate.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\utf16leMissingTrailSurrogate.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\utf16leMissingTrailSurrogate.txt" : string
+>TestFileDir + "\\utf16leMissingTrailSurrogate.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\utf16leMissingTrailSurrogate.txt" : "\\utf16leMissingTrailSurrogate.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }, "Trail surrogate has an invalid value"));
@@ -2435,134 +2435,134 @@ export var tests: TestRunner = (function () {
 
     // Count of CRs & LFs
     testRunner.addTest(new TestCase("Count character occurrences",
->testRunner.addTest(new TestCase("Count character occurrences",        function () {            var filename = TestFileDir + "\\charCountASCII.txt";            var fb = new FileManager.FileBuffer(filename);            var result = (fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3);            return result;        })) : void
+>testRunner.addTest(new TestCase("Count character occurrences",        function () {            var filename = TestFileDir + "\\charCountASCII.txt";            var fb = new FileManager.FileBuffer(filename);            var result = (fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3);            return result;        })) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Count character occurrences",        function () {            var filename = TestFileDir + "\\charCountASCII.txt";            var fb = new FileManager.FileBuffer(filename);            var result = (fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3);            return result;        }) : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Count character occurrences" : "Count character occurrences"
 
         function () {
->function () {            var filename = TestFileDir + "\\charCountASCII.txt";            var fb = new FileManager.FileBuffer(filename);            var result = (fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3);            return result;        } : () => boolean
+>function () {            var filename = TestFileDir + "\\charCountASCII.txt";            var fb = new FileManager.FileBuffer(filename);            var result = (fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3);            return result;        } : () => 真假
 
             var filename = TestFileDir + "\\charCountASCII.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\charCountASCII.txt" : string
+>TestFileDir + "\\charCountASCII.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\charCountASCII.txt" : "\\charCountASCII.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             var result = (fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3);
->result : boolean
+>result : 真假
 >类型别名 :=> 真假
->(fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3) : boolean
+>(fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3) : 真假
 >类型别名 :=> 真假
->fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3 : boolean
+>fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 && fb.countHT === 3 : 真假
 >类型别名 :=> 真假
->fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 : boolean
+>fb.countCR === 5 && fb.countLF === 4 && fb.countCRLF === 5 : 真假
 >类型别名 :=> 真假
->fb.countCR === 5 && fb.countLF === 4 : boolean
+>fb.countCR === 5 && fb.countLF === 4 : 真假
 >类型别名 :=> 真假
->fb.countCR === 5 : boolean
+>fb.countCR === 5 : 真假
 >类型别名 :=> 真假
->fb.countCR : any
+>fb.countCR : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->countCR : any
+>countCR : 任意
 >类型别名 :=> 任意
 >5 : 5
->fb.countLF === 4 : boolean
+>fb.countLF === 4 : 真假
 >类型别名 :=> 真假
->fb.countLF : any
+>fb.countLF : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->countLF : any
+>countLF : 任意
 >类型别名 :=> 任意
 >4 : 4
->fb.countCRLF === 5 : boolean
+>fb.countCRLF === 5 : 真假
 >类型别名 :=> 真假
->fb.countCRLF : any
+>fb.countCRLF : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->countCRLF : any
+>countCRLF : 任意
 >类型别名 :=> 任意
 >5 : 5
->fb.countHT === 3 : boolean
+>fb.countHT === 3 : 真假
 >类型别名 :=> 真假
->fb.countHT : any
+>fb.countHT : 任意
 >类型别名 :=> 任意
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->countHT : any
+>countHT : 任意
 >类型别名 :=> 任意
 >3 : 3
 
             return result;
->result : boolean
+>result : 真假
 >类型别名 :=> 真假
 
         }));
 
     // Control characters in text
     testRunner.addTest(new TestCase("Test file with control character",
->testRunner.addTest(new TestCase("Test file with control character",        function () {            var filename = TestFileDir + "\\controlChar.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Codepoint at index: 3 has control value: 8")) : void
+>testRunner.addTest(new TestCase("Test file with control character",        function () {            var filename = TestFileDir + "\\controlChar.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Codepoint at index: 3 has control value: 8")) : 无值
 >类型别名 :=> 无值
->testRunner.addTest : (test: TestCase) => void
+>testRunner.addTest : (test: TestCase) => 无值
 >testRunner : TestRunner
->addTest : (test: TestCase) => void
+>addTest : (test: TestCase) => 无值
 >new TestCase("Test file with control character",        function () {            var filename = TestFileDir + "\\controlChar.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        }, "Codepoint at index: 3 has control value: 8") : TestCase
->TestCase : typeof TestCase
+>TestCase : 类为 TestCase
 >"Test file with control character" : "Test file with control character"
 
         function () {
->function () {            var filename = TestFileDir + "\\controlChar.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => true
+>function () {            var filename = TestFileDir + "\\controlChar.txt";            var fb = new FileManager.FileBuffer(filename);            return true;        } : () => 为真
 
             var filename = TestFileDir + "\\controlChar.txt";
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
->TestFileDir + "\\controlChar.txt" : string
+>TestFileDir + "\\controlChar.txt" : 文字
 >类型别名 :=> 文字
->TestFileDir : string
+>TestFileDir : 文字
 >类型别名 :=> 文字
 >"\\controlChar.txt" : "\\controlChar.txt"
 
             var fb = new FileManager.FileBuffer(filename);
->fb : any
+>fb : 任意
 >类型别名 :=> 任意
->new FileManager.FileBuffer(filename) : any
+>new FileManager.FileBuffer(filename) : 任意
 >类型别名 :=> 任意
->FileManager.FileBuffer : any
+>FileManager.FileBuffer : 任意
 >类型别名 :=> 任意
->FileManager : any
+>FileManager : 任意
 >类型别名 :=> 任意
->FileBuffer : any
+>FileBuffer : 任意
 >类型别名 :=> 任意
->filename : string
+>filename : 文字
 >类型别名 :=> 文字
 
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         }, "Codepoint at index: 3 has control value: 8"));

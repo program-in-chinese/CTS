@@ -1,5 +1,5 @@
-tests/cases/conformance/types/spread/spreadMethods.ts(7,4): error TS2339: Property 'm' does not exist on type '{ p: number; }'.
-tests/cases/conformance/types/spread/spreadMethods.ts(9,5): error TS2339: Property 'm' does not exist on type '{ p: number; }'.
+tests/cases/conformance/types/spread/spreadMethods.ts(7,4): error TS2339: Property 'm' does not exist on type '{ p: 数字; }'.
+tests/cases/conformance/types/spread/spreadMethods.ts(9,5): error TS2339: Property 'm' does not exist on type '{ p: 数字; }'.
 
 
 ==== tests/cases/conformance/types/spread/spreadMethods.ts (2 errors) ====
@@ -11,11 +11,11 @@ tests/cases/conformance/types/spread/spreadMethods.ts(9,5): error TS2339: Proper
     sk.p;
     sk.m(); // error
        ~
-!!! error TS2339: Property 'm' does not exist on type '{ p: number; }'.
+!!! error TS2339: Property 'm' does not exist on type '{ p: 数字; }'.
     ssk.p;
     ssk.m(); // error
         ~
-!!! error TS2339: Property 'm' does not exist on type '{ p: number; }'.
+!!! error TS2339: Property 'm' does not exist on type '{ p: 数字; }'.
     let i: I = { p: 12, m() { } };
     let si = { ...i };
     let ssi = { ...i, ...i };

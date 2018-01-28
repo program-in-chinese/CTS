@@ -4,30 +4,30 @@ class A {
 
     constructor() {
         const a = new.target;
->a : typeof A
->new.target : typeof A
->target : any
+>a : 类为 A
+>new.target : 类为 A
+>target : 任意
 >类型别名 :=> 任意
 
         const b = () => new.target;
->b : () => typeof A
->() => new.target : () => typeof A
->new.target : typeof A
->target : any
+>b : () => 类为 A
+>() => new.target : () => 类为 A
+>new.target : 类为 A
+>target : 任意
 >类型别名 :=> 任意
     }
     static c = function () { return new.target; }
->c : () => any
->function () { return new.target; } : () => any
->new.target : () => any
->target : any
+>c : () => 任意
+>function () { return new.target; } : () => 任意
+>new.target : () => 任意
+>target : 任意
 >类型别名 :=> 任意
 
     d = function () { return new.target; }
->d : () => any
->function () { return new.target; } : () => any
->new.target : () => any
->target : any
+>d : () => 任意
+>function () { return new.target; } : () => 任意
+>new.target : () => 任意
+>target : 任意
 >类型别名 :=> 任意
 }
 
@@ -37,69 +37,69 @@ class B extends A {
 
     constructor() {
         super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof A
+>super : 类为 A
 
         const e = new.target;
->e : typeof B
->new.target : typeof B
->target : any
+>e : 类为 B
+>new.target : 类为 B
+>target : 任意
 >类型别名 :=> 任意
 
         const f = () => new.target;
->f : () => typeof B
->() => new.target : () => typeof B
->new.target : typeof B
->target : any
+>f : () => 类为 B
+>() => new.target : () => 类为 B
+>new.target : 类为 B
+>target : 任意
 >类型别名 :=> 任意
     }
 }
 
 function f1() {
->f1 : () => void
+>f1 : () => 无值
 
     const g = new.target;
->g : () => void
->new.target : () => void
->target : any
+>g : () => 无值
+>new.target : () => 无值
+>target : 任意
 >类型别名 :=> 任意
 
     const h = () => new.target;
->h : () => () => void
->() => new.target : () => () => void
->new.target : () => void
->target : any
+>h : () => () => 无值
+>() => new.target : () => () => 无值
+>new.target : () => 无值
+>target : 任意
 >类型别名 :=> 任意
 }
 
 const f2 = function () {
->f2 : () => void
->function () {    const i = new.target;    const j = () => new.target;} : () => void
+>f2 : () => 无值
+>function () {    const i = new.target;    const j = () => new.target;} : () => 无值
 
     const i = new.target;
->i : () => void
->new.target : () => void
->target : any
+>i : () => 无值
+>new.target : () => 无值
+>target : 任意
 >类型别名 :=> 任意
 
     const j = () => new.target;
->j : () => () => void
->() => new.target : () => () => void
->new.target : () => void
->target : any
+>j : () => () => 无值
+>() => new.target : () => () => 无值
+>new.target : () => 无值
+>target : 任意
 >类型别名 :=> 任意
 }
 
 const O = {
->O : { k: () => any; }
->{    k: function () { return new.target; }} : { k: () => any; }
+>O : { k: () => 任意; }
+>{    k: function () { return new.target; }} : { k: () => 任意; }
 
     k: function () { return new.target; }
->k : () => any
->function () { return new.target; } : () => any
->new.target : () => any
->target : any
+>k : () => 任意
+>function () { return new.target; } : () => 任意
+>new.target : () => 任意
+>target : 任意
 >类型别名 :=> 任意
 
 };

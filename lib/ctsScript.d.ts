@@ -60,327 +60,652 @@ declare namespace ts {
         end: number;
     }
     enum SyntaxKind {
+        /** 未知的令牌 */
         Unknown = 0,
+        /** 文件结束令牌 */
         EndOfFileToken = 1,
+        /** 单行注释琐事  */
         SingleLineCommentTrivia = 2,
+        /** 多行注释琐事 */
         MultiLineCommentTrivia = 3,
+        /** 新行琐事 */
         NewLineTrivia = 4,
+        /** 空白琐事 */
         WhitespaceTrivia = 5,
+        /** 工作琐事 我们发现和保存#！在第一行 */
         ShebangTrivia = 6,
         ConflictMarkerTrivia = 7,
+        /** 数组字面量 */
         NumericLiteral = 8,
+        /** 文本字面量 */
         StringLiteral = 9,
+        /** jsx文本 */
         JsxText = 10,
         JsxTextAllWhiteSpaces = 11,
+        /** 正则表达式的文字  */
         RegularExpressionLiteral = 12,
+        /** 无替换模板文字 */
         NoSubstitutionTemplateLiteral = 13,
+        /** 伪文字 模板的头  */
         TemplateHead = 14,
+        /** 伪文字 模板中间  */
         TemplateMiddle = 15,
+        /** 伪文字 模板的尾 */
         TemplateTail = 16,
+        /** { */
         OpenBraceToken = 17,
+        /** } */
         CloseBraceToken = 18,
+        /** ( */
         OpenParenToken = 19,
+        /** ) */
         CloseParenToken = 20,
+        /** [ */
         OpenBracketToken = 21,
+        /** ] */
         CloseBracketToken = 22,
+        /**  . 点 */
         DotToken = 23,
+        /** ...  */
         DotDotDotToken = 24,
+        /** ; 分号标记 */
         SemicolonToken = 25,
+        /** , 逗号令牌 */
         CommaToken = 26,
+        /** < 小于令牌 */
         LessThanToken = 27,
+        /** </ 小于斜杠令牌 */
         LessThanSlashToken = 28,
+        /** > 大于令牌 */
         GreaterThanToken = 29,
+        /** <=小于等于令牌 */
         LessThanEqualsToken = 30,
+        /** >=  */
         GreaterThanEqualsToken = 31,
+        /** == */
         EqualsEqualsToken = 32,
+        /** != */
         ExclamationEqualsToken = 33,
+        /** === */
         EqualsEqualsEqualsToken = 34,
+        /** !== */
         ExclamationEqualsEqualsToken = 35,
+        /** => */
         EqualsGreaterThanToken = 36,
+        /*** + */
         PlusToken = 37,
+        /** -减 */
         MinusToken = 38,
+        /** *星 */
         AsteriskToken = 39,
+        /** ** 星星 */
         AsteriskAsteriskToken = 40,
+        /** / 斜杠 */
         SlashToken = 41,
+        /** %  */
         PercentToken = 42,
+        /** ++ */
         PlusPlusToken = 43,
+        /** -- */
         MinusMinusToken = 44,
+        /** << */
         LessThanLessThanToken = 45,
+        /** >> */
         GreaterThanGreaterThanToken = 46,
+        /** >>> */
         GreaterThanGreaterThanGreaterThanToken = 47,
+        /** & */
         AmpersandToken = 48,
+        /** | */
         BarToken = 49,
+        /** ^ */
         CaretToken = 50,
+        /** ! */
         ExclamationToken = 51,
+        /** ~ */
         TildeToken = 52,
+        /** && */
         AmpersandAmpersandToken = 53,
+        /** || */
         BarBarToken = 54,
+        /** ? */
         QuestionToken = 55,
+        /** : */
         ColonToken = 56,
+        /** @ */
         AtToken = 57,
+        /** = */
         EqualsToken = 58,
+        /** += */
         PlusEqualsToken = 59,
+        /** -= */
         MinusEqualsToken = 60,
+        /** *= */
         AsteriskEqualsToken = 61,
+        /** **= */
         AsteriskAsteriskEqualsToken = 62,
+        /** /= */
         SlashEqualsToken = 63,
+        /** %= */
         PercentEqualsToken = 64,
+        /** <<= */
         LessThanLessThanEqualsToken = 65,
+        /** >>= */
         GreaterThanGreaterThanEqualsToken = 66,
+        /** >>>= */
         GreaterThanGreaterThanGreaterThanEqualsToken = 67,
+        /** &= */
         AmpersandEqualsToken = 68,
+        /** |= */
         BarEqualsToken = 69,
+        /** ^=  */
         CaretEqualsToken = 70,
+        /** 标识符 */
         Identifier = 71,
+        /** 跳出 */
         BreakKeyword = 72,
+        /** 为 */
         CaseKeyword = 73,
+        /** 捕获 */
         CatchKeyword = 74,
+        /** 类 */
         ClassKeyword = 75,
+        /** 常量 */
         ConstKeyword = 76,
+        /** 继续 */
         ContinueKeyword = 77,
+        /** 调试 */
         DebuggerKeyword = 78,
+        /** 默认 */
         DefaultKeyword = 79,
+        /** 删除 */
         DeleteKeyword = 80,
+        /** 做do */
         DoKeyword = 81,
+        /** 否则 */
         ElseKeyword = 82,
+        /** 枚举  */
         EnumKeyword = 83,
+        /** 导出 */
         ExportKeyword = 84,
+        /** 扩展  */
         ExtendsKeyword = 85,
+        /** 假 */
         FalseKeyword = 86,
+        /** 最后 */
         FinallyKeyword = 87,
+        /** 循环 */
         ForKeyword = 88,
+        /** 函数 */
         FunctionKeyword = 89,
+        /** 如果 */
         IfKeyword = 90,
+        /** 引入 */
         ImportKeyword = 91,
+        /** 在 */
         InKeyword = 92,
+        /** 类为 */
         InstanceOfKeyword = 93,
+        /** 新建 */
         NewKeyword = 94,
+        /** 空 */
         NullKeyword = 95,
+        /** 返回 */
         ReturnKeyword = 96,
+        /** 父构造器 */
         SuperKeyword = 97,
+        /** 静态 */
         SwitchKeyword = 98,
+        /** 本对象 */
         ThisKeyword = 99,
+        /** 抛出 */
         ThrowKeyword = 100,
+        /** 真 */
         TrueKeyword = 101,
+        /** 尝试 */
         TryKeyword = 102,
+        /** 类型为 */
         TypeOfKeyword = 103,
+        /** 自由变量 */
         VarKeyword = 104,
+        /** 无值 */
         VoidKeyword = 105,
+        /** 判断循环 */
         WhileKeyword = 106,
+        /** 外扩 */
         WithKeyword = 107,
+        /** 实现 */
         ImplementsKeyword = 108,
+        /** 接口 */
         InterfaceKeyword = 109,
+        /** 变量 */
         LetKeyword = 110,
+        /** 包 */
         PackageKeyword = 111,
+        /** 私有 */
         PrivateKeyword = 112,
+        /** 保护 */
         ProtectedKeyword = 113,
+        /** 公开 */
         PublicKeyword = 114,
+        /** 静态 */
         StaticKeyword = 115,
+        /** 获取 */
         YieldKeyword = 116,
+        /** 抽象 */
         AbstractKeyword = 117,
+        /** 转为 */
         AsKeyword = 118,
+        /** 任何 */
         AnyKeyword = 119,
+        /** 异步 */
         AsyncKeyword = 120,
+        /** 等待 */
         AwaitKeyword = 121,
+        /** 布尔 */
         BooleanKeyword = 122,
+        /** 构造器 */
         ConstructorKeyword = 123,
+        /** 声明 */
         DeclareKeyword = 124,
+        /** 取 */
         GetKeyword = 125,
+        /** 是 */
         IsKeyword = 126,
+        /** 键为 */
         KeyOfKeyword = 127,
+        /** 模块 */
         ModuleKeyword = 128,
+        /** 名称空间 */
         NamespaceKeyword = 129,
+        /** 不可及 */
         NeverKeyword = 130,
+        /** 只读 */
         ReadonlyKeyword = 131,
+        /** 需求 */
         RequireKeyword = 132,
+        /** 数字 */
         NumberKeyword = 133,
+        /** 基对象 */
         ObjectKeyword = 134,
+        /** 置 */
         SetKeyword = 135,
+        /** 文本 */
         StringKeyword = 136,
+        /** 符号 */
         SymbolKeyword = 137,
+        /** 类型 */
         TypeKeyword = 138,
+        /** 未定义 */
         UndefinedKeyword = 139,
+        /** 从  */
         FromKeyword = 140,
+        /** 全局  */
         GlobalKeyword = 141,
+        /** 属于 */
         OfKeyword = 142,
+        /** 限定名  */
         QualifiedName = 143,
+        /** 计算属性名 */
         ComputedPropertyName = 144,
+        /** 类型参数 */
         TypeParameter = 145,
+        /** 参数 */
         Parameter = 146,
+        /** 装饰 */
         Decorator = 147,
+        /** 属性签名  */
         PropertySignature = 148,
+        /** 属性声明 */
         PropertyDeclaration = 149,
+        /** 成员签名 */
         MethodSignature = 150,
+        /** 成员声明 */
         MethodDeclaration = 151,
+        /** 构造函数 */
         Constructor = 152,
+        /** get */
         GetAccessor = 153,
+        /** 置 */
         SetAccessor = 154,
+        /** call */
         CallSignature = 155,
+        /** 构造签名 */
         ConstructSignature = 156,
+        /** 索引签名 */
         IndexSignature = 157,
+        /** 类型谓词 */
         TypePredicate = 158,
+        /** 类型引用 */
         TypeReference = 159,
+        /** 函数类型 */
         FunctionType = 160,
+        /** 构造器类型 */
         ConstructorType = 161,
+        /** 类型查询  */
         TypeQuery = 162,
+        /** 类型字面量 */
         TypeLiteral = 163,
+        /** 数组类型 */
         ArrayType = 164,
+        /** 元组类型 */
         TupleType = 165,
+        /** 联合类型 */
         UnionType = 166,
+        /** 交叉类型 */
         IntersectionType = 167,
+        /** 括号类型 */
         ParenthesizedType = 168,
+        /** 本对象类型 */
         ThisType = 169,
+        /** 类型运算符  */
         TypeOperator = 170,
+        /** 索引访问类型 */
         IndexedAccessType = 171,
+        /** 映射类型 */
         MappedType = 172,
+        /** 字面量类型 */
         LiteralType = 173,
+        /** 基对象绑定类型 */
         ObjectBindingPattern = 174,
+        /** 数组绑定类型 */
         ArrayBindingPattern = 175,
+        /** 绑定元素 */
         BindingElement = 176,
+        /** 数组字面量表达式 */
         ArrayLiteralExpression = 177,
+        /** 对象字面量表达式 */
         ObjectLiteralExpression = 178,
+        /** 属性访问表达式 */
         PropertyAccessExpression = 179,
+        /** 元数据访问表达式 */
         ElementAccessExpression = 180,
+        /** call表达式 */
         CallExpression = 181,
+        /** 新建表达式 */
         NewExpression = 182,
+        /** 标签模板表达式 */
         TaggedTemplateExpression = 183,
+        /** 类型声明表达式 */
         TypeAssertionExpression = 184,
+        /** 括号表达式 */
         ParenthesizedExpression = 185,
+        /** 函数表达式 */
         FunctionExpression = 186,
+        /** 箭头函数 */
         ArrowFunction = 187,
+        /** 删除表达式 */
         DeleteExpression = 188,
+        /** 类型为 表达式 */
         TypeOfExpression = 189,
+        /** 无值 表达式 */
         VoidExpression = 190,
+        /** 等待 表达式 */
         AwaitExpression = 191,
+        /** 前缀一元表达式  */
         PrefixUnaryExpression = 192,
+        /** 后缀一元表达式， */
         PostfixUnaryExpression = 193,
+        /** 二元表达式  */
         BinaryExpression = 194,
+        /** 条件表达式 */
         ConditionalExpression = 195,
+        /** 模板的表达 `${}` */
         TemplateExpression = 196,
+        /** 获取 表达式 */
         YieldExpression = 197,
+        /** 传播表达式 */
         SpreadElement = 198,
+        /** 类表达式 */
         ClassExpression = 199,
+        /** 略的表达 ...  */
         OmittedExpression = 200,
+        /** 类型参数表达式， */
         ExpressionWithTypeArguments = 201,
+        /** 转为表达式 */
         AsExpression = 202,
+        /** 非空表达式 */
         NonNullExpression = 203,
+        /** 元属性表达式  */
         MetaProperty = 204,
+        /** 模板跨度 */
         TemplateSpan = 205,
+        /** 分号类元素 */
         SemicolonClassElement = 206,
+        /** 块 */
         Block = 207,
+        /** 变量语句 */
         VariableStatement = 208,
+        /** 空语句 */
         EmptyStatement = 209,
+        /** 表达式语句 */
         ExpressionStatement = 210,
+        /** 如果 语句 */
         IfStatement = 211,
+        /** 点语句 */
         DoStatement = 212,
+        /** 判断循环语句  */
         WhileStatement = 213,
+        /** 循环语句 */
         ForStatement = 214,
+        /** 循环在语句 */
         ForInStatement = 215,
+        /** 循环属于 语句 */
         ForOfStatement = 216,
+        /** 继续语句 */
         ContinueStatement = 217,
+        /** 跳出语句 */
         BreakStatement = 218,
+        /** 返回语句 */
         ReturnStatement = 219,
+        /** 外扩语句 */
         WithStatement = 220,
+        /** 假如语句 */
         SwitchStatement = 221,
+        /** 标签语句 */
         LabeledStatement = 222,
+        /** 抛出语句 */
         ThrowStatement = 223,
+        /** 尝试语句 */
         TryStatement = 224,
+        /** 调试语句 */
         DebuggerStatement = 225,
+        /** 变量的声明 */
         VariableDeclaration = 226,
+        /** 变量列表声明 */
         VariableDeclarationList = 227,
+        /** 函数声明 */
         FunctionDeclaration = 228,
+        /** 类声明 */
         ClassDeclaration = 229,
+        /** 接口声明 */
         InterfaceDeclaration = 230,
+        /** 类型别名声明 */
         TypeAliasDeclaration = 231,
+        /** 枚举声明 */
         EnumDeclaration = 232,
+        /** 模块声明 */
         ModuleDeclaration = 233,
+        /** 模块块 */
         ModuleBlock = 234,
+        /** 为 块 */
         CaseBlock = 235,
+        /** 名称空间导出声明 */
         NamespaceExportDeclaration = 236,
+        /** 引入等于声明 */
         ImportEqualsDeclaration = 237,
+        /** 引入声明 */
         ImportDeclaration = 238,
+        /**  引入规范 */
         ImportClause = 239,
+        /** 名称空间引入 */
         NamespaceImport = 240,
+        /** 名子引入 */
         NamedImports = 241,
+        /** 引入说明符 */
         ImportSpecifier = 242,
+        /** 出口赋值 */
         ExportAssignment = 243,
+        /** 出口声明 */
         ExportDeclaration = 244,
+        /** 名子导出 */
         NamedExports = 245,
+        /** 出口符号 */
         ExportSpecifier = 246,
+        /** 失踪声明 */
         MissingDeclaration = 247,
+        /** 外部模块的参考 */
         ExternalModuleReference = 248,
+        /** jsx元素 */
         JsxElement = 249,
+        /** jsx自关闭元素 */
         JsxSelfClosingElement = 250,
+        /** jsx打开元素 */
         JsxOpeningElement = 251,
+        /** jsx关闭元素 */
         JsxClosingElement = 252,
+        /** jsx特性 */
         JsxAttribute = 253,
+        /** jsx特性集 */
         JsxAttributes = 254,
+        /** jsx传播特性 */
         JsxSpreadAttribute = 255,
+        /** jsx表达式 */
         JsxExpression = 256,
+        /** 为 子句 */
         CaseClause = 257,
+        /** 默认子句 */
         DefaultClause = 258,
+        /** 遗产子句 */
         HeritageClause = 259,
+        /** 捕获子句 */
         CatchClause = 260,
+        /** 属性赋值 */
         PropertyAssignment = 261,
+        /** 速记属性赋值 */
         ShorthandPropertyAssignment = 262,
+        /** 传播赋值 */
         SpreadAssignment = 263,
+        /** 枚举成员 */
         EnumMember = 264,
+        /** 源码文件 */
         SourceFile = 265,
+        /** 程序集 */
         Bundle = 266,
+        /** JSD类型表达式 */
         JSDocTypeExpression = 267,
+        /** JSD * 类型 */
         JSDocAllType = 268,
+        /** JSD ?类型 */
         JSDocUnknownType = 269,
+        /** JSD空标签类型 */
         JSDocNullableType = 270,
+        /** JSD非空标签类型 */
         JSDocNonNullableType = 271,
+        /** JSD可选类型 */
         JSDocOptionalType = 272,
+        /** JSD函数类型 */
         JSDocFunctionType = 273,
+        /** JSD变量 */
         JSDocVariadicType = 274,
+        /** JSD注释类型 */
         JSDocComment = 275,
+        /** JSD标签 */
         JSDocTag = 276,
+        /** JSD增强标签 */
         JSDocAugmentsTag = 277,
+        /** JSD类标签 */
         JSDocClassTag = 278,
+        /** JSD参数标签 */
         JSDocParameterTag = 279,
+        /** JSD返回值标签 */
         JSDocReturnTag = 280,
+        /** JSD类型标签 */
         JSDocTypeTag = 281,
+        /** JSD模板标签 */
         JSDocTemplateTag = 282,
+        /** JSD定义标签 */
         JSDocTypedefTag = 283,
+        /** JSD属性标签 */
         JSDocPropertyTag = 284,
+        /** JSD类型字面量 */
         JSDocTypeLiteral = 285,
-        SyntaxList = 286,
-        NotEmittedStatement = 287,
-        PartiallyEmittedExpression = 288,
-        CommaListExpression = 289,
-        MergeDeclarationMarker = 290,
-        EndOfDeclarationMarker = 291,
-        Count = 292,
+        全局词典语句 = 286,
+        局部词典语句 = 287,
+        词典键 = 288,
+        词典值 = 289,
+        词典表达式 = 290,
+        /** 语法表 */
+        SyntaxList = 291,
+        /** 不发射语句 */
+        NotEmittedStatement = 292,
+        /** 部分发出表达式 */
+        PartiallyEmittedExpression = 293,
+        /** 逗号表达式列表 */
+        CommaListExpression = 294,
+        /** 合并申报的标记  */
+        MergeDeclarationMarker = 295,
+        /** 声明结束标记 */
+        EndOfDeclarationMarker = 296,
+        /** 常量 */
+        Count = 297,
+        /** 第一个赋值 = 等于令牌 */
         FirstAssignment = 58,
+        /** 最后一个赋值 = ^=令牌 */
         LastAssignment = 70,
+        /** 第一个复合赋值 = +=令牌 */
         FirstCompoundAssignment = 59,
+        /** 最后一个复合赋值= ^=令牌  */
         LastCompoundAssignment = 70,
+        /** 第一个保留关键字 = 跳出令牌 */
         FirstReservedWord = 72,
+        /** 最后一个保留关键字 = 外扩令牌 */
         LastReservedWord = 107,
+        /** 第一个关键字 = 跳出令牌 */
         FirstKeyword = 72,
+        /** 最后一个关键字 = 属于令牌 */
         LastKeyword = 142,
+        /** 第一个未来保证字 = 实现令牌 */
         FirstFutureReservedWord = 108,
+        /** 最后一个未来保留字 = 获取令牌 */
         LastFutureReservedWord = 116,
+        /** 第一个类型节点 = 类型谓词 */
         FirstTypeNode = 158,
+        /** 最后一个类型接 = 字面量类型 */
         LastTypeNode = 173,
+        /** 第一个标点符号 = { 开大括号令牌 */
         FirstPunctuation = 17,
+        /** 最后一个标点符号 = ^=令牌 */
         LastPunctuation = 70,
+        /** 第一个令牌 = 未知 */
         FirstToken = 0,
+        /** 最后一个令牌 = 最后一个关键字 */
         LastToken = 142,
+        /** 第一个杂项令牌 = //单行注释 */
         FirstTriviaToken = 2,
+        /** 最后一个杂项令牌 =git冲突标记 */
         LastTriviaToken = 7,
+        /** 第一个字面量令牌 = 数字字面量 */
         FirstLiteralToken = 8,
+        /** 最后一个字面量令牌 =无替换模板字面量 */
         LastLiteralToken = 13,
+        /** 第一个模板标记 = 无替换模板文字 */
         FirstTemplateToken = 13,
+        /** 最后一个模板标记 = 伪文字 模板的尾 */
         LastTemplateToken = 16,
+        /** 第一个二元运算符 = < 令牌 */
         FirstBinaryOperator = 27,
+        /** 最后一个二元运算符 = ^=令牌 */
         LastBinaryOperator = 70,
+        /** 第一个节点 = 限定名 */
         FirstNode = 143,
+        /** 第一个JSD节点 = JSD类型表达式 */
         FirstJSDocNode = 267,
+        /** 最后一个JSD节点 = JSD类型字面量 */
         LastJSDocNode = 285,
+        /** 第一个JSD标签节点 = JSD标签 */
         FirstJSDocTagNode = 276,
+        /** 最后一个JSD标签节点 = JSD字类型面量 */
         LastJSDocTagNode = 285,
     }
     enum NodeFlags {
@@ -405,6 +730,7 @@ declare namespace ts {
         ThisNodeOrAnySubNodesHasError = 131072,
         HasAggregatedChildData = 262144,
         JSDoc = 1048576,
+        词典标签 = 2097152,
         BlockScoped = 3,
         ReachabilityCheckFlags = 384,
         ReachabilityAndEmitFlags = 1408,
@@ -442,6 +768,9 @@ declare namespace ts {
     interface Node extends TextRange {
         kind: SyntaxKind;
         flags: NodeFlags;
+        局部词典语句?: 局部词典语句[];
+        别名?: 别名;
+        别名id?: number;
         decorators?: NodeArray<Decorator>;
         modifiers?: ModifiersArray;
         parent?: Node;
@@ -757,6 +1086,8 @@ declare namespace ts {
     }
     interface StringLiteral extends LiteralExpression {
         kind: SyntaxKind.StringLiteral;
+        别名?: 别名;
+        别名id?: number;
     }
     interface Expression extends Node {
         _expressionBrand: any;
@@ -911,6 +1242,8 @@ declare namespace ts {
     }
     interface NoSubstitutionTemplateLiteral extends LiteralExpression {
         kind: SyntaxKind.NoSubstitutionTemplateLiteral;
+        别名?: 别名;
+        别名id?: number;
     }
     interface NumericLiteral extends LiteralExpression {
         kind: SyntaxKind.NumericLiteral;
@@ -1442,9 +1775,15 @@ declare namespace ts {
     interface JSDocUnknownTag extends JSDocTag {
         kind: SyntaxKind.JSDocTag;
     }
+    /**
+     * Note that `@extends` is a synonym of `@augments`.
+     * Both tags are represented by this interface.
+     */
     interface JSDocAugmentsTag extends JSDocTag {
         kind: SyntaxKind.JSDocAugmentsTag;
-        typeExpression: JSDocTypeExpression;
+        class: ExpressionWithTypeArguments & {
+            expression: Identifier | PropertyAccessEntityNameExpression;
+        };
     }
     interface JSDocClassTag extends JSDocTag {
         kind: SyntaxKind.JSDocClassTag;
@@ -1471,7 +1810,7 @@ declare namespace ts {
     interface JSDocPropertyLikeTag extends JSDocTag, Declaration {
         parent: JSDoc;
         name: EntityName;
-        typeExpression: JSDocTypeExpression;
+        typeExpression?: JSDocTypeExpression;
         /** Whether the property name came before the type -- non-standard for JSDoc, but Typescript-like */
         isNameFirst: boolean;
         isBracketed: boolean;
@@ -1559,6 +1898,8 @@ declare namespace ts {
         endOfFileToken: Token<SyntaxKind.EndOfFileToken>;
         fileName: string;
         text: string;
+        词典语句?: Map<全局词典语句>;
+        全局词典?: Map<词典>;
         amdDependencies: ReadonlyArray<AmdDependency>;
         moduleName: string;
         referencedFiles: ReadonlyArray<FileReference>;
@@ -1686,29 +2027,49 @@ declare namespace ts {
         emittedFiles: string[];
     }
     interface TypeChecker {
+        /** 取类型按符号位置 */
         getTypeOfSymbolAtLocation(symbol: Symbol, node: Node): Type;
+        /** 取声明类型从符号 */
         getDeclaredTypeOfSymbol(symbol: Symbol): Type;
+        /** 取类型的属性集 */
         getPropertiesOfType(type: Type): Symbol[];
+        /** 取类型的属性 */
         getPropertyOfType(type: Type, propertyName: string): Symbol | undefined;
+        /** 取类型的索引信息 */
         getIndexInfoOfType(type: Type, kind: IndexKind): IndexInfo | undefined;
+        /** 取类型的签名 */
         getSignaturesOfType(type: Type, kind: SignatureKind): Signature[];
+        /** 取类型的索引类型 */
         getIndexTypeOfType(type: Type, kind: IndexKind): Type | undefined;
+        /** 取基类型 */
         getBaseTypes(type: InterfaceType): BaseType[];
+        /** 取字面量类型的基类型 */
         getBaseTypeOfLiteralType(type: Type): Type;
+        /** 取加宽类型 */
         getWidenedType(type: Type): Type;
+        /** 取签名的返回类型 */
         getReturnTypeOfSignature(signature: Signature): Type;
         getNullableType(type: Type, flags: TypeFlags): Type;
+        /** 取非可空类型 */
         getNonNullableType(type: Type): Type;
-        /** Note that the resulting nodes cannot be checked. */
+        /** 请注意，导致节点不能被检查。 */
+        /** 类型转为类型节点 */
         typeToTypeNode(type: Type, enclosingDeclaration?: Node, flags?: NodeBuilderFlags): TypeNode;
-        /** Note that the resulting nodes cannot be checked. */
+        /** 请注意，导致节点不能被检查。 */
+        /** 签名转为签名声明 */
         signatureToSignatureDeclaration(signature: Signature, kind: SyntaxKind, enclosingDeclaration?: Node, flags?: NodeBuilderFlags): SignatureDeclaration;
-        /** Note that the resulting nodes cannot be checked. */
+        /** 请注意，导致节点不能被检查。 */
+        /** 索引信息转为索引签名声明 */
         indexInfoToIndexSignatureDeclaration(indexInfo: IndexInfo, kind: IndexKind, enclosingDeclaration?: Node, flags?: NodeBuilderFlags): IndexSignatureDeclaration;
+        /** 取范围内的符号 */
         getSymbolsInScope(location: Node, meaning: SymbolFlags): Symbol[];
+        /** 取符号按位置 */
         getSymbolAtLocation(node: Node): Symbol | undefined;
+        /** 取参数属性声明的符号 */
         getSymbolsOfParameterPropertyDeclaration(parameter: ParameterDeclaration, parameterName: string): Symbol[];
+        /** 取速记值赋值符号 */
         getShorthandAssignmentValueSymbol(location: Node): Symbol | undefined;
+        /** 取出口说明符局部目标符号 */
         getExportSpecifierLocalTargetSymbol(location: ExportSpecifier): Symbol | undefined;
         /**
          * If a symbol is a local symbol with an associated exported symbol, returns the exported symbol.
@@ -1719,39 +2080,72 @@ declare namespace ts {
          *     - Calling `getExportSymbolOfSymbol` on that local symbol will return the exported symbol.
          */
         getExportSymbolOfSymbol(symbol: Symbol): Symbol;
+        /** 取解构分配财产的特征 */
         getPropertySymbolOfDestructuringAssignment(location: Identifier): Symbol | undefined;
+        /** 取位置按位置 */
         getTypeAtLocation(node: Node): Type;
+        /** 取类型从类型节点 */
         getTypeFromTypeNode(node: TypeNode): Type;
+        /** 签名转为文字 */
         signatureToString(signature: Signature, enclosingDeclaration?: Node, flags?: TypeFormatFlags, kind?: SignatureKind): string;
+        /** 类型转为文字 */
         typeToString(type: Type, enclosingDeclaration?: Node, flags?: TypeFormatFlags): string;
+        /** 符号转为文字 */
         symbolToString(symbol: Symbol, enclosingDeclaration?: Node, meaning?: SymbolFlags): string;
+        /**
+         * @deprecated Use the createX factory functions or XToY typechecker methods and `createPrinter` or the `xToString` methods instead
+         * This will be removed in a future version.
+         */
+        /** 取符号显示构建 */
         getSymbolDisplayBuilder(): SymbolDisplayBuilder;
+        /** 取完全限定名 */
         getFullyQualifiedName(symbol: Symbol): string;
+        /** 取类型的增强属性类型 */
         getAugmentedPropertiesOfType(type: Type): Symbol[];
+        /** 取根符号集 */
         getRootSymbols(symbol: Symbol): Symbol[];
+        /** 取语境类型 */
         getContextualType(node: Expression): Type | undefined;
         /**
          * returns unknownSignature in the case of an error. Don't know when it returns undefined.
          * @param argumentCount Apparent number of arguments, passed in case of a possibly incomplete call. This should come from an ArgumentListInfo. See `signatureHelp.ts`.
          */
+        /** 取解决的签名 */
         getResolvedSignature(node: CallLikeExpression, candidatesOutArray?: Signature[], argumentCount?: number): Signature | undefined;
+        /** 取签名从声明 */
         getSignatureFromDeclaration(declaration: SignatureDeclaration): Signature | undefined;
+        /** 是重载的实现 */
         isImplementationOfOverload(node: FunctionLike): boolean | undefined;
+        /** 是未定义符号 */
         isUndefinedSymbol(symbol: Symbol): boolean;
+        /** 是增强参数符号 */
         isArgumentsSymbol(symbol: Symbol): boolean;
+        /** 是未知符号 */
         isUnknownSymbol(symbol: Symbol): boolean;
+        /** 取常量值 */
         getConstantValue(node: EnumMember | PropertyAccessExpression | ElementAccessExpression): string | number | undefined;
+        /** 是有效的属性访问 */
         isValidPropertyAccess(node: PropertyAccessExpression | QualifiedName, propertyName: string): boolean;
         /** Follow all aliases to get the original symbol. */
+        /** 取别名符号 */
         getAliasedSymbol(symbol: Symbol): Symbol;
+        /** 取模块的出口 */
         getExportsOfModule(moduleSymbol: Symbol): Symbol[];
+        /** 取所有的属性类型从JSX开放像元素 */
         getAllAttributesTypeFromJsxOpeningLikeElement(elementNode: JsxOpeningLikeElement): Type | undefined;
+        /** 取JSX内在标签名称 */
         getJsxIntrinsicTagNames(): Symbol[];
+        /** 是可选参数 */
         isOptionalParameter(node: ParameterDeclaration): boolean;
+        /** 取AMB模块集 */
         getAmbientModules(): Symbol[];
+        /** 尝试取模块出口的成员 */
         tryGetMemberInModuleExports(memberName: string, moduleSymbol: Symbol): Symbol | undefined;
+        /** 取明显类型 */
         getApparentType(type: Type): Type;
+        /** 取不存在的属性建议 */
         getSuggestionForNonexistentProperty(node: Identifier, containingType: Type): string | undefined;
+        /** 取不存在的符号建议 */
         getSuggestionForNonexistentSymbol(location: Node, name: string, meaning: SymbolFlags): string | undefined;
     }
     enum NodeBuilderFlags {
@@ -1905,6 +2299,8 @@ declare namespace ts {
     interface Symbol {
         flags: SymbolFlags;
         escapedName: __String;
+        别名?: 别名;
+        别名id?: number;
         declarations?: Declaration[];
         valueDeclaration?: Declaration;
         members?: SymbolTable;
@@ -1982,6 +2378,7 @@ declare namespace ts {
         Index = 262144,
         IndexedAccess = 524288,
         NonPrimitive = 16777216,
+        MarkerType = 67108864,
         Literal = 224,
         Unit = 6368,
         StringOrNumberLiteral = 96,
@@ -1996,6 +2393,7 @@ declare namespace ts {
         TypeVariable = 540672,
         Narrowable = 17810175,
         NotUnionOrUnit = 16810497,
+        Cts类型转换 = 360738,
     }
     type DestructuringPattern = BindingPattern | ObjectLiteralExpression | ArrayLiteralExpression;
     interface Type {
@@ -2012,11 +2410,15 @@ declare namespace ts {
     }
     interface StringLiteralType extends LiteralType {
         value: string;
+        别名?: 别名;
+        别名id?: number;
     }
     interface NumberLiteralType extends LiteralType {
         value: number;
     }
     interface EnumType extends Type {
+        别名?: 别名;
+        别名id?: number;
     }
     enum ObjectFlags {
         Class = 1,
@@ -2033,6 +2435,8 @@ declare namespace ts {
     }
     interface ObjectType extends Type {
         objectFlags: ObjectFlags;
+        别名?: 别名;
+        别名id?: number;
     }
     /** Class and interface types (ObjectFlags.Class and ObjectFlags.Interface). */
     interface InterfaceType extends ObjectType {
@@ -2111,9 +2515,10 @@ declare namespace ts {
         declaration?: SignatureDeclaration;
     }
     enum InferencePriority {
-        NakedTypeVariable = 1,
-        MappedType = 2,
-        ReturnType = 4,
+        Contravariant = 1,
+        NakedTypeVariable = 2,
+        MappedType = 4,
+        ReturnType = 8,
     }
     interface InferenceInfo {
         typeParameter: TypeParameter;
@@ -2146,6 +2551,7 @@ declare namespace ts {
     interface JsFileExtensionInfo {
         extension: string;
         isMixedContent: boolean;
+        scriptKind?: ScriptKind;
     }
     interface DiagnosticMessage {
         key: string;
@@ -2247,6 +2653,7 @@ declare namespace ts {
         sourceMap?: boolean;
         sourceRoot?: string;
         strict?: boolean;
+        strictFunctionTypes?: boolean;
         strictNullChecks?: boolean;
         suppressExcessPropertyErrors?: boolean;
         suppressImplicitAnyIndexErrors?: boolean;
@@ -2255,6 +2662,14 @@ declare namespace ts {
         types?: string[];
         /** Paths used to compute primary types search locations */
         typeRoots?: string[];
+        使用中文支持库?: boolean;
+        中文关键字?: boolean;
+        转译Ts?: boolean;
+        转译Cts?: boolean;
+        转译声明?: boolean;
+        输出无词典标识符?: boolean;
+        词典在文件尾?: boolean;
+        词典不重复输出?: boolean;
         [option: string]: CompilerOptionsValue | JsonSourceFile | undefined;
     }
     interface TypeAcquisition {
@@ -2293,6 +2708,7 @@ declare namespace ts {
         LineFeed = 1,
     }
     interface LineAndCharacter {
+        /** 0-based. */
         line: number;
         character: number;
     }
@@ -2301,9 +2717,11 @@ declare namespace ts {
         JS = 1,
         JSX = 2,
         TS = 3,
-        TSX = 4,
-        External = 5,
-        JSON = 6,
+        CTS = 4,
+        TSX = 5,
+        CTSX = 6,
+        External = 7,
+        JSON = 8,
     }
     enum ScriptTarget {
         ES3 = 0,
@@ -2397,25 +2815,29 @@ declare namespace ts {
     enum Extension {
         Ts = ".ts",
         Tsx = ".tsx",
+        CTs = ".cts",
+        CTsx = ".ctsx",
         Dts = ".d.ts",
+        DCts = ".d.cts",
         Js = ".js",
         Jsx = ".jsx",
+        Json = ".json",
     }
     interface ResolvedModuleWithFailedLookupLocations {
-        resolvedModule: ResolvedModuleFull | undefined;
+        readonly resolvedModule: ResolvedModuleFull | undefined;
     }
     interface ResolvedTypeReferenceDirective {
         primary: boolean;
-        resolvedFileName?: string;
+        resolvedFileName: string | undefined;
         packageId?: PackageId;
     }
     interface ResolvedTypeReferenceDirectiveWithFailedLookupLocations {
-        resolvedTypeReferenceDirective: ResolvedTypeReferenceDirective;
-        failedLookupLocations: string[];
+        readonly resolvedTypeReferenceDirective: ResolvedTypeReferenceDirective;
+        readonly failedLookupLocations: ReadonlyArray<string>;
     }
     interface CompilerHost extends ModuleResolutionHost {
-        getSourceFile(fileName: string, languageVersion: ScriptTarget, onError?: (message: string) => void): SourceFile | undefined;
-        getSourceFileByPath?(fileName: string, path: Path, languageVersion: ScriptTarget, onError?: (message: string) => void): SourceFile | undefined;
+        getSourceFile(fileName: string, languageVersion: ScriptTarget, onError?: (message: string) => void, shouldCreateNewSourceFile?: boolean): SourceFile | undefined;
+        getSourceFileByPath?(fileName: string, path: Path, languageVersion: ScriptTarget, onError?: (message: string) => void, shouldCreateNewSourceFile?: boolean): SourceFile | undefined;
         getCancellationToken?(): CancellationToken;
         getDefaultLibFileName(options: CompilerOptions): string;
         getDefaultLibLocation?(): string;
@@ -2425,7 +2847,7 @@ declare namespace ts {
         getCanonicalFileName(fileName: string): string;
         useCaseSensitiveFileNames(): boolean;
         getNewLine(): string;
-        resolveModuleNames?(moduleNames: string[], containingFile: string): ResolvedModule[];
+        resolveModuleNames?(moduleNames: string[], containingFile: string, reusedNames?: string[]): ResolvedModule[];
         /**
          * This method is a companion for 'resolveModuleNames' and is used to resolve 'types' references to actual type declaration files
          */
@@ -2656,7 +3078,111 @@ declare namespace ts {
     }
 }
 declare namespace ts {
-    const versionMajorMinor = "2.6";
+    enum 词典类别 {
+        汉英词典 = 1,
+        英汉词典 = 2,
+    }
+    enum 使用场景 {
+        输出 = 1,
+        类型检查 = 2,
+    }
+    enum 输出种类 {
+        输出源码 = 1,
+        输出中文 = 2,
+        输出英文 = 3,
+    }
+    enum 文件种类 {
+        未知 = 0,
+        DCTS = 1,
+        DTS = 2,
+        CTS = 3,
+        TS = 4,
+        CTSX = 5,
+        TSX = 6,
+        JS = 7,
+        JSX = 8,
+        外部 = 9,
+        JSON = 10,
+    }
+    interface 别名数据 {
+        别名数据: string[];
+        添加: (数据: string) => number;
+        元素数量: number;
+    }
+    interface 文本名称 {
+        名称: __String | string;
+        别名: __String | string;
+    }
+    type 索引 = {
+        键: string;
+        值: string;
+    };
+    type 别名索引 = {
+        键: __String | string;
+        值: 别名;
+    };
+    type 索引表 = Map<string>;
+    type 可携带词典节点 = Identifier | StringLiteral;
+    interface 词典键 extends Node {
+        kind: SyntaxKind.词典键;
+        name: Identifier | StringLiteral;
+    }
+    interface 词典值 extends Node {
+        kind: SyntaxKind.词典值;
+        name: Identifier | StringLiteral;
+    }
+    interface 词典 extends Expression {
+        kind: SyntaxKind.词典表达式;
+        键: 词典键;
+        值: 词典值;
+        是局部词典?: 别名旗帜;
+        是全局词典?: 别名旗帜;
+        是单向词典?: 别名旗帜;
+        是内置词典?: 别名旗帜;
+        是文本字面量词典?: 别名旗帜;
+        词典类别?: 别名旗帜;
+        引用节点?: Map<可携带词典节点>;
+    }
+    enum 别名旗帜 {
+        空 = 0,
+        英汉 = 1,
+        汉英 = 2,
+        字面量 = 4,
+        局部词典 = 8,
+        全局词典 = 16,
+        单向词典 = 32,
+        内置词典 = 64,
+    }
+    type 词典旗帜 = 别名旗帜;
+    interface 别名 {
+        旗帜: 别名旗帜;
+        名称: __String;
+    }
+    type 别名组 = UnderscoreEscapedMap<别名[]>;
+    interface 全局词典语句 extends Statement {
+        kind: SyntaxKind.全局词典语句;
+        表达式: NodeArray<词典>;
+    }
+    interface 局部词典语句 extends Statement {
+        kind: SyntaxKind.局部词典语句;
+        表达式: NodeArray<词典>;
+    }
+    type 词典语句 = 局部词典语句 | 全局词典语句;
+    interface 词典注释范围 {
+        词典旗帜: 词典旗帜;
+        注释范围: CommentRange | undefined;
+    }
+    type 类型节点携带者 = Identifier | TypeParameterDeclaration | SignatureDeclaration | VariableDeclaration | ParameterDeclaration | PropertySignature | PropertyDeclaration | VariableLikeDeclaration | TypeReferenceNode | TypePredicateNode | ArrayTypeNode | TupleTypeNode | UnionOrIntersectionTypeNode | ParenthesizedTypeNode | TypeOperatorNode | IndexedAccessTypeNode | MappedTypeNode | CallExpression | ExpressionWithTypeArguments | NewExpression | AssertionExpression | TypeAliasDeclaration | JSDocTypeExpression | JSDocNonNullableType | JSDocNullableType | JSDocOptionalType | JSDocVariadicType;
+    type 单类型节点携带者 = SignatureDeclaration | VariableDeclaration | ParameterDeclaration | PropertySignature | PropertyDeclaration | VariableLikeDeclaration | TypePredicateNode | ParenthesizedTypeNode | TypeOperatorNode | MappedTypeNode | AssertionExpression | TypeAliasDeclaration | JSDocTypeExpression | JSDocNonNullableType | JSDocNullableType | JSDocOptionalType | JSDocVariadicType;
+    type 类型集节点携带者 = UnionOrIntersectionTypeNode;
+    type 类型参数节点携带者 = Identifier | TypeReferenceNode | CallExpression | ExpressionWithTypeArguments | NewExpression;
+    type 元素类型节点携带者 = ArrayTypeNode;
+    type 元素集类型节点携带者 = TupleTypeNode;
+    type 默认及约束类型节点携带者 = TypeParameterDeclaration;
+    type 对象及索引类型节点携带者 = IndexedAccessTypeNode;
+}
+declare namespace ts {
+    const versionMajorMinor = "2.7";
     /** The version of the TypeScript compiler release */
     const version: string;
 }
@@ -2678,14 +3204,26 @@ declare namespace ts {
         callback: FileWatcherCallback;
         mtime?: Date;
     }
-    interface System {
-        args: string[];
+    /**
+     * Partial interface of the System thats needed to support the caching of directory structure
+     */
+    interface DirectoryStructureHost {
         newLine: string;
         useCaseSensitiveFileNames: boolean;
         write(s: string): void;
         readFile(path: string, encoding?: string): string | undefined;
-        getFileSize?(path: string): number;
         writeFile(path: string, data: string, writeByteOrderMark?: boolean): void;
+        fileExists(path: string): boolean;
+        directoryExists(path: string): boolean;
+        createDirectory(path: string): void;
+        getCurrentDirectory(): string;
+        getDirectories(path: string): string[];
+        readDirectory(path: string, extensions?: ReadonlyArray<string>, exclude?: ReadonlyArray<string>, include?: ReadonlyArray<string>, depth?: number): string[];
+        exit(exitCode?: number): void;
+    }
+    interface System extends DirectoryStructureHost {
+        args: string[];
+        getFileSize?(path: string): number;
         /**
          * @pollingInterval - this parameter is used in polling-based watchers and ignored in watchers that
          * use native OS file watching
@@ -2693,13 +3231,7 @@ declare namespace ts {
         watchFile?(path: string, callback: FileWatcherCallback, pollingInterval?: number): FileWatcher;
         watchDirectory?(path: string, callback: DirectoryWatcherCallback, recursive?: boolean): FileWatcher;
         resolvePath(path: string): string;
-        fileExists(path: string): boolean;
-        directoryExists(path: string): boolean;
-        createDirectory(path: string): void;
         getExecutingFilePath(): string;
-        getCurrentDirectory(): string;
-        getDirectories(path: string): string[];
-        readDirectory(path: string, extensions?: ReadonlyArray<string>, exclude?: ReadonlyArray<string>, include?: ReadonlyArray<string>, depth?: number): string[];
         getModifiedTime?(path: string): Date;
         /**
          * This should be cryptographically secure.
@@ -2707,17 +3239,12 @@ declare namespace ts {
          */
         createHash?(data: string): string;
         getMemoryUsage?(): number;
-        exit(exitCode?: number): void;
         realpath?(path: string): string;
         setTimeout?(callback: (...args: any[]) => void, ms: number, ...args: any[]): any;
         clearTimeout?(timeoutId: any): void;
     }
     interface FileWatcher {
         close(): void;
-    }
-    interface DirectoryWatcher extends FileWatcher {
-        directoryName: string;
-        referenceCount: number;
     }
     function getNodeMajorVersion(): number;
     let sys: System;
@@ -2747,6 +3274,8 @@ declare namespace ts {
         scanJsxToken(): SyntaxKind;
         scanJSDocToken(): SyntaxKind;
         scan(): SyntaxKind;
+        翻译词典扫描(): SyntaxKind;
+        扫描词典主体(): SyntaxKind;
         getText(): string;
         setText(text: string, start?: number, length?: number): void;
         setOnError(onError: ErrorCallback): void;
@@ -2758,6 +3287,8 @@ declare namespace ts {
         tryScan<T>(callback: () => T): T;
     }
     function tokenToString(t: SyntaxKind): string | undefined;
+    function 令牌转为关键字(t: SyntaxKind): string | undefined;
+    function 令牌转为中文关键字(t: SyntaxKind): string | undefined;
     function getPositionOfLineAndCharacter(sourceFile: SourceFile, line: number, character: number): number;
     function getLineAndCharacterOfPosition(sourceFile: SourceFileLike, position: number): LineAndCharacter;
     function isWhiteSpaceLike(ch: number): boolean;
@@ -2851,6 +3382,8 @@ declare namespace ts {
      * @returns The unescaped identifier text.
      */
     function unescapeLeadingUnderscores(identifier: __String): string;
+    function idText(identifier: Identifier): string;
+    function symbolName(symbol: Symbol): string;
     /**
      * Remove extra underscore from escaped identifier text content.
      * @deprecated Use `id.text` for the unescaped text.
@@ -2912,6 +3445,8 @@ declare namespace ts {
     function getJSDocReturnType(node: Node): TypeNode | undefined;
     /** Get all JSDoc tags related to a node, including those on parent nodes. */
     function getJSDocTags(node: Node): ReadonlyArray<JSDocTag> | undefined;
+    /** Gets all JSDoc tags of a specified kind, or undefined if not present. */
+    function getAllJSDocTagsOfKind(node: Node, kind: SyntaxKind): ReadonlyArray<JSDocTag> | undefined;
 }
 declare namespace ts {
     function isNumericLiteral(node: Node): node is NumericLiteral;
@@ -3104,6 +3639,45 @@ declare namespace ts {
     function isCaseOrDefaultClause(node: Node): node is CaseOrDefaultClause;
     /** True if node is of a kind that may contain comment text. */
     function isJSDocCommentContainingNode(node: Node): boolean;
+    function isSetAccessor(node: Node): node is SetAccessorDeclaration;
+    function isGetAccessor(node: Node): node is GetAccessorDeclaration;
+}
+declare namespace ts {
+    function 创建空对象<T>(): T;
+    function 取字典注释范围(node: Node, text: string): 词典注释范围[] | undefined;
+    function 取声明的标识符或字面量标识符(声明节点: Declaration): Identifier | StringLiteral | undefined;
+    function 是局部词典语句(词典参数: 词典语句): 词典参数 is 局部词典语句;
+    function 是全局词典语句(词典参数: 词典语句): 词典参数 is 全局词典语句;
+    type 可比较名称类型 = 可携带词典类型 | string;
+    type 可携带词典类型 = Identifier | StringLiteral | NoSubstitutionTemplateLiteral | Symbol | StringLiteralType;
+    function 对象名称比较(左值: 可比较名称类型, 右值: 可比较名称类型): boolean;
+    function 交换词典键值(词典: 词典): 词典;
+    function 取别名旗帜(词典: 词典, 旗帜?: 别名旗帜): number;
+    function 翻转别名旗帜(旗帜: 别名旗帜): number;
+    function 取符号从符号表按名称<T extends 可携带词典类型>(符号表: UnderscoreEscapedMap<T>, 名称: __String, 备选别名: 可携带词典类型 | string): T;
+    function 创建别名数据(数据?: string): 别名数据;
+    function 词典携带组生成别名数据单元组(...元素: 可携带词典类型[]): string;
+    function 词典携带者交换别名(源符号: 可比较名称类型, 目标: 可比较名称类型): void;
+    function 传递别名(别名接受者: 可携带词典类型, 别名提供者: 可携带词典类型): void;
+    function 取属性名的标识符(name: PropertyName): Identifier | StringLiteral | undefined;
+    function 取节点的文本(node: Node, includeTrivia?: boolean): string;
+    function 取输出文本从源文件按节点(sourceFile: SourceFile, node: Node, includeTrivia?: boolean): string;
+    function 解码文本(别名参数: 别名): string;
+    function 取文本从标识符或字面量(node: Identifier | LiteralLikeNode): string;
+    function 取属性别名名称从声明名(name: DeclarationName): __String;
+    function 取别名从属性名(node: PropertyName): 别名;
+    function 是单类型节点携带者(node: Node): node is 单类型节点携带者;
+    function 是类型集节点携带者(node: Node): node is 类型集节点携带者;
+    function 是类型参数节点携带者(node: Node): node is 类型参数节点携带者;
+    function 是元素类型节点携带者(node: Node): node is 元素类型节点携带者;
+    function 是元素集类型节点携带者(node: Node): node is 元素集类型节点携带者;
+    function 是默认及约束类型节点携带者(node: Node): node is 默认及约束类型节点携带者;
+    function 是对象及索引类型节点携带者(node: Node): node is 对象及索引类型节点携带者;
+    const 内置JSDoc标签名: Map<string>;
+    const JSDoc标签正则表达式: RegExp;
+    function 替换JSDoc标签(评论文本: string): string;
+    function 处理模块引用路径(路径: string): string;
+    function 处理头部三斜线指令(文本: string): string;
 }
 declare namespace ts {
     function createNode(kind: SyntaxKind, pos?: number, end?: number): Node;
@@ -3133,10 +3707,11 @@ declare namespace ts {
     function updateSourceFile(sourceFile: SourceFile, newText: string, textChangeRange: TextChangeRange, aggressiveChecks?: boolean): SourceFile;
 }
 declare namespace ts {
-    function getEffectiveTypeRoots(options: CompilerOptions, host: {
-        directoryExists?: (directoryName: string) => boolean;
-        getCurrentDirectory?: () => string;
-    }): string[] | undefined;
+    interface GetEffectiveTypeRootsHost {
+        directoryExists?(directoryName: string): boolean;
+        getCurrentDirectory?(): string;
+    }
+    function getEffectiveTypeRoots(options: CompilerOptions, host: GetEffectiveTypeRootsHost): string[] | undefined;
     /**
      * @param {string | undefined} containingFile - file that contains type reference directive, can be undefined if containing file is unknown.
      * This is possible in case if resolution is performed for directives specified via 'types' parameter. In this case initial path for secondary lookups
@@ -3651,6 +4226,17 @@ declare namespace ts {
     function createPrinter(printerOptions?: PrinterOptions, handlers?: PrintHandlers): Printer;
 }
 declare namespace ts {
+    interface EmitOutput {
+        outputFiles: OutputFile[];
+        emitSkipped: boolean;
+    }
+    interface OutputFile {
+        name: string;
+        writeByteOrderMark: boolean;
+        text: string;
+    }
+}
+declare namespace ts {
     function findConfigFile(searchPath: string, fileExists: (fileName: string) => boolean, configName?: string): string;
     function resolveTripleslashReference(moduleName: string, containingFile: string): string;
     function createCompilerHost(options: CompilerOptions, setParentNodes?: boolean): CompilerHost;
@@ -3661,6 +4247,7 @@ declare namespace ts {
         getNewLine(): string;
     }
     function formatDiagnostics(diagnostics: ReadonlyArray<Diagnostic>, host: FormatDiagnosticsHost): string;
+    function formatDiagnostic(diagnostic: Diagnostic, host: FormatDiagnosticsHost): string;
     function formatDiagnosticsWithColorAndContext(diagnostics: ReadonlyArray<Diagnostic>, host: FormatDiagnosticsHost): string;
     function flattenDiagnosticMessageText(messageText: string | DiagnosticMessageChain, newLine: string): string;
     /**
@@ -3679,6 +4266,7 @@ declare namespace ts {
     function createProgram(rootNames: ReadonlyArray<string>, options: CompilerOptions, host?: CompilerHost, oldProgram?: Program): Program;
 }
 declare namespace ts {
+    const 编译选项别名对照表: Map<string>;
     function parseCommandLine(commandLine: ReadonlyArray<string>, readFile?: (path: string) => string | undefined): ParsedCommandLine;
     /**
      * Read tsconfig.json file
@@ -3761,6 +4349,10 @@ declare namespace ts {
         getDocumentationComment(): SymbolDisplayPart[];
         getJsDocTags(): JSDocTagInfo[];
     }
+    interface 别名 {
+        旗帜: 别名旗帜;
+        名称: __String;
+    }
     interface Type {
         getFlags(): TypeFlags;
         getSymbol(): Symbol | undefined;
@@ -3829,7 +4421,11 @@ declare namespace ts {
     interface HostCancellationToken {
         isCancellationRequested(): boolean;
     }
-    interface LanguageServiceHost {
+    interface InstallPackageOptions {
+        fileName: Path;
+        packageName: string;
+    }
+    interface LanguageServiceHost extends GetEffectiveTypeRootsHost {
         getCompilationSettings(): CompilerOptions;
         getNewLine?(): string;
         getProjectVersion?(): string;
@@ -3849,14 +4445,15 @@ declare namespace ts {
         readFile?(path: string, encoding?: string): string | undefined;
         fileExists?(path: string): boolean;
         getTypeRootsVersion?(): number;
-        resolveModuleNames?(moduleNames: string[], containingFile: string): ResolvedModule[];
+        resolveModuleNames?(moduleNames: string[], containingFile: string, reusedNames?: string[]): ResolvedModule[];
         resolveTypeReferenceDirectives?(typeDirectiveNames: string[], containingFile: string): ResolvedTypeReferenceDirective[];
-        directoryExists?(directoryName: string): boolean;
         getDirectories?(directoryName: string): string[];
         /**
          * Gets a set of custom transformers to use during emit.
          */
         getCustomTransformers?(): CustomTransformers | undefined;
+        isKnownTypesPackageName?(name: string): boolean;
+        installPackage?(options: InstallPackageOptions): Promise<ApplyCodeActionCommandResult>;
     }
     interface LanguageService {
         cleanupSemanticCache(): void;
@@ -3874,7 +4471,7 @@ declare namespace ts {
         getEncodedSyntacticClassifications(fileName: string, span: TextSpan): Classifications;
         getEncodedSemanticClassifications(fileName: string, span: TextSpan): Classifications;
         getCompletionsAtPosition(fileName: string, position: number): CompletionInfo;
-        getCompletionEntryDetails(fileName: string, position: number, entryName: string): CompletionEntryDetails;
+        getCompletionEntryDetails(fileName: string, position: number, entryName: string, options?: FormatCodeOptions | FormatCodeSettings): CompletionEntryDetails;
         getCompletionEntrySymbol(fileName: string, position: number, entryName: string): Symbol;
         getQuickInfoAtPosition(fileName: string, position: number): QuickInfo;
         getNameOrDottedNameSpan(fileName: string, startPos: number, endPos: number): TextSpan;
@@ -3904,11 +4501,16 @@ declare namespace ts {
         isValidBraceCompletionAtPosition(fileName: string, position: number, openingBrace: number): boolean;
         getSpanOfEnclosingComment(fileName: string, position: number, onlyMultiLine: boolean): TextSpan;
         getCodeFixesAtPosition(fileName: string, start: number, end: number, errorCodes: number[], formatOptions: FormatCodeSettings): CodeAction[];
+        applyCodeActionCommand(fileName: string, action: CodeActionCommand): Promise<ApplyCodeActionCommandResult>;
         getApplicableRefactors(fileName: string, positionOrRaneg: number | TextRange): ApplicableRefactorInfo[];
         getEditsForRefactor(fileName: string, formatOptions: FormatCodeSettings, positionOrRange: number | TextRange, refactorName: string, actionName: string): RefactorEditInfo | undefined;
         getEmitOutput(fileName: string, emitOnlyDtsFiles?: boolean): EmitOutput;
         getProgram(): Program;
+        转为CTS(fileName: string): string;
         dispose(): void;
+    }
+    interface ApplyCodeActionCommandResult {
+        successMessage: string;
     }
     interface Classifications {
         spans: number[];
@@ -3974,6 +4576,14 @@ declare namespace ts {
         description: string;
         /** Text changes to apply to each file as part of the code action */
         changes: FileTextChanges[];
+        /**
+         * If the user accepts the code fix, the editor should send the action back in a `applyAction` request.
+         * This allows the language service to have side effects (e.g. installing dependencies) upon a code fix.
+         */
+        commands?: CodeActionCommand[];
+    }
+    type CodeActionCommand = InstallPackageAction;
+    interface InstallPackageAction {
     }
     /**
      * A set of one or more available refactoring actions, grouped under a parent refactoring.
@@ -4022,6 +4632,7 @@ declare namespace ts {
         edits: FileTextChanges[];
         renameFilename: string | undefined;
         renameLocation: number | undefined;
+        commands?: CodeActionCommand[];
     }
     interface TextInsertion {
         newText: string;
@@ -4241,6 +4852,7 @@ declare namespace ts {
          * be used in that case
          */
         replacementSpan?: TextSpan;
+        hasAction?: true;
     }
     interface CompletionEntryDetails {
         name: string;
@@ -4249,6 +4861,7 @@ declare namespace ts {
         displayParts: SymbolDisplayPart[];
         documentation: SymbolDisplayPart[];
         tags: JSDocTagInfo[];
+        codeActions?: CodeAction[];
     }
     interface OutliningSpan {
         /** The span of the document to actually collapse. */
@@ -4263,19 +4876,10 @@ declare namespace ts {
          */
         autoCollapse: boolean;
     }
-    interface EmitOutput {
-        outputFiles: OutputFile[];
-        emitSkipped: boolean;
-    }
     enum OutputFileType {
         JavaScript = 0,
         SourceMap = 1,
         Declaration = 2,
-    }
-    interface OutputFile {
-        name: string;
-        writeByteOrderMark: boolean;
-        text: string;
     }
     enum EndOfLineState {
         None = 0,

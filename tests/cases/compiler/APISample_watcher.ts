@@ -21,7 +21,7 @@ declare var fs: {
 };
 declare var path: any;
 
-import * as ts from "ctsScript";
+import * as ts from "typescript";
 
 function watch(rootFileNames: string[], options: ts.CompilerOptions) {
     const files: ts.MapLike<{ version: number }> = {};

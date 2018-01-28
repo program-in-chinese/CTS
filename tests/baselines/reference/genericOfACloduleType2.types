@@ -8,14 +8,14 @@ class G<T>{ bar(x: T) { return x; } }
 >x : T
 
 module M {
->M : typeof M
+>M : 类为 M
 
     export class C { foo() { } }
 >C : C
->foo : () => void
+>foo : () => 无值
 
     export module C {
->C : typeof C
+>C : 类为 C
 
         export class X {
 >X : X
@@ -25,30 +25,30 @@ module M {
     var g1 = new G<C>();
 >g1 : G<C>
 >new G<C>() : G<C>
->G : typeof G
+>G : 类为 G
 >C : C
 
     g1.bar(null).foo(); // no error
->g1.bar(null).foo() : void
+>g1.bar(null).foo() : 无值
 >类型别名 :=> 无值
->g1.bar(null).foo : () => void
+>g1.bar(null).foo : () => 无值
 >g1.bar(null) : C
 >g1.bar : (x: C) => C
 >g1 : G<C>
 >bar : (x: C) => C
->null : null
+>null : 空值
 >类型别名 :=> 空值
->foo : () => void
+>foo : () => 无值
 }
 
 module N {
->N : typeof N
+>N : 类为 N
 
     var g2 = new G<M.C>()
 >g2 : G<M.C>
 >new G<M.C>() : G<M.C>
->G : typeof G
->M : any
+>G : 类为 G
+>M : 任意
 >类型别名 :=> 任意
 >C : M.C
 }

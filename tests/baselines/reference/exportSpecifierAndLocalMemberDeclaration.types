@@ -1,30 +1,30 @@
 === tests/cases/compiler/exportSpecifierAndLocalMemberDeclaration.ts ===
 declare module "m2" {
     module X {
->X : any
+>X : 任意
 >类型别名 :=> 任意
 
         interface I { }
 >I : I
     }
     function Y();
->Y : () => any
+>Y : () => 任意
 
     export { Y as X };
->Y : () => any
->X : () => any
+>Y : () => 任意
+>X : () => 任意
 
     function Z(): X.I;
 >Z : () => X.I
->X : any
+>X : 任意
 >类型别名 :=> 任意
 >I : X.I
 }
 
 declare module "m2" {
     function Z2(): X.I;
->Z2 : () => any
->X : any
+>Z2 : () => 任意
+>X : 任意
 >类型别名 :=> 任意
 >I : No type information available!
 }

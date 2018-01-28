@@ -3,8 +3,8 @@ interface A {
 >A : A
 
     params?: { name: string; };
->params : { name: string; } | undefined
->name : string
+>params : { name: 文字; } | 未定
+>name : 文字
 >类型别名 :=> 文字
 }
 
@@ -19,18 +19,18 @@ class Test<T extends A> {
 >T : T
 
     m() {
->m : () => void
+>m : () => 无值
 
         this.attrs.params!.name;
->this.attrs.params!.name : string
+>this.attrs.params!.name : 文字
 >类型别名 :=> 文字
->this.attrs.params! : { name: string; }
+>this.attrs.params! : { name: 文字; }
 >this.attrs.params : T["params"]
 >this.attrs : Readonly<T>
->this : this
+>this : 本体
 >attrs : Readonly<T>
 >params : T["params"]
->name : string
+>name : 文字
 >类型别名 :=> 文字
     }
 }
@@ -39,7 +39,7 @@ interface Foo {
 >Foo : Foo
 
     foo?: number;
->foo : number | undefined
+>foo : 数字 | 未定
 }
 
 class FooClass<P extends Foo = Foo> {
@@ -54,18 +54,18 @@ class FooClass<P extends Foo = Foo> {
 >P : P
 
     foo(): number {
->foo : () => number
+>foo : () => 数字
 
         const { foo = 42 } = this.properties;
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 >42 : 42
 >this.properties : Readonly<P>
->this : this
+>this : 本体
 >properties : Readonly<P>
 
         return foo;
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
     }
 }
@@ -81,13 +81,13 @@ class Test2<T extends A> {
 >T : T
 
     m() {
->m : () => { name: string; }
+>m : () => { name: 文字; }
 
         return this.attrs.params!; // Return type should maintain relationship with `T` after being not-null-asserted, ideally
->this.attrs.params! : { name: string; }
+>this.attrs.params! : { name: 文字; }
 >this.attrs.params : T["params"]
 >this.attrs : Readonly<T>
->this : this
+>this : 本体
 >attrs : Readonly<T>
 >params : T["params"]
     }

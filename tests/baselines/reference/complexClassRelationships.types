@@ -11,7 +11,7 @@ class Derived extends Base {
         var item = new Derived();
 >item : Derived
 >new Derived() : Derived
->Derived : typeof Derived
+>Derived : 类为 Derived
 
         return item;
 >item : Derived
@@ -27,13 +27,13 @@ class BaseCollection<T extends Base> {
 >T : T
 
         (item: Thing) => { return [item.Components]; };
->(item: Thing) => { return [item.Components]; } : (item: Thing) => ComponentCollection<any>[]
+>(item: Thing) => { return [item.Components]; } : (item: Thing) => ComponentCollection<任意>[]
 >item : Thing
 >Thing : Thing
->[item.Components] : ComponentCollection<any>[]
->item.Components : ComponentCollection<any>
+>[item.Components] : ComponentCollection<任意>[]
+>item.Components : ComponentCollection<任意>
 >item : Thing
->Components : ComponentCollection<any>
+>Components : ComponentCollection<任意>
     }
 }
 class Base {
@@ -49,9 +49,9 @@ class Thing {
 >Thing : Thing
 
     public get Components(): ComponentCollection<any> { return null }
->Components : ComponentCollection<any>
+>Components : ComponentCollection<任意>
 >ComponentCollection : ComponentCollection<T>
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -60,14 +60,14 @@ class ComponentCollection<T> {
 >T : T
 
     private static sortComponents(p: Foo) {
->sortComponents : (p: Foo) => GenericType<string>
+>sortComponents : (p: Foo) => GenericType<文字>
 >p : Foo
 >Foo : Foo
 
         return p.prop1;
->p.prop1 : GenericType<string>
+>p.prop1 : GenericType<文字>
 >p : Foo
->prop1 : GenericType<string>
+>prop1 : GenericType<文字>
     }
 }
 
@@ -75,19 +75,19 @@ class Foo {
 >Foo : Foo
 
     public get prop1() {
->prop1 : GenericType<string>
+>prop1 : GenericType<文字>
 
         return new GenericType<string>(this);
->new GenericType<string>(this) : GenericType<string>
->GenericType : typeof GenericType
->this : this
+>new GenericType<string>(this) : GenericType<文字>
+>GenericType : 类为 GenericType
+>this : 本体
     }
     public populate() {
->populate : () => void
+>populate : () => 无值
 
         this.prop2;
 >this.prop2 : BaseCollection<Derived>
->this : this
+>this : 本体
 >prop2 : BaseCollection<Derived>
     }
     public get prop2(): BaseCollection<Derived> {
@@ -97,10 +97,10 @@ class Foo {
 
         return new BaseCollection<Derived>(Derived.createEmpty);
 >new BaseCollection<Derived>(Derived.createEmpty) : BaseCollection<Derived>
->BaseCollection : typeof BaseCollection
+>BaseCollection : 类为 BaseCollection
 >Derived : Derived
 >Derived.createEmpty : () => Derived
->Derived : typeof Derived
+>Derived : 类为 Derived
 >createEmpty : () => Derived
     }
 }
@@ -118,7 +118,7 @@ class FooBase {
 >FooBase : FooBase
 
     public populate() {
->populate : () => void
+>populate : () => 无值
 
     }
 }

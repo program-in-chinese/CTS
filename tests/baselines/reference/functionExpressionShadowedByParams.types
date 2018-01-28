@@ -1,59 +1,59 @@
 === tests/cases/compiler/functionExpressionShadowedByParams.ts ===
 function b1(b1: number) {
->b1 : (b1: number) => void
->b1 : number
+>b1 : (b1: 数字) => 无值
+>b1 : 数字
 >类型别名 :=> 数字
 
    b1.toPrecision(2); // should not error
->b1.toPrecision(2) : string
+>b1.toPrecision(2) : 文字
 >类型别名 :=> 文字
->b1.toPrecision : (precision?: number) => string
->b1 : number
+>b1.toPrecision : (precision?: 数字) => 文字
+>b1 : 数字
 >类型别名 :=> 数字
->toPrecision : (precision?: number) => string
+>toPrecision : (precision?: 数字) => 文字
 >2 : 2
 
    b1(12); // should error
->b1(12) : any
+>b1(12) : 任意
 >类型别名 :=> 任意
->b1 : number
+>b1 : 数字
 >类型别名 :=> 数字
 >12 : 12
 }
 
 
 var x = {
->x : { b: (b: number) => void; }
->{   b: function b(b: number) {      b.toPrecision(2); // should not error      b.apply(null, null); // should error   }} : { b: (b: number) => void; }
+>x : { b: (b: 数字) => 无值; }
+>{   b: function b(b: number) {      b.toPrecision(2); // should not error      b.apply(null, null); // should error   }} : { b: (b: 数字) => 无值; }
 
    b: function b(b: number) {
->b : (b: number) => void
->function b(b: number) {      b.toPrecision(2); // should not error      b.apply(null, null); // should error   } : (b: number) => void
->b : (b: number) => void
->b : number
+>b : (b: 数字) => 无值
+>function b(b: number) {      b.toPrecision(2); // should not error      b.apply(null, null); // should error   } : (b: 数字) => 无值
+>b : (b: 数字) => 无值
+>b : 数字
 >类型别名 :=> 数字
 
       b.toPrecision(2); // should not error
->b.toPrecision(2) : string
+>b.toPrecision(2) : 文字
 >类型别名 :=> 文字
->b.toPrecision : (precision?: number) => string
->b : number
+>b.toPrecision : (precision?: 数字) => 文字
+>b : 数字
 >类型别名 :=> 数字
->toPrecision : (precision?: number) => string
+>toPrecision : (precision?: 数字) => 文字
 >2 : 2
 
       b.apply(null, null); // should error
->b.apply(null, null) : any
+>b.apply(null, null) : 任意
 >类型别名 :=> 任意
->b.apply : any
+>b.apply : 任意
 >类型别名 :=> 任意
->b : number
+>b : 数字
 >类型别名 :=> 数字
->apply : any
+>apply : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
    }
 };

@@ -3,7 +3,7 @@ class Foo {
 >Foo : Foo
 
     private x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 
@@ -12,7 +12,7 @@ interface I extends Foo {
 >Foo : Foo
 
     y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 }
 
@@ -22,7 +22,7 @@ class Bar extends Foo implements I { // ok
 >I : I
 
     y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 }
 
@@ -32,11 +32,11 @@ class Bar2 extends Foo implements I { // error
 >I : I
 
     x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 }
 
@@ -46,23 +46,23 @@ class Bar3 extends Foo implements I { // error
 >I : I
 
     private x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 }
 
 // another level of indirection
 module M {
->M : typeof M
+>M : 类为 M
 
     class Foo {
 >Foo : Foo
 
         private x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
     }
 
@@ -71,7 +71,7 @@ module M {
 >Foo : Foo
 
         z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 
@@ -80,7 +80,7 @@ module M {
 >Baz : Baz
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
@@ -90,11 +90,11 @@ module M {
 >I : I
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
         z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 
@@ -104,11 +104,11 @@ module M {
 >I : I
 
         x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
@@ -118,24 +118,24 @@ module M {
 >I : I
 
         private x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 }
 
 // two levels of privates
 module M2 {
->M2 : typeof M2
+>M2 : 类为 M2
 
     class Foo {
 >Foo : Foo
 
         private x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
     }
 
@@ -144,7 +144,7 @@ module M2 {
 >Foo : Foo
 
         private y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
@@ -153,7 +153,7 @@ module M2 {
 >Baz : Baz
 
         z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 
@@ -163,7 +163,7 @@ module M2 {
 >I : I
 
         z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 
@@ -172,30 +172,30 @@ module M2 {
 >Bar : Bar
 
     var r1 = b.z;
->r1 : number
+>r1 : 数字
 >类型别名 :=> 数字
->b.z : number
+>b.z : 数字
 >类型别名 :=> 数字
 >b : Bar
->z : number
+>z : 数字
 >类型别名 :=> 数字
 
     var r2 = b.x; // error
->r2 : string
+>r2 : 文字
 >类型别名 :=> 文字
->b.x : string
+>b.x : 文字
 >类型别名 :=> 文字
 >b : Bar
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     var r3 = b.y; // error
->r3 : any
+>r3 : 任意
 >类型别名 :=> 任意
->b.y : any
+>b.y : 任意
 >类型别名 :=> 任意
 >b : Bar
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
     class Bar2 extends Foo implements I { // error
@@ -204,11 +204,11 @@ module M2 {
 >I : I
 
         x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 
@@ -218,11 +218,11 @@ module M2 {
 >I : I
 
         private x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
     }
 }

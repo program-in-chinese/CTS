@@ -2,16 +2,16 @@
 // - operator on any type
 
 var ANY: any;
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
 
 var ANY1: any;
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 var ANY2: any[] = ["", ""];
->ANY2 : any[]
->["", ""] : string[]
+>ANY2 : 任意[]
+>["", ""] : 文字[]
 >"" : ""
 >"" : ""
 
@@ -19,250 +19,250 @@ var obj: () => {}
 >obj : () => {}
 
 var obj1 = { x: "", y: () => { }};
->obj1 : { x: string; y: () => void; }
->{ x: "", y: () => { }} : { x: string; y: () => void; }
->x : string
+>obj1 : { x: 文字; y: () => 无值; }
+>{ x: "", y: () => { }} : { x: 文字; y: () => 无值; }
+>x : 文字
 >类型别名 :=> 文字
 >"" : ""
->y : () => void
->() => { } : () => void
+>y : () => 无值
+>() => { } : () => 无值
 
 function foo(): any {
->foo : () => any
+>foo : () => 任意
 
     var a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     return a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 }
 class A {
 >A : A
 
     public a: any;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     static foo(): any {
->foo : () => any
+>foo : () => 任意
 
         var a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
         return a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
     }
 }
 module M {
->M : typeof M
+>M : 类为 M
 
     export var n: any;
->n : any
+>n : 任意
 >类型别名 :=> 任意
 }
 var objA = new A();
 >objA : A
 >new A() : A
->A : typeof A
+>A : 类为 A
 
 // any type var
 var ResultIsNumber1 = -ANY1;
->ResultIsNumber1 : number
+>ResultIsNumber1 : 数字
 >类型别名 :=> 数字
->-ANY1 : number
+>-ANY1 : 数字
 >类型别名 :=> 数字
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 var ResultIsNumber2 = -ANY2;
->ResultIsNumber2 : number
+>ResultIsNumber2 : 数字
 >类型别名 :=> 数字
->-ANY2 : number
+>-ANY2 : 数字
 >类型别名 :=> 数字
->ANY2 : any[]
+>ANY2 : 任意[]
 
 var ResultIsNumber3 = -A;
->ResultIsNumber3 : number
+>ResultIsNumber3 : 数字
 >类型别名 :=> 数字
->-A : number
+>-A : 数字
 >类型别名 :=> 数字
->A : typeof A
+>A : 类为 A
 
 var ResultIsNumber4 = -M;
->ResultIsNumber4 : number
+>ResultIsNumber4 : 数字
 >类型别名 :=> 数字
->-M : number
+>-M : 数字
 >类型别名 :=> 数字
->M : typeof M
+>M : 类为 M
 
 var ResultIsNumber5 = -obj;
->ResultIsNumber5 : number
+>ResultIsNumber5 : 数字
 >类型别名 :=> 数字
->-obj : number
+>-obj : 数字
 >类型别名 :=> 数字
 >obj : () => {}
 
 var ResultIsNumber6 = -obj1;
->ResultIsNumber6 : number
+>ResultIsNumber6 : 数字
 >类型别名 :=> 数字
->-obj1 : number
+>-obj1 : 数字
 >类型别名 :=> 数字
->obj1 : { x: string; y: () => void; }
+>obj1 : { x: 文字; y: () => 无值; }
 
 // any type literal
 var ResultIsNumber7 = -undefined;
->ResultIsNumber7 : number
+>ResultIsNumber7 : 数字
 >类型别名 :=> 数字
->-undefined : number
+>-undefined : 数字
 >类型别名 :=> 数字
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var ResultIsNumber = -null;
->ResultIsNumber : number
+>ResultIsNumber : 数字
 >类型别名 :=> 数字
->-null : number
+>-null : 数字
 >类型别名 :=> 数字
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // any type expressions
 var ResultIsNumber8 = -ANY2[0];
->ResultIsNumber8 : number
+>ResultIsNumber8 : 数字
 >类型别名 :=> 数字
->-ANY2[0] : number
+>-ANY2[0] : 数字
 >类型别名 :=> 数字
->ANY2[0] : any
+>ANY2[0] : 任意
 >类型别名 :=> 任意
->ANY2 : any[]
+>ANY2 : 任意[]
 >0 : 0
 
 var ResultIsNumber9 = -obj1.x;
->ResultIsNumber9 : number
+>ResultIsNumber9 : 数字
 >类型别名 :=> 数字
->-obj1.x : number
+>-obj1.x : 数字
 >类型别名 :=> 数字
->obj1.x : string
+>obj1.x : 文字
 >类型别名 :=> 文字
->obj1 : { x: string; y: () => void; }
->x : string
+>obj1 : { x: 文字; y: () => 无值; }
+>x : 文字
 >类型别名 :=> 文字
 
 var ResultIsNumber10 = -obj1.y;
->ResultIsNumber10 : number
+>ResultIsNumber10 : 数字
 >类型别名 :=> 数字
->-obj1.y : number
+>-obj1.y : 数字
 >类型别名 :=> 数字
->obj1.y : () => void
->obj1 : { x: string; y: () => void; }
->y : () => void
+>obj1.y : () => 无值
+>obj1 : { x: 文字; y: () => 无值; }
+>y : () => 无值
 
 var ResultIsNumber11 = -objA.a;
->ResultIsNumber11 : number
+>ResultIsNumber11 : 数字
 >类型别名 :=> 数字
->-objA.a : number
+>-objA.a : 数字
 >类型别名 :=> 数字
->objA.a : any
+>objA.a : 任意
 >类型别名 :=> 任意
 >objA : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 var ResultIsNumber12 = -M.n;
->ResultIsNumber12 : number
+>ResultIsNumber12 : 数字
 >类型别名 :=> 数字
->-M.n : number
+>-M.n : 数字
 >类型别名 :=> 数字
->M.n : any
+>M.n : 任意
 >类型别名 :=> 任意
->M : typeof M
->n : any
+>M : 类为 M
+>n : 任意
 >类型别名 :=> 任意
 
 var ResultIsNumber13 = -foo();
->ResultIsNumber13 : number
+>ResultIsNumber13 : 数字
 >类型别名 :=> 数字
->-foo() : number
+>-foo() : 数字
 >类型别名 :=> 数字
->foo() : any
+>foo() : 任意
 >类型别名 :=> 任意
->foo : () => any
+>foo : () => 任意
 
 var ResultIsNumber14 = -A.foo();
->ResultIsNumber14 : number
+>ResultIsNumber14 : 数字
 >类型别名 :=> 数字
->-A.foo() : number
+>-A.foo() : 数字
 >类型别名 :=> 数字
->A.foo() : any
+>A.foo() : 任意
 >类型别名 :=> 任意
->A.foo : () => any
->A : typeof A
->foo : () => any
+>A.foo : () => 任意
+>A : 类为 A
+>foo : () => 任意
 
 var ResultIsNumber15 = -(ANY - ANY1);
->ResultIsNumber15 : number
+>ResultIsNumber15 : 数字
 >类型别名 :=> 数字
->-(ANY - ANY1) : number
+>-(ANY - ANY1) : 数字
 >类型别名 :=> 数字
->(ANY - ANY1) : number
+>(ANY - ANY1) : 数字
 >类型别名 :=> 数字
->ANY - ANY1 : number
+>ANY - ANY1 : 数字
 >类型别名 :=> 数字
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 // miss assignment operators
 -ANY;
->-ANY : number
+>-ANY : 数字
 >类型别名 :=> 数字
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
 
 -ANY1;
->-ANY1 : number
+>-ANY1 : 数字
 >类型别名 :=> 数字
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 -ANY2[0];
->-ANY2[0] : number
+>-ANY2[0] : 数字
 >类型别名 :=> 数字
->ANY2[0] : any
+>ANY2[0] : 任意
 >类型别名 :=> 任意
->ANY2 : any[]
+>ANY2 : 任意[]
 >0 : 0
 
 -ANY, ANY1;
->-ANY, ANY1 : any
+>-ANY, ANY1 : 任意
 >类型别名 :=> 任意
->-ANY : number
+>-ANY : 数字
 >类型别名 :=> 数字
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 -objA.a;
->-objA.a : number
+>-objA.a : 数字
 >类型别名 :=> 数字
->objA.a : any
+>objA.a : 任意
 >类型别名 :=> 任意
 >objA : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 -M.n;
->-M.n : number
+>-M.n : 数字
 >类型别名 :=> 数字
->M.n : any
+>M.n : 任意
 >类型别名 :=> 任意
->M : typeof M
->n : any
+>M : 类为 M
+>n : 任意
 >类型别名 :=> 任意
 

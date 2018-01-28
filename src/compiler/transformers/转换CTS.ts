@@ -7,7 +7,7 @@ namespace ts {
 
         const resolver = context.getEmitResolver();
         const 数据 = resolver.取别名助手数据();
-        let 数据使用数组: number[] = [0];
+        let 数据使用数组: Map<boolean> = createMap();
         const previousOnSubstituteNode = context.onSubstituteNode;
         context.onSubstituteNode = onSubstituteNode;
         context.enableSubstitution(SyntaxKind.StringLiteral);
@@ -19,7 +19,7 @@ namespace ts {
             }
             const visited = visitEachChild(node, visitor, context);
 
-            if (数据 && 数据.length > 0 && 数据使用数组.length > 1) {
+            if (数据 && 数据.length > 0 && 数据使用数组.size > 0) {
                 const propName: EmitHelper = {
                     name: "typescript:PropName",
                     scoped: false,
@@ -29,16 +29,16 @@ namespace ts {
                 context.requestEmitHelper(propName);
             }
 
-            if (数据 && 数据.length > 0 && 数据使用数组.length > 1) {
+            if (数据 && 数据.length > 0 && 数据使用数组.size  > 0) {
                 addEmitHelpers(visited, context.readEmitHelpers());
             }
-            数据使用数组 = [0];
+            数据使用数组.clear()
             return visited;
         }
 
         function visitor(node: Node): VisitResult<Node> {
             if (node.别名id > 0) {
-                数据使用数组.push(node.别名id);
+                数据使用数组.set("" + node.别名id, true);
                 context.enableSubstitution(node.kind);
             }
             return visitEachChild(node, visitor, context);
@@ -47,7 +47,7 @@ namespace ts {
         function 生成助手数据(数据: string[]) {
             let 结果 = "";
             for (let i = 1; i < 数据.length; i++) {
-                if (数据使用数组.indexOf(i) > 0) {
+                if (数据使用数组.has("" + i)) {
                     结果 += `        __${i}: ${数据[i]},\n`;
                 }
             }
@@ -58,7 +58,7 @@ var __propName = (this && this.__propName) || function(v, i) {
     return __d["__" + i][v] || v
 }
 `;
-}
+        }
 
         function onSubstituteNode(hint: EmitHint, node: Node) {
             if (node && node.别名id > 0) {

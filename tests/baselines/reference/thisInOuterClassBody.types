@@ -3,57 +3,57 @@ class Foo {
 >Foo : Foo
 
     x = this;
->x : this
->this : this
+>x : 本体
+>this : 本体
 
     static y = this;
->y : typeof Foo
->this : typeof Foo
+>y : 类为 Foo
+>this : 类为 Foo
 
     bar() {
->bar : () => this
+>bar : () => 本体
  
         this.x; // 'this' is type 'Foo'
->this.x : this
->this : this
->x : this
+>this.x : 本体
+>this : 本体
+>x : 本体
  
         var f = () => this.x; // 'this' should be type 'Foo' as well
->f : () => this
->() => this.x : () => this
->this.x : this
->this : this
->x : this
+>f : () => 本体
+>() => this.x : () => 本体
+>this.x : 本体
+>this : 本体
+>x : 本体
 
         var p = this.y;
->p : any
+>p : 任意
 >类型别名 :=> 任意
->this.y : any
+>this.y : 任意
 >类型别名 :=> 任意
->this : this
->y : any
+>this : 本体
+>y : 任意
 >类型别名 :=> 任意
 
         return this;
->this : this
+>this : 本体
     }
 
     static bar2() {
->bar2 : () => void
+>bar2 : () => 无值
 
         var a = this.y;
->a : typeof Foo
->this.y : typeof Foo
->this : typeof Foo
->y : typeof Foo
+>a : 类为 Foo
+>this.y : 类为 Foo
+>this : 类为 Foo
+>y : 类为 Foo
 
         var b = this.x;
->b : any
+>b : 任意
 >类型别名 :=> 任意
->this.x : any
+>this.x : 任意
 >类型别名 :=> 任意
->this : typeof Foo
->x : any
+>this : 类为 Foo
+>x : 任意
 >类型别名 :=> 任意
     }
 }

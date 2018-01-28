@@ -1,27 +1,27 @@
 === tests/cases/compiler/untypedFunctionCallsWithTypeParameters1.ts ===
 // none of these function calls should be allowed
 var x = function () { return; };
->x : () => void
->function () { return; } : () => void
+>x : () => 无值
+>function () { return; } : () => 无值
 
 var r1 = x<number>();
->r1 : void
+>r1 : 无值
 >类型别名 :=> 无值
->x<number>() : void
+>x<number>() : 无值
 >类型别名 :=> 无值
->x : () => void
+>x : () => 无值
 
 var y: any = x;
->y : any
+>y : 任意
 >类型别名 :=> 任意
->x : () => void
+>x : () => 无值
 
 var r2 = y<string>();
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->y<string>() : any
+>y<string>() : 任意
 >类型别名 :=> 任意
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
 var c: Function;
@@ -29,9 +29,9 @@ var c: Function;
 >Function : Function
 
 var r3 = c<number>(); // should be an error
->r3 : any
+>r3 : 任意
 >类型别名 :=> 任意
->c<number>() : any
+>c<number>() : 任意
 >类型别名 :=> 任意
 >c : Function
 
@@ -40,25 +40,25 @@ class C implements Function {
 >Function : Function
 
     prototype = null;
->prototype : any
+>prototype : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     length = 1;
->length : number
+>length : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     arguments = null;
->arguments : any
+>arguments : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     caller = () => { };
->caller : () => void
->() => { } : () => void
+>caller : () => 无值
+>() => { } : () => 无值
 }
 
 var c2: C;
@@ -66,9 +66,9 @@ var c2: C;
 >C : C
 
 var r4 = c2<number>(); // should be an error
->r4 : any
+>r4 : 任意
 >类型别名 :=> 任意
->c2<number>() : any
+>c2<number>() : 任意
 >类型别名 :=> 任意
 >c2 : C
 
@@ -81,9 +81,9 @@ var c3: C2;
 >C2 : C2
 
 var r5 = c3<number>(); // error
->r5 : any
+>r5 : 任意
 >类型别名 :=> 任意
->c3<number>() : any
+>c3<number>() : 任意
 >类型别名 :=> 任意
 >c3 : C2
 
@@ -91,7 +91,7 @@ interface I {
 >I : I
 
     (number): number;
->number : any
+>number : 任意
 >类型别名 :=> 任意
 }
 var z: I;
@@ -99,9 +99,9 @@ var z: I;
 >I : I
 
 var r6 = z<string>(1); // error
->r6 : number
+>r6 : 数字
 >类型别名 :=> 数字
->z<string>(1) : number
+>z<string>(1) : 数字
 >类型别名 :=> 数字
 >z : I
 >1 : 1
@@ -117,13 +117,13 @@ interface callable2<T> {
 }
 
 var c4: callable2<number>;
->c4 : callable2<number>
+>c4 : callable2<数字>
 >callable2 : callable2<T>
 
 c4<number>(1);
->c4<number>(1) : number
+>c4<number>(1) : 数字
 >类型别名 :=> 数字
->c4 : callable2<number>
+>c4 : callable2<数字>
 >1 : 1
 
 interface callable3<T> {
@@ -137,13 +137,13 @@ interface callable3<T> {
 }
 
 var c5: callable3<number>;
->c5 : callable3<number>
+>c5 : callable3<数字>
 >callable3 : callable3<T>
 
 c5<string>(1); // error
->c5<string>(1) : number
+>c5<string>(1) : 数字
 >类型别名 :=> 数字
->c5 : callable3<number>
+>c5 : callable3<数字>
 >1 : 1
 
 

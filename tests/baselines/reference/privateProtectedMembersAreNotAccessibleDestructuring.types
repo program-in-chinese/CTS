@@ -3,37 +3,37 @@ class K {
 >K : K
 
     private priv;
->priv : any
+>priv : 任意
 >类型别名 :=> 任意
 
     protected prot;
->prot : any
+>prot : 任意
 >类型别名 :=> 任意
 
     private privateMethod() { }
->privateMethod : () => void
+>privateMethod : () => 无值
 
     m() {
->m : () => void
+>m : () => 无值
 
         let { priv: a, prot: b } = this; // ok
->priv : any
+>priv : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->prot : any
+>prot : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
 
         let { priv, prot } = new K(); // ok
->priv : any
+>priv : 任意
 >类型别名 :=> 任意
->prot : any
+>prot : 任意
 >类型别名 :=> 任意
 >new K() : K
->K : typeof K
+>K : 类为 K
     }
 }
 class C extends K {
@@ -41,53 +41,53 @@ class C extends K {
 >K : K
 
     m2() {
->m2 : () => void
+>m2 : () => 无值
 
         let { priv: a } = this; // error
->priv : any
+>priv : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
 
         let { prot: b } = this; // ok
->prot : any
+>prot : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
     }
 }
 let k = new K();
 >k : K
 >new K() : K
->K : typeof K
+>K : 类为 K
 
 let { priv } = k; // error 
->priv : any
+>priv : 任意
 >类型别名 :=> 任意
 >k : K
 
 let { prot } = k; // error
->prot : any
+>prot : 任意
 >类型别名 :=> 任意
 >k : K
 
 let { privateMethod } = k; // error
->privateMethod : () => void
+>privateMethod : () => 无值
 >k : K
 
 let { priv: a, prot: b, privateMethod: f } = k; // error
->priv : any
+>priv : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->prot : any
+>prot : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->privateMethod : any
+>privateMethod : 任意
 >类型别名 :=> 任意
->f : () => void
+>f : () => 无值
 >k : K
 

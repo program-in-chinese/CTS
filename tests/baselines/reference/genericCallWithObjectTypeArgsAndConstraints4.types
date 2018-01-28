@@ -5,7 +5,7 @@ class C {
 >C : C
 
     x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 
@@ -13,16 +13,16 @@ class D {
 >D : D
 
     x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     y: string;
->y : string
+>y : 文字
 >类型别名 :=> 文字
 }
 
 function foo<T, U extends T>(t: T, t2: U) {
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >T : T
 >U : U
 >T : T
@@ -49,80 +49,80 @@ var d: D;
 var r = foo(c, d);
 >r : (x: C) => D
 >foo(c, d) : (x: C) => D
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >c : C
 >d : D
 
 var r2 = foo(d, c); // error because C does not extend D
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->foo(d, c) : any
+>foo(d, c) : 任意
 >类型别名 :=> 任意
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >d : D
 >c : C
 
 var r3 = foo(c, { x: '', foo: c });
->r3 : (x: C) => { x: string; foo: C; }
->foo(c, { x: '', foo: c }) : (x: C) => { x: string; foo: C; }
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>r3 : (x: C) => { x: 文字; foo: C; }
+>foo(c, { x: '', foo: c }) : (x: C) => { x: 文字; foo: C; }
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >c : C
->{ x: '', foo: c } : { x: string; foo: C; }
->x : string
+>{ x: '', foo: c } : { x: 文字; foo: C; }
+>x : 文字
 >类型别名 :=> 文字
 >'' : ""
 >foo : C
 >c : C
 
 var r4 = foo(null, null);
->r4 : (x: any) => any
->foo(null, null) : (x: any) => any
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
->null : null
+>r4 : (x: 任意) => 任意
+>foo(null, null) : (x: 任意) => 任意
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r5 = foo({}, null);
->r5 : (x: {}) => any
->foo({}, null) : (x: {}) => any
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>r5 : (x: {}) => 任意
+>foo({}, null) : (x: {}) => 任意
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >{} : {}
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r6 = foo(null, {});
->r6 : (x: any) => {}
->foo(null, {}) : (x: any) => {}
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
->null : null
+>r6 : (x: 任意) => {}
+>foo(null, {}) : (x: 任意) => {}
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
+>null : 空值
 >类型别名 :=> 空值
 >{} : {}
 
 var r7 = foo({}, {});
 >r7 : (x: {}) => {}
 >foo({}, {}) : (x: {}) => {}
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >{} : {}
 >{} : {}
 
 var r8 = foo(() => { }, () => { });
->r8 : (x: () => void) => () => void
->foo(() => { }, () => { }) : (x: () => void) => () => void
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
->() => { } : () => void
->() => { } : () => void
+>r8 : (x: () => 无值) => () => 无值
+>foo(() => { }, () => { }) : (x: () => 无值) => () => 无值
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
+>() => { } : () => 无值
+>() => { } : () => 无值
 
 var r9 = foo(() => { }, () => 1);
->r9 : (x: () => void) => () => 1
->foo(() => { }, () => 1) : (x: () => void) => () => 1
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
->() => { } : () => void
+>r9 : (x: () => 无值) => () => 1
+>foo(() => { }, () => 1) : (x: () => 无值) => () => 1
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
+>() => { } : () => 无值
 >() => 1 : () => 1
 >1 : 1
 
 function other<T, U extends T>() {
->other : <T, U extends T>() => void
+>other : <T, U 扩展 T>() => 无值
 >T : T
 >U : U
 >T : T
@@ -130,16 +130,16 @@ function other<T, U extends T>() {
     var r4 = foo(c, d);
 >r4 : (x: C) => D
 >foo(c, d) : (x: C) => D
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >c : C
 >d : D
 
     var r5 = foo<T, U>(c, d); // error
->r5 : any
+>r5 : 任意
 >类型别名 :=> 任意
->foo<T, U>(c, d) : any
+>foo<T, U>(c, d) : 任意
 >类型别名 :=> 任意
->foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
 >T : T
 >U : U
 >c : C

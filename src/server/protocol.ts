@@ -103,7 +103,9 @@ namespace ts.server.protocol {
         GetEditsForRefactor = "getEditsForRefactor",
         /* @internal */
         GetEditsForRefactorFull = "getEditsForRefactor-full",
-        转为CTS = "转为CTS"
+        转为CTS = "转为CTS",
+        词典自动完成 = "词典自动完成",
+        格式化词典语句="格式化词典语句"
 
         // NOTE: If updating this, be sure to also update `allCommandNames` in `harness/unittests/session.ts`.
     }
@@ -199,6 +201,51 @@ namespace ts.server.protocol {
 
     export interface 转换CTS结果 extends Response {
         body: string
+    }
+
+
+
+    export interface 词典完成请求参数 extends FileLocationRequestArgs {
+        ignoreName: string;
+    }
+
+
+    export interface 词典完成请求 extends FileLocationRequest {
+        command: CommandTypes.词典自动完成;
+        arguments: 词典完成请求参数;
+    }
+
+
+    export interface 词典完成条目 {
+        kind:ScriptElementKind;
+        name: string;
+        range: 范围类型;
+        isStringLiteral: boolean;
+        rangeMap?: RangeMap;
+    }
+    export interface 词典完成条目响应 extends Response {
+        body?: 词典完成条目;
+    }
+
+    export interface 词典完成条目响应新 {
+        body?: 词典完成条目;
+    }
+
+    export interface 词典完成组 {
+        file: string
+        locs: {
+            isString: boolean,
+            loc: { start: Location; end: Location }
+        }[]
+    }
+
+
+    export interface 词典完成 {
+        file: string;
+        start: Location;
+        end?: Location;
+        name: string;
+        isInString: boolean;
     }
 
 

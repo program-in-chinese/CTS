@@ -196,19 +196,20 @@ namespace ts.FindAllReferences {
 
     function implementationKindDisplayParts(node: ts.Node, checker: ts.TypeChecker): { kind: ScriptElementKind, displayParts: SymbolDisplayPart[] } {
         const symbol = checker.getSymbolAtLocation(isDeclaration(node) && node.name ? node.name : node);
+        const 使用中文 = checker.取编译选项().中文关键字
         if (symbol) {
             return getDefinitionKindAndDisplayParts(symbol, node, checker);
         }
         else if (node.kind === SyntaxKind.ObjectLiteralExpression) {
             return {
                 kind: ScriptElementKind.interfaceElement,
-                displayParts: [punctuationPart(SyntaxKind.OpenParenToken), textPart("object literal"), punctuationPart(SyntaxKind.CloseParenToken)]
+                displayParts: [punctuationPart(SyntaxKind.OpenParenToken), textPart(使用中文 ? "实例字面量" : "object literal"), punctuationPart(SyntaxKind.CloseParenToken)]
             };
         }
         else if (node.kind === SyntaxKind.ClassExpression) {
             return {
                 kind: ScriptElementKind.localClassElement,
-                displayParts: [punctuationPart(SyntaxKind.OpenParenToken), textPart("anonymous local class"), punctuationPart(SyntaxKind.CloseParenToken)]
+                displayParts: [punctuationPart(SyntaxKind.OpenParenToken), textPart(使用中文?"本地类增强参数集":"anonymous local class"), punctuationPart(SyntaxKind.CloseParenToken)]
             };
         }
         else {

@@ -3,19 +3,19 @@
 
 interface Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 // S is a subtype of a type T, and T is a supertype of S, if one of the following is true, where S' denotes the apparent type (section 3.8.1) of S:
@@ -85,19 +85,19 @@ var b = { Foo: <Derived>null };
 >Foo : Derived
 ><Derived>null : Derived
 >Derived : Derived
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var r = true ? a : b;
 >r : { Foo?: Base; }
 >true ? a : b : { Foo?: Base; }
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >a : { Foo?: Base; }
 >b : { Foo: Derived; }
 
 module TwoLevels {
->TwoLevels : typeof TwoLevels
+>TwoLevels : 类为 TwoLevels
 
     interface T {
 >T : T
@@ -158,13 +158,13 @@ module TwoLevels {
 >Foo : Derived2
 ><Derived2>null : Derived2
 >Derived2 : Derived2
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     var r = true ? a : b;
 >r : { Foo?: Base; }
 >true ? a : b : { Foo?: Base; }
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >a : { Foo?: Base; }
 >b : { Foo: Derived2; }

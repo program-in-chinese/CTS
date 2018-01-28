@@ -1,12 +1,12 @@
 === tests/cases/compiler/badThisBinding.ts ===
 declare function foo(a:any): any;
->foo : (a: any) => any
->a : any
+>foo : (a: 任意) => 任意
+>a : 任意
 >类型别名 :=> 任意
 
 declare function bar(a:any): any;
->bar : (a: any) => any
->a : any
+>bar : (a: 任意) => 任意
+>a : 任意
 >类型别名 :=> 任意
 
 class Greeter {
@@ -14,20 +14,20 @@ class Greeter {
 
     constructor() {
 		foo(() => {
->foo(() => {            bar(() => {                var x = this;			});		}) : any
+>foo(() => {            bar(() => {                var x = this;			});		}) : 任意
 >类型别名 :=> 任意
->foo : (a: any) => any
->() => {            bar(() => {                var x = this;			});		} : () => void
+>foo : (a: 任意) => 任意
+>() => {            bar(() => {                var x = this;			});		} : () => 无值
 
             bar(() => {
->bar(() => {                var x = this;			}) : any
+>bar(() => {                var x = this;			}) : 任意
 >类型别名 :=> 任意
->bar : (a: any) => any
->() => {                var x = this;			} : () => void
+>bar : (a: 任意) => 任意
+>() => {                var x = this;			} : () => 无值
 
                 var x = this;
->x : this
->this : this
+>x : 本体
+>this : 本体
 
 			});
 		});

@@ -1,6 +1,6 @@
 === tests/cases/compiler/duplicateSymbolsExportMatching.ts ===
 module M {
->M : typeof M
+>M : 类为 M
 
     export interface E { }
 >E : E
@@ -9,7 +9,7 @@ module M {
 >I : I
 }
 module M {
->M : typeof M
+>M : 类为 M
 
     export interface E { } // ok
 >E : E
@@ -20,7 +20,7 @@ module M {
 
 // Doesn't match export visibility, but it's in a different parent, so it's ok
 module M {
->M : typeof M
+>M : 类为 M
 
     interface E { } // ok
 >E : E
@@ -30,7 +30,7 @@ module M {
 }
 
 module N {
->N : any
+>N : 任意
 >类型别名 :=> 任意
 
     interface I { }
@@ -47,7 +47,7 @@ module N {
 }
 
 module N2 {
->N2 : any
+>N2 : 任意
 >类型别名 :=> 任意
 
     interface I { }
@@ -65,73 +65,73 @@ module N2 {
 
 // Should report error only once for instantiated module
 module M {
->M : typeof M
+>M : 类为 M
 
     module inst {
->inst : typeof inst
+>inst : 类为 inst
 
         var t;
->t : any
+>t : 任意
 >类型别名 :=> 任意
     }
     export module inst { // one error
->inst : typeof M.inst
+>inst : 类为 M.inst
 
         var t;
->t : any
+>t : 任意
 >类型别名 :=> 任意
     }
 }
 
 // Variables of the same / different type
 module M2 {
->M2 : typeof M2
+>M2 : 类为 M2
 
     var v: string;
->v : string
+>v : 文字
 >类型别名 :=> 文字
 
     export var v: string; // one error (visibility)
->v : string
+>v : 文字
 >类型别名 :=> 文字
 
     var w: number;
->w : number
+>w : 数字
 >类型别名 :=> 数字
 
     export var w: string; // two errors (visibility and type mismatch)
->w : string
+>w : 文字
 >类型别名 :=> 文字
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
     module F {
->F : typeof F
+>F : 类为 F
 
         var t;
->t : any
+>t : 任意
 >类型别名 :=> 任意
     }
     export function F() { } // Only one error for duplicate identifier (don't consider visibility)
->F : () => void
+>F : () => 无值
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
     class C { }
 >C : C
 
     module C { }
->C : typeof C
+>C : 类为 C
 
     export module C { // Two visibility errors (one for the clodule symbol, and one for the merged container symbol)
->C : typeof M.C
+>C : 类为 M.C
 
         var t;
->t : any
+>t : 任意
 >类型别名 :=> 任意
     }
 }

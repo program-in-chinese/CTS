@@ -1,13 +1,17 @@
+tests/cases/compiler/capturedLetConstInLoop5_ES6.ts(5,19): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/capturedLetConstInLoop5_ES6.ts(144,21): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
 tests/cases/compiler/capturedLetConstInLoop5_ES6.ts(174,13): error TS2365: Operator '==' cannot be applied to types '0' and '1'.
 tests/cases/compiler/capturedLetConstInLoop5_ES6.ts(229,13): error TS2365: Operator '==' cannot be applied to types '0' and '1'.
 
 
-==== tests/cases/compiler/capturedLetConstInLoop5_ES6.ts (2 errors) ====
+==== tests/cases/compiler/capturedLetConstInLoop5_ES6.ts (4 errors) ====
     declare function use(a: any);
     
     //====let
     function foo0(x) {
         for (let x of []) {
+                      ~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
             var v = x;
             (function() { return x + v });
             (() => x + v);
@@ -147,6 +151,8 @@ tests/cases/compiler/capturedLetConstInLoop5_ES6.ts(229,13): error TS2365: Opera
     //====const
     function foo0_c(x) {
         for (const x of []) {
+                        ~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
             var v = x;
             (function() { return x + v });
             (() => x + v);

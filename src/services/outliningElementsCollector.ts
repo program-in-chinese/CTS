@@ -3,7 +3,9 @@ namespace ts.OutliningElementsCollector {
     const collapseText = "...";
     const maxDepth = 40;
     const defaultLabel = "#region";
+    const defaultLabelCh = "#折叠";
     const regionMatch = new RegExp("^\\s*//\\s*#(end)?region(?:\\s+(.*))?$");
+    const regionMatchCh = new RegExp("^\\s*//\\s*#(结束)?折叠(?:\\s+(.*))?$");
 
     export function collectElements(sourceFile: SourceFile, cancellationToken: CancellationToken): OutliningSpan[] {
         const elements: OutliningSpan[] = [];
@@ -26,7 +28,6 @@ namespace ts.OutliningElementsCollector {
                 elements.push(span);
             }
         }
-
         function addOutliningSpanComments(commentSpan: CommentRange, autoCollapse: boolean) {
             if (commentSpan) {
                 const span: OutliningSpan = {
@@ -100,7 +101,7 @@ namespace ts.OutliningElementsCollector {
                 const currentLineStart = lineStarts[i];
                 const lineEnd = lineStarts[i + 1] - 1 || sourceFile.getEnd();
                 const comment = sourceFile.text.substring(currentLineStart, lineEnd);
-                const result = comment.match(regionMatch);
+                const result = comment.match(regionMatch) || comment.match(regionMatchCh);
 
                 if (result && !isInComment(sourceFile, currentLineStart)) {
                     if (!result[1]) {
@@ -109,7 +110,7 @@ namespace ts.OutliningElementsCollector {
                         const region: OutliningSpan = {
                             textSpan,
                             hintSpan: textSpan,
-                            bannerText: result[2] || defaultLabel,
+                            bannerText: result[2] || defaultLabel || defaultLabelCh,
                             autoCollapse: false
                         };
                         regions.push(region);
@@ -188,7 +189,7 @@ namespace ts.OutliningElementsCollector {
                         });
                         break;
                     }
-                    // falls through
+                // falls through
 
                 case SyntaxKind.ModuleBlock: {
                     const openBrace = findChildOfKind(n, SyntaxKind.OpenBraceToken, sourceFile);

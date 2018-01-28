@@ -2,29 +2,29 @@
 // any is not a valid type argument unless there is no constraint, or the constraint is any
 
 function foo<T extends String>(x: T): T { return null; }
->foo : <T extends String>(x: T) => T
+>foo : <T 扩展 String>(x: T) => T
 >T : T
 >String : String
 >x : T
 >T : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 function foo2<T extends { x: number }>(x: T): T { return null; }
->foo2 : <T extends { x: number; }>(x: T) => T
+>foo2 : <T 扩展 { x: 数字; }>(x: T) => T
 >T : T
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >x : T
 >T : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 //function foo3<T extends T[]>(x: T): T { return null; }
 function foo4<T extends <T>(x: T) => void>(x: T): T { return null; }
->foo4 : <T extends <T>(x: T) => void>(x: T) => T
+>foo4 : <T 扩展 <T>(x: T) => 无值>(x: T) => T
 >T : T
 >T : T
 >x : T
@@ -32,59 +32,59 @@ function foo4<T extends <T>(x: T) => void>(x: T): T { return null; }
 >x : T
 >T : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 foo(a);
->foo(a) : any
+>foo(a) : 任意
 >类型别名 :=> 任意
->foo : <T extends String>(x: T) => T
->a : any
+>foo : <T 扩展 String>(x: T) => T
+>a : 任意
 >类型别名 :=> 任意
 
 foo2(a);
->foo2(a) : any
+>foo2(a) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends { x: number; }>(x: T) => T
->a : any
+>foo2 : <T 扩展 { x: 数字; }>(x: T) => T
+>a : 任意
 >类型别名 :=> 任意
 
 //foo3(a);
 foo4(a);
->foo4(a) : any
+>foo4(a) : 任意
 >类型别名 :=> 任意
->foo4 : <T extends <T>(x: T) => void>(x: T) => T
->a : any
+>foo4 : <T 扩展 <T>(x: T) => 无值>(x: T) => T
+>a : 任意
 >类型别名 :=> 任意
 
 var b: number;
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
 foo<any>(b);
->foo<any>(b) : any
+>foo<any>(b) : 任意
 >类型别名 :=> 任意
->foo : <T extends String>(x: T) => T
->b : number
+>foo : <T 扩展 String>(x: T) => T
+>b : 数字
 >类型别名 :=> 数字
 
 foo2<any>(b);
->foo2<any>(b) : any
+>foo2<any>(b) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends { x: number; }>(x: T) => T
->b : number
+>foo2 : <T 扩展 { x: 数字; }>(x: T) => T
+>b : 数字
 >类型别名 :=> 数字
 
 //foo3<any>(b);
 foo4<any>(b);
->foo4<any>(b) : any
+>foo4<any>(b) : 任意
 >类型别名 :=> 任意
->foo4 : <T extends <T>(x: T) => void>(x: T) => T
->b : number
+>foo4 : <T 扩展 <T>(x: T) => 无值>(x: T) => T
+>b : 数字
 >类型别名 :=> 数字
 
 //function foo5<T extends String, U extends T>(x: T, y: U): T { return null; }
@@ -102,23 +102,23 @@ class C<T extends String> {
 }
 
 var c1 = new C(a);
->c1 : C<any>
->new C(a) : C<any>
->C : typeof C
->a : any
+>c1 : C<任意>
+>new C(a) : C<任意>
+>C : 类为 C
+>a : 任意
 >类型别名 :=> 任意
 
 var c2 = new C<any>(b);
->c2 : C<any>
->new C<any>(b) : C<any>
->C : typeof C
->b : number
+>c2 : C<任意>
+>new C<any>(b) : C<任意>
+>C : 类为 C
+>b : 数字
 >类型别名 :=> 数字
 
 class C2<T extends { x: number }> {
 >C2 : C2<T>
 >T : T
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     constructor(public x: T) { }
@@ -127,17 +127,17 @@ class C2<T extends { x: number }> {
 }
 
 var c3 = new C2(a);
->c3 : C2<any>
->new C2(a) : C2<any>
->C2 : typeof C2
->a : any
+>c3 : C2<任意>
+>new C2(a) : C2<任意>
+>C2 : 类为 C2
+>a : 任意
 >类型别名 :=> 任意
 
 var c4 = new C2<any>(b);
->c4 : C2<any>
->new C2<any>(b) : C2<any>
->C2 : typeof C2
->b : number
+>c4 : C2<任意>
+>new C2<any>(b) : C2<任意>
+>C2 : 类为 C2
+>b : 数字
 >类型别名 :=> 数字
 
 //class C3<T extends T[]> {
@@ -161,17 +161,17 @@ class C4<T extends <T>(x:T) => T> {
 }
 
 var c7 = new C4(a);
->c7 : C4<any>
->new C4(a) : C4<any>
->C4 : typeof C4
->a : any
+>c7 : C4<任意>
+>new C4(a) : C4<任意>
+>C4 : 类为 C4
+>a : 任意
 >类型别名 :=> 任意
 
 var c8 = new C4<any>(b);
->c8 : C4<any>
->new C4<any>(b) : C4<any>
->C4 : typeof C4
->b : number
+>c8 : C4<任意>
+>new C4<any>(b) : C4<任意>
+>C4 : 类为 C4
+>b : 数字
 >类型别名 :=> 数字
 
 

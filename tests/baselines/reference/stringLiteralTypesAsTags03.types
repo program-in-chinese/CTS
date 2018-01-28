@@ -18,7 +18,7 @@ interface A extends Entity {
 >kind : "A"
 
     a: number;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 }
 
@@ -30,7 +30,7 @@ interface B extends Entity {
 >kind : "B"
 
     b: string;
->b : string
+>b : 文字
 >类型别名 :=> 文字
 }
 
@@ -39,35 +39,35 @@ interface B extends Entity {
 // That way, we can avoid the need to look for a compatible overload
 // signature and simply check compatibility with the implementation.
 function hasKind(entity: Entity, kind: "A" | "A"): entity is A;
->hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; }
+>hasKind : { (entity: Entity, kind: "A"): entity 作为 A; (entity: Entity, kind: "B"): entity 作为 B; }
 >entity : Entity
 >Entity : Entity
 >kind : "A"
->entity : any
+>entity : 任意
 >类型别名 :=> 任意
 >A : A
 
 function hasKind(entity: Entity, kind: "B" | "B"): entity is B;
->hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; }
+>hasKind : { (entity: Entity, kind: "A"): entity 作为 A; (entity: Entity, kind: "B"): entity 作为 B; }
 >entity : Entity
 >Entity : Entity
 >kind : "B"
->entity : any
+>entity : 任意
 >类型别名 :=> 任意
 >B : B
 
 function hasKind(entity: Entity, kind: Kind): entity is Entity {
->hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; }
+>hasKind : { (entity: Entity, kind: "A"): entity 作为 A; (entity: Entity, kind: "B"): entity 作为 B; }
 >entity : Entity
 >Entity : Entity
 >kind : Kind
 >Kind : Kind
->entity : any
+>entity : 任意
 >类型别名 :=> 任意
 >Entity : Entity
 
     return entity.kind === kind;
->entity.kind === kind : boolean
+>entity.kind === kind : 真假
 >类型别名 :=> 真假
 >entity.kind : Kind
 >entity : Entity
@@ -78,23 +78,23 @@ function hasKind(entity: Entity, kind: Kind): entity is Entity {
 let x: A = {
 >x : A
 >A : A
->{    kind: "A",    a: 100,} : { kind: "A"; a: number; }
+>{    kind: "A",    a: 100,} : { kind: "A"; a: 数字; }
 
     kind: "A",
->kind : string
+>kind : 文字
 >类型别名 :=> 文字
 >"A" : "A"
 
     a: 100,
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >100 : 100
 }
 
 if (hasKind(x, "A")) {
->hasKind(x, "A") : boolean
+>hasKind(x, "A") : 真假
 >类型别名 :=> 真假
->hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; }
+>hasKind : { (entity: Entity, kind: "A"): entity 作为 A; (entity: Entity, kind: "B"): entity 作为 B; }
 >x : A
 >"A" : "A"
 
@@ -104,18 +104,18 @@ if (hasKind(x, "A")) {
 }
 else {
     let b = x;
->b : never
+>b : 不及
 >类型别名 :=> 不及
->x : never
+>x : 不及
 >类型别名 :=> 不及
 }
 
 if (!hasKind(x, "B")) {
->!hasKind(x, "B") : boolean
+>!hasKind(x, "B") : 真假
 >类型别名 :=> 真假
->hasKind(x, "B") : boolean
+>hasKind(x, "B") : 真假
 >类型别名 :=> 真假
->hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; }
+>hasKind : { (entity: Entity, kind: "A"): entity 作为 A; (entity: Entity, kind: "B"): entity 作为 B; }
 >x : A
 >"B" : "B"
 

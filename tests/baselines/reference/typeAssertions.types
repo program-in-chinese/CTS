@@ -1,51 +1,51 @@
 === tests/cases/conformance/expressions/typeAssertions/typeAssertions.ts ===
 // Function call whose argument is a 1 arg generic function call with explicit type arguments
 function fn1<T>(t: T) { }
->fn1 : <T>(t: T) => void
+>fn1 : <T>(t: T) => 无值
 >T : T
 >t : T
 >T : T
 
 function fn2(t: any) { }
->fn2 : (t: any) => void
->t : any
+>fn2 : (t: 任意) => 无值
+>t : 任意
 >类型别名 :=> 任意
 
 fn1(fn2<string>(4)); // Error
->fn1(fn2<string>(4)) : void
+>fn1(fn2<string>(4)) : 无值
 >类型别名 :=> 无值
->fn1 : <T>(t: T) => void
->fn2<string>(4) : void
+>fn1 : <T>(t: T) => 无值
+>fn2<string>(4) : 无值
 >类型别名 :=> 无值
->fn2 : (t: any) => void
+>fn2 : (t: 任意) => 无值
 >4 : 4
 
 var a: any;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 var s: string;
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
 // Type assertion of non - unary expression
 var a = <any>"" + 4;
->a : any
+>a : 任意
 >类型别名 :=> 任意
-><any>"" + 4 : any
+><any>"" + 4 : 任意
 >类型别名 :=> 任意
-><any>"" : any
+><any>"" : 任意
 >类型别名 :=> 任意
 >"" : ""
 >4 : 4
 
 var s = "" + <any>4;
->s : string
+>s : 文字
 >类型别名 :=> 文字
->"" + <any>4 : string
+>"" + <any>4 : 文字
 >类型别名 :=> 文字
 >"" : ""
-><any>4 : any
+><any>4 : 任意
 >类型别名 :=> 任意
 >4 : 4
 
@@ -53,7 +53,7 @@ class SomeBase {
 >SomeBase : SomeBase
 
     private p;
->p : any
+>p : 任意
 >类型别名 :=> 任意
 }
 class SomeDerived extends SomeBase {
@@ -61,14 +61,14 @@ class SomeDerived extends SomeBase {
 >SomeBase : SomeBase
 
     private x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 }
 class SomeOther {
 >SomeOther : SomeOther
 
     private q;
->q : any
+>q : 任意
 >类型别名 :=> 任意
 }
 
@@ -76,17 +76,17 @@ class SomeOther {
 var someBase = new SomeBase();
 >someBase : SomeBase
 >new SomeBase() : SomeBase
->SomeBase : typeof SomeBase
+>SomeBase : 类为 SomeBase
 
 var someDerived = new SomeDerived();
 >someDerived : SomeDerived
 >new SomeDerived() : SomeDerived
->SomeDerived : typeof SomeDerived
+>SomeDerived : 类为 SomeDerived
 
 var someOther = new SomeOther();
 >someOther : SomeOther
 >new SomeOther() : SomeOther
->SomeOther : typeof SomeOther
+>SomeOther : 类为 SomeOther
 
 someBase = <SomeBase>someDerived;
 >someBase = <SomeBase>someDerived : SomeBase
@@ -153,51 +153,51 @@ someOther = <SomeOther>someOther;
 
 // Type assertion cannot be a type-predicate type
 var numOrStr: number | string;
->numOrStr : string | number
+>numOrStr : 文字 | 数字
 
 var str: string;
->str : string
+>str : 文字
 >类型别名 :=> 文字
 
 if(<numOrStr is string>(numOrStr === undefined)) { // Error
-><numOrStr is : any
+><numOrStr is : 任意
 >类型别名 :=> 任意
 >numOrStr : No type information available!
->is : any
+>is : 任意
 >类型别名 :=> 任意
->string>(numOrStr === undefined) : boolean
+>string>(numOrStr === undefined) : 真假
 >类型别名 :=> 真假
->string : any
+>string : 任意
 >类型别名 :=> 任意
->(numOrStr === undefined) : boolean
+>(numOrStr === undefined) : 真假
 >类型别名 :=> 真假
->numOrStr === undefined : boolean
+>numOrStr === undefined : 真假
 >类型别名 :=> 真假
->numOrStr : string | number
->undefined : undefined
+>numOrStr : 文字 | 数字
+>undefined : 未定
 >类型别名 :=> 未定
 
 	str = numOrStr; // Error, no narrowing occurred
->str = numOrStr : string | number
->str : string
+>str = numOrStr : 文字 | 数字
+>str : 文字
 >类型别名 :=> 文字
->numOrStr : string | number
+>numOrStr : 文字 | 数字
 }
 
 if((numOrStr === undefined) as numOrStr is string) { // Error
->(numOrStr === undefined) as numOrStr : any
+>(numOrStr === undefined) as numOrStr : 任意
 >类型别名 :=> 任意
->(numOrStr === undefined) : boolean
+>(numOrStr === undefined) : 真假
 >类型别名 :=> 真假
->numOrStr === undefined : boolean
+>numOrStr === undefined : 真假
 >类型别名 :=> 真假
->numOrStr : string | number
->undefined : undefined
+>numOrStr : 文字 | 数字
+>undefined : 未定
 >类型别名 :=> 未定
 >numOrStr : No type information available!
->is : any
+>is : 任意
 >类型别名 :=> 任意
->string : any
+>string : 任意
 >类型别名 :=> 任意
 }
 

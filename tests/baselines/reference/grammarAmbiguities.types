@@ -1,18 +1,18 @@
 === tests/cases/conformance/expressions/functionCalls/grammarAmbiguities.ts ===
 function f(n: any) { return null; }
->f : (n: any) => any
->n : any
+>f : (n: 任意) => 任意
+>n : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 function g<A, B>(x: any) { return null; }
->g : <A, B>(x: any) => any
+>g : <A, B>(x: 任意) => 任意
 >A : A
 >B : B
->x : any
+>x : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 interface A { }
@@ -22,51 +22,51 @@ interface B { }
 >B : B
 
 var A, B;
->A : any
+>A : 任意
 >类型别名 :=> 任意
->B : any
+>B : 任意
 >类型别名 :=> 任意
 
 f(g<A, B>(7));
->f(g<A, B>(7)) : any
+>f(g<A, B>(7)) : 任意
 >类型别名 :=> 任意
->f : (n: any) => any
->g<A, B>(7) : any
+>f : (n: 任意) => 任意
+>g<A, B>(7) : 任意
 >类型别名 :=> 任意
->g : <A, B>(x: any) => any
+>g : <A, B>(x: 任意) => 任意
 >A : A
 >B : B
 >7 : 7
 
 f(g < A, B > 7); // Should error
->f(g < A, B > 7) : any
+>f(g < A, B > 7) : 任意
 >类型别名 :=> 任意
->f : (n: any) => any
->g < A : boolean
+>f : (n: 任意) => 任意
+>g < A : 真假
 >类型别名 :=> 真假
->g : <A, B>(x: any) => any
->A : any
+>g : <A, B>(x: 任意) => 任意
+>A : 任意
 >类型别名 :=> 任意
->B > 7 : boolean
+>B > 7 : 真假
 >类型别名 :=> 真假
->B : any
+>B : 任意
 >类型别名 :=> 任意
 >7 : 7
 
 f(g < A, B > +(7)); // Should error
->f(g < A, B > +(7)) : any
+>f(g < A, B > +(7)) : 任意
 >类型别名 :=> 任意
->f : (n: any) => any
->g < A : boolean
+>f : (n: 任意) => 任意
+>g < A : 真假
 >类型别名 :=> 真假
->g : <A, B>(x: any) => any
->A : any
+>g : <A, B>(x: 任意) => 任意
+>A : 任意
 >类型别名 :=> 任意
->B > +(7) : boolean
+>B > +(7) : 真假
 >类型别名 :=> 真假
->B : any
+>B : 任意
 >类型别名 :=> 任意
->+(7) : number
+>+(7) : 数字
 >类型别名 :=> 数字
 >(7) : 7
 >7 : 7

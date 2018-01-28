@@ -2,70 +2,70 @@
 // Rest parameters without type annotations are 'any', errors only for the functions with 2 rest params
 
 function foo(...x) { }
->foo : (...x: any[]) => void
->x : any[]
+>foo : (...x: 任意[]) => 无值
+>x : 任意[]
 
 var f = function foo(...x) { }
->f : (...x: any[]) => void
->function foo(...x) { } : (...x: any[]) => void
->foo : (...x: any[]) => void
->x : any[]
+>f : (...x: 任意[]) => 无值
+>function foo(...x) { } : (...x: 任意[]) => 无值
+>foo : (...x: 任意[]) => 无值
+>x : 任意[]
 
 var f2 = (...x, ...y) => { }
->f2 : (...x: any[], ...y: any[]) => void
->(...x, ...y) => { } : (...x: any[], ...y: any[]) => void
->x : any[]
->y : any[]
+>f2 : (...x: 任意[], ...y: 任意[]) => 无值
+>(...x, ...y) => { } : (...x: 任意[], ...y: 任意[]) => 无值
+>x : 任意[]
+>y : 任意[]
 
 class C {
 >C : C
 
     foo(...x) { }
->foo : (...x: any[]) => void
->x : any[]
+>foo : (...x: 任意[]) => 无值
+>x : 任意[]
 }
 
 interface I {
 >I : I
 
     (...x);
->x : any[]
+>x : 任意[]
 
     foo(...x, ...y);
->foo : (...x: any[], ...y: any[]) => any
->x : any[]
->y : any[]
+>foo : (...x: 任意[], ...y: 任意[]) => 任意
+>x : 任意[]
+>y : 任意[]
 }
 
 var a: {
->a : { (...x: any[]): any; foo(...x: any[]): any; }
+>a : { (...x: 任意[]): 任意; foo(...x: 任意[]): 任意; }
 
     (...x);
->x : any[]
+>x : 任意[]
 
     foo(...x);
->foo : (...x: any[]) => any
->x : any[]
+>foo : (...x: 任意[]) => 任意
+>x : 任意[]
 }
 
 var b = {
->b : { foo(...x: any[]): void; a: (...x: any[], ...y: any[]) => void; b: (...x: any[]) => void; }
->{    foo(...x) { },    a: function foo(...x, ...y) { },    b: (...x) => { }} : { foo(...x: any[]): void; a: (...x: any[], ...y: any[]) => void; b: (...x: any[]) => void; }
+>b : { foo(...x: 任意[]): 无值; a: (...x: 任意[], ...y: 任意[]) => 无值; b: (...x: 任意[]) => 无值; }
+>{    foo(...x) { },    a: function foo(...x, ...y) { },    b: (...x) => { }} : { foo(...x: 任意[]): 无值; a: (...x: 任意[], ...y: 任意[]) => 无值; b: (...x: 任意[]) => 无值; }
 
     foo(...x) { },
->foo : (...x: any[]) => void
->x : any[]
+>foo : (...x: 任意[]) => 无值
+>x : 任意[]
 
     a: function foo(...x, ...y) { },
->a : (...x: any[], ...y: any[]) => void
->function foo(...x, ...y) { } : (...x: any[], ...y: any[]) => void
->foo : (...x: any[], ...y: any[]) => void
->x : any[]
->y : any[]
+>a : (...x: 任意[], ...y: 任意[]) => 无值
+>function foo(...x, ...y) { } : (...x: 任意[], ...y: 任意[]) => 无值
+>foo : (...x: 任意[], ...y: 任意[]) => 无值
+>x : 任意[]
+>y : 任意[]
 
     b: (...x) => { }
->b : (...x: any[]) => void
->(...x) => { } : (...x: any[]) => void
->x : any[]
+>b : (...x: 任意[]) => 无值
+>(...x) => { } : (...x: 任意[]) => 无值
+>x : 任意[]
 }
 

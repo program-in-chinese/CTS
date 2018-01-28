@@ -16,38 +16,38 @@ function foo<T, U>(arg: { cb: (t: T) => U }) {
 >arg.cb : (t: T) => U
 >arg : { cb: (t: T) => U; }
 >cb : (t: T) => U
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 var arg = { cb: <T>(x: T) => '' };
->arg : { cb: <T>(x: T) => string; }
->{ cb: <T>(x: T) => '' } : { cb: <T>(x: T) => string; }
->cb : <T>(x: T) => string
-><T>(x: T) => '' : <T>(x: T) => string
+>arg : { cb: <T>(x: T) => 文字; }
+>{ cb: <T>(x: T) => '' } : { cb: <T>(x: T) => 文字; }
+>cb : <T>(x: T) => 文字
+><T>(x: T) => '' : <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T
 >'' : ""
 
 var r = foo(arg); // {}
->r : string
+>r : 文字
 >类型别名 :=> 文字
->foo(arg) : string
+>foo(arg) : 文字
 >类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: (t: T) => U; }) => U
->arg : { cb: <T>(x: T) => string; }
+>arg : { cb: <T>(x: T) => 文字; }
 
 // more args not allowed
 var r2 = foo({ cb: <T>(x: T, y: T) => '' }); // error
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->foo({ cb: <T>(x: T, y: T) => '' }) : any
+>foo({ cb: <T>(x: T, y: T) => '' }) : 任意
 >类型别名 :=> 任意
 >foo : <T, U>(arg: { cb: (t: T) => U; }) => U
->{ cb: <T>(x: T, y: T) => '' } : { cb: <T>(x: T, y: T) => string; }
->cb : <T>(x: T, y: T) => string
-><T>(x: T, y: T) => '' : <T>(x: T, y: T) => string
+>{ cb: <T>(x: T, y: T) => '' } : { cb: <T>(x: T, y: T) => 文字; }
+>cb : <T>(x: T, y: T) => 文字
+><T>(x: T, y: T) => '' : <T>(x: T, y: T) => 文字
 >T : T
 >x : T
 >T : T
@@ -56,17 +56,17 @@ var r2 = foo({ cb: <T>(x: T, y: T) => '' }); // error
 >'' : ""
 
 var r3 = foo({ cb: (x: string, y: number) => '' }); // error
->r3 : any
+>r3 : 任意
 >类型别名 :=> 任意
->foo({ cb: (x: string, y: number) => '' }) : any
+>foo({ cb: (x: string, y: number) => '' }) : 任意
 >类型别名 :=> 任意
 >foo : <T, U>(arg: { cb: (t: T) => U; }) => U
->{ cb: (x: string, y: number) => '' } : { cb: (x: string, y: number) => string; }
->cb : (x: string, y: number) => string
->(x: string, y: number) => '' : (x: string, y: number) => string
->x : string
+>{ cb: (x: string, y: number) => '' } : { cb: (x: 文字, y: 数字) => 文字; }
+>cb : (x: 文字, y: 数字) => 文字
+>(x: string, y: number) => '' : (x: 文字, y: 数字) => 文字
+>x : 文字
 >类型别名 :=> 文字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >'' : ""
 
@@ -87,56 +87,56 @@ function foo2<T, U>(arg: { cb: (t: T, t2: T) => U }) {
 >arg.cb : (t: T, t2: T) => U
 >arg : { cb: (t: T, t2: T) => U; }
 >cb : (t: T, t2: T) => U
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 // fewer args ok
 var r4 = foo(arg); // {}
->r4 : string
+>r4 : 文字
 >类型别名 :=> 文字
->foo(arg) : string
+>foo(arg) : 文字
 >类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: (t: T) => U; }) => U
->arg : { cb: <T>(x: T) => string; }
+>arg : { cb: <T>(x: T) => 文字; }
 
 var r5 = foo({ cb: <T>(x: T) => '' }); // {}
->r5 : string
+>r5 : 文字
 >类型别名 :=> 文字
->foo({ cb: <T>(x: T) => '' }) : string
+>foo({ cb: <T>(x: T) => '' }) : 文字
 >类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: (t: T) => U; }) => U
->{ cb: <T>(x: T) => '' } : { cb: <T>(x: T) => string; }
->cb : <T>(x: T) => string
-><T>(x: T) => '' : <T>(x: T) => string
+>{ cb: <T>(x: T) => '' } : { cb: <T>(x: T) => 文字; }
+>cb : <T>(x: T) => 文字
+><T>(x: T) => '' : <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T
 >'' : ""
 
 var r6 = foo({ cb: (x: string) => '' }); // string
->r6 : string
+>r6 : 文字
 >类型别名 :=> 文字
->foo({ cb: (x: string) => '' }) : string
+>foo({ cb: (x: string) => '' }) : 文字
 >类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: (t: T) => U; }) => U
->{ cb: (x: string) => '' } : { cb: (x: string) => string; }
->cb : (x: string) => string
->(x: string) => '' : (x: string) => string
->x : string
+>{ cb: (x: string) => '' } : { cb: (x: 文字) => 文字; }
+>cb : (x: 文字) => 文字
+>(x: string) => '' : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 var r7 = foo({ cb: () => '' }); // string
->r7 : string
+>r7 : 文字
 >类型别名 :=> 文字
->foo({ cb: () => '' }) : string
+>foo({ cb: () => '' }) : 文字
 >类型别名 :=> 文字
 >foo : <T, U>(arg: { cb: (t: T) => U; }) => U
->{ cb: () => '' } : { cb: () => string; }
->cb : () => string
->() => '' : () => string
+>{ cb: () => '' } : { cb: () => 文字; }
+>cb : () => 文字
+>() => '' : () => 文字
 >'' : ""
 

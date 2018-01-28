@@ -1,19 +1,19 @@
 === tests/cases/conformance/statements/for-inStatements/for-inStatementsInvalid.ts ===
 var aNumber: number;
->aNumber : number
+>aNumber : 数字
 >类型别名 :=> 数字
 
 for (aNumber in {}) { }
->aNumber : number
+>aNumber : 数字
 >类型别名 :=> 数字
 >{} : {}
 
 var aBoolean: boolean;
->aBoolean : boolean
+>aBoolean : 真假
 >类型别名 :=> 真假
 
 for (aBoolean in {}) { }
->aBoolean : boolean
+>aBoolean : 真假
 >类型别名 :=> 真假
 >{} : {}
 
@@ -26,102 +26,102 @@ for (aRegExp in {}) { }
 >{} : {}
 
 for (var idx : number in {}) { }
->idx : string
+>idx : 文字
 >类型别名 :=> 文字
 >{} : {}
 
 function fn(): void { }
->fn : () => void
+>fn : () => 无值
 
 for (var x in fn()) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->fn() : void
+>fn() : 无值
 >类型别名 :=> 无值
->fn : () => void
+>fn : () => 无值
 
 var c : string, d:string, e;
->c : string
+>c : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
 for (var x in c || d) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->c || d : string
+>c || d : 文字
 >类型别名 :=> 文字
->c : string
+>c : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
 for (var x in e ? c : d) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->e ? c : d : string
+>e ? c : d : 文字
 >类型别名 :=> 文字
->e : any
+>e : 任意
 >类型别名 :=> 任意
->c : string
+>c : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
 for (var x in 42 ? c : d) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->42 ? c : d : string
+>42 ? c : d : 文字
 >类型别名 :=> 文字
 >42 : 42
->c : string
+>c : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
 for (var x in '' ? c : d) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->'' ? c : d : string
+>'' ? c : d : 文字
 >类型别名 :=> 文字
 >'' : ""
->c : string
+>c : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
 for (var x in 42 ? d[x] : c[x]) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->42 ? d[x] : c[x] : any
+>42 ? d[x] : c[x] : 任意
 >类型别名 :=> 任意
 >42 : 42
->d[x] : any
+>d[x] : 任意
 >类型别名 :=> 任意
->d : string
+>d : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->c[x] : any
+>c[x] : 任意
 >类型别名 :=> 任意
->c : string
+>c : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 for (var x in c[23]) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->c[23] : string
+>c[23] : 文字
 >类型别名 :=> 文字
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >23 : 23
 
 for (var x in (<T>(x: T) => x)) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >(<T>(x: T) => x) : <T>(x: T) => T
 ><T>(x: T) => x : <T>(x: T) => T
@@ -131,78 +131,78 @@ for (var x in (<T>(x: T) => x)) { }
 >x : T
 
 for (var x in function (x: string, y: number) { return x + y }) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->function (x: string, y: number) { return x + y } : (x: string, y: string) => string
->x : string
+>function (x: string, y: number) { return x + y } : (x: 文字, y: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
->x + y : string
+>x + y : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
 class A {
 >A : A
 
     biz() : number{
->biz : () => number
+>biz : () => 数字
 
         for (var x in this.biz()) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this.biz() : number
+>this.biz() : 数字
 >类型别名 :=> 数字
->this.biz : () => number
->this : this
->biz : () => number
+>this.biz : () => 数字
+>this : 本体
+>biz : () => 数字
 
         for (var x in this.biz) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this.biz : () => number
->this : this
->biz : () => number
+>this.biz : () => 数字
+>this : 本体
+>biz : () => 数字
 
         for (var x in this) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this : this
+>this : 本体
 
         return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
     }
 
     static baz() : number {
->baz : () => number
+>baz : () => 数字
 
         for (var x in this) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this : typeof A
+>this : 类为 A
 
         for (var x in this.baz) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this.baz : () => number
->this : typeof A
->baz : () => number
+>this.baz : () => 数字
+>this : 类为 A
+>baz : () => 数字
 
         for (var x in this.baz()) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this.baz() : number
+>this.baz() : 数字
 >类型别名 :=> 数字
->this.baz : () => number
->this : typeof A
->baz : () => number
+>this.baz : () => 数字
+>this : 类为 A
+>baz : () => 数字
 
         return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
     }
 }
@@ -212,47 +212,47 @@ class B extends A {
 >A : A
 
     boz() {
->boz : () => any
+>boz : () => 任意
 
         for (var x in this.biz()) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this.biz() : number
+>this.biz() : 数字
 >类型别名 :=> 数字
->this.biz : () => number
->this : this
->biz : () => number
+>this.biz : () => 数字
+>this : 本体
+>biz : () => 数字
 
         for (var x in this.biz) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this.biz : () => number
->this : this
->biz : () => number
+>this.biz : () => 数字
+>this : 本体
+>biz : () => 数字
 
         for (var x in this) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->this : this
+>this : 本体
 
         for (var x in super.biz) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->super.biz : () => number
+>super.biz : () => 数字
 >super : A
->biz : () => number
+>biz : () => 数字
 
         for (var x in super.biz()) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
->super.biz() : number
+>super.biz() : 数字
 >类型别名 :=> 数字
->super.biz : () => number
+>super.biz : () => 数字
 >super : A
->biz : () => number
+>biz : () => 数字
 
         return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
     }
 }
@@ -261,11 +261,11 @@ interface I {
 >I : I
 
     id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
 
     [idx: number]: number;
->idx : number
+>idx : 数字
 >类型别名 :=> 数字
 }
 var i: I;
@@ -273,9 +273,9 @@ var i: I;
 >I : I
 
 for (var x in i[42]) { } 
->x : string
+>x : 文字
 >类型别名 :=> 文字
->i[42] : number
+>i[42] : 数字
 >类型别名 :=> 数字
 >i : I
 >42 : 42

@@ -1,69 +1,69 @@
 === tests/cases/compiler/functionOverloads44.ts ===
 interface Animal { animal }
 >Animal : Animal
->animal : any
+>animal : 任意
 >类型别名 :=> 任意
 
 interface Dog extends Animal { dog }
 >Dog : Dog
 >Animal : Animal
->dog : any
+>dog : 任意
 >类型别名 :=> 任意
 
 interface Cat extends Animal { cat }
 >Cat : Cat
 >Animal : Animal
->cat : any
+>cat : 任意
 >类型别名 :=> 任意
 
 function foo1(bar: { a:number }[]): Dog;
->foo1 : { (bar: { a: number; }[]): Dog; (bar: { a: string; }[]): Animal; }
->bar : { a: number; }[]
->a : number
+>foo1 : { (bar: { a: 数字; }[]): Dog; (bar: { a: 文字; }[]): Animal; }
+>bar : { a: 数字; }[]
+>a : 数字
 >类型别名 :=> 数字
 >Dog : Dog
 
 function foo1(bar: { a:string }[]): Animal;
->foo1 : { (bar: { a: number; }[]): Dog; (bar: { a: string; }[]): Animal; }
->bar : { a: string; }[]
->a : string
+>foo1 : { (bar: { a: 数字; }[]): Dog; (bar: { a: 文字; }[]): Animal; }
+>bar : { a: 文字; }[]
+>a : 文字
 >类型别名 :=> 文字
 >Animal : Animal
 
 function foo1([x]: { a:number | string }[]): Dog {
->foo1 : { (bar: { a: number; }[]): Dog; (bar: { a: string; }[]): Animal; }
->x : { a: string | number; }
->a : string | number
+>foo1 : { (bar: { a: 数字; }[]): Dog; (bar: { a: 文字; }[]): Animal; }
+>x : { a: 文字 | 数字; }
+>a : 文字 | 数字
 >Dog : Dog
 
     return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function foo2(bar: { a:number }[]): Cat;
->foo2 : { (bar: { a: number; }[]): Cat; (bar: { a: string; }[]): Dog | Cat; }
->bar : { a: number; }[]
->a : number
+>foo2 : { (bar: { a: 数字; }[]): Cat; (bar: { a: 文字; }[]): Dog | Cat; }
+>bar : { a: 数字; }[]
+>a : 数字
 >类型别名 :=> 数字
 >Cat : Cat
 
 function foo2(bar: { a:string }[]): Cat | Dog;
->foo2 : { (bar: { a: number; }[]): Cat; (bar: { a: string; }[]): Dog | Cat; }
->bar : { a: string; }[]
->a : string
+>foo2 : { (bar: { a: 数字; }[]): Cat; (bar: { a: 文字; }[]): Dog | Cat; }
+>bar : { a: 文字; }[]
+>a : 文字
 >类型别名 :=> 文字
 >Cat : Cat
 >Dog : Dog
 
 function foo2([x]: { a:number | string }[]): Cat {
->foo2 : { (bar: { a: number; }[]): Cat; (bar: { a: string; }[]): Dog | Cat; }
->x : { a: string | number; }
->a : string | number
+>foo2 : { (bar: { a: 数字; }[]): Cat; (bar: { a: 文字; }[]): Dog | Cat; }
+>x : { a: 文字 | 数字; }
+>a : 文字 | 数字
 >Cat : Cat
 
     return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
@@ -71,40 +71,40 @@ function foo2([x]: { a:number | string }[]): Cat {
 var x1 = foo1([{a: "str"}]);
 >x1 : Animal
 >foo1([{a: "str"}]) : Animal
->foo1 : { (bar: { a: number; }[]): Dog; (bar: { a: string; }[]): Animal; }
->[{a: "str"}] : { a: string; }[]
->{a: "str"} : { a: string; }
->a : string
+>foo1 : { (bar: { a: 数字; }[]): Dog; (bar: { a: 文字; }[]): Animal; }
+>[{a: "str"}] : { a: 文字; }[]
+>{a: "str"} : { a: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >"str" : "str"
 
 var y1 = foo1([{a: 100}]);
 >y1 : Dog
 >foo1([{a: 100}]) : Dog
->foo1 : { (bar: { a: number; }[]): Dog; (bar: { a: string; }[]): Animal; }
->[{a: 100}] : { a: number; }[]
->{a: 100} : { a: number; }
->a : number
+>foo1 : { (bar: { a: 数字; }[]): Dog; (bar: { a: 文字; }[]): Animal; }
+>[{a: 100}] : { a: 数字; }[]
+>{a: 100} : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >100 : 100
 
 var x2 = foo2([{a: "str"}]);
 >x2 : Dog | Cat
 >foo2([{a: "str"}]) : Dog | Cat
->foo2 : { (bar: { a: number; }[]): Cat; (bar: { a: string; }[]): Dog | Cat; }
->[{a: "str"}] : { a: string; }[]
->{a: "str"} : { a: string; }
->a : string
+>foo2 : { (bar: { a: 数字; }[]): Cat; (bar: { a: 文字; }[]): Dog | Cat; }
+>[{a: "str"}] : { a: 文字; }[]
+>{a: "str"} : { a: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >"str" : "str"
 
 var y2 = foo2([{a: 100}]);
 >y2 : Cat
 >foo2([{a: 100}]) : Cat
->foo2 : { (bar: { a: number; }[]): Cat; (bar: { a: string; }[]): Dog | Cat; }
->[{a: 100}] : { a: number; }[]
->{a: 100} : { a: number; }
->a : number
+>foo2 : { (bar: { a: 数字; }[]): Cat; (bar: { a: 文字; }[]): Dog | Cat; }
+>[{a: 100}] : { a: 数字; }[]
+>{a: 100} : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >100 : 100
 

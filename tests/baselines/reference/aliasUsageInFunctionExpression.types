@@ -1,18 +1,18 @@
 === tests/cases/compiler/aliasUsageInFunctionExpression_main.ts ===
 import Backbone = require("./aliasUsageInFunctionExpression_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 import moduleA = require("./aliasUsageInFunctionExpression_moduleA");
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 
 interface IHasVisualizationModel {
 >IHasVisualizationModel : IHasVisualizationModel
 
     VisualizationModel: typeof Backbone.Model;
->VisualizationModel : typeof Backbone.Model
->Backbone.Model : typeof Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>VisualizationModel : 类为 Backbone.Model
+>Backbone.Model : 类为 Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 }
 var f = (x: IHasVisualizationModel) => x;
 >f : (x: IHasVisualizationModel) => IHasVisualizationModel
@@ -22,30 +22,30 @@ var f = (x: IHasVisualizationModel) => x;
 >x : IHasVisualizationModel
 
 f = (x) => moduleA;
->f = (x) => moduleA : (x: IHasVisualizationModel) => typeof moduleA
+>f = (x) => moduleA : (x: IHasVisualizationModel) => 类为 moduleA
 >f : (x: IHasVisualizationModel) => IHasVisualizationModel
->(x) => moduleA : (x: IHasVisualizationModel) => typeof moduleA
+>(x) => moduleA : (x: IHasVisualizationModel) => 类为 moduleA
 >x : IHasVisualizationModel
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 
 === tests/cases/compiler/aliasUsageInFunctionExpression_backbone.ts ===
 export class Model {
 >Model : Model
 
     public someData: string;
->someData : string
+>someData : 文字
 >类型别名 :=> 文字
 }
 
 === tests/cases/compiler/aliasUsageInFunctionExpression_moduleA.ts ===
 import Backbone = require("./aliasUsageInFunctionExpression_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 export class VisualizationModel extends Backbone.Model {
 >VisualizationModel : VisualizationModel
 >Backbone.Model : Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 
     // interesting stuff here
 }

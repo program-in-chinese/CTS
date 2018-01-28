@@ -1,16 +1,16 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/function.ts ===
 module A {
->A : typeof A
+>A : 类为 A
 
     export function Point() {
->Point : typeof Point
+>Point : 类为 Point
 
         return { x: 0, y: 0 };
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
     }
@@ -18,18 +18,18 @@ module A {
 
 === tests/cases/conformance/internalModules/DeclarationMerging/module.ts ===
 module A {
->A : typeof A
+>A : 类为 A
 
     export module Point {
->Point : typeof Point
+>Point : 类为 Point
 
         export var Origin = { x: 0, y: 0 };
->Origin : { x: number; y: number; }
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>Origin : { x: 数字; y: 数字; }
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
     }
@@ -37,105 +37,105 @@ module A {
 
 === tests/cases/conformance/internalModules/DeclarationMerging/test.ts ===
 var fn: () => { x: number; y: number };
->fn : () => { x: number; y: number; }
->x : number
+>fn : () => { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var fn = A.Point;
->fn : () => { x: number; y: number; }
->A.Point : typeof A.Point
->A : typeof A
->Point : typeof A.Point
+>fn : () => { x: 数字; y: 数字; }
+>A.Point : 类为 A.Point
+>A : 类为 A
+>Point : 类为 A.Point
 
 var cl: { x: number; y: number; }
->cl : { x: number; y: number; }
->x : number
+>cl : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var cl = A.Point();
->cl : { x: number; y: number; }
->A.Point() : { x: number; y: number; }
->A.Point : typeof A.Point
->A : typeof A
->Point : typeof A.Point
+>cl : { x: 数字; y: 数字; }
+>A.Point() : { x: 数字; y: 数字; }
+>A.Point : 类为 A.Point
+>A : 类为 A
+>Point : 类为 A.Point
 
 var cl = A.Point.Origin; // not expected to be an error.
->cl : { x: number; y: number; }
->A.Point.Origin : { x: number; y: number; }
->A.Point : typeof A.Point
->A : typeof A
->Point : typeof A.Point
->Origin : { x: number; y: number; }
+>cl : { x: 数字; y: 数字; }
+>A.Point.Origin : { x: 数字; y: 数字; }
+>A.Point : 类为 A.Point
+>A : 类为 A
+>Point : 类为 A.Point
+>Origin : { x: 数字; y: 数字; }
 
 
 === tests/cases/conformance/internalModules/DeclarationMerging/simple.ts ===
 module B {
->B : typeof B
+>B : 类为 B
 
     export function Point() {
->Point : typeof Point
+>Point : 类为 Point
 
         return { x: 0, y: 0 };
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
     }
 
     export module Point {
->Point : typeof Point
+>Point : 类为 Point
 
         export var Origin = { x: 0, y: 0 };
->Origin : { x: number; y: number; }
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>Origin : { x: 数字; y: 数字; }
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
     }
 }
 
 var fn: () => { x: number; y: number };
->fn : () => { x: number; y: number; }
->x : number
+>fn : () => { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var fn = B.Point;  // not expected to be an error. bug 840000: [corelang] Function of fundule not assignalbe as expected
->fn : () => { x: number; y: number; }
->B.Point : typeof B.Point
->B : typeof B
->Point : typeof B.Point
+>fn : () => { x: 数字; y: 数字; }
+>B.Point : 类为 B.Point
+>B : 类为 B
+>Point : 类为 B.Point
 
 var cl: { x: number; y: number; }
->cl : { x: number; y: number; }
->x : number
+>cl : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var cl = B.Point();
->cl : { x: number; y: number; }
->B.Point() : { x: number; y: number; }
->B.Point : typeof B.Point
->B : typeof B
->Point : typeof B.Point
+>cl : { x: 数字; y: 数字; }
+>B.Point() : { x: 数字; y: 数字; }
+>B.Point : 类为 B.Point
+>B : 类为 B
+>Point : 类为 B.Point
 
 var cl = B.Point.Origin;
->cl : { x: number; y: number; }
->B.Point.Origin : { x: number; y: number; }
->B.Point : typeof B.Point
->B : typeof B
->Point : typeof B.Point
->Origin : { x: number; y: number; }
+>cl : { x: 数字; y: 数字; }
+>B.Point.Origin : { x: 数字; y: 数字; }
+>B.Point : 类为 B.Point
+>B : 类为 B
+>Point : 类为 B.Point
+>Origin : { x: 数字; y: 数字; }
 

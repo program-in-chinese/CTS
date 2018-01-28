@@ -5,28 +5,28 @@ var use: Overload;
 >Overload : Overload
 
 use((req, res) => {});
->use((req, res) => {}) : void
+>use((req, res) => {}) : 无值
 >类型别名 :=> 无值
 >use : Overload
->(req, res) => {} : (req: any, res: any) => void
->req : any
+>(req, res) => {} : (req: 任意, res: 任意) => 无值
+>req : 任意
 >类型别名 :=> 任意
->res : any
+>res : 任意
 >类型别名 :=> 任意
 
 interface Overload {
 >Overload : Overload
 
     (handler1: (req1: string) => void): void;
->handler1 : (req1: string) => void
->req1 : string
+>handler1 : (req1: 文字) => 无值
+>req1 : 文字
 >类型别名 :=> 文字
 
     (handler2: (req2: number, res2: number) => void): void;
->handler2 : (req2: number, res2: number) => void
->req2 : number
+>handler2 : (req2: 数字, res2: 数字) => 无值
+>req2 : 数字
 >类型别名 :=> 数字
->res2 : number
+>res2 : 数字
 >类型别名 :=> 数字
 }
 // larger repro from #11875
@@ -39,14 +39,14 @@ app.use((err: any, req, res, next) => { return; });
 >app.use : IRouterHandler<MyApp> & IRouterMatcher<MyApp>
 >app : MyApp
 >use : IRouterHandler<MyApp> & IRouterMatcher<MyApp>
->(err: any, req, res, next) => { return; } : (err: any, req: any, res: any, next: any) => void
->err : any
+>(err: any, req, res, next) => { return; } : (err: 任意, req: 任意, res: 任意, next: 任意) => 无值
+>err : 任意
 >类型别名 :=> 任意
->req : any
+>req : 任意
 >类型别名 :=> 任意
->res : any
+>res : 任意
 >类型别名 :=> 任意
->next : any
+>next : 任意
 >类型别名 :=> 任意
 
 
@@ -54,7 +54,7 @@ interface MyApp {
 >MyApp : MyApp
 
     use: IRouterHandler<this> & IRouterMatcher<this>;
->use : IRouterHandler<this> & IRouterMatcher<this>
+>use : IRouterHandler<本体> & IRouterMatcher<本体>
 >IRouterHandler : IRouterHandler<T>
 >IRouterMatcher : IRouterMatcher<T>
 }
@@ -121,7 +121,7 @@ interface ErrorRequestHandler {
 >ErrorRequestHandler : ErrorRequestHandler
 
     (err: any, req: Request, res: Response, next: NextFunction): any;
->err : any
+>err : 任意
 >类型别名 :=> 任意
 >req : Request
 >Request : Request
@@ -135,7 +135,7 @@ interface Request {
 >Request : Request
 
     method: string;
->method : string
+>method : 文字
 >类型别名 :=> 文字
 }
 
@@ -143,7 +143,7 @@ interface Response {
 >Response : Response
 
     statusCode: number;
->statusCode : number
+>statusCode : 数字
 >类型别名 :=> 数字
 }
 
@@ -151,7 +151,7 @@ interface NextFunction {
 >NextFunction : NextFunction
 
     (err?: any): void;
->err : any
+>err : 任意
 >类型别名 :=> 任意
 }
 

@@ -1,44 +1,44 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/part1.ts ===
 export module A {
->A : typeof A
+>A : 类为 A
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
     export module Utils {
->Utils : typeof Utils
+>Utils : 类为 Utils
 
         export function mirror<T extends Point>(p: T) {
->mirror : <T extends Point>(p: T) => { x: number; y: number; }
+>mirror : <T 扩展 Point>(p: T) => { x: 数字; y: 数字; }
 >T : T
 >Point : Point
 >p : T
 >T : T
 
             return { x: p.y, y: p.x };
->{ x: p.y, y: p.x } : { x: number; y: number; }
->x : number
+>{ x: p.y, y: p.x } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->p.y : number
->类型别名 :=> 数字
->p : T
->y : number
->类型别名 :=> 数字
->y : number
->类型别名 :=> 数字
->p.x : number
+>p.y : 数字
 >类型别名 :=> 数字
 >p : T
->x : number
+>y : 数字
+>类型别名 :=> 数字
+>y : 数字
+>类型别名 :=> 数字
+>p.x : 数字
+>类型别名 :=> 数字
+>p : T
+>x : 数字
 >类型别名 :=> 数字
         }
     }
@@ -46,43 +46,43 @@ export module A {
     export var Origin: Point = { x: 0, y: 0 };
 >Origin : Point
 >Point : Point
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
 }
 
 === tests/cases/conformance/internalModules/DeclarationMerging/part2.ts ===
 export module A {
->A : typeof A
+>A : 类为 A
 
     // collision with 'Origin' var in other part of merged module
     export var Origin: Point = { x: 0, y: 0 };
->Origin : any
+>Origin : 任意
 >类型别名 :=> 任意
 >Point : No type information available!
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
 
     export module Utils {
->Utils : typeof Utils
+>Utils : 类为 Utils
 
         export class Plane {
 >Plane : Plane
 
             constructor(public tl: Point, public br: Point) { }
->tl : any
+>tl : 任意
 >类型别名 :=> 任意
 >Point : No type information available!
->br : any
+>br : 任意
 >类型别名 :=> 任意
 >Point : No type information available!
         }

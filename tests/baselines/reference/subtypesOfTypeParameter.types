@@ -23,7 +23,7 @@ class D1<T, U> extends C3<T> {
 }
 
 function f1<T, U>(x: T, y: U) {
->f1 : <T, U>(x: T, y: U) => void
+>f1 : <T, U>(x: T, y: U) => 无值
 >T : T
 >U : U
 >x : T
@@ -34,7 +34,7 @@ function f1<T, U>(x: T, y: U) {
     var r = true ? x : y; // error
 >r : T | U
 >true ? x : y : T | U
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >y : U
@@ -42,7 +42,7 @@ function f1<T, U>(x: T, y: U) {
     var r = true ? y : x; // error
 >r : T | U
 >true ? y : x : T | U
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >y : U
 >x : T
@@ -50,12 +50,12 @@ function f1<T, U>(x: T, y: U) {
 
 interface I1 { foo: number; }
 >I1 : I1
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 
 class C1 { foo: number; }
 >C1 : C1
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 
 class C2<T> { foo: T; }
@@ -69,33 +69,33 @@ enum E { A }
 >A : E
 
 function f() { }
->f : typeof f
+>f : 类为 f
 
 module f {
->f : typeof f
+>f : 类为 f
 
     export var bar = 1;
->bar : number
+>bar : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
 class c { baz: string }
 >c : c
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 module c {
->c : typeof c
+>c : 类为 c
 
     export var bar = 1;
->bar : number
+>bar : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
 
 // errors throughout
 function f2<T, U>(x: T, y: U) {
->f2 : <T, U>(x: T, y: U) => void
+>f2 : <T, U>(x: T, y: U) => 无值
 >T : T
 >U : U
 >x : T
@@ -106,103 +106,103 @@ function f2<T, U>(x: T, y: U) {
     var r0 = true ? x : null;
 >r0 : T
 >true ? x : null : T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     var r0 = true ? null : x;
 >r0 : T
 >true ? null : x : T
->true : true
+>true : 为真
 >类型别名 :=> 为真
->null : null
+>null : 空值
 >类型别名 :=> 空值
 >x : T
 
     var u: typeof undefined;
->u : any
+>u : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
     var r0b = true ? u : x;
->r0b : any
+>r0b : 任意
 >类型别名 :=> 任意
->true ? u : x : any
+>true ? u : x : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
->u : any
+>u : 任意
 >类型别名 :=> 任意
 >x : T
 
     var r0b = true ? x : u;
->r0b : any
+>r0b : 任意
 >类型别名 :=> 任意
->true ? x : u : any
+>true ? x : u : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->u : any
+>u : 任意
 >类型别名 :=> 任意
 
     var r1 = true ? 1 : x; 
->r1 : number | T
+>r1 : 数字 | T
 >true ? 1 : x : 1 | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >1 : 1
 >x : T
 
     var r1 = true ? x : 1;
->r1 : number | T
+>r1 : 数字 | T
 >true ? x : 1 : 1 | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >1 : 1
 
     var r2 = true ? '' : x;
->r2 : string | T
+>r2 : 文字 | T
 >true ? '' : x : T | ""
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >'' : ""
 >x : T
 
     var r2 = true ? x : '';
->r2 : string | T
+>r2 : 文字 | T
 >true ? x : '' : T | ""
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >'' : ""
 
     var r3 = true ? true : x;
->r3 : boolean | T
->true ? true : x : true | T
->true : true
+>r3 : 真假 | T
+>true ? true : x : 为真 | T
+>true : 为真
 >类型别名 :=> 为真
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 
     var r3 = true ? x : true;
->r3 : boolean | T
->true ? x : true : true | T
->true : true
+>r3 : 真假 | T
+>true ? x : true : 为真 | T
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     var r4 = true ? new Date() : x;
 >r4 : T | Date
 >true ? new Date() : x : T | Date
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >new Date() : Date
 >Date : DateConstructor
@@ -211,7 +211,7 @@ function f2<T, U>(x: T, y: U) {
     var r4 = true ? x : new Date();
 >r4 : T | Date
 >true ? x : new Date() : T | Date
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >new Date() : Date
@@ -220,7 +220,7 @@ function f2<T, U>(x: T, y: U) {
     var r5 = true ? /1/ : x;
 >r5 : RegExp | T
 >true ? /1/ : x : RegExp | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >/1/ : RegExp
 >x : T
@@ -228,53 +228,53 @@ function f2<T, U>(x: T, y: U) {
     var r5 = true ? x : /1/;
 >r5 : RegExp | T
 >true ? x : /1/ : RegExp | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >/1/ : RegExp
 
     var r6 = true ? { foo: 1 } : x;
->r6 : T | { foo: number; }
->true ? { foo: 1 } : x : T | { foo: number; }
->true : true
+>r6 : T | { foo: 数字; }
+>true ? { foo: 1 } : x : T | { foo: 数字; }
+>true : 为真
 >类型别名 :=> 为真
->{ foo: 1 } : { foo: number; }
->foo : number
+>{ foo: 1 } : { foo: 数字; }
+>foo : 数字
 >类型别名 :=> 数字
 >1 : 1
 >x : T
 
     var r6 = true ? x : { foo: 1 };
->r6 : T | { foo: number; }
->true ? x : { foo: 1 } : T | { foo: number; }
->true : true
+>r6 : T | { foo: 数字; }
+>true ? x : { foo: 1 } : T | { foo: 数字; }
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->{ foo: 1 } : { foo: number; }
->foo : number
+>{ foo: 1 } : { foo: 数字; }
+>foo : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     var r7 = true ? () => { } : x;
->r7 : T | (() => void)
->true ? () => { } : x : T | (() => void)
->true : true
+>r7 : T | (() => 无值)
+>true ? () => { } : x : T | (() => 无值)
+>true : 为真
 >类型别名 :=> 为真
->() => { } : () => void
+>() => { } : () => 无值
 >x : T
 
     var r7 = true ? x : () => { };
->r7 : T | (() => void)
->true ? x : () => { } : T | (() => void)
->true : true
+>r7 : T | (() => 无值)
+>true ? x : () => { } : T | (() => 无值)
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->() => { } : () => void
+>() => { } : () => 无值
 
     var r8 = true ? <T>(x: T) => { return x } : x;
 >r8 : T | (<T>(x: T) => T)
 >true ? <T>(x: T) => { return x } : x : T | (<T>(x: T) => T)
->true : true
+>true : 为真
 >类型别名 :=> 为真
 ><T>(x: T) => { return x } : <T>(x: T) => T
 >T : T
@@ -286,7 +286,7 @@ function f2<T, U>(x: T, y: U) {
     var r8b = true ? x : <T>(x: T) => { return x }; // type parameters not identical across declarations
 >r8b : T | (<T>(x: T) => T)
 >true ? x : <T>(x: T) => { return x } : T | (<T>(x: T) => T)
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 ><T>(x: T) => { return x } : <T>(x: T) => T
@@ -302,7 +302,7 @@ function f2<T, U>(x: T, y: U) {
     var r9 = true ? i1 : x;
 >r9 : I1 | T
 >true ? i1 : x : I1 | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >i1 : I1
 >x : T
@@ -310,7 +310,7 @@ function f2<T, U>(x: T, y: U) {
     var r9 = true ? x : i1;
 >r9 : I1 | T
 >true ? x : i1 : I1 | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >i1 : I1
@@ -322,7 +322,7 @@ function f2<T, U>(x: T, y: U) {
     var r10 = true ? c1 : x;
 >r10 : C1 | T
 >true ? c1 : x : C1 | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >c1 : C1
 >x : T
@@ -330,111 +330,111 @@ function f2<T, U>(x: T, y: U) {
     var r10 = true ? x : c1;
 >r10 : C1 | T
 >true ? x : c1 : C1 | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >c1 : C1
 
 
     var c2: C2<number>;
->c2 : C2<number>
+>c2 : C2<数字>
 >C2 : C2<T>
 
     var r12 = true ? c2 : x;
->r12 : T | C2<number>
->true ? c2 : x : T | C2<number>
->true : true
+>r12 : T | C2<数字>
+>true ? c2 : x : T | C2<数字>
+>true : 为真
 >类型别名 :=> 为真
->c2 : C2<number>
+>c2 : C2<数字>
 >x : T
 
     var r12 = true ? x : c2;
->r12 : T | C2<number>
->true ? x : c2 : T | C2<number>
->true : true
+>r12 : T | C2<数字>
+>true ? x : c2 : T | C2<数字>
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->c2 : C2<number>
+>c2 : C2<数字>
 
 
     var r13 = true ? E : x;
->r13 : T | typeof E
->true ? E : x : T | typeof E
->true : true
+>r13 : T | 类为 E
+>true ? E : x : T | 类为 E
+>true : 为真
 >类型别名 :=> 为真
->E : typeof E
+>E : 类为 E
 >x : T
 
     var r13 = true ? x : E;
->r13 : T | typeof E
->true ? x : E : T | typeof E
->true : true
+>r13 : T | 类为 E
+>true ? x : E : T | 类为 E
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->E : typeof E
+>E : 类为 E
 
     var r14 = true ? E.A : x;
 >r14 : T | E
 >true ? E.A : x : T | E
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >E.A : E
->E : typeof E
+>E : 类为 E
 >A : E
 >x : T
 
     var r14 = true ? x : E.A;
 >r14 : T | E
 >true ? x : E.A : T | E
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >E.A : E
->E : typeof E
+>E : 类为 E
 >A : E
 
     var af: typeof f;
->af : typeof f
->f : typeof f
+>af : 类为 f
+>f : 类为 f
 
     var r15 = true ? af : x;
->r15 : T | typeof f
->true ? af : x : T | typeof f
->true : true
+>r15 : T | 类为 f
+>true ? af : x : T | 类为 f
+>true : 为真
 >类型别名 :=> 为真
->af : typeof f
+>af : 类为 f
 >x : T
 
     var r15 = true ? x : af;
->r15 : T | typeof f
->true ? x : af : T | typeof f
->true : true
+>r15 : T | 类为 f
+>true ? x : af : T | 类为 f
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->af : typeof f
+>af : 类为 f
 
     var ac: typeof c;
->ac : typeof c
->c : typeof c
+>ac : 类为 c
+>c : 类为 c
 
     var r16 = true ? ac : x;
->r16 : typeof c | T
->true ? ac : x : typeof c | T
->true : true
+>r16 : 类为 c | T
+>true ? ac : x : 类为 c | T
+>true : 为真
 >类型别名 :=> 为真
->ac : typeof c
+>ac : 类为 c
 >x : T
 
     var r16 = true ? x : ac;
->r16 : typeof c | T
->true ? x : ac : typeof c | T
->true : true
+>r16 : 类为 c | T
+>true ? x : ac : 类为 c | T
+>true : 为真
 >类型别名 :=> 为真
 >x : T
->ac : typeof c
+>ac : 类为 c
 
     function f17<T>(a: T) {
->f17 : <T>(a: T) => void
+>f17 : <T>(a: T) => 无值
 >T : T
 >a : T
 >T : T
@@ -442,7 +442,7 @@ function f2<T, U>(x: T, y: U) {
         var r17 = true ? x : a;
 >r17 : T | T
 >true ? x : a : T | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >a : T
@@ -450,14 +450,14 @@ function f2<T, U>(x: T, y: U) {
         var r17 = true ? a : x;
 >r17 : T | T
 >true ? a : x : T | T
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >a : T
 >x : T
     }
 
     function f18<T, U extends T>(a: U) {
->f18 : <T, U extends T>(a: U) => void
+>f18 : <T, U 扩展 T>(a: U) => 无值
 >T : T
 >U : U
 >T : T
@@ -467,7 +467,7 @@ function f2<T, U>(x: T, y: U) {
         var r18 = true ? x : a;
 >r18 : T | U
 >true ? x : a : T | U
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >a : U
@@ -475,7 +475,7 @@ function f2<T, U>(x: T, y: U) {
         var r18 = true ? a : x;
 >r18 : T | U
 >true ? a : x : T | U
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >a : U
 >x : T
@@ -484,7 +484,7 @@ function f2<T, U>(x: T, y: U) {
     var r19 = true ? new Object() : x; // BCT is Object
 >r19 : Object
 >true ? new Object() : x : Object
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >new Object() : Object
 >Object : ObjectConstructor
@@ -493,7 +493,7 @@ function f2<T, U>(x: T, y: U) {
     var r19 = true ? x : new Object(); // BCT is Object
 >r19 : Object
 >true ? x : new Object() : Object
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >new Object() : Object
@@ -502,7 +502,7 @@ function f2<T, U>(x: T, y: U) {
     var r20 = true ? {} : x; // ok
 >r20 : {}
 >true ? {} : x : {}
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >{} : {}
 >x : T
@@ -510,7 +510,7 @@ function f2<T, U>(x: T, y: U) {
     var r20 = true ? x : {}; // ok
 >r20 : {}
 >true ? x : {} : {}
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >x : T
 >{} : {}

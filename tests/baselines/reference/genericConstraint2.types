@@ -4,13 +4,13 @@ interface Comparable<T> {
 >T : T
 
     comparer(other: T): number;
->comparer : (other: T) => number
+>comparer : (other: T) => 数字
 >other : T
 >T : T
 }
 
 function compare<T extends Comparable<T>>(x: T, y: T): number {
->compare : <T extends Comparable<T>>(x: T, y: T) => number
+>compare : <T 扩展 Comparable<T>>(x: T, y: T) => 数字
 >T : T
 >Comparable : Comparable<T>
 >T : T
@@ -20,35 +20,35 @@ function compare<T extends Comparable<T>>(x: T, y: T): number {
 >T : T
 
     if (x == null) return y == null ? 0 : -1;
->x == null : boolean
+>x == null : 真假
 >类型别名 :=> 真假
 >x : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 >y == null ? 0 : -1 : 0 | -1
->y == null : boolean
+>y == null : 真假
 >类型别名 :=> 真假
 >y : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 >0 : 0
 >-1 : -1
 >1 : 1
 
     if (y == null) return 1;
->y == null : boolean
+>y == null : 真假
 >类型别名 :=> 真假
 >y : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 >1 : 1
 
     return x.comparer(y);
->x.comparer(y) : number
+>x.comparer(y) : 数字
 >类型别名 :=> 数字
->x.comparer : (other: T) => number
+>x.comparer : (other: T) => 数字
 >x : T
->comparer : (other: T) => number
+>comparer : (other: T) => 数字
 >y : T
 }
 
@@ -57,12 +57,12 @@ class ComparableString implements Comparable<string>{
 >Comparable : Comparable<T>
 
     constructor(public currentValue: string) { }
->currentValue : string
+>currentValue : 文字
 >类型别名 :=> 文字
 
     localeCompare(other) {
->localeCompare : (other: any) => number
->other : any
+>localeCompare : (other: 任意) => 数字
+>other : 任意
 >类型别名 :=> 任意
 
         return 0;
@@ -73,21 +73,21 @@ class ComparableString implements Comparable<string>{
 var a = new ComparableString("a");
 >a : ComparableString
 >new ComparableString("a") : ComparableString
->ComparableString : typeof ComparableString
+>ComparableString : 类为 ComparableString
 >"a" : "a"
 
 var b = new ComparableString("b");
 >b : ComparableString
 >new ComparableString("b") : ComparableString
->ComparableString : typeof ComparableString
+>ComparableString : 类为 ComparableString
 >"b" : "b"
 
 var c = compare<ComparableString>(a, b);
->c : any
+>c : 任意
 >类型别名 :=> 任意
->compare<ComparableString>(a, b) : any
+>compare<ComparableString>(a, b) : 任意
 >类型别名 :=> 任意
->compare : <T extends Comparable<T>>(x: T, y: T) => number
+>compare : <T 扩展 Comparable<T>>(x: T, y: T) => 数字
 >ComparableString : ComparableString
 >a : ComparableString
 >b : ComparableString

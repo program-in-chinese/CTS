@@ -3,11 +3,11 @@
 
 class Foo { foo: number; }
 >Foo : Foo
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 
 function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
->f : <T extends Foo, U extends Foo, V>(t: T, u: U, v: V) => void
+>f : <T 扩展 Foo, U 扩展 Foo, V>(t: T, u: U, v: V) => 无值
 >T : T
 >Foo : Foo
 >U : U
@@ -24,7 +24,7 @@ function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
     var r = true ? t : u;
 >r : T | U
 >true ? t : u : T | U
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >t : T
 >u : U
@@ -32,7 +32,7 @@ function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
     var r = true ? u : t;
 >r : T | U
 >true ? u : t : T | U
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >u : U
 >t : T
@@ -41,7 +41,7 @@ function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
     var r2 = true ? t : v;
 >r2 : T | V
 >true ? t : v : T | V
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >t : T
 >v : V
@@ -49,7 +49,7 @@ function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
     var r2 = true ? v : t;
 >r2 : T | V
 >true ? v : t : T | V
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >v : V
 >t : T
@@ -58,7 +58,7 @@ function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
     var r3 = true ? v : u;
 >r3 : U | V
 >true ? v : u : U | V
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >v : V
 >u : U
@@ -66,7 +66,7 @@ function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
     var r3 = true ? u : v;
 >r3 : U | V
 >true ? u : v : U | V
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >u : U
 >v : V
@@ -75,57 +75,57 @@ function f<T extends Foo, U extends Foo, V>(t: T, u: U, v: V) {
     var r4 = true ? t : new Foo();
 >r4 : Foo
 >true ? t : new Foo() : Foo
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >t : T
 >new Foo() : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 
     var r4 = true ? new Foo() : t;
 >r4 : Foo
 >true ? new Foo() : t : Foo
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >new Foo() : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 >t : T
 
     // ok
     var r5 = true ? u : new Foo();
 >r5 : Foo
 >true ? u : new Foo() : Foo
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >u : U
 >new Foo() : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 
     var r5 = true ? new Foo() : u;
 >r5 : Foo
 >true ? new Foo() : u : Foo
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >new Foo() : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 >u : U
 
     // ok
     var r6 = true ? v : new Foo();
 >r6 : Foo | V
 >true ? v : new Foo() : Foo | V
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >v : V
 >new Foo() : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 
     var r6 = true ? new Foo() : v;
 >r6 : Foo | V
 >true ? new Foo() : v : Foo | V
->true : true
+>true : 为真
 >类型别名 :=> 为真
 >new Foo() : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 >v : V
 
 }
@@ -150,7 +150,7 @@ class D1<T extends Foo, U extends Foo, V> extends B1<Foo> {
 >Foo : Foo
 
     [x: string]: Foo;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >Foo : Foo
 
@@ -170,7 +170,7 @@ class D2<T extends Foo, U extends Foo, V> extends B1<Foo> {
 >Foo : Foo
 
     [x: string]: Foo;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >Foo : Foo
 
@@ -190,7 +190,7 @@ class D3<T extends Foo, U extends Foo, V> extends B1<Foo> {
 >Foo : Foo
 
     [x: string]: Foo;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >Foo : Foo
 
@@ -210,7 +210,7 @@ class D4<T extends Foo, U extends Foo, V> extends B1<T> {
 >T : T
 
     [x: string]: T;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >T : T
 
@@ -230,7 +230,7 @@ class D5<T extends Foo, U extends Foo, V> extends B1<T> {
 >T : T
 
     [x: string]: T;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >T : T
 
@@ -250,7 +250,7 @@ class D6<T extends Foo, U extends Foo, V> extends B1<T> {
 >T : T
 
     [x: string]: T;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >T : T
 
@@ -270,7 +270,7 @@ class D7<T extends Foo, U extends Foo, V> extends B1<U> {
 >U : U
 
     [x: string]: U;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >U : U
 
@@ -290,7 +290,7 @@ class D8<T extends Foo, U extends Foo, V> extends B1<U> {
 >U : U
 
     [x: string]: U;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >U : U
 
@@ -310,7 +310,7 @@ class D9<T extends Foo, U extends Foo, V> extends B1<U> {
 >U : U
 
     [x: string]: U;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >U : U
 

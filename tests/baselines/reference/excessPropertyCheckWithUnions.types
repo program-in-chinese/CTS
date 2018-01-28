@@ -6,7 +6,7 @@ type ADT = {
 >tag : "A"
 
     a1: string
->a1 : string
+>a1 : 文字
 >类型别名 :=> 文字
 
 } | {
@@ -23,11 +23,11 @@ type ADT = {
 let wrong: ADT = { tag: "T", a1: "extra" }
 >wrong : ADT
 >ADT : ADT
->{ tag: "T", a1: "extra" } : { tag: "T"; a1: string; }
->tag : string
+>{ tag: "T", a1: "extra" } : { tag: "T"; a1: 文字; }
+>tag : 文字
 >类型别名 :=> 文字
 >"T" : "T"
->a1 : string
+>a1 : 文字
 >类型别名 :=> 文字
 >"extra" : "extra"
 
@@ -35,10 +35,10 @@ wrong = { tag: "A", d20: 12 }
 >wrong = { tag: "A", d20: 12 } : { tag: "A"; d20: 12; }
 >wrong : ADT
 >{ tag: "A", d20: 12 } : { tag: "A"; d20: 12; }
->tag : string
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
->d20 : number
+>d20 : 数字
 >类型别名 :=> 数字
 >12 : 12
 
@@ -46,7 +46,7 @@ wrong = { tag: "D" }
 >wrong = { tag: "D" } : { tag: "D"; }
 >wrong : ADT
 >{ tag: "D" } : { tag: "D"; }
->tag : string
+>tag : 文字
 >类型别名 :=> 文字
 >"D" : "D"
 
@@ -57,7 +57,7 @@ type Ambiguous = {
 >tag : "A"
 
     x: string
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 } | {
@@ -65,7 +65,7 @@ type Ambiguous = {
 >tag : "A"
 
     y: number
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 } | {
@@ -73,7 +73,7 @@ type Ambiguous = {
 >tag : "B"
 
     z: boolean
->z : boolean
+>z : 真假
 >类型别名 :=> 真假
 
 } | {
@@ -86,67 +86,67 @@ let amb: Ambiguous
 
 // no error for ambiguous tag, even when it could satisfy both constituents at once
 amb = { tag: "A", x: "hi" }
->amb = { tag: "A", x: "hi" } : { tag: "A"; x: string; }
+>amb = { tag: "A", x: "hi" } : { tag: "A"; x: 文字; }
 >amb : Ambiguous
->{ tag: "A", x: "hi" } : { tag: "A"; x: string; }
->tag : string
+>{ tag: "A", x: "hi" } : { tag: "A"; x: 文字; }
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >"hi" : "hi"
 
 amb = { tag: "A", y: 12 }
->amb = { tag: "A", y: 12 } : { tag: "A"; y: number; }
+>amb = { tag: "A", y: 12 } : { tag: "A"; y: 数字; }
 >amb : Ambiguous
->{ tag: "A", y: 12 } : { tag: "A"; y: number; }
->tag : string
+>{ tag: "A", y: 12 } : { tag: "A"; y: 数字; }
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 amb = { tag: "A", x: "hi", y: 12 }
->amb = { tag: "A", x: "hi", y: 12 } : { tag: "A"; x: string; y: number; }
+>amb = { tag: "A", x: "hi", y: 12 } : { tag: "A"; x: 文字; y: 数字; }
 >amb : Ambiguous
->{ tag: "A", x: "hi", y: 12 } : { tag: "A"; x: string; y: number; }
->tag : string
+>{ tag: "A", x: "hi", y: 12 } : { tag: "A"; x: 文字; y: 数字; }
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >"hi" : "hi"
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 // correctly error on excess property 'extra', even when ambiguous
 amb = { tag: "A", x: "hi", extra: 12 }
->amb = { tag: "A", x: "hi", extra: 12 } : { tag: "A"; x: string; extra: number; }
+>amb = { tag: "A", x: "hi", extra: 12 } : { tag: "A"; x: 文字; extra: 数字; }
 >amb : Ambiguous
->{ tag: "A", x: "hi", extra: 12 } : { tag: "A"; x: string; extra: number; }
->tag : string
+>{ tag: "A", x: "hi", extra: 12 } : { tag: "A"; x: 文字; extra: 数字; }
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >"hi" : "hi"
->extra : number
+>extra : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 amb = { tag: "A", y: 12, extra: 12 }
->amb = { tag: "A", y: 12, extra: 12 } : { tag: "A"; y: number; extra: number; }
+>amb = { tag: "A", y: 12, extra: 12 } : { tag: "A"; y: 数字; extra: 数字; }
 >amb : Ambiguous
->{ tag: "A", y: 12, extra: 12 } : { tag: "A"; y: number; extra: number; }
->tag : string
+>{ tag: "A", y: 12, extra: 12 } : { tag: "A"; y: 数字; extra: 数字; }
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >12 : 12
->extra : number
+>extra : 数字
 >类型别名 :=> 数字
 >12 : 12
 
@@ -157,20 +157,20 @@ amb = { tag: "A" }
 >amb = { tag: "A" } : { tag: "A"; }
 >amb : Ambiguous
 >{ tag: "A" } : { tag: "A"; }
->tag : string
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
 
 amb = { tag: "A", z: true }
->amb = { tag: "A", z: true } : { tag: "A"; z: true; }
+>amb = { tag: "A", z: true } : { tag: "A"; z: 为真; }
 >amb : Ambiguous
->{ tag: "A", z: true } : { tag: "A"; z: true; }
->tag : string
+>{ tag: "A", z: true } : { tag: "A"; z: 为真; }
+>tag : 文字
 >类型别名 :=> 文字
 >"A" : "A"
->z : boolean
+>z : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 type Overlapping =
@@ -179,17 +179,17 @@ type Overlapping =
     | { a: 1, b: 1, first: string }
 >a : 1
 >b : 1
->first : string
+>first : 文字
 >类型别名 :=> 文字
 
     | { a: 2, second: string }
 >a : 2
->second : string
+>second : 文字
 >类型别名 :=> 文字
 
     | { b: 3, third: string }
 >b : 3
->third : string
+>third : 文字
 >类型别名 :=> 文字
 
 let over: Overlapping
@@ -198,73 +198,73 @@ let over: Overlapping
 
 // these two are not reported because there are two discriminant properties
 over = { a: 1, b: 1, first: "ok", second: "error" }
->over = { a: 1, b: 1, first: "ok", second: "error" } : { a: 1; b: 1; first: string; second: string; }
+>over = { a: 1, b: 1, first: "ok", second: "error" } : { a: 1; b: 1; first: 文字; second: 文字; }
 >over : Overlapping
->{ a: 1, b: 1, first: "ok", second: "error" } : { a: 1; b: 1; first: string; second: string; }
->a : number
+>{ a: 1, b: 1, first: "ok", second: "error" } : { a: 1; b: 1; first: 文字; second: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
->first : string
+>first : 文字
 >类型别名 :=> 文字
 >"ok" : "ok"
->second : string
+>second : 文字
 >类型别名 :=> 文字
 >"error" : "error"
 
 over = { a: 1, b: 1, first: "ok", third: "error" }
->over = { a: 1, b: 1, first: "ok", third: "error" } : { a: 1; b: 1; first: string; third: string; }
+>over = { a: 1, b: 1, first: "ok", third: "error" } : { a: 1; b: 1; first: 文字; third: 文字; }
 >over : Overlapping
->{ a: 1, b: 1, first: "ok", third: "error" } : { a: 1; b: 1; first: string; third: string; }
->a : number
+>{ a: 1, b: 1, first: "ok", third: "error" } : { a: 1; b: 1; first: 文字; third: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
->first : string
+>first : 文字
 >类型别名 :=> 文字
 >"ok" : "ok"
->third : string
+>third : 文字
 >类型别名 :=> 文字
 >"error" : "error"
 
 // Freshness disappears after spreading a union
 declare let t0: { a: any, b: any } | { d: any, e: any }
->t0 : { a: any; b: any; } | { d: any; e: any; }
->a : any
+>t0 : { a: 任意; b: 任意; } | { d: 任意; e: 任意; }
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->d : any
+>d : 任意
 >类型别名 :=> 任意
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
 declare let t1: { a: any, b: any, c: any } | { c: any, d: any, e: any }
->t1 : { a: any; b: any; c: any; } | { c: any; d: any; e: any; }
->a : any
+>t1 : { a: 任意; b: 任意; c: 任意; } | { c: 任意; d: 任意; e: 任意; }
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->d : any
+>d : 任意
 >类型别名 :=> 任意
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
 let t2 = { ...t1 }
->t2 : { a: any; b: any; c: any; } | { c: any; d: any; e: any; }
->{ ...t1 } : { a: any; b: any; c: any; } | { c: any; d: any; e: any; }
->t1 : { a: any; b: any; c: any; } | { c: any; d: any; e: any; }
+>t2 : { a: 任意; b: 任意; c: 任意; } | { c: 任意; d: 任意; e: 任意; }
+>{ ...t1 } : { a: 任意; b: 任意; c: 任意; } | { c: 任意; d: 任意; e: 任意; }
+>t1 : { a: 任意; b: 任意; c: 任意; } | { c: 任意; d: 任意; e: 任意; }
 
 t0 = t2
->t0 = t2 : { a: any; b: any; c: any; } | { c: any; d: any; e: any; }
->t0 : { a: any; b: any; } | { d: any; e: any; }
->t2 : { a: any; b: any; c: any; } | { c: any; d: any; e: any; }
+>t0 = t2 : { a: 任意; b: 任意; c: 任意; } | { c: 任意; d: 任意; e: 任意; }
+>t0 : { a: 任意; b: 任意; } | { d: 任意; e: 任意; }
+>t2 : { a: 任意; b: 任意; c: 任意; } | { c: 任意; d: 任意; e: 任意; }
 

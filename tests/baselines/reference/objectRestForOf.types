@@ -1,73 +1,79 @@
 === tests/cases/conformance/types/rest/objectRestForOf.ts ===
 let array: { x: number, y: string }[];
->array : { x: number; y: string; }[]
->x : number
+>array : { x: 数字; y: 文字; }[]
+>x : 数字
 >类型别名 :=> 数字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
 for (let { x, ...restOf } of array) {
->x : number
->类型别名 :=> 数字
->restOf : { y: string; }
->array : { x: number; y: string; }[]
+>x : 任意
+>类型别名 :=> 任意
+>restOf : 任意
+>类型别名 :=> 任意
+>array : { x: 数字; y: 文字; }[]
 
     [x, restOf];
->[x, restOf] : (number | { y: string; })[]
->x : number
->类型别名 :=> 数字
->restOf : { y: string; }
+>[x, restOf] : 任意[]
+>x : 任意
+>类型别名 :=> 任意
+>restOf : 任意
+>类型别名 :=> 任意
 }
 let xx: number;
->xx : number
+>xx : 数字
 >类型别名 :=> 数字
 
 let rrestOff: { y: string };
->rrestOff : { y: string; }
->y : string
+>rrestOff : { y: 文字; }
+>y : 文字
 >类型别名 :=> 文字
 
 for ({ x: xx, ...rrestOff } of array ) {
->{ x: xx, ...rrestOff } : { y: string; x: number; }
->x : { x: number; y: string; }
->xx : number
+>{ x: xx, ...rrestOff } : { y: 文字; x: 数字; }
+>x : 任意
+>类型别名 :=> 任意
+>xx : 数字
 >类型别名 :=> 数字
->rrestOff : { y: string; }
->array : { x: number; y: string; }[]
+>rrestOff : { y: 文字; }
+>array : { x: 数字; y: 文字; }[]
 
     [xx, rrestOff];
->[xx, rrestOff] : (number | { y: string; })[]
->xx : number
+>[xx, rrestOff] : (数字 | { y: 文字; })[]
+>xx : 数字
 >类型别名 :=> 数字
->rrestOff : { y: string; }
+>rrestOff : { y: 文字; }
 }
 for (const norest of array.map(a => ({ ...a, x: 'a string' }))) {
->norest : { x: string; y: string; }
->array.map(a => ({ ...a, x: 'a string' })) : { x: string; y: string; }[]
->array.map : <U>(callbackfn: (value: { x: number; y: string; }, index: number, array: { x: number; y: string; }[]) => U, thisArg?: any) => U[]
->array : { x: number; y: string; }[]
->map : <U>(callbackfn: (value: { x: number; y: string; }, index: number, array: { x: number; y: string; }[]) => U, thisArg?: any) => U[]
->a => ({ ...a, x: 'a string' }) : (a: { x: number; y: string; }) => { x: string; y: string; }
->a : { x: number; y: string; }
->({ ...a, x: 'a string' }) : { x: string; y: string; }
->{ ...a, x: 'a string' } : { x: string; y: string; }
->a : { x: number; y: string; }
->x : string
+>norest : 任意
+>类型别名 :=> 任意
+>array.map(a => ({ ...a, x: 'a string' })) : { x: 文字; y: 文字; }[]
+>array.map : <U>(callbackfn: (value: { x: 数字; y: 文字; }, index: 数字, array: { x: 数字; y: 文字; }[]) => U, thisArg?: 任意) => U[]
+>array : { x: 数字; y: 文字; }[]
+>map : <U>(callbackfn: (value: { x: 数字; y: 文字; }, index: 数字, array: { x: 数字; y: 文字; }[]) => U, thisArg?: 任意) => U[]
+>a => ({ ...a, x: 'a string' }) : (a: { x: 数字; y: 文字; }) => { x: 文字; y: 文字; }
+>a : { x: 数字; y: 文字; }
+>({ ...a, x: 'a string' }) : { x: 文字; y: 文字; }
+>{ ...a, x: 'a string' } : { x: 文字; y: 文字; }
+>a : { x: 数字; y: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 >'a string' : "a string"
 
     [norest.x, norest.y];
->[norest.x, norest.y] : string[]
->norest.x : string
->类型别名 :=> 文字
->norest : { x: string; y: string; }
->x : string
->类型别名 :=> 文字
->norest.y : string
->类型别名 :=> 文字
->norest : { x: string; y: string; }
->y : string
->类型别名 :=> 文字
+>[norest.x, norest.y] : 任意[]
+>norest.x : 任意
+>类型别名 :=> 任意
+>norest : 任意
+>类型别名 :=> 任意
+>x : 任意
+>类型别名 :=> 任意
+>norest.y : 任意
+>类型别名 :=> 任意
+>norest : 任意
+>类型别名 :=> 任意
+>y : 任意
+>类型别名 :=> 任意
 
     // x is now a string. who knows why.
 }

@@ -1,90 +1,90 @@
 === tests/cases/compiler/declFileTypeofFunction.ts ===
 function f(n: typeof f): string;
->f : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
->n : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
->f : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
+>f : { (n: 类为 f): 文字; (n: { (n: 类为 g): 数字; (n: 类为 f): 数字; }): 文字; }
+>n : { (n: 类为 f): 文字; (n: { (n: 类为 g): 数字; (n: 类为 f): 数字; }): 文字; }
+>f : { (n: 类为 f): 文字; (n: { (n: 类为 g): 数字; (n: 类为 f): 数字; }): 文字; }
 
 function f(n: typeof g): string;
->f : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
->n : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
->g : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
+>f : { (n: 类为 f): 文字; (n: { (n: 类为 g): 数字; (n: 类为 f): 数字; }): 文字; }
+>n : { (n: 类为 g): 数字; (n: { (n: 类为 f): 文字; (n: 类为 g): 文字; }): 数字; }
+>g : { (n: 类为 g): 数字; (n: { (n: 类为 f): 文字; (n: 类为 g): 文字; }): 数字; }
 
 function f() { return undefined; }
->f : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
->undefined : undefined
+>f : { (n: 类为 f): 文字; (n: { (n: 类为 g): 数字; (n: 类为 f): 数字; }): 文字; }
+>undefined : 未定
 >类型别名 :=> 未定
 
 function g(n: typeof g): number;
->g : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
->n : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
->g : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
+>g : { (n: 类为 g): 数字; (n: { (n: 类为 f): 文字; (n: 类为 g): 文字; }): 数字; }
+>n : { (n: 类为 g): 数字; (n: { (n: 类为 f): 文字; (n: 类为 g): 文字; }): 数字; }
+>g : { (n: 类为 g): 数字; (n: { (n: 类为 f): 文字; (n: 类为 g): 文字; }): 数字; }
 
 function g(n: typeof f): number;
->g : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
->n : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
->f : { (n: typeof f): string; (n: { (n: typeof g): number; (n: typeof f): number; }): string; }
+>g : { (n: 类为 g): 数字; (n: { (n: 类为 f): 文字; (n: 类为 g): 文字; }): 数字; }
+>n : { (n: 类为 f): 文字; (n: { (n: 类为 g): 数字; (n: 类为 f): 数字; }): 文字; }
+>f : { (n: 类为 f): 文字; (n: { (n: 类为 g): 数字; (n: 类为 f): 数字; }): 文字; }
 
 function g() { return undefined; }
->g : { (n: typeof g): number; (n: { (n: typeof f): string; (n: typeof g): string; }): number; }
->undefined : undefined
+>g : { (n: 类为 g): 数字; (n: { (n: 类为 f): 文字; (n: 类为 g): 文字; }): 数字; }
+>undefined : 未定
 >类型别名 :=> 未定
 
 var b: () => typeof b;
->b : () => any
->b : () => any
+>b : () => 任意
+>b : () => 任意
 
 function b1() {
->b1 : () => typeof b1
+>b1 : () => 类为 b1
 
     return b1;
->b1 : () => typeof b1
+>b1 : () => 类为 b1
 }
 
 function foo(): typeof foo {
->foo : () => typeof foo
->foo : () => typeof foo
+>foo : () => 类为 foo
+>foo : () => 类为 foo
 
     return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 var foo1: typeof foo;
->foo1 : () => typeof foo
->foo : () => typeof foo
+>foo1 : () => 类为 foo
+>foo : () => 类为 foo
 
 var foo2 = foo;
->foo2 : () => typeof foo
->foo : () => typeof foo
+>foo2 : () => 类为 foo
+>foo : () => 类为 foo
 
 var foo3 = function () {
->foo3 : () => any
->function () {    return foo3;} : () => any
+>foo3 : () => 任意
+>function () {    return foo3;} : () => 任意
 
     return foo3;
->foo3 : () => any
+>foo3 : () => 任意
 }
 var x = () => {
->x : () => any
->() => {    return x;} : () => any
+>x : () => 任意
+>() => {    return x;} : () => 任意
 
     return x;
->x : () => any
+>x : () => 任意
 }
 
 function foo5(x: number) {
->foo5 : (x: number) => (x: number) => number
->x : number
+>foo5 : (x: 数字) => (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 
     function bar(x: number) {
->bar : (x: number) => number
->x : number
+>bar : (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 
         return x;
->x : number
+>x : 数字
 >类型别名 :=> 数字
     }
     return bar;
->bar : (x: number) => number
+>bar : (x: 数字) => 数字
 }

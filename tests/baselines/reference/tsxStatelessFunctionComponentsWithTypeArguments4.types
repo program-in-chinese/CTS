@@ -1,28 +1,28 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react')
->React : typeof React
+>React : 类为 React
 
 declare function OverloadComponent<U>(): JSX.Element;
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >U : U
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function OverloadComponent<U>(attr: {b: U, a: string, "ignore-prop": boolean}): JSX.Element;
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >U : U
->attr : { b: U; a: string; "ignore-prop": boolean; }
+>attr : { b: U; a: 文字; "ignore-prop": 真假; }
 >b : U
 >U : U
->a : string
+>a : 文字
 >类型别名 :=> 文字
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 declare function OverloadComponent<T, U>(attr: {b: U, a: T}): JSX.Element;
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >T : T
 >U : U
 >attr : { b: U; a: T; }
@@ -30,20 +30,20 @@ declare function OverloadComponent<T, U>(attr: {b: U, a: T}): JSX.Element;
 >U : U
 >a : T
 >T : T
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
 // Error
 function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, arg2: U) {
->Baz : <T extends { b: number; }, U extends { a: boolean; b: string; }>(arg1: T, arg2: U) => void
+>Baz : <T 扩展 { b: 数字; }, U 扩展 { a: 真假; b: 文字; }>(arg1: T, arg2: U) => 无值
 >T : T
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >U : U
->a : boolean
+>a : 真假
 >类型别名 :=> 真假
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >arg1 : T
 >T : T
@@ -53,20 +53,20 @@ function Baz<T extends {b: number}, U extends {a: boolean, b:string}>(arg1: T, a
     let a0 = <OverloadComponent a={arg1.b}/>
 >a0 : JSX.Element
 ><OverloadComponent a={arg1.b}/> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
->a : number
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>a : 数字
 >类型别名 :=> 数字
->arg1.b : number
+>arg1.b : 数字
 >类型别名 :=> 数字
 >arg1 : T
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     let a2 = <OverloadComponent {...arg1} ignore-prop />  // missing a
 >a2 : JSX.Element
 ><OverloadComponent {...arg1} ignore-prop /> : JSX.Element
->OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: string; "ignore-prop": boolean; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
+>OverloadComponent : { <U>(): JSX.Element; <U>(attr: { b: U; a: 文字; "ignore-prop": 真假; }): JSX.Element; <T, U>(attr: { b: U; a: T; }): JSX.Element; }
 >arg1 : T
->ignore-prop : true
+>ignore-prop : 为真
 >类型别名 :=> 为真
 }

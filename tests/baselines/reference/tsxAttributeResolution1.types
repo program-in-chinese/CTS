@@ -1,6 +1,6 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
 	interface Element { }
@@ -14,13 +14,13 @@ declare module JSX {
 >Attribs1 : Attribs1
 
 		test2: { reqd: string };
->test2 : { reqd: string; }
->reqd : string
+>test2 : { reqd: 文字; }
+>reqd : 文字
 >类型别名 :=> 文字
 
 		var: { var: string };
->var : { var: string; }
->var : string
+>var : { var: 文字; }
+>var : 文字
 >类型别名 :=> 文字
 	}
 }
@@ -28,108 +28,108 @@ interface Attribs1 {
 >Attribs1 : Attribs1
 
 	x?: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 	s?: string;
->s : string
+>s : 文字
 >类型别名 :=> 文字
 }
 
 // OK
 <test1 x={0} />; // OK
 ><test1 x={0} /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
 
 <test1 />; // OK
 ><test1 /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
 
 <test1 data-x={true} />; // OK
 ><test1 data-x={true} /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->data-x : boolean
+>data-x : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 <test2 reqd='true' />; // OK
 ><test2 reqd='true' /> : JSX.Element
->test2 : any
+>test2 : 任意
 >类型别名 :=> 任意
->reqd : string
+>reqd : 文字
 >类型别名 :=> 文字
 
 <test2 reqd={'true'} />; // OK
 ><test2 reqd={'true'} /> : JSX.Element
->test2 : any
+>test2 : 任意
 >类型别名 :=> 任意
->reqd : string
+>reqd : 文字
 >类型别名 :=> 文字
 >'true' : "true"
 
 // Errors
 <test1 x={'0'} />; // Error, '0' is not number
 ><test1 x={'0'} /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >'0' : "0"
 
 <test1 y={0} />; // Error, no property "y"
 ><test1 y={0} /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
 
 <test1 y="foo" />; // Error, no property "y"
 ><test1 y="foo" /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
 <test1 x="32" />; // Error, "32" is not number
 ><test1 x="32" /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 <test1 var="10" />; // Error, no 'var' property
 ><test1 var="10" /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->var : string
+>var : 文字
 >类型别名 :=> 文字
 
 <test2 />; // Error, missing reqd
 ><test2 /> : JSX.Element
->test2 : any
+>test2 : 任意
 >类型别名 :=> 任意
 
 <test2 reqd={10} />; // Error, reqd is not string
 ><test2 reqd={10} /> : JSX.Element
->test2 : any
+>test2 : 任意
 >类型别名 :=> 任意
->reqd : number
+>reqd : 数字
 >类型别名 :=> 数字
 >10 : 10
 
 // Should be OK
 <var var='var' />;
 ><var var='var' /> : JSX.Element
->var : any
+>var : 任意
 >类型别名 :=> 任意
->var : string
+>var : 文字
 >类型别名 :=> 文字
 

@@ -3,36 +3,36 @@ export { };
 
 // function declaration paramter
 function f(a) {
->f : (a: any) => void
->a : any
+>f : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
 }
 f(0);
->f(0) : void
+>f(0) : 无值
 >类型别名 :=> 无值
->f : (a: any) => void
+>f : (a: 任意) => 无值
 >0 : 0
 
 // function expression paramter
 var fexp = function (a) {
->fexp : (a: any) => void
->function (a) {} : (a: any) => void
->a : any
+>fexp : (a: 任意) => 无值
+>function (a) {} : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
 
 };
 
 fexp(0);
->fexp(0) : void
+>fexp(0) : 无值
 >类型别名 :=> 无值
->fexp : (a: any) => void
+>fexp : (a: 任意) => 无值
 >0 : 0
 
 // arrow function paramter
 var farrow = (a) => {
->farrow : (a: any) => void
->(a) => {} : (a: any) => void
->a : any
+>farrow : (a: 任意) => 无值
+>(a) => {} : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
 
 };
@@ -42,73 +42,73 @@ class C {
 
     // Method declaration paramter
     method(a) {
->method : (a: any) => void
->a : any
+>method : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
     }
     // Accessor declaration paramter
     set x(v: number) {
->x : number
+>x : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
     }
 }
 
 var E = class {
->E : typeof E
->class {    // Method declaration paramter    method(a) {    }    // Accessor declaration paramter    set x(v: number) {    }} : typeof E
+>E : 类为 E
+>class {    // Method declaration paramter    method(a) {    }    // Accessor declaration paramter    set x(v: number) {    }} : 类为 E
 
     // Method declaration paramter
     method(a) {
->method : (a: any) => void
->a : any
+>method : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
     }
     // Accessor declaration paramter
     set x(v: number) {
->x : number
+>x : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
     }
 }
 
 var o = {
->o : { method(a: any): void; x: number; }
->{    // Object literal method declaration paramter    method(a) {    },    // Accessor declaration paramter    set x(v: number) {    }} : { method(a: any): void; x: number; }
+>o : { method(a: 任意): 无值; x: 数字; }
+>{    // Object literal method declaration paramter    method(a) {    },    // Accessor declaration paramter    set x(v: number) {    }} : { method(a: 任意): 无值; x: 数字; }
 
     // Object literal method declaration paramter
     method(a) {
->method : (a: any) => void
->a : any
+>method : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
 
     },
     // Accessor declaration paramter
     set x(v: number) {
->x : number
+>x : 数字
 >类型别名 :=> 数字
->v : number
+>v : 数字
 >类型别名 :=> 数字
     }
 };
 
 o;
->o : { method(a: any): void; x: number; }
+>o : { method(a: 任意): 无值; x: 数字; }
 
 // in a for..in statment
 for (let i in o) {
->i : string
+>i : 文字
 >类型别名 :=> 文字
->o : { method(a: any): void; x: number; }
+>o : { method(a: 任意): 无值; x: 数字; }
 }
 
 // in a for..of statment
 for (let i of [1, 2, 3]) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
->[1, 2, 3] : number[]
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
@@ -116,32 +116,32 @@ for (let i of [1, 2, 3]) {
 
 // in a for. statment
 for (let i = 0, n; i < 10; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->n : any
+>n : 任意
 >类型别名 :=> 任意
->i < 10 : boolean
+>i < 10 : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >10 : 10
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 }
 
 // in a block
 
 const condition = false;
->condition : false
+>condition : 为假
 >类型别名 :=> 为假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 if (condition) {
->condition : false
+>condition : 为假
 >类型别名 :=> 为假
 
     const c = 0;
@@ -156,7 +156,7 @@ try {
 >0 : 0
 }
 catch (e) {
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
     const c = 1;
@@ -172,10 +172,10 @@ finally {
 
 // in a namespace
 namespace N {
->N : typeof N
+>N : 类为 N
 
     var x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 }
 

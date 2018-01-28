@@ -6,7 +6,7 @@ enum E { a, b }
 >b : E.b
 
 function foo<T, U>(t: T, u: U) {
->foo : <T, U>(t: T, u: U) => void
+>foo : <T, U>(t: T, u: U) => 无值
 >T : T
 >U : U
 >t : T
@@ -15,19 +15,19 @@ function foo<T, U>(t: T, u: U) {
 >U : U
 
     var a: any;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     var b: boolean;
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
 
     var c: number;
->c : number
+>c : 数字
 >类型别名 :=> 数字
 
     var d: string;
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
     var e: Object;
@@ -39,182 +39,182 @@ function foo<T, U>(t: T, u: U) {
 >E : E
 
     var f: void;
->f : void
+>f : 无值
 >类型别名 :=> 无值
 
     // type parameter as left operand
     var r1: any = t + a; // ok, one operand is any
->r1 : any
+>r1 : 任意
 >类型别名 :=> 任意
->t + a : any
+>t + a : 任意
 >类型别名 :=> 任意
 >t : T
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     var r2 = t + b;
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->t + b : any
+>t + b : 任意
 >类型别名 :=> 任意
 >t : T
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
 
     var r3 = t + c;
->r3 : any
+>r3 : 任意
 >类型别名 :=> 任意
->t + c : any
+>t + c : 任意
 >类型别名 :=> 任意
 >t : T
->c : number
+>c : 数字
 >类型别名 :=> 数字
 
     var r4 = t + d; // ok, one operand is string
->r4 : string
+>r4 : 文字
 >类型别名 :=> 文字
->t + d : string
+>t + d : 文字
 >类型别名 :=> 文字
 >t : T
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
     var r5 = t + e;
->r5 : any
+>r5 : 任意
 >类型别名 :=> 任意
->t + e : any
+>t + e : 任意
 >类型别名 :=> 任意
 >t : T
 >e : Object
 
     var r6 = t + g;
->r6 : any
+>r6 : 任意
 >类型别名 :=> 任意
->t + g : any
+>t + g : 任意
 >类型别名 :=> 任意
 >t : T
 >g : E
 
     var r7 = t + f;
->r7 : any
+>r7 : 任意
 >类型别名 :=> 任意
->t + f : any
+>t + f : 任意
 >类型别名 :=> 任意
 >t : T
->f : void
+>f : 无值
 >类型别名 :=> 无值
 
     // type parameter as right operand
     var r8 = a + t; // ok, one operand is any
->r8 : any
+>r8 : 任意
 >类型别名 :=> 任意
->a + t : any
+>a + t : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >t : T
 
     var r9 = b + t;
->r9 : any
+>r9 : 任意
 >类型别名 :=> 任意
->b + t : any
+>b + t : 任意
 >类型别名 :=> 任意
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
 >t : T
 
     var r10 = c + t;
->r10 : any
+>r10 : 任意
 >类型别名 :=> 任意
->c + t : any
+>c + t : 任意
 >类型别名 :=> 任意
->c : number
+>c : 数字
 >类型别名 :=> 数字
 >t : T
 
     var r11 = d + t; // ok, one operand is string
->r11 : string
+>r11 : 文字
 >类型别名 :=> 文字
->d + t : string
+>d + t : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >t : T
 
     var r12 = e + t;
->r12 : any
+>r12 : 任意
 >类型别名 :=> 任意
->e + t : any
+>e + t : 任意
 >类型别名 :=> 任意
 >e : Object
 >t : T
 
     var r13 = g + t;
->r13 : any
+>r13 : 任意
 >类型别名 :=> 任意
->g + t : any
+>g + t : 任意
 >类型别名 :=> 任意
 >g : E
 >t : T
 
     var r14 = f + t;
->r14 : any
+>r14 : 任意
 >类型别名 :=> 任意
->f + t : any
+>f + t : 任意
 >类型别名 :=> 任意
->f : void
+>f : 无值
 >类型别名 :=> 无值
 >t : T
 
     // other cases
     var r15 = t + null;
->r15 : any
+>r15 : 任意
 >类型别名 :=> 任意
->t + null : any
+>t + null : 任意
 >类型别名 :=> 任意
 >t : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     var r16 = t + undefined;
->r16 : any
+>r16 : 任意
 >类型别名 :=> 任意
->t + undefined : any
+>t + undefined : 任意
 >类型别名 :=> 任意
 >t : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
     var r17 = t + t;
->r17 : any
+>r17 : 任意
 >类型别名 :=> 任意
->t + t : any
+>t + t : 任意
 >类型别名 :=> 任意
 >t : T
 >t : T
 
     var r18 = t + u;
->r18 : any
+>r18 : 任意
 >类型别名 :=> 任意
->t + u : any
+>t + u : 任意
 >类型别名 :=> 任意
 >t : T
 >u : U
 
     var r19 = t + (() => { });
->r19 : any
+>r19 : 任意
 >类型别名 :=> 任意
->t + (() => { }) : any
+>t + (() => { }) : 任意
 >类型别名 :=> 任意
 >t : T
->(() => { }) : () => void
->() => { } : () => void
+>(() => { }) : () => 无值
+>() => { } : () => 无值
 
     var r20 = t + [];
->r20 : any
+>r20 : 任意
 >类型别名 :=> 任意
->t + [] : any
+>t + [] : 任意
 >类型别名 :=> 任意
 >t : T
->[] : undefined[]
+>[] : 未定[]
 }

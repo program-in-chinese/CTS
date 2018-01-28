@@ -1,60 +1,60 @@
 === tests/cases/compiler/internalAliasClassInsideLocalModuleWithoutExportAccessError.ts ===
 export module x {
->x : typeof x
+>x : 类为 x
 
     export class c {
 >c : c
 
         foo(a: number) {
->foo : (a: number) => number
->a : number
+>foo : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
 
             return a;
->a : number
+>a : 数字
 >类型别名 :=> 数字
         }
     }
 }
 
 export module m2 {
->m2 : typeof m2
+>m2 : 类为 m2
 
     export module m3 {
->m3 : typeof m3
+>m3 : 类为 m3
 
         import c = x.c;
->c : typeof c
->x : typeof x
+>c : 类为 c
+>x : 类为 x
 >c : c
 
         export var cProp = new c();
 >cProp : c
 >new c() : c
->c : typeof c
+>c : 类为 c
 
         var cReturnVal = cProp.foo(10);
->cReturnVal : number
+>cReturnVal : 数字
 >类型别名 :=> 数字
->cProp.foo(10) : number
+>cProp.foo(10) : 数字
 >类型别名 :=> 数字
->cProp.foo : (a: number) => number
+>cProp.foo : (a: 数字) => 数字
 >cProp : c
->foo : (a: number) => number
+>foo : (a: 数字) => 数字
 >10 : 10
     }
 }
 
 export var d = new m2.m3.c();
->d : any
+>d : 任意
 >类型别名 :=> 任意
->new m2.m3.c() : any
+>new m2.m3.c() : 任意
 >类型别名 :=> 任意
->m2.m3.c : any
+>m2.m3.c : 任意
 >类型别名 :=> 任意
->m2.m3 : typeof m2.m3
->m2 : typeof m2
->m3 : typeof m2.m3
->c : any
+>m2.m3 : 类为 m2.m3
+>m2 : 类为 m2
+>m3 : 类为 m2.m3
+>c : 任意
 >类型别名 :=> 任意
 

@@ -4,25 +4,25 @@
 
 class Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
->bing : string
+>bing : 文字
 >类型别名 :=> 文字
 
 interface A { // T
@@ -30,35 +30,35 @@ interface A { // T
 
     // M's
     a: new (x: number) => number[];
->a : new (x: number) => number[]
->x : number
+>a : 新建 (x: 数字) => 数字[]
+>x : 数字
 >类型别名 :=> 数字
 
     a2: new (x: number) => string[];
->a2 : new (x: number) => string[]
->x : number
+>a2 : 新建 (x: 数字) => 文字[]
+>x : 数字
 >类型别名 :=> 数字
 
     a3: new (x: number) => void;
->a3 : new (x: number) => void
->x : number
+>a3 : 新建 (x: 数字) => 无值
+>x : 数字
 >类型别名 :=> 数字
 
     a4: new (x: string, y: number) => string;
->a4 : new (x: string, y: number) => string
->x : string
+>a4 : 新建 (x: 文字, y: 数字) => 文字
+>x : 文字
 >类型别名 :=> 文字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
     a5: new (x: (arg: string) => number) => string;
->a5 : new (x: (arg: string) => number) => string
->x : (arg: string) => number
->arg : string
+>a5 : 新建 (x: (arg: 文字) => 数字) => 文字
+>x : (arg: 文字) => 数字
+>arg : 文字
 >类型别名 :=> 文字
 
     a6: new (x: (arg: Base) => Derived) => Base;
->a6 : new (x: (arg: Base) => Derived) => Base
+>a6 : 新建 (x: (arg: Base) => Derived) => Base
 >x : (arg: Base) => Derived
 >arg : Base
 >Base : Base
@@ -66,7 +66,7 @@ interface A { // T
 >Base : Base
 
     a7: new (x: (arg: Base) => Derived) => (r: Base) => Derived;
->a7 : new (x: (arg: Base) => Derived) => (r: Base) => Derived
+>a7 : 新建 (x: (arg: Base) => Derived) => (r: Base) => Derived
 >x : (arg: Base) => Derived
 >arg : Base
 >Base : Base
@@ -76,7 +76,7 @@ interface A { // T
 >Derived : Derived
 
     a8: new (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived;
->a8 : new (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
+>a8 : 新建 (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
 >x : (arg: Base) => Derived
 >arg : Base
 >Base : Base
@@ -90,7 +90,7 @@ interface A { // T
 >Derived : Derived
 
     a9: new (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived;
->a9 : new (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
+>a9 : 新建 (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
 >x : (arg: Base) => Derived
 >arg : Base
 >Base : Base
@@ -104,25 +104,25 @@ interface A { // T
 >Derived : Derived
 
     a10: new (...x: Derived[]) => Derived;
->a10 : new (...x: Derived[]) => Derived
+>a10 : 新建 (...x: Derived[]) => Derived
 >x : Derived[]
 >Derived : Derived
 >Derived : Derived
 
     a11: new (x: { foo: string }, y: { foo: string; bar: string }) => Base;
->a11 : new (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
->x : { foo: string; }
->foo : string
+>a11 : 新建 (x: { foo: 文字; }, y: { foo: 文字; bar: 文字; }) => Base
+>x : { foo: 文字; }
+>foo : 文字
 >类型别名 :=> 文字
->y : { foo: string; bar: string; }
->foo : string
+>y : { foo: 文字; bar: 文字; }
+>foo : 文字
 >类型别名 :=> 文字
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 >Base : Base
 
     a12: new (x: Array<Base>, y: Array<Derived2>) => Array<Derived>;
->a12 : new (x: Base[], y: Derived2[]) => Derived[]
+>a12 : 新建 (x: Base[], y: Derived2[]) => Derived[]
 >x : Base[]
 >Array : T[]
 >Base : Base
@@ -133,7 +133,7 @@ interface A { // T
 >Derived : Derived
 
     a13: new (x: Array<Base>, y: Array<Derived>) => Array<Derived>;
->a13 : new (x: Base[], y: Derived[]) => Derived[]
+>a13 : 新建 (x: Base[], y: Derived[]) => Derived[]
 >x : Base[]
 >Array : T[]
 >Base : Base
@@ -144,11 +144,11 @@ interface A { // T
 >Derived : Derived
 
     a14: new (x: { a: string; b: number }) => Object;
->a14 : new (x: { a: string; b: number; }) => Object
->x : { a: string; b: number; }
->a : string
+>a14 : 新建 (x: { a: 文字; b: 数字; }) => Object
+>x : { a: 文字; b: 数字; }
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >Object : Object
 }
@@ -158,7 +158,7 @@ interface B extends A {
 >A : A
 
     a: new <T>(x: T) => T[];
->a : new <T>(x: T) => T[]
+>a : 新建 <T>(x: T) => T[]
 >T : T
 >x : T
 >T : T
@@ -172,27 +172,27 @@ interface I extends B {
 
     // N's
     a: new <T>(x: T) => T[]; // ok, instantiation of N is a subtype of M, T is number
->a : new <T>(x: T) => T[]
+>a : 新建 <T>(x: T) => T[]
 >T : T
 >x : T
 >T : T
 >T : T
 
     a2: new <T>(x: T) => string[]; // ok
->a2 : new <T>(x: T) => string[]
+>a2 : 新建 <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
 
     a3: new <T>(x: T) => T; // ok since Base returns void
->a3 : new <T>(x: T) => T
+>a3 : 新建 <T>(x: T) => T
 >T : T
 >x : T
 >T : T
 >T : T
 
     a4: new <T, U>(x: T, y: U) => T; // ok, instantiation of N is a subtype of M, T is string, U is number
->a4 : new <T, U>(x: T, y: U) => T
+>a4 : 新建 <T, U>(x: T, y: U) => T
 >T : T
 >U : U
 >x : T
@@ -202,7 +202,7 @@ interface I extends B {
 >T : T
 
     a5: new <T, U>(x: (arg: T) => U) => T; // ok, U is in a parameter position so inferences can be made
->a5 : new <T, U>(x: (arg: T) => U) => T
+>a5 : 新建 <T, U>(x: (arg: T) => U) => T
 >T : T
 >U : U
 >x : (arg: T) => U
@@ -212,7 +212,7 @@ interface I extends B {
 >T : T
 
     a6: new <T extends Base, U extends Derived>(x: (arg: T) => U) => T; // ok, same as a5 but with object type hierarchy
->a6 : new <T extends Base, U extends Derived>(x: (arg: T) => U) => T
+>a6 : 新建 <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => T
 >T : T
 >Base : Base
 >U : U
@@ -224,7 +224,7 @@ interface I extends B {
 >T : T
 
     a7: new <T extends Base, U extends Derived>(x: (arg: T) => U) => (r: T) => U; // ok
->a7 : new <T extends Base, U extends Derived>(x: (arg: T) => U) => (r: T) => U
+>a7 : 新建 <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U) => (r: T) => U
 >T : T
 >Base : Base
 >U : U
@@ -238,7 +238,7 @@ interface I extends B {
 >U : U
 
     a8: new <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: T) => U) => (r: T) => U; // ok
->a8 : new <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: T) => U) => (r: T) => U
+>a8 : 新建 <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U, y: (arg2: T) => U) => (r: T) => U
 >T : T
 >Base : Base
 >U : U
@@ -256,7 +256,7 @@ interface I extends B {
 >U : U
 
     a9: new <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: string; bing: number }) => U) => (r: T) => U; // ok, same as a8 with compatible object literal
->a9 : new <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: string; bing: number; }) => U) => (r: T) => U
+>a9 : 新建 <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U, y: (arg2: { foo: 文字; bing: 数字; }) => U) => (r: T) => U
 >T : T
 >Base : Base
 >U : U
@@ -265,11 +265,11 @@ interface I extends B {
 >arg : T
 >T : T
 >U : U
->y : (arg2: { foo: string; bing: number; }) => U
->arg2 : { foo: string; bing: number; }
->foo : string
+>y : (arg2: { foo: 文字; bing: 数字; }) => U
+>arg2 : { foo: 文字; bing: 数字; }
+>foo : 文字
 >类型别名 :=> 文字
->bing : number
+>bing : 数字
 >类型别名 :=> 数字
 >U : U
 >r : T
@@ -277,7 +277,7 @@ interface I extends B {
 >U : U
 
     a10: new <T extends Derived>(...x: T[]) => T; // ok
->a10 : new <T extends Derived>(...x: T[]) => T
+>a10 : 新建 <T 扩展 Derived>(...x: T[]) => T
 >T : T
 >Derived : Derived
 >x : T[]
@@ -285,7 +285,7 @@ interface I extends B {
 >T : T
 
     a11: new <T extends Base>(x: T, y: T) => T; // ok
->a11 : new <T extends Base>(x: T, y: T) => T
+>a11 : 新建 <T 扩展 Base>(x: T, y: T) => T
 >T : T
 >Base : Base
 >x : T
@@ -295,7 +295,7 @@ interface I extends B {
 >T : T
 
     a12: new <T extends Array<Base>>(x: Array<Base>, y: T) => Array<Derived>; // ok, less specific parameter type
->a12 : new <T extends Base[]>(x: Base[], y: T) => Derived[]
+>a12 : 新建 <T 扩展 Base[]>(x: Base[], y: T) => Derived[]
 >T : T
 >Array : T[]
 >Base : Base
@@ -308,7 +308,7 @@ interface I extends B {
 >Derived : Derived
 
     a13: new <T extends Array<Derived>>(x: Array<Base>, y: T) => T; // ok, T = Array<Derived>, satisfies constraint, contextual signature instantiation succeeds
->a13 : new <T extends Derived[]>(x: Base[], y: T) => T
+>a13 : 新建 <T 扩展 Derived[]>(x: Base[], y: T) => T
 >T : T
 >Array : T[]
 >Derived : Derived
@@ -320,7 +320,7 @@ interface I extends B {
 >T : T
 
     a14: new <T>(x: { a: T; b: T }) => T; // ok, best common type yields T = {} but that's satisfactory for this signature
->a14 : new <T>(x: { a: T; b: T; }) => T
+>a14 : 新建 <T>(x: { a: T; b: T; }) => T
 >T : T
 >x : { a: T; b: T; }
 >a : T

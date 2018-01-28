@@ -1,24 +1,24 @@
 === tests/cases/compiler/overloadresolutionWithConstraintCheckingDeferred.ts ===
 interface A { x }
 >A : A
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 interface B { x; y }
 >B : B
->x : any
+>x : 任意
 >类型别名 :=> 任意
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
 interface C { z }
 >C : C
->z : any
+>z : 任意
 >类型别名 :=> 任意
 
 interface D { q }
 >D : D
->q : any
+>q : 任意
 >类型别名 :=> 任意
 
 class G<T extends A> {
@@ -32,56 +32,56 @@ class G<T extends A> {
 }
 
 declare function foo(arg: (x: D) => number): string;
->foo : { (arg: (x: D) => number): string; (arg: (x: C) => any): string; (arg: (x: B) => any): number; }
->arg : (x: D) => number
+>foo : { (arg: (x: D) => 数字): 文字; (arg: (x: C) => 任意): 文字; (arg: (x: B) => 任意): 数字; }
+>arg : (x: D) => 数字
 >x : D
 >D : D
 
 declare function foo(arg: (x: C) => any): string;
->foo : { (arg: (x: D) => number): string; (arg: (x: C) => any): string; (arg: (x: B) => any): number; }
->arg : (x: C) => any
+>foo : { (arg: (x: D) => 数字): 文字; (arg: (x: C) => 任意): 文字; (arg: (x: B) => 任意): 数字; }
+>arg : (x: C) => 任意
 >x : C
 >C : C
 
 declare function foo(arg: (x: B) => any): number;
->foo : { (arg: (x: D) => number): string; (arg: (x: C) => any): string; (arg: (x: B) => any): number; }
->arg : (x: B) => any
+>foo : { (arg: (x: D) => 数字): 文字; (arg: (x: C) => 任意): 文字; (arg: (x: B) => 任意): 数字; }
+>arg : (x: B) => 任意
 >x : B
 >B : B
 
 var result: number = foo(x => new G(x)); // x has type D, new G(x) fails, so first overload is picked.
->result : number
+>result : 数字
 >类型别名 :=> 数字
->foo(x => new G(x)) : string
+>foo(x => new G(x)) : 文字
 >类型别名 :=> 文字
->foo : { (arg: (x: D) => number): string; (arg: (x: C) => any): string; (arg: (x: B) => any): number; }
->x => new G(x) : (x: D) => any
+>foo : { (arg: (x: D) => 数字): 文字; (arg: (x: C) => 任意): 文字; (arg: (x: B) => 任意): 数字; }
+>x => new G(x) : (x: D) => 任意
 >x : D
->new G(x) : any
+>new G(x) : 任意
 >类型别名 :=> 任意
->G : typeof G
+>G : 类为 G
 >x : D
 
 var result2: number = foo(x => new G<typeof x>(x)); // x has type D, new G(x) fails, so first overload is picked.
->result2 : number
+>result2 : 数字
 >类型别名 :=> 数字
->foo(x => new G<typeof x>(x)) : string
+>foo(x => new G<typeof x>(x)) : 文字
 >类型别名 :=> 文字
->foo : { (arg: (x: D) => number): string; (arg: (x: C) => any): string; (arg: (x: B) => any): number; }
->x => new G<typeof x>(x) : (x: D) => any
+>foo : { (arg: (x: D) => 数字): 文字; (arg: (x: C) => 任意): 文字; (arg: (x: B) => 任意): 数字; }
+>x => new G<typeof x>(x) : (x: D) => 任意
 >x : D
->new G<typeof x>(x) : any
+>new G<typeof x>(x) : 任意
 >类型别名 :=> 任意
->G : typeof G
+>G : 类为 G
 >x : D
 >x : D
 
 var result3: string = foo(x => { // x has type D
->result3 : string
+>result3 : 文字
 >类型别名 :=> 文字
->foo(x => { // x has type D    var y: G<typeof x>; // error that D does not satisfy constraint, y is of type G<D>, entire call to foo is an error    return y;}) : any
+>foo(x => { // x has type D    var y: G<typeof x>; // error that D does not satisfy constraint, y is of type G<D>, entire call to foo is an error    return y;}) : 任意
 >类型别名 :=> 任意
->foo : { (arg: (x: D) => number): string; (arg: (x: C) => any): string; (arg: (x: B) => any): number; }
+>foo : { (arg: (x: D) => 数字): 文字; (arg: (x: C) => 任意): 文字; (arg: (x: B) => 任意): 数字; }
 >x => { // x has type D    var y: G<typeof x>; // error that D does not satisfy constraint, y is of type G<D>, entire call to foo is an error    return y;} : (x: D) => G<D>
 >x : D
 

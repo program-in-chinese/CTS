@@ -1,7 +1,7 @@
 // @target: ES6
 // @removeComments: false
 
-// @filename: /a/node_modules/@types/testCh/index.d.ts
+// @filename: /a/node_modules/@types/testCh/index.d.cts
 
 //@@{ 内容描述:C, 标题:t, 内容:n }
 //@@{ "啊啊啊啊啊":"AAAAAAAAAAA", "宝宝贝贝吧":"BBBBBBBBB" }
@@ -28,7 +28,7 @@
     取测试内容: 内容描述
 }
 
-// @filename: /a/测试_1_ch.ts
+// @filename: /a/测试_1_ch.cts
 导入 { 测试类, 测试类2, 内容描述 } 来自 "testch"
 
 变量 测试目标 = "vvvvv"

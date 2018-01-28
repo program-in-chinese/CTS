@@ -1,12 +1,12 @@
 === tests/cases/compiler/assignToExistingClass.ts ===
 module Test {
->Test : typeof Test
+>Test : 类为 Test
 
     class Mocked {
 >Mocked : Mocked
 
         myProp: string;
->myProp : string
+>myProp : 文字
 >类型别名 :=> 文字
     }
 
@@ -14,19 +14,19 @@ module Test {
 >Tester : Tester
 
         willThrowError() {
->willThrowError : () => void
+>willThrowError : () => 无值
 
             Mocked = Mocked || function () { // => Error: Invalid left-hand side of assignment expression.
->Mocked = Mocked || function () { // => Error: Invalid left-hand side of assignment expression.                return { myProp: "test" };            } : typeof Mocked | (() => { myProp: string; })
->Mocked : any
+>Mocked = Mocked || function () { // => Error: Invalid left-hand side of assignment expression.                return { myProp: "test" };            } : 类为 Mocked | (() => { myProp: 文字; })
+>Mocked : 任意
 >类型别名 :=> 任意
->Mocked || function () { // => Error: Invalid left-hand side of assignment expression.                return { myProp: "test" };            } : typeof Mocked | (() => { myProp: string; })
->Mocked : typeof Mocked
->function () { // => Error: Invalid left-hand side of assignment expression.                return { myProp: "test" };            } : () => { myProp: string; }
+>Mocked || function () { // => Error: Invalid left-hand side of assignment expression.                return { myProp: "test" };            } : 类为 Mocked | (() => { myProp: 文字; })
+>Mocked : 类为 Mocked
+>function () { // => Error: Invalid left-hand side of assignment expression.                return { myProp: "test" };            } : () => { myProp: 文字; }
 
                 return { myProp: "test" };
->{ myProp: "test" } : { myProp: string; }
->myProp : string
+>{ myProp: "test" } : { myProp: 文字; }
+>myProp : 文字
 >类型别名 :=> 文字
 >"test" : "test"
 

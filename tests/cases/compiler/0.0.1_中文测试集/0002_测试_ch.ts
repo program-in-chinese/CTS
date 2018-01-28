@@ -2,7 +2,7 @@
 // @removeComments: false
 // @strictNullChecks: true
 
-// @filename: /a/node_modules/@types/testCh/index.d.ts
+// @filename: /a/node_modules/@types/testCh/index.d.cts
 //@@{ 测试:foo, 属性1:bar, 属性2:baz, 合成属性:nested, 甲:a, 乙:b }
 导出 类型 测试 = {
   属性1: 数字 | 空值;
@@ -19,7 +19,7 @@
   元素2: 测试 | 空值;
 }
 
-// @filename: /a/测试_2_ch.ts
+// @filename: /a/测试_2_ch.cts
 
 导入 { 测试, 属性1 } 来自 "testCh"
 

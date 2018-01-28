@@ -3,10 +3,10 @@ class Foo { // error
 >Foo : Foo
 
     bar1() { /*WScript.Echo("bar1");*/ }
->bar1 : () => void
+>bar1 : () => 无值
 
     constructor(x: any) {
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
         // WScript.Echo("Constructor function has executed");
@@ -14,36 +14,36 @@ class Foo { // error
 }
 
 function Foo(); // error
->Foo : () => any
+>Foo : () => 任意
 
 function F1(s:string);
->F1 : (s: string) => any
->s : string
+>F1 : (s: 文字) => 任意
+>s : 文字
 >类型别名 :=> 文字
 
 function F1(a:any) { return a;}
->F1 : (s: string) => any
->a : any
+>F1 : (s: 文字) => 任意
+>a : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 var f1 = new Foo("hey");
 >f1 : Foo
 >new Foo("hey") : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 >"hey" : "hey"
 
 
 f1.bar1();
->f1.bar1() : void
+>f1.bar1() : 无值
 >类型别名 :=> 无值
->f1.bar1 : () => void
+>f1.bar1 : () => 无值
 >f1 : Foo
->bar1 : () => void
+>bar1 : () => 无值
 
 Foo();
->Foo() : any
+>Foo() : 任意
 >类型别名 :=> 任意
->Foo : typeof Foo
+>Foo : 类为 Foo
 

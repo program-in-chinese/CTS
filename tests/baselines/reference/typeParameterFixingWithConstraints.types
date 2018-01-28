@@ -3,7 +3,7 @@ interface IBar {
 >IBar : IBar
 
     [barId: string]: any;
->barId : string
+>barId : 文字
 >类型别名 :=> 文字
 }
 
@@ -11,7 +11,7 @@ interface IFoo {
 >IFoo : IFoo
 
     foo<TBar extends IBar>(bar: TBar, bar1: (bar: TBar) => TBar, bar2: (bar: TBar) => TBar): TBar;
->foo : <TBar extends IBar>(bar: TBar, bar1: (bar: TBar) => TBar, bar2: (bar: TBar) => TBar) => TBar
+>foo : <TBar 扩展 IBar>(bar: TBar, bar1: (bar: TBar) => TBar, bar2: (bar: TBar) => TBar) => TBar
 >TBar : TBar
 >IBar : IBar
 >bar : TBar
@@ -32,21 +32,21 @@ var foo: IFoo;
 >IFoo : IFoo
 
 foo.foo({ bar: null }, bar => null, bar => null);
->foo.foo({ bar: null }, bar => null, bar => null) : { bar: any; }
->foo.foo : <TBar extends IBar>(bar: TBar, bar1: (bar: TBar) => TBar, bar2: (bar: TBar) => TBar) => TBar
+>foo.foo({ bar: null }, bar => null, bar => null) : { bar: 任意; }
+>foo.foo : <TBar 扩展 IBar>(bar: TBar, bar1: (bar: TBar) => TBar, bar2: (bar: TBar) => TBar) => TBar
 >foo : IFoo
->foo : <TBar extends IBar>(bar: TBar, bar1: (bar: TBar) => TBar, bar2: (bar: TBar) => TBar) => TBar
->{ bar: null } : { bar: null; }
->bar : null
+>foo : <TBar 扩展 IBar>(bar: TBar, bar1: (bar: TBar) => TBar, bar2: (bar: TBar) => TBar) => TBar
+>{ bar: null } : { bar: 空值; }
+>bar : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
->bar => null : (bar: { bar: any; }) => any
->bar : { bar: any; }
->null : null
+>bar => null : (bar: { bar: 任意; }) => 任意
+>bar : { bar: 任意; }
+>null : 空值
 >类型别名 :=> 空值
->bar => null : (bar: { bar: any; }) => any
->bar : { bar: any; }
->null : null
+>bar => null : (bar: { bar: 任意; }) => 任意
+>bar : { bar: 任意; }
+>null : 空值
 >类型别名 :=> 空值
 

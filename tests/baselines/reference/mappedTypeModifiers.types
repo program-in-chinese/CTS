@@ -1,27 +1,27 @@
 === tests/cases/conformance/types/mapped/mappedTypeModifiers.ts ===
 type T = { a: number, b: string };
 >T : T
->a : number
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
 type TP = { a?: number, b?: string };
 >TP : TP
->a : number | undefined
->b : string | undefined
+>a : 数字 | 未定
+>b : 文字 | 未定
 
 type TR = { readonly a: number, readonly b: string };
 >TR : TR
->a : number
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
 type TPR = { readonly a?: number, readonly b?: string };
 >TPR : TPR
->a : number | undefined
->b : string | undefined
+>a : 数字 | 未定
+>b : 文字 | 未定
 
 var v00: "a" | "b";
 >v00 : "a" | "b"
@@ -182,38 +182,38 @@ type Boxified<T> = { [P in keyof T]: { x: T[P] } };
 
 type B = { a: { x: number }, b: { x: string } };
 >B : B
->a : { x: number; }
->x : number
+>a : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->b : { x: string; }
->x : string
+>b : { x: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 
 type BP = { a?: { x: number }, b?: { x: string } };
 >BP : BP
->a : { x: number; } | undefined
->x : number
+>a : { x: 数字; } | 未定
+>x : 数字
 >类型别名 :=> 数字
->b : { x: string; } | undefined
->x : string
+>b : { x: 文字; } | 未定
+>x : 文字
 >类型别名 :=> 文字
 
 type BR = { readonly a: { x: number }, readonly b: { x: string } };
 >BR : BR
->a : { x: number; }
->x : number
+>a : { x: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->b : { x: string; }
->x : string
+>b : { x: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 
 type BPR = { readonly a?: { x: number }, readonly b?: { x: string } };
 >BPR : BPR
->a : { x: number; } | undefined
->x : number
+>a : { x: 数字; } | 未定
+>x : 数字
 >类型别名 :=> 数字
->b : { x: string; } | undefined
->x : string
+>b : { x: 文字; } | 未定
+>x : 文字
 >类型别名 :=> 文字
 
 var b00: "a" | "b";
@@ -366,109 +366,109 @@ var b04: Pick<BPR, keyof BPR>;
 
 type Foo = { prop: number, [x: string]: number };
 >Foo : Foo
->prop : number
+>prop : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 function f1(x: Partial<Foo>) {
->f1 : (x: Partial<Foo>) => void
+>f1 : (x: Partial<Foo>) => 无值
 >x : Partial<Foo>
 >Partial : Partial<T>
 >Foo : Foo
 
     x.prop; // ok
->x.prop : number | undefined
+>x.prop : 数字 | 未定
 >x : Partial<Foo>
->prop : number | undefined
+>prop : 数字 | 未定
 
     (x["other"] || 0).toFixed();
->(x["other"] || 0).toFixed() : string
+>(x["other"] || 0).toFixed() : 文字
 >类型别名 :=> 文字
->(x["other"] || 0).toFixed : (fractionDigits?: number | undefined) => string
->(x["other"] || 0) : number
+>(x["other"] || 0).toFixed : (fractionDigits?: 数字 | 未定) => 文字
+>(x["other"] || 0) : 数字
 >类型别名 :=> 数字
->x["other"] || 0 : number
+>x["other"] || 0 : 数字
 >类型别名 :=> 数字
->x["other"] : number | undefined
+>x["other"] : 数字 | 未定
 >x : Partial<Foo>
 >"other" : "other"
 >0 : 0
->toFixed : (fractionDigits?: number | undefined) => string
+>toFixed : (fractionDigits?: 数字 | 未定) => 文字
 }
 
 function f2(x: Readonly<Foo>) {
->f2 : (x: Readonly<Foo>) => void
+>f2 : (x: Readonly<Foo>) => 无值
 >x : Readonly<Foo>
 >Readonly : Readonly<T>
 >Foo : Foo
 
     x.prop; // ok
->x.prop : number
+>x.prop : 数字
 >类型别名 :=> 数字
 >x : Readonly<Foo>
->prop : number
+>prop : 数字
 >类型别名 :=> 数字
 
     x["other"].toFixed();
->x["other"].toFixed() : string
+>x["other"].toFixed() : 文字
 >类型别名 :=> 文字
->x["other"].toFixed : (fractionDigits?: number | undefined) => string
->x["other"] : number
+>x["other"].toFixed : (fractionDigits?: 数字 | 未定) => 文字
+>x["other"] : 数字
 >类型别名 :=> 数字
 >x : Readonly<Foo>
 >"other" : "other"
->toFixed : (fractionDigits?: number | undefined) => string
+>toFixed : (fractionDigits?: 数字 | 未定) => 文字
 }
 
 function f3(x: Boxified<Foo>) {
->f3 : (x: Boxified<Foo>) => void
+>f3 : (x: Boxified<Foo>) => 无值
 >x : Boxified<Foo>
 >Boxified : Boxified<T>
 >Foo : Foo
 
     x.prop; // ok
->x.prop : { x: number; }
+>x.prop : { x: 数字; }
 >x : Boxified<Foo>
->prop : { x: number; }
+>prop : { x: 数字; }
 
     x["other"].x.toFixed();
->x["other"].x.toFixed() : string
+>x["other"].x.toFixed() : 文字
 >类型别名 :=> 文字
->x["other"].x.toFixed : (fractionDigits?: number | undefined) => string
->x["other"].x : number
+>x["other"].x.toFixed : (fractionDigits?: 数字 | 未定) => 文字
+>x["other"].x : 数字
 >类型别名 :=> 数字
->x["other"] : { x: number; }
+>x["other"] : { x: 数字; }
 >x : Boxified<Foo>
 >"other" : "other"
->x : number
+>x : 数字
 >类型别名 :=> 数字
->toFixed : (fractionDigits?: number | undefined) => string
+>toFixed : (fractionDigits?: 数字 | 未定) => 文字
 }
 
 function f4(x: { [P in keyof Foo]: Foo[P] }) {
->f4 : (x: { [x: string]: number; prop: number; }) => void
->x : { [x: string]: number; prop: number; }
+>f4 : (x: { [x: 文字]: 数字; prop: 数字; }) => 无值
+>x : { [x: 文字]: 数字; prop: 数字; }
 >P : P
 >Foo : Foo
 >Foo : Foo
 >P : P
 
     x.prop; // ok
->x.prop : number
+>x.prop : 数字
 >类型别名 :=> 数字
->x : { [x: string]: number; prop: number; }
->prop : number
+>x : { [x: 文字]: 数字; prop: 数字; }
+>prop : 数字
 >类型别名 :=> 数字
 
     x["other"].toFixed();
->x["other"].toFixed() : string
+>x["other"].toFixed() : 文字
 >类型别名 :=> 文字
->x["other"].toFixed : (fractionDigits?: number | undefined) => string
->x["other"] : number
+>x["other"].toFixed : (fractionDigits?: 数字 | 未定) => 文字
+>x["other"] : 数字
 >类型别名 :=> 数字
->x : { [x: string]: number; prop: number; }
+>x : { [x: 文字]: 数字; prop: 数字; }
 >"other" : "other"
->toFixed : (fractionDigits?: number | undefined) => string
+>toFixed : (fractionDigits?: 数字 | 未定) => 文字
 }
 

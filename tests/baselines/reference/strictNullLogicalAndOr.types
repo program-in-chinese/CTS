@@ -2,71 +2,71 @@
 // Repro from #9113
 
 let sinOrCos = Math.random() < .5;
->sinOrCos : boolean
+>sinOrCos : 真假
 >类型别名 :=> 真假
->Math.random() < .5 : boolean
+>Math.random() < .5 : 真假
 >类型别名 :=> 真假
->Math.random() : number
+>Math.random() : 数字
 >类型别名 :=> 数字
->Math.random : () => number
+>Math.random : () => 数字
 >Math : Math
->random : () => number
+>random : () => 数字
 >.5 : 0.5
 
 let choice = sinOrCos && Math.sin || Math.cos;
->choice : (x: number) => number
->sinOrCos && Math.sin || Math.cos : (x: number) => number
->sinOrCos && Math.sin : false | ((x: number) => number)
->sinOrCos : boolean
+>choice : (x: 数字) => 数字
+>sinOrCos && Math.sin || Math.cos : (x: 数字) => 数字
+>sinOrCos && Math.sin : 为假 | ((x: 数字) => 数字)
+>sinOrCos : 真假
 >类型别名 :=> 真假
->Math.sin : (x: number) => number
+>Math.sin : (x: 数字) => 数字
 >Math : Math
->sin : (x: number) => number
->Math.cos : (x: number) => number
+>sin : (x: 数字) => 数字
+>Math.cos : (x: 数字) => 数字
 >Math : Math
->cos : (x: number) => number
+>cos : (x: 数字) => 数字
 
 choice(Math.PI);
->choice(Math.PI) : number
+>choice(Math.PI) : 数字
 >类型别名 :=> 数字
->choice : (x: number) => number
->Math.PI : number
+>choice : (x: 数字) => 数字
+>Math.PI : 数字
 >类型别名 :=> 数字
 >Math : Math
->PI : number
+>PI : 数字
 >类型别名 :=> 数字
 
 function sq(n?: number): number {
->sq : (n?: number | undefined) => number
->n : number | undefined
+>sq : (n?: 数字 | 未定) => 数字
+>n : 数字 | 未定
 
   const r = n !== undefined && n*n || 0;
->r : number
+>r : 数字
 >类型别名 :=> 数字
->n !== undefined && n*n || 0 : number
+>n !== undefined && n*n || 0 : 数字
 >类型别名 :=> 数字
->n !== undefined && n*n : number | false
->n !== undefined : boolean
+>n !== undefined && n*n : 数字 | 为假
+>n !== undefined : 真假
 >类型别名 :=> 真假
->n : number | undefined
->undefined : undefined
+>n : 数字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
->n*n : number
+>n*n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >0 : 0
 
   return r;
->r : number
+>r : 数字
 >类型别名 :=> 数字
 }
 
 sq(3);
->sq(3) : number
+>sq(3) : 数字
 >类型别名 :=> 数字
->sq : (n?: number | undefined) => number
+>sq : (n?: 数字 | 未定) => 数字
 >3 : 3
 

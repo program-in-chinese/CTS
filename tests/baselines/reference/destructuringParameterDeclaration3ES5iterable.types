@@ -22,170 +22,170 @@ type stringOrNumArray = Array<String|Number>;
 >Number : Number
 
 function a1(...x: (number|string)[]) { }
->a1 : (...x: (string | number)[]) => void
->x : (string | number)[]
+>a1 : (...x: (文字 | 数字)[]) => 无值
+>x : (文字 | 数字)[]
 
 function a2(...a) { }
->a2 : (...a: any[]) => void
->a : any[]
+>a2 : (...a: 任意[]) => 无值
+>a : 任意[]
 
 function a3(...a: Array<String>) { }
->a3 : (...a: String[]) => void
+>a3 : (...a: String[]) => 无值
 >a : String[]
 >Array : T[]
 >String : String
 
 function a4(...a: arrayString) { }
->a4 : (...a: String[]) => void
+>a4 : (...a: String[]) => 无值
 >a : String[]
 >arrayString : String[]
 
 function a5(...a: stringOrNumArray) { }
->a5 : (...a: (String | Number)[]) => void
+>a5 : (...a: (String | Number)[]) => 无值
 >a : (String | Number)[]
 >stringOrNumArray : (String | Number)[]
 
 function a9([a, b, [[c]]]) { }
->a9 : ([a, b, [[c]]]: [any, any, [[any]]]) => void
->a : any
+>a9 : ([a, b, [[c]]]: [任意, 任意, [[任意]]]) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
 function a10([a, b, [[c]], ...x]) { }
->a10 : ([a, b, [[c]], ...x]: any[]) => void
->a : any
+>a10 : ([a, b, [[c]], ...x]: 任意[]) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->x : any[]
+>x : 任意[]
 
 function a11([a, b, c, ...x]: number[]) { }
->a11 : ([a, b, c, ...x]: number[]) => void
->a : number
+>a11 : ([a, b, c, ...x]: 数字[]) => 无值
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
->c : number
+>c : 数字
 >类型别名 :=> 数字
->x : number[]
+>x : 数字[]
 
 
 var array = [1, 2, 3];
->array : number[]
->[1, 2, 3] : number[]
+>array : 数字[]
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
 
 var array2 = [true, false, "hello"];
->array2 : (string | boolean)[]
->[true, false, "hello"] : (string | boolean)[]
->true : true
+>array2 : (文字 | 真假)[]
+>[true, false, "hello"] : (文字 | 真假)[]
+>true : 为真
 >类型别名 :=> 为真
->false : false
+>false : 为假
 >类型别名 :=> 为假
 >"hello" : "hello"
 
 a2([...array]);
->a2([...array]) : void
+>a2([...array]) : 无值
 >类型别名 :=> 无值
->a2 : (...a: any[]) => void
->[...array] : number[]
->...array : number
+>a2 : (...a: 任意[]) => 无值
+>[...array] : 数字[]
+>...array : 数字
 >类型别名 :=> 数字
->array : number[]
+>array : 数字[]
 
 a1(...array);
->a1(...array) : void
+>a1(...array) : 无值
 >类型别名 :=> 无值
->a1 : (...x: (string | number)[]) => void
->...array : number
+>a1 : (...x: (文字 | 数字)[]) => 无值
+>...array : 数字
 >类型别名 :=> 数字
->array : number[]
+>array : 数字[]
 
 a9([1, 2, [["string"]], false, true]);   // Parameter type is [any, any, [[any]]]
->a9([1, 2, [["string"]], false, true]) : void
+>a9([1, 2, [["string"]], false, true]) : 无值
 >类型别名 :=> 无值
->a9 : ([a, b, [[c]]]: [any, any, [[any]]]) => void
->[1, 2, [["string"]], false, true] : [number, number, [[string]], boolean, boolean]
+>a9 : ([a, b, [[c]]]: [任意, 任意, [[任意]]]) => 无值
+>[1, 2, [["string"]], false, true] : [数字, 数字, [[文字]], 真假, 真假]
 >1 : 1
 >2 : 2
->[["string"]] : [[string]]
->["string"] : [string]
+>[["string"]] : [[文字]]
+>["string"] : [文字]
 >"string" : "string"
->false : false
+>false : 为假
 >类型别名 :=> 为假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 a10([1, 2, [["string"]], false, true]);   // Parameter type is any[]
->a10([1, 2, [["string"]], false, true]) : void
+>a10([1, 2, [["string"]], false, true]) : 无值
 >类型别名 :=> 无值
->a10 : ([a, b, [[c]], ...x]: any[]) => void
->[1, 2, [["string"]], false, true] : (number | boolean | string[][])[]
+>a10 : ([a, b, [[c]], ...x]: 任意[]) => 无值
+>[1, 2, [["string"]], false, true] : (数字 | 真假 | 文字[][])[]
 >1 : 1
 >2 : 2
->[["string"]] : string[][]
->["string"] : string[]
+>[["string"]] : 文字[][]
+>["string"] : 文字[]
 >"string" : "string"
->false : false
+>false : 为假
 >类型别名 :=> 为假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 a10([1, 2, 3, false, true]);              // Parameter type is any[]
->a10([1, 2, 3, false, true]) : void
+>a10([1, 2, 3, false, true]) : 无值
 >类型别名 :=> 无值
->a10 : ([a, b, [[c]], ...x]: any[]) => void
->[1, 2, 3, false, true] : (number | boolean)[]
+>a10 : ([a, b, [[c]], ...x]: 任意[]) => 无值
+>[1, 2, 3, false, true] : (数字 | 真假)[]
 >1 : 1
 >2 : 2
 >3 : 3
->false : false
+>false : 为假
 >类型别名 :=> 为假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 a10([1, 2]);                              // Parameter type is any[]
->a10([1, 2]) : void
+>a10([1, 2]) : 无值
 >类型别名 :=> 无值
->a10 : ([a, b, [[c]], ...x]: any[]) => void
->[1, 2] : number[]
+>a10 : ([a, b, [[c]], ...x]: 任意[]) => 无值
+>[1, 2] : 数字[]
 >1 : 1
 >2 : 2
 
 a11([1, 2]);                              // Parameter type is number[]
->a11([1, 2]) : void
+>a11([1, 2]) : 无值
 >类型别名 :=> 无值
->a11 : ([a, b, c, ...x]: number[]) => void
->[1, 2] : number[]
+>a11 : ([a, b, c, ...x]: 数字[]) => 无值
+>[1, 2] : 数字[]
 >1 : 1
 >2 : 2
 
 // Rest parameter with generic
 function foo<T>(...a: T[]) { }
->foo : <T>(...a: T[]) => void
+>foo : <T>(...a: T[]) => 无值
 >T : T
 >a : T[]
 >T : T
 
 foo<number|string>("hello", 1, 2);
->foo<number|string>("hello", 1, 2) : void
+>foo<number|string>("hello", 1, 2) : 无值
 >类型别名 :=> 无值
->foo : <T>(...a: T[]) => void
+>foo : <T>(...a: T[]) => 无值
 >"hello" : "hello"
 >1 : 1
 >2 : 2
 
 foo("hello", "world");
->foo("hello", "world") : void
+>foo("hello", "world") : 无值
 >类型别名 :=> 无值
->foo : <T>(...a: T[]) => void
+>foo : <T>(...a: T[]) => 无值
 >"hello" : "hello"
 >"world" : "world"
 
@@ -200,35 +200,35 @@ const enum E1 { a, b }
 >b : E1.b
 
 function foo1<T extends Number>(...a: T[]) { }
->foo1 : <T extends Number>(...a: T[]) => void
+>foo1 : <T 扩展 Number>(...a: T[]) => 无值
 >T : T
 >Number : Number
 >a : T[]
 >T : T
 
 foo1(1, 2, 3, E.a);
->foo1(1, 2, 3, E.a) : void
+>foo1(1, 2, 3, E.a) : 无值
 >类型别名 :=> 无值
->foo1 : <T extends Number>(...a: T[]) => void
+>foo1 : <T 扩展 Number>(...a: T[]) => 无值
 >1 : 1
 >2 : 2
 >3 : 3
 >E.a : E.a
->E : typeof E
+>E : 类为 E
 >a : E.a
 
 foo1(1, 2, 3, E1.a, E.b);
->foo1(1, 2, 3, E1.a, E.b) : void
+>foo1(1, 2, 3, E1.a, E.b) : 无值
 >类型别名 :=> 无值
->foo1 : <T extends Number>(...a: T[]) => void
+>foo1 : <T 扩展 Number>(...a: T[]) => 无值
 >1 : 1
 >2 : 2
 >3 : 3
 >E1.a : E1.a
->E1 : typeof E1
+>E1 : 类为 E1
 >a : E1.a
 >E.b : E.b
->E : typeof E
+>E : 类为 E
 >b : E.b
 
 

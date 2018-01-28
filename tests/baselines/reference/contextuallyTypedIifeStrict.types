@@ -1,155 +1,155 @@
 === tests/cases/conformance/expressions/functions/contextuallyTypedIifeStrict.ts ===
 // arrow
 (jake => { })("build");
->(jake => { })("build") : void
+>(jake => { })("build") : 无值
 >类型别名 :=> 无值
->(jake => { }) : (jake: string) => void
->jake => { } : (jake: string) => void
->jake : string
+>(jake => { }) : (jake: 文字) => 无值
+>jake => { } : (jake: 文字) => 无值
+>jake : 文字
 >类型别名 :=> 文字
 >"build" : "build"
 
 // function expression
 (function (cats) { })("lol");
->(function (cats) { })("lol") : void
+>(function (cats) { })("lol") : 无值
 >类型别名 :=> 无值
->(function (cats) { }) : (cats: string) => void
->function (cats) { } : (cats: string) => void
->cats : string
+>(function (cats) { }) : (cats: 文字) => 无值
+>function (cats) { } : (cats: 文字) => 无值
+>cats : 文字
 >类型别名 :=> 文字
 >"lol" : "lol"
 
 // Lots of Irritating Superfluous Parentheses
 (function (x) { } ("!"));
->(function (x) { } ("!")) : void
+>(function (x) { } ("!")) : 无值
 >类型别名 :=> 无值
->function (x) { } ("!") : void
+>function (x) { } ("!") : 无值
 >类型别名 :=> 无值
->function (x) { } : (x: string) => void
->x : string
+>function (x) { } : (x: 文字) => 无值
+>x : 文字
 >类型别名 :=> 文字
 >"!" : "!"
 
 ((((function (y) { }))))("-");
->((((function (y) { }))))("-") : void
+>((((function (y) { }))))("-") : 无值
 >类型别名 :=> 无值
->((((function (y) { })))) : (y: string) => void
->(((function (y) { }))) : (y: string) => void
->((function (y) { })) : (y: string) => void
->(function (y) { }) : (y: string) => void
->function (y) { } : (y: string) => void
->y : string
+>((((function (y) { })))) : (y: 文字) => 无值
+>(((function (y) { }))) : (y: 文字) => 无值
+>((function (y) { })) : (y: 文字) => 无值
+>(function (y) { }) : (y: 文字) => 无值
+>function (y) { } : (y: 文字) => 无值
+>y : 文字
 >类型别名 :=> 文字
 >"-" : "-"
 
 // multiple arguments
 ((a, b, c) => { })("foo", 101, false);
->((a, b, c) => { })("foo", 101, false) : void
+>((a, b, c) => { })("foo", 101, false) : 无值
 >类型别名 :=> 无值
->((a, b, c) => { }) : (a: string, b: number, c: boolean) => void
->(a, b, c) => { } : (a: string, b: number, c: boolean) => void
->a : string
+>((a, b, c) => { }) : (a: 文字, b: 数字, c: 真假) => 无值
+>(a, b, c) => { } : (a: 文字, b: 数字, c: 真假) => 无值
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 >"foo" : "foo"
 >101 : 101
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 // default parameters
 ((m = 10) => m + 1)(12);
->((m = 10) => m + 1)(12) : number
+>((m = 10) => m + 1)(12) : 数字
 >类型别名 :=> 数字
->((m = 10) => m + 1) : (m?: number) => number
->(m = 10) => m + 1 : (m?: number) => number
->m : number
+>((m = 10) => m + 1) : (m?: 数字) => 数字
+>(m = 10) => m + 1 : (m?: 数字) => 数字
+>m : 数字
 >类型别名 :=> 数字
 >10 : 10
->m + 1 : number
+>m + 1 : 数字
 >类型别名 :=> 数字
->m : number
+>m : 数字
 >类型别名 :=> 数字
 >1 : 1
 >12 : 12
 
 ((n = 10) => n + 1)();
->((n = 10) => n + 1)() : number
+>((n = 10) => n + 1)() : 数字
 >类型别名 :=> 数字
->((n = 10) => n + 1) : (n?: number) => number
->(n = 10) => n + 1 : (n?: number) => number
->n : number
+>((n = 10) => n + 1) : (n?: 数字) => 数字
+>(n = 10) => n + 1 : (n?: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
 >10 : 10
->n + 1 : number
+>n + 1 : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 // optional parameters
 ((j?) => j + 1)(12);
->((j?) => j + 1)(12) : number
+>((j?) => j + 1)(12) : 数字
 >类型别名 :=> 数字
->((j?) => j + 1) : (j?: number | undefined) => number
->(j?) => j + 1 : (j?: number | undefined) => number
->j : number | undefined
->j + 1 : number
+>((j?) => j + 1) : (j?: 数字 | 未定) => 数字
+>(j?) => j + 1 : (j?: 数字 | 未定) => 数字
+>j : 数字 | 未定
+>j + 1 : 数字
 >类型别名 :=> 数字
->j : number | undefined
+>j : 数字 | 未定
 >1 : 1
 >12 : 12
 
 ((k?) => k + 1)();
->((k?) => k + 1)() : any
+>((k?) => k + 1)() : 任意
 >类型别名 :=> 任意
->((k?) => k + 1) : (k?: undefined) => any
->(k?) => k + 1 : (k?: undefined) => any
->k : undefined
+>((k?) => k + 1) : (k?: 未定) => 任意
+>(k?) => k + 1 : (k?: 未定) => 任意
+>k : 未定
 >类型别名 :=> 未定
->k + 1 : any
+>k + 1 : 任意
 >类型别名 :=> 任意
->k : undefined
+>k : 未定
 >类型别名 :=> 未定
 >1 : 1
 
 ((l, o?) => l + o)(12); // o should be any
->((l, o?) => l + o)(12) : any
+>((l, o?) => l + o)(12) : 任意
 >类型别名 :=> 任意
->((l, o?) => l + o) : (l: number, o?: undefined) => any
->(l, o?) => l + o : (l: number, o?: undefined) => any
->l : number
+>((l, o?) => l + o) : (l: 数字, o?: 未定) => 任意
+>(l, o?) => l + o : (l: 数字, o?: 未定) => 任意
+>l : 数字
 >类型别名 :=> 数字
->o : undefined
+>o : 未定
 >类型别名 :=> 未定
->l + o : any
+>l + o : 任意
 >类型别名 :=> 任意
->l : number
+>l : 数字
 >类型别名 :=> 数字
->o : undefined
+>o : 未定
 >类型别名 :=> 未定
 >12 : 12
 
 // rest parameters
 ((...numbers) => numbers.every(n => n > 0))(5,6,7);
->((...numbers) => numbers.every(n => n > 0))(5,6,7) : boolean
+>((...numbers) => numbers.every(n => n > 0))(5,6,7) : 真假
 >类型别名 :=> 真假
->((...numbers) => numbers.every(n => n > 0)) : (...numbers: number[]) => boolean
->(...numbers) => numbers.every(n => n > 0) : (...numbers: number[]) => boolean
->numbers : number[]
->numbers.every(n => n > 0) : boolean
+>((...numbers) => numbers.every(n => n > 0)) : (...numbers: 数字[]) => 真假
+>(...numbers) => numbers.every(n => n > 0) : (...numbers: 数字[]) => 真假
+>numbers : 数字[]
+>numbers.every(n => n > 0) : 真假
 >类型别名 :=> 真假
->numbers.every : (callbackfn: (value: number, index: number, array: number[]) => boolean, thisArg?: any) => boolean
->numbers : number[]
->every : (callbackfn: (value: number, index: number, array: number[]) => boolean, thisArg?: any) => boolean
->n => n > 0 : (n: number) => boolean
->n : number
+>numbers.every : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 真假, thisArg?: 任意) => 真假
+>numbers : 数字[]
+>every : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 真假, thisArg?: 任意) => 真假
+>n => n > 0 : (n: 数字) => 真假
+>n : 数字
 >类型别名 :=> 数字
->n > 0 : boolean
+>n > 0 : 真假
 >类型别名 :=> 真假
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >0 : 0
 >5 : 5
@@ -157,68 +157,68 @@
 >7 : 7
 
 ((...mixed) => mixed.every(n => !!n))(5,'oops','oh no');
->((...mixed) => mixed.every(n => !!n))(5,'oops','oh no') : boolean
+>((...mixed) => mixed.every(n => !!n))(5,'oops','oh no') : 真假
 >类型别名 :=> 真假
->((...mixed) => mixed.every(n => !!n)) : (...mixed: (string | number)[]) => boolean
->(...mixed) => mixed.every(n => !!n) : (...mixed: (string | number)[]) => boolean
->mixed : (string | number)[]
->mixed.every(n => !!n) : boolean
+>((...mixed) => mixed.every(n => !!n)) : (...mixed: (文字 | 数字)[]) => 真假
+>(...mixed) => mixed.every(n => !!n) : (...mixed: (文字 | 数字)[]) => 真假
+>mixed : (文字 | 数字)[]
+>mixed.every(n => !!n) : 真假
 >类型别名 :=> 真假
->mixed.every : (callbackfn: (value: string | number, index: number, array: (string | number)[]) => boolean, thisArg?: any) => boolean
->mixed : (string | number)[]
->every : (callbackfn: (value: string | number, index: number, array: (string | number)[]) => boolean, thisArg?: any) => boolean
->n => !!n : (n: string | number) => boolean
->n : string | number
->!!n : boolean
+>mixed.every : (callbackfn: (value: 文字 | 数字, index: 数字, array: (文字 | 数字)[]) => 真假, thisArg?: 任意) => 真假
+>mixed : (文字 | 数字)[]
+>every : (callbackfn: (value: 文字 | 数字, index: 数字, array: (文字 | 数字)[]) => 真假, thisArg?: 任意) => 真假
+>n => !!n : (n: 文字 | 数字) => 真假
+>n : 文字 | 数字
+>!!n : 真假
 >类型别名 :=> 真假
->!n : boolean
+>!n : 真假
 >类型别名 :=> 真假
->n : string | number
+>n : 文字 | 数字
 >5 : 5
 >'oops' : "oops"
 >'oh no' : "oh no"
 
 ((...noNumbers) => noNumbers.some(n => n > 0))();
->((...noNumbers) => noNumbers.some(n => n > 0))() : boolean
+>((...noNumbers) => noNumbers.some(n => n > 0))() : 真假
 >类型别名 :=> 真假
->((...noNumbers) => noNumbers.some(n => n > 0)) : (...noNumbers: any[]) => boolean
->(...noNumbers) => noNumbers.some(n => n > 0) : (...noNumbers: any[]) => boolean
->noNumbers : any[]
->noNumbers.some(n => n > 0) : boolean
+>((...noNumbers) => noNumbers.some(n => n > 0)) : (...noNumbers: 任意[]) => 真假
+>(...noNumbers) => noNumbers.some(n => n > 0) : (...noNumbers: 任意[]) => 真假
+>noNumbers : 任意[]
+>noNumbers.some(n => n > 0) : 真假
 >类型别名 :=> 真假
->noNumbers.some : (callbackfn: (value: any, index: number, array: any[]) => boolean, thisArg?: any) => boolean
->noNumbers : any[]
->some : (callbackfn: (value: any, index: number, array: any[]) => boolean, thisArg?: any) => boolean
->n => n > 0 : (n: any) => boolean
->n : any
+>noNumbers.some : (callbackfn: (value: 任意, index: 数字, array: 任意[]) => 真假, thisArg?: 任意) => 真假
+>noNumbers : 任意[]
+>some : (callbackfn: (value: 任意, index: 数字, array: 任意[]) => 真假, thisArg?: 任意) => 真假
+>n => n > 0 : (n: 任意) => 真假
+>n : 任意
 >类型别名 :=> 任意
->n > 0 : boolean
+>n > 0 : 真假
 >类型别名 :=> 真假
->n : any
+>n : 任意
 >类型别名 :=> 任意
 >0 : 0
 
 ((first, ...rest) => first ? [] : rest.map(n => n > 0))(8,9,10);
->((first, ...rest) => first ? [] : rest.map(n => n > 0))(8,9,10) : boolean[]
->((first, ...rest) => first ? [] : rest.map(n => n > 0)) : (first: number, ...rest: number[]) => boolean[]
->(first, ...rest) => first ? [] : rest.map(n => n > 0) : (first: number, ...rest: number[]) => boolean[]
->first : number
+>((first, ...rest) => first ? [] : rest.map(n => n > 0))(8,9,10) : 真假[]
+>((first, ...rest) => first ? [] : rest.map(n => n > 0)) : (first: 数字, ...rest: 数字[]) => 真假[]
+>(first, ...rest) => first ? [] : rest.map(n => n > 0) : (first: 数字, ...rest: 数字[]) => 真假[]
+>first : 数字
 >类型别名 :=> 数字
->rest : number[]
->first ? [] : rest.map(n => n > 0) : boolean[]
->first : number
+>rest : 数字[]
+>first ? [] : rest.map(n => n > 0) : 真假[]
+>first : 数字
 >类型别名 :=> 数字
->[] : never[]
->rest.map(n => n > 0) : boolean[]
->rest.map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->rest : number[]
->map : <U>(callbackfn: (value: number, index: number, array: number[]) => U, thisArg?: any) => U[]
->n => n > 0 : (n: number) => boolean
->n : number
+>[] : 不及[]
+>rest.map(n => n > 0) : 真假[]
+>rest.map : <U>(callbackfn: (value: 数字, index: 数字, array: 数字[]) => U, thisArg?: 任意) => U[]
+>rest : 数字[]
+>map : <U>(callbackfn: (value: 数字, index: 数字, array: 数字[]) => U, thisArg?: 任意) => U[]
+>n => n > 0 : (n: 数字) => 真假
+>n : 数字
 >类型别名 :=> 数字
->n > 0 : boolean
+>n > 0 : 真假
 >类型别名 :=> 真假
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >0 : 0
 >8 : 8
@@ -227,133 +227,133 @@
 
 // destructuring parameters (with defaults too!)
 (({ q }) => q)({ q : 13 });
->(({ q }) => q)({ q : 13 }) : number
+>(({ q }) => q)({ q : 13 }) : 数字
 >类型别名 :=> 数字
->(({ q }) => q) : ({ q }: { q: number; }) => number
->({ q }) => q : ({ q }: { q: number; }) => number
->q : number
+>(({ q }) => q) : ({ q }: { q: 数字; }) => 数字
+>({ q }) => q : ({ q }: { q: 数字; }) => 数字
+>q : 数字
 >类型别名 :=> 数字
->q : number
+>q : 数字
 >类型别名 :=> 数字
->{ q : 13 } : { q: number; }
->q : number
+>{ q : 13 } : { q: 数字; }
+>q : 数字
 >类型别名 :=> 数字
 >13 : 13
 
 (({ p = 14 }) => p)({ p : 15 });
->(({ p = 14 }) => p)({ p : 15 }) : number
+>(({ p = 14 }) => p)({ p : 15 }) : 数字
 >类型别名 :=> 数字
->(({ p = 14 }) => p) : ({ p }: { p: number; }) => number
->({ p = 14 }) => p : ({ p }: { p: number; }) => number
->p : number
+>(({ p = 14 }) => p) : ({ p }: { p: 数字; }) => 数字
+>({ p = 14 }) => p : ({ p }: { p: 数字; }) => 数字
+>p : 数字
 >类型别名 :=> 数字
 >14 : 14
->p : number
+>p : 数字
 >类型别名 :=> 数字
->{ p : 15 } : { p: number; }
->p : number
+>{ p : 15 } : { p: 数字; }
+>p : 数字
 >类型别名 :=> 数字
 >15 : 15
 
 (({ r = 17 } = { r: 18 }) => r)({r : 19});
->(({ r = 17 } = { r: 18 }) => r)({r : 19}) : number
+>(({ r = 17 } = { r: 18 }) => r)({r : 19}) : 数字
 >类型别名 :=> 数字
->(({ r = 17 } = { r: 18 }) => r) : ({ r }?: { r: number; }) => number
->({ r = 17 } = { r: 18 }) => r : ({ r }?: { r: number; }) => number
->r : number
+>(({ r = 17 } = { r: 18 }) => r) : ({ r }?: { r: 数字; }) => 数字
+>({ r = 17 } = { r: 18 }) => r : ({ r }?: { r: 数字; }) => 数字
+>r : 数字
 >类型别名 :=> 数字
 >17 : 17
->{ r: 18 } : { r: number; }
->r : number
+>{ r: 18 } : { r: 数字; }
+>r : 数字
 >类型别名 :=> 数字
 >18 : 18
->r : number
+>r : 数字
 >类型别名 :=> 数字
->{r : 19} : { r: number; }
->r : number
+>{r : 19} : { r: 数字; }
+>r : 数字
 >类型别名 :=> 数字
 >19 : 19
 
 (({ u = 22 } = { u: 23 }) => u)();
->(({ u = 22 } = { u: 23 }) => u)() : number
+>(({ u = 22 } = { u: 23 }) => u)() : 数字
 >类型别名 :=> 数字
->(({ u = 22 } = { u: 23 }) => u) : ({ u }?: { u?: number; }) => number
->({ u = 22 } = { u: 23 }) => u : ({ u }?: { u?: number; }) => number
->u : number
+>(({ u = 22 } = { u: 23 }) => u) : ({ u }?: { u?: 数字; }) => 数字
+>({ u = 22 } = { u: 23 }) => u : ({ u }?: { u?: 数字; }) => 数字
+>u : 数字
 >类型别名 :=> 数字
 >22 : 22
->{ u: 23 } : { u?: number; }
->u : number
+>{ u: 23 } : { u?: 数字; }
+>u : 数字
 >类型别名 :=> 数字
 >23 : 23
->u : number
+>u : 数字
 >类型别名 :=> 数字
 
 // contextually typed parameters.
 let twelve = (f => f(12))(i => i);
->twelve : any
+>twelve : 任意
 >类型别名 :=> 任意
->(f => f(12))(i => i) : any
+>(f => f(12))(i => i) : 任意
 >类型别名 :=> 任意
->(f => f(12)) : (f: (i: any) => any) => any
->f => f(12) : (f: (i: any) => any) => any
->f : (i: any) => any
->f(12) : any
+>(f => f(12)) : (f: (i: 任意) => 任意) => 任意
+>f => f(12) : (f: (i: 任意) => 任意) => 任意
+>f : (i: 任意) => 任意
+>f(12) : 任意
 >类型别名 :=> 任意
->f : (i: any) => any
+>f : (i: 任意) => 任意
 >12 : 12
->i => i : (i: any) => any
->i : any
+>i => i : (i: 任意) => 任意
+>i : 任意
 >类型别名 :=> 任意
->i : any
+>i : 任意
 >类型别名 :=> 任意
 
 let eleven = (o => o.a(11))({ a: function(n) { return n; } });
->eleven : any
+>eleven : 任意
 >类型别名 :=> 任意
->(o => o.a(11))({ a: function(n) { return n; } }) : any
+>(o => o.a(11))({ a: function(n) { return n; } }) : 任意
 >类型别名 :=> 任意
->(o => o.a(11)) : (o: { a: (n: any) => any; }) => any
->o => o.a(11) : (o: { a: (n: any) => any; }) => any
->o : { a: (n: any) => any; }
->o.a(11) : any
+>(o => o.a(11)) : (o: { a: (n: 任意) => 任意; }) => 任意
+>o => o.a(11) : (o: { a: (n: 任意) => 任意; }) => 任意
+>o : { a: (n: 任意) => 任意; }
+>o.a(11) : 任意
 >类型别名 :=> 任意
->o.a : (n: any) => any
->o : { a: (n: any) => any; }
->a : (n: any) => any
+>o.a : (n: 任意) => 任意
+>o : { a: (n: 任意) => 任意; }
+>a : (n: 任意) => 任意
 >11 : 11
->{ a: function(n) { return n; } } : { a: (n: any) => any; }
->a : (n: any) => any
->function(n) { return n; } : (n: any) => any
->n : any
+>{ a: function(n) { return n; } } : { a: (n: 任意) => 任意; }
+>a : (n: 任意) => 任意
+>function(n) { return n; } : (n: 任意) => 任意
+>n : 任意
 >类型别名 :=> 任意
->n : any
+>n : 任意
 >类型别名 :=> 任意
 
 // missing arguments
 (function(x, undefined) { return x; })(42);
->(function(x, undefined) { return x; })(42) : number
+>(function(x, undefined) { return x; })(42) : 数字
 >类型别名 :=> 数字
->(function(x, undefined) { return x; }) : (x: number, undefined?: undefined) => number
->function(x, undefined) { return x; } : (x: number, undefined?: undefined) => number
->x : number
+>(function(x, undefined) { return x; }) : (x: 数字, undefined?: 未定) => 数字
+>function(x, undefined) { return x; } : (x: 数字, undefined?: 未定) => 数字
+>x : 数字
 >类型别名 :=> 数字
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >42 : 42
 
 ((x, y, z) => 42)();
->((x, y, z) => 42)() : number
+>((x, y, z) => 42)() : 数字
 >类型别名 :=> 数字
->((x, y, z) => 42) : (x?: undefined, y?: undefined, z?: undefined) => number
->(x, y, z) => 42 : (x?: undefined, y?: undefined, z?: undefined) => number
->x : undefined
+>((x, y, z) => 42) : (x?: 未定, y?: 未定, z?: 未定) => 数字
+>(x, y, z) => 42 : (x?: 未定, y?: 未定, z?: 未定) => 数字
+>x : 未定
 >类型别名 :=> 未定
->y : undefined
+>y : 未定
 >类型别名 :=> 未定
->z : undefined
+>z : 未定
 >类型别名 :=> 未定
 >42 : 42
 

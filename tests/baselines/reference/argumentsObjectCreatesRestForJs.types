@@ -1,38 +1,38 @@
 === tests/cases/compiler/main.js ===
 function allRest() { arguments; }
->allRest : (...args: any[]) => void
+>allRest : (...args: 任意[]) => 无值
 >arguments : IArguments
 
 allRest();
->allRest() : void
+>allRest() : 无值
 >类型别名 :=> 无值
->allRest : (...args: any[]) => void
+>allRest : (...args: 任意[]) => 无值
 
 allRest(1, 2, 3);
->allRest(1, 2, 3) : void
+>allRest(1, 2, 3) : 无值
 >类型别名 :=> 无值
->allRest : (...args: any[]) => void
+>allRest : (...args: 任意[]) => 无值
 >1 : 1
 >2 : 2
 >3 : 3
 
 function someRest(x, y) { arguments; }
->someRest : (x: any, y: any, ...args: any[]) => void
->x : any
+>someRest : (x: 任意, y: 任意, ...args: 任意[]) => 无值
+>x : 任意
 >类型别名 :=> 任意
->y : any
+>y : 任意
 >类型别名 :=> 任意
 >arguments : IArguments
 
 someRest(); // x and y are still optional because they are in a JS file
->someRest() : void
+>someRest() : 无值
 >类型别名 :=> 无值
->someRest : (x: any, y: any, ...args: any[]) => void
+>someRest : (x: 任意, y: 任意, ...args: 任意[]) => 无值
 
 someRest(1, 2, 3);
->someRest(1, 2, 3) : void
+>someRest(1, 2, 3) : 无值
 >类型别名 :=> 无值
->someRest : (x: any, y: any, ...args: any[]) => void
+>someRest : (x: 任意, y: 任意, ...args: 任意[]) => 无值
 >1 : 1
 >2 : 2
 >3 : 3
@@ -41,28 +41,28 @@ someRest(1, 2, 3);
  * @param {number} x - a thing
  */
 function jsdocced(x) { arguments; }
->jsdocced : (x: number, ...args: any[]) => void
->x : number
+>jsdocced : (x: 数字, ...args: 任意[]) => 无值
+>x : 数字
 >类型别名 :=> 数字
 >arguments : IArguments
 
 jsdocced(1);
->jsdocced(1) : void
+>jsdocced(1) : 无值
 >类型别名 :=> 无值
->jsdocced : (x: number, ...args: any[]) => void
+>jsdocced : (x: 数字, ...args: 任意[]) => 无值
 >1 : 1
 
 function dontDoubleRest(x, ...y) { arguments; }
->dontDoubleRest : (x: any, ...y: any[]) => void
->x : any
+>dontDoubleRest : (x: 任意, ...y: 任意[]) => 无值
+>x : 任意
 >类型别名 :=> 任意
->y : any[]
+>y : 任意[]
 >arguments : IArguments
 
 dontDoubleRest(1, 2, 3);
->dontDoubleRest(1, 2, 3) : void
+>dontDoubleRest(1, 2, 3) : 无值
 >类型别名 :=> 无值
->dontDoubleRest : (x: any, ...y: any[]) => void
+>dontDoubleRest : (x: 任意, ...y: 任意[]) => 无值
 >1 : 1
 >2 : 2
 >3 : 3

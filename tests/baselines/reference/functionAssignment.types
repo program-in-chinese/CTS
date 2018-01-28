@@ -1,22 +1,22 @@
 === tests/cases/compiler/functionAssignment.ts ===
 function f(n: Function) { }
->f : (n: Function) => void
+>f : (n: Function) => 无值
 >n : Function
 >Function : Function
 
 f(function () { });
->f(function () { }) : void
+>f(function () { }) : 无值
 >类型别名 :=> 无值
->f : (n: Function) => void
->function () { } : () => void
+>f : (n: Function) => 无值
+>function () { } : () => 无值
 
 interface foo {
 >foo : foo
 
     get(handler: (bar: number)=>void): void;
->get : (handler: (bar: number) => void) => void
->handler : (bar: number) => void
->bar : number
+>get : (handler: (bar: 数字) => 无值) => 无值
+>handler : (bar: 数字) => 无值
+>bar : 数字
 >类型别名 :=> 数字
 }
 
@@ -24,7 +24,7 @@ interface baz {
 >baz : baz
 
     get(callback: Function): number;
->get : (callback: Function) => number
+>get : (callback: Function) => 数字
 >callback : Function
 >Function : Function
 }
@@ -38,100 +38,100 @@ var test: foo;
 >foo : foo
 
 test.get(function (param) {
->test.get(function (param) {    var x = barbaz.get(function () { });}) : void
+>test.get(function (param) {    var x = barbaz.get(function () { });}) : 无值
 >类型别名 :=> 无值
->test.get : (handler: (bar: number) => void) => void
+>test.get : (handler: (bar: 数字) => 无值) => 无值
 >test : foo
->get : (handler: (bar: number) => void) => void
->function (param) {    var x = barbaz.get(function () { });} : (param: number) => void
->param : number
+>get : (handler: (bar: 数字) => 无值) => 无值
+>function (param) {    var x = barbaz.get(function () { });} : (param: 数字) => 无值
+>param : 数字
 >类型别名 :=> 数字
 
     var x = barbaz.get(function () { });
->x : number
+>x : 数字
 >类型别名 :=> 数字
->barbaz.get(function () { }) : number
+>barbaz.get(function () { }) : 数字
 >类型别名 :=> 数字
->barbaz.get : (callback: Function) => number
+>barbaz.get : (callback: Function) => 数字
 >barbaz : baz
->get : (callback: Function) => number
->function () { } : () => void
+>get : (callback: Function) => 数字
+>function () { } : () => 无值
 
 });
 
 function f2(n: () => void) { }
->f2 : (n: () => void) => void
->n : () => void
+>f2 : (n: () => 无值) => 无值
+>n : () => 无值
 
 f2(() => {
->f2(() => {    var n = '';    n = 4;}) : void
+>f2(() => {    var n = '';    n = 4;}) : 无值
 >类型别名 :=> 无值
->f2 : (n: () => void) => void
->() => {    var n = '';    n = 4;} : () => void
+>f2 : (n: () => 无值) => 无值
+>() => {    var n = '';    n = 4;} : () => 无值
 
     var n = '';
->n : string
+>n : 文字
 >类型别名 :=> 文字
 >'' : ""
 
     n = 4;
 >n = 4 : 4
->n : string
+>n : 文字
 >类型别名 :=> 文字
 >4 : 4
 
 });
 
 function f3(a: { a: number; b: number; }) { }
->f3 : (a: { a: number; b: number; }) => void
->a : { a: number; b: number; }
->a : number
+>f3 : (a: { a: 数字; b: 数字; }) => 无值
+>a : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
 f3({ a: 0, b: 0 });
->f3({ a: 0, b: 0 }) : void
+>f3({ a: 0, b: 0 }) : 无值
 >类型别名 :=> 无值
->f3 : (a: { a: number; b: number; }) => void
->{ a: 0, b: 0 } : { a: number; b: number; }
->a : number
+>f3 : (a: { a: 数字; b: 数字; }) => 无值
+>{ a: 0, b: 0 } : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >0 : 0
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >0 : 0
 
 
 function callb(lam:(l: number) => void );
->callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
->lam : (l: number) => void
->l : number
+>callb : { (lam: (l: 数字) => 无值): 任意; (lam: (n: 文字) => 无值): 任意; }
+>lam : (l: 数字) => 无值
+>l : 数字
 >类型别名 :=> 数字
 
 function callb(lam:(n: string)=>void);
->callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
->lam : (n: string) => void
->n : string
+>callb : { (lam: (l: 数字) => 无值): 任意; (lam: (n: 文字) => 无值): 任意; }
+>lam : (n: 文字) => 无值
+>n : 文字
 >类型别名 :=> 文字
 
 function callb(a) { }
->callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
->a : any
+>callb : { (lam: (l: 数字) => 无值): 任意; (lam: (n: 文字) => 无值): 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 callb((a) =>{ a.length; });
->callb((a) =>{ a.length; }) : any
+>callb((a) =>{ a.length; }) : 任意
 >类型别名 :=> 任意
->callb : { (lam: (l: number) => void): any; (lam: (n: string) => void): any; }
->(a) =>{ a.length; } : (a: number) => void
->a : number
+>callb : { (lam: (l: 数字) => 无值): 任意; (lam: (n: 文字) => 无值): 任意; }
+>(a) =>{ a.length; } : (a: 数字) => 无值
+>a : 数字
 >类型别名 :=> 数字
->a.length : any
+>a.length : 任意
 >类型别名 :=> 任意
->a : number
+>a : 数字
 >类型别名 :=> 数字
->length : any
+>length : 任意
 >类型别名 :=> 任意
 
 

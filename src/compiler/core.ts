@@ -2751,6 +2751,7 @@ namespace ts {
             newLine: host.newLine,
             readFile: (path, encoding) => host.readFile(path, encoding),
             write: s => host.write(s),
+            追写文件,
             writeFile,
             fileExists,
             directoryExists,
@@ -2837,6 +2838,9 @@ namespace ts {
                 updateFilesOfFileSystemEntry(result, getBaseNameOfFileName(fileName), /*fileExists*/ true);
             }
             return host.writeFile(fileName, data, writeByteOrderMark);
+        }
+        function 追写文件(path: string, data: string | Buffer){
+            return host.追写文件(path, data);
         }
 
         function fileExists(fileName: string): boolean {

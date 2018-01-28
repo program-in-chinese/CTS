@@ -13,34 +13,34 @@ function foo<T>(x: { bar: T; baz: T }) {
 }
 
 var r = foo({ bar: 1, baz: '' }); // error
->r : any
+>r : 任意
 >类型别名 :=> 任意
->foo({ bar: 1, baz: '' }) : any
+>foo({ bar: 1, baz: '' }) : 任意
 >类型别名 :=> 任意
 >foo : <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }
->{ bar: 1, baz: '' } : { bar: number; baz: string; }
->bar : number
+>{ bar: 1, baz: '' } : { bar: 数字; baz: 文字; }
+>bar : 数字
 >类型别名 :=> 数字
 >1 : 1
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 var r2 = foo({ bar: 1, baz: 1 }); // T = number
->r2 : { bar: number; baz: number; }
->foo({ bar: 1, baz: 1 }) : { bar: number; baz: number; }
+>r2 : { bar: 数字; baz: 数字; }
+>foo({ bar: 1, baz: 1 }) : { bar: 数字; baz: 数字; }
 >foo : <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }
->{ bar: 1, baz: 1 } : { bar: number; baz: number; }
->bar : number
+>{ bar: 1, baz: 1 } : { bar: 数字; baz: 数字; }
+>bar : 数字
 >类型别名 :=> 数字
 >1 : 1
->baz : number
+>baz : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 var r3 = foo({ bar: foo, baz: foo }); // T = typeof foo
->r3 : { bar: <T>(x: any) => any; baz: <T>(x: any) => any; }
->foo({ bar: foo, baz: foo }) : { bar: <T>(x: any) => any; baz: <T>(x: any) => any; }
+>r3 : { bar: <T>(x: 任意) => 任意; baz: <T>(x: 任意) => 任意; }
+>foo({ bar: foo, baz: foo }) : { bar: <T>(x: 任意) => 任意; baz: <T>(x: 任意) => 任意; }
 >foo : <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }
 >{ bar: foo, baz: foo } : { bar: <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }; baz: <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }; }
 >bar : <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }
@@ -53,11 +53,11 @@ var r4 = foo<Object>({ bar: 1, baz: '' }); // T = Object
 >foo<Object>({ bar: 1, baz: '' }) : { bar: Object; baz: Object; }
 >foo : <T>(x: { bar: T; baz: T; }) => { bar: T; baz: T; }
 >Object : Object
->{ bar: 1, baz: '' } : { bar: number; baz: string; }
->bar : number
+>{ bar: 1, baz: '' } : { bar: 数字; baz: 文字; }
+>bar : 数字
 >类型别名 :=> 数字
 >1 : 1
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 >'' : ""
 

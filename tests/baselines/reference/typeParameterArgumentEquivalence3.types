@@ -1,28 +1,28 @@
 === tests/cases/compiler/typeParameterArgumentEquivalence3.ts ===
 function foo<T,U>() {
->foo : <T, U>() => void
+>foo : <T, U>() => 无值
 >T : T
 >U : U
 
     var x: (item) => T;
->x : (item: any) => T
->item : any
+>x : (item: 任意) => T
+>item : 任意
 >类型别名 :=> 任意
 >T : T
 
     var y: (item) => boolean;
->y : (item: any) => boolean
->item : any
+>y : (item: 任意) => 真假
+>item : 任意
 >类型别名 :=> 任意
 
     x = y;  // Should be an error
->x = y : (item: any) => boolean
->x : (item: any) => T
->y : (item: any) => boolean
+>x = y : (item: 任意) => 真假
+>x : (item: 任意) => T
+>y : (item: 任意) => 真假
 
     y = x;  // Shound be an error
->y = x : (item: any) => T
->y : (item: any) => boolean
->x : (item: any) => T
+>y = x : (item: 任意) => T
+>y : (item: 任意) => 真假
+>x : (item: 任意) => T
 }
 

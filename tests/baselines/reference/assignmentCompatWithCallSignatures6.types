@@ -3,25 +3,25 @@
 
 class Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
->bing : string
+>bing : 文字
 >类型别名 :=> 文字
 
 interface A {
@@ -35,19 +35,19 @@ interface A {
 >T : T
 
     a2: <T>(x: T) => string[];
->a2 : <T>(x: T) => string[]
+>a2 : <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
 
     a3: <T>(x: T) => void;
->a3 : <T>(x: T) => void
+>a3 : <T>(x: T) => 无值
 >T : T
 >x : T
 >T : T
 
     a4: <T,U>(x: T, y: U) => string;
->a4 : <T, U>(x: T, y: U) => string
+>a4 : <T, U>(x: T, y: U) => 文字
 >T : T
 >U : U
 >x : T
@@ -66,7 +66,7 @@ interface A {
 >T : T
 
     a6: <T extends Base>(x: (arg: T) => Derived) => T;
->a6 : <T extends Base>(x: (arg: T) => Derived) => T
+>a6 : <T 扩展 Base>(x: (arg: T) => Derived) => T
 >T : T
 >Base : Base
 >x : (arg: T) => Derived
@@ -99,7 +99,7 @@ interface A {
 >T : T
 
     a16: <T extends Base>(x: { a: T; b: T }) => T[];
->a16 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>a16 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >T : T
 >Base : Base
 >x : { a: T; b: T; }
@@ -136,24 +136,24 @@ b = x.a;
 >a : <T>(x: T) => T[]
 
 var b2: <T>(x: T) => string[]; 
->b2 : <T>(x: T) => string[]
+>b2 : <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
 
 x.a2 = b2;
->x.a2 = b2 : <T>(x: T) => string[]
->x.a2 : <T>(x: T) => string[]
+>x.a2 = b2 : <T>(x: T) => 文字[]
+>x.a2 : <T>(x: T) => 文字[]
 >x : A
->a2 : <T>(x: T) => string[]
->b2 : <T>(x: T) => string[]
+>a2 : <T>(x: T) => 文字[]
+>b2 : <T>(x: T) => 文字[]
 
 b2 = x.a2;
->b2 = x.a2 : <T>(x: T) => string[]
->b2 : <T>(x: T) => string[]
->x.a2 : <T>(x: T) => string[]
+>b2 = x.a2 : <T>(x: T) => 文字[]
+>b2 : <T>(x: T) => 文字[]
+>x.a2 : <T>(x: T) => 文字[]
 >x : A
->a2 : <T>(x: T) => string[]
+>a2 : <T>(x: T) => 文字[]
 
 var b3: <T>(x: T) => T;
 >b3 : <T>(x: T) => T
@@ -164,20 +164,20 @@ var b3: <T>(x: T) => T;
 
 x.a3 = b3;
 >x.a3 = b3 : <T>(x: T) => T
->x.a3 : <T>(x: T) => void
+>x.a3 : <T>(x: T) => 无值
 >x : A
->a3 : <T>(x: T) => void
+>a3 : <T>(x: T) => 无值
 >b3 : <T>(x: T) => T
 
 b3 = x.a3;
->b3 = x.a3 : <T>(x: T) => void
+>b3 = x.a3 : <T>(x: T) => 无值
 >b3 : <T>(x: T) => T
->x.a3 : <T>(x: T) => void
+>x.a3 : <T>(x: T) => 无值
 >x : A
->a3 : <T>(x: T) => void
+>a3 : <T>(x: T) => 无值
 
 var b4: <T, U>(x: T, y: U) => string; 
->b4 : <T, U>(x: T, y: U) => string
+>b4 : <T, U>(x: T, y: U) => 文字
 >T : T
 >U : U
 >x : T
@@ -186,18 +186,18 @@ var b4: <T, U>(x: T, y: U) => string;
 >U : U
 
 x.a4 = b4;
->x.a4 = b4 : <T, U>(x: T, y: U) => string
->x.a4 : <T, U>(x: T, y: U) => string
+>x.a4 = b4 : <T, U>(x: T, y: U) => 文字
+>x.a4 : <T, U>(x: T, y: U) => 文字
 >x : A
->a4 : <T, U>(x: T, y: U) => string
->b4 : <T, U>(x: T, y: U) => string
+>a4 : <T, U>(x: T, y: U) => 文字
+>b4 : <T, U>(x: T, y: U) => 文字
 
 b4 = x.a4;
->b4 = x.a4 : <T, U>(x: T, y: U) => string
->b4 : <T, U>(x: T, y: U) => string
->x.a4 : <T, U>(x: T, y: U) => string
+>b4 = x.a4 : <T, U>(x: T, y: U) => 文字
+>b4 : <T, U>(x: T, y: U) => 文字
+>x.a4 : <T, U>(x: T, y: U) => 文字
 >x : A
->a4 : <T, U>(x: T, y: U) => string
+>a4 : <T, U>(x: T, y: U) => 文字
 
 var b5: <T, U>(x: (arg: T) => U) => T; 
 >b5 : <T, U>(x: (arg: T) => U) => T
@@ -263,15 +263,15 @@ var b16: <T>(x: { a: T; b: T }) => T[];
 
 x.a16 = b16;
 >x.a16 = b16 : <T>(x: { a: T; b: T; }) => T[]
->x.a16 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>x.a16 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >x : A
->a16 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>a16 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >b16 : <T>(x: { a: T; b: T; }) => T[]
 
 b16 = x.a16;
->b16 = x.a16 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>b16 = x.a16 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >b16 : <T>(x: { a: T; b: T; }) => T[]
->x.a16 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>x.a16 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >x : A
->a16 : <T extends Base>(x: { a: T; b: T; }) => T[]
+>a16 : <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 

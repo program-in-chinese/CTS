@@ -1,55 +1,55 @@
 === tests/cases/compiler/implicitAnyDeclareFunctionWithoutFormalType.ts ===
 // these should be errors
 function foo(x) { };
->foo : (x: any) => void
->x : any
+>foo : (x: 任意) => 无值
+>x : 任意
 >类型别名 :=> 任意
 
 function bar(x: number, y) { };  // error at "y"; no error at "x"
->bar : (x: number, y: any) => void
->x : number
+>bar : (x: 数字, y: 任意) => 无值
+>x : 数字
 >类型别名 :=> 数字
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
 function func2(a, b, c) { };     // error at "a,b,c"
->func2 : (a: any, b: any, c: any) => void
->a : any
+>func2 : (a: 任意, b: 任意, c: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
 function func3(...args) { };     // error at "args" 
->func3 : (...args: any[]) => void
->args : any[]
+>func3 : (...args: 任意[]) => 无值
+>args : 任意[]
 
 function func4(z= null, w= undefined) { };  // error at "z,w"
->func4 : (z?: any, w?: any) => void
->z : any
+>func4 : (z?: 任意, w?: 任意) => 无值
+>z : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
->w : any
+>w : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 // these shouldn't be errors
 function noError1(x= 3, y= 2) { };
->noError1 : (x?: number, y?: number) => void
->x : number
+>noError1 : (x?: 数字, y?: 数字) => 无值
+>x : 数字
 >类型别名 :=> 数字
 >3 : 3
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >2 : 2
 
 function noError2(x: number, y: string) { };
->noError2 : (x: number, y: string) => void
->x : number
+>noError2 : (x: 数字, y: 文字) => 无值
+>x : 数字
 >类型别名 :=> 数字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 

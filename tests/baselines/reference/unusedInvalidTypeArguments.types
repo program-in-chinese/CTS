@@ -3,24 +3,24 @@
 
 
 type N = number;
->N : number
+>N : 数字
 >类型别名 :=> 数字
 
 type U = number;
->U : number
+>U : 数字
 >类型别名 :=> 数字
 
 export type Z = U<N>;
->Z : any
+>Z : 任意
 >类型别名 :=> 任意
->U : number
+>U : 数字
 >类型别名 :=> 数字
->N : number
+>N : 数字
 >类型别名 :=> 数字
 
 === /classReference.ts ===
 type N = number;
->N : number
+>N : 数字
 >类型别名 :=> 数字
 
 class C { }
@@ -29,124 +29,124 @@ class C { }
 // This uses getTypeFromClassOrInterfaceReference instead of getTypeFromTypeAliasReference.
 export class D extends C<N> {}
 >D : D
->C : typeof C
->N : number
+>C : 类为 C
+>N : 数字
 >类型别名 :=> 数字
 
 === /interface.ts ===
 import { Foo } from "unknown";
->Foo : any
+>Foo : 任意
 >类型别名 :=> 任意
 
 export interface I<T> { x: Foo<T>; }
 >I : I<T>
 >T : T
->x : any
+>x : 任意
 >类型别名 :=> 任意
->Foo : any
+>Foo : 任意
 >类型别名 :=> 任意
 >T : T
 
 === /call.ts ===
 import { foo } from "unknown";
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
 type T = number;
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 foo<T>();
->foo<T>() : any
+>foo<T>() : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 === /new.ts ===
 import { Foo } from "unkown";
->Foo : any
+>Foo : 任意
 >类型别名 :=> 任意
 
 type T = number;
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 new Foo<T>();
->new Foo<T>() : any
+>new Foo<T>() : 任意
 >类型别名 :=> 任意
->Foo : any
+>Foo : 任意
 >类型别名 :=> 任意
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 === /callAny.ts ===
 declare var g: any;
->g : any
+>g : 任意
 >类型别名 :=> 任意
 
 type U = number;
->U : number
+>U : 数字
 >类型别名 :=> 数字
 
 g<U>();
->g<U>() : any
+>g<U>() : 任意
 >类型别名 :=> 任意
->g : any
+>g : 任意
 >类型别名 :=> 任意
->U : number
+>U : 数字
 >类型别名 :=> 数字
 
 g<InvalidReference>(); // Should get error for type argument
->g<InvalidReference>() : any
+>g<InvalidReference>() : 任意
 >类型别名 :=> 任意
->g : any
+>g : 任意
 >类型别名 :=> 任意
 >InvalidReference : No type information available!
 
 === /super.ts ===
 import { A, B } from "unknown";
->A : any
+>A : 任意
 >类型别名 :=> 任意
->B : any
+>B : 任意
 >类型别名 :=> 任意
 
 type T = number;
->T : number
+>T : 数字
 >类型别名 :=> 数字
 
 export class C extends A<B> {
 >C : C
->A : any
+>A : 任意
 >类型别名 :=> 任意
->B : any
+>B : 任意
 >类型别名 :=> 任意
 
     m() {
->m : () => void
+>m : () => 无值
 
         super.m<T>(1);
->super.m<T>(1) : any
+>super.m<T>(1) : 任意
 >类型别名 :=> 任意
->super.m : any
+>super.m : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->m : any
+>m : 任意
 >类型别名 :=> 任意
->T : number
+>T : 数字
 >类型别名 :=> 数字
 >1 : 1
 
         super.m<InvalidReference>(); // Should get error for type argument
->super.m<InvalidReference>() : any
+>super.m<InvalidReference>() : 任意
 >类型别名 :=> 任意
->super.m : any
+>super.m : 任意
 >类型别名 :=> 任意
->super : any
+>super : 任意
 >类型别名 :=> 任意
->m : any
+>m : 任意
 >类型别名 :=> 任意
 >InvalidReference : No type information available!
     }

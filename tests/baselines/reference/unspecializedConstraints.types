@@ -1,13 +1,13 @@
 === tests/cases/compiler/unspecializedConstraints.ts ===
 module ts {
->ts : typeof ts
+>ts : 类为 ts
 
     interface Map<T> {
 >Map : Map<T>
 >T : T
 
         [index: string]: T;
->index : string
+>index : 文字
 >类型别名 :=> 文字
 >T : T
     }
@@ -17,7 +17,7 @@ module ts {
 >T : T
 
         equals(other: T): boolean;
->equals : (other: T) => boolean
+>equals : (other: T) => 真假
 >other : T
 >T : T
     }
@@ -31,133 +31,133 @@ module ts {
 >Symbol : Symbol
 
         equals(that: Type): boolean {
->equals : (that: Type) => boolean
+>equals : (that: Type) => 真假
 >that : Type
 >Type : Type
 
             if (this === that) return true;
->this === that : boolean
+>this === that : 真假
 >类型别名 :=> 真假
->this : this
+>this : 本体
 >that : Type
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
             if (!(this.isObjectType() && that.isObjectType())) return false;
->!(this.isObjectType() && that.isObjectType()) : boolean
+>!(this.isObjectType() && that.isObjectType()) : 真假
 >类型别名 :=> 真假
->(this.isObjectType() && that.isObjectType()) : boolean
+>(this.isObjectType() && that.isObjectType()) : 真假
 >类型别名 :=> 真假
->this.isObjectType() && that.isObjectType() : boolean
+>this.isObjectType() && that.isObjectType() : 真假
 >类型别名 :=> 真假
->this.isObjectType() : boolean
+>this.isObjectType() : 真假
 >类型别名 :=> 真假
->this.isObjectType : () => boolean
->this : this
->isObjectType : () => boolean
->that.isObjectType() : boolean
+>this.isObjectType : () => 真假
+>this : 本体
+>isObjectType : () => 真假
+>that.isObjectType() : 真假
 >类型别名 :=> 真假
->that.isObjectType : () => boolean
+>that.isObjectType : () => 真假
 >that : Type
->isObjectType : () => boolean
->false : false
+>isObjectType : () => 真假
+>false : 为假
 >类型别名 :=> 为假
 
             var propCount = that.getPropertyCount();
->propCount : number
+>propCount : 数字
 >类型别名 :=> 数字
->that.getPropertyCount() : number
+>that.getPropertyCount() : 数字
 >类型别名 :=> 数字
->that.getPropertyCount : () => number
+>that.getPropertyCount : () => 数字
 >that : Type
->getPropertyCount : () => number
+>getPropertyCount : () => 数字
 
             if (propCount !== this.getPropertyCount()) return false;
->propCount !== this.getPropertyCount() : boolean
+>propCount !== this.getPropertyCount() : 真假
 >类型别名 :=> 真假
->propCount : number
+>propCount : 数字
 >类型别名 :=> 数字
->this.getPropertyCount() : number
+>this.getPropertyCount() : 数字
 >类型别名 :=> 数字
->this.getPropertyCount : () => number
->this : this
->getPropertyCount : () => number
->false : false
+>this.getPropertyCount : () => 数字
+>this : 本体
+>getPropertyCount : () => 数字
+>false : 为假
 >类型别名 :=> 为假
 
             var sigCount = that.getSignatureCount();
->sigCount : number
+>sigCount : 数字
 >类型别名 :=> 数字
->that.getSignatureCount() : number
+>that.getSignatureCount() : 数字
 >类型别名 :=> 数字
->that.getSignatureCount : () => number
+>that.getSignatureCount : () => 数字
 >that : Type
->getSignatureCount : () => number
+>getSignatureCount : () => 数字
 
             if (sigCount !== this.getSignatureCount()) return false;
->sigCount !== this.getSignatureCount() : boolean
+>sigCount !== this.getSignatureCount() : 真假
 >类型别名 :=> 真假
->sigCount : number
+>sigCount : 数字
 >类型别名 :=> 数字
->this.getSignatureCount() : number
+>this.getSignatureCount() : 数字
 >类型别名 :=> 数字
->this.getSignatureCount : () => number
->this : this
->getSignatureCount : () => number
->false : false
+>this.getSignatureCount : () => 数字
+>this : 本体
+>getSignatureCount : () => 数字
+>false : 为假
 >类型别名 :=> 为假
 
             if (propCount) {
->propCount : number
+>propCount : 数字
 >类型别名 :=> 数字
 
                 for (var i = 0; i < propCount; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < propCount : boolean
+>i < propCount : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->propCount : number
+>propCount : 数字
 >类型别名 :=> 数字
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
                     var thisProp = this.getProperty(i);
 >thisProp : Property
 >this.getProperty(i) : Property
->this.getProperty : (index: number) => Property
->this : this
->getProperty : (index: number) => Property
->i : number
+>this.getProperty : (index: 数字) => Property
+>this : 本体
+>getProperty : (index: 数字) => Property
+>i : 数字
 >类型别名 :=> 数字
 
                     var thatProp = that.getPropertyByName(thisProp.name);
 >thatProp : Property
 >that.getPropertyByName(thisProp.name) : Property
->that.getPropertyByName : (name: string) => Property
+>that.getPropertyByName : (name: 文字) => Property
 >that : Type
->getPropertyByName : (name: string) => Property
->thisProp.name : string
+>getPropertyByName : (name: 文字) => Property
+>thisProp.name : 文字
 >类型别名 :=> 文字
 >thisProp : Property
->name : string
+>name : 文字
 >类型别名 :=> 文字
 
                     if (!(thatProp && thisProp.flags === thatProp.flags && thisProp.type.equals(thatProp.type))) return false;
->!(thatProp && thisProp.flags === thatProp.flags && thisProp.type.equals(thatProp.type)) : boolean
+>!(thatProp && thisProp.flags === thatProp.flags && thisProp.type.equals(thatProp.type)) : 真假
 >类型别名 :=> 真假
->(thatProp && thisProp.flags === thatProp.flags && thisProp.type.equals(thatProp.type)) : boolean
+>(thatProp && thisProp.flags === thatProp.flags && thisProp.type.equals(thatProp.type)) : 真假
 >类型别名 :=> 真假
->thatProp && thisProp.flags === thatProp.flags && thisProp.type.equals(thatProp.type) : boolean
+>thatProp && thisProp.flags === thatProp.flags && thisProp.type.equals(thatProp.type) : 真假
 >类型别名 :=> 真假
->thatProp && thisProp.flags === thatProp.flags : boolean
+>thatProp && thisProp.flags === thatProp.flags : 真假
 >类型别名 :=> 真假
 >thatProp : Property
->thisProp.flags === thatProp.flags : boolean
+>thisProp.flags === thatProp.flags : 真假
 >类型别名 :=> 真假
 >thisProp.flags : PropertyFlags
 >thisProp : Property
@@ -165,43 +165,43 @@ module ts {
 >thatProp.flags : PropertyFlags
 >thatProp : Property
 >flags : PropertyFlags
->thisProp.type.equals(thatProp.type) : boolean
+>thisProp.type.equals(thatProp.type) : 真假
 >类型别名 :=> 真假
->thisProp.type.equals : (that: Type) => boolean
+>thisProp.type.equals : (that: Type) => 真假
 >thisProp.type : Type
 >thisProp : Property
 >type : Type
->equals : (that: Type) => boolean
+>equals : (that: Type) => 真假
 >thatProp.type : Type
 >thatProp : Property
 >type : Type
->false : false
+>false : 为假
 >类型别名 :=> 为假
                 }
             }
             if (sigCount) {
->sigCount : number
+>sigCount : 数字
 >类型别名 :=> 数字
 
                 if (!setEquals(this.getSignatures(), that.getSignatures())) return false;
->!setEquals(this.getSignatures(), that.getSignatures()) : boolean
+>!setEquals(this.getSignatures(), that.getSignatures()) : 真假
 >类型别名 :=> 真假
->setEquals(this.getSignatures(), that.getSignatures()) : boolean
+>setEquals(this.getSignatures(), that.getSignatures()) : 真假
 >类型别名 :=> 真假
->setEquals : <T extends Equals<T>>(a: T[], b: T[]) => boolean
+>setEquals : <T 扩展 Equals<T>>(a: T[], b: T[]) => 真假
 >this.getSignatures() : Signature[]
 >this.getSignatures : () => Signature[]
->this : this
+>this : 本体
 >getSignatures : () => Signature[]
 >that.getSignatures() : Signature[]
 >that.getSignatures : () => Signature[]
 >that : Type
 >getSignatures : () => Signature[]
->false : false
+>false : 为假
 >类型别名 :=> 为假
             }
             return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
         }
         getProperties(): Property[] {
@@ -209,46 +209,46 @@ module ts {
 >Property : Property
 
             return [];
->[] : undefined[]
+>[] : 未定[]
         }
         getProperty(index: number): Property {
->getProperty : (index: number) => Property
->index : number
+>getProperty : (index: 数字) => Property
+>index : 数字
 >类型别名 :=> 数字
 >Property : Property
 
             return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
         }
         getPropertyByName(name: string): Property {
->getPropertyByName : (name: string) => Property
->name : string
+>getPropertyByName : (name: 文字) => Property
+>name : 文字
 >类型别名 :=> 文字
 >Property : Property
 
             return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
         }
         getPropertyCount(): number {
->getPropertyCount : () => number
+>getPropertyCount : () => 数字
 
             return 0;
 >0 : 0
         }
         getSignature(index: number): Signature {
->getSignature : (index: number) => Signature
->index : number
+>getSignature : (index: 数字) => Signature
+>index : 数字
 >类型别名 :=> 数字
 >Signature : Signature
 
             return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
         }
         getSignatureCount(): number {
->getSignatureCount : () => number
+>getSignatureCount : () => 数字
 
             return 0;
 >0 : 0
@@ -258,31 +258,31 @@ module ts {
 >Signature : Signature
 
             return [];
->[] : undefined[]
+>[] : 未定[]
         }
         isPrimitive(): boolean {
->isPrimitive : () => boolean
+>isPrimitive : () => 真假
 
             return false;
->false : false
+>false : 为假
 >类型别名 :=> 为假
         }
         isObjectType(): boolean {
->isObjectType : () => boolean
+>isObjectType : () => 真假
 
             return false;
->false : false
+>false : 为假
 >类型别名 :=> 为假
         }
         isTypeParameter(): boolean {
->isTypeParameter : () => boolean
+>isTypeParameter : () => 真假
 
             return false;
->false : false
+>false : 为假
 >类型别名 :=> 为假
         }
         isSubTypeOf(type: Type) {
->isSubTypeOf : (type: Type) => void
+>isSubTypeOf : (type: Type) => 无值
 >type : Type
 >Type : Type
         }
@@ -293,7 +293,7 @@ module ts {
 >Symbol : Symbol
 
         constructor(public name: string, public type: Type, public flags: PropertyFlags) {
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >type : Type
 >Type : Type
@@ -301,51 +301,51 @@ module ts {
 >PropertyFlags : PropertyFlags
 
             super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof Symbol
+>super : 类为 Symbol
         }
         equals(other: Property): boolean {
->equals : (other: Property) => boolean
+>equals : (other: Property) => 真假
 >other : Property
 >Property : Property
 
             return this.name === other.name &&
->this.name === other.name &&                this.flags === other.flags &&                this.type.equals(other.type) : boolean
+>this.name === other.name &&                this.flags === other.flags &&                this.type.equals(other.type) : 真假
 >类型别名 :=> 真假
->this.name === other.name &&                this.flags === other.flags : boolean
+>this.name === other.name &&                this.flags === other.flags : 真假
 >类型别名 :=> 真假
->this.name === other.name : boolean
+>this.name === other.name : 真假
 >类型别名 :=> 真假
->this.name : string
+>this.name : 文字
 >类型别名 :=> 文字
->this : this
->name : string
+>this : 本体
+>name : 文字
 >类型别名 :=> 文字
->other.name : string
+>other.name : 文字
 >类型别名 :=> 文字
 >other : Property
->name : string
+>name : 文字
 >类型别名 :=> 文字
 
                 this.flags === other.flags &&
->this.flags === other.flags : boolean
+>this.flags === other.flags : 真假
 >类型别名 :=> 真假
 >this.flags : PropertyFlags
->this : this
+>this : 本体
 >flags : PropertyFlags
 >other.flags : PropertyFlags
 >other : Property
 >flags : PropertyFlags
 
                 this.type.equals(other.type);
->this.type.equals(other.type) : boolean
+>this.type.equals(other.type) : 真假
 >类型别名 :=> 真假
->this.type.equals : (that: Type) => boolean
+>this.type.equals : (that: Type) => 真假
 >this.type : Type
->this : this
+>this : 本体
 >type : Type
->equals : (that: Type) => boolean
+>equals : (that: Type) => 真假
 >other.type : Type
 >other : Property
 >type : Type
@@ -369,7 +369,7 @@ module ts {
 >Symbol : Symbol
 
         constructor(public typeParameters: TypeParameter[], public parameters: Parameter[], public returnType: Type) {
->typeParameters : any[]
+>typeParameters : 任意[]
 >TypeParameter : No type information available!
 >parameters : Parameter[]
 >Parameter : Parameter
@@ -377,102 +377,102 @@ module ts {
 >Type : Type
 
             super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof Symbol
+>super : 类为 Symbol
         }
         equalsNoReturn(other: Signature): boolean {
->equalsNoReturn : (other: Signature) => boolean
+>equalsNoReturn : (other: Signature) => 真假
 >other : Signature
 >Signature : Signature
 
             return this.parameters.length === other.parameters.length &&
->this.parameters.length === other.parameters.length &&                this.typeParameters.length === other.typeParameters.length &&                arrayEquals(this.parameters, other.parameters) &&                arrayEquals(this.typeParameters, other.typeParameters) : boolean
+>this.parameters.length === other.parameters.length &&                this.typeParameters.length === other.typeParameters.length &&                arrayEquals(this.parameters, other.parameters) &&                arrayEquals(this.typeParameters, other.typeParameters) : 真假
 >类型别名 :=> 真假
->this.parameters.length === other.parameters.length &&                this.typeParameters.length === other.typeParameters.length &&                arrayEquals(this.parameters, other.parameters) : boolean
+>this.parameters.length === other.parameters.length &&                this.typeParameters.length === other.typeParameters.length &&                arrayEquals(this.parameters, other.parameters) : 真假
 >类型别名 :=> 真假
->this.parameters.length === other.parameters.length &&                this.typeParameters.length === other.typeParameters.length : boolean
+>this.parameters.length === other.parameters.length &&                this.typeParameters.length === other.typeParameters.length : 真假
 >类型别名 :=> 真假
->this.parameters.length === other.parameters.length : boolean
+>this.parameters.length === other.parameters.length : 真假
 >类型别名 :=> 真假
->this.parameters.length : number
+>this.parameters.length : 数字
 >类型别名 :=> 数字
 >this.parameters : Parameter[]
->this : this
+>this : 本体
 >parameters : Parameter[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
->other.parameters.length : number
+>other.parameters.length : 数字
 >类型别名 :=> 数字
 >other.parameters : Parameter[]
 >other : Signature
 >parameters : Parameter[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
                 this.typeParameters.length === other.typeParameters.length &&
->this.typeParameters.length === other.typeParameters.length : boolean
+>this.typeParameters.length === other.typeParameters.length : 真假
 >类型别名 :=> 真假
->this.typeParameters.length : number
+>this.typeParameters.length : 数字
 >类型别名 :=> 数字
->this.typeParameters : any[]
->this : this
->typeParameters : any[]
->length : number
+>this.typeParameters : 任意[]
+>this : 本体
+>typeParameters : 任意[]
+>length : 数字
 >类型别名 :=> 数字
->other.typeParameters.length : number
+>other.typeParameters.length : 数字
 >类型别名 :=> 数字
->other.typeParameters : any[]
+>other.typeParameters : 任意[]
 >other : Signature
->typeParameters : any[]
->length : number
+>typeParameters : 任意[]
+>length : 数字
 >类型别名 :=> 数字
 
                 arrayEquals(this.parameters, other.parameters) &&
->arrayEquals(this.parameters, other.parameters) : boolean
+>arrayEquals(this.parameters, other.parameters) : 真假
 >类型别名 :=> 真假
->arrayEquals : <T extends Equals<T>>(a: T[], b: T[]) => boolean
+>arrayEquals : <T 扩展 Equals<T>>(a: T[], b: T[]) => 真假
 >this.parameters : Parameter[]
->this : this
+>this : 本体
 >parameters : Parameter[]
 >other.parameters : Parameter[]
 >other : Signature
 >parameters : Parameter[]
 
                 arrayEquals(this.typeParameters, other.typeParameters);
->arrayEquals(this.typeParameters, other.typeParameters) : boolean
+>arrayEquals(this.typeParameters, other.typeParameters) : 真假
 >类型别名 :=> 真假
->arrayEquals : <T extends Equals<T>>(a: T[], b: T[]) => boolean
->this.typeParameters : any[]
->this : this
->typeParameters : any[]
->other.typeParameters : any[]
+>arrayEquals : <T 扩展 Equals<T>>(a: T[], b: T[]) => 真假
+>this.typeParameters : 任意[]
+>this : 本体
+>typeParameters : 任意[]
+>other.typeParameters : 任意[]
 >other : Signature
->typeParameters : any[]
+>typeParameters : 任意[]
         }
         equals(other: Signature): boolean {
->equals : (other: Signature) => boolean
+>equals : (other: Signature) => 真假
 >other : Signature
 >Signature : Signature
 
             return this.equalsNoReturn(other) &&
->this.equalsNoReturn(other) &&                this.returnType.equals(other.returnType) : boolean
+>this.equalsNoReturn(other) &&                this.returnType.equals(other.returnType) : 真假
 >类型别名 :=> 真假
->this.equalsNoReturn(other) : boolean
+>this.equalsNoReturn(other) : 真假
 >类型别名 :=> 真假
->this.equalsNoReturn : (other: Signature) => boolean
->this : this
->equalsNoReturn : (other: Signature) => boolean
+>this.equalsNoReturn : (other: Signature) => 真假
+>this : 本体
+>equalsNoReturn : (other: Signature) => 真假
 >other : Signature
 
                 this.returnType.equals(other.returnType);
->this.returnType.equals(other.returnType) : boolean
+>this.returnType.equals(other.returnType) : 真假
 >类型别名 :=> 真假
->this.returnType.equals : (that: Type) => boolean
+>this.returnType.equals : (that: Type) => 真假
 >this.returnType : Type
->this : this
+>this : 本体
 >returnType : Type
->equals : (that: Type) => boolean
+>equals : (that: Type) => 真假
 >other.returnType : Type
 >other : Signature
 >returnType : Type
@@ -484,7 +484,7 @@ module ts {
 >Symbol : Symbol
 
         constructor(public name: string, public type: Type, public flags: ParameterFlags) {
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >type : Type
 >Type : Type
@@ -492,51 +492,51 @@ module ts {
 >ParameterFlags : ParameterFlags
 
             super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof Symbol
+>super : 类为 Symbol
         }
         equals(other: Parameter) {
->equals : (other: Parameter) => boolean
+>equals : (other: Parameter) => 真假
 >other : Parameter
 >Parameter : Parameter
 
             return this.name === other.name &&
->this.name === other.name &&                this.flags === other.flags &&                this.type.equals(other.type) : boolean
+>this.name === other.name &&                this.flags === other.flags &&                this.type.equals(other.type) : 真假
 >类型别名 :=> 真假
->this.name === other.name &&                this.flags === other.flags : boolean
+>this.name === other.name &&                this.flags === other.flags : 真假
 >类型别名 :=> 真假
->this.name === other.name : boolean
+>this.name === other.name : 真假
 >类型别名 :=> 真假
->this.name : string
+>this.name : 文字
 >类型别名 :=> 文字
->this : this
->name : string
+>this : 本体
+>name : 文字
 >类型别名 :=> 文字
->other.name : string
+>other.name : 文字
 >类型别名 :=> 文字
 >other : Parameter
->name : string
+>name : 文字
 >类型别名 :=> 文字
 
                 this.flags === other.flags &&
->this.flags === other.flags : boolean
+>this.flags === other.flags : 真假
 >类型别名 :=> 真假
 >this.flags : ParameterFlags
->this : this
+>this : 本体
 >flags : ParameterFlags
 >other.flags : ParameterFlags
 >other : Parameter
 >flags : ParameterFlags
 
                 this.type.equals(other.type);
->this.type.equals(other.type) : boolean
+>this.type.equals(other.type) : 真假
 >类型别名 :=> 真假
->this.type.equals : (that: Type) => boolean
+>this.type.equals : (that: Type) => 真假
 >this.type : Type
->this : this
+>this : 本体
 >type : Type
->equals : (that: Type) => boolean
+>equals : (that: Type) => 真假
 >other.type : Type
 >other : Parameter
 >type : Type
@@ -557,66 +557,66 @@ module ts {
 
    
     var hasOwnProperty = Object.prototype.hasOwnProperty;
->hasOwnProperty : (v: string) => boolean
->Object.prototype.hasOwnProperty : (v: string) => boolean
+>hasOwnProperty : (v: 文字) => 真假
+>Object.prototype.hasOwnProperty : (v: 文字) => 真假
 >Object.prototype : Object
 >Object : ObjectConstructor
 >prototype : Object
->hasOwnProperty : (v: string) => boolean
+>hasOwnProperty : (v: 文字) => 真假
 
     function getProperty<T>(map: Map<T>, key: string): T {
->getProperty : <T>(map: Map<T>, key: string) => T
+>getProperty : <T>(map: Map<T>, key: 文字) => T
 >T : T
 >map : Map<T>
 >Map : Map<T>
 >T : T
->key : string
+>key : 文字
 >类型别名 :=> 文字
 >T : T
 
         if (!hasOwnProperty.call(map, key)) return undefined;
->!hasOwnProperty.call(map, key) : boolean
+>!hasOwnProperty.call(map, key) : 真假
 >类型别名 :=> 真假
->hasOwnProperty.call(map, key) : any
+>hasOwnProperty.call(map, key) : 任意
 >类型别名 :=> 任意
->hasOwnProperty.call : (this: Function, thisArg: any, ...argArray: any[]) => any
->hasOwnProperty : (v: string) => boolean
->call : (this: Function, thisArg: any, ...argArray: any[]) => any
+>hasOwnProperty.call : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
+>hasOwnProperty : (v: 文字) => 真假
+>call : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
 >map : Map<T>
->key : string
+>key : 文字
 >类型别名 :=> 文字
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
         return map[key];
 >map[key] : T
 >map : Map<T>
->key : string
+>key : 文字
 >类型别名 :=> 文字
     }
 
     function hasProperty<T>(map: Map<T>, key: string): boolean {
->hasProperty : <T>(map: Map<T>, key: string) => boolean
+>hasProperty : <T>(map: Map<T>, key: 文字) => 真假
 >T : T
 >map : Map<T>
 >Map : Map<T>
 >T : T
->key : string
+>key : 文字
 >类型别名 :=> 文字
 
         return hasOwnProperty.call(map, key);
->hasOwnProperty.call(map, key) : any
+>hasOwnProperty.call(map, key) : 任意
 >类型别名 :=> 任意
->hasOwnProperty.call : (this: Function, thisArg: any, ...argArray: any[]) => any
->hasOwnProperty : (v: string) => boolean
->call : (this: Function, thisArg: any, ...argArray: any[]) => any
+>hasOwnProperty.call : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
+>hasOwnProperty : (v: 文字) => 真假
+>call : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
 >map : Map<T>
->key : string
+>key : 文字
 >类型别名 :=> 文字
     }
 
     function arrayContains<T extends Equals<T>>(a: T[], item: T): boolean {
->arrayContains : <T extends Equals<T>>(a: T[], item: T) => boolean
+>arrayContains : <T 扩展 Equals<T>>(a: T[], item: T) => 真假
 >T : T
 >Equals : Equals<T>
 >T : T
@@ -626,49 +626,49 @@ module ts {
 >T : T
 
         var len = a.length;
->len : number
+>len : 数字
 >类型别名 :=> 数字
->a.length : number
+>a.length : 数字
 >类型别名 :=> 数字
 >a : T[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
         for (var i = 0; i < len; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < len : boolean
+>i < len : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->len : number
+>len : 数字
 >类型别名 :=> 数字
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
             if (item.equals(a[i])) return true;
->item.equals(a[i]) : boolean
+>item.equals(a[i]) : 真假
 >类型别名 :=> 真假
->item.equals : (other: T) => boolean
+>item.equals : (other: T) => 真假
 >item : T
->equals : (other: T) => boolean
+>equals : (other: T) => 真假
 >a[i] : T
 >a : T[]
->i : number
+>i : 数字
 >类型别名 :=> 数字
->true : true
+>true : 为真
 >类型别名 :=> 为真
         }
         return false;
->false : false
+>false : 为假
 >类型别名 :=> 为假
     }
 
     function arrayEquals<T extends Equals<T>>(a: T[], b: T[]): boolean {
->arrayEquals : <T extends Equals<T>>(a: T[], b: T[]) => boolean
+>arrayEquals : <T 扩展 Equals<T>>(a: T[], b: T[]) => 真假
 >T : T
 >Equals : Equals<T>
 >T : T
@@ -678,67 +678,67 @@ module ts {
 >T : T
 
         var len = a.length;
->len : number
+>len : 数字
 >类型别名 :=> 数字
->a.length : number
+>a.length : 数字
 >类型别名 :=> 数字
 >a : T[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
         if (b.length !== len) return false;
->b.length !== len : boolean
+>b.length !== len : 真假
 >类型别名 :=> 真假
->b.length : number
+>b.length : 数字
 >类型别名 :=> 数字
 >b : T[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
->len : number
+>len : 数字
 >类型别名 :=> 数字
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
         for (var i = 0; i < len; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < len : boolean
+>i < len : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->len : number
+>len : 数字
 >类型别名 :=> 数字
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
             if (!a[i].equals(b[i])) return false;
->!a[i].equals(b[i]) : boolean
+>!a[i].equals(b[i]) : 真假
 >类型别名 :=> 真假
->a[i].equals(b[i]) : boolean
+>a[i].equals(b[i]) : 真假
 >类型别名 :=> 真假
->a[i].equals : (other: T) => boolean
+>a[i].equals : (other: T) => 真假
 >a[i] : T
 >a : T[]
->i : number
+>i : 数字
 >类型别名 :=> 数字
->equals : (other: T) => boolean
+>equals : (other: T) => 真假
 >b[i] : T
 >b : T[]
->i : number
+>i : 数字
 >类型别名 :=> 数字
->false : false
+>false : 为假
 >类型别名 :=> 为假
         }
         return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
     }
 
     function setEquals<T extends Equals<T>>(a: T[], b: T[]): boolean {
->setEquals : <T extends Equals<T>>(a: T[], b: T[]) => boolean
+>setEquals : <T 扩展 Equals<T>>(a: T[], b: T[]) => 真假
 >T : T
 >Equals : Equals<T>
 >T : T
@@ -748,58 +748,58 @@ module ts {
 >T : T
 
         var len = a.length;
->len : number
+>len : 数字
 >类型别名 :=> 数字
->a.length : number
+>a.length : 数字
 >类型别名 :=> 数字
 >a : T[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
         if (b.length !== len) return false;
->b.length !== len : boolean
+>b.length !== len : 真假
 >类型别名 :=> 真假
->b.length : number
+>b.length : 数字
 >类型别名 :=> 数字
 >b : T[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
->len : number
+>len : 数字
 >类型别名 :=> 数字
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
         for (var i = 0; i < len; i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i < len : boolean
+>i < len : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->len : number
+>len : 数字
 >类型别名 :=> 数字
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
             if (!arrayContains(b, a[i])) return false;
->!arrayContains(b, a[i]) : boolean
+>!arrayContains(b, a[i]) : 真假
 >类型别名 :=> 真假
->arrayContains(b, a[i]) : boolean
+>arrayContains(b, a[i]) : 真假
 >类型别名 :=> 真假
->arrayContains : <T extends Equals<T>>(a: T[], item: T) => boolean
+>arrayContains : <T 扩展 Equals<T>>(a: T[], item: T) => 真假
 >b : T[]
 >a[i] : T
 >a : T[]
->i : number
+>i : 数字
 >类型别名 :=> 数字
->false : false
+>false : 为假
 >类型别名 :=> 为假
         }
         return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
     }
 }

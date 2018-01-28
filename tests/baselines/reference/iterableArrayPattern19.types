@@ -1,61 +1,63 @@
 === tests/cases/conformance/es6/destructuring/iterableArrayPattern19.ts ===
 class Bar { x }
 >Bar : Bar
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 class Foo extends Bar { y }
 >Foo : Foo
 >Bar : Bar
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
 class FooArrayIterator {
 >FooArrayIterator : FooArrayIterator
 
     next() {
->next : () => { value: Foo[]; done: boolean; }
+>next : () => { value: Foo[]; done: 真假; }
 
         return {
->{            value: [new Foo],            done: false        } : { value: Foo[]; done: boolean; }
+>{            value: [new Foo],            done: false        } : { value: Foo[]; done: 真假; }
 
             value: [new Foo],
 >value : Foo[]
 >[new Foo] : Foo[]
 >new Foo : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 
             done: false
->done : boolean
+>done : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
         };
     }
 
     [Symbol.iterator]() {
->Symbol.iterator : symbol
+>Symbol.iterator : 符号
 >类型别名 :=> 符号
 >Symbol : SymbolConstructor
->iterator : symbol
+>iterator : 符号
 >类型别名 :=> 符号
 
         return this;
->this : this
+>this : 本体
     }
 }
 
 function fun([[a], b]: Bar[][]) { }
->fun : ([[a], b]: Bar[][]) => void
->a : Bar
->b : Bar[]
+>fun : ([[a], b]: Bar[][]) => 无值
+>a : 任意
+>类型别名 :=> 任意
+>b : 任意
+>类型别名 :=> 任意
 >Bar : Bar
 
 fun(new FooArrayIterator);
->fun(new FooArrayIterator) : void
+>fun(new FooArrayIterator) : 无值
 >类型别名 :=> 无值
->fun : ([[a], b]: Bar[][]) => void
+>fun : ([[a], b]: Bar[][]) => 无值
 >new FooArrayIterator : FooArrayIterator
->FooArrayIterator : typeof FooArrayIterator
+>FooArrayIterator : 类为 FooArrayIterator
 

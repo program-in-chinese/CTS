@@ -279,7 +279,7 @@ namespace ts {
         "类为": SyntaxKind.TypeOfKeyword,
         "未定": SyntaxKind.UndefinedKeyword,
 
-        "量值": SyntaxKind.VarKeyword,
+        "值量": SyntaxKind.VarKeyword,
         "无值": SyntaxKind.VoidKeyword,
         "判断": SyntaxKind.WhileKeyword,
         "外扩": SyntaxKind.WithKeyword,

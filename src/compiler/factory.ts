@@ -2304,6 +2304,7 @@ namespace ts {
             if (node.externalModuleIndicator !== undefined) updated.externalModuleIndicator = node.externalModuleIndicator;
             if (node.commonJsModuleIndicator !== undefined) updated.commonJsModuleIndicator = node.commonJsModuleIndicator;
             if (node.identifiers !== undefined) updated.identifiers = node.identifiers;
+            if (node.全局词典 !== undefined) updated.全局词典 = node.全局词典;
             if (node.nodeCount !== undefined) updated.nodeCount = node.nodeCount;
             if (node.identifierCount !== undefined) updated.identifierCount = node.identifierCount;
             if (node.symbolCount !== undefined) updated.symbolCount = node.symbolCount;

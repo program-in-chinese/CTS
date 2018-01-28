@@ -3225,7 +3225,9 @@ namespace ts {
          * @param node A ShorthandPropertyAssignment node.
          */
         function visitShorthandPropertyAssignment(node: ShorthandPropertyAssignment): ObjectLiteralElementLike {
-            const 合成的克隆 = getSynthesizedClone(node.name)
+
+           /* const 合成的克隆 = getSynthesizedClone(node.name)
+
             let 标识符: Identifier
             if (合成的克隆.别名) {
                 合成的克隆.别名 = undefined
@@ -3235,13 +3237,24 @@ namespace ts {
             } else {
                 标识符 = node.name
             }
+            */
             return setTextRange(
                 createPropertyAssignment(
-                    标识符,
-                    合成的克隆
+                    node.name,
+                    getSynthesizedClone(node.name)
                 ),
                 /*location*/ node
             );
+            /*
+
+            return setTextRange(
+                createPropertyAssignment(
+                    node.name,
+                    合成的克隆
+                ),
+                 node
+            );
+            */
         }
 
         function visitComputedPropertyName(node: ComputedPropertyName) {

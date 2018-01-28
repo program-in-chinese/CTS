@@ -4,26 +4,26 @@ interface I1<T> {
 >T : T
 
     commonMethodType(a: string): string;
->commonMethodType : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     commonPropertyType: string;
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 
     commonMethodDifferentParameterType(a: string): string;
->commonMethodDifferentParameterType : (a: string) => string
->a : string
+>commonMethodDifferentParameterType : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     commonMethodDifferentReturnType(a: string): string;
->commonMethodDifferentReturnType : (a: string) => string
->a : string
+>commonMethodDifferentReturnType : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     commonPropertyDifferenType: string;
->commonPropertyDifferenType : string
+>commonPropertyDifferenType : 文字
 >类型别名 :=> 文字
 
     commonMethodWithTypeParameter(a: T): T;
@@ -40,12 +40,12 @@ interface I1<T> {
 >U : U
 
     methodOnlyInI1(a: string): string;
->methodOnlyInI1 : (a: string) => string
->a : string
+>methodOnlyInI1 : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI1: string;
->propertyOnlyInI1 : string
+>propertyOnlyInI1 : 文字
 >类型别名 :=> 文字
 }
 
@@ -54,26 +54,26 @@ interface I2<T> {
 >T : T
 
     commonMethodType(a: string): string;
->commonMethodType : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     commonPropertyType: string;
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 
     commonMethodDifferentParameterType(a: number): number;
->commonMethodDifferentParameterType : (a: number) => number
->a : number
+>commonMethodDifferentParameterType : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
 
     commonMethodDifferentReturnType(a: string): number;
->commonMethodDifferentReturnType : (a: string) => number
->a : string
+>commonMethodDifferentReturnType : (a: 文字) => 数字
+>a : 文字
 >类型别名 :=> 文字
 
     commonPropertyDifferenType: number;
->commonPropertyDifferenType : number
+>commonPropertyDifferenType : 数字
 >类型别名 :=> 数字
 
     commonMethodWithTypeParameter(a: T): T;
@@ -90,168 +90,168 @@ interface I2<T> {
 >U : U
 
     methodOnlyInI2(a: string): string;
->methodOnlyInI2 : (a: string) => string
->a : string
+>methodOnlyInI2 : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI2: string;
->propertyOnlyInI2 : string
+>propertyOnlyInI2 : 文字
 >类型别名 :=> 文字
 }
 
 // a union type U has those members that are present in every one of its constituent types, 
 // with types that are unions of the respective members in the constituent types
 var x : I1<number> | I2<number>;
->x : I1<number> | I2<number>
+>x : I1<数字> | I2<数字>
 >I1 : I1<T>
 >I2 : I2<T>
 
 var str: string;
->str : string
+>str : 文字
 >类型别名 :=> 文字
 
 var num: number;
->num : number
+>num : 数字
 >类型别名 :=> 数字
 
 var strOrNum: string | number;
->strOrNum : string | number
+>strOrNum : 文字 | 数字
 
 // If each type in U has a property P, U has a property P of a union type of the types of P from each type in U.
 str = x.commonPropertyType; // string
->str = x.commonPropertyType : string
+>str = x.commonPropertyType : 文字
 >类型别名 :=> 文字
->str : string
+>str : 文字
 >类型别名 :=> 文字
->x.commonPropertyType : string
+>x.commonPropertyType : 文字
 >类型别名 :=> 文字
->x : I1<number> | I2<number>
->commonPropertyType : string
+>x : I1<数字> | I2<数字>
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 
 str = x.commonMethodType(str); // (a: string) => string so result should be string
->str = x.commonMethodType(str) : string
+>str = x.commonMethodType(str) : 文字
 >类型别名 :=> 文字
->str : string
+>str : 文字
 >类型别名 :=> 文字
->x.commonMethodType(str) : string
+>x.commonMethodType(str) : 文字
 >类型别名 :=> 文字
->x.commonMethodType : (a: string) => string
->x : I1<number> | I2<number>
->commonMethodType : (a: string) => string
->str : string
+>x.commonMethodType : (a: 文字) => 文字
+>x : I1<数字> | I2<数字>
+>commonMethodType : (a: 文字) => 文字
+>str : 文字
 >类型别名 :=> 文字
 
 strOrNum = x.commonPropertyDifferenType;
->strOrNum = x.commonPropertyDifferenType : string | number
->strOrNum : string | number
->x.commonPropertyDifferenType : string | number
->x : I1<number> | I2<number>
->commonPropertyDifferenType : string | number
+>strOrNum = x.commonPropertyDifferenType : 文字 | 数字
+>strOrNum : 文字 | 数字
+>x.commonPropertyDifferenType : 文字 | 数字
+>x : I1<数字> | I2<数字>
+>commonPropertyDifferenType : 文字 | 数字
 
 strOrNum = x.commonMethodDifferentReturnType(str); // string | union
->strOrNum = x.commonMethodDifferentReturnType(str) : string | number
->strOrNum : string | number
->x.commonMethodDifferentReturnType(str) : string | number
->x.commonMethodDifferentReturnType : ((a: string) => string) | ((a: string) => number)
->x : I1<number> | I2<number>
->commonMethodDifferentReturnType : ((a: string) => string) | ((a: string) => number)
->str : string
+>strOrNum = x.commonMethodDifferentReturnType(str) : 文字 | 数字
+>strOrNum : 文字 | 数字
+>x.commonMethodDifferentReturnType(str) : 文字 | 数字
+>x.commonMethodDifferentReturnType : ((a: 文字) => 文字) | ((a: 文字) => 数字)
+>x : I1<数字> | I2<数字>
+>commonMethodDifferentReturnType : ((a: 文字) => 文字) | ((a: 文字) => 数字)
+>str : 文字
 >类型别名 :=> 文字
 
 x.commonMethodDifferentParameterType; // No error - property exists
->x.commonMethodDifferentParameterType : ((a: string) => string) | ((a: number) => number)
->x : I1<number> | I2<number>
->commonMethodDifferentParameterType : ((a: string) => string) | ((a: number) => number)
+>x.commonMethodDifferentParameterType : ((a: 文字) => 文字) | ((a: 数字) => 数字)
+>x : I1<数字> | I2<数字>
+>commonMethodDifferentParameterType : ((a: 文字) => 文字) | ((a: 数字) => 数字)
 
 x.commonMethodDifferentParameterType(strOrNum); // error - no call signatures because the type of this property is ((a: string) => string) | (a: number) => number
->x.commonMethodDifferentParameterType(strOrNum) : any
+>x.commonMethodDifferentParameterType(strOrNum) : 任意
 >类型别名 :=> 任意
->x.commonMethodDifferentParameterType : ((a: string) => string) | ((a: number) => number)
->x : I1<number> | I2<number>
->commonMethodDifferentParameterType : ((a: string) => string) | ((a: number) => number)
->strOrNum : string | number
+>x.commonMethodDifferentParameterType : ((a: 文字) => 文字) | ((a: 数字) => 数字)
+>x : I1<数字> | I2<数字>
+>commonMethodDifferentParameterType : ((a: 文字) => 文字) | ((a: 数字) => 数字)
+>strOrNum : 文字 | 数字
 
                                                 // and the call signatures arent identical
 num = x.commonMethodWithTypeParameter(num);
->num = x.commonMethodWithTypeParameter(num) : number
+>num = x.commonMethodWithTypeParameter(num) : 数字
 >类型别名 :=> 数字
->num : number
+>num : 数字
 >类型别名 :=> 数字
->x.commonMethodWithTypeParameter(num) : number
+>x.commonMethodWithTypeParameter(num) : 数字
 >类型别名 :=> 数字
->x.commonMethodWithTypeParameter : (a: number) => number
->x : I1<number> | I2<number>
->commonMethodWithTypeParameter : (a: number) => number
->num : number
+>x.commonMethodWithTypeParameter : (a: 数字) => 数字
+>x : I1<数字> | I2<数字>
+>commonMethodWithTypeParameter : (a: 数字) => 数字
+>num : 数字
 >类型别名 :=> 数字
 
 num = x.commonMethodWithOwnTypeParameter(num);
->num = x.commonMethodWithOwnTypeParameter(num) : number
+>num = x.commonMethodWithOwnTypeParameter(num) : 数字
 >类型别名 :=> 数字
->num : number
+>num : 数字
 >类型别名 :=> 数字
->x.commonMethodWithOwnTypeParameter(num) : number
+>x.commonMethodWithOwnTypeParameter(num) : 数字
 >类型别名 :=> 数字
 >x.commonMethodWithOwnTypeParameter : <U>(a: U) => U
->x : I1<number> | I2<number>
+>x : I1<数字> | I2<数字>
 >commonMethodWithOwnTypeParameter : <U>(a: U) => U
->num : number
+>num : 数字
 >类型别名 :=> 数字
 
 str = x.commonMethodWithOwnTypeParameter(str);
->str = x.commonMethodWithOwnTypeParameter(str) : string
+>str = x.commonMethodWithOwnTypeParameter(str) : 文字
 >类型别名 :=> 文字
->str : string
+>str : 文字
 >类型别名 :=> 文字
->x.commonMethodWithOwnTypeParameter(str) : string
+>x.commonMethodWithOwnTypeParameter(str) : 文字
 >类型别名 :=> 文字
 >x.commonMethodWithOwnTypeParameter : <U>(a: U) => U
->x : I1<number> | I2<number>
+>x : I1<数字> | I2<数字>
 >commonMethodWithOwnTypeParameter : <U>(a: U) => U
->str : string
+>str : 文字
 >类型别名 :=> 文字
 
 strOrNum = x.commonMethodWithOwnTypeParameter(strOrNum);
->strOrNum = x.commonMethodWithOwnTypeParameter(strOrNum) : string | number
->strOrNum : string | number
->x.commonMethodWithOwnTypeParameter(strOrNum) : string | number
+>strOrNum = x.commonMethodWithOwnTypeParameter(strOrNum) : 文字 | 数字
+>strOrNum : 文字 | 数字
+>x.commonMethodWithOwnTypeParameter(strOrNum) : 文字 | 数字
 >x.commonMethodWithOwnTypeParameter : <U>(a: U) => U
->x : I1<number> | I2<number>
+>x : I1<数字> | I2<数字>
 >commonMethodWithOwnTypeParameter : <U>(a: U) => U
->strOrNum : string | number
+>strOrNum : 文字 | 数字
 
 x.propertyOnlyInI1; // error
->x.propertyOnlyInI1 : any
+>x.propertyOnlyInI1 : 任意
 >类型别名 :=> 任意
->x : I1<number> | I2<number>
->propertyOnlyInI1 : any
+>x : I1<数字> | I2<数字>
+>propertyOnlyInI1 : 任意
 >类型别名 :=> 任意
 
 x.propertyOnlyInI2; // error
->x.propertyOnlyInI2 : any
+>x.propertyOnlyInI2 : 任意
 >类型别名 :=> 任意
->x : I1<number> | I2<number>
->propertyOnlyInI2 : any
+>x : I1<数字> | I2<数字>
+>propertyOnlyInI2 : 任意
 >类型别名 :=> 任意
 
 x.methodOnlyInI1("hello"); // error
->x.methodOnlyInI1("hello") : any
+>x.methodOnlyInI1("hello") : 任意
 >类型别名 :=> 任意
->x.methodOnlyInI1 : any
+>x.methodOnlyInI1 : 任意
 >类型别名 :=> 任意
->x : I1<number> | I2<number>
->methodOnlyInI1 : any
+>x : I1<数字> | I2<数字>
+>methodOnlyInI1 : 任意
 >类型别名 :=> 任意
 >"hello" : "hello"
 
 x.methodOnlyInI2(10); // error
->x.methodOnlyInI2(10) : any
+>x.methodOnlyInI2(10) : 任意
 >类型别名 :=> 任意
->x.methodOnlyInI2 : any
+>x.methodOnlyInI2 : 任意
 >类型别名 :=> 任意
->x : I1<number> | I2<number>
->methodOnlyInI2 : any
+>x : I1<数字> | I2<数字>
+>methodOnlyInI2 : 任意
 >类型别名 :=> 任意
 >10 : 10
 

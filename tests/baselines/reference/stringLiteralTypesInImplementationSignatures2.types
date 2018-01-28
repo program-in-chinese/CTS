@@ -2,24 +2,24 @@
 // String literal types are only valid in overload signatures
 
 function foo(x: any);
->foo : (x: any) => any
->x : any
+>foo : (x: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
 
 function foo(x: 'hi') { }
->foo : (x: any) => any
+>foo : (x: 任意) => 任意
 >x : "hi"
 
 class C {
 >C : C
 
     foo(x: string);
->foo : (x: string) => any
->x : string
+>foo : (x: 文字) => 任意
+>x : 文字
 >类型别名 :=> 文字
 
     foo(x: 'hi') { }
->foo : (x: string) => any
+>foo : (x: 文字) => 任意
 >x : "hi"
 }
 
@@ -33,18 +33,18 @@ interface I {
 >x : "hi"
 
     foo(x: 'a', y: 'a');
->foo : { (x: "a", y: "a"): any; (x: "hi", y: "hi"): any; }
+>foo : { (x: "a", y: "a"): 任意; (x: "hi", y: "hi"): 任意; }
 >x : "a"
 >y : "a"
 
     foo(x: 'hi', y: 'hi');
->foo : { (x: "a", y: "a"): any; (x: "hi", y: "hi"): any; }
+>foo : { (x: "a", y: "a"): 任意; (x: "hi", y: "hi"): 任意; }
 >x : "hi"
 >y : "hi"
 }
 
 var a: {
->a : { (x: "hi"): any; (x: "a"): any; foo(x: "hi"): any; foo(x: "a"): any; }
+>a : { (x: "hi"): 任意; (x: "a"): 任意; foo(x: "hi"): 任意; foo(x: "a"): 任意; }
 
     (x: 'hi');
 >x : "hi"
@@ -53,24 +53,24 @@ var a: {
 >x : "a"
 
     foo(x: 'hi');
->foo : { (x: "hi"): any; (x: "a"): any; }
+>foo : { (x: "hi"): 任意; (x: "a"): 任意; }
 >x : "hi"
 
     foo(x: 'a');
->foo : { (x: "hi"): any; (x: "a"): any; }
+>foo : { (x: "hi"): 任意; (x: "a"): 任意; }
 >x : "a"
 }
 
 var b = {
->b : { foo(x: "hi"): void; foo(x: "a"): void; }
->{    foo(x: 'hi') { },    foo(x: 'a') { },} : { foo(x: "hi"): void; foo(x: "a"): void; }
+>b : { foo(x: "hi"): 无值; foo(x: "a"): 无值; }
+>{    foo(x: 'hi') { },    foo(x: 'a') { },} : { foo(x: "hi"): 无值; foo(x: "a"): 无值; }
 
     foo(x: 'hi') { },
->foo : { (x: "hi"): void; (x: "a"): void; }
+>foo : { (x: "hi"): 无值; (x: "a"): 无值; }
 >x : "hi"
 
     foo(x: 'a') { },
->foo : { (x: "hi"): void; (x: "a"): void; }
+>foo : { (x: "hi"): 无值; (x: "a"): 无值; }
 >x : "a"
 }
 

@@ -1,32 +1,32 @@
 === /mod2.ts ===
 import { Cls } from "./main";
->Cls : typeof Cls
+>Cls : 类为 Cls
 
 import "./mod1";
 
 export const cls = Cls;
->cls : typeof Cls
->Cls : typeof Cls
+>cls : 类为 Cls
+>Cls : 类为 Cls
 
 export const foo = new Cls().foo();
 >foo : Lib
 >new Cls().foo() : Lib
 >new Cls().foo : () => Lib
 >new Cls() : Cls
->Cls : typeof Cls
+>Cls : 类为 Cls
 >foo : () => Lib
 
 export const bar = Cls.bar();
 >bar : Lib
 >Cls.bar() : Lib
 >Cls.bar : () => Lib
->Cls : typeof Cls
+>Cls : 类为 Cls
 >bar : () => Lib
 
 === /types/lib/index.d.ts ===
 interface Lib { x }
 >Lib : Lib
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 === /main.ts ===
@@ -34,7 +34,7 @@ export class Cls {
 >Cls : Cls
 
     x
->x : any
+>x : 任意
 >类型别名 :=> 任意
 }
 
@@ -42,17 +42,17 @@ export class Cls {
 /// <reference types="lib" />
 
 import {Cls} from "./main";
->Cls : typeof Cls
+>Cls : 类为 Cls
 
 Cls.prototype.foo = function() { return undefined; }
->Cls.prototype.foo = function() { return undefined; } : () => any
+>Cls.prototype.foo = function() { return undefined; } : () => 任意
 >Cls.prototype.foo : () => Lib
 >Cls.prototype : Cls
->Cls : typeof Cls
+>Cls : 类为 Cls
 >prototype : Cls
 >foo : () => Lib
->function() { return undefined; } : () => any
->undefined : undefined
+>function() { return undefined; } : () => 任意
+>undefined : 未定
 >类型别名 :=> 未定
 
 declare module "./main" {
@@ -64,7 +64,7 @@ declare module "./main" {
 >Lib : Lib
     }
     namespace Cls {
->Cls : typeof Cls
+>Cls : 类为 Cls
 
         function bar(): Lib;
 >bar : () => Lib

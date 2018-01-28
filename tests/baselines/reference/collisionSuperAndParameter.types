@@ -3,41 +3,41 @@ class Foo {
 >Foo : Foo
 
     a() {
->a : () => void
+>a : () => 无值
 
         var lamda = (_super: number) => { // No Error 
->lamda : (_super: number) => (x: any) => this
->(_super: number) => { // No Error             return x => this;   // New scope.  So should inject new _this capture        } : (_super: number) => (x: any) => this
->_super : number
+>lamda : (_super: 数字) => (x: 任意) => 本体
+>(_super: number) => { // No Error             return x => this;   // New scope.  So should inject new _this capture        } : (_super: 数字) => (x: 任意) => 本体
+>_super : 数字
 >类型别名 :=> 数字
 
             return x => this;   // New scope.  So should inject new _this capture
->x => this : (x: any) => this
->x : any
+>x => this : (x: 任意) => 本体
+>x : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
         }
     }
     b(_super: number) { // No Error 
->b : (_super: number) => void
->_super : number
+>b : (_super: 数字) => 无值
+>_super : 数字
 >类型别名 :=> 数字
 
         var lambda = () => {
->lambda : () => (x: any) => this
->() => {            return x => this;   // New scope.  So should inject new _this capture        } : () => (x: any) => this
+>lambda : () => (x: 任意) => 本体
+>() => {            return x => this;   // New scope.  So should inject new _this capture        } : () => (x: 任意) => 本体
 
             return x => this;   // New scope.  So should inject new _this capture
->x => this : (x: any) => this
->x : any
+>x => this : (x: 任意) => 本体
+>x : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
         }
     }
     set c(_super: number) { // No error
->c : number
+>c : 数字
 >类型别名 :=> 数字
->_super : number
+>_super : 数字
 >类型别名 :=> 数字
     }
 }
@@ -46,70 +46,70 @@ class Foo2 extends Foo {
 >Foo : Foo
 
     x() {
->x : () => void
+>x : () => 无值
 
         var lamda = (_super: number) => { // Error 
->lamda : (_super: number) => (x: any) => this
->(_super: number) => { // Error             return x => this;   // New scope.  So should inject new _this capture        } : (_super: number) => (x: any) => this
->_super : number
+>lamda : (_super: 数字) => (x: 任意) => 本体
+>(_super: number) => { // Error             return x => this;   // New scope.  So should inject new _this capture        } : (_super: 数字) => (x: 任意) => 本体
+>_super : 数字
 >类型别名 :=> 数字
 
             return x => this;   // New scope.  So should inject new _this capture
->x => this : (x: any) => this
->x : any
+>x => this : (x: 任意) => 本体
+>x : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
         }
     }
     y(_super: number) { // Error 
->y : (_super: number) => void
->_super : number
+>y : (_super: 数字) => 无值
+>_super : 数字
 >类型别名 :=> 数字
 
         var lambda = () => {
->lambda : () => (x: any) => this
->() => {            return x => this;   // New scope.  So should inject new _this capture        } : () => (x: any) => this
+>lambda : () => (x: 任意) => 本体
+>() => {            return x => this;   // New scope.  So should inject new _this capture        } : () => (x: 任意) => 本体
 
             return x => this;   // New scope.  So should inject new _this capture
->x => this : (x: any) => this
->x : any
+>x => this : (x: 任意) => 本体
+>x : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
         }
     }
     set z(_super: number) { // Error
->z : number
+>z : 数字
 >类型别名 :=> 数字
->_super : number
+>_super : 数字
 >类型别名 :=> 数字
     }
     public prop3: {
->prop3 : { doStuff: (_super: number) => void; }
+>prop3 : { doStuff: (_super: 数字) => 无值; }
 
         doStuff: (_super: number) => void; // no error - no code gen
->doStuff : (_super: number) => void
->_super : number
+>doStuff : (_super: 数字) => 无值
+>_super : 数字
 >类型别名 :=> 数字
     }
     public prop4 = {
->prop4 : { doStuff: (_super: number) => void; }
->{        doStuff: (_super: number) => { // should be error        }    } : { doStuff: (_super: number) => void; }
+>prop4 : { doStuff: (_super: 数字) => 无值; }
+>{        doStuff: (_super: number) => { // should be error        }    } : { doStuff: (_super: 数字) => 无值; }
 
         doStuff: (_super: number) => { // should be error
->doStuff : (_super: number) => void
->(_super: number) => { // should be error        } : (_super: number) => void
->_super : number
+>doStuff : (_super: 数字) => 无值
+>(_super: number) => { // should be error        } : (_super: 数字) => 无值
+>_super : 数字
 >类型别名 :=> 数字
         }
     }
     constructor(_super: number) { // should be error
->_super : number
+>_super : 数字
 >类型别名 :=> 数字
 
         super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof Foo
+>super : 类为 Foo
     }
 }
 declare class Foo3 extends Foo {
@@ -117,28 +117,28 @@ declare class Foo3 extends Foo {
 >Foo : Foo
 
     x();
->x : () => any
+>x : () => 任意
 
     y(_super: number); // No error - no code gen
->y : (_super: number) => any
->_super : number
+>y : (_super: 数字) => 任意
+>_super : 数字
 >类型别名 :=> 数字
 
     constructor(_super: number); // No error - no code gen
->_super : number
+>_super : 数字
 >类型别名 :=> 数字
 
     public prop2: {
->prop2 : { doStuff: (_super: number) => void; }
+>prop2 : { doStuff: (_super: 数字) => 无值; }
 
         doStuff: (_super: number) => void; // no error - no code gen
->doStuff : (_super: number) => void
->_super : number
+>doStuff : (_super: 数字) => 无值
+>_super : 数字
 >类型别名 :=> 数字
 
     };
     public _super: number; // No error
->_super : number
+>_super : 数字
 >类型别名 :=> 数字
 }
 
@@ -147,46 +147,46 @@ class Foo4 extends Foo {
 >Foo : Foo
 
     constructor(_super: number); // no code gen - no error
->_super : number
+>_super : 数字
 >类型别名 :=> 数字
 
     constructor(_super: string);// no code gen - no error
->_super : string
+>_super : 文字
 >类型别名 :=> 文字
 
     constructor(_super: any) { // should be error
->_super : any
+>_super : 任意
 >类型别名 :=> 任意
 
         super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof Foo
+>super : 类为 Foo
     }
     y(_super: number); // no code gen - no error
->y : { (_super: number): any; (_super: string): any; }
->_super : number
+>y : { (_super: 数字): 任意; (_super: 文字): 任意; }
+>_super : 数字
 >类型别名 :=> 数字
 
     y(_super: string); // no code gen - no error
->y : { (_super: number): any; (_super: string): any; }
->_super : string
+>y : { (_super: 数字): 任意; (_super: 文字): 任意; }
+>_super : 文字
 >类型别名 :=> 文字
 
     y(_super: any) { // Error 
->y : { (_super: number): any; (_super: string): any; }
->_super : any
+>y : { (_super: 数字): 任意; (_super: 文字): 任意; }
+>_super : 任意
 >类型别名 :=> 任意
 
         var lambda = () => {
->lambda : () => (x: any) => this
->() => {            return x => this;   // New scope.  So should inject new _this capture        } : () => (x: any) => this
+>lambda : () => (x: 任意) => 本体
+>() => {            return x => this;   // New scope.  So should inject new _this capture        } : () => (x: 任意) => 本体
 
             return x => this;   // New scope.  So should inject new _this capture
->x => this : (x: any) => this
->x : any
+>x => this : (x: 任意) => 本体
+>x : 任意
 >类型别名 :=> 任意
->this : this
+>this : 本体
         }
     }
 }

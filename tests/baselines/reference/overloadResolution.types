@@ -3,11 +3,11 @@ class SomeBase {
 >SomeBase : SomeBase
 
     private n;
->n : any
+>n : 任意
 >类型别名 :=> 任意
 
     public s: string;
->s : string
+>s : 文字
 >类型别名 :=> 文字
 }
 class SomeDerived1 extends SomeBase {
@@ -15,7 +15,7 @@ class SomeDerived1 extends SomeBase {
 >SomeBase : SomeBase
 
     private m;
->m : any
+>m : 任意
 >类型别名 :=> 任意
 }
 class SomeDerived2 extends SomeBase {
@@ -23,7 +23,7 @@ class SomeDerived2 extends SomeBase {
 >SomeBase : SomeBase
 
     private m;
->m : any
+>m : 任意
 >类型别名 :=> 任意
 }
 class SomeDerived3 extends SomeBase {
@@ -31,77 +31,77 @@ class SomeDerived3 extends SomeBase {
 >SomeBase : SomeBase
 
     private m;
->m : any
+>m : 任意
 >类型别名 :=> 任意
 }
 
 
 // Ambiguous call picks the first overload in declaration order
 function fn1(s: string): string;
->fn1 : { (s: string): string; (s: number): number; }
->s : string
+>fn1 : { (s: 文字): 文字; (s: 数字): 数字; }
+>s : 文字
 >类型别名 :=> 文字
 
 function fn1(s: number): number;
->fn1 : { (s: string): string; (s: number): number; }
->s : number
+>fn1 : { (s: 文字): 文字; (s: 数字): 数字; }
+>s : 数字
 >类型别名 :=> 数字
 
 function fn1() { return null; }
->fn1 : { (s: string): string; (s: number): number; }
->null : null
+>fn1 : { (s: 文字): 文字; (s: 数字): 数字; }
+>null : 空值
 >类型别名 :=> 空值
 
 var s = fn1(undefined);
->s : string
+>s : 文字
 >类型别名 :=> 文字
->fn1(undefined) : string
+>fn1(undefined) : 文字
 >类型别名 :=> 文字
->fn1 : { (s: string): string; (s: number): number; }
->undefined : undefined
+>fn1 : { (s: 文字): 文字; (s: 数字): 数字; }
+>undefined : 未定
 >类型别名 :=> 未定
 
 var s: string;
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
 
 // No candidate overloads found
 fn1({}); // Error
->fn1({}) : any
+>fn1({}) : 任意
 >类型别名 :=> 任意
->fn1 : { (s: string): string; (s: number): number; }
+>fn1 : { (s: 文字): 文字; (s: 数字): 数字; }
 >{} : {}
 
 // Generic and non - generic overload where generic overload is the only candidate when called with type arguments
 function fn2(s: string, n: number): number;
->fn2 : { (s: string, n: number): number; <T>(n: number, t: T): T; }
->s : string
+>fn2 : { (s: 文字, n: 数字): 数字; <T>(n: 数字, t: T): T; }
+>s : 文字
 >类型别名 :=> 文字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 function fn2<T>(n: number, t: T): T;
->fn2 : { (s: string, n: number): number; <T>(n: number, t: T): T; }
+>fn2 : { (s: 文字, n: 数字): 数字; <T>(n: 数字, t: T): T; }
 >T : T
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >t : T
 >T : T
 >T : T
 
 function fn2() { return undefined; }
->fn2 : { (s: string, n: number): number; <T>(n: number, t: T): T; }
->undefined : undefined
+>fn2 : { (s: 文字, n: 数字): 数字; <T>(n: 数字, t: T): T; }
+>undefined : 未定
 >类型别名 :=> 未定
 
 var d = fn2<Date>(0, undefined);
 >d : Date
 >fn2<Date>(0, undefined) : Date
->fn2 : { (s: string, n: number): number; <T>(n: number, t: T): T; }
+>fn2 : { (s: 文字, n: 数字): 数字; <T>(n: 数字, t: T): T; }
 >Date : Date
 >0 : 0
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var d: Date;
@@ -110,42 +110,42 @@ var d: Date;
 
 // Generic and non - generic overload where generic overload is the only candidate when called without type arguments
 var s = fn2(0, '');
->s : string
+>s : 文字
 >类型别名 :=> 文字
 >fn2(0, '') : ""
->fn2 : { (s: string, n: number): number; <T>(n: number, t: T): T; }
+>fn2 : { (s: 文字, n: 数字): 数字; <T>(n: 数字, t: T): T; }
 >0 : 0
 >'' : ""
 
 // Generic and non - generic overload where non - generic overload is the only candidate when called with type arguments
 fn2<Date>('', 0); // Error
->fn2<Date>('', 0) : any
+>fn2<Date>('', 0) : 任意
 >类型别名 :=> 任意
->fn2 : { (s: string, n: number): number; <T>(n: number, t: T): T; }
+>fn2 : { (s: 文字, n: 数字): 数字; <T>(n: 数字, t: T): T; }
 >Date : Date
 >'' : ""
 >0 : 0
 
 // Generic and non - generic overload where non - generic overload is the only candidate when called without type arguments
 fn2('', 0); // OK
->fn2('', 0) : number
+>fn2('', 0) : 数字
 >类型别名 :=> 数字
->fn2 : { (s: string, n: number): number; <T>(n: number, t: T): T; }
+>fn2 : { (s: 文字, n: 数字): 数字; <T>(n: 数字, t: T): T; }
 >'' : ""
 >0 : 0
 
 // Generic overloads with differing arity called without type arguments
 function fn3<T>(n: T): string;
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >T : T
 >n : T
 >T : T
 
 function fn3<T, U>(s: string, t: T, u: U): U;
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >T : T
 >U : U
->s : string
+>s : 文字
 >类型别名 :=> 文字
 >t : T
 >T : T
@@ -154,7 +154,7 @@ function fn3<T, U>(s: string, t: T, u: U): U;
 >U : U
 
 function fn3<T, U, V>(v: V, u: U, t: T): number;
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >T : T
 >U : U
 >V : V
@@ -166,79 +166,79 @@ function fn3<T, U, V>(v: V, u: U, t: T): number;
 >T : T
 
 function fn3() { return null; }
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
->null : null
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
+>null : 空值
 >类型别名 :=> 空值
 
 var s = fn3(3);
->s : string
+>s : 文字
 >类型别名 :=> 文字
->fn3(3) : string
+>fn3(3) : 文字
 >类型别名 :=> 文字
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >3 : 3
 
 var s = fn3('', 3, '');
->s : string
+>s : 文字
 >类型别名 :=> 文字
 >fn3('', 3, '') : ""
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >'' : ""
 >3 : 3
 >'' : ""
 
 var n = fn3(5, 5, 5);
->n : number
+>n : 数字
 >类型别名 :=> 数字
->fn3(5, 5, 5) : number
+>fn3(5, 5, 5) : 数字
 >类型别名 :=> 数字
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >5 : 5
 >5 : 5
 >5 : 5
 
 var n: number;
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 // Generic overloads with differing arity called with type arguments matching each overload type parameter count
 var s = fn3<number>(4);
->s : string
+>s : 文字
 >类型别名 :=> 文字
->fn3<number>(4) : string
+>fn3<number>(4) : 文字
 >类型别名 :=> 文字
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >4 : 4
 
 var s = fn3<string, string>('', '', '');
->s : string
+>s : 文字
 >类型别名 :=> 文字
->fn3<string, string>('', '', '') : string
+>fn3<string, string>('', '', '') : 文字
 >类型别名 :=> 文字
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >'' : ""
 >'' : ""
 >'' : ""
 
 var n = fn3<number, string, string>('', '', 3);
->n : number
+>n : 数字
 >类型别名 :=> 数字
->fn3<number, string, string>('', '', 3) : number
+>fn3<number, string, string>('', '', 3) : 数字
 >类型别名 :=> 数字
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 >'' : ""
 >'' : ""
 >3 : 3
 
 // Generic overloads with differing arity called with type argument count that doesn't match any overload
 fn3<number, number, number, number>(); // Error
->fn3<number, number, number, number>() : any
+>fn3<number, number, number, number>() : 任意
 >类型别名 :=> 任意
->fn3 : { <T>(n: T): string; <T, U>(s: string, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): number; }
+>fn3 : { <T>(n: T): 文字; <T, U>(s: 文字, t: T, u: U): U; <T, U, V>(v: V, u: U, t: T): 数字; }
 
 // Generic overloads with constraints called with type arguments that satisfy the constraints
 function fn4<T extends string, U extends number>(n: T, m: U);
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >T : T
 >U : U
 >n : T
@@ -247,7 +247,7 @@ function fn4<T extends string, U extends number>(n: T, m: U);
 >U : U
 
 function fn4<T extends number, U extends string>(n: T, m: U);
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >T : T
 >U : U
 >n : T
@@ -256,148 +256,148 @@ function fn4<T extends number, U extends string>(n: T, m: U);
 >U : U
 
 function fn4() { }
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 
 fn4<string, number>('', 3);
->fn4<string, number>('', 3) : any
+>fn4<string, number>('', 3) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >'' : ""
 >3 : 3
 
 fn4<string, number>(3, ''); // Error
->fn4<string, number>(3, '') : any
+>fn4<string, number>(3, '') : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >3 : 3
 >'' : ""
 
 fn4<number, string>('', 3); // Error
->fn4<number, string>('', 3) : any
+>fn4<number, string>('', 3) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >'' : ""
 >3 : 3
 
 fn4<number, string>(3, ''); 
->fn4<number, string>(3, '') : any
+>fn4<number, string>(3, '') : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >3 : 3
 >'' : ""
 
 // Generic overloads with constraints called without type arguments but with types that satisfy the constraints
 fn4('', 3);
->fn4('', 3) : any
+>fn4('', 3) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >'' : ""
 >3 : 3
 
 fn4(3, '');
->fn4(3, '') : any
+>fn4(3, '') : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >3 : 3
 >'' : ""
 
 fn4(3, undefined);
->fn4(3, undefined) : any
+>fn4(3, undefined) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >3 : 3
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 fn4('', null);
->fn4('', null) : any
+>fn4('', null) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >'' : ""
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // Generic overloads with constraints called with type arguments that do not satisfy the constraints
 fn4<boolean, Date>(null, null); // Error
->fn4<boolean, Date>(null, null) : any
+>fn4<boolean, Date>(null, null) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
 >Date : Date
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // Generic overloads with constraints called without type arguments but with types that do not satisfy the constraints
 fn4(true, null); // Error
->fn4(true, null) : any
+>fn4(true, null) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
->true : true
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
+>true : 为真
 >类型别名 :=> 为真
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 fn4(null, true); // Error
->fn4(null, true) : any
+>fn4(null, true) : 任意
 >类型别名 :=> 任意
->fn4 : { <T extends string, U extends number>(n: T, m: U): any; <T extends number, U extends string>(n: T, m: U): any; }
->null : null
+>fn4 : { <T 扩展 文字, U 扩展 数字>(n: T, m: U): 任意; <T 扩展 数字, U 扩展 文字>(n: T, m: U): 任意; }
+>null : 空值
 >类型别名 :=> 空值
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 // Non - generic overloads where contextual typing of function arguments has errors
 function fn5(f: (n: string) => void): string;
->fn5 : { (f: (n: string) => void): string; (f: (n: number) => void): number; }
->f : (n: string) => void
->n : string
+>fn5 : { (f: (n: 文字) => 无值): 文字; (f: (n: 数字) => 无值): 数字; }
+>f : (n: 文字) => 无值
+>n : 文字
 >类型别名 :=> 文字
 
 function fn5(f: (n: number) => void): number;
->fn5 : { (f: (n: string) => void): string; (f: (n: number) => void): number; }
->f : (n: number) => void
->n : number
+>fn5 : { (f: (n: 文字) => 无值): 文字; (f: (n: 数字) => 无值): 数字; }
+>f : (n: 数字) => 无值
+>n : 数字
 >类型别名 :=> 数字
 
 function fn5() { return undefined; }
->fn5 : { (f: (n: string) => void): string; (f: (n: number) => void): number; }
->undefined : undefined
+>fn5 : { (f: (n: 文字) => 无值): 文字; (f: (n: 数字) => 无值): 数字; }
+>undefined : 未定
 >类型别名 :=> 未定
 
 var n = fn5((n) => n.toFixed());
->n : number
+>n : 数字
 >类型别名 :=> 数字
->fn5((n) => n.toFixed()) : string
+>fn5((n) => n.toFixed()) : 文字
 >类型别名 :=> 文字
->fn5 : { (f: (n: string) => void): string; (f: (n: number) => void): number; }
->(n) => n.toFixed() : (n: string) => any
->n : string
+>fn5 : { (f: (n: 文字) => 无值): 文字; (f: (n: 数字) => 无值): 数字; }
+>(n) => n.toFixed() : (n: 文字) => 任意
+>n : 文字
 >类型别名 :=> 文字
->n.toFixed() : any
+>n.toFixed() : 任意
 >类型别名 :=> 任意
->n.toFixed : any
+>n.toFixed : 任意
 >类型别名 :=> 任意
->n : string
+>n : 文字
 >类型别名 :=> 文字
->toFixed : any
+>toFixed : 任意
 >类型别名 :=> 任意
 
 var s = fn5((n) => n.substr(0));
->s : string
+>s : 文字
 >类型别名 :=> 文字
->fn5((n) => n.substr(0)) : string
+>fn5((n) => n.substr(0)) : 文字
 >类型别名 :=> 文字
->fn5 : { (f: (n: string) => void): string; (f: (n: number) => void): number; }
->(n) => n.substr(0) : (n: string) => string
->n : string
+>fn5 : { (f: (n: 文字) => 无值): 文字; (f: (n: 数字) => 无值): 数字; }
+>(n) => n.substr(0) : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n.substr(0) : string
+>n.substr(0) : 文字
 >类型别名 :=> 文字
->n.substr : (from: number, length?: number) => string
->n : string
+>n.substr : (from: 数字, length?: 数字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->substr : (from: number, length?: number) => string
+>substr : (from: 数字, length?: 数字) => 文字
 >0 : 0
 
 

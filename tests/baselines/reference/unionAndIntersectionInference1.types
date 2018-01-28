@@ -10,7 +10,7 @@ var y: Y = <Y>undefined;
 >Y : Y
 ><Y>undefined : Y
 >Y : Y
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 function destructure<a, r>(
@@ -40,7 +40,7 @@ function destructure<a, r>(
 
     return something === y ? haveY(y) : haveValue(<a>something);
 >something === y ? haveY(y) : haveValue(<a>something) : r
->something === y : boolean
+>something === y : 真假
 >类型别名 :=> 真假
 >something : Y | a
 >y : Y
@@ -55,80 +55,80 @@ function destructure<a, r>(
 }
 
 var value = Math.random() > 0.5 ? 'hey!' : <Y>undefined;
->value : string | Y
+>value : 文字 | Y
 >Math.random() > 0.5 ? 'hey!' : <Y>undefined : Y | "hey!"
->Math.random() > 0.5 : boolean
+>Math.random() > 0.5 : 真假
 >类型别名 :=> 真假
->Math.random() : number
+>Math.random() : 数字
 >类型别名 :=> 数字
->Math.random : () => number
+>Math.random : () => 数字
 >Math : Math
->random : () => number
+>random : () => 数字
 >0.5 : 0.5
 >'hey!' : "hey!"
 ><Y>undefined : Y
 >Y : Y
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var result = destructure(value, text => 'string', y => 'other one'); // text: string, y: Y
->result : string
+>result : 文字
 >类型别名 :=> 文字
->destructure(value, text => 'string', y => 'other one') : string
+>destructure(value, text => 'string', y => 'other one') : 文字
 >类型别名 :=> 文字
 >destructure : <a, r>(something: Y | a, haveValue: (value: a) => r, haveY: (value: Y) => r) => r
->value : string | Y
->text => 'string' : (text: string) => string
->text : string
+>value : 文字 | Y
+>text => 'string' : (text: 文字) => 文字
+>text : 文字
 >类型别名 :=> 文字
 >'string' : "string"
->y => 'other one' : (y: Y) => string
+>y => 'other one' : (y: Y) => 文字
 >y : Y
 >'other one' : "other one"
 
 // Repro from #4212
 
 function isVoid<a>(value: void | a): value is void {
->isVoid : <a>(value: void | a) => value is void
+>isVoid : <a>(value: 无值 | a) => value 作为 无值
 >a : a
->value : void | a
+>value : 无值 | a
 >a : a
->value : any
+>value : 任意
 >类型别名 :=> 任意
 
     return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function isNonVoid<a>(value: void | a) : value is a {
->isNonVoid : <a>(value: void | a) => value is a
+>isNonVoid : <a>(value: 无值 | a) => value 作为 a
 >a : a
->value : void | a
+>value : 无值 | a
 >a : a
->value : any
+>value : 任意
 >类型别名 :=> 任意
 >a : a
 
     return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function foo1<a>(value: void|a): void {
->foo1 : <a>(value: void | a) => void
+>foo1 : <a>(value: 无值 | a) => 无值
 >a : a
->value : void | a
+>value : 无值 | a
 >a : a
 
     if (isVoid(value)) {
->isVoid(value) : boolean
+>isVoid(value) : 真假
 >类型别名 :=> 真假
->isVoid : <a>(value: void | a) => value is void
->value : void | a
+>isVoid : <a>(value: 无值 | a) => value 作为 无值
+>value : 无值 | a
 
         value; // value is void
->value : void
+>value : 无值
 >类型别名 :=> 无值
 
     } else {
@@ -138,23 +138,23 @@ function foo1<a>(value: void|a): void {
 }
 
 function baz1<a>(value: void|a): void {
->baz1 : <a>(value: void | a) => void
+>baz1 : <a>(value: 无值 | a) => 无值
 >a : a
->value : void | a
+>value : 无值 | a
 >a : a
 
       if (isNonVoid(value)) {
->isNonVoid(value) : boolean
+>isNonVoid(value) : 真假
 >类型别名 :=> 真假
->isNonVoid : <a>(value: void | a) => value is a
->value : void | a
+>isNonVoid : <a>(value: 无值 | a) => value 作为 a
+>value : 无值 | a
 
           value; // value is a
 >value : a
 
       } else {
           value; // value is void
->value : void
+>value : 无值
 >类型别名 :=> 无值
       }
 }
@@ -167,30 +167,30 @@ type Maybe<T> = T | void;
 >T : T
 
 function get<U>(x: U | void): U {
->get : <U>(x: void | U) => U
+>get : <U>(x: 无值 | U) => U
 >U : U
->x : void | U
+>x : 无值 | U
 >U : U
 >U : U
 
    return null; // just an example
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 let foo: Maybe<string>;
->foo : Maybe<string>
+>foo : Maybe<文字>
 >Maybe : Maybe<T>
 
 get(foo).toUpperCase(); // Ok
->get(foo).toUpperCase() : string
+>get(foo).toUpperCase() : 文字
 >类型别名 :=> 文字
->get(foo).toUpperCase : () => string
->get(foo) : string
+>get(foo).toUpperCase : () => 文字
+>get(foo) : 文字
 >类型别名 :=> 文字
->get : <U>(x: void | U) => U
->foo : Maybe<string>
->toUpperCase : () => string
+>get : <U>(x: 无值 | U) => U
+>foo : Maybe<文字>
+>toUpperCase : () => 文字
 
 // Repro from #5456
 
@@ -198,7 +198,7 @@ interface Man {
 >Man : Man
 
     walks: boolean;
->walks : boolean
+>walks : 真假
 >类型别名 :=> 真假
 }
 
@@ -206,7 +206,7 @@ interface Bear {
 >Bear : Bear
 
     roars: boolean;
->roars : boolean
+>roars : 真假
 >类型别名 :=> 真假
 }
 
@@ -214,7 +214,7 @@ interface Pig {
 >Pig : Pig
 
     oinks: boolean;
->oinks : boolean
+>oinks : 真假
 >类型别名 :=> 真假
 }
 
@@ -233,20 +233,20 @@ declare var mbp: Man & Bear;
 >Bear : Bear
 
 pigify(mbp).oinks; // OK, mbp is treated as Pig
->pigify(mbp).oinks : boolean
+>pigify(mbp).oinks : 真假
 >类型别名 :=> 真假
 >pigify(mbp) : Man & Pig
 >pigify : <T>(y: T & Bear) => T & Pig
 >mbp : Man & Bear
->oinks : boolean
+>oinks : 真假
 >类型别名 :=> 真假
 
 pigify(mbp).walks; // Ok, mbp is treated as Man
->pigify(mbp).walks : boolean
+>pigify(mbp).walks : 真假
 >类型别名 :=> 真假
 >pigify(mbp) : Man & Pig
 >pigify : <T>(y: T & Bear) => T & Pig
 >mbp : Man & Bear
->walks : boolean
+>walks : 真假
 >类型别名 :=> 真假
 

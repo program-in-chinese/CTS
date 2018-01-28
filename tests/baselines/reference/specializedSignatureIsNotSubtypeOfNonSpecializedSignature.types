@@ -1,28 +1,28 @@
 === tests/cases/conformance/types/objectTypeLiteral/callSignatures/specializedSignatureIsNotSubtypeOfNonSpecializedSignature.ts ===
 function foo(x: 'a');
->foo : (x: "a") => any
+>foo : (x: "a") => 任意
 >x : "a"
 
 function foo(x: number) { }
->foo : (x: "a") => any
->x : number
+>foo : (x: "a") => 任意
+>x : 数字
 >类型别名 :=> 数字
 
 class C {
 >C : C
 
     foo(x: 'a');
->foo : { (x: "a"): any; (x: number): any; }
+>foo : { (x: "a"): 任意; (x: 数字): 任意; }
 >x : "a"
 
     foo(x: number);
->foo : { (x: "a"): any; (x: number): any; }
->x : number
+>foo : { (x: "a"): 任意; (x: 数字): 任意; }
+>x : 数字
 >类型别名 :=> 数字
 
     foo(x: any) { }
->foo : { (x: "a"): any; (x: number): any; }
->x : any
+>foo : { (x: "a"): 任意; (x: 数字): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 }
 
@@ -31,17 +31,17 @@ class C2<T> {
 >T : T
 
     foo(x: 'a');
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : "a"
 
     foo(x: T);
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : T
 >T : T
 
     foo(x: any) { }
->foo : { (x: "a"): any; (x: T): any; }
->x : any
+>foo : { (x: "a"): 任意; (x: T): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 }
 
@@ -51,17 +51,17 @@ class C3<T extends String> {
 >String : String
 
     foo(x: 'a');
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : "a"
 
     foo(x: T);
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : T
 >T : T
 
     foo(x: any) { }
->foo : { (x: "a"): any; (x: T): any; }
->x : any
+>foo : { (x: "a"): 任意; (x: T): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 }
 
@@ -72,16 +72,16 @@ interface I {
 >x : "a"
 
     (x: number);
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     foo(x: 'a');
->foo : { (x: "a"): any; (x: number): any; }
+>foo : { (x: "a"): 任意; (x: 数字): 任意; }
 >x : "a"
 
     foo(x: number);
->foo : { (x: "a"): any; (x: number): any; }
->x : number
+>foo : { (x: "a"): 任意; (x: 数字): 任意; }
+>x : 数字
 >类型别名 :=> 数字
 }
 
@@ -97,11 +97,11 @@ interface I2<T> {
 >T : T
 
     foo(x: 'a');
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : "a"
 
     foo(x: T);
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : T
 >T : T
 }
@@ -119,37 +119,37 @@ interface I3<T extends String> {
 >T : T
 
     foo(x: 'a');
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : "a"
 
     foo(x: T);
->foo : { (x: "a"): any; (x: T): any; }
+>foo : { (x: "a"): 任意; (x: T): 任意; }
 >x : T
 >T : T
 }
 
 var a: {
->a : { (x: "a"): any; (x: number): any; foo(x: "a"): any; foo(x: number): any; }
+>a : { (x: "a"): 任意; (x: 数字): 任意; foo(x: "a"): 任意; foo(x: 数字): 任意; }
 
     (x: 'a');
 >x : "a"
 
     (x: number);
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     foo(x: 'a');
->foo : { (x: "a"): any; (x: number): any; }
+>foo : { (x: "a"): 任意; (x: 数字): 任意; }
 >x : "a"
 
     foo(x: number);
->foo : { (x: "a"): any; (x: number): any; }
->x : number
+>foo : { (x: "a"): 任意; (x: 数字): 任意; }
+>x : 数字
 >类型别名 :=> 数字
 }
 
 var a2: {
->a2 : { (x: "a"): any; <T>(x: T): any; foo(x: "a"): any; foo<T>(x: T): any; }
+>a2 : { (x: "a"): 任意; <T>(x: T): 任意; foo(x: "a"): 任意; foo<T>(x: T): 任意; }
 
     (x: 'a');
 >x : "a"
@@ -160,18 +160,18 @@ var a2: {
 >T : T
 
     foo(x: 'a');
->foo : { (x: "a"): any; <T>(x: T): any; }
+>foo : { (x: "a"): 任意; <T>(x: T): 任意; }
 >x : "a"
 
     foo<T>(x: T);
->foo : { (x: "a"): any; <T>(x: T): any; }
+>foo : { (x: "a"): 任意; <T>(x: T): 任意; }
 >T : T
 >x : T
 >T : T
 }
 
 var a3: {
->a3 : { (x: "a"): any; <T>(x: T): any; foo(x: "a"): any; foo<T extends String>(x: T): any; }
+>a3 : { (x: "a"): 任意; <T>(x: T): 任意; foo(x: "a"): 任意; foo<T 扩展 String>(x: T): 任意; }
 
     (x: 'a');
 >x : "a"
@@ -182,11 +182,11 @@ var a3: {
 >T : T
 
     foo(x: 'a');
->foo : { (x: "a"): any; <T extends String>(x: T): any; }
+>foo : { (x: "a"): 任意; <T 扩展 String>(x: T): 任意; }
 >x : "a"
 
     foo<T extends String>(x: T);
->foo : { (x: "a"): any; <T extends String>(x: T): any; }
+>foo : { (x: "a"): 任意; <T 扩展 String>(x: T): 任意; }
 >T : T
 >String : String
 >x : T

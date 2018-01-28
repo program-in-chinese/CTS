@@ -1,31 +1,31 @@
 === tests/cases/compiler/file3.ts ===
 import x = require("file1");
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 import "file2";
 let a: x.A; // should not work
->a : any
+>a : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >A : No type information available!
 
 === tests/cases/compiler/file1.d.ts ===
 declare module "file1" {
     var x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     export = x;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 
 === tests/cases/compiler/file2.ts ===
 /// <reference path="file1.d.ts"/>
 import x = require("file1"); 
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 // augmentation for 'file1'
@@ -33,7 +33,7 @@ import x = require("file1");
 declare module "file1" {
     interface A { a }
 >A : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 }
 

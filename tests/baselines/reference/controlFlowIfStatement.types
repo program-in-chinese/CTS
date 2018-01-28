@@ -1,91 +1,91 @@
 === tests/cases/conformance/controlFlow/controlFlowIfStatement.ts ===
 let x: string | number | boolean | RegExp;
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >RegExp : RegExp
 
 let cond: boolean;
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 
 x = /a/;
 >x = /a/ : RegExp
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >/a/ : RegExp
 
 if (x /* RegExp */, (x = true)) {
->x /* RegExp */, (x = true) : true
+>x /* RegExp */, (x = true) : 为真
 >类型别名 :=> 为真
 >x : RegExp
->(x = true) : true
+>(x = true) : 为真
 >类型别名 :=> 为真
->x = true : true
+>x = true : 为真
 >类型别名 :=> 为真
->x : string | number | boolean | RegExp
->true : true
+>x : 文字 | 数字 | 真假 | RegExp
+>true : 为真
 >类型别名 :=> 为真
 
     x; // boolean
->x : true
+>x : 为真
 >类型别名 :=> 为真
 
     x = "";
 >x = "" : ""
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >"" : ""
 }
 else {
     x; // boolean
->x : true
+>x : 为真
 >类型别名 :=> 为真
 
     x = 42;
 >x = 42 : 42
->x : string | number | boolean | RegExp
+>x : 文字 | 数字 | 真假 | RegExp
 >42 : 42
 }
 x; // string | number
->x : string | number
+>x : 文字 | 数字
 
 function a() {
->a : () => void
+>a : () => 无值
 
     let x: string | number;
->x : string | number
+>x : 文字 | 数字
 
     if (cond) {
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 
         x = 42;
 >x = 42 : 42
->x : string | number
+>x : 文字 | 数字
 >42 : 42
     }
     else {
         x = "";
 >x = "" : ""
->x : string | number
+>x : 文字 | 数字
 >"" : ""
 
         return;
     }
     x; // number
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 function b() {
->b : () => void
+>b : () => 无值
 
     let x: string | number;
->x : string | number
+>x : 文字 | 数字
 
     if (cond) {
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 
         x = 42;
 >x = 42 : 42
->x : string | number
+>x : 文字 | 数字
 >42 : 42
 
         throw "";
@@ -94,34 +94,34 @@ function b() {
     else {
         x = "";
 >x = "" : ""
->x : string | number
+>x : 文字 | 数字
 >"" : ""
     }
     x; // string
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 function c<T>(data: string | T): T {
->c : <T>(data: string | T) => T
+>c : <T>(data: 文字 | T) => T
 >T : T
->data : string | T
+>data : 文字 | T
 >T : T
 >T : T
 
     if (typeof data === 'string') {
->typeof data === 'string' : boolean
+>typeof data === 'string' : 真假
 >类型别名 :=> 真假
 >typeof data : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->data : string | T
+>data : 文字 | T
 >'string' : "string"
 
         return JSON.parse(data);
->JSON.parse(data) : any
+>JSON.parse(data) : 任意
 >类型别名 :=> 任意
->JSON.parse : (text: string, reviver?: (key: any, value: any) => any) => any
+>JSON.parse : (text: 文字, reviver?: (key: 任意, value: 任意) => 任意) => 任意
 >JSON : JSON
->parse : (text: string, reviver?: (key: any, value: any) => any) => any
->data : string
+>parse : (text: 文字, reviver?: (key: 任意, value: 任意) => 任意) => 任意
+>data : 文字
 >类型别名 :=> 文字
     }
     else {
@@ -130,16 +130,16 @@ function c<T>(data: string | T): T {
     }
 }
 function d<T extends string>(data: string | T): never {
->d : <T extends string>(data: string | T) => never
+>d : <T 扩展 文字>(data: 文字 | T) => 不及
 >T : T
->data : string | T
+>data : 文字 | T
 >T : T
 
     if (typeof data === 'string') {
->typeof data === 'string' : boolean
+>typeof data === 'string' : 真假
 >类型别名 :=> 真假
 >typeof data : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->data : string | T
+>data : 文字 | T
 >'string' : "string"
 
         throw new Error('will always happen');
@@ -149,7 +149,7 @@ function d<T extends string>(data: string | T): never {
     }
     else {
         return data;
->data : never
+>data : 不及
 >类型别名 :=> 不及
     }
 }

@@ -1,6 +1,6 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
 	interface Element { }
@@ -11,57 +11,57 @@ declare module JSX {
 }
 
 module my {
->my : typeof my
+>my : 类为 my
 
     export var div: any;
->div : any
+>div : 任意
 >类型别名 :=> 任意
 }
 // OK
 <my.div n='x' />;
 ><my.div n='x' /> : JSX.Element
->my.div : any
+>my.div : 任意
 >类型别名 :=> 任意
->my : typeof my
->div : any
+>my : 类为 my
+>div : 任意
 >类型别名 :=> 任意
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 // Error
 <my.other />;
 ><my.other /> : JSX.Element
->my.other : any
+>my.other : 任意
 >类型别名 :=> 任意
->my : typeof my
->other : any
+>my : 类为 my
+>other : 任意
 >类型别名 :=> 任意
 
 module q {
->q : typeof q
+>q : 类为 q
 
     import mine = my;
->mine : typeof mine
->my : typeof mine
+>mine : 类为 mine
+>my : 类为 mine
 
     // OK
     <mine.div n='x' />;
 ><mine.div n='x' /> : JSX.Element
->mine.div : any
+>mine.div : 任意
 >类型别名 :=> 任意
->mine : typeof mine
->div : any
+>mine : 类为 mine
+>div : 任意
 >类型别名 :=> 任意
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
     // Error
     <mine.non />;
 ><mine.non /> : JSX.Element
->mine.non : any
+>mine.non : 任意
 >类型别名 :=> 任意
->mine : typeof mine
->non : any
+>mine : 类为 mine
+>non : 任意
 >类型别名 :=> 任意
 }
 

@@ -4,7 +4,7 @@ declare module "file1" {
 >foo : foo
 
     namespace foo {
->foo : typeof foo
+>foo : 类为 foo
 
         class A {}
 >A : A
@@ -17,33 +17,33 @@ declare module "file1" {
 === tests/cases/compiler/file2.ts ===
 /// <reference path="file1.d.ts"/>
 import x = require("file1"); 
->x : typeof x
+>x : 类为 x
 
 // OK - './file1' is a namespace
 declare module "file1" {
     interface A { a: number }
 >A : A
->a : number
+>a : 数字
 >类型别名 :=> 数字
 }
 
 === tests/cases/compiler/file3.ts ===
 import * as x from "file1";
->x : typeof x
+>x : 类为 x
 
 import "file2";
 let a: x.A;
 >a : x.A
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >A : x.A
 
 let b = a.a;
->b : number
+>b : 数字
 >类型别名 :=> 数字
->a.a : number
+>a.a : 数字
 >类型别名 :=> 数字
 >a : x.A
->a : number
+>a : 数字
 >类型别名 :=> 数字
 

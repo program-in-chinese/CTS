@@ -1200,8 +1200,8 @@ namespace ts {
         return displayPart(" ", SymbolDisplayPartKind.space);
     }
 
-    export function keywordPart(kind: SyntaxKind) {
-        return displayPart(tokenToString(kind), SymbolDisplayPartKind.keyword);
+    export function keywordPart(kind: SyntaxKind, 使用中文关键字: boolean) {
+        return displayPart(使用中文关键字 ? 令牌转为中文关键字(kind) : tokenToString(kind), SymbolDisplayPartKind.keyword);
     }
 
     export function punctuationPart(kind: SyntaxKind) {
@@ -1211,14 +1211,12 @@ namespace ts {
     export function operatorPart(kind: SyntaxKind) {
         return displayPart(tokenToString(kind), SymbolDisplayPartKind.operator);
     }
-
-    export function textOrKeywordPart(text: string) {
+    export function textOrKeywordPart(text: string, 使用中文关键字: boolean) {
         const kind = stringToToken(text);
         return kind === undefined
             ? textPart(text)
-            : keywordPart(kind);
+            : keywordPart(kind, 使用中文关键字);
     }
-
     export function textPart(text: string) {
         return displayPart(text, SymbolDisplayPartKind.text);
     }

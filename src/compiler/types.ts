@@ -2675,7 +2675,7 @@ namespace ts {
         /* @internal */ path: Path;
         text: string;
         词典语句?: Map<全局词典语句>;
-        全局词典?:Map<词典>
+        全局词典?:Map<词典[]>
 
         /**
          * If two source files are for the same version of the same package, one will redirect to the other.
@@ -3121,6 +3121,7 @@ namespace ts {
         /* @internal */ getAllPossiblePropertiesOfTypes(type: ReadonlyArray<Type>): Symbol[];
         /* @internal */ resolveName(name: string, location: Node, meaning: SymbolFlags): Symbol | undefined;
         /* @internal */ getJsxNamespace(): string;
+        /* @internal */ 取编译选项(): CompilerOptions;
     }
 
     export enum NodeBuilderFlags {
@@ -5074,6 +5075,7 @@ namespace ts {
         /*@internal*/ sourceMap?: boolean;
         /*@internal*/ inlineSourceMap?: boolean;
         /*@internal*/ extendedDiagnostics?: boolean;
+        /*@internal*/ 中文关键字?: boolean;
     }
 
     /*@internal*/

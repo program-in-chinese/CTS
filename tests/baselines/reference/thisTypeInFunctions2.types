@@ -4,176 +4,176 @@ interface IndexedWithThis {
 
     // this is a workaround for React
     init?: (this: this) => void;
->init : (this: this) => void
->this : this
+>init : (this: 本体) => 无值
+>this : 本体
 
     willDestroy?: (this: any) => void;
->willDestroy : (this: any) => void
->this : any
+>willDestroy : (this: 任意) => 无值
+>this : 任意
 >类型别名 :=> 任意
 
     [propName: string]: number | string | boolean | symbol | undefined | null | {} | ((this: any, ...args:any[]) => any);
->propName : string
+>propName : 文字
 >类型别名 :=> 文字
->null : null
+>null : 空值
 >类型别名 :=> 空值
->this : any
+>this : 任意
 >类型别名 :=> 任意
->args : any[]
+>args : 任意[]
 }
 interface IndexedWithoutThis {
 >IndexedWithoutThis : IndexedWithoutThis
 
     // this is what React would like to write (and what they write today)
     init?: () => void;
->init : () => void
+>init : () => 无值
 
     willDestroy?: () => void;
->willDestroy : () => void
+>willDestroy : () => 无值
 
     [propName: string]: any;
->propName : string
+>propName : 文字
 >类型别名 :=> 文字
 }
 interface SimpleInterface {
 >SimpleInterface : SimpleInterface
 
     foo(n: string);
->foo : (n: string) => any
->n : string
+>foo : (n: 文字) => 任意
+>n : 文字
 >类型别名 :=> 文字
 
     bar(): number;
->bar : () => number
+>bar : () => 数字
 }
 declare function extend1(args: IndexedWithThis): void;
->extend1 : (args: IndexedWithThis) => void
+>extend1 : (args: IndexedWithThis) => 无值
 >args : IndexedWithThis
 >IndexedWithThis : IndexedWithThis
 
 declare function extend2(args: IndexedWithoutThis): void;
->extend2 : (args: IndexedWithoutThis) => void
+>extend2 : (args: IndexedWithoutThis) => 无值
 >args : IndexedWithoutThis
 >IndexedWithoutThis : IndexedWithoutThis
 
 declare function simple(arg: SimpleInterface): void;
->simple : (arg: SimpleInterface) => void
+>simple : (arg: SimpleInterface) => 无值
 >arg : SimpleInterface
 >SimpleInterface : SimpleInterface
 
 extend1({
->extend1({    init() {        this // this: IndexedWithThis because of contextual typing.        // this.mine        this.willDestroy    },    mine: 12,    foo() {        this.url; // this: any because 'foo' matches the string indexer        this.willDestroy;    }}) : void
+>extend1({    init() {        this // this: IndexedWithThis because of contextual typing.        // this.mine        this.willDestroy    },    mine: 12,    foo() {        this.url; // this: any because 'foo' matches the string indexer        this.willDestroy;    }}) : 无值
 >类型别名 :=> 无值
->extend1 : (args: IndexedWithThis) => void
->{    init() {        this // this: IndexedWithThis because of contextual typing.        // this.mine        this.willDestroy    },    mine: 12,    foo() {        this.url; // this: any because 'foo' matches the string indexer        this.willDestroy;    }} : { init(this: IndexedWithThis): void; mine: 12; foo(this: any): void; }
+>extend1 : (args: IndexedWithThis) => 无值
+>{    init() {        this // this: IndexedWithThis because of contextual typing.        // this.mine        this.willDestroy    },    mine: 12,    foo() {        this.url; // this: any because 'foo' matches the string indexer        this.willDestroy;    }} : { init(this: IndexedWithThis): 无值; mine: 12; foo(this: 任意): 无值; }
 
     init() {
->init : (this: IndexedWithThis) => void
+>init : (this: IndexedWithThis) => 无值
 
         this // this: IndexedWithThis because of contextual typing.
 >this : IndexedWithThis
 
         // this.mine
         this.willDestroy
->this.willDestroy : (this: any) => void
+>this.willDestroy : (this: 任意) => 无值
 >this : IndexedWithThis
->willDestroy : (this: any) => void
+>willDestroy : (this: 任意) => 无值
 
     },
     mine: 12,
->mine : number
+>mine : 数字
 >类型别名 :=> 数字
 >12 : 12
 
     foo() {
->foo : (this: any) => void
+>foo : (this: 任意) => 无值
 
         this.url; // this: any because 'foo' matches the string indexer
->this.url : any
+>this.url : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->url : any
+>url : 任意
 >类型别名 :=> 任意
 
         this.willDestroy;
->this.willDestroy : any
+>this.willDestroy : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->willDestroy : any
+>willDestroy : 任意
 >类型别名 :=> 任意
     }
 });
 extend2({
->extend2({    init() {        this // this: containing object literal type        this.mine    },    mine: 13,    foo() {        this // this: containing object literal type        this.mine    }}) : void
+>extend2({    init() {        this // this: containing object literal type        this.mine    },    mine: 13,    foo() {        this // this: containing object literal type        this.mine    }}) : 无值
 >类型别名 :=> 无值
->extend2 : (args: IndexedWithoutThis) => void
->{    init() {        this // this: containing object literal type        this.mine    },    mine: 13,    foo() {        this // this: containing object literal type        this.mine    }} : { init(): void; mine: number; foo(): void; }
+>extend2 : (args: IndexedWithoutThis) => 无值
+>{    init() {        this // this: containing object literal type        this.mine    },    mine: 13,    foo() {        this // this: containing object literal type        this.mine    }} : { init(): 无值; mine: 数字; foo(): 无值; }
 
     init() {
->init : () => void
+>init : () => 无值
 
         this // this: containing object literal type
 >this : IndexedWithoutThis
 
         this.mine
->this.mine : any
+>this.mine : 任意
 >类型别名 :=> 任意
 >this : IndexedWithoutThis
->mine : any
+>mine : 任意
 >类型别名 :=> 任意
 
     },
     mine: 13,
->mine : number
+>mine : 数字
 >类型别名 :=> 数字
 >13 : 13
 
     foo() {
->foo : () => void
+>foo : () => 无值
 
         this // this: containing object literal type
 >this : IndexedWithoutThis
 
         this.mine
->this.mine : any
+>this.mine : 任意
 >类型别名 :=> 任意
 >this : IndexedWithoutThis
->mine : any
+>mine : 任意
 >类型别名 :=> 任意
     }
 });
 
 simple({
->simple({    foo(n) {        return n.length + this.bar();    },    bar() {        return 14;    }}) : void
+>simple({    foo(n) {        return n.length + this.bar();    },    bar() {        return 14;    }}) : 无值
 >类型别名 :=> 无值
->simple : (arg: SimpleInterface) => void
->{    foo(n) {        return n.length + this.bar();    },    bar() {        return 14;    }} : { foo(n: string): number; bar(): number; }
+>simple : (arg: SimpleInterface) => 无值
+>{    foo(n) {        return n.length + this.bar();    },    bar() {        return 14;    }} : { foo(n: 文字): 数字; bar(): 数字; }
 
     foo(n) {
->foo : (n: string) => number
->n : string
+>foo : (n: 文字) => 数字
+>n : 文字
 >类型别名 :=> 文字
 
         return n.length + this.bar();
->n.length + this.bar() : number
+>n.length + this.bar() : 数字
 >类型别名 :=> 数字
->n.length : number
+>n.length : 数字
 >类型别名 :=> 数字
->n : string
+>n : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
->this.bar() : number
+>this.bar() : 数字
 >类型别名 :=> 数字
->this.bar : () => number
+>this.bar : () => 数字
 >this : SimpleInterface
->bar : () => number
+>bar : () => 数字
 
     },
     bar() {
->bar : () => number
+>bar : () => 数字
 
         return 14;
 >14 : 14

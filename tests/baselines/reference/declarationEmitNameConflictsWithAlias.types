@@ -1,26 +1,26 @@
 === tests/cases/compiler/declarationEmitNameConflictsWithAlias.ts ===
 export module C { export interface I { } }
->C : any
+>C : 任意
 >类型别名 :=> 任意
 >I : I
 
 export import v = C;
->v : any
+>v : 任意
 >类型别名 :=> 任意
->C : any
+>C : 任意
 >类型别名 :=> 任意
 
 export module M {
->M : typeof M
+>M : 类为 M
 
     export module C { export interface I { } }
->C : any
+>C : 任意
 >类型别名 :=> 任意
 >I : I
 
     export var w: v.I; // Gets emitted as C.I, which is the wrong interface
 >w : v.I
->v : any
+>v : 任意
 >类型别名 :=> 任意
 >I : v.I
 }

@@ -1,64 +1,64 @@
 === tests/cases/compiler/avoid.ts ===
 function f() {
->f : () => void
+>f : () => 无值
 
     var x=1;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
 
 var y=f();  // error void fn
->y : void
+>y : 无值
 >类型别名 :=> 无值
->f() : void
+>f() : 无值
 >类型别名 :=> 无值
->f : () => void
+>f : () => 无值
 
 var why:any=f(); // error void fn
->why : any
+>why : 任意
 >类型别名 :=> 任意
->f() : void
+>f() : 无值
 >类型别名 :=> 无值
->f : () => void
+>f : () => 无值
 
 var w:any;
->w : any
+>w : 任意
 >类型别名 :=> 任意
 
 w=f(); // error void fn
->w=f() : void
+>w=f() : 无值
 >类型别名 :=> 无值
->w : any
+>w : 任意
 >类型别名 :=> 任意
->f() : void
+>f() : 无值
 >类型别名 :=> 无值
->f : () => void
+>f : () => 无值
 
 class C {
 >C : C
 
     g() {
->g : () => void
+>g : () => 无值
         
     }
 }
 
 var z=new C().g(); // error void fn
->z : void
+>z : 无值
 >类型别名 :=> 无值
->new C().g() : void
+>new C().g() : 无值
 >类型别名 :=> 无值
->new C().g : () => void
+>new C().g : () => 无值
 >new C() : C
->C : typeof C
->g : () => void
+>C : 类为 C
+>g : () => 无值
 
 var N=new f();  // ok with void fn
->N : any
+>N : 任意
 >类型别名 :=> 任意
->new f() : any
+>new f() : 任意
 >类型别名 :=> 任意
->f : () => void
+>f : () => 无值
 
 

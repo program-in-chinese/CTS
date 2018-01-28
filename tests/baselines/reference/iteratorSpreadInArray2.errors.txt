@@ -1,0 +1,37 @@
+tests/cases/conformance/es6/spread/iteratorSpreadInArray2.ts(27,17): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/es6/spread/iteratorSpreadInArray2.ts(27,40): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+
+
+==== tests/cases/conformance/es6/spread/iteratorSpreadInArray2.ts (2 errors) ====
+    class SymbolIterator {
+        next() {
+            return {
+                value: Symbol(),
+                done: false
+            };
+        }
+    
+        [Symbol.iterator]() {
+            return this;
+        }
+    }
+    
+    class NumberIterator {
+        next() {
+            return {
+                value: 0,
+                done: false
+            };
+        }
+    
+        [Symbol.iterator]() {
+            return this;
+        }
+    }
+    
+    var array = [...new NumberIterator, ...new SymbolIterator];
+                    ~~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                                           ~~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    

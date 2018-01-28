@@ -1,61 +1,61 @@
 === tests/cases/compiler/aliasBug.ts ===
 module foo {    
->foo : typeof foo
+>foo : 类为 foo
 
     export class Provide {
 >Provide : Provide
     }
 
     export module bar { export module baz {export class boo {}}}
->bar : typeof bar
->baz : typeof baz
+>bar : 类为 bar
+>baz : 类为 baz
 >boo : boo
 }
 
 import provide = foo;
->provide : typeof foo
->foo : typeof foo
+>provide : 类为 foo
+>foo : 类为 foo
 
 import booz = foo.bar.baz;
->booz : typeof booz
->foo : typeof foo
->bar : typeof provide.bar
->baz : typeof booz
+>booz : 类为 booz
+>foo : 类为 foo
+>bar : 类为 provide.bar
+>baz : 类为 booz
 
 var p = new provide.Provide();
 >p : provide.Provide
 >new provide.Provide() : provide.Provide
->provide.Provide : typeof provide.Provide
->provide : typeof foo
->Provide : typeof provide.Provide
+>provide.Provide : 类为 provide.Provide
+>provide : 类为 foo
+>Provide : 类为 provide.Provide
 
 function use() {
->use : () => void
+>use : () => 无值
 
   var p1: provide.Provide; // error here, but should be okay
 >p1 : provide.Provide
->provide : any
+>provide : 任意
 >类型别名 :=> 任意
 >Provide : provide.Provide
 
   var p2: foo.Provide;
 >p2 : provide.Provide
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 >Provide : provide.Provide
 
   var p3:booz.bar;
->p3 : any
+>p3 : 任意
 >类型别名 :=> 任意
->booz : any
+>booz : 任意
 >类型别名 :=> 任意
 >bar : No type information available!
 
   var p22 = new provide.Provide();
 >p22 : provide.Provide
 >new provide.Provide() : provide.Provide
->provide.Provide : typeof provide.Provide
->provide : typeof foo
->Provide : typeof provide.Provide
+>provide.Provide : 类为 provide.Provide
+>provide : 类为 foo
+>Provide : 类为 provide.Provide
 }
 

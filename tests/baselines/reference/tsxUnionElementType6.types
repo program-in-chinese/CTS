@@ -1,15 +1,15 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : typeof React
+>React : 类为 React
 
 function EmptySFC1() {
 >EmptySFC1 : () => JSX.Element
 
     return <div>Hi</div>
 ><div>Hi</div> : JSX.Element
->div : any
+>div : 任意
 >类型别名 :=> 任意
->div : any
+>div : 任意
 >类型别名 :=> 任意
 }
 
@@ -18,23 +18,23 @@ function EmptySFC2() {
 
     return <div>Hello</div>
 ><div>Hello</div> : JSX.Element
->div : any
+>div : 任意
 >类型别名 :=> 任意
->div : any
+>div : 任意
 >类型别名 :=> 任意
 }
 
 function SFC2(prop: { x: boolean }) {
->SFC2 : (prop: { x: boolean; }) => JSX.Element
->prop : { x: boolean; }
->x : boolean
+>SFC2 : (prop: { x: 真假; }) => JSX.Element
+>prop : { x: 真假; }
+>x : 真假
 >类型别名 :=> 真假
 
     return <h1>World</h1>;
 ><h1>World</h1> : JSX.Element
->h1 : any
+>h1 : 任意
 >类型别名 :=> 任意
->h1 : any
+>h1 : 任意
 >类型别名 :=> 任意
 }
 
@@ -45,9 +45,9 @@ var EmptySFCComp = EmptySFC1 || EmptySFC2;
 >EmptySFC2 : () => JSX.Element
 
 var SFC2AndEmptyComp = SFC2 || EmptySFC1;
->SFC2AndEmptyComp : (prop: { x: boolean; }) => JSX.Element
->SFC2 || EmptySFC1 : (prop: { x: boolean; }) => JSX.Element
->SFC2 : (prop: { x: boolean; }) => JSX.Element
+>SFC2AndEmptyComp : (prop: { x: 真假; }) => JSX.Element
+>SFC2 || EmptySFC1 : (prop: { x: 真假; }) => JSX.Element
+>SFC2 : (prop: { x: 真假; }) => JSX.Element
 >EmptySFC1 : () => JSX.Element
 
 // Error
@@ -55,26 +55,26 @@ let a = <EmptySFCComp x />;
 >a : JSX.Element
 ><EmptySFCComp x /> : JSX.Element
 >EmptySFCComp : () => JSX.Element
->x : true
+>x : 为真
 >类型别名 :=> 为真
 
 let b = <SFC2AndEmptyComp x="hi" />;
 >b : JSX.Element
 ><SFC2AndEmptyComp x="hi" /> : JSX.Element
->SFC2AndEmptyComp : (prop: { x: boolean; }) => JSX.Element
->x : string
+>SFC2AndEmptyComp : (prop: { x: 真假; }) => JSX.Element
+>x : 文字
 >类型别名 :=> 文字
 
 let c = <SFC2AndEmptyComp />;
 >c : JSX.Element
 ><SFC2AndEmptyComp /> : JSX.Element
->SFC2AndEmptyComp : (prop: { x: boolean; }) => JSX.Element
+>SFC2AndEmptyComp : (prop: { x: 真假; }) => JSX.Element
 
 let d = <SFC2AndEmptyComp data-prop />;
 >d : JSX.Element
 ><SFC2AndEmptyComp data-prop /> : JSX.Element
->SFC2AndEmptyComp : (prop: { x: boolean; }) => JSX.Element
->data-prop : true
+>SFC2AndEmptyComp : (prop: { x: 真假; }) => JSX.Element
+>data-prop : 为真
 >类型别名 :=> 为真
 
 

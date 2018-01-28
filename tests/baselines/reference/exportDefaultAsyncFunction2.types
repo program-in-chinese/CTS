@@ -1,63 +1,63 @@
 === tests/cases/compiler/asyncawait.ts ===
 export function async<T>(...args: any[]): any { }
->async : <T>(...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
 >T : T
->args : any[]
+>args : 任意[]
 
 export function await(...args: any[]): any { }
->await : (...args: any[]) => any
->args : any[]
+>await : (...args: 任意[]) => 任意
+>args : 任意[]
 
 === tests/cases/compiler/a.ts ===
 import { async, await } from 'asyncawait';
->async : <T>(...args: any[]) => any
->await : (...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
+>await : (...args: 任意[]) => 任意
 
 export default async(() => await(Promise.resolve(1)));
->async(() => await(Promise.resolve(1))) : any
+>async(() => await(Promise.resolve(1))) : 任意
 >类型别名 :=> 任意
->async : <T>(...args: any[]) => any
->() => await(Promise.resolve(1)) : () => any
->await(Promise.resolve(1)) : any
+>async : <T>(...args: 任意[]) => 任意
+>() => await(Promise.resolve(1)) : () => 任意
+>await(Promise.resolve(1)) : 任意
 >类型别名 :=> 任意
->await : (...args: any[]) => any
->Promise.resolve(1) : Promise<number>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>await : (...args: 任意[]) => 任意
+>Promise.resolve(1) : Promise<数字>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
 >1 : 1
 
 === tests/cases/compiler/b.ts ===
 export default async () => { return 0; };
->async () => { return 0; } : () => Promise<number>
+>async () => { return 0; } : () => Promise<数字>
 >0 : 0
 
 === tests/cases/compiler/c.ts ===
 import { async, await } from 'asyncawait';
->async : <T>(...args: any[]) => any
->await : (...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
+>await : (...args: 任意[]) => 任意
 
 export default async<number>();
->async<number>() : any
+>async<number>() : 任意
 >类型别名 :=> 任意
->async : <T>(...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
 
 === tests/cases/compiler/d.ts ===
 import { async, await } from 'asyncawait';
->async : <T>(...args: any[]) => any
->await : (...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
+>await : (...args: 任意[]) => 任意
 
 export default async;
->async : <T>(...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
 
 === tests/cases/compiler/e.ts ===
 import { async, await } from 'asyncawait';
->async : <T>(...args: any[]) => any
->await : (...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
+>await : (...args: 任意[]) => 任意
 
 export default async
->async : <T>(...args: any[]) => any
+>async : <T>(...args: 任意[]) => 任意
 
 export function foo() { }
->foo : () => void
+>foo : () => 无值
 

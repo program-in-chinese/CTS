@@ -1,7 +1,7 @@
 === tests/cases/compiler/genericMethodOverspecialization.ts ===
 var names = ["list", "table1", "table2", "table3", "summary"];
->names : string[]
->["list", "table1", "table2", "table3", "summary"] : string[]
+>names : 文字[]
+>["list", "table1", "table2", "table3", "summary"] : 文字[]
 >"list" : "list"
 >"table1" : "table1"
 >"table2" : "table2"
@@ -12,11 +12,11 @@ interface HTMLElement {
 >HTMLElement : HTMLElement
 
     clientWidth: number;
->clientWidth : number
+>clientWidth : 数字
 >类型别名 :=> 数字
 
     isDisabled: boolean;
->isDisabled : boolean
+>isDisabled : 真假
 >类型别名 :=> 真假
 }
 
@@ -28,8 +28,8 @@ interface Document {
 >Document : Document
 
     getElementById(elementId: string): HTMLElement;
->getElementById : (elementId: string) => HTMLElement
->elementId : string
+>getElementById : (elementId: 文字) => HTMLElement
+>elementId : 文字
 >类型别名 :=> 文字
 >HTMLElement : HTMLElement
 }
@@ -37,19 +37,19 @@ interface Document {
 var elements = names.map(function (name) {
 >elements : HTMLElement[]
 >names.map(function (name) {    return document.getElementById(name);}) : HTMLElement[]
->names.map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
->names : string[]
->map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
->function (name) {    return document.getElementById(name);} : (name: string) => HTMLElement
->name : string
+>names.map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
+>names : 文字[]
+>map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
+>function (name) {    return document.getElementById(name);} : (name: 文字) => HTMLElement
+>name : 文字
 >类型别名 :=> 文字
 
     return document.getElementById(name);
 >document.getElementById(name) : HTMLElement
->document.getElementById : (elementId: string) => HTMLElement
+>document.getElementById : (elementId: 文字) => HTMLElement
 >document : Document
->getElementById : (elementId: string) => HTMLElement
->name : string
+>getElementById : (elementId: 文字) => HTMLElement
+>name : 文字
 >类型别名 :=> 文字
 
 });
@@ -58,37 +58,37 @@ var elements = names.map(function (name) {
 var xxx = elements.filter(function (e) {
 >xxx : HTMLElement[]
 >elements.filter(function (e) {    return !e.isDisabled;}) : HTMLElement[]
->elements.filter : { <S extends HTMLElement>(callbackfn: (value: HTMLElement, index: number, array: HTMLElement[]) => value is S, thisArg?: any): S[]; (callbackfn: (value: HTMLElement, index: number, array: HTMLElement[]) => any, thisArg?: any): HTMLElement[]; }
+>elements.filter : { <S 扩展 HTMLElement>(callbackfn: (value: HTMLElement, index: 数字, array: HTMLElement[]) => value 作为 S, thisArg?: 任意): S[]; (callbackfn: (value: HTMLElement, index: 数字, array: HTMLElement[]) => 任意, thisArg?: 任意): HTMLElement[]; }
 >elements : HTMLElement[]
->filter : { <S extends HTMLElement>(callbackfn: (value: HTMLElement, index: number, array: HTMLElement[]) => value is S, thisArg?: any): S[]; (callbackfn: (value: HTMLElement, index: number, array: HTMLElement[]) => any, thisArg?: any): HTMLElement[]; }
->function (e) {    return !e.isDisabled;} : (e: HTMLElement) => boolean
+>filter : { <S 扩展 HTMLElement>(callbackfn: (value: HTMLElement, index: 数字, array: HTMLElement[]) => value 作为 S, thisArg?: 任意): S[]; (callbackfn: (value: HTMLElement, index: 数字, array: HTMLElement[]) => 任意, thisArg?: 任意): HTMLElement[]; }
+>function (e) {    return !e.isDisabled;} : (e: HTMLElement) => 真假
 >e : HTMLElement
 
     return !e.isDisabled;
->!e.isDisabled : boolean
+>!e.isDisabled : 真假
 >类型别名 :=> 真假
->e.isDisabled : boolean
+>e.isDisabled : 真假
 >类型别名 :=> 真假
 >e : HTMLElement
->isDisabled : boolean
+>isDisabled : 真假
 >类型别名 :=> 真假
 
 });
 
 var widths:number[] = elements.map(function (e) { // should not error
->widths : number[]
->elements.map(function (e) { // should not error    return e.clientWidth;}) : number[]
->elements.map : <U>(callbackfn: (value: HTMLElement, index: number, array: HTMLElement[]) => U, thisArg?: any) => U[]
+>widths : 数字[]
+>elements.map(function (e) { // should not error    return e.clientWidth;}) : 数字[]
+>elements.map : <U>(callbackfn: (value: HTMLElement, index: 数字, array: HTMLElement[]) => U, thisArg?: 任意) => U[]
 >elements : HTMLElement[]
->map : <U>(callbackfn: (value: HTMLElement, index: number, array: HTMLElement[]) => U, thisArg?: any) => U[]
->function (e) { // should not error    return e.clientWidth;} : (e: HTMLElement) => number
+>map : <U>(callbackfn: (value: HTMLElement, index: 数字, array: HTMLElement[]) => U, thisArg?: 任意) => U[]
+>function (e) { // should not error    return e.clientWidth;} : (e: HTMLElement) => 数字
 >e : HTMLElement
 
     return e.clientWidth;
->e.clientWidth : number
+>e.clientWidth : 数字
 >类型别名 :=> 数字
 >e : HTMLElement
->clientWidth : number
+>clientWidth : 数字
 >类型别名 :=> 数字
 
 });

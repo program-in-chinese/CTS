@@ -1,18 +1,18 @@
 === tests/cases/compiler/aliasUsageInOrExpression_main.ts ===
 import Backbone = require("./aliasUsageInOrExpression_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 import moduleA = require("./aliasUsageInOrExpression_moduleA");
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 
 interface IHasVisualizationModel {
 >IHasVisualizationModel : IHasVisualizationModel
 
     VisualizationModel: typeof Backbone.Model;
->VisualizationModel : typeof Backbone.Model
->Backbone.Model : typeof Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>VisualizationModel : 类为 Backbone.Model
+>Backbone.Model : 类为 Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 }
 var i: IHasVisualizationModel;
 >i : IHasVisualizationModel
@@ -22,20 +22,20 @@ var d1 = i || moduleA;
 >d1 : IHasVisualizationModel
 >i || moduleA : IHasVisualizationModel
 >i : IHasVisualizationModel
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 
 var d2: IHasVisualizationModel = i || moduleA;
 >d2 : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
 >i || moduleA : IHasVisualizationModel
 >i : IHasVisualizationModel
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 
 var d2: IHasVisualizationModel = moduleA || i;
 >d2 : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
 >moduleA || i : IHasVisualizationModel
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 >i : IHasVisualizationModel
 
 var e: { x: IHasVisualizationModel } = <{ x: IHasVisualizationModel }>null || { x: moduleA };
@@ -46,26 +46,26 @@ var e: { x: IHasVisualizationModel } = <{ x: IHasVisualizationModel }>null || { 
 ><{ x: IHasVisualizationModel }>null : { x: IHasVisualizationModel; }
 >x : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
->null : null
+>null : 空值
 >类型别名 :=> 空值
->{ x: moduleA } : { x: typeof moduleA; }
->x : typeof moduleA
->moduleA : typeof moduleA
+>{ x: moduleA } : { x: 类为 moduleA; }
+>x : 类为 moduleA
+>moduleA : 类为 moduleA
 
 var f: { x: IHasVisualizationModel } = <{ x: IHasVisualizationModel }>null ? { x: moduleA } : null;
 >f : { x: IHasVisualizationModel; }
 >x : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
-><{ x: IHasVisualizationModel }>null ? { x: moduleA } : null : { x: typeof moduleA; }
+><{ x: IHasVisualizationModel }>null ? { x: moduleA } : null : { x: 类为 moduleA; }
 ><{ x: IHasVisualizationModel }>null : { x: IHasVisualizationModel; }
 >x : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
->null : null
+>null : 空值
 >类型别名 :=> 空值
->{ x: moduleA } : { x: typeof moduleA; }
->x : typeof moduleA
->moduleA : typeof moduleA
->null : null
+>{ x: moduleA } : { x: 类为 moduleA; }
+>x : 类为 moduleA
+>moduleA : 类为 moduleA
+>null : 空值
 >类型别名 :=> 空值
 
 === tests/cases/compiler/aliasUsageInOrExpression_backbone.ts ===
@@ -73,19 +73,19 @@ export class Model {
 >Model : Model
 
     public someData: string;
->someData : string
+>someData : 文字
 >类型别名 :=> 文字
 }
 
 === tests/cases/compiler/aliasUsageInOrExpression_moduleA.ts ===
 import Backbone = require("./aliasUsageInOrExpression_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 export class VisualizationModel extends Backbone.Model {
 >VisualizationModel : VisualizationModel
 >Backbone.Model : Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 
     // interesting stuff here
 }

@@ -1,33 +1,33 @@
 === tests/cases/conformance/types/specifyingTypes/typeQueries/recursiveTypesWithTypeof.ts ===
 // The following are errors because of circular references
 var c: typeof c;
->c : any
+>c : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
 var c: any;
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
 var d: typeof e;
->d : any
+>d : 任意
 >类型别名 :=> 任意
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
 var d: any;
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
 var e: typeof d;
->e : any
+>e : 任意
 >类型别名 :=> 任意
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
 var e: any;
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
 interface Foo<T> { }
@@ -35,171 +35,171 @@ interface Foo<T> { }
 >T : T
 
 var f: Array<typeof f>;
->f : any
+>f : 任意
 >类型别名 :=> 任意
 >Array : T[]
->f : any
+>f : 任意
 >类型别名 :=> 任意
 
 var f: any;
->f : any
+>f : 任意
 >类型别名 :=> 任意
 
 var f2: Foo<typeof f2>;
->f2 : any
+>f2 : 任意
 >类型别名 :=> 任意
 >Foo : Foo<T>
->f2 : any
+>f2 : 任意
 >类型别名 :=> 任意
 
 var f2: any;
->f2 : any
+>f2 : 任意
 >类型别名 :=> 任意
 
 var f3: Foo<typeof f3>[];
->f3 : any
+>f3 : 任意
 >类型别名 :=> 任意
 >Foo : Foo<T>
->f3 : any
+>f3 : 任意
 >类型别名 :=> 任意
 
 var f3: any;
->f3 : any
+>f3 : 任意
 >类型别名 :=> 任意
 
 // None of these declarations should have any errors!
 // Truly recursive types
 var g: { x: typeof g; };
->g : { x: any; }
->x : { x: any; }
->g : { x: any; }
+>g : { x: 任意; }
+>x : { x: 任意; }
+>g : { x: 任意; }
 
 var g: typeof g.x;
->g : { x: any; }
->g.x : { x: any; }
->g : { x: any; }
->x : { x: any; }
+>g : { x: 任意; }
+>g.x : { x: 任意; }
+>g : { x: 任意; }
+>x : { x: 任意; }
 
 var h: () => typeof h;
->h : () => any
->h : () => any
+>h : () => 任意
+>h : () => 任意
 
 var h = h();
->h : () => any
->h() : () => any
->h : () => any
+>h : () => 任意
+>h() : () => 任意
+>h : () => 任意
 
 var i: (x: typeof i) => typeof x;
->i : (x: any) => any
->x : (x: any) => any
->i : (x: any) => any
->x : (x: any) => any
+>i : (x: 任意) => 任意
+>x : (x: 任意) => 任意
+>i : (x: 任意) => 任意
+>x : (x: 任意) => 任意
 
 var i = i(i);
->i : (x: any) => any
->i(i) : (x: any) => any
->i : (x: any) => any
->i : (x: any) => any
+>i : (x: 任意) => 任意
+>i(i) : (x: 任意) => 任意
+>i : (x: 任意) => 任意
+>i : (x: 任意) => 任意
 
 var j: <T extends typeof j>(x: T) => T;
->j : <T extends any>(x: T) => T
+>j : <T 扩展 任意>(x: T) => T
 >T : T
->j : <T extends any>(x: T) => T
+>j : <T 扩展 任意>(x: T) => T
 >x : T
 >T : T
 >T : T
 
 var j = j(j);
->j : <T extends any>(x: T) => T
->j(j) : <T extends any>(x: T) => T
->j : <T extends any>(x: T) => T
->j : <T extends any>(x: T) => T
+>j : <T 扩展 任意>(x: T) => T
+>j(j) : <T 扩展 任意>(x: T) => T
+>j : <T 扩展 任意>(x: T) => T
+>j : <T 扩展 任意>(x: T) => T
 
 // Same as h, i, j with construct signatures
 var h2: new () => typeof h2;
->h2 : new () => any
->h2 : new () => any
+>h2 : 新建 () => 任意
+>h2 : 新建 () => 任意
 
 var h2 = new h2();
->h2 : new () => any
->new h2() : new () => any
->h2 : new () => any
+>h2 : 新建 () => 任意
+>new h2() : 新建 () => 任意
+>h2 : 新建 () => 任意
 
 var i2: new (x: typeof i2) => typeof x;
->i2 : new (x: any) => any
->x : new (x: any) => any
->i2 : new (x: any) => any
->x : new (x: any) => any
+>i2 : 新建 (x: 任意) => 任意
+>x : 新建 (x: 任意) => 任意
+>i2 : 新建 (x: 任意) => 任意
+>x : 新建 (x: 任意) => 任意
 
 var i2 = new i2(i2);
->i2 : new (x: any) => any
->new i2(i2) : new (x: any) => any
->i2 : new (x: any) => any
->i2 : new (x: any) => any
+>i2 : 新建 (x: 任意) => 任意
+>new i2(i2) : 新建 (x: 任意) => 任意
+>i2 : 新建 (x: 任意) => 任意
+>i2 : 新建 (x: 任意) => 任意
 
 var j2: new <T extends typeof j2>(x: T) => T;
->j2 : new <T extends any>(x: T) => T
+>j2 : 新建 <T 扩展 任意>(x: T) => T
 >T : T
->j2 : new <T extends any>(x: T) => T
+>j2 : 新建 <T 扩展 任意>(x: T) => T
 >x : T
 >T : T
 >T : T
 
 var j2 = new j2(j2);
->j2 : new <T extends any>(x: T) => T
->new j2(j2) : new <T extends any>(x: T) => T
->j2 : new <T extends any>(x: T) => T
->j2 : new <T extends any>(x: T) => T
+>j2 : 新建 <T 扩展 任意>(x: T) => T
+>new j2(j2) : 新建 <T 扩展 任意>(x: T) => T
+>j2 : 新建 <T 扩展 任意>(x: T) => T
+>j2 : 新建 <T 扩展 任意>(x: T) => T
 
 // Indexers
 var k: { [n: number]: typeof k;[s: string]: typeof k };
->k : { [s: string]: any; [n: number]: any; }
->n : number
+>k : { [s: 文字]: 任意; [n: 数字]: 任意; }
+>n : 数字
 >类型别名 :=> 数字
->k : { [s: string]: any; [n: number]: any; }
->s : string
+>k : { [s: 文字]: 任意; [n: 数字]: 任意; }
+>s : 文字
 >类型别名 :=> 文字
->k : { [s: string]: any; [n: number]: any; }
+>k : { [s: 文字]: 任意; [n: 数字]: 任意; }
 
 var k = k[0];
->k : { [s: string]: any; [n: number]: any; }
->k[0] : { [s: string]: any; [n: number]: any; }
->k : { [s: string]: any; [n: number]: any; }
+>k : { [s: 文字]: 任意; [n: 数字]: 任意; }
+>k[0] : { [s: 文字]: 任意; [n: 数字]: 任意; }
+>k : { [s: 文字]: 任意; [n: 数字]: 任意; }
 >0 : 0
 
 var k = k[''];
->k : { [s: string]: any; [n: number]: any; }
->k[''] : { [s: string]: any; [n: number]: any; }
->k : { [s: string]: any; [n: number]: any; }
+>k : { [s: 文字]: 任意; [n: 数字]: 任意; }
+>k[''] : { [s: 文字]: 任意; [n: 数字]: 任意; }
+>k : { [s: 文字]: 任意; [n: 数字]: 任意; }
 >'' : ""
 
 // Hybrid - contains type literals as well as type arguments
 // These two are recursive
 var hy1: { x: typeof hy1 }[];
->hy1 : { x: any[]; }[]
->x : { x: any[]; }[]
->hy1 : { x: any[]; }[]
+>hy1 : { x: 任意[]; }[]
+>x : { x: 任意[]; }[]
+>hy1 : { x: 任意[]; }[]
 
 var hy1 = hy1[0].x;
->hy1 : { x: any[]; }[]
->hy1[0].x : { x: any[]; }[]
->hy1[0] : { x: any[]; }
->hy1 : { x: any[]; }[]
+>hy1 : { x: 任意[]; }[]
+>hy1[0].x : { x: 任意[]; }[]
+>hy1[0] : { x: 任意[]; }
+>hy1 : { x: 任意[]; }[]
 >0 : 0
->x : { x: any[]; }[]
+>x : { x: 任意[]; }[]
 
 var hy2: { x: Array<typeof hy2> };
->hy2 : { x: any[]; }
->x : { x: any[]; }[]
+>hy2 : { x: 任意[]; }
+>x : { x: 任意[]; }[]
 >Array : T[]
->hy2 : { x: any[]; }
+>hy2 : { x: 任意[]; }
 
 var hy2 = hy2.x[0];
->hy2 : { x: any[]; }
->hy2.x[0] : { x: any[]; }
->hy2.x : { x: any[]; }[]
->hy2 : { x: any[]; }
->x : { x: any[]; }[]
+>hy2 : { x: 任意[]; }
+>hy2.x[0] : { x: 任意[]; }
+>hy2.x : { x: 任意[]; }[]
+>hy2 : { x: 任意[]; }
+>x : { x: 任意[]; }[]
 >0 : 0
 
 interface Foo2<T, U> { }
@@ -209,17 +209,17 @@ interface Foo2<T, U> { }
 
 // This one should be an error because the first type argument is not contained inside a type literal
 var hy3: Foo2<typeof hy3, { x: typeof hy3 }>;
->hy3 : any
+>hy3 : 任意
 >类型别名 :=> 任意
 >Foo2 : Foo2<T, U>
->hy3 : any
+>hy3 : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
->hy3 : any
+>hy3 : 任意
 >类型别名 :=> 任意
 
 var hy3: any;
->hy3 : any
+>hy3 : 任意
 >类型别名 :=> 任意
 

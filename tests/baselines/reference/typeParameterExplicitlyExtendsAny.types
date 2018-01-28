@@ -1,6 +1,6 @@
 === tests/cases/compiler/typeParameterExplicitlyExtendsAny.ts ===
 function fee<T>() {
->fee : <T>() => void
+>fee : <T>() => 无值
 >T : T
 
     var t: T;
@@ -8,20 +8,20 @@ function fee<T>() {
 >T : T
 
     t.blah; // Error
->t.blah : any
+>t.blah : 任意
 >类型别名 :=> 任意
 >t : T
->blah : any
+>blah : 任意
 >类型别名 :=> 任意
 
     t.toString; // ok
->t.toString : () => string
+>t.toString : () => 文字
 >t : T
->toString : () => string
+>toString : () => 文字
 }
 
 function fee2<T extends any>() {
->fee2 : <T extends any>() => void
+>fee2 : <T 扩展 任意>() => 无值
 >T : T
 
     var t: T;
@@ -29,51 +29,51 @@ function fee2<T extends any>() {
 >T : T
 
     t.blah; // ok
->t.blah : any
+>t.blah : 任意
 >类型别名 :=> 任意
 >t : T
->blah : any
+>blah : 任意
 >类型别名 :=> 任意
 
     t.toString; // ok
->t.toString : any
+>t.toString : 任意
 >类型别名 :=> 任意
 >t : T
->toString : any
+>toString : 任意
 >类型别名 :=> 任意
 }
 
 function f<T extends any>(x: T) {
->f : <T extends any>(x: T) => void
+>f : <T 扩展 任意>(x: T) => 无值
 >T : T
 >x : T
 >T : T
 
     x.children;
->x.children : any
+>x.children : 任意
 >类型别名 :=> 任意
 >x : T
->children : any
+>children : 任意
 >类型别名 :=> 任意
 
     x();
->x() : any
+>x() : 任意
 >类型别名 :=> 任意
 >x : T
 
     new x();
->new x() : any
+>new x() : 任意
 >类型别名 :=> 任意
 >x : T
 
     x[100];
->x[100] : any
+>x[100] : 任意
 >类型别名 :=> 任意
 >x : T
 >100 : 100
 
     x['hello'];
->x['hello'] : any
+>x['hello'] : 任意
 >类型别名 :=> 任意
 >x : T
 >'hello' : "hello"
@@ -96,7 +96,7 @@ class MyClass {
 >MyClass : MyClass
 
     public static displayTree1<T extends Tree<any>>(tree: T) {
->displayTree1 : <T extends any>(tree: T) => void
+>displayTree1 : <T 扩展 任意>(tree: T) => 无值
 >T : T
 >Tree : Tree<T>
 >tree : T
@@ -104,10 +104,10 @@ class MyClass {
 
         // error "Property 'children' does not exist on type 'T'"
         tree.children;
->tree.children : any
+>tree.children : 任意
 >类型别名 :=> 任意
 >tree : T
->children : any
+>children : 任意
 >类型别名 :=> 任意
     }
 }

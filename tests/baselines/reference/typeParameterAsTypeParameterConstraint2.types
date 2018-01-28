@@ -3,7 +3,7 @@
 // these should be errors unless otherwise noted
 
 function foo<T, U extends T>(x: T, y: U): U { return y; } // this is now an error
->foo : <T, U extends T>(x: T, y: U) => U
+>foo : <T, U 扩展 T>(x: T, y: U) => U
 >T : T
 >U : U
 >T : T
@@ -15,16 +15,16 @@ function foo<T, U extends T>(x: T, y: U): U { return y; } // this is now an erro
 >y : U
 
 foo(1, '');
->foo(1, '') : any
+>foo(1, '') : 任意
 >类型别名 :=> 任意
->foo : <T, U extends T>(x: T, y: U) => U
+>foo : <T, U 扩展 T>(x: T, y: U) => U
 >1 : 1
 >'' : ""
 
 foo(1, {});
->foo(1, {}) : any
+>foo(1, {}) : 任意
 >类型别名 :=> 任意
->foo : <T, U extends T>(x: T, y: U) => U
+>foo : <T, U 扩展 T>(x: T, y: U) => U
 >1 : 1
 >{} : {}
 
@@ -33,7 +33,7 @@ interface NumberVariant extends Number {
 >Number : Number
 
     x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 var n: NumberVariant;
@@ -41,16 +41,16 @@ var n: NumberVariant;
 >NumberVariant : NumberVariant
 
 var r3 = foo(1, n);
->r3 : any
+>r3 : 任意
 >类型别名 :=> 任意
->foo(1, n) : any
+>foo(1, n) : 任意
 >类型别名 :=> 任意
->foo : <T, U extends T>(x: T, y: U) => U
+>foo : <T, U 扩展 T>(x: T, y: U) => U
 >1 : 1
 >n : NumberVariant
 
 function foo2<T, U extends { length: T }>(x: T, y: U) { return y; } // this is now an error
->foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
+>foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
 >T : T
 >U : U
 >length : T
@@ -62,29 +62,29 @@ function foo2<T, U extends { length: T }>(x: T, y: U) { return y; } // this is n
 >y : U
 
 foo2(1, { length: '' });
->foo2(1, { length: '' }) : any
+>foo2(1, { length: '' }) : 任意
 >类型别名 :=> 任意
->foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
+>foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
 >1 : 1
->{ length: '' } : { length: string; }
->length : string
+>{ length: '' } : { length: 文字; }
+>length : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 foo2(1, { length: {} });
->foo2(1, { length: {} }) : any
+>foo2(1, { length: {} }) : 任意
 >类型别名 :=> 任意
->foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
+>foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
 >1 : 1
 >{ length: {} } : { length: {}; }
 >length : {}
 >{} : {}
 
 foo2([], ['']);
->foo2([], ['']) : any
+>foo2([], ['']) : 任意
 >类型别名 :=> 任意
->foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
->[] : undefined[]
->[''] : string[]
+>foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
+>[] : 未定[]
+>[''] : 文字[]
 >'' : ""
 

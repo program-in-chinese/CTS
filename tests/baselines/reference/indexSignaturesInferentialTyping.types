@@ -1,57 +1,57 @@
 === tests/cases/compiler/indexSignaturesInferentialTyping.ts ===
 function foo<T>(items: { [index: number]: T }): T { return undefined; }
->foo : <T>(items: { [index: number]: T; }) => T
+>foo : <T>(items: { [index: 数字]: T; }) => T
 >T : T
->items : { [index: number]: T; }
->index : number
+>items : { [index: 数字]: T; }
+>index : 数字
 >类型别名 :=> 数字
 >T : T
 >T : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 function bar<T>(items: { [index: string]: T }): T { return undefined; }
->bar : <T>(items: { [index: string]: T; }) => T
+>bar : <T>(items: { [index: 文字]: T; }) => T
 >T : T
->items : { [index: string]: T; }
->index : string
+>items : { [index: 文字]: T; }
+>index : 文字
 >类型别名 :=> 文字
 >T : T
 >T : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var x1 = foo({ 0: 0, 1: 1 });       // type should be number
->x1 : number
+>x1 : 数字
 >类型别名 :=> 数字
->foo({ 0: 0, 1: 1 }) : number
+>foo({ 0: 0, 1: 1 }) : 数字
 >类型别名 :=> 数字
->foo : <T>(items: { [index: number]: T; }) => T
->{ 0: 0, 1: 1 } : { 0: number; 1: number; }
+>foo : <T>(items: { [index: 数字]: T; }) => T
+>{ 0: 0, 1: 1 } : { 0: 数字; 1: 数字; }
 >0 : 0
 >1 : 1
 
 var x2 = bar({ 0: 0, 1: 1 });
->x2 : number
+>x2 : 数字
 >类型别名 :=> 数字
->bar({ 0: 0, 1: 1 }) : number
+>bar({ 0: 0, 1: 1 }) : 数字
 >类型别名 :=> 数字
->bar : <T>(items: { [index: string]: T; }) => T
->{ 0: 0, 1: 1 } : { 0: number; 1: number; }
+>bar : <T>(items: { [index: 文字]: T; }) => T
+>{ 0: 0, 1: 1 } : { 0: 数字; 1: 数字; }
 >0 : 0
 >1 : 1
 
 var x3 = bar({ zero: 0, one: 1 });  // type should be number
->x3 : number
+>x3 : 数字
 >类型别名 :=> 数字
->bar({ zero: 0, one: 1 }) : number
+>bar({ zero: 0, one: 1 }) : 数字
 >类型别名 :=> 数字
->bar : <T>(items: { [index: string]: T; }) => T
->{ zero: 0, one: 1 } : { zero: number; one: number; }
->zero : number
+>bar : <T>(items: { [index: 文字]: T; }) => T
+>{ zero: 0, one: 1 } : { zero: 数字; one: 数字; }
+>zero : 数字
 >类型别名 :=> 数字
 >0 : 0
->one : number
+>one : 数字
 >类型别名 :=> 数字
 >1 : 1
 

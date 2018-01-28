@@ -3,17 +3,17 @@
 // Using construct signature arguments, no errors expected
 
 function foo<T>(x: new(a: T) => T) {
->foo : <T>(x: new (a: T) => T) => T
+>foo : <T>(x: 新建 (a: T) => T) => T
 >T : T
->x : new (a: T) => T
+>x : 新建 (a: T) => T
 >a : T
 >T : T
 >T : T
 
     return new x(null);
 >new x(null) : T
->x : new (a: T) => T
->null : null
+>x : 新建 (a: T) => T
+>null : 空值
 >类型别名 :=> 空值
 }
 
@@ -40,11 +40,11 @@ var i: I;
 >I : I
 
 var i2: I2<string>;
->i2 : I2<string>
+>i2 : I2<文字>
 >I2 : I2<T>
 
 var a: {
->a : new <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 
     new <T>(x: T): T;
 >T : T
@@ -54,97 +54,97 @@ var a: {
 }
 
 var r = foo(i); // any
->r : any
+>r : 任意
 >类型别名 :=> 任意
->foo(i) : any
+>foo(i) : 任意
 >类型别名 :=> 任意
->foo : <T>(x: new (a: T) => T) => T
+>foo : <T>(x: 新建 (a: T) => T) => T
 >i : I
 
 var r2 = foo<string>(i); // string 
->r2 : string
+>r2 : 文字
 >类型别名 :=> 文字
->foo<string>(i) : string
+>foo<string>(i) : 文字
 >类型别名 :=> 文字
->foo : <T>(x: new (a: T) => T) => T
+>foo : <T>(x: 新建 (a: T) => T) => T
 >i : I
 
 var r3 = foo(i2); // string
->r3 : string
+>r3 : 文字
 >类型别名 :=> 文字
->foo(i2) : string
+>foo(i2) : 文字
 >类型别名 :=> 文字
->foo : <T>(x: new (a: T) => T) => T
->i2 : I2<string>
+>foo : <T>(x: 新建 (a: T) => T) => T
+>i2 : I2<文字>
 
 var r3b = foo(a); // any
->r3b : any
+>r3b : 任意
 >类型别名 :=> 任意
->foo(a) : any
+>foo(a) : 任意
 >类型别名 :=> 任意
->foo : <T>(x: new (a: T) => T) => T
->a : new <T>(x: T) => T
+>foo : <T>(x: 新建 (a: T) => T) => T
+>a : 新建 <T>(x: T) => T
 
 function foo2<T, U>(x: T, cb: new(a: T) => U) {
->foo2 : <T, U>(x: T, cb: new (a: T) => U) => U
+>foo2 : <T, U>(x: T, cb: 新建 (a: T) => U) => U
 >T : T
 >U : U
 >x : T
 >T : T
->cb : new (a: T) => U
+>cb : 新建 (a: T) => U
 >a : T
 >T : T
 >U : U
 
     return new cb(x);
 >new cb(x) : U
->cb : new (a: T) => U
+>cb : 新建 (a: T) => U
 >x : T
 }
 
 var r4 = foo2(1, i2); // error
->r4 : any
+>r4 : 任意
 >类型别名 :=> 任意
->foo2(1, i2) : any
+>foo2(1, i2) : 任意
 >类型别名 :=> 任意
->foo2 : <T, U>(x: T, cb: new (a: T) => U) => U
+>foo2 : <T, U>(x: T, cb: 新建 (a: T) => U) => U
 >1 : 1
->i2 : I2<string>
+>i2 : I2<文字>
 
 var r4b = foo2(1, a); // any
->r4b : any
+>r4b : 任意
 >类型别名 :=> 任意
->foo2(1, a) : any
+>foo2(1, a) : 任意
 >类型别名 :=> 任意
->foo2 : <T, U>(x: T, cb: new (a: T) => U) => U
+>foo2 : <T, U>(x: T, cb: 新建 (a: T) => U) => U
 >1 : 1
->a : new <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 
 var r5 = foo2(1, i); // any
->r5 : any
+>r5 : 任意
 >类型别名 :=> 任意
->foo2(1, i) : any
+>foo2(1, i) : 任意
 >类型别名 :=> 任意
->foo2 : <T, U>(x: T, cb: new (a: T) => U) => U
+>foo2 : <T, U>(x: T, cb: 新建 (a: T) => U) => U
 >1 : 1
 >i : I
 
 var r6 = foo2<string, string>('', i2); // string
->r6 : string
+>r6 : 文字
 >类型别名 :=> 文字
->foo2<string, string>('', i2) : string
+>foo2<string, string>('', i2) : 文字
 >类型别名 :=> 文字
->foo2 : <T, U>(x: T, cb: new (a: T) => U) => U
+>foo2 : <T, U>(x: T, cb: 新建 (a: T) => U) => U
 >'' : ""
->i2 : I2<string>
+>i2 : I2<文字>
 
 function foo3<T, U>(x: T, cb: new(a: T) => U, y: U) {
->foo3 : <T, U>(x: T, cb: new (a: T) => U, y: U) => U
+>foo3 : <T, U>(x: T, cb: 新建 (a: T) => U, y: U) => U
 >T : T
 >U : U
 >x : T
 >T : T
->cb : new (a: T) => U
+>cb : 新建 (a: T) => U
 >a : T
 >T : T
 >U : U
@@ -153,49 +153,49 @@ function foo3<T, U>(x: T, cb: new(a: T) => U, y: U) {
 
     return new cb(x);
 >new cb(x) : U
->cb : new (a: T) => U
+>cb : 新建 (a: T) => U
 >x : T
 }
 
 var r7 = foo3(null, i, ''); // any
->r7 : any
+>r7 : 任意
 >类型别名 :=> 任意
->foo3(null, i, '') : any
+>foo3(null, i, '') : 任意
 >类型别名 :=> 任意
->foo3 : <T, U>(x: T, cb: new (a: T) => U, y: U) => U
->null : null
+>foo3 : <T, U>(x: T, cb: 新建 (a: T) => U, y: U) => U
+>null : 空值
 >类型别名 :=> 空值
 >i : I
 >'' : ""
 
 var r7b = foo3(null, a, ''); // any
->r7b : any
+>r7b : 任意
 >类型别名 :=> 任意
->foo3(null, a, '') : any
+>foo3(null, a, '') : 任意
 >类型别名 :=> 任意
->foo3 : <T, U>(x: T, cb: new (a: T) => U, y: U) => U
->null : null
+>foo3 : <T, U>(x: T, cb: 新建 (a: T) => U, y: U) => U
+>null : 空值
 >类型别名 :=> 空值
->a : new <T>(x: T) => T
+>a : 新建 <T>(x: T) => T
 >'' : ""
 
 var r8 = foo3(1, i2, 1); // error
->r8 : any
+>r8 : 任意
 >类型别名 :=> 任意
->foo3(1, i2, 1) : any
+>foo3(1, i2, 1) : 任意
 >类型别名 :=> 任意
->foo3 : <T, U>(x: T, cb: new (a: T) => U, y: U) => U
+>foo3 : <T, U>(x: T, cb: 新建 (a: T) => U, y: U) => U
 >1 : 1
->i2 : I2<string>
+>i2 : I2<文字>
 >1 : 1
 
 var r9 = foo3<string, string>('', i2, ''); // string
->r9 : string
+>r9 : 文字
 >类型别名 :=> 文字
->foo3<string, string>('', i2, '') : string
+>foo3<string, string>('', i2, '') : 文字
 >类型别名 :=> 文字
->foo3 : <T, U>(x: T, cb: new (a: T) => U, y: U) => U
+>foo3 : <T, U>(x: T, cb: 新建 (a: T) => U, y: U) => U
 >'' : ""
->i2 : I2<string>
+>i2 : I2<文字>
 >'' : ""
 

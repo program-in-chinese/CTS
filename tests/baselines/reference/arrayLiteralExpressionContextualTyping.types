@@ -3,39 +3,39 @@
 //      the type of the property with the numeric name N in the contextual type, if any, or otherwise
 //      the numeric index type of the contextual type, if any.
 var array = [1, 2, 3];
->array : number[]
->[1, 2, 3] : number[]
+>array : 数字[]
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
 
 var array1 = [true, 2, 3];  // Contextual type by the numeric index type of the contextual type
->array1 : (number | boolean)[]
->[true, 2, 3] : (number | boolean)[]
->true : true
+>array1 : (数字 | 真假)[]
+>[true, 2, 3] : (数字 | 真假)[]
+>true : 为真
 >类型别名 :=> 为真
 >2 : 2
 >3 : 3
 
 var tup: [number, number, number] = [1, 2, 3, 4];
->tup : [number, number, number]
->[1, 2, 3, 4] : [number, number, number, number]
+>tup : [数字, 数字, 数字]
+>[1, 2, 3, 4] : [数字, 数字, 数字, 数字]
 >1 : 1
 >2 : 2
 >3 : 3
 >4 : 4
 
 var tup1: [number|string, number|string, number|string] = [1, 2, 3, "string"];
->tup1 : [string | number, string | number, string | number]
->[1, 2, 3, "string"] : [number, number, number, string]
+>tup1 : [文字 | 数字, 文字 | 数字, 文字 | 数字]
+>[1, 2, 3, "string"] : [数字, 数字, 数字, 文字]
 >1 : 1
 >2 : 2
 >3 : 3
 >"string" : "string"
 
 var tup2: [number, number, number] = [1, 2, 3, "string"];  // Error
->tup2 : [number, number, number]
->[1, 2, 3, "string"] : [number, number, number, string]
+>tup2 : [数字, 数字, 数字]
+>[1, 2, 3, "string"] : [数字, 数字, 数字, 文字]
 >1 : 1
 >2 : 2
 >3 : 3
@@ -44,32 +44,32 @@ var tup2: [number, number, number] = [1, 2, 3, "string"];  // Error
 // In a contextually typed array literal expression containing one or more spread elements,
 // an element expression at index N is contextually typed by the numeric index type of the contextual type, if any.
 var spr = [1, 2, 3, ...array];
->spr : number[]
->[1, 2, 3, ...array] : number[]
+>spr : 数字[]
+>[1, 2, 3, ...array] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
->...array : number
+>...array : 数字
 >类型别名 :=> 数字
->array : number[]
+>array : 数字[]
 
 var spr1 = [1, 2, 3, ...tup];
->spr1 : number[]
->[1, 2, 3, ...tup] : number[]
+>spr1 : 数字[]
+>[1, 2, 3, ...tup] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
->...tup : number
+>...tup : 数字
 >类型别名 :=> 数字
->tup : [number, number, number]
+>tup : [数字, 数字, 数字]
 
 var spr2:[number, number, number] = [1, 2, 3, ...tup];  // Error
->spr2 : [number, number, number]
->[1, 2, 3, ...tup] : number[]
+>spr2 : [数字, 数字, 数字]
+>[1, 2, 3, ...tup] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
->...tup : number
+>...tup : 数字
 >类型别名 :=> 数字
->tup : [number, number, number]
+>tup : [数字, 数字, 数字]
 

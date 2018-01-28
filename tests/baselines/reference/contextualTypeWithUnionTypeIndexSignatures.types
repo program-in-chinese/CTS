@@ -5,14 +5,14 @@ interface SomeType {
 >SomeType : SomeType
 
     (a: number): number;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 }
 interface SomeType2 {
 >SomeType2 : SomeType2
 
     (a: number): string;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 }
 
@@ -20,7 +20,7 @@ interface IWithNoStringIndexSignature {
 >IWithNoStringIndexSignature : IWithNoStringIndexSignature
 
     foo: string;
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 }
 interface IWithNoNumberIndexSignature {
@@ -32,7 +32,7 @@ interface IWithStringIndexSignature1 {
 >IWithStringIndexSignature1 : IWithStringIndexSignature1
 
     [a: string]: SomeType;
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >SomeType : SomeType
 }
@@ -40,7 +40,7 @@ interface IWithStringIndexSignature2 {
 >IWithStringIndexSignature2 : IWithStringIndexSignature2
 
     [a: string]: SomeType2;
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >SomeType2 : SomeType2
 }
@@ -48,7 +48,7 @@ interface IWithNumberIndexSignature1 {
 >IWithNumberIndexSignature1 : IWithNumberIndexSignature1
 
     [a: number]: SomeType;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >SomeType : SomeType
 }
@@ -56,7 +56,7 @@ interface IWithNumberIndexSignature2 {
 >IWithNumberIndexSignature2 : IWithNumberIndexSignature2
 
     [a: number]: SomeType2;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >SomeType2 : SomeType2
 }
@@ -76,32 +76,32 @@ var x: IWithNoStringIndexSignature | IWithStringIndexSignature1 = { z: a => a };
 >x : IWithNoStringIndexSignature | IWithStringIndexSignature1
 >IWithNoStringIndexSignature : IWithNoStringIndexSignature
 >IWithStringIndexSignature1 : IWithStringIndexSignature1
->{ z: a => a } : { z: (a: number) => number; }
->z : (a: number) => number
->a => a : (a: number) => number
->a : number
+>{ z: a => a } : { z: (a: 数字) => 数字; }
+>z : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
 var x: IWithNoStringIndexSignature | IWithStringIndexSignature1 = { foo: a => a }; // a should be any
 >x : IWithNoStringIndexSignature | IWithStringIndexSignature1
 >IWithNoStringIndexSignature : IWithNoStringIndexSignature
 >IWithStringIndexSignature1 : IWithStringIndexSignature1
->{ foo: a => a } : { foo: (a: any) => any; }
->foo : (a: any) => any
->a => a : (a: any) => any
->a : any
+>{ foo: a => a } : { foo: (a: 任意) => 任意; }
+>foo : (a: 任意) => 任意
+>a => a : (a: 任意) => 任意
+>a : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 var x: IWithNoStringIndexSignature | IWithStringIndexSignature1 = { foo: "hello" }; 
 >x : IWithNoStringIndexSignature | IWithStringIndexSignature1
 >IWithNoStringIndexSignature : IWithNoStringIndexSignature
 >IWithStringIndexSignature1 : IWithStringIndexSignature1
->{ foo: "hello" } : { foo: string; }
->foo : string
+>{ foo: "hello" } : { foo: 文字; }
+>foo : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
@@ -109,28 +109,28 @@ var x2: IWithStringIndexSignature1 | IWithStringIndexSignature2 = { z: a => a.to
 >x2 : IWithStringIndexSignature1 | IWithStringIndexSignature2
 >IWithStringIndexSignature1 : IWithStringIndexSignature1
 >IWithStringIndexSignature2 : IWithStringIndexSignature2
->{ z: a => a.toString() } : { z: (a: number) => string; }
->z : (a: number) => string
->a => a.toString() : (a: number) => string
->a : number
+>{ z: a => a.toString() } : { z: (a: 数字) => 文字; }
+>z : (a: 数字) => 文字
+>a => a.toString() : (a: 数字) => 文字
+>a : 数字
 >类型别名 :=> 数字
->a.toString() : string
+>a.toString() : 文字
 >类型别名 :=> 文字
->a.toString : (radix?: number) => string
->a : number
+>a.toString : (radix?: 数字) => 文字
+>a : 数字
 >类型别名 :=> 数字
->toString : (radix?: number) => string
+>toString : (radix?: 数字) => 文字
 
 var x2: IWithStringIndexSignature1 | IWithStringIndexSignature2 = { z: a => a }; // a should be number
 >x2 : IWithStringIndexSignature1 | IWithStringIndexSignature2
 >IWithStringIndexSignature1 : IWithStringIndexSignature1
 >IWithStringIndexSignature2 : IWithStringIndexSignature2
->{ z: a => a } : { z: (a: number) => number; }
->z : (a: number) => number
->a => a : (a: number) => number
->a : number
+>{ z: a => a } : { z: (a: 数字) => 数字; }
+>z : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
 
@@ -141,54 +141,54 @@ var x3: IWithNoNumberIndexSignature | IWithNumberIndexSignature1 = { 1: a => a }
 >x3 : IWithNoNumberIndexSignature | IWithNumberIndexSignature1
 >IWithNoNumberIndexSignature : IWithNoNumberIndexSignature
 >IWithNumberIndexSignature1 : IWithNumberIndexSignature1
->{ 1: a => a } : { 1: (a: number) => number; }
->a => a : (a: number) => number
->a : number
+>{ 1: a => a } : { 1: (a: 数字) => 数字; }
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
 var x3: IWithNoNumberIndexSignature | IWithNumberIndexSignature1 = { 0: a => a }; // a should be any
 >x3 : IWithNoNumberIndexSignature | IWithNumberIndexSignature1
 >IWithNoNumberIndexSignature : IWithNoNumberIndexSignature
 >IWithNumberIndexSignature1 : IWithNumberIndexSignature1
->{ 0: a => a } : { 0: (a: any) => any; }
->a => a : (a: any) => any
->a : any
+>{ 0: a => a } : { 0: (a: 任意) => 任意; }
+>a => a : (a: 任意) => 任意
+>a : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 var x3: IWithNoNumberIndexSignature | IWithNumberIndexSignature1 = { 0: "hello" };
 >x3 : IWithNoNumberIndexSignature | IWithNumberIndexSignature1
 >IWithNoNumberIndexSignature : IWithNoNumberIndexSignature
 >IWithNumberIndexSignature1 : IWithNumberIndexSignature1
->{ 0: "hello" } : { 0: string; }
+>{ 0: "hello" } : { 0: 文字; }
 >"hello" : "hello"
 
 var x4: IWithNumberIndexSignature1 | IWithNumberIndexSignature2 = { 1: a => a.toString() }; // a should be number
 >x4 : IWithNumberIndexSignature1 | IWithNumberIndexSignature2
 >IWithNumberIndexSignature1 : IWithNumberIndexSignature1
 >IWithNumberIndexSignature2 : IWithNumberIndexSignature2
->{ 1: a => a.toString() } : { 1: (a: number) => string; }
->a => a.toString() : (a: number) => string
->a : number
+>{ 1: a => a.toString() } : { 1: (a: 数字) => 文字; }
+>a => a.toString() : (a: 数字) => 文字
+>a : 数字
 >类型别名 :=> 数字
->a.toString() : string
+>a.toString() : 文字
 >类型别名 :=> 文字
->a.toString : (radix?: number) => string
->a : number
+>a.toString : (radix?: 数字) => 文字
+>a : 数字
 >类型别名 :=> 数字
->toString : (radix?: number) => string
+>toString : (radix?: 数字) => 文字
 
 var x4: IWithNumberIndexSignature1 | IWithNumberIndexSignature2 = { 1: a => a }; // a should be number
 >x4 : IWithNumberIndexSignature1 | IWithNumberIndexSignature2
 >IWithNumberIndexSignature1 : IWithNumberIndexSignature1
 >IWithNumberIndexSignature2 : IWithNumberIndexSignature2
->{ 1: a => a } : { 1: (a: number) => number; }
->a => a : (a: number) => number
->a : number
+>{ 1: a => a } : { 1: (a: 数字) => 数字; }
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 

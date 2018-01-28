@@ -12,7 +12,6 @@ namespace ts.Rename {
             if (!defaultLibFileName) {
                 return false;
             }
-
             const sourceFile = declaration.getSourceFile();
             const canonicalName = getCanonicalFileName(ts.normalizePath(sourceFile.fileName));
             return canonicalName === getCanonicalDefaultLibName();

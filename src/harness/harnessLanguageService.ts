@@ -504,6 +504,10 @@ namespace Harness.LanguageService {
         转为CTS(fileName: string):string {
            return this.shim.转为CTS(fileName)
         }
+        
+        取词典自动完成项目新():ts.名称引用[]{
+            throw new Error("Not supported on the shim.");
+        }
         getCodeFixesAtPosition(): ts.CodeAction[] {
             throw new Error("Not supported on the shim.");
         }

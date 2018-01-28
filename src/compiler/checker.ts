@@ -1,6 +1,8 @@
 /// <reference path="moduleNameResolver.ts"/>
 /// <reference path="binder.ts"/>
-/// <reference path="symbolWalker.ts" />
+/// <reference path="symbolWalker.ts" />import { resolveCname } from "dns";
+
+
 
 /* @internal */
 namespace ts {
@@ -32,6 +34,7 @@ namespace ts {
         return moduleState === ModuleInstanceState.Instantiated ||
             (preserveConstEnums && moduleState === ModuleInstanceState.ConstEnumOnly);
     }
+
     const 基本类型别名对应表 = createMapFromTemplate({
         "any": "任意",
         "unknown": "任意",
@@ -46,6 +49,7 @@ namespace ts {
         "never": "不及",
         "object": "实例",
     })
+
     let 临时表 = createMultiMap<{ 符号: Symbol, 是Let: boolean }>()
 
     export function createTypeChecker(host: TypeCheckerHost, produceDiagnostics: boolean): TypeChecker {
@@ -91,9 +95,10 @@ namespace ts {
         const nodeBuilder = createNodeBuilder();
 
         const undefinedSymbol = createSymbol(SymbolFlags.Property, "undefined" as __String);
+        undefinedSymbol.别名 = 创建别名("未定", undefined)
         undefinedSymbol.declarations = [];
         const argumentsSymbol = createSymbol(SymbolFlags.Property, "arguments" as __String);
-
+        argumentsSymbol.别名 = 创建别名("增强参数集", undefined)
         /** This will be set during calls to `getResolvedSignature` where services determines an apparent number of arguments greater than what is actually provided. */
         let apparentArgumentCount: number | undefined;
 
@@ -269,6 +274,7 @@ namespace ts {
                 return resolveName(location, escapeLeadingUnderscores(name), meaning, /*nameNotFoundMessage*/ undefined, /*nameArg*/ undefined, /*isUse*/ false);
             },
             getJsxNamespace: () => unescapeLeadingUnderscores(getJsxNamespace()),
+            取编译选项: () => compilerOptions
         };
 
         const tupleTypes: GenericType[] = [];
@@ -279,6 +285,7 @@ namespace ts {
         const evolvingArrayTypes: EvolvingArrayType[] = [];
 
         const unknownSymbol = createSymbol(SymbolFlags.Property, "unknown" as __String);
+        unknownSymbol.别名 = 创建别名("未知", undefined)
         const resolvingSymbol = createSymbol(0, InternalSymbolName.Resolving);
 
         const anyType = createIntrinsicType(TypeFlags.Any, "any");
@@ -511,6 +518,7 @@ namespace ts {
             "函数": TypeFacts.TypeofNEFunction
 
         });
+
         const typeofTypesByName = createMapFromTemplate<Type>({
             "string": stringType,
             "number": numberType,
@@ -523,6 +531,7 @@ namespace ts {
             "符号": esSymbolType,
             "未定": undefinedType
         });
+
         const typeofType = createTypeofType();
 
         let _jsxNamespace: __String;
@@ -1056,7 +1065,7 @@ namespace ts {
 
                             // It's an external module. First see if the module has an export default and if the local
                             // name of that export default matches.
-                            if (result = moduleExports.get("default" as __String)) {
+                            if (result = moduleExports.get("default" as __String) || moduleExports.get("默认" as __String)) {
                                 const localSymbol = getLocalSymbolForExportDefault(result);
                                 if (localSymbol && (result.flags & meaning) && 对象名称比较(localSymbol, name as string)) {
                                     break loop;
@@ -1510,10 +1519,10 @@ namespace ts {
                     exportDefaultSymbol = moduleSymbol;
                 }
                 else {
-                    const exportValue = moduleSymbol.exports.get("export=" as __String);
+                    const exportValue = moduleSymbol.exports.get("export=" as __String)||moduleSymbol.exports.get("导出=" as __String);
                     exportDefaultSymbol = exportValue
-                        ? getPropertyOfType(getTypeOfSymbol(exportValue), "default" as __String, undefined)
-                        : resolveSymbol(moduleSymbol.exports.get("default" as __String), dontResolveAlias);
+                        ? getPropertyOfType(getTypeOfSymbol(exportValue), "default" as __String, "默认")
+                        : resolveSymbol(moduleSymbol.exports.get("default" as __String)||moduleSymbol.exports.get("默认" as __String)  , dontResolveAlias);
                 }
 
                 if (!exportDefaultSymbol && !allowSyntheticDefaultImports) {
@@ -1601,7 +1610,7 @@ namespace ts {
                     }
                     let symbolFromVariable: Symbol;
                     // First check if module was specified with "export=". If so, get the member from the resolved type
-                    if (moduleSymbol && moduleSymbol.exports && moduleSymbol.exports.get("export=" as __String)) {
+                    if (moduleSymbol && moduleSymbol.exports && (moduleSymbol.exports.get("export=" as __String) || moduleSymbol.exports.get("导出=" as __String))) {
                         symbolFromVariable = getPropertyOfType(getTypeOfSymbol(targetSymbol), name.escapedText, name);
                     }
                     else {
@@ -1997,7 +2006,7 @@ namespace ts {
          */
         function extendExportSymbols(target: SymbolTable, source: SymbolTable, lookupTable?: ExportCollisionTrackerTable, exportNode?: ExportDeclaration) {
             source && source.forEach((sourceSymbol, id) => {
-                if (id === "default") return;
+                if (id === "default"||id==="默认") return;
 
                 const targetSymbol = 取符号从符号表按名称(target, id, sourceSymbol);
                 if (!targetSymbol) {
@@ -2055,7 +2064,7 @@ namespace ts {
                     lookupTable.forEach(({ exportsWithDuplicate, 相关符号 }, id) => {
                         // It's not an error if the file with multiple `export *`s with duplicate names exports a member with that name itself
                         const 别名名称 = 相关符号 && 相关符号.别名 && 相关符号.别名.名称 || id
-                        if (id === "export=" || !(exportsWithDuplicate && exportsWithDuplicate.length) || (symbols.has(id) || symbols.has(别名名称))) {
+                        if (id === "export=" || id === "导出=" ||!(exportsWithDuplicate && exportsWithDuplicate.length) || (symbols.has(id) || symbols.has(别名名称))) {
                             return;
                         }
                         for (const node of exportsWithDuplicate) {
@@ -2260,7 +2269,7 @@ namespace ts {
                 // Check if symbol is any of the alias
                 return forEachEntry(symbols, symbolFromSymbolTable => {
                     if (symbolFromSymbolTable.flags & SymbolFlags.Alias
-                        && symbolFromSymbolTable.escapedName !== "export="
+                        && symbolFromSymbolTable.escapedName !== "export="&&symbolFromSymbolTable.escapedName !== "导出="
                         && !getDeclarationOfKind(symbolFromSymbolTable, SyntaxKind.ExportSpecifier)
                         && !(isUMDExportSymbol(symbolFromSymbolTable) && enclosingDeclaration && isExternalModule(getSourceFileOfNode(enclosingDeclaration)))
                         // If `!useOnlyExternalAliasing`, we can use any type of alias to get the name
@@ -2501,7 +2510,7 @@ namespace ts {
         function typeToString(type: Type, enclosingDeclaration?: Node, flags?: TypeFormatFlags): string {
             const typeNode = nodeBuilder.typeToTypeNode(type, enclosingDeclaration, toNodeBuilderFlags(flags) | NodeBuilderFlags.IgnoreErrors | NodeBuilderFlags.WriteTypeParametersInQualifiedName);
             Debug.assert(typeNode !== undefined, "should always get typenode");
-            const options = { removeComments: true };
+            const options = { removeComments: true, 中文关键字: true };
             const writer = createTextWriter("");
             const printer = createPrinter(options);
             const sourceFile = enclosingDeclaration && getSourceFileOfNode(enclosingDeclaration);
@@ -10113,7 +10122,7 @@ namespace ts {
                 return false;
             }
         }
-
+//HTWX
         // Return a type reference where the source type parameter is replaced with the target marker
         // type, and flag the result as a marker type reference.
         function getMarkerTypeReference(type: GenericType, source: TypeParameter, target: Type) {
@@ -11382,7 +11391,7 @@ namespace ts {
             }
             return false;
         }
-
+        /*
         interface 匹配单元 {
             对比结果: boolean;
             源符号: Symbol;
@@ -11421,8 +11430,8 @@ namespace ts {
                 case SyntaxKind.PropertyAccessExpression:
                     return {
                         对比结果: target.kind === SyntaxKind.PropertyAccessExpression &&
-                        对象名称比较((<PropertyAccessExpression>source).name, (<PropertyAccessExpression>target).name) &&
-                        取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).对比结果, 源符号: 取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).源符号, 目标符号: 取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).目标符号
+                            对象名称比较((<PropertyAccessExpression>source).name, (<PropertyAccessExpression>target).name) &&
+                            取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).对比结果, 源符号: 取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).源符号, 目标符号: 取引用匹配节点((<PropertyAccessExpression>source).expression, (<PropertyAccessExpression>target).expression).目标符号
                     };
                 case SyntaxKind.BindingElement:
                     if (target.kind !== SyntaxKind.PropertyAccessExpression) return { 对比结果: false, 源符号: undefined, 目标符号: undefined };
@@ -11438,6 +11447,7 @@ namespace ts {
             }
             return { 对比结果: false, 源符号: undefined, 目标符号: undefined };
         }
+        */
 
         function containsMatchingReference(source: Node, target: Node) {
             while (source.kind === SyntaxKind.PropertyAccessExpression) {
@@ -14058,7 +14068,7 @@ namespace ts {
         }
 
         function isInfinityOrNaNString(name: string | __String): boolean {
-            return name === "Infinity" || name === "-Infinity" || name === "NaN";
+            return name === "Infinity" ||name === "无穷大" || name === "-无穷大" || name === "NaN"|| name === "非数字";
         }
 
         function isNumericLiteralName(name: string | __String) {
@@ -21537,8 +21547,8 @@ namespace ts {
                     }
                 }
 
-                const asyncMethodType = allowAsyncIterables && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("asyncIterator") || getPropertyNameForKnownSymbolName("异步迭代器"), undefined);
-                const methodType = asyncMethodType || (allowSyncIterables && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("iterator") || getPropertyNameForKnownSymbolName("迭代器"), undefined));
+                const asyncMethodType = allowAsyncIterables && (getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("asyncIterator"), undefined) || getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("异步迭代器"), undefined));
+                const methodType = asyncMethodType || (allowSyncIterables && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("迭代器"), undefined) && getTypeOfPropertyOfType(type, getPropertyNameForKnownSymbolName("迭代器"), undefined));
                 if (isTypeAny(methodType)) {
                     return undefined;
                 }
@@ -23073,14 +23083,14 @@ namespace ts {
         }
 
         function hasExportedMembers(moduleSymbol: Symbol) {
-            return forEachEntry(moduleSymbol.exports, (_, id) => id !== "export=");
+            return forEachEntry(moduleSymbol.exports, (_, id) => id !== "export="&&id !== "导出=");
         }
 
         function checkExternalModuleExports(node: SourceFile | ModuleDeclaration) {
             const moduleSymbol = getSymbolOfNode(node);
             const links = getSymbolLinks(moduleSymbol);
             if (!links.exportsChecked) {
-                const exportEqualsSymbol = moduleSymbol.exports.get("export=" as __String);
+                const exportEqualsSymbol = moduleSymbol.exports.get("export=" as __String)||moduleSymbol.exports.get("导出=" as __String);
                 if (exportEqualsSymbol && hasExportedMembers(moduleSymbol)) {
                     const declaration = getDeclarationOfAliasSymbol(exportEqualsSymbol) || exportEqualsSymbol.valueDeclaration;
                     if (!isTopLevelInExternalModuleAugmentation(declaration)) {
@@ -23376,8 +23386,11 @@ namespace ts {
                     clear(potentialNewTargetCollisions);
                 }
                 forEachChild(node, 逆向传递别名)
+
                 临时表 = createMultiMap<{ 符号: Symbol, 是Let: boolean }>()
+
                 forEachChild(node, 检查别名冲突回调)
+
                 if (临时表 && 临时表.size > 0) {
                     临时表.forEach(容器 => {
                         let 别名容器 = createUnderscoreEscapedMap<{ 符号名: string, 是Let: boolean }>()
@@ -23424,35 +23437,67 @@ namespace ts {
             function 逆向传递别名(n: Node) {
                 const kind = n.kind
                 switch (kind) {
-                    case SyntaxKind.ObjectLiteralExpression:
-                        if (isObjectLiteralExpression(n)) {
-                            let 特性数组 = n.properties
-                            if (特性数组 && 特性数组[0]) {
-                                for (let 声明值 of 特性数组) {
-                                    let 成员符号 = 声明值.symbol
-                                    let 成员声明 = 成员符号 && 成员符号.declarations
-                                    if (成员声明 && 成员声明[0]) {
-                                        for (let 成员 of 成员声明) {
-                                            let 名称 = 取声明的标识符或字面量标识符(成员)
-                                            if (名称 && 名称.别名 && 名称.flowNode) {
-                                                let 目标 = 名称.flowNode
-                                                while (目标) {
-                                                    if (目标.flags & FlowFlags.Assignment) {
-                                                        let { 对比结果, 源符号, 目标符号 } = 取引用匹配节点(名称, (<FlowAssignment>目标).node)
-                                                        if (对比结果 && 源符号 && 目标符号 && (!源符号.别名 || !目标符号.别名)) {
-                                                            if (!目标符号.别名) 词典携带者交换别名(目标符号, 名称)
-                                                            if (!源符号.别名) 词典携带者交换别名(源符号, 名称)
-                                                            break
-                                                        }
-                                                    }
-                                                    目标 = (<FlowAssignment>目标).antecedent
+                    case SyntaxKind.Identifier:
+                        if (!n.别名) {
+                            const 连接 = getNodeLinks(n)
+                            if (连接) {
+                                const 符号名 = 连接.resolvedSymbol
+                                if (符号名 && 符号名.别名) {
+                                    词典携带者交换别名(符号名, <Identifier>n)
+                                    break
+                                }
+                                if (符号名) {
+                                    const 声明节点 = 符号名.declarations[0]
+                                    const 名称 = 取声明的标识符或字面量标识符(声明节点)
+                                    if (名称 && 名称.别名) {
+                                        词典携带者交换别名(名称, <Identifier>n)
+                                        break
+                                    }
+                                }
+                                const 父节点 = skipParentheses(n.parent)
+                                const k = 父节点.kind
+                                switch (k) {
+                                    case SyntaxKind.PropertyAccessExpression:
+                                        {
+                                            const 连接2 = getNodeLinks(父节点)
+                                            if (连接2) {
+                                                const 符号名 = 连接2.resolvedSymbol
+                                                if (符号名 && 符号名.别名) {
+                                                    词典携带者交换别名(符号名, <Identifier>n)
+                                                    break
                                                 }
                                             }
                                         }
-                                    }
+                                    case SyntaxKind.BindingElement:
+                                        {
+                                            if (isBindingElement(父节点)) {
+                                                const parent = <VariableLikeDeclaration>(<BindingPattern>父节点.parent).parent;
+                                                const parentType = getTypeForBindingElementParent(parent);
+                                                const name = 父节点.propertyName || <Identifier>父节点.name;
+                                                getPropertyOfType(parentType, getTextOfPropertyName(name), 取属性名的标识符(name));
+                                                break
+                                            }
+                                        }
+                                    default:
+                                        break
                                 }
                             }
                         }
+                        break
+                    case SyntaxKind.StringLiteral:
+                        if (!n.别名) {
+                            const 父节点 = skipParentheses(n.parent)
+                            if (父节点 && isElementAccessExpression(父节点)) {
+                                const 连接 = getNodeLinks(父节点)
+                                if (连接 && 连接.resolvedSymbol) {
+                                    const 符号 = 连接.resolvedSymbol
+                                    const 结果类型 = getLiteralType((n as LiteralExpression).text, undefined, undefined, 符号)
+                                    词典携带者交换别名(<StringLiteral>n, <StringLiteralType>结果类型)
+                                    break
+                                }
+                            }
+                        }
+                        break
                     default:
                         forEachChild(n, 逆向传递别名)
                 }
@@ -23464,8 +23509,8 @@ namespace ts {
                     case SyntaxKind.VariableStatement:
                         if (isVariableStatement(n)) {
                             forEach((<VariableStatement>n).declarationList.declarations, e => {
-                                let 列表 = 取变量声明主体数组(e)
-                                if (列表 && 列表[0]) {
+                                const 列表 = 取变量声明主体数组(e)
+                                if (列表.length) {
                                     for (let i = 0; i < 列表.length; i++) {
                                         const 节点的符号 = getSymbolOfNode(列表[i])
                                         if (节点的符号 && 节点的符号.flags & SymbolFlags.BlockScopedVariable) {
@@ -23479,16 +23524,16 @@ namespace ts {
                         }
                     case SyntaxKind.CallExpression:
                     case SyntaxKind.NewExpression:
-                        if (isCallExpression(n)) {
-                            let 参数集 = n.arguments
+                        if (isCallExpression(n) || isNewExpression(n)) {
+                            const 参数集 = (<NewExpression>n).arguments
                             if (参数集 && 参数集[0]) {
-                                for (let cs of 参数集) {
+                                for (const cs of 参数集) {
                                     if (isAsExpression(cs)) {
-                                        let index = cs.expression
+                                        const index = cs.expression
                                         if (isStringLiteral(index)) {
                                             if (!index.别名) {
-                                                let 节点连接 = getNodeLinks(cs)
-                                                let 联合类型 = 节点连接.resolvedType ? 节点连接.resolvedType : getTypeFromTypeNode(cs.type)
+                                                const 节点连接 = getNodeLinks(cs)
+                                                const 联合类型 = 节点连接.resolvedType ? 节点连接.resolvedType : getTypeFromTypeNode(cs.type)
                                                 if (联合类型 && isUnionType(联合类型)) {
                                                     (<UnionType>联合类型).types.forEach(v => {
                                                         if (isStringLiteralType(v) && (<StringLiteralType>v).别名) {
@@ -23500,12 +23545,11 @@ namespace ts {
                                             if (index.别名) {
                                                 index.别名id = -1
                                             }
-
                                         } else {
                                             生成属性名助手数据(index, cs.type)
                                         }
                                     } else if (isStringLiteral(cs)) {
-                                        let 约束类型 = getContextualTypeForArgument(n, cs)
+                                        const 约束类型 = getContextualTypeForArgument((<NewExpression>n), cs)
                                         if (约束类型 && isStringLiteralType(约束类型) && (<StringLiteralType>约束类型).别名) {
                                             if (!cs.别名) {
                                                 词典携带者交换别名(cs, (<StringLiteralType>约束类型))
@@ -23518,26 +23562,46 @@ namespace ts {
                         }
                     case SyntaxKind.ElementAccessExpression:
                         if (isElementAccessExpression(n)) {
-                            let index = n.argumentExpression
-                            if (index && isStringLiteral(index)) {
-                                index.别名id = -1
-                            }
-                            else if (index) {
-                                let 节点连接 = n.expression && getNodeLinks(n.expression)
-                                let 联合类型或文字类型
-                                if (节点连接 && 节点连接.resolvedSymbol) {
-                                    let 符号连接 = getSymbolLinks(节点连接.resolvedSymbol)
-                                    if (符号连接 && 符号连接.type) {
-                                        let 对象类型 = 符号连接.type
-                                        联合类型或文字类型 = getIndexTypeOrString(对象类型)
-                                        if (联合类型或文字类型) {
-                                            if (联合类型或文字类型 && index && (<UnionType>联合类型或文字类型).types) {
-                                                let 数据 = 词典携带组生成别名数据单元组(...(<StringLiteralType[]>(<UnionType>联合类型或文字类型).types))
-                                                if (数据) {
-                                                    if (isAsExpression(index) && index.expression) {
-                                                        index.expression.别名id = 别名数据.添加(数据)
-                                                    } else {
-                                                        index.别名id = 别名数据.添加(数据)
+                            const index = (<ElementAccessExpression>n).argumentExpression
+                            if (index) {
+                                const 当前类型 = checkExpression(index)
+                                if (isStringLiteral(index) || isNumericLiteral(index) || 当前类型 && isNumerType(当前类型)) {
+                                    index.别名id = -1
+
+                                } else {
+                                    let 不用助手 = false
+                                    if (当前类型 && (<UnionType>当前类型).types) {
+                                        for (let i = 0; i < (<UnionType>当前类型).types.length; i++) {
+                                            let 字面量类型 = (<UnionType>当前类型).types[i]
+                                            let 真的吗 = (<LiteralType>字面量类型).value
+                                            if (真的吗 && (typeof 真的吗 === "number")) {
+                                                不用助手 = true
+                                            } else {
+                                                不用助手 = false
+                                                break
+                                            }
+                                        }
+                                        if (不用助手) {
+                                            index.别名id = -1
+                                        }
+                                    }
+                                    if (!不用助手) {
+                                        const 节点连接 = (<ElementAccessExpression>n).expression && getNodeLinks((<ElementAccessExpression>n).expression)
+                                        if (节点连接 && 节点连接.resolvedSymbol) {
+                                            const 符号连接 = getSymbolLinks(节点连接.resolvedSymbol)
+                                            if (符号连接 && 符号连接.type) {
+                                                const 对象类型 = 符号连接.type
+                                                const 联合类型或文字类型 = getIndexTypeOrString(对象类型)
+                                                if (联合类型或文字类型) {
+                                                    if (联合类型或文字类型 && index && (<UnionType>联合类型或文字类型).types) {
+                                                        const 数据 = 词典携带组生成别名数据单元组(...(<StringLiteralType[]>(<UnionType>联合类型或文字类型).types))
+                                                        if (数据) {
+                                                            if (isAsExpression(index) && index.expression) {
+                                                                index.expression.别名id = 别名数据.添加(数据)
+                                                            } else {
+                                                                index.别名id = 别名数据.添加(数据)
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -23550,13 +23614,14 @@ namespace ts {
                         if (isStringLiteral(n)) {
                             if (n.别名) {
                                 if (n.别名id !== -1) {
-                                    if (!getNodeLinks(n).字面量类型约束缓存) {
+                                    if (!getNodeLinks(n).字面量类型约束缓存&&!getSourceFileOfNode(node).isDeclarationFile) {
                                         delete n.别名id
                                         delete n.别名
                                     }
                                 }
                             }
                         }
+                        break
                     default:
                         forEachChild(n, 检查别名冲突回调)
                 }
@@ -23564,11 +23629,11 @@ namespace ts {
         }
 
         function 生成属性名助手数据(接受节点: Node, 类型节点: TypeNode) {
-            let 节点连接 = getNodeLinks(类型节点)
-            let 对象类型 = 节点连接.resolvedType ? 节点连接.resolvedType : getTypeFromTypeNode(类型节点)
+            const 节点连接 = getNodeLinks(类型节点)
+            const 对象类型 = 节点连接.resolvedType ? 节点连接.resolvedType : getTypeFromTypeNode(类型节点)
             if (对象类型 && isUnionType(对象类型)) {
                 if (对象类型 && 接受节点 && (<UnionType>对象类型).types && (<UnionType>对象类型).types[0]) {
-                    let 数据 = 词典携带组生成别名数据单元组(...(<StringLiteralType[]>(<UnionType>对象类型).types))
+                    const 数据 = 词典携带组生成别名数据单元组(...(<StringLiteralType[]>(<UnionType>对象类型).types))
                     if (数据) {
                         接受节点.别名id = 别名数据.添加(数据)
                     }
@@ -23584,8 +23649,12 @@ namespace ts {
             return !!(type.flags & TypeFlags.StringLiteral)
         }
 
+        function isNumerType(type:Type){
+            return !!(type.flags&TypeFlags.Number)
+        }
+
         function 取变量声明主体数组(v: VariableDeclaration) {
-            let 返回数组: (VariableDeclaration | BindingElement | ArrayBindingElement)[] = []
+            const 返回数组: (VariableDeclaration | BindingElement | ArrayBindingElement)[] = []
             if (isIdentifier(v.name)) {
                 返回数组.push(v)
             } else {

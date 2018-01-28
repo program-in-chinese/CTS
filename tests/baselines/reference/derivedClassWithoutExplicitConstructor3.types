@@ -5,21 +5,21 @@ class Base {
 >Base : Base
 
     a = 1;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     constructor(x: number) { this.a = x; }
->x : number
+>x : 数字
 >类型别名 :=> 数字
->this.a = x : number
+>this.a = x : 数字
 >类型别名 :=> 数字
->this.a : number
+>this.a : 数字
 >类型别名 :=> 数字
->this : this
->a : number
+>this : 本体
+>a : 数字
 >类型别名 :=> 数字
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 
@@ -28,31 +28,31 @@ class Derived extends Base {
 >Base : Base
 
     b = '';
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >'' : ""
 
     constructor(y: string, z: string) {
->y : string
+>y : 文字
 >类型别名 :=> 文字
->z : string
+>z : 文字
 >类型别名 :=> 文字
 
         super(2);
->super(2) : void
+>super(2) : 无值
 >类型别名 :=> 无值
->super : typeof Base
+>super : 类为 Base
 >2 : 2
 
         this.b = y;
->this.b = y : string
+>this.b = y : 文字
 >类型别名 :=> 文字
->this.b : string
+>this.b : 文字
 >类型别名 :=> 文字
->this : this
->b : string
+>this : 本体
+>b : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
     }
 }
@@ -62,35 +62,35 @@ class Derived2 extends Derived {
 >Derived : Derived
 
     x = 1
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     y = 'hello';
->y : string
+>y : 文字
 >类型别名 :=> 文字
 >'hello' : "hello"
 }
 
 var r = new Derived(); // error
->r : any
+>r : 任意
 >类型别名 :=> 任意
->new Derived() : any
+>new Derived() : 任意
 >类型别名 :=> 任意
->Derived : typeof Derived
+>Derived : 类为 Derived
 
 var r2 = new Derived2(1); // error
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->new Derived2(1) : any
+>new Derived2(1) : 任意
 >类型别名 :=> 任意
->Derived2 : typeof Derived2
+>Derived2 : 类为 Derived2
 >1 : 1
 
 var r3 = new Derived('', '');
 >r3 : Derived
 >new Derived('', '') : Derived
->Derived : typeof Derived
+>Derived : 类为 Derived
 >'' : ""
 >'' : ""
 
@@ -107,7 +107,7 @@ class Base2<T> {
 >T : T
 >this.a = x : T
 >this.a : T
->this : this
+>this : 本体
 >a : T
 >x : T
 }
@@ -120,7 +120,7 @@ class D<T> extends Base {
     b: T = null;
 >b : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     constructor(y: T, z: T) {
@@ -130,15 +130,15 @@ class D<T> extends Base {
 >T : T
 
         super(2);
->super(2) : void
+>super(2) : 无值
 >类型别名 :=> 无值
->super : typeof Base
+>super : 类为 Base
 >2 : 2
 
         this.b = y;
 >this.b = y : T
 >this.b : T
->this : this
+>this : 本体
 >b : T
 >y : T
     }
@@ -153,37 +153,37 @@ class D2<T extends Date> extends D<T> {
 >T : T
 
     x = 2
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >2 : 2
 
     y: T = null;
 >y : T
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 var d = new D2(); // error
->d : any
+>d : 任意
 >类型别名 :=> 任意
->new D2() : any
+>new D2() : 任意
 >类型别名 :=> 任意
->D2 : typeof D2
+>D2 : 类为 D2
 
 var d2 = new D2(new Date()); // error
->d2 : any
+>d2 : 任意
 >类型别名 :=> 任意
->new D2(new Date()) : any
+>new D2(new Date()) : 任意
 >类型别名 :=> 任意
->D2 : typeof D2
+>D2 : 类为 D2
 >new Date() : Date
 >Date : DateConstructor
 
 var d3 = new D2(new Date(), new Date()); // ok
 >d3 : D2<Date>
 >new D2(new Date(), new Date()) : D2<Date>
->D2 : typeof D2
+>D2 : 类为 D2
 >new Date() : Date
 >Date : DateConstructor
 >new Date() : Date

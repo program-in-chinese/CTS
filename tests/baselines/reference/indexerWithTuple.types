@@ -1,199 +1,199 @@
 === tests/cases/conformance/types/tuple/indexerWithTuple.ts ===
 var strNumTuple: [string, number] = ["foo", 10]; 
->strNumTuple : [string, number]
->["foo", 10] : [string, number]
+>strNumTuple : [文字, 数字]
+>["foo", 10] : [文字, 数字]
 >"foo" : "foo"
 >10 : 10
 
 var numTupleTuple: [number, [string, number]] = [10, ["bar", 20]];
->numTupleTuple : [number, [string, number]]
->[10, ["bar", 20]] : [number, [string, number]]
+>numTupleTuple : [数字, [文字, 数字]]
+>[10, ["bar", 20]] : [数字, [文字, 数字]]
 >10 : 10
->["bar", 20] : [string, number]
+>["bar", 20] : [文字, 数字]
 >"bar" : "bar"
 >20 : 20
 
 var unionTuple1: [number, string| number] = [10, "foo"]; 
->unionTuple1 : [number, string | number]
->[10, "foo"] : [number, string]
+>unionTuple1 : [数字, 文字 | 数字]
+>[10, "foo"] : [数字, 文字]
 >10 : 10
 >"foo" : "foo"
 
 var unionTuple2: [boolean, string| number] = [true, "foo"]; 
->unionTuple2 : [boolean, string | number]
->[true, "foo"] : [true, string]
->true : true
+>unionTuple2 : [真假, 文字 | 数字]
+>[true, "foo"] : [为真, 文字]
+>true : 为真
 >类型别名 :=> 为真
 >"foo" : "foo"
 
 // no error
 var idx0 = 0;
->idx0 : number
+>idx0 : 数字
 >类型别名 :=> 数字
 >0 : 0
 
 var idx1 = 1;
->idx1 : number
+>idx1 : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 var ele10 = strNumTuple[0]; // string
->ele10 : string
+>ele10 : 文字
 >类型别名 :=> 文字
->strNumTuple[0] : string
+>strNumTuple[0] : 文字
 >类型别名 :=> 文字
->strNumTuple : [string, number]
+>strNumTuple : [文字, 数字]
 >0 : 0
 
 var ele11 = strNumTuple[1]; // number
->ele11 : number
+>ele11 : 数字
 >类型别名 :=> 数字
->strNumTuple[1] : number
+>strNumTuple[1] : 数字
 >类型别名 :=> 数字
->strNumTuple : [string, number]
+>strNumTuple : [文字, 数字]
 >1 : 1
 
 var ele12 = strNumTuple[2]; // string | number
->ele12 : string | number
->strNumTuple[2] : string | number
->strNumTuple : [string, number]
+>ele12 : 文字 | 数字
+>strNumTuple[2] : 文字 | 数字
+>strNumTuple : [文字, 数字]
 >2 : 2
 
 var ele13 = strNumTuple[idx0]; // string | number
->ele13 : string | number
->strNumTuple[idx0] : string | number
->strNumTuple : [string, number]
->idx0 : number
+>ele13 : 文字 | 数字
+>strNumTuple[idx0] : 文字 | 数字
+>strNumTuple : [文字, 数字]
+>idx0 : 数字
 >类型别名 :=> 数字
 
 var ele14 = strNumTuple[idx1]; // string | number
->ele14 : string | number
->strNumTuple[idx1] : string | number
->strNumTuple : [string, number]
->idx1 : number
+>ele14 : 文字 | 数字
+>strNumTuple[idx1] : 文字 | 数字
+>strNumTuple : [文字, 数字]
+>idx1 : 数字
 >类型别名 :=> 数字
 
 var ele15 = strNumTuple["0"]; // string
->ele15 : string
+>ele15 : 文字
 >类型别名 :=> 文字
->strNumTuple["0"] : string
+>strNumTuple["0"] : 文字
 >类型别名 :=> 文字
->strNumTuple : [string, number]
+>strNumTuple : [文字, 数字]
 >"0" : "0"
 
 var ele16 = strNumTuple["1"]; // number
->ele16 : number
+>ele16 : 数字
 >类型别名 :=> 数字
->strNumTuple["1"] : number
+>strNumTuple["1"] : 数字
 >类型别名 :=> 数字
->strNumTuple : [string, number]
+>strNumTuple : [文字, 数字]
 >"1" : "1"
 
 var strNumTuple1 = numTupleTuple[1];  //[string, number];
->strNumTuple1 : [string, number]
->numTupleTuple[1] : [string, number]
->numTupleTuple : [number, [string, number]]
+>strNumTuple1 : [文字, 数字]
+>numTupleTuple[1] : [文字, 数字]
+>numTupleTuple : [数字, [文字, 数字]]
 >1 : 1
 
 var ele17 = numTupleTuple[2]; // number | [string, number]
->ele17 : number | [string, number]
->numTupleTuple[2] : number | [string, number]
->numTupleTuple : [number, [string, number]]
+>ele17 : 数字 | [文字, 数字]
+>numTupleTuple[2] : 数字 | [文字, 数字]
+>numTupleTuple : [数字, [文字, 数字]]
 >2 : 2
 
 var eleUnion10 = unionTuple1[0]; // number
->eleUnion10 : number
+>eleUnion10 : 数字
 >类型别名 :=> 数字
->unionTuple1[0] : number
+>unionTuple1[0] : 数字
 >类型别名 :=> 数字
->unionTuple1 : [number, string | number]
+>unionTuple1 : [数字, 文字 | 数字]
 >0 : 0
 
 var eleUnion11 = unionTuple1[1]; // string | number
->eleUnion11 : string | number
->unionTuple1[1] : string | number
->unionTuple1 : [number, string | number]
+>eleUnion11 : 文字 | 数字
+>unionTuple1[1] : 文字 | 数字
+>unionTuple1 : [数字, 文字 | 数字]
 >1 : 1
 
 var eleUnion12 = unionTuple1[2]; // string | number
->eleUnion12 : string | number
->unionTuple1[2] : string | number
->unionTuple1 : [number, string | number]
+>eleUnion12 : 文字 | 数字
+>unionTuple1[2] : 文字 | 数字
+>unionTuple1 : [数字, 文字 | 数字]
 >2 : 2
 
 var eleUnion13 = unionTuple1[idx0]; // string | number
->eleUnion13 : string | number
->unionTuple1[idx0] : string | number
->unionTuple1 : [number, string | number]
->idx0 : number
+>eleUnion13 : 文字 | 数字
+>unionTuple1[idx0] : 文字 | 数字
+>unionTuple1 : [数字, 文字 | 数字]
+>idx0 : 数字
 >类型别名 :=> 数字
 
 var eleUnion14 = unionTuple1[idx1]; // string | number
->eleUnion14 : string | number
->unionTuple1[idx1] : string | number
->unionTuple1 : [number, string | number]
->idx1 : number
+>eleUnion14 : 文字 | 数字
+>unionTuple1[idx1] : 文字 | 数字
+>unionTuple1 : [数字, 文字 | 数字]
+>idx1 : 数字
 >类型别名 :=> 数字
 
 var eleUnion15 = unionTuple1["0"]; // number
->eleUnion15 : number
+>eleUnion15 : 数字
 >类型别名 :=> 数字
->unionTuple1["0"] : number
+>unionTuple1["0"] : 数字
 >类型别名 :=> 数字
->unionTuple1 : [number, string | number]
+>unionTuple1 : [数字, 文字 | 数字]
 >"0" : "0"
 
 var eleUnion16 = unionTuple1["1"]; // string | number
->eleUnion16 : string | number
->unionTuple1["1"] : string | number
->unionTuple1 : [number, string | number]
+>eleUnion16 : 文字 | 数字
+>unionTuple1["1"] : 文字 | 数字
+>unionTuple1 : [数字, 文字 | 数字]
 >"1" : "1"
 
 var eleUnion20 = unionTuple2[0]; // boolean
->eleUnion20 : boolean
+>eleUnion20 : 真假
 >类型别名 :=> 真假
->unionTuple2[0] : boolean
+>unionTuple2[0] : 真假
 >类型别名 :=> 真假
->unionTuple2 : [boolean, string | number]
+>unionTuple2 : [真假, 文字 | 数字]
 >0 : 0
 
 var eleUnion21 = unionTuple2[1]; // string | number
->eleUnion21 : string | number
->unionTuple2[1] : string | number
->unionTuple2 : [boolean, string | number]
+>eleUnion21 : 文字 | 数字
+>unionTuple2[1] : 文字 | 数字
+>unionTuple2 : [真假, 文字 | 数字]
 >1 : 1
 
 var eleUnion22 = unionTuple2[2]; // string | number | boolean
->eleUnion22 : string | number | boolean
->unionTuple2[2] : string | number | boolean
->unionTuple2 : [boolean, string | number]
+>eleUnion22 : 文字 | 数字 | 真假
+>unionTuple2[2] : 文字 | 数字 | 真假
+>unionTuple2 : [真假, 文字 | 数字]
 >2 : 2
 
 var eleUnion23 = unionTuple2[idx0]; // string | number | boolean
->eleUnion23 : string | number | boolean
->unionTuple2[idx0] : string | number | boolean
->unionTuple2 : [boolean, string | number]
->idx0 : number
+>eleUnion23 : 文字 | 数字 | 真假
+>unionTuple2[idx0] : 文字 | 数字 | 真假
+>unionTuple2 : [真假, 文字 | 数字]
+>idx0 : 数字
 >类型别名 :=> 数字
 
 var eleUnion24 = unionTuple2[idx1]; // string | number | boolean
->eleUnion24 : string | number | boolean
->unionTuple2[idx1] : string | number | boolean
->unionTuple2 : [boolean, string | number]
->idx1 : number
+>eleUnion24 : 文字 | 数字 | 真假
+>unionTuple2[idx1] : 文字 | 数字 | 真假
+>unionTuple2 : [真假, 文字 | 数字]
+>idx1 : 数字
 >类型别名 :=> 数字
 
 var eleUnion25 = unionTuple2["0"]; // boolean
->eleUnion25 : boolean
+>eleUnion25 : 真假
 >类型别名 :=> 真假
->unionTuple2["0"] : boolean
+>unionTuple2["0"] : 真假
 >类型别名 :=> 真假
->unionTuple2 : [boolean, string | number]
+>unionTuple2 : [真假, 文字 | 数字]
 >"0" : "0"
 
 var eleUnion26 = unionTuple2["1"]; // string | number
->eleUnion26 : string | number
->unionTuple2["1"] : string | number
->unionTuple2 : [boolean, string | number]
+>eleUnion26 : 文字 | 数字
+>unionTuple2["1"] : 文字 | 数字
+>unionTuple2 : [真假, 文字 | 数字]
 >"1" : "1"
 

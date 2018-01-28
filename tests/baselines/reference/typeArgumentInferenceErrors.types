@@ -1,66 +1,66 @@
 === tests/cases/conformance/expressions/functionCalls/typeArgumentInferenceErrors.ts ===
 // Generic call with multiple type parameters and only one used in parameter type annotation
 function someGenerics1<T, U>(n: T, m: number) { }
->someGenerics1 : <T, U>(n: T, m: number) => void
+>someGenerics1 : <T, U>(n: T, m: 数字) => 无值
 >T : T
 >U : U
 >n : T
 >T : T
->m : number
+>m : 数字
 >类型别名 :=> 数字
 
 someGenerics1<string, number>(3, 4); // Error
->someGenerics1<string, number>(3, 4) : any
+>someGenerics1<string, number>(3, 4) : 任意
 >类型别名 :=> 任意
->someGenerics1 : <T, U>(n: T, m: number) => void
+>someGenerics1 : <T, U>(n: T, m: 数字) => 无值
 >3 : 3
 >4 : 4
 
 // 2 parameter generic call with argument 1 of type parameter type and argument 2 of function type whose parameter is of type parameter type
 function someGenerics4<T, U>(n: T, f: (x: U) => void) { }
->someGenerics4 : <T, U>(n: T, f: (x: U) => void) => void
+>someGenerics4 : <T, U>(n: T, f: (x: U) => 无值) => 无值
 >T : T
 >U : U
 >n : T
 >T : T
->f : (x: U) => void
+>f : (x: U) => 无值
 >x : U
 >U : U
 
 someGenerics4<string, number>('', (x: string) => ''); // Error
->someGenerics4<string, number>('', (x: string) => '') : any
+>someGenerics4<string, number>('', (x: string) => '') : 任意
 >类型别名 :=> 任意
->someGenerics4 : <T, U>(n: T, f: (x: U) => void) => void
+>someGenerics4 : <T, U>(n: T, f: (x: U) => 无值) => 无值
 >'' : ""
->(x: string) => '' : (x: string) => string
->x : string
+>(x: string) => '' : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 // 2 parameter generic call with argument 2 of type parameter type and argument 1 of function type whose parameter is of type parameter type
 function someGenerics5<U, T>(n: T, f: (x: U) => void) { }
->someGenerics5 : <U, T>(n: T, f: (x: U) => void) => void
+>someGenerics5 : <U, T>(n: T, f: (x: U) => 无值) => 无值
 >U : U
 >T : T
 >n : T
 >T : T
->f : (x: U) => void
+>f : (x: U) => 无值
 >x : U
 >U : U
 
 someGenerics5<number, string>('', (x: string) => ''); // Error
->someGenerics5<number, string>('', (x: string) => '') : any
+>someGenerics5<number, string>('', (x: string) => '') : 任意
 >类型别名 :=> 任意
->someGenerics5 : <U, T>(n: T, f: (x: U) => void) => void
+>someGenerics5 : <U, T>(n: T, f: (x: U) => 无值) => 无值
 >'' : ""
->(x: string) => '' : (x: string) => string
->x : string
+>(x: string) => '' : (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 // Generic call with multiple arguments of function types that each have parameters of the same generic type
 function someGenerics6<A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) { }
->someGenerics6 : <A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
+>someGenerics6 : <A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => 无值
 >A : A
 >a : (a: A) => A
 >a : A
@@ -76,22 +76,22 @@ function someGenerics6<A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) { }
 >A : A
 
 someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n); // Error
->someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n) : any
+>someGenerics6<number>((n: number) => n, (n: string) => n, (n: number) => n) : 任意
 >类型别名 :=> 任意
->someGenerics6 : <A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => void
->(n: number) => n : (n: number) => number
->n : number
+>someGenerics6 : <A>(a: (a: A) => A, b: (b: A) => A, c: (c: A) => A) => 无值
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->(n: string) => n : (n: string) => string
->n : string
+>(n: string) => n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n : string
+>n : 文字
 >类型别名 :=> 文字
->(n: number) => n : (n: number) => number
->n : number
+>(n: number) => n : (n: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 

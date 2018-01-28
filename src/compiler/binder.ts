@@ -208,16 +208,23 @@ namespace ts {
             symbolCount++;
             let 结果 = new Symbol(flags, name);
             if (file.isDeclarationFile && file.全局词典) {
-                const 词典 = file.全局词典.get(name as string)
+                const 词典集 = file.全局词典.get(name as string)
                 let 名称 = 取声明的标识符或字面量标识符(decl)
-                if (词典 && 名称 && !名称.别名) {
-                    const 别名名称变量 = isIdentifier(词典.值.name) ? 词典.值.name.escapedText : 词典.值.name.text;
-                    名称.别名 = new 别名构造(取别名旗帜(词典), 别名名称变量 as __String)
+                if (名称 && !名称.别名) {
+                    if (词典集) {
+                        for (let i = 词典集.length - 1; i >= 0; i--) {
+                            let 词典 = 词典集[i]
+                            if (词典.end < 名称.end && 词典.键.name.kind === 名称.kind) {
+                                const 别名名称变量 = isIdentifier(词典.值.name) ? 词典.值.name.escapedText : 词典.值.name.text;
+                                名称.别名 = new 别名构造(取别名旗帜(词典), 别名名称变量 as __String)
+                                break
+                            }
+                        }
+                    }
                 }
                 if (名称 && 名称.别名) {
                     结果.别名 = 名称.别名
                 }
-
             }
             return 结果
         }
@@ -1999,10 +2006,16 @@ namespace ts {
                     if (file.isDeclarationFile && file.全局词典) {
                         let 名称 = (<StringLiteral>node)
                         if (名称 && !名称.别名) {
-                            const 词典 = file.全局词典.get(名称.text as string)
-                            if (词典) {
-                                const 别名名称变量 = isIdentifier(词典.值.name) ? 词典.值.name.escapedText : 词典.值.name.text;
-                                名称.别名 = new 别名构造(取别名旗帜(词典), 别名名称变量 as __String)
+                            const 词典集 = file.全局词典.get(名称.text as string)
+                            if (词典集) {
+                                for (let i = 词典集.length - 1; i >= 0; i--) {
+                                    let 词典 = 词典集[i]
+                                    if (词典.end < 名称.end && 词典.是文本字面量词典) {
+                                        const 别名名称变量 = isIdentifier(词典.值.name) ? 词典.值.name.escapedText : 词典.值.name.text;
+                                        名称.别名 = new 别名构造(取别名旗帜(词典), 别名名称变量 as __String)
+                                        break
+                                    }
+                                }
                             }
                         }
                     }

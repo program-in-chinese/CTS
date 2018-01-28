@@ -353,7 +353,7 @@ namespace ts {
         }
 
         const escapeText = getEmitFlags(node) & EmitFlags.NoAsciiEscaping ? escapeString : escapeNonAsciiString;
-        const 输出文本 = (<StringLiteral>node).别名 ? (<StringLiteral>node).别名.名称 as string : node.text
+        const 输出文本 = ((<StringLiteral>node).别名 && (<StringLiteral>node).别名.旗帜 & 别名旗帜.汉英) ? (<StringLiteral>node).别名.名称 as string : node.text
 
         // If we can't reach the original source text, use the canonical form if it's a number,
         // or a (possibly escaped) quoted form of the original text if it's string-like.
@@ -2063,11 +2063,11 @@ namespace ts {
      * Includes the word "Symbol" with unicode escapes
      */
     export function isESSymbolIdentifier(node: Node): boolean {
-        return node.kind === SyntaxKind.Identifier && (<Identifier>node).escapedText === "Symbol";
+        return node.kind === SyntaxKind.Identifier && ((<Identifier>node).escapedText === "Symbol"|| (<Identifier>node).escapedText === "符号类");
     }
 
     export function isPushOrUnshiftIdentifier(node: Identifier) {
-        return node.escapedText === "push" || node.escapedText === "unshift";
+        return node.escapedText === "push" || node.escapedText === "压入" || node.escapedText === "unshift"|| node.escapedText === "挤入";
     }
 
     export function isParameterDeclaration(node: VariableLikeDeclaration) {
@@ -3631,15 +3631,15 @@ namespace ts {
     export function getDefaultLibFileName(options: CompilerOptions): string {
         switch (options.target) {
             case ScriptTarget.ESNext:
-                return "lib.esnext.full.d.ts";
+                return options.使用中文支持库 ? "lib.ch.esnext.full.d.cts" : "lib.esnext.full.d.ts";
             case ScriptTarget.ES2017:
-                return "lib.es2017.full.d.ts";
+                return options.使用中文支持库 ? "lib.ch.es2017.full.d.cts" : "lib.es2017.full.d.ts";
             case ScriptTarget.ES2016:
-                return "lib.es2016.full.d.ts";
+                return options.使用中文支持库 ? "lib.ch.es2016.full.d.cts" : "lib.es2016.full.d.ts";
             case ScriptTarget.ES2015:
-                return "lib.es6.d.ts";  // We don't use lib.es2015.full.d.ts due to breaking change.
+                return options.使用中文支持库 ? "lib.ch.es6.d.cts" : "lib.es6.d.ts";  // We don't use lib.es2015.full.d.ts due to breaking change.
             default:
-                return "lib.d.ts";
+                return options.使用中文支持库 ? "lib.ch.d.cts" : "lib.d.ts";
         }
     }
 
@@ -5957,7 +5957,10 @@ namespace ts {
             const 临时 = 词典携带者生成别名数据(值)
             if (临时) 返回值.push(临时)
         }
-        return 返回值[0] && `{ ${(stableSort(返回值, compareStrings)).join(", ")} }` || undefined
+        if (返回值.length) {
+            return `{ ${(stableSort(返回值, compareStrings)).join(", ")} }`
+        }
+        return undefined
     }
 
     function 词典携带者生成别名数据(元素: 可携带词典类型): string {
@@ -5992,7 +5995,7 @@ namespace ts {
     }
 
     export function 词典携带者交换别名(源符号: 可比较名称类型, 目标: 可比较名称类型) {
-        if (isString(源符号) || isString(目标) || (源符号 && 源符号.别名 && 目标 && 目标.别名)) {
+        if (!源符号 || !目标 || isString(源符号) || isString(目标) || (源符号 && 源符号.别名 && 目标 && 目标.别名)) {
             return
         }
         if (源符号 && 源符号.别名 && 目标) {
@@ -6042,12 +6045,13 @@ namespace ts {
             别名.旗帜 = 翻转别名旗帜(别名参数.旗帜)
             别名接受者.别名 = 别名
         }
-        if (是符号(别名接受者) && 别名接受者.别名) {
 
+        if (是符号(别名接受者) && 别名接受者.别名) {
             for (const 声明节点 of 别名接受者.declarations) {
                 let 声明名 = 取声明的标识符或字面量标识符(声明节点)
                 if (声明名 && !声明名.别名) {
                     声明名.别名 = 别名接受者.别名
+                    /*
                     if (声明名.flowNode) {
                         if (声明名.flowNode.flags & FlowFlags.Assignment) {
                             let 流程节点 = (<FlowAssignment>声明名.flowNode).node
@@ -6056,9 +6060,9 @@ namespace ts {
                             }
                         }
                     }
+                    */
                 }
             }
-
         }
     }
 
@@ -6134,6 +6138,7 @@ namespace ts {
             }
         }
         return;
+        
     }
 
     export function 取文本从标识符或字面量(node: Identifier | LiteralLikeNode) {
@@ -6268,6 +6273,131 @@ namespace ts {
 
     export function 是对象及索引类型节点携带者(node: Node): node is 对象及索引类型节点携带者 {
         return node.kind === SyntaxKind.IndexedAccessType
+    }
+
+    export const 内置JSDoc标签名 = createMapFromTemplate({
+        "@type": "@类型",
+        "@typedef": "@定义类型",
+        "@prop": "@属性",
+        "@property": "@属性",
+        "@arg": "@参数",
+        "@param": "@参数",
+        "@augments": "@增强参数集",
+        "@augment": "@增强参数",
+        "@return": "@返回",
+        "@returns": "@返回",
+        "@class": "@类",
+        "@constructor": "@构造函数",
+        "@template": "@模板",
+    });
+
+
+    export const JSDoc标签正则表达式 = /\b(@type|@property|@prop|@typedef|@augments|@augment|@template|@return|@returns|@arg|@param|@constructor|@class)\b/gim;
+
+    export function 替换JSDoc标签(评论文本: string) {
+        return 评论文本.replace(JSDoc标签正则表达式, (s) => {
+            return 内置JSDoc标签名.get(s) || s;
+        });
+    }
+
+
+    export function 处理模块引用路径(路径: string) {
+        return 规范路径(路径).replace(/@types/gim, "@typesch");
+        function 规范路径(路径: string) {
+            return 路径.replace(/\\/g, "/");
+        }
+    }
+
+    export function 处理头部三斜线指令(文本: string) {
+        const 分组 = 文本.split(取换行符(文本));
+        let 返回文本: string[];
+
+        for (const s of 分组) {
+            const mod = AMD附属替换(s) || 不使用默认库替换(s) || AMD替换(s) || 路径替换(s) || 类型集替换(s);
+            if (mod) {
+                (返回文本 || (返回文本 = [])).push(mod);
+            }
+            else {
+                (返回文本 || (返回文本 = [])).push(s);
+            }
+        }
+
+        return 返回文本 ? 返回文本.join(取换行符(文本)) : 文本;
+
+
+        function 取换行符(文本: string) {
+            const 换行符 = ["\r\n", "\n", "\r"];
+            if (文本.indexOf(换行符[0]) > -1) {
+                return 换行符[0];
+            }
+            if (文本.indexOf(换行符[1]) > -1) {
+                return 换行符[1];
+            }
+            if (文本.indexOf(换行符[2]) > -1) {
+                return 换行符[2];
+            }
+            return 换行符[0];
+        }
+
+        function 不使用默认库替换(s: string) {
+            return /^\/\/\/\s*<reference\s+no-default-lib\s*=\s*('|")(.+?)\1\s*\/>/gim.test(s) ?
+                s.replace(/^\/\/\/\s*<reference\s+no-default-lib\s*=\s*('|")(.+?)\1\s*\/>/gim, `/// <引用 不使用默认支持库= "真"/>`) : undefined;
+        }
+
+        function AMD替换(s: string) {
+            return /^\/\/\/\s*<amd-module\s+/gim.test(s) ?
+                s.replace(/^\/\/\/\s*<amd-module\s/gim, "/// <AMD模块 ").replace(/\s(path)\s*=\s*('|")(.+?)\2/gim, (ss, sss, ssss, sssss) => {
+                    ss = ss;
+                    sss = " 路径= ";
+                    return sss + ssss + 处理模块引用路径(sssss) + ssss + " />";
+                }).replace(/\s(name)\s*=\s*('|")(.+?)\2/gim, (ss, sss, ssss, sssss) => {
+                    ss = ss;
+                    sss = " 名称= ";
+                    return sss + ssss + sssss + ssss + " />";
+                }) : undefined;
+        }
+
+        function AMD附属替换(s: string) {
+            return /^\/\/\/\s*<amd-dependency\s+/gim.test(s) ?
+                s.replace(/^\/\/\/\s*<amd-dependency\s+/gim, "/// <AMD附件 ").replace(/\s(path)\s*=\s*('|")(.+?)\2/gim, (ss, sss, ssss, sssss) => {
+                    ss = ss;
+                    sss = " 路径= ";
+                    return sss + ssss + 处理模块引用路径(sssss) + ssss + " />";
+                }).replace(/\s(name)\s*=\s*('|")(.+?)\2/gim, (ss, sss, ssss, sssss) => {
+                    ss = ss;
+                    sss = " 名称= ";
+                    return sss + ssss + sssss + ssss + " />";
+                }) : undefined;
+        }
+
+        function 路径替换(s: string) {
+            return /^(\/\/\/\s*<reference\s+path\s*=\s*)('|")(.+?)\2.*?\/>/gim.test(s) ?
+                s.replace(/^(\/\/\/\s*<reference\s+path\s*=\s*)('|")(.+?)\2.*?\/>/gim, (ss, sss, ssss, sssss) => {
+                    ss = ss;
+                    sss = "/// <引用 路径= ";
+                    return sss + ssss + 处理模块引用路径(sssss) + ssss + " />";
+                }) : undefined;
+        }
+
+        function 类型集替换(s: string) {
+            return /^(\/\/\/\s*<reference\s+types\s*=\s*)('|")(.+?)\2.*?\/>/gim.test(s) ?
+                s.replace(/^(\/\/\/\s*<reference\s+types\s*=\s*)('|")(.+?)\2.*?\/>/gim, (ss, sss, ssss, sssss) => {
+                    ss = ss;
+                    sss = "/// <引用 类型集= ";
+                    return sss + ssss + sssss + ssss + " />";
+                }) : undefined;
+        }
+    }
+
+    export function 日志() {
+        let 路径 = "F:\\111.log"
+        return function log(日志内容: string) {
+            if (!sys.fileExists(路径)) {
+                sys.writeFile(路径, 日志内容 + sys.newLine)
+                return
+            }
+            sys.追写文件(路径, 日志内容 + sys.newLine)
+        }
     }
 
 }

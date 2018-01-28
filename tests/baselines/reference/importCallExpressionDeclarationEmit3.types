@@ -1,38 +1,38 @@
 === tests/cases/conformance/dynamicImport/0.ts ===
 export function foo() { return "foo"; }
->foo : () => string
+>foo : () => 文字
 >"foo" : "foo"
 
 === tests/cases/conformance/dynamicImport/1.ts ===
 declare function getPath(): string;
->getPath : () => string
+>getPath : () => 文字
 
 import * as Zero from "./0";
->Zero : typeof Zero
+>Zero : 类为 Zero
 
 import("./0");
->import("./0") : Promise<typeof Zero>
+>import("./0") : Promise<类为 Zero>
 >"./0" : "./0"
 
 export var p0: Promise<typeof Zero> = import(getPath());
->p0 : Promise<typeof Zero>
+>p0 : Promise<类为 Zero>
 >Promise : Promise<T>
->Zero : typeof Zero
->import(getPath()) : Promise<any>
->getPath() : string
+>Zero : 类为 Zero
+>import(getPath()) : Promise<任意>
+>getPath() : 文字
 >类型别名 :=> 文字
->getPath : () => string
+>getPath : () => 文字
 
 export var p1: Promise<typeof Zero> = import("./0");
->p1 : Promise<typeof Zero>
+>p1 : Promise<类为 Zero>
 >Promise : Promise<T>
->Zero : typeof Zero
->import("./0") : Promise<typeof Zero>
+>Zero : 类为 Zero
+>import("./0") : Promise<类为 Zero>
 >"./0" : "./0"
 
 export var p2: Promise<any> = import("./0");
->p2 : Promise<any>
+>p2 : Promise<任意>
 >Promise : Promise<T>
->import("./0") : Promise<typeof Zero>
+>import("./0") : Promise<类为 Zero>
 >"./0" : "./0"
 

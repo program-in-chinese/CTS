@@ -3,33 +3,33 @@
 
 class C { foo: string }
 >C : C
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 class D { bar: string }
 >D : D
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 var a: {
->a : { new (x: boolean): C; new (x: string): D; }
+>a : { 新建 (x: 真假): C; 新建 (x: 文字): D; }
 
     new(x: boolean): C;
->x : boolean
+>x : 真假
 >类型别名 :=> 真假
 >C : C
 
     new(x: string): D;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >D : D
 }
 
 function foo4<T, U>(cb: new(x: T) => U) {
->foo4 : <T, U>(cb: new (x: T) => U) => U
+>foo4 : <T, U>(cb: 新建 (x: T) => U) => U
 >T : T
 >U : U
->cb : new (x: T) => U
+>cb : 新建 (x: T) => U
 >x : T
 >T : T
 >U : U
@@ -45,15 +45,15 @@ function foo4<T, U>(cb: new(x: T) => U) {
 var r = foo4(a); // T is {} (candidates boolean and string), U is {} (candidates C and D)
 >r : D
 >foo4(a) : D
->foo4 : <T, U>(cb: new (x: T) => U) => U
->a : { new (x: boolean): C; new (x: string): D; }
+>foo4 : <T, U>(cb: 新建 (x: T) => U) => U
+>a : { 新建 (x: 真假): C; 新建 (x: 文字): D; }
 
 var b: {
->b : { new <T>(x: boolean): T; new <T>(x: T): any; }
+>b : { 新建 <T>(x: 真假): T; 新建 <T>(x: T): 任意; }
 
     new<T>(x: boolean): T;
 >T : T
->x : boolean
+>x : 真假
 >类型别名 :=> 真假
 >T : T
 
@@ -64,10 +64,10 @@ var b: {
 }
 
 var r2 = foo4(b); // T is {} (candidates boolean and {}), U is any (candidates any and {})
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->foo4(b) : any
+>foo4(b) : 任意
 >类型别名 :=> 任意
->foo4 : <T, U>(cb: new (x: T) => U) => U
->b : { new <T>(x: boolean): T; new <T>(x: T): any; }
+>foo4 : <T, U>(cb: 新建 (x: T) => U) => U
+>b : { 新建 <T>(x: 真假): T; 新建 <T>(x: T): 任意; }
 

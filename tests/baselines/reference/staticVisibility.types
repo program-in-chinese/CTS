@@ -3,72 +3,72 @@ class C1 {
 >C1 : C1
     
     p: any;
->p : any
+>p : 任意
 >类型别名 :=> 任意
 
     static s: any;
->s : any
+>s : 任意
 >类型别名 :=> 任意
 
     constructor() {
         var v = 0;
->v : number
+>v : 数字
 >类型别名 :=> 数字
 >0 : 0
 
         s = 1; // should be error
 >s = 1 : 1
->s : any
+>s : 任意
 >类型别名 :=> 任意
 >1 : 1
 
         C1.s = 1; // should be ok
 >C1.s = 1 : 1
->C1.s : any
+>C1.s : 任意
 >类型别名 :=> 任意
->C1 : typeof C1
->s : any
+>C1 : 类为 C1
+>s : 任意
 >类型别名 :=> 任意
 >1 : 1
 
         b(); // should be error
->b() : any
+>b() : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
         C1.b(); // should be ok
->C1.b() : void
+>C1.b() : 无值
 >类型别名 :=> 无值
->C1.b : () => void
->C1 : typeof C1
->b : () => void
+>C1.b : () => 无值
+>C1 : 类为 C1
+>b : () => 无值
     }
 
     static b() {
->b : () => void
+>b : () => 无值
 
         v = 1; // should be error
 >v = 1 : 1
->v : any
+>v : 任意
 >类型别名 :=> 任意
 >1 : 1
 
         this.p = 0; // should be error
 >this.p = 0 : 0
->this.p : any
+>this.p : 任意
 >类型别名 :=> 任意
->this : typeof C1
->p : any
+>this : 类为 C1
+>p : 任意
 >类型别名 :=> 任意
 >0 : 0
 
         C1.s = 1; // should be ok
 >C1.s = 1 : 1
->C1.s : any
+>C1.s : 任意
 >类型别名 :=> 任意
->C1 : typeof C1
->s : any
+>C1 : 类为 C1
+>s : 任意
 >类型别名 :=> 任意
 >1 : 1
     }
@@ -78,7 +78,7 @@ class C2 {
 >C2 : C2
  
 barback:string = "";
->barback : string
+>barback : 文字
 >类型别名 :=> 文字
 >"" : ""
  
@@ -86,20 +86,20 @@ barback:string = "";
 
 
 static get Bar() {return "bar";} // ok
->Bar : string
+>Bar : 文字
 >类型别名 :=> 文字
 >"bar" : "bar"
  
 static set Bar(bar:string) {barback = bar;} // not ok
->Bar : string
+>Bar : 文字
 >类型别名 :=> 文字
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
->barback = bar : string
+>barback = bar : 文字
 >类型别名 :=> 文字
->barback : any
+>barback : 任意
 >类型别名 :=> 任意
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 }

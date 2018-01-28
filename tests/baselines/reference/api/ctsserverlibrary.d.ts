@@ -13,6 +13,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+/// <reference types="node" />
 declare namespace ts {
     /**
      * Type of objects whose values are all of the same type.
@@ -1899,7 +1900,7 @@ declare namespace ts {
         fileName: string;
         text: string;
         词典语句?: Map<全局词典语句>;
-        全局词典?: Map<词典>;
+        全局词典?: Map<词典[]>;
         amdDependencies: ReadonlyArray<AmdDependency>;
         moduleName: string;
         referencedFiles: ReadonlyArray<FileReference>;
@@ -3213,6 +3214,7 @@ declare namespace ts {
         write(s: string): void;
         readFile(path: string, encoding?: string): string | undefined;
         writeFile(path: string, data: string, writeByteOrderMark?: boolean): void;
+        追写文件(path: string, data: string | Buffer): void;
         fileExists(path: string): boolean;
         directoryExists(path: string): boolean;
         createDirectory(path: string): void;
@@ -3614,6 +3616,11 @@ declare namespace ts {
     function 是元素集类型节点携带者(node: Node): node is 元素集类型节点携带者;
     function 是默认及约束类型节点携带者(node: Node): node is 默认及约束类型节点携带者;
     function 是对象及索引类型节点携带者(node: Node): node is 对象及索引类型节点携带者;
+    const 内置JSDoc标签名: Map<string>;
+    const JSDoc标签正则表达式: RegExp;
+    function 替换JSDoc标签(评论文本: string): string;
+    function 处理模块引用路径(路径: string): string;
+    function 处理头部三斜线指令(文本: string): string;
 }
 declare namespace ts {
     interface ErrorCallback {
@@ -4345,8 +4352,8 @@ declare namespace ts {
         getJsDocTags(): JSDocTagInfo[];
     }
     interface 别名 {
-        取旗帜(): 别名旗帜;
-        取名称(): string;
+        旗帜: 别名旗帜;
+        名称: __String;
     }
     interface Type {
         getFlags(): TypeFlags;
@@ -4368,6 +4375,36 @@ declare namespace ts {
         getReturnType(): Type;
         getDocumentationComment(): SymbolDisplayPart[];
         getJsDocTags(): JSDocTagInfo[];
+    }
+    interface 词典完成条目 {
+        name: string;
+        range: 范围类型;
+        isStringLiteral: boolean;
+        rangeMap?: RangeMap;
+    }
+    interface 名称引用 {
+        fileName: string;
+        textSpan: TextSpan;
+        isInString: boolean;
+        name: string;
+        parent: Position;
+    }
+    interface Position {
+        readonly line: number;
+        readonly character: number;
+    }
+    interface RangeMap {
+        [x: string]: RangeInfo[];
+    }
+    interface 范围类型 {
+        readonly start: Position;
+        readonly end: Position;
+    }
+    interface RangeInfo {
+        readonly start: Position;
+        readonly end: Position;
+        readonly parent: Position;
+        readonly isStringLiteral: boolean;
     }
     interface SourceFile {
         getLineAndCharacterOfPosition(pos: number): LineAndCharacter;
@@ -4468,12 +4505,14 @@ declare namespace ts {
         getCompletionsAtPosition(fileName: string, position: number): CompletionInfo;
         getCompletionEntryDetails(fileName: string, position: number, entryName: string, options?: FormatCodeOptions | FormatCodeSettings): CompletionEntryDetails;
         getCompletionEntrySymbol(fileName: string, position: number, entryName: string): Symbol;
+        取词典自动完成项目(fileName: string, position: number, ignoreName: string): 词典完成条目;
         getQuickInfoAtPosition(fileName: string, position: number): QuickInfo;
         getNameOrDottedNameSpan(fileName: string, startPos: number, endPos: number): TextSpan;
         getBreakpointStatementAtPosition(fileName: string, position: number): TextSpan;
         getSignatureHelpItems(fileName: string, position: number): SignatureHelpItems;
         getRenameInfo(fileName: string, position: number): RenameInfo;
         findRenameLocations(fileName: string, position: number, findInStrings: boolean, findInComments: boolean): RenameLocation[];
+        取词典自动完成项目新(fileName: string, position: number, ignoreName: string): 名称引用[];
         getDefinitionAtPosition(fileName: string, position: number): DefinitionInfo[];
         getTypeDefinitionAtPosition(fileName: string, position: number): DefinitionInfo[];
         getImplementationAtPosition(fileName: string, position: number): ImplementationLocation[];
@@ -4930,105 +4969,105 @@ declare namespace ts {
     }
     enum ScriptElementKind {
         unknown = "",
-        warning = "warning",
+        warning = "\u8B66\u544A",
         /** predefined type (void) or keyword (class) */
-        keyword = "keyword",
+        keyword = "\u5173\u952E\u5B57",
         /** top level script node */
-        scriptElement = "script",
+        scriptElement = "\u811A\u672C",
         /** module foo {} */
-        moduleElement = "module",
+        moduleElement = "\u6A21\u5757",
         /** class X {} */
-        classElement = "class",
+        classElement = "\u7C7B\u522B",
         /** var x = class X {} */
-        localClassElement = "local class",
+        localClassElement = "\u672C\u5730\u7C7B\u522B",
         /** interface Y {} */
-        interfaceElement = "interface",
+        interfaceElement = "\u63A5\u53E3",
         /** type T = ... */
-        typeElement = "type",
+        typeElement = "\u7C7B\u578B",
         /** enum E */
-        enumElement = "enum",
-        enumMemberElement = "enum member",
+        enumElement = "\u679A\u4E3E",
+        enumMemberElement = "\u679A\u4E3E\u6210\u5458",
         /**
          * Inside module and script only
          * const v = ..
          */
-        variableElement = "var",
+        variableElement = "\u503C\u91CF",
         /** Inside function */
-        localVariableElement = "local var",
+        localVariableElement = "\u672C\u5730\u503C\u91CF",
         /**
          * Inside module and script only
          * function f() { }
          */
-        functionElement = "function",
+        functionElement = "\u51FD\u6570",
         /** Inside function */
-        localFunctionElement = "local function",
+        localFunctionElement = "\u672C\u5730\u51FD\u6570",
         /** class X { [public|private]* foo() {} } */
-        memberFunctionElement = "method",
+        memberFunctionElement = "\u65B9\u6CD5",
         /** class X { [public|private]* [get|set] foo:number; } */
-        memberGetAccessorElement = "getter",
-        memberSetAccessorElement = "setter",
+        memberGetAccessorElement = "\u83B7\u53D6",
+        memberSetAccessorElement = "\u8BBE\u7F6E",
         /**
          * class X { [public|private]* foo:number; }
          * interface Y { foo:number; }
          */
-        memberVariableElement = "property",
+        memberVariableElement = "\u539F\u578B",
         /** class X { constructor() { } } */
-        constructorImplementationElement = "constructor",
+        constructorImplementationElement = "\u6784\u9020",
         /** interface Y { ():number; } */
-        callSignatureElement = "call",
+        callSignatureElement = "\u8C03\u7528",
         /** interface Y { []:number; } */
-        indexSignatureElement = "index",
+        indexSignatureElement = "\u7D22\u5F15",
         /** interface Y { new():Y; } */
-        constructSignatureElement = "construct",
+        constructSignatureElement = "\u6784\u5EFA",
         /** function foo(*Y*: string) */
-        parameterElement = "parameter",
-        typeParameterElement = "type parameter",
-        primitiveType = "primitive type",
-        label = "label",
-        alias = "alias",
-        constElement = "const",
-        letElement = "let",
-        directory = "directory",
-        externalModuleName = "external module name",
+        parameterElement = "\u53C2\u6570",
+        typeParameterElement = "\u7C7B\u578B\u53C2\u6570",
+        primitiveType = "\u539F\u59CB\u7C7B\u578B",
+        label = "\u6807\u7B7E",
+        alias = "\u522B\u540D",
+        constElement = "\u5E38\u91CF",
+        letElement = "\u53D8\u91CF",
+        directory = "\u76EE\u5F55",
+        externalModuleName = "\u5916\u90E8\u6A21\u5757\u540D",
         /**
          * <JsxTagName attribute1 attribute2={0} />
          */
-        jsxAttribute = "JSX attribute",
+        jsxAttribute = "JSX\u5C5E\u6027",
     }
     enum ScriptElementKindModifier {
         none = "",
-        publicMemberModifier = "public",
-        privateMemberModifier = "private",
-        protectedMemberModifier = "protected",
-        exportedModifier = "export",
-        ambientModifier = "declare",
-        staticModifier = "static",
-        abstractModifier = "abstract",
+        publicMemberModifier = "\u516C\u5F00",
+        privateMemberModifier = "\u79C1\u6709",
+        protectedMemberModifier = "\u4FDD\u62A4",
+        exportedModifier = "\u5BFC\u51FA",
+        ambientModifier = "\u58F0\u660E",
+        staticModifier = "\u9759\u6001",
+        abstractModifier = "\u62BD\u8C61",
     }
     enum ClassificationTypeNames {
-        comment = "comment",
-        identifier = "identifier",
-        keyword = "keyword",
-        numericLiteral = "number",
-        operator = "operator",
-        stringLiteral = "string",
-        whiteSpace = "whitespace",
-        text = "text",
-        punctuation = "punctuation",
-        className = "class name",
-        enumName = "enum name",
-        interfaceName = "interface name",
-        moduleName = "module name",
-        typeParameterName = "type parameter name",
-        typeAliasName = "type alias name",
-        parameterName = "parameter name",
-        docCommentTagName = "doc comment tag name",
-        jsxOpenTagName = "jsx open tag name",
-        jsxCloseTagName = "jsx close tag name",
-        jsxSelfClosingTagName = "jsx self closing tag name",
-        jsxAttribute = "jsx attribute",
-        jsxText = "jsx text",
-        jsxAttributeStringLiteralValue = "jsx attribute string literal value",
+        comment = "\u8BC4\u8BBA",
+        identifier = "\u6807\u8BC6\u7B26",
+        keyword = "\u5173\u952E\u5B57",
+        numericLiteral = "\u6570\u5B57",
+        operator = "\u8FD0\u7B97\u7B26",
+        stringLiteral = "\u6587\u5B57",
+        whiteSpace = "\u7A7A\u683C",
+        text = "\u6587\u672C",
+        punctuation = "\u6807\u70B9\u7B26\u53F7",
+        className = "\u7C7B\u540D",
+        enumName = "\u679A\u4E3E\u540D",
+        interfaceName = "\u63A5\u53E3\u540D",
+        moduleName = "\u6A21\u5757\u540D",
+        typeParameterName = "\u7C7B\u578B\u53C2\u6570\u540D",
+        typeAliasName = "\u7C7B\u578B\u522B\u540D\u540D",
+        parameterName = "\u53C2\u6570\u540D",
+        docCommentTagName = "\u6CE8\u91CA\u6807\u7B7E\u540D",
+        jsxOpenTagName = "JSX\u5F00\u59CB\u6807\u7B7E\u540D",
+        jsxCloseTagName = "JSX\u7ED3\u5C3E\u6807\u7B7E\u540D",
+        jsxSelfClosingTagName = "JSX\u81EA\u95ED\u6807\u7B7E\u540D",
+        jsxAttribute = "JSX\u7279\u6027",
+        jsxText = "JSX\u6587\u672C",
+        jsxAttributeStringLiteralValue = "JSX\u7279\u6027\u5B57\u9762\u503C",
     }
     enum ClassificationType {
         comment = 1,
@@ -5146,6 +5185,12 @@ declare namespace ts {
     function transpileModule(input: string, transpileOptions: TranspileOptions): TranspileOutput;
     function transpile(input: string, compilerOptions?: CompilerOptions, fileName?: string, diagnostics?: Diagnostic[], moduleName?: string): string;
 }
+declare namespace ts.词典完成 {
+    function 取词典自动完成项目(sourceFile: SourceFile, position: number, ignoreName: string): 词典完成条目;
+}
+declare namespace ts {
+    function 日志(): (日志内容: string) => void;
+}
 declare namespace ts {
     /** The version of the language service API */
     const servicesVersion = "0.5";
@@ -5160,6 +5205,8 @@ declare namespace ts {
     let disableIncrementalParsing: boolean;
     function updateLanguageServiceSourceFile(sourceFile: SourceFile, scriptSnapshot: IScriptSnapshot, version: string, textChangeRange: TextChangeRange, aggressiveChecks?: boolean): SourceFile;
     function createLanguageService(host: LanguageServiceHost, documentRegistry?: DocumentRegistry): LanguageService;
+    function 取别名全表(sourceFile: SourceFile): Map<RangeInfo[]>;
+    function 转换位置为行数及字符偏移(sourceFile: SourceFile, 位置: number): LineAndCharacter;
     /**
      * Get the path of the default library files (lib.d.ts) as distributed with the typescript
      * node package.
@@ -5410,6 +5457,8 @@ declare namespace ts.server.protocol {
         GetApplicableRefactors = "getApplicableRefactors",
         GetEditsForRefactor = "getEditsForRefactor",
         转为CTS = "\u8F6C\u4E3ACTS",
+        词典自动完成 = "\u8BCD\u5178\u81EA\u52A8\u5B8C\u6210",
+        词典自动完成新 = "\u8BCD\u5178\u81EA\u52A8\u5B8C\u6210\u65B0",
     }
     /**
      * A TypeScript Server message
@@ -5487,6 +5536,42 @@ declare namespace ts.server.protocol {
     }
     interface 转换CTS结果 extends Response {
         body: string;
+    }
+    interface 词典完成请求参数 extends FileLocationRequestArgs {
+        ignoreName: string;
+    }
+    interface 词典完成请求 extends FileLocationRequest {
+        command: CommandTypes.词典自动完成;
+        arguments: 词典完成请求参数;
+    }
+    interface 词典完成条目 {
+        name: string;
+        range: 范围类型;
+        isStringLiteral: boolean;
+        rangeMap?: RangeMap;
+    }
+    interface 词典完成条目响应 extends Response {
+        body?: 词典完成条目;
+    }
+    interface 词典完成条目响应新 {
+        body?: 词典完成条目;
+    }
+    interface 词典完成组 {
+        file: string;
+        locs: {
+            isString: boolean;
+            loc: {
+                start: Location;
+                end: Location;
+            };
+        }[];
+    }
+    interface 词典完成 {
+        file: string;
+        start: Location;
+        end?: Location;
+        name: string;
+        isInString: boolean;
     }
     /**
      * Arguments for FileRequest messages.
@@ -7476,6 +7561,7 @@ declare namespace ts.server {
         private getRenameInfo(args);
         private getProjects(args);
         private getDefaultProject(args);
+        private 取词典自动完成项目新(args);
         private getRenameLocations(args, simplifiedResult);
         private getReferences(args, simplifiedResult);
         /**
@@ -7537,6 +7623,7 @@ declare namespace ts.server {
         private notRequired();
         private requiredResponse(response);
         private 转为CTS(req);
+        private 取词典自动完成项目(args);
         private handlers;
         addProtocolHandler(command: string, handler: (request: protocol.Request) => HandlerResponse): void;
         private setCurrentRequest(requestId);

@@ -1,35 +1,35 @@
 === tests/cases/compiler/typeParameterExtendingUnion1.ts ===
 class Animal { run() { } }
 >Animal : Animal
->run : () => void
+>run : () => 无值
 
 class Cat extends Animal { meow }
 >Cat : Cat
 >Animal : Animal
->meow : any
+>meow : 任意
 >类型别名 :=> 任意
 
 class Dog extends Animal { woof }
 >Dog : Dog
 >Animal : Animal
->woof : any
+>woof : 任意
 >类型别名 :=> 任意
 
 function run(a: Animal) {
->run : (a: Animal) => void
+>run : (a: Animal) => 无值
 >a : Animal
 >Animal : Animal
 
     a.run();
->a.run() : void
+>a.run() : 无值
 >类型别名 :=> 无值
->a.run : () => void
+>a.run : () => 无值
 >a : Animal
->run : () => void
+>run : () => 无值
 }
 
 function f<T extends Cat | Dog>(a: T) {
->f : <T extends Cat | Dog>(a: T) => void
+>f : <T 扩展 Cat | Dog>(a: T) => 无值
 >T : T
 >Cat : Cat
 >Dog : Dog
@@ -37,15 +37,15 @@ function f<T extends Cat | Dog>(a: T) {
 >T : T
 
     a.run();
->a.run() : void
+>a.run() : 无值
 >类型别名 :=> 无值
->a.run : () => void
+>a.run : () => 无值
 >a : T
->run : () => void
+>run : () => 无值
 
     run(a);
->run(a) : void
+>run(a) : 无值
 >类型别名 :=> 无值
->run : (a: Animal) => void
+>run : (a: Animal) => 无值
 >a : T
 }

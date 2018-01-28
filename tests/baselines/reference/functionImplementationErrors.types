@@ -37,73 +37,73 @@ var f3 = () => {
 
 // FunctionExpression with no return type annotation with return branch of number[] and other of string[]
 var f4 = function () {
->f4 : () => string[] | number[]
->function () {    if (true) {        return [''];    } else {        return [1];    }} : () => string[] | number[]
+>f4 : () => 文字[] | 数字[]
+>function () {    if (true) {        return [''];    } else {        return [1];    }} : () => 文字[] | 数字[]
 
     if (true) {
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
         return [''];
->[''] : string[]
+>[''] : 文字[]
 >'' : ""
 
     } else {
         return [1];
->[1] : number[]
+>[1] : 数字[]
 >1 : 1
     }
 }
 
 // Function implemetnation with non -void return type annotation with no return
 function f5(): number {
->f5 : () => number
+>f5 : () => 数字
 }
 
 var m;
->m : any
+>m : 任意
 >类型别名 :=> 任意
 
 // Function signature with parameter initializer referencing in scope local variable
 function f6(n = m) {
->f6 : (n?: number) => void
->n : number
+>f6 : (n?: 数字) => 无值
+>n : 数字
 >类型别名 :=> 数字
->m : number
+>m : 数字
 >类型别名 :=> 数字
 
     var m = 4;
->m : number
+>m : 数字
 >类型别名 :=> 数字
 >4 : 4
 }
 
 // Function signature with initializer referencing other parameter to the right
 function f7(n = m, m?) {
->f7 : (n?: any, m?: any) => void
->n : any
+>f7 : (n?: 任意, m?: 任意) => 无值
+>n : 任意
 >类型别名 :=> 任意
->m : any
+>m : 任意
 >类型别名 :=> 任意
->m : any
+>m : 任意
 >类型别名 :=> 任意
 }
 
 // FunctionExpression with non -void return type annotation with a throw, no return, and other code
 // Should be error but isn't
 undefined === function (): number {
->undefined === function (): number {    throw undefined;    var x = 4;} : boolean
+>undefined === function (): number {    throw undefined;    var x = 4;} : 真假
 >类型别名 :=> 真假
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
->function (): number {    throw undefined;    var x = 4;} : () => number
+>function (): number {    throw undefined;    var x = 4;} : () => 数字
 
     throw undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
     var x = 4;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >4 : 4
 
@@ -111,24 +111,24 @@ undefined === function (): number {
 
 class Base { private x; }
 >Base : Base
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 class AnotherClass { private y; }
 >AnotherClass : AnotherClass
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
 class Derived1 extends Base { private m; }
 >Derived1 : Derived1
 >Base : Base
->m : any
+>m : 任意
 >类型别名 :=> 任意
 
 class Derived2 extends Base { private n; }
 >Derived2 : Derived2
 >Base : Base
->n : any
+>n : 任意
 >类型别名 :=> 任意
 
 function f8() {
@@ -136,11 +136,11 @@ function f8() {
 
     return new Derived1();
 >new Derived1() : Derived1
->Derived1 : typeof Derived1
+>Derived1 : 类为 Derived1
 
     return new Derived2();    
 >new Derived2() : Derived2
->Derived2 : typeof Derived2
+>Derived2 : 类为 Derived2
 }
 var f9 = function () {
 >f9 : () => Derived1 | Derived2
@@ -148,11 +148,11 @@ var f9 = function () {
 
     return new Derived1();
 >new Derived1() : Derived1
->Derived1 : typeof Derived1
+>Derived1 : 类为 Derived1
 
     return new Derived2();
 >new Derived2() : Derived2
->Derived2 : typeof Derived2
+>Derived2 : 类为 Derived2
 
 };
 var f10 = () => {
@@ -161,11 +161,11 @@ var f10 = () => {
 
     return new Derived1();
 >new Derived1() : Derived1
->Derived1 : typeof Derived1
+>Derived1 : 类为 Derived1
 
     return new Derived2();
 >new Derived2() : Derived2
->Derived2 : typeof Derived2
+>Derived2 : 类为 Derived2
 
 };
 function f11() {
@@ -173,11 +173,11 @@ function f11() {
 
     return new Base();
 >new Base() : Base
->Base : typeof Base
+>Base : 类为 Base
 
     return new AnotherClass();
 >new AnotherClass() : AnotherClass
->AnotherClass : typeof AnotherClass
+>AnotherClass : 类为 AnotherClass
 }
 var f12 = function () {
 >f12 : () => Base | AnotherClass
@@ -185,11 +185,11 @@ var f12 = function () {
 
     return new Base();
 >new Base() : Base
->Base : typeof Base
+>Base : 类为 Base
 
     return new AnotherClass();
 >new AnotherClass() : AnotherClass
->AnotherClass : typeof AnotherClass
+>AnotherClass : 类为 AnotherClass
 
 };
 var f13 = () => {
@@ -198,11 +198,11 @@ var f13 = () => {
 
     return new Base();
 >new Base() : Base
->Base : typeof Base
+>Base : 类为 Base
 
     return new AnotherClass();
 >new AnotherClass() : AnotherClass
->AnotherClass : typeof AnotherClass
+>AnotherClass : 类为 AnotherClass
 
 };
 

@@ -1,18 +1,18 @@
 === tests/cases/compiler/aliasUsage1_main.ts ===
 import Backbone = require("./aliasUsage1_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 import moduleA = require("./aliasUsage1_moduleA");
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
 
 interface IHasVisualizationModel {
 >IHasVisualizationModel : IHasVisualizationModel
 
     VisualizationModel: typeof Backbone.Model;
->VisualizationModel : typeof Backbone.Model
->Backbone.Model : typeof Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>VisualizationModel : 类为 Backbone.Model
+>Backbone.Model : 类为 Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 }
 class C2 {
 >C2 : C2
@@ -26,7 +26,7 @@ class C2 {
 
         return this.x;
 >this.x : IHasVisualizationModel
->this : this
+>this : 本体
 >x : IHasVisualizationModel
     }
     set A(x) {
@@ -34,9 +34,9 @@ class C2 {
 >x : IHasVisualizationModel
 
         x = moduleA;
->x = moduleA : typeof moduleA
+>x = moduleA : 类为 moduleA
 >x : IHasVisualizationModel
->moduleA : typeof moduleA
+>moduleA : 类为 moduleA
     }
 }
 === tests/cases/compiler/aliasUsage1_backbone.ts ===
@@ -44,19 +44,19 @@ export class Model {
 >Model : Model
 
     public someData: string;
->someData : string
+>someData : 文字
 >类型别名 :=> 文字
 }
 
 === tests/cases/compiler/aliasUsage1_moduleA.ts ===
 import Backbone = require("./aliasUsage1_backbone");
->Backbone : typeof Backbone
+>Backbone : 类为 Backbone
 
 export class VisualizationModel extends Backbone.Model {
 >VisualizationModel : VisualizationModel
 >Backbone.Model : Backbone.Model
->Backbone : typeof Backbone
->Model : typeof Backbone.Model
+>Backbone : 类为 Backbone
+>Model : 类为 Backbone.Model
 
     // interesting stuff here
 }

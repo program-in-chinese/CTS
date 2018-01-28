@@ -1,21 +1,21 @@
 === tests/cases/conformance/types/typeRelationships/bestCommonType/bestCommonTypeOfTuple.ts ===
 function f1(x: number): string { return "foo"; }
->f1 : (x: number) => string
->x : number
+>f1 : (x: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
 >"foo" : "foo"
 
 function f2(x: number): number { return 10; }
->f2 : (x: number) => number
->x : number
+>f2 : (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 >10 : 10
 
 function f3(x: number): boolean { return true; }
->f3 : (x: number) => boolean
->x : number
+>f3 : (x: 数字) => 真假
+>x : 数字
 >类型别名 :=> 数字
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 enum E1 { one }
@@ -28,10 +28,10 @@ enum E2 { two }
 
 
 var t1: [(x: number) => string, (x: number) => number];
->t1 : [(x: number) => string, (x: number) => number]
->x : number
+>t1 : [(x: 数字) => 文字, (x: 数字) => 数字]
+>x : 数字
 >类型别名 :=> 数字
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 var t2: [E1, E2];
@@ -40,56 +40,56 @@ var t2: [E1, E2];
 >E2 : E2
 
 var t3: [number, any];
->t3 : [number, any]
+>t3 : [数字, 任意]
 
 var t4: [E1, E2, number];
->t4 : [E1, E2, number]
+>t4 : [E1, E2, 数字]
 >E1 : E1
 >E2 : E2
 
 // no error
 t1 = [f1, f2];
->t1 = [f1, f2] : [(x: number) => string, (x: number) => number]
->t1 : [(x: number) => string, (x: number) => number]
->[f1, f2] : [(x: number) => string, (x: number) => number]
->f1 : (x: number) => string
->f2 : (x: number) => number
+>t1 = [f1, f2] : [(x: 数字) => 文字, (x: 数字) => 数字]
+>t1 : [(x: 数字) => 文字, (x: 数字) => 数字]
+>[f1, f2] : [(x: 数字) => 文字, (x: 数字) => 数字]
+>f1 : (x: 数字) => 文字
+>f2 : (x: 数字) => 数字
 
 t2 = [E1.one, E2.two];
 >t2 = [E1.one, E2.two] : [E1, E2]
 >t2 : [E1, E2]
 >[E1.one, E2.two] : [E1, E2]
 >E1.one : E1
->E1 : typeof E1
+>E1 : 类为 E1
 >one : E1
 >E2.two : E2
->E2 : typeof E2
+>E2 : 类为 E2
 >two : E2
 
 t3 = [5, undefined];
->t3 = [5, undefined] : [number, undefined]
->t3 : [number, any]
->[5, undefined] : [number, undefined]
+>t3 = [5, undefined] : [数字, 未定]
+>t3 : [数字, 任意]
+>[5, undefined] : [数字, 未定]
 >5 : 5
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 t4 = [E1.one, E2.two, 20];
->t4 = [E1.one, E2.two, 20] : [E1, E2, number]
->t4 : [E1, E2, number]
->[E1.one, E2.two, 20] : [E1, E2, number]
+>t4 = [E1.one, E2.two, 20] : [E1, E2, 数字]
+>t4 : [E1, E2, 数字]
+>[E1.one, E2.two, 20] : [E1, E2, 数字]
 >E1.one : E1
->E1 : typeof E1
+>E1 : 类为 E1
 >one : E1
 >E2.two : E2
->E2 : typeof E2
+>E2 : 类为 E2
 >two : E2
 >20 : 20
 
 var e1 = t1[2];  // {}
->e1 : ((x: number) => string) | ((x: number) => number)
->t1[2] : ((x: number) => string) | ((x: number) => number)
->t1 : [(x: number) => string, (x: number) => number]
+>e1 : ((x: 数字) => 文字) | ((x: 数字) => 数字)
+>t1[2] : ((x: 数字) => 文字) | ((x: 数字) => 数字)
+>t1 : [(x: 数字) => 文字, (x: 数字) => 数字]
 >2 : 2
 
 var e2 = t2[2];  // {}
@@ -99,18 +99,18 @@ var e2 = t2[2];  // {}
 >2 : 2
 
 var e3 = t3[2];  // any
->e3 : any
+>e3 : 任意
 >类型别名 :=> 任意
->t3[2] : any
+>t3[2] : 任意
 >类型别名 :=> 任意
->t3 : [number, any]
+>t3 : [数字, 任意]
 >2 : 2
 
 var e4 = t4[3];  // number
->e4 : number
+>e4 : 数字
 >类型别名 :=> 数字
->t4[3] : number
+>t4[3] : 数字
 >类型别名 :=> 数字
->t4 : [E1, E2, number]
+>t4 : [E1, E2, 数字]
 >3 : 3
 

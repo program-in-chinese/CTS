@@ -3,7 +3,7 @@ interface A {
 >A : A
 
     a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 }
 
@@ -11,12 +11,12 @@ interface B {
 >B : B
 
     b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
 }
 
 function f<T, U extends A, V extends U>(): void {
->f : <T, U extends A, V extends U>() => void
+>f : <T, U 扩展 A, V 扩展 U>() => 无值
 >T : T
 >U : U
 >A : A
@@ -24,15 +24,15 @@ function f<T, U extends A, V extends U>(): void {
 >U : U
 
     let num: number;
->num : number
+>num : 数字
 >类型别名 :=> 数字
 
     let bool: boolean;
->bool : boolean
+>bool : 真假
 >类型别名 :=> 真假
 
     let str: string;
->str : string
+>str : 文字
 >类型别名 :=> 文字
 
     let a_and_b: A & B;
@@ -41,29 +41,29 @@ function f<T, U extends A, V extends U>(): void {
 >B : B
 
     let num_and_bool: number & boolean;
->num_and_bool : (number & true) | (number & false)
+>num_and_bool : (数字 & 为真) | (数字 & 为假)
 
     num = a_and_b;
 >num = a_and_b : A & B
->num : number
+>num : 数字
 >类型别名 :=> 数字
 >a_and_b : A & B
 
     bool = a_and_b;
 >bool = a_and_b : A & B
->bool : boolean
+>bool : 真假
 >类型别名 :=> 真假
 >a_and_b : A & B
 
     str = a_and_b;
 >str = a_and_b : A & B
->str : string
+>str : 文字
 >类型别名 :=> 文字
 >a_and_b : A & B
 
     str = num_and_bool;
->str = num_and_bool : (number & true) | (number & false)
->str : string
+>str = num_and_bool : (数字 & 为真) | (数字 & 为假)
+>str : 文字
 >类型别名 :=> 文字
->num_and_bool : (number & true) | (number & false)
+>num_and_bool : (数字 & 为真) | (数字 & 为假)
 }

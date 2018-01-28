@@ -1,42 +1,42 @@
 === tests/cases/compiler/namedFunctionExpressionCallErrors.ts ===
 var recurser = function foo() {
->recurser : () => void
->function foo() {} : () => void
->foo : () => void
+>recurser : () => 无值
+>function foo() {} : () => 无值
+>foo : () => 无值
 
 };
 
 // Error: foo should not be visible here
 foo();
->foo() : any
+>foo() : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
 // recurser should be
 recurser();
->recurser() : void
+>recurser() : 无值
 >类型别名 :=> 无值
->recurser : () => void
+>recurser : () => 无值
 
 (function bar() {
->(function bar() {    // Error: foo should not be visible here either    foo();}) : () => void
->function bar() {    // Error: foo should not be visible here either    foo();} : () => void
->bar : () => void
+>(function bar() {    // Error: foo should not be visible here either    foo();}) : () => 无值
+>function bar() {    // Error: foo should not be visible here either    foo();} : () => 无值
+>bar : () => 无值
 
     // Error: foo should not be visible here either
     foo();
->foo() : any
+>foo() : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
 });
 
 // Error: bar should not be visible
 bar();
->bar() : any
+>bar() : 任意
 >类型别名 :=> 任意
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 

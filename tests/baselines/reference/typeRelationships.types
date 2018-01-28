@@ -3,43 +3,43 @@ class C {
 >C : C
 
     self = this;
->self : this
->this : this
+>self : 本体
+>this : 本体
 
     c = new C();
 >c : C
 >new C() : C
->C : typeof C
+>C : 类为 C
 
     foo() {
->foo : () => this
+>foo : () => 本体
 
         return this;
->this : this
+>this : 本体
     }
     f1() {
->f1 : () => void
+>f1 : () => 无值
 
         this.c = this.self;
->this.c = this.self : this
+>this.c = this.self : 本体
 >this.c : C
->this : this
+>this : 本体
 >c : C
->this.self : this
->this : this
->self : this
+>this.self : 本体
+>this : 本体
+>self : 本体
 
         this.self = this.c;  // Error
 >this.self = this.c : C
->this.self : this
->this : this
->self : this
+>this.self : 本体
+>this : 本体
+>self : 本体
 >this.c : C
->this : this
+>this : 本体
 >c : C
     }
     f2() {
->f2 : () => void
+>f2 : () => 无值
 
         var a: C[];
 >a : C[]
@@ -48,41 +48,41 @@ class C {
         var a = [this, this.c];  // C[] since this is subtype of C
 >a : C[]
 >[this, this.c] : C[]
->this : this
+>this : 本体
 >this.c : C
->this : this
+>this : 本体
 >c : C
 
         var b: this[];
->b : this[]
+>b : 本体[]
 
         var b = [this, this.self, null, undefined];
->b : this[]
->[this, this.self, null, undefined] : this[]
->this : this
->this.self : this
->this : this
->self : this
->null : null
+>b : 本体[]
+>[this, this.self, null, undefined] : 本体[]
+>this : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
     }
     f3(b: boolean) {
->f3 : (b: boolean) => C
->b : boolean
+>f3 : (b: 真假) => C
+>b : 真假
 >类型别名 :=> 真假
 
         return b ? this.c : this.self;  // Should be C
 >b ? this.c : this.self : C
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
 >this.c : C
->this : this
+>this : 本体
 >c : C
->this.self : this
->this : this
->self : this
+>this.self : 本体
+>this : 本体
+>self : 本体
     }
 }
 
@@ -91,118 +91,118 @@ class D extends C {
 >C : C
 
     self1 = this;
->self1 : this
->this : this
+>self1 : 本体
+>this : 本体
 
     self2 = this.self;
->self2 : this
->this.self : this
->this : this
->self : this
+>self2 : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
 
     self3 = this.foo();
->self3 : this
->this.foo() : this
->this.foo : () => this
->this : this
->foo : () => this
+>self3 : 本体
+>this.foo() : 本体
+>this.foo : () => 本体
+>this : 本体
+>foo : () => 本体
 
     d = new D();
 >d : D
 >new D() : D
->D : typeof D
+>D : 类为 D
 
     bar() {
->bar : () => void
+>bar : () => 无值
 
         this.self = this.self1;
->this.self = this.self1 : this
->this.self : this
->this : this
->self : this
->this.self1 : this
->this : this
->self1 : this
+>this.self = this.self1 : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
+>this.self1 : 本体
+>this : 本体
+>self1 : 本体
 
         this.self = this.self2;
->this.self = this.self2 : this
->this.self : this
->this : this
->self : this
->this.self2 : this
->this : this
->self2 : this
+>this.self = this.self2 : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
+>this.self2 : 本体
+>this : 本体
+>self2 : 本体
 
         this.self = this.self3;
->this.self = this.self3 : this
->this.self : this
->this : this
->self : this
->this.self3 : this
->this : this
->self3 : this
+>this.self = this.self3 : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
+>this.self3 : 本体
+>this : 本体
+>self3 : 本体
 
         this.self1 = this.self;
->this.self1 = this.self : this
->this.self1 : this
->this : this
->self1 : this
->this.self : this
->this : this
->self : this
+>this.self1 = this.self : 本体
+>this.self1 : 本体
+>this : 本体
+>self1 : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
 
         this.self2 = this.self;
->this.self2 = this.self : this
->this.self2 : this
->this : this
->self2 : this
->this.self : this
->this : this
->self : this
+>this.self2 = this.self : 本体
+>this.self2 : 本体
+>this : 本体
+>self2 : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
 
         this.self3 = this.self;
->this.self3 = this.self : this
->this.self3 : this
->this : this
->self3 : this
->this.self : this
->this : this
->self : this
+>this.self3 = this.self : 本体
+>this.self3 : 本体
+>this : 本体
+>self3 : 本体
+>this.self : 本体
+>this : 本体
+>self : 本体
 
         this.d = this.self;
->this.d = this.self : this
+>this.d = this.self : 本体
 >this.d : D
->this : this
+>this : 本体
 >d : D
->this.self : this
->this : this
->self : this
+>this.self : 本体
+>this : 本体
+>self : 本体
 
         this.d = this.c;  // Error
 >this.d = this.c : C
 >this.d : D
->this : this
+>this : 本体
 >d : D
 >this.c : C
->this : this
+>this : 本体
 >c : C
 
         this.self = this.d;  // Error
 >this.self = this.d : D
->this.self : this
->this : this
->self : this
+>this.self : 本体
+>this : 本体
+>self : 本体
 >this.d : D
->this : this
+>this : 本体
 >d : D
 
         this.c = this.d;
 >this.c = this.d : D
 >this.c : C
->this : this
+>this : 本体
 >c : C
 >this.d : D
->this : this
+>this : 本体
 >d : D
     }
 }

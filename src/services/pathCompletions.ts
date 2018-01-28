@@ -275,6 +275,7 @@ namespace ts.Completions.PathCompletions {
     }
 
     export function getTripleSlashReferenceCompletion(sourceFile: SourceFile, position: number, compilerOptions: CompilerOptions, host: LanguageServiceHost): CompletionInfo {
+        const 使用中文 =compilerOptions.中文关键字
         const token = getTokenAtPosition(sourceFile, position, /*includeJsDocComment*/ false);
         if (!token) {
             return undefined;
@@ -308,7 +309,7 @@ namespace ts.Completions.PathCompletions {
 
         const text = sourceFile.text.substr(range.pos, position - range.pos);
 
-        const match = tripleSlashDirectiveFragmentRegex.exec(text);
+        const match = 使用中文 ? tripleSlashDirectiveFragmentRegex.exec(text) || tripleSlashDirectiveFragmentRegexCh.exec(text) : tripleSlashDirectiveFragmentRegex.exec(text);
 
         if (match) {
             const prefix = match[1];
@@ -316,7 +317,7 @@ namespace ts.Completions.PathCompletions {
             const toComplete = match[3];
 
             const scriptPath = getDirectoryPath(sourceFile.path);
-            if (kind === "path") {
+            if (kind === "path" || kind === "路径") {
                 // Give completions for a relative path
                 const span: TextSpan = getDirectoryFragmentTextSpan(toComplete, range.pos + prefix.length);
                 completionInfo.entries = getCompletionEntriesForDirectoryFragment(toComplete, scriptPath, getSupportedExtensions(compilerOptions), /*includeExtensions*/ true, span, host, sourceFile.path);
@@ -333,6 +334,7 @@ namespace ts.Completions.PathCompletions {
 
     function getCompletionEntriesFromTypings(host: LanguageServiceHost, options: CompilerOptions, scriptPath: string, span: TextSpan, result: CompletionEntry[] = []): CompletionEntry[] {
         // Check for typings specified in compiler options
+        const 使用中文 = options.中文关键字
         if (options.types) {
             for (const moduleName of options.types) {
                 result.push(createCompletionEntryForModule(moduleName, ScriptElementKind.externalModuleName, span));
@@ -358,6 +360,10 @@ namespace ts.Completions.PathCompletions {
             for (const packageJson of findPackageJsons(scriptPath, host)) {
                 const typesDir = combinePaths(getDirectoryPath(packageJson), "node_modules/@types");
                 getCompletionEntriesFromDirectories(host, typesDir, span, result);
+                if (使用中文) {
+                    const typesDirCh = combinePaths(getDirectoryPath(packageJson), "node_modules/@typesch");
+                    getCompletionEntriesFromDirectories(host, typesDirCh, span, result);
+                }
             }
         }
 
@@ -442,7 +448,7 @@ namespace ts.Completions.PathCompletions {
         function addPotentialPackageNames(dependencies: any, result: string[]) {
             if (dependencies) {
                 for (const dep in dependencies) {
-                    if (dependencies.hasOwnProperty(dep) && !startsWith(dep, "@types/")) {
+                    if (dependencies.hasOwnProperty(dep) && (!startsWith(dep, "@types/") && !startsWith(dep, "@typesch/"))) {
                         result.push(dep);
                     }
                 }
@@ -488,6 +494,8 @@ namespace ts.Completions.PathCompletions {
      * /// <reference path="fragment"
      */
     const tripleSlashDirectiveFragmentRegex = /^(\/\/\/\s*<reference\s+(path|types)\s*=\s*(?:'|"))([^\3"]*)$/;
+
+    const tripleSlashDirectiveFragmentRegexCh = /^(\/\/\/\s*<引用\s+(路径|类型集)\s*=\s*(?:'|"))([^\3"]*)$/;
 
     interface VisibleModuleInfo {
         moduleName: string;

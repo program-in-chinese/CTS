@@ -1,70 +1,70 @@
 === tests/cases/compiler/propertySignatures.ts ===
 // Should be error - duplicate identifiers
 var foo1: { a:string; a: string; };
->foo1 : { a: string; }
->a : string
+>foo1 : { a: 文字; }
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
 // Should be OK
 var foo2: { a; };
->foo2 : { a: any; }
->a : any
+>foo2 : { a: 任意; }
+>a : 任意
 >类型别名 :=> 任意
 
 foo2.a = 2;
 >foo2.a = 2 : 2
->foo2.a : any
+>foo2.a : 任意
 >类型别名 :=> 任意
->foo2 : { a: any; }
->a : any
+>foo2 : { a: 任意; }
+>a : 任意
 >类型别名 :=> 任意
 >2 : 2
 
 foo2.a = "0";
 >foo2.a = "0" : "0"
->foo2.a : any
+>foo2.a : 任意
 >类型别名 :=> 任意
->foo2 : { a: any; }
->a : any
+>foo2 : { a: 任意; }
+>a : 任意
 >类型别名 :=> 任意
 >"0" : "0"
 
 // Should be error
 var foo3: { (): string; (): string; };
->foo3 : { (): string; (): string; }
+>foo3 : { (): 文字; (): 文字; }
 
 // Should be OK
 var foo4: { (): void; };
->foo4 : () => void
+>foo4 : () => 无值
 
 var test = foo();
->test : any
+>test : 任意
 >类型别名 :=> 任意
->foo() : any
+>foo() : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
 // Should be OK
 var foo5: {();};
->foo5 : () => any
+>foo5 : () => 任意
 
 var test = foo5();
->test : any
+>test : 任意
 >类型别名 :=> 任意
->foo5() : any
+>foo5() : 任意
 >类型别名 :=> 任意
->foo5 : () => any
+>foo5 : () => 任意
 
 test.bar = 2;
 >test.bar = 2 : 2
->test.bar : any
+>test.bar : 任意
 >类型别名 :=> 任意
->test : any
+>test : 任意
 >类型别名 :=> 任意
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 >2 : 2
 

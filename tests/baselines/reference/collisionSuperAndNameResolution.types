@@ -1,14 +1,14 @@
 === tests/cases/compiler/collisionSuperAndNameResolution.ts ===
 var console: {
->console : { log(message: any): any; }
+>console : { log(message: 任意): 任意; }
 
     log(message: any);
->log : (message: any) => any
->message : any
+>log : (message: 任意) => 任意
+>message : 任意
 >类型别名 :=> 任意
 }
 var _super = 10; // No error
->_super : number
+>_super : 数字
 >类型别名 :=> 数字
 >10 : 10
 
@@ -20,15 +20,15 @@ class Foo extends base {
 >base : base
 
     x() {
->x : () => void
+>x : () => 无值
 
         console.log(_super); // Error as this doesnt not resolve to user defined _super
->console.log(_super) : any
+>console.log(_super) : 任意
 >类型别名 :=> 任意
->console.log : (message: any) => any
->console : { log(message: any): any; }
->log : (message: any) => any
->_super : number
+>console.log : (message: 任意) => 任意
+>console : { log(message: 任意): 任意; }
+>log : (message: 任意) => 任意
+>_super : 数字
 >类型别名 :=> 数字
     }
 }

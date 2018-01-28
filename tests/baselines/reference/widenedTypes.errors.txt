@@ -3,13 +3,13 @@ tests/cases/compiler/widenedTypes.ts(4,1): error TS2531: Object is possibly 'nul
 tests/cases/compiler/widenedTypes.ts(5,7): error TS2531: Object is possibly 'null'.
 tests/cases/compiler/widenedTypes.ts(7,15): error TS2531: Object is possibly 'null'.
 tests/cases/compiler/widenedTypes.ts(9,14): error TS2695: Left side of comma operator is unused and has no side effects.
-tests/cases/compiler/widenedTypes.ts(10,1): error TS2322: Type '""' is not assignable to type 'number'.
-tests/cases/compiler/widenedTypes.ts(17,1): error TS2322: Type '""' is not assignable to type 'number'.
-tests/cases/compiler/widenedTypes.ts(22,5): error TS2322: Type 'number[]' is not assignable to type 'string[]'.
-  Type 'number' is not assignable to type 'string'.
-tests/cases/compiler/widenedTypes.ts(23,5): error TS2322: Type '{ x: number; y: null; }' is not assignable to type '{ [x: string]: string; }'.
+tests/cases/compiler/widenedTypes.ts(10,1): error TS2322: Type '""' is not assignable to type '数字'.
+tests/cases/compiler/widenedTypes.ts(17,1): error TS2322: Type '""' is not assignable to type '数字'.
+tests/cases/compiler/widenedTypes.ts(22,5): error TS2322: Type '数字[]' is not assignable to type '文字[]'.
+  Type '数字' is not assignable to type '文字'.
+tests/cases/compiler/widenedTypes.ts(23,5): error TS2322: Type '{ x: 数字; y: 空值; }' is not assignable to type '{ [x: 文字]: 文字; }'.
   Property 'x' is incompatible with index signature.
-    Type 'number' is not assignable to type 'string'.
+    Type '数字' is not assignable to type '文字'.
 
 
 ==== tests/cases/compiler/widenedTypes.ts (9 errors) ====
@@ -34,7 +34,7 @@ tests/cases/compiler/widenedTypes.ts(23,5): error TS2322: Type '{ x: number; y: 
 !!! error TS2695: Left side of comma operator is unused and has no side effects.
     t[3] = "";
     ~~~~
-!!! error TS2322: Type '""' is not assignable to type 'number'.
+!!! error TS2322: Type '""' is not assignable to type '数字'.
     
     var x: typeof undefined = 3;
     x = 3;
@@ -43,17 +43,17 @@ tests/cases/compiler/widenedTypes.ts(23,5): error TS2322: Type '{ x: number; y: 
     var u = [3, (y = null)];
     u[3] = "";
     ~~~~
-!!! error TS2322: Type '""' is not assignable to type 'number'.
+!!! error TS2322: Type '""' is not assignable to type '数字'.
     
     var ob: { x: typeof undefined } = { x: "" };
     
     // Highlights the difference between array literals and object literals
     var arr: string[] = [3, null]; // not assignable because null is not widened. BCT is {}
         ~~~
-!!! error TS2322: Type 'number[]' is not assignable to type 'string[]'.
-!!! error TS2322:   Type 'number' is not assignable to type 'string'.
+!!! error TS2322: Type '数字[]' is not assignable to type '文字[]'.
+!!! error TS2322:   Type '数字' is not assignable to type '文字'.
     var obj: { [x: string]: string; } = { x: 3, y: null }; // assignable because null is widened, and therefore BCT is any
         ~~~
-!!! error TS2322: Type '{ x: number; y: null; }' is not assignable to type '{ [x: string]: string; }'.
+!!! error TS2322: Type '{ x: 数字; y: 空值; }' is not assignable to type '{ [x: 文字]: 文字; }'.
 !!! error TS2322:   Property 'x' is incompatible with index signature.
-!!! error TS2322:     Type 'number' is not assignable to type 'string'.
+!!! error TS2322:     Type '数字' is not assignable to type '文字'.

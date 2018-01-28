@@ -3,7 +3,7 @@
 // Nested local functions
 
 function foo<T, U extends T>(x: T, y: U) {
->foo : <T, U extends T>(x: T, y: U) => void
+>foo : <T, U 扩展 T>(x: T, y: U) => 无值
 >T : T
 >U : U
 >T : T
@@ -13,14 +13,14 @@ function foo<T, U extends T>(x: T, y: U) {
 >U : U
 
     function bar<V extends T, W extends U>() {
->bar : <V extends T, W extends U>() => void
+>bar : <V 扩展 T, W 扩展 U>() => 无值
 >V : V
 >T : T
 >W : W
 >U : U
 
         function baz<X extends W, Y extends V>(a: X, b: Y): T {
->baz : <X extends W, Y extends V>(a: X, b: Y) => T
+>baz : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
 >X : X
 >W : W
 >Y : Y
@@ -43,7 +43,7 @@ function foo<T, U extends T>(x: T, y: U) {
 }
 
 function foo2<U extends T, T>(x: T, y: U) {
->foo2 : <U extends T, T>(x: T, y: U) => void
+>foo2 : <U 扩展 T, T>(x: T, y: U) => 无值
 >U : U
 >T : T
 >T : T
@@ -53,14 +53,14 @@ function foo2<U extends T, T>(x: T, y: U) {
 >U : U
 
     function bar<V extends T, W extends U>() {
->bar : <V extends T, W extends U>() => void
+>bar : <V 扩展 T, W 扩展 U>() => 无值
 >V : V
 >T : T
 >W : W
 >U : U
 
         function baz<X extends W, Y extends V>(a: X, b: Y): T {
->baz : <X extends W, Y extends V>(a: X, b: Y) => T
+>baz : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
 >X : X
 >W : W
 >Y : Y
@@ -83,8 +83,8 @@ function foo2<U extends T, T>(x: T, y: U) {
 }
 
 var f = function <T, U extends T>(x: T, y: U) {
->f : <T, U extends T>(x: T, y: U) => void
->function <T, U extends T>(x: T, y: U) {    function bar<V extends T, W extends U>() {        var g = function <X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        }    }} : <T, U extends T>(x: T, y: U) => void
+>f : <T, U 扩展 T>(x: T, y: U) => 无值
+>function <T, U extends T>(x: T, y: U) {    function bar<V extends T, W extends U>() {        var g = function <X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        }    }} : <T, U 扩展 T>(x: T, y: U) => 无值
 >T : T
 >U : U
 >T : T
@@ -94,15 +94,15 @@ var f = function <T, U extends T>(x: T, y: U) {
 >U : U
 
     function bar<V extends T, W extends U>() {
->bar : <V extends T, W extends U>() => void
+>bar : <V 扩展 T, W 扩展 U>() => 无值
 >V : V
 >T : T
 >W : W
 >U : U
 
         var g = function <X extends W, Y extends V>(a: X, b: Y): T {
->g : <X extends W, Y extends V>(a: X, b: Y) => T
->function <X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        } : <X extends W, Y extends V>(a: X, b: Y) => T
+>g : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
+>function <X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        } : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
 >X : X
 >W : W
 >Y : Y
@@ -125,8 +125,8 @@ var f = function <T, U extends T>(x: T, y: U) {
 }
 
 var f2 = function <U extends T, T>(x: T, y: U) {
->f2 : <U extends T, T>(x: T, y: U) => void
->function <U extends T, T>(x: T, y: U) {    function bar<V extends T, W extends U>() {        var g = function baz<X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        }    }} : <U extends T, T>(x: T, y: U) => void
+>f2 : <U 扩展 T, T>(x: T, y: U) => 无值
+>function <U extends T, T>(x: T, y: U) {    function bar<V extends T, W extends U>() {        var g = function baz<X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        }    }} : <U 扩展 T, T>(x: T, y: U) => 无值
 >U : U
 >T : T
 >T : T
@@ -136,16 +136,16 @@ var f2 = function <U extends T, T>(x: T, y: U) {
 >U : U
 
     function bar<V extends T, W extends U>() {
->bar : <V extends T, W extends U>() => void
+>bar : <V 扩展 T, W 扩展 U>() => 无值
 >V : V
 >T : T
 >W : W
 >U : U
 
         var g = function baz<X extends W, Y extends V>(a: X, b: Y): T {
->g : <X extends W, Y extends V>(a: X, b: Y) => T
->function baz<X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        } : <X extends W, Y extends V>(a: X, b: Y) => T
->baz : <X extends W, Y extends V>(a: X, b: Y) => T
+>g : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
+>function baz<X extends W, Y extends V>(a: X, b: Y): T {            x = y;            return y;        } : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
+>baz : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
 >X : X
 >W : W
 >Y : Y
@@ -168,8 +168,8 @@ var f2 = function <U extends T, T>(x: T, y: U) {
 }
 
 var f3 = <T, U extends T>(x: T, y: U) => {
->f3 : <T, U extends T>(x: T, y: U) => void
-><T, U extends T>(x: T, y: U) => {    function bar<V extends T, W extends U>() {        var g = <X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        }    }} : <T, U extends T>(x: T, y: U) => void
+>f3 : <T, U 扩展 T>(x: T, y: U) => 无值
+><T, U extends T>(x: T, y: U) => {    function bar<V extends T, W extends U>() {        var g = <X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        }    }} : <T, U 扩展 T>(x: T, y: U) => 无值
 >T : T
 >U : U
 >T : T
@@ -179,15 +179,15 @@ var f3 = <T, U extends T>(x: T, y: U) => {
 >U : U
 
     function bar<V extends T, W extends U>() {
->bar : <V extends T, W extends U>() => void
+>bar : <V 扩展 T, W 扩展 U>() => 无值
 >V : V
 >T : T
 >W : W
 >U : U
 
         var g = <X extends W, Y extends V>(a: X, b: Y): T => {
->g : <X extends W, Y extends V>(a: X, b: Y) => T
-><X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        } : <X extends W, Y extends V>(a: X, b: Y) => T
+>g : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
+><X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        } : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
 >X : X
 >W : W
 >Y : Y
@@ -210,8 +210,8 @@ var f3 = <T, U extends T>(x: T, y: U) => {
 }
 
 var f4 = <U extends T, T>(x: T, y: U) => {
->f4 : <U extends T, T>(x: T, y: U) => void
-><U extends T, T>(x: T, y: U) => {    function bar<V extends T, W extends U>() {        var g = <X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        }    }} : <U extends T, T>(x: T, y: U) => void
+>f4 : <U 扩展 T, T>(x: T, y: U) => 无值
+><U extends T, T>(x: T, y: U) => {    function bar<V extends T, W extends U>() {        var g = <X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        }    }} : <U 扩展 T, T>(x: T, y: U) => 无值
 >U : U
 >T : T
 >T : T
@@ -221,15 +221,15 @@ var f4 = <U extends T, T>(x: T, y: U) => {
 >U : U
 
     function bar<V extends T, W extends U>() {
->bar : <V extends T, W extends U>() => void
+>bar : <V 扩展 T, W 扩展 U>() => 无值
 >V : V
 >T : T
 >W : W
 >U : U
 
         var g = <X extends W, Y extends V>(a: X, b: Y): T => {
->g : <X extends W, Y extends V>(a: X, b: Y) => T
-><X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        } : <X extends W, Y extends V>(a: X, b: Y) => T
+>g : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
+><X extends W, Y extends V>(a: X, b: Y): T => {            x = y;            return y;        } : <X 扩展 W, Y 扩展 V>(a: X, b: Y) => T
 >X : X
 >W : W
 >Y : Y

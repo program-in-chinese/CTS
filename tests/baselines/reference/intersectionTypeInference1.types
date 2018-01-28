@@ -2,32 +2,32 @@
 // Repro from #8801
 
 function alert(s: string) {}
->alert : (s: string) => void
->s : string
+>alert : (s: 文字) => 无值
+>s : 文字
 >类型别名 :=> 文字
 
 const parameterFn = (props:{store:string}) => alert(props.store)
->parameterFn : (props: { store: string; }) => void
->(props:{store:string}) => alert(props.store) : (props: { store: string; }) => void
->props : { store: string; }
->store : string
+>parameterFn : (props: { store: 文字; }) => 无值
+>(props:{store:string}) => alert(props.store) : (props: { store: 文字; }) => 无值
+>props : { store: 文字; }
+>store : 文字
 >类型别名 :=> 文字
->alert(props.store) : void
+>alert(props.store) : 无值
 >类型别名 :=> 无值
->alert : (s: string) => void
->props.store : string
+>alert : (s: 文字) => 无值
+>props.store : 文字
 >类型别名 :=> 文字
->props : { store: string; }
->store : string
+>props : { store: 文字; }
+>store : 文字
 >类型别名 :=> 文字
 
 const brokenFunction = <OwnProps>(f: (p: {dispatch: number} & OwnProps) => void) => (o: OwnProps) => o
->brokenFunction : <OwnProps>(f: (p: { dispatch: number; } & OwnProps) => void) => (o: OwnProps) => OwnProps
-><OwnProps>(f: (p: {dispatch: number} & OwnProps) => void) => (o: OwnProps) => o : <OwnProps>(f: (p: { dispatch: number; } & OwnProps) => void) => (o: OwnProps) => OwnProps
+>brokenFunction : <OwnProps>(f: (p: { dispatch: 数字; } & OwnProps) => 无值) => (o: OwnProps) => OwnProps
+><OwnProps>(f: (p: {dispatch: number} & OwnProps) => void) => (o: OwnProps) => o : <OwnProps>(f: (p: { dispatch: 数字; } & OwnProps) => 无值) => (o: OwnProps) => OwnProps
 >OwnProps : OwnProps
->f : (p: { dispatch: number; } & OwnProps) => void
->p : { dispatch: number; } & OwnProps
->dispatch : number
+>f : (p: { dispatch: 数字; } & OwnProps) => 无值
+>p : { dispatch: 数字; } & OwnProps
+>dispatch : 数字
 >类型别名 :=> 数字
 >OwnProps : OwnProps
 >(o: OwnProps) => o : (o: OwnProps) => OwnProps
@@ -36,13 +36,13 @@ const brokenFunction = <OwnProps>(f: (p: {dispatch: number} & OwnProps) => void)
 >o : OwnProps
 
 export const Form3 = brokenFunction(parameterFn)({store: "hello"})
->Form3 : { store: string; }
->brokenFunction(parameterFn)({store: "hello"}) : { store: string; }
->brokenFunction(parameterFn) : (o: { store: string; }) => { store: string; }
->brokenFunction : <OwnProps>(f: (p: { dispatch: number; } & OwnProps) => void) => (o: OwnProps) => OwnProps
->parameterFn : (props: { store: string; }) => void
->{store: "hello"} : { store: string; }
->store : string
+>Form3 : { store: 文字; }
+>brokenFunction(parameterFn)({store: "hello"}) : { store: 文字; }
+>brokenFunction(parameterFn) : (o: { store: 文字; }) => { store: 文字; }
+>brokenFunction : <OwnProps>(f: (p: { dispatch: 数字; } & OwnProps) => 无值) => (o: OwnProps) => OwnProps
+>parameterFn : (props: { store: 文字; }) => 无值
+>{store: "hello"} : { store: 文字; }
+>store : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 

@@ -1,6 +1,6 @@
 === tests/cases/conformance/jsx/react.d.ts ===
 declare module JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
 	interface Element { }
@@ -13,14 +13,14 @@ declare module JSX {
 >ElementAttributesProperty : ElementAttributesProperty
 
 		props;
->props : any
+>props : 任意
 >类型别名 :=> 任意
 	}
 	interface IntrinsicAttributes {
 >IntrinsicAttributes : IntrinsicAttributes
 
 		ref?: string;
->ref : string
+>ref : 文字
 >类型别名 :=> 文字
 	}
 }
@@ -34,32 +34,32 @@ declare class Component<P, S>  {
 	constructor(props?: P, context?: any);
 >props : P
 >P : P
->context : any
+>context : 任意
 >类型别名 :=> 任意
 
 	setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
->setState : { (f: (prevState: S, props: P) => S, callback?: () => any): void; (state: S, callback?: () => any): void; }
+>setState : { (f: (prevState: S, props: P) => S, callback?: () => 任意): 无值; (state: S, callback?: () => 任意): 无值; }
 >f : (prevState: S, props: P) => S
 >prevState : S
 >S : S
 >props : P
 >P : P
 >S : S
->callback : () => any
+>callback : () => 任意
 
 	setState(state: S, callback?: () => any): void;
->setState : { (f: (prevState: S, props: P) => S, callback?: () => any): void; (state: S, callback?: () => any): void; }
+>setState : { (f: (prevState: S, props: P) => S, callback?: () => 任意): 无值; (state: S, callback?: () => 任意): 无值; }
 >state : S
 >S : S
->callback : () => any
+>callback : () => 任意
 
 	forceUpdate(callBack?: () => any): void;
->forceUpdate : (callBack?: () => any) => void
->callBack : () => any
+>forceUpdate : (callBack?: () => 任意) => 无值
+>callBack : () => 任意
 
 	render(): JSX.Element;
 >render : () => JSX.Element
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
@@ -83,19 +83,19 @@ interface ComponentClass<P> {
 	new (props?: P, context?: any): Component<P, any>;
 >props : P
 >P : P
->context : any
+>context : 任意
 >类型别名 :=> 任意
 >Component : Component<P, S>
 >P : P
 }
 
 declare module TestMod {
->TestMod : typeof TestMod
+>TestMod : 类为 TestMod
 
 	interface TestClass extends ComponentClass<{reqd: any}> {
 >TestClass : TestClass
 >ComponentClass : ComponentClass<P>
->reqd : any
+>reqd : 任意
 >类型别名 :=> 任意
 	}
 	var Test: TestClass;
@@ -107,7 +107,7 @@ declare module TestMod {
 const T = TestMod.Test;
 >T : TestMod.TestClass
 >TestMod.Test : TestMod.TestClass
->TestMod : typeof TestMod
+>TestMod : 类为 TestMod
 >Test : TestMod.TestClass
 
 var t1 = <T />;
@@ -120,7 +120,7 @@ var t2 = <TestMod.Test />;
 >t2 : JSX.Element
 ><TestMod.Test /> : JSX.Element
 >TestMod.Test : TestMod.TestClass
->TestMod : typeof TestMod
+>TestMod : 类为 TestMod
 >Test : TestMod.TestClass
 
 

@@ -1,6 +1,6 @@
 === tests/cases/compiler/interfaceAssignmentCompat.ts ===
 module M {
->M : typeof M
+>M : 类为 M
 
     export enum Color {
 >Color : Color
@@ -19,7 +19,7 @@ module M {
 >IEye : IEye
 
         color:number;
->color : number
+>color : 数字
 >类型别名 :=> 数字
     }
 
@@ -27,64 +27,64 @@ module M {
 >IFrenchEye : IFrenchEye
 
         coleur:number;
->coleur : number
+>coleur : 数字
 >类型别名 :=> 数字
     }
 
     export function CompareEyes(a:IEye,b:IEye):number {
->CompareEyes : (a: IEye, b: IEye) => number
+>CompareEyes : (a: IEye, b: IEye) => 数字
 >a : IEye
 >IEye : IEye
 >b : IEye
 >IEye : IEye
 
         return a.color-b.color;
->a.color-b.color : number
+>a.color-b.color : 数字
 >类型别名 :=> 数字
->a.color : number
+>a.color : 数字
 >类型别名 :=> 数字
 >a : IEye
->color : number
+>color : 数字
 >类型别名 :=> 数字
->b.color : number
+>b.color : 数字
 >类型别名 :=> 数字
 >b : IEye
->color : number
+>color : 数字
 >类型别名 :=> 数字
     }
 
     export function CompareYeux(a:IFrenchEye,b:IFrenchEye):number {
->CompareYeux : (a: IFrenchEye, b: IFrenchEye) => number
+>CompareYeux : (a: IFrenchEye, b: IFrenchEye) => 数字
 >a : IFrenchEye
 >IFrenchEye : IFrenchEye
 >b : IFrenchEye
 >IFrenchEye : IFrenchEye
 
         return a.coleur-b.coleur;
->a.coleur-b.coleur : number
+>a.coleur-b.coleur : 数字
 >类型别名 :=> 数字
->a.coleur : number
+>a.coleur : 数字
 >类型别名 :=> 数字
 >a : IFrenchEye
->coleur : number
+>coleur : 数字
 >类型别名 :=> 数字
->b.coleur : number
+>b.coleur : 数字
 >类型别名 :=> 数字
 >b : IFrenchEye
->coleur : number
+>coleur : 数字
 >类型别名 :=> 数字
     }
 
     export function test() {
->test : () => string
+>test : () => 文字
 
         var x:IEye[]= [];
 >x : IEye[]
 >IEye : IEye
->[] : undefined[]
+>[] : 未定[]
 
         var result="";
->result : string
+>result : 文字
 >类型别名 :=> 文字
 >"" : ""
     
@@ -96,7 +96,7 @@ module M {
 >{ color:Color.Brown } : { color: Color; }
 >color : Color
 >Color.Brown : Color.Brown
->Color : typeof Color
+>Color : 类为 Color
 >Brown : Color.Brown
 
         x[1]={ color:Color.Blue };
@@ -107,7 +107,7 @@ module M {
 >{ color:Color.Blue } : { color: Color; }
 >color : Color
 >Color.Blue : Color.Blue
->Color : typeof Color
+>Color : 类为 Color
 >Blue : Color.Blue
 
         x[2]={ color:Color.Green };
@@ -118,75 +118,75 @@ module M {
 >{ color:Color.Green } : { color: Color; }
 >color : Color
 >Color.Green : Color.Green
->Color : typeof Color
+>Color : 类为 Color
 >Green : Color.Green
 
         x=x.sort(CompareYeux); // parameter mismatch
->x=x.sort(CompareYeux) : any
+>x=x.sort(CompareYeux) : 任意
 >类型别名 :=> 任意
 >x : IEye[]
 >x.sort(CompareYeux) : IEye[]
->x.sort : (compareFn?: (a: IEye, b: IEye) => number) => IEye[]
+>x.sort : (compareFn?: (a: IEye, b: IEye) => 数字) => IEye[]
 >x : IEye[]
->sort : (compareFn?: (a: IEye, b: IEye) => number) => IEye[]
->CompareYeux : (a: IFrenchEye, b: IFrenchEye) => number
+>sort : (compareFn?: (a: IEye, b: IEye) => 数字) => IEye[]
+>CompareYeux : (a: IFrenchEye, b: IFrenchEye) => 数字
 
         // type of z inferred from specialized array type
         var z=x.sort(CompareEyes); // ok
 >z : IEye[]
 >x.sort(CompareEyes) : IEye[]
->x.sort : (compareFn?: (a: IEye, b: IEye) => number) => IEye[]
+>x.sort : (compareFn?: (a: IEye, b: IEye) => 数字) => IEye[]
 >x : IEye[]
->sort : (compareFn?: (a: IEye, b: IEye) => number) => IEye[]
->CompareEyes : (a: IEye, b: IEye) => number
+>sort : (compareFn?: (a: IEye, b: IEye) => 数字) => IEye[]
+>CompareEyes : (a: IEye, b: IEye) => 数字
 
         for (var i=0,len=z.length;i<len;i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->len : number
+>len : 数字
 >类型别名 :=> 数字
->z.length : number
+>z.length : 数字
 >类型别名 :=> 数字
 >z : IEye[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
->i<len : boolean
+>i<len : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->len : number
+>len : 数字
 >类型别名 :=> 数字
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
             result+=((Color._map[z[i].color])+"\r\n");
->result+=((Color._map[z[i].color])+"\r\n") : string
+>result+=((Color._map[z[i].color])+"\r\n") : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->((Color._map[z[i].color])+"\r\n") : string
+>((Color._map[z[i].color])+"\r\n") : 文字
 >类型别名 :=> 文字
->(Color._map[z[i].color])+"\r\n" : string
+>(Color._map[z[i].color])+"\r\n" : 文字
 >类型别名 :=> 文字
->(Color._map[z[i].color]) : any
+>(Color._map[z[i].color]) : 任意
 >类型别名 :=> 任意
->Color._map[z[i].color] : any
+>Color._map[z[i].color] : 任意
 >类型别名 :=> 任意
->Color._map : any
+>Color._map : 任意
 >类型别名 :=> 任意
->Color : typeof Color
->_map : any
+>Color : 类为 Color
+>_map : 任意
 >类型别名 :=> 任意
->z[i].color : number
+>z[i].color : 数字
 >类型别名 :=> 数字
 >z[i] : IEye
 >z : IEye[]
->i : number
+>i : 数字
 >类型别名 :=> 数字
->color : number
+>color : 数字
 >类型别名 :=> 数字
 >"\r\n" : "\r\n"
         }
@@ -194,37 +194,37 @@ module M {
         var eeks:IFrenchEye[] = [];
 >eeks : IFrenchEye[]
 >IFrenchEye : IFrenchEye
->[] : undefined[]
+>[] : 未定[]
 
         for (var j=z.length=1;j>=0;j--) {
->j : number
+>j : 数字
 >类型别名 :=> 数字
 >z.length=1 : 1
->z.length : number
+>z.length : 数字
 >类型别名 :=> 数字
 >z : IEye[]
->length : number
+>length : 数字
 >类型别名 :=> 数字
 >1 : 1
->j>=0 : boolean
+>j>=0 : 真假
 >类型别名 :=> 真假
->j : number
+>j : 数字
 >类型别名 :=> 数字
 >0 : 0
->j-- : number
+>j-- : 数字
 >类型别名 :=> 数字
->j : number
+>j : 数字
 >类型别名 :=> 数字
 
             eeks[j]=z[j];  // nope: element assignment
 >eeks[j]=z[j] : IEye
 >eeks[j] : IFrenchEye
 >eeks : IFrenchEye[]
->j : number
+>j : 数字
 >类型别名 :=> 数字
 >z[j] : IEye
 >z : IEye[]
->j : number
+>j : 数字
 >类型别名 :=> 数字
         }
         eeks=z; // nope: array assignment
@@ -233,17 +233,17 @@ module M {
 >z : IEye[]
 
         return result;
->result : string
+>result : 文字
 >类型别名 :=> 文字
     }
 }
 
 M.test();
->M.test() : string
+>M.test() : 文字
 >类型别名 :=> 文字
->M.test : () => string
->M : typeof M
->test : () => string
+>M.test : () => 文字
+>M : 类为 M
+>test : () => 文字
 
 
 

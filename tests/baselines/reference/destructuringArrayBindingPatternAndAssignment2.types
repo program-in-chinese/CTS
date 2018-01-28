@@ -2,31 +2,31 @@
 // V is an array assignment pattern, S is the type Any or an array-like type (section 3.3.2), and, for each assignment element E in V,
 //      S is the type Any, or
 var [[a0], [[a1]]] = []         // Error
->a0 : any
+>a0 : 任意
 >类型别名 :=> 任意
->a1 : any
+>a1 : 任意
 >类型别名 :=> 任意
->[] : [any, any]
+>[] : [任意, 任意]
 
 var [[a2], [[a3]]] = undefined  // Error
->a2 : any
+>a2 : 任意
 >类型别名 :=> 任意
->a3 : any
+>a3 : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 // V is an array assignment pattern, S is the type Any or an array-like type (section 3.3.2), and, for each assignment element E in V,
 //      S is a tuple- like type (section 3.3.3) with a property named N of a type that is assignable to the target given in E,
 //        where N is the numeric index of E in the array assignment pattern, or
 var [b0, b1, b2]: [number, boolean, string] = [1, 2, "string"];  // Error
->b0 : number
+>b0 : 数字
 >类型别名 :=> 数字
->b1 : boolean
+>b1 : 真假
 >类型别名 :=> 真假
->b2 : string
+>b2 : 文字
 >类型别名 :=> 文字
->[1, 2, "string"] : [number, 2, string]
+>[1, 2, "string"] : [数字, 2, 文字]
 >1 : 1
 >2 : 2
 >"string" : "string"
@@ -44,8 +44,8 @@ function bar(): J {
 >J : J
 
     return <[number, number, number]>[1, 2, 3];
-><[number, number, number]>[1, 2, 3] : [number, number, number]
->[1, 2, 3] : [number, number, number]
+><[number, number, number]>[1, 2, 3] : [数字, 数字, 数字]
+>[1, 2, 3] : [数字, 数字, 数字]
 >1 : 1
 >2 : 2
 >3 : 3
@@ -61,62 +61,62 @@ var [b3 = "string", b4, b5] = bar();  // Error
 // V is an array assignment pattern, S is the type Any or an array-like type (section 3.3.2), and, for each assignment element E in V,
 //      S is not a tuple- like type and the numeric index signature type of S is assignable to the target given in E.
 var temp = [1, 2, 3]
->temp : number[]
->[1, 2, 3] : number[]
+>temp : 数字[]
+>[1, 2, 3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
 
 var [c0, c1]: [number, number] = [...temp];  // Error
->c0 : number
+>c0 : 数字
 >类型别名 :=> 数字
->c1 : number
+>c1 : 数字
 >类型别名 :=> 数字
->[...temp] : number[]
->...temp : number
+>[...temp] : 数字[]
+>...temp : 数字
 >类型别名 :=> 数字
->temp : number[]
+>temp : 数字[]
 
 var [c2, c3]: [string, string] = [...temp];  // Error
->c2 : string
+>c2 : 文字
 >类型别名 :=> 文字
->c3 : string
+>c3 : 文字
 >类型别名 :=> 文字
->[...temp] : number[]
->...temp : number
+>[...temp] : 数字[]
+>...temp : 数字
 >类型别名 :=> 数字
->temp : number[]
+>temp : 数字[]
 
 interface F {
 >F : F
 
     [idx: number]: boolean
->idx : number
+>idx : 数字
 >类型别名 :=> 数字
 }
 
 function foo(idx: number): F {
->foo : (idx: number) => F
->idx : number
+>foo : (idx: 数字) => F
+>idx : 数字
 >类型别名 :=> 数字
 >F : F
 
     return {
->{        2: true    } : { 2: true; }
+>{        2: true    } : { 2: 为真; }
 
         2: true
->true : true
+>true : 为真
 >类型别名 :=> 为真
     }
 }
 var [c4, c5, c6] = foo(1);  // Error
->c4 : any
+>c4 : 任意
 >类型别名 :=> 任意
->c5 : any
+>c5 : 任意
 >类型别名 :=> 任意
->c6 : any
+>c6 : 任意
 >类型别名 :=> 任意
 >foo(1) : F
->foo : (idx: number) => F
+>foo : (idx: 数字) => F
 >1 : 1
 

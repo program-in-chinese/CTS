@@ -3,19 +3,19 @@ interface Settings {
 >Settings : Settings
 
     timeout?: number;
->timeout : number
+>timeout : 数字
 >类型别名 :=> 数字
 
     onError?(): void;
->onError : () => void
+>onError : () => 无值
 }
 
 function getDefaultSettings() {
->getDefaultSettings : () => { timeout: number; }
+>getDefaultSettings : () => { timeout: 数字; }
 
     return { timeout: 1000 };
->{ timeout: 1000 } : { timeout: number; }
->timeout : number
+>{ timeout: 1000 } : { timeout: 数字; }
+>timeout : 数字
 >类型别名 :=> 数字
 >1000 : 1000
 }
@@ -23,72 +23,72 @@ interface CtorOnly {
 >CtorOnly : CtorOnly
 
     new(s: string): { timeout: 1000 }
->s : string
+>s : 文字
 >类型别名 :=> 文字
 >timeout : 1000
 }
 
 function doSomething(settings: Settings) { /* ... */ }
->doSomething : (settings: Settings) => void
+>doSomething : (settings: Settings) => 无值
 >settings : Settings
 >Settings : Settings
 
 // forgot to call `getDefaultSettings`
 doSomething(getDefaultSettings);
->doSomething(getDefaultSettings) : void
+>doSomething(getDefaultSettings) : 无值
 >类型别名 :=> 无值
->doSomething : (settings: Settings) => void
->getDefaultSettings : () => { timeout: number; }
+>doSomething : (settings: Settings) => 无值
+>getDefaultSettings : () => { timeout: 数字; }
 
 doSomething(() => ({ timeout: 1000 }));
->doSomething(() => ({ timeout: 1000 })) : void
+>doSomething(() => ({ timeout: 1000 })) : 无值
 >类型别名 :=> 无值
->doSomething : (settings: Settings) => void
->() => ({ timeout: 1000 }) : () => { timeout: number; }
->({ timeout: 1000 }) : { timeout: number; }
->{ timeout: 1000 } : { timeout: number; }
->timeout : number
+>doSomething : (settings: Settings) => 无值
+>() => ({ timeout: 1000 }) : () => { timeout: 数字; }
+>({ timeout: 1000 }) : { timeout: 数字; }
+>{ timeout: 1000 } : { timeout: 数字; }
+>timeout : 数字
 >类型别名 :=> 数字
 >1000 : 1000
 
 doSomething(null as CtorOnly);
->doSomething(null as CtorOnly) : void
+>doSomething(null as CtorOnly) : 无值
 >类型别名 :=> 无值
->doSomething : (settings: Settings) => void
+>doSomething : (settings: Settings) => 无值
 >null as CtorOnly : CtorOnly
->null : null
+>null : 空值
 >类型别名 :=> 空值
 >CtorOnly : CtorOnly
 
 doSomething(12);
->doSomething(12) : void
+>doSomething(12) : 无值
 >类型别名 :=> 无值
->doSomething : (settings: Settings) => void
+>doSomething : (settings: Settings) => 无值
 >12 : 12
 
 doSomething('completely wrong');
->doSomething('completely wrong') : void
+>doSomething('completely wrong') : 无值
 >类型别名 :=> 无值
->doSomething : (settings: Settings) => void
+>doSomething : (settings: Settings) => 无值
 >'completely wrong' : "completely wrong"
 
 doSomething(false);
->doSomething(false) : void
+>doSomething(false) : 无值
 >类型别名 :=> 无值
->doSomething : (settings: Settings) => void
->false : false
+>doSomething : (settings: Settings) => 无值
+>false : 为假
 >类型别名 :=> 为假
 
 // this is an oddly popular way of defining settings
 // this example is from services/textChanges.ts
 type ConfigurableStart = { useStart?: boolean }
 >ConfigurableStart : ConfigurableStart
->useStart : boolean
+>useStart : 真假
 >类型别名 :=> 真假
 
 type ConfigurableEnd = { useEnd?: boolean }
 >ConfigurableEnd : ConfigurableEnd
->useEnd : boolean
+>useEnd : 真假
 >类型别名 :=> 真假
 
 type ConfigurableStartEnd = ConfigurableStart & ConfigurableEnd
@@ -100,11 +100,11 @@ interface InsertOptions {
 >InsertOptions : InsertOptions
 
     prefix?: string
->prefix : string
+>prefix : 文字
 >类型别名 :=> 文字
 
     suffix?: string
->suffix : string
+>suffix : 文字
 >类型别名 :=> 文字
 }
 type ChangeOptions = ConfigurableStartEnd & InsertOptions;
@@ -113,14 +113,14 @@ type ChangeOptions = ConfigurableStartEnd & InsertOptions;
 >InsertOptions : InsertOptions
 
 function del(options: ConfigurableStartEnd = {},
->del : (options?: ConfigurableStartEnd, error?: { error?: number; }) => void
+>del : (options?: ConfigurableStartEnd, error?: { error?: 数字; }) => 无值
 >options : ConfigurableStartEnd
 >ConfigurableStartEnd : ConfigurableStartEnd
 >{} : {}
 
              error: { error?: number } = {}) {
->error : { error?: number; }
->error : number
+>error : { error?: 数字; }
+>error : 数字
 >类型别名 :=> 数字
 >{} : {}
 
@@ -129,27 +129,27 @@ function del(options: ConfigurableStartEnd = {},
 >ChangeOptions : ChangeOptions
 
     changes.push(options);
->changes.push(options) : number
+>changes.push(options) : 数字
 >类型别名 :=> 数字
->changes.push : (...items: ChangeOptions[]) => number
+>changes.push : (...items: ChangeOptions[]) => 数字
 >changes : ChangeOptions[]
->push : (...items: ChangeOptions[]) => number
+>push : (...items: ChangeOptions[]) => 数字
 >options : ConfigurableStartEnd
 
     changes.push(error);
->changes.push(error) : number
+>changes.push(error) : 数字
 >类型别名 :=> 数字
->changes.push : (...items: ChangeOptions[]) => number
+>changes.push : (...items: ChangeOptions[]) => 数字
 >changes : ChangeOptions[]
->push : (...items: ChangeOptions[]) => number
->error : { error?: number; }
+>push : (...items: ChangeOptions[]) => 数字
+>error : { error?: 数字; }
 }
 
 class K {
 >K : K
 
     constructor(s: string) { }
->s : string
+>s : 文字
 >类型别名 :=> 文字
 }
 // Ctor isn't a weak type because it has a construct signature
@@ -157,47 +157,47 @@ interface Ctor {
 >Ctor : Ctor
 
     new (s: string): K
->s : string
+>s : 文字
 >类型别名 :=> 文字
 >K : K
 
     n?: number
->n : number
+>n : 数字
 >类型别名 :=> 数字
 }
 let ctor: Ctor = K
 >ctor : Ctor
 >Ctor : Ctor
->K : typeof K
+>K : 类为 K
 
 type Spoiler = { nope?: string }
 >Spoiler : Spoiler
->nope : string
+>nope : 文字
 >类型别名 :=> 文字
 
 type Weak = {
 >Weak : Weak
 
     a?: number
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     properties?: {
->properties : { b?: number; }
+>properties : { b?: 数字; }
 
         b?: number
->b : number
+>b : 数字
 >类型别名 :=> 数字
     }
 }
 declare let unknown: {
->unknown : { properties: { wrong: string; }; }
+>unknown : { properties: { wrong: 文字; }; }
 
     properties: {
->properties : { wrong: string; }
+>properties : { wrong: 文字; }
 
         wrong: string
->wrong : string
+>wrong : 文字
 >类型别名 :=> 文字
     }
 }
@@ -205,6 +205,6 @@ let weak: Weak & Spoiler = unknown
 >weak : Weak & Spoiler
 >Weak : Weak
 >Spoiler : Spoiler
->unknown : { properties: { wrong: string; }; }
+>unknown : { properties: { wrong: 文字; }; }
 
 

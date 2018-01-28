@@ -1,11 +1,11 @@
 === tests/cases/compiler/callOverloads3.ts ===
 function Foo():Foo; // error
->Foo : { (): any; (s: string): any; }
+>Foo : { (): 任意; (s: 文字): 任意; }
 >Foo : No type information available!
 
 function Foo(s:string):Foo; // error
->Foo : { (): any; (s: string): any; }
->s : string
+>Foo : { (): 任意; (s: 文字): 任意; }
+>s : 文字
 >类型别名 :=> 文字
 >Foo : No type information available!
 
@@ -13,10 +13,10 @@ class Foo { // error
 >Foo : Foo
 
     bar1() { /*WScript.Echo("bar1");*/ }
->bar1 : () => void
+>bar1 : () => 无值
 
     constructor(x: any) {
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
         // WScript.Echo("Constructor function has executed");
@@ -25,32 +25,32 @@ class Foo { // error
 //class Foo(s: String);
 
 var f1 = new Foo("hey");
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
->new Foo("hey") : any
+>new Foo("hey") : 任意
 >类型别名 :=> 任意
->Foo : { (): any; (s: string): any; }
+>Foo : { (): 任意; (s: 文字): 任意; }
 >"hey" : "hey"
 
 
 f1.bar1();
->f1.bar1() : any
+>f1.bar1() : 任意
 >类型别名 :=> 任意
->f1.bar1 : any
+>f1.bar1 : 任意
 >类型别名 :=> 任意
->f1 : any
+>f1 : 任意
 >类型别名 :=> 任意
->bar1 : any
+>bar1 : 任意
 >类型别名 :=> 任意
 
 Foo();
->Foo() : any
+>Foo() : 任意
 >类型别名 :=> 任意
->Foo : { (): any; (s: string): any; }
+>Foo : { (): 任意; (s: 文字): 任意; }
 
 Foo("s");
->Foo("s") : any
+>Foo("s") : 任意
 >类型别名 :=> 任意
->Foo : { (): any; (s: string): any; }
+>Foo : { (): 任意; (s: 文字): 任意; }
 >"s" : "s"
 

@@ -932,7 +932,7 @@ namespace ts.Completions {
 
                 for (let symbol of typeChecker.getExportsOfModule(moduleSymbol)) {
                     let { name } = symbol;
-                    const isDefaultExport = name === "default";
+                    const isDefaultExport = name === "default" || name === "默认";
                     if (isDefaultExport) {
                         const localSymbol = getLocalSymbolForExportDefault(symbol);
                         if (localSymbol) {
@@ -1066,8 +1066,11 @@ namespace ts.Completions {
                 // Previous token may have been a keyword that was converted to an identifier.
                 switch (previousToken.getText()) {
                     case "public":
+                    case "公开":
                     case "protected":
+                    case "保护":
                     case "private":
+                    case "私有":
                         return true;
                 }
             }
@@ -1221,9 +1224,11 @@ namespace ts.Completions {
                 if (contextToken.kind === SyntaxKind.Identifier && !isCurrentlyEditingNode(contextToken)) {
                     switch (contextToken.getText()) {
                         case "private":
+                        case "私有":
                             classElementModifierFlags = classElementModifierFlags | ModifierFlags.Private;
                             break;
                         case "static":
+                        case "静态":
                             classElementModifierFlags = classElementModifierFlags | ModifierFlags.Static;
                             break;
                     }
@@ -1554,20 +1559,36 @@ namespace ts.Completions {
             // Previous token may have been a keyword that was converted to an identifier.
             switch (contextToken.getText()) {
                 case "abstract":
+                case "抽象":
                 case "async":
+                case "异步":
                 case "class":
+                case "类":
+                case "类别":
                 case "const":
+                case "常量":
                 case "declare":
+                case "声明":
                 case "enum":
+                case "枚举":
                 case "function":
+                case "函数":
                 case "interface":
+                case "接口":
                 case "let":
+                case "变量":
                 case "private":
+                case "私有":
                 case "protected":
+                case "保护":
                 case "public":
+                case "公开":
                 case "static":
+                case "静态":
                 case "var":
+                case "值量":
                 case "yield":
+                case "获得":
                     return true;
             }
 
@@ -1822,6 +1843,11 @@ namespace ts.Completions {
             for (let i = SyntaxKind.FirstKeyword; i <= SyntaxKind.LastKeyword; i++) {
                 allKeywordsCompletions.push({
                     name: tokenToString(i),
+                    kind: ScriptElementKind.keyword,
+                    kindModifiers: ScriptElementKindModifier.none,
+                    sortText: "0"
+                },{
+                    name: 令牌转为中文关键字(i),
                     kind: ScriptElementKind.keyword,
                     kindModifiers: ScriptElementKindModifier.none,
                     sortText: "0"

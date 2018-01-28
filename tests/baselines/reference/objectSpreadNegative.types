@@ -1,11 +1,11 @@
 === tests/cases/conformance/types/spread/objectSpreadNegative.ts ===
 let o = { a: 1, b: 'no' }
->o : { a: number; b: string; }
->{ a: 1, b: 'no' } : { a: number; b: string; }
->a : number
+>o : { a: 数字; b: 文字; }
+>{ a: 1, b: 'no' } : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >'no' : "no"
 
@@ -14,14 +14,14 @@ class PrivateOptionalX {
 >PrivateOptionalX : PrivateOptionalX
 
     private x?: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 class PublicX {
 >PublicX : PublicX
 
     public x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 let publicX: PublicX;
@@ -39,176 +39,176 @@ let o2 = { ...publicX, ...privateOptionalX };
 >privateOptionalX : PrivateOptionalX
 
 let sn: number = o2.x; // error, x is private
->sn : number
+>sn : 数字
 >类型别名 :=> 数字
->o2.x : any
+>o2.x : 任意
 >类型别名 :=> 任意
 >o2 : {}
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 let optionalString: { sn?: string };
->optionalString : { sn?: string; }
->sn : string
+>optionalString : { sn?: 文字; }
+>sn : 文字
 >类型别名 :=> 文字
 
 let optionalNumber: { sn?: number };
->optionalNumber : { sn?: number; }
->sn : number
+>optionalNumber : { sn?: 数字; }
+>sn : 数字
 >类型别名 :=> 数字
 
 let allOptional: { sn: string | number } = { ...optionalString, ...optionalNumber };
->allOptional : { sn: string | number; }
->sn : string | number
->{ ...optionalString, ...optionalNumber } : { sn?: string | number; }
->optionalString : { sn?: string; }
->optionalNumber : { sn?: number; }
+>allOptional : { sn: 文字 | 数字; }
+>sn : 文字 | 数字
+>{ ...optionalString, ...optionalNumber } : { sn?: 文字 | 数字; }
+>optionalString : { sn?: 文字; }
+>optionalNumber : { sn?: 数字; }
 
 // error, 'sn' is optional in source, required in target
 
 // assignability as target
 interface Bool { b: boolean };
 >Bool : Bool
->b : boolean
+>b : 真假
 >类型别名 :=> 真假
 
 interface Str { s: string };
 >Str : Str
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
 let spread = { ...{ b: true }, ...{s: "foo" } };
->spread : { s: string; b: boolean; }
->{ ...{ b: true }, ...{s: "foo" } } : { s: string; b: boolean; }
->{ b: true } : { b: boolean; }
->b : boolean
+>spread : { s: 文字; b: 真假; }
+>{ ...{ b: true }, ...{s: "foo" } } : { s: 文字; b: 真假; }
+>{ b: true } : { b: 真假; }
+>b : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
->{s: "foo" } : { s: string; }
->s : string
+>{s: "foo" } : { s: 文字; }
+>s : 文字
 >类型别名 :=> 文字
 >"foo" : "foo"
 
 spread = { s: "foo" };  // error, missing 'b'
->spread = { s: "foo" } : { s: string; }
->spread : { s: string; b: boolean; }
->{ s: "foo" } : { s: string; }
->s : string
+>spread = { s: "foo" } : { s: 文字; }
+>spread : { s: 文字; b: 真假; }
+>{ s: "foo" } : { s: 文字; }
+>s : 文字
 >类型别名 :=> 文字
 >"foo" : "foo"
 
 let b = { b: false };
->b : { b: boolean; }
->{ b: false } : { b: boolean; }
->b : boolean
+>b : { b: 真假; }
+>{ b: false } : { b: 真假; }
+>b : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 spread = b; // error, missing 's'
->spread = b : { b: boolean; }
->spread : { s: string; b: boolean; }
->b : { b: boolean; }
+>spread = b : { b: 真假; }
+>spread : { s: 文字; b: 真假; }
+>b : { b: 真假; }
 
 // literal repeats are not allowed, but spread repeats are fine
 let duplicated = { b: 'bad', ...o, b: 'bad', ...o2, b: 'bad' }
->duplicated : { b: string; a: number; }
->{ b: 'bad', ...o, b: 'bad', ...o2, b: 'bad' } : { b: string; a: number; }
->b : string
+>duplicated : { b: 文字; a: 数字; }
+>{ b: 'bad', ...o, b: 'bad', ...o2, b: 'bad' } : { b: 文字; a: 数字; }
+>b : 文字
 >类型别名 :=> 文字
 >'bad' : "bad"
->o : { a: number; b: string; }
->b : string
+>o : { a: 数字; b: 文字; }
+>b : 文字
 >类型别名 :=> 文字
 >'bad' : "bad"
 >o2 : {}
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >'bad' : "bad"
 
 let duplicatedSpread = { ...o, ...o }
->duplicatedSpread : { a: number; b: string; }
->{ ...o, ...o } : { a: number; b: string; }
->o : { a: number; b: string; }
->o : { a: number; b: string; }
+>duplicatedSpread : { a: 数字; b: 文字; }
+>{ ...o, ...o } : { a: 数字; b: 文字; }
+>o : { a: 数字; b: 文字; }
+>o : { a: 数字; b: 文字; }
 
 // primitives are not allowed, except for falsy ones
 let spreadNum = { ...12 };
->spreadNum : any
+>spreadNum : 任意
 >类型别名 :=> 任意
->{ ...12 } : any
+>{ ...12 } : 任意
 >类型别名 :=> 任意
 >12 : 12
 
 let spreadSum = { ...1 + 1 };
->spreadSum : any
+>spreadSum : 任意
 >类型别名 :=> 任意
->{ ...1 + 1 } : any
+>{ ...1 + 1 } : 任意
 >类型别名 :=> 任意
->1 + 1 : number
+>1 + 1 : 数字
 >类型别名 :=> 数字
 >1 : 1
 >1 : 1
 
 let spreadZero = { ...0 };
->spreadZero : any
+>spreadZero : 任意
 >类型别名 :=> 任意
->{ ...0 } : any
+>{ ...0 } : 任意
 >类型别名 :=> 任意
 >0 : 0
 
 spreadZero.toFixed(); // error, no methods even from a falsy number
->spreadZero.toFixed() : any
+>spreadZero.toFixed() : 任意
 >类型别名 :=> 任意
->spreadZero.toFixed : any
+>spreadZero.toFixed : 任意
 >类型别名 :=> 任意
->spreadZero : any
+>spreadZero : 任意
 >类型别名 :=> 任意
->toFixed : any
+>toFixed : 任意
 >类型别名 :=> 任意
 
 let spreadBool = { ...true };
->spreadBool : any
+>spreadBool : 任意
 >类型别名 :=> 任意
->{ ...true } : any
+>{ ...true } : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 spreadBool.valueOf();
->spreadBool.valueOf() : any
+>spreadBool.valueOf() : 任意
 >类型别名 :=> 任意
->spreadBool.valueOf : any
+>spreadBool.valueOf : 任意
 >类型别名 :=> 任意
->spreadBool : any
+>spreadBool : 任意
 >类型别名 :=> 任意
->valueOf : any
+>valueOf : 任意
 >类型别名 :=> 任意
 
 let spreadStr = { ...'foo' };
->spreadStr : any
+>spreadStr : 任意
 >类型别名 :=> 任意
->{ ...'foo' } : any
+>{ ...'foo' } : 任意
 >类型别名 :=> 任意
 >'foo' : "foo"
 
 spreadStr.length; // error, no 'length'
->spreadStr.length : any
+>spreadStr.length : 任意
 >类型别名 :=> 任意
->spreadStr : any
+>spreadStr : 任意
 >类型别名 :=> 任意
->length : any
+>length : 任意
 >类型别名 :=> 任意
 
 spreadStr.charAt(1); // error, no methods either
->spreadStr.charAt(1) : any
+>spreadStr.charAt(1) : 任意
 >类型别名 :=> 任意
->spreadStr.charAt : any
+>spreadStr.charAt : 任意
 >类型别名 :=> 任意
->spreadStr : any
+>spreadStr : 任意
 >类型别名 :=> 任意
->charAt : any
+>charAt : 任意
 >类型别名 :=> 任意
 >1 : 1
 
@@ -216,10 +216,10 @@ spreadStr.charAt(1); // error, no methods either
 let spreadFunc = { ...function () { } }
 >spreadFunc : {}
 >{ ...function () { } } : {}
->function () { } : () => void
+>function () { } : () => 无值
 
 spreadFunc(); // error, no call signature
->spreadFunc() : any
+>spreadFunc() : 任意
 >类型别名 :=> 任意
 >spreadFunc : {}
 
@@ -227,77 +227,77 @@ spreadFunc(); // error, no call signature
 let setterOnly = { ...{ set b (bad: number) { } } };
 >setterOnly : {}
 >{ ...{ set b (bad: number) { } } } : {}
->{ set b (bad: number) { } } : { b: number; }
->b : number
+>{ set b (bad: number) { } } : { b: 数字; }
+>b : 数字
 >类型别名 :=> 数字
->bad : number
+>bad : 数字
 >类型别名 :=> 数字
 
 setterOnly.b = 12; // error, 'b' does not exist
 >setterOnly.b = 12 : 12
->setterOnly.b : any
+>setterOnly.b : 任意
 >类型别名 :=> 任意
 >setterOnly : {}
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >12 : 12
 
 // methods are skipped because they aren't enumerable
 class C { p = 1; m() { } }
 >C : C
->p : number
+>p : 数字
 >类型别名 :=> 数字
 >1 : 1
->m : () => void
+>m : () => 无值
 
 let c: C = new C()
 >c : C
 >C : C
 >new C() : C
->C : typeof C
+>C : 类为 C
 
 let spreadC = { ...c }
->spreadC : { p: number; }
->{ ...c } : { p: number; }
+>spreadC : { p: 数字; }
+>{ ...c } : { p: 数字; }
 >c : C
 
 spreadC.m(); // error 'm' is not in '{ ... c }'
->spreadC.m() : any
+>spreadC.m() : 任意
 >类型别名 :=> 任意
->spreadC.m : any
+>spreadC.m : 任意
 >类型别名 :=> 任意
->spreadC : { p: number; }
->m : any
+>spreadC : { p: 数字; }
+>m : 任意
 >类型别名 :=> 任意
 
 // non primitive
 let obj: object = { a: 123 };
->obj : object
+>obj : 实例
 >类型别名 :=> 实例
->{ a: 123 } : { a: number; }
->a : number
+>{ a: 123 } : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >123 : 123
 
 let spreadObj = { ...obj };
->spreadObj : object
+>spreadObj : 实例
 >类型别名 :=> 实例
->{ ...obj } : object
+>{ ...obj } : 实例
 >类型别名 :=> 实例
->obj : object
+>obj : 实例
 >类型别名 :=> 实例
 
 spreadObj.a; // error 'a' is not in {}
->spreadObj.a : any
+>spreadObj.a : 任意
 >类型别名 :=> 任意
->spreadObj : object
+>spreadObj : 实例
 >类型别名 :=> 实例
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 // generics
 function f<T, U>(t: T, u: U) {
->f : <T, U>(t: T, u: U) => any
+>f : <T, U>(t: T, u: U) => 任意
 >T : T
 >U : U
 >t : T
@@ -306,11 +306,11 @@ function f<T, U>(t: T, u: U) {
 >U : U
 
     return { ...t, ...u, id: 'id' };
->{ ...t, ...u, id: 'id' } : any
+>{ ...t, ...u, id: 'id' } : 任意
 >类型别名 :=> 任意
 >t : T
 >u : U
->id : string
+>id : 文字
 >类型别名 :=> 文字
 >'id' : "id"
 }
@@ -324,193 +324,193 @@ function override<U>(initial: U, override: U): U {
 >U : U
 
     return { ...initial, ...override };
->{ ...initial, ...override } : any
+>{ ...initial, ...override } : 任意
 >类型别名 :=> 任意
 >initial : U
 >override : U
 }
 let exclusive: { id: string, a: number, b: string, c: string, d: boolean } =
->exclusive : { id: string; a: number; b: string; c: string; d: boolean; }
->id : string
+>exclusive : { id: 文字; a: 数字; b: 文字; c: 文字; d: 真假; }
+>id : 文字
 >类型别名 :=> 文字
->a : number
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->c : string
+>c : 文字
 >类型别名 :=> 文字
->d : boolean
+>d : 真假
 >类型别名 :=> 真假
 
     f({ a: 1, b: 'yes' }, { c: 'no', d: false })
->f({ a: 1, b: 'yes' }, { c: 'no', d: false }) : any
+>f({ a: 1, b: 'yes' }, { c: 'no', d: false }) : 任意
 >类型别名 :=> 任意
->f : <T, U>(t: T, u: U) => any
->{ a: 1, b: 'yes' } : { a: number; b: string; }
->a : number
+>f : <T, U>(t: T, u: U) => 任意
+>{ a: 1, b: 'yes' } : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >'yes' : "yes"
->{ c: 'no', d: false } : { c: string; d: false; }
->c : string
+>{ c: 'no', d: false } : { c: 文字; d: 为假; }
+>c : 文字
 >类型别名 :=> 文字
 >'no' : "no"
->d : boolean
+>d : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 let overlap: { id: string, a: number, b: string } =
->overlap : { id: string; a: number; b: string; }
->id : string
+>overlap : { id: 文字; a: 数字; b: 文字; }
+>id : 文字
 >类型别名 :=> 文字
->a : number
+>a : 数字
 >类型别名 :=> 数字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     f({ a: 1 }, { a: 2, b: 'extra' })
->f({ a: 1 }, { a: 2, b: 'extra' }) : any
+>f({ a: 1 }, { a: 2, b: 'extra' }) : 任意
 >类型别名 :=> 任意
->f : <T, U>(t: T, u: U) => any
->{ a: 1 } : { a: number; }
->a : number
+>f : <T, U>(t: T, u: U) => 任意
+>{ a: 1 } : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->{ a: 2, b: 'extra' } : { a: number; b: string; }
->a : number
+>{ a: 2, b: 'extra' } : { a: 数字; b: 文字; }
+>a : 数字
 >类型别名 :=> 数字
 >2 : 2
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >'extra' : "extra"
 
 let overlapConflict: { id:string, a: string } =
->overlapConflict : { id: string; a: string; }
->id : string
+>overlapConflict : { id: 文字; a: 文字; }
+>id : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     f({ a: 1 }, { a: 'mismatch' })
->f({ a: 1 }, { a: 'mismatch' }) : any
+>f({ a: 1 }, { a: 'mismatch' }) : 任意
 >类型别名 :=> 任意
->f : <T, U>(t: T, u: U) => any
->{ a: 1 } : { a: number; }
->a : number
+>f : <T, U>(t: T, u: U) => 任意
+>{ a: 1 } : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->{ a: 'mismatch' } : { a: string; }
->a : string
+>{ a: 'mismatch' } : { a: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >'mismatch' : "mismatch"
 
 let overwriteId: { id: string, a: number, c: number, d: string } =
->overwriteId : { id: string; a: number; c: number; d: string; }
->id : string
+>overwriteId : { id: 文字; a: 数字; c: 数字; d: 文字; }
+>id : 文字
 >类型别名 :=> 文字
->a : number
+>a : 数字
 >类型别名 :=> 数字
->c : number
+>c : 数字
 >类型别名 :=> 数字
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
     f({ a: 1, id: true }, { c: 1, d: 'no' })
->f({ a: 1, id: true }, { c: 1, d: 'no' }) : any
+>f({ a: 1, id: true }, { c: 1, d: 'no' }) : 任意
 >类型别名 :=> 任意
->f : <T, U>(t: T, u: U) => any
->{ a: 1, id: true } : { a: number; id: true; }
->a : number
+>f : <T, U>(t: T, u: U) => 任意
+>{ a: 1, id: true } : { a: 数字; id: 为真; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->id : boolean
+>id : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
->{ c: 1, d: 'no' } : { c: number; d: string; }
->c : number
+>{ c: 1, d: 'no' } : { c: 数字; d: 文字; }
+>c : 数字
 >类型别名 :=> 数字
 >1 : 1
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >'no' : "no"
 
 // excess property checks
 type A = { a: string, b: string };
 >A : A
->a : string
+>a : 文字
 >类型别名 :=> 文字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
 type Extra = { a: string, b: string, extra: string };
 >Extra : Extra
->a : string
+>a : 文字
 >类型别名 :=> 文字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->extra : string
+>extra : 文字
 >类型别名 :=> 文字
 
 const extra1: A = { a: "a", b: "b", extra: "extra" };
 >extra1 : A
 >A : A
->{ a: "a", b: "b", extra: "extra" } : { a: string; b: string; extra: string; }
->a : string
+>{ a: "a", b: "b", extra: "extra" } : { a: 文字; b: 文字; extra: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >"a" : "a"
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"b" : "b"
->extra : string
+>extra : 文字
 >类型别名 :=> 文字
 >"extra" : "extra"
 
 const extra2 = { a: "a", b: "b", extra: "extra" };
->extra2 : { a: string; b: string; extra: string; }
->{ a: "a", b: "b", extra: "extra" } : { a: string; b: string; extra: string; }
->a : string
+>extra2 : { a: 文字; b: 文字; extra: 文字; }
+>{ a: "a", b: "b", extra: "extra" } : { a: 文字; b: 文字; extra: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >"a" : "a"
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"b" : "b"
->extra : string
+>extra : 文字
 >类型别名 :=> 文字
 >"extra" : "extra"
 
 const a1: A = { ...extra1 }; // error spans should be here
 >a1 : A
 >A : A
->{ ...extra1 } : { a: string; b: string; }
+>{ ...extra1 } : { a: 文字; b: 文字; }
 >extra1 : A
 
 const a2: A = { ...extra2 }; // not on the symbol declarations above
 >a2 : A
 >A : A
->{ ...extra2 } : { a: string; b: string; extra: string; }
->extra2 : { a: string; b: string; extra: string; }
+>{ ...extra2 } : { a: 文字; b: 文字; extra: 文字; }
+>extra2 : { a: 文字; b: 文字; extra: 文字; }
 
 const extra3: Extra = { a: "a", b: "b", extra: "extra" };
 >extra3 : Extra
 >Extra : Extra
->{ a: "a", b: "b", extra: "extra" } : { a: string; b: string; extra: string; }
->a : string
+>{ a: "a", b: "b", extra: "extra" } : { a: 文字; b: 文字; extra: 文字; }
+>a : 文字
 >类型别名 :=> 文字
 >"a" : "a"
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"b" : "b"
->extra : string
+>extra : 文字
 >类型别名 :=> 文字
 >"extra" : "extra"
 
 const a3: A = { ...extra3 }; // same here
 >a3 : A
 >A : A
->{ ...extra3 } : { a: string; b: string; extra: string; }
+>{ ...extra3 } : { a: 文字; b: 文字; extra: 文字; }
 >extra3 : Extra
 

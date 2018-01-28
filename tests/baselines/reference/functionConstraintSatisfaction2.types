@@ -2,7 +2,7 @@
 // satisfaction of a constraint to Function, all of these invocations are errors unless otherwise noted
 
 function foo<T extends Function>(x: T): T { return x; }
->foo : <T extends Function>(x: T) => T
+>foo : <T 扩展 Function>(x: T) => T
 >T : T
 >Function : Function
 >x : T
@@ -11,29 +11,29 @@ function foo<T extends Function>(x: T): T { return x; }
 >x : T
 
 foo(1);
->foo(1) : any
+>foo(1) : 任意
 >类型别名 :=> 任意
->foo : <T extends Function>(x: T) => T
+>foo : <T 扩展 Function>(x: T) => T
 >1 : 1
 
 foo(() => { }, 1);
->foo(() => { }, 1) : any
+>foo(() => { }, 1) : 任意
 >类型别名 :=> 任意
->foo : <T extends Function>(x: T) => T
->() => { } : () => void
+>foo : <T 扩展 Function>(x: T) => T
+>() => { } : () => 无值
 >1 : 1
 
 foo(1, () => { });
->foo(1, () => { }) : any
+>foo(1, () => { }) : 任意
 >类型别名 :=> 任意
->foo : <T extends Function>(x: T) => T
+>foo : <T 扩展 Function>(x: T) => T
 >1 : 1
->() => { } : () => void
+>() => { } : () => 无值
 
 function foo2<T extends (x: string) => string>(x: T): T { return x; }
->foo2 : <T extends (x: string) => string>(x: T) => T
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
 >T : T
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >x : T
 >T : T
@@ -44,13 +44,13 @@ class C {
 >C : C
 
     foo: string;
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 }
 
 var b: { new (x: string): string };
->b : new (x: string) => string
->x : string
+>b : 新建 (x: 文字) => 文字
+>x : 文字
 >类型别名 :=> 文字
 
 class C2<T> {
@@ -63,51 +63,51 @@ class C2<T> {
 }
 
 var b2: { new <T>(x: T): T };
->b2 : new <T>(x: T) => T
+>b2 : 新建 <T>(x: T) => T
 >T : T
 >x : T
 >T : T
 >T : T
 
 var r = foo2(new Function());
->r : any
+>r : 任意
 >类型别名 :=> 任意
->foo2(new Function()) : any
+>foo2(new Function()) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
 >new Function() : Function
 >Function : FunctionConstructor
 
 var r2 = foo2((x: string[]) => x);
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->foo2((x: string[]) => x) : any
+>foo2((x: string[]) => x) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
->(x: string[]) => x : (x: string[]) => string[]
->x : string[]
->x : string[]
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
+>(x: string[]) => x : (x: 文字[]) => 文字[]
+>x : 文字[]
+>x : 文字[]
 
 var r6 = foo2(C);
->r6 : any
+>r6 : 任意
 >类型别名 :=> 任意
->foo2(C) : any
+>foo2(C) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
->C : typeof C
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
+>C : 类为 C
 
 var r7 = foo2(b);
->r7 : any
+>r7 : 任意
 >类型别名 :=> 任意
->foo2(b) : any
+>foo2(b) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
->b : new (x: string) => string
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
+>b : 新建 (x: 文字) => 文字
 
 var r8 = foo2(<U>(x: U) => x); // no error expected
->r8 : (x: string) => string
->foo2(<U>(x: U) => x) : (x: string) => string
->foo2 : <T extends (x: string) => string>(x: T) => T
+>r8 : (x: 文字) => 文字
+>foo2(<U>(x: U) => x) : (x: 文字) => 文字
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
 ><U>(x: U) => x : <U>(x: U) => U
 >U : U
 >x : U
@@ -115,11 +115,11 @@ var r8 = foo2(<U>(x: U) => x); // no error expected
 >x : U
 
 var r11 = foo2(<U, V>(x: U, y: V) => x);
->r11 : any
+>r11 : 任意
 >类型别名 :=> 任意
->foo2(<U, V>(x: U, y: V) => x) : any
+>foo2(<U, V>(x: U, y: V) => x) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
 ><U, V>(x: U, y: V) => x : <U, V>(x: U, y: V) => U
 >U : U
 >V : V
@@ -130,25 +130,25 @@ var r11 = foo2(<U, V>(x: U, y: V) => x);
 >x : U
 
 var r13 = foo2(C2);
->r13 : any
+>r13 : 任意
 >类型别名 :=> 任意
->foo2(C2) : any
+>foo2(C2) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
->C2 : typeof C2
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
+>C2 : 类为 C2
 
 var r14 = foo2(b2);
->r14 : any
+>r14 : 任意
 >类型别名 :=> 任意
->foo2(b2) : any
+>foo2(b2) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
->b2 : new <T>(x: T) => T
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
+>b2 : 新建 <T>(x: T) => T
 
 interface F2 extends Function { foo: string; }
 >F2 : F2
 >Function : Function
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 var f2: F2;
@@ -156,15 +156,15 @@ var f2: F2;
 >F2 : F2
 
 var r16 = foo2(f2);
->r16 : any
+>r16 : 任意
 >类型别名 :=> 任意
->foo2(f2) : any
+>foo2(f2) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
 >f2 : F2
 
 function fff<T extends { (): void }, U extends T>(x: T, y: U) {
->fff : <T extends () => void, U extends T>(x: T, y: U) => void
+>fff : <T 扩展 () => 无值, U 扩展 T>(x: T, y: U) => 无值
 >T : T
 >U : U
 >T : T
@@ -174,15 +174,15 @@ function fff<T extends { (): void }, U extends T>(x: T, y: U) {
 >U : U
 
     foo2(x);
->foo2(x) : any
+>foo2(x) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
 >x : T
 
     foo2(y);
->foo2(y) : any
+>foo2(y) : 任意
 >类型别名 :=> 任意
->foo2 : <T extends (x: string) => string>(x: T) => T
+>foo2 : <T 扩展 (x: 文字) => 文字>(x: T) => T
 >y : U
 }
 

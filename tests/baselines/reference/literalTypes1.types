@@ -17,7 +17,7 @@ let oneOrTwo: 1 | 2 = <1 | 2>1;
 >1 : 1
 
 function f1(x: 0 | 1 | 2) {
->f1 : (x: 0 | 1 | 2) => void
+>f1 : (x: 0 | 1 | 2) => 无值
 >x : 0 | 1 | 2
 
     switch (x) {
@@ -46,13 +46,13 @@ function f1(x: 0 | 1 | 2) {
             break;
         default:
             x;
->x : never
+>x : 不及
 >类型别名 :=> 不及
     }
 }
 
 function f2(x: 0 | 1 | 2) {
->f2 : (x: 0 | 1 | 2) => void
+>f2 : (x: 0 | 1 | 2) => 无值
 >x : 0 | 1 | 2
 
     switch (x) {
@@ -80,13 +80,13 @@ function f2(x: 0 | 1 | 2) {
 
 type Falsy = false | 0 | "" | null | undefined;
 >Falsy : Falsy
->false : false
+>false : 为假
 >类型别名 :=> 为假
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 function f3(x: Falsy) {
->f3 : (x: Falsy) => void
+>f3 : (x: Falsy) => 无值
 >x : Falsy
 >Falsy : Falsy
 
@@ -94,7 +94,7 @@ function f3(x: Falsy) {
 >x : Falsy
 
         x;
->x : never
+>x : 不及
 >类型别名 :=> 不及
     }
     else {
@@ -104,13 +104,13 @@ function f3(x: Falsy) {
 }
 
 function f4(x: 0 | 1 | true | string) {
->f4 : (x: string | true | 0 | 1) => void
->x : string | true | 0 | 1
->true : true
+>f4 : (x: 文字 | 为真 | 0 | 1) => 无值
+>x : 文字 | 为真 | 0 | 1
+>true : 为真
 >类型别名 :=> 为真
 
     switch (x) {
->x : string | true | 0 | 1
+>x : 文字 | 为真 | 0 | 1
 
         case 0:
 >0 : 0
@@ -137,35 +137,35 @@ function f4(x: 0 | 1 | true | string) {
 
             break;
         case null:
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
             x;
->x : never
+>x : 不及
 >类型别名 :=> 不及
 
             break;
         case undefined:
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
             x;
->x : never
+>x : 不及
 >类型别名 :=> 不及
 
             break;
         default:
             x;
->x : string | true
+>x : 文字 | 为真
     }
 }
 
 function f5(x: string | number | boolean) {
->f5 : (x: string | number | boolean) => void
->x : string | number | boolean
+>f5 : (x: 文字 | 数字 | 真假) => 无值
+>x : 文字 | 数字 | 真假
 
     switch (x) {
->x : string | number | boolean
+>x : 文字 | 数字 | 真假
 
         case "abc":
 >"abc" : "abc"
@@ -185,11 +185,11 @@ function f5(x: string | number | boolean) {
 
             break;
         case true:
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
             x;
->x : true
+>x : 为真
 >类型别名 :=> 为真
 
             break;
@@ -205,6 +205,6 @@ function f5(x: string | number | boolean) {
             break;
         default:
             x;
->x : string | number | false
+>x : 文字 | 数字 | 为假
     }
 }

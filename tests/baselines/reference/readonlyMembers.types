@@ -3,36 +3,36 @@ interface X {
 >X : X
 
     readonly a: number;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     readonly b?: number;
->b : number
+>b : 数字
 >类型别名 :=> 数字
 }
 var x: X = { a: 0 };
 >x : X
 >X : X
->{ a: 0 } : { a: number; }
->a : number
+>{ a: 0 } : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >0 : 0
 
 x.a = 1;  // Error
 >x.a = 1 : 1
->x.a : any
+>x.a : 任意
 >类型别名 :=> 任意
 >x : X
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 x.b = 1;  // Error
 >x.b = 1 : 1
->x.b : any
+>x.b : 任意
 >类型别名 :=> 任意
 >x : X
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >1 : 1
 
@@ -40,7 +40,7 @@ class C {
 >C : C
 
     readonly a: number;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     readonly b = 1;
@@ -48,194 +48,194 @@ class C {
 >1 : 1
 
     get c() { return 1 }
->c : number
+>c : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     constructor() {
         this.a = 1;  // Ok
 >this.a = 1 : 1
->this.a : number
+>this.a : 数字
 >类型别名 :=> 数字
->this : this
->a : number
+>this : 本体
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
 
         this.b = 1;  // Ok
 >this.b = 1 : 1
 >this.b : 1
->this : this
+>this : 本体
 >b : 1
 >1 : 1
 
         this.c = 1;  // Error
 >this.c = 1 : 1
->this.c : any
+>this.c : 任意
 >类型别名 :=> 任意
->this : this
->c : any
+>this : 本体
+>c : 任意
 >类型别名 :=> 任意
 >1 : 1
 
         const f = () => {
->f : () => void
->() => {            this.a = 1;  // Error            this.b = 1;  // Error            this.c = 1;  // Error        } : () => void
+>f : () => 无值
+>() => {            this.a = 1;  // Error            this.b = 1;  // Error            this.c = 1;  // Error        } : () => 无值
 
             this.a = 1;  // Error
 >this.a = 1 : 1
->this.a : any
+>this.a : 任意
 >类型别名 :=> 任意
->this : this
->a : any
+>this : 本体
+>a : 任意
 >类型别名 :=> 任意
 >1 : 1
 
             this.b = 1;  // Error
 >this.b = 1 : 1
->this.b : any
+>this.b : 任意
 >类型别名 :=> 任意
->this : this
->b : any
+>this : 本体
+>b : 任意
 >类型别名 :=> 任意
 >1 : 1
 
             this.c = 1;  // Error
 >this.c = 1 : 1
->this.c : any
+>this.c : 任意
 >类型别名 :=> 任意
->this : this
->c : any
+>this : 本体
+>c : 任意
 >类型别名 :=> 任意
 >1 : 1
         }
     }
     foo() {
->foo : () => void
+>foo : () => 无值
 
         this.a = 1;  // Error
 >this.a = 1 : 1
->this.a : any
+>this.a : 任意
 >类型别名 :=> 任意
->this : this
->a : any
+>this : 本体
+>a : 任意
 >类型别名 :=> 任意
 >1 : 1
 
         this.b = 1;  // Error
 >this.b = 1 : 1
->this.b : any
+>this.b : 任意
 >类型别名 :=> 任意
->this : this
->b : any
+>this : 本体
+>b : 任意
 >类型别名 :=> 任意
 >1 : 1
 
         this.c = 1;  // Error
 >this.c = 1 : 1
->this.c : any
+>this.c : 任意
 >类型别名 :=> 任意
->this : this
->c : any
+>this : 本体
+>c : 任意
 >类型别名 :=> 任意
 >1 : 1
     }
 }
 
 var o = {
->o : { readonly a: number; b: number; }
->{    get a() { return 1 },    get b() { return 1 },    set b(value) { }} : { readonly a: number; b: number; }
+>o : { 只读 a: 数字; b: 数字; }
+>{    get a() { return 1 },    get b() { return 1 },    set b(value) { }} : { 只读 a: 数字; b: 数字; }
 
     get a() { return 1 },
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     get b() { return 1 },
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     set b(value) { }
->b : number
+>b : 数字
 >类型别名 :=> 数字
->value : number
+>value : 数字
 >类型别名 :=> 数字
 
 };
 o.a = 1;  // Error
 >o.a = 1 : 1
->o.a : any
+>o.a : 任意
 >类型别名 :=> 任意
->o : { readonly a: number; b: number; }
->a : any
+>o : { 只读 a: 数字; b: 数字; }
+>a : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 o.b = 1;
 >o.b = 1 : 1
->o.b : number
+>o.b : 数字
 >类型别名 :=> 数字
->o : { readonly a: number; b: number; }
->b : number
+>o : { 只读 a: 数字; b: 数字; }
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 var p: { readonly a: number, b: number } = { a: 1, b: 1 };
->p : { readonly a: number; b: number; }
->a : number
+>p : { 只读 a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
->{ a: 1, b: 1 } : { a: number; b: number; }
->a : number
+>{ a: 1, b: 1 } : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 p.a = 1;  // Error
 >p.a = 1 : 1
->p.a : any
+>p.a : 任意
 >类型别名 :=> 任意
->p : { readonly a: number; b: number; }
->a : any
+>p : { 只读 a: 数字; b: 数字; }
+>a : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 p.b = 1;
 >p.b = 1 : 1
->p.b : number
+>p.b : 数字
 >类型别名 :=> 数字
->p : { readonly a: number; b: number; }
->b : number
+>p : { 只读 a: 数字; b: 数字; }
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 var q: { a: number, b: number } = p;
->q : { a: number; b: number; }
->a : number
+>q : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
->p : { readonly a: number; b: number; }
+>p : { 只读 a: 数字; b: 数字; }
 
 q.a = 1;
 >q.a = 1 : 1
->q.a : number
+>q.a : 数字
 >类型别名 :=> 数字
->q : { a: number; b: number; }
->a : number
+>q : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 q.b = 1;
 >q.b = 1 : 1
->q.b : number
+>q.b : 数字
 >类型别名 :=> 数字
->q : { a: number; b: number; }
->b : number
+>q : { a: 数字; b: 数字; }
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
@@ -249,98 +249,98 @@ enum E {
 }
 E.A = 1;  // Error
 >E.A = 1 : 1
->E.A : any
+>E.A : 任意
 >类型别名 :=> 任意
->E : typeof E
->A : any
+>E : 类为 E
+>A : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 namespace N {
->N : typeof N
+>N : 类为 N
 
     export const a = 1;
 >a : 1
 >1 : 1
 
     export let b = 1;
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     export var c = 1;
->c : number
+>c : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
 N.a = 1;  // Error
 >N.a = 1 : 1
->N.a : any
+>N.a : 任意
 >类型别名 :=> 任意
->N : typeof N
->a : any
+>N : 类为 N
+>a : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 N.b = 1;
 >N.b = 1 : 1
->N.b : number
+>N.b : 数字
 >类型别名 :=> 数字
->N : typeof N
->b : number
+>N : 类为 N
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 N.c = 1;
 >N.c = 1 : 1
->N.c : number
+>N.c : 数字
 >类型别名 :=> 数字
->N : typeof N
->c : number
+>N : 类为 N
+>c : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 let xx: { readonly [x: string]: string };
->xx : { readonly [x: string]: string; }
->x : string
+>xx : { 只读 [x: 文字]: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 
 let s = xx["foo"];
->s : string
+>s : 文字
 >类型别名 :=> 文字
->xx["foo"] : string
+>xx["foo"] : 文字
 >类型别名 :=> 文字
->xx : { readonly [x: string]: string; }
+>xx : { 只读 [x: 文字]: 文字; }
 >"foo" : "foo"
 
 xx["foo"] = "abc";  // Error
 >xx["foo"] = "abc" : "abc"
->xx["foo"] : string
+>xx["foo"] : 文字
 >类型别名 :=> 文字
->xx : { readonly [x: string]: string; }
+>xx : { 只读 [x: 文字]: 文字; }
 >"foo" : "foo"
 >"abc" : "abc"
 
 let yy: { readonly [x: number]: string, [x: string]: string };
->yy : { [x: string]: string; readonly [x: number]: string; }
->x : number
+>yy : { [x: 文字]: 文字; 只读 [x: 数字]: 文字; }
+>x : 数字
 >类型别名 :=> 数字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 yy[1] = "abc";  // Error
 >yy[1] = "abc" : "abc"
->yy[1] : string
+>yy[1] : 文字
 >类型别名 :=> 文字
->yy : { [x: string]: string; readonly [x: number]: string; }
+>yy : { [x: 文字]: 文字; 只读 [x: 数字]: 文字; }
 >1 : 1
 >"abc" : "abc"
 
 yy["foo"] = "abc";
 >yy["foo"] = "abc" : "abc"
->yy["foo"] : string
+>yy["foo"] : 文字
 >类型别名 :=> 文字
->yy : { [x: string]: string; readonly [x: number]: string; }
+>yy : { [x: 文字]: 文字; 只读 [x: 数字]: 文字; }
 >"foo" : "foo"
 >"abc" : "abc"
 

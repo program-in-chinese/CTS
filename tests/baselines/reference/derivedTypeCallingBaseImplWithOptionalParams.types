@@ -3,16 +3,16 @@ interface MyInterface {
 >MyInterface : MyInterface
 
     myMethod(...myList: any[]);
->myMethod : (...myList: any[]) => any
->myList : any[]
+>myMethod : (...myList: 任意[]) => 任意
+>myList : 任意[]
 }
 class MyClass implements MyInterface {
 >MyClass : MyClass
 >MyInterface : MyInterface
 
     myMethod(myList: any[]) { // valid
->myMethod : (myList: any[]) => void
->myList : any[]
+>myMethod : (myList: 任意[]) => 无值
+>myList : 任意[]
     }
 }
 
@@ -20,25 +20,25 @@ var x: MyInterface = new MyClass();
 >x : MyInterface
 >MyInterface : MyInterface
 >new MyClass() : MyClass
->MyClass : typeof MyClass
+>MyClass : 类为 MyClass
 
 x.myMethod(); // should be valid, but MyClass has no implementation to handle it.
->x.myMethod() : any
+>x.myMethod() : 任意
 >类型别名 :=> 任意
->x.myMethod : (...myList: any[]) => any
+>x.myMethod : (...myList: 任意[]) => 任意
 >x : MyInterface
->myMethod : (...myList: any[]) => any
+>myMethod : (...myList: 任意[]) => 任意
 
 var y: MyClass = new MyClass();
 >y : MyClass
 >MyClass : MyClass
 >new MyClass() : MyClass
->MyClass : typeof MyClass
+>MyClass : 类为 MyClass
 
 y.myMethod(); // error
->y.myMethod() : void
+>y.myMethod() : 无值
 >类型别名 :=> 无值
->y.myMethod : (myList: any[]) => void
+>y.myMethod : (myList: 任意[]) => 无值
 >y : MyClass
->myMethod : (myList: any[]) => void
+>myMethod : (myList: 任意[]) => 无值
 

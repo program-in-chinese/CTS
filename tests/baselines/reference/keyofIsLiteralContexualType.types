@@ -2,22 +2,22 @@
 // keyof T is a literal contextual type
 
 function foo<T extends { a: string, b: string }>() {
->foo : <T extends { a: string; b: string; }>() => void
+>foo : <T 扩展 { a: 文字; b: 文字; }>() => 无值
 >T : T
->a : string
+>a : 文字
 >类型别名 :=> 文字
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     let a: (keyof T)[] = ["a", "b"];
->a : (keyof T)[]
+>a : (键集 T)[]
 >T : T
 >["a", "b"] : ("a" | "b")[]
 >"a" : "a"
 >"b" : "b"
 
     let b: (keyof T)[] = ["a", "b", "c"];
->b : (keyof T)[]
+>b : (键集 T)[]
 >T : T
 >["a", "b", "c"] : ("a" | "b" | "c")[]
 >"a" : "a"
@@ -28,7 +28,7 @@ function foo<T extends { a: string, b: string }>() {
 // Repro from #12455
 
 declare function pick<T, K extends keyof T>(obj: T, propNames: K[]): Pick<T, K>;
->pick : <T, K extends keyof T>(obj: T, propNames: K[]) => Pick<T, K>
+>pick : <T, K 扩展 键集 T>(obj: T, propNames: K[]) => Pick<T, K>
 >T : T
 >K : K
 >T : T
@@ -41,17 +41,17 @@ declare function pick<T, K extends keyof T>(obj: T, propNames: K[]): Pick<T, K>;
 >K : K
 
 let x = pick({ a: 10, b: 20, c: 30 }, ["a", "c"]);
->x : Pick<{ a: number; b: number; c: number; }, "a" | "c">
->pick({ a: 10, b: 20, c: 30 }, ["a", "c"]) : Pick<{ a: number; b: number; c: number; }, "a" | "c">
->pick : <T, K extends keyof T>(obj: T, propNames: K[]) => Pick<T, K>
->{ a: 10, b: 20, c: 30 } : { a: number; b: number; c: number; }
->a : number
+>x : Pick<{ a: 数字; b: 数字; c: 数字; }, "a" | "c">
+>pick({ a: 10, b: 20, c: 30 }, ["a", "c"]) : Pick<{ a: 数字; b: 数字; c: 数字; }, "a" | "c">
+>pick : <T, K 扩展 键集 T>(obj: T, propNames: K[]) => Pick<T, K>
+>{ a: 10, b: 20, c: 30 } : { a: 数字; b: 数字; c: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >10 : 10
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >20 : 20
->c : number
+>c : 数字
 >类型别名 :=> 数字
 >30 : 30
 >["a", "c"] : ("a" | "c")[]
@@ -59,11 +59,11 @@ let x = pick({ a: 10, b: 20, c: 30 }, ["a", "c"]);
 >"c" : "c"
 
 let b = x.b;  // Error
->b : any
+>b : 任意
 >类型别名 :=> 任意
->x.b : any
+>x.b : 任意
 >类型别名 :=> 任意
->x : Pick<{ a: number; b: number; c: number; }, "a" | "c">
->b : any
+>x : Pick<{ a: 数字; b: 数字; c: 数字; }, "a" | "c">
+>b : 任意
 >类型别名 :=> 任意
 

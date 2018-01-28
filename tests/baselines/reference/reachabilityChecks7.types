@@ -1,65 +1,65 @@
 === tests/cases/compiler/reachabilityChecks7.ts ===
 // async function without return type annotation - error
 async function f1() {    
->f1 : () => Promise<void>
+>f1 : () => Promise<无值>
 }
 
 let x = async function() {
->x : () => Promise<void>
->async function() {} : () => Promise<void>
+>x : () => Promise<无值>
+>async function() {} : () => Promise<无值>
 }
 
 // async function with which promised type is void - return can be omitted
 async function f2(): Promise<void> {
->f2 : () => Promise<void>
+>f2 : () => Promise<无值>
 >Promise : Promise<T>
     
 }
 
 async function f3(x) {
->f3 : (x: any) => Promise<number>
->x : any
+>f3 : (x: 任意) => Promise<数字>
+>x : 任意
 >类型别名 :=> 任意
 
     if (x) return 10;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >10 : 10
 }
 
 async function f4(): Promise<number> {
->f4 : () => Promise<number>
+>f4 : () => Promise<数字>
 >Promise : Promise<T>
     
 }
 
 function voidFunc(): void {
->voidFunc : () => void
+>voidFunc : () => 无值
 }
 
 function calltoVoidFunc(x) {
->calltoVoidFunc : (x: any) => void
->x : any
+>calltoVoidFunc : (x: 任意) => 无值
+>x : 任意
 >类型别名 :=> 任意
 
     if (x) return voidFunc();
->x : any
+>x : 任意
 >类型别名 :=> 任意
->voidFunc() : void
+>voidFunc() : 无值
 >类型别名 :=> 无值
->voidFunc : () => void
+>voidFunc : () => 无值
 }
 
 declare function use(s: string): void;
->use : (s: string) => void
->s : string
+>use : (s: 文字) => 无值
+>s : 文字
 >类型别名 :=> 文字
 
 let x1 = () => { use("Test"); }
->x1 : () => void
->() => { use("Test"); } : () => void
->use("Test") : void
+>x1 : () => 无值
+>() => { use("Test"); } : () => 无值
+>use("Test") : 无值
 >类型别名 :=> 无值
->use : (s: string) => void
+>use : (s: 文字) => 无值
 >"Test" : "Test"
 

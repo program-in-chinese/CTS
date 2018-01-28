@@ -3,7 +3,7 @@ interface I {
 >I : I
 
     id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
 }
 
@@ -12,11 +12,11 @@ class C implements I {
 >I : I
 
     id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
 
     valid: boolean;
->valid : boolean
+>valid : 真假
 >类型别名 :=> 真假
 }
 
@@ -25,7 +25,7 @@ class C2 extends C {
 >C : C
 
     name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 
@@ -50,65 +50,65 @@ class D<T>{
 }
 
 function F(x: string): number { return 42; }
->F : (x: string) => number
->x : string
+>F : (x: 文字) => 数字
+>x : 文字
 >类型别名 :=> 文字
 >42 : 42
 
 module M {
->M : typeof M
+>M : 类为 M
 
     export class A {
 >A : A
 
         name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
     }
 
     export function F2(x: number): string { return x.toString(); }
->F2 : (x: number) => string
->x : number
+>F2 : (x: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
->x.toString() : string
+>x.toString() : 文字
 >类型别名 :=> 文字
->x.toString : (radix?: number) => string
->x : number
+>x.toString : (radix?: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
->toString : (radix?: number) => string
+>toString : (radix?: 数字) => 文字
 }
 
 // all of these are errors
 for( var a: any;;){}
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 for( var a = 1;;){}
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 for( var a = 'a string';;){}
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >'a string' : "a string"
 
 for( var a = new C();;){}
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >new C() : C
->C : typeof C
+>C : 类为 C
 
 for( var a = new D<string>();;){}
->a : any
+>a : 任意
 >类型别名 :=> 任意
->new D<string>() : D<string>
->D : typeof D
+>new D<string>() : D<文字>
+>D : 类为 D
 
 for( var a = M;;){}
->a : any
+>a : 任意
 >类型别名 :=> 任意
->M : typeof M
+>M : 类为 M
 
 for( var b: I;;){}
 >b : I
@@ -117,64 +117,64 @@ for( var b: I;;){}
 for( var b = new C();;){}
 >b : I
 >new C() : C
->C : typeof C
+>C : 类为 C
 
 for( var b = new C2();;){}
 >b : I
 >new C2() : C2
->C2 : typeof C2
+>C2 : 类为 C2
 
 for(var f = F;;){}
->f : (x: string) => number
->F : (x: string) => number
+>f : (x: 文字) => 数字
+>F : (x: 文字) => 数字
 
 for( var f = (x: number) => '';;){}
->f : (x: string) => number
->(x: number) => '' : (x: number) => string
->x : number
+>f : (x: 文字) => 数字
+>(x: number) => '' : (x: 数字) => 文字
+>x : 数字
 >类型别名 :=> 数字
 >'' : ""
 
 for(var arr: string[];;){}
->arr : string[]
+>arr : 文字[]
 
 for( var arr = [1, 2, 3, 4];;){}
->arr : string[]
->[1, 2, 3, 4] : number[]
+>arr : 文字[]
+>[1, 2, 3, 4] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
 >4 : 4
 
 for( var arr = [new C(), new C2(), new D<string>()];;){}
->arr : string[]
->[new C(), new C2(), new D<string>()] : (C | D<string>)[]
+>arr : 文字[]
+>[new C(), new C2(), new D<string>()] : (C | D<文字>)[]
 >new C() : C
->C : typeof C
+>C : 类为 C
 >new C2() : C2
->C2 : typeof C2
->new D<string>() : D<string>
->D : typeof D
+>C2 : 类为 C2
+>new D<string>() : D<文字>
+>D : 类为 D
 
 for(var arr2 = [new D<string>()];;){}
->arr2 : D<string>[]
->[new D<string>()] : D<string>[]
->new D<string>() : D<string>
->D : typeof D
+>arr2 : D<文字>[]
+>[new D<string>()] : D<文字>[]
+>new D<string>() : D<文字>
+>D : 类为 D
 
 for( var arr2 = new Array<D<number>>();;){}
->arr2 : D<string>[]
->new Array<D<number>>() : D<number>[]
+>arr2 : D<文字>[]
+>new Array<D<number>>() : D<数字>[]
 >Array : ArrayConstructor
 >D : D<T>
 
 for(var m: typeof M;;){}
->m : typeof M
->M : typeof M
+>m : 类为 M
+>M : 类为 M
 
 for( var m = M.A;;){}
->m : typeof M
->M.A : typeof M.A
->M : typeof M
->A : typeof M.A
+>m : 类为 M
+>M.A : 类为 M.A
+>M : 类为 M
+>A : 类为 M.A
 

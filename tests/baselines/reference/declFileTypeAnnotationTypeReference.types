@@ -3,7 +3,7 @@ class c {
 >c : c
 }
 module m {
->m : typeof m
+>m : 类为 m
 
     export class c {
 >c : c
@@ -25,75 +25,75 @@ function foo(): c {
 
     return new c();
 >new c() : c
->c : typeof c
+>c : 类为 c
 }
 function foo2() {
 >foo2 : () => c
 
     return new c();
 >new c() : c
->c : typeof c
+>c : 类为 c
 }
 
 // Qualified name
 function foo3(): m.c {
 >foo3 : () => m.c
->m : any
+>m : 任意
 >类型别名 :=> 任意
 >c : m.c
 
     return new m.c();
 >new m.c() : m.c
->m.c : typeof m.c
->m : typeof m
->c : typeof m.c
+>m.c : 类为 m.c
+>m : 类为 m
+>c : 类为 m.c
 }
 function foo4() {
 >foo4 : () => m.c
 
     return new m.c();
 >new m.c() : m.c
->m.c : typeof m.c
->m : typeof m
->c : typeof m.c
+>m.c : 类为 m.c
+>m : 类为 m
+>c : 类为 m.c
 }
 
 // Just the name with type arguments
 function foo5(): g<string> {
->foo5 : () => g<string>
+>foo5 : () => g<文字>
 >g : g<T>
 
     return new g<string>();
->new g<string>() : g<string>
->g : typeof g
+>new g<string>() : g<文字>
+>g : 类为 g
 }
 function foo6() {
->foo6 : () => g<string>
+>foo6 : () => g<文字>
 
     return new g<string>();
->new g<string>() : g<string>
->g : typeof g
+>new g<string>() : g<文字>
+>g : 类为 g
 }
 
 // Qualified name with type arguments
 function foo7(): m.g<number> {
->foo7 : () => m.g<number>
->m : any
+>foo7 : () => m.g<数字>
+>m : 任意
 >类型别名 :=> 任意
 >g : m.g<T>
 
     return new m.g<number>();
->new m.g<number>() : m.g<number>
->m.g : typeof m.g
->m : typeof m
->g : typeof m.g
+>new m.g<number>() : m.g<数字>
+>m.g : 类为 m.g
+>m : 类为 m
+>g : 类为 m.g
 }
 function foo8() {
->foo8 : () => m.g<number>
+>foo8 : () => m.g<数字>
 
     return new m.g<number>();
->new m.g<number>() : m.g<number>
->m.g : typeof m.g
->m : typeof m
->g : typeof m.g
+>new m.g<number>() : m.g<数字>
+>m.g : 类为 m.g
+>m : 类为 m
+>g : 类为 m.g
 }

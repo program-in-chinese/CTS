@@ -2,24 +2,24 @@
 export {}; // Make this a module scope, so these are local variables.
 
 function f() {
->f : () => void
+>f : () => 无值
 
     f;
->f : () => void
+>f : () => 无值
 
     function g() {
->g : () => void
+>g : () => 无值
 
         g;
->g : () => void
+>g : () => 无值
     }
 }
 class C {
 >C : C
 
     m() { C; }
->m : () => void
->C : typeof C
+>m : () => 无值
+>C : 类为 C
 }
 enum E { A = 0, B = E.A }
 >E : E
@@ -27,26 +27,26 @@ enum E { A = 0, B = E.A }
 >0 : 0
 >B : E
 >E.A : E
->E : typeof E
+>E : 类为 E
 >A : E
 
 class P { private m() { this.m; } }
 >P : P
->m : () => void
->this.m : () => void
->this : this
->m : () => void
+>m : () => 无值
+>this.m : () => 无值
+>this : 本体
+>m : () => 无值
 
 P;
->P : typeof P
+>P : 类为 P
 
 // Does not detect mutual recursion.
 function g() { D; }
->g : () => void
->D : typeof D
+>g : () => 无值
+>D : 类为 D
 
 class D { m() { g; } }
 >D : D
->m : () => void
->g : () => void
+>m : () => 无值
+>g : () => 无值
 

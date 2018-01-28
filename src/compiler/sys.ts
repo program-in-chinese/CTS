@@ -39,6 +39,7 @@ namespace ts {
         write(s: string): void;
         readFile(path: string, encoding?: string): string | undefined;
         writeFile(path: string, data: string, writeByteOrderMark?: boolean): void;
+        追写文件?(path: string, data: string | Buffer): void;
         fileExists(path: string): boolean;
         directoryExists(path: string): boolean;
         createDirectory(path: string): void;
@@ -115,6 +116,7 @@ namespace ts {
         createDirectory(path: string): void;
         resolvePath(path: string): string;
         readFile(path: string): string | undefined;
+        appendFileSync(path: string, data: string | Buffer): void;
         writeFile(path: string, contents: string): void;
         getDirectories(path: string): string[];
         readDirectory(path: string, extensions?: ReadonlyArray<string>, basePaths?: ReadonlyArray<string>, excludeEx?: string, includeFileEx?: string, includeDirEx?: string): string[];
@@ -433,6 +435,10 @@ namespace ts {
                 return filter<string>(_fs.readdirSync(path), dir => fileSystemEntryExists(combinePaths(path, dir), FileSystemEntryKind.Directory));
             }
 
+            function 追写文件(path: string, data: string | Buffer) {
+                _fs.appendFileSync(path, data)
+            }
+
             const nodeSystem: System = {
                 args: process.argv.slice(2),
                 newLine: _os.EOL,
@@ -441,6 +447,7 @@ namespace ts {
                     process.stdout.write(s);
                 },
                 readFile,
+                追写文件,
                 writeFile,
                 watchFile: (fileName, callback, pollingInterval) => {
                     if (useNonPollingWatchers) {
@@ -545,6 +552,9 @@ namespace ts {
                 readFile(path: string, _encoding?: string) {
                     // encoding is automatically handled by the implementation in ChakraHost
                     return ChakraHost.readFile(path);
+                },
+                追写文件(path: string, data: string | Buffer){
+                    ChakraHost.appendFileSync(path,data)
                 },
                 writeFile(path: string, data: string, writeByteOrderMark?: boolean) {
                     // If a BOM is required, emit one

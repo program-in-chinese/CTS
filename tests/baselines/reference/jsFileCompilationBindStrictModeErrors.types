@@ -3,53 +3,53 @@
 >"use strict" : "use strict"
 
 var a = {
->a : { [x: string]: any; a: number; b: number; }
->{    a: "hello", // error    b: 10,    a: 10 // error} : { [x: string]: any; a: number; b: number; }
+>a : { [x: 文字]: 任意; a: 数字; b: 数字; }
+>{    a: "hello", // error    b: 10,    a: 10 // error} : { [x: 文字]: 任意; a: 数字; b: 数字; }
 
     a: "hello", // error
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
     b: 10,
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >10 : 10
 
     a: 10 // error
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >10 : 10
 
 };
 var let = 10; // error
->let : number
+>let : 数字
 >类型别名 :=> 数字
 >10 : 10
 
 delete a; // error
->delete a : boolean
+>delete a : 真假
 >类型别名 :=> 真假
->a : { [x: string]: any; a: number; b: number; }
+>a : { [x: 文字]: 任意; a: 数字; b: 数字; }
 
 try {
 } catch (eval) { // error
->eval : any
+>eval : 任意
 >类型别名 :=> 任意
 }
 function arguments() { // error
->arguments : () => void
+>arguments : () => 无值
 }
 
 with (a) {
->a : { [x: string]: any; a: number; b: number; }
+>a : { [x: 文字]: 任意; a: 数字; b: 数字; }
 
     b = 10;
->b = 10 : any
+>b = 10 : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->10 : any
+>10 : 任意
 >类型别名 :=> 任意
 }
 
@@ -59,15 +59,15 @@ class c {
 >c : c
 
     a(eval) { //error
->a : (eval: any) => void
->eval : any
+>a : (eval: 任意) => 无值
+>eval : 任意
 >类型别名 :=> 任意
     }
     method() {
->method : () => void
+>method : () => 无值
 
         var let = 10; // error
->let : number
+>let : 数字
 >类型别名 :=> 数字
 >10 : 10
     }
@@ -75,13 +75,13 @@ class c {
 
 === tests/cases/compiler/c.js ===
 export var let = 10; // external modules are automatically in strict mode
->let : number
+>let : 数字
 >类型别名 :=> 数字
 >10 : 10
 
 var eval = function () {
->eval : () => void
->function () {} : () => void
+>eval : () => 无值
+>function () {} : () => 无值
 
 };
 
@@ -90,7 +90,7 @@ var eval = function () {
 >"use strict" : "use strict"
 
 var x = 009; // error
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >00 : 0
 >9 : 9

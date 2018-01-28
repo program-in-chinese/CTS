@@ -6,12 +6,12 @@ interface I1<T> {
 >T : T
 
     commonMethodType(a: string): string;
->commonMethodType : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     commonPropertyType: string;
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 
     commonMethodWithTypeParameter(a: T): T;
@@ -21,12 +21,12 @@ interface I1<T> {
 >T : T
 
     methodOnlyInI1(a: string): string;
->methodOnlyInI1 : (a: string) => string
->a : string
+>methodOnlyInI1 : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI1: string;
->propertyOnlyInI1 : string
+>propertyOnlyInI1 : 文字
 >类型别名 :=> 文字
 }
 interface I2<T> {
@@ -34,12 +34,12 @@ interface I2<T> {
 >T : T
 
     commonMethodType(a: string): string;
->commonMethodType : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     commonPropertyType: string;
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 
     commonMethodWithTypeParameter(a: T): T;
@@ -49,303 +49,303 @@ interface I2<T> {
 >T : T
 
     methodOnlyInI2(a: string): string;
->methodOnlyInI2 : (a: string) => string
->a : string
+>methodOnlyInI2 : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI2: string;
->propertyOnlyInI2 : string
+>propertyOnlyInI2 : 文字
 >类型别名 :=> 文字
 }
 
 // Let S be the set of types in U that has a property P.
 // If S is not empty, U has a property P of a union type of the types of P from each type in S.
 var i1: I1<number>;
->i1 : I1<number>
+>i1 : I1<数字>
 >I1 : I1<T>
 
 var i2: I2<number>;
->i2 : I2<number>
+>i2 : I2<数字>
 >I2 : I2<T>
 
 var i1Ori2: I1<number> | I2<number> = i1;
->i1Ori2 : I1<number> | I2<number>
+>i1Ori2 : I1<数字> | I2<数字>
 >I1 : I1<T>
 >I2 : I2<T>
->i1 : I1<number>
+>i1 : I1<数字>
 
 var i1Ori2: I1<number> | I2<number> = i2;
->i1Ori2 : I1<number> | I2<number>
+>i1Ori2 : I1<数字> | I2<数字>
 >I1 : I1<T>
 >I2 : I2<T>
->i2 : I2<number>
+>i2 : I2<数字>
 
 var i1Ori2: I1<number> | I2<number> = { // Like i1
->i1Ori2 : I1<number> | I2<number>
+>i1Ori2 : I1<数字> | I2<数字>
 >I1 : I1<T>
 >I2 : I2<T>
->{ // Like i1    commonPropertyType: "hello",    commonMethodType: a=> a,    commonMethodWithTypeParameter: a => a,    methodOnlyInI1: a => a,    propertyOnlyInI1: "Hello",} : { commonPropertyType: string; commonMethodType: (a: string) => string; commonMethodWithTypeParameter: (a: number) => number; methodOnlyInI1: (a: string) => string; propertyOnlyInI1: string; }
+>{ // Like i1    commonPropertyType: "hello",    commonMethodType: a=> a,    commonMethodWithTypeParameter: a => a,    methodOnlyInI1: a => a,    propertyOnlyInI1: "Hello",} : { commonPropertyType: 文字; commonMethodType: (a: 文字) => 文字; commonMethodWithTypeParameter: (a: 数字) => 数字; methodOnlyInI1: (a: 文字) => 文字; propertyOnlyInI1: 文字; }
 
     commonPropertyType: "hello",
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
     commonMethodType: a=> a,
->commonMethodType : (a: string) => string
->a=> a : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a=> a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     commonMethodWithTypeParameter: a => a,
->commonMethodWithTypeParameter : (a: number) => number
->a => a : (a: number) => number
->a : number
+>commonMethodWithTypeParameter : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     methodOnlyInI1: a => a,
->methodOnlyInI1 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI1 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI1: "Hello",
->propertyOnlyInI1 : string
+>propertyOnlyInI1 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
 };
 var i1Ori2: I1<number> | I2<number> = { // Like i2
->i1Ori2 : I1<number> | I2<number>
+>i1Ori2 : I1<数字> | I2<数字>
 >I1 : I1<T>
 >I2 : I2<T>
->{ // Like i2    commonPropertyType: "hello",    commonMethodType: a=> a,    commonMethodWithTypeParameter: a => a,    methodOnlyInI2: a => a,    propertyOnlyInI2: "Hello",} : { commonPropertyType: string; commonMethodType: (a: string) => string; commonMethodWithTypeParameter: (a: number) => number; methodOnlyInI2: (a: string) => string; propertyOnlyInI2: string; }
+>{ // Like i2    commonPropertyType: "hello",    commonMethodType: a=> a,    commonMethodWithTypeParameter: a => a,    methodOnlyInI2: a => a,    propertyOnlyInI2: "Hello",} : { commonPropertyType: 文字; commonMethodType: (a: 文字) => 文字; commonMethodWithTypeParameter: (a: 数字) => 数字; methodOnlyInI2: (a: 文字) => 文字; propertyOnlyInI2: 文字; }
 
     commonPropertyType: "hello",
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
     commonMethodType: a=> a,
->commonMethodType : (a: string) => string
->a=> a : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a=> a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     commonMethodWithTypeParameter: a => a,
->commonMethodWithTypeParameter : (a: number) => number
->a => a : (a: number) => number
->a : number
+>commonMethodWithTypeParameter : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     methodOnlyInI2: a => a,
->methodOnlyInI2 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI2 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI2: "Hello",
->propertyOnlyInI2 : string
+>propertyOnlyInI2 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
 };
 var i1Ori2: I1<number> | I2<number> = { // Like i1 and i2 both
->i1Ori2 : I1<number> | I2<number>
+>i1Ori2 : I1<数字> | I2<数字>
 >I1 : I1<T>
 >I2 : I2<T>
->{ // Like i1 and i2 both    commonPropertyType: "hello",    commonMethodType: a=> a,    commonMethodWithTypeParameter: a => a,    methodOnlyInI1: a => a,    propertyOnlyInI1: "Hello",    methodOnlyInI2: a => a,    propertyOnlyInI2: "Hello",} : { commonPropertyType: string; commonMethodType: (a: string) => string; commonMethodWithTypeParameter: (a: number) => number; methodOnlyInI1: (a: string) => string; propertyOnlyInI1: string; methodOnlyInI2: (a: string) => string; propertyOnlyInI2: string; }
+>{ // Like i1 and i2 both    commonPropertyType: "hello",    commonMethodType: a=> a,    commonMethodWithTypeParameter: a => a,    methodOnlyInI1: a => a,    propertyOnlyInI1: "Hello",    methodOnlyInI2: a => a,    propertyOnlyInI2: "Hello",} : { commonPropertyType: 文字; commonMethodType: (a: 文字) => 文字; commonMethodWithTypeParameter: (a: 数字) => 数字; methodOnlyInI1: (a: 文字) => 文字; propertyOnlyInI1: 文字; methodOnlyInI2: (a: 文字) => 文字; propertyOnlyInI2: 文字; }
 
     commonPropertyType: "hello",
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
     commonMethodType: a=> a,
->commonMethodType : (a: string) => string
->a=> a : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a=> a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     commonMethodWithTypeParameter: a => a,
->commonMethodWithTypeParameter : (a: number) => number
->a => a : (a: number) => number
->a : number
+>commonMethodWithTypeParameter : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     methodOnlyInI1: a => a,
->methodOnlyInI1 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI1 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI1: "Hello",
->propertyOnlyInI1 : string
+>propertyOnlyInI1 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
     methodOnlyInI2: a => a,
->methodOnlyInI2 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI2 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     propertyOnlyInI2: "Hello",
->propertyOnlyInI2 : string
+>propertyOnlyInI2 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
 };
 
 var arrayI1OrI2: Array<I1<number> | I2<number>> = [i1, i2, { // Like i1
->arrayI1OrI2 : (I1<number> | I2<number>)[]
+>arrayI1OrI2 : (I1<数字> | I2<数字>)[]
 >Array : T[]
 >I1 : I1<T>
 >I2 : I2<T>
->[i1, i2, { // Like i1        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",    },    { // Like i2        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    }, { // Like i1 and i2 both        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    }] : (I1<number> | I2<number> | { commonPropertyType: string; commonMethodType: (a: string) => string; commonMethodWithTypeParameter: (a: number) => number; methodOnlyInI1: (a: string) => string; propertyOnlyInI1: string; methodOnlyInI2: (a: string) => string; propertyOnlyInI2: string; })[]
->i1 : I1<number>
->i2 : I2<number>
->{ // Like i1        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",    } : { commonPropertyType: string; commonMethodType: (a: string) => string; commonMethodWithTypeParameter: (a: number) => number; methodOnlyInI1: (a: string) => string; propertyOnlyInI1: string; }
+>[i1, i2, { // Like i1        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",    },    { // Like i2        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    }, { // Like i1 and i2 both        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    }] : (I1<数字> | I2<数字> | { commonPropertyType: 文字; commonMethodType: (a: 文字) => 文字; commonMethodWithTypeParameter: (a: 数字) => 数字; methodOnlyInI1: (a: 文字) => 文字; propertyOnlyInI1: 文字; methodOnlyInI2: (a: 文字) => 文字; propertyOnlyInI2: 文字; })[]
+>i1 : I1<数字>
+>i2 : I2<数字>
+>{ // Like i1        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",    } : { commonPropertyType: 文字; commonMethodType: (a: 文字) => 文字; commonMethodWithTypeParameter: (a: 数字) => 数字; methodOnlyInI1: (a: 文字) => 文字; propertyOnlyInI1: 文字; }
 
         commonPropertyType: "hello",
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
         commonMethodType: a=> a,
->commonMethodType : (a: string) => string
->a=> a : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a=> a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         commonMethodWithTypeParameter: a => a,
->commonMethodWithTypeParameter : (a: number) => number
->a => a : (a: number) => number
->a : number
+>commonMethodWithTypeParameter : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
         methodOnlyInI1: a => a,
->methodOnlyInI1 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI1 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         propertyOnlyInI1: "Hello",
->propertyOnlyInI1 : string
+>propertyOnlyInI1 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
     },
     { // Like i2
->{ // Like i2        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    } : { commonPropertyType: string; commonMethodType: (a: string) => string; commonMethodWithTypeParameter: (a: number) => number; methodOnlyInI2: (a: string) => string; propertyOnlyInI2: string; }
+>{ // Like i2        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    } : { commonPropertyType: 文字; commonMethodType: (a: 文字) => 文字; commonMethodWithTypeParameter: (a: 数字) => 数字; methodOnlyInI2: (a: 文字) => 文字; propertyOnlyInI2: 文字; }
 
         commonPropertyType: "hello",
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
         commonMethodType: a=> a,
->commonMethodType : (a: string) => string
->a=> a : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a=> a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         commonMethodWithTypeParameter: a => a,
->commonMethodWithTypeParameter : (a: number) => number
->a => a : (a: number) => number
->a : number
+>commonMethodWithTypeParameter : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
         methodOnlyInI2: a => a,
->methodOnlyInI2 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI2 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         propertyOnlyInI2: "Hello",
->propertyOnlyInI2 : string
+>propertyOnlyInI2 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
     }, { // Like i1 and i2 both
->{ // Like i1 and i2 both        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    } : { commonPropertyType: string; commonMethodType: (a: string) => string; commonMethodWithTypeParameter: (a: number) => number; methodOnlyInI1: (a: string) => string; propertyOnlyInI1: string; methodOnlyInI2: (a: string) => string; propertyOnlyInI2: string; }
+>{ // Like i1 and i2 both        commonPropertyType: "hello",        commonMethodType: a=> a,        commonMethodWithTypeParameter: a => a,        methodOnlyInI1: a => a,        propertyOnlyInI1: "Hello",        methodOnlyInI2: a => a,        propertyOnlyInI2: "Hello",    } : { commonPropertyType: 文字; commonMethodType: (a: 文字) => 文字; commonMethodWithTypeParameter: (a: 数字) => 数字; methodOnlyInI1: (a: 文字) => 文字; propertyOnlyInI1: 文字; methodOnlyInI2: (a: 文字) => 文字; propertyOnlyInI2: 文字; }
 
         commonPropertyType: "hello",
->commonPropertyType : string
+>commonPropertyType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
         commonMethodType: a=> a,
->commonMethodType : (a: string) => string
->a=> a : (a: string) => string
->a : string
+>commonMethodType : (a: 文字) => 文字
+>a=> a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         commonMethodWithTypeParameter: a => a,
->commonMethodWithTypeParameter : (a: number) => number
->a => a : (a: number) => number
->a : number
+>commonMethodWithTypeParameter : (a: 数字) => 数字
+>a => a : (a: 数字) => 数字
+>a : 数字
 >类型别名 :=> 数字
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
         methodOnlyInI1: a => a,
->methodOnlyInI1 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI1 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         propertyOnlyInI1: "Hello",
->propertyOnlyInI1 : string
+>propertyOnlyInI1 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
         methodOnlyInI2: a => a,
->methodOnlyInI2 : (a: string) => string
->a => a : (a: string) => string
->a : string
+>methodOnlyInI2 : (a: 文字) => 文字
+>a => a : (a: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
         propertyOnlyInI2: "Hello",
->propertyOnlyInI2 : string
+>propertyOnlyInI2 : 文字
 >类型别名 :=> 文字
 >"Hello" : "Hello"
 
@@ -355,28 +355,28 @@ interface I11 {
 >I11 : I11
 
     commonMethodDifferentReturnType(a: string, b: number): string;
->commonMethodDifferentReturnType : (a: string, b: number) => string
->a : string
+>commonMethodDifferentReturnType : (a: 文字, b: 数字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     commonPropertyDifferentType: string;
->commonPropertyDifferentType : string
+>commonPropertyDifferentType : 文字
 >类型别名 :=> 文字
 }
 interface I21 {
 >I21 : I21
 
     commonMethodDifferentReturnType(a: string, b: number): number;
->commonMethodDifferentReturnType : (a: string, b: number) => number
->a : string
+>commonMethodDifferentReturnType : (a: 文字, b: 数字) => 数字
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     commonPropertyDifferentType: number;
->commonPropertyDifferentType : number
+>commonPropertyDifferentType : 数字
 >类型别名 :=> 数字
 }
 var i11: I11;
@@ -403,36 +403,36 @@ var i11Ori21: I11 | I21 = {
 >i11Ori21 : I11 | I21
 >I11 : I11
 >I21 : I21
->{     // Like i1    commonMethodDifferentReturnType: (a, b) => {        var z = a.charAt(b);        return z;      },    commonPropertyDifferentType: "hello",  } : { commonMethodDifferentReturnType: (a: string, b: number) => string; commonPropertyDifferentType: string; }
+>{     // Like i1    commonMethodDifferentReturnType: (a, b) => {        var z = a.charAt(b);        return z;      },    commonPropertyDifferentType: "hello",  } : { commonMethodDifferentReturnType: (a: 文字, b: 数字) => 文字; commonPropertyDifferentType: 文字; }
 
     // Like i1
     commonMethodDifferentReturnType: (a, b) => {
->commonMethodDifferentReturnType : (a: string, b: number) => string
->(a, b) => {        var z = a.charAt(b);        return z;      } : (a: string, b: number) => string
->a : string
+>commonMethodDifferentReturnType : (a: 文字, b: 数字) => 文字
+>(a, b) => {        var z = a.charAt(b);        return z;      } : (a: 文字, b: 数字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
         var z = a.charAt(b);
->z : string
+>z : 文字
 >类型别名 :=> 文字
->a.charAt(b) : string
+>a.charAt(b) : 文字
 >类型别名 :=> 文字
->a.charAt : (pos: number) => string
->a : string
+>a.charAt : (pos: 数字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->charAt : (pos: number) => string
->b : number
+>charAt : (pos: 数字) => 文字
+>b : 数字
 >类型别名 :=> 数字
 
         return z;  
->z : string
+>z : 文字
 >类型别名 :=> 文字
 
     },
     commonPropertyDifferentType: "hello",  
->commonPropertyDifferentType : string
+>commonPropertyDifferentType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
@@ -441,36 +441,36 @@ var i11Ori21: I11 | I21 = {
 >i11Ori21 : I11 | I21
 >I11 : I11
 >I21 : I21
->{     // Like i2    commonMethodDifferentReturnType: (a, b) => {        var z = a.charCodeAt(b);        return z;    },    commonPropertyDifferentType: 10,} : { commonMethodDifferentReturnType: (a: string, b: number) => number; commonPropertyDifferentType: number; }
+>{     // Like i2    commonMethodDifferentReturnType: (a, b) => {        var z = a.charCodeAt(b);        return z;    },    commonPropertyDifferentType: 10,} : { commonMethodDifferentReturnType: (a: 文字, b: 数字) => 数字; commonPropertyDifferentType: 数字; }
 
     // Like i2
     commonMethodDifferentReturnType: (a, b) => {
->commonMethodDifferentReturnType : (a: string, b: number) => number
->(a, b) => {        var z = a.charCodeAt(b);        return z;    } : (a: string, b: number) => number
->a : string
+>commonMethodDifferentReturnType : (a: 文字, b: 数字) => 数字
+>(a, b) => {        var z = a.charCodeAt(b);        return z;    } : (a: 文字, b: 数字) => 数字
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
         var z = a.charCodeAt(b);
->z : number
+>z : 数字
 >类型别名 :=> 数字
->a.charCodeAt(b) : number
+>a.charCodeAt(b) : 数字
 >类型别名 :=> 数字
->a.charCodeAt : (index: number) => number
->a : string
+>a.charCodeAt : (index: 数字) => 数字
+>a : 文字
 >类型别名 :=> 文字
->charCodeAt : (index: number) => number
->b : number
+>charCodeAt : (index: 数字) => 数字
+>b : 数字
 >类型别名 :=> 数字
 
         return z;
->z : number
+>z : 数字
 >类型别名 :=> 数字
 
     },
     commonPropertyDifferentType: 10,
->commonPropertyDifferentType : number
+>commonPropertyDifferentType : 数字
 >类型别名 :=> 数字
 >10 : 10
 
@@ -486,70 +486,70 @@ var arrayOrI11OrI21: Array<I11 | I21> = [i11, i21, i11 || i21, {
 >i11 || i21 : I11 | I21
 >i11 : I11
 >i21 : I21
->{         // Like i1        commonMethodDifferentReturnType: (a, b) => {            var z = a.charAt(b);            return z;        },        commonPropertyDifferentType: "hello",    } : { commonMethodDifferentReturnType: (a: string, b: number) => string; commonPropertyDifferentType: string; }
+>{         // Like i1        commonMethodDifferentReturnType: (a, b) => {            var z = a.charAt(b);            return z;        },        commonPropertyDifferentType: "hello",    } : { commonMethodDifferentReturnType: (a: 文字, b: 数字) => 文字; commonPropertyDifferentType: 文字; }
 
         // Like i1
         commonMethodDifferentReturnType: (a, b) => {
->commonMethodDifferentReturnType : (a: string, b: number) => string
->(a, b) => {            var z = a.charAt(b);            return z;        } : (a: string, b: number) => string
->a : string
+>commonMethodDifferentReturnType : (a: 文字, b: 数字) => 文字
+>(a, b) => {            var z = a.charAt(b);            return z;        } : (a: 文字, b: 数字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
             var z = a.charAt(b);
->z : string
+>z : 文字
 >类型别名 :=> 文字
->a.charAt(b) : string
+>a.charAt(b) : 文字
 >类型别名 :=> 文字
->a.charAt : (pos: number) => string
->a : string
+>a.charAt : (pos: 数字) => 文字
+>a : 文字
 >类型别名 :=> 文字
->charAt : (pos: number) => string
->b : number
+>charAt : (pos: 数字) => 文字
+>b : 数字
 >类型别名 :=> 数字
 
             return z;
->z : string
+>z : 文字
 >类型别名 :=> 文字
 
         },
         commonPropertyDifferentType: "hello",
->commonPropertyDifferentType : string
+>commonPropertyDifferentType : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
     }, { 
->{         // Like i2        commonMethodDifferentReturnType: (a, b) => {            var z = a.charCodeAt(b);            return z;        },        commonPropertyDifferentType: 10,    } : { commonMethodDifferentReturnType: (a: string, b: number) => number; commonPropertyDifferentType: number; }
+>{         // Like i2        commonMethodDifferentReturnType: (a, b) => {            var z = a.charCodeAt(b);            return z;        },        commonPropertyDifferentType: 10,    } : { commonMethodDifferentReturnType: (a: 文字, b: 数字) => 数字; commonPropertyDifferentType: 数字; }
 
         // Like i2
         commonMethodDifferentReturnType: (a, b) => {
->commonMethodDifferentReturnType : (a: string, b: number) => number
->(a, b) => {            var z = a.charCodeAt(b);            return z;        } : (a: string, b: number) => number
->a : string
+>commonMethodDifferentReturnType : (a: 文字, b: 数字) => 数字
+>(a, b) => {            var z = a.charCodeAt(b);            return z;        } : (a: 文字, b: 数字) => 数字
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
             var z = a.charCodeAt(b);
->z : number
+>z : 数字
 >类型别名 :=> 数字
->a.charCodeAt(b) : number
+>a.charCodeAt(b) : 数字
 >类型别名 :=> 数字
->a.charCodeAt : (index: number) => number
->a : string
+>a.charCodeAt : (index: 数字) => 数字
+>a : 文字
 >类型别名 :=> 文字
->charCodeAt : (index: number) => number
->b : number
+>charCodeAt : (index: 数字) => 数字
+>b : 数字
 >类型别名 :=> 数字
 
             return z;
->z : number
+>z : 数字
 >类型别名 :=> 数字
 
         },
         commonPropertyDifferentType: 10,
->commonPropertyDifferentType : number
+>commonPropertyDifferentType : 数字
 >类型别名 :=> 数字
 >10 : 10
 

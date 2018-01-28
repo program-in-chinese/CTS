@@ -1,0 +1,66 @@
+tests/cases/conformance/es6/destructuring/destructuringParameterDeclaration3ES6.ts(16,13): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/es6/destructuring/destructuringParameterDeclaration3ES6.ts(16,20): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/es6/destructuring/destructuringParameterDeclaration3ES6.ts(16,21): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/es6/destructuring/destructuringParameterDeclaration3ES6.ts(18,14): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/es6/destructuring/destructuringParameterDeclaration3ES6.ts(23,8): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/conformance/es6/destructuring/destructuringParameterDeclaration3ES6.ts(24,7): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+
+
+==== tests/cases/conformance/es6/destructuring/destructuringParameterDeclaration3ES6.ts (6 errors) ====
+    // If the parameter is a rest parameter, the parameter type is any[]
+    // A type annotation for a rest parameter must denote an array type.
+    
+    // RestParameter:
+    //     ...   Identifier   TypeAnnotation(opt)
+    
+    type arrayString = Array<String>
+    type someArray = Array<String> | number[];
+    type stringOrNumArray = Array<String|Number>;
+    
+    function a1(...x: (number|string)[]) { }
+    function a2(...a) { }
+    function a3(...a: Array<String>) { }
+    function a4(...a: arrayString) { }
+    function a5(...a: stringOrNumArray) { }
+    function a9([a, b, [[c]]]) { }
+                ~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                       ~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+                        ~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    function a10([a, b, [[c]], ...x]) { }
+    function a11([a, b, c, ...x]: number[]) { }
+                 ~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    
+    
+    var array = [1, 2, 3];
+    var array2 = [true, false, "hello"];
+    a2([...array]);
+           ~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    a1(...array);
+          ~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+    
+    a9([1, 2, [["string"]], false, true]);   // Parameter type is [any, any, [[any]]]
+    
+    a10([1, 2, [["string"]], false, true]);   // Parameter type is any[]
+    a10([1, 2, 3, false, true]);              // Parameter type is any[]
+    a10([1, 2]);                              // Parameter type is any[]
+    a11([1, 2]);                              // Parameter type is number[]
+    
+    // Rest parameter with generic
+    function foo<T>(...a: T[]) { }
+    foo<number|string>("hello", 1, 2);
+    foo("hello", "world");
+    
+    enum E { a, b }
+    const enum E1 { a, b }
+    function foo1<T extends Number>(...a: T[]) { }
+    foo1(1, 2, 3, E.a);
+    foo1(1, 2, 3, E1.a, E.b);
+    
+    
+    

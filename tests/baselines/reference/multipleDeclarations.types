@@ -1,39 +1,39 @@
 === tests/cases/conformance/salsa/input.js ===
 function C() {
->C : () => void
+>C : () => 无值
 
     this.m = null;
->this.m = null : null
+>this.m = null : 空值
 >类型别名 :=> 空值
->this.m : any
+>this.m : 任意
 >类型别名 :=> 任意
->this : any
+>this : 任意
 >类型别名 :=> 任意
->m : any
+>m : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 C.prototype.m = function() {
->C.prototype.m = function() {    this.nothing();} : () => void
->C.prototype.m : any
+>C.prototype.m = function() {    this.nothing();} : () => 无值
+>C.prototype.m : 任意
 >类型别名 :=> 任意
->C.prototype : any
+>C.prototype : 任意
 >类型别名 :=> 任意
->C : () => void
->prototype : any
+>C : () => 无值
+>prototype : 任意
 >类型别名 :=> 任意
->m : any
+>m : 任意
 >类型别名 :=> 任意
->function() {    this.nothing();} : () => void
+>function() {    this.nothing();} : () => 无值
 
     this.nothing();
->this.nothing() : any
+>this.nothing() : 任意
 >类型别名 :=> 任意
->this.nothing : any
+>this.nothing : 任意
 >类型别名 :=> 任意
->this : { m: () => void; }
->nothing : any
+>this : { m: () => 无值; }
+>nothing : 任意
 >类型别名 :=> 任意
 }
 class X {
@@ -41,136 +41,136 @@ class X {
 
     constructor() {
         this.m = this.m.bind(this);
->this.m = this.m.bind(this) : any
+>this.m = this.m.bind(this) : 任意
 >类型别名 :=> 任意
->this.m : () => void
->this : this
->m : () => void
->this.m.bind(this) : any
+>this.m : () => 无值
+>this : 本体
+>m : () => 无值
+>this.m.bind(this) : 任意
 >类型别名 :=> 任意
->this.m.bind : (this: Function, thisArg: any, ...argArray: any[]) => any
->this.m : () => void
->this : this
->m : () => void
->bind : (this: Function, thisArg: any, ...argArray: any[]) => any
->this : this
+>this.m.bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
+>this.m : () => 无值
+>this : 本体
+>m : () => 无值
+>bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
+>this : 本体
 
         this.mistake = 'frankly, complete nonsense';
 >this.mistake = 'frankly, complete nonsense' : "frankly, complete nonsense"
->this.mistake : any
+>this.mistake : 任意
 >类型别名 :=> 任意
->this : this
->mistake : any
+>this : 本体
+>mistake : 任意
 >类型别名 :=> 任意
 >'frankly, complete nonsense' : "frankly, complete nonsense"
     }
     m() {
->m : () => void
+>m : () => 无值
     }
     mistake() {
->mistake : any
+>mistake : 任意
 >类型别名 :=> 任意
     }
 }
 let x = new X();
 >x : X
 >new X() : X
->X : typeof X
+>X : 类为 X
 
 X.prototype.mistake = false;
->X.prototype.mistake = false : false
+>X.prototype.mistake = false : 为假
 >类型别名 :=> 为假
->X.prototype.mistake : any
+>X.prototype.mistake : 任意
 >类型别名 :=> 任意
 >X.prototype : X
->X : typeof X
+>X : 类为 X
 >prototype : X
->mistake : any
+>mistake : 任意
 >类型别名 :=> 任意
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 x.m();
->x.m() : void
+>x.m() : 无值
 >类型别名 :=> 无值
->x.m : () => void
+>x.m : () => 无值
 >x : X
->m : () => void
+>m : () => 无值
 
 x.mistake;
->x.mistake : any
+>x.mistake : 任意
 >类型别名 :=> 任意
 >x : X
->mistake : any
+>mistake : 任意
 >类型别名 :=> 任意
 
 class Y {
 >Y : Y
 
     mistake() {
->mistake : any
+>mistake : 任意
 >类型别名 :=> 任意
     }
     m() {
->m : () => void
+>m : () => 无值
     }
     constructor() {
         this.m = this.m.bind(this);
->this.m = this.m.bind(this) : any
+>this.m = this.m.bind(this) : 任意
 >类型别名 :=> 任意
->this.m : () => void
->this : this
->m : () => void
->this.m.bind(this) : any
+>this.m : () => 无值
+>this : 本体
+>m : () => 无值
+>this.m.bind(this) : 任意
 >类型别名 :=> 任意
->this.m.bind : (this: Function, thisArg: any, ...argArray: any[]) => any
->this.m : () => void
->this : this
->m : () => void
->bind : (this: Function, thisArg: any, ...argArray: any[]) => any
->this : this
+>this.m.bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
+>this.m : () => 无值
+>this : 本体
+>m : () => 无值
+>bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
+>this : 本体
 
         this.mistake = 'even more nonsense';
 >this.mistake = 'even more nonsense' : "even more nonsense"
->this.mistake : any
+>this.mistake : 任意
 >类型别名 :=> 任意
->this : this
->mistake : any
+>this : 本体
+>mistake : 任意
 >类型别名 :=> 任意
 >'even more nonsense' : "even more nonsense"
     }
 }
 Y.prototype.mistake = true;
->Y.prototype.mistake = true : true
+>Y.prototype.mistake = true : 为真
 >类型别名 :=> 为真
->Y.prototype.mistake : any
+>Y.prototype.mistake : 任意
 >类型别名 :=> 任意
 >Y.prototype : Y
->Y : typeof Y
+>Y : 类为 Y
 >prototype : Y
->mistake : any
+>mistake : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 let y = new Y();
 >y : Y
 >new Y() : Y
->Y : typeof Y
+>Y : 类为 Y
 
 y.m();
->y.m() : void
+>y.m() : 无值
 >类型别名 :=> 无值
->y.m : () => void
+>y.m : () => 无值
 >y : Y
->m : () => void
+>m : () => 无值
 
 y.mistake();
->y.mistake() : any
+>y.mistake() : 任意
 >类型别名 :=> 任意
->y.mistake : any
+>y.mistake : 任意
 >类型别名 :=> 任意
 >y : Y
->mistake : any
+>mistake : 任意
 >类型别名 :=> 任意
 

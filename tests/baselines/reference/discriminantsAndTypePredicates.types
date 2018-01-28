@@ -10,14 +10,14 @@ interface B { type: 'B' }
 >type : "B"
 
 function isA(x: A | B): x is A { return x.type === 'A'; }
->isA : (x: A | B) => x is A
+>isA : (x: A | B) => x 作为 A
 >x : A | B
 >A : A
 >B : B
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >A : A
->x.type === 'A' : boolean
+>x.type === 'A' : 真假
 >类型别名 :=> 真假
 >x.type : "A" | "B"
 >x : A | B
@@ -25,14 +25,14 @@ function isA(x: A | B): x is A { return x.type === 'A'; }
 >'A' : "A"
 
 function isB(x: A | B): x is B { return x.type === 'B'; }
->isB : (x: A | B) => x is B
+>isB : (x: A | B) => x 作为 B
 >x : A | B
 >A : A
 >B : B
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >B : B
->x.type === 'B' : boolean
+>x.type === 'B' : 真假
 >类型别名 :=> 真假
 >x.type : "A" | "B"
 >x : A | B
@@ -40,7 +40,7 @@ function isB(x: A | B): x is B { return x.type === 'B'; }
 >'B' : "B"
 
 function foo1(x: A | B): any {
->foo1 : (x: A | B) => any
+>foo1 : (x: A | B) => 任意
 >x : A | B
 >A : A
 >B : B
@@ -49,9 +49,9 @@ function foo1(x: A | B): any {
 >x : A | B
 
     if (isA(x)) {
->isA(x) : boolean
+>isA(x) : 真假
 >类型别名 :=> 真假
->isA : (x: A | B) => x is A
+>isA : (x: A | B) => x 作为 A
 >x : A | B
 
         return x;  // A
@@ -61,21 +61,21 @@ function foo1(x: A | B): any {
 >x : B
 
     if (isB(x)) {
->isB(x) : boolean
+>isB(x) : 真假
 >类型别名 :=> 真假
->isB : (x: A | B) => x is B
+>isB : (x: A | B) => x 作为 B
 >x : B
 
         return x;  // B
 >x : B
     }
     x;  // never
->x : never
+>x : 不及
 >类型别名 :=> 不及
 }
 
 function foo2(x: A | B): any {
->foo2 : (x: A | B) => any
+>foo2 : (x: A | B) => 任意
 >x : A | B
 >A : A
 >B : B
@@ -84,7 +84,7 @@ function foo2(x: A | B): any {
 >x : A | B
 
     if (x.type === 'A') {
->x.type === 'A' : boolean
+>x.type === 'A' : 真假
 >类型别名 :=> 真假
 >x.type : "A" | "B"
 >x : A | B
@@ -98,7 +98,7 @@ function foo2(x: A | B): any {
 >x : B
 
     if (x.type === 'B') {
->x.type === 'B' : boolean
+>x.type === 'B' : 真假
 >类型别名 :=> 真假
 >x.type : "B"
 >x : B
@@ -109,6 +109,6 @@ function foo2(x: A | B): any {
 >x : B
     }
     x;  // never
->x : never
+>x : 不及
 >类型别名 :=> 不及
 }

@@ -2,16 +2,16 @@
 // ! operator on any type
 
 var ANY: any;
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
 
 var ANY1;
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 var ANY2: any[] = ["", ""];
->ANY2 : any[]
->["", ""] : string[]
+>ANY2 : 任意[]
+>["", ""] : 文字[]
 >"" : ""
 >"" : ""
 
@@ -19,321 +19,321 @@ var obj: () => {}
 >obj : () => {}
 
 var obj1 = { x: "", y: () => { }};
->obj1 : { x: string; y: () => void; }
->{ x: "", y: () => { }} : { x: string; y: () => void; }
->x : string
+>obj1 : { x: 文字; y: () => 无值; }
+>{ x: "", y: () => { }} : { x: 文字; y: () => 无值; }
+>x : 文字
 >类型别名 :=> 文字
 >"" : ""
->y : () => void
->() => { } : () => void
+>y : () => 无值
+>() => { } : () => 无值
 
 function foo(): any {
->foo : () => any
+>foo : () => 任意
 
     var a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     return a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 }
 class A {
 >A : A
 
     public a: any;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     static foo() {
->foo : () => any
+>foo : () => 任意
 
         var a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
         return a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
     }
 }
 module M {
->M : typeof M
+>M : 类为 M
 
     export var n: any;
->n : any
+>n : 任意
 >类型别名 :=> 任意
 }
 var objA = new A();
 >objA : A
 >new A() : A
->A : typeof A
+>A : 类为 A
 
 // any type var
 var ResultIsBoolean1 = !ANY1;
->ResultIsBoolean1 : boolean
+>ResultIsBoolean1 : 真假
 >类型别名 :=> 真假
->!ANY1 : boolean
+>!ANY1 : 真假
 >类型别名 :=> 真假
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 var ResultIsBoolean2 = !ANY2;
->ResultIsBoolean2 : boolean
+>ResultIsBoolean2 : 真假
 >类型别名 :=> 真假
->!ANY2 : boolean
+>!ANY2 : 真假
 >类型别名 :=> 真假
->ANY2 : any[]
+>ANY2 : 任意[]
 
 var ResultIsBoolean3 = !A;
->ResultIsBoolean3 : boolean
+>ResultIsBoolean3 : 真假
 >类型别名 :=> 真假
->!A : boolean
+>!A : 真假
 >类型别名 :=> 真假
->A : typeof A
+>A : 类为 A
 
 var ResultIsBoolean4 = !M;
->ResultIsBoolean4 : boolean
+>ResultIsBoolean4 : 真假
 >类型别名 :=> 真假
->!M : boolean
+>!M : 真假
 >类型别名 :=> 真假
->M : typeof M
+>M : 类为 M
 
 var ResultIsBoolean5 = !obj;
->ResultIsBoolean5 : boolean
+>ResultIsBoolean5 : 真假
 >类型别名 :=> 真假
->!obj : boolean
+>!obj : 真假
 >类型别名 :=> 真假
 >obj : () => {}
 
 var ResultIsBoolean6 = !obj1;
->ResultIsBoolean6 : boolean
+>ResultIsBoolean6 : 真假
 >类型别名 :=> 真假
->!obj1 : boolean
+>!obj1 : 真假
 >类型别名 :=> 真假
->obj1 : { x: string; y: () => void; }
+>obj1 : { x: 文字; y: () => 无值; }
 
 // any type literal
 var ResultIsBoolean7 = !undefined;
->ResultIsBoolean7 : boolean
+>ResultIsBoolean7 : 真假
 >类型别名 :=> 真假
->!undefined : true
+>!undefined : 为真
 >类型别名 :=> 为真
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var ResultIsBoolean8 = !null;
->ResultIsBoolean8 : boolean
+>ResultIsBoolean8 : 真假
 >类型别名 :=> 真假
->!null : true
+>!null : 为真
 >类型别名 :=> 为真
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // any type expressions
 var ResultIsBoolean9 = !ANY2[0];
->ResultIsBoolean9 : boolean
+>ResultIsBoolean9 : 真假
 >类型别名 :=> 真假
->!ANY2[0] : boolean
+>!ANY2[0] : 真假
 >类型别名 :=> 真假
->ANY2[0] : any
+>ANY2[0] : 任意
 >类型别名 :=> 任意
->ANY2 : any[]
+>ANY2 : 任意[]
 >0 : 0
 
 var ResultIsBoolean10 = !obj1.x;
->ResultIsBoolean10 : boolean
+>ResultIsBoolean10 : 真假
 >类型别名 :=> 真假
->!obj1.x : boolean
+>!obj1.x : 真假
 >类型别名 :=> 真假
->obj1.x : string
+>obj1.x : 文字
 >类型别名 :=> 文字
->obj1 : { x: string; y: () => void; }
->x : string
+>obj1 : { x: 文字; y: () => 无值; }
+>x : 文字
 >类型别名 :=> 文字
 
 var ResultIsBoolean11 = !obj1.y;
->ResultIsBoolean11 : boolean
+>ResultIsBoolean11 : 真假
 >类型别名 :=> 真假
->!obj1.y : boolean
+>!obj1.y : 真假
 >类型别名 :=> 真假
->obj1.y : () => void
->obj1 : { x: string; y: () => void; }
->y : () => void
+>obj1.y : () => 无值
+>obj1 : { x: 文字; y: () => 无值; }
+>y : () => 无值
 
 var ResultIsBoolean12 = !objA.a;
->ResultIsBoolean12 : boolean
+>ResultIsBoolean12 : 真假
 >类型别名 :=> 真假
->!objA.a : boolean
+>!objA.a : 真假
 >类型别名 :=> 真假
->objA.a : any
+>objA.a : 任意
 >类型别名 :=> 任意
 >objA : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 var ResultIsBoolean13 = !M.n;
->ResultIsBoolean13 : boolean
+>ResultIsBoolean13 : 真假
 >类型别名 :=> 真假
->!M.n : boolean
+>!M.n : 真假
 >类型别名 :=> 真假
->M.n : any
+>M.n : 任意
 >类型别名 :=> 任意
->M : typeof M
->n : any
+>M : 类为 M
+>n : 任意
 >类型别名 :=> 任意
 
 var ResultIsBoolean14 = !foo();
->ResultIsBoolean14 : boolean
+>ResultIsBoolean14 : 真假
 >类型别名 :=> 真假
->!foo() : boolean
+>!foo() : 真假
 >类型别名 :=> 真假
->foo() : any
+>foo() : 任意
 >类型别名 :=> 任意
->foo : () => any
+>foo : () => 任意
 
 var ResultIsBoolean15 = !A.foo();
->ResultIsBoolean15 : boolean
+>ResultIsBoolean15 : 真假
 >类型别名 :=> 真假
->!A.foo() : boolean
+>!A.foo() : 真假
 >类型别名 :=> 真假
->A.foo() : any
+>A.foo() : 任意
 >类型别名 :=> 任意
->A.foo : () => any
->A : typeof A
->foo : () => any
+>A.foo : () => 任意
+>A : 类为 A
+>foo : () => 任意
 
 var ResultIsBoolean16 = !(ANY + ANY1);
->ResultIsBoolean16 : boolean
+>ResultIsBoolean16 : 真假
 >类型别名 :=> 真假
->!(ANY + ANY1) : boolean
+>!(ANY + ANY1) : 真假
 >类型别名 :=> 真假
->(ANY + ANY1) : any
+>(ANY + ANY1) : 任意
 >类型别名 :=> 任意
->ANY + ANY1 : any
+>ANY + ANY1 : 任意
 >类型别名 :=> 任意
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 var ResultIsBoolean17 = !(null + undefined);
->ResultIsBoolean17 : boolean
+>ResultIsBoolean17 : 真假
 >类型别名 :=> 真假
->!(null + undefined) : boolean
+>!(null + undefined) : 真假
 >类型别名 :=> 真假
->(null + undefined) : any
+>(null + undefined) : 任意
 >类型别名 :=> 任意
->null + undefined : any
+>null + undefined : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var ResultIsBoolean18 = !(null + null);
->ResultIsBoolean18 : boolean
+>ResultIsBoolean18 : 真假
 >类型别名 :=> 真假
->!(null + null) : boolean
+>!(null + null) : 真假
 >类型别名 :=> 真假
->(null + null) : any
+>(null + null) : 任意
 >类型别名 :=> 任意
->null + null : any
+>null + null : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var ResultIsBoolean19 = !(undefined + undefined);
->ResultIsBoolean19 : boolean
+>ResultIsBoolean19 : 真假
 >类型别名 :=> 真假
->!(undefined + undefined) : boolean
+>!(undefined + undefined) : 真假
 >类型别名 :=> 真假
->(undefined + undefined) : any
+>(undefined + undefined) : 任意
 >类型别名 :=> 任意
->undefined + undefined : any
+>undefined + undefined : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 // multiple ! operators
 var ResultIsBoolean20 = !!ANY;
->ResultIsBoolean20 : boolean
+>ResultIsBoolean20 : 真假
 >类型别名 :=> 真假
->!!ANY : boolean
+>!!ANY : 真假
 >类型别名 :=> 真假
->!ANY : boolean
+>!ANY : 真假
 >类型别名 :=> 真假
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
 
 var ResultIsBoolean21 = !!!(ANY + ANY1);
->ResultIsBoolean21 : boolean
+>ResultIsBoolean21 : 真假
 >类型别名 :=> 真假
->!!!(ANY + ANY1) : boolean
+>!!!(ANY + ANY1) : 真假
 >类型别名 :=> 真假
->!!(ANY + ANY1) : boolean
+>!!(ANY + ANY1) : 真假
 >类型别名 :=> 真假
->!(ANY + ANY1) : boolean
+>!(ANY + ANY1) : 真假
 >类型别名 :=> 真假
->(ANY + ANY1) : any
+>(ANY + ANY1) : 任意
 >类型别名 :=> 任意
->ANY + ANY1 : any
+>ANY + ANY1 : 任意
 >类型别名 :=> 任意
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 // miss assignment operators
 !ANY;
->!ANY : boolean
+>!ANY : 真假
 >类型别名 :=> 真假
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
 
 !ANY1;
->!ANY1 : boolean
+>!ANY1 : 真假
 >类型别名 :=> 真假
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 !ANY2[0];
->!ANY2[0] : boolean
+>!ANY2[0] : 真假
 >类型别名 :=> 真假
->ANY2[0] : any
+>ANY2[0] : 任意
 >类型别名 :=> 任意
->ANY2 : any[]
+>ANY2 : 任意[]
 >0 : 0
 
 !ANY, ANY1;
->!ANY, ANY1 : any
+>!ANY, ANY1 : 任意
 >类型别名 :=> 任意
->!ANY : boolean
+>!ANY : 真假
 >类型别名 :=> 真假
->ANY : any
+>ANY : 任意
 >类型别名 :=> 任意
->ANY1 : any
+>ANY1 : 任意
 >类型别名 :=> 任意
 
 !objA.a;
->!objA.a : boolean
+>!objA.a : 真假
 >类型别名 :=> 真假
->objA.a : any
+>objA.a : 任意
 >类型别名 :=> 任意
 >objA : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 !M.n;
->!M.n : boolean
+>!M.n : 真假
 >类型别名 :=> 真假
->M.n : any
+>M.n : 任意
 >类型别名 :=> 任意
->M : typeof M
->n : any
+>M : 类为 M
+>n : 任意
 >类型别名 :=> 任意
 

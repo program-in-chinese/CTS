@@ -4,17 +4,17 @@
 
 interface A { a: string }
 >A : A
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
 interface B { b: string }
 >B : B
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
 interface C { c: string }
 >C : C
->c : string
+>c : 文字
 >类型别名 :=> 文字
 
 var abc: A & B & C;
@@ -25,28 +25,28 @@ var abc: A & B & C;
 
 abc.a = "hello";
 >abc.a = "hello" : "hello"
->abc.a : string
+>abc.a : 文字
 >类型别名 :=> 文字
 >abc : A & B & C
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
 abc.b = "hello";
 >abc.b = "hello" : "hello"
->abc.b : string
+>abc.b : 文字
 >类型别名 :=> 文字
 >abc : A & B & C
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
 abc.c = "hello";
 >abc.c = "hello" : "hello"
->abc.c : string
+>abc.c : 文字
 >类型别名 :=> 文字
 >abc : A & B & C
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
@@ -73,45 +73,45 @@ var xyz: X & Y & Z;
 
 xyz.x.a = "hello";
 >xyz.x.a = "hello" : "hello"
->xyz.x.a : string
+>xyz.x.a : 文字
 >类型别名 :=> 文字
 >xyz.x : A & B & C
 >xyz : X & Y & Z
 >x : A & B & C
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
 xyz.x.b = "hello";
 >xyz.x.b = "hello" : "hello"
->xyz.x.b : string
+>xyz.x.b : 文字
 >类型别名 :=> 文字
 >xyz.x : A & B & C
 >xyz : X & Y & Z
 >x : A & B & C
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
 xyz.x.c = "hello";
 >xyz.x.c = "hello" : "hello"
->xyz.x.c : string
+>xyz.x.c : 文字
 >类型别名 :=> 文字
 >xyz.x : A & B & C
 >xyz : X & Y & Z
 >x : A & B & C
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
 type F1 = (x: string) => string;
 >F1 : F1
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 type F2 = (x: number) => number;
 >F2 : F2
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 var f: F1 & F2;
@@ -120,17 +120,17 @@ var f: F1 & F2;
 >F2 : F2
 
 var s = f("hello");
->s : string
+>s : 文字
 >类型别名 :=> 文字
->f("hello") : string
+>f("hello") : 文字
 >类型别名 :=> 文字
 >f : F1 & F2
 >"hello" : "hello"
 
 var n = f(42);
->n : number
+>n : 数字
 >类型别名 :=> 数字
->f(42) : number
+>f(42) : 数字
 >类型别名 :=> 数字
 >f : F1 & F2
 >42 : 42
@@ -139,62 +139,62 @@ interface D {
 >D : D
 
     nested: { doublyNested: { d: string; }, different: { e: number } };
->nested : { doublyNested: { d: string; }; different: { e: number; }; }
->doublyNested : { d: string; }
->d : string
+>nested : { doublyNested: { d: 文字; }; different: { e: 数字; }; }
+>doublyNested : { d: 文字; }
+>d : 文字
 >类型别名 :=> 文字
->different : { e: number; }
->e : number
+>different : { e: 数字; }
+>e : 数字
 >类型别名 :=> 数字
 }
 interface E {
 >E : E
 
     nested: { doublyNested: { f: string; }, other: {g: number } };
->nested : { doublyNested: { f: string; }; other: { g: number; }; }
->doublyNested : { f: string; }
->f : string
+>nested : { doublyNested: { f: 文字; }; other: { g: 数字; }; }
+>doublyNested : { f: 文字; }
+>f : 文字
 >类型别名 :=> 文字
->other : { g: number; }
->g : number
+>other : { g: 数字; }
+>g : 数字
 >类型别名 :=> 数字
 }
 const de: D & E = {
 >de : D & E
 >D : D
 >E : E
->{    nested: {        doublyNested: {            d: 'yes',            f: 'no'        },        different: { e: 12 },        other: { g: 101 }    }} : { nested: { doublyNested: { d: string; f: string; }; different: { e: number; }; other: { g: number; }; }; }
+>{    nested: {        doublyNested: {            d: 'yes',            f: 'no'        },        different: { e: 12 },        other: { g: 101 }    }} : { nested: { doublyNested: { d: 文字; f: 文字; }; different: { e: 数字; }; other: { g: 数字; }; }; }
 
     nested: {
->nested : { doublyNested: { d: string; f: string; }; different: { e: number; }; other: { g: number; }; }
->{        doublyNested: {            d: 'yes',            f: 'no'        },        different: { e: 12 },        other: { g: 101 }    } : { doublyNested: { d: string; f: string; }; different: { e: number; }; other: { g: number; }; }
+>nested : { doublyNested: { d: 文字; f: 文字; }; different: { e: 数字; }; other: { g: 数字; }; }
+>{        doublyNested: {            d: 'yes',            f: 'no'        },        different: { e: 12 },        other: { g: 101 }    } : { doublyNested: { d: 文字; f: 文字; }; different: { e: 数字; }; other: { g: 数字; }; }
 
         doublyNested: {
->doublyNested : { d: string; f: string; }
->{            d: 'yes',            f: 'no'        } : { d: string; f: string; }
+>doublyNested : { d: 文字; f: 文字; }
+>{            d: 'yes',            f: 'no'        } : { d: 文字; f: 文字; }
 
             d: 'yes',
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >'yes' : "yes"
 
             f: 'no'
->f : string
+>f : 文字
 >类型别名 :=> 文字
 >'no' : "no"
 
         },
         different: { e: 12 },
->different : { e: number; }
->{ e: 12 } : { e: number; }
->e : number
+>different : { e: 数字; }
+>{ e: 12 } : { e: 数字; }
+>e : 数字
 >类型别名 :=> 数字
 >12 : 12
 
         other: { g: 101 }
->other : { g: number; }
->{ g: 101 } : { g: number; }
->g : number
+>other : { g: 数字; }
+>{ g: 101 } : { g: 数字; }
+>g : 数字
 >类型别名 :=> 数字
 >101 : 101
     }

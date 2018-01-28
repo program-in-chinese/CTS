@@ -1,6 +1,6 @@
 === tests/cases/compiler/index.tsx ===
 namespace JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
     export interface Element {}
@@ -30,7 +30,7 @@ interface PropsWithConvert<T> extends PropsBase<T> {
 >T : T
 
     convert: (t: T) => string;
->convert : (t: T) => string
+>convert : (t: T) => 文字
 >t : T
 >T : T
 }
@@ -41,13 +41,13 @@ function ShouldInferFromData<T>(props: Props<T>): JSX.Element {
 >props : Props<T>
 >Props : Props<T>
 >T : T
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
     return <div />;
 ><div /> : JSX.Element
->div : any
+>div : 任意
 >类型别名 :=> 任意
 }
 
@@ -55,43 +55,43 @@ function ShouldInferFromData<T>(props: Props<T>): JSX.Element {
 ShouldInferFromData({ data: "1" });
 >ShouldInferFromData({ data: "1" }) : JSX.Element
 >ShouldInferFromData : <T>(props: Props<T>) => JSX.Element
->{ data: "1" } : { data: string; }
->data : string
+>{ data: "1" } : { data: 文字; }
+>data : 文字
 >类型别名 :=> 文字
 >"1" : "1"
 
 ShouldInferFromData({ data: "1", convert: n => "" + n });
 >ShouldInferFromData({ data: "1", convert: n => "" + n }) : JSX.Element
 >ShouldInferFromData : <T>(props: Props<T>) => JSX.Element
->{ data: "1", convert: n => "" + n } : { data: string; convert: (n: string) => string; }
->data : string
+>{ data: "1", convert: n => "" + n } : { data: 文字; convert: (n: 文字) => 文字; }
+>data : 文字
 >类型别名 :=> 文字
 >"1" : "1"
->convert : (n: string) => string
->n => "" + n : (n: string) => string
->n : string
+>convert : (n: 文字) => 文字
+>n => "" + n : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->"" + n : string
+>"" + n : 文字
 >类型别名 :=> 文字
 >"" : ""
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 ShouldInferFromData({ data: 2, convert: n => "" + n });
 >ShouldInferFromData({ data: 2, convert: n => "" + n }) : JSX.Element
 >ShouldInferFromData : <T>(props: Props<T>) => JSX.Element
->{ data: 2, convert: n => "" + n } : { data: number; convert: (n: number) => string; }
->data : number
+>{ data: 2, convert: n => "" + n } : { data: 数字; convert: (n: 数字) => 文字; }
+>data : 数字
 >类型别名 :=> 数字
 >2 : 2
->convert : (n: number) => string
->n => "" + n : (n: number) => string
->n : number
+>convert : (n: 数字) => 文字
+>n => "" + n : (n: 数字) => 文字
+>n : 数字
 >类型别名 :=> 数字
->"" + n : string
+>"" + n : 文字
 >类型别名 :=> 文字
 >"" : ""
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
 
@@ -99,7 +99,7 @@ const f1 = <ShouldInferFromData data={"1"} />;
 >f1 : JSX.Element
 ><ShouldInferFromData data={"1"} /> : JSX.Element
 >ShouldInferFromData : <T>(props: Props<T>) => JSX.Element
->data : string
+>data : 文字
 >类型别名 :=> 文字
 >"1" : "1"
 
@@ -107,13 +107,13 @@ const f2 = <ShouldInferFromData data={"1"} convert={n => "" + n} />;
 >f2 : JSX.Element
 ><ShouldInferFromData data={"1"} convert={n => "" + n} /> : JSX.Element
 >ShouldInferFromData : <T>(props: Props<T>) => JSX.Element
->data : string
+>data : 文字
 >类型别名 :=> 文字
 >"1" : "1"
->convert : (n: "1") => string
->n => "" + n : (n: "1") => string
+>convert : (n: "1") => 文字
+>n => "" + n : (n: "1") => 文字
 >n : "1"
->"" + n : string
+>"" + n : 文字
 >类型别名 :=> 文字
 >"" : ""
 >n : "1"
@@ -122,13 +122,13 @@ const f3 = <ShouldInferFromData data={2} convert={n => "" + n} />;
 >f3 : JSX.Element
 ><ShouldInferFromData data={2} convert={n => "" + n} /> : JSX.Element
 >ShouldInferFromData : <T>(props: Props<T>) => JSX.Element
->data : number
+>data : 数字
 >类型别名 :=> 数字
 >2 : 2
->convert : (n: 2) => string
->n => "" + n : (n: 2) => string
+>convert : (n: 2) => 文字
+>n => "" + n : (n: 2) => 文字
 >n : 2
->"" + n : string
+>"" + n : 文字
 >类型别名 :=> 文字
 >"" : ""
 >n : 2

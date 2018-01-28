@@ -1,131 +1,131 @@
 === tests/cases/compiler/functionsMissingReturnStatementsAndExpressions.ts ===
 function f1(): string {
->f1 : () => string
+>f1 : () => 文字
 
     // errors because there are no return statements
 }
 
 function f2(): string {
->f2 : () => string
+>f2 : () => 文字
 
     // Permissible; returns undefined.
     return;
 }
 
 function f3(): string {
->f3 : () => string
+>f3 : () => 文字
 
     return "Okay, because this is a return expression.";
 >"Okay, because this is a return expression." : "Okay, because this is a return expression."
 }
 
 function f4(): void {
->f4 : () => void
+>f4 : () => 无值
 
     // Fine since we are typed void.
 }
 
 function f5(): void {
->f5 : () => void
+>f5 : () => 无值
 
     // Fine since we are typed void.
     return;
 }
 
 function f6(): void {
->f6 : () => void
+>f6 : () => 无值
 
     // Fine since we are typed void and return undefined
     return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function f7(): void {
->f7 : () => void
+>f7 : () => 无值
 
     // Fine since we are typed void and return null
     return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 function f8(): void {
->f8 : () => void
+>f8 : () => 无值
 
     // Fine since are typed any.
     return;
 }
 
 function f9(): void {
->f9 : () => void
+>f9 : () => 无值
 
     // Fine since we are typed any and return undefined
     return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function f10(): void {
->f10 : () => void
+>f10 : () => 无值
 
     // Fine since we are typed any and return null
     return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 function f11(): string {
->f11 : () => string
+>f11 : () => 文字
 
     // Fine since we consist of a single throw statement.
     throw undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function f12(): void {
->f12 : () => void
+>f12 : () => 无值
 
     // Fine since we consist of a single throw statement.
     throw undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function f13(): any {
->f13 : () => any
+>f13 : () => 任意
 
     // Fine since we consist of a single throw statement.
     throw undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 function f14(): number {
->f14 : () => number
+>f14 : () => 数字
 
     // Not fine, since we can *only* consist of a single throw statement
     // if no return statements are present but we are annotated.
     throw undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
     throw null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 function f15(): number {
->f15 : () => number
+>f15 : () => 数字
 
     // Fine, since we have a return statement somewhere.
     throw undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
     throw null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     return;
@@ -133,39 +133,39 @@ function f15(): number {
 
 
 function f16() {
->f16 : () => void
+>f16 : () => 无值
 
     // Okay; not type annotated.
 }
 
 function f17() {
->f17 : () => void
+>f17 : () => 无值
 
     // Okay; not type annotated.
     return;
 }
 
 function f18() {
->f18 : () => string
+>f18 : () => 文字
 
     return "Okay, not type annotated.";
 >"Okay, not type annotated." : "Okay, not type annotated."
 }
 
 function f19(): void | number {
->f19 : () => number | void
+>f19 : () => 数字 | 无值
 
     // Okay; function return type is union containing void
 }
 
 function f20(): any | number {
->f20 : () => any
+>f20 : () => 任意
 
     // Okay; function return type is union containing any
 }
 
 function f21(): number | string {
->f21 : () => string | number
+>f21 : () => 文字 | 数字
 
     // Not okay; union does not contain void or any
 }
@@ -174,14 +174,14 @@ class C {
 >C : C
 
     public get m1() {
->m1 : void
+>m1 : 无值
 >类型别名 :=> 无值
 
         // Errors; get accessors must return a value.
     }
 
     public get m2() {
->m2 : void
+>m2 : 无值
 >类型别名 :=> 无值
 
         // Permissible; returns undefined.
@@ -189,7 +189,7 @@ class C {
     }
 
     public get m3() {
->m3 : string
+>m3 : 文字
 >类型别名 :=> 文字
 
         return "Okay, because this is a return expression.";
@@ -197,31 +197,31 @@ class C {
     }
 
     public get m4() {
->m4 : void
+>m4 : 无值
 >类型别名 :=> 无值
 
         // Fine since this consists of a single throw statement.
         throw null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
     }
 
     public get m5() {
->m5 : void
+>m5 : 无值
 >类型别名 :=> 无值
 
         // Not fine, since we can *only* consist of a single throw statement
         // if no return statements are present but we are a get accessor.
         throw null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
         throw undefined.
->undefined. : any
+>undefined. : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
     }
-> : any
+> : 任意
 >类型别名 :=> 任意
 }

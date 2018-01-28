@@ -1,6 +1,6 @@
 //// [tests/cases/compiler/0.0.1_中文测试集/0001_测试_Ch.ts] ////
 
-//// [index.d.ts]
+//// [index.d.cts]
 //@@{ 内容描述:C, 标题:t, 内容:n }
 //@@{ "啊啊啊啊啊":"AAAAAAAAAAA", "宝宝贝贝吧":"BBBBBBBBB" }
 导出 声明 接口 内容描述{
@@ -26,7 +26,7 @@
     取测试内容: 内容描述
 }
 
-//// [测试_1_ch.ts]
+//// [测试_1_ch.cts]
 导入 { 测试类, 测试类2, 内容描述 } 来自 "testch"
 
 变量 测试目标 = "vvvvv"
@@ -68,8 +68,8 @@ let 测试内容 = {
 let 标1 = new Te("vvvvv", 测试内容);
 let 标2 = new Te2(测试目标, 测试内容);
 let 测试目标2 = "vvvvv";
-let t = "ttttt";
-let 测试内容2 = { t: t, n: "BBBBBBBBB" };
+let 标题 = "ttttt";
+let 测试内容2 = { t: 标题, n: "BBBBBBBBB" };
 let 标3 = new Te(测试目标2, 测试内容2);
 if (标1 && 标2 && 标3) {
     标1.V;

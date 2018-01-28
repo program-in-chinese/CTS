@@ -1,14 +1,14 @@
 === tests/cases/compiler/genericCallbacksAndClassHierarchy.ts ===
 module M {
->M : typeof M
+>M : 类为 M
 
     export interface I<T> {
 >I : I<T>
 >T : T
 
         subscribe(callback: (newValue: T) => void ): any;
->subscribe : (callback: (newValue: T) => void) => any
->callback : (newValue: T) => void
+>subscribe : (callback: (newValue: T) => 无值) => 任意
+>callback : (newValue: T) => 无值
 >newValue : T
 >T : T
     }
@@ -26,7 +26,7 @@ module M {
 >T : T
 
         public dummy: any;
->dummy : any
+>dummy : 任意
 >类型别名 :=> 任意
     }
     export class B<T> extends C1<A<T>> { }
@@ -41,14 +41,14 @@ module M {
 >T : T
 
         _subscribe(viewModel: B<T>): void {
->_subscribe : (viewModel: B<T>) => void
+>_subscribe : (viewModel: B<T>) => 无值
 >viewModel : B<T>
 >B : B<T>
 >T : T
 
             var f = (newValue: A<T>) => { };
->f : (newValue: A<T>) => void
->(newValue: A<T>) => { } : (newValue: A<T>) => void
+>f : (newValue: A<T>) => 无值
+>(newValue: A<T>) => { } : (newValue: A<T>) => 无值
 >newValue : A<T>
 >A : A<T>
 >T : T
@@ -64,20 +64,20 @@ module M {
 
             // both of these should work
             v.subscribe(f);
->v.subscribe(f) : any
+>v.subscribe(f) : 任意
 >类型别名 :=> 任意
->v.subscribe : (callback: (newValue: A<T>) => void) => any
+>v.subscribe : (callback: (newValue: A<T>) => 无值) => 任意
 >v : I<A<T>>
->subscribe : (callback: (newValue: A<T>) => void) => any
->f : (newValue: A<T>) => void
+>subscribe : (callback: (newValue: A<T>) => 无值) => 任意
+>f : (newValue: A<T>) => 无值
 
             v.subscribe((newValue: A<T>) => { });
->v.subscribe((newValue: A<T>) => { }) : any
+>v.subscribe((newValue: A<T>) => { }) : 任意
 >类型别名 :=> 任意
->v.subscribe : (callback: (newValue: A<T>) => void) => any
+>v.subscribe : (callback: (newValue: A<T>) => 无值) => 任意
 >v : I<A<T>>
->subscribe : (callback: (newValue: A<T>) => void) => any
->(newValue: A<T>) => { } : (newValue: A<T>) => void
+>subscribe : (callback: (newValue: A<T>) => 无值) => 任意
+>(newValue: A<T>) => { } : (newValue: A<T>) => 无值
 >newValue : A<T>
 >A : A<T>
 >T : T

@@ -2,7 +2,7 @@
 export type Constructor<T> = new (...args: any[]) => T;
 >Constructor : Constructor<T>
 >T : T
->args : any[]
+>args : 任意[]
 >T : T
 
 export class MyBaseClass<T> {
@@ -10,7 +10,7 @@ export class MyBaseClass<T> {
 >T : T
 
     baseProperty: string;
->baseProperty : string
+>baseProperty : 文字
 >类型别名 :=> 文字
 
     constructor(value: T) {}
@@ -19,20 +19,20 @@ export class MyBaseClass<T> {
 }
 === tests/cases/compiler/MixinClass.ts ===
 import { Constructor, MyBaseClass } from './BaseClass';
->Constructor : any
+>Constructor : 任意
 >类型别名 :=> 任意
->MyBaseClass : typeof MyBaseClass
+>MyBaseClass : 类为 MyBaseClass
 
 export interface MyMixin {
 >MyMixin : MyMixin
 
     mixinProperty: string;
->mixinProperty : string
+>mixinProperty : 文字
 >类型别名 :=> 文字
 }
 
 export function MyMixin<T extends Constructor<MyBaseClass<any>>>(base: T): T & Constructor<MyMixin> {
->MyMixin : <T extends Constructor<MyBaseClass<any>>>(base: T) => T & Constructor<MyMixin>
+>MyMixin : <T 扩展 Constructor<MyBaseClass<任意>>>(base: T) => T & Constructor<MyMixin>
 >T : T
 >Constructor : Constructor<T>
 >MyBaseClass : MyBaseClass<T>
@@ -43,47 +43,47 @@ export function MyMixin<T extends Constructor<MyBaseClass<any>>>(base: T): T & C
 >MyMixin : MyMixin
 
     return class extends base {
->class extends base {        mixinProperty: string;    } : { new (...args: any[]): (Anonymous class); prototype: MyMixin<any>.(Anonymous class); } & T
->base : MyBaseClass<any>
+>class extends base {        mixinProperty: string;    } : { 新建 (...args: 任意[]): (Anonymous class); prototype: MyMixin<任意>.(Anonymous class); } & T
+>base : MyBaseClass<任意>
 
         mixinProperty: string;
->mixinProperty : string
+>mixinProperty : 文字
 >类型别名 :=> 文字
     }
 }
 === tests/cases/compiler/FinalClass.ts ===
 import { MyBaseClass } from './BaseClass';
->MyBaseClass : typeof MyBaseClass
+>MyBaseClass : 类为 MyBaseClass
 
 import { MyMixin } from './MixinClass';
->MyMixin : <T extends new (...args: any[]) => MyBaseClass<any>>(base: T) => T & (new (...args: any[]) => MyMixin)
+>MyMixin : <T 扩展 新建 (...args: 任意[]) => MyBaseClass<任意>>(base: T) => T & (新建 (...args: 任意[]) => MyMixin)
 
 export class MyExtendedClass extends MyMixin(MyBaseClass)<string> {
 >MyExtendedClass : MyExtendedClass
->MyMixin(MyBaseClass) : MyBaseClass<string> & MyMixin
->MyMixin : <T extends new (...args: any[]) => MyBaseClass<any>>(base: T) => T & (new (...args: any[]) => MyMixin)
->MyBaseClass : typeof MyBaseClass
+>MyMixin(MyBaseClass) : MyBaseClass<文字> & MyMixin
+>MyMixin : <T 扩展 新建 (...args: 任意[]) => MyBaseClass<任意>>(base: T) => T & (新建 (...args: 任意[]) => MyMixin)
+>MyBaseClass : 类为 MyBaseClass
 
     extendedClassProperty: number;
->extendedClassProperty : number
+>extendedClassProperty : 数字
 >类型别名 :=> 数字
 }
 === tests/cases/compiler/Main.ts ===
 import { MyExtendedClass } from './FinalClass';
->MyExtendedClass : typeof MyExtendedClass
+>MyExtendedClass : 类为 MyExtendedClass
 
 import { MyMixin } from './MixinClass';
->MyMixin : <T extends new (...args: any[]) => MyBaseClass<any>>(base: T) => T & (new (...args: any[]) => MyMixin)
+>MyMixin : <T 扩展 新建 (...args: 任意[]) => MyBaseClass<任意>>(base: T) => T & (新建 (...args: 任意[]) => MyMixin)
 
 const myExtendedClass = new MyExtendedClass('string');
 >myExtendedClass : MyExtendedClass
 >new MyExtendedClass('string') : MyExtendedClass
->MyExtendedClass : typeof MyExtendedClass
+>MyExtendedClass : 类为 MyExtendedClass
 >'string' : "string"
 
 const AnotherMixedClass = MyMixin(MyExtendedClass);
->AnotherMixedClass : typeof MyExtendedClass & (new (...args: any[]) => MyMixin)
->MyMixin(MyExtendedClass) : typeof MyExtendedClass & (new (...args: any[]) => MyMixin)
->MyMixin : <T extends new (...args: any[]) => MyBaseClass<any>>(base: T) => T & (new (...args: any[]) => MyMixin)
->MyExtendedClass : typeof MyExtendedClass
+>AnotherMixedClass : 类为 MyExtendedClass & (新建 (...args: 任意[]) => MyMixin)
+>MyMixin(MyExtendedClass) : 类为 MyExtendedClass & (新建 (...args: 任意[]) => MyMixin)
+>MyMixin : <T 扩展 新建 (...args: 任意[]) => MyBaseClass<任意>>(base: T) => T & (新建 (...args: 任意[]) => MyMixin)
+>MyExtendedClass : 类为 MyExtendedClass
 

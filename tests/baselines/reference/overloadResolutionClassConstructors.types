@@ -3,11 +3,11 @@ class SomeBase {
 >SomeBase : SomeBase
 
     private n;
->n : any
+>n : 任意
 >类型别名 :=> 任意
 
     public s: string;
->s : string
+>s : 文字
 >类型别名 :=> 文字
 }
 class SomeDerived1 extends SomeBase {
@@ -15,7 +15,7 @@ class SomeDerived1 extends SomeBase {
 >SomeBase : SomeBase
 
     private m;
->m : any
+>m : 任意
 >类型别名 :=> 任意
 }
 class SomeDerived2 extends SomeBase {
@@ -23,7 +23,7 @@ class SomeDerived2 extends SomeBase {
 >SomeBase : SomeBase
 
     private m;
->m : any
+>m : 任意
 >类型别名 :=> 任意
 }
 class SomeDerived3 extends SomeBase {
@@ -31,7 +31,7 @@ class SomeDerived3 extends SomeBase {
 >SomeBase : SomeBase
 
     private m;
->m : any
+>m : 任意
 >类型别名 :=> 任意
 }
 
@@ -41,11 +41,11 @@ class fn1 {
 >fn1 : fn1
 
     constructor(s: string);
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
     constructor(s: number);
->s : number
+>s : 数字
 >类型别名 :=> 数字
 
     constructor() { }
@@ -53,15 +53,15 @@ class fn1 {
 
 new fn1(undefined);
 >new fn1(undefined) : fn1
->fn1 : typeof fn1
->undefined : undefined
+>fn1 : 类为 fn1
+>undefined : 未定
 >类型别名 :=> 未定
 
 // No candidate overloads found
 new fn1({}); // Error
->new fn1({}) : any
+>new fn1({}) : 任意
 >类型别名 :=> 任意
->fn1 : typeof fn1
+>fn1 : 类为 fn1
 >{} : {}
 
 // Generic and non - generic overload where generic overload is the only candidate when called with type arguments
@@ -70,13 +70,13 @@ class fn2<T> {
 >T : T
 
     constructor(s: string, n: number);
->s : string
+>s : 文字
 >类型别名 :=> 文字
->n : number
+>n : 数字
 >类型别名 :=> 数字
 
     constructor(n: number, t: T);
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >t : T
 >T : T
@@ -87,24 +87,24 @@ class fn2<T> {
 var d = new fn2<Date>(0, undefined);
 >d : fn2<Date>
 >new fn2<Date>(0, undefined) : fn2<Date>
->fn2 : typeof fn2
+>fn2 : 类为 fn2
 >Date : Date
 >0 : 0
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 // Generic and non - generic overload where generic overload is the only candidate when called without type arguments
 var s = new fn2(0, '');
->s : fn2<string>
->new fn2(0, '') : fn2<string>
->fn2 : typeof fn2
+>s : fn2<文字>
+>new fn2(0, '') : fn2<文字>
+>fn2 : 类为 fn2
 >0 : 0
 >'' : ""
 
 // Generic and non - generic overload where non - generic overload is the only candidate when called with type arguments
 new fn2<Date>('', 0); // OK
 >new fn2<Date>('', 0) : fn2<Date>
->fn2 : typeof fn2
+>fn2 : 类为 fn2
 >Date : Date
 >'' : ""
 >0 : 0
@@ -112,7 +112,7 @@ new fn2<Date>('', 0); // OK
 // Generic and non - generic overload where non - generic overload is the only candidate when called without type arguments
 new fn2('', 0); // OK
 >new fn2('', 0) : fn2<{}>
->fn2 : typeof fn2
+>fn2 : 类为 fn2
 >'' : ""
 >0 : 0
 
@@ -128,7 +128,7 @@ class fn3<T, U, V> {
 >T : T
 
     constructor(s: string, t: T, u: U);
->s : string
+>s : 文字
 >类型别名 :=> 文字
 >t : T
 >T : T
@@ -147,51 +147,51 @@ class fn3<T, U, V> {
 }
 
 new fn3(3);
->new fn3(3) : fn3<number, {}, {}>
->fn3 : typeof fn3
+>new fn3(3) : fn3<数字, {}, {}>
+>fn3 : 类为 fn3
 >3 : 3
 
 new fn3('', 3, '');
->new fn3('', 3, '') : fn3<number, string, {}>
->fn3 : typeof fn3
+>new fn3('', 3, '') : fn3<数字, 文字, {}>
+>fn3 : 类为 fn3
 >'' : ""
 >3 : 3
 >'' : ""
 
 new fn3(5, 5, 5);
->new fn3(5, 5, 5) : fn3<number, number, number>
->fn3 : typeof fn3
+>new fn3(5, 5, 5) : fn3<数字, 数字, 数字>
+>fn3 : 类为 fn3
 >5 : 5
 >5 : 5
 >5 : 5
 
 // Generic overloads with differing arity called with type arguments matching each overload type parameter count
 new fn3<number>(4); // Error
->new fn3<number>(4) : any
+>new fn3<number>(4) : 任意
 >类型别名 :=> 任意
->fn3 : typeof fn3
+>fn3 : 类为 fn3
 >4 : 4
 
 new fn3<string, string>('', '', '');  // Error
->new fn3<string, string>('', '', '') : any
+>new fn3<string, string>('', '', '') : 任意
 >类型别名 :=> 任意
->fn3 : typeof fn3
+>fn3 : 类为 fn3
 >'' : ""
 >'' : ""
 >'' : ""
 
 new fn3<number, string, string>('', '', 3);
->new fn3<number, string, string>('', '', 3) : fn3<number, string, string>
->fn3 : typeof fn3
+>new fn3<number, string, string>('', '', 3) : fn3<数字, 文字, 文字>
+>fn3 : 类为 fn3
 >'' : ""
 >'' : ""
 >3 : 3
 
 // Generic overloads with differing arity called with type argument count that doesn't match any overload
 new fn3<number, number, number, number>(); // Error
->new fn3<number, number, number, number>() : any
+>new fn3<number, number, number, number>() : 任意
 >类型别名 :=> 任意
->fn3 : typeof fn3
+>fn3 : 类为 fn3
 
 // Generic overloads with constraints called with type arguments that satisfy the constraints
 class fn4<T extends string, U extends number> {
@@ -208,89 +208,89 @@ class fn4<T extends string, U extends number> {
     constructor() { }
 }
 new fn4<string, number>('', 3);
->new fn4<string, number>('', 3) : fn4<string, number>
->fn4 : typeof fn4
+>new fn4<string, number>('', 3) : fn4<文字, 数字>
+>fn4 : 类为 fn4
 >'' : ""
 >3 : 3
 
 new fn4<string, number>(3, ''); // Error
->new fn4<string, number>(3, '') : any
+>new fn4<string, number>(3, '') : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
+>fn4 : 类为 fn4
 >3 : 3
 >'' : ""
 
 new fn4<number, string>('', 3); // Error
->new fn4<number, string>('', 3) : any
+>new fn4<number, string>('', 3) : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
+>fn4 : 类为 fn4
 >'' : ""
 >3 : 3
 
 new fn4<number, string>(3, ''); // Error
->new fn4<number, string>(3, '') : any
+>new fn4<number, string>(3, '') : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
+>fn4 : 类为 fn4
 >3 : 3
 >'' : ""
 
 // Generic overloads with constraints called without type arguments but with types that satisfy the constraints
 new fn4('', 3);
 >new fn4('', 3) : fn4<"", 3>
->fn4 : typeof fn4
+>fn4 : 类为 fn4
 >'' : ""
 >3 : 3
 
 new fn4(3, ''); // Error
->new fn4(3, '') : any
+>new fn4(3, '') : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
+>fn4 : 类为 fn4
 >3 : 3
 >'' : ""
 
 new fn4(3, undefined); // Error
->new fn4(3, undefined) : any
+>new fn4(3, undefined) : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
+>fn4 : 类为 fn4
 >3 : 3
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 new fn4('', null);
->new fn4('', null) : fn4<"", any>
->fn4 : typeof fn4
+>new fn4('', null) : fn4<"", 任意>
+>fn4 : 类为 fn4
 >'' : ""
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // Generic overloads with constraints called with type arguments that do not satisfy the constraints
 new fn4<boolean, Date>(null, null); // Error
->new fn4<boolean, Date>(null, null) : any
+>new fn4<boolean, Date>(null, null) : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
+>fn4 : 类为 fn4
 >Date : Date
->null : null
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // Generic overloads with constraints called without type arguments but with types that do not satisfy the constraints
 new fn4(true, null); // Error
->new fn4(true, null) : any
+>new fn4(true, null) : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
->true : true
+>fn4 : 类为 fn4
+>true : 为真
 >类型别名 :=> 为真
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 new fn4(null, true); // Error
->new fn4(null, true) : any
+>new fn4(null, true) : 任意
 >类型别名 :=> 任意
->fn4 : typeof fn4
->null : null
+>fn4 : 类为 fn4
+>null : 空值
 >类型别名 :=> 空值
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 // Non - generic overloads where contextual typing of function arguments has errors
@@ -298,59 +298,59 @@ class fn5 {
 >fn5 : fn5
 
     constructor(f: (n: string) => void);
->f : (n: string) => void
->n : string
+>f : (n: 文字) => 无值
+>n : 文字
 >类型别名 :=> 文字
 
     constructor(f: (n: number) => void);
->f : (n: number) => void
->n : number
+>f : (n: 数字) => 无值
+>n : 数字
 >类型别名 :=> 数字
 
     constructor() { return undefined; }
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 new fn5((n) => n.toFixed());
 >new fn5((n) => n.toFixed()) : fn5
->fn5 : typeof fn5
->(n) => n.toFixed() : (n: string) => any
->n : string
+>fn5 : 类为 fn5
+>(n) => n.toFixed() : (n: 文字) => 任意
+>n : 文字
 >类型别名 :=> 文字
->n.toFixed() : any
+>n.toFixed() : 任意
 >类型别名 :=> 任意
->n.toFixed : any
+>n.toFixed : 任意
 >类型别名 :=> 任意
->n : string
+>n : 文字
 >类型别名 :=> 文字
->toFixed : any
+>toFixed : 任意
 >类型别名 :=> 任意
 
 new fn5((n) => n.substr(0));
 >new fn5((n) => n.substr(0)) : fn5
->fn5 : typeof fn5
->(n) => n.substr(0) : (n: string) => string
->n : string
+>fn5 : 类为 fn5
+>(n) => n.substr(0) : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->n.substr(0) : string
+>n.substr(0) : 文字
 >类型别名 :=> 文字
->n.substr : (from: number, length?: number) => string
->n : string
+>n.substr : (from: 数字, length?: 数字) => 文字
+>n : 文字
 >类型别名 :=> 文字
->substr : (from: number, length?: number) => string
+>substr : (from: 数字, length?: 数字) => 文字
 >0 : 0
 
 new fn5((n) => n.blah); // Error
 >new fn5((n) => n.blah) : fn5
->fn5 : typeof fn5
->(n) => n.blah : (n: string) => any
->n : string
+>fn5 : 类为 fn5
+>(n) => n.blah : (n: 文字) => 任意
+>n : 文字
 >类型别名 :=> 文字
->n.blah : any
+>n.blah : 任意
 >类型别名 :=> 任意
->n : string
+>n : 文字
 >类型别名 :=> 文字
->blah : any
+>blah : 任意
 >类型别名 :=> 任意
 
 

@@ -3,7 +3,7 @@ class C {
 >C : C
 
   test: string
->test : string
+>test : 文字
 >类型别名 :=> 文字
 }
 
@@ -12,15 +12,15 @@ class D extends C {
 >C : C
 
   test2: string
->test2 : string
+>test2 : 文字
 >类型别名 :=> 文字
 }
 
 declare function test<T extends C>(a: (t: T, t1: T) => void): T
->test : <T extends C>(a: (t: T, t1: T) => void) => T
+>test : <T 扩展 C>(a: (t: T, t1: T) => 无值) => T
 >T : T
 >C : C
->a : (t: T, t1: T) => void
+>a : (t: T, t1: T) => 无值
 >t : T
 >T : T
 >t1 : T
@@ -28,10 +28,10 @@ declare function test<T extends C>(a: (t: T, t1: T) => void): T
 >T : T
 
 declare function testRest<T extends C>(a: (t: T, t1: T, ...ts: T[]) => void): T
->testRest : <T extends C>(a: (t: T, t1: T, ...ts: T[]) => void) => T
+>testRest : <T 扩展 C>(a: (t: T, t1: T, ...ts: T[]) => 无值) => T
 >T : T
 >C : C
->a : (t: T, t1: T, ...ts: T[]) => void
+>a : (t: T, t1: T, ...ts: T[]) => 无值
 >t : T
 >T : T
 >t1 : T
@@ -44,72 +44,72 @@ declare function testRest<T extends C>(a: (t: T, t1: T, ...ts: T[]) => void): T
 // exactly
 test((t1: D, t2) => { t2.test2 })
 >test((t1: D, t2) => { t2.test2 }) : D
->test : <T extends C>(a: (t: T, t1: T) => void) => T
->(t1: D, t2) => { t2.test2 } : (t1: D, t2: D) => void
+>test : <T 扩展 C>(a: (t: T, t1: T) => 无值) => T
+>(t1: D, t2) => { t2.test2 } : (t1: D, t2: D) => 无值
 >t1 : D
 >D : D
 >t2 : D
->t2.test2 : string
+>t2.test2 : 文字
 >类型别名 :=> 文字
 >t2 : D
->test2 : string
+>test2 : 文字
 >类型别名 :=> 文字
 
 test((t1, t2: D) => { t2.test2 })
 >test((t1, t2: D) => { t2.test2 }) : D
->test : <T extends C>(a: (t: T, t1: T) => void) => T
->(t1, t2: D) => { t2.test2 } : (t1: D, t2: D) => void
+>test : <T 扩展 C>(a: (t: T, t1: T) => 无值) => T
+>(t1, t2: D) => { t2.test2 } : (t1: D, t2: D) => 无值
 >t1 : D
 >t2 : D
 >D : D
->t2.test2 : string
+>t2.test2 : 文字
 >类型别名 :=> 文字
 >t2 : D
->test2 : string
+>test2 : 文字
 >类型别名 :=> 文字
 
 // zero arg
 test(() => {})
 >test(() => {}) : C
->test : <T extends C>(a: (t: T, t1: T) => void) => T
->() => {} : () => void
+>test : <T 扩展 C>(a: (t: T, t1: T) => 无值) => T
+>() => {} : () => 无值
 
 // fewer args
 test((t1: D) => {})
 >test((t1: D) => {}) : D
->test : <T extends C>(a: (t: T, t1: T) => void) => T
->(t1: D) => {} : (t1: D) => void
+>test : <T 扩展 C>(a: (t: T, t1: T) => 无值) => T
+>(t1: D) => {} : (t1: D) => 无值
 >t1 : D
 >D : D
 
 // rest arg
 test((...ts: D[]) => {})
 >test((...ts: D[]) => {}) : D
->test : <T extends C>(a: (t: T, t1: T) => void) => T
->(...ts: D[]) => {} : (...ts: D[]) => void
+>test : <T 扩展 C>(a: (t: T, t1: T) => 无值) => T
+>(...ts: D[]) => {} : (...ts: D[]) => 无值
 >ts : D[]
 >D : D
 
 // source function has rest arg
 testRest((t1: D) => {})
 >testRest((t1: D) => {}) : D
->testRest : <T extends C>(a: (t: T, t1: T, ...ts: T[]) => void) => T
->(t1: D) => {} : (t1: D) => void
+>testRest : <T 扩展 C>(a: (t: T, t1: T, ...ts: T[]) => 无值) => T
+>(t1: D) => {} : (t1: D) => 无值
 >t1 : D
 >D : D
 
 testRest((t1, t2, t3) => {})
 >testRest((t1, t2, t3) => {}) : C
->testRest : <T extends C>(a: (t: T, t1: T, ...ts: T[]) => void) => T
->(t1, t2, t3) => {} : (t1: C, t2: C, t3: C) => void
+>testRest : <T 扩展 C>(a: (t: T, t1: T, ...ts: T[]) => 无值) => T
+>(t1, t2, t3) => {} : (t1: C, t2: C, t3: C) => 无值
 >t1 : C
 >t2 : C
 >t3 : C
 
 testRest((t1: D, t2, t3) => {})
 >testRest((t1: D, t2, t3) => {}) : D
->testRest : <T extends C>(a: (t: T, t1: T, ...ts: T[]) => void) => T
->(t1: D, t2, t3) => {} : (t1: D, t2: D, t3: D) => void
+>testRest : <T 扩展 C>(a: (t: T, t1: T, ...ts: T[]) => 无值) => T
+>(t1: D, t2, t3) => {} : (t1: D, t2: D, t3: D) => 无值
 >t1 : D
 >D : D
 >t2 : D
@@ -117,26 +117,26 @@ testRest((t1: D, t2, t3) => {})
 
 testRest((t1, t2: D, t3) => {})
 >testRest((t1, t2: D, t3) => {}) : D
->testRest : <T extends C>(a: (t: T, t1: T, ...ts: T[]) => void) => T
->(t1, t2: D, t3) => {} : (t1: D, t2: D, t3: D) => void
+>testRest : <T 扩展 C>(a: (t: T, t1: T, ...ts: T[]) => 无值) => T
+>(t1, t2: D, t3) => {} : (t1: D, t2: D, t3: D) => 无值
 >t1 : D
 >t2 : D
 >D : D
 >t3 : D
 
 testRest((t2: D, ...t3) => {})
->testRest((t2: D, ...t3) => {}) : any
+>testRest((t2: D, ...t3) => {}) : 任意
 >类型别名 :=> 任意
->testRest : <T extends C>(a: (t: T, t1: T, ...ts: T[]) => void) => T
->(t2: D, ...t3) => {} : (t2: D, ...t3: any[]) => void
+>testRest : <T 扩展 C>(a: (t: T, t1: T, ...ts: T[]) => 无值) => T
+>(t2: D, ...t3) => {} : (t2: D, ...t3: 任意[]) => 无值
 >t2 : D
 >D : D
->t3 : any[]
+>t3 : 任意[]
 
 testRest((t2, ...t3: D[]) => {})
 >testRest((t2, ...t3: D[]) => {}) : C
->testRest : <T extends C>(a: (t: T, t1: T, ...ts: T[]) => void) => T
->(t2, ...t3: D[]) => {} : (t2: C, ...t3: D[]) => void
+>testRest : <T 扩展 C>(a: (t: T, t1: T, ...ts: T[]) => 无值) => T
+>(t2, ...t3: D[]) => {} : (t2: C, ...t3: D[]) => 无值
 >t2 : C
 >t3 : D[]
 >D : D

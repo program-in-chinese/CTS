@@ -1,6 +1,6 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
 	interface Element { }
@@ -10,15 +10,15 @@ declare module JSX {
 >IntrinsicElements : IntrinsicElements
 
 		test1: { n?: boolean; s?: string};
->test1 : { n?: boolean; s?: string; }
->n : boolean
+>test1 : { n?: 真假; s?: 文字; }
+>n : 真假
 >类型别名 :=> 真假
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
 		test2: { n: boolean; };
->test2 : { n: boolean; }
->n : boolean
+>test2 : { n: 真假; }
+>n : 真假
 >类型别名 :=> 真假
 	}
 }
@@ -26,44 +26,44 @@ declare module JSX {
 // Error
 <test1 s />;
 ><test1 s /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->s : true
+>s : 为真
 >类型别名 :=> 为真
 
 <test1 n='true' />;
 ><test1 n='true' /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 <test2 />;
 ><test2 /> : JSX.Element
->test2 : any
+>test2 : 任意
 >类型别名 :=> 任意
 
 // OK
 <test1 n />;
 ><test1 n /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->n : true
+>n : 为真
 >类型别名 :=> 为真
 
 <test1 n={false} />;
 ><test1 n={false} /> : JSX.Element
->test1 : any
+>test1 : 任意
 >类型别名 :=> 任意
->n : boolean
+>n : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 <test2 n />;
 ><test2 n /> : JSX.Element
->test2 : any
+>test2 : 任意
 >类型别名 :=> 任意
->n : true
+>n : 为真
 >类型别名 :=> 为真
 

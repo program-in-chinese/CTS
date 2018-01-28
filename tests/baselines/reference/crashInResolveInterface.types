@@ -8,18 +8,18 @@ interface C {
 >C : C
 
     count(countTitle?: string): void;
->count : (countTitle?: string) => void
->countTitle : string
+>count : (countTitle?: 文字) => 无值
+>countTitle : 文字
 >类型别名 :=> 文字
 }
 interface C {
 >C : C
 
     log(message?: any, ...optionalParams: any[]): void;
->log : (message?: any, ...optionalParams: any[]) => void
->message : any
+>log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>message : 任意
 >类型别名 :=> 任意
->optionalParams : any[]
+>optionalParams : 任意[]
 }
 
 === tests/cases/compiler/file1.ts ===
@@ -28,33 +28,33 @@ interface Q<T> {
 >T : T
 
     each(action: (item: T, index: number) => void): void;
->each : (action: (item: T, index: number) => void) => void
->action : (item: T, index: number) => void
+>each : (action: (item: T, index: 数字) => 无值) => 无值
+>action : (item: T, index: 数字) => 无值
 >item : T
 >T : T
->index : number
+>index : 数字
 >类型别名 :=> 数字
 }
 var q1: Q<{ a: number; }>;
->q1 : Q<{ a: number; }>
+>q1 : Q<{ a: 数字; }>
 >Q : Q<T>
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
 var x = q1.each(x => c.log(x));
->x : void
+>x : 无值
 >类型别名 :=> 无值
->q1.each(x => c.log(x)) : void
+>q1.each(x => c.log(x)) : 无值
 >类型别名 :=> 无值
->q1.each : (action: (item: { a: number; }, index: number) => void) => void
->q1 : Q<{ a: number; }>
->each : (action: (item: { a: number; }, index: number) => void) => void
->x => c.log(x) : (x: { a: number; }) => void
->x : { a: number; }
->c.log(x) : void
+>q1.each : (action: (item: { a: 数字; }, index: 数字) => 无值) => 无值
+>q1 : Q<{ a: 数字; }>
+>each : (action: (item: { a: 数字; }, index: 数字) => 无值) => 无值
+>x => c.log(x) : (x: { a: 数字; }) => 无值
+>x : { a: 数字; }
+>c.log(x) : 无值
 >类型别名 :=> 无值
->c.log : (message?: any, ...optionalParams: any[]) => void
+>c.log : (message?: 任意, ...optionalParams: 任意[]) => 无值
 >c : C
->log : (message?: any, ...optionalParams: any[]) => void
->x : { a: number; }
+>log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>x : { a: 数字; }
 

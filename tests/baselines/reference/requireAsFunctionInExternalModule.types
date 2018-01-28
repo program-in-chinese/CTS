@@ -1,43 +1,43 @@
 === tests/cases/compiler/c.js ===
 export default function require(a) { }
->require : (a: any) => void
->a : any
+>require : (a: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
 
 export function has(a) { return true }
->has : (a: any) => boolean
->a : any
+>has : (a: 任意) => 真假
+>a : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 === tests/cases/compiler/m.js ===
 import require, { has } from "./c"
->require : (a: any) => void
->has : (a: any) => boolean
+>require : (a: 任意) => 无值
+>has : (a: 任意) => 真假
 
 export function hello() { }
->hello : () => void
+>hello : () => 无值
 
 if (has('ember-debug')) {
->has('ember-debug') : boolean
+>has('ember-debug') : 真假
 >类型别名 :=> 真假
->has : (a: any) => boolean
+>has : (a: 任意) => 真假
 >'ember-debug' : "ember-debug"
 
     require('ember-debug');
->require('ember-debug') : void
+>require('ember-debug') : 无值
 >类型别名 :=> 无值
->require : (a: any) => void
+>require : (a: 任意) => 无值
 >'ember-debug' : "ember-debug"
 }
 
 === tests/cases/compiler/m2.ts ===
 import { hello } from "./m";
->hello : () => void
+>hello : () => 无值
 
 hello();
->hello() : void
+>hello() : 无值
 >类型别名 :=> 无值
->hello : () => void
+>hello : () => 无值
 

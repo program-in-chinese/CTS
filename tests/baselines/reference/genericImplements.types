@@ -1,19 +1,19 @@
 === tests/cases/compiler/genericImplements.ts ===
 class A { a; };
 >A : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 class B { b; };
 >B : B
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
 interface I {
 >I : I
 
     f<T extends A>(): T;
->f : <T extends A>() => T
+>f : <T 扩展 A>() => T
 >T : T
 >A : A
 >T : T
@@ -26,11 +26,11 @@ class X implements I {
 >I : I
 
     f<T extends B>(): T { return undefined; }
->f : <T extends B>() => T
+>f : <T 扩展 B>() => T
 >T : T
 >B : B
 >T : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 } // { f: () => { b; } }
@@ -41,11 +41,11 @@ class Y implements I {
 >I : I
 
     f<T extends A>(): T { return undefined; }
->f : <T extends A>() => T
+>f : <T 扩展 A>() => T
 >T : T
 >A : A
 >T : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 } // { f: () => { a; } }
@@ -59,7 +59,7 @@ class Z implements I {
 >f : <T>() => T
 >T : T
 >T : T
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 } // { f: <T>() => T } 

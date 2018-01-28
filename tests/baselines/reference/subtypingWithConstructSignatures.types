@@ -1,78 +1,78 @@
 === tests/cases/conformance/types/typeRelationships/subtypesAndSuperTypes/subtypingWithConstructSignatures.ts ===
 module ConstructSignature {
->ConstructSignature : typeof ConstructSignature
+>ConstructSignature : 类为 ConstructSignature
 
     declare function foo1(cb: new (x: number) => void): typeof cb;
->foo1 : { (cb: new (x: number) => void): new (x: number) => void; (cb: any): any; }
->cb : new (x: number) => void
->x : number
+>foo1 : { (cb: 新建 (x: 数字) => 无值): 新建 (x: 数字) => 无值; (cb: 任意): 任意; }
+>cb : 新建 (x: 数字) => 无值
+>x : 数字
 >类型别名 :=> 数字
->cb : new (x: number) => void
+>cb : 新建 (x: 数字) => 无值
 
     declare function foo1(cb: any): any;
->foo1 : { (cb: new (x: number) => void): new (x: number) => void; (cb: any): any; }
->cb : any
+>foo1 : { (cb: 新建 (x: 数字) => 无值): 新建 (x: 数字) => 无值; (cb: 任意): 任意; }
+>cb : 任意
 >类型别名 :=> 任意
 
     var rarg1: new (x: number) => number;
->rarg1 : new (x: number) => number
->x : number
+>rarg1 : 新建 (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 
     var r = foo1(rarg1); // ok because base returns void
->r : new (x: number) => void
->foo1(rarg1) : new (x: number) => void
->foo1 : { (cb: new (x: number) => void): new (x: number) => void; (cb: any): any; }
->rarg1 : new (x: number) => number
+>r : 新建 (x: 数字) => 无值
+>foo1(rarg1) : 新建 (x: 数字) => 无值
+>foo1 : { (cb: 新建 (x: 数字) => 无值): 新建 (x: 数字) => 无值; (cb: 任意): 任意; }
+>rarg1 : 新建 (x: 数字) => 数字
 
     var rarg2: new <T>(x: T) => string;
->rarg2 : new <T>(x: T) => string
+>rarg2 : 新建 <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T
 
     var r2 = foo1(rarg2); // ok because base returns void
->r2 : new (x: number) => void
->foo1(rarg2) : new (x: number) => void
->foo1 : { (cb: new (x: number) => void): new (x: number) => void; (cb: any): any; }
->rarg2 : new <T>(x: T) => string
+>r2 : 新建 (x: 数字) => 无值
+>foo1(rarg2) : 新建 (x: 数字) => 无值
+>foo1 : { (cb: 新建 (x: 数字) => 无值): 新建 (x: 数字) => 无值; (cb: 任意): 任意; }
+>rarg2 : 新建 <T>(x: T) => 文字
 
     declare function foo2(cb: new (x: number, y: number) => void): typeof cb;
->foo2 : { (cb: new (x: number, y: number) => void): new (x: number, y: number) => void; (cb: any): any; }
->cb : new (x: number, y: number) => void
->x : number
+>foo2 : { (cb: 新建 (x: 数字, y: 数字) => 无值): 新建 (x: 数字, y: 数字) => 无值; (cb: 任意): 任意; }
+>cb : 新建 (x: 数字, y: 数字) => 无值
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
->cb : new (x: number, y: number) => void
+>cb : 新建 (x: 数字, y: 数字) => 无值
 
     declare function foo2(cb: any): any;
->foo2 : { (cb: new (x: number, y: number) => void): new (x: number, y: number) => void; (cb: any): any; }
->cb : any
+>foo2 : { (cb: 新建 (x: 数字, y: 数字) => 无值): 新建 (x: 数字, y: 数字) => 无值; (cb: 任意): 任意; }
+>cb : 任意
 >类型别名 :=> 任意
 
     var r3arg1: new (x: number, y: number) => number;
->r3arg1 : new (x: number, y: number) => number
->x : number
+>r3arg1 : 新建 (x: 数字, y: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
     var r3 = foo2(r3arg1); // ok because base returns void
->r3 : new (x: number, y: number) => void
->foo2(r3arg1) : new (x: number, y: number) => void
->foo2 : { (cb: new (x: number, y: number) => void): new (x: number, y: number) => void; (cb: any): any; }
->r3arg1 : new (x: number, y: number) => number
+>r3 : 新建 (x: 数字, y: 数字) => 无值
+>foo2(r3arg1) : 新建 (x: 数字, y: 数字) => 无值
+>foo2 : { (cb: 新建 (x: 数字, y: 数字) => 无值): 新建 (x: 数字, y: 数字) => 无值; (cb: 任意): 任意; }
+>r3arg1 : 新建 (x: 数字, y: 数字) => 数字
 
     var r4arg1: new <T>(x: T) => string;
->r4arg1 : new <T>(x: T) => string
+>r4arg1 : 新建 <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T
 
     var r4 = foo2(r4arg1); // ok because base returns void
->r4 : new (x: number, y: number) => void
->foo2(r4arg1) : new (x: number, y: number) => void
->foo2 : { (cb: new (x: number, y: number) => void): new (x: number, y: number) => void; (cb: any): any; }
->r4arg1 : new <T>(x: T) => string
+>r4 : 新建 (x: 数字, y: 数字) => 无值
+>foo2(r4arg1) : 新建 (x: 数字, y: 数字) => 无值
+>foo2 : { (cb: 新建 (x: 数字, y: 数字) => 无值): 新建 (x: 数字, y: 数字) => 无值; (cb: 任意): 任意; }
+>r4arg1 : 新建 <T>(x: T) => 文字
 }

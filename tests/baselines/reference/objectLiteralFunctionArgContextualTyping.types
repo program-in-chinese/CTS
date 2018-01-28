@@ -3,90 +3,90 @@ interface I {
 >I : I
 
     value: string;
->value : string
+>value : 文字
 >类型别名 :=> 文字
 
     toString: (t: string) => string;
->toString : (t: string) => string
->t : string
+>toString : (t: 文字) => 文字
+>t : 文字
 >类型别名 :=> 文字
 }
 
 function f2(args: I) { }
->f2 : (args: I) => void
+>f2 : (args: I) => 无值
 >args : I
 >I : I
 
 f2({ hello: 1 }) // error 
->f2({ hello: 1 }) : void
+>f2({ hello: 1 }) : 无值
 >类型别名 :=> 无值
->f2 : (args: I) => void
->{ hello: 1 } : { hello: number; }
->hello : number
+>f2 : (args: I) => 无值
+>{ hello: 1 } : { hello: 数字; }
+>hello : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 f2({ value: '' }) // missing toString satisfied by Object's member
->f2({ value: '' }) : void
+>f2({ value: '' }) : 无值
 >类型别名 :=> 无值
->f2 : (args: I) => void
->{ value: '' } : { value: string; }
->value : string
+>f2 : (args: I) => 无值
+>{ value: '' } : { value: 文字; }
+>value : 文字
 >类型别名 :=> 文字
 >'' : ""
 
 f2({ value: '', what: 1 }) // missing toString satisfied by Object's member
->f2({ value: '', what: 1 }) : void
+>f2({ value: '', what: 1 }) : 无值
 >类型别名 :=> 无值
->f2 : (args: I) => void
->{ value: '', what: 1 } : { value: string; what: number; }
->value : string
+>f2 : (args: I) => 无值
+>{ value: '', what: 1 } : { value: 文字; what: 数字; }
+>value : 文字
 >类型别名 :=> 文字
 >'' : ""
->what : number
+>what : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 f2({ toString: (s) => s }) // error, missing property value from ArgsString
->f2({ toString: (s) => s }) : void
+>f2({ toString: (s) => s }) : 无值
 >类型别名 :=> 无值
->f2 : (args: I) => void
->{ toString: (s) => s } : { toString: (s: string) => string; }
->toString : (s: string) => string
->(s) => s : (s: string) => string
->s : string
+>f2 : (args: I) => 无值
+>{ toString: (s) => s } : { toString: (s: 文字) => 文字; }
+>toString : (s: 文字) => 文字
+>(s) => s : (s: 文字) => 文字
+>s : 文字
 >类型别名 :=> 文字
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
 f2({ toString: (s: string) => s }) // error, missing property value from ArgsString
->f2({ toString: (s: string) => s }) : void
+>f2({ toString: (s: string) => s }) : 无值
 >类型别名 :=> 无值
->f2 : (args: I) => void
->{ toString: (s: string) => s } : { toString: (s: string) => string; }
->toString : (s: string) => string
->(s: string) => s : (s: string) => string
->s : string
+>f2 : (args: I) => 无值
+>{ toString: (s: string) => s } : { toString: (s: 文字) => 文字; }
+>toString : (s: 文字) => 文字
+>(s: string) => s : (s: 文字) => 文字
+>s : 文字
 >类型别名 :=> 文字
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
 f2({ value: '', toString: (s) => s.uhhh }) // error
->f2({ value: '', toString: (s) => s.uhhh }) : void
+>f2({ value: '', toString: (s) => s.uhhh }) : 无值
 >类型别名 :=> 无值
->f2 : (args: I) => void
->{ value: '', toString: (s) => s.uhhh } : { value: string; toString: (s: string) => any; }
->value : string
+>f2 : (args: I) => 无值
+>{ value: '', toString: (s) => s.uhhh } : { value: 文字; toString: (s: 文字) => 任意; }
+>value : 文字
 >类型别名 :=> 文字
 >'' : ""
->toString : (s: string) => any
->(s) => s.uhhh : (s: string) => any
->s : string
+>toString : (s: 文字) => 任意
+>(s) => s.uhhh : (s: 文字) => 任意
+>s : 文字
 >类型别名 :=> 文字
->s.uhhh : any
+>s.uhhh : 任意
 >类型别名 :=> 任意
->s : string
+>s : 文字
 >类型别名 :=> 文字
->uhhh : any
+>uhhh : 任意
 >类型别名 :=> 任意
 

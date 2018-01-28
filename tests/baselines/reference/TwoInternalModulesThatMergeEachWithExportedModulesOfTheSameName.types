@@ -1,69 +1,69 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/TwoInternalModulesThatMergeEachWithExportedModulesOfTheSameName.ts ===
 module A.B {
->A : typeof A
->B : typeof B
+>A : 类为 A
+>B : 类为 B
 
     export var x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 
 module A{ 
->A : typeof A
+>A : 类为 A
 
     module B {
->B : typeof B
+>B : 类为 B
 
         export var x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
     }
 }
 
 // ensure the right var decl is exported
 var x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 var x = A.B.x;
->x : number
+>x : 数字
 >类型别名 :=> 数字
->A.B.x : number
+>A.B.x : 数字
 >类型别名 :=> 数字
->A.B : typeof A.B
->A : typeof A
->B : typeof A.B
->x : number
+>A.B : 类为 A.B
+>A : 类为 A
+>B : 类为 A.B
+>x : 数字
 >类型别名 :=> 数字
 
 module X.Y.Z {
->X : typeof X
->Y : typeof Y
->Z : typeof Z
+>X : 类为 X
+>Y : 类为 Y
+>Z : 类为 Z
 
     export class Line {
 >Line : Line
 
         length: number;
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 module X {
->X : typeof X
+>X : 类为 X
 
     export module Y {
->Y : typeof Y
+>Y : 类为 Y
 
         module Z {
->Z : typeof Z
+>Z : 类为 Z
 
             export class Line {
 >Line : Line
 
                 name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
             }
         }
@@ -72,17 +72,17 @@ module X {
 
 // make sure merging works as expected
 var l: { length: number };
->l : { length: number; }
->length : number
+>l : { length: 数字; }
+>length : 数字
 >类型别名 :=> 数字
 
 var l: X.Y.Z.Line;
->l : { length: number; }
->X : any
+>l : { length: 数字; }
+>X : 任意
 >类型别名 :=> 任意
->Y : any
+>Y : 任意
 >类型别名 :=> 任意
->Z : any
+>Z : 任意
 >类型别名 :=> 任意
 >Line : X.Y.Z.Line
 

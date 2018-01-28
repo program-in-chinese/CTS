@@ -425,7 +425,7 @@ namespace ts {
             return createElementAccess(value, argumentExpression);
         }
         else {
-            const 名字 = unescapeLeadingUnderscores(propertyName.escapedText);// propertyName.别名 ? unescapeLeadingUnderscores(propertyName.别名.名称) :unescapeLeadingUnderscores(propertyName.escapedText);
+            const 名字 = propertyName.别名 && (propertyName.别名.旗帜 & 别名旗帜.汉英) ? unescapeLeadingUnderscores(propertyName.别名.名称) : unescapeLeadingUnderscores(propertyName.escapedText);
             const name = createIdentifier(名字);
             return createPropertyAccess(value, name);
         }

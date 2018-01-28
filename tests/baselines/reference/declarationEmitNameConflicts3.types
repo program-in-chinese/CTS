@@ -1,39 +1,39 @@
 === tests/cases/compiler/declarationEmitNameConflicts3.ts ===
 module M {
->M : typeof M
+>M : 类为 M
 
     export interface D { }
 >D : D
 
     export module D {
->D : typeof D
+>D : 类为 D
 
         export function f() { }
->f : () => void
+>f : () => 无值
     }
     export module C {
->C : typeof C
+>C : 类为 C
 
         export function f() { }
->f : () => void
+>f : () => 无值
     }
     export module E {
->E : typeof E
+>E : 类为 E
 
         export function f() { }
->f : () => void
+>f : () => 无值
     }
 }
 
 module M.P {
->M : typeof M
->P : typeof P
+>M : 类为 M
+>P : 类为 P
 
     export class C {
 >C : C
 
         static f() { }
->f : () => void
+>f : () => 无值
     }
     export class E extends C { }
 >E : E
@@ -47,31 +47,31 @@ module M.P {
     }
     export var v: M.D; // ok
 >v : M.D
->M : any
+>M : 任意
 >类型别名 :=> 任意
 >D : M.D
 
     export var w = M.D.f; // error, should be typeof M.D.f
->w : () => void
->M.D.f : () => void
->M.D : typeof M.D
->M : typeof M
->D : typeof M.D
->f : () => void
+>w : () => 无值
+>M.D.f : () => 无值
+>M.D : 类为 M.D
+>M : 类为 M
+>D : 类为 M.D
+>f : () => 无值
 
     export var x = M.C.f; // error, should be typeof M.C.f
->x : () => void
->M.C.f : () => void
->M.C : typeof M.C
->M : typeof M
->C : typeof M.C
->f : () => void
+>x : () => 无值
+>M.C.f : () => 无值
+>M.C : 类为 M.C
+>M : 类为 M
+>C : 类为 M.C
+>f : () => 无值
 
     export var x = M.E.f; // error, should be typeof M.E.f
->x : () => void
->M.E.f : () => void
->M.E : typeof M.E
->M : typeof M
->E : typeof M.E
->f : () => void
+>x : () => 无值
+>M.E.f : () => 无值
+>M.E : 类为 M.E
+>M : 类为 M
+>E : 类为 M.E
+>f : () => 无值
 }

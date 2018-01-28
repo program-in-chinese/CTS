@@ -3,14 +3,14 @@ class foo {}
 >foo : foo
 
 namespace foo {
->foo : typeof foo
+>foo : 类为 foo
 
     export class A {}
 >A : A
 
     export namespace B { export let a; }
->B : typeof B
->a : any
+>B : 类为 B
+>a : 任意
 >类型别名 :=> 任意
 }
 export = foo;
@@ -18,16 +18,16 @@ export = foo;
 
 === tests/cases/compiler/file2.ts ===
 import x = require("./file1"); 
->x : typeof x
+>x : 类为 x
 
 x.B.b = 1;
 >x.B.b = 1 : 1
->x.B.b : number
+>x.B.b : 数字
 >类型别名 :=> 数字
->x.B : typeof x.B
->x : typeof x
->B : typeof x.B
->b : number
+>x.B : 类为 x.B
+>x : 类为 x
+>B : 类为 x.B
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
@@ -35,46 +35,46 @@ x.B.b = 1;
 declare module "./file1" {
     interface A { a: number }
 >A : A
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     namespace B {
->B : typeof B
+>B : 类为 B
 
         export let b: number;
->b : number
+>b : 数字
 >类型别名 :=> 数字
     }
 }
 
 === tests/cases/compiler/file3.ts ===
 import * as x from "./file1";
->x : typeof x
+>x : 类为 x
 
 import "./file2";
 let a: x.A;
 >a : x.A
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >A : x.A
 
 let b = a.a;
->b : number
+>b : 数字
 >类型别名 :=> 数字
->a.a : number
+>a.a : 数字
 >类型别名 :=> 数字
 >a : x.A
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
 let c = x.B.b;
->c : number
+>c : 数字
 >类型别名 :=> 数字
->x.B.b : number
+>x.B.b : 数字
 >类型别名 :=> 数字
->x.B : typeof x.B
->x : typeof x
->B : typeof x.B
->b : number
+>x.B : 类为 x.B
+>x : 类为 x
+>B : 类为 x.B
+>b : 数字
 >类型别名 :=> 数字
 

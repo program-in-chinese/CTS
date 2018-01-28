@@ -1,116 +1,116 @@
 === tests/cases/compiler/collisionArgumentsFunctionExpressions.ts ===
 function foo() {
->foo : () => void
+>foo : () => 无值
 
     function f1(arguments: number, ...restParameters) { //arguments is error
->f1 : (arguments: number, ...restParameters: any[]) => void
->arguments : number
+>f1 : (arguments: 数字, ...restParameters: 任意[]) => 无值
+>arguments : 数字
 >类型别名 :=> 数字
->restParameters : any[]
+>restParameters : 任意[]
 
         var arguments = 10; // no error
->arguments : number
+>arguments : 数字
 >类型别名 :=> 数字
 >10 : 10
     }
     function f12(i: number, ...arguments) { //arguments is error
->f12 : (i: number, ...arguments: any[]) => void
->i : number
+>f12 : (i: 数字, ...arguments: 任意[]) => 无值
+>i : 数字
 >类型别名 :=> 数字
->arguments : any[]
+>arguments : 任意[]
 
         var arguments: any[]; // no error
->arguments : any[]
+>arguments : 任意[]
     }
     function f1NoError(arguments: number) { // no error
->f1NoError : (arguments: number) => void
->arguments : number
+>f1NoError : (arguments: 数字) => 无值
+>arguments : 数字
 >类型别名 :=> 数字
 
         var arguments = 10; // no error
->arguments : number
+>arguments : 数字
 >类型别名 :=> 数字
 >10 : 10
     }
 
     function f3(...restParameters) {
->f3 : (...restParameters: any[]) => void
->restParameters : any[]
+>f3 : (...restParameters: 任意[]) => 无值
+>restParameters : 任意[]
 
         var arguments = 10; // no error
->arguments : number
+>arguments : 数字
 >类型别名 :=> 数字
 >10 : 10
     }
     function f3NoError() {
->f3NoError : () => void
+>f3NoError : () => 无值
 
         var arguments = 10; // no error
->arguments : number
+>arguments : 数字
 >类型别名 :=> 数字
 >10 : 10
     }
 
     function f4(arguments: number, ...rest); // no codegen no error
->f4 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
->arguments : number
+>f4 : { (arguments: 数字, ...rest: 任意[]): 任意; (arguments: 文字, ...rest: 任意[]): 任意; }
+>arguments : 数字
 >类型别名 :=> 数字
->rest : any[]
+>rest : 任意[]
 
     function f4(arguments: string, ...rest); // no codegen no error
->f4 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
->arguments : string
+>f4 : { (arguments: 数字, ...rest: 任意[]): 任意; (arguments: 文字, ...rest: 任意[]): 任意; }
+>arguments : 文字
 >类型别名 :=> 文字
->rest : any[]
+>rest : 任意[]
 
     function f4(arguments: any, ...rest) { // error
->f4 : { (arguments: number, ...rest: any[]): any; (arguments: string, ...rest: any[]): any; }
->arguments : any
+>f4 : { (arguments: 数字, ...rest: 任意[]): 任意; (arguments: 文字, ...rest: 任意[]): 任意; }
+>arguments : 任意
 >类型别名 :=> 任意
->rest : any[]
+>rest : 任意[]
 
         var arguments: any; // No error
->arguments : any
+>arguments : 任意
 >类型别名 :=> 任意
     }
     function f42(i: number, ...arguments); // no codegen no error
->f42 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
->i : number
+>f42 : { (i: 数字, ...arguments: 任意[]): 任意; (i: 文字, ...arguments: 任意[]): 任意; }
+>i : 数字
 >类型别名 :=> 数字
->arguments : any[]
+>arguments : 任意[]
 
     function f42(i: string, ...arguments); // no codegen no error
->f42 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
->i : string
+>f42 : { (i: 数字, ...arguments: 任意[]): 任意; (i: 文字, ...arguments: 任意[]): 任意; }
+>i : 文字
 >类型别名 :=> 文字
->arguments : any[]
+>arguments : 任意[]
 
     function f42(i: any, ...arguments) { // error
->f42 : { (i: number, ...arguments: any[]): any; (i: string, ...arguments: any[]): any; }
->i : any
+>f42 : { (i: 数字, ...arguments: 任意[]): 任意; (i: 文字, ...arguments: 任意[]): 任意; }
+>i : 任意
 >类型别名 :=> 任意
->arguments : any[]
+>arguments : 任意[]
 
         var arguments: any[]; // No error
->arguments : any[]
+>arguments : 任意[]
     }
     function f4NoError(arguments: number); // no error
->f4NoError : { (arguments: number): any; (arguments: string): any; }
->arguments : number
+>f4NoError : { (arguments: 数字): 任意; (arguments: 文字): 任意; }
+>arguments : 数字
 >类型别名 :=> 数字
 
     function f4NoError(arguments: string); // no error
->f4NoError : { (arguments: number): any; (arguments: string): any; }
->arguments : string
+>f4NoError : { (arguments: 数字): 任意; (arguments: 文字): 任意; }
+>arguments : 文字
 >类型别名 :=> 文字
 
     function f4NoError(arguments: any) { // no error
->f4NoError : { (arguments: number): any; (arguments: string): any; }
->arguments : any
+>f4NoError : { (arguments: 数字): 任意; (arguments: 文字): 任意; }
+>arguments : 任意
 >类型别名 :=> 任意
 
         var arguments: any; // No error
->arguments : any
+>arguments : 任意
 >类型别名 :=> 任意
     }
 }

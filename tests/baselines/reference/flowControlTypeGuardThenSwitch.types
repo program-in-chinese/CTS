@@ -23,12 +23,12 @@ interface A extends Base {
 
     kind: Kind.A;
 >kind : Kind.A
->Kind : any
+>Kind : 任意
 >类型别名 :=> 任意
 >A : Kind.A
 
     yar: any;
->yar : any
+>yar : 任意
 >类型别名 :=> 任意
 }
 
@@ -38,12 +38,12 @@ interface B extends Base {
 
     kind: Kind.B;
 >kind : Kind.B
->Kind : any
+>Kind : 任意
 >类型别名 :=> 任意
 >B : Kind.B
 
     gar: any;
->gar : any
+>gar : 任意
 >类型别名 :=> 任意
 }
 
@@ -53,28 +53,28 @@ type Both = A | B;
 >B : B
 
 function isBoth(x: Base): x is Both {
->isBoth : (x: Base) => x is Both
+>isBoth : (x: Base) => x 作为 Both
 >x : Base
 >Base : Base
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >Both : Both
 
     return true;
->true : true
+>true : 为真
 >类型别名 :=> 为真
 }
 
 let foo: Base = undefined;
 >foo : Base
 >Base : Base
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 if (isBoth(foo)) {
->isBoth(foo) : boolean
+>isBoth(foo) : 真假
 >类型别名 :=> 真假
->isBoth : (x: Base) => x is Both
+>isBoth : (x: Base) => x 作为 Both
 >foo : Base
 
     switch (foo.kind) {
@@ -84,7 +84,7 @@ if (isBoth(foo)) {
 
         case Kind.A:
 >Kind.A : Kind.A
->Kind : typeof Kind
+>Kind : 类为 Kind
 >A : Kind.A
 
             const myA: A = foo; // Should not be an error
@@ -95,7 +95,7 @@ if (isBoth(foo)) {
             break;
         case Kind.B:
 >Kind.B : Kind.B
->Kind : typeof Kind
+>Kind : 类为 Kind
 >B : Kind.B
 
             const myB: B = foo;

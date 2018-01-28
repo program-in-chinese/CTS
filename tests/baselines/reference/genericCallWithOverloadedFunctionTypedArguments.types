@@ -3,39 +3,39 @@
 // Inferences are made quadratic-pairwise to and from these overload sets
 
 module NonGenericParameter {
->NonGenericParameter : typeof NonGenericParameter
+>NonGenericParameter : 类为 NonGenericParameter
 
     var a: {
->a : { (x: boolean): boolean; (x: string): string; }
+>a : { (x: 真假): 真假; (x: 文字): 文字; }
 
         (x: boolean): boolean;
->x : boolean
+>x : 真假
 >类型别名 :=> 真假
 
         (x: string): string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
     }
 
     function foo4(cb: typeof a) {
->foo4 : (cb: { (x: boolean): boolean; (x: string): string; }) => { (x: boolean): boolean; (x: string): string; }
->cb : { (x: boolean): boolean; (x: string): string; }
->a : { (x: boolean): boolean; (x: string): string; }
+>foo4 : (cb: { (x: 真假): 真假; (x: 文字): 文字; }) => { (x: 真假): 真假; (x: 文字): 文字; }
+>cb : { (x: 真假): 真假; (x: 文字): 文字; }
+>a : { (x: 真假): 真假; (x: 文字): 文字; }
 
         return cb;
->cb : { (x: boolean): boolean; (x: string): string; }
+>cb : { (x: 真假): 真假; (x: 文字): 文字; }
     }
 
     var r = foo4(a);
->r : { (x: boolean): boolean; (x: string): string; }
->foo4(a) : { (x: boolean): boolean; (x: string): string; }
->foo4 : (cb: { (x: boolean): boolean; (x: string): string; }) => { (x: boolean): boolean; (x: string): string; }
->a : { (x: boolean): boolean; (x: string): string; }
+>r : { (x: 真假): 真假; (x: 文字): 文字; }
+>foo4(a) : { (x: 真假): 真假; (x: 文字): 文字; }
+>foo4 : (cb: { (x: 真假): 真假; (x: 文字): 文字; }) => { (x: 真假): 真假; (x: 文字): 文字; }
+>a : { (x: 真假): 真假; (x: 文字): 文字; }
 
     var r2 = foo4(<T>(x: T) => x);
->r2 : { (x: boolean): boolean; (x: string): string; }
->foo4(<T>(x: T) => x) : { (x: boolean): boolean; (x: string): string; }
->foo4 : (cb: { (x: boolean): boolean; (x: string): string; }) => { (x: boolean): boolean; (x: string): string; }
+>r2 : { (x: 真假): 真假; (x: 文字): 文字; }
+>foo4(<T>(x: T) => x) : { (x: 真假): 真假; (x: 文字): 文字; }
+>foo4 : (cb: { (x: 真假): 真假; (x: 文字): 文字; }) => { (x: 真假): 真假; (x: 文字): 文字; }
 ><T>(x: T) => x : <T>(x: T) => T
 >T : T
 >x : T
@@ -43,63 +43,63 @@ module NonGenericParameter {
 >x : T
 
     var r4 = foo4(x => x);    
->r4 : { (x: boolean): boolean; (x: string): string; }
->foo4(x => x) : { (x: boolean): boolean; (x: string): string; }
->foo4 : (cb: { (x: boolean): boolean; (x: string): string; }) => { (x: boolean): boolean; (x: string): string; }
->x => x : (x: any) => any
->x : any
+>r4 : { (x: 真假): 真假; (x: 文字): 文字; }
+>foo4(x => x) : { (x: 真假): 真假; (x: 文字): 文字; }
+>foo4 : (cb: { (x: 真假): 真假; (x: 文字): 文字; }) => { (x: 真假): 真假; (x: 文字): 文字; }
+>x => x : (x: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 }
 
 module GenericParameter {
->GenericParameter : typeof GenericParameter
+>GenericParameter : 类为 GenericParameter
 
     function foo5<T>(cb: { (x: T): string; (x: number): T }) {
->foo5 : <T>(cb: { (x: T): string; (x: number): T; }) => { (x: T): string; (x: number): T; }
+>foo5 : <T>(cb: { (x: T): 文字; (x: 数字): T; }) => { (x: T): 文字; (x: 数字): T; }
 >T : T
->cb : { (x: T): string; (x: number): T; }
+>cb : { (x: T): 文字; (x: 数字): T; }
 >x : T
 >T : T
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >T : T
 
         return cb;
->cb : { (x: T): string; (x: number): T; }
+>cb : { (x: T): 文字; (x: 数字): T; }
     }
 
     var r5 = foo5(x => x); // any => string (+1 overload) [inferences are made for T, but lambda not contextually typed]. T is any
->r5 : { (x: any): string; (x: number): any; }
->foo5(x => x) : { (x: any): string; (x: number): any; }
->foo5 : <T>(cb: { (x: T): string; (x: number): T; }) => { (x: T): string; (x: number): T; }
->x => x : (x: any) => any
->x : any
+>r5 : { (x: 任意): 文字; (x: 数字): 任意; }
+>foo5(x => x) : { (x: 任意): 文字; (x: 数字): 任意; }
+>foo5 : <T>(cb: { (x: T): 文字; (x: 数字): T; }) => { (x: T): 文字; (x: 数字): T; }
+>x => x : (x: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     var a: { <T>(x: T): string; <T>(x: number): T; }
->a : { <T>(x: T): string; <T>(x: number): T; }
+>a : { <T>(x: T): 文字; <T>(x: 数字): T; }
 >T : T
 >x : T
 >T : T
 >T : T
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >T : T
 
     var r7 = foo5(a); // any => string (+1 overload)
->r7 : { (x: any): string; (x: number): any; }
->foo5(a) : { (x: any): string; (x: number): any; }
->foo5 : <T>(cb: { (x: T): string; (x: number): T; }) => { (x: T): string; (x: number): T; }
->a : { <T>(x: T): string; <T>(x: number): T; }
+>r7 : { (x: 任意): 文字; (x: 数字): 任意; }
+>foo5(a) : { (x: 任意): 文字; (x: 数字): 任意; }
+>foo5 : <T>(cb: { (x: T): 文字; (x: 数字): T; }) => { (x: T): 文字; (x: 数字): T; }
+>a : { <T>(x: T): 文字; <T>(x: 数字): T; }
 
     function foo6<T>(cb: { (x: T): string; (x: T, y?: T): string }) {
->foo6 : <T>(cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
+>foo6 : <T>(cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
 >T : T
->cb : { (x: T): string; (x: T, y?: T): string; }
+>cb : { (x: T): 文字; (x: T, y?: T): 文字; }
 >x : T
 >T : T
 >x : T
@@ -108,34 +108,34 @@ module GenericParameter {
 >T : T
 
         return cb;
->cb : { (x: T): string; (x: T, y?: T): string; }
+>cb : { (x: T): 文字; (x: T, y?: T): 文字; }
     }
 
     var r8 = foo6(x => x); // any => string (+1 overload) [inferences are made for T, but lambda not contextually typed]. T is any
->r8 : { (x: any): string; (x: any, y?: any): string; }
->foo6(x => x) : { (x: any): string; (x: any, y?: any): string; }
->foo6 : <T>(cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
->x => x : (x: any) => any
->x : any
+>r8 : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo6(x => x) : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo6 : <T>(cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
+>x => x : (x: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     var r9 = foo6(<T>(x: T) => ''); // any => string (+1 overload)
->r9 : { (x: any): string; (x: any, y?: any): string; }
->foo6(<T>(x: T) => '') : { (x: any): string; (x: any, y?: any): string; }
->foo6 : <T>(cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
-><T>(x: T) => '' : <T>(x: T) => string
+>r9 : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo6(<T>(x: T) => '') : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo6 : <T>(cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
+><T>(x: T) => '' : <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T
 >'' : ""
 
     var r11 = foo6(<T>(x: T, y?: T) => ''); // any => string (+1 overload)
->r11 : { (x: any): string; (x: any, y?: any): string; }
->foo6(<T>(x: T, y?: T) => '') : { (x: any): string; (x: any, y?: any): string; }
->foo6 : <T>(cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
-><T>(x: T, y?: T) => '' : <T>(x: T, y?: T) => string
+>r11 : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo6(<T>(x: T, y?: T) => '') : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo6 : <T>(cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
+><T>(x: T, y?: T) => '' : <T>(x: T, y?: T) => 文字
 >T : T
 >x : T
 >T : T
@@ -144,11 +144,11 @@ module GenericParameter {
 >'' : ""
 
     function foo7<T>(x:T, cb: { (x: T): string; (x: T, y?: T): string }) {
->foo7 : <T>(x: T, cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
+>foo7 : <T>(x: T, cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
 >T : T
 >x : T
 >T : T
->cb : { (x: T): string; (x: T, y?: T): string; }
+>cb : { (x: T): 文字; (x: T, y?: T): 文字; }
 >x : T
 >T : T
 >x : T
@@ -157,45 +157,45 @@ module GenericParameter {
 >T : T
 
         return cb;
->cb : { (x: T): string; (x: T, y?: T): string; }
+>cb : { (x: T): 文字; (x: T, y?: T): 文字; }
     }
 
     var r12 = foo7(1, (x) => x); // any => string (+1 overload) [inferences are made for T, but lambda not contextually typed]
->r12 : { (x: any): string; (x: any, y?: any): string; }
->foo7(1, (x) => x) : { (x: any): string; (x: any, y?: any): string; }
->foo7 : <T>(x: T, cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
+>r12 : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo7(1, (x) => x) : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo7 : <T>(x: T, cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
 >1 : 1
->(x) => x : (x: any) => any
->x : any
+>(x) => x : (x: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     var r13 = foo7(1, <T>(x: T) => ''); // any => string (+1 overload) [inferences are made for T, but lambda not contextually typed]
->r13 : { (x: any): string; (x: any, y?: any): string; }
->foo7(1, <T>(x: T) => '') : { (x: any): string; (x: any, y?: any): string; }
->foo7 : <T>(x: T, cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
+>r13 : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo7(1, <T>(x: T) => '') : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo7 : <T>(x: T, cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
 >1 : 1
-><T>(x: T) => '' : <T>(x: T) => string
+><T>(x: T) => '' : <T>(x: T) => 文字
 >T : T
 >x : T
 >T : T
 >'' : ""
 
     var a: { <T>(x: T): string; <T>(x: number): T; }
->a : { <T>(x: T): string; <T>(x: number): T; }
+>a : { <T>(x: T): 文字; <T>(x: 数字): T; }
 >T : T
 >x : T
 >T : T
 >T : T
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >T : T
 
     var r14 = foo7(1, a); // any => string (+1 overload) [inferences are made for T, but lambda not contextually typed]
->r14 : { (x: any): string; (x: any, y?: any): string; }
->foo7(1, a) : { (x: any): string; (x: any, y?: any): string; }
->foo7 : <T>(x: T, cb: { (x: T): string; (x: T, y?: T): string; }) => { (x: T): string; (x: T, y?: T): string; }
+>r14 : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo7(1, a) : { (x: 任意): 文字; (x: 任意, y?: 任意): 文字; }
+>foo7 : <T>(x: T, cb: { (x: T): 文字; (x: T, y?: T): 文字; }) => { (x: T): 文字; (x: T, y?: T): 文字; }
 >1 : 1
->a : { <T>(x: T): string; <T>(x: number): T; }
+>a : { <T>(x: T): 文字; <T>(x: 数字): T; }
 }

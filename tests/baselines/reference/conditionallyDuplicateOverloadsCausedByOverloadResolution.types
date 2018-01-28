@@ -1,99 +1,99 @@
 === tests/cases/compiler/conditionallyDuplicateOverloadsCausedByOverloadResolution.ts ===
 declare function foo(func: (x: string, y: string) => any): boolean;
->foo : { (func: (x: string, y: string) => any): boolean; (func: (x: string, y: number) => any): string; }
->func : (x: string, y: string) => any
->x : string
+>foo : { (func: (x: 文字, y: 文字) => 任意): 真假; (func: (x: 文字, y: 数字) => 任意): 文字; }
+>func : (x: 文字, y: 文字) => 任意
+>x : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
 declare function foo(func: (x: string, y: number) => any): string;
->foo : { (func: (x: string, y: string) => any): boolean; (func: (x: string, y: number) => any): string; }
->func : (x: string, y: number) => any
->x : string
+>foo : { (func: (x: 文字, y: 文字) => 任意): 真假; (func: (x: 文字, y: 数字) => 任意): 文字; }
+>func : (x: 文字, y: 数字) => 任意
+>x : 文字
 >类型别名 :=> 文字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var out = foo((x, y) => {
->out : boolean
+>out : 真假
 >类型别名 :=> 真假
->foo((x, y) => {    function bar(a: typeof x): void;    function bar(b: typeof y): void;    function bar() { }    return bar;}) : boolean
+>foo((x, y) => {    function bar(a: typeof x): void;    function bar(b: typeof y): void;    function bar() { }    return bar;}) : 真假
 >类型别名 :=> 真假
->foo : { (func: (x: string, y: string) => any): boolean; (func: (x: string, y: number) => any): string; }
->(x, y) => {    function bar(a: typeof x): void;    function bar(b: typeof y): void;    function bar() { }    return bar;} : (x: string, y: string) => { (a: string): void; (b: string): void; }
->x : string
+>foo : { (func: (x: 文字, y: 文字) => 任意): 真假; (func: (x: 文字, y: 数字) => 任意): 文字; }
+>(x, y) => {    function bar(a: typeof x): void;    function bar(b: typeof y): void;    function bar() { }    return bar;} : (x: 文字, y: 文字) => { (a: 文字): 无值; (b: 文字): 无值; }
+>x : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
     function bar(a: typeof x): void;
->bar : { (a: string): void; (b: string): void; }
->a : string
+>bar : { (a: 文字): 无值; (b: 文字): 无值; }
+>a : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     function bar(b: typeof y): void;
->bar : { (a: string): void; (b: string): void; }
->b : string
+>bar : { (a: 文字): 无值; (b: 文字): 无值; }
+>b : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
     function bar() { }
->bar : { (a: string): void; (b: string): void; }
+>bar : { (a: 文字): 无值; (b: 文字): 无值; }
 
     return bar;
->bar : { (a: string): void; (b: string): void; }
+>bar : { (a: 文字): 无值; (b: 文字): 无值; }
 
 });
 
 declare function foo2(func: (x: string, y: string) => any): boolean;
->foo2 : { (func: (x: string, y: string) => any): boolean; (func: (x: string, y: number) => any): string; }
->func : (x: string, y: string) => any
->x : string
+>foo2 : { (func: (x: 文字, y: 文字) => 任意): 真假; (func: (x: 文字, y: 数字) => 任意): 文字; }
+>func : (x: 文字, y: 文字) => 任意
+>x : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
 declare function foo2(func: (x: string, y: number) => any): string;
->foo2 : { (func: (x: string, y: string) => any): boolean; (func: (x: string, y: number) => any): string; }
->func : (x: string, y: number) => any
->x : string
+>foo2 : { (func: (x: 文字, y: 文字) => 任意): 真假; (func: (x: 文字, y: 数字) => 任意): 文字; }
+>func : (x: 文字, y: 数字) => 任意
+>x : 文字
 >类型别名 :=> 文字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var out2 = foo2((x, y) => {
->out2 : boolean
+>out2 : 真假
 >类型别名 :=> 真假
->foo2((x, y) => {    var bar: {        (a: typeof x): void;        (b: typeof y): void;    };    return bar;}) : boolean
+>foo2((x, y) => {    var bar: {        (a: typeof x): void;        (b: typeof y): void;    };    return bar;}) : 真假
 >类型别名 :=> 真假
->foo2 : { (func: (x: string, y: string) => any): boolean; (func: (x: string, y: number) => any): string; }
->(x, y) => {    var bar: {        (a: typeof x): void;        (b: typeof y): void;    };    return bar;} : (x: string, y: string) => { (a: string): void; (b: string): void; }
->x : string
+>foo2 : { (func: (x: 文字, y: 文字) => 任意): 真假; (func: (x: 文字, y: 数字) => 任意): 文字; }
+>(x, y) => {    var bar: {        (a: typeof x): void;        (b: typeof y): void;    };    return bar;} : (x: 文字, y: 文字) => { (a: 文字): 无值; (b: 文字): 无值; }
+>x : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
     var bar: {
->bar : { (a: string): void; (b: string): void; }
+>bar : { (a: 文字): 无值; (b: 文字): 无值; }
 
         (a: typeof x): void;
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         (b: typeof y): void;
->b : string
+>b : 文字
 >类型别名 :=> 文字
->y : string
+>y : 文字
 >类型别名 :=> 文字
 
     };
     return bar;
->bar : { (a: string): void; (b: string): void; }
+>bar : { (a: 文字): 无值; (b: 文字): 无值; }
 
 });

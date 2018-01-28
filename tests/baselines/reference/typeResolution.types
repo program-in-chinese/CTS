@@ -1,136 +1,136 @@
 === tests/cases/compiler/typeResolution.ts ===
 export module TopLevelModule1 {
->TopLevelModule1 : typeof TopLevelModule1
+>TopLevelModule1 : 类为 TopLevelModule1
 
     export module SubModule1 {
->SubModule1 : typeof SubModule1
+>SubModule1 : 类为 SubModule1
 
         export module SubSubModule1 {
->SubSubModule1 : typeof SubSubModule1
+>SubSubModule1 : 类为 SubSubModule1
 
             export class ClassA {
 >ClassA : ClassA
 
                 public AisIn1_1_1() {
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     // Try all qualified names of this type
                     var a1: ClassA; a1.AisIn1_1_1();
 >a1 : ClassA
 >ClassA : ClassA
->a1.AisIn1_1_1() : void
+>a1.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a1.AisIn1_1_1 : () => void
+>a1.AisIn1_1_1 : () => 无值
 >a1 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a2: SubSubModule1.ClassA; a2.AisIn1_1_1();
 >a2 : ClassA
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : ClassA
->a2.AisIn1_1_1() : void
+>a2.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a2.AisIn1_1_1 : () => void
+>a2.AisIn1_1_1 : () => 无值
 >a2 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a3: SubModule1.SubSubModule1.ClassA; a3.AisIn1_1_1();
 >a3 : ClassA
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : ClassA
->a3.AisIn1_1_1() : void
+>a3.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a3.AisIn1_1_1 : () => void
+>a3.AisIn1_1_1 : () => 无值
 >a3 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a4: TopLevelModule1.SubModule1.SubSubModule1.ClassA; a4.AisIn1_1_1();
 >a4 : ClassA
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : ClassA
->a4.AisIn1_1_1() : void
+>a4.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a4.AisIn1_1_1 : () => void
+>a4.AisIn1_1_1 : () => 无值
 >a4 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
                     
                     // Two variants of qualifying a peer type
                     var b1: ClassB; b1.BisIn1_1_1();
 >b1 : ClassB
 >ClassB : ClassB
->b1.BisIn1_1_1() : void
+>b1.BisIn1_1_1() : 无值
 >类型别名 :=> 无值
->b1.BisIn1_1_1 : () => void
+>b1.BisIn1_1_1 : () => 无值
 >b1 : ClassB
->BisIn1_1_1 : () => void
+>BisIn1_1_1 : () => 无值
 
                     var b2: TopLevelModule1.SubModule1.SubSubModule1.ClassB; b2.BisIn1_1_1();
 >b2 : ClassB
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassB : ClassB
->b2.BisIn1_1_1() : void
+>b2.BisIn1_1_1() : 无值
 >类型别名 :=> 无值
->b2.BisIn1_1_1 : () => void
+>b2.BisIn1_1_1 : () => 无值
 >b2 : ClassB
->BisIn1_1_1 : () => void
+>BisIn1_1_1 : () => 无值
                     
                     // Type only accessible from the root
                     var c1: TopLevelModule1.SubModule2.SubSubModule2.ClassA; c1.AisIn1_2_2();
 >c1 : SubModule2.SubSubModule2.ClassA
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule2 : any
+>SubModule2 : 任意
 >类型别名 :=> 任意
->SubSubModule2 : any
+>SubSubModule2 : 任意
 >类型别名 :=> 任意
 >ClassA : SubModule2.SubSubModule2.ClassA
->c1.AisIn1_2_2() : void
+>c1.AisIn1_2_2() : 无值
 >类型别名 :=> 无值
->c1.AisIn1_2_2 : () => void
+>c1.AisIn1_2_2 : () => 无值
 >c1 : SubModule2.SubSubModule2.ClassA
->AisIn1_2_2 : () => void
+>AisIn1_2_2 : () => 无值
                     
                     // Interface reference
                     var d1: InterfaceX; d1.XisIn1_1_1();
 >d1 : InterfaceX
 >InterfaceX : InterfaceX
->d1.XisIn1_1_1() : any
+>d1.XisIn1_1_1() : 任意
 >类型别名 :=> 任意
->d1.XisIn1_1_1 : () => any
+>d1.XisIn1_1_1 : () => 任意
 >d1 : InterfaceX
->XisIn1_1_1 : () => any
+>XisIn1_1_1 : () => 任意
 
                     var d2: SubSubModule1.InterfaceX; d2.XisIn1_1_1();
 >d2 : InterfaceX
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >InterfaceX : InterfaceX
->d2.XisIn1_1_1() : any
+>d2.XisIn1_1_1() : 任意
 >类型别名 :=> 任意
->d2.XisIn1_1_1 : () => any
+>d2.XisIn1_1_1 : () => 任意
 >d2 : InterfaceX
->XisIn1_1_1 : () => any
+>XisIn1_1_1 : () => 任意
                 }
             }
             export class ClassB {
 >ClassB : ClassB
 
                 public BisIn1_1_1() {
->BisIn1_1_1 : () => void
+>BisIn1_1_1 : () => 无值
 
                     /** Exactly the same as above in AisIn1_1_1 **/
                     
@@ -138,190 +138,190 @@ export module TopLevelModule1 {
                     var a1: ClassA; a1.AisIn1_1_1();
 >a1 : ClassA
 >ClassA : ClassA
->a1.AisIn1_1_1() : void
+>a1.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a1.AisIn1_1_1 : () => void
+>a1.AisIn1_1_1 : () => 无值
 >a1 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a2: SubSubModule1.ClassA; a2.AisIn1_1_1();
 >a2 : ClassA
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : ClassA
->a2.AisIn1_1_1() : void
+>a2.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a2.AisIn1_1_1 : () => void
+>a2.AisIn1_1_1 : () => 无值
 >a2 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a3: SubModule1.SubSubModule1.ClassA; a3.AisIn1_1_1();
 >a3 : ClassA
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : ClassA
->a3.AisIn1_1_1() : void
+>a3.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a3.AisIn1_1_1 : () => void
+>a3.AisIn1_1_1 : () => 无值
 >a3 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a4: TopLevelModule1.SubModule1.SubSubModule1.ClassA; a4.AisIn1_1_1();
 >a4 : ClassA
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : ClassA
->a4.AisIn1_1_1() : void
+>a4.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a4.AisIn1_1_1 : () => void
+>a4.AisIn1_1_1 : () => 无值
 >a4 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
                     
                     // Two variants of qualifying a peer type
                     var b1: ClassB; b1.BisIn1_1_1();
 >b1 : ClassB
 >ClassB : ClassB
->b1.BisIn1_1_1() : void
+>b1.BisIn1_1_1() : 无值
 >类型别名 :=> 无值
->b1.BisIn1_1_1 : () => void
+>b1.BisIn1_1_1 : () => 无值
 >b1 : ClassB
->BisIn1_1_1 : () => void
+>BisIn1_1_1 : () => 无值
 
                     var b2: TopLevelModule1.SubModule1.SubSubModule1.ClassB; b2.BisIn1_1_1();
 >b2 : ClassB
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassB : ClassB
->b2.BisIn1_1_1() : void
+>b2.BisIn1_1_1() : 无值
 >类型别名 :=> 无值
->b2.BisIn1_1_1 : () => void
+>b2.BisIn1_1_1 : () => 无值
 >b2 : ClassB
->BisIn1_1_1 : () => void
+>BisIn1_1_1 : () => 无值
                     
                     // Type only accessible from the root
                     var c1: TopLevelModule1.SubModule2.SubSubModule2.ClassA; c1.AisIn1_2_2();
 >c1 : SubModule2.SubSubModule2.ClassA
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule2 : any
+>SubModule2 : 任意
 >类型别名 :=> 任意
->SubSubModule2 : any
+>SubSubModule2 : 任意
 >类型别名 :=> 任意
 >ClassA : SubModule2.SubSubModule2.ClassA
->c1.AisIn1_2_2() : void
+>c1.AisIn1_2_2() : 无值
 >类型别名 :=> 无值
->c1.AisIn1_2_2 : () => void
+>c1.AisIn1_2_2 : () => 无值
 >c1 : SubModule2.SubSubModule2.ClassA
->AisIn1_2_2 : () => void
+>AisIn1_2_2 : () => 无值
 
                     var c2: TopLevelModule2.SubModule3.ClassA; c2.AisIn2_3();
 >c2 : TopLevelModule2.SubModule3.ClassA
->TopLevelModule2 : any
+>TopLevelModule2 : 任意
 >类型别名 :=> 任意
->SubModule3 : any
+>SubModule3 : 任意
 >类型别名 :=> 任意
 >ClassA : TopLevelModule2.SubModule3.ClassA
->c2.AisIn2_3() : void
+>c2.AisIn2_3() : 无值
 >类型别名 :=> 无值
->c2.AisIn2_3 : () => void
+>c2.AisIn2_3 : () => 无值
 >c2 : TopLevelModule2.SubModule3.ClassA
->AisIn2_3 : () => void
+>AisIn2_3 : () => 无值
                     
                     // Interface reference
                     var d1: InterfaceX; d1.XisIn1_1_1();
 >d1 : InterfaceX
 >InterfaceX : InterfaceX
->d1.XisIn1_1_1() : any
+>d1.XisIn1_1_1() : 任意
 >类型别名 :=> 任意
->d1.XisIn1_1_1 : () => any
+>d1.XisIn1_1_1 : () => 任意
 >d1 : InterfaceX
->XisIn1_1_1 : () => any
+>XisIn1_1_1 : () => 任意
 
                     var d2: SubSubModule1.InterfaceX; d2.XisIn1_1_1();
 >d2 : InterfaceX
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >InterfaceX : InterfaceX
->d2.XisIn1_1_1() : any
+>d2.XisIn1_1_1() : 任意
 >类型别名 :=> 任意
->d2.XisIn1_1_1 : () => any
+>d2.XisIn1_1_1 : () => 任意
 >d2 : InterfaceX
->XisIn1_1_1 : () => any
+>XisIn1_1_1 : () => 任意
                 }
             }
             export interface InterfaceX { XisIn1_1_1(); }
 >InterfaceX : InterfaceX
->XisIn1_1_1 : () => any
+>XisIn1_1_1 : () => 任意
 
             class NonExportedClassQ {
 >NonExportedClassQ : NonExportedClassQ
 
                 constructor() {
                     function QQ() {
->QQ : () => void
+>QQ : () => 无值
 
                         /* Sampling of stuff from AisIn1_1_1 */
                         var a4: TopLevelModule1.SubModule1.SubSubModule1.ClassA; a4.AisIn1_1_1();
 >a4 : ClassA
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : ClassA
->a4.AisIn1_1_1() : void
+>a4.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a4.AisIn1_1_1 : () => void
+>a4.AisIn1_1_1 : () => 无值
 >a4 : ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                         var c1: TopLevelModule1.SubModule2.SubSubModule2.ClassA; c1.AisIn1_2_2();
 >c1 : SubModule2.SubSubModule2.ClassA
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule2 : any
+>SubModule2 : 任意
 >类型别名 :=> 任意
->SubSubModule2 : any
+>SubSubModule2 : 任意
 >类型别名 :=> 任意
 >ClassA : SubModule2.SubSubModule2.ClassA
->c1.AisIn1_2_2() : void
+>c1.AisIn1_2_2() : 无值
 >类型别名 :=> 无值
->c1.AisIn1_2_2 : () => void
+>c1.AisIn1_2_2 : () => 无值
 >c1 : SubModule2.SubSubModule2.ClassA
->AisIn1_2_2 : () => void
+>AisIn1_2_2 : () => 无值
 
                         var d1: InterfaceX; d1.XisIn1_1_1();
 >d1 : InterfaceX
 >InterfaceX : InterfaceX
->d1.XisIn1_1_1() : any
+>d1.XisIn1_1_1() : 任意
 >类型别名 :=> 任意
->d1.XisIn1_1_1 : () => any
+>d1.XisIn1_1_1 : () => 任意
 >d1 : InterfaceX
->XisIn1_1_1 : () => any
+>XisIn1_1_1 : () => 任意
 
                         var c2: TopLevelModule2.SubModule3.ClassA; c2.AisIn2_3();
 >c2 : TopLevelModule2.SubModule3.ClassA
->TopLevelModule2 : any
+>TopLevelModule2 : 任意
 >类型别名 :=> 任意
->SubModule3 : any
+>SubModule3 : 任意
 >类型别名 :=> 任意
 >ClassA : TopLevelModule2.SubModule3.ClassA
->c2.AisIn2_3() : void
+>c2.AisIn2_3() : 无值
 >类型别名 :=> 无值
->c2.AisIn2_3 : () => void
+>c2.AisIn2_3 : () => 无值
 >c2 : TopLevelModule2.SubModule3.ClassA
->AisIn2_3 : () => void
+>AisIn2_3 : () => 无值
                     }
                 }
             }
@@ -333,85 +333,85 @@ export module TopLevelModule1 {
 
             constructor() {
                 function AA() {
->AA : () => void
+>AA : () => 无值
 
                     var a2: SubSubModule1.ClassA; a2.AisIn1_1_1();
 >a2 : SubSubModule1.ClassA
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : SubSubModule1.ClassA
->a2.AisIn1_1_1() : void
+>a2.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a2.AisIn1_1_1 : () => void
+>a2.AisIn1_1_1 : () => 无值
 >a2 : SubSubModule1.ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a3: SubModule1.SubSubModule1.ClassA; a3.AisIn1_1_1();
 >a3 : SubSubModule1.ClassA
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : SubSubModule1.ClassA
->a3.AisIn1_1_1() : void
+>a3.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a3.AisIn1_1_1 : () => void
+>a3.AisIn1_1_1 : () => 无值
 >a3 : SubSubModule1.ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
 
                     var a4: TopLevelModule1.SubModule1.SubSubModule1.ClassA; a4.AisIn1_1_1();
 >a4 : SubSubModule1.ClassA
->TopLevelModule1 : any
+>TopLevelModule1 : 任意
 >类型别名 :=> 任意
->SubModule1 : any
+>SubModule1 : 任意
 >类型别名 :=> 任意
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >ClassA : SubSubModule1.ClassA
->a4.AisIn1_1_1() : void
+>a4.AisIn1_1_1() : 无值
 >类型别名 :=> 无值
->a4.AisIn1_1_1 : () => void
+>a4.AisIn1_1_1 : () => 无值
 >a4 : SubSubModule1.ClassA
->AisIn1_1_1 : () => void
+>AisIn1_1_1 : () => 无值
                     
                     // Interface reference
                     var d2: SubSubModule1.InterfaceX; d2.XisIn1_1_1();
 >d2 : SubSubModule1.InterfaceX
->SubSubModule1 : any
+>SubSubModule1 : 任意
 >类型别名 :=> 任意
 >InterfaceX : SubSubModule1.InterfaceX
->d2.XisIn1_1_1() : any
+>d2.XisIn1_1_1() : 任意
 >类型别名 :=> 任意
->d2.XisIn1_1_1 : () => any
+>d2.XisIn1_1_1 : () => 任意
 >d2 : SubSubModule1.InterfaceX
->XisIn1_1_1 : () => any
+>XisIn1_1_1 : () => 任意
                 }
             }
         }
     }
 
     export module SubModule2 {
->SubModule2 : typeof SubModule2
+>SubModule2 : 类为 SubModule2
 
         export module SubSubModule2 {
->SubSubModule2 : typeof SubSubModule2
+>SubSubModule2 : 类为 SubSubModule2
 
             // No code here since these are the mirror of the above calls
             export class ClassA { public AisIn1_2_2() { } }
 >ClassA : ClassA
->AisIn1_2_2 : () => void
+>AisIn1_2_2 : () => 无值
 
             export class ClassB { public BisIn1_2_2() { } }
 >ClassB : ClassB
->BisIn1_2_2 : () => void
+>BisIn1_2_2 : () => 无值
 
             export class ClassC { public CisIn1_2_2() { } }
 >ClassC : ClassC
->CisIn1_2_2 : () => void
+>CisIn1_2_2 : () => 无值
 
             export interface InterfaceY { YisIn1_2_2(); }
 >InterfaceY : InterfaceY
->YisIn1_2_2 : () => any
+>YisIn1_2_2 : () => 任意
 
             interface NonExportedInterfaceQ { }
 >NonExportedInterfaceQ : NonExportedInterfaceQ
@@ -419,25 +419,25 @@ export module TopLevelModule1 {
         
         export interface InterfaceY { YisIn1_2(); }
 >InterfaceY : InterfaceY
->YisIn1_2 : () => any
+>YisIn1_2 : () => 任意
     }
     
     class ClassA {
 >ClassA : ClassA
 
         public AisIn1() { }
->AisIn1 : () => void
+>AisIn1 : () => 无值
     }
 
     interface InterfaceY {
 >InterfaceY : InterfaceY
 
         YisIn1();
->YisIn1 : () => any
+>YisIn1 : () => 任意
     }
     
     module NotExportedModule {
->NotExportedModule : typeof NotExportedModule
+>NotExportedModule : 类为 NotExportedModule
 
         export class ClassA { }
 >ClassA : ClassA
@@ -445,16 +445,16 @@ export module TopLevelModule1 {
 }
 
 module TopLevelModule2 {
->TopLevelModule2 : typeof TopLevelModule2
+>TopLevelModule2 : 类为 TopLevelModule2
 
     export module SubModule3 {
->SubModule3 : typeof SubModule3
+>SubModule3 : 类为 SubModule3
 
         export class ClassA {
 >ClassA : ClassA
 
             public AisIn2_3() { }
->AisIn2_3 : () => void
+>AisIn2_3 : () => 无值
         }
     }
 }

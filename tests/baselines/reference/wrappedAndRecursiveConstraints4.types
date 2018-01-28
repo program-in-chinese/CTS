@@ -2,7 +2,7 @@
 class C<T extends { length: number }> {
 >C : C<T>
 >T : T
->length : number
+>length : 数字
 >类型别名 :=> 数字
 
     constructor(x: T) { }
@@ -10,14 +10,14 @@ class C<T extends { length: number }> {
 >T : T
 
     foo<U extends T>(x: U) {
->foo : <U extends T>(x: U) => <V extends U>(x: V) => V
+>foo : <U 扩展 T>(x: U) => <V 扩展 U>(x: V) => V
 >U : U
 >T : T
 >x : U
 >U : U
 
         function bar<V extends U>(x: V) {
->bar : <V extends U>(x: V) => V
+>bar : <V 扩展 U>(x: V) => V
 >V : V
 >U : U
 >x : V
@@ -27,40 +27,40 @@ class C<T extends { length: number }> {
 >x : V
         }
         return bar;
->bar : <V extends U>(x: V) => V
+>bar : <V 扩展 U>(x: V) => V
     }
 }
 
 var c = new C({ length: 2 });
->c : C<{ length: number; }>
->new C({ length: 2 }) : C<{ length: number; }>
->C : typeof C
->{ length: 2 } : { length: number; }
->length : number
+>c : C<{ length: 数字; }>
+>new C({ length: 2 }) : C<{ length: 数字; }>
+>C : 类为 C
+>{ length: 2 } : { length: 数字; }
+>length : 数字
 >类型别名 :=> 数字
 >2 : 2
 
 var r = c.foo('');
->r : <V extends string>(x: V) => V
->c.foo('') : <V extends string>(x: V) => V
->c.foo : <U extends { length: number; }>(x: U) => <V extends U>(x: V) => V
->c : C<{ length: number; }>
->foo : <U extends { length: number; }>(x: U) => <V extends U>(x: V) => V
+>r : <V 扩展 文字>(x: V) => V
+>c.foo('') : <V 扩展 文字>(x: V) => V
+>c.foo : <U 扩展 { length: 数字; }>(x: U) => <V 扩展 U>(x: V) => V
+>c : C<{ length: 数字; }>
+>foo : <U 扩展 { length: 数字; }>(x: U) => <V 扩展 U>(x: V) => V
 >'' : ""
 
 var r2 = r({ length: 3, charAt: (x: number) => { '' } }); // error
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->r({ length: 3, charAt: (x: number) => { '' } }) : any
+>r({ length: 3, charAt: (x: number) => { '' } }) : 任意
 >类型别名 :=> 任意
->r : <V extends string>(x: V) => V
->{ length: 3, charAt: (x: number) => { '' } } : { length: number; charAt: (x: number) => void; }
->length : number
+>r : <V 扩展 文字>(x: V) => V
+>{ length: 3, charAt: (x: number) => { '' } } : { length: 数字; charAt: (x: 数字) => 无值; }
+>length : 数字
 >类型别名 :=> 数字
 >3 : 3
->charAt : (x: number) => void
->(x: number) => { '' } : (x: number) => void
->x : number
+>charAt : (x: 数字) => 无值
+>(x: number) => { '' } : (x: 数字) => 无值
+>x : 数字
 >类型别名 :=> 数字
 >'' : ""
 

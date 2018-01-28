@@ -1,25 +1,25 @@
 === tests/cases/compiler/optionalPropertiesTest.ts ===
 var x: {p1:number; p2?:string; p3?:{():number;};};
->x : { p1: number; p2?: string; p3?: () => number; }
->p1 : number
+>x : { p1: 数字; p2?: 文字; p3?: () => 数字; }
+>p1 : 数字
 >类型别名 :=> 数字
->p2 : string
+>p2 : 文字
 >类型别名 :=> 文字
->p3 : () => number
+>p3 : () => 数字
 
 interface IFoo
 >IFoo : IFoo
 {
     id: number;
->id : number
+>id : 数字
 >类型别名 :=> 数字
 
     name?: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 
     print?(): void;
->print : () => void
+>print : () => 无值
 }
 
 
@@ -28,84 +28,84 @@ var foo: IFoo;
 >IFoo : IFoo
 
 foo = { id: 1234 };                // Ok
->foo = { id: 1234 } : { id: number; }
+>foo = { id: 1234 } : { id: 数字; }
 >foo : IFoo
->{ id: 1234 } : { id: number; }
->id : number
+>{ id: 1234 } : { id: 数字; }
+>id : 数字
 >类型别名 :=> 数字
 >1234 : 1234
 
 foo = { id: 1234, name: "test" };  // Ok
->foo = { id: 1234, name: "test" } : { id: number; name: string; }
+>foo = { id: 1234, name: "test" } : { id: 数字; name: 文字; }
 >foo : IFoo
->{ id: 1234, name: "test" } : { id: number; name: string; }
->id : number
+>{ id: 1234, name: "test" } : { id: 数字; name: 文字; }
+>id : 数字
 >类型别名 :=> 数字
 >1234 : 1234
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >"test" : "test"
 
 foo = { name: "test" };            // Error, id missing
->foo = { name: "test" } : { name: string; }
+>foo = { name: "test" } : { name: 文字; }
 >foo : IFoo
->{ name: "test" } : { name: string; }
->name : string
+>{ name: "test" } : { name: 文字; }
+>name : 文字
 >类型别名 :=> 文字
 >"test" : "test"
 
 foo = {id: 1234, print:()=>{}}	   // Ok
->foo = {id: 1234, print:()=>{}} : { id: number; print: () => void; }
+>foo = {id: 1234, print:()=>{}} : { id: 数字; print: () => 无值; }
 >foo : IFoo
->{id: 1234, print:()=>{}} : { id: number; print: () => void; }
->id : number
+>{id: 1234, print:()=>{}} : { id: 数字; print: () => 无值; }
+>id : 数字
 >类型别名 :=> 数字
 >1234 : 1234
->print : () => void
->()=>{} : () => void
+>print : () => 无值
+>()=>{} : () => 无值
 
 var s = foo.name || "default";
->s : string
+>s : 文字
 >类型别名 :=> 文字
->foo.name || "default" : string
+>foo.name || "default" : 文字
 >类型别名 :=> 文字
->foo.name : string
+>foo.name : 文字
 >类型别名 :=> 文字
 >foo : IFoo
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >"default" : "default"
 
 if (foo.print !== undefined) foo.print();
->foo.print !== undefined : boolean
+>foo.print !== undefined : 真假
 >类型别名 :=> 真假
->foo.print : () => void
+>foo.print : () => 无值
 >foo : IFoo
->print : () => void
->undefined : undefined
+>print : () => 无值
+>undefined : 未定
 >类型别名 :=> 未定
->foo.print() : void
+>foo.print() : 无值
 >类型别名 :=> 无值
->foo.print : () => void
+>foo.print : () => 无值
 >foo : IFoo
->print : () => void
+>print : () => 无值
 
 interface i1 { M: () => void; };
 >i1 : i1
->M : () => void
+>M : () => 无值
 
 interface i2 { M?: () => void; };
 >i2 : i2
->M : () => void
+>M : () => 无值
 
 interface i3 { M: number; };
 >i3 : i3
->M : number
+>M : 数字
 >类型别名 :=> 数字
 
 interface i4 { M?: number; };
 >i4 : i4
->M : number
+>M : 数字
 >类型别名 :=> 数字
 
 var test1: i1 = {};
@@ -131,24 +131,24 @@ var test4: i4 = {};
 var test5: i1 = { M: function () { } };
 >test5 : i1
 >i1 : i1
->{ M: function () { } } : { M: () => void; }
->M : () => void
->function () { } : () => void
+>{ M: function () { } } : { M: () => 无值; }
+>M : () => 无值
+>function () { } : () => 无值
 
 var test6: i3 = { M: 5 };
 >test6 : i3
 >i3 : i3
->{ M: 5 } : { M: number; }
->M : number
+>{ M: 5 } : { M: 数字; }
+>M : 数字
 >类型别名 :=> 数字
 >5 : 5
 
 var test7: i2 = { M: function () { } };
 >test7 : i2
 >i2 : i2
->{ M: function () { } } : { M: () => void; }
->M : () => void
->function () { } : () => void
+>{ M: function () { } } : { M: () => 无值; }
+>M : () => 无值
+>function () { } : () => 无值
 
 test7 = {};
 >test7 = {} : {}
@@ -158,8 +158,8 @@ test7 = {};
 var test8: i4 = { M: 5 }
 >test8 : i4
 >i4 : i4
->{ M: 5 } : { M: number; }
->M : number
+>{ M: 5 } : { M: 数字; }
+>M : 数字
 >类型别名 :=> 数字
 >5 : 5
 

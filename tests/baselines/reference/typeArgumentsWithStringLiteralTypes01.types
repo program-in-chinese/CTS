@@ -1,10 +1,10 @@
 === tests/cases/conformance/types/stringLiteral/typeArgumentsWithStringLiteralTypes01.ts ===
 declare function randBool(): boolean;
->randBool : () => boolean
+>randBool : () => 真假
 
 declare function takeReturnString(str: string): string;
->takeReturnString : (str: string) => string
->str : string
+>takeReturnString : (str: 文字) => 文字
+>str : 文字
 >类型别名 :=> 文字
 
 declare function takeReturnHello(str: "Hello"): "Hello";
@@ -25,9 +25,9 @@ function fun1<T>(x: T, y: T) {
 
     return randBool() ? x : y;
 >randBool() ? x : y : T
->randBool() : boolean
+>randBool() : 真假
 >类型别名 :=> 真假
->randBool : () => boolean
+>randBool : () => 真假
 >x : T
 >y : T
 }
@@ -43,9 +43,9 @@ function fun2<T, U>(x: T, y: U) {
 
     return randBool() ? x : y;
 >randBool() ? x : y : T | U
->randBool() : boolean
+>randBool() : 真假
 >类型别名 :=> 真假
->randBool : () => boolean
+>randBool : () => 真假
 >x : T
 >y : U
 }
@@ -60,21 +60,21 @@ function fun3<T>(...args: T[]): T {
     return args[+randBool()];
 >args[+randBool()] : T
 >args : T[]
->+randBool() : number
+>+randBool() : 数字
 >类型别名 :=> 数字
->randBool() : boolean
+>randBool() : 真假
 >类型别名 :=> 真假
->randBool : () => boolean
+>randBool : () => 真假
 }
 
 namespace n1 {
->n1 : typeof n1
+>n1 : 类为 n1
 
     // The following should all come back as strings.
     // They should be assignable to/from something of a type 'string'.
     // They should not be assignable to either "Hello" or "World".
     export let a = fun1("Hello", "World");
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >fun1("Hello", "World") : "Hello" | "World"
 >fun1 : <T>(x: T, y: T) => T
@@ -82,7 +82,7 @@ namespace n1 {
 >"World" : "World"
 
     export let b = fun1("Hello", "Hello");
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >fun1("Hello", "Hello") : "Hello"
 >fun1 : <T>(x: T, y: T) => T
@@ -90,7 +90,7 @@ namespace n1 {
 >"Hello" : "Hello"
 
     export let c = fun2("Hello", "World");
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >fun2("Hello", "World") : "Hello" | "World"
 >fun2 : <T, U>(x: T, y: U) => T | U
@@ -98,7 +98,7 @@ namespace n1 {
 >"World" : "World"
 
     export let d = fun2("Hello", "Hello");
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >fun2("Hello", "Hello") : "Hello"
 >fun2 : <T, U>(x: T, y: U) => T | U
@@ -106,7 +106,7 @@ namespace n1 {
 >"Hello" : "Hello"
 
     export let e = fun3("Hello", "Hello", "World", "Foo");
->e : string
+>e : 文字
 >类型别名 :=> 文字
 >fun3("Hello", "Hello", "World", "Foo") : "Hello" | "World" | "Foo"
 >fun3 : <T>(...args: T[]) => T
@@ -117,165 +117,165 @@ namespace n1 {
 
     // Should be valid
     a = takeReturnString(a);
->a = takeReturnString(a) : string
+>a = takeReturnString(a) : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->takeReturnString(a) : string
+>takeReturnString(a) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->a : string
+>takeReturnString : (str: 文字) => 文字
+>a : 文字
 >类型别名 :=> 文字
 
     b = takeReturnString(b);
->b = takeReturnString(b) : string
+>b = takeReturnString(b) : 文字
 >类型别名 :=> 文字
->b : string
+>b : 文字
 >类型别名 :=> 文字
->takeReturnString(b) : string
+>takeReturnString(b) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->b : string
+>takeReturnString : (str: 文字) => 文字
+>b : 文字
 >类型别名 :=> 文字
 
     c = takeReturnString(c);
->c = takeReturnString(c) : string
+>c = takeReturnString(c) : 文字
 >类型别名 :=> 文字
->c : string
+>c : 文字
 >类型别名 :=> 文字
->takeReturnString(c) : string
+>takeReturnString(c) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->c : string
+>takeReturnString : (str: 文字) => 文字
+>c : 文字
 >类型别名 :=> 文字
 
     d = takeReturnString(d);
->d = takeReturnString(d) : string
+>d = takeReturnString(d) : 文字
 >类型别名 :=> 文字
->d : string
+>d : 文字
 >类型别名 :=> 文字
->takeReturnString(d) : string
+>takeReturnString(d) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->d : string
+>takeReturnString : (str: 文字) => 文字
+>d : 文字
 >类型别名 :=> 文字
 
     e = takeReturnString(e);
->e = takeReturnString(e) : string
+>e = takeReturnString(e) : 文字
 >类型别名 :=> 文字
->e : string
+>e : 文字
 >类型别名 :=> 文字
->takeReturnString(e) : string
+>takeReturnString(e) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->e : string
+>takeReturnString : (str: 文字) => 文字
+>e : 文字
 >类型别名 :=> 文字
     
     // Passing these as arguments should cause an error.
     a = takeReturnHello(a);
->a = takeReturnHello(a) : any
+>a = takeReturnHello(a) : 任意
 >类型别名 :=> 任意
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >takeReturnHello(a) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     b = takeReturnHello(b);
->b = takeReturnHello(b) : any
+>b = takeReturnHello(b) : 任意
 >类型别名 :=> 任意
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >takeReturnHello(b) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     c = takeReturnHello(c);
->c = takeReturnHello(c) : any
+>c = takeReturnHello(c) : 任意
 >类型别名 :=> 任意
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >takeReturnHello(c) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->c : string
+>c : 文字
 >类型别名 :=> 文字
 
     d = takeReturnHello(d);
->d = takeReturnHello(d) : any
+>d = takeReturnHello(d) : 任意
 >类型别名 :=> 任意
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >takeReturnHello(d) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
     e = takeReturnHello(e);
->e = takeReturnHello(e) : any
+>e = takeReturnHello(e) : 任意
 >类型别名 :=> 任意
->e : string
+>e : 文字
 >类型别名 :=> 文字
 >takeReturnHello(e) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->e : string
+>e : 文字
 >类型别名 :=> 文字
 
     // Passing these as arguments should cause an error.
     a = takeReturnHelloWorld(a);
->a = takeReturnHelloWorld(a) : any
+>a = takeReturnHelloWorld(a) : 任意
 >类型别名 :=> 任意
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >takeReturnHelloWorld(a) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     b = takeReturnHelloWorld(b);
->b = takeReturnHelloWorld(b) : any
+>b = takeReturnHelloWorld(b) : 任意
 >类型别名 :=> 任意
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >takeReturnHelloWorld(b) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     c = takeReturnHelloWorld(c);
->c = takeReturnHelloWorld(c) : any
+>c = takeReturnHelloWorld(c) : 任意
 >类型别名 :=> 任意
->c : string
+>c : 文字
 >类型别名 :=> 文字
 >takeReturnHelloWorld(c) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->c : string
+>c : 文字
 >类型别名 :=> 文字
 
     d = takeReturnHelloWorld(d);
->d = takeReturnHelloWorld(d) : any
+>d = takeReturnHelloWorld(d) : 任意
 >类型别名 :=> 任意
->d : string
+>d : 文字
 >类型别名 :=> 文字
 >takeReturnHelloWorld(d) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->d : string
+>d : 文字
 >类型别名 :=> 文字
 
     e = takeReturnHelloWorld(e);
->e = takeReturnHelloWorld(e) : any
+>e = takeReturnHelloWorld(e) : 任意
 >类型别名 :=> 任意
->e : string
+>e : 文字
 >类型别名 :=> 文字
 >takeReturnHelloWorld(e) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->e : string
+>e : 文字
 >类型别名 :=> 文字
 }
 
 namespace n2 {
->n2 : typeof n2
+>n2 : 类为 n2
 
     // The following (regardless of errors) should come back typed
     // as "Hello" (or "Hello" | "Hello").
@@ -287,9 +287,9 @@ namespace n2 {
 >"Hello" : "Hello"
 
     export let b = fun1<"Hello">("Hello", "World");
->b : any
+>b : 任意
 >类型别名 :=> 任意
->fun1<"Hello">("Hello", "World") : any
+>fun1<"Hello">("Hello", "World") : 任意
 >类型别名 :=> 任意
 >fun1 : <T>(x: T, y: T) => T
 >"Hello" : "Hello"
@@ -303,18 +303,18 @@ namespace n2 {
 >"Hello" : "Hello"
 
     export let d = fun2<"Hello", "Hello">("Hello", "World");
->d : any
+>d : 任意
 >类型别名 :=> 任意
->fun2<"Hello", "Hello">("Hello", "World") : any
+>fun2<"Hello", "Hello">("Hello", "World") : 任意
 >类型别名 :=> 任意
 >fun2 : <T, U>(x: T, y: U) => T | U
 >"Hello" : "Hello"
 >"World" : "World"
 
     export let e = fun3<"Hello">("Hello", "World");
->e : any
+>e : 任意
 >类型别名 :=> 任意
->fun3<"Hello">("Hello", "World") : any
+>fun3<"Hello">("Hello", "World") : 任意
 >类型别名 :=> 任意
 >fun3 : <T>(...args: T[]) => T
 >"Hello" : "Hello"
@@ -322,54 +322,54 @@ namespace n2 {
 
     // Assignment from the returned value should cause an error.
     a = takeReturnString(a);
->a = takeReturnString(a) : string
+>a = takeReturnString(a) : 文字
 >类型别名 :=> 文字
 >a : "Hello"
->takeReturnString(a) : string
+>takeReturnString(a) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
+>takeReturnString : (str: 文字) => 文字
 >a : "Hello"
 
     b = takeReturnString(b);
->b = takeReturnString(b) : string
+>b = takeReturnString(b) : 文字
 >类型别名 :=> 文字
->b : any
+>b : 任意
 >类型别名 :=> 任意
->takeReturnString(b) : string
+>takeReturnString(b) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->b : any
+>takeReturnString : (str: 文字) => 文字
+>b : 任意
 >类型别名 :=> 任意
 
     c = takeReturnString(c);
->c = takeReturnString(c) : string
+>c = takeReturnString(c) : 文字
 >类型别名 :=> 文字
 >c : "Hello"
->takeReturnString(c) : string
+>takeReturnString(c) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
+>takeReturnString : (str: 文字) => 文字
 >c : "Hello"
 
     d = takeReturnString(d);
->d = takeReturnString(d) : string
+>d = takeReturnString(d) : 文字
 >类型别名 :=> 文字
->d : any
+>d : 任意
 >类型别名 :=> 任意
->takeReturnString(d) : string
+>takeReturnString(d) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->d : any
+>takeReturnString : (str: 文字) => 文字
+>d : 任意
 >类型别名 :=> 任意
 
     e = takeReturnString(e);
->e = takeReturnString(e) : string
+>e = takeReturnString(e) : 文字
 >类型别名 :=> 文字
->e : any
+>e : 任意
 >类型别名 :=> 任意
->takeReturnString(e) : string
+>takeReturnString(e) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->e : any
+>takeReturnString : (str: 文字) => 文字
+>e : 任意
 >类型别名 :=> 任意
 
     // Should be valid
@@ -382,11 +382,11 @@ namespace n2 {
 
     b = takeReturnHello(b);
 >b = takeReturnHello(b) : "Hello"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >takeReturnHello(b) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     c = takeReturnHello(c);
@@ -398,20 +398,20 @@ namespace n2 {
 
     d = takeReturnHello(d);
 >d = takeReturnHello(d) : "Hello"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 >takeReturnHello(d) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
     e = takeReturnHello(e);
 >e = takeReturnHello(e) : "Hello"
->e : any
+>e : 任意
 >类型别名 :=> 任意
 >takeReturnHello(e) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->e : any
+>e : 任意
 >类型别名 :=> 任意
 
     // Assignment from the returned value should cause an error.
@@ -424,11 +424,11 @@ namespace n2 {
 
     b = takeReturnHelloWorld(b);
 >b = takeReturnHelloWorld(b) : "Hello" | "World"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >takeReturnHelloWorld(b) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     c = takeReturnHelloWorld(c);
@@ -440,26 +440,26 @@ namespace n2 {
 
     d = takeReturnHelloWorld(d);
 >d = takeReturnHelloWorld(d) : "Hello" | "World"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 >takeReturnHelloWorld(d) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
     e = takeReturnHelloWorld(e);
 >e = takeReturnHelloWorld(e) : "Hello" | "World"
->e : any
+>e : 任意
 >类型别名 :=> 任意
 >takeReturnHelloWorld(e) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->e : any
+>e : 任意
 >类型别名 :=> 任意
 }
 
 
 namespace n3 {
->n3 : typeof n3
+>n3 : 类为 n3
 
     // The following (regardless of errors) should come back typed
     // as "Hello" | "World" (or "World" | "Hello").
@@ -471,27 +471,27 @@ namespace n3 {
 >"World" : "World"
 
     export let b = fun2<"Hello", "World">("World", "Hello");
->b : any
+>b : 任意
 >类型别名 :=> 任意
->fun2<"Hello", "World">("World", "Hello") : any
+>fun2<"Hello", "World">("World", "Hello") : 任意
 >类型别名 :=> 任意
 >fun2 : <T, U>(x: T, y: U) => T | U
 >"World" : "World"
 >"Hello" : "Hello"
 
     export let c = fun2<"World", "Hello">("Hello", "Hello");
->c : any
+>c : 任意
 >类型别名 :=> 任意
->fun2<"World", "Hello">("Hello", "Hello") : any
+>fun2<"World", "Hello">("Hello", "Hello") : 任意
 >类型别名 :=> 任意
 >fun2 : <T, U>(x: T, y: U) => T | U
 >"Hello" : "Hello"
 >"Hello" : "Hello"
 
     export let d = fun2<"World", "Hello">("World", "World");
->d : any
+>d : 任意
 >类型别名 :=> 任意
->fun2<"World", "Hello">("World", "World") : any
+>fun2<"World", "Hello">("World", "World") : 任意
 >类型别名 :=> 任意
 >fun2 : <T, U>(x: T, y: U) => T | U
 >"World" : "World"
@@ -506,59 +506,59 @@ namespace n3 {
 
     // Assignment from the returned value should cause an error.
     a = takeReturnString(a);
->a = takeReturnString(a) : string
+>a = takeReturnString(a) : 文字
 >类型别名 :=> 文字
 >a : "Hello" | "World"
->takeReturnString(a) : string
+>takeReturnString(a) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
+>takeReturnString : (str: 文字) => 文字
 >a : "Hello" | "World"
 
     b = takeReturnString(b);
->b = takeReturnString(b) : string
+>b = takeReturnString(b) : 文字
 >类型别名 :=> 文字
->b : any
+>b : 任意
 >类型别名 :=> 任意
->takeReturnString(b) : string
+>takeReturnString(b) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->b : any
+>takeReturnString : (str: 文字) => 文字
+>b : 任意
 >类型别名 :=> 任意
 
     c = takeReturnString(c);
->c = takeReturnString(c) : string
+>c = takeReturnString(c) : 文字
 >类型别名 :=> 文字
->c : any
+>c : 任意
 >类型别名 :=> 任意
->takeReturnString(c) : string
+>takeReturnString(c) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->c : any
+>takeReturnString : (str: 文字) => 文字
+>c : 任意
 >类型别名 :=> 任意
 
     d = takeReturnString(d);
->d = takeReturnString(d) : string
+>d = takeReturnString(d) : 文字
 >类型别名 :=> 文字
->d : any
+>d : 任意
 >类型别名 :=> 任意
->takeReturnString(d) : string
+>takeReturnString(d) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
->d : any
+>takeReturnString : (str: 文字) => 文字
+>d : 任意
 >类型别名 :=> 任意
 
     e = takeReturnString(e);
->e = takeReturnString(e) : string
+>e = takeReturnString(e) : 文字
 >类型别名 :=> 文字
 >e : "Hello" | "World"
->takeReturnString(e) : string
+>takeReturnString(e) : 文字
 >类型别名 :=> 文字
->takeReturnString : (str: string) => string
+>takeReturnString : (str: 文字) => 文字
 >e : "Hello" | "World"
 
     // Passing these as arguments should cause an error.
     a = takeReturnHello(a);
->a = takeReturnHello(a) : any
+>a = takeReturnHello(a) : 任意
 >类型别名 :=> 任意
 >a : "Hello" | "World"
 >takeReturnHello(a) : "Hello"
@@ -567,33 +567,33 @@ namespace n3 {
 
     b = takeReturnHello(b);
 >b = takeReturnHello(b) : "Hello"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >takeReturnHello(b) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     c = takeReturnHello(c);
 >c = takeReturnHello(c) : "Hello"
->c : any
+>c : 任意
 >类型别名 :=> 任意
 >takeReturnHello(c) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
     d = takeReturnHello(d);
 >d = takeReturnHello(d) : "Hello"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 >takeReturnHello(d) : "Hello"
 >takeReturnHello : (str: "Hello") => "Hello"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
     e = takeReturnHello(e);
->e = takeReturnHello(e) : any
+>e = takeReturnHello(e) : 任意
 >类型别名 :=> 任意
 >e : "Hello" | "World"
 >takeReturnHello(e) : "Hello"
@@ -610,29 +610,29 @@ namespace n3 {
 
     b = takeReturnHelloWorld(b);
 >b = takeReturnHelloWorld(b) : "Hello" | "World"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >takeReturnHelloWorld(b) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     c = takeReturnHelloWorld(c);
 >c = takeReturnHelloWorld(c) : "Hello" | "World"
->c : any
+>c : 任意
 >类型别名 :=> 任意
 >takeReturnHelloWorld(c) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
     d = takeReturnHelloWorld(d);
 >d = takeReturnHelloWorld(d) : "Hello" | "World"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 >takeReturnHelloWorld(d) : "Hello" | "World"
 >takeReturnHelloWorld : (str: "Hello" | "World") => "Hello" | "World"
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
     e = takeReturnHelloWorld(e);

@@ -3,7 +3,7 @@ class A {
 >A : A
 
     foo() { }
->foo : () => void
+>foo : () => 无值
 
     constructor() {
         return;
@@ -14,7 +14,7 @@ class B {
 >B : B
 
     foo() { }
->foo : () => void
+>foo : () => 无值
 
     constructor() {
         return 1; // error
@@ -26,11 +26,11 @@ class C {
 >C : C
 
     foo() { }
->foo : () => void
+>foo : () => 无值
 
     constructor() {
         return this;
->this : this
+>this : 本体
     }
 }
 
@@ -38,7 +38,7 @@ class D {
 >D : D
 
     foo() { }
->foo : () => void
+>foo : () => 无值
 
     constructor() {
         return "test"; // error
@@ -50,13 +50,13 @@ class E {
 >E : E
 
     public foo: number;
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 
     constructor() {
         return { foo: 1 };
->{ foo: 1 } : { foo: number; }
->foo : number
+>{ foo: 1 } : { foo: 数字; }
+>foo : 数字
 >类型别名 :=> 数字
 >1 : 1
     }
@@ -66,13 +66,13 @@ class F {
 >F : F
 
     public foo: string;
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
     constructor() {
         return { foo: 1 }; //error
->{ foo: 1 } : { foo: number; }
->foo : number
+>{ foo: 1 } : { foo: 数字; }
+>foo : 数字
 >类型别名 :=> 数字
 >1 : 1
     }
@@ -82,22 +82,22 @@ class G {
 >G : G
 
     private test: number;
->test : number
+>test : 数字
 >类型别名 :=> 数字
 
     public test1() { }
->test1 : () => void
+>test1 : () => 无值
 
     foo() { }
->foo : () => void
+>foo : () => 无值
 
     constructor() {
         this.test = 2;
 >this.test = 2 : 2
->this.test : number
+>this.test : 数字
 >类型别名 :=> 数字
->this : this
->test : number
+>this : 本体
+>test : 数字
 >类型别名 :=> 数字
 >2 : 2
     }
@@ -109,13 +109,13 @@ class H extends F {
 
     constructor() {
         super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof F
+>super : 类为 F
 
         return new G(); //error
 >new G() : G
->G : typeof G
+>G : 类为 G
     }
 }
 
@@ -125,13 +125,13 @@ class I extends G {
 
     constructor() {
         super();
->super() : void
+>super() : 无值
 >类型别名 :=> 无值
->super : typeof G
+>super : 类为 G
 
         return new G();
 >new G() : G
->G : typeof G
+>G : 类为 G
     }
 }
 

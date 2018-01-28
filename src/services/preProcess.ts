@@ -247,7 +247,7 @@ namespace ts {
 
         function tryConsumeDefine(): boolean {
             let token = scanner.getToken();
-            if (token === SyntaxKind.Identifier && scanner.getTokenValue() === "define") {
+            if (token === SyntaxKind.Identifier && (scanner.getTokenValue() === "define" || scanner.getTokenValue() === "定义")) {
                 token = nextToken();
                 if (token !== SyntaxKind.OpenParenToken) {
                     return true;

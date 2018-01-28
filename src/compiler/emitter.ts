@@ -76,6 +76,7 @@ namespace ts {
     // targetSourceFile is when users only want one file in entire project to be emitted. This is used in compileOnSave feature
     export function emitFiles(resolver: EmitResolver, host: EmitHost, targetSourceFile: SourceFile, emitOnlyDtsFiles?: boolean, transformers?: TransformerFactory<SourceFile>[]): EmitResult {
         const compilerOptions = host.getCompilerOptions();
+        compilerOptions.中文关键字 = false
         const moduleKind = getEmitModuleKind(compilerOptions);
         const sourceMapDataList: SourceMapData[] = compilerOptions.sourceMap || compilerOptions.inlineSourceMap ? [] : undefined;
         const emittedFilesList: string[] = compilerOptions.listEmittedFiles ? [] : undefined;
@@ -270,6 +271,7 @@ namespace ts {
         } = handlers;
 
         const newLine = getNewLineCharacter(printerOptions);
+        const 中文关键字 = printerOptions.中文关键字
         const comments = createCommentWriter(printerOptions, onEmitSourceMapOfPosition);
         const {
             emitNodeWithComments,
@@ -287,6 +289,52 @@ namespace ts {
         let writer: EmitTextWriter;
         let ownWriter: EmitTextWriter;
 
+        const 对应中文文本 = createMapFromTemplate<string>({
+            " in ": " 位于 ",
+            " extends ": " 扩展 ",
+            "constructor": "构造",
+            "get ": "获取 ",
+            "set ": "设置 ",
+            "new ": "新建 ",
+            " is ": " 作为 ",
+            "function": "函数",
+            "typeof ": "类为 ",
+            "this": "本体",
+            "delete ": "删除 ",
+            "void ": "无值 ",
+            "await ": "等待",
+            "yield": "获得",
+            " as ": " 转为 ",
+            " do ": " 运行 ",
+            "while (": "判断 (",
+            " of ": " 属于 ",
+            "with (": "外扩 (",
+            "throw": "抛出",
+            "try ": "尝试 ",
+            "finally ": "善后 ",
+            "let ": "变量 ",
+            "const ": "常量 ",
+            "var ": "值量 ",
+            "class": "类别",
+            "interface ": "接口 ",
+            "type ": "类型 ",
+            "enum ": "枚举 ",
+            "namespace ": "名域 ",
+            "module ": "模块 ",
+            "import ": "导入 ",
+            " from ": " 来自 ",
+            "* as ": "* 转为 ",
+            "export = ": "导出 = ",
+            "export default ": "导出 默认 ",
+            "export ": "导出 ",
+            "export as namespace ": "导出 转为 名域 ",
+            "require(": "需要(",
+            "case ": "如为 ",
+            "default:": "默认:",
+            "module": "模块",
+            "default": "默认"
+        })
+
         reset();
         return {
             // public API
@@ -299,6 +347,9 @@ namespace ts {
             writeFile,
             writeBundle
         };
+        function 取文本(文本: string) {
+            return 中文关键字 ? 对应中文文本.get(文本) || 文本 : 文本
+        }
 
         function printNode(hint: EmitHint, node: Node, sourceFile: SourceFile): string {
             switch (hint) {
@@ -476,7 +527,7 @@ namespace ts {
 
         function emitMappedTypeParameter(node: TypeParameterDeclaration): void {
             emit(node.name);
-            write(" in ");
+            write(取文本(" in "));
             emit(node.constraint);
         }
 
@@ -922,7 +973,7 @@ namespace ts {
 
         function emitTypeParameter(node: TypeParameterDeclaration) {
             emit(node.name);
-            emitWithPrefix(" extends ", node.constraint);
+            emitWithPrefix(取文本(" extends "), node.constraint);
             emitWithPrefix(" = ", node.default);
         }
 
@@ -993,14 +1044,14 @@ namespace ts {
 
         function emitConstructor(node: ConstructorDeclaration) {
             emitModifiers(node, node.modifiers);
-            write("constructor");
+            write(取文本("constructor"));
             emitSignatureAndBody(node, emitSignatureHead);
         }
 
         function emitAccessorDeclaration(node: AccessorDeclaration) {
             emitDecorators(node, node.decorators);
             emitModifiers(node, node.modifiers);
-            write(node.kind === SyntaxKind.GetAccessor ? "get " : "set ");
+            write(node.kind === SyntaxKind.GetAccessor ? 取文本("get ") : 取文本("set "));
             emit(node.name);
             emitSignatureAndBody(node, emitSignatureHead);
         }
@@ -1017,7 +1068,7 @@ namespace ts {
         function emitConstructSignature(node: ConstructSignatureDeclaration) {
             emitDecorators(node, node.decorators);
             emitModifiers(node, node.modifiers);
-            write("new ");
+            write(取文本("new "));
             emitTypeParameters(node, node.typeParameters);
             emitParameters(node, node.parameters);
             emitWithPrefix(": ", node.type);
@@ -1042,7 +1093,7 @@ namespace ts {
 
         function emitTypePredicate(node: TypePredicateNode) {
             emit(node.parameterName);
-            write(" is ");
+            write(取文本(" is "));
             emit(node.type);
         }
 
@@ -1059,7 +1110,7 @@ namespace ts {
         }
 
         function emitJSDocFunctionType(node: JSDocFunctionType) {
-            write("function");
+            write(取文本("function"));
             emitParameters(node, node.parameters);
             write(":");
             emit(node.type);
@@ -1082,7 +1133,7 @@ namespace ts {
         }
 
         function emitConstructorType(node: ConstructorTypeNode) {
-            write("new ");
+            write(取文本("new "));
             emitTypeParameters(node, node.typeParameters);
             emitParameters(node, node.parameters);
             write(" => ");
@@ -1090,7 +1141,7 @@ namespace ts {
         }
 
         function emitTypeQuery(node: TypeQueryNode) {
-            write("typeof ");
+            write(取文本("typeof "));
             emit(node.exprName);
         }
 
@@ -1132,7 +1183,7 @@ namespace ts {
         }
 
         function emitThisType() {
-            write("this");
+            write(取文本("this"));
         }
 
         function emitTypeOperator(node: TypeOperatorNode) {
@@ -1303,7 +1354,7 @@ namespace ts {
         }
 
         function emitNewExpression(node: NewExpression) {
-            write("new ");
+            write(取文本("new "));
             emitExpression(node.expression);
             emitTypeArguments(node, node.typeArguments);
             emitExpressionList(node, node.arguments, ListFormat.NewExpressionArguments);
@@ -1347,22 +1398,22 @@ namespace ts {
         }
 
         function emitDeleteExpression(node: DeleteExpression) {
-            write("delete ");
+            write(取文本("delete "));
             emitExpression(node.expression);
         }
 
         function emitTypeOfExpression(node: TypeOfExpression) {
-            write("typeof ");
+            write(取文本("typeof "));
             emitExpression(node.expression);
         }
 
         function emitVoidExpression(node: VoidExpression) {
-            write("void ");
+            write(取文本("void "));
             emitExpression(node.expression);
         }
 
         function emitAwaitExpression(node: AwaitExpression) {
-            write("await ");
+            write(取文本("await "));
             emitExpression(node.expression);
         }
 
@@ -1439,7 +1490,7 @@ namespace ts {
         }
 
         function emitYieldExpression(node: YieldExpression) {
-            write("yield");
+            write(取文本("yield"));
             emit(node.asteriskToken);
             emitExpressionWithPrefix(" ", node.expression);
         }
@@ -1461,7 +1512,7 @@ namespace ts {
         function emitAsExpression(node: AsExpression) {
             emitExpression(node.expression);
             if (node.type) {
-                write(" as ");
+                write(取文本(" as "));
                 emit(node.type);
             }
         }
@@ -1541,7 +1592,7 @@ namespace ts {
         }
 
         function emitDoStatement(node: DoStatement) {
-            write("do");
+            write(取文本("do"));
             emitEmbeddedStatement(node, node.statement);
             if (isBlock(node.statement)) {
                 write(" ");
@@ -1550,13 +1601,13 @@ namespace ts {
                 writeLineOrSpace(node);
             }
 
-            write("while (");
+            write(取文本("while ("));
             emitExpression(node.expression);
             write(");");
         }
 
         function emitWhileStatement(node: WhileStatement) {
-            write("while (");
+            write(取文本("while ("));
             emitExpression(node.expression);
             write(")");
             emitEmbeddedStatement(node, node.statement);
@@ -1580,7 +1631,7 @@ namespace ts {
             write(" ");
             writeToken(SyntaxKind.OpenParenToken, openParenPos);
             emitForBinding(node.initializer);
-            write(" in ");
+            write(取文本(" in "));
             emitExpression(node.expression);
             writeToken(SyntaxKind.CloseParenToken, node.expression.end);
             emitEmbeddedStatement(node, node.statement);
@@ -1592,7 +1643,7 @@ namespace ts {
             emitWithSuffix(node.awaitModifier, " ");
             writeToken(SyntaxKind.OpenParenToken, openParenPos);
             emitForBinding(node.initializer);
-            write(" of ");
+            write(取文本(" of "));
             emitExpression(node.expression);
             writeToken(SyntaxKind.CloseParenToken, node.expression.end);
             emitEmbeddedStatement(node, node.statement);
@@ -1640,7 +1691,7 @@ namespace ts {
         }
 
         function emitWithStatement(node: WithStatement) {
-            write("with (");
+            write(取文本("with ("));
             emitExpression(node.expression);
             write(")");
             emitEmbeddedStatement(node, node.statement);
@@ -1663,13 +1714,13 @@ namespace ts {
         }
 
         function emitThrowStatement(node: ThrowStatement) {
-            write("throw");
+            write(取文本("throw"));
             emitExpressionWithPrefix(" ", node.expression);
             write(";");
         }
 
         function emitTryStatement(node: TryStatement) {
-            write("try ");
+            write(取文本("try "));
             emit(node.tryBlock);
             if (node.catchClause) {
                 writeLineOrSpace(node);
@@ -1677,7 +1728,7 @@ namespace ts {
             }
             if (node.finallyBlock) {
                 writeLineOrSpace(node);
-                write("finally ");
+                write(取文本("finally "));
                 emit(node.finallyBlock);
             }
         }
@@ -1698,7 +1749,7 @@ namespace ts {
         }
 
         function emitVariableDeclarationList(node: VariableDeclarationList) {
-            write(isLet(node) ? "let " : isConst(node) ? "const " : "var ");
+            write(isLet(node) ? 取文本("let ") : isConst(node) ? 取文本("const ") : 取文本("var "));
             emitList(node, node.declarations, ListFormat.VariableDeclarationList);
         }
 
@@ -1709,7 +1760,7 @@ namespace ts {
         function emitFunctionDeclarationOrExpression(node: FunctionDeclaration | FunctionExpression) {
             emitDecorators(node, node.decorators);
             emitModifiers(node, node.modifiers);
-            write("function");
+            write(取文本("function"));
             emitIfPresent(node.asteriskToken);
             write(" ");
             emitIdentifierName(node.name);
@@ -1856,7 +1907,7 @@ namespace ts {
         function emitClassDeclarationOrExpression(node: ClassDeclaration | ClassExpression) {
             emitDecorators(node, node.decorators);
             emitModifiers(node, node.modifiers);
-            write("class");
+            write(取文本("class"));
             emitNodeWithPrefix(" ", node.name, emitIdentifierName);
 
             const indentedFlag = getEmitFlags(node) & EmitFlags.Indented;
@@ -1881,7 +1932,7 @@ namespace ts {
         function emitInterfaceDeclaration(node: InterfaceDeclaration) {
             emitDecorators(node, node.decorators);
             emitModifiers(node, node.modifiers);
-            write("interface ");
+            write(取文本("interface "));
             emit(node.name);
             emitTypeParameters(node, node.typeParameters);
             emitList(node, node.heritageClauses, ListFormat.HeritageClauses);
@@ -1893,7 +1944,7 @@ namespace ts {
         function emitTypeAliasDeclaration(node: TypeAliasDeclaration) {
             emitDecorators(node, node.decorators);
             emitModifiers(node, node.modifiers);
-            write("type ");
+            write(取文本("type "));
             emit(node.name);
             emitTypeParameters(node, node.typeParameters);
             write(" = ");
@@ -1903,7 +1954,7 @@ namespace ts {
 
         function emitEnumDeclaration(node: EnumDeclaration) {
             emitModifiers(node, node.modifiers);
-            write("enum ");
+            write(取文本("enum "));
             emit(node.name);
             pushNameGenerationScope();
             write(" {");
@@ -1915,7 +1966,7 @@ namespace ts {
         function emitModuleDeclaration(node: ModuleDeclaration) {
             emitModifiers(node, node.modifiers);
             if (~node.flags & NodeFlags.GlobalAugmentation) {
-                write(node.flags & NodeFlags.Namespace ? "namespace " : "module ");
+                write(node.flags & NodeFlags.Namespace ? 取文本("namespace ") : 取文本("module "));
             }
             emit(node.name);
 
@@ -1946,7 +1997,7 @@ namespace ts {
 
         function emitImportEqualsDeclaration(node: ImportEqualsDeclaration) {
             emitModifiers(node, node.modifiers);
-            write("import ");
+            write(取文本("import "));
             emit(node.name);
             write(" = ");
             emitModuleReference(node.moduleReference);
@@ -1964,10 +2015,10 @@ namespace ts {
 
         function emitImportDeclaration(node: ImportDeclaration) {
             emitModifiers(node, node.modifiers);
-            write("import ");
+            write(取文本("import "));
             if (node.importClause) {
                 emit(node.importClause);
-                write(" from ");
+                write(取文本(" from "));
             }
             emitExpression(node.moduleSpecifier);
             write(";");
@@ -1982,7 +2033,7 @@ namespace ts {
         }
 
         function emitNamespaceImport(node: NamespaceImport) {
-            write("* as ");
+            write(取文本("* as "));
             emit(node.name);
         }
 
@@ -1995,13 +2046,13 @@ namespace ts {
         }
 
         function emitExportAssignment(node: ExportAssignment) {
-            write(node.isExportEquals ? "export = " : "export default ");
+            write(node.isExportEquals ? 取文本("export = ") : 取文本("export default "));
             emitExpression(node.expression);
             write(";");
         }
 
         function emitExportDeclaration(node: ExportDeclaration) {
-            write("export ");
+            write(取文本("export "));
             if (node.exportClause) {
                 emit(node.exportClause);
             }
@@ -2009,14 +2060,14 @@ namespace ts {
                 write("*");
             }
             if (node.moduleSpecifier) {
-                write(" from ");
+                write(取文本(" from "));
                 emitExpression(node.moduleSpecifier);
             }
             write(";");
         }
 
         function emitNamespaceExportDeclaration(node: NamespaceExportDeclaration) {
-            write("export as namespace ");
+            write(取文本("export as namespace "));
             emit(node.name);
             write(";");
         }
@@ -2038,7 +2089,7 @@ namespace ts {
         function emitImportOrExportSpecifier(node: ImportOrExportSpecifier) {
             if (node.propertyName) {
                 emit(node.propertyName);
-                write(" as ");
+                write(取文本(" as "));
             }
 
             emit(node.name);
@@ -2049,7 +2100,7 @@ namespace ts {
         //
 
         function emitExternalModuleReference(node: ExternalModuleReference) {
-            write("require(");
+            write(取文本("require("));
             emitExpression(node.expression);
             write(")");
         }
@@ -2134,7 +2185,7 @@ namespace ts {
         //
 
         function emitCaseClause(node: CaseClause) {
-            write("case ");
+            write(取文本("case "));
             emitExpression(node.expression);
             write(":");
 
@@ -2142,7 +2193,7 @@ namespace ts {
         }
 
         function emitDefaultClause(node: DefaultClause) {
-            write("default:");
+            write(取文本("default:"));
             emitCaseOrDefaultClauseStatements(node, node.statements);
         }
 
@@ -2627,14 +2678,14 @@ namespace ts {
             if (onBeforeEmitToken) {
                 onBeforeEmitToken(node);
             }
-            write(tokenToString(node.kind));
+            write(中文关键字 ? 令牌转为中文关键字(node.kind) : tokenToString(node.kind));
             if (onAfterEmitToken) {
                 onAfterEmitToken(node);
             }
         }
 
         function writeTokenText(token: SyntaxKind, pos?: number) {
-            const tokenString = tokenToString(token);
+            const tokenString = 中文关键字 ? 令牌转为中文关键字(token) : tokenToString(token);
             write(tokenString);
             return pos < 0 ? pos : pos + tokenString.length;
         }
@@ -2817,7 +2868,7 @@ namespace ts {
                 return generateName(node);
             }
             else if (isIdentifier(node) && (nodeIsSynthesized(node) || !node.parent)) {
-                return node.别名 && 解码文本(node.别名) || idText(node);
+                return node.别名 && (node.别名.旗帜 & 别名旗帜.汉英) && 解码文本(node.别名) || idText(node);
             }
             else if (node.kind === SyntaxKind.StringLiteral && (<StringLiteral>node).textSourceNode) {
                 return getTextOfNode((<StringLiteral>node).textSourceNode, includeTrivia);
@@ -2974,7 +3025,7 @@ namespace ts {
         function generateNameForImportOrExportDeclaration(node: ImportDeclaration | ExportDeclaration) {
             const expr = getExternalModuleName(node);
             const baseName = isStringLiteral(expr) ?
-                makeIdentifierFromModuleName(expr.text) : "module";
+                makeIdentifierFromModuleName(expr.text) : 取文本("module");
             return makeUniqueName(baseName);
         }
 
@@ -2982,14 +3033,14 @@ namespace ts {
          * Generates a unique name for a default export.
          */
         function generateNameForExportDefault() {
-            return makeUniqueName("default");
+            return makeUniqueName(取文本("default"));
         }
 
         /**
          * Generates a unique name for a class expression.
          */
         function generateNameForClassExpression() {
-            return makeUniqueName("class");
+            return makeUniqueName(取文本("class"));
         }
 
         function generateNameForMethodOrAccessor(node: MethodDeclaration | AccessorDeclaration) {

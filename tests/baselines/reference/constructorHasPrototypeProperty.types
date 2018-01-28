@@ -1,12 +1,12 @@
 === tests/cases/conformance/classes/members/constructorFunctionTypes/constructorHasPrototypeProperty.ts ===
 module NonGeneric {
->NonGeneric : typeof NonGeneric
+>NonGeneric : 类为 NonGeneric
 
     class C {
 >C : C
 
         foo: string;
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
     }
 
@@ -15,39 +15,39 @@ module NonGeneric {
 >C : C
 
         bar: string;
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
     }
 
     var r = C.prototype;
 >r : C
 >C.prototype : C
->C : typeof C
+>C : 类为 C
 >prototype : C
 
     r.foo;
->r.foo : string
+>r.foo : 文字
 >类型别名 :=> 文字
 >r : C
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
     var r2 = D.prototype;
 >r2 : D
 >D.prototype : D
->D : typeof D
+>D : 类为 D
 >prototype : D
 
     r2.bar;
->r2.bar : string
+>r2.bar : 文字
 >类型别名 :=> 文字
 >r2 : D
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 }
 
 module Generic {
->Generic : typeof Generic
+>Generic : 类为 Generic
 
     class C<T,U> {
 >C : C<T, U>
@@ -81,32 +81,32 @@ module Generic {
     }
 
     var r = C.prototype; // C<any, any>
->r : C<any, any>
->C.prototype : C<any, any>
->C : typeof C
->prototype : C<any, any>
+>r : C<任意, 任意>
+>C.prototype : C<任意, 任意>
+>C : 类为 C
+>prototype : C<任意, 任意>
 
     var ra = r.foo; // any
->ra : any
+>ra : 任意
 >类型别名 :=> 任意
->r.foo : any
+>r.foo : 任意
 >类型别名 :=> 任意
->r : C<any, any>
->foo : any
+>r : C<任意, 任意>
+>foo : 任意
 >类型别名 :=> 任意
 
     var r2 = D.prototype; // D<any, any>
->r2 : D<any, any>
->D.prototype : D<any, any>
->D : typeof D
->prototype : D<any, any>
+>r2 : D<任意, 任意>
+>D.prototype : D<任意, 任意>
+>D : 类为 D
+>prototype : D<任意, 任意>
 
     var rb = r2.baz; // any
->rb : any
+>rb : 任意
 >类型别名 :=> 任意
->r2.baz : any
+>r2.baz : 任意
 >类型别名 :=> 任意
->r2 : D<any, any>
->baz : any
+>r2 : D<任意, 任意>
+>baz : 任意
 >类型别名 :=> 任意
 }

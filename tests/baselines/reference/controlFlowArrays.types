@@ -1,701 +1,701 @@
 === tests/cases/compiler/controlFlowArrays.ts ===
 declare function cond(): boolean;
->cond : () => boolean
+>cond : () => 真假
 
 function f1() {
->f1 : () => (string | number | boolean)[]
+>f1 : () => (文字 | 数字 | 真假)[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     x[0] = 5;
 >x[0] = 5 : 5
->x[0] : any
+>x[0] : 任意
 >类型别名 :=> 任意
->x : any[]
+>x : 任意[]
 >0 : 0
 >5 : 5
 
     x[1] = "hello";
 >x[1] = "hello" : "hello"
->x[1] : any
+>x[1] : 任意
 >类型别名 :=> 任意
->x : any[]
+>x : 任意[]
 >1 : 1
 >"hello" : "hello"
 
     x[2] = true;
->x[2] = true : true
+>x[2] = true : 为真
 >类型别名 :=> 为真
->x[2] : any
+>x[2] : 任意
 >类型别名 :=> 任意
->x : any[]
+>x : 任意[]
 >2 : 2
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }
 
 function f2() {
->f2 : () => (string | number | boolean)[]
+>f2 : () => (文字 | 数字 | 真假)[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
     x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
 
     x.push(true);
->x.push(true) : number
+>x.push(true) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
->true : true
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
+>true : 为真
 >类型别名 :=> 为真
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }
 
 function f3() {
->f3 : () => (string | number)[]
+>f3 : () => (文字 | 数字)[]
 
     let x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     x = [];
->x = [] : never[]
->x : any
+>x = [] : 不及[]
+>x : 任意
 >类型别名 :=> 任意
->[] : never[]
+>[] : 不及[]
 
     x.push(5, "hello");
->x.push(5, "hello") : number
+>x.push(5, "hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 >"hello" : "hello"
 
     return x;  // (string | number)[]
->x : (string | number)[]
+>x : (文字 | 数字)[]
 }
 
 function f4() {
->f4 : () => (string | number)[]
+>f4 : () => (文字 | 数字)[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     if (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
     }
     else {
         x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
     }
     return x;  // (string | number)[]
->x : (string | number)[]
+>x : (文字 | 数字)[]
 }
 
 function f5() {
->f5 : () => (string | number)[]
+>f5 : () => (文字 | 数字)[]
 
     let x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     if (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         x = [];
->x = [] : never[]
->x : any
+>x = [] : 不及[]
+>x : 任意
 >类型别名 :=> 任意
->[] : never[]
+>[] : 不及[]
 
         x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
     }
     else {
         x = [];
->x = [] : never[]
->x : any
+>x = [] : 不及[]
+>x : 任意
 >类型别名 :=> 任意
->[] : never[]
+>[] : 不及[]
 
         x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
     }
     return x;  // (string | number)[]
->x : (string | number)[]
+>x : (文字 | 数字)[]
 }
 
 function f6() {
->f6 : () => number | string[]
+>f6 : () => 数字 | 文字[]
 
     let x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     if (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         x = 5;
 >x = 5 : 5
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >5 : 5
     }
     else {
         x = [];
->x = [] : never[]
->x : any
+>x = [] : 不及[]
+>x : 任意
 >类型别名 :=> 任意
->[] : never[]
+>[] : 不及[]
 
         x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
     }
     return x;  // number | string[]
->x : number | string[]
+>x : 数字 | 文字[]
 }
 
 function f7() {
->f7 : () => string[] | null
+>f7 : () => 文字[] | 空值
 
     let x = null;
->x : any
+>x : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     if (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         x = [];
->x = [] : never[]
->x : any
+>x = [] : 不及[]
+>x : 任意
 >类型别名 :=> 任意
->[] : never[]
+>[] : 不及[]
 
         while (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
             x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
         }
     }
     return x;  // string[] | null
->x : string[] | null
+>x : 文字[] | 空值
 }
 
 function f8() {
->f8 : () => (string | number | boolean)[]
+>f8 : () => (文字 | 数字 | 真假)[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
     if (cond()) return x;  // number[]
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
->x : number[]
+>cond : () => 真假
+>x : 数字[]
 
     x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
 
     if (cond()) return x;  // (string | number)[]
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
->x : (string | number)[]
+>cond : () => 真假
+>x : (文字 | 数字)[]
 
     x.push(true);
->x.push(true) : number
+>x.push(true) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
->true : true
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
+>true : 为真
 >类型别名 :=> 为真
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }
 
 function f9() {
->f9 : () => string[] | number[]
+>f9 : () => 文字[] | 数字[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     if (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
         return x;  // number[]
->x : number[]
+>x : 数字[]
     }
     else {
         x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
 
         return x;  // string[]
->x : string[]
+>x : 文字[]
     }
 }
 
 function f10() {
->f10 : () => (string | number | boolean)[]
+>f10 : () => (文字 | 数字 | 真假)[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     if (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         x.push(true);
->x.push(true) : number
+>x.push(true) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
->true : true
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
+>true : 为真
 >类型别名 :=> 为真
 
         x;  // boolean[]
->x : boolean[]
+>x : 真假[]
     }
     else {
         x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
         x;  // number[]
->x : number[]
+>x : 数字[]
 
         while (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
             x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
         }
         x;  // (string | number)[]
->x : (string | number)[]
+>x : (文字 | 数字)[]
     }
     x.push(99);
->x.push(99) : number
+>x.push(99) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >99 : 99
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }
 
 function f11() {
->f11 : () => string[]
+>f11 : () => 文字[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     if (x.length === 0) {  // x.length ok on implicit any[]
->x.length === 0 : boolean
+>x.length === 0 : 真假
 >类型别名 :=> 真假
->x.length : number
+>x.length : 数字
 >类型别名 :=> 数字
->x : any[]
->length : number
+>x : 任意[]
+>length : 数字
 >类型别名 :=> 数字
 >0 : 0
 
         x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
     }
     return x;
->x : string[]
+>x : 文字[]
 }
 
 function f12() {
->f12 : () => string[]
+>f12 : () => 文字[]
 
     let x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     x = [];
->x = [] : never[]
->x : any
+>x = [] : 不及[]
+>x : 任意
 >类型别名 :=> 任意
->[] : never[]
+>[] : 不及[]
 
     if (x.length === 0) {  // x.length ok on implicit any[]
->x.length === 0 : boolean
+>x.length === 0 : 真假
 >类型别名 :=> 真假
->x.length : number
+>x.length : 数字
 >类型别名 :=> 数字
->x : any[]
->length : number
+>x : 任意[]
+>length : 数字
 >类型别名 :=> 数字
 >0 : 0
 
         x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
     }
     return x;
->x : string[]
+>x : 文字[]
 }
 
 function f13() {
->f13 : () => (string | number | boolean)[]
+>f13 : () => (文字 | 数字 | 真假)[]
 
     var x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
     x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
 
     x.push(true);
->x.push(true) : number
+>x.push(true) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
->true : true
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
+>true : 为真
 >类型别名 :=> 为真
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }
 
 function f14() {
->f14 : () => (string | number | boolean)[]
+>f14 : () => (文字 | 数字 | 真假)[]
 
     const x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
     x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
 
     x.push(true);
->x.push(true) : number
+>x.push(true) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
->true : true
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
+>true : 为真
 >类型别名 :=> 为真
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }
 
 function f15() {
->f15 : () => string[]
+>f15 : () => 文字[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     while (cond()) {
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         while (cond()) {}
->cond() : boolean
+>cond() : 真假
 >类型别名 :=> 真假
->cond : () => boolean
+>cond : () => 真假
 
         x.push("hello");
->x.push("hello") : number
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
     }
     return x;  // string[]
->x : string[]
+>x : 文字[]
 }
 
 function f16() {
->f16 : () => (string | number | boolean | { a: number; })[]
+>f16 : () => (文字 | 数字 | 真假 | { a: 数字; })[]
 
     let x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     let y;
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
     (x = [], x).push(5);
->(x = [], x).push(5) : number
+>(x = [], x).push(5) : 数字
 >类型别名 :=> 数字
->(x = [], x).push : (...items: any[]) => number
->(x = [], x) : any[]
->x = [], x : any[]
->x = [] : never[]
->x : any
+>(x = [], x).push : (...items: 任意[]) => 数字
+>(x = [], x) : 任意[]
+>x = [], x : 任意[]
+>x = [] : 不及[]
+>x : 任意
 >类型别名 :=> 任意
->[] : never[]
->x : any[]
->push : (...items: any[]) => number
+>[] : 不及[]
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
     (x.push("hello"), x).push(true);
->(x.push("hello"), x).push(true) : number
+>(x.push("hello"), x).push(true) : 数字
 >类型别名 :=> 数字
->(x.push("hello"), x).push : (...items: any[]) => number
->(x.push("hello"), x) : any[]
->x.push("hello"), x : any[]
->x.push("hello") : number
+>(x.push("hello"), x).push : (...items: 任意[]) => 数字
+>(x.push("hello"), x) : 任意[]
+>x.push("hello"), x : 任意[]
+>x.push("hello") : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >"hello" : "hello"
->x : any[]
->push : (...items: any[]) => number
->true : true
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
+>true : 为真
 >类型别名 :=> 为真
 
     ((x))[3] = { a: 1 };
->((x))[3] = { a: 1 } : { a: number; }
->((x))[3] : any
+>((x))[3] = { a: 1 } : { a: 数字; }
+>((x))[3] : 任意
 >类型别名 :=> 任意
->((x)) : any[]
->(x) : any[]
->x : any[]
+>((x)) : 任意[]
+>(x) : 任意[]
+>x : 任意[]
 >3 : 3
->{ a: 1 } : { a: number; }
->a : number
+>{ a: 1 } : { a: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     return x;  // (string | number | boolean | { a: number })[]
->x : (string | number | boolean | { a: number; })[]
+>x : (文字 | 数字 | 真假 | { a: 数字; })[]
 }
 
 function f17() {
->f17 : () => (string | number | boolean)[]
+>f17 : () => (文字 | 数字 | 真假)[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     x.unshift(5);
->x.unshift(5) : number
+>x.unshift(5) : 数字
 >类型别名 :=> 数字
->x.unshift : (...items: any[]) => number
->x : any[]
->unshift : (...items: any[]) => number
+>x.unshift : (...items: 任意[]) => 数字
+>x : 任意[]
+>unshift : (...items: 任意[]) => 数字
 >5 : 5
 
     x.unshift("hello");
->x.unshift("hello") : number
+>x.unshift("hello") : 数字
 >类型别名 :=> 数字
->x.unshift : (...items: any[]) => number
->x : any[]
->unshift : (...items: any[]) => number
+>x.unshift : (...items: 任意[]) => 数字
+>x : 任意[]
+>unshift : (...items: 任意[]) => 数字
 >"hello" : "hello"
 
     x.unshift(true);
->x.unshift(true) : number
+>x.unshift(true) : 数字
 >类型别名 :=> 数字
->x.unshift : (...items: any[]) => number
->x : any[]
->unshift : (...items: any[]) => number
->true : true
+>x.unshift : (...items: 任意[]) => 数字
+>x : 任意[]
+>unshift : (...items: 任意[]) => 数字
+>true : 为真
 >类型别名 :=> 为真
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }
 
 function f18() {
->f18 : () => (string | number | boolean)[]
+>f18 : () => (文字 | 数字 | 真假)[]
 
     let x = [];
->x : any[]
->[] : never[]
+>x : 任意[]
+>[] : 不及[]
 
     x.push(5);
->x.push(5) : number
+>x.push(5) : 数字
 >类型别名 :=> 数字
->x.push : (...items: any[]) => number
->x : any[]
->push : (...items: any[]) => number
+>x.push : (...items: 任意[]) => 数字
+>x : 任意[]
+>push : (...items: 任意[]) => 数字
 >5 : 5
 
     x.unshift("hello");
->x.unshift("hello") : number
+>x.unshift("hello") : 数字
 >类型别名 :=> 数字
->x.unshift : (...items: any[]) => number
->x : any[]
->unshift : (...items: any[]) => number
+>x.unshift : (...items: 任意[]) => 数字
+>x : 任意[]
+>unshift : (...items: 任意[]) => 数字
 >"hello" : "hello"
 
     x[2] = true;
->x[2] = true : true
+>x[2] = true : 为真
 >类型别名 :=> 为真
->x[2] : any
+>x[2] : 任意
 >类型别名 :=> 任意
->x : any[]
+>x : 任意[]
 >2 : 2
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     return x;  // (string | number | boolean)[]
->x : (string | number | boolean)[]
+>x : (文字 | 数字 | 真假)[]
 }

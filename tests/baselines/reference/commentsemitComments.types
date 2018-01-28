@@ -1,31 +1,31 @@
 === tests/cases/compiler/commentsemitComments.ts ===
 /** Variable comments*/
 var myVariable = 10;
->myVariable : number
+>myVariable : 数字
 >类型别名 :=> 数字
 >10 : 10
 
 /** function comments*/
 function foo(/** parameter comment*/p: number) {
->foo : (p: number) => void
->p : number
+>foo : (p: 数字) => 无值
+>p : 数字
 >类型别名 :=> 数字
 }
 
 /** variable with function type comment*/
 var fooVar: () => void;
->fooVar : () => void
+>fooVar : () => 无值
 
 foo(50);
->foo(50) : void
+>foo(50) : 无值
 >类型别名 :=> 无值
->foo : (p: number) => void
+>foo : (p: 数字) => 无值
 >50 : 50
 
 fooVar();
->fooVar() : void
+>fooVar() : 无值
 >类型别名 :=> 无值
->fooVar : () => void
+>fooVar : () => 无值
 
 /**class comment*/
 class c {
@@ -37,80 +37,80 @@ class c {
 
     /** property comment */
     public b = 10;
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >10 : 10
 
     /** function comment */
     public myFoo() {
->myFoo : () => number
+>myFoo : () => 数字
 
         return this.b;
->this.b : number
+>this.b : 数字
 >类型别名 :=> 数字
->this : this
->b : number
+>this : 本体
+>b : 数字
 >类型别名 :=> 数字
     }
 
     /** getter comment*/
     public get prop1() {
->prop1 : number
+>prop1 : 数字
 >类型别名 :=> 数字
 
         return this.b;
->this.b : number
+>this.b : 数字
 >类型别名 :=> 数字
->this : this
->b : number
+>this : 本体
+>b : 数字
 >类型别名 :=> 数字
     }
 
     /** setter comment*/
     public set prop1(val: number) {
->prop1 : number
+>prop1 : 数字
 >类型别名 :=> 数字
->val : number
+>val : 数字
 >类型别名 :=> 数字
 
         this.b = val;
->this.b = val : number
+>this.b = val : 数字
 >类型别名 :=> 数字
->this.b : number
+>this.b : 数字
 >类型别名 :=> 数字
->this : this
->b : number
+>this : 本体
+>b : 数字
 >类型别名 :=> 数字
->val : number
+>val : 数字
 >类型别名 :=> 数字
     }
 
     /** overload signature1*/
     public foo1(a: number): string;
->foo1 : { (a: number): string; (b: string): string; }
->a : number
+>foo1 : { (a: 数字): 文字; (b: 文字): 文字; }
+>a : 数字
 >类型别名 :=> 数字
 
     /** Overload signature 2*/
     public foo1(b: string): string;
->foo1 : { (a: number): string; (b: string): string; }
->b : string
+>foo1 : { (a: 数字): 文字; (b: 文字): 文字; }
+>b : 文字
 >类型别名 :=> 文字
 
     /** overload implementation signature*/
     public foo1(aOrb) {
->foo1 : { (a: number): string; (b: string): string; }
->aOrb : any
+>foo1 : { (a: 数字): 文字; (b: 文字): 文字; }
+>aOrb : 任意
 >类型别名 :=> 任意
 
         return aOrb.toString();
->aOrb.toString() : any
+>aOrb.toString() : 任意
 >类型别名 :=> 任意
->aOrb.toString : any
+>aOrb.toString : 任意
 >类型别名 :=> 任意
->aOrb : any
+>aOrb : 任意
 >类型别名 :=> 任意
->toString : any
+>toString : 任意
 >类型别名 :=> 任意
     }
 }
@@ -119,7 +119,7 @@ class c {
 var i = new c();
 >i : c
 >new c() : c
->c : typeof c
+>c : 类为 c
 
 /** interface comments*/
 interface i1 {
@@ -127,28 +127,28 @@ interface i1 {
 
     /** caller comments*/
     (a: number): number;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     /** new comments*/
     new (b: string);
->b : string
+>b : 文字
 >类型别名 :=> 文字
 
     /**indexer property*/
     [a: number]: string;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
     /** function property;*/
     myFoo(/*param prop*/a: number): string;
->myFoo : (a: number) => string
->a : number
+>myFoo : (a: 数字) => 文字
+>a : 数字
 >类型别名 :=> 数字
 
     /** prop*/
     prop: string;
->prop : string
+>prop : 文字
 >类型别名 :=> 文字
 }
 
@@ -159,14 +159,14 @@ var i1_i: i1;
 
 /** this is module comment*/
 module m1 {
->m1 : typeof m1
+>m1 : 类为 m1
 
     /** class b */
     export class b {
 >b : b
 
         constructor(public x: number) {
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         }
@@ -174,13 +174,13 @@ module m1 {
 
     /// module m2
     export module m2 {
->m2 : any
+>m2 : 任意
 >类型别名 :=> 任意
     }
 }
 
 /// this is x
 declare var x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 

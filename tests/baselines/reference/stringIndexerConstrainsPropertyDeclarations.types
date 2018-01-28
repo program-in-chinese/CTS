@@ -6,7 +6,7 @@ interface MyString extends String {
 >String : String
 
     foo: number;
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 }
 
@@ -14,17 +14,17 @@ class C {
 >C : C
 
     [x: string]: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     constructor() { } // ok
 
     a: string; // ok
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     b: number; // error
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     c: () => {} // error
@@ -41,38 +41,38 @@ class C {
 >MyString : MyString
 
     get X() { // ok
->X : string
+>X : 文字
 >类型别名 :=> 文字
 
         return '';
 >'' : ""
     }
     set X(v) { } // ok
->X : string
+>X : 文字
 >类型别名 :=> 文字
->v : string
+>v : 文字
 >类型别名 :=> 文字
 
     foo() { // error
->foo : () => string
+>foo : () => 文字
 
         return '';
 >'' : ""
     }
 
     static sa: number; // ok
->sa : number
+>sa : 数字
 >类型别名 :=> 数字
 
     static sb: string; // ok
->sb : string
+>sb : 文字
 >类型别名 :=> 文字
 
     static foo() { } // ok
->foo : () => void
+>foo : () => 无值
 
     static get X() { // ok
->X : number
+>X : 数字
 >类型别名 :=> 数字
 
         return 1;
@@ -84,15 +84,15 @@ interface I {
 >I : I
 
     [x: string]: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     a: string; // ok
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     b: number; // error
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     c: () => {} // error
@@ -104,11 +104,11 @@ interface I {
     2.0: number; // error
     (): string; // ok
     (x): number // ok
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     foo(): string; // error
->foo : () => string
+>foo : () => 文字
 
     "3.0": string; // ok
     "4.0": number; // error
@@ -118,18 +118,18 @@ interface I {
 }
 
 var a: {
->a : { (): string; (x: any): number; [x: string]: string; a: string; b: number; c: () => {}; "d": string; "e": number; 1.0: string; 2.0: number; foo(): string; "3.0": string; "4.0": number; f: MyString; }
+>a : { (): 文字; (x: 任意): 数字; [x: 文字]: 文字; a: 文字; b: 数字; c: () => {}; "d": 文字; "e": 数字; 1.0: 文字; 2.0: 数字; foo(): 文字; "3.0": 文字; "4.0": 数字; f: MyString; }
 
     [x: string]: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     a: string; // ok
->a : string
+>a : 文字
 >类型别名 :=> 文字
 
     b: number; // error
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     c: () => {} // error
@@ -141,11 +141,11 @@ var a: {
     2.0: number; // error
     (): string; // ok
     (x): number // ok
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
     foo(): string; // error
->foo : () => string
+>foo : () => 文字
 
     "3.0": string; // ok
     "4.0": number; // error
@@ -156,24 +156,24 @@ var a: {
 
 // error
 var b: { [x: string]: string; } = {
->b : { [x: string]: string; }
->x : string
+>b : { [x: 文字]: 文字; }
+>x : 文字
 >类型别名 :=> 文字
->{    a: '',    b: 1,     c: () => { },     "d": '',     "e": 1,     1.0: '',    2.0: 1,     "3.0": '',     "4.0": 1,     f: <MyString>null,     get X() {         return '';    },    set X(v) { },     foo() {         return '';    }} : { a: string; b: number; c: () => void; "d": string; "e": number; 1.0: string; 2.0: number; "3.0": string; "4.0": number; f: MyString; X: string; foo(): string; }
+>{    a: '',    b: 1,     c: () => { },     "d": '',     "e": 1,     1.0: '',    2.0: 1,     "3.0": '',     "4.0": 1,     f: <MyString>null,     get X() {         return '';    },    set X(v) { },     foo() {         return '';    }} : { a: 文字; b: 数字; c: () => 无值; "d": 文字; "e": 数字; 1.0: 文字; 2.0: 数字; "3.0": 文字; "4.0": 数字; f: MyString; X: 文字; foo(): 文字; }
 
     a: '',
->a : string
+>a : 文字
 >类型别名 :=> 文字
 >'' : ""
 
     b: 1, 
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     c: () => { }, 
->c : () => void
->() => { } : () => void
+>c : () => 无值
+>() => { } : () => 无值
 
     "d": '', 
 >'' : ""
@@ -197,11 +197,11 @@ var b: { [x: string]: string; } = {
 >f : MyString
 ><MyString>null : MyString
 >MyString : MyString
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     get X() { 
->X : string
+>X : 文字
 >类型别名 :=> 文字
 
         return '';
@@ -209,13 +209,13 @@ var b: { [x: string]: string; } = {
 
     },
     set X(v) { }, 
->X : string
+>X : 文字
 >类型别名 :=> 文字
->v : string
+>v : 文字
 >类型别名 :=> 文字
 
     foo() { 
->foo : () => string
+>foo : () => 文字
 
         return '';
 >'' : ""

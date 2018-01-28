@@ -2,38 +2,38 @@
 // These are mostly permitted with the current loose rules. All ok unless otherwise noted.
 
 module Errors {
->Errors : typeof Errors
+>Errors : 类为 Errors
 
     class Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
     class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
     class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
     class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
->bing : string
+>bing : 文字
 >类型别名 :=> 文字
 
     module WithNonGenericSignaturesInBaseType {
->WithNonGenericSignaturesInBaseType : typeof WithNonGenericSignaturesInBaseType
+>WithNonGenericSignaturesInBaseType : 类为 WithNonGenericSignaturesInBaseType
 
         // target type with non-generic call signatures
         var a2: (x: number) => string[];
->a2 : (x: number) => string[]
->x : number
+>a2 : (x: 数字) => 文字[]
+>x : 数字
 >类型别名 :=> 数字
 
         var a7: (x: (arg: Base) => Derived) => (r: Base) => Derived2;
@@ -67,14 +67,14 @@ module Errors {
 >Base : Base
 
         var a11: (x: { foo: string }, y: { foo: string; bar: string }) => Base;
->a11 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
->x : { foo: string; }
->foo : string
+>a11 : (x: { foo: 文字; }, y: { foo: 文字; bar: 文字; }) => Base
+>x : { foo: 文字; }
+>foo : 文字
 >类型别名 :=> 文字
->y : { foo: string; bar: string; }
->foo : string
+>y : { foo: 文字; bar: 文字; }
+>foo : 文字
 >类型别名 :=> 文字
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 >Base : Base
 
@@ -90,58 +90,58 @@ module Errors {
 >Derived : Derived
 
         var a14: {
->a14 : { (x: number): number[]; (x: string): string[]; }
+>a14 : { (x: 数字): 数字[]; (x: 文字): 文字[]; }
 
                 (x: number): number[];
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
                 (x: string): string[];
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
             };
         var a15: (x: { a: string; b: number }) => number;
->a15 : (x: { a: string; b: number; }) => number
->x : { a: string; b: number; }
->a : string
+>a15 : (x: { a: 文字; b: 数字; }) => 数字
+>x : { a: 文字; b: 数字; }
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
         var a16: {
->a16 : { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }
+>a16 : { (x: { (a: 数字): 数字; (a?: 数字): 数字; }): 数字[]; (x: { (a: 真假): 真假; (a?: 真假): 真假; }): 真假[]; }
 
                 (x: {
->x : { (a: number): number; (a?: number): number; }
+>x : { (a: 数字): 数字; (a?: 数字): 数字; }
 
                     (a: number): number;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
                     (a?: number): number;
->a : number
+>a : 数字
 >类型别名 :=> 数字
 
                 }): number[];
                 (x: {
->x : { (a: boolean): boolean; (a?: boolean): boolean; }
+>x : { (a: 真假): 真假; (a?: 真假): 真假; }
 
                     (a: boolean): boolean;
->a : boolean
+>a : 真假
 >类型别名 :=> 真假
 
                     (a?: boolean): boolean;
->a : boolean
+>a : 真假
 >类型别名 :=> 真假
 
                 }): boolean[];
             };
         var a17: {
->a17 : { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }
+>a17 : { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }
 
                 (x: {
->x : { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }
+>x : { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }
 
                     <T extends Derived>(a: T): T;
 >T : T
@@ -159,7 +159,7 @@ module Errors {
 
                 }): any[];
                 (x: {
->x : { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }
+>x : { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }
 
                     <T extends Derived2>(a: T): T;
 >T : T
@@ -188,16 +188,16 @@ module Errors {
 
         a2 = b2;
 >a2 = b2 : <T, U>(x: T) => U[]
->a2 : (x: number) => string[]
+>a2 : (x: 数字) => 文字[]
 >b2 : <T, U>(x: T) => U[]
 
         b2 = a2;
->b2 = a2 : (x: number) => string[]
+>b2 = a2 : (x: 数字) => 文字[]
 >b2 : <T, U>(x: T) => U[]
->a2 : (x: number) => string[]
+>a2 : (x: 数字) => 文字[]
 
         var b7: <T extends Base, U extends Derived, V extends Derived2>(x: (arg: T) => U) => (r: T) => V;
->b7 : <T extends Base, U extends Derived, V extends Derived2>(x: (arg: T) => U) => (r: T) => V
+>b7 : <T 扩展 Base, U 扩展 Derived, V 扩展 Derived2>(x: (arg: T) => U) => (r: T) => V
 >T : T
 >Base : Base
 >U : U
@@ -213,17 +213,17 @@ module Errors {
 >V : V
 
         a7 = b7;
->a7 = b7 : <T extends Base, U extends Derived, V extends Derived2>(x: (arg: T) => U) => (r: T) => V
+>a7 = b7 : <T 扩展 Base, U 扩展 Derived, V 扩展 Derived2>(x: (arg: T) => U) => (r: T) => V
 >a7 : (x: (arg: Base) => Derived) => (r: Base) => Derived2
->b7 : <T extends Base, U extends Derived, V extends Derived2>(x: (arg: T) => U) => (r: T) => V
+>b7 : <T 扩展 Base, U 扩展 Derived, V 扩展 Derived2>(x: (arg: T) => U) => (r: T) => V
 
         b7 = a7;
 >b7 = a7 : (x: (arg: Base) => Derived) => (r: Base) => Derived2
->b7 : <T extends Base, U extends Derived, V extends Derived2>(x: (arg: T) => U) => (r: T) => V
+>b7 : <T 扩展 Base, U 扩展 Derived, V 扩展 Derived2>(x: (arg: T) => U) => (r: T) => V
 >a7 : (x: (arg: Base) => Derived) => (r: Base) => Derived2
 
         var b8: <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: number; }) => U) => (r: T) => U; 
->b8 : <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: number; }) => U) => (r: T) => U
+>b8 : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U, y: (arg2: { foo: 数字; }) => U) => (r: T) => U
 >T : T
 >Base : Base
 >U : U
@@ -232,9 +232,9 @@ module Errors {
 >arg : T
 >T : T
 >U : U
->y : (arg2: { foo: number; }) => U
->arg2 : { foo: number; }
->foo : number
+>y : (arg2: { foo: 数字; }) => U
+>arg2 : { foo: 数字; }
+>foo : 数字
 >类型别名 :=> 数字
 >U : U
 >r : T
@@ -242,18 +242,18 @@ module Errors {
 >U : U
 
         a8 = b8; // error, { foo: number } and Base are incompatible
->a8 = b8 : <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: number; }) => U) => (r: T) => U
+>a8 = b8 : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U, y: (arg2: { foo: 数字; }) => U) => (r: T) => U
 >a8 : (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
->b8 : <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: number; }) => U) => (r: T) => U
+>b8 : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U, y: (arg2: { foo: 数字; }) => U) => (r: T) => U
 
         b8 = a8; // error, { foo: number } and Base are incompatible
 >b8 = a8 : (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
->b8 : <T extends Base, U extends Derived>(x: (arg: T) => U, y: (arg2: { foo: number; }) => U) => (r: T) => U
+>b8 : <T 扩展 Base, U 扩展 Derived>(x: (arg: T) => U, y: (arg2: { foo: 数字; }) => U) => (r: T) => U
 >a8 : (x: (arg: Base) => Derived, y: (arg2: Base) => Derived) => (r: Base) => Derived
 
         
         var b10: <T extends Derived>(...x: T[]) => T; 
->b10 : <T extends Derived>(...x: T[]) => T
+>b10 : <T 扩展 Derived>(...x: T[]) => T
 >T : T
 >Derived : Derived
 >x : T[]
@@ -261,17 +261,17 @@ module Errors {
 >T : T
 
         a10 = b10;
->a10 = b10 : <T extends Derived>(...x: T[]) => T
+>a10 = b10 : <T 扩展 Derived>(...x: T[]) => T
 >a10 : (...x: Base[]) => Base
->b10 : <T extends Derived>(...x: T[]) => T
+>b10 : <T 扩展 Derived>(...x: T[]) => T
 
         b10 = a10;
 >b10 = a10 : (...x: Base[]) => Base
->b10 : <T extends Derived>(...x: T[]) => T
+>b10 : <T 扩展 Derived>(...x: T[]) => T
 >a10 : (...x: Base[]) => Base
 
         var b11: <T extends Derived>(x: T, y: T) => T; 
->b11 : <T extends Derived>(x: T, y: T) => T
+>b11 : <T 扩展 Derived>(x: T, y: T) => T
 >T : T
 >Derived : Derived
 >x : T
@@ -281,17 +281,17 @@ module Errors {
 >T : T
 
         a11 = b11;
->a11 = b11 : <T extends Derived>(x: T, y: T) => T
->a11 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
->b11 : <T extends Derived>(x: T, y: T) => T
+>a11 = b11 : <T 扩展 Derived>(x: T, y: T) => T
+>a11 : (x: { foo: 文字; }, y: { foo: 文字; bar: 文字; }) => Base
+>b11 : <T 扩展 Derived>(x: T, y: T) => T
 
         b11 = a11;
->b11 = a11 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
->b11 : <T extends Derived>(x: T, y: T) => T
->a11 : (x: { foo: string; }, y: { foo: string; bar: string; }) => Base
+>b11 = a11 : (x: { foo: 文字; }, y: { foo: 文字; bar: 文字; }) => Base
+>b11 : <T 扩展 Derived>(x: T, y: T) => T
+>a11 : (x: { foo: 文字; }, y: { foo: 文字; bar: 文字; }) => Base
 
         var b12: <T extends Array<Derived2>>(x: Array<Base>, y: Array<Base>) => T; 
->b12 : <T extends Derived2[]>(x: Base[], y: Base[]) => T
+>b12 : <T 扩展 Derived2[]>(x: Base[], y: Base[]) => T
 >T : T
 >Array : T[]
 >Derived2 : Derived2
@@ -304,13 +304,13 @@ module Errors {
 >T : T
 
         a12 = b12;
->a12 = b12 : <T extends Derived2[]>(x: Base[], y: Base[]) => T
+>a12 = b12 : <T 扩展 Derived2[]>(x: Base[], y: Base[]) => T
 >a12 : (x: Base[], y: Derived2[]) => Derived[]
->b12 : <T extends Derived2[]>(x: Base[], y: Base[]) => T
+>b12 : <T 扩展 Derived2[]>(x: Base[], y: Base[]) => T
 
         b12 = a12;
 >b12 = a12 : (x: Base[], y: Derived2[]) => Derived[]
->b12 : <T extends Derived2[]>(x: Base[], y: Base[]) => T
+>b12 : <T 扩展 Derived2[]>(x: Base[], y: Base[]) => T
 >a12 : (x: Base[], y: Derived2[]) => Derived[]
 
         var b15: <T>(x: { a: T; b: T }) => T; 
@@ -325,16 +325,16 @@ module Errors {
 
         a15 = b15;
 >a15 = b15 : <T>(x: { a: T; b: T; }) => T
->a15 : (x: { a: string; b: number; }) => number
+>a15 : (x: { a: 文字; b: 数字; }) => 数字
 >b15 : <T>(x: { a: T; b: T; }) => T
 
         b15 = a15;
->b15 = a15 : (x: { a: string; b: number; }) => number
+>b15 = a15 : (x: { a: 文字; b: 数字; }) => 数字
 >b15 : <T>(x: { a: T; b: T; }) => T
->a15 : (x: { a: string; b: number; }) => number
+>a15 : (x: { a: 文字; b: 数字; }) => 数字
 
         var b15a: <T extends Base>(x: { a: T; b: T }) => number; 
->b15a : <T extends Base>(x: { a: T; b: T; }) => number
+>b15a : <T 扩展 Base>(x: { a: T; b: T; }) => 数字
 >T : T
 >Base : Base
 >x : { a: T; b: T; }
@@ -344,14 +344,14 @@ module Errors {
 >T : T
 
         a15 = b15a;
->a15 = b15a : <T extends Base>(x: { a: T; b: T; }) => number
->a15 : (x: { a: string; b: number; }) => number
->b15a : <T extends Base>(x: { a: T; b: T; }) => number
+>a15 = b15a : <T 扩展 Base>(x: { a: T; b: T; }) => 数字
+>a15 : (x: { a: 文字; b: 数字; }) => 数字
+>b15a : <T 扩展 Base>(x: { a: T; b: T; }) => 数字
 
         b15a = a15;
->b15a = a15 : (x: { a: string; b: number; }) => number
->b15a : <T extends Base>(x: { a: T; b: T; }) => number
->a15 : (x: { a: string; b: number; }) => number
+>b15a = a15 : (x: { a: 文字; b: 数字; }) => 数字
+>b15a : <T 扩展 Base>(x: { a: T; b: T; }) => 数字
+>a15 : (x: { a: 文字; b: 数字; }) => 数字
 
         var b16: <T>(x: (a: T) => T) => T[];
 >b16 : <T>(x: (a: T) => T) => T[]
@@ -364,16 +364,16 @@ module Errors {
 
         a16 = b16;
 >a16 = b16 : <T>(x: (a: T) => T) => T[]
->a16 : { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }
+>a16 : { (x: { (a: 数字): 数字; (a?: 数字): 数字; }): 数字[]; (x: { (a: 真假): 真假; (a?: 真假): 真假; }): 真假[]; }
 >b16 : <T>(x: (a: T) => T) => T[]
 
         b16 = a16;
->b16 = a16 : { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }
+>b16 = a16 : { (x: { (a: 数字): 数字; (a?: 数字): 数字; }): 数字[]; (x: { (a: 真假): 真假; (a?: 真假): 真假; }): 真假[]; }
 >b16 : <T>(x: (a: T) => T) => T[]
->a16 : { (x: { (a: number): number; (a?: number): number; }): number[]; (x: { (a: boolean): boolean; (a?: boolean): boolean; }): boolean[]; }
+>a16 : { (x: { (a: 数字): 数字; (a?: 数字): 数字; }): 数字[]; (x: { (a: 真假): 真假; (a?: 真假): 真假; }): 真假[]; }
 
         var b17: <T>(x: (a: T) => T) => any[];
->b17 : <T>(x: (a: T) => T) => any[]
+>b17 : <T>(x: (a: T) => T) => 任意[]
 >T : T
 >x : (a: T) => T
 >a : T
@@ -381,18 +381,18 @@ module Errors {
 >T : T
 
         a17 = b17;
->a17 = b17 : <T>(x: (a: T) => T) => any[]
->a17 : { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }
->b17 : <T>(x: (a: T) => T) => any[]
+>a17 = b17 : <T>(x: (a: T) => T) => 任意[]
+>a17 : { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }
+>b17 : <T>(x: (a: T) => T) => 任意[]
 
         b17 = a17;
->b17 = a17 : { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }
->b17 : <T>(x: (a: T) => T) => any[]
->a17 : { (x: { <T extends Derived>(a: T): T; <T extends Base>(a: T): T; }): any[]; (x: { <T extends Derived2>(a: T): T; <T extends Base>(a: T): T; }): any[]; }
+>b17 = a17 : { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }
+>b17 : <T>(x: (a: T) => T) => 任意[]
+>a17 : { (x: { <T 扩展 Derived>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; (x: { <T 扩展 Derived2>(a: T): T; <T 扩展 Base>(a: T): T; }): 任意[]; }
     }
 
     module WithGenericSignaturesInBaseType {
->WithGenericSignaturesInBaseType : typeof WithGenericSignaturesInBaseType
+>WithGenericSignaturesInBaseType : 类为 WithGenericSignaturesInBaseType
 
         // target type has generic call signature
         var a2: <T>(x: T) => T[];
@@ -403,24 +403,24 @@ module Errors {
 >T : T
 
         var b2: <T>(x: T) => string[];
->b2 : <T>(x: T) => string[]
+>b2 : <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
 
         a2 = b2;
->a2 = b2 : <T>(x: T) => string[]
+>a2 = b2 : <T>(x: T) => 文字[]
 >a2 : <T>(x: T) => T[]
->b2 : <T>(x: T) => string[]
+>b2 : <T>(x: T) => 文字[]
 
         b2 = a2;
 >b2 = a2 : <T>(x: T) => T[]
->b2 : <T>(x: T) => string[]
+>b2 : <T>(x: T) => 文字[]
 >a2 : <T>(x: T) => T[]
 
         // target type has generic call signature
         var a3: <T>(x: T) => string[];
->a3 : <T>(x: T) => string[]
+>a3 : <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
@@ -434,12 +434,12 @@ module Errors {
 
         a3 = b3;
 >a3 = b3 : <T>(x: T) => T[]
->a3 : <T>(x: T) => string[]
+>a3 : <T>(x: T) => 文字[]
 >b3 : <T>(x: T) => T[]
 
         b3 = a3;
->b3 = a3 : <T>(x: T) => string[]
+>b3 = a3 : <T>(x: T) => 文字[]
 >b3 : <T>(x: T) => T[]
->a3 : <T>(x: T) => string[]
+>a3 : <T>(x: T) => 文字[]
     }
 }

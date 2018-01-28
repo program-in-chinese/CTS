@@ -8,7 +8,7 @@ interface Base {
 >Base : Base
 
     bar: boolean;
->bar : boolean
+>bar : 真假
 >类型别名 :=> 真假
 }
 
@@ -20,16 +20,16 @@ interface Item1 extends Base {
 >kind : "A"
 
     foo: string | undefined;
->foo : string | undefined
+>foo : 文字 | 未定
 
     baz: boolean;
->baz : boolean
+>baz : 真假
 >类型别名 :=> 真假
 
     qux: true;
->qux : true
+>qux : 为真
 >类型别名 :=> 为真
->true : true
+>true : 为真
 >类型别名 :=> 为真
 }
 
@@ -41,70 +41,70 @@ interface Item2 extends Base {
 >kind : "B"
 
     foo: string | undefined;
->foo : string | undefined
+>foo : 文字 | 未定
 
     baz: boolean;
->baz : boolean
+>baz : 真假
 >类型别名 :=> 真假
 
     qux: false;
->qux : false
+>qux : 为假
 >类型别名 :=> 为假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 }
 
 function goo1(x: Item) {
->goo1 : (x: Item) => void
+>goo1 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.kind === "A" && x.foo !== undefined) {
->x.kind === "A" && x.foo !== undefined : boolean
+>x.kind === "A" && x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.kind === "A" : boolean
+>x.kind === "A" : 真假
 >类型别名 :=> 真假
 >x.kind : "A" | "B"
 >x : Item
 >kind : "A" | "B"
 >"A" : "A"
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item1
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
 
         x.foo.length;
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string
+>x.foo : 文字
 >类型别名 :=> 文字
 >x : Item1
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function goo2(x: Item) {
->goo2 : (x: Item) => void
+>goo2 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.foo !== undefined && x.kind === "A") {
->x.foo !== undefined && x.kind === "A" : boolean
+>x.foo !== undefined && x.kind === "A" : 真假
 >类型别名 :=> 真假
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
->x.kind === "A" : boolean
+>x.kind === "A" : 真假
 >类型别名 :=> 真假
 >x.kind : "A" | "B"
 >x : Item
@@ -112,214 +112,214 @@ function goo2(x: Item) {
 >"A" : "A"
 
         x.foo.length;  // Error, intervening discriminant guard
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item1
->foo : string | undefined
->length : number
+>foo : 文字 | 未定
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function foo1(x: Item) {
->foo1 : (x: Item) => void
+>foo1 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.bar && x.foo !== undefined) {
->x.bar && x.foo !== undefined : boolean
+>x.bar && x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.bar : boolean
+>x.bar : 真假
 >类型别名 :=> 真假
 >x : Item
->bar : boolean
+>bar : 真假
 >类型别名 :=> 真假
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
 
         x.foo.length;
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string
+>x.foo : 文字
 >类型别名 :=> 文字
 >x : Item
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function foo2(x: Item) {
->foo2 : (x: Item) => void
+>foo2 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.foo !== undefined && x.bar) {
->x.foo !== undefined && x.bar : boolean
+>x.foo !== undefined && x.bar : 真假
 >类型别名 :=> 真假
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
->x.bar : boolean
+>x.bar : 真假
 >类型别名 :=> 真假
 >x : Item
->bar : boolean
+>bar : 真假
 >类型别名 :=> 真假
 
         x.foo.length;
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string
+>x.foo : 文字
 >类型别名 :=> 文字
 >x : Item
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function foo3(x: Item) {
->foo3 : (x: Item) => void
+>foo3 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.baz && x.foo !== undefined) {
->x.baz && x.foo !== undefined : boolean
+>x.baz && x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.baz : boolean
+>x.baz : 真假
 >类型别名 :=> 真假
 >x : Item
->baz : boolean
+>baz : 真假
 >类型别名 :=> 真假
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
 
         x.foo.length;
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string
+>x.foo : 文字
 >类型别名 :=> 文字
 >x : Item
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function foo4(x: Item) {
->foo4 : (x: Item) => void
+>foo4 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.foo !== undefined && x.baz) {
->x.foo !== undefined && x.baz : boolean
+>x.foo !== undefined && x.baz : 真假
 >类型别名 :=> 真假
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
->x.baz : boolean
+>x.baz : 真假
 >类型别名 :=> 真假
 >x : Item
->baz : boolean
+>baz : 真假
 >类型别名 :=> 真假
 
         x.foo.length;
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string
+>x.foo : 文字
 >类型别名 :=> 文字
 >x : Item
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function foo5(x: Item) {
->foo5 : (x: Item) => void
+>foo5 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.qux && x.foo !== undefined) {
->x.qux && x.foo !== undefined : boolean
+>x.qux && x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.qux : boolean
+>x.qux : 真假
 >类型别名 :=> 真假
 >x : Item
->qux : boolean
+>qux : 真假
 >类型别名 :=> 真假
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item1
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
 
         x.foo.length;
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string
+>x.foo : 文字
 >类型别名 :=> 文字
 >x : Item1
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function foo6(x: Item) {
->foo6 : (x: Item) => void
+>foo6 : (x: Item) => 无值
 >x : Item
 >Item : Item
 
     if (x.foo !== undefined && x.qux) {
->x.foo !== undefined && x.qux : boolean
+>x.foo !== undefined && x.qux : 真假
 >类型别名 :=> 真假
->x.foo !== undefined : boolean
+>x.foo !== undefined : 真假
 >类型别名 :=> 真假
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item
->foo : string | undefined
->undefined : undefined
+>foo : 文字 | 未定
+>undefined : 未定
 >类型别名 :=> 未定
->x.qux : boolean
+>x.qux : 真假
 >类型别名 :=> 真假
 >x : Item
->qux : boolean
+>qux : 真假
 >类型别名 :=> 真假
 
         x.foo.length;  // Error, intervening discriminant guard
->x.foo.length : number
+>x.foo.length : 数字
 >类型别名 :=> 数字
->x.foo : string | undefined
+>x.foo : 文字 | 未定
 >x : Item1
->foo : string | undefined
->length : number
+>foo : 文字 | 未定
+>length : 数字
 >类型别名 :=> 数字
     }
 }

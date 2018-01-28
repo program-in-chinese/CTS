@@ -1,59 +1,59 @@
 === tests/cases/compiler/qualify.ts ===
 module M {
->M : typeof M
+>M : 类为 M
 
     export var m=0;
->m : number
+>m : 数字
 >类型别名 :=> 数字
 >0 : 0
 
     export module N {
->N : typeof N
+>N : 类为 N
 
         export var n=1;
->n : number
+>n : 数字
 >类型别名 :=> 数字
 >1 : 1
     }
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
     export module N {
->N : typeof N
+>N : 类为 N
 
         var y=m;
->y : number
+>y : 数字
 >类型别名 :=> 数字
->m : number
+>m : 数字
 >类型别名 :=> 数字
 
         var x=n+y;
->x : number
+>x : 数字
 >类型别名 :=> 数字
->n+y : number
+>n+y : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 }
 
 
 module T {
->T : typeof T
+>T : 类为 T
 
     export interface I {
 >I : I
 
         p;
->p : any
+>p : 任意
 >类型别名 :=> 任意
     }
     export module U {
->U : typeof U
+>U : 类为 U
 
         var z:I=3;
 >z : I
@@ -64,23 +64,23 @@ module T {
 >I2 : I2
 
             q;
->q : any
+>q : 任意
 >类型别名 :=> 任意
         }
     }
 }
 
 module Peer {
->Peer : typeof Peer
+>Peer : 类为 Peer
 
     export module U2 {
->U2 : typeof U2
+>U2 : 类为 U2
 
         var z:T.U.I2=3;
 >z : T.U.I2
->T : any
+>T : 任意
 >类型别名 :=> 任意
->U : any
+>U : 任意
 >类型别名 :=> 任意
 >I2 : T.U.I2
 >3 : 3
@@ -88,28 +88,28 @@ module Peer {
 }
 
 module Everest {
->Everest : typeof Everest
+>Everest : 类为 Everest
 
     export module K1 {
->K1 : any
+>K1 : 任意
 >类型别名 :=> 任意
 
         export interface I3 {
 >I3 : I3
 
             zeep;
->zeep : any
+>zeep : 任意
 >类型别名 :=> 任意
         }
     }
     export module K2 {
->K2 : typeof K2
+>K2 : 类为 K2
 
         export interface I4 {
 >I4 : I4
 
             z;
->z : any
+>z : 任意
 >类型别名 :=> 任意
         }
         var v1:I4;
@@ -118,29 +118,29 @@ module Everest {
 
         var v2:K1.I3=v1;
 >v2 : K1.I3
->K1 : any
+>K1 : 任意
 >类型别名 :=> 任意
 >I3 : K1.I3
 >v1 : I4
 
         var v3:K1.I3[]=v1;
 >v3 : K1.I3[]
->K1 : any
+>K1 : 任意
 >类型别名 :=> 任意
 >I3 : K1.I3
 >v1 : I4
 
         var v4:()=>K1.I3=v1;
 >v4 : () => K1.I3
->K1 : any
+>K1 : 任意
 >类型别名 :=> 任意
 >I3 : K1.I3
 >v1 : I4
 
         var v5:(k:K1.I3)=>void=v1;
->v5 : (k: K1.I3) => void
+>v5 : (k: K1.I3) => 无值
 >k : K1.I3
->K1 : any
+>K1 : 任意
 >类型别名 :=> 任意
 >I3 : K1.I3
 >v1 : I4
@@ -148,7 +148,7 @@ module Everest {
         var v6:{k:K1.I3;}=v1;
 >v6 : { k: K1.I3; }
 >k : K1.I3
->K1 : any
+>K1 : 任意
 >类型别名 :=> 任意
 >I3 : K1.I3
 >v1 : I4
@@ -159,7 +159,7 @@ interface I {
 >I : I
 
     k;
->k : any
+>k : 任意
 >类型别名 :=> 任意
 }
 
@@ -169,7 +169,7 @@ var y:I;
 
 var x:T.I=y;
 >x : T.I
->T : any
+>T : 任意
 >类型别名 :=> 任意
 >I : T.I
 >y : I

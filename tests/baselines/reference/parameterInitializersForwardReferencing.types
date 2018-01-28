@@ -1,124 +1,124 @@
 === tests/cases/conformance/functions/parameterInitializersForwardReferencing.ts ===
 function left(a, b = a, c = b) {
->left : (a: any, b?: any, c?: any) => void
->a : any
+>left : (a: 任意, b?: 任意, c?: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
 }
 
 function right(a = b, b = a) {
->right : (a?: any, b?: any) => void
->a : any
+>right : (a?: 任意, b?: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
 }
 
 function right2(a = b, b = c, c = a) {
->right2 : (a?: any, b?: any, c?: any) => void
->a : any
+>right2 : (a?: 任意, b?: 任意, c?: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     a;
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     c;
->c : any
+>c : 任意
 >类型别名 :=> 任意
 }
 
 function inside(a = b) {
->inside : (a?: any) => void
->a : any
+>inside : (a?: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     var b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
 }
 
 function outside() {
->outside : () => void
+>outside : () => 无值
 
     var b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
     function inside(a = b) { // Still an error because b is declared inside the function
->inside : (a?: any) => void
->a : any
+>inside : (a?: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
         var b;
->b : any
+>b : 任意
 >类型别名 :=> 任意
     }
 }
 
 function defaultArgFunction(a = function () { return b; }, b = 1) { }
->defaultArgFunction : (a?: () => number, b?: number) => void
->a : () => number
->function () { return b; } : () => number
->b : number
+>defaultArgFunction : (a?: () => 数字, b?: 数字) => 无值
+>a : () => 数字
+>function () { return b; } : () => 数字
+>b : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
 function defaultArgArrow(a = () => () => b, b = 3) { }
->defaultArgArrow : (a?: () => () => number, b?: number) => void
->a : () => () => number
->() => () => b : () => () => number
->() => b : () => number
->b : number
+>defaultArgArrow : (a?: () => () => 数字, b?: 数字) => 无值
+>a : () => () => 数字
+>() => () => b : () => () => 数字
+>() => b : () => 数字
+>b : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >3 : 3
 
@@ -126,56 +126,56 @@ class C {
 >C : C
 
     constructor(a = b, b = 1) { }
->a : number
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
     method(a = b, b = 1) { }
->method : (a?: number, b?: number) => void
->a : number
+>method : (a?: 数字, b?: 数字) => 无值
+>a : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
 
 // Function expressions
 var x = (a = b, b = c, c = d) => { var d; };
->x : (a?: any, b?: any, c?: any) => void
->(a = b, b = c, c = d) => { var d; } : (a?: any, b?: any, c?: any) => void
->a : any
+>x : (a?: 任意, b?: 任意, c?: 任意) => 无值
+>(a = b, b = c, c = d) => { var d; } : (a?: 任意, b?: 任意, c?: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->d : any
+>d : 任意
 >类型别名 :=> 任意
->d : any
+>d : 任意
 >类型别名 :=> 任意
 
 // Should not produce errors - can reference later parameters if they occur within a function expression initializer.
 function f(a, b = function () { return c; }, c = b()) {
->f : (a: any, b?: () => any, c?: any) => void
->a : any
+>f : (a: 任意, b?: () => 任意, c?: 任意) => 无值
+>a : 任意
 >类型别名 :=> 任意
->b : () => any
->function () { return c; } : () => any
->c : any
+>b : () => 任意
+>function () { return c; } : () => 任意
+>c : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
->b() : any
+>b() : 任意
 >类型别名 :=> 任意
->b : () => any
+>b : () => 任意
 }

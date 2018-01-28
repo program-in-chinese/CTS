@@ -1,0 +1,21 @@
+tests/cases/conformance/es6/spread/iteratorSpreadInCall11.ts(15,8): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+
+
+==== tests/cases/conformance/es6/spread/iteratorSpreadInCall11.ts (1 errors) ====
+    function foo<T>(...s: T[]) { return s[0] }
+    class SymbolIterator {
+        next() {
+            return {
+                value: Symbol(),
+                done: false
+            };
+        }
+    
+        [Symbol.iterator]() {
+            return this;
+        }
+    }
+    
+    foo(...new SymbolIterator);
+           ~~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.

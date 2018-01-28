@@ -1,6 +1,6 @@
 //// [tests/cases/compiler/0.0.1_中文测试集/0003_测试_Ch.ts] ////
 
-//// [index.d.ts]
+//// [index.d.cts]
 //@@{ 测试:foo, 属性1:bar, 属性2:baz, 合成属性:nested, 甲:a, 乙:b }
 导出 类型 测试 = {
   属性1: 数字 | 空值;
@@ -31,7 +31,7 @@
 
 //**************** 分割线 *******************//
 
-//// [测试_3_ch.ts]
+//// [测试_3_ch.cts]
 导入 { 测试, 取属性, 置属性, 引发事件, 事件类型 } 来自 "testCh"
 
 常量 aFoo: 测试 = { 属性1: 3, 属性2: "b", 合成属性: { 甲: 1, 乙: "y" } };
@@ -129,7 +129,7 @@ for (var _i = 0, 数组值_1 = 数组值; _i < 数组值_1.length; _i++) {
     }
     else if (aF.baz === "c") {
         aF["baz"];
-        var baz = aF.属性2;
+        var baz = aF.baz;
         if (baz) { }
     }
 }
@@ -139,7 +139,7 @@ for (var aF in 数组值) {
     }
     else if (数组值[aF].baz === "c") {
         数组值[aF]["baz"];
-        var baz = 数组值[aF].属性2;
+        var baz = 数组值[aF].baz;
         if (baz) { }
     }
 }

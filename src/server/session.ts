@@ -800,6 +800,60 @@ namespace ts.server {
             const info = this.projectService.getScriptInfo(args.file);
             return info.getDefaultProject();
         }
+        private 取词典自动完成项目新(args: protocol.词典完成请求参数): protocol.词典完成条目 {
+            const file = toNormalizedPath(args.file);
+            const projects = this.getProjects(args)
+            const position = this.getPositionInFile(args, file);
+            const ignoreName = args.ignoreName;
+
+            const 词典信息 = combineProjectOutput(projects, (p: Project) => {
+                let 信息 = p.getLanguageService().取词典自动完成项目新(file, position, ignoreName)
+                if (!信息) {
+                    return emptyArray
+                }
+                return 信息.map(location => {
+                    const locationScriptInfo = p.getScriptInfo(location.fileName);
+                    return {
+                        kind: location.kind,
+                        file: location.fileName,
+                        name: location.name,
+                        isInString: location.isInString,
+                        parent: location.parent,
+                        start: locationScriptInfo.positionToLineOffset(location.textSpan.start),
+                        end: locationScriptInfo.positionToLineOffset(textSpanEnd(location.textSpan)),
+                    }
+                })
+            }, undefined, (a, b) => a === b || a.file === b.file && a.start === b.start && a.end === b.end && a.isInString === b.isInString)
+
+            const body: protocol.词典完成条目 = {} as protocol.词典完成条目
+
+            for (let i = 0; i < 词典信息.length; i++) {
+                let 当前 = 词典信息[i]
+                let 范围 = 转换(当前.start, 当前.end)
+                if (i === 0) {
+                    body.kind = 当前.kind
+                    body.isStringLiteral = 当前.isInString
+                    body.name = 当前.name
+                    body.range = 范围
+                    body.rangeMap = {}
+                    body.rangeMap[当前.file] = [{ start: 范围.start, end: 范围.end, parent: 当前.parent, isStringLiteral: 当前.isInString }]
+                } else {
+                    let 存在 = body.rangeMap[当前.file]
+                    if (存在) {
+                        body.rangeMap[当前.file].push({ start: 范围.start, end: 范围.end, parent: 当前.parent, isStringLiteral: 当前.isInString })
+                    } else {
+                        body.rangeMap[当前.file] = [{ start: 范围.start, end: 范围.end, parent: 当前.parent, isStringLiteral: 当前.isInString }]
+                    }
+                }
+            }
+            
+            return body
+
+            function 转换(start: protocol.Location, end: protocol.Location) {
+                return { start: { line: start.line - 1, character: start.offset - 1 }, end: { line: end.line - 1, character: end.offset - 1 } }
+            }
+
+        }
 
         private getRenameLocations(args: protocol.RenameRequestArgs, simplifiedResult: boolean): protocol.RenameResponseBody | ReadonlyArray<RenameLocation> {
             const file = toNormalizedPath(args.file);
@@ -1685,9 +1739,14 @@ namespace ts.server {
             return { response, responseRequired: true };
         }
 
-        private 转为CTS(req: protocol.FileRequest): string {
-            let project = this.getProject(req.arguments.file)
-            return project.getLanguageService().转为CTS(req.arguments.file)
+        private 转为CTS(req: protocol.FileRequestArgs): string {
+            let { project } = this.getFileAndProject(req)
+            return project.getLanguageService().转为CTS(req.file)
+        }
+
+        private 格式化词典语句(req: protocol.FileRequestArgs): string {
+            let { project } = this.getFileAndProject(req)
+            return project.getLanguageService().格式化词典语句(req.file)
         }
 
         private handlers = createMapFromTemplate<(request: protocol.Request) => HandlerResponse>({
@@ -1953,7 +2012,12 @@ namespace ts.server {
             }
             ,
             [CommandNames.转为CTS]: (request: protocol.FileRequest) => {
-                return this.requiredResponse(this.转为CTS(request))
+                return this.requiredResponse(this.转为CTS(request.arguments))
+            },[CommandNames.格式化词典语句]: (request: protocol.FileRequest) => {
+                return this.requiredResponse(this.格式化词典语句(request.arguments))
+            },
+            [CommandNames.词典自动完成]: (request: protocol.词典完成请求) => {
+                return this.requiredResponse(this.取词典自动完成项目新(request.arguments));
             }
         });
 

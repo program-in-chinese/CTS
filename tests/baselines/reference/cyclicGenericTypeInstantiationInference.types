@@ -1,67 +1,67 @@
 === tests/cases/compiler/cyclicGenericTypeInstantiationInference.ts ===
 function foo<T>() {
->foo : <T>() => { y2: any; }
+>foo : <T>() => { y2: 任意; }
 >T : T
 
     var z = foo<typeof y>();
->z : { y2: any; }
->foo<typeof y>() : { y2: any; }
->foo : <T>() => { y2: any; }
->y : { y2: any; }
+>z : { y2: 任意; }
+>foo<typeof y>() : { y2: 任意; }
+>foo : <T>() => { y2: 任意; }
+>y : { y2: 任意; }
 
     var y: {
->y : { y2: any; }
+>y : { y2: 任意; }
 
         y2: typeof z
->y2 : { y2: any; }
->z : { y2: any; }
+>y2 : { y2: 任意; }
+>z : { y2: 任意; }
 
     };
     return y;
->y : { y2: any; }
+>y : { y2: 任意; }
 }
 
 
 function bar<T>() {
->bar : <T>() => { y2: any; }
+>bar : <T>() => { y2: 任意; }
 >T : T
 
     var z = bar<typeof y>();
->z : { y2: any; }
->bar<typeof y>() : { y2: any; }
->bar : <T>() => { y2: any; }
->y : { y2: any; }
+>z : { y2: 任意; }
+>bar<typeof y>() : { y2: 任意; }
+>bar : <T>() => { y2: 任意; }
+>y : { y2: 任意; }
 
     var y: {
->y : { y2: any; }
+>y : { y2: 任意; }
 
         y2: typeof z;
->y2 : { y2: any; }
->z : { y2: any; }
+>y2 : { y2: 任意; }
+>z : { y2: 任意; }
     }
     return y;
->y : { y2: any; }
+>y : { y2: 任意; }
 }
 
 var a = foo<number>();
->a : { y2: any; }
->foo<number>() : { y2: any; }
->foo : <T>() => { y2: any; }
+>a : { y2: 任意; }
+>foo<number>() : { y2: 任意; }
+>foo : <T>() => { y2: 任意; }
 
 var b = bar<number>();
->b : { y2: any; }
->bar<number>() : { y2: any; }
->bar : <T>() => { y2: any; }
+>b : { y2: 任意; }
+>bar<number>() : { y2: 任意; }
+>bar : <T>() => { y2: 任意; }
 
 function test<T>(x: typeof a): void { }
->test : <T>(x: { y2: any; }) => void
+>test : <T>(x: { y2: 任意; }) => 无值
 >T : T
->x : { y2: any; }
->a : { y2: any; }
+>x : { y2: 任意; }
+>a : { y2: 任意; }
 
 test(b);
->test(b) : void
+>test(b) : 无值
 >类型别名 :=> 无值
->test : <T>(x: { y2: any; }) => void
->b : { y2: any; }
+>test : <T>(x: { y2: 任意; }) => 无值
+>b : { y2: 任意; }
 

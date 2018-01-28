@@ -1,7 +1,7 @@
 === tests/cases/compiler/systemModuleConstEnumsSeparateCompilation.ts ===
 declare function use(a: any);
->use : (a: any) => any
->a : any
+>use : (a: 任意) => 任意
+>a : 任意
 >类型别名 :=> 任意
 
 const enum TopLevelConstEnum { X }
@@ -9,29 +9,29 @@ const enum TopLevelConstEnum { X }
 >X : TopLevelConstEnum
 
 export function foo() {
->foo : () => void
+>foo : () => 无值
 
     use(TopLevelConstEnum.X);
->use(TopLevelConstEnum.X) : any
+>use(TopLevelConstEnum.X) : 任意
 >类型别名 :=> 任意
->use : (a: any) => any
+>use : (a: 任意) => 任意
 >TopLevelConstEnum.X : TopLevelConstEnum
->TopLevelConstEnum : typeof TopLevelConstEnum
+>TopLevelConstEnum : 类为 TopLevelConstEnum
 >X : TopLevelConstEnum
 
     use(M.NonTopLevelConstEnum.X);
->use(M.NonTopLevelConstEnum.X) : any
+>use(M.NonTopLevelConstEnum.X) : 任意
 >类型别名 :=> 任意
->use : (a: any) => any
+>use : (a: 任意) => 任意
 >M.NonTopLevelConstEnum.X : M.NonTopLevelConstEnum
->M.NonTopLevelConstEnum : typeof M.NonTopLevelConstEnum
->M : typeof M
->NonTopLevelConstEnum : typeof M.NonTopLevelConstEnum
+>M.NonTopLevelConstEnum : 类为 M.NonTopLevelConstEnum
+>M : 类为 M
+>NonTopLevelConstEnum : 类为 M.NonTopLevelConstEnum
 >X : M.NonTopLevelConstEnum
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
     export const enum NonTopLevelConstEnum { X }
 >NonTopLevelConstEnum : NonTopLevelConstEnum

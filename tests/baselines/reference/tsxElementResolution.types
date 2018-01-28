@@ -1,14 +1,14 @@
 === tests/cases/conformance/jsx/tsxElementResolution.tsx ===
 declare namespace JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
 	interface IntrinsicElements {
 >IntrinsicElements : IntrinsicElements
 
 		foundFirst: { x: string };
->foundFirst : { x: string; }
->x : string
+>foundFirst : { x: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 
 		'string_named';
@@ -23,7 +23,7 @@ class Other {}
 >Other : Other
 
 module Dotted {
->Dotted : typeof Dotted
+>Dotted : 类为 Dotted
 
 	export class Name { }
 >Name : Name
@@ -31,38 +31,38 @@ module Dotted {
 
 // Should find the intrinsic element, not the class element
 var a = <foundFirst  x="hello" />;
->a : any
+>a : 任意
 >类型别名 :=> 任意
-><foundFirst  x="hello" /> : any
+><foundFirst  x="hello" /> : 任意
 >类型别名 :=> 任意
->foundFirst : typeof foundFirst
->x : string
+>foundFirst : 类为 foundFirst
+>x : 文字
 >类型别名 :=> 文字
 
 var b = <string_named />;
->b : any
+>b : 任意
 >类型别名 :=> 任意
-><string_named /> : any
+><string_named /> : 任意
 >类型别名 :=> 任意
->string_named : any
+>string_named : 任意
 >类型别名 :=> 任意
 
 // TODO: This should not be a parse error (should
 //        parse a property name here, not identifier)
 // var c = <var />;
 var d = <Other />;
->d : any
+>d : 任意
 >类型别名 :=> 任意
-><Other /> : any
+><Other /> : 任意
 >类型别名 :=> 任意
->Other : typeof Other
+>Other : 类为 Other
 
 var e = <Dotted.Name />;
->e : any
+>e : 任意
 >类型别名 :=> 任意
-><Dotted.Name /> : any
+><Dotted.Name /> : 任意
 >类型别名 :=> 任意
->Dotted.Name : typeof Dotted.Name
->Dotted : typeof Dotted
->Name : typeof Dotted.Name
+>Dotted.Name : 类为 Dotted.Name
+>Dotted : 类为 Dotted
+>Name : 类为 Dotted.Name
 

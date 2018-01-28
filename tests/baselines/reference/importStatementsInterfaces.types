@@ -1,22 +1,22 @@
 === tests/cases/conformance/internalModules/codeGeneration/importStatementsInterfaces.ts ===
 module A {
->A : any
+>A : 任意
 >类型别名 :=> 任意
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 
     export module inA {
->inA : any
+>inA : 任意
 >类型别名 :=> 任意
 
         export interface Point3D extends Point {
@@ -24,7 +24,7 @@ module A {
 >Point : Point
 
             z: number;
->z : number
+>z : 数字
 >类型别名 :=> 数字
         }
     }
@@ -32,104 +32,104 @@ module A {
 
 // no code gen expected
 module B {
->B : any
+>B : 任意
 >类型别名 :=> 任意
 
     import a = A;
->a : any
+>a : 任意
 >类型别名 :=> 任意
->A : any
+>A : 任意
 >类型别名 :=> 任意
 }
 
 // no code gen expected
 module C {
->C : typeof C
+>C : 类为 C
 
     import a = A;
->a : any
+>a : 任意
 >类型别名 :=> 任意
->A : any
+>A : 任意
 >类型别名 :=> 任意
 
     import b = a.inA;
->b : any
+>b : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
->inA : any
+>inA : 任意
 >类型别名 :=> 任意
 
     var m: typeof a;
->m : any
+>m : 任意
 >类型别名 :=> 任意
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     var p: b.Point3D;
 >p : b.Point3D
->b : any
+>b : 任意
 >类型别名 :=> 任意
 >Point3D : b.Point3D
 
     var p = {x:0, y:0, z: 0 };
 >p : b.Point3D
->{x:0, y:0, z: 0 } : { x: number; y: number; z: number; }
->x : number
+>{x:0, y:0, z: 0 } : { x: 数字; y: 数字; z: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
->z : number
+>z : 数字
 >类型别名 :=> 数字
 >0 : 0
 }
 
 // no code gen expected
 module D {
->D : typeof D
+>D : 类为 D
 
     import a = A;
->a : any
+>a : 任意
 >类型别名 :=> 任意
->A : any
+>A : 任意
 >类型别名 :=> 任意
 
     var p : a.Point;
 >p : a.Point
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >Point : a.Point
 }
 
 // no code gen expected
 module E {
->E : typeof E
+>E : 类为 E
 
     import a = A.inA;
->a : any
+>a : 任意
 >类型别名 :=> 任意
->A : any
+>A : 任意
 >类型别名 :=> 任意
->inA : any
+>inA : 任意
 >类型别名 :=> 任意
 
     export function xDist(x: a.Point3D) {
->xDist : (x: a.Point3D) => number
+>xDist : (x: a.Point3D) => 数字
 >x : a.Point3D
->a : any
+>a : 任意
 >类型别名 :=> 任意
 >Point3D : a.Point3D
 
         return 0 - x.x;
->0 - x.x : number
+>0 - x.x : 数字
 >类型别名 :=> 数字
 >0 : 0
->x.x : number
+>x.x : 数字
 >类型别名 :=> 数字
 >x : a.Point3D
->x : number
+>x : 数字
 >类型别名 :=> 数字
     }
 }

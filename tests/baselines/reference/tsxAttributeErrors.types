@@ -1,6 +1,6 @@
 === tests/cases/conformance/jsx/tsxAttributeErrors.tsx ===
 declare namespace JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
 	interface Element { }
@@ -10,19 +10,19 @@ declare namespace JSX {
 >IntrinsicElements : IntrinsicElements
 
 		div: {
->div : { text?: string; width?: number; }
+>div : { text?: 文字; width?: 数字; }
 
 			text?: string;
->text : string
+>text : 文字
 >类型别名 :=> 文字
 
 			width?: number;
->width : number
+>width : 数字
 >类型别名 :=> 数字
 		}
 
 		span: any;
->span : any
+>span : 任意
 >类型别名 :=> 任意
 	}
 }
@@ -30,43 +30,43 @@ declare namespace JSX {
 // Error, number is not assignable to string
 <div text={42} />;
 ><div text={42} /> : JSX.Element
->div : any
+>div : 任意
 >类型别名 :=> 任意
->text : number
+>text : 数字
 >类型别名 :=> 数字
 >42 : 42
 
 // Error, string is not assignable to number
 <div width={'foo'} />;
 ><div width={'foo'} /> : JSX.Element
->div : any
+>div : 任意
 >类型别名 :=> 任意
->width : string
+>width : 文字
 >类型别名 :=> 文字
 >'foo' : "foo"
 
 // Error, number is not assignable to string
 var attribs = { text: 100 };
->attribs : { text: number; }
->{ text: 100 } : { text: number; }
->text : number
+>attribs : { text: 数字; }
+>{ text: 100 } : { text: 数字; }
+>text : 数字
 >类型别名 :=> 数字
 >100 : 100
 
 <div {...attribs} />;
 ><div {...attribs} /> : JSX.Element
->div : any
+>div : 任意
 >类型别名 :=> 任意
->attribs : { text: number; }
+>attribs : { text: 数字; }
 
 // No errors here
 <span foo='bar' bar={'foo'} />;
 ><span foo='bar' bar={'foo'} /> : JSX.Element
->span : any
+>span : 任意
 >类型别名 :=> 任意
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 >'foo' : "foo"
 

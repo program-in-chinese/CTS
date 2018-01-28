@@ -1,128 +1,128 @@
 === tests/cases/compiler/implicitAnyWidenToAny.ts ===
 // these should be errors
 var x = null;                        // error at "x"
->x : any
+>x : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var x1 = undefined;		             // error at "x1"
->x1 : any
+>x1 : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var widenArray = [null, undefined];  // error at "widenArray"
->widenArray : any[]
->[null, undefined] : null[]
->null : null
+>widenArray : 任意[]
+>[null, undefined] : 空值[]
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var emptyArray = [];
->emptyArray : any[]
->[] : undefined[]
+>emptyArray : 任意[]
+>[] : 未定[]
 
 // these should not be error
 class AnimalObj {
 >AnimalObj : AnimalObj
 
       x:any;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 }
 var foo = 5;
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 >5 : 5
 
 var bar = "Hello World";
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 >"Hello World" : "Hello World"
 
 var foo1: any = null;
->foo1 : any
+>foo1 : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var foo2: any = undefined;
->foo2 : any
+>foo2 : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var temp: number = 5;
->temp : number
+>temp : 数字
 >类型别名 :=> 数字
 >5 : 5
 
 var c: AnimalObj = { x: null }; 
 >c : AnimalObj
 >AnimalObj : AnimalObj
->{ x: null } : { x: null; }
->x : null
+>{ x: null } : { x: 空值; }
+>x : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var array1 = ["Bob",2];
->array1 : (string | number)[]
->["Bob",2] : (string | number)[]
+>array1 : (文字 | 数字)[]
+>["Bob",2] : (文字 | 数字)[]
 >"Bob" : "Bob"
 >2 : 2
 
 var array2: any[] = [];
->array2 : any[]
->[] : undefined[]
+>array2 : 任意[]
+>[] : 未定[]
 
 var array3: any[] = [null, undefined];
->array3 : any[]
->[null, undefined] : null[]
->null : null
+>array3 : 任意[]
+>[null, undefined] : 空值[]
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var array4: number[] = [null, undefined];
->array4 : number[]
->[null, undefined] : null[]
->null : null
+>array4 : 数字[]
+>[null, undefined] : 空值[]
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var array5 = <any[]>[null, undefined];
->array5 : any[]
-><any[]>[null, undefined] : any[]
->[null, undefined] : null[]
->null : null
+>array5 : 任意[]
+><any[]>[null, undefined] : 任意[]
+>[null, undefined] : 空值[]
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var objLit: { new (n: number): any; };
->objLit : new (n: number) => any
->n : number
+>objLit : 新建 (n: 数字) => 任意
+>n : 数字
 >类型别名 :=> 数字
 
 function anyReturnFunc(): any { }
->anyReturnFunc : () => any
+>anyReturnFunc : () => 任意
 
 var obj0 = new objLit(1);
->obj0 : any
+>obj0 : 任意
 >类型别名 :=> 任意
->new objLit(1) : any
+>new objLit(1) : 任意
 >类型别名 :=> 任意
->objLit : new (n: number) => any
+>objLit : 新建 (n: 数字) => 任意
 >1 : 1
 
 var obj1 = anyReturnFunc();
->obj1 : any
+>obj1 : 任意
 >类型别名 :=> 任意
->anyReturnFunc() : any
+>anyReturnFunc() : 任意
 >类型别名 :=> 任意
->anyReturnFunc : () => any
+>anyReturnFunc : () => 任意
 

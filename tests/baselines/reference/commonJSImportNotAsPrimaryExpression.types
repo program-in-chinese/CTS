@@ -1,57 +1,57 @@
 === tests/cases/conformance/externalModules/foo_1.ts ===
 import foo = require("./foo_0");
->foo : typeof foo
+>foo : 类为 foo
 
 // None of the below should cause a runtime dependency on foo_0
 import f = foo.M1;
->f : any
+>f : 任意
 >类型别名 :=> 任意
->foo : typeof foo
->M1 : any
+>foo : 类为 foo
+>M1 : 任意
 >类型别名 :=> 任意
 
 var i: f.I2;
 >i : f.I2
->f : any
+>f : 任意
 >类型别名 :=> 任意
 >I2 : f.I2
 
 var x: foo.C1 = <{m1: number}>{};
 >x : foo.C1
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 >C1 : foo.C1
-><{m1: number}>{} : { m1: number; }
->m1 : number
+><{m1: number}>{} : { m1: 数字; }
+>m1 : 数字
 >类型别名 :=> 数字
 >{} : {}
 
 var y: typeof foo.C1.s1 = false;
->y : boolean
+>y : 真假
 >类型别名 :=> 真假
->foo.C1.s1 : boolean
+>foo.C1.s1 : 真假
 >类型别名 :=> 真假
->foo.C1 : typeof foo.C1
->foo : typeof foo
->C1 : typeof foo.C1
->s1 : boolean
+>foo.C1 : 类为 foo.C1
+>foo : 类为 foo
+>C1 : 类为 foo.C1
+>s1 : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 
 var z: foo.M1.I2;
 >z : f.I2
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
->M1 : any
+>M1 : 任意
 >类型别名 :=> 任意
 >I2 : f.I2
 
 var e: number = <foo.E1>0;
->e : number
+>e : 数字
 >类型别名 :=> 数字
 ><foo.E1>0 : foo.E1
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 >E1 : foo.E1
 >0 : 0
@@ -61,14 +61,14 @@ export class C1 {
 >C1 : C1
 
 	m1 = 42;
->m1 : number
+>m1 : 数字
 >类型别名 :=> 数字
 >42 : 42
 
 	static s1 = true;
->s1 : boolean
+>s1 : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 }
 
@@ -76,23 +76,23 @@ export interface I1 {
 >I1 : I1
 
 	name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 
 	age: number;
->age : number
+>age : 数字
 >类型别名 :=> 数字
 }
 
 export module M1 {
->M1 : any
+>M1 : 任意
 >类型别名 :=> 任意
 
 	export interface I2 {
 >I2 : I2
 
 		foo: string;
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 	}
 }

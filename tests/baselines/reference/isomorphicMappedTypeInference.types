@@ -64,19 +64,19 @@ function boxify<T>(obj: T): Boxified<T> {
 >T : T
 
     for (let k in obj) {
->k : keyof T
+>k : 键集 T
 >obj : T
 
         result[k] = box(obj[k]);
->result[k] = box(obj[k]) : Box<T[keyof T]>
->result[k] : Boxified<T>[keyof T]
+>result[k] = box(obj[k]) : Box<T[键集 T]>
+>result[k] : Boxified<T>[键集 T]
 >result : Boxified<T>
->k : keyof T
->box(obj[k]) : Box<T[keyof T]>
+>k : 键集 T
+>box(obj[k]) : Box<T[键集 T]>
 >box : <T>(x: T) => Box<T>
->obj[k] : T[keyof T]
+>obj[k] : T[键集 T]
 >obj : T
->k : keyof T
+>k : 键集 T
     }
     return result;
 >result : Boxified<T>
@@ -97,26 +97,26 @@ function unboxify<T>(obj: Boxified<T>): T {
 >T : T
 
     for (let k in obj) {
->k : keyof T
+>k : 键集 T
 >obj : Boxified<T>
 
         result[k] = unbox(obj[k]);
->result[k] = unbox(obj[k]) : T[keyof T]
->result[k] : T[keyof T]
+>result[k] = unbox(obj[k]) : T[键集 T]
+>result[k] : T[键集 T]
 >result : T
->k : keyof T
->unbox(obj[k]) : T[keyof T]
+>k : 键集 T
+>unbox(obj[k]) : T[键集 T]
 >unbox : <T>(x: Box<T>) => T
->obj[k] : Boxified<T>[keyof T]
+>obj[k] : Boxified<T>[键集 T]
 >obj : Boxified<T>
->k : keyof T
+>k : 键集 T
     }
     return result;
 >result : T
 }
 
 function assignBoxified<T>(obj: Boxified<T>, values: T) {
->assignBoxified : <T>(obj: Boxified<T>, values: T) => void
+>assignBoxified : <T>(obj: Boxified<T>, values: T) => 无值
 >T : T
 >obj : Boxified<T>
 >Boxified : Boxified<T>
@@ -125,310 +125,310 @@ function assignBoxified<T>(obj: Boxified<T>, values: T) {
 >T : T
 
     for (let k in values) {
->k : keyof T
+>k : 键集 T
 >values : T
 
         obj[k].value = values[k];
->obj[k].value = values[k] : T[keyof T]
->obj[k].value : T[keyof T]
->obj[k] : Boxified<T>[keyof T]
+>obj[k].value = values[k] : T[键集 T]
+>obj[k].value : T[键集 T]
+>obj[k] : Boxified<T>[键集 T]
 >obj : Boxified<T>
->k : keyof T
->value : T[keyof T]
->values[k] : T[keyof T]
+>k : 键集 T
+>value : T[键集 T]
+>values[k] : T[键集 T]
 >values : T
->k : keyof T
+>k : 键集 T
     }
 }
 
 function f1() {
->f1 : () => void
+>f1 : () => 无值
 
     let v = {
->v : { a: number; b: string; c: boolean; }
->{        a: 42,        b: "hello",        c: true    } : { a: number; b: string; c: boolean; }
+>v : { a: 数字; b: 文字; c: 真假; }
+>{        a: 42,        b: "hello",        c: true    } : { a: 数字; b: 文字; c: 真假; }
 
         a: 42,
->a : number
+>a : 数字
 >类型别名 :=> 数字
 >42 : 42
 
         b: "hello",
->b : string
+>b : 文字
 >类型别名 :=> 文字
 >"hello" : "hello"
 
         c: true
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     };
     let b = boxify(v);
->b : Boxified<{ a: number; b: string; c: boolean; }>
->boxify(v) : Boxified<{ a: number; b: string; c: boolean; }>
+>b : Boxified<{ a: 数字; b: 文字; c: 真假; }>
+>boxify(v) : Boxified<{ a: 数字; b: 文字; c: 真假; }>
 >boxify : <T>(obj: T) => Boxified<T>
->v : { a: number; b: string; c: boolean; }
+>v : { a: 数字; b: 文字; c: 真假; }
 
     let x: number = b.a.value;
->x : number
+>x : 数字
 >类型别名 :=> 数字
->b.a.value : number
+>b.a.value : 数字
 >类型别名 :=> 数字
->b.a : Box<number>
->b : Boxified<{ a: number; b: string; c: boolean; }>
->a : Box<number>
->value : number
+>b.a : Box<数字>
+>b : Boxified<{ a: 数字; b: 文字; c: 真假; }>
+>a : Box<数字>
+>value : 数字
 >类型别名 :=> 数字
 }
 
 function f2() {
->f2 : () => void
+>f2 : () => 无值
 
     let b = {
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
->{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
+>{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 
         a: box(42),
->a : Box<number>
->box(42) : Box<number>
+>a : Box<数字>
+>box(42) : Box<数字>
 >box : <T>(x: T) => Box<T>
 >42 : 42
 
         b: box("hello"),
->b : Box<string>
->box("hello") : Box<string>
+>b : Box<文字>
+>box("hello") : Box<文字>
 >box : <T>(x: T) => Box<T>
 >"hello" : "hello"
 
         c: box(true)
->c : Box<boolean>
->box(true) : Box<boolean>
+>c : Box<真假>
+>box(true) : Box<真假>
 >box : <T>(x: T) => Box<T>
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     };
     let v = unboxify(b);
->v : { a: number; b: string; c: boolean; }
->unboxify(b) : { a: number; b: string; c: boolean; }
+>v : { a: 数字; b: 文字; c: 真假; }
+>unboxify(b) : { a: 数字; b: 文字; c: 真假; }
 >unboxify : <T>(obj: Boxified<T>) => T
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 
     let x: number = v.a;
->x : number
+>x : 数字
 >类型别名 :=> 数字
->v.a : number
+>v.a : 数字
 >类型别名 :=> 数字
->v : { a: number; b: string; c: boolean; }
->a : number
+>v : { a: 数字; b: 文字; c: 真假; }
+>a : 数字
 >类型别名 :=> 数字
 }
 
 function f3() {
->f3 : () => void
+>f3 : () => 无值
 
     let b = {
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
->{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
+>{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 
         a: box(42),
->a : Box<number>
->box(42) : Box<number>
+>a : Box<数字>
+>box(42) : Box<数字>
 >box : <T>(x: T) => Box<T>
 >42 : 42
 
         b: box("hello"),
->b : Box<string>
->box("hello") : Box<string>
+>b : Box<文字>
+>box("hello") : Box<文字>
 >box : <T>(x: T) => Box<T>
 >"hello" : "hello"
 
         c: box(true)
->c : Box<boolean>
->box(true) : Box<boolean>
+>c : Box<真假>
+>box(true) : Box<真假>
 >box : <T>(x: T) => Box<T>
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     };
     assignBoxified(b, { c: false });
->assignBoxified(b, { c: false }) : void
+>assignBoxified(b, { c: false }) : 无值
 >类型别名 :=> 无值
->assignBoxified : <T>(obj: Boxified<T>, values: T) => void
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
->{ c: false } : { c: false; }
->c : boolean
+>assignBoxified : <T>(obj: Boxified<T>, values: T) => 无值
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
+>{ c: false } : { c: 为假; }
+>c : 真假
 >类型别名 :=> 真假
->false : false
+>false : 为假
 >类型别名 :=> 为假
 }
 
 function f4() {
->f4 : () => void
+>f4 : () => 无值
 
     let b = {
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
->{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
+>{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 
         a: box(42),
->a : Box<number>
->box(42) : Box<number>
+>a : Box<数字>
+>box(42) : Box<数字>
 >box : <T>(x: T) => Box<T>
 >42 : 42
 
         b: box("hello"),
->b : Box<string>
->box("hello") : Box<string>
+>b : Box<文字>
+>box("hello") : Box<文字>
 >box : <T>(x: T) => Box<T>
 >"hello" : "hello"
 
         c: box(true)
->c : Box<boolean>
->box(true) : Box<boolean>
+>c : Box<真假>
+>box(true) : Box<真假>
 >box : <T>(x: T) => Box<T>
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     };
     b = boxify(unboxify(b));
->b = boxify(unboxify(b)) : Boxified<{ a: number; b: string; c: boolean; }>
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
->boxify(unboxify(b)) : Boxified<{ a: number; b: string; c: boolean; }>
+>b = boxify(unboxify(b)) : Boxified<{ a: 数字; b: 文字; c: 真假; }>
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
+>boxify(unboxify(b)) : Boxified<{ a: 数字; b: 文字; c: 真假; }>
 >boxify : <T>(obj: T) => Boxified<T>
->unboxify(b) : { a: number; b: string; c: boolean; }
+>unboxify(b) : { a: 数字; b: 文字; c: 真假; }
 >unboxify : <T>(obj: Boxified<T>) => T
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 
     b = unboxify(boxify(b));
->b = unboxify(boxify(b)) : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
->unboxify(boxify(b)) : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b = unboxify(boxify(b)) : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
+>unboxify(boxify(b)) : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 >unboxify : <T>(obj: Boxified<T>) => T
->boxify(b) : Boxified<{ a: Box<number>; b: Box<string>; c: Box<boolean>; }>
+>boxify(b) : Boxified<{ a: Box<数字>; b: Box<文字>; c: Box<真假>; }>
 >boxify : <T>(obj: T) => Boxified<T>
->b : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 }
 
 function makeRecord<T, K extends string>(obj: { [P in K]: T }) {
->makeRecord : <T, K extends string>(obj: { [P in K]: T; }) => { [P in K]: T; }
+>makeRecord : <T, K 扩展 文字>(obj: { [P 位于 K]: T; }) => { [P 位于 K]: T; }
 >T : T
 >K : K
->obj : { [P in K]: T; }
+>obj : { [P 位于 K]: T; }
 >P : P
 >K : K
 >T : T
 
     return obj;
->obj : { [P in K]: T; }
+>obj : { [P 位于 K]: T; }
 }
 
 function f5(s: string) {
->f5 : (s: string) => void
->s : string
+>f5 : (s: 文字) => 无值
+>s : 文字
 >类型别名 :=> 文字
 
     let b = makeRecord({
->b : { a: Box<number> | Box<string> | Box<boolean>; b: Box<number> | Box<string> | Box<boolean>; c: Box<number> | Box<string> | Box<boolean>; }
->makeRecord({        a: box(42),        b: box("hello"),        c: box(true)    }) : { a: Box<number> | Box<string> | Box<boolean>; b: Box<number> | Box<string> | Box<boolean>; c: Box<number> | Box<string> | Box<boolean>; }
->makeRecord : <T, K extends string>(obj: { [P in K]: T; }) => { [P in K]: T; }
->{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { a: Box<数字> | Box<文字> | Box<真假>; b: Box<数字> | Box<文字> | Box<真假>; c: Box<数字> | Box<文字> | Box<真假>; }
+>makeRecord({        a: box(42),        b: box("hello"),        c: box(true)    }) : { a: Box<数字> | Box<文字> | Box<真假>; b: Box<数字> | Box<文字> | Box<真假>; c: Box<数字> | Box<文字> | Box<真假>; }
+>makeRecord : <T, K 扩展 文字>(obj: { [P 位于 K]: T; }) => { [P 位于 K]: T; }
+>{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 
         a: box(42),
->a : Box<number>
->box(42) : Box<number>
+>a : Box<数字>
+>box(42) : Box<数字>
 >box : <T>(x: T) => Box<T>
 >42 : 42
 
         b: box("hello"),
->b : Box<string>
->box("hello") : Box<string>
+>b : Box<文字>
+>box("hello") : Box<文字>
 >box : <T>(x: T) => Box<T>
 >"hello" : "hello"
 
         c: box(true)
->c : Box<boolean>
->box(true) : Box<boolean>
+>c : Box<真假>
+>box(true) : Box<真假>
 >box : <T>(x: T) => Box<T>
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     });
     let v = unboxify(b);
->v : { a: string | number | boolean; b: string | number | boolean; c: string | number | boolean; }
->unboxify(b) : { a: string | number | boolean; b: string | number | boolean; c: string | number | boolean; }
+>v : { a: 文字 | 数字 | 真假; b: 文字 | 数字 | 真假; c: 文字 | 数字 | 真假; }
+>unboxify(b) : { a: 文字 | 数字 | 真假; b: 文字 | 数字 | 真假; c: 文字 | 数字 | 真假; }
 >unboxify : <T>(obj: Boxified<T>) => T
->b : { a: Box<number> | Box<string> | Box<boolean>; b: Box<number> | Box<string> | Box<boolean>; c: Box<number> | Box<string> | Box<boolean>; }
+>b : { a: Box<数字> | Box<文字> | Box<真假>; b: Box<数字> | Box<文字> | Box<真假>; c: Box<数字> | Box<文字> | Box<真假>; }
 
     let x: string | number | boolean = v.a;
->x : string | number | boolean
->v.a : string | number | boolean
->v : { a: string | number | boolean; b: string | number | boolean; c: string | number | boolean; }
->a : string | number | boolean
+>x : 文字 | 数字 | 真假
+>v.a : 文字 | 数字 | 真假
+>v : { a: 文字 | 数字 | 真假; b: 文字 | 数字 | 真假; c: 文字 | 数字 | 真假; }
+>a : 文字 | 数字 | 真假
 }
 
 function makeDictionary<T>(obj: { [x: string]: T }) {
->makeDictionary : <T>(obj: { [x: string]: T; }) => { [x: string]: T; }
+>makeDictionary : <T>(obj: { [x: 文字]: T; }) => { [x: 文字]: T; }
 >T : T
->obj : { [x: string]: T; }
->x : string
+>obj : { [x: 文字]: T; }
+>x : 文字
 >类型别名 :=> 文字
 >T : T
 
     return obj;
->obj : { [x: string]: T; }
+>obj : { [x: 文字]: T; }
 }
 
 function f6(s: string) {
->f6 : (s: string) => void
->s : string
+>f6 : (s: 文字) => 无值
+>s : 文字
 >类型别名 :=> 文字
 
     let b = makeDictionary({
->b : { [x: string]: Box<number> | Box<string> | Box<boolean>; }
->makeDictionary({        a: box(42),        b: box("hello"),        c: box(true)    }) : { [x: string]: Box<number> | Box<string> | Box<boolean>; }
->makeDictionary : <T>(obj: { [x: string]: T; }) => { [x: string]: T; }
->{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<number>; b: Box<string>; c: Box<boolean>; }
+>b : { [x: 文字]: Box<数字> | Box<文字> | Box<真假>; }
+>makeDictionary({        a: box(42),        b: box("hello"),        c: box(true)    }) : { [x: 文字]: Box<数字> | Box<文字> | Box<真假>; }
+>makeDictionary : <T>(obj: { [x: 文字]: T; }) => { [x: 文字]: T; }
+>{        a: box(42),        b: box("hello"),        c: box(true)    } : { a: Box<数字>; b: Box<文字>; c: Box<真假>; }
 
         a: box(42),
->a : Box<number>
->box(42) : Box<number>
+>a : Box<数字>
+>box(42) : Box<数字>
 >box : <T>(x: T) => Box<T>
 >42 : 42
 
         b: box("hello"),
->b : Box<string>
->box("hello") : Box<string>
+>b : Box<文字>
+>box("hello") : Box<文字>
 >box : <T>(x: T) => Box<T>
 >"hello" : "hello"
 
         c: box(true)
->c : Box<boolean>
->box(true) : Box<boolean>
+>c : Box<真假>
+>box(true) : Box<真假>
 >box : <T>(x: T) => Box<T>
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
     });
     let v = unboxify(b);
->v : { [x: string]: string | number | boolean; }
->unboxify(b) : { [x: string]: string | number | boolean; }
+>v : { [x: 文字]: 文字 | 数字 | 真假; }
+>unboxify(b) : { [x: 文字]: 文字 | 数字 | 真假; }
 >unboxify : <T>(obj: Boxified<T>) => T
->b : { [x: string]: Box<number> | Box<string> | Box<boolean>; }
+>b : { [x: 文字]: Box<数字> | Box<文字> | Box<真假>; }
 
     let x: string | number | boolean = v[s];
->x : string | number | boolean
->v[s] : string | number | boolean
->v : { [x: string]: string | number | boolean; }
->s : string
+>x : 文字 | 数字 | 真假
+>v[s] : 文字 | 数字 | 真假
+>v : { [x: 文字]: 文字 | 数字 | 真假; }
+>s : 文字
 >类型别名 :=> 文字
 }
 
 declare function validate<T>(obj: { [P in keyof T]?: T[P] }): T;
->validate : <T>(obj: { [P in keyof T]?: T[P] | undefined; }) => T
+>validate : <T>(obj: { [P 位于 键集 T]?: T[P] | 未定; }) => T
 >T : T
->obj : { [P in keyof T]?: T[P] | undefined; }
+>obj : { [P 位于 键集 T]?: T[P] | 未定; }
 >P : P
 >T : T
 >T : T
@@ -436,9 +436,9 @@ declare function validate<T>(obj: { [P in keyof T]?: T[P] }): T;
 >T : T
 
 declare function clone<T>(obj: { readonly [P in keyof T]: T[P] }): T;
->clone : <T>(obj: { readonly [P in keyof T]: T[P]; }) => T
+>clone : <T>(obj: { 只读 [P 位于 键集 T]: T[P]; }) => T
 >T : T
->obj : { readonly [P in keyof T]: T[P]; }
+>obj : { 只读 [P 位于 键集 T]: T[P]; }
 >P : P
 >T : T
 >T : T
@@ -446,9 +446,9 @@ declare function clone<T>(obj: { readonly [P in keyof T]: T[P] }): T;
 >T : T
 
 declare function validateAndClone<T>(obj: { readonly [P in keyof T]?: T[P] }): T;
->validateAndClone : <T>(obj: { readonly [P in keyof T]?: T[P] | undefined; }) => T
+>validateAndClone : <T>(obj: { 只读 [P 位于 键集 T]?: T[P] | 未定; }) => T
 >T : T
->obj : { readonly [P in keyof T]?: T[P] | undefined; }
+>obj : { 只读 [P 位于 键集 T]?: T[P] | 未定; }
 >P : P
 >T : T
 >T : T
@@ -459,34 +459,34 @@ type Foo = {
 >Foo : Foo
 
     a?: number;
->a : number | undefined
+>a : 数字 | 未定
 
     readonly b: string;
->b : string
+>b : 文字
 >类型别名 :=> 文字
 }
 
 function f10(foo: Foo) {
->f10 : (foo: Foo) => void
+>f10 : (foo: Foo) => 无值
 >foo : Foo
 >Foo : Foo
 
     let x = validate(foo);  // { a: number, readonly b: string }
->x : { a: number; readonly b: string; }
->validate(foo) : { a: number; readonly b: string; }
->validate : <T>(obj: { [P in keyof T]?: T[P] | undefined; }) => T
+>x : { a: 数字; 只读 b: 文字; }
+>validate(foo) : { a: 数字; 只读 b: 文字; }
+>validate : <T>(obj: { [P 位于 键集 T]?: T[P] | 未定; }) => T
 >foo : Foo
 
     let y = clone(foo);  // { a?: number, b: string }
->y : { a?: number | undefined; b: string; }
->clone(foo) : { a?: number | undefined; b: string; }
->clone : <T>(obj: { readonly [P in keyof T]: T[P]; }) => T
+>y : { a?: 数字 | 未定; b: 文字; }
+>clone(foo) : { a?: 数字 | 未定; b: 文字; }
+>clone : <T>(obj: { 只读 [P 位于 键集 T]: T[P]; }) => T
 >foo : Foo
 
     let z = validateAndClone(foo);  // { a: number, b: string }
->z : { a: number; b: string; }
->validateAndClone(foo) : { a: number; b: string; }
->validateAndClone : <T>(obj: { readonly [P in keyof T]?: T[P] | undefined; }) => T
+>z : { a: 数字; b: 文字; }
+>validateAndClone(foo) : { a: 数字; b: 文字; }
+>validateAndClone : <T>(obj: { 只读 [P 位于 键集 T]?: T[P] | 未定; }) => T
 >foo : Foo
 }
 
@@ -495,7 +495,7 @@ function f10(foo: Foo) {
 type Func<T> = (...args: any[]) => T;
 >Func : Func<T>
 >T : T
->args : any[]
+>args : 任意[]
 >T : T
 
 type Spec<T> = {
@@ -520,36 +520,36 @@ type Spec<T> = {
  * of calling its associated function with the supplied arguments.
  */
 declare function applySpec<T>(obj: Spec<T>): (...args: any[]) => T;
->applySpec : <T>(obj: Spec<T>) => (...args: any[]) => T
+>applySpec : <T>(obj: Spec<T>) => (...args: 任意[]) => T
 >T : T
 >obj : Spec<T>
 >Spec : Spec<T>
 >T : T
->args : any[]
+>args : 任意[]
 >T : T
 
 // Infers g1: (...args: any[]) => { sum: number, nested: { mul: string } }
 var g1 = applySpec({
->g1 : (...args: any[]) => { sum: number; nested: { mul: string; }; }
->applySpec({    sum: (a: any) => 3,    nested: {        mul: (b: any) => "n"    }}) : (...args: any[]) => { sum: number; nested: { mul: string; }; }
->applySpec : <T>(obj: Spec<T>) => (...args: any[]) => T
->{    sum: (a: any) => 3,    nested: {        mul: (b: any) => "n"    }} : { sum: (a: any) => number; nested: { mul: (b: any) => string; }; }
+>g1 : (...args: 任意[]) => { sum: 数字; nested: { mul: 文字; }; }
+>applySpec({    sum: (a: any) => 3,    nested: {        mul: (b: any) => "n"    }}) : (...args: 任意[]) => { sum: 数字; nested: { mul: 文字; }; }
+>applySpec : <T>(obj: Spec<T>) => (...args: 任意[]) => T
+>{    sum: (a: any) => 3,    nested: {        mul: (b: any) => "n"    }} : { sum: (a: 任意) => 数字; nested: { mul: (b: 任意) => 文字; }; }
 
     sum: (a: any) => 3,
->sum : (a: any) => number
->(a: any) => 3 : (a: any) => number
->a : any
+>sum : (a: 任意) => 数字
+>(a: any) => 3 : (a: 任意) => 数字
+>a : 任意
 >类型别名 :=> 任意
 >3 : 3
 
     nested: {
->nested : { mul: (b: any) => string; }
->{        mul: (b: any) => "n"    } : { mul: (b: any) => string; }
+>nested : { mul: (b: 任意) => 文字; }
+>{        mul: (b: any) => "n"    } : { mul: (b: 任意) => 文字; }
 
         mul: (b: any) => "n"
->mul : (b: any) => string
->(b: any) => "n" : (b: any) => string
->b : any
+>mul : (b: 任意) => 文字
+>(b: any) => "n" : (b: 任意) => 文字
+>b : 任意
 >类型别名 :=> 任意
 >"n" : "n"
     }
@@ -557,19 +557,19 @@ var g1 = applySpec({
 
 // Infers g2: (...args: any[]) => { foo: { bar: { baz: boolean } } }
 var g2 = applySpec({ foo: { bar: { baz: (x: any) => true } } });
->g2 : (...args: any[]) => { foo: { bar: { baz: boolean; }; }; }
->applySpec({ foo: { bar: { baz: (x: any) => true } } }) : (...args: any[]) => { foo: { bar: { baz: boolean; }; }; }
->applySpec : <T>(obj: Spec<T>) => (...args: any[]) => T
->{ foo: { bar: { baz: (x: any) => true } } } : { foo: { bar: { baz: (x: any) => boolean; }; }; }
->foo : { bar: { baz: (x: any) => boolean; }; }
->{ bar: { baz: (x: any) => true } } : { bar: { baz: (x: any) => boolean; }; }
->bar : { baz: (x: any) => boolean; }
->{ baz: (x: any) => true } : { baz: (x: any) => boolean; }
->baz : (x: any) => boolean
->(x: any) => true : (x: any) => boolean
->x : any
+>g2 : (...args: 任意[]) => { foo: { bar: { baz: 真假; }; }; }
+>applySpec({ foo: { bar: { baz: (x: any) => true } } }) : (...args: 任意[]) => { foo: { bar: { baz: 真假; }; }; }
+>applySpec : <T>(obj: Spec<T>) => (...args: 任意[]) => T
+>{ foo: { bar: { baz: (x: any) => true } } } : { foo: { bar: { baz: (x: 任意) => 真假; }; }; }
+>foo : { bar: { baz: (x: 任意) => 真假; }; }
+>{ bar: { baz: (x: any) => true } } : { bar: { baz: (x: 任意) => 真假; }; }
+>bar : { baz: (x: 任意) => 真假; }
+>{ baz: (x: any) => true } : { baz: (x: 任意) => 真假; }
+>baz : (x: 任意) => 真假
+>(x: any) => true : (x: 任意) => 真假
+>x : 任意
 >类型别名 :=> 任意
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 // Repro from #12633
@@ -586,32 +586,32 @@ const foo = <T>(object: T, partial: Partial<T>) => object;
 >object : T
 
 let o = {a: 5, b: 7};
->o : { a: number; b: number; }
->{a: 5, b: 7} : { a: number; b: number; }
->a : number
+>o : { a: 数字; b: 数字; }
+>{a: 5, b: 7} : { a: 数字; b: 数字; }
+>a : 数字
 >类型别名 :=> 数字
 >5 : 5
->b : number
+>b : 数字
 >类型别名 :=> 数字
 >7 : 7
 
 foo(o, {b: 9});
->foo(o, {b: 9}) : { a: number; b: number; }
+>foo(o, {b: 9}) : { a: 数字; b: 数字; }
 >foo : <T>(object: T, partial: Partial<T>) => T
->o : { a: number; b: number; }
->{b: 9} : { b: number; }
->b : number
+>o : { a: 数字; b: 数字; }
+>{b: 9} : { b: 数字; }
+>b : 数字
 >类型别名 :=> 数字
 >9 : 9
 
 o = foo(o, {b: 9});
->o = foo(o, {b: 9}) : { a: number; b: number; }
->o : { a: number; b: number; }
->foo(o, {b: 9}) : { a: number; b: number; }
+>o = foo(o, {b: 9}) : { a: 数字; b: 数字; }
+>o : { a: 数字; b: 数字; }
+>foo(o, {b: 9}) : { a: 数字; b: 数字; }
 >foo : <T>(object: T, partial: Partial<T>) => T
->o : { a: number; b: number; }
->{b: 9} : { b: number; }
->b : number
+>o : { a: 数字; b: 数字; }
+>{b: 9} : { b: 数字; }
+>b : 数字
 >类型别名 :=> 数字
 >9 : 9
 

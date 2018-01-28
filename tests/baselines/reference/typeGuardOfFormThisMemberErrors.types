@@ -1,53 +1,53 @@
 === tests/cases/conformance/expressions/typeGuards/typeGuardOfFormThisMemberErrors.ts ===
 // There's a 'File' class in the stdlib, wrap with a namespace to avoid collision
 namespace Test {
->Test : typeof Test
+>Test : 类为 Test
 
 	export class FileSystemObject {
 >FileSystemObject : FileSystemObject
 
 		isFSO: this is FileSystemObject;
->isFSO : boolean
+>isFSO : 真假
 >类型别名 :=> 真假
 >FileSystemObject : FileSystemObject
 
 		get isFile(): this is File {
->isFile : boolean
+>isFile : 真假
 >类型别名 :=> 真假
 >File : File
 
 			return this instanceof File;
->this instanceof File : boolean
+>this instanceof File : 真假
 >类型别名 :=> 真假
->this : this
->File : typeof File
+>this : 本体
+>File : 类为 File
 		}
 		set isFile(param) {
->isFile : boolean
+>isFile : 真假
 >类型别名 :=> 真假
->param : boolean
+>param : 真假
 >类型别名 :=> 真假
 
 			// noop
 		}
 		get isDirectory(): this is Directory {
->isDirectory : boolean
+>isDirectory : 真假
 >类型别名 :=> 真假
 >Directory : Directory
 
 			return this instanceof Directory;
->this instanceof Directory : boolean
+>this instanceof Directory : 真假
 >类型别名 :=> 真假
->this : this
->Directory : typeof Directory
+>this : 本体
+>Directory : 类为 Directory
 		}
 		isNetworked: this is (Networked & this);
->isNetworked : boolean
+>isNetworked : 真假
 >类型别名 :=> 真假
 >Networked : Networked
 
 		constructor(public path: string) {}
->path : string
+>path : 文字
 >类型别名 :=> 文字
 	}
 
@@ -56,14 +56,14 @@ namespace Test {
 >FileSystemObject : FileSystemObject
 
 		constructor(path: string, public content: string) { super(path); }
->path : string
+>path : 文字
 >类型别名 :=> 文字
->content : string
+>content : 文字
 >类型别名 :=> 文字
->super(path) : void
+>super(path) : 无值
 >类型别名 :=> 无值
->super : typeof FileSystemObject
->path : string
+>super : 类为 FileSystemObject
+>path : 文字
 >类型别名 :=> 文字
 	}
 	export class Directory extends FileSystemObject {
@@ -78,7 +78,7 @@ namespace Test {
 >Networked : Networked
 
 		host: string;
->host : string
+>host : 文字
 >类型别名 :=> 文字
 	}
 
@@ -86,49 +86,49 @@ namespace Test {
 >file : FileSystemObject
 >FileSystemObject : FileSystemObject
 >new File("foo/bar.txt", "foo") : File
->File : typeof File
+>File : 类为 File
 >"foo/bar.txt" : "foo/bar.txt"
 >"foo" : "foo"
 
 	file.isNetworked = file.isFile;
->file.isNetworked = file.isFile : boolean
+>file.isNetworked = file.isFile : 真假
 >类型别名 :=> 真假
->file.isNetworked : boolean
->类型别名 :=> 真假
->file : FileSystemObject
->isNetworked : boolean
->类型别名 :=> 真假
->file.isFile : boolean
+>file.isNetworked : 真假
 >类型别名 :=> 真假
 >file : FileSystemObject
->isFile : boolean
+>isNetworked : 真假
+>类型别名 :=> 真假
+>file.isFile : 真假
+>类型别名 :=> 真假
+>file : FileSystemObject
+>isFile : 真假
 >类型别名 :=> 真假
 
 	file.isFSO = file.isNetworked;
->file.isFSO = file.isNetworked : boolean
+>file.isFSO = file.isNetworked : 真假
 >类型别名 :=> 真假
->file.isFSO : boolean
->类型别名 :=> 真假
->file : FileSystemObject
->isFSO : boolean
->类型别名 :=> 真假
->file.isNetworked : boolean
+>file.isFSO : 真假
 >类型别名 :=> 真假
 >file : FileSystemObject
->isNetworked : boolean
+>isFSO : 真假
+>类型别名 :=> 真假
+>file.isNetworked : 真假
+>类型别名 :=> 真假
+>file : FileSystemObject
+>isNetworked : 真假
 >类型别名 :=> 真假
 
 	file.isFile = file.isFSO;
->file.isFile = file.isFSO : boolean
+>file.isFile = file.isFSO : 真假
 >类型别名 :=> 真假
->file.isFile : boolean
->类型别名 :=> 真假
->file : FileSystemObject
->isFile : boolean
->类型别名 :=> 真假
->file.isFSO : boolean
+>file.isFile : 真假
 >类型别名 :=> 真假
 >file : FileSystemObject
->isFSO : boolean
+>isFile : 真假
+>类型别名 :=> 真假
+>file.isFSO : 真假
+>类型别名 :=> 真假
+>file : FileSystemObject
+>isFSO : 真假
 >类型别名 :=> 真假
 }

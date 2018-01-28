@@ -1,122 +1,122 @@
 === tests/cases/compiler/vararg.ts ===
 module M {
->M : typeof M
+>M : 类为 M
 
     export class C {
 >C : C
 
         public f(x:string,...rest:number[]) {
->f : (x: string, ...rest: number[]) => string
->x : string
+>f : (x: 文字, ...rest: 数字[]) => 文字
+>x : 文字
 >类型别名 :=> 文字
->rest : number[]
+>rest : 数字[]
 
             var sum=0;
->sum : number
+>sum : 数字
 >类型别名 :=> 数字
 >0 : 0
 
             for (var i=0;i<rest.length;i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i<rest.length : boolean
+>i<rest.length : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->rest.length : number
+>rest.length : 数字
 >类型别名 :=> 数字
->rest : number[]
->length : number
+>rest : 数字[]
+>length : 数字
 >类型别名 :=> 数字
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
                 sum+=rest[i];
->sum+=rest[i] : number
+>sum+=rest[i] : 数字
 >类型别名 :=> 数字
->sum : number
+>sum : 数字
 >类型别名 :=> 数字
->rest[i] : number
+>rest[i] : 数字
 >类型别名 :=> 数字
->rest : number[]
->i : number
+>rest : 数字[]
+>i : 数字
 >类型别名 :=> 数字
             }
             result+=(x+": "+sum);
->result+=(x+": "+sum) : string
+>result+=(x+": "+sum) : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->(x+": "+sum) : string
+>(x+": "+sum) : 文字
 >类型别名 :=> 文字
->x+": "+sum : string
+>x+": "+sum : 文字
 >类型别名 :=> 文字
->x+": " : string
+>x+": " : 文字
 >类型别名 :=> 文字
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >": " : ": "
->sum : number
+>sum : 数字
 >类型别名 :=> 数字
 
             return result;
->result : string
+>result : 文字
 >类型别名 :=> 文字
         }
 
         public fnope(x:string,...rest:number) {
->fnope : (x: string, ...rest: number) => void
->x : string
+>fnope : (x: 文字, ...rest: 数字) => 无值
+>x : 文字
 >类型别名 :=> 文字
->rest : number
+>rest : 数字
 >类型别名 :=> 数字
     
         }
 
         public fonly(...rest:string[]) {
->fonly : (...rest: string[]) => any
->rest : string[]
+>fonly : (...rest: 文字[]) => 任意
+>rest : 文字[]
 
             builder="";
 >builder="" : ""
->builder : any
+>builder : 任意
 >类型别名 :=> 任意
 >"" : ""
 
             for (var i=0;i<rest.length;i++) {
->i : number
+>i : 数字
 >类型别名 :=> 数字
 >0 : 0
->i<rest.length : boolean
+>i<rest.length : 真假
 >类型别名 :=> 真假
->i : number
+>i : 数字
 >类型别名 :=> 数字
->rest.length : number
+>rest.length : 数字
 >类型别名 :=> 数字
->rest : string[]
->length : number
+>rest : 文字[]
+>length : 数字
 >类型别名 :=> 数字
->i++ : number
+>i++ : 数字
 >类型别名 :=> 数字
->i : number
+>i : 数字
 >类型别名 :=> 数字
 
                 builder+=rest[i];
->builder+=rest[i] : string
+>builder+=rest[i] : 文字
 >类型别名 :=> 文字
->builder : any
+>builder : 任意
 >类型别名 :=> 任意
->rest[i] : string
+>rest[i] : 文字
 >类型别名 :=> 文字
->rest : string[]
->i : number
+>rest : 文字[]
+>i : 数字
 >类型别名 :=> 数字
             }
             return builder;
->builder : any
+>builder : 任意
 >类型别名 :=> 任意
         }
     }
@@ -125,53 +125,53 @@ module M {
 var x=new M.C();
 >x : M.C
 >new M.C() : M.C
->M.C : typeof M.C
->M : typeof M
->C : typeof M.C
+>M.C : 类为 M.C
+>M : 类为 M
+>C : 类为 M.C
 
 var result="";
->result : string
+>result : 文字
 >类型别名 :=> 文字
 >"" : ""
 
 result+=x.f(x,3,3); // bad first param
->result+=x.f(x,3,3) : string
+>result+=x.f(x,3,3) : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.f(x,3,3) : string
+>x.f(x,3,3) : 文字
 >类型别名 :=> 文字
->x.f : (x: string, ...rest: number[]) => string
+>x.f : (x: 文字, ...rest: 数字[]) => 文字
 >x : M.C
->f : (x: string, ...rest: number[]) => string
+>f : (x: 文字, ...rest: 数字[]) => 文字
 >x : M.C
 >3 : 3
 >3 : 3
 
 result+=x.f(3,"hello",3); // bad second param
->result+=x.f(3,"hello",3) : string
+>result+=x.f(3,"hello",3) : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.f(3,"hello",3) : string
+>x.f(3,"hello",3) : 文字
 >类型别名 :=> 文字
->x.f : (x: string, ...rest: number[]) => string
+>x.f : (x: 文字, ...rest: 数字[]) => 文字
 >x : M.C
->f : (x: string, ...rest: number[]) => string
+>f : (x: 文字, ...rest: 数字[]) => 文字
 >3 : 3
 >"hello" : "hello"
 >3 : 3
 
 result+=x.f("hello",3,3,3,3,3); // ok
->result+=x.f("hello",3,3,3,3,3) : string
+>result+=x.f("hello",3,3,3,3,3) : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.f("hello",3,3,3,3,3) : string
+>x.f("hello",3,3,3,3,3) : 文字
 >类型别名 :=> 文字
->x.f : (x: string, ...rest: number[]) => string
+>x.f : (x: 文字, ...rest: 数字[]) => 文字
 >x : M.C
->f : (x: string, ...rest: number[]) => string
+>f : (x: 文字, ...rest: 数字[]) => 文字
 >"hello" : "hello"
 >3 : 3
 >3 : 3
@@ -180,63 +180,63 @@ result+=x.f("hello",3,3,3,3,3); // ok
 >3 : 3
 
 result+=x.f("hello"); // ok varargs length 0
->result+=x.f("hello") : string
+>result+=x.f("hello") : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.f("hello") : string
+>x.f("hello") : 文字
 >类型别名 :=> 文字
->x.f : (x: string, ...rest: number[]) => string
+>x.f : (x: 文字, ...rest: 数字[]) => 文字
 >x : M.C
->f : (x: string, ...rest: number[]) => string
+>f : (x: 文字, ...rest: 数字[]) => 文字
 >"hello" : "hello"
 
 result+=x.fonly(3); // ok conversion
->result+=x.fonly(3) : string
+>result+=x.fonly(3) : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.fonly(3) : any
+>x.fonly(3) : 任意
 >类型别名 :=> 任意
->x.fonly : (...rest: string[]) => any
+>x.fonly : (...rest: 文字[]) => 任意
 >x : M.C
->fonly : (...rest: string[]) => any
+>fonly : (...rest: 文字[]) => 任意
 >3 : 3
 
 result+=x.fonly(x); // bad param
->result+=x.fonly(x) : string
+>result+=x.fonly(x) : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.fonly(x) : any
+>x.fonly(x) : 任意
 >类型别名 :=> 任意
->x.fonly : (...rest: string[]) => any
+>x.fonly : (...rest: 文字[]) => 任意
 >x : M.C
->fonly : (...rest: string[]) => any
+>fonly : (...rest: 文字[]) => 任意
 >x : M.C
 
 result+=x.fonly("a"); // ok 
->result+=x.fonly("a") : string
+>result+=x.fonly("a") : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.fonly("a") : any
+>x.fonly("a") : 任意
 >类型别名 :=> 任意
->x.fonly : (...rest: string[]) => any
+>x.fonly : (...rest: 文字[]) => 任意
 >x : M.C
->fonly : (...rest: string[]) => any
+>fonly : (...rest: 文字[]) => 任意
 >"a" : "a"
 
 result+=x.fonly("a","b","c","d"); //ok 
->result+=x.fonly("a","b","c","d") : string
+>result+=x.fonly("a","b","c","d") : 文字
 >类型别名 :=> 文字
->result : string
+>result : 文字
 >类型别名 :=> 文字
->x.fonly("a","b","c","d") : any
+>x.fonly("a","b","c","d") : 任意
 >类型别名 :=> 任意
->x.fonly : (...rest: string[]) => any
+>x.fonly : (...rest: 文字[]) => 任意
 >x : M.C
->fonly : (...rest: string[]) => any
+>fonly : (...rest: 文字[]) => 任意
 >"a" : "a"
 >"b" : "b"
 >"c" : "c"

@@ -1,47 +1,47 @@
 === tests/cases/compiler/contextualTypingOfObjectLiterals.ts ===
 var obj1: { [x: string]: string; };
->obj1 : { [x: string]: string; }
->x : string
+>obj1 : { [x: 文字]: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 
 var obj2 = {x: ""};
->obj2 : { x: string; }
->{x: ""} : { x: string; }
->x : string
+>obj2 : { x: 文字; }
+>{x: ""} : { x: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 >"" : ""
 
 obj1 = {}; // Ok
 >obj1 = {} : {}
->obj1 : { [x: string]: string; }
+>obj1 : { [x: 文字]: 文字; }
 >{} : {}
 
 obj1 = obj2; // Error - indexer doesn't match
->obj1 = obj2 : { x: string; }
->obj1 : { [x: string]: string; }
->obj2 : { x: string; }
+>obj1 = obj2 : { x: 文字; }
+>obj1 : { [x: 文字]: 文字; }
+>obj2 : { x: 文字; }
 
 function f(x: { [s: string]: string }) { }
->f : (x: { [s: string]: string; }) => void
->x : { [s: string]: string; }
->s : string
+>f : (x: { [s: 文字]: 文字; }) => 无值
+>x : { [s: 文字]: 文字; }
+>s : 文字
 >类型别名 :=> 文字
 
 f({}); // Ok
->f({}) : void
+>f({}) : 无值
 >类型别名 :=> 无值
->f : (x: { [s: string]: string; }) => void
+>f : (x: { [s: 文字]: 文字; }) => 无值
 >{} : {}
 
 f(obj1); // Ok
->f(obj1) : void
+>f(obj1) : 无值
 >类型别名 :=> 无值
->f : (x: { [s: string]: string; }) => void
->obj1 : { [x: string]: string; }
+>f : (x: { [s: 文字]: 文字; }) => 无值
+>obj1 : { [x: 文字]: 文字; }
 
 f(obj2); // Error - indexer doesn't match
->f(obj2) : void
+>f(obj2) : 无值
 >类型别名 :=> 无值
->f : (x: { [s: string]: string; }) => void
->obj2 : { x: string; }
+>f : (x: { [s: 文字]: 文字; }) => 无值
+>obj2 : { x: 文字; }
 

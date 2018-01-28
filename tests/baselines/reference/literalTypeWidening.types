@@ -2,14 +2,14 @@
 // Widening vs. non-widening literal types
 
 function f1() {
->f1 : () => void
+>f1 : () => 无值
 
     const c1 = "hello";  // Widening type "hello"
 >c1 : "hello"
 >"hello" : "hello"
 
     let v1 = c1;  // Type string
->v1 : string
+>v1 : 文字
 >类型别名 :=> 文字
 >c1 : "hello"
 
@@ -18,7 +18,7 @@ function f1() {
 >c1 : "hello"
 
     let v2 = c2;  // Type string
->v2 : string
+>v2 : 文字
 >类型别名 :=> 文字
 >c2 : "hello"
 
@@ -40,14 +40,14 @@ function f1() {
 }
 
 function f2(cond: boolean) {
->f2 : (cond: boolean) => void
->cond : boolean
+>f2 : (cond: 真假) => 无值
+>cond : 真假
 >类型别名 :=> 真假
 
     const c1 = cond ? "foo" : "bar";  // widening "foo" | widening "bar"
 >c1 : "foo" | "bar"
 >cond ? "foo" : "bar" : "foo" | "bar"
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 >"foo" : "foo"
 >"bar" : "bar"
@@ -59,7 +59,7 @@ function f2(cond: boolean) {
     const c3 = cond ? c1 : c2;  // "foo" | "bar"
 >c3 : "foo" | "bar"
 >cond ? c1 : c2 : "foo" | "bar"
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 >c1 : "foo" | "bar"
 >c2 : "foo" | "bar"
@@ -67,7 +67,7 @@ function f2(cond: boolean) {
     const c4 = cond ? c3 : "baz";  // "foo" | "bar" | widening "baz"
 >c4 : "foo" | "bar" | "baz"
 >cond ? c3 : "baz" : "foo" | "bar" | "baz"
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 >c3 : "foo" | "bar"
 >"baz" : "baz"
@@ -77,7 +77,7 @@ function f2(cond: boolean) {
 >c4 : "foo" | "bar" | "baz"
 
     let v1 = c1;  // string
->v1 : string
+>v1 : 文字
 >类型别名 :=> 文字
 >c1 : "foo" | "bar"
 
@@ -90,7 +90,7 @@ function f2(cond: boolean) {
 >c3 : "foo" | "bar"
 
     let v4 = c4;  // string
->v4 : string
+>v4 : 文字
 >类型别名 :=> 文字
 >c4 : "foo" | "bar" | "baz"
 
@@ -100,14 +100,14 @@ function f2(cond: boolean) {
 }
 
 function f3() {
->f3 : () => void
+>f3 : () => 无值
 
     const c1 = 123;  // Widening type 123
 >c1 : 123
 >123 : 123
 
     let v1 = c1;  // Type number
->v1 : number
+>v1 : 数字
 >类型别名 :=> 数字
 >c1 : 123
 
@@ -116,7 +116,7 @@ function f3() {
 >c1 : 123
 
     let v2 = c2;  // Type number
->v2 : number
+>v2 : 数字
 >类型别名 :=> 数字
 >c2 : 123
 
@@ -138,14 +138,14 @@ function f3() {
 }
 
 function f4(cond: boolean) {
->f4 : (cond: boolean) => void
->cond : boolean
+>f4 : (cond: 真假) => 无值
+>cond : 真假
 >类型别名 :=> 真假
 
     const c1 = cond ? 123 : 456;  // widening 123 | widening 456
 >c1 : 123 | 456
 >cond ? 123 : 456 : 123 | 456
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 >123 : 123
 >456 : 456
@@ -157,7 +157,7 @@ function f4(cond: boolean) {
     const c3 = cond ? c1 : c2;  // 123 | 456
 >c3 : 123 | 456
 >cond ? c1 : c2 : 123 | 456
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 >c1 : 123 | 456
 >c2 : 123 | 456
@@ -165,7 +165,7 @@ function f4(cond: boolean) {
     const c4 = cond ? c3 : 789;  // 123 | 456 | widening 789
 >c4 : 123 | 456 | 789
 >cond ? c3 : 789 : 123 | 456 | 789
->cond : boolean
+>cond : 真假
 >类型别名 :=> 真假
 >c3 : 123 | 456
 >789 : 789
@@ -175,7 +175,7 @@ function f4(cond: boolean) {
 >c4 : 123 | 456 | 789
 
     let v1 = c1;  // number
->v1 : number
+>v1 : 数字
 >类型别名 :=> 数字
 >c1 : 123 | 456
 
@@ -188,7 +188,7 @@ function f4(cond: boolean) {
 >c3 : 123 | 456
 
     let v4 = c4;  // number
->v4 : number
+>v4 : 数字
 >类型别名 :=> 数字
 >c4 : 123 | 456 | 789
 
@@ -198,14 +198,14 @@ function f4(cond: boolean) {
 }
 
 function f5() {
->f5 : () => void
+>f5 : () => 无值
 
     const c1 = "foo";
 >c1 : "foo"
 >"foo" : "foo"
 
     let v1 = c1;
->v1 : string
+>v1 : 文字
 >类型别名 :=> 文字
 >c1 : "foo"
 
@@ -262,70 +262,70 @@ function doWork<T>(): Result<T> {
 }
 
 function isSuccess<T>(result: Result<T>): result is T {
->isSuccess : <T>(result: Result<T>) => result is T
+>isSuccess : <T>(result: Result<T>) => result 作为 T
 >T : T
 >result : Result<T>
 >Result : Result<T>
 >T : T
->result : any
+>result : 任意
 >类型别名 :=> 任意
 >T : T
 
   return !isFailure(result);
->!isFailure(result) : boolean
+>!isFailure(result) : 真假
 >类型别名 :=> 真假
->isFailure(result) : boolean
+>isFailure(result) : 真假
 >类型别名 :=> 真假
->isFailure : <T>(result: Result<T>) => result is "FAILURE"
+>isFailure : <T>(result: Result<T>) => result 作为 "FAILURE"
 >result : Result<T>
 }
 
 function isFailure<T>(result: Result<T>): result is FAILURE {
->isFailure : <T>(result: Result<T>) => result is "FAILURE"
+>isFailure : <T>(result: Result<T>) => result 作为 "FAILURE"
 >T : T
 >result : Result<T>
 >Result : Result<T>
 >T : T
->result : any
+>result : 任意
 >类型别名 :=> 任意
 >FAILURE : "FAILURE"
 
   return result === FAILURE;
->result === FAILURE : boolean
+>result === FAILURE : 真假
 >类型别名 :=> 真假
 >result : Result<T>
 >FAILURE : "FAILURE"
 }
 
 function increment(x: number): number {
->increment : (x: number) => number
->x : number
+>increment : (x: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 
   return x + 1;
->x + 1 : number
+>x + 1 : 数字
 >类型别名 :=> 数字
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
 
 let result = doWork<number>();
->result : Result<number>
->doWork<number>() : Result<number>
+>result : Result<数字>
+>doWork<number>() : Result<数字>
 >doWork : <T>() => Result<T>
 
 if (isSuccess(result)) {
->isSuccess(result) : boolean
+>isSuccess(result) : 真假
 >类型别名 :=> 真假
->isSuccess : <T>(result: Result<T>) => result is T
->result : Result<number>
+>isSuccess : <T>(result: Result<T>) => result 作为 T
+>result : Result<数字>
 
   increment(result);
->increment(result) : number
+>increment(result) : 数字
 >类型别名 :=> 数字
->increment : (x: number) => number
->result : number
+>increment : (x: 数字) => 数字
+>result : 数字
 >类型别名 :=> 数字
 }
 

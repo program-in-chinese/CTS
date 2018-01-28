@@ -1,52 +1,52 @@
 === tests/cases/compiler/constantOverloadFunction.ts ===
 class Base { foo() { } }
 >Base : Base
->foo : () => void
+>foo : () => 无值
 
 class Derived1 extends Base { bar() { } }
 >Derived1 : Derived1
 >Base : Base
->bar : () => void
+>bar : () => 无值
 
 class Derived2 extends Base { baz() { } }
 >Derived2 : Derived2
 >Base : Base
->baz : () => void
+>baz : () => 无值
 
 class Derived3 extends Base { biz() { } }
 >Derived3 : Derived3
 >Base : Base
->biz : () => void
+>biz : () => 无值
 
 function foo(tagName: 'canvas'): Derived1;
->foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: string): Base; }
+>foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: 文字): Base; }
 >tagName : "canvas"
 >Derived1 : Derived1
 
 function foo(tagName:  'div'): Derived2;
->foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: string): Base; }
+>foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: 文字): Base; }
 >tagName : "div"
 >Derived2 : Derived2
 
 function foo(tagName: 'span'): Derived3;
->foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: string): Base; }
+>foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: 文字): Base; }
 >tagName : "span"
 >Derived3 : Derived3
 
 function foo(tagName: string): Base;
->foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: string): Base; }
->tagName : string
+>foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: 文字): Base; }
+>tagName : 文字
 >类型别名 :=> 文字
 >Base : Base
 
 function foo(tagName: any): Base {
->foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: string): Base; }
->tagName : any
+>foo : { (tagName: "canvas"): Derived1; (tagName: "div"): Derived2; (tagName: "span"): Derived3; (tagName: 文字): Base; }
+>tagName : 任意
 >类型别名 :=> 任意
 >Base : Base
 
     return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 

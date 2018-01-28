@@ -654,6 +654,13 @@ namespace ts.server {
             return 回复结果.body
         }
 
+         格式化词典语句(fileName: string): string {
+            const args: protocol.FileRequestArgs = this.createFileRequestArgs(fileName)
+            const 请求结果 = this.processRequest<protocol.FileRequest>(CommandNames.格式化词典语句, args)
+            const 回复结果 = this.processResponse<protocol.转换CTS结果>(请求结果)
+            return 回复结果.body
+        }
+
         getIndentationAtPosition(_fileName: string, _position: number, _options: EditorOptions): number {
             return notImplemented();
         }

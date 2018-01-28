@@ -1,167 +1,167 @@
 === tests/cases/compiler/implicitAnyFunctionInvocationWithAnyArguements.ts ===
 // this should be errors
 var arg0 = null;  // error at "arg0"
->arg0 : any
+>arg0 : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var anyArray = [null, undefined];  // error at array literal
->anyArray : any[]
->[null, undefined] : null[]
->null : null
+>anyArray : 任意[]
+>[null, undefined] : 空值[]
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 var objL: { v; w; }             // error at "y,z"
->objL : { v: any; w: any; }
->v : any
+>objL : { v: 任意; w: 任意; }
+>v : 任意
 >类型别名 :=> 任意
->w : any
+>w : 任意
 >类型别名 :=> 任意
 
 var funcL: (y2) => number;
->funcL : (y2: any) => number
->y2 : any
+>funcL : (y2: 任意) => 数字
+>y2 : 任意
 >类型别名 :=> 任意
 
 function temp1(arg1) { }  // error at "temp1"
->temp1 : (arg1: any) => void
->arg1 : any
+>temp1 : (arg1: 任意) => 无值
+>arg1 : 任意
 >类型别名 :=> 任意
 
 function testFunctionExprC(subReplace: (s: string, ...arg: any[]) => string) { }
->testFunctionExprC : (subReplace: (s: string, ...arg: any[]) => string) => void
->subReplace : (s: string, ...arg: any[]) => string
->s : string
+>testFunctionExprC : (subReplace: (s: 文字, ...arg: 任意[]) => 文字) => 无值
+>subReplace : (s: 文字, ...arg: 任意[]) => 文字
+>s : 文字
 >类型别名 :=> 文字
->arg : any[]
+>arg : 任意[]
 
 function testFunctionExprC2(eq: (v1: any, v2: any) => number) { };
->testFunctionExprC2 : (eq: (v1: any, v2: any) => number) => void
->eq : (v1: any, v2: any) => number
->v1 : any
+>testFunctionExprC2 : (eq: (v1: 任意, v2: 任意) => 数字) => 无值
+>eq : (v1: 任意, v2: 任意) => 数字
+>v1 : 任意
 >类型别名 :=> 任意
->v2 : any
+>v2 : 任意
 >类型别名 :=> 任意
 
 function testObjLiteral(objLit: { v: any; w: any }) { }; 
->testObjLiteral : (objLit: { v: any; w: any; }) => void
->objLit : { v: any; w: any; }
->v : any
+>testObjLiteral : (objLit: { v: 任意; w: 任意; }) => 无值
+>objLit : { v: 任意; w: 任意; }
+>v : 任意
 >类型别名 :=> 任意
->w : any
+>w : 任意
 >类型别名 :=> 任意
 
 function testFuncLiteral(funcLit: (y2) => number) { };
->testFuncLiteral : (funcLit: (y2: any) => number) => void
->funcLit : (y2: any) => number
->y2 : any
+>testFuncLiteral : (funcLit: (y2: 任意) => 数字) => 无值
+>funcLit : (y2: 任意) => 数字
+>y2 : 任意
 >类型别名 :=> 任意
 
 // this should not be an error
 testFunctionExprC2((v1, v2) => 1);
->testFunctionExprC2((v1, v2) => 1) : void
+>testFunctionExprC2((v1, v2) => 1) : 无值
 >类型别名 :=> 无值
->testFunctionExprC2 : (eq: (v1: any, v2: any) => number) => void
->(v1, v2) => 1 : (v1: any, v2: any) => number
->v1 : any
+>testFunctionExprC2 : (eq: (v1: 任意, v2: 任意) => 数字) => 无值
+>(v1, v2) => 1 : (v1: 任意, v2: 任意) => 数字
+>v1 : 任意
 >类型别名 :=> 任意
->v2 : any
+>v2 : 任意
 >类型别名 :=> 任意
 >1 : 1
 
 testObjLiteral(objL);
->testObjLiteral(objL) : void
+>testObjLiteral(objL) : 无值
 >类型别名 :=> 无值
->testObjLiteral : (objLit: { v: any; w: any; }) => void
->objL : { v: any; w: any; }
+>testObjLiteral : (objLit: { v: 任意; w: 任意; }) => 无值
+>objL : { v: 任意; w: 任意; }
 
 testFuncLiteral(funcL);
->testFuncLiteral(funcL) : void
+>testFuncLiteral(funcL) : 无值
 >类型别名 :=> 无值
->testFuncLiteral : (funcLit: (y2: any) => number) => void
->funcL : (y2: any) => number
+>testFuncLiteral : (funcLit: (y2: 任意) => 数字) => 无值
+>funcL : (y2: 任意) => 数字
 
 var k = temp1(null);
->k : void
+>k : 无值
 >类型别名 :=> 无值
->temp1(null) : void
+>temp1(null) : 无值
 >类型别名 :=> 无值
->temp1 : (arg1: any) => void
->null : null
+>temp1 : (arg1: 任意) => 无值
+>null : 空值
 >类型别名 :=> 空值
 
 var result = temp1(arg0);
->result : void
+>result : 无值
 >类型别名 :=> 无值
->temp1(arg0) : void
+>temp1(arg0) : 无值
 >类型别名 :=> 无值
->temp1 : (arg1: any) => void
->arg0 : null
+>temp1 : (arg1: 任意) => 无值
+>arg0 : 空值
 >类型别名 :=> 空值
 
 var result1 = temp1(anyArray);
->result1 : void
+>result1 : 无值
 >类型别名 :=> 无值
->temp1(anyArray) : void
+>temp1(anyArray) : 无值
 >类型别名 :=> 无值
->temp1 : (arg1: any) => void
->anyArray : any[]
+>temp1 : (arg1: 任意) => 无值
+>anyArray : 任意[]
 
 function noError(variable: any, array?: any) { }
->noError : (variable: any, array?: any) => void
->variable : any
+>noError : (variable: 任意, array?: 任意) => 无值
+>variable : 任意
 >类型别名 :=> 任意
->array : any
+>array : 任意
 >类型别名 :=> 任意
 
 noError(null, []);
->noError(null, []) : void
+>noError(null, []) : 无值
 >类型别名 :=> 无值
->noError : (variable: any, array?: any) => void
->null : null
+>noError : (variable: 任意, array?: 任意) => 无值
+>null : 空值
 >类型别名 :=> 空值
->[] : undefined[]
+>[] : 未定[]
 
 noError(undefined, <any>[]);
->noError(undefined, <any>[]) : void
+>noError(undefined, <any>[]) : 无值
 >类型别名 :=> 无值
->noError : (variable: any, array?: any) => void
->undefined : undefined
+>noError : (variable: 任意, array?: 任意) => 无值
+>undefined : 未定
 >类型别名 :=> 未定
-><any>[] : any
+><any>[] : 任意
 >类型别名 :=> 任意
->[] : undefined[]
+>[] : 未定[]
 
 noError(null, [null, undefined]);
->noError(null, [null, undefined]) : void
+>noError(null, [null, undefined]) : 无值
 >类型别名 :=> 无值
->noError : (variable: any, array?: any) => void
->null : null
+>noError : (variable: 任意, array?: 任意) => 无值
+>null : 空值
 >类型别名 :=> 空值
->[null, undefined] : null[]
->null : null
+>[null, undefined] : 空值[]
+>null : 空值
 >类型别名 :=> 空值
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 
 noError(undefined, anyArray);
->noError(undefined, anyArray) : void
+>noError(undefined, anyArray) : 无值
 >类型别名 :=> 无值
->noError : (variable: any, array?: any) => void
->undefined : undefined
+>noError : (variable: 任意, array?: 任意) => 无值
+>undefined : 未定
 >类型别名 :=> 未定
->anyArray : any[]
+>anyArray : 任意[]
 
 class C {
 >C : C
 
     constructor(emtpyArray: any, variable: any) {
->emtpyArray : any
+>emtpyArray : 任意
 >类型别名 :=> 任意
->variable : any
+>variable : 任意
 >类型别名 :=> 任意
     }
 }
@@ -169,26 +169,26 @@ class C {
 var newC = new C([], undefined);
 >newC : C
 >new C([], undefined) : C
->C : typeof C
->[] : undefined[]
->undefined : undefined
+>C : 类为 C
+>[] : 未定[]
+>undefined : 未定
 >类型别名 :=> 未定
 
 var newC1 = new C([], arg0);
 >newC1 : C
 >new C([], arg0) : C
->C : typeof C
->[] : undefined[]
->arg0 : null
+>C : 类为 C
+>[] : 未定[]
+>arg0 : 空值
 >类型别名 :=> 空值
 
 var newC2 = new C(<any>[], null) 
 >newC2 : C
 >new C(<any>[], null) : C
->C : typeof C
-><any>[] : any
+>C : 类为 C
+><any>[] : 任意
 >类型别名 :=> 任意
->[] : undefined[]
->null : null
+>[] : 未定[]
+>null : 空值
 >类型别名 :=> 空值
 

@@ -5,7 +5,7 @@ class A {
 >A : A
 
     foo(): string { return ''; }
->foo : () => string
+>foo : () => 文字
 >'' : ""
 }
 
@@ -14,7 +14,7 @@ class B extends A {
 >A : A
 
     bar(): string {
->bar : () => string
+>bar : () => 文字
 
         return '';
 >'' : ""
@@ -29,57 +29,57 @@ class C<U extends A, T extends A> {
 >A : A
 
     f() {
->f : () => string
+>f : () => 文字
 
         var x: U;
 >x : U
 >U : U
 
         var a = x['foo'](); // should be string
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x['foo']() : string
+>x['foo']() : 文字
 >类型别名 :=> 文字
->x['foo'] : () => string
+>x['foo'] : () => 文字
 >x : U
 >'foo' : "foo"
 
         return a + x.foo();
->a + x.foo() : string
+>a + x.foo() : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x.foo() : string
+>x.foo() : 文字
 >类型别名 :=> 文字
->x.foo : () => string
+>x.foo : () => 文字
 >x : U
->foo : () => string
+>foo : () => 文字
     }
 
     g(x: U) {
->g : (x: U) => string
+>g : (x: U) => 文字
 >x : U
 >U : U
 
         var a = x['foo'](); // should be string
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x['foo']() : string
+>x['foo']() : 文字
 >类型别名 :=> 文字
->x['foo'] : () => string
+>x['foo'] : () => 文字
 >x : U
 >'foo' : "foo"
 
         return a + x.foo();
->a + x.foo() : string
+>a + x.foo() : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x.foo() : string
+>x.foo() : 文字
 >类型别名 :=> 文字
->x.foo : () => string
+>x.foo : () => 文字
 >x : U
->foo : () => string
+>foo : () => 文字
     }
 }
 //class C<U extends T, T extends A> {
@@ -96,32 +96,32 @@ class C<U extends A, T extends A> {
 //}
 
 var r1 = (new C<B, A>()).f();
->r1 : string
+>r1 : 文字
 >类型别名 :=> 文字
->(new C<B, A>()).f() : string
+>(new C<B, A>()).f() : 文字
 >类型别名 :=> 文字
->(new C<B, A>()).f : () => string
+>(new C<B, A>()).f : () => 文字
 >(new C<B, A>()) : C<B, A>
 >new C<B, A>() : C<B, A>
->C : typeof C
+>C : 类为 C
 >B : B
 >A : A
->f : () => string
+>f : () => 文字
 
 var r1b = (new C<B, A>()).g(new B());
->r1b : string
+>r1b : 文字
 >类型别名 :=> 文字
->(new C<B, A>()).g(new B()) : string
+>(new C<B, A>()).g(new B()) : 文字
 >类型别名 :=> 文字
->(new C<B, A>()).g : (x: B) => string
+>(new C<B, A>()).g : (x: B) => 文字
 >(new C<B, A>()) : C<B, A>
 >new C<B, A>() : C<B, A>
->C : typeof C
+>C : 类为 C
 >B : B
 >A : A
->g : (x: B) => string
+>g : (x: B) => 文字
 >new B() : B
->B : typeof B
+>B : 类为 B
 
 interface I<U extends A, T extends A> {
 >I : I<U, T>
@@ -144,29 +144,29 @@ var i: I<B, A>;
 >A : A
 
 var r2 = i.foo.foo();
->r2 : string
+>r2 : 文字
 >类型别名 :=> 文字
->i.foo.foo() : string
+>i.foo.foo() : 文字
 >类型别名 :=> 文字
->i.foo.foo : () => string
+>i.foo.foo : () => 文字
 >i.foo : B
 >i : I<B, A>
 >foo : B
->foo : () => string
+>foo : () => 文字
 
 var r2b = i.foo['foo']();
->r2b : string
+>r2b : 文字
 >类型别名 :=> 文字
->i.foo['foo']() : string
+>i.foo['foo']() : 文字
 >类型别名 :=> 文字
->i.foo['foo'] : () => string
+>i.foo['foo'] : () => 文字
 >i.foo : B
 >i : I<B, A>
 >foo : B
 >'foo' : "foo"
 
 var a: {
->a : { <U extends A, T extends A>(): U; <U extends A, T extends A>(x: U): U; <U extends A, T extends A>(x: U, y: T): U; }
+>a : { <U 扩展 A, T 扩展 A>(): U; <U 扩展 A, T 扩展 A>(x: U): U; <U 扩展 A, T 扩展 A>(x: U, y: T): U; }
 
     <U extends A, T extends A>(): U;
 >U : U
@@ -201,64 +201,64 @@ var a: {
 //    <U extends T, T extends A>(x: U, y: T): U;
 //}
 var r3 = a<A, A>().foo(); 
->r3 : string
+>r3 : 文字
 >类型别名 :=> 文字
->a<A, A>().foo() : string
+>a<A, A>().foo() : 文字
 >类型别名 :=> 文字
->a<A, A>().foo : () => string
+>a<A, A>().foo : () => 文字
 >a<A, A>() : A
->a : { <U extends A, T extends A>(): U; <U extends A, T extends A>(x: U): U; <U extends A, T extends A>(x: U, y: T): U; }
+>a : { <U 扩展 A, T 扩展 A>(): U; <U 扩展 A, T 扩展 A>(x: U): U; <U 扩展 A, T 扩展 A>(x: U, y: T): U; }
 >A : A
 >A : A
->foo : () => string
+>foo : () => 文字
 
 var r3b = a()['foo']();
->r3b : string
+>r3b : 文字
 >类型别名 :=> 文字
->a()['foo']() : string
+>a()['foo']() : 文字
 >类型别名 :=> 文字
->a()['foo'] : () => string
+>a()['foo'] : () => 文字
 >a() : A
->a : { <U extends A, T extends A>(): U; <U extends A, T extends A>(x: U): U; <U extends A, T extends A>(x: U, y: T): U; }
+>a : { <U 扩展 A, T 扩展 A>(): U; <U 扩展 A, T 扩展 A>(x: U): U; <U 扩展 A, T 扩展 A>(x: U, y: T): U; }
 >'foo' : "foo"
 
 // parameter supplied for type argument inference to succeed
 var aB = new B();
 >aB : B
 >new B() : B
->B : typeof B
+>B : 类为 B
 
 var r3c = a(aB, aB).foo(); 
->r3c : string
+>r3c : 文字
 >类型别名 :=> 文字
->a(aB, aB).foo() : string
+>a(aB, aB).foo() : 文字
 >类型别名 :=> 文字
->a(aB, aB).foo : () => string
+>a(aB, aB).foo : () => 文字
 >a(aB, aB) : B
->a : { <U extends A, T extends A>(): U; <U extends A, T extends A>(x: U): U; <U extends A, T extends A>(x: U, y: T): U; }
+>a : { <U 扩展 A, T 扩展 A>(): U; <U 扩展 A, T 扩展 A>(x: U): U; <U 扩展 A, T 扩展 A>(x: U, y: T): U; }
 >aB : B
 >aB : B
->foo : () => string
+>foo : () => 文字
 
 var r3d = a(aB, aB)['foo']();
->r3d : string
+>r3d : 文字
 >类型别名 :=> 文字
->a(aB, aB)['foo']() : string
+>a(aB, aB)['foo']() : 文字
 >类型别名 :=> 文字
->a(aB, aB)['foo'] : () => string
+>a(aB, aB)['foo'] : () => 文字
 >a(aB, aB) : B
->a : { <U extends A, T extends A>(): U; <U extends A, T extends A>(x: U): U; <U extends A, T extends A>(x: U, y: T): U; }
+>a : { <U 扩展 A, T 扩展 A>(): U; <U 扩展 A, T 扩展 A>(x: U): U; <U 扩展 A, T 扩展 A>(x: U, y: T): U; }
 >aB : B
 >aB : B
 >'foo' : "foo"
 
 var b = {
->b : { foo: <U extends A, T extends A>(x: U, y: T) => string; }
->{    foo: <U extends A, T extends A>(x: U, y: T) => {        var a = x['foo'](); // should be string        return a + x.foo();    }} : { foo: <U extends A, T extends A>(x: U, y: T) => string; }
+>b : { foo: <U 扩展 A, T 扩展 A>(x: U, y: T) => 文字; }
+>{    foo: <U extends A, T extends A>(x: U, y: T) => {        var a = x['foo'](); // should be string        return a + x.foo();    }} : { foo: <U 扩展 A, T 扩展 A>(x: U, y: T) => 文字; }
 
     foo: <U extends A, T extends A>(x: U, y: T) => {
->foo : <U extends A, T extends A>(x: U, y: T) => string
-><U extends A, T extends A>(x: U, y: T) => {        var a = x['foo'](); // should be string        return a + x.foo();    } : <U extends A, T extends A>(x: U, y: T) => string
+>foo : <U 扩展 A, T 扩展 A>(x: U, y: T) => 文字
+><U extends A, T extends A>(x: U, y: T) => {        var a = x['foo'](); // should be string        return a + x.foo();    } : <U 扩展 A, T 扩展 A>(x: U, y: T) => 文字
 >U : U
 >A : A
 >T : T
@@ -269,24 +269,24 @@ var b = {
 >T : T
 
         var a = x['foo'](); // should be string
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x['foo']() : string
+>x['foo']() : 文字
 >类型别名 :=> 文字
->x['foo'] : () => string
+>x['foo'] : () => 文字
 >x : U
 >'foo' : "foo"
 
         return a + x.foo();
->a + x.foo() : string
+>a + x.foo() : 文字
 >类型别名 :=> 文字
->a : string
+>a : 文字
 >类型别名 :=> 文字
->x.foo() : string
+>x.foo() : 文字
 >类型别名 :=> 文字
->x.foo : () => string
+>x.foo : () => 文字
 >x : U
->foo : () => string
+>foo : () => 文字
     }
 }
 //var b = {
@@ -297,13 +297,13 @@ var b = {
 //}
 
 var r4 = b.foo(aB, aB); // no inferences for T so constraint isn't satisfied, error
->r4 : string
+>r4 : 文字
 >类型别名 :=> 文字
->b.foo(aB, aB) : string
+>b.foo(aB, aB) : 文字
 >类型别名 :=> 文字
->b.foo : <U extends A, T extends A>(x: U, y: T) => string
->b : { foo: <U extends A, T extends A>(x: U, y: T) => string; }
->foo : <U extends A, T extends A>(x: U, y: T) => string
+>b.foo : <U 扩展 A, T 扩展 A>(x: U, y: T) => 文字
+>b : { foo: <U 扩展 A, T 扩展 A>(x: U, y: T) => 文字; }
+>foo : <U 扩展 A, T 扩展 A>(x: U, y: T) => 文字
 >aB : B
 >aB : B
 

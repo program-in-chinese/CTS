@@ -8,61 +8,61 @@ enum MyEmusEnum {
 
 // Should be okay; should be a string.
 var strRepresentation1 = MyEmusEnum[0]
->strRepresentation1 : string
+>strRepresentation1 : 文字
 >类型别名 :=> 文字
->MyEmusEnum[0] : string
+>MyEmusEnum[0] : 文字
 >类型别名 :=> 文字
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >0 : 0
 
 // Should be okay; should be a string.
 var strRepresentation2 = MyEmusEnum[MyEmusEnum.emu]
->strRepresentation2 : string
+>strRepresentation2 : 文字
 >类型别名 :=> 文字
->MyEmusEnum[MyEmusEnum.emu] : string
+>MyEmusEnum[MyEmusEnum.emu] : 文字
 >类型别名 :=> 文字
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >MyEmusEnum.emu : MyEmusEnum
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >emu : MyEmusEnum
 
 // Should be okay, as we suppress implicit 'any' property access checks
 var strRepresentation3 = MyEmusEnum["monehh"];
->strRepresentation3 : any
+>strRepresentation3 : 任意
 >类型别名 :=> 任意
->MyEmusEnum["monehh"] : any
+>MyEmusEnum["monehh"] : 任意
 >类型别名 :=> 任意
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >"monehh" : "monehh"
 
 // Should be okay; should be a MyEmusEnum
 var strRepresentation4 = MyEmusEnum["emu"];
 >strRepresentation4 : MyEmusEnum
 >MyEmusEnum["emu"] : MyEmusEnum
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >"emu" : "emu"
 
 
 // Should be okay, as we suppress implicit 'any' property access checks
 var x = {}["hi"];
->x : any
+>x : 任意
 >类型别名 :=> 任意
->{}["hi"] : any
+>{}["hi"] : 任意
 >类型别名 :=> 任意
 >{} : {}
 >"hi" : "hi"
 
 // Should be okay, as we suppress implicit 'any' property access checks
 var y = {}[10];
->y : any
+>y : 任意
 >类型别名 :=> 任意
->{}[10] : any
+>{}[10] : 任意
 >类型别名 :=> 任意
 >{} : {}
 >10 : 10
 
 var hi: any = "hi";
->hi : any
+>hi : 任意
 >类型别名 :=> 任意
 >"hi" : "hi"
 
@@ -72,25 +72,25 @@ var emptyObj = {};
 
 // Should be okay, as we suppress implicit 'any' property access checks
 var z1 = emptyObj[hi];
->z1 : any
+>z1 : 任意
 >类型别名 :=> 任意
->emptyObj[hi] : any
+>emptyObj[hi] : 任意
 >类型别名 :=> 任意
 >emptyObj : {}
->hi : any
+>hi : 任意
 >类型别名 :=> 任意
 
 var z2 = (<any>emptyObj)[hi];
->z2 : any
+>z2 : 任意
 >类型别名 :=> 任意
->(<any>emptyObj)[hi] : any
+>(<any>emptyObj)[hi] : 任意
 >类型别名 :=> 任意
->(<any>emptyObj) : any
+>(<any>emptyObj) : 任意
 >类型别名 :=> 任意
-><any>emptyObj : any
+><any>emptyObj : 任意
 >类型别名 :=> 任意
 >emptyObj : {}
->hi : any
+>hi : 任意
 >类型别名 :=> 任意
 
 interface MyMap<T> {
@@ -98,15 +98,15 @@ interface MyMap<T> {
 >T : T
 
     [key: string]: T;
->key : string
+>key : 文字
 >类型别名 :=> 文字
 >T : T
 }
 
 var m: MyMap<number> = {
->m : MyMap<number>
+>m : MyMap<数字>
 >MyMap : MyMap<T>
->{    "0": 0,    "1": 1,    "2": 2,    "Okay that's enough for today.": NaN} : { "0": number; "1": number; "2": number; "Okay that's enough for today.": number; }
+>{    "0": 0,    "1": 1,    "2": 2,    "Okay that's enough for today.": NaN} : { "0": 数字; "1": 数字; "2": 数字; "Okay that's enough for today.": 数字; }
 
     "0": 0,
 >0 : 0
@@ -118,41 +118,41 @@ var m: MyMap<number> = {
 >2 : 2
 
     "Okay that's enough for today.": NaN
->NaN : number
+>NaN : 数字
 >类型别名 :=> 数字
 
 };
 
 var mResult1 = m[MyEmusEnum.emu];
->mResult1 : number
+>mResult1 : 数字
 >类型别名 :=> 数字
->m[MyEmusEnum.emu] : number
+>m[MyEmusEnum.emu] : 数字
 >类型别名 :=> 数字
->m : MyMap<number>
+>m : MyMap<数字>
 >MyEmusEnum.emu : MyEmusEnum
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >emu : MyEmusEnum
 
 var mResult2 = m[MyEmusEnum[MyEmusEnum.emu]];
->mResult2 : number
+>mResult2 : 数字
 >类型别名 :=> 数字
->m[MyEmusEnum[MyEmusEnum.emu]] : number
+>m[MyEmusEnum[MyEmusEnum.emu]] : 数字
 >类型别名 :=> 数字
->m : MyMap<number>
->MyEmusEnum[MyEmusEnum.emu] : string
+>m : MyMap<数字>
+>MyEmusEnum[MyEmusEnum.emu] : 文字
 >类型别名 :=> 文字
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >MyEmusEnum.emu : MyEmusEnum
->MyEmusEnum : typeof MyEmusEnum
+>MyEmusEnum : 类为 MyEmusEnum
 >emu : MyEmusEnum
 
 var mResult3 = m[hi];
->mResult3 : number
+>mResult3 : 数字
 >类型别名 :=> 数字
->m[hi] : number
+>m[hi] : 数字
 >类型别名 :=> 数字
->m : MyMap<number>
->hi : any
+>m : MyMap<数字>
+>hi : 任意
 >类型别名 :=> 任意
 
 

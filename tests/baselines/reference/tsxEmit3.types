@@ -1,6 +1,6 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
 	interface Element { }
@@ -11,13 +11,13 @@ declare module JSX {
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
 	export class Foo { constructor() { } }
 >Foo : Foo
 
 	export module S {
->S : typeof S
+>S : 类为 S
 
 		export class Bar { }
 >Bar : Bar
@@ -28,63 +28,63 @@ module M {
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
 	// Emit M.Foo
 	Foo, <Foo />;
 >Foo, <Foo /> : JSX.Element
->Foo : typeof Foo
+>Foo : 类为 Foo
 ><Foo /> : JSX.Element
->Foo : typeof Foo
+>Foo : 类为 Foo
 
 	export module S {
->S : typeof S
+>S : 类为 S
 
 		// Emit M.Foo
 		Foo, <Foo />;
 >Foo, <Foo /> : JSX.Element
->Foo : typeof Foo
+>Foo : 类为 Foo
 ><Foo /> : JSX.Element
->Foo : typeof Foo
+>Foo : 类为 Foo
 
 		// Emit S.Bar
 		Bar, <Bar />;
 >Bar, <Bar /> : JSX.Element
->Bar : typeof Bar
+>Bar : 类为 Bar
 ><Bar /> : JSX.Element
->Bar : typeof Bar
+>Bar : 类为 Bar
 	}
 
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
 	// Emit M.S.Bar
 	S.Bar, <S.Bar />;
 >S.Bar, <S.Bar /> : JSX.Element
->S.Bar : typeof S.Bar
->S : typeof S
->Bar : typeof S.Bar
+>S.Bar : 类为 S.Bar
+>S : 类为 S
+>Bar : 类为 S.Bar
 ><S.Bar /> : JSX.Element
->S.Bar : typeof S.Bar
->S : typeof S
->Bar : typeof S.Bar
+>S.Bar : 类为 S.Bar
+>S : 类为 S
+>Bar : 类为 S.Bar
 }
 
 module M {
->M : typeof M
+>M : 类为 M
 
 	var M = 100;
->M : number
+>M : 数字
 >类型别名 :=> 数字
 >100 : 100
 
 	// Emit M_1.Foo
 	Foo, <Foo />;
 >Foo, <Foo /> : JSX.Element
->Foo : typeof Foo
+>Foo : 类为 Foo
 ><Foo /> : JSX.Element
->Foo : typeof Foo
+>Foo : 类为 Foo
 }
 

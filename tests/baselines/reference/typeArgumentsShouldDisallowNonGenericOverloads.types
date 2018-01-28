@@ -1,18 +1,18 @@
 === tests/cases/compiler/typeArgumentsShouldDisallowNonGenericOverloads.ts ===
 function foo(a: string): string;
->foo : { (a: string): string; <T>(a: T): number; }
->a : string
+>foo : { (a: 文字): 文字; <T>(a: T): 数字; }
+>a : 文字
 >类型别名 :=> 文字
 
 function foo<T>(a: T): number;
->foo : { (a: string): string; <T>(a: T): number; }
+>foo : { (a: 文字): 文字; <T>(a: T): 数字; }
 >T : T
 >a : T
 >T : T
 
 function foo(a: any): any {
->foo : { (a: string): string; <T>(a: T): number; }
->a : any
+>foo : { (a: 文字): 文字; <T>(a: T): 数字; }
+>a : 任意
 >类型别名 :=> 任意
 
     return "hi";
@@ -20,34 +20,34 @@ function foo(a: any): any {
 }
 
 var x: number = foo<string>("hi"); // return type should be 'number'
->x : number
+>x : 数字
 >类型别名 :=> 数字
->foo<string>("hi") : number
+>foo<string>("hi") : 数字
 >类型别名 :=> 数字
->foo : { (a: string): string; <T>(a: T): number; }
+>foo : { (a: 文字): 文字; <T>(a: T): 数字; }
 >"hi" : "hi"
 
 var y: string = foo("hi"); // return type should be 'string'
->y : string
+>y : 文字
 >类型别名 :=> 文字
->foo("hi") : string
+>foo("hi") : 文字
 >类型别名 :=> 文字
->foo : { (a: string): string; <T>(a: T): number; }
+>foo : { (a: 文字): 文字; <T>(a: T): 数字; }
 >"hi" : "hi"
 
 var w: string = foo<string>("hi"); // should error
->w : string
+>w : 文字
 >类型别名 :=> 文字
->foo<string>("hi") : number
+>foo<string>("hi") : 数字
 >类型别名 :=> 数字
->foo : { (a: string): string; <T>(a: T): number; }
+>foo : { (a: 文字): 文字; <T>(a: T): 数字; }
 >"hi" : "hi"
 
 var z: number = foo("hi"); // should error
->z : number
+>z : 数字
 >类型别名 :=> 数字
->foo("hi") : string
+>foo("hi") : 文字
 >类型别名 :=> 文字
->foo : { (a: string): string; <T>(a: T): number; }
+>foo : { (a: 文字): 文字; <T>(a: T): 数字; }
 >"hi" : "hi"
 

@@ -1,6 +1,6 @@
 === /src/a.ts ===
 import { a } from "a";
->a : (x: X) => void
+>a : (x: X) => 无值
 
 import { b } from "b";
 >b : X
@@ -9,23 +9,23 @@ import { c } from "c";
 >c : X
 
 a(b); // Works
->a(b) : void
+>a(b) : 无值
 >类型别名 :=> 无值
->a : (x: X) => void
+>a : (x: X) => 无值
 >b : X
 
 a(c); // Error, these are from different versions of the library.
->a(c) : void
+>a(c) : 无值
 >类型别名 :=> 无值
->a : (x: X) => void
+>a : (x: X) => 无值
 >c : X
 
 === /node_modules/a/index.d.ts ===
 import X from "x";
->X : typeof X
+>X : 类为 X
 
 export function a(x: X): void;
->a : (x: X) => void
+>a : (x: X) => 无值
 >x : X
 >X : X
 
@@ -34,13 +34,13 @@ export default class X {
 >X : X
 
     private x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 
 === /node_modules/b/index.d.ts ===
 import X from "x";
->X : typeof X
+>X : 类为 X
 
 export const b: X;
 >b : X
@@ -50,12 +50,12 @@ export const b: X;
 content not parsed
 >X : X
 
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 === /node_modules/c/index.d.ts ===
 import X from "x";
->X : typeof X
+>X : 类为 X
 
 export const c: X;
 >c : X
@@ -66,7 +66,7 @@ export default class X {
 >X : X
 
     private x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 }
 

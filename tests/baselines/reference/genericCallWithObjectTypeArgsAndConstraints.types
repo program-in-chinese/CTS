@@ -6,7 +6,7 @@ class C {
 >C : C
 
     x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 
@@ -14,11 +14,11 @@ class D {
 >D : D
 
     x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     y: string;
->y : string
+>y : 文字
 >类型别名 :=> 文字
 }
 
@@ -32,9 +32,9 @@ class X<T> {
 }
 
 function foo<T extends { x: string }>(t: X<T>, t2: X<T>) {
->foo : <T extends { x: string; }>(t: X<T>, t2: X<T>) => T
+>foo : <T 扩展 { x: 文字; }>(t: X<T>, t2: X<T>) => T
 >T : T
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >t : X<T>
 >X : X<T>
@@ -54,31 +54,31 @@ function foo<T extends { x: string }>(t: X<T>, t2: X<T>) {
 var c1 = new X<C>();
 >c1 : X<C>
 >new X<C>() : X<C>
->X : typeof X
+>X : 类为 X
 >C : C
 
 var d1 = new X<D>();
 >d1 : X<D>
 >new X<D>() : X<D>
->X : typeof X
+>X : 类为 X
 >D : D
 
 var r = foo(c1, d1); 
 >r : C
 >foo(c1, d1) : C
->foo : <T extends { x: string; }>(t: X<T>, t2: X<T>) => T
+>foo : <T 扩展 { x: 文字; }>(t: X<T>, t2: X<T>) => T
 >c1 : X<C>
 >d1 : X<D>
 
 var r2 = foo(c1, c1);
 >r2 : C
 >foo(c1, c1) : C
->foo : <T extends { x: string; }>(t: X<T>, t2: X<T>) => T
+>foo : <T 扩展 { x: 文字; }>(t: X<T>, t2: X<T>) => T
 >c1 : X<C>
 >c1 : X<C>
 
 function foo2<T extends C>(t: X<T>, t2: X<T>) {
->foo2 : <T extends C>(t: X<T>, t2: X<T>) => T
+>foo2 : <T 扩展 C>(t: X<T>, t2: X<T>) => T
 >T : T
 >C : C
 >t : X<T>
@@ -99,14 +99,14 @@ function foo2<T extends C>(t: X<T>, t2: X<T>) {
 var r = foo2(c1, d1); 
 >r : C
 >foo2(c1, d1) : C
->foo2 : <T extends C>(t: X<T>, t2: X<T>) => T
+>foo2 : <T 扩展 C>(t: X<T>, t2: X<T>) => T
 >c1 : X<C>
 >d1 : X<D>
 
 var r2 = foo2(c1, c1);
 >r2 : C
 >foo2(c1, c1) : C
->foo2 : <T extends C>(t: X<T>, t2: X<T>) => T
+>foo2 : <T 扩展 C>(t: X<T>, t2: X<T>) => T
 >c1 : X<C>
 >c1 : X<C>
 

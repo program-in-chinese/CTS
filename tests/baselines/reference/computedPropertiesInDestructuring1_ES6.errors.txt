@@ -1,10 +1,20 @@
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(11,5): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(12,5): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(17,13): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(18,13): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(21,5): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
 tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(21,8): error TS2349: Cannot invoke an expression whose type lacks a call signature. Type 'String' has no compatible call signatures.
-tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(22,12): error TS2339: Property 'toExponential' does not exist on type 'string'.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(22,5): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(22,12): error TS2339: Property 'toExponential' does not exist on type '文字'.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(31,1): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(32,1): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(34,1): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
 tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(34,4): error TS2349: Cannot invoke an expression whose type lacks a call signature. Type 'String' has no compatible call signatures.
+tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(35,1): error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
 tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(35,5): error TS2365: Operator '+' cannot be applied to types '1' and '{}'.
 
 
-==== tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts (4 errors) ====
+==== tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts (14 errors) ====
     // destructuring in variable declarations
     let foo = "bar";
     let {[foo]: bar} = {bar: "bar"};
@@ -16,21 +26,33 @@ tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(35,5): error TS23
     let {[foo2()]: bar3} = {bar: "bar"};
     
     let [{[foo]: bar4}] = [{bar: "bar"}];
+        ~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
     let [{[foo2()]: bar5}] = [{bar: "bar"}];
+        ~~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
     
     function f1({["bar"]: x}: { bar: number }) {}
     function f2({[foo]: x}: { bar: number }) {}
     function f3({[foo2()]: x}: { bar: number }) {}
     function f4([{[foo]: x}]: [{ bar: number }]) {}
+                ~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
     function f5([{[foo2()]: x}]: [{ bar: number }]) {}
+                ~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
     
     // report errors on type errors in computed properties used in destructuring
     let [{[foo()]: bar6}] = [{bar: "bar"}];
+        ~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
            ~~~~~
 !!! error TS2349: Cannot invoke an expression whose type lacks a call signature. Type 'String' has no compatible call signatures.
     let [{[foo.toExponential()]: bar7}] = [{bar: "bar"}];
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
                ~~~~~~~~~~~~~
-!!! error TS2339: Property 'toExponential' does not exist on type 'string'.
+!!! error TS2339: Property 'toExponential' does not exist on type '文字'.
     
     // destructuring assignment
     ({[foo]: bar} = {bar: "bar"});
@@ -40,12 +62,20 @@ tests/cases/compiler/computedPropertiesInDestructuring1_ES6.ts(35,5): error TS23
     ({[foo2()]: bar3} = {bar: "bar"});
     
     [{[foo]: bar4}] = [{bar: "bar"}];
+    ~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
     [{[foo2()]: bar5}] = [{bar: "bar"}];
+    ~~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
     
     [{[foo()]: bar4}] = [{bar: "bar"}];
+    ~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
        ~~~~~
 !!! error TS2349: Cannot invoke an expression whose type lacks a call signature. Type 'String' has no compatible call signatures.
     [{[(1 + {})]: bar4}] = [{bar: "bar"}];
+    ~~~~~~~~~~~~~~~~~~~~
+!!! error TS2488: Type must have a '[Symbol.iterator]()' method that returns an iterator.
         ~~~~~~
 !!! error TS2365: Operator '+' cannot be applied to types '1' and '{}'.
     

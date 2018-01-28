@@ -3,85 +3,85 @@ class Narrow {
 >Narrow : Narrow
 
     narrowed: boolean
->narrowed : boolean
+>narrowed : 真假
 >类型别名 :=> 真假
 }
 
 var a: object
->a : object
+>a : 实例
 >类型别名 :=> 实例
 
 if (a instanceof Narrow) {
->a instanceof Narrow : boolean
+>a instanceof Narrow : 真假
 >类型别名 :=> 真假
->a : object
+>a : 实例
 >类型别名 :=> 实例
->Narrow : typeof Narrow
+>Narrow : 类为 Narrow
 
     a.narrowed; // ok
->a.narrowed : boolean
+>a.narrowed : 真假
 >类型别名 :=> 真假
 >a : Narrow
->narrowed : boolean
+>narrowed : 真假
 >类型别名 :=> 真假
 
     a = 123; // error
 >a = 123 : 123
->a : object
+>a : 实例
 >类型别名 :=> 实例
 >123 : 123
 }
 
 if (typeof a === 'number') {
->typeof a === 'number' : boolean
+>typeof a === 'number' : 真假
 >类型别名 :=> 真假
 >typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->a : object
+>a : 实例
 >类型别名 :=> 实例
 >'number' : "number"
 
     a.toFixed(); // error, never
->a.toFixed() : any
+>a.toFixed() : 任意
 >类型别名 :=> 任意
->a.toFixed : any
+>a.toFixed : 任意
 >类型别名 :=> 任意
->a : never
+>a : 不及
 >类型别名 :=> 不及
->toFixed : any
+>toFixed : 任意
 >类型别名 :=> 任意
 }
 
 var b: object | null
->b : object
+>b : 实例
 >类型别名 :=> 实例
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 if (typeof b === 'object') {
->typeof b === 'object' : boolean
+>typeof b === 'object' : 真假
 >类型别名 :=> 真假
 >typeof b : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->b : object
+>b : 实例
 >类型别名 :=> 实例
 >'object' : "object"
 
    b.toString(); // ok, object | null
->b.toString() : string
+>b.toString() : 文字
 >类型别名 :=> 文字
->b.toString : () => string
->b : object
+>b.toString : () => 文字
+>b : 实例
 >类型别名 :=> 实例
->toString : () => string
+>toString : () => 文字
 
 } else {
    b.toString(); // error, never
->b.toString() : any
+>b.toString() : 任意
 >类型别名 :=> 任意
->b.toString : any
+>b.toString : 任意
 >类型别名 :=> 任意
->b : never
+>b : 不及
 >类型别名 :=> 不及
->toString : any
+>toString : 任意
 >类型别名 :=> 任意
 }
 

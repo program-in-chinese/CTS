@@ -1,12 +1,12 @@
 === tests/cases/compiler/collisionRestParameterUnderscoreIUsage.ts ===
 declare var console: { log(msg?: string): void; };
->console : { log(msg?: string): void; }
->log : (msg?: string) => void
->msg : string
+>console : { log(msg?: 文字): 无值; }
+>log : (msg?: 文字) => 无值
+>msg : 文字
 >类型别名 :=> 文字
 
 var _i = "This is what I'd expect to see";
->_i : string
+>_i : 文字
 >类型别名 :=> 文字
 >"This is what I'd expect to see" : "This is what I'd expect to see"
 
@@ -14,19 +14,19 @@ class Foo {
 >Foo : Foo
 
     constructor(...args: any[]) {
->args : any[]
+>args : 任意[]
 
         console.log(_i); // This should result in error
->console.log(_i) : void
+>console.log(_i) : 无值
 >类型别名 :=> 无值
->console.log : (msg?: string) => void
->console : { log(msg?: string): void; }
->log : (msg?: string) => void
->_i : string
+>console.log : (msg?: 文字) => 无值
+>console : { log(msg?: 文字): 无值; }
+>log : (msg?: 文字) => 无值
+>_i : 文字
 >类型别名 :=> 文字
     }
 }
 new Foo();
 >new Foo() : Foo
->Foo : typeof Foo
+>Foo : 类为 Foo
 

@@ -3,19 +3,19 @@
 
 class Base { foo: string }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 class Derived1 extends Base { bar: string }
 >Derived1 : Derived1
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 class Derived2 extends Base { baz: string }
 >Derived2 : Derived2
 >Base : Base
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 class C {
@@ -28,22 +28,22 @@ class C {
 >x : "bye"
 
     constructor(x: string);
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
     constructor(x) {
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
         return x;
->x : any
+>x : 任意
 >类型别名 :=> 任意
     }
 }
 var c = new C('a');
 >c : C
 >new C('a') : C
->C : typeof C
+>C : 类为 C
 >'a' : "a"
 
 interface I {
@@ -58,7 +58,7 @@ interface I {
 >Derived2 : Derived2
 
     new(x: string): Base;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >Base : Base
 }
@@ -67,7 +67,7 @@ var i: I;
 >I : I
 
 var a: {
->a : { new (x: "hi"): Derived1; new (x: "bye"): Derived2; new (x: string): Base; }
+>a : { 新建 (x: "hi"): Derived1; 新建 (x: "bye"): Derived2; 新建 (x: 文字): Base; }
 
     new(x: 'hi'): Derived1;
 >x : "hi"
@@ -78,7 +78,7 @@ var a: {
 >Derived2 : Derived2
 
     new(x: string): Base;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >Base : Base
 
@@ -90,24 +90,24 @@ c = i;
 >i : I
 
 c = a;
->c = a : { new (x: "hi"): Derived1; new (x: "bye"): Derived2; new (x: string): Base; }
+>c = a : { 新建 (x: "hi"): Derived1; 新建 (x: "bye"): Derived2; 新建 (x: 文字): Base; }
 >c : C
->a : { new (x: "hi"): Derived1; new (x: "bye"): Derived2; new (x: string): Base; }
+>a : { 新建 (x: "hi"): Derived1; 新建 (x: "bye"): Derived2; 新建 (x: 文字): Base; }
 
 i = a;
->i = a : { new (x: "hi"): Derived1; new (x: "bye"): Derived2; new (x: string): Base; }
+>i = a : { 新建 (x: "hi"): Derived1; 新建 (x: "bye"): Derived2; 新建 (x: 文字): Base; }
 >i : I
->a : { new (x: "hi"): Derived1; new (x: "bye"): Derived2; new (x: string): Base; }
+>a : { 新建 (x: "hi"): Derived1; 新建 (x: "bye"): Derived2; 新建 (x: 文字): Base; }
 
 a = i;
 >a = i : I
->a : { new (x: "hi"): Derived1; new (x: "bye"): Derived2; new (x: string): Base; }
+>a : { 新建 (x: "hi"): Derived1; 新建 (x: "bye"): Derived2; 新建 (x: 文字): Base; }
 >i : I
 
 var r1 = new C('hi');
 >r1 : C
 >new C('hi') : C
->C : typeof C
+>C : 类为 C
 >'hi' : "hi"
 
 var r2: Derived2 = new i('bye');
@@ -121,6 +121,6 @@ var r3: Base = new a('hm');
 >r3 : Base
 >Base : Base
 >new a('hm') : Base
->a : { new (x: "hi"): Derived1; new (x: "bye"): Derived2; new (x: string): Base; }
+>a : { 新建 (x: "hi"): Derived1; 新建 (x: "bye"): Derived2; 新建 (x: 文字): Base; }
 >'hm' : "hm"
 

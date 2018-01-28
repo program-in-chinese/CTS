@@ -1,124 +1,124 @@
 === tests/cases/conformance/jsdoc/jsdocDisallowedInTypescript.ts ===
 // grammar error from checker
 var ara: Array.<number> = [1,2,3];
->ara : number[]
+>ara : 数字[]
 >Array : T[]
->[1,2,3] : number[]
+>[1,2,3] : 数字[]
 >1 : 1
 >2 : 2
 >3 : 3
 
 function f(x: ?number, y: Array.<number>) {
->f : (x: number | null, y: number[]) => number
->x : number | null
->y : number[]
+>f : (x: 数字 | 空值, y: 数字[]) => 数字
+>x : 数字 | 空值
+>y : 数字[]
 >Array : T[]
 
     return x ? x + y[1] : y[0];
->x ? x + y[1] : y[0] : number
+>x ? x + y[1] : y[0] : 数字
 >类型别名 :=> 数字
->x : number | null
->x + y[1] : number
+>x : 数字 | 空值
+>x + y[1] : 数字
 >类型别名 :=> 数字
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y[1] : number
+>y[1] : 数字
 >类型别名 :=> 数字
->y : number[]
+>y : 数字[]
 >1 : 1
->y[0] : number
+>y[0] : 数字
 >类型别名 :=> 数字
->y : number[]
+>y : 数字[]
 >0 : 0
 }
 function hof(ctor: function(new: number, string)) {
->hof : (ctor: new (arg1: string) => number) => number
->ctor : new (arg1: string) => number
->new : number
+>hof : (ctor: 新建 (arg1: 文字) => 数字) => 数字
+>ctor : 新建 (arg1: 文字) => 数字
+>new : 数字
 >类型别名 :=> 数字
 
     return new ctor('hi');
->new ctor('hi') : number
+>new ctor('hi') : 数字
 >类型别名 :=> 数字
->ctor : new (arg1: string) => number
+>ctor : 新建 (arg1: 文字) => 数字
 >'hi' : "hi"
 }
 function hof2(f: function(this: number, string): string) {
->hof2 : (f: (this: number, arg1: string) => string) => any
->f : (this: number, arg1: string) => string
->this : number
+>hof2 : (f: (this: 数字, arg1: 文字) => 文字) => 任意
+>f : (this: 数字, arg1: 文字) => 文字
+>this : 数字
 >类型别名 :=> 数字
 
     return f(12, 'hullo');
->f(12, 'hullo') : string
+>f(12, 'hullo') : 文字
 >类型别名 :=> 文字
->f : (this: number, arg1: string) => string
+>f : (this: 数字, arg1: 文字) => 文字
 >12 : 12
 >'hullo' : "hullo"
 }
 var whatevs: * = 1001;
->whatevs : any
+>whatevs : 任意
 >类型别名 :=> 任意
 >1001 : 1001
 
 var ques: ? = 'what';
->ques : any
+>ques : 任意
 >类型别名 :=> 任意
 >'what' : "what"
 
 var g: function(number, number): number = (n,m) => n + m;
->g : (arg0: number, arg1: number) => number
->(n,m) => n + m : (n: number, m: number) => number
->n : number
+>g : (arg0: 数字, arg1: 数字) => 数字
+>(n,m) => n + m : (n: 数字, m: 数字) => 数字
+>n : 数字
 >类型别名 :=> 数字
->m : number
+>m : 数字
 >类型别名 :=> 数字
->n + m : number
+>n + m : 数字
 >类型别名 :=> 数字
->n : number
+>n : 数字
 >类型别名 :=> 数字
->m : number
+>m : 数字
 >类型别名 :=> 数字
 
 var variadic: ...boolean = [true, false, true];
->variadic : boolean[]
->[true, false, true] : boolean[]
->true : true
+>variadic : 真假[]
+>[true, false, true] : 真假[]
+>true : 为真
 >类型别名 :=> 为真
->false : false
+>false : 为假
 >类型别名 :=> 为假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 var most: !string = 'definite';
->most : string
+>most : 文字
 >类型别名 :=> 文字
 >'definite' : "definite"
 
 var postfixdef: number! = 101;
->postfixdef : number
+>postfixdef : 数字
 >类型别名 :=> 数字
 >101 : 101
 
 var postfixopt: number? = undefined;
->postfixopt : number | null
->undefined : undefined
+>postfixopt : 数字 | 空值
+>undefined : 未定
 >类型别名 :=> 未定
 
 var nns: Array<?number>;
->nns : (number | null)[]
+>nns : (数字 | 空值)[]
 >Array : T[]
 
 var dns: Array<!number>;
->dns : number[]
+>dns : 数字[]
 >Array : T[]
 
 var anys: Array<*>;
->anys : any[]
+>anys : 任意[]
 >Array : T[]
 
 var vars: Array<...number>;
->vars : number[][]
+>vars : 数字[][]
 >Array : T[]
 
 

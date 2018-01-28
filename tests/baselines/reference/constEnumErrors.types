@@ -7,10 +7,10 @@ const enum E {
 }
 
 module E {
->E : typeof E
+>E : 类为 E
 
     var x = 1;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 >1 : 1
 }
@@ -27,17 +27,17 @@ const enum E1 {
     // forward reference to the element of the same enum
     Y = E1.Z,
 >Y : E1
->E1.Z : any
+>E1.Z : 任意
 >类型别名 :=> 任意
->E1 : typeof E1
->Z : any
+>E1 : 类为 E1
+>Z : 任意
 >类型别名 :=> 任意
 
     Y1 = E1["Z"]
 >Y1 : E1
->E1["Z"] : any
+>E1["Z"] : 任意
 >类型别名 :=> 任意
->E1 : typeof E1
+>E1 : 类为 E1
 >"Z" : "Z"
 }
 
@@ -49,47 +49,47 @@ const enum E2 {
 }
 
 var y0 = E2[1]
->y0 : any
+>y0 : 任意
 >类型别名 :=> 任意
->E2[1] : any
+>E2[1] : 任意
 >类型别名 :=> 任意
->E2 : typeof E2
+>E2 : 类为 E2
 >1 : 1
 
 var name = "A";
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >"A" : "A"
 
 var y1 = E2[name];
->y1 : any
+>y1 : 任意
 >类型别名 :=> 任意
->E2[name] : any
+>E2[name] : 任意
 >类型别名 :=> 任意
->E2 : typeof E2
->name : string
+>E2 : 类为 E2
+>name : 文字
 >类型别名 :=> 文字
 
 var x = E2;
->x : typeof E2
->E2 : typeof E2
+>x : 类为 E2
+>E2 : 类为 E2
 
 var y = [E2];
->y : (typeof E2)[]
->[E2] : (typeof E2)[]
->E2 : typeof E2
+>y : (类为 E2)[]
+>[E2] : (类为 E2)[]
+>E2 : 类为 E2
 
 function foo(t: any): void {
->foo : (t: any) => void
->t : any
+>foo : (t: 任意) => 无值
+>t : 任意
 >类型别名 :=> 任意
 }
 
 foo(E2);
->foo(E2) : void
+>foo(E2) : 无值
 >类型别名 :=> 无值
->foo : (t: any) => void
->E2 : typeof E2
+>foo : (t: 任意) => 无值
+>E2 : 类为 E2
 
 const enum NaNOrInfinity {
 >NaNOrInfinity : NaNOrInfinity
@@ -100,49 +100,49 @@ const enum NaNOrInfinity {
 
     B = A * A,
 >B : NaNOrInfinity
->A * A : number
+>A * A : 数字
 >类型别名 :=> 数字
 >A : NaNOrInfinity
 >A : NaNOrInfinity
 
     C = B * B,
 >C : NaNOrInfinity
->B * B : number
+>B * B : 数字
 >类型别名 :=> 数字
 >B : NaNOrInfinity
 >B : NaNOrInfinity
 
     D = C * C,
 >D : NaNOrInfinity
->C * C : number
+>C * C : 数字
 >类型别名 :=> 数字
 >C : NaNOrInfinity
 >C : NaNOrInfinity
 
     E = D * D,
 >E : NaNOrInfinity
->D * D : number
+>D * D : 数字
 >类型别名 :=> 数字
 >D : NaNOrInfinity
 >D : NaNOrInfinity
 
     F = E * E, // overflow
 >F : NaNOrInfinity
->E * E : number
+>E * E : 数字
 >类型别名 :=> 数字
 >E : NaNOrInfinity
 >E : NaNOrInfinity
 
     G = 1 / 0, // overflow
 >G : NaNOrInfinity
->1 / 0 : number
+>1 / 0 : 数字
 >类型别名 :=> 数字
 >1 : 1
 >0 : 0
 
     H = 0 / 0  // NaN
 >H : NaNOrInfinity
->0 / 0 : number
+>0 / 0 : 数字
 >类型别名 :=> 数字
 >0 : 0
 >0 : 0

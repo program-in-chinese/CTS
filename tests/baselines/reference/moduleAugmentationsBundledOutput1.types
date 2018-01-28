@@ -5,38 +5,38 @@ export class Cls {
 
 === tests/cases/compiler/m2.ts ===
 import {Cls} from "./m1";
->Cls : typeof Cls
+>Cls : 类为 Cls
 
 (<any>Cls.prototype).foo = function() { return 1; };
->(<any>Cls.prototype).foo = function() { return 1; } : () => number
->(<any>Cls.prototype).foo : any
+>(<any>Cls.prototype).foo = function() { return 1; } : () => 数字
+>(<any>Cls.prototype).foo : 任意
 >类型别名 :=> 任意
->(<any>Cls.prototype) : any
+>(<any>Cls.prototype) : 任意
 >类型别名 :=> 任意
-><any>Cls.prototype : any
+><any>Cls.prototype : 任意
 >类型别名 :=> 任意
 >Cls.prototype : Cls
->Cls : typeof Cls
+>Cls : 类为 Cls
 >prototype : Cls
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
->function() { return 1; } : () => number
+>function() { return 1; } : () => 数字
 >1 : 1
 
 (<any>Cls.prototype).bar = function() { return "1"; };
->(<any>Cls.prototype).bar = function() { return "1"; } : () => string
->(<any>Cls.prototype).bar : any
+>(<any>Cls.prototype).bar = function() { return "1"; } : () => 文字
+>(<any>Cls.prototype).bar : 任意
 >类型别名 :=> 任意
->(<any>Cls.prototype) : any
+>(<any>Cls.prototype) : 任意
 >类型别名 :=> 任意
-><any>Cls.prototype : any
+><any>Cls.prototype : 任意
 >类型别名 :=> 任意
 >Cls.prototype : Cls
->Cls : typeof Cls
+>Cls : 类为 Cls
 >prototype : Cls
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
->function() { return "1"; } : () => string
+>function() { return "1"; } : () => 文字
 >"1" : "1"
 
 declare module "./m1" {
@@ -44,7 +44,7 @@ declare module "./m1" {
 >Cls : Cls
 
         foo(): number;
->foo : () => number
+>foo : () => 数字
     }
 }
 
@@ -53,61 +53,61 @@ declare module "./m1" {
 >Cls : Cls
 
         bar(): string;
->bar : () => string
+>bar : () => 文字
     }
 }
 
 === tests/cases/compiler/m3.ts ===
 export class C1 { x: number }
 >C1 : C1
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 export class C2 { x: string }
 >C2 : C2
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
 === tests/cases/compiler/m4.ts ===
 import {Cls} from "./m1";
->Cls : typeof Cls
+>Cls : 类为 Cls
 
 import {C1, C2} from "./m3";
->C1 : typeof C1
->C2 : typeof C2
+>C1 : 类为 C1
+>C2 : 类为 C2
 
 (<any>Cls.prototype).baz1 = function() { return undefined };
->(<any>Cls.prototype).baz1 = function() { return undefined } : () => any
->(<any>Cls.prototype).baz1 : any
+>(<any>Cls.prototype).baz1 = function() { return undefined } : () => 任意
+>(<any>Cls.prototype).baz1 : 任意
 >类型别名 :=> 任意
->(<any>Cls.prototype) : any
+>(<any>Cls.prototype) : 任意
 >类型别名 :=> 任意
-><any>Cls.prototype : any
+><any>Cls.prototype : 任意
 >类型别名 :=> 任意
 >Cls.prototype : Cls
->Cls : typeof Cls
+>Cls : 类为 Cls
 >prototype : Cls
->baz1 : any
+>baz1 : 任意
 >类型别名 :=> 任意
->function() { return undefined } : () => any
->undefined : undefined
+>function() { return undefined } : () => 任意
+>undefined : 未定
 >类型别名 :=> 未定
 
 (<any>Cls.prototype).baz2 = function() { return undefined };
->(<any>Cls.prototype).baz2 = function() { return undefined } : () => any
->(<any>Cls.prototype).baz2 : any
+>(<any>Cls.prototype).baz2 = function() { return undefined } : () => 任意
+>(<any>Cls.prototype).baz2 : 任意
 >类型别名 :=> 任意
->(<any>Cls.prototype) : any
+>(<any>Cls.prototype) : 任意
 >类型别名 :=> 任意
-><any>Cls.prototype : any
+><any>Cls.prototype : 任意
 >类型别名 :=> 任意
 >Cls.prototype : Cls
->Cls : typeof Cls
+>Cls : 类为 Cls
 >prototype : Cls
->baz2 : any
+>baz2 : 任意
 >类型别名 :=> 任意
->function() { return undefined } : () => any
->undefined : undefined
+>function() { return undefined } : () => 任意
+>undefined : 未定
 >类型别名 :=> 未定
 
 declare module "./m1" {
@@ -132,7 +132,7 @@ declare module "./m1" {
 
 === tests/cases/compiler/test.ts ===
 import { Cls } from "./m1";
->Cls : typeof Cls
+>Cls : 类为 Cls
 
 import "m2";
 import "m4";
@@ -141,52 +141,52 @@ let c: Cls;
 >Cls : Cls
 
 c.foo().toExponential();
->c.foo().toExponential() : string
+>c.foo().toExponential() : 文字
 >类型别名 :=> 文字
->c.foo().toExponential : (fractionDigits?: number) => string
->c.foo() : number
+>c.foo().toExponential : (fractionDigits?: 数字) => 文字
+>c.foo() : 数字
 >类型别名 :=> 数字
->c.foo : () => number
+>c.foo : () => 数字
 >c : Cls
->foo : () => number
->toExponential : (fractionDigits?: number) => string
+>foo : () => 数字
+>toExponential : (fractionDigits?: 数字) => 文字
 
 c.bar().toLowerCase();
->c.bar().toLowerCase() : string
+>c.bar().toLowerCase() : 文字
 >类型别名 :=> 文字
->c.bar().toLowerCase : () => string
->c.bar() : string
+>c.bar().toLowerCase : () => 文字
+>c.bar() : 文字
 >类型别名 :=> 文字
->c.bar : () => string
+>c.bar : () => 文字
 >c : Cls
->bar : () => string
->toLowerCase : () => string
+>bar : () => 文字
+>toLowerCase : () => 文字
 
 c.baz1().x.toExponential();
->c.baz1().x.toExponential() : string
+>c.baz1().x.toExponential() : 文字
 >类型别名 :=> 文字
->c.baz1().x.toExponential : (fractionDigits?: number) => string
->c.baz1().x : number
+>c.baz1().x.toExponential : (fractionDigits?: 数字) => 文字
+>c.baz1().x : 数字
 >类型别名 :=> 数字
 >c.baz1() : C1
 >c.baz1 : () => C1
 >c : Cls
 >baz1 : () => C1
->x : number
+>x : 数字
 >类型别名 :=> 数字
->toExponential : (fractionDigits?: number) => string
+>toExponential : (fractionDigits?: 数字) => 文字
 
 c.baz2().x.toLowerCase();
->c.baz2().x.toLowerCase() : string
+>c.baz2().x.toLowerCase() : 文字
 >类型别名 :=> 文字
->c.baz2().x.toLowerCase : () => string
->c.baz2().x : string
+>c.baz2().x.toLowerCase : () => 文字
+>c.baz2().x : 文字
 >类型别名 :=> 文字
 >c.baz2() : C2
 >c.baz2 : () => C2
 >c : Cls
 >baz2 : () => C2
->x : string
+>x : 文字
 >类型别名 :=> 文字
->toLowerCase : () => string
+>toLowerCase : () => 文字
 

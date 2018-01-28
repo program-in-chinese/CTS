@@ -6,7 +6,7 @@ namespace ts.SymbolDisplay {
 
         if (flags & SymbolFlags.Class) {
             return getDeclarationOfKind(symbol, SyntaxKind.ClassExpression) ?
-            ScriptElementKind.localClassElement : ScriptElementKind.classElement;
+                ScriptElementKind.localClassElement : ScriptElementKind.classElement;
         }
         if (flags & SymbolFlags.Enum) return ScriptElementKind.enumElement;
         if (flags & SymbolFlags.TypeAlias) return ScriptElementKind.typeElement;
@@ -93,6 +93,8 @@ namespace ts.SymbolDisplay {
     // TODO(drosen): Currently completion entry details passes the SemanticMeaning.All instead of using semanticMeaning of location
     export function getSymbolDisplayPartsDocumentationAndSymbolKind(typeChecker: TypeChecker, symbol: Symbol, sourceFile: SourceFile, enclosingDeclaration: Node,
         location: Node, semanticMeaning = getMeaningFromLocation(location)) {
+        const 编译选项 = typeChecker.取编译选项()
+        const 使用中文 = 编译选项.中文关键字
 
         const displayParts: SymbolDisplayPart[] = [];
         let documentation: SymbolDisplayPart[];
@@ -158,7 +160,7 @@ namespace ts.SymbolDisplay {
                         pushTypePart(symbolKind);
                         displayParts.push(spacePart());
                         if (useConstructSignatures) {
-                            displayParts.push(keywordPart(SyntaxKind.NewKeyword));
+                            displayParts.push(keywordPart(SyntaxKind.NewKeyword, 使用中文));
                             displayParts.push(spacePart());
                         }
                         addFullSymbolName(symbol);
@@ -179,7 +181,7 @@ namespace ts.SymbolDisplay {
                             displayParts.push(punctuationPart(SyntaxKind.ColonToken));
                             displayParts.push(spacePart());
                             if (useConstructSignatures) {
-                                displayParts.push(keywordPart(SyntaxKind.NewKeyword));
+                                displayParts.push(keywordPart(SyntaxKind.NewKeyword, 使用中文));
                                 displayParts.push(spacePart());
                             }
                             if (!(type.flags & TypeFlags.Object && (<ObjectType>type).objectFlags & ObjectFlags.Anonymous) && type.symbol) {
@@ -237,7 +239,7 @@ namespace ts.SymbolDisplay {
             }
             else {
                 // Class declaration has name which is not local.
-                displayParts.push(keywordPart(SyntaxKind.ClassKeyword));
+                displayParts.push(keywordPart(SyntaxKind.ClassKeyword, 使用中文));
             }
             displayParts.push(spacePart());
             addFullSymbolName(symbol);
@@ -245,14 +247,14 @@ namespace ts.SymbolDisplay {
         }
         if ((symbolFlags & SymbolFlags.Interface) && (semanticMeaning & SemanticMeaning.Type)) {
             addNewLineIfDisplayPartsExist();
-            displayParts.push(keywordPart(SyntaxKind.InterfaceKeyword));
+            displayParts.push(keywordPart(SyntaxKind.InterfaceKeyword, 使用中文));
             displayParts.push(spacePart());
             addFullSymbolName(symbol);
             writeTypeParametersOfSymbol(symbol, sourceFile);
         }
         if (symbolFlags & SymbolFlags.TypeAlias) {
             addNewLineIfDisplayPartsExist();
-            displayParts.push(keywordPart(SyntaxKind.TypeKeyword));
+            displayParts.push(keywordPart(SyntaxKind.TypeKeyword, 使用中文));
             displayParts.push(spacePart());
             addFullSymbolName(symbol);
             writeTypeParametersOfSymbol(symbol, sourceFile);
@@ -264,10 +266,10 @@ namespace ts.SymbolDisplay {
         if (symbolFlags & SymbolFlags.Enum) {
             addNewLineIfDisplayPartsExist();
             if (forEach(symbol.declarations, isConstEnumDeclaration)) {
-                displayParts.push(keywordPart(SyntaxKind.ConstKeyword));
+                displayParts.push(keywordPart(SyntaxKind.ConstKeyword, 使用中文));
                 displayParts.push(spacePart());
             }
-            displayParts.push(keywordPart(SyntaxKind.EnumKeyword));
+            displayParts.push(keywordPart(SyntaxKind.EnumKeyword, 使用中文));
             displayParts.push(spacePart());
             addFullSymbolName(symbol);
         }
@@ -275,14 +277,14 @@ namespace ts.SymbolDisplay {
             addNewLineIfDisplayPartsExist();
             const declaration = getDeclarationOfKind<ModuleDeclaration>(symbol, SyntaxKind.ModuleDeclaration);
             const isNamespace = declaration && declaration.name && declaration.name.kind === SyntaxKind.Identifier;
-            displayParts.push(keywordPart(isNamespace ? SyntaxKind.NamespaceKeyword : SyntaxKind.ModuleKeyword));
+            displayParts.push(keywordPart(isNamespace ? SyntaxKind.NamespaceKeyword : SyntaxKind.ModuleKeyword, 使用中文));
             displayParts.push(spacePart());
             addFullSymbolName(symbol);
         }
         if ((symbolFlags & SymbolFlags.TypeParameter) && (semanticMeaning & SemanticMeaning.Type)) {
             addNewLineIfDisplayPartsExist();
             displayParts.push(punctuationPart(SyntaxKind.OpenParenToken));
-            displayParts.push(textPart("type parameter"));
+            displayParts.push(textPart(使用中文 ? "类型参数" : "type parameter"));
             displayParts.push(punctuationPart(SyntaxKind.CloseParenToken));
             displayParts.push(spacePart());
             addFullSymbolName(symbol);
@@ -303,7 +305,7 @@ namespace ts.SymbolDisplay {
                         addInPrefix();
                         const signature = typeChecker.getSignatureFromDeclaration(<SignatureDeclaration>declaration);
                         if (declaration.kind === SyntaxKind.ConstructSignature) {
-                            displayParts.push(keywordPart(SyntaxKind.NewKeyword));
+                            displayParts.push(keywordPart(SyntaxKind.NewKeyword, 使用中文));
                             displayParts.push(spacePart());
                         }
                         else if (declaration.kind !== SyntaxKind.CallSignature && (<SignatureDeclaration>declaration).name) {
@@ -316,7 +318,7 @@ namespace ts.SymbolDisplay {
                         // For example
                         //      type list<T> = T[];  // Both T will go through same code path
                         addInPrefix();
-                        displayParts.push(keywordPart(SyntaxKind.TypeKeyword));
+                        displayParts.push(keywordPart(SyntaxKind.TypeKeyword, 使用中文));
                         displayParts.push(spacePart());
                         addFullSymbolName(declaration.symbol);
                         writeTypeParametersOfSymbol(declaration.symbol, sourceFile);
@@ -343,17 +345,17 @@ namespace ts.SymbolDisplay {
             addNewLineIfDisplayPartsExist();
             switch (symbol.declarations[0].kind) {
                 case SyntaxKind.NamespaceExportDeclaration:
-                    displayParts.push(keywordPart(SyntaxKind.ExportKeyword));
+                    displayParts.push(keywordPart(SyntaxKind.ExportKeyword, 使用中文));
                     displayParts.push(spacePart());
-                    displayParts.push(keywordPart(SyntaxKind.NamespaceKeyword));
+                    displayParts.push(keywordPart(SyntaxKind.NamespaceKeyword, 使用中文));
                     break;
                 case SyntaxKind.ExportAssignment:
-                    displayParts.push(keywordPart(SyntaxKind.ExportKeyword));
+                    displayParts.push(keywordPart(SyntaxKind.ExportKeyword, 使用中文));
                     displayParts.push(spacePart());
-                    displayParts.push(keywordPart((symbol.declarations[0] as ExportAssignment).isExportEquals ? SyntaxKind.EqualsToken : SyntaxKind.DefaultKeyword));
+                    displayParts.push(keywordPart((symbol.declarations[0] as ExportAssignment).isExportEquals ? SyntaxKind.EqualsToken : SyntaxKind.DefaultKeyword, 使用中文));
                     break;
                 default:
-                    displayParts.push(keywordPart(SyntaxKind.ImportKeyword));
+                    displayParts.push(keywordPart(SyntaxKind.ImportKeyword, 使用中文));
             }
             displayParts.push(spacePart());
             addFullSymbolName(symbol);
@@ -364,7 +366,7 @@ namespace ts.SymbolDisplay {
                         displayParts.push(spacePart());
                         displayParts.push(operatorPart(SyntaxKind.EqualsToken));
                         displayParts.push(spacePart());
-                        displayParts.push(keywordPart(SyntaxKind.RequireKeyword));
+                        displayParts.push(keywordPart(SyntaxKind.RequireKeyword, 使用中文));
                         displayParts.push(punctuationPart(SyntaxKind.OpenParenToken));
                         displayParts.push(displayPart(getTextOfNode(getExternalModuleImportEqualsDeclarationExpression(importEqualsDeclaration)), SymbolDisplayPartKind.stringLiteral));
                         displayParts.push(punctuationPart(SyntaxKind.CloseParenToken));
@@ -387,7 +389,7 @@ namespace ts.SymbolDisplay {
                 if (type) {
                     if (isThisExpression) {
                         addNewLineIfDisplayPartsExist();
-                        displayParts.push(keywordPart(SyntaxKind.ThisKeyword));
+                        displayParts.push(keywordPart(SyntaxKind.ThisKeyword, 使用中文));
                     }
                     else {
                         addPrefixForAnyFunctionOrVar(symbol, symbolKind);
@@ -468,7 +470,7 @@ namespace ts.SymbolDisplay {
 
         function addInPrefix() {
             displayParts.push(spacePart());
-            displayParts.push(keywordPart(SyntaxKind.InKeyword));
+            displayParts.push(keywordPart(SyntaxKind.InKeyword, 使用中文));
             displayParts.push(spacePart());
         }
 
@@ -494,11 +496,11 @@ namespace ts.SymbolDisplay {
                 case ScriptElementKind.letElement:
                 case ScriptElementKind.constElement:
                 case ScriptElementKind.constructorImplementationElement:
-                    displayParts.push(textOrKeywordPart(symbolKind));
+                    displayParts.push(textOrKeywordPart(symbolKind, 使用中文));
                     return;
                 default:
                     displayParts.push(punctuationPart(SyntaxKind.OpenParenToken));
-                    displayParts.push(textOrKeywordPart(symbolKind));
+                    displayParts.push(textOrKeywordPart(symbolKind, 使用中文));
                     displayParts.push(punctuationPart(SyntaxKind.CloseParenToken));
                     return;
             }
@@ -512,7 +514,7 @@ namespace ts.SymbolDisplay {
                 displayParts.push(operatorPart(SyntaxKind.PlusToken));
                 displayParts.push(displayPart((allSignatures.length - 1).toString(), SymbolDisplayPartKind.numericLiteral));
                 displayParts.push(spacePart());
-                displayParts.push(textPart(allSignatures.length === 2 ? "overload" : "overloads"));
+                displayParts.push(textPart(allSignatures.length === 2 ? 使用中文 ? "重载" : "overload" : 使用中文 ? "重载集" : "overloads"));
                 displayParts.push(punctuationPart(SyntaxKind.CloseParenToken));
             }
             documentation = signature.getDocumentationComment();

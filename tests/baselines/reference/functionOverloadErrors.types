@@ -1,149 +1,149 @@
 === tests/cases/conformance/functions/functionOverloadErrors.ts ===
 //Function overload signature with initializer
 function fn1(x = 3);
->fn1 : (x?: number) => any
->x : number
+>fn1 : (x?: 数字) => 任意
+>x : 数字
 >类型别名 :=> 数字
 >3 : 3
 
 function fn1() { }
->fn1 : (x?: number) => any
+>fn1 : (x?: 数字) => 任意
 
 //Multiple function overload signatures that are identical
 function fn2a();
->fn2a : { (): any; (): any; }
+>fn2a : { (): 任意; (): 任意; }
 
 function fn2a();
->fn2a : { (): any; (): any; }
+>fn2a : { (): 任意; (): 任意; }
 
 function fn2a() {
->fn2a : { (): any; (): any; }
+>fn2a : { (): 任意; (): 任意; }
 
 }
 function fn2b(n: number[]);
->fn2b : { (n: number[]): any; (n: number[]): any; }
->n : number[]
+>fn2b : { (n: 数字[]): 任意; (n: 数字[]): 任意; }
+>n : 数字[]
 
 function fn2b(n: Array<number>);
->fn2b : { (n: number[]): any; (n: number[]): any; }
->n : number[]
+>fn2b : { (n: 数字[]): 任意; (n: 数字[]): 任意; }
+>n : 数字[]
 >Array : T[]
 
 function fn2b() {
->fn2b : { (n: number[]): any; (n: number[]): any; }
+>fn2b : { (n: 数字[]): 任意; (n: 数字[]): 任意; }
 }
 
 //Multiple function overload signatures that differ only by return type
 function fn3(x: string): string;
->fn3 : { (x: string): string; (y: string): number; }
->x : string
+>fn3 : { (x: 文字): 文字; (y: 文字): 数字; }
+>x : 文字
 >类型别名 :=> 文字
 
 function fn3(y: string): number;
->fn3 : { (x: string): string; (y: string): number; }
->y : string
+>fn3 : { (x: 文字): 文字; (y: 文字): 数字; }
+>y : 文字
 >类型别名 :=> 文字
 
 function fn3(): any {
->fn3 : { (x: string): string; (y: string): number; }
+>fn3 : { (x: 文字): 文字; (y: 文字): 数字; }
 
     return null;
->null : null
+>null : 空值
 >类型别名 :=> 空值
 }
 
 //Function overload with rest param and another with only an optional parameter
 function fn6(...t: any[]);
->fn6 : { (...t: any[]): any; (x?: any): any; }
->t : any[]
+>fn6 : { (...t: 任意[]): 任意; (x?: 任意): 任意; }
+>t : 任意[]
 
 function fn6(x?: any);
->fn6 : { (...t: any[]): any; (x?: any): any; }
->x : any
+>fn6 : { (...t: 任意[]): 任意; (x?: 任意): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function fn6() { }
->fn6 : { (...t: any[]): any; (x?: any): any; }
+>fn6 : { (...t: 任意[]): 任意; (x?: 任意): 任意; }
 
 //Function overload with rest param and another with only optional parameters
 function fn7(...t: any[]);
->fn7 : { (...t: any[]): any; (x?: any, y?: any, z?: any): any; }
->t : any[]
+>fn7 : { (...t: 任意[]): 任意; (x?: 任意, y?: 任意, z?: 任意): 任意; }
+>t : 任意[]
 
 function fn7(x?: any, y?: any, z?: any);
->fn7 : { (...t: any[]): any; (x?: any, y?: any, z?: any): any; }
->x : any
+>fn7 : { (...t: 任意[]): 任意; (x?: 任意, y?: 任意, z?: 任意): 任意; }
+>x : 任意
 >类型别名 :=> 任意
->y : any
+>y : 任意
 >类型别名 :=> 任意
->z : any
+>z : 任意
 >类型别名 :=> 任意
 
 function fn7() { }
->fn7 : { (...t: any[]): any; (x?: any, y?: any, z?: any): any; }
+>fn7 : { (...t: 任意[]): 任意; (x?: 任意, y?: 任意, z?: 任意): 任意; }
 
 //Function overloads that differ only by type parameter name
 function fn8<T>(n: string);
->fn8 : { <T>(n: string): any; <S>(n: string): any; }
+>fn8 : { <T>(n: 文字): 任意; <S>(n: 文字): 任意; }
 >T : T
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 function fn8<S>(n: string);
->fn8 : { <T>(n: string): any; <S>(n: string): any; }
+>fn8 : { <T>(n: 文字): 任意; <S>(n: 文字): 任意; }
 >S : S
->n : string
+>n : 文字
 >类型别名 :=> 文字
 
 function fn8() { }
->fn8 : { <T>(n: string): any; <S>(n: string): any; }
+>fn8 : { <T>(n: 文字): 任意; <S>(n: 文字): 任意; }
 
 //Function overloads that differ only by type parameter name when used in parameter type annotations
 function fn9<T>(n: T);
->fn9 : { <T>(n: T): any; <S>(n: S): any; }
+>fn9 : { <T>(n: T): 任意; <S>(n: S): 任意; }
 >T : T
 >n : T
 >T : T
 
 function fn9<S>(n: S);
->fn9 : { <T>(n: T): any; <S>(n: S): any; }
+>fn9 : { <T>(n: T): 任意; <S>(n: S): 任意; }
 >S : S
 >n : S
 >S : S
 
 function fn9() { }
->fn9 : { <T>(n: T): any; <S>(n: S): any; }
+>fn9 : { <T>(n: T): 任意; <S>(n: S): 任意; }
 
 //Function overloads that differ only by type parameter constraints
 function fn10<T extends Window>();
->fn10 : { <T extends any>(): any; <S extends Date>(): any; }
+>fn10 : { <T 扩展 任意>(): 任意; <S 扩展 Date>(): 任意; }
 >T : T
 >Window : No type information available!
 
 function fn10<S extends Date>();
->fn10 : { <T extends any>(): any; <S extends Date>(): any; }
+>fn10 : { <T 扩展 任意>(): 任意; <S 扩展 Date>(): 任意; }
 >S : S
 >Date : Date
 
 function fn10() { }
->fn10 : { <T extends any>(): any; <S extends Date>(): any; }
+>fn10 : { <T 扩展 任意>(): 任意; <S 扩展 Date>(): 任意; }
 
 // (actually OK)
 
 //Function overloads that differ only by type parameter constraints where constraints are structually identical
 function fn11<T extends Window>();
->fn11 : { <T extends any>(): any; <S extends any>(): any; }
+>fn11 : { <T 扩展 任意>(): 任意; <S 扩展 任意>(): 任意; }
 >T : T
 >Window : No type information available!
 
 function fn11<S extends typeof window>();
->fn11 : { <T extends any>(): any; <S extends any>(): any; }
+>fn11 : { <T 扩展 任意>(): 任意; <S 扩展 任意>(): 任意; }
 >S : S
->window : any
+>window : 任意
 >类型别名 :=> 任意
 
 function fn11() { }
->fn11 : { <T extends any>(): any; <S extends any>(): any; }
+>fn11 : { <T 扩展 任意>(): 任意; <S 扩展 任意>(): 任意; }
 
 //Function overloads that differ only by type parameter constraints where constraints include infinitely recursive type reference
 interface List<T> {
@@ -157,125 +157,125 @@ interface List<T> {
 >T : T
 }
 function fn12<T extends List<List<any>>>();
->fn12 : { <T extends List<List<any>>>(): any; <T extends List<any>>(): any; }
+>fn12 : { <T 扩展 List<List<任意>>>(): 任意; <T 扩展 List<任意>>(): 任意; }
 >T : T
 >List : List<T>
 >List : List<T>
 
 function fn12<T extends List<any>>();
->fn12 : { <T extends List<List<any>>>(): any; <T extends List<any>>(): any; }
+>fn12 : { <T 扩展 List<List<任意>>>(): 任意; <T 扩展 List<任意>>(): 任意; }
 >T : T
 >List : List<T>
 
 function fn12() { }
->fn12 : { <T extends List<List<any>>>(): any; <T extends List<any>>(): any; }
+>fn12 : { <T 扩展 List<List<任意>>>(): 任意; <T 扩展 List<任意>>(): 任意; }
 
 //Function overloads that differ by accessibility
 class cls {
 >cls : cls
 
     public f();
->f : { (): any; (s: string): any; }
+>f : { (): 任意; (s: 文字): 任意; }
 
     private f(s: string);
->f : { (): any; (s: string): any; }
->s : string
+>f : { (): 任意; (s: 文字): 任意; }
+>s : 文字
 >类型别名 :=> 文字
 
     f() { }
->f : { (): any; (s: string): any; }
+>f : { (): 任意; (s: 文字): 任意; }
 
     private g(s: string);
->g : { (s: string): any; (): any; }
->s : string
+>g : { (s: 文字): 任意; (): 任意; }
+>s : 文字
 >类型别名 :=> 文字
 
     public g();
->g : { (s: string): any; (): any; }
+>g : { (s: 文字): 任意; (): 任意; }
 
     g() { }
->g : { (s: string): any; (): any; }
+>g : { (s: 文字): 任意; (): 任意; }
 }
 
 //Function overloads with differing export
 module M {
->M : typeof M
+>M : 类为 M
 
     export function fn1();
->fn1 : () => any
+>fn1 : () => 任意
 
     function fn1(n: string);
->fn1 : { (): any; (n: string): any; }
->n : string
+>fn1 : { (): 任意; (n: 文字): 任意; }
+>n : 文字
 >类型别名 :=> 文字
 
     function fn1() { } 
->fn1 : { (): any; (n: string): any; }
+>fn1 : { (): 任意; (n: 文字): 任意; }
 
     function fn2(n: string);
->fn2 : { (n: string): any; (): any; }
->n : string
+>fn2 : { (n: 文字): 任意; (): 任意; }
+>n : 文字
 >类型别名 :=> 文字
 
     export function fn2();
->fn2 : () => any
+>fn2 : () => 任意
 
     export function fn2() { } 
->fn2 : () => any
+>fn2 : () => 任意
 }
 
 //Function overloads with differing ambience
 declare function dfn1();
->dfn1 : { (): any; (s: string): any; }
+>dfn1 : { (): 任意; (s: 文字): 任意; }
 
 function dfn1(s: string);
->dfn1 : { (): any; (s: string): any; }
->s : string
+>dfn1 : { (): 任意; (s: 文字): 任意; }
+>s : 文字
 >类型别名 :=> 文字
 
 function dfn1() { }
->dfn1 : { (): any; (s: string): any; }
+>dfn1 : { (): 任意; (s: 文字): 任意; }
 
 function dfn2();
->dfn2 : { (): any; (s: string): any; }
+>dfn2 : { (): 任意; (s: 文字): 任意; }
 
 declare function dfn2(s: string);
->dfn2 : { (): any; (s: string): any; }
->s : string
+>dfn2 : { (): 任意; (s: 文字): 任意; }
+>s : 文字
 >类型别名 :=> 文字
 
 function dfn2() { }
->dfn2 : { (): any; (s: string): any; }
+>dfn2 : { (): 任意; (s: 文字): 任意; }
 
 //Function overloads with fewer params than implementation signature
 function fewerParams();
->fewerParams : () => any
+>fewerParams : () => 任意
 
 function fewerParams(n: string) {
->fewerParams : () => any
->n : string
+>fewerParams : () => 任意
+>n : 文字
 >类型别名 :=> 文字
 }
 
 //Function implementation whose parameter types are not assignable to all corresponding overload signature parameters
 function fn13(n: string);
->fn13 : (n: string) => any
->n : string
+>fn13 : (n: 文字) => 任意
+>n : 文字
 >类型别名 :=> 文字
 
 function fn13(n: number) { }
->fn13 : (n: string) => any
->n : number
+>fn13 : (n: 文字) => 任意
+>n : 数字
 >类型别名 :=> 数字
 
 //Function overloads where return types are not all subtype of implementation return type
 function fn14(n: string): string;
->fn14 : (n: string) => string
->n : string
+>fn14 : (n: 文字) => 文字
+>n : 文字
 >类型别名 :=> 文字
 
 function fn14() {
->fn14 : (n: string) => string
+>fn14 : (n: 文字) => 文字
 
     return 3;
 >3 : 3
@@ -283,33 +283,33 @@ function fn14() {
 
 //Function overloads where return types are different infinitely recursive type reference
 function fn15<T extends List<List<any>>>(): T;
->fn15 : { <T extends List<List<any>>>(): T; <T extends List<any>>(): T; }
+>fn15 : { <T 扩展 List<List<任意>>>(): T; <T 扩展 List<任意>>(): T; }
 >T : T
 >List : List<T>
 >List : List<T>
 >T : T
 
 function fn15<T extends List<any>>(): T;
->fn15 : { <T extends List<List<any>>>(): T; <T extends List<any>>(): T; }
+>fn15 : { <T 扩展 List<List<任意>>>(): T; <T 扩展 List<任意>>(): T; }
 >T : T
 >List : List<T>
 >T : T
 
 function fn15() {
->fn15 : { <T extends List<List<any>>>(): T; <T extends List<any>>(): T; }
+>fn15 : { <T 扩展 List<List<任意>>>(): T; <T 扩展 List<任意>>(): T; }
 
     return undefined;
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
 //Function overloads which use initializer expressions
 function initExpr(n = 13);
->initExpr : (n?: number) => any
->n : number
+>initExpr : (n?: 数字) => 任意
+>n : 数字
 >类型别名 :=> 数字
 >13 : 13
 
 function initExpr() { }
->initExpr : (n?: number) => any
+>initExpr : (n?: 数字) => 任意
 

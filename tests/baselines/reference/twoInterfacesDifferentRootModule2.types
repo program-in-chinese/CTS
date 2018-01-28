@@ -2,13 +2,13 @@
 // two interfaces with different root modules should not merge
 
 module M {
->M : typeof M
+>M : 类为 M
 
     export interface A {
 >A : A
 
         foo: string;
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
     }
 
@@ -22,13 +22,13 @@ module M {
     }
 
     module M2 {
->M2 : typeof M2
+>M2 : 类为 M2
 
         export interface A {
 >A : A
 
             bar: number;
->bar : number
+>bar : 数字
 >类型别名 :=> 数字
         }
 
@@ -37,21 +37,21 @@ module M {
 >A : A
 
         var r1 = a.foo; // error
->r1 : any
+>r1 : 任意
 >类型别名 :=> 任意
->a.foo : any
+>a.foo : 任意
 >类型别名 :=> 任意
 >a : A
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 
         var r2 = a.bar;
->r2 : number
+>r2 : 数字
 >类型别名 :=> 数字
->a.bar : number
+>a.bar : 数字
 >类型别名 :=> 数字
 >a : A
->bar : number
+>bar : 数字
 >类型别名 :=> 数字
 
         export interface B<T> {
@@ -64,25 +64,25 @@ module M {
         }
 
         var b: B<string>;
->b : B<string>
+>b : B<文字>
 >B : B<T>
 
         var r3 = b.foo; // error
->r3 : any
+>r3 : 任意
 >类型别名 :=> 任意
->b.foo : any
+>b.foo : 任意
 >类型别名 :=> 任意
->b : B<string>
->foo : any
+>b : B<文字>
+>foo : 任意
 >类型别名 :=> 任意
 
         var r4 = b.bar;
->r4 : string
+>r4 : 文字
 >类型别名 :=> 文字
->b.bar : string
+>b.bar : 文字
 >类型别名 :=> 文字
->b : B<string>
->bar : string
+>b : B<文字>
+>bar : 文字
 >类型别名 :=> 文字
     }
 
@@ -91,42 +91,42 @@ module M {
 >A : A
 
     var r1 = a.foo; 
->r1 : string
+>r1 : 文字
 >类型别名 :=> 文字
->a.foo : string
+>a.foo : 文字
 >类型别名 :=> 文字
 >a : A
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
     var r2 = a.bar; // error
->r2 : any
+>r2 : 任意
 >类型别名 :=> 任意
->a.bar : any
+>a.bar : 任意
 >类型别名 :=> 任意
 >a : A
->bar : any
+>bar : 任意
 >类型别名 :=> 任意
 
     var b: B<string>;
->b : B<string>
+>b : B<文字>
 >B : B<T>
 
     var r3 = b.foo; 
->r3 : string
+>r3 : 文字
 >类型别名 :=> 文字
->b.foo : string
+>b.foo : 文字
 >类型别名 :=> 文字
->b : B<string>
->foo : string
+>b : B<文字>
+>foo : 文字
 >类型别名 :=> 文字
 
     var r4 = b.bar; // error
->r4 : any
+>r4 : 任意
 >类型别名 :=> 任意
->b.bar : any
+>b.bar : 任意
 >类型别名 :=> 任意
->b : B<string>
->bar : any
+>b : B<文字>
+>bar : 任意
 >类型别名 :=> 任意
 }

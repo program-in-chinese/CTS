@@ -1,51 +1,51 @@
 === tests/cases/compiler/index.ts ===
 /// <reference path="declarations.d.ts" />
 import { X } from "foobar";
->X : number
+>X : 数字
 >类型别名 :=> 数字
 
 import X2 = require("foobarx");
->X2 : number
+>X2 : 数字
 >类型别名 :=> 数字
 
 const x: X = X;
->x : number
+>x : 数字
 >类型别名 :=> 数字
->X : number
+>X : 数字
 >类型别名 :=> 数字
->X : number
+>X : 数字
 >类型别名 :=> 数字
 
 const x2: X2 = X2;
->x2 : number
+>x2 : 数字
 >类型别名 :=> 数字
->X2 : number
+>X2 : 数字
 >类型别名 :=> 数字
->X2 : number
+>X2 : 数字
 >类型别名 :=> 数字
 
 import B = require("./a");
->B : typeof B
+>B : 类为 B
 
 const b: B = new B(B.b);
 >b : B
 >B : B
 >new B(B.b) : B
->B : typeof B
->B.b : number
+>B : 类为 B
+>B.b : 数字
 >类型别名 :=> 数字
->B : typeof B
->b : number
+>B : 类为 B
+>b : 数字
 >类型别名 :=> 数字
 
 import fooLength = require("./b");
->fooLength : number
+>fooLength : 数字
 >类型别名 :=> 数字
 
 fooLength + 1;
->fooLength + 1 : number
+>fooLength + 1 : 数字
 >类型别名 :=> 数字
->fooLength : number
+>fooLength : 数字
 >类型别名 :=> 数字
 >1 : 1
 
@@ -53,61 +53,61 @@ fooLength + 1;
 // This test is just like exportDefaultProperty, but with `export =`.
 
 declare namespace foo.bar {
->foo : typeof foo
->bar : typeof bar
+>foo : 类为 foo
+>bar : 类为 bar
 
     export type X = number;
->X : number
+>X : 数字
 >类型别名 :=> 数字
 
     export const X: number;
->X : number
+>X : 数字
 >类型别名 :=> 数字
 }
 
 declare module "foobar" {
     export = foo.bar;
->foo.bar : typeof foo.bar
->foo : typeof foo
->bar : typeof foo.bar
+>foo.bar : 类为 foo.bar
+>foo : 类为 foo
+>bar : 类为 foo.bar
 }
 
 declare module "foobarx" {
     export = foo.bar.X;
->foo.bar.X : number
+>foo.bar.X : 数字
 >类型别名 :=> 数字
->foo.bar : typeof foo.bar
->foo : typeof foo
->bar : typeof foo.bar
->X : number
+>foo.bar : 类为 foo.bar
+>foo : 类为 foo
+>bar : 类为 foo.bar
+>X : 数字
 >类型别名 :=> 数字
 }
 
 === tests/cases/compiler/a.ts ===
 namespace A {
->A : typeof A
+>A : 类为 A
 
     export class B { constructor(b: number) {} }
 >B : B
->b : number
+>b : 数字
 >类型别名 :=> 数字
 
     export namespace B { export const b: number = 0; }
->B : typeof B
->b : number
+>B : 类为 B
+>b : 数字
 >类型别名 :=> 数字
 >0 : 0
 }
 export = A.B;
->A.B : typeof A.B
->A : typeof A
->B : typeof A.B
+>A.B : 类为 A.B
+>A : 类为 A
+>B : 类为 A.B
 
 === tests/cases/compiler/b.ts ===
 export = "foo".length;
->"foo".length : number
+>"foo".length : 数字
 >类型别名 :=> 数字
 >"foo" : "foo"
->length : number
+>length : 数字
 >类型别名 :=> 数字
 

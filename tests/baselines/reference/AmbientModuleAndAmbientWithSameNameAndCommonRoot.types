@@ -1,19 +1,19 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/module.d.ts ===
 declare module A {
->A : typeof A
+>A : 类为 A
 
     export module Point {
->Point : typeof Point
+>Point : 类为 Point
 
         export var Origin: {
->Origin : { x: number; y: number; }
+>Origin : { x: 数字; y: 数字; }
 
             x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
             y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
         }
     }
@@ -21,49 +21,49 @@ declare module A {
 
 === tests/cases/conformance/internalModules/DeclarationMerging/class.d.ts ===
 declare module A {
->A : typeof A
+>A : 类为 A
 
     export class Point {
 >Point : Point
 
         constructor(x: number, y: number);
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
         x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 }
 
 === tests/cases/conformance/internalModules/DeclarationMerging/test.ts ===
 var p: { x: number; y: number; }
->p : { x: number; y: number; }
->x : number
+>p : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var p = A.Point.Origin;
->p : { x: number; y: number; }
->A.Point.Origin : { x: number; y: number; }
->A.Point : typeof A.Point
->A : typeof A
->Point : typeof A.Point
->Origin : { x: number; y: number; }
+>p : { x: 数字; y: 数字; }
+>A.Point.Origin : { x: 数字; y: 数字; }
+>A.Point : 类为 A.Point
+>A : 类为 A
+>Point : 类为 A.Point
+>Origin : { x: 数字; y: 数字; }
 
 var p = new A.Point(0, 0); // unexpected error here, bug 840000
->p : { x: number; y: number; }
+>p : { x: 数字; y: 数字; }
 >new A.Point(0, 0) : A.Point
->A.Point : typeof A.Point
->A : typeof A
->Point : typeof A.Point
+>A.Point : 类为 A.Point
+>A : 类为 A
+>Point : 类为 A.Point
 >0 : 0
 >0 : 0
  

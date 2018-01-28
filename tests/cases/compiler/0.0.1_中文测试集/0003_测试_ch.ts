@@ -4,7 +4,7 @@
 // @alwaysStrict: true
 // @noImplicitAny: true
 
-// @filename: /b/node_modules/@typesch/testCh/index.d.ts
+// @filename: /b/node_modules/@typesch/testCh/index.d.cts
 //@@{ 测试:foo, 属性1:bar, 属性2:baz, 合成属性:nested, 甲:a, 乙:b }
 导出 类型 测试 = {
   属性1: 数字 | 空值;
@@ -35,7 +35,7 @@
 
 //**************** 分割线 *******************//
 
-// @filename: /b/测试_3_ch.ts  
+// @filename: /b/测试_3_ch.cts  
 导入 { 测试, 取属性, 置属性, 引发事件, 事件类型 } 来自 "testCh"
 
 常量 aFoo: 测试 = { 属性1: 3, 属性2: "b", 合成属性: { 甲: 1, 乙: "y" } };

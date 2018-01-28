@@ -1,92 +1,92 @@
 === tests/cases/compiler/fatarrowfunctionsErrors.ts ===
 foo((...Far:any[])=>{return 0;})
->foo((...Far:any[])=>{return 0;}) : any
+>foo((...Far:any[])=>{return 0;}) : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
->(...Far:any[])=>{return 0;} : (...Far: any[]) => number
->Far : any[]
+>(...Far:any[])=>{return 0;} : (...Far: 任意[]) => 数字
+>Far : 任意[]
 >0 : 0
 
 foo((1)=>{return 0;}); 
->foo((1)=>{return 0;}) : any
+>foo((1)=>{return 0;}) : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
 >(1) : 1
 >1 : 1
->{return 0;} : { return: number; }
->return : number
+>{return 0;} : { return: 数字; }
+>return : 数字
 >类型别名 :=> 数字
 >0 : 0
 
 foo((x?)=>{return x;})
->foo((x?)=>{return x;}) : any
+>foo((x?)=>{return x;}) : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
->(x?)=>{return x;} : (x?: any) => any
->x : any
+>(x?)=>{return x;} : (x?: 任意) => 任意
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 foo((x=0)=>{return x;})
->foo((x=0)=>{return x;}) : any
+>foo((x=0)=>{return x;}) : 任意
 >类型别名 :=> 任意
->foo : any
+>foo : 任意
 >类型别名 :=> 任意
->(x=0)=>{return x;} : (x?: number) => number
->x : number
+>(x=0)=>{return x;} : (x?: 数字) => 数字
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
 var y = x:number => x*x;
->y : any
+>y : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
->number : any
+>number : 任意
 >类型别名 :=> 任意
->x*x : number
+>x*x : 数字
 >类型别名 :=> 数字
->x : any
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 false? (() => null): null;
->false? (() => null): null : () => any
->false : false
+>false? (() => null): null : () => 任意
+>false : 为假
 >类型别名 :=> 为假
->(() => null) : () => any
->() => null : () => any
->null : null
+>(() => null) : () => 任意
+>() => null : () => 任意
+>null : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 // missing fatarrow
 var x1 = () :void {};
->x1 : () => void
->() :void {} : () => void
+>x1 : () => 无值
+>() :void {} : () => 无值
 
 var x2 = (a:number) :void {};
->x2 : (a: number) => void
->(a:number) :void {} : (a: number) => void
->a : number
+>x2 : (a: 数字) => 无值
+>(a:number) :void {} : (a: 数字) => 无值
+>a : 数字
 >类型别名 :=> 数字
 
 var x3 = (a:number) {};
->x3 : (a: number) => void
->(a:number) {} : (a: number) => void
->a : number
+>x3 : (a: 数字) => 无值
+>(a:number) {} : (a: 数字) => 无值
+>a : 数字
 >类型别名 :=> 数字
 
 var x4= (...a: any[]) { };
->x4 : (...a: any[]) => void
->(...a: any[]) { } : (...a: any[]) => void
->a : any[]
+>x4 : (...a: 任意[]) => 无值
+>(...a: any[]) { } : (...a: 任意[]) => 无值
+>a : 任意[]
 

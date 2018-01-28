@@ -1,97 +1,97 @@
 === tests/cases/compiler/overloadResolutionWithAny.ts ===
 var func: {
->func : { (s: string): number; (s: any): string; }
+>func : { (s: 文字): 数字; (s: 任意): 文字; }
 
     (s: string): number;
->s : string
+>s : 文字
 >类型别名 :=> 文字
 
     (s: any): string;
->s : any
+>s : 任意
 >类型别名 :=> 任意
 
 };
 
 func(""); // number
->func("") : number
+>func("") : 数字
 >类型别名 :=> 数字
->func : { (s: string): number; (s: any): string; }
+>func : { (s: 文字): 数字; (s: 任意): 文字; }
 >"" : ""
 
 func(3); // string
->func(3) : string
+>func(3) : 文字
 >类型别名 :=> 文字
->func : { (s: string): number; (s: any): string; }
+>func : { (s: 文字): 数字; (s: 任意): 文字; }
 >3 : 3
 
 var x: any;
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 func(x); // string
->func(x) : string
+>func(x) : 文字
 >类型别名 :=> 文字
->func : { (s: string): number; (s: any): string; }
->x : any
+>func : { (s: 文字): 数字; (s: 任意): 文字; }
+>x : 任意
 >类型别名 :=> 任意
 
 var func2: {
->func2 : { (s: string, t: string): number; (s: any, t: string): boolean; (s: string, t: any): RegExp; (s: any, t: any): string; }
+>func2 : { (s: 文字, t: 文字): 数字; (s: 任意, t: 文字): 真假; (s: 文字, t: 任意): RegExp; (s: 任意, t: 任意): 文字; }
 
     (s: string, t: string): number;
->s : string
+>s : 文字
 >类型别名 :=> 文字
->t : string
+>t : 文字
 >类型别名 :=> 文字
 
     (s: any, t: string): boolean;
->s : any
+>s : 任意
 >类型别名 :=> 任意
->t : string
+>t : 文字
 >类型别名 :=> 文字
 
     (s: string, t: any): RegExp;
->s : string
+>s : 文字
 >类型别名 :=> 文字
->t : any
+>t : 任意
 >类型别名 :=> 任意
 >RegExp : RegExp
 
     (s: any, t: any): string;
->s : any
+>s : 任意
 >类型别名 :=> 任意
->t : any
+>t : 任意
 >类型别名 :=> 任意
 }
 
 func2(x, x); // string
->func2(x, x) : string
+>func2(x, x) : 文字
 >类型别名 :=> 文字
->func2 : { (s: string, t: string): number; (s: any, t: string): boolean; (s: string, t: any): RegExp; (s: any, t: any): string; }
->x : any
+>func2 : { (s: 文字, t: 文字): 数字; (s: 任意, t: 文字): 真假; (s: 文字, t: 任意): RegExp; (s: 任意, t: 任意): 文字; }
+>x : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 
 func2("", ""); // number
->func2("", "") : number
+>func2("", "") : 数字
 >类型别名 :=> 数字
->func2 : { (s: string, t: string): number; (s: any, t: string): boolean; (s: string, t: any): RegExp; (s: any, t: any): string; }
+>func2 : { (s: 文字, t: 文字): 数字; (s: 任意, t: 文字): 真假; (s: 文字, t: 任意): RegExp; (s: 任意, t: 任意): 文字; }
 >"" : ""
 >"" : ""
 
 func2(x, ""); // boolean
->func2(x, "") : boolean
+>func2(x, "") : 真假
 >类型别名 :=> 真假
->func2 : { (s: string, t: string): number; (s: any, t: string): boolean; (s: string, t: any): RegExp; (s: any, t: any): string; }
->x : any
+>func2 : { (s: 文字, t: 文字): 数字; (s: 任意, t: 文字): 真假; (s: 文字, t: 任意): RegExp; (s: 任意, t: 任意): 文字; }
+>x : 任意
 >类型别名 :=> 任意
 >"" : ""
 
 func2("", x); // RegExp
 >func2("", x) : RegExp
->func2 : { (s: string, t: string): number; (s: any, t: string): boolean; (s: string, t: any): RegExp; (s: any, t: any): string; }
+>func2 : { (s: 文字, t: 文字): 数字; (s: 任意, t: 文字): 真假; (s: 文字, t: 任意): RegExp; (s: 任意, t: 任意): 文字; }
 >"" : ""
->x : any
+>x : 任意
 >类型别名 :=> 任意
 

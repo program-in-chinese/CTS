@@ -3,48 +3,48 @@
 
 class Base { foo: string; }
 >Base : Base
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : string
+>bar : 文字
 >类型别名 :=> 文字
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : string
+>baz : 文字
 >类型别名 :=> 文字
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
->bing : string
+>bing : 文字
 >类型别名 :=> 文字
 
 var a: new <T>(x: T) => T[];
->a : new <T>(x: T) => T[]
+>a : 新建 <T>(x: T) => T[]
 >T : T
 >x : T
 >T : T
 >T : T
 
 var a2: new <T>(x: T) => string[];
->a2 : new <T>(x: T) => string[]
+>a2 : 新建 <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
 
 var a3: new <T>(x: T) => void;
->a3 : new <T>(x: T) => void
+>a3 : 新建 <T>(x: T) => 无值
 >T : T
 >x : T
 >T : T
 
 var a4: new <T, U>(x: T, y: U) => string;
->a4 : new <T, U>(x: T, y: U) => string
+>a4 : 新建 <T, U>(x: T, y: U) => 文字
 >T : T
 >U : U
 >x : T
@@ -53,27 +53,27 @@ var a4: new <T, U>(x: T, y: U) => string;
 >U : U
 
 var a5: new <T, U>(x: new (arg: T) => U) => T;
->a5 : new <T, U>(x: new (arg: T) => U) => T
+>a5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
 >T : T
 >U : U
->x : new (arg: T) => U
+>x : 新建 (arg: T) => U
 >arg : T
 >T : T
 >U : U
 >T : T
 
 var a6: new <T extends Base>(x: new (arg: T) => Derived) => T;
->a6 : new <T extends Base>(x: new (arg: T) => Derived) => T
+>a6 : 新建 <T 扩展 Base>(x: 新建 (arg: T) => Derived) => T
 >T : T
 >Base : Base
->x : new (arg: T) => Derived
+>x : 新建 (arg: T) => Derived
 >arg : T
 >T : T
 >Derived : Derived
 >T : T
 
 var a11: new <T>(x: { foo: T }, y: { foo: T; bar: T }) => Base;
->a11 : new <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
+>a11 : 新建 <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
 >T : T
 >x : { foo: T; }
 >foo : T
@@ -86,7 +86,7 @@ var a11: new <T>(x: { foo: T }, y: { foo: T; bar: T }) => Base;
 >Base : Base
 
 var a15: new <T>(x: { a: T; b: T }) => T[];
->a15 : new <T>(x: { a: T; b: T; }) => T[]
+>a15 : 新建 <T>(x: { a: T; b: T; }) => T[]
 >T : T
 >x : { a: T; b: T; }
 >a : T
@@ -96,7 +96,7 @@ var a15: new <T>(x: { a: T; b: T }) => T[];
 >T : T
 
 var a16: new <T extends Base>(x: { a: T; b: T }) => T[];
->a16 : new <T extends Base>(x: { a: T; b: T; }) => T[]
+>a16 : 新建 <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 >T : T
 >Base : Base
 >x : { a: T; b: T; }
@@ -107,12 +107,12 @@ var a16: new <T extends Base>(x: { a: T; b: T }) => T[];
 >T : T
 
 var a17: {
->a17 : { new <T extends Derived>(x: new (a: T) => T): T[]; new <T extends Base>(x: new (a: T) => T): T[]; }
+>a17 : { 新建 <T 扩展 Derived>(x: 新建 (a: T) => T): T[]; 新建 <T 扩展 Base>(x: 新建 (a: T) => T): T[]; }
 
     new <T extends Derived>(x: new (a: T) => T): T[];
 >T : T
 >Derived : Derived
->x : new (a: T) => T
+>x : 新建 (a: T) => T
 >a : T
 >T : T
 >T : T
@@ -121,7 +121,7 @@ var a17: {
     new <T extends Base>(x: new (a: T) => T): T[];        
 >T : T
 >Base : Base
->x : new (a: T) => T
+>x : 新建 (a: T) => T
 >a : T
 >T : T
 >T : T
@@ -129,10 +129,10 @@ var a17: {
 
 };
 var a18: {
->a18 : { new (x: { new <T extends Derived>(a: T): T; new <T extends Base>(a: T): T; }): any[]; new (x: { new <T extends Derived2>(a: T): T; new <T extends Base>(a: T): T; }): any[]; }
+>a18 : { 新建 (x: { 新建 <T 扩展 Derived>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; 新建 (x: { 新建 <T 扩展 Derived2>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; }
 
     new (x: {
->x : { new <T extends Derived>(a: T): T; new <T extends Base>(a: T): T; }
+>x : { 新建 <T 扩展 Derived>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }
 
         new <T extends Derived>(a: T): T;
 >T : T
@@ -150,7 +150,7 @@ var a18: {
 
     }): any[];
     new (x: {
->x : { new <T extends Derived2>(a: T): T; new <T extends Base>(a: T): T; }
+>x : { 新建 <T 扩展 Derived2>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }
 
         new <T extends Derived2>(a: T): T;
 >T : T
@@ -170,57 +170,57 @@ var a18: {
 };
 
 var b: new <T>(x: T) => T[]; 
->b : new <T>(x: T) => T[]
+>b : 新建 <T>(x: T) => T[]
 >T : T
 >x : T
 >T : T
 >T : T
 
 a = b; // ok
->a = b : new <T>(x: T) => T[]
->a : new <T>(x: T) => T[]
->b : new <T>(x: T) => T[]
+>a = b : 新建 <T>(x: T) => T[]
+>a : 新建 <T>(x: T) => T[]
+>b : 新建 <T>(x: T) => T[]
 
 b = a; // ok
->b = a : new <T>(x: T) => T[]
->b : new <T>(x: T) => T[]
->a : new <T>(x: T) => T[]
+>b = a : 新建 <T>(x: T) => T[]
+>b : 新建 <T>(x: T) => T[]
+>a : 新建 <T>(x: T) => T[]
 
 var b2: new <T>(x: T) => string[]; 
->b2 : new <T>(x: T) => string[]
+>b2 : 新建 <T>(x: T) => 文字[]
 >T : T
 >x : T
 >T : T
 
 a2 = b2; // ok
->a2 = b2 : new <T>(x: T) => string[]
->a2 : new <T>(x: T) => string[]
->b2 : new <T>(x: T) => string[]
+>a2 = b2 : 新建 <T>(x: T) => 文字[]
+>a2 : 新建 <T>(x: T) => 文字[]
+>b2 : 新建 <T>(x: T) => 文字[]
 
 b2 = a2; // ok
->b2 = a2 : new <T>(x: T) => string[]
->b2 : new <T>(x: T) => string[]
->a2 : new <T>(x: T) => string[]
+>b2 = a2 : 新建 <T>(x: T) => 文字[]
+>b2 : 新建 <T>(x: T) => 文字[]
+>a2 : 新建 <T>(x: T) => 文字[]
 
 var b3: new <T>(x: T) => T; 
->b3 : new <T>(x: T) => T
+>b3 : 新建 <T>(x: T) => T
 >T : T
 >x : T
 >T : T
 >T : T
 
 a3 = b3; // ok
->a3 = b3 : new <T>(x: T) => T
->a3 : new <T>(x: T) => void
->b3 : new <T>(x: T) => T
+>a3 = b3 : 新建 <T>(x: T) => T
+>a3 : 新建 <T>(x: T) => 无值
+>b3 : 新建 <T>(x: T) => T
 
 b3 = a3; // ok
->b3 = a3 : new <T>(x: T) => void
->b3 : new <T>(x: T) => T
->a3 : new <T>(x: T) => void
+>b3 = a3 : 新建 <T>(x: T) => 无值
+>b3 : 新建 <T>(x: T) => T
+>a3 : 新建 <T>(x: T) => 无值
 
 var b4: new <T, U>(x: T, y: U) => string; 
->b4 : new <T, U>(x: T, y: U) => string
+>b4 : 新建 <T, U>(x: T, y: U) => 文字
 >T : T
 >U : U
 >x : T
@@ -229,59 +229,59 @@ var b4: new <T, U>(x: T, y: U) => string;
 >U : U
 
 a4 = b4; // ok
->a4 = b4 : new <T, U>(x: T, y: U) => string
->a4 : new <T, U>(x: T, y: U) => string
->b4 : new <T, U>(x: T, y: U) => string
+>a4 = b4 : 新建 <T, U>(x: T, y: U) => 文字
+>a4 : 新建 <T, U>(x: T, y: U) => 文字
+>b4 : 新建 <T, U>(x: T, y: U) => 文字
 
 b4 = a4; // ok
->b4 = a4 : new <T, U>(x: T, y: U) => string
->b4 : new <T, U>(x: T, y: U) => string
->a4 : new <T, U>(x: T, y: U) => string
+>b4 = a4 : 新建 <T, U>(x: T, y: U) => 文字
+>b4 : 新建 <T, U>(x: T, y: U) => 文字
+>a4 : 新建 <T, U>(x: T, y: U) => 文字
 
 var b5: new <T, U>(x: new (arg: T) => U) => T; 
->b5 : new <T, U>(x: new (arg: T) => U) => T
+>b5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
 >T : T
 >U : U
->x : new (arg: T) => U
+>x : 新建 (arg: T) => U
 >arg : T
 >T : T
 >U : U
 >T : T
 
 a5 = b5; // ok
->a5 = b5 : new <T, U>(x: new (arg: T) => U) => T
->a5 : new <T, U>(x: new (arg: T) => U) => T
->b5 : new <T, U>(x: new (arg: T) => U) => T
+>a5 = b5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
+>a5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
+>b5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
 
 b5 = a5; // ok
->b5 = a5 : new <T, U>(x: new (arg: T) => U) => T
->b5 : new <T, U>(x: new (arg: T) => U) => T
->a5 : new <T, U>(x: new (arg: T) => U) => T
+>b5 = a5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
+>b5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
+>a5 : 新建 <T, U>(x: 新建 (arg: T) => U) => T
 
 var b6: new <T extends Base, U extends Derived>(x: new (arg: T) => U) => T; 
->b6 : new <T extends Base, U extends Derived>(x: new (arg: T) => U) => T
+>b6 : 新建 <T 扩展 Base, U 扩展 Derived>(x: 新建 (arg: T) => U) => T
 >T : T
 >Base : Base
 >U : U
 >Derived : Derived
->x : new (arg: T) => U
+>x : 新建 (arg: T) => U
 >arg : T
 >T : T
 >U : U
 >T : T
 
 a6 = b6; // ok
->a6 = b6 : new <T extends Base, U extends Derived>(x: new (arg: T) => U) => T
->a6 : new <T extends Base>(x: new (arg: T) => Derived) => T
->b6 : new <T extends Base, U extends Derived>(x: new (arg: T) => U) => T
+>a6 = b6 : 新建 <T 扩展 Base, U 扩展 Derived>(x: 新建 (arg: T) => U) => T
+>a6 : 新建 <T 扩展 Base>(x: 新建 (arg: T) => Derived) => T
+>b6 : 新建 <T 扩展 Base, U 扩展 Derived>(x: 新建 (arg: T) => U) => T
 
 b6 = a6; // ok
->b6 = a6 : new <T extends Base>(x: new (arg: T) => Derived) => T
->b6 : new <T extends Base, U extends Derived>(x: new (arg: T) => U) => T
->a6 : new <T extends Base>(x: new (arg: T) => Derived) => T
+>b6 = a6 : 新建 <T 扩展 Base>(x: 新建 (arg: T) => Derived) => T
+>b6 : 新建 <T 扩展 Base, U 扩展 Derived>(x: 新建 (arg: T) => U) => T
+>a6 : 新建 <T 扩展 Base>(x: 新建 (arg: T) => Derived) => T
 
 var b11: new <T, U>(x: { foo: T }, y: { foo: U; bar: U }) => Base; 
->b11 : new <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
+>b11 : 新建 <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
 >T : T
 >U : U
 >x : { foo: T; }
@@ -295,17 +295,17 @@ var b11: new <T, U>(x: { foo: T }, y: { foo: U; bar: U }) => Base;
 >Base : Base
 
 a11 = b11; // ok
->a11 = b11 : new <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
->a11 : new <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
->b11 : new <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
+>a11 = b11 : 新建 <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
+>a11 : 新建 <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
+>b11 : 新建 <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
 
 b11 = a11; // ok
->b11 = a11 : new <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
->b11 : new <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
->a11 : new <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
+>b11 = a11 : 新建 <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
+>b11 : 新建 <T, U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
+>a11 : 新建 <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
 
 var b15: new <U, V>(x: { a: U; b: V; }) => U[]; 
->b15 : new <U, V>(x: { a: U; b: V; }) => U[]
+>b15 : 新建 <U, V>(x: { a: U; b: V; }) => U[]
 >U : U
 >V : V
 >x : { a: U; b: V; }
@@ -316,17 +316,17 @@ var b15: new <U, V>(x: { a: U; b: V; }) => U[];
 >U : U
 
 a15 = b15; // ok
->a15 = b15 : new <U, V>(x: { a: U; b: V; }) => U[]
->a15 : new <T>(x: { a: T; b: T; }) => T[]
->b15 : new <U, V>(x: { a: U; b: V; }) => U[]
+>a15 = b15 : 新建 <U, V>(x: { a: U; b: V; }) => U[]
+>a15 : 新建 <T>(x: { a: T; b: T; }) => T[]
+>b15 : 新建 <U, V>(x: { a: U; b: V; }) => U[]
 
 b15 = a15; // ok
->b15 = a15 : new <T>(x: { a: T; b: T; }) => T[]
->b15 : new <U, V>(x: { a: U; b: V; }) => U[]
->a15 : new <T>(x: { a: T; b: T; }) => T[]
+>b15 = a15 : 新建 <T>(x: { a: T; b: T; }) => T[]
+>b15 : 新建 <U, V>(x: { a: U; b: V; }) => U[]
+>a15 : 新建 <T>(x: { a: T; b: T; }) => T[]
 
 var b16: new <T>(x: { a: T; b: T }) => T[]; 
->b16 : new <T>(x: { a: T; b: T; }) => T[]
+>b16 : 新建 <T>(x: { a: T; b: T; }) => T[]
 >T : T
 >x : { a: T; b: T; }
 >a : T
@@ -336,49 +336,49 @@ var b16: new <T>(x: { a: T; b: T }) => T[];
 >T : T
 
 a15 = b16; // ok
->a15 = b16 : new <T>(x: { a: T; b: T; }) => T[]
->a15 : new <T>(x: { a: T; b: T; }) => T[]
->b16 : new <T>(x: { a: T; b: T; }) => T[]
+>a15 = b16 : 新建 <T>(x: { a: T; b: T; }) => T[]
+>a15 : 新建 <T>(x: { a: T; b: T; }) => T[]
+>b16 : 新建 <T>(x: { a: T; b: T; }) => T[]
 
 b15 = a16; // ok
->b15 = a16 : new <T extends Base>(x: { a: T; b: T; }) => T[]
->b15 : new <U, V>(x: { a: U; b: V; }) => U[]
->a16 : new <T extends Base>(x: { a: T; b: T; }) => T[]
+>b15 = a16 : 新建 <T 扩展 Base>(x: { a: T; b: T; }) => T[]
+>b15 : 新建 <U, V>(x: { a: U; b: V; }) => U[]
+>a16 : 新建 <T 扩展 Base>(x: { a: T; b: T; }) => T[]
 
 var b17: new <T>(x: new (a: T) => T) => T[]; 
->b17 : new <T>(x: new (a: T) => T) => T[]
+>b17 : 新建 <T>(x: 新建 (a: T) => T) => T[]
 >T : T
->x : new (a: T) => T
+>x : 新建 (a: T) => T
 >a : T
 >T : T
 >T : T
 >T : T
 
 a17 = b17; // ok
->a17 = b17 : new <T>(x: new (a: T) => T) => T[]
->a17 : { new <T extends Derived>(x: new (a: T) => T): T[]; new <T extends Base>(x: new (a: T) => T): T[]; }
->b17 : new <T>(x: new (a: T) => T) => T[]
+>a17 = b17 : 新建 <T>(x: 新建 (a: T) => T) => T[]
+>a17 : { 新建 <T 扩展 Derived>(x: 新建 (a: T) => T): T[]; 新建 <T 扩展 Base>(x: 新建 (a: T) => T): T[]; }
+>b17 : 新建 <T>(x: 新建 (a: T) => T) => T[]
 
 b17 = a17; // ok
->b17 = a17 : { new <T extends Derived>(x: new (a: T) => T): T[]; new <T extends Base>(x: new (a: T) => T): T[]; }
->b17 : new <T>(x: new (a: T) => T) => T[]
->a17 : { new <T extends Derived>(x: new (a: T) => T): T[]; new <T extends Base>(x: new (a: T) => T): T[]; }
+>b17 = a17 : { 新建 <T 扩展 Derived>(x: 新建 (a: T) => T): T[]; 新建 <T 扩展 Base>(x: 新建 (a: T) => T): T[]; }
+>b17 : 新建 <T>(x: 新建 (a: T) => T) => T[]
+>a17 : { 新建 <T 扩展 Derived>(x: 新建 (a: T) => T): T[]; 新建 <T 扩展 Base>(x: 新建 (a: T) => T): T[]; }
 
 var b18: new (x: new <T>(a: T) => T) => any[]; 
->b18 : new (x: new <T>(a: T) => T) => any[]
->x : new <T>(a: T) => T
+>b18 : 新建 (x: 新建 <T>(a: T) => T) => 任意[]
+>x : 新建 <T>(a: T) => T
 >T : T
 >a : T
 >T : T
 >T : T
 
 a18 = b18; // ok
->a18 = b18 : new (x: new <T>(a: T) => T) => any[]
->a18 : { new (x: { new <T extends Derived>(a: T): T; new <T extends Base>(a: T): T; }): any[]; new (x: { new <T extends Derived2>(a: T): T; new <T extends Base>(a: T): T; }): any[]; }
->b18 : new (x: new <T>(a: T) => T) => any[]
+>a18 = b18 : 新建 (x: 新建 <T>(a: T) => T) => 任意[]
+>a18 : { 新建 (x: { 新建 <T 扩展 Derived>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; 新建 (x: { 新建 <T 扩展 Derived2>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; }
+>b18 : 新建 (x: 新建 <T>(a: T) => T) => 任意[]
 
 b18 = a18; // ok
->b18 = a18 : { new (x: { new <T extends Derived>(a: T): T; new <T extends Base>(a: T): T; }): any[]; new (x: { new <T extends Derived2>(a: T): T; new <T extends Base>(a: T): T; }): any[]; }
->b18 : new (x: new <T>(a: T) => T) => any[]
->a18 : { new (x: { new <T extends Derived>(a: T): T; new <T extends Base>(a: T): T; }): any[]; new (x: { new <T extends Derived2>(a: T): T; new <T extends Base>(a: T): T; }): any[]; }
+>b18 = a18 : { 新建 (x: { 新建 <T 扩展 Derived>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; 新建 (x: { 新建 <T 扩展 Derived2>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; }
+>b18 : 新建 (x: 新建 <T>(a: T) => T) => 任意[]
+>a18 : { 新建 (x: { 新建 <T 扩展 Derived>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; 新建 (x: { 新建 <T 扩展 Derived2>(a: T): T; 新建 <T 扩展 Base>(a: T): T; }): 任意[]; }
 

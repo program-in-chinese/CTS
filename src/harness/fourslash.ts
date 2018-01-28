@@ -3708,21 +3708,35 @@ namespace FourSlashInterface {
         public not: VerifyNegatable;
         public allowedClassElementKeywords = [
             "public",
+            "公开",
             "private",
+            "私有",
             "protected",
+            "保护",
             "static",
+            "静态",
             "abstract",
+            "抽象",
             "readonly",
+            "只读",
             "get",
+            "获取",
             "set",
+            "设置",
             "constructor",
-            "async"
+            "构造",
+            "async",
+            "异步",
         ];
         public allowedConstructorParameterKeywords = [
             "public",
+            "公开",
             "private",
+            "私有",
             "protected",
+            "保护",
             "readonly",
+            "只读",
         ];
 
         constructor(protected state: FourSlash.TestState, private negative = false) {

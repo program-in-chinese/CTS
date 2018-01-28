@@ -1,11 +1,11 @@
 === tests/cases/conformance/types/mapped/mappedTypes1.ts ===
 type Item = { a: string, b: number, c: boolean };
 >Item : Item
->a : string
+>a : 文字
 >类型别名 :=> 文字
->b : number
+>b : 数字
 >类型别名 :=> 数字
->c : boolean
+>c : 真假
 >类型别名 :=> 真假
 
 type T00 = { [P in "x" | "y"]: number };
@@ -63,7 +63,7 @@ type T20 = { [P in keyof Item]: Item[P] | null };
 >Item : Item
 >Item : Item
 >P : P
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 type T21 = { [P in keyof Item]: Array<Item[P]> };
@@ -97,7 +97,7 @@ type T34 = { [P in keyof undefined]: void };
 type T35 = { [P in keyof null]: void };
 >T35 : T35
 >P : P
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 type T36 = { [P in keyof void]: void };
@@ -129,25 +129,25 @@ type T47 = { [P in string | "a" | "b" | "0" | "1"]: void };
 >P : P
 
 declare function f1<T1>(): { [P in keyof T1]: void };
->f1 : <T1>() => { [P in keyof T1]: void; }
+>f1 : <T1>() => { [P 位于 键集 T1]: 无值; }
 >T1 : T1
 >P : P
 >T1 : T1
 
 declare function f2<T1 extends string>(): { [P in keyof T1]: void };
->f2 : <T1 extends string>() => { [P in keyof T1]: void; }
+>f2 : <T1 扩展 文字>() => { [P 位于 键集 T1]: 无值; }
 >T1 : T1
 >P : P
 >T1 : T1
 
 declare function f3<T1 extends number>(): { [P in keyof T1]: void };
->f3 : <T1 extends number>() => { [P in keyof T1]: void; }
+>f3 : <T1 扩展 数字>() => { [P 位于 键集 T1]: 无值; }
 >T1 : T1
 >P : P
 >T1 : T1
 
 declare function f4<T1 extends Number>(): { [P in keyof T1]: void };
->f4 : <T1 extends Number>() => { [P in keyof T1]: void; }
+>f4 : <T1 扩展 Number>() => { [P 位于 键集 T1]: 无值; }
 >T1 : T1
 >Number : Number
 >P : P
@@ -156,24 +156,24 @@ declare function f4<T1 extends Number>(): { [P in keyof T1]: void };
 let x1 = f1();
 >x1 : {}
 >f1() : {}
->f1 : <T1>() => { [P in keyof T1]: void; }
+>f1 : <T1>() => { [P 位于 键集 T1]: 无值; }
 
 let x2 = f2();
->x2 : string
+>x2 : 文字
 >类型别名 :=> 文字
->f2() : string
+>f2() : 文字
 >类型别名 :=> 文字
->f2 : <T1 extends string>() => { [P in keyof T1]: void; }
+>f2 : <T1 扩展 文字>() => { [P 位于 键集 T1]: 无值; }
 
 let x3 = f3();
->x3 : number
+>x3 : 数字
 >类型别名 :=> 数字
->f3() : number
+>f3() : 数字
 >类型别名 :=> 数字
->f3 : <T1 extends number>() => { [P in keyof T1]: void; }
+>f3 : <T1 扩展 数字>() => { [P 位于 键集 T1]: 无值; }
 
 let x4 = f4();
->x4 : { toString: void; toFixed: void; toExponential: void; toPrecision: void; valueOf: void; toLocaleString: void; }
->f4() : { toString: void; toFixed: void; toExponential: void; toPrecision: void; valueOf: void; toLocaleString: void; }
->f4 : <T1 extends Number>() => { [P in keyof T1]: void; }
+>x4 : { toString: 无值; toFixed: 无值; toExponential: 无值; toPrecision: 无值; valueOf: 无值; toLocaleString: 无值; }
+>f4() : { toString: 无值; toFixed: 无值; toExponential: 无值; toPrecision: 无值; valueOf: 无值; toLocaleString: 无值; }
+>f4 : <T1 扩展 Number>() => { [P 位于 键集 T1]: 无值; }
 

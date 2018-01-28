@@ -1,34 +1,34 @@
 === tests/cases/compiler/file3.ts ===
 import x = require("file1");
->x : () => void
+>x : () => 无值
 
 import "file2";
 let a: x.A; // should not work
->a : any
+>a : 任意
 >类型别名 :=> 任意
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >A : No type information available!
 
 === tests/cases/compiler/file1.d.ts ===
 declare module "file1" {
     function foo(): void;
->foo : () => void
+>foo : () => 无值
 
     export = foo;
->foo : () => void
+>foo : () => 无值
 }
 
 === tests/cases/compiler/file2.ts ===
 /// <reference path="file1.d.ts"/> 
 import x = require("file1"); 
->x : () => void
+>x : () => 无值
 
 // should error since './file1' does not have namespace meaning
 declare module "file1" {
     interface A { a }
 >A : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 }
 

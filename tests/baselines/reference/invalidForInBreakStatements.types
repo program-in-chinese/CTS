@@ -6,91 +6,91 @@ break;
 
 // non-existent label
 ONE:
->ONE : any
+>ONE : 任意
 >类型别名 :=> 任意
 
 for (var x in {}) break TWO;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >{} : {}
->TWO : any
+>TWO : 任意
 >类型别名 :=> 任意
 
 // break from inside function
 TWO:
->TWO : any
+>TWO : 任意
 >类型别名 :=> 任意
 
 for (var x in {}) {
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >{} : {}
 
     var fn = () => {
->fn : () => void
->() => {        break TWO;    } : () => void
+>fn : () => 无值
+>() => {        break TWO;    } : () => 无值
 
         break TWO;
->TWO : any
+>TWO : 任意
 >类型别名 :=> 任意
     }
 }
 
 THREE:
->THREE : any
+>THREE : 任意
 >类型别名 :=> 任意
 
 for (var x in {}) {
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >{} : {}
 
     var fn = function () {
->fn : () => void
->function () {        break THREE;    } : () => void
+>fn : () => 无值
+>function () {        break THREE;    } : () => 无值
 
         break THREE;
->THREE : any
+>THREE : 任意
 >类型别名 :=> 任意
     }
 }
 
 // break forward
 for (var x in {}) {
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >{} : {}
 
     break FIVE;
->FIVE : any
+>FIVE : 任意
 >类型别名 :=> 任意
 
     FIVE:
->FIVE : any
+>FIVE : 任意
 >类型别名 :=> 任意
 
     for (var x in {}) { }
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >{} : {}
 }
 
 // label on non-loop statement
 NINE:
->NINE : any
+>NINE : 任意
 >类型别名 :=> 任意
 
 var y = 12;
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >12 : 12
 
 for (var x in {}) {
->x : string
+>x : 文字
 >类型别名 :=> 文字
 >{} : {}
 
     break NINE;
->NINE : any
+>NINE : 任意
 >类型别名 :=> 任意
 }

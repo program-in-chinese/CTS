@@ -18,111 +18,111 @@ class D<T> extends C<T> {
 }
 
 function foo1(x: C<string>);
->foo1 : { (x: C<string>): any; (x: C<number>): any; }
->x : C<string>
+>foo1 : { (x: C<文字>): 任意; (x: C<数字>): 任意; }
+>x : C<文字>
 >C : C<T>
 
 function foo1(x: C<number>); // ok
->foo1 : { (x: C<string>): any; (x: C<number>): any; }
->x : C<number>
+>foo1 : { (x: C<文字>): 任意; (x: C<数字>): 任意; }
+>x : C<数字>
 >C : C<T>
 
 function foo1(x: any) { }
->foo1 : { (x: C<string>): any; (x: C<number>): any; }
->x : any
+>foo1 : { (x: C<文字>): 任意; (x: C<数字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo2(x: D<string>);
->foo2 : { (x: D<string>): any; (x: D<number>): any; }
->x : D<string>
+>foo2 : { (x: D<文字>): 任意; (x: D<数字>): 任意; }
+>x : D<文字>
 >D : D<T>
 
 function foo2(x: D<number>); // ok
->foo2 : { (x: D<string>): any; (x: D<number>): any; }
->x : D<number>
+>foo2 : { (x: D<文字>): 任意; (x: D<数字>): 任意; }
+>x : D<数字>
 >D : D<T>
 
 function foo2(x: any) { }
->foo2 : { (x: D<string>): any; (x: D<number>): any; }
->x : any
+>foo2 : { (x: D<文字>): 任意; (x: D<数字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo3(x: C<string>);
->foo3 : { (x: C<string>): any; (x: D<number>): any; }
->x : C<string>
+>foo3 : { (x: C<文字>): 任意; (x: D<数字>): 任意; }
+>x : C<文字>
 >C : C<T>
 
 function foo3(x: D<number>); // ok
->foo3 : { (x: C<string>): any; (x: D<number>): any; }
->x : D<number>
+>foo3 : { (x: C<文字>): 任意; (x: D<数字>): 任意; }
+>x : D<数字>
 >D : D<T>
 
 function foo3(x: any) { }
->foo3 : { (x: C<string>): any; (x: D<number>): any; }
->x : any
+>foo3 : { (x: C<文字>): 任意; (x: D<数字>): 任意; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo4(x: C<number>): number; 
->foo4 : { (x: C<number>): number; (x: D<number>): string; }
->x : C<number>
+>foo4 : { (x: C<数字>): 数字; (x: D<数字>): 文字; }
+>x : C<数字>
 >C : C<T>
 
 function foo4(x: D<number>): string; // BUG 831926
->foo4 : { (x: C<number>): number; (x: D<number>): string; }
->x : D<number>
+>foo4 : { (x: C<数字>): 数字; (x: D<数字>): 文字; }
+>x : D<数字>
 >D : D<T>
 
 function foo4(x: any): any { }
->foo4 : { (x: C<number>): number; (x: D<number>): string; }
->x : any
+>foo4 : { (x: C<数字>): 数字; (x: D<数字>): 文字; }
+>x : 任意
 >类型别名 :=> 任意
 
 var r = foo4(new C<number>());
->r : number
+>r : 数字
 >类型别名 :=> 数字
->foo4(new C<number>()) : number
+>foo4(new C<number>()) : 数字
 >类型别名 :=> 数字
->foo4 : { (x: C<number>): number; (x: D<number>): string; }
->new C<number>() : C<number>
->C : typeof C
+>foo4 : { (x: C<数字>): 数字; (x: D<数字>): 文字; }
+>new C<number>() : C<数字>
+>C : 类为 C
 
 var r = foo4(new D<number>());
->r : number
+>r : 数字
 >类型别名 :=> 数字
->foo4(new D<number>()) : number
+>foo4(new D<number>()) : 数字
 >类型别名 :=> 数字
->foo4 : { (x: C<number>): number; (x: D<number>): string; }
->new D<number>() : D<number>
->D : typeof D
+>foo4 : { (x: C<数字>): 数字; (x: D<数字>): 文字; }
+>new D<number>() : D<数字>
+>D : 类为 D
 
 function foo5(x: C<number>): number;
->foo5 : { (x: C<number>): number; (x: C<number>): string; }
->x : C<number>
+>foo5 : { (x: C<数字>): 数字; (x: C<数字>): 文字; }
+>x : C<数字>
 >C : C<T>
 
 function foo5(x: C<number>): string; // error
->foo5 : { (x: C<number>): number; (x: C<number>): string; }
->x : C<number>
+>foo5 : { (x: C<数字>): 数字; (x: C<数字>): 文字; }
+>x : C<数字>
 >C : C<T>
 
 function foo5(x: any): any { }
->foo5 : { (x: C<number>): number; (x: C<number>): string; }
->x : any
+>foo5 : { (x: C<数字>): 数字; (x: C<数字>): 文字; }
+>x : 任意
 >类型别名 :=> 任意
 
 function foo6(x: D<number>): number;
->foo6 : { (x: D<number>): number; (x: D<number>): string; }
->x : D<number>
+>foo6 : { (x: D<数字>): 数字; (x: D<数字>): 文字; }
+>x : D<数字>
 >D : D<T>
 
 function foo6(x: D<number>): string; // error
->foo6 : { (x: D<number>): number; (x: D<number>): string; }
->x : D<number>
+>foo6 : { (x: D<数字>): 数字; (x: D<数字>): 文字; }
+>x : D<数字>
 >D : D<T>
 
 function foo6(x: any): any { }
->foo6 : { (x: D<number>): number; (x: D<number>): string; }
->x : any
+>foo6 : { (x: D<数字>): 数字; (x: D<数字>): 文字; }
+>x : 任意
 >类型别名 :=> 任意
 
 

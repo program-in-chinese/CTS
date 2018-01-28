@@ -5,7 +5,7 @@ interface Foo {
 >Foo : Foo
 
     foo(): void
->foo : () => void
+>foo : () => 无值
 }
 
 class A<P extends Partial<Foo>> {
@@ -20,23 +20,23 @@ class A<P extends Partial<Foo>> {
 >P : P
 
     doSomething() {
->doSomething : () => void
+>doSomething : () => 无值
 
         this.props.foo && this.props.foo()
->this.props.foo && this.props.foo() : void
+>this.props.foo && this.props.foo() : 无值
 >类型别名 :=> 无值
 >this.props.foo : P["foo"]
 >this.props : Readonly<P>
->this : this
+>this : 本体
 >props : Readonly<P>
 >foo : P["foo"]
->this.props.foo() : void
+>this.props.foo() : 无值
 >类型别名 :=> 无值
->this.props.foo : () => void
+>this.props.foo : () => 无值
 >this.props : Readonly<P>
->this : this
+>this : 本体
 >props : Readonly<P>
->foo : () => void
+>foo : () => 无值
     }
 }
 
@@ -59,17 +59,17 @@ class Monkey<T extends Banana | undefined> {
 >T : T
 
     render() {
->render : () => void
+>render : () => 无值
 
         if (this.a) {
 >this.a : T
->this : this
+>this : 本体
 >a : T
 
             this.a.color;
 >this.a.color : "yellow"
 >this.a : Banana
->this : this
+>this : 本体
 >a : Banana
 >color : "yellow"
         }
@@ -87,17 +87,17 @@ class BigMonkey extends Monkey<BigBanana> {
 >BigBanana : BigBanana
 
     render() {
->render : () => void
+>render : () => 无值
 
         if (this.a) {
 >this.a : BigBanana
->this : this
+>this : 本体
 >a : BigBanana
 
             this.a.color;
 >this.a.color : "yellow"
 >this.a : BigBanana
->this : this
+>this : 本体
 >a : BigBanana
 >color : "yellow"
         }
@@ -111,12 +111,12 @@ type Item = {
 
     (): string;
     x: string;
->x : string
+>x : 文字
 >类型别名 :=> 文字
 }
 
 function f1<T extends Item | undefined>(obj: T) {
->f1 : <T extends Item | undefined>(obj: T) => void
+>f1 : <T 扩展 Item | 未定>(obj: T) => 无值
 >T : T
 >Item : Item
 >obj : T
@@ -126,123 +126,123 @@ function f1<T extends Item | undefined>(obj: T) {
 >obj : T
 
         obj.x;
->obj.x : string
+>obj.x : 文字
 >类型别名 :=> 文字
 >obj : Item
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         obj["x"];
->obj["x"] : string
+>obj["x"] : 文字
 >类型别名 :=> 文字
 >obj : Item
 >"x" : "x"
 
         obj();
->obj() : string
+>obj() : 文字
 >类型别名 :=> 文字
 >obj : Item
     }
 }
 
 function f2<T extends Item | undefined>(obj: T | undefined) {
->f2 : <T extends Item | undefined>(obj: T | undefined) => void
+>f2 : <T 扩展 Item | 未定>(obj: T | 未定) => 无值
 >T : T
 >Item : Item
->obj : T | undefined
+>obj : T | 未定
 >T : T
 
     if (obj) {
->obj : T | undefined
+>obj : T | 未定
 
         obj.x;
->obj.x : string
+>obj.x : 文字
 >类型别名 :=> 文字
 >obj : Item
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         obj["x"];
->obj["x"] : string
+>obj["x"] : 文字
 >类型别名 :=> 文字
 >obj : Item
 >"x" : "x"
 
         obj();
->obj() : string
+>obj() : 文字
 >类型别名 :=> 文字
 >obj : Item
     }
 }
 
 function f3<T extends Item | undefined>(obj: T | null) {
->f3 : <T extends Item | undefined>(obj: T | null) => void
+>f3 : <T 扩展 Item | 未定>(obj: T | 空值) => 无值
 >T : T
 >Item : Item
->obj : T | null
+>obj : T | 空值
 >T : T
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
     if (obj) {
->obj : T | null
+>obj : T | 空值
 
         obj.x;
->obj.x : string
+>obj.x : 文字
 >类型别名 :=> 文字
 >obj : Item
->x : string
+>x : 文字
 >类型别名 :=> 文字
 
         obj["x"];
->obj["x"] : string
+>obj["x"] : 文字
 >类型别名 :=> 文字
 >obj : Item
 >"x" : "x"
 
         obj();
->obj() : string
+>obj() : 文字
 >类型别名 :=> 文字
 >obj : Item
     }
 }
 
 function f4<T extends string[] | undefined>(obj: T | undefined, x: number) {
->f4 : <T extends string[] | undefined>(obj: T | undefined, x: number) => void
+>f4 : <T 扩展 文字[] | 未定>(obj: T | 未定, x: 数字) => 无值
 >T : T
->obj : T | undefined
+>obj : T | 未定
 >T : T
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
     if (obj) {
->obj : T | undefined
+>obj : T | 未定
 
         obj[x].length;
->obj[x].length : number
+>obj[x].length : 数字
 >类型别名 :=> 数字
->obj[x] : string
+>obj[x] : 文字
 >类型别名 :=> 文字
->obj : string[]
->x : number
+>obj : 文字[]
+>x : 数字
 >类型别名 :=> 数字
->length : number
+>length : 数字
 >类型别名 :=> 数字
     }
 }
 
 function f5<T, K extends keyof T>(obj: T | undefined, key: K) {
->f5 : <T, K extends keyof T>(obj: T | undefined, key: K) => void
+>f5 : <T, K 扩展 键集 T>(obj: T | 未定, key: K) => 无值
 >T : T
 >K : K
 >T : T
->obj : T | undefined
+>obj : T | 未定
 >T : T
 >key : K
 >K : K
 
     if (obj) {
->obj : T | undefined
+>obj : T | 未定
 
         obj[key];
 >obj[key] : T[K]

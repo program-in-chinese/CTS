@@ -1,12 +1,12 @@
 === tests/cases/conformance/types/intersection/operatorsAndIntersectionTypes.ts ===
 type Guid = string & { $Guid };          // Tagged string type
 >Guid : Guid
->$Guid : any
+>$Guid : 任意
 >类型别名 :=> 任意
 
 type SerialNo = number & { $SerialNo };  // Tagged number type
 >SerialNo : SerialNo
->$SerialNo : any
+>$SerialNo : 任意
 >类型别名 :=> 任意
 
 function createGuid() {
@@ -28,8 +28,8 @@ function createSerialNo() {
 }
 
 let map1: { [x: string]: number } = {};
->map1 : { [x: string]: number; }
->x : string
+>map1 : { [x: 文字]: 数字; }
+>x : 文字
 >类型别名 :=> 文字
 >{} : {}
 
@@ -40,15 +40,15 @@ let guid = createGuid();
 
 map1[guid] = 123;  // Can with tagged string
 >map1[guid] = 123 : 123
->map1[guid] : number
+>map1[guid] : 数字
 >类型别名 :=> 数字
->map1 : { [x: string]: number; }
+>map1 : { [x: 文字]: 数字; }
 >guid : Guid
 >123 : 123
 
 let map2: { [x: number]: string } = {};
->map2 : { [x: number]: string; }
->x : number
+>map2 : { [x: 数字]: 文字; }
+>x : 数字
 >类型别名 :=> 数字
 >{} : {}
 
@@ -59,102 +59,102 @@ let serialNo = createSerialNo();
 
 map2[serialNo] = "hello";  // Can index with tagged number
 >map2[serialNo] = "hello" : "hello"
->map2[serialNo] : string
+>map2[serialNo] : 文字
 >类型别名 :=> 文字
->map2 : { [x: number]: string; }
+>map2 : { [x: 数字]: 文字; }
 >serialNo : SerialNo
 >"hello" : "hello"
 
 const s1 = "{" + guid + "}";
->s1 : string
+>s1 : 文字
 >类型别名 :=> 文字
->"{" + guid + "}" : string
+>"{" + guid + "}" : 文字
 >类型别名 :=> 文字
->"{" + guid : string
+>"{" + guid : 文字
 >类型别名 :=> 文字
 >"{" : "{"
 >guid : Guid
 >"}" : "}"
 
 const s2 = guid.toLowerCase();
->s2 : string
+>s2 : 文字
 >类型别名 :=> 文字
->guid.toLowerCase() : string
+>guid.toLowerCase() : 文字
 >类型别名 :=> 文字
->guid.toLowerCase : () => string
+>guid.toLowerCase : () => 文字
 >guid : Guid
->toLowerCase : () => string
+>toLowerCase : () => 文字
 
 const s3 = guid + guid;
->s3 : string
+>s3 : 文字
 >类型别名 :=> 文字
->guid + guid : string
+>guid + guid : 文字
 >类型别名 :=> 文字
 >guid : Guid
 >guid : Guid
 
 const s4 = guid + serialNo;
->s4 : string
+>s4 : 文字
 >类型别名 :=> 文字
->guid + serialNo : string
+>guid + serialNo : 文字
 >类型别名 :=> 文字
 >guid : Guid
 >serialNo : SerialNo
 
 const s5 = serialNo.toPrecision(0);
->s5 : string
+>s5 : 文字
 >类型别名 :=> 文字
->serialNo.toPrecision(0) : string
+>serialNo.toPrecision(0) : 文字
 >类型别名 :=> 文字
->serialNo.toPrecision : (precision?: number) => string
+>serialNo.toPrecision : (precision?: 数字) => 文字
 >serialNo : SerialNo
->toPrecision : (precision?: number) => string
+>toPrecision : (precision?: 数字) => 文字
 >0 : 0
 
 const n1 = serialNo * 3;
->n1 : number
+>n1 : 数字
 >类型别名 :=> 数字
->serialNo * 3 : number
+>serialNo * 3 : 数字
 >类型别名 :=> 数字
 >serialNo : SerialNo
 >3 : 3
 
 const n2 = serialNo + serialNo;
->n2 : number
+>n2 : 数字
 >类型别名 :=> 数字
->serialNo + serialNo : number
+>serialNo + serialNo : 数字
 >类型别名 :=> 数字
 >serialNo : SerialNo
 >serialNo : SerialNo
 
 const b1 = guid === "";
->b1 : boolean
+>b1 : 真假
 >类型别名 :=> 真假
->guid === "" : boolean
+>guid === "" : 真假
 >类型别名 :=> 真假
 >guid : Guid
 >"" : ""
 
 const b2 = guid === guid;
->b2 : boolean
+>b2 : 真假
 >类型别名 :=> 真假
->guid === guid : boolean
+>guid === guid : 真假
 >类型别名 :=> 真假
 >guid : Guid
 >guid : Guid
 
 const b3 = serialNo === 0;
->b3 : boolean
+>b3 : 真假
 >类型别名 :=> 真假
->serialNo === 0 : boolean
+>serialNo === 0 : 真假
 >类型别名 :=> 真假
 >serialNo : SerialNo
 >0 : 0
 
 const b4 = serialNo === serialNo;
->b4 : boolean
+>b4 : 真假
 >类型别名 :=> 真假
->serialNo === serialNo : boolean
+>serialNo === serialNo : 真假
 >类型别名 :=> 真假
 >serialNo : SerialNo
 >serialNo : SerialNo

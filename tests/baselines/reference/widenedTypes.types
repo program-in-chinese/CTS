@@ -1,127 +1,127 @@
 === tests/cases/compiler/widenedTypes.ts ===
 null instanceof (() => { });
->null instanceof (() => { }) : boolean
+>null instanceof (() => { }) : 真假
 >类型别名 :=> 真假
->null : null
+>null : 空值
 >类型别名 :=> 空值
->(() => { }) : () => void
->() => { } : () => void
+>(() => { }) : () => 无值
+>() => { } : () => 无值
 
 ({}) instanceof null; // Ok because null is a subtype of function
->({}) instanceof null : boolean
+>({}) instanceof null : 真假
 >类型别名 :=> 真假
 >({}) : {}
 >{} : {}
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 null in {};
->null in {} : boolean
+>null in {} : 真假
 >类型别名 :=> 真假
->null : null
+>null : 空值
 >类型别名 :=> 空值
 >{} : {}
 
 "" in null;
->"" in null : boolean
+>"" in null : 真假
 >类型别名 :=> 真假
 >"" : ""
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 for (var a in null) { }
->a : string
+>a : 文字
 >类型别名 :=> 文字
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var t = [3, (3, null)];
->t : number[]
->[3, (3, null)] : number[]
+>t : 数字[]
+>[3, (3, null)] : 数字[]
 >3 : 3
->(3, null) : null
+>(3, null) : 空值
 >类型别名 :=> 空值
->3, null : null
+>3, null : 空值
 >类型别名 :=> 空值
 >3 : 3
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 t[3] = "";
 >t[3] = "" : ""
->t[3] : number
+>t[3] : 数字
 >类型别名 :=> 数字
->t : number[]
+>t : 数字[]
 >3 : 3
 >"" : ""
 
 var x: typeof undefined = 3;
->x : any
+>x : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 >3 : 3
 
 x = 3;
 >x = 3 : 3
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >3 : 3
 
 var y;
->y : any
+>y : 任意
 >类型别名 :=> 任意
 
 var u = [3, (y = null)];
->u : number[]
->[3, (y = null)] : number[]
+>u : 数字[]
+>[3, (y = null)] : 数字[]
 >3 : 3
->(y = null) : null
+>(y = null) : 空值
 >类型别名 :=> 空值
->y = null : null
+>y = null : 空值
 >类型别名 :=> 空值
->y : any
+>y : 任意
 >类型别名 :=> 任意
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 u[3] = "";
 >u[3] = "" : ""
->u[3] : number
+>u[3] : 数字
 >类型别名 :=> 数字
->u : number[]
+>u : 数字[]
 >3 : 3
 >"" : ""
 
 var ob: { x: typeof undefined } = { x: "" };
->ob : { x: any; }
->x : any
+>ob : { x: 任意; }
+>x : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
->{ x: "" } : { x: string; }
->x : string
+>{ x: "" } : { x: 文字; }
+>x : 文字
 >类型别名 :=> 文字
 >"" : ""
 
 // Highlights the difference between array literals and object literals
 var arr: string[] = [3, null]; // not assignable because null is not widened. BCT is {}
->arr : string[]
->[3, null] : number[]
+>arr : 文字[]
+>[3, null] : 数字[]
 >3 : 3
->null : null
+>null : 空值
 >类型别名 :=> 空值
 
 var obj: { [x: string]: string; } = { x: 3, y: null }; // assignable because null is widened, and therefore BCT is any
->obj : { [x: string]: string; }
->x : string
+>obj : { [x: 文字]: 文字; }
+>x : 文字
 >类型别名 :=> 文字
->{ x: 3, y: null } : { x: number; y: null; }
->x : number
+>{ x: 3, y: null } : { x: 数字; y: 空值; }
+>x : 数字
 >类型别名 :=> 数字
 >3 : 3
->y : null
+>y : 空值
 >类型别名 :=> 空值
->null : null
+>null : 空值
 >类型别名 :=> 空值
 

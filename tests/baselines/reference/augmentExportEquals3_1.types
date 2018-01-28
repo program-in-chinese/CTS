@@ -1,31 +1,31 @@
 === tests/cases/compiler/file1.d.ts ===
 declare module "file1" {
     function foo(): void;
->foo : typeof foo
+>foo : 类为 foo
 
     namespace foo {
->foo : typeof foo
+>foo : 类为 foo
 
         export var v: number;
->v : number
+>v : 数字
 >类型别名 :=> 数字
     }
     export = foo;
->foo : typeof foo
+>foo : 类为 foo
 }
 
 
 === tests/cases/compiler/file2.ts ===
 /// <reference path="file1.d.ts"/>
 import x = require("file1"); 
->x : typeof x
+>x : 类为 x
 
 x.b = 1;
 >x.b = 1 : 1
->x.b : number
+>x.b : 数字
 >类型别名 :=> 数字
->x : typeof x
->b : number
+>x : 类为 x
+>b : 数字
 >类型别名 :=> 数字
 >1 : 1
 
@@ -33,31 +33,31 @@ x.b = 1;
 declare module "file1" {
     interface A { a }
 >A : A
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
     let b: number;
->b : number
+>b : 数字
 >类型别名 :=> 数字
 }
 
 === tests/cases/compiler/file3.ts ===
 import * as x from "file1";
->x : typeof x
+>x : 类为 x
 
 import "file2";
 let a: x.A;
 >a : x.A
->x : any
+>x : 任意
 >类型别名 :=> 任意
 >A : x.A
 
 let b = x.b;
->b : number
+>b : 数字
 >类型别名 :=> 数字
->x.b : number
+>x.b : 数字
 >类型别名 :=> 数字
->x : typeof x
->b : number
+>x : 类为 x
+>b : 数字
 >类型别名 :=> 数字
 

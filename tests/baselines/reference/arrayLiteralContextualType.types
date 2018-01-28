@@ -3,7 +3,7 @@ interface IAnimal {
 >IAnimal : IAnimal
 
     name: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 }
 
@@ -11,12 +11,12 @@ class Giraffe {
 >Giraffe : Giraffe
 
     name = "Giraffe";
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >"Giraffe" : "Giraffe"
 
     neckLength = "3m";
->neckLength : string
+>neckLength : 文字
 >类型别名 :=> 文字
 >"3m" : "3m"
 }
@@ -25,56 +25,56 @@ class Elephant {
 >Elephant : Elephant
 
     name = "Elephant";
->name : string
+>name : 文字
 >类型别名 :=> 文字
 >"Elephant" : "Elephant"
 
     trunkDiameter = "20cm";
->trunkDiameter : string
+>trunkDiameter : 文字
 >类型别名 :=> 文字
 >"20cm" : "20cm"
 }
 
 function foo(animals: IAnimal[]) { }
->foo : (animals: IAnimal[]) => void
+>foo : (animals: IAnimal[]) => 无值
 >animals : IAnimal[]
 >IAnimal : IAnimal
 
 function bar(animals: { [n: number]: IAnimal }) { }
->bar : (animals: { [n: number]: IAnimal; }) => void
->animals : { [n: number]: IAnimal; }
->n : number
+>bar : (animals: { [n: 数字]: IAnimal; }) => 无值
+>animals : { [n: 数字]: IAnimal; }
+>n : 数字
 >类型别名 :=> 数字
 >IAnimal : IAnimal
 
 foo([
->foo([    new Giraffe(),    new Elephant()]) : void
+>foo([    new Giraffe(),    new Elephant()]) : 无值
 >类型别名 :=> 无值
->foo : (animals: IAnimal[]) => void
+>foo : (animals: IAnimal[]) => 无值
 >[    new Giraffe(),    new Elephant()] : (Giraffe | Elephant)[]
 
     new Giraffe(),
 >new Giraffe() : Giraffe
->Giraffe : typeof Giraffe
+>Giraffe : 类为 Giraffe
 
     new Elephant()
 >new Elephant() : Elephant
->Elephant : typeof Elephant
+>Elephant : 类为 Elephant
 
 ]); // Legal because of the contextual type IAnimal provided by the parameter
 bar([
->bar([    new Giraffe(),    new Elephant()]) : void
+>bar([    new Giraffe(),    new Elephant()]) : 无值
 >类型别名 :=> 无值
->bar : (animals: { [n: number]: IAnimal; }) => void
+>bar : (animals: { [n: 数字]: IAnimal; }) => 无值
 >[    new Giraffe(),    new Elephant()] : (Giraffe | Elephant)[]
 
     new Giraffe(),
 >new Giraffe() : Giraffe
->Giraffe : typeof Giraffe
+>Giraffe : 类为 Giraffe
 
     new Elephant()
 >new Elephant() : Elephant
->Elephant : typeof Elephant
+>Elephant : 类为 Elephant
 
 ]); // Legal because of the contextual type IAnimal provided by the parameter
 
@@ -82,19 +82,19 @@ var arr = [new Giraffe(), new Elephant()];
 >arr : (Giraffe | Elephant)[]
 >[new Giraffe(), new Elephant()] : (Giraffe | Elephant)[]
 >new Giraffe() : Giraffe
->Giraffe : typeof Giraffe
+>Giraffe : 类为 Giraffe
 >new Elephant() : Elephant
->Elephant : typeof Elephant
+>Elephant : 类为 Elephant
 
 foo(arr); // ok because arr is Array<Giraffe|Elephant> not {}[]
->foo(arr) : void
+>foo(arr) : 无值
 >类型别名 :=> 无值
->foo : (animals: IAnimal[]) => void
+>foo : (animals: IAnimal[]) => 无值
 >arr : (Giraffe | Elephant)[]
 
 bar(arr); // ok because arr is Array<Giraffe|Elephant> not {}[]
->bar(arr) : void
+>bar(arr) : 无值
 >类型别名 :=> 无值
->bar : (animals: { [n: number]: IAnimal; }) => void
+>bar : (animals: { [n: 数字]: IAnimal; }) => 无值
 >arr : (Giraffe | Elephant)[]
 

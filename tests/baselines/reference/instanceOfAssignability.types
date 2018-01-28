@@ -3,10 +3,10 @@ interface Base {
 >Base : Base
 
 	foo: string|number;
->foo : string | number
+>foo : 文字 | 数字
 
 	optional?: number;
->optional : number
+>optional : 数字
 >类型别名 :=> 数字
 }
 
@@ -16,7 +16,7 @@ class Derived1 implements Base {
 >Base : Base
 
 	foo: string;
->foo : string
+>foo : 文字
 >类型别名 :=> 文字
 }
 // Derived2 is a subtype of Base that is not assignable to Derived1
@@ -25,11 +25,11 @@ class Derived2 implements Base {
 >Base : Base
 
 	foo: number;
->foo : number
+>foo : 数字
 >类型别名 :=> 数字
 
 	optional: number;
->optional : number
+>optional : 数字
 >类型别名 :=> 数字
 }
 
@@ -37,51 +37,51 @@ class Animal {
 >Animal : Animal
 
 	move;
->move : any
+>move : 任意
 >类型别名 :=> 任意
 }
 class Mammal extends Animal { milk; }
 >Mammal : Mammal
 >Animal : Animal
->milk : any
+>milk : 任意
 >类型别名 :=> 任意
 
 class Giraffe extends Mammal { neck; }
 >Giraffe : Giraffe
 >Mammal : Mammal
->neck : any
+>neck : 任意
 >类型别名 :=> 任意
 
 function fn1(x: Array<number>|Array<string>|boolean) {
->fn1 : (x: boolean | number[] | string[]) => void
->x : boolean | number[] | string[]
+>fn1 : (x: 真假 | 数字[] | 文字[]) => 无值
+>x : 真假 | 数字[] | 文字[]
 >Array : T[]
 >Array : T[]
 
 	if(x instanceof Array) {
->x instanceof Array : boolean
+>x instanceof Array : 真假
 >类型别名 :=> 真假
->x : boolean | number[] | string[]
+>x : 真假 | 数字[] | 文字[]
 >Array : ArrayConstructor
 
 		// 1.5: y: Array<number>|Array<string>
 		// Want: y: Array<number>|Array<string>
 		let y = x;
->y : number[] | string[]
->x : number[] | string[]
+>y : 数字[] | 文字[]
+>x : 数字[] | 文字[]
 	}
 }
 
 function fn2(x: Base) {
->fn2 : (x: Base) => void
+>fn2 : (x: Base) => 无值
 >x : Base
 >Base : Base
 
 	if(x instanceof Derived1) {
->x instanceof Derived1 : boolean
+>x instanceof Derived1 : 真假
 >类型别名 :=> 真假
 >x : Base
->Derived1 : typeof Derived1
+>Derived1 : 类为 Derived1
 
 		// 1.5: y: Base
 		// Want: y: Derived1
@@ -92,16 +92,16 @@ function fn2(x: Base) {
 }
 
 function fn3(x: Base|Derived1) {
->fn3 : (x: Base | Derived1) => void
+>fn3 : (x: Base | Derived1) => 无值
 >x : Base | Derived1
 >Base : Base
 >Derived1 : Derived1
 
 	if(x instanceof Derived2) {
->x instanceof Derived2 : boolean
+>x instanceof Derived2 : 真假
 >类型别名 :=> 真假
 >x : Base | Derived1
->Derived2 : typeof Derived2
+>Derived2 : 类为 Derived2
 
 		// 1.5: y: Derived2
 		// Want: Derived2
@@ -112,16 +112,16 @@ function fn3(x: Base|Derived1) {
 }
 
 function fn4(x: Base|Derived2) {
->fn4 : (x: Base | Derived2) => void
+>fn4 : (x: Base | Derived2) => 无值
 >x : Base | Derived2
 >Base : Base
 >Derived2 : Derived2
 
 	if(x instanceof Derived1) {
->x instanceof Derived1 : boolean
+>x instanceof Derived1 : 真假
 >类型别名 :=> 真假
 >x : Base | Derived2
->Derived1 : typeof Derived1
+>Derived1 : 类为 Derived1
 
 		// 1.5: y: {}
 		// Want: Derived1
@@ -132,15 +132,15 @@ function fn4(x: Base|Derived2) {
 }
 
 function fn5(x: Derived1) {
->fn5 : (x: Derived1) => void
+>fn5 : (x: Derived1) => 无值
 >x : Derived1
 >Derived1 : Derived1
 
 	if(x instanceof Derived2) {
->x instanceof Derived2 : boolean
+>x instanceof Derived2 : 真假
 >类型别名 :=> 真假
 >x : Derived1
->Derived2 : typeof Derived2
+>Derived2 : 类为 Derived2
 
 		// 1.5: y: Derived1
 		// Want: ???
@@ -151,16 +151,16 @@ function fn5(x: Derived1) {
 }
 
 function fn6(x: Animal|Mammal) {
->fn6 : (x: Animal | Mammal) => void
+>fn6 : (x: Animal | Mammal) => 无值
 >x : Animal | Mammal
 >Animal : Animal
 >Mammal : Mammal
 
 	if(x instanceof Giraffe) {
->x instanceof Giraffe : boolean
+>x instanceof Giraffe : 真假
 >类型别名 :=> 真假
 >x : Animal | Mammal
->Giraffe : typeof Giraffe
+>Giraffe : 类为 Giraffe
 
 		// 1.5: y: Derived1
 		// Want: ???
@@ -171,61 +171,61 @@ function fn6(x: Animal|Mammal) {
 }
 
 function fn7(x: Array<number>|Array<string>) {
->fn7 : (x: number[] | string[]) => void
->x : number[] | string[]
+>fn7 : (x: 数字[] | 文字[]) => 无值
+>x : 数字[] | 文字[]
 >Array : T[]
 >Array : T[]
 
 	if(x instanceof Array) {
->x instanceof Array : boolean
+>x instanceof Array : 真假
 >类型别名 :=> 真假
->x : number[] | string[]
+>x : 数字[] | 文字[]
 >Array : ArrayConstructor
 
 		// 1.5: y: Array<number>|Array<string>
 		// Want: y: Array<number>|Array<string>
 		let y = x;
->y : number[] | string[]
->x : number[] | string[]
+>y : 数字[] | 文字[]
+>x : 数字[] | 文字[]
 	}
 }
 
 interface Alpha { a }
 >Alpha : Alpha
->a : any
+>a : 任意
 >类型别名 :=> 任意
 
 interface Beta { b }
 >Beta : Beta
->b : any
+>b : 任意
 >类型别名 :=> 任意
 
 interface Gamma { c }
 >Gamma : Gamma
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
 class ABC { a; b; c; }
 >ABC : ABC
->a : any
+>a : 任意
 >类型别名 :=> 任意
->b : any
+>b : 任意
 >类型别名 :=> 任意
->c : any
+>c : 任意
 >类型别名 :=> 任意
 
 function fn8(x: Alpha|Beta|Gamma) {
->fn8 : (x: Alpha | Beta | Gamma) => void
+>fn8 : (x: Alpha | Beta | Gamma) => 无值
 >x : Alpha | Beta | Gamma
 >Alpha : Alpha
 >Beta : Beta
 >Gamma : Gamma
 
 	if(x instanceof ABC) {
->x instanceof ABC : boolean
+>x instanceof ABC : 真假
 >类型别名 :=> 真假
 >x : Alpha | Beta | Gamma
->ABC : typeof ABC
+>ABC : 类为 ABC
 
 		let y = x;
 >y : ABC

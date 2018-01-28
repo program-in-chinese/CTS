@@ -1,53 +1,53 @@
 === tests/cases/conformance/jsx/tsxTypeErrors.tsx ===
 // A built-in element (OK)
 var a1 = <div id="foo" />;
->a1 : any
+>a1 : 任意
 >类型别名 :=> 任意
-><div id="foo" /> : any
+><div id="foo" /> : 任意
 >类型别名 :=> 任意
->div : any
+>div : 任意
 >类型别名 :=> 任意
->id : string
+>id : 文字
 >类型别名 :=> 文字
 
 // A built-in element with a mistyped property (error)
 var a2 = <img srce="foo.jpg" />
->a2 : any
+>a2 : 任意
 >类型别名 :=> 任意
-><img srce="foo.jpg" /> : any
+><img srce="foo.jpg" /> : 任意
 >类型别名 :=> 任意
->img : any
+>img : 任意
 >类型别名 :=> 任意
->srce : string
+>srce : 文字
 >类型别名 :=> 文字
 
 // A built-in element with a badly-typed attribute value (error)
 var thing = { oops: 100 };
->thing : { oops: number; }
->{ oops: 100 } : { oops: number; }
->oops : number
+>thing : { oops: 数字; }
+>{ oops: 100 } : { oops: 数字; }
+>oops : 数字
 >类型别名 :=> 数字
 >100 : 100
 
 var a3 = <div id={thing} />
->a3 : any
+>a3 : 任意
 >类型别名 :=> 任意
-><div id={thing} /> : any
+><div id={thing} /> : 任意
 >类型别名 :=> 任意
->div : any
+>div : 任意
 >类型别名 :=> 任意
->id : { oops: number; }
->thing : { oops: number; }
+>id : { oops: 数字; }
+>thing : { oops: 数字; }
 
 // Mistyped html name (error)
 var e1 = <imag src="bar.jpg" />
->e1 : any
+>e1 : 任意
 >类型别名 :=> 任意
-><imag src="bar.jpg" /> : any
+><imag src="bar.jpg" /> : 任意
 >类型别名 :=> 任意
->imag : any
+>imag : 任意
 >类型别名 :=> 任意
->src : string
+>src : 文字
 >类型别名 :=> 文字
 
 // A custom type
@@ -55,21 +55,21 @@ class MyClass {
 >MyClass : MyClass
 
   props: {
->props : { pt?: { x: number; y: number; }; name?: string; reqd: boolean; }
+>props : { pt?: { x: 数字; y: 数字; }; name?: 文字; reqd: 真假; }
 
     pt?: { x: number; y: number; };
->pt : { x: number; y: number; }
->x : number
+>pt : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 	name?: string;
->name : string
+>name : 文字
 >类型别名 :=> 文字
 
 	reqd: boolean;
->reqd : boolean
+>reqd : 真假
 >类型别名 :=> 真假
   }
 }
@@ -77,14 +77,14 @@ class MyClass {
 // Let's use it
 // TODO: Error on missing 'reqd'
 var b1 = <MyClass reqd={true} />; 
->b1 : any
+>b1 : 任意
 >类型别名 :=> 任意
-><MyClass reqd={true} /> : any
+><MyClass reqd={true} /> : 任意
 >类型别名 :=> 任意
->MyClass : typeof MyClass
->reqd : boolean
+>MyClass : 类为 MyClass
+>reqd : 真假
 >类型别名 :=> 真假
->true : true
+>true : 为真
 >类型别名 :=> 为真
 
 // Mistyped attribute member
@@ -92,17 +92,17 @@ var b1 = <MyClass reqd={true} />;
 //  Types of property 'y' are incompatible.
 //    Type 'string' is not assignable to type 'number'.
 var b2 = <MyClass pt={{x: 4, y: 'oops'}} />;
->b2 : any
+>b2 : 任意
 >类型别名 :=> 任意
-><MyClass pt={{x: 4, y: 'oops'}} /> : any
+><MyClass pt={{x: 4, y: 'oops'}} /> : 任意
 >类型别名 :=> 任意
->MyClass : typeof MyClass
->pt : { x: number; y: string; }
->{x: 4, y: 'oops'} : { x: number; y: string; }
->x : number
+>MyClass : 类为 MyClass
+>pt : { x: 数字; y: 文字; }
+>{x: 4, y: 'oops'} : { x: 数字; y: 文字; }
+>x : 数字
 >类型别名 :=> 数字
 >4 : 4
->y : string
+>y : 文字
 >类型别名 :=> 文字
 >'oops' : "oops"
 

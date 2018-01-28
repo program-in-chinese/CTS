@@ -1,102 +1,102 @@
 === tests/cases/conformance/internalModules/moduleDeclarations/nestedModules.ts ===
 module A.B.C {
->A : typeof A
->B : typeof B
->C : any
+>A : 类为 A
+>B : 类为 B
+>C : 任意
 >类型别名 :=> 任意
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
 
         y: number;
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 }
 
 module A {
->A : typeof A
+>A : 类为 A
 
     export module B {
->B : typeof B
+>B : 类为 B
 
         var Point: C.Point = { x: 0, y: 0 }; // bug 832088: could not find module 'C'
 >Point : C.Point
->C : any
+>C : 任意
 >类型别名 :=> 任意
 >Point : C.Point
->{ x: 0, y: 0 } : { x: number; y: number; }
->x : number
+>{ x: 0, y: 0 } : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
 >0 : 0
->y : number
+>y : 数字
 >类型别名 :=> 数字
 >0 : 0
     }
 }
 
 module M2.X {
->M2 : typeof M2
->X : typeof X
+>M2 : 类为 M2
+>X : 类为 X
 
     export interface Point {
 >Point : Point
 
         x: number; y: number;
->x : number
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
     }
 }
 
 module M2 {
->M2 : typeof M2
+>M2 : 类为 M2
 
     export module X {
->X : typeof X
+>X : 类为 X
 
         export var Point: number;
->Point : number
+>Point : 数字
 >类型别名 :=> 数字
     }
 }
 
 var m = M2.X;
->m : typeof M2.X
->M2.X : typeof M2.X
->M2 : typeof M2
->X : typeof M2.X
+>m : 类为 M2.X
+>M2.X : 类为 M2.X
+>M2 : 类为 M2
+>X : 类为 M2.X
 
 var point: number;
->point : number
+>point : 数字
 >类型别名 :=> 数字
 
 var point = m.Point;
->point : number
+>point : 数字
 >类型别名 :=> 数字
->m.Point : number
+>m.Point : 数字
 >类型别名 :=> 数字
->m : typeof M2.X
->Point : number
+>m : 类为 M2.X
+>Point : 数字
 >类型别名 :=> 数字
 
 var p: { x: number; y: number; }
->p : { x: number; y: number; }
->x : number
+>p : { x: 数字; y: 数字; }
+>x : 数字
 >类型别名 :=> 数字
->y : number
+>y : 数字
 >类型别名 :=> 数字
 
 var p: M2.X.Point;
->p : { x: number; y: number; }
->M2 : any
+>p : { x: 数字; y: 数字; }
+>M2 : 任意
 >类型别名 :=> 任意
->X : any
+>X : 任意
 >类型别名 :=> 任意
 >Point : M2.X.Point
 

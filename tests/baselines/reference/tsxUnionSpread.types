@@ -1,6 +1,6 @@
 === tests/cases/compiler/index.tsx ===
 namespace JSX {
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 
     export interface Element {}
@@ -10,7 +10,7 @@ namespace JSX {
 export type CatInfo = { type: 'Cat'; subType: string; };
 >CatInfo : CatInfo
 >type : "Cat"
->subType : string
+>subType : 文字
 >类型别名 :=> 文字
 
 export type DogInfo = { type: 'Dog'; };
@@ -26,14 +26,14 @@ function AnimalComponent(info: AnimalInfo): JSX.Element {
 >AnimalComponent : (info: AnimalInfo) => JSX.Element
 >info : AnimalInfo
 >AnimalInfo : AnimalInfo
->JSX : any
+>JSX : 任意
 >类型别名 :=> 任意
 >Element : JSX.Element
 
     return undefined as any;
->undefined as any : any
+>undefined as any : 任意
 >类型别名 :=> 任意
->undefined : undefined
+>undefined : 未定
 >类型别名 :=> 未定
 }
 
@@ -43,11 +43,11 @@ function getProps(): AnimalInfo {
 
     // this may be from server or whatever ...
     return { type: 'Cat', subType: 'Large' };
->{ type: 'Cat', subType: 'Large' } : { type: "Cat"; subType: string; }
->type : string
+>{ type: 'Cat', subType: 'Large' } : { type: "Cat"; subType: 文字; }
+>type : 文字
 >类型别名 :=> 文字
 >'Cat' : "Cat"
->subType : string
+>subType : 文字
 >类型别名 :=> 文字
 >'Large' : "Large"
 }
@@ -59,9 +59,9 @@ var props:AnimalInfo = getProps();
 >getProps : () => AnimalInfo
 
 var component = <AnimalComponent {...props} />
->component : any
+>component : 任意
 >类型别名 :=> 任意
-><AnimalComponent {...props} /> : any
+><AnimalComponent {...props} /> : 任意
 >类型别名 :=> 任意
 >AnimalComponent : (info: AnimalInfo) => JSX.Element
 >props : AnimalInfo
@@ -69,18 +69,18 @@ var component = <AnimalComponent {...props} />
 var props2:AnimalInfo = { type: 'Cat', subType: 'Large' };
 >props2 : AnimalInfo
 >AnimalInfo : AnimalInfo
->{ type: 'Cat', subType: 'Large' } : { type: "Cat"; subType: string; }
->type : string
+>{ type: 'Cat', subType: 'Large' } : { type: "Cat"; subType: 文字; }
+>type : 文字
 >类型别名 :=> 文字
 >'Cat' : "Cat"
->subType : string
+>subType : 文字
 >类型别名 :=> 文字
 >'Large' : "Large"
 
 var component2 = <AnimalComponent {...props2} />
->component2 : any
+>component2 : 任意
 >类型别名 :=> 任意
-><AnimalComponent {...props2} /> : any
+><AnimalComponent {...props2} /> : 任意
 >类型别名 :=> 任意
 >AnimalComponent : (info: AnimalInfo) => JSX.Element
 >props2 : CatInfo
