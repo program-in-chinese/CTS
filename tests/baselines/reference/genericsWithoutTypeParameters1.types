@@ -6,8 +6,7 @@ class C<T> {
     foo(): T { return null }
 >foo : () => T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 
 interface I<T> {
@@ -20,62 +19,56 @@ interface I<T> {
 }
 
 var c1: C;
->c1 : 任意
->类型别名 :=> 任意
+>c1 : any
 >C : C<T>
 
 var i1: I;
->i1 : 任意
->类型别名 :=> 任意
+>i1 : any
 >I : I<T>
 
 var c2: C<I>;
->c2 : C<任意>
+>c2 : C<any>
 >C : C<T>
 >I : I<T>
 
 var i2: I<C>;
->i2 : I<任意>
+>i2 : I<any>
 >I : I<T>
 >C : C<T>
 
 function foo(x: C, y: I) { }
->foo : (x: 任意, y: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
+>foo : (x: any, y: any) => void
+>x : any
 >C : C<T>
->y : 任意
->类型别名 :=> 任意
+>y : any
 >I : I<T>
 
 function foo2(x: C<I>, y: I<C>) { }
->foo2 : (x: C<任意>, y: I<任意>) => 无值
->x : C<任意>
+>foo2 : (x: C<any>, y: I<any>) => void
+>x : C<any>
 >C : C<T>
 >I : I<T>
->y : I<任意>
+>y : I<any>
 >I : I<T>
 >C : C<T>
 
 var x: { a: C } = { a: new C<number>() };
->x : { a: 任意; }
->a : 任意
->类型别名 :=> 任意
+>x : { a: any; }
+>a : any
 >C : C<T>
->{ a: new C<number>() } : { a: C<数字>; }
->a : C<数字>
->new C<number>() : C<数字>
->C : 类为 C
+>{ a: new C<number>() } : { a: C<number>; }
+>a : C<number>
+>new C<number>() : C<number>
+>C : typeof C
 
 var x2: { a: I } = { a: { bar() { return 1 } } };
->x2 : { a: 任意; }
->a : 任意
->类型别名 :=> 任意
+>x2 : { a: any; }
+>a : any
 >I : I<T>
->{ a: { bar() { return 1 } } } : { a: { bar(): 数字; }; }
->a : { bar(): 数字; }
->{ bar() { return 1 } } : { bar(): 数字; }
->bar : () => 数字
+>{ a: { bar() { return 1 } } } : { a: { bar(): number; }; }
+>a : { bar(): number; }
+>{ bar() { return 1 } } : { bar(): number; }
+>bar : () => number
 >1 : 1
 
 class D<T> {
@@ -83,13 +76,11 @@ class D<T> {
 >T : T
 
     x: C;
->x : 任意
->类型别名 :=> 任意
+>x : any
 >C : C<T>
 
     y: D;
->y : 任意
->类型别名 :=> 任意
+>y : any
 >D : D<T>
 }
 
@@ -98,13 +89,11 @@ interface J<T> {
 >T : T
 
     x: I;
->x : 任意
->类型别名 :=> 任意
+>x : any
 >I : I<T>
 
     y: J;
->y : 任意
->类型别名 :=> 任意
+>y : any
 >J : J<T>
 }
 
@@ -113,13 +102,12 @@ class A<T> { }
 >T : T
 
 function f<T>(x: T): A {
->f : <T>(x: T) => 任意
+>f : <T>(x: T) => any
 >T : T
 >x : T
 >T : T
 >A : A<T>
 
     return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 }

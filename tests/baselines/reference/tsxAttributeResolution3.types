@@ -1,7 +1,6 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 
 	interface Element { }
 >Element : Element
@@ -18,132 +17,108 @@ interface Attribs1 {
 >Attribs1 : Attribs1
 
 	x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
 	y?: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 
 	z?: string;
->z : 文字
->类型别名 :=> 文字
+>z : string
 }
 
 // OK
 var obj1 = { x: 'foo' };
->obj1 : { x: 文字; }
->{ x: 'foo' } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>obj1 : { x: string; }
+>{ x: 'foo' } : { x: string; }
+>x : string
 >'foo' : "foo"
 
 <test1 {...obj1} />
 ><test1 {...obj1} /> : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
->obj1 : { x: 文字; }
+>test1 : any
+>obj1 : { x: string; }
 
 // Error, x is not string
 var obj2 = { x: 32 };
->obj2 : { x: 数字; }
->{ x: 32 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>obj2 : { x: number; }
+>{ x: 32 } : { x: number; }
+>x : number
 >32 : 32
 
 <test1 {...obj2} />
 ><test1 {...obj2} /> : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
->obj2 : { x: 数字; }
+>test1 : any
+>obj2 : { x: number; }
 
 // Error, x is missing
 var obj3 = { y: 32 };
->obj3 : { y: 数字; }
->{ y: 32 } : { y: 数字; }
->y : 数字
->类型别名 :=> 数字
+>obj3 : { y: number; }
+>{ y: 32 } : { y: number; }
+>y : number
 >32 : 32
 
 <test1 {...obj3} />
 ><test1 {...obj3} /> : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
->obj3 : { y: 数字; }
+>test1 : any
+>obj3 : { y: number; }
 
 // OK
 var obj4 = { x: 32, y: 32 };
->obj4 : { x: 数字; y: 数字; }
->{ x: 32, y: 32 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>obj4 : { x: number; y: number; }
+>{ x: 32, y: 32 } : { x: number; y: number; }
+>x : number
 >32 : 32
->y : 数字
->类型别名 :=> 数字
+>y : number
 >32 : 32
 
 <test1 {...obj4} x="ok" />
 ><test1 {...obj4} x="ok" /> : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
->obj4 : { x: 数字; y: 数字; }
->x : 文字
->类型别名 :=> 文字
+>test1 : any
+>obj4 : { x: number; y: number; }
+>x : string
 
 // Error
 var obj5 = { x: 32, y: 32 };
->obj5 : { x: 数字; y: 数字; }
->{ x: 32, y: 32 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>obj5 : { x: number; y: number; }
+>{ x: 32, y: 32 } : { x: number; y: number; }
+>x : number
 >32 : 32
->y : 数字
->类型别名 :=> 数字
+>y : number
 >32 : 32
 
 <test1 x="ok" {...obj5} />
 ><test1 x="ok" {...obj5} /> : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
->x : 文字
->类型别名 :=> 文字
->obj5 : { x: 数字; y: 数字; }
+>test1 : any
+>x : string
+>obj5 : { x: number; y: number; }
 
 // Ok
 var obj6 = { x: 'ok', y: 32, extra: 100 };
->obj6 : { x: 文字; y: 数字; extra: 数字; }
->{ x: 'ok', y: 32, extra: 100 } : { x: 文字; y: 数字; extra: 数字; }
->x : 文字
->类型别名 :=> 文字
+>obj6 : { x: string; y: number; extra: number; }
+>{ x: 'ok', y: 32, extra: 100 } : { x: string; y: number; extra: number; }
+>x : string
 >'ok' : "ok"
->y : 数字
->类型别名 :=> 数字
+>y : number
 >32 : 32
->extra : 数字
->类型别名 :=> 数字
+>extra : number
 >100 : 100
 
 <test1 {...obj6} />
 ><test1 {...obj6} /> : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
->obj6 : { x: 文字; y: 数字; extra: 数字; }
+>test1 : any
+>obj6 : { x: string; y: number; extra: number; }
 
 // OK (spread override)
 var obj7 = { x: 'foo' };
->obj7 : { x: 文字; }
->{ x: 'foo' } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>obj7 : { x: string; }
+>{ x: 'foo' } : { x: string; }
+>x : string
 >'foo' : "foo"
 
 <test1 x={32} {...obj7} />
 ><test1 x={32} {...obj7} /> : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
->x : 数字
->类型别名 :=> 数字
+>test1 : any
+>x : number
 >32 : 32
->obj7 : { x: 文字; }
+>obj7 : { x: string; }
 

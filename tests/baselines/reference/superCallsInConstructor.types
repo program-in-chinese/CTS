@@ -3,18 +3,17 @@ class C {
 >C : C
 
     foo() {}
->foo : () => 无值
+>foo : () => void
 
     bar() {}
->bar : () => 无值
+>bar : () => void
 }
 
 class Base {
 >Base : Base
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
  
 class Derived extends Base {
@@ -24,32 +23,24 @@ class Derived extends Base {
     constructor() {
         with(new C()) {
 >new C() : C
->C : 类为 C
+>C : typeof C
 
             foo();
->foo() : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>foo() : any
+>foo : any
 
             super();
->super() : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
+>super() : any
+>super : any
 
             bar();
->bar() : 任意
->类型别名 :=> 任意
->bar : 任意
->类型别名 :=> 任意
+>bar() : any
+>bar : any
         }
 
         try {} catch(e) { super(); }
->e : 任意
->类型别名 :=> 任意
->super() : 无值
->类型别名 :=> 无值
->super : 类为 Base
+>e : any
+>super() : void
+>super : typeof Base
     }
 }

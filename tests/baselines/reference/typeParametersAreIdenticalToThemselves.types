@@ -2,46 +2,46 @@
 // type parameters from the same declaration are identical to themself
 
 function foo1<T>(x: T);
->foo1 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo1 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
 function foo1<T>(x: T); // no error, different declaration for each T
->foo1 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo1 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
 function foo1<T>(x: T) { }
->foo1 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo1 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
 function foo2<T, U>(x: T);
->foo2 : { <T, U>(x: T): 任意; <T, U>(x: T): 任意; }
+>foo2 : { <T, U>(x: T): any; <T, U>(x: T): any; }
 >T : T
 >U : U
 >x : T
 >T : T
 
 function foo2<T, U>(x: T); // no error, different declaration for each T
->foo2 : { <T, U>(x: T): 任意; <T, U>(x: T): 任意; }
+>foo2 : { <T, U>(x: T): any; <T, U>(x: T): any; }
 >T : T
 >U : U
 >x : T
 >T : T
 
 function foo2<T, U>(x: T) { }
->foo2 : { <T, U>(x: T): 任意; <T, U>(x: T): 任意; }
+>foo2 : { <T, U>(x: T): any; <T, U>(x: T): any; }
 >T : T
 >U : U
 >x : T
 >T : T
 
 function foo3<T, U>(x: T, y: U) {
->foo3 : <T, U>(x: T, y: U) => 无值
+>foo3 : <T, U>(x: T, y: U) => void
 >T : T
 >U : U
 >x : T
@@ -50,35 +50,34 @@ function foo3<T, U>(x: T, y: U) {
 >U : U
 
     function inner(x: T);
->inner : { (x: T): 任意; (x: T): 任意; }
+>inner : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     function inner(x: T); // error, same T
->inner : { (x: T): 任意; (x: T): 任意; }
+>inner : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     function inner(x: T) { }
->inner : { (x: T): 任意; (x: T): 任意; }
+>inner : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     function inner2(x: T);
->inner2 : { (x: T): 任意; <T>(x: T): 任意; }
+>inner2 : { (x: T): any; <T>(x: T): any; }
 >x : T
 >T : T
 
     function inner2<T>(x: T); // no error, different T
->inner2 : { (x: T): 任意; <T>(x: T): 任意; }
+>inner2 : { (x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     function inner2(x: any) { }
->inner2 : { (x: T): 任意; <T>(x: T): 任意; }
->x : 任意
->类型别名 :=> 任意
+>inner2 : { (x: T): any; <T>(x: T): any; }
+>x : any
 }
 
 class C<T> {
@@ -86,22 +85,22 @@ class C<T> {
 >T : T
 
     foo1(x: T);
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo1(x: T); // error, same T
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo1(x: T) { }
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo2<U>(a: T, x: U);
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -109,7 +108,7 @@ class C<T> {
 >U : U
 
     foo2<U>(a: T, x: U); // no error, different declaration for each U
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -117,7 +116,7 @@ class C<T> {
 >U : U
 
     foo2<U>(a: T, x: U) { }
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -125,39 +124,39 @@ class C<T> {
 >U : U
 
     foo3<T>(x: T);
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo3<T>(x: T); // no error, different declaration for each T
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo3<T>(x: T) { }
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo4<T extends Date>(x: T);
->foo4 : { <T 扩展 Date>(x: T): 任意; <T 扩展 Date>(x: T): 任意; }
+>foo4 : { <T extends Date>(x: T): any; <T extends Date>(x: T): any; }
 >T : T
 >Date : Date
 >x : T
 >T : T
 
     foo4<T extends Date>(x: T); // no error, different declaration for each T
->foo4 : { <T 扩展 Date>(x: T): 任意; <T 扩展 Date>(x: T): 任意; }
+>foo4 : { <T extends Date>(x: T): any; <T extends Date>(x: T): any; }
 >T : T
 >Date : Date
 >x : T
 >T : T
 
     foo4<T extends Date>(x: T) { }
->foo4 : { <T 扩展 Date>(x: T): 任意; <T 扩展 Date>(x: T): 任意; }
+>foo4 : { <T extends Date>(x: T): any; <T extends Date>(x: T): any; }
 >T : T
 >Date : Date
 >x : T
@@ -170,22 +169,22 @@ class C2<T extends Date> {
 >Date : Date
 
     foo1(x: T);
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo1(x: T); // error, same T
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo1(x: T) { }
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo2<U>(a: T, x: U);
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -193,7 +192,7 @@ class C2<T extends Date> {
 >U : U
 
     foo2<U>(a: T, x: U); // no error, different declaration for each U
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -201,7 +200,7 @@ class C2<T extends Date> {
 >U : U
 
     foo2<U>(a: T, x: U) { }
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -209,19 +208,19 @@ class C2<T extends Date> {
 >U : U
 
     foo3<T>(x: T);
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo3<T>(x: T); // no error, different declaration for each T
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo3<T>(x: T) { }
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
@@ -232,17 +231,17 @@ interface I<T> {
 >T : T
 
     foo1(x: T);
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo1(x: T); // error, same T
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo2<U>(a: T, x: U);
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -250,7 +249,7 @@ interface I<T> {
 >U : U
 
     foo2<U>(a: T, x: U); // no error, different declaration for each U
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -258,26 +257,26 @@ interface I<T> {
 >U : U
 
     foo3<T>(x: T);
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo3<T>(x: T); // no error, different declaration for each T
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo4<T extends Date>(x: T);
->foo4 : { <T 扩展 Date>(x: T): 任意; <T 扩展 Date>(x: T): 任意; }
+>foo4 : { <T extends Date>(x: T): any; <T extends Date>(x: T): any; }
 >T : T
 >Date : Date
 >x : T
 >T : T
 
     foo4<T extends Date>(x: T); // no error, different declaration for each T
->foo4 : { <T 扩展 Date>(x: T): 任意; <T 扩展 Date>(x: T): 任意; }
+>foo4 : { <T extends Date>(x: T): any; <T extends Date>(x: T): any; }
 >T : T
 >Date : Date
 >x : T
@@ -290,17 +289,17 @@ interface I2<T extends Date> {
 >Date : Date
 
     foo1(x: T);
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo1(x: T); // error, same T
->foo1 : { (x: T): 任意; (x: T): 任意; }
+>foo1 : { (x: T): any; (x: T): any; }
 >x : T
 >T : T
 
     foo2<U>(a: T, x: U);
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -308,7 +307,7 @@ interface I2<T extends Date> {
 >U : U
 
     foo2<U>(a: T, x: U); // no error, different declaration for each U
->foo2 : { <U>(a: T, x: U): 任意; <U>(a: T, x: U): 任意; }
+>foo2 : { <U>(a: T, x: U): any; <U>(a: T, x: U): any; }
 >U : U
 >a : T
 >T : T
@@ -316,13 +315,13 @@ interface I2<T extends Date> {
 >U : U
 
     foo3<T>(x: T);
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T
 
     foo3<T>(x: T); // no error, different declaration for each T
->foo3 : { <T>(x: T): 任意; <T>(x: T): 任意; }
+>foo3 : { <T>(x: T): any; <T>(x: T): any; }
 >T : T
 >x : T
 >T : T

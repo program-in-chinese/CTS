@@ -3,24 +3,22 @@ class RoyalGuard {
 >RoyalGuard : RoyalGuard
 
     isLeader(): this is LeadGuard {
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 >LeadGuard : LeadGuard
 
         return this instanceof LeadGuard;
->this instanceof LeadGuard : 真假
->类型别名 :=> 真假
->this : 本体
->LeadGuard : 类为 LeadGuard
+>this instanceof LeadGuard : boolean
+>this : this
+>LeadGuard : typeof LeadGuard
     }
     isFollower(): this is FollowerGuard {
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 >FollowerGuard : FollowerGuard
 
         return this instanceof FollowerGuard;
->this instanceof FollowerGuard : 真假
->类型别名 :=> 真假
->this : 本体
->FollowerGuard : 类为 FollowerGuard
+>this instanceof FollowerGuard : boolean
+>this : this
+>FollowerGuard : typeof FollowerGuard
     }
 }
 
@@ -29,7 +27,7 @@ class LeadGuard extends RoyalGuard {
 >RoyalGuard : RoyalGuard
 
     lead(): void {};
->lead : () => 无值
+>lead : () => void
 }
 
 class FollowerGuard extends RoyalGuard {
@@ -37,42 +35,38 @@ class FollowerGuard extends RoyalGuard {
 >RoyalGuard : RoyalGuard
 
     follow(): void {};
->follow : () => 无值
+>follow : () => void
 }
 
 let a: RoyalGuard = new FollowerGuard();
 >a : RoyalGuard
 >RoyalGuard : RoyalGuard
 >new FollowerGuard() : FollowerGuard
->FollowerGuard : 类为 FollowerGuard
+>FollowerGuard : typeof FollowerGuard
 
 if (a.isLeader()) {
->a.isLeader() : 真假
->类型别名 :=> 真假
->a.isLeader : () => 本体 作为 LeadGuard
+>a.isLeader() : boolean
+>a.isLeader : () => this is LeadGuard
 >a : RoyalGuard
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 
     a.lead();
->a.lead() : 无值
->类型别名 :=> 无值
->a.lead : () => 无值
+>a.lead() : void
+>a.lead : () => void
 >a : LeadGuard
->lead : () => 无值
+>lead : () => void
 }
 else if (a.isFollower()) {
->a.isFollower() : 真假
->类型别名 :=> 真假
->a.isFollower : () => 本体 作为 FollowerGuard
+>a.isFollower() : boolean
+>a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 
     a.follow();
->a.follow() : 无值
->类型别名 :=> 无值
->a.follow : () => 无值
+>a.follow() : void
+>a.follow : () => void
 >a : FollowerGuard
->follow : () => 无值
+>follow : () => void
 }
 
 interface GuardInterface extends RoyalGuard {}
@@ -84,32 +78,28 @@ let b: GuardInterface;
 >GuardInterface : GuardInterface
 
 if (b.isLeader()) {
->b.isLeader() : 真假
->类型别名 :=> 真假
->b.isLeader : () => 本体 作为 LeadGuard
+>b.isLeader() : boolean
+>b.isLeader : () => this is LeadGuard
 >b : GuardInterface
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 
     b.lead();
->b.lead() : 无值
->类型别名 :=> 无值
->b.lead : () => 无值
+>b.lead() : void
+>b.lead : () => void
 >b : LeadGuard
->lead : () => 无值
+>lead : () => void
 }
 else if (b.isFollower()) {
->b.isFollower() : 真假
->类型别名 :=> 真假
->b.isFollower : () => 本体 作为 FollowerGuard
+>b.isFollower() : boolean
+>b.isFollower : () => this is FollowerGuard
 >b : GuardInterface
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 
     b.follow();
->b.follow() : 无值
->类型别名 :=> 无值
->b.follow : () => 无值
+>b.follow() : void
+>b.follow : () => void
 >b : FollowerGuard
->follow : () => 无值
+>follow : () => void
 }
 
 // if (((a.isLeader)())) {
@@ -132,13 +122,12 @@ var holder2 = {a};
 >a : RoyalGuard
 
 if (holder2.a.isLeader()) {
->holder2.a.isLeader() : 真假
->类型别名 :=> 真假
->holder2.a.isLeader : () => 本体 作为 LeadGuard
+>holder2.a.isLeader() : boolean
+>holder2.a.isLeader : () => this is LeadGuard
 >holder2.a : RoyalGuard
 >holder2 : { a: RoyalGuard; }
 >a : RoyalGuard
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 
     holder2.a;
 >holder2.a : LeadGuard
@@ -156,26 +145,24 @@ class ArrowGuard {
 >ArrowGuard : ArrowGuard
 
     isElite = (): this is ArrowElite => {
->isElite : () => 本体 作为 ArrowElite
->(): this is ArrowElite => {        return this instanceof ArrowElite;    } : () => 本体 作为 ArrowElite
+>isElite : () => this is ArrowElite
+>(): this is ArrowElite => {        return this instanceof ArrowElite;    } : () => this is ArrowElite
 >ArrowElite : ArrowElite
 
         return this instanceof ArrowElite;
->this instanceof ArrowElite : 真假
->类型别名 :=> 真假
->this : 本体
->ArrowElite : 类为 ArrowElite
+>this instanceof ArrowElite : boolean
+>this : this
+>ArrowElite : typeof ArrowElite
     }
     isMedic = (): this is ArrowMedic => {
->isMedic : () => 本体 作为 ArrowMedic
->(): this is ArrowMedic => {        return this instanceof ArrowMedic;    } : () => 本体 作为 ArrowMedic
+>isMedic : () => this is ArrowMedic
+>(): this is ArrowMedic => {        return this instanceof ArrowMedic;    } : () => this is ArrowMedic
 >ArrowMedic : ArrowMedic
 
         return this instanceof ArrowMedic;
->this instanceof ArrowMedic : 真假
->类型别名 :=> 真假
->this : 本体
->ArrowMedic : 类为 ArrowMedic
+>this instanceof ArrowMedic : boolean
+>this : this
+>ArrowMedic : typeof ArrowMedic
     }
 }
 
@@ -184,7 +171,7 @@ class ArrowElite extends ArrowGuard {
 >ArrowGuard : ArrowGuard
 
     defend(): void {}
->defend : () => 无值
+>defend : () => void
 }
 
 class ArrowMedic extends ArrowGuard {
@@ -192,57 +179,51 @@ class ArrowMedic extends ArrowGuard {
 >ArrowGuard : ArrowGuard
 
     heal(): void {}
->heal : () => 无值
+>heal : () => void
 }
 
 let guard = new ArrowGuard();
 >guard : ArrowGuard
 >new ArrowGuard() : ArrowGuard
->ArrowGuard : 类为 ArrowGuard
+>ArrowGuard : typeof ArrowGuard
 
 if (guard.isElite()) {
->guard.isElite() : 真假
->类型别名 :=> 真假
->guard.isElite : () => 本体 作为 ArrowElite
+>guard.isElite() : boolean
+>guard.isElite : () => this is ArrowElite
 >guard : ArrowGuard
->isElite : () => 本体 作为 ArrowElite
+>isElite : () => this is ArrowElite
 
     guard.defend();
->guard.defend() : 无值
->类型别名 :=> 无值
->guard.defend : () => 无值
+>guard.defend() : void
+>guard.defend : () => void
 >guard : ArrowElite
->defend : () => 无值
+>defend : () => void
 }
 else if (guard.isMedic()) {
->guard.isMedic() : 真假
->类型别名 :=> 真假
->guard.isMedic : () => 本体 作为 ArrowMedic
+>guard.isMedic() : boolean
+>guard.isMedic : () => this is ArrowMedic
 >guard : ArrowGuard
->isMedic : () => 本体 作为 ArrowMedic
+>isMedic : () => this is ArrowMedic
 
     guard.heal();
->guard.heal() : 无值
->类型别名 :=> 无值
->guard.heal : () => 无值
+>guard.heal() : void
+>guard.heal : () => void
 >guard : ArrowMedic
->heal : () => 无值
+>heal : () => void
 }
 
 interface Supplies {
 >Supplies : Supplies
 
     spoiled: boolean;
->spoiled : 真假
->类型别名 :=> 真假
+>spoiled : boolean
 }
 
 interface Sundries {
 >Sundries : Sundries
 
     broken: boolean;
->broken : 真假
->类型别名 :=> 真假
+>broken : boolean
 }
 
 interface Crate<T> {
@@ -254,16 +235,15 @@ interface Crate<T> {
 >T : T
 
     volume: number;
->volume : 数字
->类型别名 :=> 数字
+>volume : number
 
     isSupplies(): this is Crate<Supplies>;
->isSupplies : () => 本体 作为 Crate<Supplies>
+>isSupplies : () => this is Crate<Supplies>
 >Crate : Crate<T>
 >Supplies : Supplies
 
     isSundries(): this is Crate<Sundries>;
->isSundries : () => 本体 作为 Crate<Sundries>
+>isSundries : () => this is Crate<Sundries>
 >Crate : Crate<T>
 >Sundries : Sundries
 }
@@ -273,84 +253,72 @@ let crate: Crate<{}>;
 >Crate : Crate<T>
 
 if (crate.isSundries()) {
->crate.isSundries() : 真假
->类型别名 :=> 真假
->crate.isSundries : () => 本体 作为 Crate<Sundries>
+>crate.isSundries() : boolean
+>crate.isSundries : () => this is Crate<Sundries>
 >crate : Crate<{}>
->isSundries : () => 本体 作为 Crate<Sundries>
+>isSundries : () => this is Crate<Sundries>
 
     crate.contents.broken = true;
->crate.contents.broken = true : 为真
->类型别名 :=> 为真
->crate.contents.broken : 真假
->类型别名 :=> 真假
+>crate.contents.broken = true : true
+>crate.contents.broken : boolean
 >crate.contents : Sundries
 >crate : Crate<Sundries>
 >contents : Sundries
->broken : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>broken : boolean
+>true : true
 }
 else if (crate.isSupplies()) {
->crate.isSupplies() : 真假
->类型别名 :=> 真假
->crate.isSupplies : () => 本体 作为 Crate<Supplies>
+>crate.isSupplies() : boolean
+>crate.isSupplies : () => this is Crate<Supplies>
 >crate : Crate<{}>
->isSupplies : () => 本体 作为 Crate<Supplies>
+>isSupplies : () => this is Crate<Supplies>
 
     crate.contents.spoiled = true;
->crate.contents.spoiled = true : 为真
->类型别名 :=> 为真
->crate.contents.spoiled : 真假
->类型别名 :=> 真假
+>crate.contents.spoiled = true : true
+>crate.contents.spoiled : boolean
 >crate.contents : Supplies
 >crate : Crate<Supplies>
 >contents : Supplies
->spoiled : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>spoiled : boolean
+>true : true
 }
 
 // Matching guards should be assignable
 
 a.isFollower = b.isFollower;
->a.isFollower = b.isFollower : () => 本体 作为 FollowerGuard
->a.isFollower : () => 本体 作为 FollowerGuard
+>a.isFollower = b.isFollower : () => this is FollowerGuard
+>a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
->isFollower : () => 本体 作为 FollowerGuard
->b.isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
+>b.isFollower : () => this is FollowerGuard
 >b : GuardInterface
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 
 a.isLeader = b.isLeader;
->a.isLeader = b.isLeader : () => 本体 作为 LeadGuard
->a.isLeader : () => 本体 作为 LeadGuard
+>a.isLeader = b.isLeader : () => this is LeadGuard
+>a.isLeader : () => this is LeadGuard
 >a : RoyalGuard
->isLeader : () => 本体 作为 LeadGuard
->b.isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
+>b.isLeader : () => this is LeadGuard
 >b : GuardInterface
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 
 class MimicGuard {
 >MimicGuard : MimicGuard
 
     isLeader(): this is MimicLeader { return this instanceof MimicLeader; };
->isLeader : () => 本体 作为 MimicLeader
+>isLeader : () => this is MimicLeader
 >MimicLeader : MimicLeader
->this instanceof MimicLeader : 真假
->类型别名 :=> 真假
->this : 本体
->MimicLeader : 类为 MimicLeader
+>this instanceof MimicLeader : boolean
+>this : this
+>MimicLeader : typeof MimicLeader
 
     isFollower(): this is MimicFollower { return this instanceof MimicFollower; };
->isFollower : () => 本体 作为 MimicFollower
+>isFollower : () => this is MimicFollower
 >MimicFollower : MimicFollower
->this instanceof MimicFollower : 真假
->类型别名 :=> 真假
->this : 本体
->MimicFollower : 类为 MimicFollower
+>this instanceof MimicFollower : boolean
+>this : this
+>MimicFollower : typeof MimicFollower
 }
 
 class MimicLeader extends MimicGuard {
@@ -358,7 +326,7 @@ class MimicLeader extends MimicGuard {
 >MimicGuard : MimicGuard
 
     lead(): void {}
->lead : () => 无值
+>lead : () => void
 }
 
 class MimicFollower extends MimicGuard {
@@ -366,54 +334,52 @@ class MimicFollower extends MimicGuard {
 >MimicGuard : MimicGuard
 
     follow(): void {}
->follow : () => 无值
+>follow : () => void
 }
 
 let mimic = new MimicGuard();
 >mimic : MimicGuard
 >new MimicGuard() : MimicGuard
->MimicGuard : 类为 MimicGuard
+>MimicGuard : typeof MimicGuard
 
 a.isLeader = mimic.isLeader;
->a.isLeader = mimic.isLeader : () => 本体 作为 MimicLeader
->a.isLeader : () => 本体 作为 LeadGuard
+>a.isLeader = mimic.isLeader : () => this is MimicLeader
+>a.isLeader : () => this is LeadGuard
 >a : RoyalGuard
->isLeader : () => 本体 作为 LeadGuard
->mimic.isLeader : () => 本体 作为 MimicLeader
+>isLeader : () => this is LeadGuard
+>mimic.isLeader : () => this is MimicLeader
 >mimic : MimicGuard
->isLeader : () => 本体 作为 MimicLeader
+>isLeader : () => this is MimicLeader
 
 a.isFollower = mimic.isFollower;
->a.isFollower = mimic.isFollower : () => 本体 作为 MimicFollower
->a.isFollower : () => 本体 作为 FollowerGuard
+>a.isFollower = mimic.isFollower : () => this is MimicFollower
+>a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
->isFollower : () => 本体 作为 FollowerGuard
->mimic.isFollower : () => 本体 作为 MimicFollower
+>isFollower : () => this is FollowerGuard
+>mimic.isFollower : () => this is MimicFollower
 >mimic : MimicGuard
->isFollower : () => 本体 作为 MimicFollower
+>isFollower : () => this is MimicFollower
 
 if (mimic.isFollower()) {
->mimic.isFollower() : 真假
->类型别名 :=> 真假
->mimic.isFollower : () => 本体 作为 MimicFollower
+>mimic.isFollower() : boolean
+>mimic.isFollower : () => this is MimicFollower
 >mimic : MimicGuard
->isFollower : () => 本体 作为 MimicFollower
+>isFollower : () => this is MimicFollower
 
     mimic.follow();
->mimic.follow() : 无值
->类型别名 :=> 无值
->mimic.follow : () => 无值
+>mimic.follow() : void
+>mimic.follow : () => void
 >mimic : MimicFollower
->follow : () => 无值
+>follow : () => void
 
     mimic.isFollower = a.isFollower;
->mimic.isFollower = a.isFollower : () => 本体 作为 FollowerGuard
->mimic.isFollower : () => 本体 作为 MimicFollower
+>mimic.isFollower = a.isFollower : () => this is FollowerGuard
+>mimic.isFollower : () => this is MimicFollower
 >mimic : MimicFollower
->isFollower : () => 本体 作为 MimicFollower
->a.isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is MimicFollower
+>a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 }
 
 
@@ -421,11 +387,11 @@ interface MimicGuardInterface {
 >MimicGuardInterface : MimicGuardInterface
 
     isLeader(): this is LeadGuard;
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 >LeadGuard : LeadGuard
 
     isFollower(): this is FollowerGuard;
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 >FollowerGuard : FollowerGuard
 }
 

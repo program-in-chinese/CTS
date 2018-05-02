@@ -1,43 +1,39 @@
 === tests/cases/conformance/expressions/typeGuards/typeGuardOfFormTypeOfOther.ts ===
 class C { private p: string };
 >C : C
->p : 文字
->类型别名 :=> 文字
+>p : string
 
 var str: string;
->str : 文字
->类型别名 :=> 文字
+>str : string
 
 var bool: boolean;
->bool : 真假
->类型别名 :=> 真假
+>bool : boolean
 
 var num: number;
->num : 数字
->类型别名 :=> 数字
+>num : number
 
 var strOrNum: string | number;
->strOrNum : 文字 | 数字
+>strOrNum : string | number
 
 var strOrBool: string | boolean;
->strOrBool : 文字 | 真假
+>strOrBool : string | boolean
 
 var numOrBool: number | boolean
->numOrBool : 数字 | 真假
+>numOrBool : number | boolean
 
 var strOrNumOrBool: string | number | boolean;
->strOrNumOrBool : 文字 | 数字 | 真假
+>strOrNumOrBool : string | number | boolean
 
 var strOrC: string | C;
->strOrC : 文字 | C
+>strOrC : string | C
 >C : C
 
 var numOrC: number | C;
->numOrC : 数字 | C
+>numOrC : number | C
 >C : C
 
 var boolOrC: boolean | C;
->boolOrC : 真假 | C
+>boolOrC : boolean | C
 >C : C
 
 var emptyObj: {};
@@ -53,10 +49,9 @@ var c: C;
 //  - when false, has no effect on the type of x.
 
 if (typeof strOrC === "Object") {
->typeof strOrC === "Object" : 真假
->类型别名 :=> 真假
->typeof strOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrC : 文字 | C
+>typeof strOrC === "Object" : boolean
+>typeof strOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrC : string | C
 >"Object" : "Object"
 
     c = strOrC; // C
@@ -66,16 +61,13 @@ if (typeof strOrC === "Object") {
 }
 else {
     var r2: string = strOrC; // string
->r2 : 文字
->类型别名 :=> 文字
->strOrC : 文字
->类型别名 :=> 文字
+>r2 : string
+>strOrC : string
 }
 if (typeof numOrC === "Object") {
->typeof numOrC === "Object" : 真假
->类型别名 :=> 真假
->typeof numOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->numOrC : 数字 | C
+>typeof numOrC === "Object" : boolean
+>typeof numOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>numOrC : number | C
 >"Object" : "Object"
 
     c = numOrC; // C
@@ -85,16 +77,13 @@ if (typeof numOrC === "Object") {
 }
 else {
     var r3: number  = numOrC; // number
->r3 : 数字
->类型别名 :=> 数字
->numOrC : 数字
->类型别名 :=> 数字
+>r3 : number
+>numOrC : number
 }
 if (typeof boolOrC === "Object") {
->typeof boolOrC === "Object" : 真假
->类型别名 :=> 真假
->typeof boolOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->boolOrC : 真假 | C
+>typeof boolOrC === "Object" : boolean
+>typeof boolOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>boolOrC : boolean | C
 >"Object" : "Object"
 
     c = boolOrC; // C
@@ -104,65 +93,55 @@ if (typeof boolOrC === "Object") {
 }
 else {
     var r4: boolean = boolOrC; // boolean
->r4 : 真假
->类型别名 :=> 真假
->boolOrC : 真假
->类型别名 :=> 真假
+>r4 : boolean
+>boolOrC : boolean
 }
 if (typeof strOrC === "Object" as string) { // comparison is OK with cast
->typeof strOrC === "Object" as string : 真假
->类型别名 :=> 真假
->typeof strOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrC : 文字 | C
->"Object" as string : 文字
->类型别名 :=> 文字
+>typeof strOrC === "Object" as string : boolean
+>typeof strOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrC : string | C
+>"Object" as string : string
 >"Object" : "Object"
 
     c = strOrC; // error: but no narrowing to C
->c = strOrC : 文字 | C
+>c = strOrC : string | C
 >c : C
->strOrC : 文字 | C
+>strOrC : string | C
 }
 else {
     var r5: string = strOrC; // error: no narrowing to string
->r5 : 文字
->类型别名 :=> 文字
->strOrC : 文字 | C
+>r5 : string
+>strOrC : string | C
 }
 
 if (typeof strOrNumOrBool === "Object") {
->typeof strOrNumOrBool === "Object" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 文字 | 数字 | 真假
+>typeof strOrNumOrBool === "Object" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : string | number | boolean
 >"Object" : "Object"
 
     let q1: {} = strOrNumOrBool; // {}
 >q1 : {}
->strOrNumOrBool : 不及
->类型别名 :=> 不及
+>strOrNumOrBool : never
 }
 else {
     let q2: string | number | boolean = strOrNumOrBool; // string | number | boolean
->q2 : 文字 | 数字 | 真假
->strOrNumOrBool : 文字 | 数字 | 真假
+>q2 : string | number | boolean
+>strOrNumOrBool : string | number | boolean
 }
 
 // A type guard of the form typeof x !== s, where s is a string literal,
 //  - when true, narrows the type of x by typeof x === s when false, or
 //  - when false, narrows the type of x by typeof x === s when true.
 if (typeof strOrC !== "Object") {
->typeof strOrC !== "Object" : 真假
->类型别名 :=> 真假
->typeof strOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrC : 文字 | C
+>typeof strOrC !== "Object" : boolean
+>typeof strOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrC : string | C
 >"Object" : "Object"
 
     var r2: string = strOrC; // string
->r2 : 文字
->类型别名 :=> 文字
->strOrC : 文字
->类型别名 :=> 文字
+>r2 : string
+>strOrC : string
 }
 else {
     c = strOrC; // C
@@ -171,17 +150,14 @@ else {
 >strOrC : C
 }
 if (typeof numOrC !== "Object") {
->typeof numOrC !== "Object" : 真假
->类型别名 :=> 真假
->typeof numOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->numOrC : 数字 | C
+>typeof numOrC !== "Object" : boolean
+>typeof numOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>numOrC : number | C
 >"Object" : "Object"
 
     var r3: number = numOrC; // number
->r3 : 数字
->类型别名 :=> 数字
->numOrC : 数字
->类型别名 :=> 数字
+>r3 : number
+>numOrC : number
 }
 else {
     c = numOrC; // C
@@ -190,17 +166,14 @@ else {
 >numOrC : C
 }
 if (typeof boolOrC !== "Object") {
->typeof boolOrC !== "Object" : 真假
->类型别名 :=> 真假
->typeof boolOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->boolOrC : 真假 | C
+>typeof boolOrC !== "Object" : boolean
+>typeof boolOrC : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>boolOrC : boolean | C
 >"Object" : "Object"
 
     var r4: boolean = boolOrC; // boolean
->r4 : 真假
->类型别名 :=> 真假
->boolOrC : 真假
->类型别名 :=> 真假
+>r4 : boolean
+>boolOrC : boolean
 }
 else {
     c = boolOrC; // C
@@ -210,20 +183,18 @@ else {
 }
 
 if (typeof strOrNumOrBool !== "Object") {
->typeof strOrNumOrBool !== "Object" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 文字 | 数字 | 真假
+>typeof strOrNumOrBool !== "Object" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : string | number | boolean
 >"Object" : "Object"
 
     let q1: string | number | boolean = strOrNumOrBool; // string | number | boolean
->q1 : 文字 | 数字 | 真假
->strOrNumOrBool : 文字 | 数字 | 真假
+>q1 : string | number | boolean
+>strOrNumOrBool : string | number | boolean
 }
 else {
     let q2: {} = strOrNumOrBool; // {}
 >q2 : {}
->strOrNumOrBool : 不及
->类型别名 :=> 不及
+>strOrNumOrBool : never
 }
 

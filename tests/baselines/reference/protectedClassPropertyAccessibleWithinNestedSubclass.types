@@ -3,12 +3,10 @@ class B {
 >B : B
 
     protected x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     protected static x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 class C extends B {
@@ -16,165 +14,125 @@ class C extends B {
 >B : B
 
     protected get y() { return this.x; }
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 本体
->x : 文字
->类型别名 :=> 文字
+>y : string
+>this.x : string
+>this : this
+>x : string
 
     protected set y(x) { this.y = this.x; }
->y : 文字
->类型别名 :=> 文字
->x : 文字
->类型别名 :=> 文字
->this.y = this.x : 文字
->类型别名 :=> 文字
->this.y : 文字
->类型别名 :=> 文字
->this : 本体
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 本体
->x : 文字
->类型别名 :=> 文字
+>y : string
+>x : string
+>this.y = this.x : string
+>this.y : string
+>this : this
+>y : string
+>this.x : string
+>this : this
+>x : string
 
     protected foo() { return this.x; }
->foo : () => 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 本体
->x : 文字
->类型别名 :=> 文字
+>foo : () => string
+>this.x : string
+>this : this
+>x : string
 
     protected static get y() { return this.x; }
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 类为 C
->x : 文字
->类型别名 :=> 文字
+>y : string
+>this.x : string
+>this : typeof C
+>x : string
 
     protected static set y(x) { this.y = this.x; }
->y : 文字
->类型别名 :=> 文字
->x : 文字
->类型别名 :=> 文字
->this.y = this.x : 文字
->类型别名 :=> 文字
->this.y : 文字
->类型别名 :=> 文字
->this : 类为 C
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 类为 C
->x : 文字
->类型别名 :=> 文字
+>y : string
+>x : string
+>this.y = this.x : string
+>this.y : string
+>this : typeof C
+>y : string
+>this.x : string
+>this : typeof C
+>x : string
 
     protected static foo() { return this.x; }
->foo : () => 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 类为 C
->x : 文字
->类型别名 :=> 文字
+>foo : () => string
+>this.x : string
+>this : typeof C
+>x : string
 
     protected static bar() { this.foo(); }
->bar : () => 无值
->this.foo() : 文字
->类型别名 :=> 文字
->this.foo : () => 文字
->this : 类为 C
->foo : () => 文字
+>bar : () => void
+>this.foo() : string
+>this.foo : () => string
+>this : typeof C
+>foo : () => string
     
     protected bar() { 
->bar : () => 无值
+>bar : () => void
 
         class D {
 >D : D
 
             protected foo() {
->foo : () => 无值
+>foo : () => void
 
                 var c = new C();
 >c : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
                 var c1 = c.y;
->c1 : 文字
->类型别名 :=> 文字
->c.y : 文字
->类型别名 :=> 文字
+>c1 : string
+>c.y : string
 >c : C
->y : 文字
->类型别名 :=> 文字
+>y : string
 
                 var c2 = c.x;
->c2 : 文字
->类型别名 :=> 文字
->c.x : 文字
->类型别名 :=> 文字
+>c2 : string
+>c.x : string
 >c : C
->x : 文字
->类型别名 :=> 文字
+>x : string
 
                 var c3 = c.foo;
->c3 : () => 文字
->c.foo : () => 文字
+>c3 : () => string
+>c.foo : () => string
 >c : C
->foo : () => 文字
+>foo : () => string
 
                 var c4 = c.bar;
->c4 : () => 无值
->c.bar : () => 无值
+>c4 : () => void
+>c.bar : () => void
 >c : C
->bar : () => 无值
+>bar : () => void
 
                 var c5 = c.z; // error
->c5 : 任意
->类型别名 :=> 任意
->c.z : 任意
->类型别名 :=> 任意
+>c5 : any
+>c.z : any
 >c : C
->z : 任意
->类型别名 :=> 任意
+>z : any
                 
                 var sc1 = C.x;
->sc1 : 文字
->类型别名 :=> 文字
->C.x : 文字
->类型别名 :=> 文字
->C : 类为 C
->x : 文字
->类型别名 :=> 文字
+>sc1 : string
+>C.x : string
+>C : typeof C
+>x : string
 
                 var sc2 = C.y;
->sc2 : 文字
->类型别名 :=> 文字
->C.y : 文字
->类型别名 :=> 文字
->C : 类为 C
->y : 文字
->类型别名 :=> 文字
+>sc2 : string
+>C.y : string
+>C : typeof C
+>y : string
 
                 var sc3 = C.foo;
->sc3 : () => 文字
->C.foo : () => 文字
->C : 类为 C
->foo : () => 文字
+>sc3 : () => string
+>C.foo : () => string
+>C : typeof C
+>foo : () => string
 
                 var sc4 = C.bar;
->sc4 : () => 无值
->C.bar : () => 无值
->C : 类为 C
->bar : () => 无值
+>sc4 : () => void
+>C.bar : () => void
+>C : typeof C
+>bar : () => void
             }
         }
     }
@@ -185,6 +143,5 @@ class E extends C {
 >C : C
 
     protected z: string;
->z : 文字
->类型别名 :=> 文字
+>z : string
 }

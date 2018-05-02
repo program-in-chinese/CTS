@@ -4,33 +4,28 @@ interface I { }
 
 class A { a = 10; }
 >A : A
->a : 数字
->类型别名 :=> 数字
+>a : number
 >10 : 10
 
 class C implements I { c };
 >C : C
 >I : I
->c : 任意
->类型别名 :=> 任意
+>c : any
 
 class D implements I { d };
 >D : D
 >I : I
->d : 任意
->类型别名 :=> 任意
+>d : any
 
 class E extends A { e };
 >E : E
 >A : A
->e : 任意
->类型别名 :=> 任意
+>e : any
 
 class F extends A { f };
 >F : F
 >A : A
->f : 任意
->类型别名 :=> 任意
+>f : any
 
 enum E1 { one }
 >E1 : E1
@@ -42,20 +37,30 @@ enum E2 { one }
 
 // no error
 var numStrTuple: [number, string] = [5, "foo"];
->numStrTuple : [数字, 文字]
->[5, "foo"] : [数字, 文字]
+>numStrTuple : [number, string]
+>[5, "foo"] : [number, string]
 >5 : 5
 >"foo" : "foo"
 
 var emptyObjTuple = <[{}, {}]>numStrTuple;
 >emptyObjTuple : [{}, {}]
 ><[{}, {}]>numStrTuple : [{}, {}]
->numStrTuple : [数字, 文字]
+>numStrTuple : [number, string]
 
 var numStrBoolTuple = <[number, string, boolean]>numStrTuple;
->numStrBoolTuple : [数字, 文字, 真假]
-><[number, string, boolean]>numStrTuple : [数字, 文字, 真假]
->numStrTuple : [数字, 文字]
+>numStrBoolTuple : [number, string, boolean]
+><[number, string, boolean]>numStrTuple : [number, string, boolean]
+>numStrTuple : [number, string]
+
+var shorter = numStrBoolTuple as [number, string]
+>shorter : [number, string]
+>numStrBoolTuple as [number, string] : [number, string]
+>numStrBoolTuple : [number, string, boolean]
+
+var longer = numStrTuple as [number, string, boolean]
+>longer : [number, string, boolean]
+>numStrTuple as [number, string, boolean] : [number, string, boolean]
+>numStrTuple : [number, string]
 
 var classCDTuple: [C, D] = [new C(), new D()];
 >classCDTuple : [C, D]
@@ -63,9 +68,9 @@ var classCDTuple: [C, D] = [new C(), new D()];
 >D : D
 >[new C(), new D()] : [C, D]
 >new C() : C
->C : 类为 C
+>C : typeof C
 >new D() : D
->D : 类为 D
+>D : typeof D
 
 var interfaceIITuple = <[I, I]>classCDTuple;
 >interfaceIITuple : [I, I]
@@ -100,15 +105,15 @@ var t10: [E1, E2] = [E1.one, E2.one];
 >E2 : E2
 >[E1.one, E2.one] : [E1, E2]
 >E1.one : E1
->E1 : 类为 E1
+>E1 : typeof E1
 >one : E1
 >E2.one : E2
->E2 : 类为 E2
+>E2 : typeof E2
 >one : E2
 
 var t11 = <[number, number]>t10;
->t11 : [数字, 数字]
-><[number, number]>t10 : [数字, 数字]
+>t11 : [number, number]
+><[number, number]>t10 : [number, number]
 >t10 : [E1, E2]
 
 var array1 = <{}[]>emptyObjTuple;
@@ -117,40 +122,40 @@ var array1 = <{}[]>emptyObjTuple;
 >emptyObjTuple : [{}, {}]
 
 var unionTuple: [C, string | number] = [new C(), "foo"];
->unionTuple : [C, 文字 | 数字]
+>unionTuple : [C, string | number]
 >C : C
->[new C(), "foo"] : [C, 文字]
+>[new C(), "foo"] : [C, string]
 >new C() : C
->C : 类为 C
+>C : typeof C
 >"foo" : "foo"
 
 var unionTuple2: [C, string | number, D] = [new C(), "foo", new D()];
->unionTuple2 : [C, 文字 | 数字, D]
+>unionTuple2 : [C, string | number, D]
 >C : C
 >D : D
->[new C(), "foo", new D()] : [C, 文字, D]
+>[new C(), "foo", new D()] : [C, string, D]
 >new C() : C
->C : 类为 C
+>C : typeof C
 >"foo" : "foo"
 >new D() : D
->D : 类为 D
+>D : typeof D
 
 var unionTuple3: [number, string| number] = [10, "foo"]; 
->unionTuple3 : [数字, 文字 | 数字]
->[10, "foo"] : [数字, 文字]
+>unionTuple3 : [number, string | number]
+>[10, "foo"] : [number, string]
 >10 : 10
 >"foo" : "foo"
 
 var unionTuple4 = <[number, number]>unionTuple3; 
->unionTuple4 : [数字, 数字]
-><[number, number]>unionTuple3 : [数字, 数字]
->unionTuple3 : [数字, 文字 | 数字]
+>unionTuple4 : [number, number]
+><[number, number]>unionTuple3 : [number, number]
+>unionTuple3 : [number, string | number]
 
 // error
 var t3 = <[number, number]>numStrTuple;
->t3 : [数字, 数字]
-><[number, number]>numStrTuple : [数字, 数字]
->numStrTuple : [数字, 文字]
+>t3 : [number, number]
+><[number, number]>numStrTuple : [number, number]
+>numStrTuple : [number, string]
 
 var t9 = <[A, I]>classCDTuple;
 >t9 : [A, I]
@@ -161,15 +166,13 @@ var t9 = <[A, I]>classCDTuple;
 
 var array1 = <number[]>numStrTuple;
 >array1 : {}[]
-><number[]>numStrTuple : 数字[]
->numStrTuple : [数字, 文字]
+><number[]>numStrTuple : number[]
+>numStrTuple : [number, string]
 
 t4[2] = 10;
 >t4[2] = 10 : 10
->t4[2] : 任意
->类型别名 :=> 任意
->t4 : 任意
->类型别名 :=> 任意
+>t4[2] : any
+>t4 : any
 >2 : 2
 >10 : 10
 

@@ -3,7 +3,7 @@ class C1 {
 >C1 : C1
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
     }
 }
 === tests/cases/conformance/emitter/es2015/asyncGenerators/C2.ts ===
@@ -11,13 +11,11 @@ class C2 {
 >C2 : C2
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         const x = yield;
->x : 任意
->类型别名 :=> 任意
->yield : 任意
->类型别名 :=> 任意
+>x : any
+>yield : any
     }
 }
 === tests/cases/conformance/emitter/es2015/asyncGenerators/C3.ts ===
@@ -25,13 +23,11 @@ class C3 {
 >C3 : C3
 
     async * f() {
->f : () => AsyncIterableIterator<1>
+>f : () => AsyncIterableIterator<number>
 
         const x = yield 1;
->x : 任意
->类型别名 :=> 任意
->yield 1 : 任意
->类型别名 :=> 任意
+>x : any
+>yield 1 : any
 >1 : 1
     }
 }
@@ -40,14 +36,12 @@ class C4 {
 >C4 : C4
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<number>
 
         const x = yield* [1];
->x : 任意
->类型别名 :=> 任意
->yield* [1] : 任意
->类型别名 :=> 任意
->[1] : 数字[]
+>x : any
+>yield* [1] : any
+>[1] : number[]
 >1 : 1
     }
 }
@@ -56,18 +50,15 @@ class C5 {
 >C5 : C5
 
     async * f() {
->f : () => AsyncIterableIterator<1>
+>f : () => AsyncIterableIterator<number>
 
         const x = yield* (async function*() { yield 1; })();
->x : 任意
->类型别名 :=> 任意
->yield* (async function*() { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function*() { yield 1; })() : AsyncIterableIterator<1>
->(async function*() { yield 1; }) : () => AsyncIterableIterator<1>
->async function*() { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>x : any
+>yield* (async function*() { yield 1; })() : any
+>(async function*() { yield 1; })() : AsyncIterableIterator<number>
+>(async function*() { yield 1; }) : () => AsyncIterableIterator<number>
+>async function*() { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
     }
 }
@@ -76,7 +67,7 @@ class C6 {
 >C6 : C6
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         const x = await 1;
 >x : 1
@@ -89,7 +80,7 @@ class C7 {
 >C7 : C7
 
     async * f() {
->f : () => AsyncIterableIterator<1>
+>f : () => AsyncIterableIterator<number>
 
         return 1;
 >1 : 1
@@ -100,17 +91,16 @@ class C8 {
 >C8 : C8
 
     g() {
->g : () => 无值
+>g : () => void
     }
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         this.g();
->this.g() : 无值
->类型别名 :=> 无值
->this.g : () => 无值
->this : 本体
->g : () => 无值
+>this.g() : void
+>this.g : () => void
+>this : this
+>g : () => void
     }
 }
 === tests/cases/conformance/emitter/es2015/asyncGenerators/C9.ts ===
@@ -118,21 +108,20 @@ class B9 {
 >B9 : B9
 
     g() {}
->g : () => 无值
+>g : () => void
 }
 class C9 extends B9 {
 >C9 : C9
 >B9 : B9
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         super.g();
->super.g() : 无值
->类型别名 :=> 无值
->super.g : () => 无值
+>super.g() : void
+>super.g : () => void
 >super : B9
->g : () => 无值
+>g : () => void
     }
 }
 

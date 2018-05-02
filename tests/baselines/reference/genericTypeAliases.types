@@ -11,38 +11,34 @@ type Tree<T> = T | { left: Tree<T>, right: Tree<T> };
 >T : T
 
 var tree: Tree<number> = {
->tree : Tree<数字>
+>tree : Tree<number>
 >Tree : Tree<T>
->{    left: {        left: 0,        right: {            left: 1,            right: 2        },    },    right: 3} : { left: { left: 数字; right: { left: 数字; right: 数字; }; }; right: 数字; }
+>{    left: {        left: 0,        right: {            left: 1,            right: 2        },    },    right: 3} : { left: { left: number; right: { left: number; right: number; }; }; right: number; }
 
     left: {
->left : { left: 数字; right: { left: 数字; right: 数字; }; }
->{        left: 0,        right: {            left: 1,            right: 2        },    } : { left: 数字; right: { left: 数字; right: 数字; }; }
+>left : { left: number; right: { left: number; right: number; }; }
+>{        left: 0,        right: {            left: 1,            right: 2        },    } : { left: number; right: { left: number; right: number; }; }
 
         left: 0,
->left : 数字
->类型别名 :=> 数字
+>left : number
 >0 : 0
 
         right: {
->right : { left: 数字; right: 数字; }
->{            left: 1,            right: 2        } : { left: 数字; right: 数字; }
+>right : { left: number; right: number; }
+>{            left: 1,            right: 2        } : { left: number; right: number; }
 
             left: 1,
->left : 数字
->类型别名 :=> 数字
+>left : number
 >1 : 1
 
             right: 2
->right : 数字
->类型别名 :=> 数字
+>right : number
 >2 : 2
 
         },
     },
     right: 3
->right : 数字
->类型别名 :=> 数字
+>right : number
 >3 : 3
 
 };
@@ -54,18 +50,18 @@ type Lazy<T> = T | (() => T);
 >T : T
 
 var ls: Lazy<string>;
->ls : Lazy<文字>
+>ls : Lazy<string>
 >Lazy : Lazy<T>
 
 ls = "eager";
 >ls = "eager" : "eager"
->ls : Lazy<文字>
+>ls : Lazy<string>
 >"eager" : "eager"
 
 ls = () => "lazy";
->ls = () => "lazy" : () => 文字
->ls : Lazy<文字>
->() => "lazy" : () => 文字
+>ls = () => "lazy" : () => string
+>ls : Lazy<string>
+>() => "lazy" : () => string
 >"lazy" : "lazy"
 
 type Foo<T> = T | { x: Foo<T> };
@@ -86,92 +82,84 @@ type Bar<U> = U | { x: Bar<U> };
 
 // Deeply instantiated generics
 var x: Foo<string>;
->x : Foo<文字>
+>x : Foo<string>
 >Foo : Foo<T>
 
 var y: Bar<string>;
->y : Bar<文字>
+>y : Bar<string>
 >Bar : Bar<U>
 
 x = y;
->x = y : Bar<文字>
->x : Foo<文字>
->y : Bar<文字>
+>x = y : Bar<string>
+>x : Foo<string>
+>y : Bar<string>
 
 y = x;
->y = x : Foo<文字>
->y : Bar<文字>
->x : Foo<文字>
+>y = x : Foo<string>
+>y : Bar<string>
+>x : Foo<string>
 
 x = "string";
 >x = "string" : "string"
->x : Foo<文字>
+>x : Foo<string>
 >"string" : "string"
 
 x = { x: "hello" };
->x = { x: "hello" } : { x: 文字; }
->x : Foo<文字>
->{ x: "hello" } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>x = { x: "hello" } : { x: string; }
+>x : Foo<string>
+>{ x: "hello" } : { x: string; }
+>x : string
 >"hello" : "hello"
 
 x = { x: { x: "world" } };
->x = { x: { x: "world" } } : { x: { x: 文字; }; }
->x : Foo<文字>
->{ x: { x: "world" } } : { x: { x: 文字; }; }
->x : { x: 文字; }
->{ x: "world" } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>x = { x: { x: "world" } } : { x: { x: string; }; }
+>x : Foo<string>
+>{ x: { x: "world" } } : { x: { x: string; }; }
+>x : { x: string; }
+>{ x: "world" } : { x: string; }
+>x : string
 >"world" : "world"
 
 var z: Foo<number>;
->z : Foo<数字>
+>z : Foo<number>
 >Foo : Foo<T>
 
 z = 42;
 >z = 42 : 42
->z : Foo<数字>
+>z : Foo<number>
 >42 : 42
 
 z = { x: 42 };
->z = { x: 42 } : { x: 数字; }
->z : Foo<数字>
->{ x: 42 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>z = { x: 42 } : { x: number; }
+>z : Foo<number>
+>{ x: 42 } : { x: number; }
+>x : number
 >42 : 42
 
 z = { x: { x: 42 } };
->z = { x: { x: 42 } } : { x: { x: 数字; }; }
->z : Foo<数字>
->{ x: { x: 42 } } : { x: { x: 数字; }; }
->x : { x: 数字; }
->{ x: 42 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>z = { x: { x: 42 } } : { x: { x: number; }; }
+>z : Foo<number>
+>{ x: { x: 42 } } : { x: { x: number; }; }
+>x : { x: number; }
+>{ x: 42 } : { x: number; }
+>x : number
 >42 : 42
 
 type Strange<T> = string;  // Type parameter not used
->Strange : 文字
->类型别名 :=> 文字
+>Strange : string
 >T : T
 
 var s: Strange<number>;
->s : 文字
->类型别名 :=> 文字
->Strange : 文字
->类型别名 :=> 文字
+>s : string
+>Strange : string
 
 s = "hello";
 >s = "hello" : "hello"
->s : 文字
->类型别名 :=> 文字
+>s : string
 >"hello" : "hello"
 
-interface Tuple<A, B> {
->Tuple : Tuple<A, B>
+interface AB<A, B> {
+>AB : AB<A, B>
 >A : A
 >B : B
 
@@ -184,110 +172,103 @@ interface Tuple<A, B> {
 >B : B
 }
 
-type Pair<T> = Tuple<T, T>;
->Pair : Tuple<T, T>
+type Pair<T> = AB<T, T>;
+>Pair : AB<T, T>
 >T : T
->Tuple : Tuple<A, B>
+>AB : AB<A, B>
 >T : T
 >T : T
 
 interface TaggedPair<T> extends Pair<T> {
 >TaggedPair : TaggedPair<T>
 >T : T
->Pair : Tuple<T, T>
+>Pair : AB<T, T>
 >T : T
 
     tag: string;
->tag : 文字
->类型别名 :=> 文字
+>tag : string
 }
 
 var p: TaggedPair<number>;
->p : TaggedPair<数字>
+>p : TaggedPair<number>
 >TaggedPair : TaggedPair<T>
 
 p.a = 1;
 >p.a = 1 : 1
->p.a : 数字
->类型别名 :=> 数字
->p : TaggedPair<数字>
->a : 数字
->类型别名 :=> 数字
+>p.a : number
+>p : TaggedPair<number>
+>a : number
 >1 : 1
 
 p.b = 2;
 >p.b = 2 : 2
->p.b : 数字
->类型别名 :=> 数字
->p : TaggedPair<数字>
->b : 数字
->类型别名 :=> 数字
+>p.b : number
+>p : TaggedPair<number>
+>b : number
 >2 : 2
 
 p.tag = "test";
 >p.tag = "test" : "test"
->p.tag : 文字
->类型别名 :=> 文字
->p : TaggedPair<数字>
->tag : 文字
->类型别名 :=> 文字
+>p.tag : string
+>p : TaggedPair<number>
+>tag : string
 >"test" : "test"
 
 function f<A>() {
->f : <A>() => A[] | { x: A[] | 任意; }
+>f : <A>() => A[] | { x: A[] | any; }
 >A : A
 
     type Foo<T> = T | { x: Foo<T> };
->Foo : T | { x: T | 任意; }
+>Foo : T | { x: T | any; }
 >T : T
 >T : T
->x : T | { x: T | 任意; }
->Foo : T | { x: T | 任意; }
+>x : T | { x: T | any; }
+>Foo : T | { x: T | any; }
 >T : T
 
     var x: Foo<A[]>;
->x : A[] | { x: A[] | 任意; }
->Foo : T | { x: T | 任意; }
+>x : A[] | { x: A[] | any; }
+>Foo : T | { x: T | any; }
 >A : A
 
     return x;
->x : A[] | { x: A[] | 任意; }
+>x : A[] | { x: A[] | any; }
 }
 
 function g<B>() {
->g : <B>() => B[] | { x: B[] | 任意; }
+>g : <B>() => B[] | { x: B[] | any; }
 >B : B
 
     type Bar<U> = U | { x: Bar<U> };
->Bar : U | { x: U | 任意; }
+>Bar : U | { x: U | any; }
 >U : U
 >U : U
->x : U | { x: U | 任意; }
->Bar : U | { x: U | 任意; }
+>x : U | { x: U | any; }
+>Bar : U | { x: U | any; }
 >U : U
 
     var x: Bar<B[]>;
->x : B[] | { x: B[] | 任意; }
->Bar : U | { x: U | 任意; }
+>x : B[] | { x: B[] | any; }
+>Bar : U | { x: U | any; }
 >B : B
 
     return x;
->x : B[] | { x: B[] | 任意; }
+>x : B[] | { x: B[] | any; }
 }
 
 // Deeply instantiated generics
 var a = f<string>();
->a : 文字[] | { x: 文字[] | 任意; }
->f<string>() : 文字[] | { x: 文字[] | 任意; }
->f : <A>() => A[] | { x: A[] | 任意; }
+>a : string[] | { x: string[] | any; }
+>f<string>() : string[] | { x: string[] | any; }
+>f : <A>() => A[] | { x: A[] | any; }
 
 var b = g<string>();
->b : 文字[] | { x: 文字[] | 任意; }
->g<string>() : 文字[] | { x: 文字[] | 任意; }
->g : <B>() => B[] | { x: B[] | 任意; }
+>b : string[] | { x: string[] | any; }
+>g<string>() : string[] | { x: string[] | any; }
+>g : <B>() => B[] | { x: B[] | any; }
 
 a = b;
->a = b : 文字[] | { x: 文字[] | 任意; }
->a : 文字[] | { x: 文字[] | 任意; }
->b : 文字[] | { x: 文字[] | 任意; }
+>a = b : string[] | { x: string[] | any; }
+>a : string[] | { x: string[] | any; }
+>b : string[] | { x: string[] | any; }
 

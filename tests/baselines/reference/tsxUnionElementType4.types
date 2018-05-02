@@ -1,111 +1,102 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 class RC1 extends React.Component<{x : number}, {}> {
 >RC1 : RC1
->React.Component : React.Component<{ x: 数字; }, {}>
->React : 类为 React
->Component : 类为 React.Component
->x : 数字
->类型别名 :=> 数字
+>React.Component : React.Component<{ x: number; }, {}>
+>React : typeof React
+>Component : typeof React.Component
+>x : number
 
     render() {
->render : () => 任意
+>render : () => any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
 class RC2 extends React.Component<{ x: string }, {}> {
 >RC2 : RC2
->React.Component : React.Component<{ x: 文字; }, {}>
->React : 类为 React
->Component : 类为 React.Component
->x : 文字
->类型别名 :=> 文字
+>React.Component : React.Component<{ x: string; }, {}>
+>React : typeof React
+>Component : typeof React.Component
+>x : string
 
     render() {
->render : () => 任意
+>render : () => any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
     private method() { }
->method : () => 无值
+>method : () => void
 }
 
 class RC3 extends React.Component<{}, {}> {
 >RC3 : RC3
 >React.Component : React.Component<{}, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 
     render() {
->render : () => 任意
+>render : () => any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
 class RC4 extends React.Component<{}, {}> {
 >RC4 : RC4
 >React.Component : React.Component<{}, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 
     render() {
->render : () => 任意
+>render : () => any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
 var RCComp = RC1 || RC2;
->RCComp : 类为 RC1 | 类为 RC2
->RC1 || RC2 : 类为 RC1 | 类为 RC2
->RC1 : 类为 RC1
->RC2 : 类为 RC2
+>RCComp : typeof RC1 | typeof RC2
+>RC1 || RC2 : typeof RC1 | typeof RC2
+>RC1 : typeof RC1
+>RC2 : typeof RC2
 
 var EmptyRCComp = RC3 || RC4;
->EmptyRCComp : 类为 RC3
->RC3 || RC4 : 类为 RC3
->RC3 : 类为 RC3
->RC4 : 类为 RC4
+>EmptyRCComp : typeof RC3
+>RC3 || RC4 : typeof RC3
+>RC3 : typeof RC3
+>RC4 : typeof RC4
 
 var PartRCComp = RC1 || RC4;
->PartRCComp : 类为 RC4
->RC1 || RC4 : 类为 RC4
->RC1 : 类为 RC1
->RC4 : 类为 RC4
+>PartRCComp : typeof RC4
+>RC1 || RC4 : typeof RC4
+>RC1 : typeof RC1
+>RC4 : typeof RC4
 
 // Error
 let a = <RCComp x />;
 >a : JSX.Element
 ><RCComp x /> : JSX.Element
->RCComp : 类为 RC1 | 类为 RC2
->x : 为真
->类型别名 :=> 为真
+>RCComp : typeof RC1 | typeof RC2
+>x : true
 
 let b = <PartRCComp x={10} />
 >b : JSX.Element
 ><PartRCComp x={10} /> : JSX.Element
->PartRCComp : 类为 RC4
->x : 数字
->类型别名 :=> 数字
+>PartRCComp : typeof RC4
+>x : number
 >10 : 10
 
 let c = <EmptyRCComp prop />;
 >c : JSX.Element
 ><EmptyRCComp prop /> : JSX.Element
->EmptyRCComp : 类为 RC3
->prop : 为真
->类型别名 :=> 为真
+>EmptyRCComp : typeof RC3
+>prop : true
 

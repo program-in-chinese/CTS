@@ -1,242 +1,172 @@
 === tests/cases/conformance/expressions/unaryOperators/logicalNotOperator/logicalNotOperatorWithStringType.ts ===
 // ! operator on string type
 var STRING: string;
->STRING : 文字
->类型别名 :=> 文字
+>STRING : string
 
 var STRING1: string[] = ["", "abc"];
->STRING1 : 文字[]
->["", "abc"] : 文字[]
+>STRING1 : string[]
+>["", "abc"] : string[]
 >"" : ""
 >"abc" : "abc"
 
 function foo(): string { return "abc"; }
->foo : () => 文字
+>foo : () => string
 >"abc" : "abc"
 
 class A {
 >A : A
 
     public a: string;
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     static foo() { return ""; }
->foo : () => 文字
+>foo : () => string
 >"" : ""
 }
 module M {
->M : 类为 M
+>M : typeof M
 
     export var n: string;
->n : 文字
->类型别名 :=> 文字
+>n : string
 }
 
 var objA = new A();
 >objA : A
 >new A() : A
->A : 类为 A
+>A : typeof A
 
 // string type var
 var ResultIsBoolean1 = !STRING;
->ResultIsBoolean1 : 真假
->类型别名 :=> 真假
->!STRING : 真假
->类型别名 :=> 真假
->STRING : 文字
->类型别名 :=> 文字
+>ResultIsBoolean1 : boolean
+>!STRING : boolean
+>STRING : string
 
 var ResultIsBoolean2 = !STRING1;
->ResultIsBoolean2 : 真假
->类型别名 :=> 真假
->!STRING1 : 真假
->类型别名 :=> 真假
->STRING1 : 文字[]
+>ResultIsBoolean2 : boolean
+>!STRING1 : boolean
+>STRING1 : string[]
 
 // string type literal
 var ResultIsBoolean3 = !"";
->ResultIsBoolean3 : 真假
->类型别名 :=> 真假
->!"" : 为真
->类型别名 :=> 为真
+>ResultIsBoolean3 : boolean
+>!"" : true
 >"" : ""
 
 var ResultIsBoolean4 = !{ x: "", y: "" };
->ResultIsBoolean4 : 真假
->类型别名 :=> 真假
->!{ x: "", y: "" } : 真假
->类型别名 :=> 真假
->{ x: "", y: "" } : { x: 文字; y: 文字; }
->x : 文字
->类型别名 :=> 文字
+>ResultIsBoolean4 : boolean
+>!{ x: "", y: "" } : boolean
+>{ x: "", y: "" } : { x: string; y: string; }
+>x : string
 >"" : ""
->y : 文字
->类型别名 :=> 文字
+>y : string
 >"" : ""
 
 var ResultIsBoolean5 = !{ x: "", y: (s: string) => { return s; } };
->ResultIsBoolean5 : 真假
->类型别名 :=> 真假
->!{ x: "", y: (s: string) => { return s; } } : 真假
->类型别名 :=> 真假
->{ x: "", y: (s: string) => { return s; } } : { x: 文字; y: (s: 文字) => 文字; }
->x : 文字
->类型别名 :=> 文字
+>ResultIsBoolean5 : boolean
+>!{ x: "", y: (s: string) => { return s; } } : boolean
+>{ x: "", y: (s: string) => { return s; } } : { x: string; y: (s: string) => string; }
+>x : string
 >"" : ""
->y : (s: 文字) => 文字
->(s: string) => { return s; } : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
->s : 文字
->类型别名 :=> 文字
+>y : (s: string) => string
+>(s: string) => { return s; } : (s: string) => string
+>s : string
+>s : string
 
 // string type expressions
 var ResultIsBoolean6 = !objA.a;
->ResultIsBoolean6 : 真假
->类型别名 :=> 真假
->!objA.a : 真假
->类型别名 :=> 真假
->objA.a : 文字
->类型别名 :=> 文字
+>ResultIsBoolean6 : boolean
+>!objA.a : boolean
+>objA.a : string
 >objA : A
->a : 文字
->类型别名 :=> 文字
+>a : string
 
 var ResultIsBoolean7 = !M.n;
->ResultIsBoolean7 : 真假
->类型别名 :=> 真假
->!M.n : 真假
->类型别名 :=> 真假
->M.n : 文字
->类型别名 :=> 文字
->M : 类为 M
->n : 文字
->类型别名 :=> 文字
+>ResultIsBoolean7 : boolean
+>!M.n : boolean
+>M.n : string
+>M : typeof M
+>n : string
 
 var ResultIsBoolean8 = !STRING1[0];
->ResultIsBoolean8 : 真假
->类型别名 :=> 真假
->!STRING1[0] : 真假
->类型别名 :=> 真假
->STRING1[0] : 文字
->类型别名 :=> 文字
->STRING1 : 文字[]
+>ResultIsBoolean8 : boolean
+>!STRING1[0] : boolean
+>STRING1[0] : string
+>STRING1 : string[]
 >0 : 0
 
 var ResultIsBoolean9 = !foo();
->ResultIsBoolean9 : 真假
->类型别名 :=> 真假
->!foo() : 真假
->类型别名 :=> 真假
->foo() : 文字
->类型别名 :=> 文字
->foo : () => 文字
+>ResultIsBoolean9 : boolean
+>!foo() : boolean
+>foo() : string
+>foo : () => string
 
 var ResultIsBoolean10 = !A.foo();
->ResultIsBoolean10 : 真假
->类型别名 :=> 真假
->!A.foo() : 真假
->类型别名 :=> 真假
->A.foo() : 文字
->类型别名 :=> 文字
->A.foo : () => 文字
->A : 类为 A
->foo : () => 文字
+>ResultIsBoolean10 : boolean
+>!A.foo() : boolean
+>A.foo() : string
+>A.foo : () => string
+>A : typeof A
+>foo : () => string
 
 var ResultIsBoolean11 = !(STRING + STRING);
->ResultIsBoolean11 : 真假
->类型别名 :=> 真假
->!(STRING + STRING) : 真假
->类型别名 :=> 真假
->(STRING + STRING) : 文字
->类型别名 :=> 文字
->STRING + STRING : 文字
->类型别名 :=> 文字
->STRING : 文字
->类型别名 :=> 文字
->STRING : 文字
->类型别名 :=> 文字
+>ResultIsBoolean11 : boolean
+>!(STRING + STRING) : boolean
+>(STRING + STRING) : string
+>STRING + STRING : string
+>STRING : string
+>STRING : string
 
 var ResultIsBoolean12 = !STRING.charAt(0);
->ResultIsBoolean12 : 真假
->类型别名 :=> 真假
->!STRING.charAt(0) : 真假
->类型别名 :=> 真假
->STRING.charAt(0) : 文字
->类型别名 :=> 文字
->STRING.charAt : (pos: 数字) => 文字
->STRING : 文字
->类型别名 :=> 文字
->charAt : (pos: 数字) => 文字
+>ResultIsBoolean12 : boolean
+>!STRING.charAt(0) : boolean
+>STRING.charAt(0) : string
+>STRING.charAt : (pos: number) => string
+>STRING : string
+>charAt : (pos: number) => string
 >0 : 0
 
 // multiple ! operator
 var ResultIsBoolean13 = !!STRING;
->ResultIsBoolean13 : 真假
->类型别名 :=> 真假
->!!STRING : 真假
->类型别名 :=> 真假
->!STRING : 真假
->类型别名 :=> 真假
->STRING : 文字
->类型别名 :=> 文字
+>ResultIsBoolean13 : boolean
+>!!STRING : boolean
+>!STRING : boolean
+>STRING : string
 
 var ResultIsBoolean14 = !!!(STRING + STRING);
->ResultIsBoolean14 : 真假
->类型别名 :=> 真假
->!!!(STRING + STRING) : 真假
->类型别名 :=> 真假
->!!(STRING + STRING) : 真假
->类型别名 :=> 真假
->!(STRING + STRING) : 真假
->类型别名 :=> 真假
->(STRING + STRING) : 文字
->类型别名 :=> 文字
->STRING + STRING : 文字
->类型别名 :=> 文字
->STRING : 文字
->类型别名 :=> 文字
->STRING : 文字
->类型别名 :=> 文字
+>ResultIsBoolean14 : boolean
+>!!!(STRING + STRING) : boolean
+>!!(STRING + STRING) : boolean
+>!(STRING + STRING) : boolean
+>(STRING + STRING) : string
+>STRING + STRING : string
+>STRING : string
+>STRING : string
 
 // miss assignment operators
 !"";
->!"" : 为真
->类型别名 :=> 为真
+>!"" : true
 >"" : ""
 
 !STRING;
->!STRING : 真假
->类型别名 :=> 真假
->STRING : 文字
->类型别名 :=> 文字
+>!STRING : boolean
+>STRING : string
 
 !STRING1;
->!STRING1 : 真假
->类型别名 :=> 真假
->STRING1 : 文字[]
+>!STRING1 : boolean
+>STRING1 : string[]
 
 !foo();
->!foo() : 真假
->类型别名 :=> 真假
->foo() : 文字
->类型别名 :=> 文字
->foo : () => 文字
+>!foo() : boolean
+>foo() : string
+>foo : () => string
 
 !objA.a,M.n;
->!objA.a,M.n : 文字
->类型别名 :=> 文字
->!objA.a : 真假
->类型别名 :=> 真假
->objA.a : 文字
->类型别名 :=> 文字
+>!objA.a,M.n : string
+>!objA.a : boolean
+>objA.a : string
 >objA : A
->a : 文字
->类型别名 :=> 文字
->M.n : 文字
->类型别名 :=> 文字
->M : 类为 M
->n : 文字
->类型别名 :=> 文字
+>a : string
+>M.n : string
+>M : typeof M
+>n : string
 

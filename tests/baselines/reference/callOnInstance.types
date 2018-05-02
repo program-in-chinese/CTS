@@ -1,41 +1,32 @@
 === tests/cases/compiler/callOnInstance.ts ===
 declare function D(): string; // error
->D : () => 文字
+>D : () => string
 
 declare class D { constructor (value: number); } // error
 >D : D
->value : 数字
->类型别名 :=> 数字
+>value : number
 
 var s1: string = D(); // OK
->s1 : 文字
->类型别名 :=> 文字
->D() : 文字
->类型别名 :=> 文字
->D : () => 文字
+>s1 : string
+>D() : string
+>D : () => string
 
 var s2: string = (new D(1))();
->s2 : 文字
->类型别名 :=> 文字
->(new D(1))() : 任意
->类型别名 :=> 任意
->(new D(1)) : 任意
->类型别名 :=> 任意
->new D(1) : 任意
->类型别名 :=> 任意
->D : () => 文字
+>s2 : string
+>(new D(1))() : any
+>(new D(1)) : any
+>new D(1) : any
+>D : () => string
 >1 : 1
 
 declare class C { constructor(value: number); }
 >C : C
->value : 数字
->类型别名 :=> 数字
+>value : number
 
 (new C(1))(); // Error for calling an instance
->(new C(1))() : 任意
->类型别名 :=> 任意
+>(new C(1))() : any
 >(new C(1)) : C
 >new C(1) : C
->C : 类为 C
+>C : typeof C
 >1 : 1
 

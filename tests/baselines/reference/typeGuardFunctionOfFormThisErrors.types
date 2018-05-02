@@ -3,24 +3,22 @@ class RoyalGuard {
 >RoyalGuard : RoyalGuard
 
     isLeader(): this is LeadGuard {
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 >LeadGuard : LeadGuard
 
         return this instanceof LeadGuard;
->this instanceof LeadGuard : 真假
->类型别名 :=> 真假
->this : 本体
->LeadGuard : 类为 LeadGuard
+>this instanceof LeadGuard : boolean
+>this : this
+>LeadGuard : typeof LeadGuard
     }
     isFollower(): this is FollowerGuard {
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 >FollowerGuard : FollowerGuard
 
         return this instanceof FollowerGuard;
->this instanceof FollowerGuard : 真假
->类型别名 :=> 真假
->this : 本体
->FollowerGuard : 类为 FollowerGuard
+>this instanceof FollowerGuard : boolean
+>this : this
+>FollowerGuard : typeof FollowerGuard
     }
 }
 
@@ -29,7 +27,7 @@ class LeadGuard extends RoyalGuard {
 >RoyalGuard : RoyalGuard
 
     lead(): void {};
->lead : () => 无值
+>lead : () => void
 }
 
 class FollowerGuard extends RoyalGuard {
@@ -37,7 +35,7 @@ class FollowerGuard extends RoyalGuard {
 >RoyalGuard : RoyalGuard
 
     follow(): void {};
->follow : () => 无值
+>follow : () => void
 }
 
 interface GuardInterface extends RoyalGuard {}
@@ -48,132 +46,121 @@ let a: RoyalGuard = new FollowerGuard();
 >a : RoyalGuard
 >RoyalGuard : RoyalGuard
 >new FollowerGuard() : FollowerGuard
->FollowerGuard : 类为 FollowerGuard
+>FollowerGuard : typeof FollowerGuard
 
 let b: GuardInterface = new LeadGuard();
 >b : GuardInterface
 >GuardInterface : GuardInterface
 >new LeadGuard() : LeadGuard
->LeadGuard : 类为 LeadGuard
+>LeadGuard : typeof LeadGuard
 
 // Mismatched guards shouldn't be assignable
 b.isFollower = b.isLeader;
->b.isFollower = b.isLeader : () => 本体 作为 LeadGuard
->b.isFollower : () => 本体 作为 FollowerGuard
+>b.isFollower = b.isLeader : () => this is LeadGuard
+>b.isFollower : () => this is FollowerGuard
 >b : GuardInterface
->isFollower : () => 本体 作为 FollowerGuard
->b.isLeader : () => 本体 作为 LeadGuard
+>isFollower : () => this is FollowerGuard
+>b.isLeader : () => this is LeadGuard
 >b : GuardInterface
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 
 b.isLeader = b.isFollower;
->b.isLeader = b.isFollower : () => 本体 作为 FollowerGuard
->b.isLeader : () => 本体 作为 LeadGuard
+>b.isLeader = b.isFollower : () => this is FollowerGuard
+>b.isLeader : () => this is LeadGuard
 >b : GuardInterface
->isLeader : () => 本体 作为 LeadGuard
->b.isFollower : () => 本体 作为 FollowerGuard
+>isLeader : () => this is LeadGuard
+>b.isFollower : () => this is FollowerGuard
 >b : GuardInterface
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 
 a.isFollower = a.isLeader;
->a.isFollower = a.isLeader : () => 本体 作为 LeadGuard
->a.isFollower : () => 本体 作为 FollowerGuard
+>a.isFollower = a.isLeader : () => this is LeadGuard
+>a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
->isFollower : () => 本体 作为 FollowerGuard
->a.isLeader : () => 本体 作为 LeadGuard
+>isFollower : () => this is FollowerGuard
+>a.isLeader : () => this is LeadGuard
 >a : RoyalGuard
->isLeader : () => 本体 作为 LeadGuard
+>isLeader : () => this is LeadGuard
 
 a.isLeader = a.isFollower;
->a.isLeader = a.isFollower : () => 本体 作为 FollowerGuard
->a.isLeader : () => 本体 作为 LeadGuard
+>a.isLeader = a.isFollower : () => this is FollowerGuard
+>a.isLeader : () => this is LeadGuard
 >a : RoyalGuard
->isLeader : () => 本体 作为 LeadGuard
->a.isFollower : () => 本体 作为 FollowerGuard
+>isLeader : () => this is LeadGuard
+>a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 
 function invalidGuard(c: any): this is number {
->invalidGuard : (c: 任意) => 本体 作为 数字
->c : 任意
->类型别名 :=> 任意
+>invalidGuard : (c: any) => this is number
+>c : any
 
     return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
 }
 
 let c: number | number[];
->c : 数字 | 数字[]
+>c : number | number[]
 
 if (invalidGuard(c)) {
->invalidGuard(c) : 真假
->类型别名 :=> 真假
->invalidGuard : (c: 任意) => 本体 作为 数字
->c : 数字 | 数字[]
+>invalidGuard(c) : boolean
+>invalidGuard : (c: any) => this is number
+>c : number | number[]
 
     c;
->c : 数字 | 数字[]
+>c : number | number[]
 }
 else {
     c;
->c : 数字 | 数字[]
+>c : number | number[]
 }
 
 let holder = {invalidGuard};
->holder : { invalidGuard: (c: 任意) => 本体 作为 数字; }
->{invalidGuard} : { invalidGuard: (c: 任意) => 本体 作为 数字; }
->invalidGuard : (c: 任意) => 本体 作为 数字
+>holder : { invalidGuard: (c: any) => this is number; }
+>{invalidGuard} : { invalidGuard: (c: any) => this is number; }
+>invalidGuard : (c: any) => this is number
 
 if (holder.invalidGuard(c)) {
->holder.invalidGuard(c) : 真假
->类型别名 :=> 真假
->holder.invalidGuard : (c: 任意) => 本体 作为 数字
->holder : { invalidGuard: (c: 任意) => 本体 作为 数字; }
->invalidGuard : (c: 任意) => 本体 作为 数字
->c : 数字 | 数字[]
+>holder.invalidGuard(c) : boolean
+>holder.invalidGuard : (c: any) => this is number
+>holder : { invalidGuard: (c: any) => this is number; }
+>invalidGuard : (c: any) => this is number
+>c : number | number[]
 
     c;
->c : 数字 | 数字[]
+>c : number | number[]
 
     holder;
->holder : { invalidGuard: (c: 任意) => 本体 作为 数字; } & 数字
+>holder : { invalidGuard: (c: any) => this is number; } & number
 }
 else {
     c;
->c : 数字 | 数字[]
+>c : number | number[]
 
     holder;
->holder : { invalidGuard: (c: 任意) => 本体 作为 数字; }
+>holder : { invalidGuard: (c: any) => this is number; }
 }
 
 let detached = a.isFollower;
->detached : () => 本体 作为 FollowerGuard
->a.isFollower : () => 本体 作为 FollowerGuard
+>detached : () => this is FollowerGuard
+>a.isFollower : () => this is FollowerGuard
 >a : RoyalGuard
->isFollower : () => 本体 作为 FollowerGuard
+>isFollower : () => this is FollowerGuard
 
 if (detached()) {
->detached() : 真假
->类型别名 :=> 真假
->detached : () => 本体 作为 FollowerGuard
+>detached() : boolean
+>detached : () => this is FollowerGuard
 
     a.follow();
->a.follow() : 任意
->类型别名 :=> 任意
->a.follow : 任意
->类型别名 :=> 任意
+>a.follow() : any
+>a.follow : any
 >a : RoyalGuard
->follow : 任意
->类型别名 :=> 任意
+>follow : any
 }
 else {
     a.lead();
->a.lead() : 任意
->类型别名 :=> 任意
->a.lead : 任意
->类型别名 :=> 任意
+>a.lead() : any
+>a.lead : any
 >a : RoyalGuard
->lead : 任意
->类型别名 :=> 任意
+>lead : any
 }

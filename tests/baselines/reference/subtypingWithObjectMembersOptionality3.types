@@ -3,14 +3,12 @@
 
 interface Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 interface T {
 >T : T
@@ -33,6 +31,7 @@ interface T2 {
 >T2 : T2
 
     1?: Base;
+>1 : Base
 >Base : Base
 }
 
@@ -41,6 +40,7 @@ interface S2 extends T2 {
 >T2 : T2
 
     2: Derived; // ok
+>2 : Derived
 >Derived : Derived
 }
 
@@ -48,6 +48,7 @@ interface T3 {
 >T3 : T3
 
     '1'?: Base;
+>'1' : Base
 >Base : Base
 }
 
@@ -56,6 +57,7 @@ interface S3 extends T3 {
 >T3 : T3
 
     '1.0': Derived; // ok
+>'1.0' : Derived
 >Derived : Derived
 }
 
@@ -73,8 +75,7 @@ var b: { Foo2: Derived; }
 var r = true ? a : b; // ok
 >r : { Foo?: Base; } | { Foo2: Derived; }
 >true ? a : b : { Foo?: Base; } | { Foo2: Derived; }
->true : 为真
->类型别名 :=> 为真
+>true : true
 >a : { Foo?: Base; }
 >b : { Foo2: Derived; }
 

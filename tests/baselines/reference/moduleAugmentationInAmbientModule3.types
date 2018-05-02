@@ -2,7 +2,7 @@
 /// <reference path="O.d.ts" />
 
 import {Observable} from "Observable";
->Observable : 类为 Observable
+>Observable : typeof Observable
 
 import "Map";
 let x: Observable;
@@ -10,43 +10,46 @@ let x: Observable;
 >Observable : Observable
 
 x.foo().x;
->x.foo().x : 数字
->类型别名 :=> 数字
+>x.foo().x : number
 >x.foo() : Cls
 >x.foo : () => Cls
 >x : Observable
 >foo : () => Cls
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 x.foo2().x2;
->x.foo2().x2 : 数字
->类型别名 :=> 数字
+>x.foo2().x2 : number
 >x.foo2() : Cls2
 >x.foo2 : () => Cls2
 >x : Observable
 >foo2 : () => Cls2
->x2 : 数字
->类型别名 :=> 数字
+>x2 : number
 
 === tests/cases/compiler/O.d.ts ===
 declare module "Observable" {
+>"Observable" : typeof "Observable"
+
     class Observable {}
 >Observable : Observable
 }
 
 declare module "M" {
+>"M" : typeof "M"
+
     class Cls { x: number }
 >Cls : Cls
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 
 declare module "Map" {
+>"Map" : typeof "Map"
+
     import { Cls } from "M";
->Cls : 类为 Cls
+>Cls : typeof Cls
 
     module "Observable" {
+>"Observable" : typeof "Observable"
+
         interface Observable {
 >Observable : Observable
 
@@ -58,12 +61,15 @@ declare module "Map" {
 }
 
 declare module "Map" {
+>"Map" : typeof "Map"
+
     class Cls2 { x2: number }
 >Cls2 : Cls2
->x2 : 数字
->类型别名 :=> 数字
+>x2 : number
 
     module "Observable" {
+>"Observable" : typeof "Observable"
+
         interface Observable {
 >Observable : Observable
 

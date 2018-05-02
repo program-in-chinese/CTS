@@ -2,8 +2,7 @@
 // Repro from #8513
 
 let cond: boolean;
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
 export type Optional<a> = Some<a> | None;
 >Optional : Optional<a>
@@ -14,8 +13,7 @@ export type Optional<a> = Some<a> | None;
 
 export interface None { readonly none: string; }
 >None : None
->none : 文字
->类型别名 :=> 文字
+>none : string
 
 export interface Some<a> { readonly some: a; }
 >Some : Some<a>
@@ -26,25 +24,22 @@ export interface Some<a> { readonly some: a; }
 export const none : None = { none: '' };
 >none : None
 >None : None
->{ none: '' } : { none: 文字; }
->none : 文字
->类型别名 :=> 文字
+>{ none: '' } : { none: string; }
+>none : string
 >'' : ""
 
 export function isSome<a>(value: Optional<a>): value is Some<a> {
->isSome : <a>(value: Optional<a>) => value 作为 Some<a>
+>isSome : <a>(value: Optional<a>) => value is Some<a>
 >a : a
 >value : Optional<a>
 >Optional : Optional<a>
 >a : a
->value : 任意
->类型别名 :=> 任意
+>value : any
 >Some : Some<a>
 >a : a
 
     return 'some' in value;
->'some' in value : 真假
->类型别名 :=> 真假
+>'some' in value : boolean
 >'some' : "some"
 >value : Optional<a>
 }
@@ -61,7 +56,7 @@ function someFrom<a>(some: a) {
 }
 
 export function fn<r>(makeSome: () => r): void {
->fn : <r>(makeSome: () => r) => 无值
+>fn : <r>(makeSome: () => r) => void
 >r : r
 >makeSome : () => r
 >r : r
@@ -76,8 +71,7 @@ export function fn<r>(makeSome: () => r): void {
 >result : None
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         result;  // Some<r> | None
 >result : Optional<r>
@@ -88,9 +82,8 @@ export function fn<r>(makeSome: () => r): void {
 >someFrom(isSome(result) ? result.some : makeSome()) : { some: r; }
 >someFrom : <a>(some: a) => { some: a; }
 >isSome(result) ? result.some : makeSome() : r
->isSome(result) : 真假
->类型别名 :=> 真假
->isSome : <a>(value: Optional<a>) => value 作为 Some<a>
+>isSome(result) : boolean
+>isSome : <a>(value: Optional<a>) => value is Some<a>
 >result : Optional<r>
 >result.some : r
 >result : Some<r>
@@ -104,371 +97,302 @@ export function fn<r>(makeSome: () => r): void {
 }
 
 function foo1() {
->foo1 : () => 无值
+>foo1 : () => void
 
     let x: string | number | boolean = 0;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >0 : 0
 
     x;  // number
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x;  // number, then string | number
->x : 文字 | 数字
+>x : string | number
 
         x = typeof x === "string" ? x.slice() : "abc";
->x = typeof x === "string" ? x.slice() : "abc" : 文字
->类型别名 :=> 文字
->x : 文字 | 数字 | 真假
->typeof x === "string" ? x.slice() : "abc" : 文字
->类型别名 :=> 文字
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>x = typeof x === "string" ? x.slice() : "abc" : string
+>x : string | number | boolean
+>typeof x === "string" ? x.slice() : "abc" : string
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
->x.slice() : 文字
->类型别名 :=> 文字
->x.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x : 文字
->类型别名 :=> 文字
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x.slice() : string
+>x.slice : (start?: number | undefined, end?: number | undefined) => string
+>x : string
+>slice : (start?: number | undefined, end?: number | undefined) => string
 >"abc" : "abc"
 
         x;  // string
->x : 文字
->类型别名 :=> 文字
+>x : string
     }
     x;
->x : 文字 | 数字
+>x : string | number
 }
 
 function foo2() {
->foo2 : () => 无值
+>foo2 : () => void
 
     let x: string | number | boolean = 0;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >0 : 0
 
     x;  // number
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x;  // number, then string | number
->x : 文字 | 数字
+>x : string | number
 
         if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
 
             x = x.slice();
->x = x.slice() : 文字
->类型别名 :=> 文字
->x : 文字 | 数字 | 真假
->x.slice() : 文字
->类型别名 :=> 文字
->x.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x : 文字
->类型别名 :=> 文字
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x = x.slice() : string
+>x : string | number | boolean
+>x.slice() : string
+>x.slice : (start?: number | undefined, end?: number | undefined) => string
+>x : string
+>slice : (start?: number | undefined, end?: number | undefined) => string
         }
         else {
             x = "abc";
 >x = "abc" : "abc"
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"abc" : "abc"
         }
         x;  // string
->x : 文字
->类型别名 :=> 文字
+>x : string
     }
     x;
->x : 文字 | 数字
+>x : string | number
 }
 
 // Type guards as assertions
 
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     let x: string | number | undefined = undefined;
->x : 文字 | 数字 | 未定
->undefined : 未定
->类型别名 :=> 未定
+>x : string | number | undefined
+>undefined : undefined
 
     x;  // undefined
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 
     if (x) {
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 
         x;  // string | number (guard as assertion)
->x : 不及
->类型别名 :=> 不及
+>x : never
     }
     x;  // string | number | undefined
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     let x: string | number | undefined = undefined;
->x : 文字 | 数字 | 未定
->undefined : 未定
->类型别名 :=> 未定
+>x : string | number | undefined
+>undefined : undefined
 
     x;  // undefined
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 未定
->类型别名 :=> 未定
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : undefined
 >"string" : "string"
 
         x;  // string (guard as assertion)
->x : 不及
->类型别名 :=> 不及
+>x : never
     }
     x;  // string | undefined
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 }
 
 function f3() {
->f3 : () => 无值
+>f3 : () => void
 
     let x: string | number | undefined = undefined;
->x : 文字 | 数字 | 未定
->undefined : 未定
->类型别名 :=> 未定
+>x : string | number | undefined
+>undefined : undefined
 
     x;  // undefined
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 
     if (!x) {
->!x : 为真
->类型别名 :=> 为真
->x : 未定
->类型别名 :=> 未定
+>!x : true
+>x : undefined
 
         return;
     }
     x;  // string | number (guard as assertion)
->x : 不及
->类型别名 :=> 不及
+>x : never
 }
 
 function f4() {
->f4 : () => 无值
+>f4 : () => void
 
     let x: string | number | undefined = undefined;
->x : 文字 | 数字 | 未定
->undefined : 未定
->类型别名 :=> 未定
+>x : string | number | undefined
+>undefined : undefined
 
     x;  // undefined
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 
     if (typeof x === "boolean") {
->typeof x === "boolean" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 未定
->类型别名 :=> 未定
+>typeof x === "boolean" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : undefined
 >"boolean" : "boolean"
 
         x;  // nothing (boolean not in declared type)
->x : 不及
->类型别名 :=> 不及
+>x : never
     }
     x;  // undefined
->x : 未定
->类型别名 :=> 未定
+>x : undefined
 }
 
 function f5(x: string | number) {
->f5 : (x: 文字 | 数字) => 无值
->x : 文字 | 数字
+>f5 : (x: string | number) => void
+>x : string | number
 
     if (typeof x === "string" && typeof x === "number") {
->typeof x === "string" && typeof x === "number" : 真假
->类型别名 :=> 真假
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" && typeof x === "number" : boolean
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
->typeof x === "number" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字
->类型别名 :=> 文字
+>typeof x === "number" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string
 >"number" : "number"
 
         x;  // number (guard as assertion)
->x : 不及
->类型别名 :=> 不及
+>x : never
     }
     else {
         x;  // string | number
->x : 文字 | 数字
+>x : string | number
     }
     x;  // string | number
->x : 文字 | 数字
+>x : string | number
 }
 
 function f6() {
->f6 : () => 无值
+>f6 : () => void
 
     let x: string | undefined | null;
->x : 文字 | 空值 | 未定
->null : 空值
->类型别名 :=> 空值
+>x : string | null | undefined
+>null : null
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字 | 空值 | 未定
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string | null | undefined
+>slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = "";
 >x = "" : ""
->x : 文字 | 空值 | 未定
+>x : string | null | undefined
 >"" : ""
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字
->类型别名 :=> 文字
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string
+>slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = undefined;
->x = undefined : 未定
->类型别名 :=> 未定
->x : 文字 | 空值 | 未定
->undefined : 未定
->类型别名 :=> 未定
+>x = undefined : undefined
+>x : string | null | undefined
+>undefined : undefined
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字 | 空值 | 未定
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string | null | undefined
+>slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = null;
->x = null : 空值
->类型别名 :=> 空值
->x : 文字 | 空值 | 未定
->null : 空值
->类型别名 :=> 空值
+>x = null : null
+>x : string | null | undefined
+>null : null
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字 | 空值 | 未定
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string | null | undefined
+>slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = <undefined | null>undefined;
->x = <undefined | null>undefined : 空值 | 未定
->x : 文字 | 空值 | 未定
-><undefined | null>undefined : 空值 | 未定
->null : 空值
->类型别名 :=> 空值
->undefined : 未定
->类型别名 :=> 未定
+>x = <undefined | null>undefined : null | undefined
+>x : string | null | undefined
+><undefined | null>undefined : null | undefined
+>null : null
+>undefined : undefined
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字 | 空值 | 未定
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string | null | undefined
+>slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = <string | undefined>"";
->x = <string | undefined>"" : 文字 | 未定
->x : 文字 | 空值 | 未定
-><string | undefined>"" : 文字 | 未定
+>x = <string | undefined>"" : string | undefined
+>x : string | null | undefined
+><string | undefined>"" : string | undefined
 >"" : ""
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字 | 未定
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string | undefined
+>slice : (start?: number | undefined, end?: number | undefined) => string
 
     x = <string | null>"";
->x = <string | null>"" : 文字 | 空值
->x : 文字 | 空值 | 未定
-><string | null>"" : 文字 | 空值
->null : 空值
->类型别名 :=> 空值
+>x = <string | null>"" : string | null
+>x : string | null | undefined
+><string | null>"" : string | null
+>null : null
 >"" : ""
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字 | 空值
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string | null
+>slice : (start?: number | undefined, end?: number | undefined) => string
 }
 
 function f7() {
->f7 : () => 无值
+>f7 : () => void
 
     let x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     x!.slice();
->x!.slice() : 文字
->类型别名 :=> 文字
->x!.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->x! : 文字
->类型别名 :=> 文字
->x : 文字
->类型别名 :=> 文字
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>x!.slice() : string
+>x!.slice : (start?: number | undefined, end?: number | undefined) => string
+>x! : string
+>x : string
+>slice : (start?: number | undefined, end?: number | undefined) => string
 }
 

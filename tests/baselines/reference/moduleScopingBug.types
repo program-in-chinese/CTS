@@ -1,21 +1,18 @@
 === tests/cases/compiler/moduleScopingBug.ts ===
 module M
->M : 类为 M
+>M : typeof M
 
 {
 
     var outer: number;
->outer : 数字
->类型别名 :=> 数字
+>outer : number
 
     function f() {
->f : () => 无值
+>f : () => void
 
         var inner = outer;   // Ok
->inner : 数字
->类型别名 :=> 数字
->outer : 数字
->类型别名 :=> 数字
+>inner : number
+>outer : number
 
     }
 
@@ -24,22 +21,18 @@ module M
 
         constructor() {
             var inner = outer;   // Ok
->inner : 数字
->类型别名 :=> 数字
->outer : 数字
->类型别名 :=> 数字
+>inner : number
+>outer : number
         }
 
     }
 
     module X {
->X : 类为 X
+>X : typeof X
 
         var inner = outer;   // Error: outer not visible
->inner : 数字
->类型别名 :=> 数字
->outer : 数字
->类型别名 :=> 数字
+>inner : number
+>outer : number
 
     }
 

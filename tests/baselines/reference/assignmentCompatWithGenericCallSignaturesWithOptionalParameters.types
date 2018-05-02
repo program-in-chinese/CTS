@@ -2,7 +2,7 @@
 // call signatures in derived types must have the same or fewer optional parameters as the target for assignment
 
 module ClassTypeParam {
->ClassTypeParam : 类为 ClassTypeParam
+>ClassTypeParam : typeof ClassTypeParam
 
     class Base<T> {
 >Base : Base<T>
@@ -41,213 +41,195 @@ module ClassTypeParam {
 >T : T
 
         init = () => {
->init : () => 无值
->() => {            this.a = () => null; // ok, same T of required params            this.a = (x?: T) => null; // ok, same T of required params            this.a = (x: T) => null; // error, too many required params            this.a2 = () => null; // ok, same T of required params            this.a2 = (x?: T) => null; // ok, same T of required params            this.a2 = (x: T) => null; // ok, same number of params            this.a3 = () => null; // ok, fewer required params            this.a3 = (x?: T) => null; // ok, fewer required params            this.a3 = (x: T) => null; // ok, same T of required params            this.a3 = (x: T, y: T) => null;  // error, too many required params            this.a4 = () => null; // ok, fewer required params            this.a4 = (x?: T, y?: T) => null; // ok, fewer required params            this.a4 = (x: T) => null; // ok, same T of required params            this.a4 = (x: T, y: T) => null;  // ok, same number of params            this.a5 = () => null; // ok, fewer required params            this.a5 = (x?: T, y?: T) => null; // ok, fewer required params            this.a5 = (x: T) => null; // ok, all present params match            this.a5 = (x: T, y: T) => null;  // ok, same number of params        } : () => 无值
+>init : () => void
+>() => {            this.a = () => null; // ok, same T of required params            this.a = (x?: T) => null; // ok, same T of required params            this.a = (x: T) => null; // error, too many required params            this.a2 = () => null; // ok, same T of required params            this.a2 = (x?: T) => null; // ok, same T of required params            this.a2 = (x: T) => null; // ok, same number of params            this.a3 = () => null; // ok, fewer required params            this.a3 = (x?: T) => null; // ok, fewer required params            this.a3 = (x: T) => null; // ok, same T of required params            this.a3 = (x: T, y: T) => null;  // error, too many required params            this.a4 = () => null; // ok, fewer required params            this.a4 = (x?: T, y?: T) => null; // ok, fewer required params            this.a4 = (x: T) => null; // ok, same T of required params            this.a4 = (x: T, y: T) => null;  // ok, same number of params            this.a5 = () => null; // ok, fewer required params            this.a5 = (x?: T, y?: T) => null; // ok, fewer required params            this.a5 = (x: T) => null; // ok, all present params match            this.a5 = (x: T, y: T) => null;  // ok, same number of params        } : () => void
 
             this.a = () => null; // ok, same T of required params
->this.a = () => null : () => 任意
+>this.a = () => null : () => any
 >this.a : () => T
->this : 本体
+>this : this
 >a : () => T
->() => null : () => 任意
->null : 空值
->类型别名 :=> 空值
+>() => null : () => any
+>null : null
 
             this.a = (x?: T) => null; // ok, same T of required params
->this.a = (x?: T) => null : (x?: T) => 任意
+>this.a = (x?: T) => null : (x?: T) => any
 >this.a : () => T
->this : 本体
+>this : this
 >a : () => T
->(x?: T) => null : (x?: T) => 任意
+>(x?: T) => null : (x?: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a = (x: T) => null; // error, too many required params
->this.a = (x: T) => null : (x: T) => 任意
+>this.a = (x: T) => null : (x: T) => any
 >this.a : () => T
->this : 本体
+>this : this
 >a : () => T
->(x: T) => null : (x: T) => 任意
+>(x: T) => null : (x: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a2 = () => null; // ok, same T of required params
->this.a2 = () => null : () => 任意
+>this.a2 = () => null : () => any
 >this.a2 : (x?: T) => T
->this : 本体
+>this : this
 >a2 : (x?: T) => T
->() => null : () => 任意
->null : 空值
->类型别名 :=> 空值
+>() => null : () => any
+>null : null
 
             this.a2 = (x?: T) => null; // ok, same T of required params
->this.a2 = (x?: T) => null : (x?: T) => 任意
+>this.a2 = (x?: T) => null : (x?: T) => any
 >this.a2 : (x?: T) => T
->this : 本体
+>this : this
 >a2 : (x?: T) => T
->(x?: T) => null : (x?: T) => 任意
+>(x?: T) => null : (x?: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a2 = (x: T) => null; // ok, same number of params
->this.a2 = (x: T) => null : (x: T) => 任意
+>this.a2 = (x: T) => null : (x: T) => any
 >this.a2 : (x?: T) => T
->this : 本体
+>this : this
 >a2 : (x?: T) => T
->(x: T) => null : (x: T) => 任意
+>(x: T) => null : (x: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a3 = () => null; // ok, fewer required params
->this.a3 = () => null : () => 任意
+>this.a3 = () => null : () => any
 >this.a3 : (x: T) => T
->this : 本体
+>this : this
 >a3 : (x: T) => T
->() => null : () => 任意
->null : 空值
->类型别名 :=> 空值
+>() => null : () => any
+>null : null
 
             this.a3 = (x?: T) => null; // ok, fewer required params
->this.a3 = (x?: T) => null : (x?: T) => 任意
+>this.a3 = (x?: T) => null : (x?: T) => any
 >this.a3 : (x: T) => T
->this : 本体
+>this : this
 >a3 : (x: T) => T
->(x?: T) => null : (x?: T) => 任意
+>(x?: T) => null : (x?: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a3 = (x: T) => null; // ok, same T of required params
->this.a3 = (x: T) => null : (x: T) => 任意
+>this.a3 = (x: T) => null : (x: T) => any
 >this.a3 : (x: T) => T
->this : 本体
+>this : this
 >a3 : (x: T) => T
->(x: T) => null : (x: T) => 任意
+>(x: T) => null : (x: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a3 = (x: T, y: T) => null;  // error, too many required params
->this.a3 = (x: T, y: T) => null : (x: T, y: T) => 任意
+>this.a3 = (x: T, y: T) => null : (x: T, y: T) => any
 >this.a3 : (x: T) => T
->this : 本体
+>this : this
 >a3 : (x: T) => T
->(x: T, y: T) => null : (x: T, y: T) => 任意
+>(x: T, y: T) => null : (x: T, y: T) => any
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a4 = () => null; // ok, fewer required params
->this.a4 = () => null : () => 任意
+>this.a4 = () => null : () => any
 >this.a4 : (x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : (x: T, y?: T) => T
->() => null : () => 任意
->null : 空值
->类型别名 :=> 空值
+>() => null : () => any
+>null : null
 
             this.a4 = (x?: T, y?: T) => null; // ok, fewer required params
->this.a4 = (x?: T, y?: T) => null : (x?: T, y?: T) => 任意
+>this.a4 = (x?: T, y?: T) => null : (x?: T, y?: T) => any
 >this.a4 : (x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : (x: T, y?: T) => T
->(x?: T, y?: T) => null : (x?: T, y?: T) => 任意
+>(x?: T, y?: T) => null : (x?: T, y?: T) => any
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a4 = (x: T) => null; // ok, same T of required params
->this.a4 = (x: T) => null : (x: T) => 任意
+>this.a4 = (x: T) => null : (x: T) => any
 >this.a4 : (x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : (x: T, y?: T) => T
->(x: T) => null : (x: T) => 任意
+>(x: T) => null : (x: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a4 = (x: T, y: T) => null;  // ok, same number of params
->this.a4 = (x: T, y: T) => null : (x: T, y: T) => 任意
+>this.a4 = (x: T, y: T) => null : (x: T, y: T) => any
 >this.a4 : (x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : (x: T, y?: T) => T
->(x: T, y: T) => null : (x: T, y: T) => 任意
+>(x: T, y: T) => null : (x: T, y: T) => any
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 
             this.a5 = () => null; // ok, fewer required params
->this.a5 = () => null : () => 任意
+>this.a5 = () => null : () => any
 >this.a5 : (x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : (x?: T, y?: T) => T
->() => null : () => 任意
->null : 空值
->类型别名 :=> 空值
+>() => null : () => any
+>null : null
 
             this.a5 = (x?: T, y?: T) => null; // ok, fewer required params
->this.a5 = (x?: T, y?: T) => null : (x?: T, y?: T) => 任意
+>this.a5 = (x?: T, y?: T) => null : (x?: T, y?: T) => any
 >this.a5 : (x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : (x?: T, y?: T) => T
->(x?: T, y?: T) => null : (x?: T, y?: T) => 任意
+>(x?: T, y?: T) => null : (x?: T, y?: T) => any
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a5 = (x: T) => null; // ok, all present params match
->this.a5 = (x: T) => null : (x: T) => 任意
+>this.a5 = (x: T) => null : (x: T) => any
 >this.a5 : (x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : (x?: T, y?: T) => T
->(x: T) => null : (x: T) => 任意
+>(x: T) => null : (x: T) => any
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a5 = (x: T, y: T) => null;  // ok, same number of params
->this.a5 = (x: T, y: T) => null : (x: T, y: T) => 任意
+>this.a5 = (x: T, y: T) => null : (x: T, y: T) => any
 >this.a5 : (x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : (x?: T, y?: T) => T
->(x: T, y: T) => null : (x: T, y: T) => 任意
+>(x: T, y: T) => null : (x: T, y: T) => any
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
     }
 }
 
 module GenericSignaturesInvalid {
->GenericSignaturesInvalid : 类为 GenericSignaturesInvalid
+>GenericSignaturesInvalid : typeof GenericSignaturesInvalid
 
     class Base2 {
 >Base2 : Base2
@@ -329,7 +311,7 @@ module GenericSignaturesInvalid {
 
 
     function foo<T>() {
->foo : <T>() => 无值
+>foo : <T>() => void
 >T : T
 
         var b: Base2;
@@ -570,7 +552,7 @@ module GenericSignaturesInvalid {
 }
 
 module GenericSignaturesValid {
->GenericSignaturesValid : 类为 GenericSignaturesValid
+>GenericSignaturesValid : typeof GenericSignaturesValid
 
     class Base2 {
 >Base2 : Base2
@@ -613,225 +595,207 @@ module GenericSignaturesValid {
 >T : T
 
         init = () => {
->init : () => 无值
->() => {            this.a = <T>() => null; // ok, same T of required params            this.a = <T>(x?: T) => null; // ok, same T of required params            this.a = <T>(x: T) => null; // error, too many required params            this.a2 = <T>() => null; // ok, same T of required params            this.a2 = <T>(x?: T) => null; // ok, same T of required params            this.a2 = <T>(x: T) => null; // ok, same number of params            this.a3 = <T>() => null; // ok, fewer required params            this.a3 = <T>(x?: T) => null; // ok, fewer required params            this.a3 = <T>(x: T) => null; // ok, same T of required params            this.a3 = <T>(x: T, y: T) => null;  // error, too many required params            this.a4 = <T>() => null; // ok, fewer required params            this.a4 = <T>(x?: T, y?: T) => null; // ok, fewer required params            this.a4 = <T>(x: T) => null; // ok, same T of required params            this.a4 = <T>(x: T, y: T) => null;  // ok, same number of params            this.a5 = <T>() => null; // ok, fewer required params            this.a5 = <T>(x?: T, y?: T) => null; // ok, fewer required params            this.a5 = <T>(x: T) => null; // ok, all present params match            this.a5 = <T>(x: T, y: T) => null;  // ok, same number of params        } : () => 无值
+>init : () => void
+>() => {            this.a = <T>() => null; // ok, same T of required params            this.a = <T>(x?: T) => null; // ok, same T of required params            this.a = <T>(x: T) => null; // error, too many required params            this.a2 = <T>() => null; // ok, same T of required params            this.a2 = <T>(x?: T) => null; // ok, same T of required params            this.a2 = <T>(x: T) => null; // ok, same number of params            this.a3 = <T>() => null; // ok, fewer required params            this.a3 = <T>(x?: T) => null; // ok, fewer required params            this.a3 = <T>(x: T) => null; // ok, same T of required params            this.a3 = <T>(x: T, y: T) => null;  // error, too many required params            this.a4 = <T>() => null; // ok, fewer required params            this.a4 = <T>(x?: T, y?: T) => null; // ok, fewer required params            this.a4 = <T>(x: T) => null; // ok, same T of required params            this.a4 = <T>(x: T, y: T) => null;  // ok, same number of params            this.a5 = <T>() => null; // ok, fewer required params            this.a5 = <T>(x?: T, y?: T) => null; // ok, fewer required params            this.a5 = <T>(x: T) => null; // ok, all present params match            this.a5 = <T>(x: T, y: T) => null;  // ok, same number of params        } : () => void
 
             this.a = <T>() => null; // ok, same T of required params
->this.a = <T>() => null : <T>() => 任意
+>this.a = <T>() => null : <T>() => any
 >this.a : <T>() => T
->this : 本体
+>this : this
 >a : <T>() => T
-><T>() => null : <T>() => 任意
+><T>() => null : <T>() => any
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a = <T>(x?: T) => null; // ok, same T of required params
->this.a = <T>(x?: T) => null : <T>(x?: T) => 任意
+>this.a = <T>(x?: T) => null : <T>(x?: T) => any
 >this.a : <T>() => T
->this : 本体
+>this : this
 >a : <T>() => T
-><T>(x?: T) => null : <T>(x?: T) => 任意
+><T>(x?: T) => null : <T>(x?: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a = <T>(x: T) => null; // error, too many required params
->this.a = <T>(x: T) => null : <T>(x: T) => 任意
+>this.a = <T>(x: T) => null : <T>(x: T) => any
 >this.a : <T>() => T
->this : 本体
+>this : this
 >a : <T>() => T
-><T>(x: T) => null : <T>(x: T) => 任意
+><T>(x: T) => null : <T>(x: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a2 = <T>() => null; // ok, same T of required params
->this.a2 = <T>() => null : <T>() => 任意
+>this.a2 = <T>() => null : <T>() => any
 >this.a2 : <T>(x?: T) => T
->this : 本体
+>this : this
 >a2 : <T>(x?: T) => T
-><T>() => null : <T>() => 任意
+><T>() => null : <T>() => any
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a2 = <T>(x?: T) => null; // ok, same T of required params
->this.a2 = <T>(x?: T) => null : <T>(x?: T) => 任意
+>this.a2 = <T>(x?: T) => null : <T>(x?: T) => any
 >this.a2 : <T>(x?: T) => T
->this : 本体
+>this : this
 >a2 : <T>(x?: T) => T
-><T>(x?: T) => null : <T>(x?: T) => 任意
+><T>(x?: T) => null : <T>(x?: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a2 = <T>(x: T) => null; // ok, same number of params
->this.a2 = <T>(x: T) => null : <T>(x: T) => 任意
+>this.a2 = <T>(x: T) => null : <T>(x: T) => any
 >this.a2 : <T>(x?: T) => T
->this : 本体
+>this : this
 >a2 : <T>(x?: T) => T
-><T>(x: T) => null : <T>(x: T) => 任意
+><T>(x: T) => null : <T>(x: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a3 = <T>() => null; // ok, fewer required params
->this.a3 = <T>() => null : <T>() => 任意
+>this.a3 = <T>() => null : <T>() => any
 >this.a3 : <T>(x: T) => T
->this : 本体
+>this : this
 >a3 : <T>(x: T) => T
-><T>() => null : <T>() => 任意
+><T>() => null : <T>() => any
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a3 = <T>(x?: T) => null; // ok, fewer required params
->this.a3 = <T>(x?: T) => null : <T>(x?: T) => 任意
+>this.a3 = <T>(x?: T) => null : <T>(x?: T) => any
 >this.a3 : <T>(x: T) => T
->this : 本体
+>this : this
 >a3 : <T>(x: T) => T
-><T>(x?: T) => null : <T>(x?: T) => 任意
+><T>(x?: T) => null : <T>(x?: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a3 = <T>(x: T) => null; // ok, same T of required params
->this.a3 = <T>(x: T) => null : <T>(x: T) => 任意
+>this.a3 = <T>(x: T) => null : <T>(x: T) => any
 >this.a3 : <T>(x: T) => T
->this : 本体
+>this : this
 >a3 : <T>(x: T) => T
-><T>(x: T) => null : <T>(x: T) => 任意
+><T>(x: T) => null : <T>(x: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a3 = <T>(x: T, y: T) => null;  // error, too many required params
->this.a3 = <T>(x: T, y: T) => null : <T>(x: T, y: T) => 任意
+>this.a3 = <T>(x: T, y: T) => null : <T>(x: T, y: T) => any
 >this.a3 : <T>(x: T) => T
->this : 本体
+>this : this
 >a3 : <T>(x: T) => T
-><T>(x: T, y: T) => null : <T>(x: T, y: T) => 任意
+><T>(x: T, y: T) => null : <T>(x: T, y: T) => any
 >T : T
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a4 = <T>() => null; // ok, fewer required params
->this.a4 = <T>() => null : <T>() => 任意
+>this.a4 = <T>() => null : <T>() => any
 >this.a4 : <T>(x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : <T>(x: T, y?: T) => T
-><T>() => null : <T>() => 任意
+><T>() => null : <T>() => any
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a4 = <T>(x?: T, y?: T) => null; // ok, fewer required params
->this.a4 = <T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => 任意
+>this.a4 = <T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => any
 >this.a4 : <T>(x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : <T>(x: T, y?: T) => T
-><T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => 任意
+><T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => any
 >T : T
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a4 = <T>(x: T) => null; // ok, same T of required params
->this.a4 = <T>(x: T) => null : <T>(x: T) => 任意
+>this.a4 = <T>(x: T) => null : <T>(x: T) => any
 >this.a4 : <T>(x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : <T>(x: T, y?: T) => T
-><T>(x: T) => null : <T>(x: T) => 任意
+><T>(x: T) => null : <T>(x: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a4 = <T>(x: T, y: T) => null;  // ok, same number of params
->this.a4 = <T>(x: T, y: T) => null : <T>(x: T, y: T) => 任意
+>this.a4 = <T>(x: T, y: T) => null : <T>(x: T, y: T) => any
 >this.a4 : <T>(x: T, y?: T) => T
->this : 本体
+>this : this
 >a4 : <T>(x: T, y?: T) => T
-><T>(x: T, y: T) => null : <T>(x: T, y: T) => 任意
+><T>(x: T, y: T) => null : <T>(x: T, y: T) => any
 >T : T
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 
             this.a5 = <T>() => null; // ok, fewer required params
->this.a5 = <T>() => null : <T>() => 任意
+>this.a5 = <T>() => null : <T>() => any
 >this.a5 : <T>(x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : <T>(x?: T, y?: T) => T
-><T>() => null : <T>() => 任意
+><T>() => null : <T>() => any
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a5 = <T>(x?: T, y?: T) => null; // ok, fewer required params
->this.a5 = <T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => 任意
+>this.a5 = <T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => any
 >this.a5 : <T>(x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : <T>(x?: T, y?: T) => T
-><T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => 任意
+><T>(x?: T, y?: T) => null : <T>(x?: T, y?: T) => any
 >T : T
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a5 = <T>(x: T) => null; // ok, all present params match
->this.a5 = <T>(x: T) => null : <T>(x: T) => 任意
+>this.a5 = <T>(x: T) => null : <T>(x: T) => any
 >this.a5 : <T>(x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : <T>(x?: T, y?: T) => T
-><T>(x: T) => null : <T>(x: T) => 任意
+><T>(x: T) => null : <T>(x: T) => any
 >T : T
 >x : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             this.a5 = <T>(x: T, y: T) => null;  // ok, same number of params
->this.a5 = <T>(x: T, y: T) => null : <T>(x: T, y: T) => 任意
+>this.a5 = <T>(x: T, y: T) => null : <T>(x: T, y: T) => any
 >this.a5 : <T>(x?: T, y?: T) => T
->this : 本体
+>this : this
 >a5 : <T>(x?: T, y?: T) => T
-><T>(x: T, y: T) => null : <T>(x: T, y: T) => 任意
+><T>(x: T, y: T) => null : <T>(x: T, y: T) => any
 >T : T
 >x : T
 >T : T
 >y : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
     }
 }

@@ -4,168 +4,122 @@ class C {
 >C : C
 
     public fooBack = "";
->fooBack : 文字
->类型别名 :=> 文字
+>fooBack : string
 >"" : ""
 
     static barBack:string = "";
->barBack : 文字
->类型别名 :=> 文字
+>barBack : string
 >"" : ""
 
     public bazBack = "";
->bazBack : 文字
->类型别名 :=> 文字
+>bazBack : string
 >"" : ""
     
     public get Foo() { return this.fooBack;} // ok
->Foo : 文字
->类型别名 :=> 文字
->this.fooBack : 文字
->类型别名 :=> 文字
->this : 本体
->fooBack : 文字
->类型别名 :=> 文字
+>Foo : string
+>this.fooBack : string
+>this : this
+>fooBack : string
 
     public set Foo(foo:string) {this.fooBack = foo;} // ok
->Foo : 文字
->类型别名 :=> 文字
->foo : 文字
->类型别名 :=> 文字
->this.fooBack = foo : 文字
->类型别名 :=> 文字
->this.fooBack : 文字
->类型别名 :=> 文字
->this : 本体
->fooBack : 文字
->类型别名 :=> 文字
->foo : 文字
->类型别名 :=> 文字
+>Foo : string
+>foo : string
+>this.fooBack = foo : string
+>this.fooBack : string
+>this : this
+>fooBack : string
+>foo : string
 
     static get Bar() {return C.barBack;} // ok
->Bar : 文字
->类型别名 :=> 文字
->C.barBack : 文字
->类型别名 :=> 文字
->C : 类为 C
->barBack : 文字
->类型别名 :=> 文字
+>Bar : string
+>C.barBack : string
+>C : typeof C
+>barBack : string
 
     static set Bar(bar:string) {C.barBack = bar;} // ok
->Bar : 文字
->类型别名 :=> 文字
->bar : 文字
->类型别名 :=> 文字
->C.barBack = bar : 文字
->类型别名 :=> 文字
->C.barBack : 文字
->类型别名 :=> 文字
->C : 类为 C
->barBack : 文字
->类型别名 :=> 文字
->bar : 文字
->类型别名 :=> 文字
+>Bar : string
+>bar : string
+>C.barBack = bar : string
+>C.barBack : string
+>C : typeof C
+>barBack : string
+>bar : string
 
     public get = function() {} // ok
->get : () => 无值
->function() {} : () => 无值
+>get : () => void
+>function() {} : () => void
 
     public set = function() {} // ok
->set : () => 无值
->function() {} : () => 无值
+>set : () => void
+>function() {} : () => void
 }
 
 var c = new C();
 >c : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
 var foo = c.Foo;
->foo : 文字
->类型别名 :=> 文字
->c.Foo : 文字
->类型别名 :=> 文字
+>foo : string
+>c.Foo : string
 >c : C
->Foo : 文字
->类型别名 :=> 文字
+>Foo : string
 
 c.Foo = "foov";
 >c.Foo = "foov" : "foov"
->c.Foo : 文字
->类型别名 :=> 文字
+>c.Foo : string
 >c : C
->Foo : 文字
->类型别名 :=> 文字
+>Foo : string
 >"foov" : "foov"
 
 var bar = C.Bar;
->bar : 文字
->类型别名 :=> 文字
->C.Bar : 文字
->类型别名 :=> 文字
->C : 类为 C
->Bar : 文字
->类型别名 :=> 文字
+>bar : string
+>C.Bar : string
+>C : typeof C
+>Bar : string
 
 C.Bar = "barv";
 >C.Bar = "barv" : "barv"
->C.Bar : 文字
->类型别名 :=> 文字
->C : 类为 C
->Bar : 文字
->类型别名 :=> 文字
+>C.Bar : string
+>C : typeof C
+>Bar : string
 >"barv" : "barv"
 
 var baz = c.Baz;
->baz : 任意
->类型别名 :=> 任意
->c.Baz : 任意
->类型别名 :=> 任意
+>baz : any
+>c.Baz : any
 >c : C
->Baz : 任意
->类型别名 :=> 任意
+>Baz : any
 
 c.Baz = "bazv";
 >c.Baz = "bazv" : "bazv"
->c.Baz : 任意
->类型别名 :=> 任意
+>c.Baz : any
 >c : C
->Baz : 任意
->类型别名 :=> 任意
+>Baz : any
 >"bazv" : "bazv"
 
 // The Foo accessors' return and param types should be contextually typed to the Foo field
 var o : {Foo:number;} = {get Foo() {return 0;}, set Foo(val:number){val}}; // o
->o : { Foo: 数字; }
->Foo : 数字
->类型别名 :=> 数字
->{get Foo() {return 0;}, set Foo(val:number){val}} : { Foo: 数字; }
->Foo : 数字
->类型别名 :=> 数字
+>o : { Foo: number; }
+>Foo : number
+>{get Foo() {return 0;}, set Foo(val:number){val}} : { Foo: number; }
+>Foo : number
 >0 : 0
->Foo : 数字
->类型别名 :=> 数字
->val : 数字
->类型别名 :=> 数字
->val : 数字
->类型别名 :=> 数字
+>Foo : number
+>val : number
+>val : number
 
 var ofg = o.Foo;
->ofg : 数字
->类型别名 :=> 数字
->o.Foo : 数字
->类型别名 :=> 数字
->o : { Foo: 数字; }
->Foo : 数字
->类型别名 :=> 数字
+>ofg : number
+>o.Foo : number
+>o : { Foo: number; }
+>Foo : number
 
 o.Foo = 0;
 >o.Foo = 0 : 0
->o.Foo : 数字
->类型别名 :=> 数字
->o : { Foo: 数字; }
->Foo : 数字
->类型别名 :=> 数字
+>o.Foo : number
+>o : { Foo: number; }
+>Foo : number
 >0 : 0
 
 
@@ -173,16 +127,13 @@ interface I1 {
 >I1 : I1
 
     (n:number):number;
->n : 数字
->类型别名 :=> 数字
+>n : number
 }
 
 var i:I1 = function (n) {return n;}
 >i : I1
 >I1 : I1
->function (n) {return n;} : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
+>function (n) {return n;} : (n: number) => number
+>n : number
+>n : number
 

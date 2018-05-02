@@ -1,38 +1,31 @@
 === tests/cases/compiler/declFileTypeAnnotationStringLiteral.ts ===
 function foo(a: "hello"): number;
->foo : { (a: "hello"): 数字; (a: "name"): 文字; (a: 文字): 文字 | 数字; }
+>foo : { (a: "hello"): number; (a: "name"): string; (a: string): string | number; }
 >a : "hello"
 
 function foo(a: "name"): string;
->foo : { (a: "hello"): 数字; (a: "name"): 文字; (a: 文字): 文字 | 数字; }
+>foo : { (a: "hello"): number; (a: "name"): string; (a: string): string | number; }
 >a : "name"
 
 function foo(a: string): string | number;
->foo : { (a: "hello"): 数字; (a: "name"): 文字; (a: 文字): 文字 | 数字; }
->a : 文字
->类型别名 :=> 文字
+>foo : { (a: "hello"): number; (a: "name"): string; (a: string): string | number; }
+>a : string
 
 function foo(a: string): string | number {
->foo : { (a: "hello"): 数字; (a: "name"): 文字; (a: 文字): 文字 | 数字; }
->a : 文字
->类型别名 :=> 文字
+>foo : { (a: "hello"): number; (a: "name"): string; (a: string): string | number; }
+>a : string
 
     if (a === "hello") {
->a === "hello" : 真假
->类型别名 :=> 真假
->a : 文字
->类型别名 :=> 文字
+>a === "hello" : boolean
+>a : string
 >"hello" : "hello"
 
         return a.length;
->a.length : 数字
->类型别名 :=> 数字
+>a.length : number
 >a : "hello"
->length : 数字
->类型别名 :=> 数字
+>length : number
     }
 
     return a;
->a : 文字
->类型别名 :=> 文字
+>a : string
 }

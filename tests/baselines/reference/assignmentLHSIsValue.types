@@ -1,158 +1,113 @@
 === tests/cases/conformance/expressions/assignmentOperator/assignmentLHSIsValue.ts ===
 // expected error for all the LHS of assignments
 var value: any;
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 // this
 class C {
 >C : C
 
     constructor() { this = value; }
->this = value : 任意
->类型别名 :=> 任意
->this : 本体
->value : 任意
->类型别名 :=> 任意
+>this = value : any
+>this : this
+>value : any
 
     foo() { this = value; }
->foo : () => 无值
->this = value : 任意
->类型别名 :=> 任意
->this : 本体
->value : 任意
->类型别名 :=> 任意
+>foo : () => void
+>this = value : any
+>this : this
+>value : any
 
     static sfoo() { this = value; }
->sfoo : () => 无值
->this = value : 任意
->类型别名 :=> 任意
->this : 类为 C
->value : 任意
->类型别名 :=> 任意
+>sfoo : () => void
+>this = value : any
+>this : typeof C
+>value : any
 }
 
 function foo() { this = value; }
->foo : () => 无值
->this = value : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>foo : () => void
+>this = value : any
+>this : any
+>value : any
 
 this = value;
->this = value : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>this = value : any
+>this : any
+>value : any
 
 // identifiers: module, class, enum, function
 module M { export var a; }
->M : 类为 M
->a : 任意
->类型别名 :=> 任意
+>M : typeof M
+>a : any
 
 M = value;
->M = value : 任意
->类型别名 :=> 任意
->M : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>M = value : any
+>M : any
+>value : any
 
 C = value;
->C = value : 任意
->类型别名 :=> 任意
->C : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>C = value : any
+>C : any
+>value : any
 
 enum E { }
 >E : E
 
 E = value;
->E = value : 任意
->类型别名 :=> 任意
->E : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>E = value : any
+>E : any
+>value : any
 
 foo = value;
->foo = value : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>foo = value : any
+>foo : any
+>value : any
 
 // literals
 null = value;
->null = value : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->value : 任意
->类型别名 :=> 任意
+>null = value : any
+>null : null
+>value : any
 
 true = value;
->true = value : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
->value : 任意
->类型别名 :=> 任意
+>true = value : any
+>true : true
+>value : any
 
 false = value;
->false = value : 任意
->类型别名 :=> 任意
->false : 为假
->类型别名 :=> 为假
->value : 任意
->类型别名 :=> 任意
+>false = value : any
+>false : false
+>value : any
 
 0 = value;
->0 = value : 任意
->类型别名 :=> 任意
+>0 = value : any
 >0 : 0
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 '' = value;
->'' = value : 任意
->类型别名 :=> 任意
+>'' = value : any
 >'' : ""
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 /d+/ = value;
->/d+/ = value : 任意
->类型别名 :=> 任意
+>/d+/ = value : any
 >/d+/ : RegExp
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 // object literals
 { a: 0} = value;
->a : 任意
->类型别名 :=> 任意
+>a : any
 >0 : 0
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 // array literals
 ['', ''] = value;
->['', ''] = value : 任意
->类型别名 :=> 任意
->['', ''] : [文字, 文字]
+>['', ''] = value : any
+>['', ''] : [string, string]
 >'' : ""
 >'' : ""
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 // super
 class Derived extends C {
@@ -160,193 +115,131 @@ class Derived extends C {
 >C : C
 
     constructor() { super(); super = value; }
->super() : 无值
->类型别名 :=> 无值
->super : 类为 C
->super = value : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
+>super() : void
+>super : typeof C
+>super = value : any
+>super : any
 >super : C
-> : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+> : any
+>value : any
 
     foo() { super = value }
->foo : () => 无值
->super = value : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
+>foo : () => void
+>super = value : any
+>super : any
 >super : C
-> : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+> : any
+>value : any
 
     static sfoo() { super = value; }
->sfoo : () => 无值
->super = value : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->super : 类为 C
-> : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>sfoo : () => void
+>super = value : any
+>super : any
+>super : typeof C
+> : any
+>value : any
 }
 
 // function expression
 function bar() { } = value;
->bar : () => 无值
->value : 任意
->类型别名 :=> 任意
+>bar : () => void
+>value : any
 
 () => { } = value;
->() => { } : () => 无值
->value : 任意
->类型别名 :=> 任意
+>() => { } : () => void
+>value : any
 
 // function calls
 foo() = value;
->foo() = value : 任意
->类型别名 :=> 任意
->foo() : 无值
->类型别名 :=> 无值
->foo : () => 无值
->value : 任意
->类型别名 :=> 任意
+>foo() = value : any
+>foo() : void
+>foo : () => void
+>value : any
 
 // parentheses, the containted expression is value
 (this) = value;
->(this) = value : 任意
->类型别名 :=> 任意
->(this) : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>(this) = value : any
+>(this) : any
+>this : any
+>value : any
 
 (M) = value;
->(M) = value : 任意
->类型别名 :=> 任意
->(M) : 任意
->类型别名 :=> 任意
->M : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>(M) = value : any
+>(M) : any
+>M : any
+>value : any
 
 (C) = value;
->(C) = value : 任意
->类型别名 :=> 任意
->(C) : 任意
->类型别名 :=> 任意
->C : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>(C) = value : any
+>(C) : any
+>C : any
+>value : any
 
 (E) = value;
->(E) = value : 任意
->类型别名 :=> 任意
->(E) : 任意
->类型别名 :=> 任意
->E : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>(E) = value : any
+>(E) : any
+>E : any
+>value : any
 
 (foo) = value;
->(foo) = value : 任意
->类型别名 :=> 任意
->(foo) : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
+>(foo) = value : any
+>(foo) : any
+>foo : any
+>value : any
 
 (null) = value;
->(null) = value : 任意
->类型别名 :=> 任意
->(null) : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->value : 任意
->类型别名 :=> 任意
+>(null) = value : any
+>(null) : null
+>null : null
+>value : any
 
 (true) = value;
->(true) = value : 任意
->类型别名 :=> 任意
->(true) : 为真
->类型别名 :=> 为真
->true : 为真
->类型别名 :=> 为真
->value : 任意
->类型别名 :=> 任意
+>(true) = value : any
+>(true) : true
+>true : true
+>value : any
 
 (0) = value;
->(0) = value : 任意
->类型别名 :=> 任意
+>(0) = value : any
 >(0) : 0
 >0 : 0
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 ('') = value;
->('') = value : 任意
->类型别名 :=> 任意
+>('') = value : any
 >('') : ""
 >'' : ""
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 (/d+/) = value;
->(/d+/) = value : 任意
->类型别名 :=> 任意
+>(/d+/) = value : any
 >(/d+/) : RegExp
 >/d+/ : RegExp
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 ({}) = value;
->({}) = value : 任意
->类型别名 :=> 任意
+>({}) = value : any
 >({}) : {}
 >{} : {}
->value : 任意
->类型别名 :=> 任意
+>value : any
 
 ([]) = value;
->([]) = value : 任意
->类型别名 :=> 任意
->([]) : 未定[]
->[] : 未定[]
->value : 任意
->类型别名 :=> 任意
+>([]) = value : any
+>([]) : undefined[]
+>[] : undefined[]
+>value : any
 
 (function baz() { }) = value;
->(function baz() { }) = value : 任意
->类型别名 :=> 任意
->(function baz() { }) : () => 无值
->function baz() { } : () => 无值
->baz : () => 无值
->value : 任意
->类型别名 :=> 任意
+>(function baz() { }) = value : any
+>(function baz() { }) : () => void
+>function baz() { } : () => void
+>baz : () => void
+>value : any
 
 (foo()) = value;
->(foo()) = value : 任意
->类型别名 :=> 任意
->(foo()) : 无值
->类型别名 :=> 无值
->foo() : 无值
->类型别名 :=> 无值
->foo : () => 无值
->value : 任意
->类型别名 :=> 任意
+>(foo()) = value : any
+>(foo()) : void
+>foo() : void
+>foo : () => void
+>value : any
 

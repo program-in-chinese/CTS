@@ -1,23 +1,22 @@
 === /a.ts ===
 import foo from "foo";
->foo : { [x: 文字]: 任意; bar(): 数字; }
+>foo : { [x: string]: any; bar(): number; }
 
 foo.bar();
->foo.bar() : 数字
->类型别名 :=> 数字
->foo.bar : () => 数字
->foo : { [x: 文字]: 任意; bar(): 数字; }
->bar : () => 数字
+>foo.bar() : number
+>foo.bar : () => number
+>foo : { [x: string]: any; bar(): number; }
+>bar : () => number
 
 === /node_modules/foo/index.js ===
 // Same as untypedModuleImport.ts but with --allowJs, so the package will actually be typed.
 
 exports.default = { bar() { return 0; } }
->exports.default = { bar() { return 0; } } : { [x: 文字]: 任意; bar(): 数字; }
->exports.default : { [x: 文字]: 任意; bar(): 数字; }
->exports : 类为 "/node_modules/foo/index"
->default : { [x: 文字]: 任意; bar(): 数字; }
->{ bar() { return 0; } } : { [x: 文字]: 任意; bar(): 数字; }
->bar : () => 数字
+>exports.default = { bar() { return 0; } } : { [x: string]: any; bar(): number; }
+>exports.default : { [x: string]: any; bar(): number; }
+>exports : typeof "/node_modules/foo/index"
+>default : { [x: string]: any; bar(): number; }
+>{ bar() { return 0; } } : { [x: string]: any; bar(): number; }
+>bar : () => number
 >0 : 0
 

@@ -1,7 +1,6 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 
 	interface Element { }
 >Element : Element
@@ -10,43 +9,35 @@ declare module JSX {
 >IntrinsicElements : IntrinsicElements
 
 		test1: { "data-foo"?: string };
->test1 : { "data-foo"?: 文字; }
+>test1 : { "data-foo"?: string; }
+>"data-foo" : string
 
 		test2: { "data-foo"?: string };
->test2 : { "data-foo"?: 文字; }
+>test2 : { "data-foo"?: string; }
+>"data-foo" : string
 	}
 }
 
 // Invalid names
 <test1 32data={32} />;
 ><test1 : JSX.Element
->test1 : 任意
->类型别名 :=> 任意
+>test1 : any
 >32 : 32
->data={32} /> : 真假
->类型别名 :=> 真假
->data : 任意
->类型别名 :=> 任意
->{32} /> : 真假
->类型别名 :=> 真假
->{32} / : 数字
->类型别名 :=> 数字
->{32} : { 32: 任意; }
-> : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>data={32} /> : boolean
+>data : any
+>{32} /> : boolean
+>{32} / : number
+>{32} : { 32: any; }
+>32 : any
+> : any
+> : any
+> : any
 
 <test2 -data={32} />;
-><test2 -data : 数字
->类型别名 :=> 数字
+><test2 -data : number
 ><test2 : JSX.Element
->test2 : 任意
->类型别名 :=> 任意
->data : 任意
->类型别名 :=> 任意
+>test2 : any
+>data : any
 >32 : 32
 >/>; : RegExp
 

@@ -1,238 +1,215 @@
 === tests/cases/compiler/controlFlowArrayErrors.ts ===
 declare function cond(): boolean;
->cond : () => 真假
+>cond : () => boolean
 
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     let x = [];  // Implicit any[] error in some locations
->x : 任意[]
->[] : 未定[]
+>x : any[]
+>[] : undefined[]
 
     let y = x;   // Implicit any[] error
->y : 任意[]
->x : 任意[]
+>y : any[]
+>x : any[]
 
     x.push(5);
->x.push(5) : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push(5) : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >5 : 5
 
     let z = x;
->z : 数字[]
->x : 数字[]
+>z : number[]
+>x : number[]
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     let x;       // Implicit any[] error in some locations
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     x = [];
->x = [] : 未定[]
->x : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>x = [] : undefined[]
+>x : any
+>[] : undefined[]
 
     let y = x;   // Implicit any[] error
->y : 任意[]
->x : 任意[]
+>y : any[]
+>x : any[]
 
     x.push(5);
->x.push(5) : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push(5) : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >5 : 5
 
     let z = x;
->z : 数字[]
->x : 数字[]
+>z : number[]
+>x : number[]
 }
 
 function f3() {
->f3 : () => 无值
+>f3 : () => void
 
     let x = [];  // Implicit any[] error in some locations
->x : 任意[]
->[] : 未定[]
+>x : any[]
+>[] : undefined[]
 
     x.push(5);
->x.push(5) : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push(5) : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >5 : 5
 
     function g() {
->g : () => 无值
+>g : () => void
 
         x;       // Implicit any[] error
->x : 任意[]
+>x : any[]
     }
 }
 
 function f4() {
->f4 : () => 无值
+>f4 : () => void
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     x = [5, "hello"];  // Non-evolving array
->x = [5, "hello"] : (文字 | 数字)[]
->x : 任意
->类型别名 :=> 任意
->[5, "hello"] : (文字 | 数字)[]
+>x = [5, "hello"] : (string | number)[]
+>x : any
+>[5, "hello"] : (string | number)[]
 >5 : 5
 >"hello" : "hello"
 
     x.push(true);      // Error
->x.push(true) : 数字
->类型别名 :=> 数字
->x.push : (...items: (文字 | 数字)[]) => 数字
->x : (文字 | 数字)[]
->push : (...items: (文字 | 数字)[]) => 数字
->true : 为真
->类型别名 :=> 为真
+>x.push(true) : number
+>x.push : (...items: (string | number)[]) => number
+>x : (string | number)[]
+>push : (...items: (string | number)[]) => number
+>true : true
 }
 
 function f5() {
->f5 : () => 无值
+>f5 : () => void
 
     let x = [5, "hello"];  // Non-evolving array
->x : (文字 | 数字)[]
->[5, "hello"] : (文字 | 数字)[]
+>x : (string | number)[]
+>[5, "hello"] : (string | number)[]
 >5 : 5
 >"hello" : "hello"
 
     x.push(true);          // Error
->x.push(true) : 数字
->类型别名 :=> 数字
->x.push : (...items: (文字 | 数字)[]) => 数字
->x : (文字 | 数字)[]
->push : (...items: (文字 | 数字)[]) => 数字
->true : 为真
->类型别名 :=> 为真
+>x.push(true) : number
+>x.push : (...items: (string | number)[]) => number
+>x : (string | number)[]
+>push : (...items: (string | number)[]) => number
+>true : true
 }
 
 function f6() {
->f6 : () => 无值
+>f6 : () => void
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     if (cond()) {
->cond() : 真假
->类型别名 :=> 真假
->cond : () => 真假
+>cond() : boolean
+>cond : () => boolean
 
         x = [];
->x = [] : 未定[]
->x : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>x = [] : undefined[]
+>x : any
+>[] : undefined[]
 
         x.push(5);
->x.push(5) : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push(5) : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >5 : 5
 
         x.push("hello");
->x.push("hello") : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push("hello") : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >"hello" : "hello"
     }
     else {
         x = [true];  // Non-evolving array
->x = [true] : 真假[]
->x : 任意
->类型别名 :=> 任意
->[true] : 真假[]
->true : 为真
->类型别名 :=> 为真
+>x = [true] : boolean[]
+>x : any
+>[true] : boolean[]
+>true : true
     }
     x;           // boolean[] | (string | number)[]
->x : (文字 | 数字)[] | 真假[]
+>x : (string | number)[] | boolean[]
 
     x.push(99);  // Error
->x.push(99) : 任意
->类型别名 :=> 任意
->x.push : ((...items: (文字 | 数字)[]) => 数字) | ((...items: 真假[]) => 数字)
->x : (文字 | 数字)[] | 真假[]
->push : ((...items: (文字 | 数字)[]) => 数字) | ((...items: 真假[]) => 数字)
+>x.push(99) : any
+>x.push : ((...items: (string | number)[]) => number) | ((...items: boolean[]) => number)
+>x : (string | number)[] | boolean[]
+>push : ((...items: (string | number)[]) => number) | ((...items: boolean[]) => number)
 >99 : 99
 }
 
 function f7() {
->f7 : () => 无值
+>f7 : () => void
 
     let x = [];       // x has evolving array value
->x : 任意[]
->[] : 未定[]
+>x : any[]
+>[] : undefined[]
 
     x.push(5);
->x.push(5) : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push(5) : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >5 : 5
 
     let y = x;        // y has non-evolving array value
->y : 数字[]
->x : 数字[]
+>y : number[]
+>x : number[]
 
     x.push("hello");  // Ok
->x.push("hello") : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push("hello") : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >"hello" : "hello"
 
     y.push("hello");  // Error
->y.push("hello") : 数字
->类型别名 :=> 数字
->y.push : (...items: 数字[]) => 数字
->y : 数字[]
->push : (...items: 数字[]) => 数字
+>y.push("hello") : number
+>y.push : (...items: number[]) => number
+>y : number[]
+>push : (...items: number[]) => number
 >"hello" : "hello"
 }
 
 function f8() {
->f8 : () => 无值
+>f8 : () => void
 
     const x = [];  // Implicit any[] error in some locations
->x : 任意[]
->[] : 未定[]
+>x : any[]
+>[] : undefined[]
 
     x.push(5);
->x.push(5) : 数字
->类型别名 :=> 数字
->x.push : (...items: 任意[]) => 数字
->x : 任意[]
->push : (...items: 任意[]) => 数字
+>x.push(5) : number
+>x.push : (...items: any[]) => number
+>x : any[]
+>push : (...items: any[]) => number
 >5 : 5
 
     function g() {
->g : () => 无值
+>g : () => void
 
         x;  // Implicit any[] error
->x : 任意[]
+>x : any[]
     }
 }

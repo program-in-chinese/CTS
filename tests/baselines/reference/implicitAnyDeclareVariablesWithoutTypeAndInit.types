@@ -1,52 +1,38 @@
 === tests/cases/compiler/implicitAnyDeclareVariablesWithoutTypeAndInit.ts ===
 // this should be an error
 var x;                   // no error, control flow typed
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 var y;                   // error because captured
->y : 任意
->类型别名 :=> 任意
+>y : any
 
 declare var foo;         // error at "foo"
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 
 function func(k) { y };  // error at "k"
->func : (k: 任意) => 无值
->k : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>func : (k: any) => void
+>k : any
+>y : any
 
 func(x);
->func(x) : 无值
->类型别名 :=> 无值
->func : (k: 任意) => 无值
->x : 未定
->类型别名 :=> 未定
+>func(x) : void
+>func : (k: any) => void
+>x : undefined
 
 // this shouldn't be an error
 var bar = 3;            
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 >3 : 3
 
 var bar1: any;          
->bar1 : 任意
->类型别名 :=> 任意
+>bar1 : any
 
 declare var bar2: any; 
->bar2 : 任意
->类型别名 :=> 任意
+>bar2 : any
 
 var x1: any; var y1 = new x1;
->x1 : 任意
->类型别名 :=> 任意
->y1 : 任意
->类型别名 :=> 任意
->new x1 : 任意
->类型别名 :=> 任意
->x1 : 任意
->类型别名 :=> 任意
+>x1 : any
+>y1 : any
+>new x1 : any
+>x1 : any
 

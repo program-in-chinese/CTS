@@ -1,16 +1,12 @@
 === tests/cases/conformance/expressions/functions/arrowFunctionContexts.ts ===
 // Arrow function used in with statement
 with (window) {
->window : 任意
->类型别名 :=> 任意
+>window : any
 
     var p = () => this;
->p : 任意
->类型别名 :=> 任意
->() => this : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>p : any
+>() => this : any
+>this : any
 }
 
 // Arrow function as argument to super call
@@ -18,8 +14,7 @@ class Base {
 >Base : Base
 
     constructor(n: any) { }
->n : 任意
->类型别名 :=> 任意
+>n : any
 }
 
 class Derived extends Base {
@@ -28,55 +23,45 @@ class Derived extends Base {
 
     constructor() {
         super(() => this);
->super(() => this) : 无值
->类型别名 :=> 无值
->super : 类为 Base
->() => this : () => 本体
->this : 本体
+>super(() => this) : void
+>super : typeof Base
+>() => this : () => this
+>this : this
     }
 }
 
 // Arrow function as function argument
 window.setTimeout(() => null, 100);
->window.setTimeout(() => null, 100) : 任意
->类型别名 :=> 任意
->window.setTimeout : 任意
->类型别名 :=> 任意
->window : 任意
->类型别名 :=> 任意
->setTimeout : 任意
->类型别名 :=> 任意
->() => null : () => 任意
->null : 空值
->类型别名 :=> 空值
+>window.setTimeout(() => null, 100) : any
+>window.setTimeout : any
+>window : any
+>setTimeout : any
+>() => null : () => any
+>null : null
 >100 : 100
 
 // Arrow function as value in array literal
 
 var obj = (n: number) => '';
->obj : (n: 数字) => 文字
->(n: number) => '' : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
+>obj : (n: number) => string
+>(n: number) => '' : (n: number) => string
+>n : number
 >'' : ""
 
 var obj: { (n: number): string; }; // OK
->obj : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
+>obj : (n: number) => string
+>n : number
 
 var arr = [(n: number) => ''];
->arr : ((n: 数字) => 文字)[]
->[(n: number) => ''] : ((n: 数字) => 文字)[]
->(n: number) => '' : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
+>arr : ((n: number) => string)[]
+>[(n: number) => ''] : ((n: number) => string)[]
+>(n: number) => '' : (n: number) => string
+>n : number
 >'' : ""
 
 var arr: { (n: number): string; }[]; // Incorrect error here (bug 829597)
->arr : ((n: 数字) => 文字)[]
->n : 数字
->类型别名 :=> 数字
+>arr : ((n: number) => string)[]
+>n : number
 
 // Arrow function as enum value
 enum E {
@@ -84,57 +69,47 @@ enum E {
 
     x = () => 4, // Error expected
 >x : E
->() => 4 : () => 数字
+>() => 4 : () => number
 >4 : 4
 
     y = (() => this).length // error, can't use this in enum
 >y : E
->(() => this).length : 数字
->类型别名 :=> 数字
->(() => this) : () => 任意
->() => this : () => 任意
->this : 任意
->类型别名 :=> 任意
->length : 数字
->类型别名 :=> 数字
+>(() => this).length : number
+>(() => this) : () => any
+>() => this : () => any
+>this : any
+>length : number
 }
 
 // Arrow function as module variable initializer
 module M {
->M : 类为 M
+>M : typeof M
 
     export var a = (s) => '';
->a : (s: 任意) => 文字
->(s) => '' : (s: 任意) => 文字
->s : 任意
->类型别名 :=> 任意
+>a : (s: any) => string
+>(s) => '' : (s: any) => string
+>s : any
 >'' : ""
 
     var b = (s) => s;
->b : (s: 任意) => 任意
->(s) => s : (s: 任意) => 任意
->s : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
+>b : (s: any) => any
+>(s) => s : (s: any) => any
+>s : any
+>s : any
 }
 
 // Repeat above for module members that are functions? (necessary to redo all of them?)
 module M2 {
->M2 : 类为 M2
+>M2 : typeof M2
 
     // Arrow function used in with statement
     with (window) {
->window : 任意
->类型别名 :=> 任意
+>window : any
 
         var p = () => this;
->p : 任意
->类型别名 :=> 任意
->() => this : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>p : any
+>() => this : any
+>this : any
     }
 
     // Arrow function as argument to super call
@@ -142,8 +117,7 @@ module M2 {
 >Base : Base
 
         constructor(n: any) { }
->n : 任意
->类型别名 :=> 任意
+>n : any
     }
 
     class Derived extends Base {
@@ -152,55 +126,45 @@ module M2 {
 
         constructor() {
             super(() => this);
->super(() => this) : 无值
->类型别名 :=> 无值
->super : 类为 Base
->() => this : () => 本体
->this : 本体
+>super(() => this) : void
+>super : typeof Base
+>() => this : () => this
+>this : this
         }
     }
 
     // Arrow function as function argument
     window.setTimeout(() => null, 100);
->window.setTimeout(() => null, 100) : 任意
->类型别名 :=> 任意
->window.setTimeout : 任意
->类型别名 :=> 任意
->window : 任意
->类型别名 :=> 任意
->setTimeout : 任意
->类型别名 :=> 任意
->() => null : () => 任意
->null : 空值
->类型别名 :=> 空值
+>window.setTimeout(() => null, 100) : any
+>window.setTimeout : any
+>window : any
+>setTimeout : any
+>() => null : () => any
+>null : null
 >100 : 100
 
     // Arrow function as value in array literal
 
     var obj = (n: number) => '';
->obj : (n: 数字) => 文字
->(n: number) => '' : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
+>obj : (n: number) => string
+>(n: number) => '' : (n: number) => string
+>n : number
 >'' : ""
 
     var obj: { (n: number): string; }; // OK
->obj : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
+>obj : (n: number) => string
+>n : number
 
     var arr = [(n: number) => ''];
->arr : ((n: 数字) => 文字)[]
->[(n: number) => ''] : ((n: 数字) => 文字)[]
->(n: number) => '' : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
+>arr : ((n: number) => string)[]
+>[(n: number) => ''] : ((n: number) => string)[]
+>(n: number) => '' : (n: number) => string
+>n : number
 >'' : ""
 
     var arr: { (n: number): string; }[]; // Incorrect error here (bug 829597)
->arr : ((n: 数字) => 文字)[]
->n : 数字
->类型别名 :=> 数字
+>arr : ((n: number) => string)[]
+>n : number
 
     // Arrow function as enum value
     enum E {
@@ -208,39 +172,33 @@ module M2 {
 
         x = () => 4, // Error expected
 >x : E
->() => 4 : () => 数字
+>() => 4 : () => number
 >4 : 4
 
         y = (() => this).length
 >y : E
->(() => this).length : 数字
->类型别名 :=> 数字
->(() => this) : () => 任意
->() => this : () => 任意
->this : 任意
->类型别名 :=> 任意
->length : 数字
->类型别名 :=> 数字
+>(() => this).length : number
+>(() => this) : () => any
+>() => this : () => any
+>this : any
+>length : number
     }
 
     // Arrow function as module variable initializer
     module M {
->M : 类为 M
+>M : typeof M
 
         export var a = (s) => '';
->a : (s: 任意) => 文字
->(s) => '' : (s: 任意) => 文字
->s : 任意
->类型别名 :=> 任意
+>a : (s: any) => string
+>(s) => '' : (s: any) => string
+>s : any
 >'' : ""
 
         var b = (s) => s;
->b : (s: 任意) => 任意
->(s) => s : (s: 任意) => 任意
->s : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
+>b : (s: any) => any
+>(s) => s : (s: any) => any
+>s : any
+>s : any
     }
 
 }
@@ -280,36 +238,26 @@ var generic2: { <T>(n: T): T[] };
 
 // <Identifier> ((ParamList) => { ... } ) is a type assertion to an arrow function
 var asserted1 = <any>((n) => [n]);
->asserted1 : 任意
->类型别名 :=> 任意
-><any>((n) => [n]) : 任意
->类型别名 :=> 任意
->((n) => [n]) : (n: 任意) => 任意[]
->(n) => [n] : (n: 任意) => 任意[]
->n : 任意
->类型别名 :=> 任意
->[n] : 任意[]
->n : 任意
->类型别名 :=> 任意
+>asserted1 : any
+><any>((n) => [n]) : any
+>((n) => [n]) : (n: any) => any[]
+>(n) => [n] : (n: any) => any[]
+>n : any
+>[n] : any[]
+>n : any
 
 var asserted1: any;
->asserted1 : 任意
->类型别名 :=> 任意
+>asserted1 : any
 
 var asserted2 = <any>((n) => { return n; });
->asserted2 : 任意
->类型别名 :=> 任意
-><any>((n) => { return n; }) : 任意
->类型别名 :=> 任意
->((n) => { return n; }) : (n: 任意) => 任意
->(n) => { return n; } : (n: 任意) => 任意
->n : 任意
->类型别名 :=> 任意
->n : 任意
->类型别名 :=> 任意
+>asserted2 : any
+><any>((n) => { return n; }) : any
+>((n) => { return n; }) : (n: any) => any
+>(n) => { return n; } : (n: any) => any
+>n : any
+>n : any
 
 var asserted2: any;
->asserted2 : 任意
->类型别名 :=> 任意
+>asserted2 : any
 
 

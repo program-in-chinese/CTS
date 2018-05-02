@@ -1,52 +1,41 @@
 === tests/cases/compiler/specializedSignatureAsCallbackParameter1.ts ===
 function x3(a: number, cb: (x: number) => number);
->x3 : { (a: 数字, cb: (x: 数字) => 数字): 任意; (a: 文字, cb: (x: 数字) => 数字): 任意; }
->a : 数字
->类型别名 :=> 数字
->cb : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>x3 : { (a: number, cb: (x: number) => number): any; (a: string, cb: (x: number) => number): any; }
+>a : number
+>cb : (x: number) => number
+>x : number
 
 function x3(a: string, cb: (x: number) => number);
->x3 : { (a: 数字, cb: (x: 数字) => 数字): 任意; (a: 文字, cb: (x: 数字) => 数字): 任意; }
->a : 文字
->类型别名 :=> 文字
->cb : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>x3 : { (a: number, cb: (x: number) => number): any; (a: string, cb: (x: number) => number): any; }
+>a : string
+>cb : (x: number) => number
+>x : number
 
 function x3(a: any, cb: (x: number) => number) {
->x3 : { (a: 数字, cb: (x: 数字) => 数字): 任意; (a: 文字, cb: (x: 数字) => 数字): 任意; }
->a : 任意
->类型别名 :=> 任意
->cb : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>x3 : { (a: number, cb: (x: number) => number): any; (a: string, cb: (x: number) => number): any; }
+>a : any
+>cb : (x: number) => number
+>x : number
 
    cb(a);
->cb(a) : 数字
->类型别名 :=> 数字
->cb : (x: 数字) => 数字
->a : 任意
->类型别名 :=> 任意
+>cb(a) : number
+>cb : (x: number) => number
+>a : any
 }
 // both are errors
 x3(1, (x: string) => 1); 
->x3(1, (x: string) => 1) : 任意
->类型别名 :=> 任意
->x3 : { (a: 数字, cb: (x: 数字) => 数字): 任意; (a: 文字, cb: (x: 数字) => 数字): 任意; }
+>x3(1, (x: string) => 1) : any
+>x3 : { (a: number, cb: (x: number) => number): any; (a: string, cb: (x: number) => number): any; }
 >1 : 1
->(x: string) => 1 : (x: 文字) => 数字
->x : 文字
->类型别名 :=> 文字
+>(x: string) => 1 : (x: string) => number
+>x : string
 >1 : 1
 
 x3(1, (x: 'hm') => 1); 
->x3(1, (x: 'hm') => 1) : 任意
->类型别名 :=> 任意
->x3 : { (a: 数字, cb: (x: 数字) => 数字): 任意; (a: 文字, cb: (x: 数字) => 数字): 任意; }
+>x3(1, (x: 'hm') => 1) : any
+>x3 : { (a: number, cb: (x: number) => number): any; (a: string, cb: (x: number) => number): any; }
 >1 : 1
->(x: 'hm') => 1 : (x: "hm") => 数字
+>(x: 'hm') => 1 : (x: "hm") => number
 >x : "hm"
 >1 : 1
 

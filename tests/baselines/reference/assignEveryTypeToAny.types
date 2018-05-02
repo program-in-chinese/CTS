@@ -2,108 +2,75 @@
 // all of these are valid
 
 var x: any;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
 
 var a = 2;
->a : 数字
->类型别名 :=> 数字
+>a : number
 >2 : 2
 
 x = a;
->x = a : 数字
->类型别名 :=> 数字
->x : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
+>x = a : number
+>x : any
+>a : number
 
 x = true;
->x = true : 为真
->类型别名 :=> 为真
->x : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
+>x = true : true
+>x : any
+>true : true
 
 var b = true;
->b : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>b : boolean
+>true : true
 
 x = b;
->x = b : 为真
->类型别名 :=> 为真
->x : 任意
->类型别名 :=> 任意
->b : 为真
->类型别名 :=> 为真
+>x = b : true
+>x : any
+>b : true
 
 x = "";
 >x = "" : ""
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"" : ""
 
 var c = "";
->c : 文字
->类型别名 :=> 文字
+>c : string
 >"" : ""
 
 x = c;
->x = c : 文字
->类型别名 :=> 文字
->x : 任意
->类型别名 :=> 任意
->c : 文字
->类型别名 :=> 文字
+>x = c : string
+>x : any
+>c : string
 
 var d: void;
->d : 无值
->类型别名 :=> 无值
+>d : void
 
 x = d;
->x = d : 无值
->类型别名 :=> 无值
->x : 任意
->类型别名 :=> 任意
->d : 无值
->类型别名 :=> 无值
+>x = d : void
+>x : any
+>d : void
 
 var e = undefined;
->e : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>e : any
+>undefined : undefined
 
 x = e;
->x = e : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->e : 任意
->类型别名 :=> 任意
+>x = e : any
+>x : any
+>e : any
 
 var e2: typeof undefined;
->e2 : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>e2 : any
+>undefined : undefined
 
 x = e2;
->x = e2 : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->e2 : 任意
->类型别名 :=> 任意
+>x = e2 : any
+>x : any
+>e2 : any
 
 enum E {
 >E : E
@@ -114,30 +81,27 @@ enum E {
 
 x = E.A;
 >x = E.A : E
->x : 任意
->类型别名 :=> 任意
+>x : any
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
 
 var f = E.A;
 >f : E
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
 
 x = f;
 >x = f : E
->x : 任意
->类型别名 :=> 任意
+>x : any
 >f : E
 
 interface I {
 >I : I
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 
 var g: I;
@@ -146,16 +110,14 @@ var g: I;
 
 x = g;
 >x = g : I
->x : 任意
->类型别名 :=> 任意
+>x : any
 >g : I
 
 class C {
 >C : C
 
     bar: string;
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 }
 
 var h: C;
@@ -164,31 +126,27 @@ var h: C;
 
 x = h;
 >x = h : C
->x : 任意
->类型别名 :=> 任意
+>x : any
 >h : C
 
 var i: { (): string };
->i : () => 文字
+>i : () => string
 
 x = i;
->x = i : () => 文字
->x : 任意
->类型别名 :=> 任意
->i : () => 文字
+>x = i : () => string
+>x : any
+>i : () => string
 
 x = { f() { return 1; } }
->x = { f() { return 1; } } : { f(): 数字; }
->x : 任意
->类型别名 :=> 任意
->{ f() { return 1; } } : { f(): 数字; }
->f : () => 数字
+>x = { f() { return 1; } } : { f(): number; }
+>x : any
+>{ f() { return 1; } } : { f(): number; }
+>f : () => number
 >1 : 1
 
 x = { f<T>(x: T) { return x; } }
 >x = { f<T>(x: T) { return x; } } : { f<T>(x: T): T; }
->x : 任意
->类型别名 :=> 任意
+>x : any
 >{ f<T>(x: T) { return x; } } : { f<T>(x: T): T; }
 >f : <T>(x: T) => T
 >T : T
@@ -197,14 +155,13 @@ x = { f<T>(x: T) { return x; } }
 >x : T
 
 function j<T>(a: T) {
->j : <T>(a: T) => 无值
+>j : <T>(a: T) => void
 >T : T
 >a : T
 >T : T
 
     x = a;
 >x = a : T
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : T
 }

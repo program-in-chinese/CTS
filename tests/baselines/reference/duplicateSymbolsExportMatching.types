@@ -1,6 +1,6 @@
 === tests/cases/compiler/duplicateSymbolsExportMatching.ts ===
 module M {
->M : 类为 M
+>M : typeof M
 
     export interface E { }
 >E : E
@@ -9,7 +9,7 @@ module M {
 >I : I
 }
 module M {
->M : 类为 M
+>M : typeof M
 
     export interface E { } // ok
 >E : E
@@ -20,7 +20,7 @@ module M {
 
 // Doesn't match export visibility, but it's in a different parent, so it's ok
 module M {
->M : 类为 M
+>M : typeof M
 
     interface E { } // ok
 >E : E
@@ -30,8 +30,7 @@ module M {
 }
 
 module N {
->N : 任意
->类型别名 :=> 任意
+>N : any
 
     interface I { }
 >I : I
@@ -47,8 +46,7 @@ module N {
 }
 
 module N2 {
->N2 : 任意
->类型别名 :=> 任意
+>N2 : any
 
     interface I { }
 >I : I
@@ -65,74 +63,66 @@ module N2 {
 
 // Should report error only once for instantiated module
 module M {
->M : 类为 M
+>M : typeof M
 
     module inst {
->inst : 类为 inst
+>inst : typeof inst
 
         var t;
->t : 任意
->类型别名 :=> 任意
+>t : any
     }
     export module inst { // one error
->inst : 类为 M.inst
+>inst : typeof M.inst
 
         var t;
->t : 任意
->类型别名 :=> 任意
+>t : any
     }
 }
 
 // Variables of the same / different type
 module M2 {
->M2 : 类为 M2
+>M2 : typeof M2
 
     var v: string;
->v : 文字
->类型别名 :=> 文字
+>v : string
 
     export var v: string; // one error (visibility)
->v : 文字
->类型别名 :=> 文字
+>v : string
 
     var w: number;
->w : 数字
->类型别名 :=> 数字
+>w : number
 
     export var w: string; // two errors (visibility and type mismatch)
->w : 文字
->类型别名 :=> 文字
+>w : string
 }
 
 module M {
->M : 类为 M
+>M : typeof M
 
     module F {
->F : 类为 F
+>F : typeof F
 
         var t;
->t : 任意
->类型别名 :=> 任意
+>t : any
     }
     export function F() { } // Only one error for duplicate identifier (don't consider visibility)
->F : () => 无值
+>F : () => void
 }
 
 module M {
->M : 类为 M
+>M : typeof M
 
     class C { }
 >C : C
 
     module C { }
->C : 类为 C
+>C : typeof C
 
     export module C { // Two visibility errors (one for the clodule symbol, and one for the merged container symbol)
->C : 类为 M.C
+>C : typeof M.C
 
         var t;
->t : 任意
->类型别名 :=> 任意
+>t : any
     }
 }
 

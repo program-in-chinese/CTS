@@ -1,300 +1,250 @@
 === tests/cases/compiler/controlFlowJavascript.js ===
 let cond = true;
->cond : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>cond : boolean
+>true : true
 
 // CFA for 'let' and no initializer
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | undefined
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 }
 
 // CFA for 'let' and 'undefined' initializer
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     let x = undefined;
->x : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>x : any
+>undefined : undefined
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | undefined
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 }
 
 // CFA for 'let' and 'null' initializer
 function f3() {
->f3 : () => 无值
+>f3 : () => void
 
     let x = null;
->x : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>x : any
+>null : null
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | null
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 }
 
 // CFA for 'var' with no initializer
 function f5() {
->f5 : () => 无值
+>f5 : () => void
 
     var x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | undefined
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 }
 
 // CFA for 'var' with 'undefined' initializer
 function f6() {
->f6 : () => 无值
+>f6 : () => void
 
     var x = undefined;
->x : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>x : any
+>undefined : undefined
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | undefined
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 }
 
 // CFA for 'var' with 'null' initializer
 function f7() {
->f7 : () => 无值
+>f7 : () => void
 
     var x = null;
->x : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>x : any
+>null : null
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | null
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 }
 
 // No CFA for captured outer variables
 function f9() {
->f9 : () => 无值
+>f9 : () => void
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | undefined
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 
     function f() {
->f : () => 无值
+>f : () => void
 
         const z = x;  // any
->z : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>z : any
+>x : any
     }
 }
 
 // No CFA for captured outer variables
 function f10() {
->f10 : () => 无值
+>f10 : () => void
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = 1;
 >x = 1 : 1
->x : 任意
->类型别名 :=> 任意
+>x : any
 >1 : 1
     }
     if (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = "hello";
 >x = "hello" : "hello"
->x : 任意
->类型别名 :=> 任意
+>x : any
 >"hello" : "hello"
     }
     const y = x;  // string | number | undefined
->y : 文字 | 数字
->x : 文字 | 数字
+>y : string | number
+>x : string | number
 
     const f = () => {
->f : () => 无值
->() => {        const z = x;  // any    } : () => 无值
+>f : () => void
+>() => {        const z = x;  // any    } : () => void
 
         const z = x;  // any
->z : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>z : any
+>x : any
 
     };
 }

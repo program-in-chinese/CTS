@@ -1,5 +1,5 @@
-import fs = require("fs");
-import path = require("path");
+import fs = require('fs');
+import path = require('path');
 import child_process = require("child_process");
 
 type Author = {
@@ -71,7 +71,7 @@ function getKnownAuthorMaps() {
 }
 
 function deduplicate<T>(array: T[]): T[] {
-    const result: T[] = [];
+    let result: T[] = []
     if (array) {
         for (const item of array) {
             if (result.indexOf(item) < 0) {
@@ -109,11 +109,11 @@ namespace Commands {
     };
     listKnownAuthors.description = "List known authors as listed in .mailmap file.";
 
-    export const listAuthors: Command = function (...specs: string[]) {
+    export const listAuthors: Command = function (...specs:string[]) {
         const cmd = "git shortlog -se " + specs.join(" ");
         console.log(cmd);
         const outputRegExp = /\d+\s+([^<]+)<([^>]+)>/;
-        const tty = process.platform === "win32" ? "CON" : "/dev/tty";
+        const tty = process.platform === 'win32' ? 'CON' : '/dev/tty';
         const authors: { name: string, email: string, knownAuthor?: Author }[] = [];
         child_process.exec(`${cmd} < ${tty}`, { cwd: path.resolve("../") }, function (error, stdout, stderr) {
             if (error) {
@@ -136,7 +136,7 @@ namespace Commands {
 
                 const maps = getKnownAuthorMaps();
 
-                const lookupAuthor = function ({ name, email }: { name: string, email: string }) {
+                const lookupAuthor = function ({name, email}: { name: string, email: string }) {
                     return maps.authorsByEmail[email.toLocaleLowerCase()] || maps.authorsByName[name];
                 };
 
@@ -164,18 +164,18 @@ namespace Commands {
             }
         });
     };
-    listAuthors.description = "List known and unknown authors for a given spec";
+    listAuthors.description = "List known and unknown authors for a given spec, e.g. 'node authors.js listAuthors origin/release-2.6..origin/release-2.7'";
 }
 
 var args = process.argv.slice(2);
 if (args.length < 1) {
-    console.log("Usage: node authors.js [command]");
-    console.log("List of commands: ");
-    Object.keys(Commands).forEach(k => console.log(`     ${k}: ${(Commands as any)[k]["description"]}`));
+    console.log('Usage: node authors.js [command]');
+    console.log('List of commands: ');
+    Object.keys(Commands).forEach(k => console.log(`     ${k}: ${(Commands as any)[k]['description']}`));
 } else {
     var cmd: Function = (Commands as any)[args[0]];
     if (cmd === undefined) {
-        console.log("Unknown command " + args[1]);
+        console.log('Unknown command ' + args[1]);
     } else {
         cmd.apply(undefined, args.slice(1));
     }

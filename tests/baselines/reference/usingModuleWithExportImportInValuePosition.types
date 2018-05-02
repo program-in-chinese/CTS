@@ -1,80 +1,66 @@
 === tests/cases/compiler/usingModuleWithExportImportInValuePosition.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
 export var x = 'hello world'
->x : 文字
->类型别名 :=> 文字
+>x : string
 >'hello world' : "hello world"
 
 export class Point {
 >Point : Point
 
         constructor(public x: number, public y: number) { }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
     }
     export module B {
->B : 任意
->类型别名 :=> 任意
+>B : any
 
         export interface Id {
 >Id : Id
 
             name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
         }
     }
 }
 module C {
->C : 类为 C
+>C : typeof C
 
     export import a = A;
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 }
 
 var a: string = C.a.x;
->a : 文字
->类型别名 :=> 文字
->C.a.x : 文字
->类型别名 :=> 文字
->C.a : 类为 A
->C : 类为 C
->a : 类为 A
->x : 文字
->类型别名 :=> 文字
+>a : string
+>C.a.x : string
+>C.a : typeof A
+>C : typeof C
+>a : typeof A
+>x : string
 
 var b: { x: number; y: number; } = new C.a.Point(0, 0);
->b : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>b : { x: number; y: number; }
+>x : number
+>y : number
 >new C.a.Point(0, 0) : A.Point
->C.a.Point : 类为 A.Point
->C.a : 类为 A
->C : 类为 C
->a : 类为 A
->Point : 类为 A.Point
+>C.a.Point : typeof A.Point
+>C.a : typeof A
+>C : typeof C
+>a : typeof A
+>Point : typeof A.Point
 >0 : 0
 >0 : 0
 
 var c: { name: string };
->c : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>c : { name: string; }
+>name : string
 
 var c: C.a.B.Id;
->c : { name: 文字; }
->C : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->B : 任意
->类型别名 :=> 任意
+>c : { name: string; }
+>C : any
+>a : any
+>B : any
 >Id : A.B.Id
 

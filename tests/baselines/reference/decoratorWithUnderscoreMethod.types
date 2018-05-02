@@ -1,35 +1,28 @@
 === tests/cases/compiler/decoratorWithUnderscoreMethod.ts ===
 declare var console : { log(arg: string): void };
->console : { log(arg: 文字): 无值; }
->log : (arg: 文字) => 无值
->arg : 文字
->类型别名 :=> 文字
+>console : { log(arg: string): void; }
+>log : (arg: string) => void
+>arg : string
 
 function dec(): Function {
 >dec : () => Function
 >Function : Function
 
     return function (target: any, propKey: string, descr: PropertyDescriptor): void {
->function (target: any, propKey: string, descr: PropertyDescriptor): void {        console.log(target[propKey]);        //logs undefined        //propKey has three underscores as prefix, but the method has only two underscores    } : (target: 任意, propKey: 文字, descr: PropertyDescriptor) => 无值
->target : 任意
->类型别名 :=> 任意
->propKey : 文字
->类型别名 :=> 文字
+>function (target: any, propKey: string, descr: PropertyDescriptor): void {        console.log(target[propKey]);        //logs undefined        //propKey has three underscores as prefix, but the method has only two underscores    } : (target: any, propKey: string, descr: PropertyDescriptor) => void
+>target : any
+>propKey : string
 >descr : PropertyDescriptor
 >PropertyDescriptor : PropertyDescriptor
 
         console.log(target[propKey]);
->console.log(target[propKey]) : 无值
->类型别名 :=> 无值
->console.log : (arg: 文字) => 无值
->console : { log(arg: 文字): 无值; }
->log : (arg: 文字) => 无值
->target[propKey] : 任意
->类型别名 :=> 任意
->target : 任意
->类型别名 :=> 任意
->propKey : 文字
->类型别名 :=> 文字
+>console.log(target[propKey]) : void
+>console.log : (arg: string) => void
+>console : { log(arg: string): void; }
+>log : (arg: string) => void
+>target[propKey] : any
+>target : any
+>propKey : string
 
         //logs undefined
         //propKey has three underscores as prefix, but the method has only two underscores
@@ -44,9 +37,8 @@ class A {
 >dec : () => Function
 
     private __foo(bar: string): void {
->__foo : (bar: 文字) => 无值
->bar : 文字
->类型别名 :=> 文字
+>__foo : (bar: string) => void
+>bar : string
 
         // do something with bar
     }

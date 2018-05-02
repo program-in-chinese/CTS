@@ -12,34 +12,32 @@ function foo<T>(x: T) {
 }
 
 function other<T>(arg: T) {
->other : <T>(arg: T) => 无值
+>other : <T>(arg: T) => void
 >T : T
 >arg : T
 >T : T
 
     var b: {
->b : { [x: 文字]: Object; [x: 数字]: T; }
+>b : { [x: string]: Object; [x: number]: T; }
 
         [x: string]: Object;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Object : Object
 
         [x: number]: T; // ok, T is a subtype of Object because its apparent type is {}
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
 
     };
     var r2 = foo(b); // T
->r2 : { [x: 文字]: Object; [x: 数字]: T; }
->foo(b) : { [x: 文字]: Object; [x: 数字]: T; }
+>r2 : { [x: string]: Object; [x: number]: T; }
+>foo(b) : { [x: string]: Object; [x: number]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 文字]: Object; [x: 数字]: T; }
+>b : { [x: string]: Object; [x: number]: T; }
 }
 
 function other3<T extends U, U extends Date>(arg: T) {
->other3 : <T 扩展 U, U 扩展 Date>(arg: T) => 无值
+>other3 : <T extends U, U extends Date>(arg: T) => void
 >T : T
 >U : U
 >U : U
@@ -48,41 +46,39 @@ function other3<T extends U, U extends Date>(arg: T) {
 >T : T
 
     var b: {
->b : { [x: 文字]: Object; [x: 数字]: T; }
+>b : { [x: string]: Object; [x: number]: T; }
 
         [x: string]: Object;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Object : Object
 
         [x: number]: T;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
 
     };
     var r2 = foo(b);
->r2 : { [x: 文字]: Object; [x: 数字]: T; }
->foo(b) : { [x: 文字]: Object; [x: 数字]: T; }
+>r2 : { [x: string]: Object; [x: number]: T; }
+>foo(b) : { [x: string]: Object; [x: number]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 文字]: Object; [x: 数字]: T; }
+>b : { [x: string]: Object; [x: number]: T; }
 
     var d = r2[1];
 >d : T
 >r2[1] : T
->r2 : { [x: 文字]: Object; [x: 数字]: T; }
+>r2 : { [x: string]: Object; [x: number]: T; }
 >1 : 1
 
     var e = r2['1'];
 >e : Object
 >r2['1'] : Object
->r2 : { [x: 文字]: Object; [x: 数字]: T; }
+>r2 : { [x: string]: Object; [x: number]: T; }
 >'1' : "1"
 
     var u: U = r2[1]; // ok
 >u : U
 >U : U
 >r2[1] : T
->r2 : { [x: 文字]: Object; [x: 数字]: T; }
+>r2 : { [x: string]: Object; [x: number]: T; }
 >1 : 1
 }

@@ -1,23 +1,21 @@
 === tests/cases/compiler/genericCallWithFixedArguments.ts ===
 class A { foo() { } }
 >A : A
->foo : () => 无值
+>foo : () => void
 
 class B { bar() { }} 
 >B : B
->bar : () => 无值
+>bar : () => void
 
 function g<T, U>(x) { }
->g : <T, U>(x: 任意) => 无值
+>g : <T, U>(x: any) => void
 >T : T
 >U : U
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 g<A, B>(7) // the parameter list is fixed, so this should not error
->g<A, B>(7) : 无值
->类型别名 :=> 无值
->g : <T, U>(x: 任意) => 无值
+>g<A, B>(7) : void
+>g : <T, U>(x: any) => void
 >A : A
 >B : B
 >7 : 7

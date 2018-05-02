@@ -2,99 +2,88 @@
 // should replace all refs to 'x' in the body,
 // with fully qualified
 module A {
->A : 类为 A
+>A : typeof A
 
     export var x = 12;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >12 : 12
 
     function lt12() {
->lt12 : () => 真假
+>lt12 : () => boolean
 
         return x < 12;
->x < 12 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x < 12 : boolean
+>x : number
 >12 : 12
     }
 } 
 
 // should not fully qualify 'x'
 module B {
->B : 类为 B
+>B : typeof B
 
     var x = 12;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >12 : 12
 
     function lt12() {
->lt12 : () => 真假
+>lt12 : () => boolean
 
         return x < 12;
->x < 12 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x < 12 : boolean
+>x : number
 >12 : 12
     }
 }
 
 // not copied, since not exported
 module C {
->C : 类为 C
+>C : typeof C
 
     function no() {
->no : () => 真假
+>no : () => boolean
 
         return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
     }
 }
 
 // copies, since exported
 module D {
->D : 类为 D
+>D : typeof D
 
     export function yes() {
->yes : () => 真假
+>yes : () => boolean
 
         return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
     }
 }
 
 // validate all exportable statements
 module E {
->E : 类为 E
+>E : typeof E
 
     export enum Color { Red }
 >Color : Color
 >Red : Color
 
     export function fn() { }
->fn : () => 无值
+>fn : () => void
 
     export interface I { id: number }
 >I : I
->id : 数字
->类型别名 :=> 数字
+>id : number
 
     export class C { name: string }
 >C : C
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     export module M {
->M : 类为 M
+>M : typeof M
 
         export var x = 42;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >42 : 42
     }
 }
@@ -102,31 +91,28 @@ module E {
 // validate all exportable statements,
 // which are not exported
 module F {
->F : 类为 F
+>F : typeof F
 
     enum Color { Red }
 >Color : Color
 >Red : Color
 
     function fn() { }
->fn : () => 无值
+>fn : () => void
 
     interface I { id: number }
 >I : I
->id : 数字
->类型别名 :=> 数字
+>id : number
 
     class C { name: string }
 >C : C
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     module M {
->M : 类为 M
+>M : typeof M
 
         var x = 42;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >42 : 42
     }
 }

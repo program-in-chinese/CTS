@@ -1,7 +1,7 @@
 === tests/cases/compiler/emitCapturingThisInTupleDestructuring2.ts ===
 var array1: [number, number] = [1, 2];
->array1 : [数字, 数字]
->[1, 2] : [数字, 数字]
+>array1 : [number, number]
+>[1, 2] : [number, number]
 >1 : 1
 >2 : 2
 
@@ -9,39 +9,30 @@ class B {
 >B : B
 
     test: number;
->test : 数字
->类型别名 :=> 数字
+>test : number
 
     test1: any;
->test1 : 任意
->类型别名 :=> 任意
+>test1 : any
 
     test2: any;
->test2 : 任意
->类型别名 :=> 任意
+>test2 : any
 
     method() {
->method : () => 无值
+>method : () => void
 
         () => [this.test, this.test1, this.test2] = array1; // even though there is a compiler error, we should still emit lexical capture for "this" 
->() => [this.test, this.test1, this.test2] = array1 : () => [数字, 数字]
->[this.test, this.test1, this.test2] = array1 : [数字, 数字]
->[this.test, this.test1, this.test2] : [数字, 任意, 任意]
->this.test : 数字
->类型别名 :=> 数字
->this : 本体
->test : 数字
->类型别名 :=> 数字
->this.test1 : 任意
->类型别名 :=> 任意
->this : 本体
->test1 : 任意
->类型别名 :=> 任意
->this.test2 : 任意
->类型别名 :=> 任意
->this : 本体
->test2 : 任意
->类型别名 :=> 任意
->array1 : [数字, 数字]
+>() => [this.test, this.test1, this.test2] = array1 : () => [number, number]
+>[this.test, this.test1, this.test2] = array1 : [number, number]
+>[this.test, this.test1, this.test2] : [number, any, any]
+>this.test : number
+>this : this
+>test : number
+>this.test1 : any
+>this : this
+>test1 : any
+>this.test2 : any
+>this : this
+>test2 : any
+>array1 : [number, number]
     }
 }

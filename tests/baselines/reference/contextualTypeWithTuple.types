@@ -1,50 +1,44 @@
 === tests/cases/conformance/types/tuple/contextualTypeWithTuple.ts ===
 // no error
 var numStrTuple: [number, string] = [5, "hello"];
->numStrTuple : [数字, 文字]
->[5, "hello"] : [数字, 文字]
+>numStrTuple : [number, string]
+>[5, "hello"] : [number, string]
 >5 : 5
 >"hello" : "hello"
 
 var numStrTuple2: [number, string] = [5, "foo", true];
->numStrTuple2 : [数字, 文字]
->[5, "foo", true] : [数字, 文字, 真假]
+>numStrTuple2 : [number, string]
+>[5, "foo", true] : [number, string, boolean]
 >5 : 5
 >"foo" : "foo"
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 var numStrBoolTuple: [number, string, boolean] = [5, "foo", true];
->numStrBoolTuple : [数字, 文字, 真假]
->[5, "foo", true] : [数字, 文字, 为真]
+>numStrBoolTuple : [number, string, boolean]
+>[5, "foo", true] : [number, string, true]
 >5 : 5
 >"foo" : "foo"
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 var objNumTuple: [{ a: string }, number] = [{ a: "world" }, 5];
->objNumTuple : [{ a: 文字; }, 数字]
->a : 文字
->类型别名 :=> 文字
->[{ a: "world" }, 5] : [{ a: 文字; }, 数字]
->{ a: "world" } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>objNumTuple : [{ a: string; }, number]
+>a : string
+>[{ a: "world" }, 5] : [{ a: string; }, number]
+>{ a: "world" } : { a: string; }
+>a : string
 >"world" : "world"
 >5 : 5
 
 var strTupleTuple: [string, [number, {}]] = ["bar", [5, { x: 1, y: 1 }]];
->strTupleTuple : [文字, [数字, {}]]
->["bar", [5, { x: 1, y: 1 }]] : [文字, [数字, { x: 数字; y: 数字; }]]
+>strTupleTuple : [string, [number, {}]]
+>["bar", [5, { x: 1, y: 1 }]] : [string, [number, { x: number; y: number; }]]
 >"bar" : "bar"
->[5, { x: 1, y: 1 }] : [数字, { x: 数字; y: 数字; }]
+>[5, { x: 1, y: 1 }] : [number, { x: number; y: number; }]
 >5 : 5
->{ x: 1, y: 1 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: 1 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
 
 class C { }
@@ -54,85 +48,85 @@ class D { }
 >D : D
 
 var unionTuple: [C, string | number] = [new C(), "foo"];
->unionTuple : [C, 文字 | 数字]
+>unionTuple : [C, string | number]
 >C : C
->[new C(), "foo"] : [C, 文字]
+>[new C(), "foo"] : [C, string]
 >new C() : C
->C : 类为 C
+>C : typeof C
 >"foo" : "foo"
 
 var unionTuple1: [C, string | number] = [new C(), "foo"];
->unionTuple1 : [C, 文字 | 数字]
+>unionTuple1 : [C, string | number]
 >C : C
->[new C(), "foo"] : [C, 文字]
+>[new C(), "foo"] : [C, string]
 >new C() : C
->C : 类为 C
+>C : typeof C
 >"foo" : "foo"
 
 var unionTuple2: [C, string | number, D] = [new C(), "foo", new D()];
->unionTuple2 : [C, 文字 | 数字, D]
+>unionTuple2 : [C, string | number, D]
 >C : C
 >D : D
->[new C(), "foo", new D()] : [C, 文字, D]
+>[new C(), "foo", new D()] : [C, string, D]
 >new C() : C
->C : 类为 C
+>C : typeof C
 >"foo" : "foo"
 >new D() : D
->D : 类为 D
+>D : typeof D
 
 var unionTuple3: [number, string| number] = [10, "foo"]; 
->unionTuple3 : [数字, 文字 | 数字]
->[10, "foo"] : [数字, 文字]
+>unionTuple3 : [number, string | number]
+>[10, "foo"] : [number, string]
 >10 : 10
 >"foo" : "foo"
 
 numStrTuple = numStrTuple2;
->numStrTuple = numStrTuple2 : [数字, 文字]
->numStrTuple : [数字, 文字]
->numStrTuple2 : [数字, 文字]
+>numStrTuple = numStrTuple2 : [number, string]
+>numStrTuple : [number, string]
+>numStrTuple2 : [number, string]
 
 numStrTuple = numStrBoolTuple;
->numStrTuple = numStrBoolTuple : [数字, 文字, 真假]
->numStrTuple : [数字, 文字]
->numStrBoolTuple : [数字, 文字, 真假]
+>numStrTuple = numStrBoolTuple : [number, string, boolean]
+>numStrTuple : [number, string]
+>numStrBoolTuple : [number, string, boolean]
 
 // error
 objNumTuple = [ {}, 5];
->objNumTuple = [ {}, 5] : [{}, 数字]
->objNumTuple : [{ a: 文字; }, 数字]
->[ {}, 5] : [{}, 数字]
+>objNumTuple = [ {}, 5] : [{}, number]
+>objNumTuple : [{ a: string; }, number]
+>[ {}, 5] : [{}, number]
 >{} : {}
 >5 : 5
 
 numStrBoolTuple = numStrTuple;
->numStrBoolTuple = numStrTuple : [数字, 文字]
->numStrBoolTuple : [数字, 文字, 真假]
->numStrTuple : [数字, 文字]
+>numStrBoolTuple = numStrTuple : [number, string]
+>numStrBoolTuple : [number, string, boolean]
+>numStrTuple : [number, string]
 
 var strStrTuple: [string, string] = ["foo", "bar", 5];
->strStrTuple : [文字, 文字]
->["foo", "bar", 5] : [文字, 文字, 数字]
+>strStrTuple : [string, string]
+>["foo", "bar", 5] : [string, string, number]
 >"foo" : "foo"
 >"bar" : "bar"
 >5 : 5
 
 unionTuple = unionTuple1;
->unionTuple = unionTuple1 : [C, 文字 | 数字]
->unionTuple : [C, 文字 | 数字]
->unionTuple1 : [C, 文字 | 数字]
+>unionTuple = unionTuple1 : [C, string | number]
+>unionTuple : [C, string | number]
+>unionTuple1 : [C, string | number]
 
 unionTuple = unionTuple2;
->unionTuple = unionTuple2 : [C, 文字 | 数字, D]
->unionTuple : [C, 文字 | 数字]
->unionTuple2 : [C, 文字 | 数字, D]
+>unionTuple = unionTuple2 : [C, string | number, D]
+>unionTuple : [C, string | number]
+>unionTuple2 : [C, string | number, D]
 
 unionTuple2 = unionTuple;
->unionTuple2 = unionTuple : [C, 文字 | 数字]
->unionTuple2 : [C, 文字 | 数字, D]
->unionTuple : [C, 文字 | 数字]
+>unionTuple2 = unionTuple : [C, string | number]
+>unionTuple2 : [C, string | number, D]
+>unionTuple : [C, string | number]
 
 numStrTuple = unionTuple3;
->numStrTuple = unionTuple3 : [数字, 文字 | 数字]
->numStrTuple : [数字, 文字]
->unionTuple3 : [数字, 文字 | 数字]
+>numStrTuple = unionTuple3 : [number, string | number]
+>numStrTuple : [number, string]
+>unionTuple3 : [number, string | number]
 

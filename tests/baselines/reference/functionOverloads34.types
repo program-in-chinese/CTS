@@ -1,27 +1,22 @@
 === tests/cases/compiler/functionOverloads34.ts ===
 function foo(bar:{a:number;}):string;
->foo : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->bar : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>foo : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>bar : { a: number; }
+>a : number
 
 function foo(bar:{a:boolean;}):number;
->foo : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->bar : { a: 真假; }
->a : 真假
->类型别名 :=> 真假
+>foo : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>bar : { a: boolean; }
+>a : boolean
 
 function foo(bar:{a:any;}):any{ return bar }
->foo : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->bar : { a: 任意; }
->a : 任意
->类型别名 :=> 任意
->bar : { a: 任意; }
+>foo : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>bar : { a: any; }
+>a : any
+>bar : { a: any; }
 
 var x = foo();
->x : 任意
->类型别名 :=> 任意
->foo() : 任意
->类型别名 :=> 任意
->foo : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
+>x : any
+>foo() : any
+>foo : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
 

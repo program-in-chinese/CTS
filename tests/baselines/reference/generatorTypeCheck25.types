@@ -1,53 +1,45 @@
 === tests/cases/conformance/es6/yieldExpressions/generatorTypeCheck25.ts ===
 class Foo { x: number }
 >Foo : Foo
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 class Bar extends Foo { y: string }
 >Bar : Bar
 >Foo : Foo
->y : 文字
->类型别名 :=> 文字
+>y : string
 
 class Baz { z: number }
 >Baz : Baz
->z : 数字
->类型别名 :=> 数字
+>z : number
 
 var g3: () => Iterable<Foo> = function* () {
 >g3 : () => Iterable<Foo>
 >Iterable : Iterable<T>
 >Foo : Foo
->function* () {    yield;    yield new Bar;    yield new Baz;    yield *[new Bar];    yield *[new Baz];} : () => IterableIterator<任意>
+>function* () {    yield;    yield new Bar;    yield new Baz;    yield *[new Bar];    yield *[new Baz];} : () => IterableIterator<Bar | Baz>
 
     yield;
->yield : 任意
->类型别名 :=> 任意
+>yield : any
 
     yield new Bar;
->yield new Bar : 任意
->类型别名 :=> 任意
+>yield new Bar : any
 >new Bar : Bar
->Bar : 类为 Bar
+>Bar : typeof Bar
 
     yield new Baz;
->yield new Baz : 任意
->类型别名 :=> 任意
+>yield new Baz : any
 >new Baz : Baz
->Baz : 类为 Baz
+>Baz : typeof Baz
 
     yield *[new Bar];
->yield *[new Bar] : 任意
->类型别名 :=> 任意
+>yield *[new Bar] : any
 >[new Bar] : Bar[]
 >new Bar : Bar
->Bar : 类为 Bar
+>Bar : typeof Bar
 
     yield *[new Baz];
->yield *[new Baz] : 任意
->类型别名 :=> 任意
+>yield *[new Baz] : any
 >[new Baz] : Baz[]
 >new Baz : Baz
->Baz : 类为 Baz
+>Baz : typeof Baz
 }

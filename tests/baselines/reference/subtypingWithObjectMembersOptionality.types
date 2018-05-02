@@ -3,20 +3,17 @@
 
 interface Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 // S is a subtype of a type T, and T is a supertype of S, if one of the following is true, where S' denotes the apparent type (section 3.8.1) of S:
 //   - S' and T are object types and, for each member M in T, one of the following is true:
@@ -47,6 +44,7 @@ interface T2 {
 >T2 : T2
 
     1?: Base; 
+>1 : Base
 >Base : Base
 }
 
@@ -55,6 +53,7 @@ interface S2 extends T2 {
 >T2 : T2
 
     1: Derived;
+>1 : Derived
 >Derived : Derived
 }
 
@@ -62,6 +61,7 @@ interface T3 {
 >T3 : T3
 
     '1'?: Base;
+>'1' : Base
 >Base : Base
 }
 
@@ -70,6 +70,7 @@ interface S3 extends T3 {
 >T3 : T3
 
     '1.': Derived;
+>'1.' : Derived
 >Derived : Derived
 }
 
@@ -85,19 +86,17 @@ var b = { Foo: <Derived>null };
 >Foo : Derived
 ><Derived>null : Derived
 >Derived : Derived
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var r = true ? a : b;
 >r : { Foo?: Base; }
 >true ? a : b : { Foo?: Base; }
->true : 为真
->类型别名 :=> 为真
+>true : true
 >a : { Foo?: Base; }
 >b : { Foo: Derived; }
 
 module TwoLevels {
->TwoLevels : 类为 TwoLevels
+>TwoLevels : typeof TwoLevels
 
     interface T {
 >T : T
@@ -120,6 +119,7 @@ module TwoLevels {
 >T2 : T2
 
         1?: Base;
+>1 : Base
 >Base : Base
     }
 
@@ -128,6 +128,7 @@ module TwoLevels {
 >T2 : T2
 
         1: Derived2;
+>1 : Derived2
 >Derived2 : Derived2
     }
 
@@ -135,6 +136,7 @@ module TwoLevels {
 >T3 : T3
 
         '1'?: Base;
+>'1' : Base
 >Base : Base
     }
 
@@ -143,6 +145,7 @@ module TwoLevels {
 >T3 : T3
 
         '1.': Derived2;
+>'1.' : Derived2
 >Derived2 : Derived2
     }
 
@@ -158,14 +161,12 @@ module TwoLevels {
 >Foo : Derived2
 ><Derived2>null : Derived2
 >Derived2 : Derived2
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     var r = true ? a : b;
 >r : { Foo?: Base; }
 >true ? a : b : { Foo?: Base; }
->true : 为真
->类型别名 :=> 为真
+>true : true
 >a : { Foo?: Base; }
 >b : { Foo: Derived2; }
 }

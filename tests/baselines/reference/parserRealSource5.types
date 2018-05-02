@@ -5,256 +5,184 @@
 ///<reference path='typescript.ts' />
 
 module TypeScript {
->TypeScript : 类为 TypeScript
+>TypeScript : typeof TypeScript
 
     // TODO: refactor indent logic for use in emit
     export class PrintContext {
 >PrintContext : PrintContext
 
         public builder = "";
->builder : 文字
->类型别名 :=> 文字
+>builder : string
 >"" : ""
 
         public indent1 = "  ";
->indent1 : 文字
->类型别名 :=> 文字
+>indent1 : string
 >"  " : "  "
 
         public indentStrings: string[] = [];
->indentStrings : 文字[]
->[] : 未定[]
+>indentStrings : string[]
+>[] : undefined[]
 
         public indentAmt = 0;
->indentAmt : 数字
->类型别名 :=> 数字
+>indentAmt : number
 >0 : 0
 
         constructor (public outfile: ITextWriter, public parser: Parser) {
->outfile : 任意
->类型别名 :=> 任意
+>outfile : any
 >ITextWriter : No type information available!
->parser : 任意
->类型别名 :=> 任意
+>parser : any
 >Parser : No type information available!
         }
 
         public increaseIndent() {
->increaseIndent : () => 无值
+>increaseIndent : () => void
 
             this.indentAmt++;
->this.indentAmt++ : 数字
->类型别名 :=> 数字
->this.indentAmt : 数字
->类型别名 :=> 数字
->this : 本体
->indentAmt : 数字
->类型别名 :=> 数字
+>this.indentAmt++ : number
+>this.indentAmt : number
+>this : this
+>indentAmt : number
         }
 
         public decreaseIndent() {
->decreaseIndent : () => 无值
+>decreaseIndent : () => void
 
             this.indentAmt--;
->this.indentAmt-- : 数字
->类型别名 :=> 数字
->this.indentAmt : 数字
->类型别名 :=> 数字
->this : 本体
->indentAmt : 数字
->类型别名 :=> 数字
+>this.indentAmt-- : number
+>this.indentAmt : number
+>this : this
+>indentAmt : number
         }
 
         public startLine() {
->startLine : () => 无值
+>startLine : () => void
 
             if (this.builder.length > 0) {
->this.builder.length > 0 : 真假
->类型别名 :=> 真假
->this.builder.length : 数字
->类型别名 :=> 数字
->this.builder : 文字
->类型别名 :=> 文字
->this : 本体
->builder : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>this.builder.length > 0 : boolean
+>this.builder.length : number
+>this.builder : string
+>this : this
+>builder : string
+>length : number
 >0 : 0
 
                 CompilerDiagnostics.Alert(this.builder);
->CompilerDiagnostics.Alert(this.builder) : 任意
->类型别名 :=> 任意
->CompilerDiagnostics.Alert : 任意
->类型别名 :=> 任意
->CompilerDiagnostics : 任意
->类型别名 :=> 任意
->Alert : 任意
->类型别名 :=> 任意
->this.builder : 文字
->类型别名 :=> 文字
->this : 本体
->builder : 文字
->类型别名 :=> 文字
+>CompilerDiagnostics.Alert(this.builder) : any
+>CompilerDiagnostics.Alert : any
+>CompilerDiagnostics : any
+>Alert : any
+>this.builder : string
+>this : this
+>builder : string
             }
             var indentString = this.indentStrings[this.indentAmt];
->indentString : 文字
->类型别名 :=> 文字
->this.indentStrings[this.indentAmt] : 文字
->类型别名 :=> 文字
->this.indentStrings : 文字[]
->this : 本体
->indentStrings : 文字[]
->this.indentAmt : 数字
->类型别名 :=> 数字
->this : 本体
->indentAmt : 数字
->类型别名 :=> 数字
+>indentString : string
+>this.indentStrings[this.indentAmt] : string
+>this.indentStrings : string[]
+>this : this
+>indentStrings : string[]
+>this.indentAmt : number
+>this : this
+>indentAmt : number
 
             if (indentString === undefined) {
->indentString === undefined : 真假
->类型别名 :=> 真假
->indentString : 文字
->类型别名 :=> 文字
->undefined : 未定
->类型别名 :=> 未定
+>indentString === undefined : boolean
+>indentString : string
+>undefined : undefined
 
                 indentString = "";
 >indentString = "" : ""
->indentString : 文字
->类型别名 :=> 文字
+>indentString : string
 >"" : ""
 
                 for (var i = 0; i < this.indentAmt; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < this.indentAmt : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->this.indentAmt : 数字
->类型别名 :=> 数字
->this : 本体
->indentAmt : 数字
->类型别名 :=> 数字
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i < this.indentAmt : boolean
+>i : number
+>this.indentAmt : number
+>this : this
+>indentAmt : number
+>i++ : number
+>i : number
 
                     indentString += this.indent1;
->indentString += this.indent1 : 文字
->类型别名 :=> 文字
->indentString : 文字
->类型别名 :=> 文字
->this.indent1 : 文字
->类型别名 :=> 文字
->this : 本体
->indent1 : 文字
->类型别名 :=> 文字
+>indentString += this.indent1 : string
+>indentString : string
+>this.indent1 : string
+>this : this
+>indent1 : string
                 }
                 this.indentStrings[this.indentAmt] = indentString;
->this.indentStrings[this.indentAmt] = indentString : 文字
->类型别名 :=> 文字
->this.indentStrings[this.indentAmt] : 文字
->类型别名 :=> 文字
->this.indentStrings : 文字[]
->this : 本体
->indentStrings : 文字[]
->this.indentAmt : 数字
->类型别名 :=> 数字
->this : 本体
->indentAmt : 数字
->类型别名 :=> 数字
->indentString : 文字
->类型别名 :=> 文字
+>this.indentStrings[this.indentAmt] = indentString : string
+>this.indentStrings[this.indentAmt] : string
+>this.indentStrings : string[]
+>this : this
+>indentStrings : string[]
+>this.indentAmt : number
+>this : this
+>indentAmt : number
+>indentString : string
             }
             this.builder += indentString;
->this.builder += indentString : 文字
->类型别名 :=> 文字
->this.builder : 文字
->类型别名 :=> 文字
->this : 本体
->builder : 文字
->类型别名 :=> 文字
->indentString : 文字
->类型别名 :=> 文字
+>this.builder += indentString : string
+>this.builder : string
+>this : this
+>builder : string
+>indentString : string
         }
 
         public write(s) {
->write : (s: 任意) => 无值
->s : 任意
->类型别名 :=> 任意
+>write : (s: any) => void
+>s : any
 
             this.builder += s;
->this.builder += s : 文字
->类型别名 :=> 文字
->this.builder : 文字
->类型别名 :=> 文字
->this : 本体
->builder : 文字
->类型别名 :=> 文字
->s : 任意
->类型别名 :=> 任意
+>this.builder += s : string
+>this.builder : string
+>this : this
+>builder : string
+>s : any
         }
 
         public writeLine(s) {
->writeLine : (s: 任意) => 无值
->s : 任意
->类型别名 :=> 任意
+>writeLine : (s: any) => void
+>s : any
 
             this.builder += s;
->this.builder += s : 文字
->类型别名 :=> 文字
->this.builder : 文字
->类型别名 :=> 文字
->this : 本体
->builder : 文字
->类型别名 :=> 文字
->s : 任意
->类型别名 :=> 任意
+>this.builder += s : string
+>this.builder : string
+>this : this
+>builder : string
+>s : any
 
             this.outfile.WriteLine(this.builder);
->this.outfile.WriteLine(this.builder) : 任意
->类型别名 :=> 任意
->this.outfile.WriteLine : 任意
->类型别名 :=> 任意
->this.outfile : 任意
->类型别名 :=> 任意
->this : 本体
->outfile : 任意
->类型别名 :=> 任意
->WriteLine : 任意
->类型别名 :=> 任意
->this.builder : 文字
->类型别名 :=> 文字
->this : 本体
->builder : 文字
->类型别名 :=> 文字
+>this.outfile.WriteLine(this.builder) : any
+>this.outfile.WriteLine : any
+>this.outfile : any
+>this : this
+>outfile : any
+>WriteLine : any
+>this.builder : string
+>this : this
+>builder : string
 
             this.builder = "";
 >this.builder = "" : ""
->this.builder : 文字
->类型别名 :=> 文字
->this : 本体
->builder : 文字
->类型别名 :=> 文字
+>this.builder : string
+>this : this
+>builder : string
 >"" : ""
         }
 
     }
 
     export function prePrintAST(ast: AST, parent: AST, walker: IAstWalker) {
->prePrintAST : (ast: 任意, parent: 任意, walker: 任意) => 任意
->ast : 任意
->类型别名 :=> 任意
+>prePrintAST : (ast: any, parent: any, walker: any) => any
+>ast : any
 >AST : No type information available!
->parent : 任意
->类型别名 :=> 任意
+>parent : any
 >AST : No type information available!
->walker : 任意
->类型别名 :=> 任意
+>walker : any
 >IAstWalker : No type information available!
 
         var pc: PrintContext = <PrintContext>walker.state;
@@ -262,47 +190,35 @@ module TypeScript {
 >PrintContext : PrintContext
 ><PrintContext>walker.state : PrintContext
 >PrintContext : PrintContext
->walker.state : 任意
->类型别名 :=> 任意
->walker : 任意
->类型别名 :=> 任意
->state : 任意
->类型别名 :=> 任意
+>walker.state : any
+>walker : any
+>state : any
 
         ast.print(pc);
->ast.print(pc) : 任意
->类型别名 :=> 任意
->ast.print : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->print : 任意
->类型别名 :=> 任意
+>ast.print(pc) : any
+>ast.print : any
+>ast : any
+>print : any
 >pc : PrintContext
 
         pc.increaseIndent();
->pc.increaseIndent() : 无值
->类型别名 :=> 无值
->pc.increaseIndent : () => 无值
+>pc.increaseIndent() : void
+>pc.increaseIndent : () => void
 >pc : PrintContext
->increaseIndent : () => 无值
+>increaseIndent : () => void
 
         return ast;
->ast : 任意
->类型别名 :=> 任意
+>ast : any
     }
 
 
     export function postPrintAST(ast: AST, parent: AST, walker: IAstWalker) {
->postPrintAST : (ast: 任意, parent: 任意, walker: 任意) => 任意
->ast : 任意
->类型别名 :=> 任意
+>postPrintAST : (ast: any, parent: any, walker: any) => any
+>ast : any
 >AST : No type information available!
->parent : 任意
->类型别名 :=> 任意
+>parent : any
 >AST : No type information available!
->walker : 任意
->类型别名 :=> 任意
+>walker : any
 >IAstWalker : No type information available!
 
         var pc: PrintContext = <PrintContext>walker.state;
@@ -310,22 +226,17 @@ module TypeScript {
 >PrintContext : PrintContext
 ><PrintContext>walker.state : PrintContext
 >PrintContext : PrintContext
->walker.state : 任意
->类型别名 :=> 任意
->walker : 任意
->类型别名 :=> 任意
->state : 任意
->类型别名 :=> 任意
+>walker.state : any
+>walker : any
+>state : any
 
         pc.decreaseIndent();
->pc.decreaseIndent() : 无值
->类型别名 :=> 无值
->pc.decreaseIndent : () => 无值
+>pc.decreaseIndent() : void
+>pc.decreaseIndent : () => void
 >pc : PrintContext
->decreaseIndent : () => 无值
+>decreaseIndent : () => void
 
         return ast;
->ast : 任意
->类型别名 :=> 任意
+>ast : any
     }
 }

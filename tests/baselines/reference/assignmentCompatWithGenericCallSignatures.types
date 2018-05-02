@@ -2,28 +2,26 @@
 // some complex cases of assignment compat of generic signatures that stress contextual signature instantiation
 
 var f: <S extends { p: string }[]>(x: S) => void
->f : <S 扩展 { p: 文字; }[]>(x: S) => 无值
+>f : <S extends { p: string; }[]>(x: S) => void
 >S : S
->p : 文字
->类型别名 :=> 文字
+>p : string
 >x : S
 >S : S
 
 var g: <T extends { p: string }>(x: T[]) => void
->g : <T 扩展 { p: 文字; }>(x: T[]) => 无值
+>g : <T extends { p: string; }>(x: T[]) => void
 >T : T
->p : 文字
->类型别名 :=> 文字
+>p : string
 >x : T[]
 >T : T
 
 f = g; // ok
->f = g : <T 扩展 { p: 文字; }>(x: T[]) => 无值
->f : <S 扩展 { p: 文字; }[]>(x: S) => 无值
->g : <T 扩展 { p: 文字; }>(x: T[]) => 无值
+>f = g : <T extends { p: string; }>(x: T[]) => void
+>f : <S extends { p: string; }[]>(x: S) => void
+>g : <T extends { p: string; }>(x: T[]) => void
 
 g = f; // ok
->g = f : <S 扩展 { p: 文字; }[]>(x: S) => 无值
->g : <T 扩展 { p: 文字; }>(x: T[]) => 无值
->f : <S 扩展 { p: 文字; }[]>(x: S) => 无值
+>g = f : <S extends { p: string; }[]>(x: S) => void
+>g : <T extends { p: string; }>(x: T[]) => void
+>f : <S extends { p: string; }[]>(x: S) => void
 

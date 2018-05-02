@@ -4,20 +4,17 @@
 
 class Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 class Derived2 extends Base { baz: string; }
 >Derived2 : Derived2
 >Base : Base
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 var base: Base;
 >base : Base
@@ -32,18 +29,16 @@ var derived2: Derived2;
 >Derived2 : Derived2
 
 var r2 = true ? 1 : '';
->r2 : 文字 | 数字
+>r2 : string | number
 >true ? 1 : '' : 1 | ""
->true : 为真
->类型别名 :=> 为真
+>true : true
 >1 : 1
 >'' : ""
 
 var r9 = true ? derived : derived2;
 >r9 : Derived | Derived2
 >true ? derived : derived2 : Derived | Derived2
->true : 为真
->类型别名 :=> 为真
+>true : true
 >derived : Derived
 >derived2 : Derived2
 
@@ -58,14 +53,13 @@ function foo<T, U>(t: T, u: U) {
 
     return true ? t : u;
 >true ? t : u : T | U
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >u : U
 }
 
 function foo2<T extends U, U>(t: T, u: U) { // Error for referencing own type parameter
->foo2 : <T 扩展 U, U>(t: T, u: U) => U
+>foo2 : <T extends U, U>(t: T, u: U) => U
 >T : T
 >U : U
 >U : U
@@ -76,14 +70,13 @@ function foo2<T extends U, U>(t: T, u: U) { // Error for referencing own type pa
 
     return true ? t : u; // Ok because BCT(T, U) = U
 >true ? t : u : U
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >u : U
 }
 
 function foo3<T extends U, U extends V, V>(t: T, u: U) {
->foo3 : <T 扩展 U, U 扩展 V, V>(t: T, u: U) => U
+>foo3 : <T extends U, U extends V, V>(t: T, u: U) => U
 >T : T
 >U : U
 >U : U
@@ -96,8 +89,7 @@ function foo3<T extends U, U extends V, V>(t: T, u: U) {
 
     return true ? t : u;
 >true ? t : u : U
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >u : U
 }

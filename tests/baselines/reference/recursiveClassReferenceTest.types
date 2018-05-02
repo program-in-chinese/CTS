@@ -5,26 +5,24 @@
 
 
 declare module Sample.Thing {
->Sample : 类为 Sample
->Thing : 类为 Thing
+>Sample : typeof Sample
+>Thing : typeof Thing
 
 	export interface IWidget {
 >IWidget : IWidget
 
 		getDomNode(): any;
->getDomNode : () => 任意
+>getDomNode : () => any
 
 		destroy();
->destroy : () => 任意
+>destroy : () => any
 
 		gar(runner:(widget:Sample.Thing.IWidget)=>any):any;
->gar : (runner: (widget: IWidget) => 任意) => 任意
->runner : (widget: IWidget) => 任意
+>gar : (runner: (widget: IWidget) => any) => any
+>runner : (widget: IWidget) => any
 >widget : IWidget
->Sample : 任意
->类型别名 :=> 任意
->Thing : 任意
->类型别名 :=> 任意
+>Sample : any
+>Thing : any
 >IWidget : IWidget
 	}
 
@@ -32,19 +30,18 @@ declare module Sample.Thing {
 >ICodeThing : ICodeThing
   
   		getDomNode(): Element;
->getDomNode : () => 任意
+>getDomNode : () => any
 >Element : No type information available!
 		
 		addWidget(widgetId:string, widget:IWidget);
->addWidget : (widgetId: 文字, widget: IWidget) => 任意
->widgetId : 文字
->类型别名 :=> 文字
+>addWidget : (widgetId: string, widget: IWidget) => any
+>widgetId : string
 >widget : IWidget
 >IWidget : IWidget
 
 		
 		focus(); 
->focus : () => 任意
+>focus : () => any
 		
 		//addWidget(widget: Sample.Thing.Widgets.IWidget);
 	}
@@ -53,115 +50,100 @@ declare module Sample.Thing {
 >IAction : IAction
 
 		run(Thing:ICodeThing):boolean;
->run : (Thing: ICodeThing) => 真假
+>run : (Thing: ICodeThing) => boolean
 >Thing : ICodeThing
 >ICodeThing : ICodeThing
 
 		getId():string;
->getId : () => 文字
+>getId : () => string
 	}	
 }
 
 module Sample.Actions.Thing.Find {
->Sample : 类为 Sample
->Actions : 类为 Actions
->Thing : 类为 Thing
->Find : 类为 Find
+>Sample : typeof Sample
+>Actions : typeof Actions
+>Thing : typeof Thing
+>Find : typeof Find
 
 	export class StartFindAction implements Sample.Thing.IAction {
 >StartFindAction : StartFindAction
->Sample.Thing.IAction : 任意
->类型别名 :=> 任意
->Sample.Thing : 类为 Sample.Thing
->Sample : 类为 Sample
->Thing : 类为 Sample.Thing
+>Sample.Thing.IAction : any
+>Sample.Thing : typeof Sample.Thing
+>Sample : typeof Sample
+>Thing : typeof Sample.Thing
 >IAction : Sample.Thing.IAction
 		
 		public getId() { return "yo"; }
->getId : () => 文字
+>getId : () => string
 >"yo" : "yo"
 		
 		public run(Thing:Sample.Thing.ICodeThing):boolean {
->run : (Thing: Sample.Thing.ICodeThing) => 真假
+>run : (Thing: Sample.Thing.ICodeThing) => boolean
 >Thing : Sample.Thing.ICodeThing
->Sample : 任意
->类型别名 :=> 任意
->Thing : 任意
->类型别名 :=> 任意
+>Sample : any
+>Thing : any
 >ICodeThing : Sample.Thing.ICodeThing
 
 			return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
 		}
 	}
 }
 
 module Sample.Thing.Widgets {
->Sample : 类为 Sample
->Thing : 类为 Thing
->Widgets : 类为 Widgets
+>Sample : typeof Sample
+>Thing : typeof Thing
+>Widgets : typeof Widgets
 
 	export class FindWidget implements Sample.Thing.IWidget {
 >FindWidget : FindWidget
->Sample.Thing.IWidget : 任意
->类型别名 :=> 任意
->Sample.Thing : 类为 Thing
->Sample : 类为 Sample
->Thing : 类为 Thing
+>Sample.Thing.IWidget : any
+>Sample.Thing : typeof Thing
+>Sample : typeof Sample
+>Thing : typeof Thing
 >IWidget : IWidget
 
 		public gar(runner:(widget:Sample.Thing.IWidget)=>any) { if (true) {return runner(this);}}
->gar : (runner: (widget: IWidget) => 任意) => 任意
->runner : (widget: IWidget) => 任意
+>gar : (runner: (widget: IWidget) => any) => any
+>runner : (widget: IWidget) => any
 >widget : IWidget
->Sample : 任意
->类型别名 :=> 任意
->Thing : 任意
->类型别名 :=> 任意
+>Sample : any
+>Thing : any
 >IWidget : IWidget
->true : 为真
->类型别名 :=> 为真
->runner(this) : 任意
->类型别名 :=> 任意
->runner : (widget: IWidget) => 任意
->this : 本体
+>true : true
+>runner(this) : any
+>runner : (widget: IWidget) => any
+>this : this
 			
 		private domNode:any = null;
->domNode : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>domNode : any
+>null : null
 
 		constructor(private codeThing: Sample.Thing.ICodeThing) {
 >codeThing : ICodeThing
->Sample : 任意
->类型别名 :=> 任意
->Thing : 任意
->类型别名 :=> 任意
+>Sample : any
+>Thing : any
 >ICodeThing : ICodeThing
 
 		    // scenario 1
 		    codeThing.addWidget("addWidget", this);
->codeThing.addWidget("addWidget", this) : 任意
->类型别名 :=> 任意
->codeThing.addWidget : (widgetId: 文字, widget: IWidget) => 任意
+>codeThing.addWidget("addWidget", this) : any
+>codeThing.addWidget : (widgetId: string, widget: IWidget) => any
 >codeThing : ICodeThing
->addWidget : (widgetId: 文字, widget: IWidget) => 任意
+>addWidget : (widgetId: string, widget: IWidget) => any
 >"addWidget" : "addWidget"
->this : 本体
+>this : this
 		}
 		
 		public getDomNode() {
->getDomNode : () => 任意
+>getDomNode : () => any
 
 			return domNode;
->domNode : 任意
->类型别名 :=> 任意
+>domNode : any
 		}
 		
 		public destroy() {
->destroy : () => 无值
+>destroy : () => void
 
 		}
 
@@ -178,8 +160,7 @@ class AbstractMode implements IMode { public getInitialState(): IState { return 
 >IMode : IMode
 >getInitialState : () => IState
 >IState : IState
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 interface IState {}
 >IState : IState
@@ -196,10 +177,10 @@ declare var self: Window;
 >Window : Window
 
 module Sample.Thing.Languages.PlainText {
->Sample : 类为 Sample
->Thing : 类为 Thing
->Languages : 类为 Languages
->PlainText : 类为 PlainText
+>Sample : typeof Sample
+>Thing : typeof Thing
+>Languages : typeof Languages
+>PlainText : typeof PlainText
 	
 	export class State implements IState {		
 >State : State
@@ -214,26 +195,24 @@ module Sample.Thing.Languages.PlainText {
 >IState : IState
 
 			return this;
->this : 本体
+>this : this
 		}
 
 		public equals(other:IState):boolean {
->equals : (other: IState) => 真假
+>equals : (other: IState) => boolean
 >other : IState
 >IState : IState
 
 			return this === other;
->this === other : 真假
->类型别名 :=> 真假
->this : 本体
+>this === other : boolean
+>this : this
 >other : IState
 		}
 		
 		public getMode(): IMode { return mode; }
 >getMode : () => IMode
 >IMode : IMode
->mode : 任意
->类型别名 :=> 任意
+>mode : any
 	}
 	
 	export class Mode extends AbstractMode {
@@ -246,9 +225,8 @@ module Sample.Thing.Languages.PlainText {
 >IState : IState
 
 			return new State(self);
->new State(self) : 任意
->类型别名 :=> 任意
->State : 类为 State
+>new State(self) : any
+>State : typeof State
 >self : Window
 		}
 

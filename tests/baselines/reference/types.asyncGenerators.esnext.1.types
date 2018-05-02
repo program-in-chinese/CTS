@@ -1,493 +1,447 @@
 === tests/cases/conformance/types/asyncGenerators/types.asyncGenerators.esnext.1.ts ===
 async function * inferReturnType1() {
->inferReturnType1 : () => AsyncIterableIterator<任意>
+>inferReturnType1 : () => AsyncIterableIterator<any>
 }
 async function * inferReturnType2() {
->inferReturnType2 : () => AsyncIterableIterator<任意>
+>inferReturnType2 : () => AsyncIterableIterator<any>
 
     yield;
->yield : 任意
->类型别名 :=> 任意
+>yield : any
 }
 async function * inferReturnType3() {
->inferReturnType3 : () => AsyncIterableIterator<1>
+>inferReturnType3 : () => AsyncIterableIterator<number>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 }
 async function * inferReturnType4() {
->inferReturnType4 : () => AsyncIterableIterator<数字>
+>inferReturnType4 : () => AsyncIterableIterator<number>
 
     yield Promise.resolve(1);
->yield Promise.resolve(1) : 任意
->类型别名 :=> 任意
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(1) : any
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * inferReturnType5() {
->inferReturnType5 : () => AsyncIterableIterator<数字>
+>inferReturnType5 : () => AsyncIterableIterator<number>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 
     yield Promise.resolve(2);
->yield Promise.resolve(2) : 任意
->类型别名 :=> 任意
->Promise.resolve(2) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(2) : any
+>Promise.resolve(2) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >2 : 2
 }
 async function * inferReturnType6() {
->inferReturnType6 : () => AsyncIterableIterator<任意>
+>inferReturnType6 : () => AsyncIterableIterator<number>
 
     yield* [1, 2];
->yield* [1, 2] : 任意
->类型别名 :=> 任意
->[1, 2] : 数字[]
+>yield* [1, 2] : any
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 }
 async function * inferReturnType7() {
->inferReturnType7 : () => AsyncIterableIterator<任意>
+>inferReturnType7 : () => AsyncIterableIterator<number>
 
     yield* [Promise.resolve(1)];
->yield* [Promise.resolve(1)] : 任意
->类型别名 :=> 任意
->[Promise.resolve(1)] : Promise<数字>[]
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield* [Promise.resolve(1)] : any
+>[Promise.resolve(1)] : Promise<number>[]
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * inferReturnType8() {
->inferReturnType8 : () => AsyncIterableIterator<1>
+>inferReturnType8 : () => AsyncIterableIterator<number>
 
     yield* (async function * () { yield 1; })();
->yield* (async function * () { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function * () { yield 1; })() : AsyncIterableIterator<1>
->(async function * () { yield 1; }) : () => AsyncIterableIterator<1>
->async function * () { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>yield* (async function * () { yield 1; })() : any
+>(async function * () { yield 1; })() : AsyncIterableIterator<number>
+>(async function * () { yield 1; }) : () => AsyncIterableIterator<number>
+>async function * () { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
 }
 const assignability1: () => AsyncIterableIterator<number> = async function * () {
->assignability1 : () => AsyncIterableIterator<数字>
+>assignability1 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
->async function * () {    yield 1;} : () => AsyncIterableIterator<1>
+>async function * () {    yield 1;} : () => AsyncIterableIterator<number>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 
 };
 const assignability2: () => AsyncIterableIterator<number> = async function * () {
->assignability2 : () => AsyncIterableIterator<数字>
+>assignability2 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
->async function * () {    yield Promise.resolve(1);} : () => AsyncIterableIterator<数字>
+>async function * () {    yield Promise.resolve(1);} : () => AsyncIterableIterator<number>
 
     yield Promise.resolve(1);
->yield Promise.resolve(1) : 任意
->类型别名 :=> 任意
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(1) : any
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 
 };
 const assignability3: () => AsyncIterableIterator<number> = async function * () {
->assignability3 : () => AsyncIterableIterator<数字>
+>assignability3 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
->async function * () {    yield* [1, 2];} : () => AsyncIterableIterator<任意>
+>async function * () {    yield* [1, 2];} : () => AsyncIterableIterator<number>
 
     yield* [1, 2];
->yield* [1, 2] : 任意
->类型别名 :=> 任意
->[1, 2] : 数字[]
+>yield* [1, 2] : any
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 
 };
 const assignability4: () => AsyncIterableIterator<number> = async function * () {
->assignability4 : () => AsyncIterableIterator<数字>
+>assignability4 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
->async function * () {    yield* [Promise.resolve(1)];} : () => AsyncIterableIterator<任意>
+>async function * () {    yield* [Promise.resolve(1)];} : () => AsyncIterableIterator<number>
 
     yield* [Promise.resolve(1)];
->yield* [Promise.resolve(1)] : 任意
->类型别名 :=> 任意
->[Promise.resolve(1)] : Promise<数字>[]
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield* [Promise.resolve(1)] : any
+>[Promise.resolve(1)] : Promise<number>[]
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 
 };
 const assignability5: () => AsyncIterableIterator<number> = async function * () {
->assignability5 : () => AsyncIterableIterator<数字>
+>assignability5 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
->async function * () {    yield* (async function * () { yield 1; })();} : () => AsyncIterableIterator<1>
+>async function * () {    yield* (async function * () { yield 1; })();} : () => AsyncIterableIterator<number>
 
     yield* (async function * () { yield 1; })();
->yield* (async function * () { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function * () { yield 1; })() : AsyncIterableIterator<1>
->(async function * () { yield 1; }) : () => AsyncIterableIterator<1>
->async function * () { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>yield* (async function * () { yield 1; })() : any
+>(async function * () { yield 1; })() : AsyncIterableIterator<number>
+>(async function * () { yield 1; }) : () => AsyncIterableIterator<number>
+>async function * () { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
 
 };
 const assignability6: () => AsyncIterable<number> = async function * () {
->assignability6 : () => AsyncIterable<数字>
+>assignability6 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
->async function * () {    yield 1;} : () => AsyncIterableIterator<1>
+>async function * () {    yield 1;} : () => AsyncIterableIterator<number>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 
 };
 const assignability7: () => AsyncIterable<number> = async function * () {
->assignability7 : () => AsyncIterable<数字>
+>assignability7 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
->async function * () {    yield Promise.resolve(1);} : () => AsyncIterableIterator<数字>
+>async function * () {    yield Promise.resolve(1);} : () => AsyncIterableIterator<number>
 
     yield Promise.resolve(1);
->yield Promise.resolve(1) : 任意
->类型别名 :=> 任意
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(1) : any
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 
 };
 const assignability8: () => AsyncIterable<number> = async function * () {
->assignability8 : () => AsyncIterable<数字>
+>assignability8 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
->async function * () {    yield* [1, 2];} : () => AsyncIterableIterator<任意>
+>async function * () {    yield* [1, 2];} : () => AsyncIterableIterator<number>
 
     yield* [1, 2];
->yield* [1, 2] : 任意
->类型别名 :=> 任意
->[1, 2] : 数字[]
+>yield* [1, 2] : any
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 
 };
 const assignability9: () => AsyncIterable<number> = async function * () {
->assignability9 : () => AsyncIterable<数字>
+>assignability9 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
->async function * () {    yield* [Promise.resolve(1)];} : () => AsyncIterableIterator<任意>
+>async function * () {    yield* [Promise.resolve(1)];} : () => AsyncIterableIterator<number>
 
     yield* [Promise.resolve(1)];
->yield* [Promise.resolve(1)] : 任意
->类型别名 :=> 任意
->[Promise.resolve(1)] : Promise<数字>[]
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield* [Promise.resolve(1)] : any
+>[Promise.resolve(1)] : Promise<number>[]
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 
 };
 const assignability10: () => AsyncIterable<number> = async function * () {
->assignability10 : () => AsyncIterable<数字>
+>assignability10 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
->async function * () {    yield* (async function * () { yield 1; })();} : () => AsyncIterableIterator<1>
+>async function * () {    yield* (async function * () { yield 1; })();} : () => AsyncIterableIterator<number>
 
     yield* (async function * () { yield 1; })();
->yield* (async function * () { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function * () { yield 1; })() : AsyncIterableIterator<1>
->(async function * () { yield 1; }) : () => AsyncIterableIterator<1>
->async function * () { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>yield* (async function * () { yield 1; })() : any
+>(async function * () { yield 1; })() : AsyncIterableIterator<number>
+>(async function * () { yield 1; }) : () => AsyncIterableIterator<number>
+>async function * () { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
 
 };
 const assignability11: () => AsyncIterator<number> = async function * () {
->assignability11 : () => AsyncIterator<数字>
+>assignability11 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
->async function * () {    yield 1;} : () => AsyncIterableIterator<1>
+>async function * () {    yield 1;} : () => AsyncIterableIterator<number>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 
 };
 const assignability12: () => AsyncIterator<number> = async function * () {
->assignability12 : () => AsyncIterator<数字>
+>assignability12 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
->async function * () {    yield Promise.resolve(1);} : () => AsyncIterableIterator<数字>
+>async function * () {    yield Promise.resolve(1);} : () => AsyncIterableIterator<number>
 
     yield Promise.resolve(1);
->yield Promise.resolve(1) : 任意
->类型别名 :=> 任意
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(1) : any
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 
 };
 const assignability13: () => AsyncIterator<number> = async function * () {
->assignability13 : () => AsyncIterator<数字>
+>assignability13 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
->async function * () {    yield* [1, 2];} : () => AsyncIterableIterator<任意>
+>async function * () {    yield* [1, 2];} : () => AsyncIterableIterator<number>
 
     yield* [1, 2];
->yield* [1, 2] : 任意
->类型别名 :=> 任意
->[1, 2] : 数字[]
+>yield* [1, 2] : any
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 
 };
 const assignability14: () => AsyncIterator<number> = async function * () {
->assignability14 : () => AsyncIterator<数字>
+>assignability14 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
->async function * () {    yield* [Promise.resolve(1)];} : () => AsyncIterableIterator<任意>
+>async function * () {    yield* [Promise.resolve(1)];} : () => AsyncIterableIterator<number>
 
     yield* [Promise.resolve(1)];
->yield* [Promise.resolve(1)] : 任意
->类型别名 :=> 任意
->[Promise.resolve(1)] : Promise<数字>[]
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield* [Promise.resolve(1)] : any
+>[Promise.resolve(1)] : Promise<number>[]
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 
 };
 const assignability15: () => AsyncIterator<number> = async function * () {
->assignability15 : () => AsyncIterator<数字>
+>assignability15 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
->async function * () {    yield* (async function * () { yield 1; })();} : () => AsyncIterableIterator<1>
+>async function * () {    yield* (async function * () { yield 1; })();} : () => AsyncIterableIterator<number>
 
     yield* (async function * () { yield 1; })();
->yield* (async function * () { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function * () { yield 1; })() : AsyncIterableIterator<1>
->(async function * () { yield 1; }) : () => AsyncIterableIterator<1>
->async function * () { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>yield* (async function * () { yield 1; })() : any
+>(async function * () { yield 1; })() : AsyncIterableIterator<number>
+>(async function * () { yield 1; }) : () => AsyncIterableIterator<number>
+>async function * () { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
 
 };
 async function * explicitReturnType1(): AsyncIterableIterator<number> {
->explicitReturnType1 : () => AsyncIterableIterator<数字>
+>explicitReturnType1 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 }
 async function * explicitReturnType2(): AsyncIterableIterator<number> {
->explicitReturnType2 : () => AsyncIterableIterator<数字>
+>explicitReturnType2 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
 
     yield Promise.resolve(1);
->yield Promise.resolve(1) : 任意
->类型别名 :=> 任意
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(1) : any
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * explicitReturnType3(): AsyncIterableIterator<number> {
->explicitReturnType3 : () => AsyncIterableIterator<数字>
+>explicitReturnType3 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
 
     yield* [1, 2];
->yield* [1, 2] : 任意
->类型别名 :=> 任意
->[1, 2] : 数字[]
+>yield* [1, 2] : any
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 }
 async function * explicitReturnType4(): AsyncIterableIterator<number> {
->explicitReturnType4 : () => AsyncIterableIterator<数字>
+>explicitReturnType4 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
 
     yield* [Promise.resolve(1)];
->yield* [Promise.resolve(1)] : 任意
->类型别名 :=> 任意
->[Promise.resolve(1)] : Promise<数字>[]
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield* [Promise.resolve(1)] : any
+>[Promise.resolve(1)] : Promise<number>[]
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * explicitReturnType5(): AsyncIterableIterator<number> {
->explicitReturnType5 : () => AsyncIterableIterator<数字>
+>explicitReturnType5 : () => AsyncIterableIterator<number>
 >AsyncIterableIterator : AsyncIterableIterator<T>
 
     yield* (async function * () { yield 1; })();
->yield* (async function * () { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function * () { yield 1; })() : AsyncIterableIterator<1>
->(async function * () { yield 1; }) : () => AsyncIterableIterator<1>
->async function * () { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>yield* (async function * () { yield 1; })() : any
+>(async function * () { yield 1; })() : AsyncIterableIterator<number>
+>(async function * () { yield 1; }) : () => AsyncIterableIterator<number>
+>async function * () { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
 }
 async function * explicitReturnType6(): AsyncIterable<number> {
->explicitReturnType6 : () => AsyncIterable<数字>
+>explicitReturnType6 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 }
 async function * explicitReturnType7(): AsyncIterable<number> {
->explicitReturnType7 : () => AsyncIterable<数字>
+>explicitReturnType7 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
 
     yield Promise.resolve(1);
->yield Promise.resolve(1) : 任意
->类型别名 :=> 任意
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(1) : any
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * explicitReturnType8(): AsyncIterable<number> {
->explicitReturnType8 : () => AsyncIterable<数字>
+>explicitReturnType8 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
 
     yield* [1, 2];
->yield* [1, 2] : 任意
->类型别名 :=> 任意
->[1, 2] : 数字[]
+>yield* [1, 2] : any
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 }
 async function * explicitReturnType9(): AsyncIterable<number> {
->explicitReturnType9 : () => AsyncIterable<数字>
+>explicitReturnType9 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
 
     yield* [Promise.resolve(1)];
->yield* [Promise.resolve(1)] : 任意
->类型别名 :=> 任意
->[Promise.resolve(1)] : Promise<数字>[]
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield* [Promise.resolve(1)] : any
+>[Promise.resolve(1)] : Promise<number>[]
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * explicitReturnType10(): AsyncIterable<number> {
->explicitReturnType10 : () => AsyncIterable<数字>
+>explicitReturnType10 : () => AsyncIterable<number>
 >AsyncIterable : AsyncIterable<T>
 
     yield* (async function * () { yield 1; })();
->yield* (async function * () { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function * () { yield 1; })() : AsyncIterableIterator<1>
->(async function * () { yield 1; }) : () => AsyncIterableIterator<1>
->async function * () { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>yield* (async function * () { yield 1; })() : any
+>(async function * () { yield 1; })() : AsyncIterableIterator<number>
+>(async function * () { yield 1; }) : () => AsyncIterableIterator<number>
+>async function * () { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
 }
 async function * explicitReturnType11(): AsyncIterator<number> {
->explicitReturnType11 : () => AsyncIterator<数字>
+>explicitReturnType11 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 }
 async function * explicitReturnType12(): AsyncIterator<number> {
->explicitReturnType12 : () => AsyncIterator<数字>
+>explicitReturnType12 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
 
     yield Promise.resolve(1);
->yield Promise.resolve(1) : 任意
->类型别名 :=> 任意
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield Promise.resolve(1) : any
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * explicitReturnType13(): AsyncIterator<number> {
->explicitReturnType13 : () => AsyncIterator<数字>
+>explicitReturnType13 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
 
     yield* [1, 2];
->yield* [1, 2] : 任意
->类型别名 :=> 任意
->[1, 2] : 数字[]
+>yield* [1, 2] : any
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 }
 async function * explicitReturnType14(): AsyncIterator<number> {
->explicitReturnType14 : () => AsyncIterator<数字>
+>explicitReturnType14 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
 
     yield* [Promise.resolve(1)];
->yield* [Promise.resolve(1)] : 任意
->类型别名 :=> 任意
->[Promise.resolve(1)] : Promise<数字>[]
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>yield* [Promise.resolve(1)] : any
+>[Promise.resolve(1)] : Promise<number>[]
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }
 async function * explicitReturnType15(): AsyncIterator<number> {
->explicitReturnType15 : () => AsyncIterator<数字>
+>explicitReturnType15 : () => AsyncIterator<number>
 >AsyncIterator : AsyncIterator<T>
 
     yield* (async function * () { yield 1; })();
->yield* (async function * () { yield 1; })() : 任意
->类型别名 :=> 任意
->(async function * () { yield 1; })() : AsyncIterableIterator<1>
->(async function * () { yield 1; }) : () => AsyncIterableIterator<1>
->async function * () { yield 1; } : () => AsyncIterableIterator<1>
->yield 1 : 任意
->类型别名 :=> 任意
+>yield* (async function * () { yield 1; })() : any
+>(async function * () { yield 1; })() : AsyncIterableIterator<number>
+>(async function * () { yield 1; }) : () => AsyncIterableIterator<number>
+>async function * () { yield 1; } : () => AsyncIterableIterator<number>
+>yield 1 : any
 >1 : 1
 }
 async function * explicitReturnType16(): {} {
 >explicitReturnType16 : () => {}
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 }
 async function * awaitedType1() {
->awaitedType1 : () => AsyncIterableIterator<任意>
+>awaitedType1 : () => AsyncIterableIterator<any>
 
     const x = await 1;
 >x : 1
@@ -495,16 +449,14 @@ async function * awaitedType1() {
 >1 : 1
 }
 async function * awaitedType2() {
->awaitedType2 : () => AsyncIterableIterator<任意>
+>awaitedType2 : () => AsyncIterableIterator<any>
 
     const x = await Promise.resolve(1);
->x : 数字
->类型别名 :=> 数字
->await Promise.resolve(1) : 数字
->类型别名 :=> 数字
->Promise.resolve(1) : Promise<数字>
->Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>x : number
+>await Promise.resolve(1) : number
+>Promise.resolve(1) : Promise<number>
+>Promise.resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >Promise : PromiseConstructor
->resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<无值>; }
+>resolve : { <T>(value: T | PromiseLike<T>): Promise<T>; (): Promise<void>; }
 >1 : 1
 }

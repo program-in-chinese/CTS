@@ -3,8 +3,7 @@ class A {
 >A : A
 
     constructor(public x: string) {
->x : 文字
->类型别名 :=> 文字
+>x : string
     }
 }
 class B extends A {
@@ -12,17 +11,13 @@ class B extends A {
 >A : A
 
     constructor(x: string, public data: string) {
->x : 文字
->类型别名 :=> 文字
->data : 文字
->类型别名 :=> 文字
+>x : string
+>data : string
 
         super(x);
->super(x) : 无值
->类型别名 :=> 无值
->super : 类为 A
->x : 文字
->类型别名 :=> 文字
+>super(x) : void
+>super : typeof A
+>x : string
     }
 }
 class C extends A {
@@ -30,32 +25,28 @@ class C extends A {
 >A : A
 
     constructor(x: string) {
->x : 文字
->类型别名 :=> 文字
+>x : string
 
         super(x);
->super(x) : 无值
->类型别名 :=> 无值
->super : 类为 A
->x : 文字
->类型别名 :=> 文字
+>super(x) : void
+>super : typeof A
+>x : string
     }
 }
 
 var r1: typeof A = B; // error
->r1 : 类为 A
->A : 类为 A
->B : 类为 B
+>r1 : typeof A
+>A : typeof A
+>B : typeof B
 
 var r2: new (x: string) => A = B; // error
->r2 : 新建 (x: 文字) => A
->x : 文字
->类型别名 :=> 文字
+>r2 : new (x: string) => A
+>x : string
 >A : A
->B : 类为 B
+>B : typeof B
 
 var r3: typeof A = C; // ok
->r3 : 类为 A
->A : 类为 A
->C : 类为 C
+>r3 : typeof A
+>A : typeof A
+>C : typeof C
 

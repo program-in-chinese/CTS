@@ -1,18 +1,15 @@
 === tests/cases/compiler/overloadOnGenericClassAndNonGenericClass.ts ===
 class A { a; }
 >A : A
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 class B { b; }
 >B : B
->b : 任意
->类型别名 :=> 任意
+>b : any
 
 class C { c; }
 >C : C
->c : 任意
->类型别名 :=> 任意
+>c : any
 
 class X<T> { x: T; }
 >X : X<T>
@@ -22,13 +19,11 @@ class X<T> { x: T; }
 
 class X1 { x: string; }
 >X1 : X1
->x : 文字
->类型别名 :=> 文字
+>x : string
 
 class X2 { x: string; }
 >X2 : X2
->x : 文字
->类型别名 :=> 文字
+>x : string
 
 function f(a: X1): A;
 >f : { (a: X1): A; <T>(a: X<T>): B; }
@@ -46,19 +41,18 @@ function f<T>(a: X<T>): B;
 
 function f(a): any {
 >f : { (a: X1): A; <T>(a: X<T>): B; }
->a : 任意
->类型别名 :=> 任意
+>a : any
 }
 
 var xs: X<string>;
->xs : X<文字>
+>xs : X<string>
 >X : X<T>
 
 var t3 = f(xs);
 >t3 : A
 >f(xs) : A
 >f : { (a: X1): A; <T>(a: X<T>): B; }
->xs : X<文字>
+>xs : X<string>
 
 var t3: A; // should not error
 >t3 : A

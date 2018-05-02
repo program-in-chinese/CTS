@@ -1,16 +1,15 @@
 === tests/cases/conformance/expressions/binaryOperators/additionOperator/additionOperatorWithInvalidOperands.ts ===
 function foo() { }
->foo : () => 无值
+>foo : () => void
 
 class C {
 >C : C
 
     public a: string;
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     static foo() { }
->foo : () => 无值
+>foo : () => void
 }
 enum E { a, b, c }
 >E : E
@@ -19,17 +18,14 @@ enum E { a, b, c }
 >c : E.c
 
 module M { export var a }
->M : 类为 M
->a : 任意
->类型别名 :=> 任意
+>M : typeof M
+>a : any
 
 var a: boolean;
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 var b: number;
->b : 数字
->类型别名 :=> 数字
+>b : number
 
 var c: Object;
 >c : Object
@@ -41,199 +37,136 @@ var d: Number;
 
 // boolean + every type except any and string
 var r1 = a + a;
->r1 : 任意
->类型别名 :=> 任意
->a + a : 任意
->类型别名 :=> 任意
->a : 真假
->类型别名 :=> 真假
->a : 真假
->类型别名 :=> 真假
+>r1 : any
+>a + a : any
+>a : boolean
+>a : boolean
 
 var r2 = a + b;
->r2 : 任意
->类型别名 :=> 任意
->a + b : 任意
->类型别名 :=> 任意
->a : 真假
->类型别名 :=> 真假
->b : 数字
->类型别名 :=> 数字
+>r2 : any
+>a + b : any
+>a : boolean
+>b : number
 
 var r3 = a + c;
->r3 : 任意
->类型别名 :=> 任意
->a + c : 任意
->类型别名 :=> 任意
->a : 真假
->类型别名 :=> 真假
+>r3 : any
+>a + c : any
+>a : boolean
 >c : Object
 
 // number + every type except any and string
 var r4 = b + a;
->r4 : 任意
->类型别名 :=> 任意
->b + a : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
->a : 真假
->类型别名 :=> 真假
+>r4 : any
+>b + a : any
+>b : number
+>a : boolean
 
 var r5 = b + b; // number + number is valid
->r5 : 数字
->类型别名 :=> 数字
->b + b : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>r5 : number
+>b + b : number
+>b : number
+>b : number
 
 var r6 = b + c;
->r6 : 任意
->类型别名 :=> 任意
->b + c : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
+>r6 : any
+>b + c : any
+>b : number
 >c : Object
 
 // object + every type except any and string
 var r7 = c + a;
->r7 : 任意
->类型别名 :=> 任意
->c + a : 任意
->类型别名 :=> 任意
+>r7 : any
+>c + a : any
 >c : Object
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 var r8 = c + b;
->r8 : 任意
->类型别名 :=> 任意
->c + b : 任意
->类型别名 :=> 任意
+>r8 : any
+>c + b : any
 >c : Object
->b : 数字
->类型别名 :=> 数字
+>b : number
 
 var r9 = c + c;
->r9 : 任意
->类型别名 :=> 任意
->c + c : 任意
->类型别名 :=> 任意
+>r9 : any
+>c + c : any
 >c : Object
 >c : Object
 
 // other cases
 var r10 = a + true;
->r10 : 任意
->类型别名 :=> 任意
->a + true : 任意
->类型别名 :=> 任意
->a : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>r10 : any
+>a + true : any
+>a : boolean
+>true : true
 
 var r11 = true + false;
->r11 : 任意
->类型别名 :=> 任意
->true + false : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
->false : 为假
->类型别名 :=> 为假
+>r11 : any
+>true + false : any
+>true : true
+>false : false
 
 var r12 = true + 123;
->r12 : 任意
->类型别名 :=> 任意
->true + 123 : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
+>r12 : any
+>true + 123 : any
+>true : true
 >123 : 123
 
 var r13 = {} + {};
->r13 : 任意
->类型别名 :=> 任意
->{} + {} : 任意
->类型别名 :=> 任意
+>r13 : any
+>{} + {} : any
 >{} : {}
 >{} : {}
 
 var r14 = b + d;
->r14 : 任意
->类型别名 :=> 任意
->b + d : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
+>r14 : any
+>b + d : any
+>b : number
 >d : Number
 
 var r15 = b + foo;
->r15 : 任意
->类型别名 :=> 任意
->b + foo : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
->foo : () => 无值
+>r15 : any
+>b + foo : any
+>b : number
+>foo : () => void
 
 var r16 = b + foo();
->r16 : 任意
->类型别名 :=> 任意
->b + foo() : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
->foo() : 无值
->类型别名 :=> 无值
->foo : () => 无值
+>r16 : any
+>b + foo() : any
+>b : number
+>foo() : void
+>foo : () => void
 
 var r17 = b + C;
->r17 : 任意
->类型别名 :=> 任意
->b + C : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
->C : 类为 C
+>r17 : any
+>b + C : any
+>b : number
+>C : typeof C
 
 var r18 = E.a + new C();
->r18 : 任意
->类型别名 :=> 任意
->E.a + new C() : 任意
->类型别名 :=> 任意
+>r18 : any
+>E.a + new C() : any
 >E.a : E.a
->E : 类为 E
+>E : typeof E
 >a : E.a
 >new C() : C
->C : 类为 C
+>C : typeof C
 
 var r19 = E.a + C.foo();
->r19 : 任意
->类型别名 :=> 任意
->E.a + C.foo() : 任意
->类型别名 :=> 任意
+>r19 : any
+>E.a + C.foo() : any
 >E.a : E.a
->E : 类为 E
+>E : typeof E
 >a : E.a
->C.foo() : 无值
->类型别名 :=> 无值
->C.foo : () => 无值
->C : 类为 C
->foo : () => 无值
+>C.foo() : void
+>C.foo : () => void
+>C : typeof C
+>foo : () => void
 
 var r20 = E.a + M;
->r20 : 任意
->类型别名 :=> 任意
->E.a + M : 任意
->类型别名 :=> 任意
+>r20 : any
+>E.a + M : any
 >E.a : E.a
->E : 类为 E
+>E : typeof E
 >a : E.a
->M : 类为 M
+>M : typeof M
 

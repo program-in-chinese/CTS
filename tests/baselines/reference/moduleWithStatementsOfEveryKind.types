@@ -1,11 +1,10 @@
 === tests/cases/conformance/internalModules/moduleBody/moduleWithStatementsOfEveryKind.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     class A { s: string }
 >A : A
->s : 文字
->类型别名 :=> 文字
+>s : string
 
     class AA<T> { s: T }
 >AA : AA<T>
@@ -15,15 +14,13 @@ module A {
 
     interface I { id: number }
 >I : I
->id : 数字
->类型别名 :=> 数字
+>id : number
 
     class B extends AA<string> implements I { id: number }
 >B : B
->AA : AA<文字>
+>AA : AA<string>
 >I : I
->id : 数字
->类型别名 :=> 数字
+>id : number
 
     class BB<T> extends A {
 >BB : BB<T>
@@ -31,17 +28,15 @@ module A {
 >A : A
 
         id: number;
->id : 数字
->类型别名 :=> 数字
+>id : number
     }
 
     module Module {
->Module : 类为 Module
+>Module : typeof Module
 
         class A { s: string }
 >A : A
->s : 文字
->类型别名 :=> 文字
+>s : string
     }
     enum Color { Blue, Red }
 >Color : Color
@@ -49,14 +44,12 @@ module A {
 >Red : Color.Red
 
     var x = 12;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >12 : 12
 
     function F(s: string): number {
->F : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
+>F : (s: string) => number
+>s : string
 
         return 2;
 >2 : 2
@@ -64,52 +57,42 @@ module A {
     var array: I[] = null;
 >array : I[]
 >I : I
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     var fn = (s: string) => {
->fn : (s: 文字) => 文字
->(s: string) => {        return 'hello ' + s;    } : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
+>fn : (s: string) => string
+>(s: string) => {        return 'hello ' + s;    } : (s: string) => string
+>s : string
 
         return 'hello ' + s;
->'hello ' + s : 文字
->类型别名 :=> 文字
+>'hello ' + s : string
 >'hello ' : "hello "
->s : 文字
->类型别名 :=> 文字
+>s : string
     }
     var ol = { s: 'hello', id: 2, isvalid: true };
->ol : { s: 文字; id: 数字; isvalid: 真假; }
->{ s: 'hello', id: 2, isvalid: true } : { s: 文字; id: 数字; isvalid: 真假; }
->s : 文字
->类型别名 :=> 文字
+>ol : { s: string; id: number; isvalid: boolean; }
+>{ s: 'hello', id: 2, isvalid: true } : { s: string; id: number; isvalid: boolean; }
+>s : string
 >'hello' : "hello"
->id : 数字
->类型别名 :=> 数字
+>id : number
 >2 : 2
->isvalid : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>isvalid : boolean
+>true : true
 
     declare class DC {
 >DC : DC
 
         static x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 
 module Y {
->Y : 类为 Y
+>Y : typeof Y
 
     export class A { s: string }
 >A : A
->s : 文字
->类型别名 :=> 文字
+>s : string
 
     export class AA<T> { s: T }
 >AA : AA<T>
@@ -119,15 +102,13 @@ module Y {
 
     export interface I { id: number }
 >I : I
->id : 数字
->类型别名 :=> 数字
+>id : number
 
     export class B extends AA<string> implements I { id: number }
 >B : B
->AA : AA<文字>
+>AA : AA<string>
 >I : I
->id : 数字
->类型别名 :=> 数字
+>id : number
 
     export class BB<T> extends A {
 >BB : BB<T>
@@ -135,17 +116,15 @@ module Y {
 >A : A
 
         id: number;
->id : 数字
->类型别名 :=> 数字
+>id : number
     }
 
     export module Module {
->Module : 类为 Module
+>Module : typeof Module
 
         class A { s: string }
 >A : A
->s : 文字
->类型别名 :=> 文字
+>s : string
     }
     export enum Color { Blue, Red }
 >Color : Color
@@ -153,14 +132,12 @@ module Y {
 >Red : Color.Red
 
     export var x = 12;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >12 : 12
 
     export function F(s: string): number {
->F : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
+>F : (s: string) => number
+>s : string
 
         return 2;
 >2 : 2
@@ -168,42 +145,33 @@ module Y {
     export var array: I[] = null;
 >array : I[]
 >I : I
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     export var fn = (s: string) => {
->fn : (s: 文字) => 文字
->(s: string) => {        return 'hello ' + s;    } : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
+>fn : (s: string) => string
+>(s: string) => {        return 'hello ' + s;    } : (s: string) => string
+>s : string
 
         return 'hello ' + s;
->'hello ' + s : 文字
->类型别名 :=> 文字
+>'hello ' + s : string
 >'hello ' : "hello "
->s : 文字
->类型别名 :=> 文字
+>s : string
     }
     export var ol = { s: 'hello', id: 2, isvalid: true };
->ol : { s: 文字; id: 数字; isvalid: 真假; }
->{ s: 'hello', id: 2, isvalid: true } : { s: 文字; id: 数字; isvalid: 真假; }
->s : 文字
->类型别名 :=> 文字
+>ol : { s: string; id: number; isvalid: boolean; }
+>{ s: 'hello', id: 2, isvalid: true } : { s: string; id: number; isvalid: boolean; }
+>s : string
 >'hello' : "hello"
->id : 数字
->类型别名 :=> 数字
+>id : number
 >2 : 2
->isvalid : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>isvalid : boolean
+>true : true
 
     export declare class DC {
 >DC : DC
 
         static x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 

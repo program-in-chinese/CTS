@@ -2,24 +2,19 @@
 //Cond ? Expr1 : Expr2,  Expr1 and Expr2 have identical best common type
 class X { propertyX: any; propertyX1: number; propertyX2: string };
 >X : X
->propertyX : 任意
->类型别名 :=> 任意
->propertyX1 : 数字
->类型别名 :=> 数字
->propertyX2 : 文字
->类型别名 :=> 文字
+>propertyX : any
+>propertyX1 : number
+>propertyX2 : string
 
 class A extends X { propertyA: number };
 >A : A
 >X : X
->propertyA : 数字
->类型别名 :=> 数字
+>propertyA : number
 
 class B extends X { propertyB: string };
 >B : B
 >X : X
->propertyB : 文字
->类型别名 :=> 文字
+>propertyB : string
 
 var x: X;
 >x : X
@@ -37,66 +32,54 @@ var b: B;
 //Be Not contextually typed
 true ? x : a;
 >true ? x : a : X
->true : 为真
->类型别名 :=> 为真
+>true : true
 >x : X
 >a : A
 
 var result1 = true ? x : a;
 >result1 : X
 >true ? x : a : X
->true : 为真
->类型别名 :=> 为真
+>true : true
 >x : X
 >a : A
 
 //Expr1 and Expr2 are literals
 true ? {} : 1;
->true ? {} : 1 : {}
->true : 为真
->类型别名 :=> 为真
+>true ? {} : 1 : 1 | {}
+>true : true
 >{} : {}
 >1 : 1
 
 true ? { a: 1 } : { a: 2, b: 'string' };
->true ? { a: 1 } : { a: 2, b: 'string' } : { a: 数字; } | { a: 数字; b: 文字; }
->true : 为真
->类型别名 :=> 为真
->{ a: 1 } : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>true ? { a: 1 } : { a: 2, b: 'string' } : { a: number; } | { a: number; b: string; }
+>true : true
+>{ a: 1 } : { a: number; }
+>a : number
 >1 : 1
->{ a: 2, b: 'string' } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>{ a: 2, b: 'string' } : { a: number; b: string; }
+>a : number
 >2 : 2
->b : 文字
->类型别名 :=> 文字
+>b : string
 >'string' : "string"
 
 var result2 = true ? {} : 1;
 >result2 : {}
->true ? {} : 1 : {}
->true : 为真
->类型别名 :=> 为真
+>true ? {} : 1 : 1 | {}
+>true : true
 >{} : {}
 >1 : 1
 
 var result3 = true ? { a: 1 } : { a: 2, b: 'string' };
->result3 : { a: 数字; } | { a: 数字; b: 文字; }
->true ? { a: 1 } : { a: 2, b: 'string' } : { a: 数字; } | { a: 数字; b: 文字; }
->true : 为真
->类型别名 :=> 为真
->{ a: 1 } : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>result3 : { a: number; b?: undefined; } | { a: number; b: string; }
+>true ? { a: 1 } : { a: 2, b: 'string' } : { a: number; } | { a: number; b: string; }
+>true : true
+>{ a: 1 } : { a: number; }
+>a : number
 >1 : 1
->{ a: 2, b: 'string' } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>{ a: 2, b: 'string' } : { a: number; b: string; }
+>a : number
 >2 : 2
->b : 文字
->类型别名 :=> 文字
+>b : string
 >'string' : "string"
 
 //Contextually typed
@@ -104,97 +87,79 @@ var resultIsX1: X = true ? x : a;
 >resultIsX1 : X
 >X : X
 >true ? x : a : X
->true : 为真
->类型别名 :=> 为真
+>true : true
 >x : X
 >a : A
 
 var result4: (t: A) => any = true ? (m) => m.propertyX : (n) => n.propertyA;
->result4 : (t: A) => 任意
+>result4 : (t: A) => any
 >t : A
 >A : A
->true ? (m) => m.propertyX : (n) => n.propertyA : (m: A) => 任意
->true : 为真
->类型别名 :=> 为真
->(m) => m.propertyX : (m: A) => 任意
+>true ? (m) => m.propertyX : (n) => n.propertyA : (m: A) => any
+>true : true
+>(m) => m.propertyX : (m: A) => any
 >m : A
->m.propertyX : 任意
->类型别名 :=> 任意
+>m.propertyX : any
 >m : A
->propertyX : 任意
->类型别名 :=> 任意
->(n) => n.propertyA : (n: A) => 数字
+>propertyX : any
+>(n) => n.propertyA : (n: A) => number
 >n : A
->n.propertyA : 数字
->类型别名 :=> 数字
+>n.propertyA : number
 >n : A
->propertyA : 数字
->类型别名 :=> 数字
+>propertyA : number
 
 //Cond ? Expr1 : Expr2,  Expr2 is supertype
 //Be Not contextually typed
 true ? a : x;
 >true ? a : x : X
->true : 为真
->类型别名 :=> 为真
+>true : true
 >a : A
 >x : X
 
 var result5 = true ? a : x;
 >result5 : X
 >true ? a : x : X
->true : 为真
->类型别名 :=> 为真
+>true : true
 >a : A
 >x : X
 
 //Expr1 and Expr2 are literals
 true ? 1 : {};
->true ? 1 : {} : {}
->true : 为真
->类型别名 :=> 为真
+>true ? 1 : {} : 1 | {}
+>true : true
 >1 : 1
 >{} : {}
 
 true ? { a: 2, b: 'string' } : { a: 1 };
->true ? { a: 2, b: 'string' } : { a: 1 } : { a: 数字; b: 文字; } | { a: 数字; }
->true : 为真
->类型别名 :=> 为真
->{ a: 2, b: 'string' } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>true ? { a: 2, b: 'string' } : { a: 1 } : { a: number; b: string; } | { a: number; }
+>true : true
+>{ a: 2, b: 'string' } : { a: number; b: string; }
+>a : number
 >2 : 2
->b : 文字
->类型别名 :=> 文字
+>b : string
 >'string' : "string"
->{ a: 1 } : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>{ a: 1 } : { a: number; }
+>a : number
 >1 : 1
 
 var result6 = true ? 1 : {};
 >result6 : {}
->true ? 1 : {} : {}
->true : 为真
->类型别名 :=> 为真
+>true ? 1 : {} : 1 | {}
+>true : true
 >1 : 1
 >{} : {}
 
 var result7 = true ? { a: 2, b: 'string' } : { a: 1 };
->result7 : { a: 数字; b: 文字; } | { a: 数字; }
->true ? { a: 2, b: 'string' } : { a: 1 } : { a: 数字; b: 文字; } | { a: 数字; }
->true : 为真
->类型别名 :=> 为真
->{ a: 2, b: 'string' } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>result7 : { a: number; b: string; } | { a: number; b?: undefined; }
+>true ? { a: 2, b: 'string' } : { a: 1 } : { a: number; b: string; } | { a: number; }
+>true : true
+>{ a: 2, b: 'string' } : { a: number; b: string; }
+>a : number
 >2 : 2
->b : 文字
->类型别名 :=> 文字
+>b : string
 >'string' : "string"
->{ a: 1 } : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>{ a: 1 } : { a: number; }
+>a : number
 >1 : 1
 
 //Contextually typed
@@ -202,32 +167,26 @@ var resultIsX2: X = true ? x : a;
 >resultIsX2 : X
 >X : X
 >true ? x : a : X
->true : 为真
->类型别名 :=> 为真
+>true : true
 >x : X
 >a : A
 
 var result8: (t: A) => any = true ? (m) => m.propertyA : (n) => n.propertyX;
->result8 : (t: A) => 任意
+>result8 : (t: A) => any
 >t : A
 >A : A
->true ? (m) => m.propertyA : (n) => n.propertyX : (n: A) => 任意
->true : 为真
->类型别名 :=> 为真
->(m) => m.propertyA : (m: A) => 数字
+>true ? (m) => m.propertyA : (n) => n.propertyX : (n: A) => any
+>true : true
+>(m) => m.propertyA : (m: A) => number
 >m : A
->m.propertyA : 数字
->类型别名 :=> 数字
+>m.propertyA : number
 >m : A
->propertyA : 数字
->类型别名 :=> 数字
->(n) => n.propertyX : (n: A) => 任意
+>propertyA : number
+>(n) => n.propertyX : (n: A) => any
 >n : A
->n.propertyX : 任意
->类型别名 :=> 任意
+>n.propertyX : any
 >n : A
->propertyX : 任意
->类型别名 :=> 任意
+>propertyX : any
 
 //Result = Cond ? Expr1 : Expr2,  Result is supertype
 //Contextually typed
@@ -235,40 +194,32 @@ var resultIsX3: X = true ? a : b;
 >resultIsX3 : X
 >X : X
 >true ? a : b : A | B
->true : 为真
->类型别名 :=> 为真
+>true : true
 >a : A
 >b : B
 
 var result10: (t: X) => any = true ? (m) => m.propertyX1 : (n) => n.propertyX2;
->result10 : (t: X) => 任意
+>result10 : (t: X) => any
 >t : X
 >X : X
->true ? (m) => m.propertyX1 : (n) => n.propertyX2 : ((m: X) => 数字) | ((n: X) => 文字)
->true : 为真
->类型别名 :=> 为真
->(m) => m.propertyX1 : (m: X) => 数字
+>true ? (m) => m.propertyX1 : (n) => n.propertyX2 : ((m: X) => number) | ((n: X) => string)
+>true : true
+>(m) => m.propertyX1 : (m: X) => number
 >m : X
->m.propertyX1 : 数字
->类型别名 :=> 数字
+>m.propertyX1 : number
 >m : X
->propertyX1 : 数字
->类型别名 :=> 数字
->(n) => n.propertyX2 : (n: X) => 文字
+>propertyX1 : number
+>(n) => n.propertyX2 : (n: X) => string
 >n : X
->n.propertyX2 : 文字
->类型别名 :=> 文字
+>n.propertyX2 : string
 >n : X
->propertyX2 : 文字
->类型别名 :=> 文字
+>propertyX2 : string
 
 //Expr1 and Expr2 are literals
 var result11: any = true ? 1 : 'string';
->result11 : 任意
->类型别名 :=> 任意
+>result11 : any
 >true ? 1 : 'string' : 1 | "string"
->true : 为真
->类型别名 :=> 为真
+>true : true
 >1 : 1
 >'string' : "string"
 

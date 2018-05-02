@@ -2,31 +2,29 @@
 /// <reference path="node.d.ts"/>
 
 const fs = require("fs");
->fs : 类为 "fs"
->require("fs") : 类为 "fs"
->require : (moduleName: 文字) => 任意
+>fs : typeof "fs"
+>require("fs") : typeof "fs"
+>require : (moduleName: string) => any
 >"fs" : "fs"
 
 const text = fs.readFileSync("/a/b/c");
->text : 文字
->类型别名 :=> 文字
->fs.readFileSync("/a/b/c") : 文字
->类型别名 :=> 文字
->fs.readFileSync : (s: 文字) => 文字
->fs : 类为 "fs"
->readFileSync : (s: 文字) => 文字
+>text : string
+>fs.readFileSync("/a/b/c") : string
+>fs.readFileSync : (s: string) => string
+>fs : typeof "fs"
+>readFileSync : (s: string) => string
 >"/a/b/c" : "/a/b/c"
 
 === tests/cases/compiler/node.d.ts ===
 declare function require(moduleName: string): any;
->require : (moduleName: 文字) => 任意
->moduleName : 文字
->类型别名 :=> 文字
+>require : (moduleName: string) => any
+>moduleName : string
 
 declare module "fs" {
+>"fs" : typeof "fs"
+
     export function readFileSync(s: string): string;
->readFileSync : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
+>readFileSync : (s: string) => string
+>s : string
 }
 

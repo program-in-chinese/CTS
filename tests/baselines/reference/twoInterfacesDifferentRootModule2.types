@@ -2,14 +2,13 @@
 // two interfaces with different root modules should not merge
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export interface A {
 >A : A
 
         foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
     }
 
     export interface B<T> {
@@ -22,14 +21,13 @@ module M {
     }
 
     module M2 {
->M2 : 类为 M2
+>M2 : typeof M2
 
         export interface A {
 >A : A
 
             bar: number;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
         }
 
         var a: A;
@@ -37,22 +35,16 @@ module M {
 >A : A
 
         var r1 = a.foo; // error
->r1 : 任意
->类型别名 :=> 任意
->a.foo : 任意
->类型别名 :=> 任意
+>r1 : any
+>a.foo : any
 >a : A
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 
         var r2 = a.bar;
->r2 : 数字
->类型别名 :=> 数字
->a.bar : 数字
->类型别名 :=> 数字
+>r2 : number
+>a.bar : number
 >a : A
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 
         export interface B<T> {
 >B : B<T>
@@ -64,26 +56,20 @@ module M {
         }
 
         var b: B<string>;
->b : B<文字>
+>b : B<string>
 >B : B<T>
 
         var r3 = b.foo; // error
->r3 : 任意
->类型别名 :=> 任意
->b.foo : 任意
->类型别名 :=> 任意
->b : B<文字>
->foo : 任意
->类型别名 :=> 任意
+>r3 : any
+>b.foo : any
+>b : B<string>
+>foo : any
 
         var r4 = b.bar;
->r4 : 文字
->类型别名 :=> 文字
->b.bar : 文字
->类型别名 :=> 文字
->b : B<文字>
->bar : 文字
->类型别名 :=> 文字
+>r4 : string
+>b.bar : string
+>b : B<string>
+>bar : string
     }
 
     var a: A;
@@ -91,42 +77,30 @@ module M {
 >A : A
 
     var r1 = a.foo; 
->r1 : 文字
->类型别名 :=> 文字
->a.foo : 文字
->类型别名 :=> 文字
+>r1 : string
+>a.foo : string
 >a : A
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
     var r2 = a.bar; // error
->r2 : 任意
->类型别名 :=> 任意
->a.bar : 任意
->类型别名 :=> 任意
+>r2 : any
+>a.bar : any
 >a : A
->bar : 任意
->类型别名 :=> 任意
+>bar : any
 
     var b: B<string>;
->b : B<文字>
+>b : B<string>
 >B : B<T>
 
     var r3 = b.foo; 
->r3 : 文字
->类型别名 :=> 文字
->b.foo : 文字
->类型别名 :=> 文字
->b : B<文字>
->foo : 文字
->类型别名 :=> 文字
+>r3 : string
+>b.foo : string
+>b : B<string>
+>foo : string
 
     var r4 = b.bar; // error
->r4 : 任意
->类型别名 :=> 任意
->b.bar : 任意
->类型别名 :=> 任意
->b : B<文字>
->bar : 任意
->类型别名 :=> 任意
+>r4 : any
+>b.bar : any
+>b : B<string>
+>bar : any
 }

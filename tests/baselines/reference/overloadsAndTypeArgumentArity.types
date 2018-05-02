@@ -1,39 +1,33 @@
 === tests/cases/compiler/overloadsAndTypeArgumentArity.ts ===
 declare function Callbacks(flags?: string): void;
->Callbacks : { (flags?: 文字): 无值; <T>(flags?: 文字): 无值; <T1, T2>(flags?: 文字): 无值; <T1, T2, T3>(flags?: 文字): 无值; }
->flags : 文字
->类型别名 :=> 文字
+>Callbacks : { (flags?: string): void; <T>(flags?: string): void; <T1, T2>(flags?: string): void; <T1, T2, T3>(flags?: string): void; }
+>flags : string
 
 declare function Callbacks<T>(flags?: string): void;
->Callbacks : { (flags?: 文字): 无值; <T>(flags?: 文字): 无值; <T1, T2>(flags?: 文字): 无值; <T1, T2, T3>(flags?: 文字): 无值; }
+>Callbacks : { (flags?: string): void; <T>(flags?: string): void; <T1, T2>(flags?: string): void; <T1, T2, T3>(flags?: string): void; }
 >T : T
->flags : 文字
->类型别名 :=> 文字
+>flags : string
 
 declare function Callbacks<T1, T2>(flags?: string): void;
->Callbacks : { (flags?: 文字): 无值; <T>(flags?: 文字): 无值; <T1, T2>(flags?: 文字): 无值; <T1, T2, T3>(flags?: 文字): 无值; }
+>Callbacks : { (flags?: string): void; <T>(flags?: string): void; <T1, T2>(flags?: string): void; <T1, T2, T3>(flags?: string): void; }
 >T1 : T1
 >T2 : T2
->flags : 文字
->类型别名 :=> 文字
+>flags : string
 
 declare function Callbacks<T1, T2, T3>(flags?: string): void;
->Callbacks : { (flags?: 文字): 无值; <T>(flags?: 文字): 无值; <T1, T2>(flags?: 文字): 无值; <T1, T2, T3>(flags?: 文字): 无值; }
+>Callbacks : { (flags?: string): void; <T>(flags?: string): void; <T1, T2>(flags?: string): void; <T1, T2, T3>(flags?: string): void; }
 >T1 : T1
 >T2 : T2
 >T3 : T3
->flags : 文字
->类型别名 :=> 文字
+>flags : string
 
 Callbacks<number, string, boolean>('s'); // no error
->Callbacks<number, string, boolean>('s') : 无值
->类型别名 :=> 无值
->Callbacks : { (flags?: 文字): 无值; <T>(flags?: 文字): 无值; <T1, T2>(flags?: 文字): 无值; <T1, T2, T3>(flags?: 文字): 无值; }
+>Callbacks<number, string, boolean>('s') : void
+>Callbacks : { (flags?: string): void; <T>(flags?: string): void; <T1, T2>(flags?: string): void; <T1, T2, T3>(flags?: string): void; }
 >'s' : "s"
 
 new Callbacks<number, string, boolean>('s'); // no error
->new Callbacks<number, string, boolean>('s') : 任意
->类型别名 :=> 任意
->Callbacks : { (flags?: 文字): 无值; <T>(flags?: 文字): 无值; <T1, T2>(flags?: 文字): 无值; <T1, T2, T3>(flags?: 文字): 无值; }
+>new Callbacks<number, string, boolean>('s') : any
+>Callbacks : { (flags?: string): void; <T>(flags?: string): void; <T1, T2>(flags?: string): void; <T1, T2, T3>(flags?: string): void; }
 >'s' : "s"
 

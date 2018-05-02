@@ -4,7 +4,7 @@ class C<T> {
 >T : T
 
    public bar2<U extends T>(x: T, y: U): T {
->bar2 : <U 扩展 T>(x: T, y: U) => T
+>bar2 : <U extends T>(x: T, y: U) => T
 >U : U
 >T : T
 >x : T
@@ -14,31 +14,28 @@ class C<T> {
 >T : T
 
       return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
      }
 }
  
 var x = new C<number>();
->x : C<数字>
->new C<number>() : C<数字>
->C : 类为 C
+>x : C<number>
+>new C<number>() : C<number>
+>C : typeof C
 
 x.bar2(2, ""); // should error
->x.bar2(2, "") : 任意
->类型别名 :=> 任意
->x.bar2 : <U 扩展 数字>(x: 数字, y: U) => 数字
->x : C<数字>
->bar2 : <U 扩展 数字>(x: 数字, y: U) => 数字
+>x.bar2(2, "") : any
+>x.bar2 : <U extends number>(x: number, y: U) => number
+>x : C<number>
+>bar2 : <U extends number>(x: number, y: U) => number
 >2 : 2
 >"" : ""
 
 x.bar2<string>(2, ""); // should error
->x.bar2<string>(2, "") : 任意
->类型别名 :=> 任意
->x.bar2 : <U 扩展 数字>(x: 数字, y: U) => 数字
->x : C<数字>
->bar2 : <U 扩展 数字>(x: 数字, y: U) => 数字
+>x.bar2<string>(2, "") : any
+>x.bar2 : <U extends number>(x: number, y: U) => number
+>x : C<number>
+>bar2 : <U extends number>(x: number, y: U) => number
 >2 : 2
 >"" : ""
 

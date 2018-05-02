@@ -1,15 +1,14 @@
 === tests/cases/compiler/constEnumOnlyModuleMerging.ts ===
 module Outer {
->Outer : 类为 Outer
+>Outer : typeof Outer
 
     export var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 }
 
 module Outer {
->Outer : 类为 Outer
+>Outer : typeof Outer
 
     export const enum A { X }
 >A : A
@@ -17,26 +16,23 @@ module Outer {
 }
 
 module B {
->B : 类为 B
+>B : typeof B
 
     import O = Outer;
->O : 类为 O
->Outer : 类为 O
+>O : typeof O
+>Outer : typeof O
 
     var x = O.A.X;
 >x : O.A
 >O.A.X : O.A
->O.A : 类为 O.A
->O : 类为 O
->A : 类为 O.A
+>O.A : typeof O.A
+>O : typeof O
+>A : typeof O.A
 >X : O.A
 
     var y = O.x;
->y : 数字
->类型别名 :=> 数字
->O.x : 数字
->类型别名 :=> 数字
->O : 类为 O
->x : 数字
->类型别名 :=> 数字
+>y : number
+>O.x : number
+>O : typeof O
+>x : number
 }

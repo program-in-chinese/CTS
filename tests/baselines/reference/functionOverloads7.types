@@ -3,41 +3,34 @@ class foo {
 >foo : foo
 
    private bar();
->bar : { (): 任意; (foo: 文字): 任意; }
+>bar : { (): any; (foo: string): any; }
 
    private bar(foo: string);
->bar : { (): 任意; (foo: 文字): 任意; }
->foo : 文字
->类型别名 :=> 文字
+>bar : { (): any; (foo: string): any; }
+>foo : string
 
    private bar(foo?: any){ return "foo" }
->bar : { (): 任意; (foo: 文字): 任意; }
->foo : 任意
->类型别名 :=> 任意
+>bar : { (): any; (foo: string): any; }
+>foo : any
 >"foo" : "foo"
 
    public n() {
->n : () => 无值
+>n : () => void
 
      var foo = this.bar();
->foo : 任意
->类型别名 :=> 任意
->this.bar() : 任意
->类型别名 :=> 任意
->this.bar : { (): 任意; (foo: 文字): 任意; }
->this : 本体
->bar : { (): 任意; (foo: 文字): 任意; }
+>foo : any
+>this.bar() : any
+>this.bar : { (): any; (foo: string): any; }
+>this : this
+>bar : { (): any; (foo: string): any; }
 
      foo = this.bar("test");
->foo = this.bar("test") : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
->this.bar("test") : 任意
->类型别名 :=> 任意
->this.bar : { (): 任意; (foo: 文字): 任意; }
->this : 本体
->bar : { (): 任意; (foo: 文字): 任意; }
+>foo = this.bar("test") : any
+>foo : any
+>this.bar("test") : any
+>this.bar : { (): any; (foo: string): any; }
+>this : this
+>bar : { (): any; (foo: string): any; }
 >"test" : "test"
    }
 }

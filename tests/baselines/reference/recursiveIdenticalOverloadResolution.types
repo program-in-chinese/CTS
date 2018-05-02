@@ -1,6 +1,6 @@
 === tests/cases/compiler/recursiveIdenticalOverloadResolution.ts ===
 module M {
->M : 类为 M
+>M : typeof M
 
    interface I { (i: I): I; }
 >I : I
@@ -9,35 +9,35 @@ module M {
 >I : I
 
    function f(p: I) { return f };
->f : (p: I) => 类为 f
+>f : (p: I) => typeof f
 >p : I
 >I : I
->f : (p: I) => 类为 f
+>f : (p: I) => typeof f
 
    var i: I;
 >i : I
 >I : I
 
    f(i);
->f(i) : (p: I) => 类为 f
->f : (p: I) => 类为 f
+>f(i) : (p: I) => typeof f
+>f : (p: I) => typeof f
 >i : I
 
    f(f(i));
->f(f(i)) : (p: I) => 类为 f
->f : (p: I) => 类为 f
->f(i) : (p: I) => 类为 f
->f : (p: I) => 类为 f
+>f(f(i)) : (p: I) => typeof f
+>f : (p: I) => typeof f
+>f(i) : (p: I) => typeof f
+>f : (p: I) => typeof f
 >i : I
 
    f((f(f(i))));
->f((f(f(i)))) : (p: I) => 类为 f
->f : (p: I) => 类为 f
->(f(f(i))) : (p: I) => 类为 f
->f(f(i)) : (p: I) => 类为 f
->f : (p: I) => 类为 f
->f(i) : (p: I) => 类为 f
->f : (p: I) => 类为 f
+>f((f(f(i)))) : (p: I) => typeof f
+>f : (p: I) => typeof f
+>(f(f(i))) : (p: I) => typeof f
+>f(f(i)) : (p: I) => typeof f
+>f : (p: I) => typeof f
+>f(i) : (p: I) => typeof f
+>f : (p: I) => typeof f
 >i : I
 
 }

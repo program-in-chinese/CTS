@@ -2,12 +2,11 @@
 // Import this module when test harness supports external modules. Also remove the internal module below.
 // import Foo = require("interfaceDeclaration5")
 module Foo {
->Foo : 类为 Foo
+>Foo : typeof Foo
 
     export interface I1 { item: string; }
 >I1 : I1
->item : 文字
->类型别名 :=> 文字
+>item : string
 
     export class C1 { }
 >C1 : C1
@@ -15,52 +14,44 @@ module Foo {
 
 class C1 implements Foo.I1 {
 >C1 : C1
->Foo.I1 : 任意
->类型别名 :=> 任意
->Foo : 类为 Foo
+>Foo.I1 : any
+>Foo : typeof Foo
 >I1 : Foo.I1
 
 	public item:string;
->item : 文字
->类型别名 :=> 文字
+>item : string
 }
 
 // Allowed
 interface I2 extends Foo.I1 {
 >I2 : I2
->Foo.I1 : 任意
->类型别名 :=> 任意
->Foo : 类为 Foo
+>Foo.I1 : any
+>Foo : typeof Foo
 >I1 : Foo.I1
 
 	item:string;
->item : 文字
->类型别名 :=> 文字
+>item : string
 }
 
 // Negative Case
 interface I3 extends Foo.I1 {
 >I3 : I3
->Foo.I1 : 任意
->类型别名 :=> 任意
->Foo : 类为 Foo
+>Foo.I1 : any
+>Foo : typeof Foo
 >I1 : Foo.I1
 
     item:number;
->item : 数字
->类型别名 :=> 数字
+>item : number
 }
 
 interface I4 extends Foo.I1 {
 >I4 : I4
->Foo.I1 : 任意
->类型别名 :=> 任意
->Foo : 类为 Foo
+>Foo.I1 : any
+>Foo : typeof Foo
 >I1 : Foo.I1
 
     token:string;
->token : 文字
->类型别名 :=> 文字
+>token : string
 }
 
 // Err - not implemented item
@@ -69,8 +60,7 @@ class C2 implements I4 {
 >I4 : I4
 
     public token: string;
->token : 文字
->类型别名 :=> 文字
+>token : string
 }
 
 interface I5 extends Foo { }
@@ -80,21 +70,18 @@ interface I5 extends Foo { }
 // Negative case
 interface I6 extends Foo.C1 { }
 >I6 : I6
->Foo.C1 : 任意
->类型别名 :=> 任意
->Foo : 类为 Foo
+>Foo.C1 : any
+>Foo : typeof Foo
 >C1 : Foo.C1
 
 class C3 implements Foo.I1 { }
 >C3 : C3
->Foo.I1 : 任意
->类型别名 :=> 任意
->Foo : 类为 Foo
+>Foo.I1 : any
+>Foo : typeof Foo
 >I1 : Foo.I1
 
 // Negative case 
 interface Foo.I1 { }
 >Foo : Foo
->I1 : 任意
->类型别名 :=> 任意
+>I1 : any
 

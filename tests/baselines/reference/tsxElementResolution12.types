@@ -1,15 +1,13 @@
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 
 	interface Element { }
 >Element : Element
 
 	interface ElementAttributesProperty { pr: any; }
 >ElementAttributesProperty : ElementAttributesProperty
->pr : 任意
->类型别名 :=> 任意
+>pr : any
 
 	interface IntrinsicElements { }
 >IntrinsicElements : IntrinsicElements
@@ -19,8 +17,7 @@ interface Obj1type {
 >Obj1type : Obj1type
 
 	new(n: string): any;
->n : 文字
->类型别名 :=> 文字
+>n : string
 }
 var Obj1: Obj1type;
 >Obj1 : Obj1type
@@ -29,20 +26,16 @@ var Obj1: Obj1type;
 <Obj1 x={10} />; // OK
 ><Obj1 x={10} /> : JSX.Element
 >Obj1 : Obj1type
->x : 数字
->类型别名 :=> 数字
+>x : number
 >10 : 10
 
 interface Obj2type {
 >Obj2type : Obj2type
 
 	new(n: string): { q?: number; pr: any };
->n : 文字
->类型别名 :=> 文字
->q : 数字
->类型别名 :=> 数字
->pr : 任意
->类型别名 :=> 任意
+>n : string
+>q : number
+>pr : any
 }
 var Obj2: Obj2type;
 >Obj2 : Obj2type
@@ -51,18 +44,15 @@ var Obj2: Obj2type;
 <Obj2 x={10} />; // OK
 ><Obj2 x={10} /> : JSX.Element
 >Obj2 : Obj2type
->x : 数字
->类型别名 :=> 数字
+>x : number
 >10 : 10
 
 interface Obj3type {
 >Obj3type : Obj3type
 
 	new(n: string): { x: number; };
->n : 文字
->类型别名 :=> 文字
->x : 数字
->类型别名 :=> 数字
+>n : string
+>x : number
 }
 var Obj3: Obj3type;
 >Obj3 : Obj3type
@@ -71,19 +61,16 @@ var Obj3: Obj3type;
 <Obj3 x={10} />; // Error
 ><Obj3 x={10} /> : JSX.Element
 >Obj3 : Obj3type
->x : 数字
->类型别名 :=> 数字
+>x : number
 >10 : 10
 
 var attributes: any;
->attributes : 任意
->类型别名 :=> 任意
+>attributes : any
 
 <Obj3 {...attributes} />; // Error
 ><Obj3 {...attributes} /> : JSX.Element
 >Obj3 : Obj3type
->attributes : 任意
->类型别名 :=> 任意
+>attributes : any
 
 <Obj3 {...{}} />; // OK
 ><Obj3 {...{}} /> : JSX.Element
@@ -94,13 +81,10 @@ interface Obj4type {
 >Obj4type : Obj4type
 
 	new(n: string): { x: number; pr: { x: number; } };
->n : 文字
->类型别名 :=> 文字
->x : 数字
->类型别名 :=> 数字
->pr : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>n : string
+>x : number
+>pr : { x: number; }
+>x : number
 }
 var Obj4: Obj4type;
 >Obj4 : Obj4type
@@ -109,14 +93,12 @@ var Obj4: Obj4type;
 <Obj4 x={10} />; // OK
 ><Obj4 x={10} /> : JSX.Element
 >Obj4 : Obj4type
->x : 数字
->类型别名 :=> 数字
+>x : number
 >10 : 10
 
 <Obj4 x={'10'} />; // Error
 ><Obj4 x={'10'} /> : JSX.Element
 >Obj4 : Obj4type
->x : 文字
->类型别名 :=> 文字
+>x : string
 >'10' : "10"
 

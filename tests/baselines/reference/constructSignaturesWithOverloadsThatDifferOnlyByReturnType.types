@@ -5,8 +5,7 @@ class C {
 >C : C
 
     constructor(x: number) { }
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 
 class C2<T> {
@@ -16,25 +15,20 @@ class C2<T> {
     constructor(x: T, y?: string) { }
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 }
 
 interface I {
 >I : I
 
     new(x: number, y: string): C;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 
     new(x: number, y: string): C2<number>; // error
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C2 : C2<T>
 }
 
@@ -45,23 +39,20 @@ interface I2<T> {
     new (x: T, y: string): C2<number>;
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 
     new (x: T, y: string): C; // error
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C : C
 
     new <T>(x: T, y: string): C2<T>;
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 
@@ -69,39 +60,33 @@ interface I2<T> {
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C : C
 
 }
 
 var a: {
->a : { 新建 (x: 数字, y: 文字): C2<数字>; 新建 (x: 数字, y: 文字): C; }
+>a : { new (x: number, y: string): C2<number>; new (x: number, y: string): C; }
 
     new (x: number, y: string): C2<number>;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C2 : C2<T>
 
     new (x: number, y: string): C; // error
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 }
 
 var b: {
->b : { 新建 <T>(x: T, y: 文字): C2<T>; 新建 <T>(x: T, y: 文字): C; }
+>b : { new <T>(x: T, y: string): C2<T>; new <T>(x: T, y: string): C; }
 
     new <T>(x: T, y: string): C2<T>;
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 
@@ -109,7 +94,6 @@ var b: {
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C : C
 }

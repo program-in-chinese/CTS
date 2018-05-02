@@ -1,36 +1,30 @@
 === tests/cases/compiler/commentsFunction.ts ===
 /** This comment should appear for foo*/
 function foo() {
->foo : () => 无值
+>foo : () => void
 
 } /* trailing comment of function */
 foo();
->foo() : 无值
->类型别名 :=> 无值
->foo : () => 无值
+>foo() : void
+>foo : () => void
 
 /** This is comment for function signature*/
 function fooWithParameters(/** this is comment about a*/a: string,
->fooWithParameters : (a: 文字, b: 数字) => 无值
->a : 文字
->类型别名 :=> 文字
+>fooWithParameters : (a: string, b: number) => void
+>a : string
 
     /** this is comment for b*/
     b: number) {
->b : 数字
->类型别名 :=> 数字
+>b : number
 
     var d = a;
->d : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
+>d : string
+>a : string
 
 } // trailing comment of function
 fooWithParameters("a", 10);
->fooWithParameters("a", 10) : 无值
->类型别名 :=> 无值
->fooWithParameters : (a: 文字, b: 数字) => 无值
+>fooWithParameters("a", 10) : void
+>fooWithParameters : (a: string, b: number) => void
 >"a" : "a"
 >10 : 10
 
@@ -38,122 +32,98 @@ fooWithParameters("a", 10);
  * comment
  */
 var fooFunc = function FooFunctionValue(/** fooFunctionValue param */ b: string) {
->fooFunc : (b: 文字) => 文字
->function FooFunctionValue(/** fooFunctionValue param */ b: string) {    return b;} : (b: 文字) => 文字
->FooFunctionValue : (b: 文字) => 文字
->b : 文字
->类型别名 :=> 文字
+>fooFunc : (b: string) => string
+>function FooFunctionValue(/** fooFunctionValue param */ b: string) {    return b;} : (b: string) => string
+>FooFunctionValue : (b: string) => string
+>b : string
 
     return b;
->b : 文字
->类型别名 :=> 文字
+>b : string
 }
 
 /// lamdaFoo var comment
 var lambdaFoo = /** this is lambda comment*/ (/**param a*/a: number, /**param b*/b: number) => a + b;
->lambdaFoo : (a: 数字, b: 数字) => 数字
->(/**param a*/a: number, /**param b*/b: number) => a + b : (a: 数字, b: 数字) => 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->a + b : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>lambdaFoo : (a: number, b: number) => number
+>(/**param a*/a: number, /**param b*/b: number) => a + b : (a: number, b: number) => number
+>a : number
+>b : number
+>a + b : number
+>a : number
+>b : number
 
 var lambddaNoVarComment = /** this is lambda multiplication*/ (/**param a*/a: number, /**param b*/b: number) => a * b;
->lambddaNoVarComment : (a: 数字, b: 数字) => 数字
->(/**param a*/a: number, /**param b*/b: number) => a * b : (a: 数字, b: 数字) => 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->a * b : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>lambddaNoVarComment : (a: number, b: number) => number
+>(/**param a*/a: number, /**param b*/b: number) => a * b : (a: number, b: number) => number
+>a : number
+>b : number
+>a * b : number
+>a : number
+>b : number
 
 lambdaFoo(10, 20);
->lambdaFoo(10, 20) : 数字
->类型别名 :=> 数字
->lambdaFoo : (a: 数字, b: 数字) => 数字
+>lambdaFoo(10, 20) : number
+>lambdaFoo : (a: number, b: number) => number
 >10 : 10
 >20 : 20
 
 lambddaNoVarComment(10, 20);
->lambddaNoVarComment(10, 20) : 数字
->类型别名 :=> 数字
->lambddaNoVarComment : (a: 数字, b: 数字) => 数字
+>lambddaNoVarComment(10, 20) : number
+>lambddaNoVarComment : (a: number, b: number) => number
 >10 : 10
 >20 : 20
 
 function blah(a: string /* multiline trailing comment 
->blah : (a: 文字) => 无值
->a : 文字
->类型别名 :=> 文字
+>blah : (a: string) => void
+>a : string
 
 multiline */) {
 }
 
 function blah2(a: string /* single line multiple trailing comments */ /* second */) {
->blah2 : (a: 文字) => 无值
->a : 文字
->类型别名 :=> 文字
+>blah2 : (a: string) => void
+>a : string
 }
 
 function blah3(a: string // trailing commen single line
->blah3 : (a: 文字) => 无值
->a : 文字
->类型别名 :=> 文字
+>blah3 : (a: string) => void
+>a : string
 
     ) {
 }
 
 lambdaFoo = (a, b) => a * b; // This is trailing comment
->lambdaFoo = (a, b) => a * b : (a: 数字, b: 数字) => 数字
->lambdaFoo : (a: 数字, b: 数字) => 数字
->(a, b) => a * b : (a: 数字, b: 数字) => 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->a * b : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>lambdaFoo = (a, b) => a * b : (a: number, b: number) => number
+>lambdaFoo : (a: number, b: number) => number
+>(a, b) => a * b : (a: number, b: number) => number
+>a : number
+>b : number
+>a * b : number
+>a : number
+>b : number
 
 /*leading comment*/() => 0; // Needs to be wrapped in parens to be a valid expression (not declaration)
->() => 0 : () => 数字
+>() => 0 : () => number
 >0 : 0
 
 /*leading comment*/(() => 0); //trailing comment
->(() => 0) : () => 数字
->() => 0 : () => 数字
+>(() => 0) : () => number
+>() => 0 : () => number
 >0 : 0
 
 function blah4(/*1*/a: string/*2*/,/*3*/b: string/*4*/) {
->blah4 : (a: 文字, b: 文字) => 无值
->a : 文字
->类型别名 :=> 文字
->b : 文字
->类型别名 :=> 文字
+>blah4 : (a: string, b: string) => void
+>a : string
+>b : string
 }
 
 function foo1() {
->foo1 : () => 无值
+>foo1 : () => void
 
     // should emit this
 }
 
 function foo2() {
->foo2 : () => 无值
+>foo2 : () => void
 
     /// This is some detached comment
 

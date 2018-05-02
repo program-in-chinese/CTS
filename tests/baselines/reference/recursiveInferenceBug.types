@@ -1,35 +1,29 @@
 === tests/cases/compiler/recursiveInferenceBug.ts ===
 function f(x: number) {
->f : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>f : (x: number) => number
+>x : number
 
     var z = f(x);
->z : 数字
->类型别名 :=> 数字
->f(x) : 数字
->类型别名 :=> 数字
->f : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>z : number
+>f(x) : number
+>f : (x: number) => number
+>x : number
 
     return x;
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 
 
 var zz = {
->zz : { g: () => 无值; 只读 f: 文字; }
->{    g: () =>{ },    get f() { return "abc"; },} : { g: () => 无值; 只读 f: 文字; }
+>zz : { g: () => void; readonly f: string; }
+>{    g: () =>{ },    get f() { return "abc"; },} : { g: () => void; readonly f: string; }
 
     g: () =>{ },
->g : () => 无值
->() =>{ } : () => 无值
+>g : () => void
+>() =>{ } : () => void
 
     get f() { return "abc"; },
->f : 文字
->类型别名 :=> 文字
+>f : string
 >"abc" : "abc"
 
 };

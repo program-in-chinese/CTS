@@ -1,27 +1,20 @@
 === tests/cases/compiler/functionOverloads2.ts ===
 function foo(bar: string): string;
->foo : { (bar: 文字): 文字; (bar: 数字): 数字; }
->bar : 文字
->类型别名 :=> 文字
+>foo : { (bar: string): string; (bar: number): number; }
+>bar : string
 
 function foo(bar: number): number;
->foo : { (bar: 文字): 文字; (bar: 数字): 数字; }
->bar : 数字
->类型别名 :=> 数字
+>foo : { (bar: string): string; (bar: number): number; }
+>bar : number
 
 function foo(bar: any): any { return bar };
->foo : { (bar: 文字): 文字; (bar: 数字): 数字; }
->bar : 任意
->类型别名 :=> 任意
->bar : 任意
->类型别名 :=> 任意
+>foo : { (bar: string): string; (bar: number): number; }
+>bar : any
+>bar : any
 
 var x = foo(true);
->x : 任意
->类型别名 :=> 任意
->foo(true) : 任意
->类型别名 :=> 任意
->foo : { (bar: 文字): 文字; (bar: 数字): 数字; }
->true : 为真
->类型别名 :=> 为真
+>x : any
+>foo(true) : any
+>foo : { (bar: string): string; (bar: number): number; }
+>true : true
 

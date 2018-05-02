@@ -1,29 +1,31 @@
 === tests/cases/compiler/exportSpecifierAndExportedMemberDeclaration.ts ===
 declare module "m2" {
+>"m2" : typeof "m2"
+
     export module X {
->X : () => 任意
+>X : () => any
 
         interface I { }
 >I : I
     }
     function Y();
->Y : () => 任意
+>Y : () => any
 
     export { Y as X };
->Y : () => 任意
->X : () => 任意
+>Y : () => any
+>X : () => any
 
     function Z(): X.I;
 >Z : () => X.I
->X : 任意
->类型别名 :=> 任意
+>X : any
 >I : X.I
 }
 
 declare module "m2" {
+>"m2" : typeof "m2"
+
     function Z2(): X.I;
 >Z2 : () => X.I
->X : 任意
->类型别名 :=> 任意
+>X : any
 >I : X.I
 }

@@ -4,105 +4,75 @@ var x = {};
 >{} : {}
 
 var y = {foo: "bar"};
->y : { foo: 文字; }
->{foo: "bar"} : { foo: 文字; }
->foo : 文字
->类型别名 :=> 文字
+>y : { foo: string; }
+>{foo: "bar"} : { foo: string; }
+>foo : string
 >"bar" : "bar"
 
 var a: object;
->a : 实例
->类型别名 :=> 实例
+>a : object
 
 x = a;
->x = a : 实例
->类型别名 :=> 实例
+>x = a : object
 >x : {}
->a : 实例
->类型别名 :=> 实例
+>a : object
 
 y = a; // expect error
->y = a : 实例
->类型别名 :=> 实例
->y : { foo: 文字; }
->a : 实例
->类型别名 :=> 实例
+>y = a : object
+>y : { foo: string; }
+>a : object
 
 a = x;
 >a = x : {}
->a : 实例
->类型别名 :=> 实例
+>a : object
 >x : {}
 
 a = y;
->a = y : { foo: 文字; }
->a : 实例
->类型别名 :=> 实例
->y : { foo: 文字; }
+>a = y : { foo: string; }
+>a : object
+>y : { foo: string; }
 
 var n = 123;
->n : 数字
->类型别名 :=> 数字
+>n : number
 >123 : 123
 
 var b = true;
->b : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>b : boolean
+>true : true
 
 var s = "fooo";
->s : 文字
->类型别名 :=> 文字
+>s : string
 >"fooo" : "fooo"
 
 a = n; // expect error
->a = n : 数字
->类型别名 :=> 数字
->a : 实例
->类型别名 :=> 实例
->n : 数字
->类型别名 :=> 数字
+>a = n : number
+>a : object
+>n : number
 
 a = b; // expect error
->a = b : 为真
->类型别名 :=> 为真
->a : 实例
->类型别名 :=> 实例
->b : 为真
->类型别名 :=> 为真
+>a = b : true
+>a : object
+>b : true
 
 a = s; // expect error
->a = s : 文字
->类型别名 :=> 文字
->a : 实例
->类型别名 :=> 实例
->s : 文字
->类型别名 :=> 文字
+>a = s : string
+>a : object
+>s : string
 
 n = a; // expect error
->n = a : 实例
->类型别名 :=> 实例
->n : 数字
->类型别名 :=> 数字
->a : 实例
->类型别名 :=> 实例
+>n = a : object
+>n : number
+>a : object
 
 b = a; // expect error
->b = a : 实例
->类型别名 :=> 实例
->b : 真假
->类型别名 :=> 真假
->a : 实例
->类型别名 :=> 实例
+>b = a : object
+>b : boolean
+>a : object
 
 s = a; // expect error
->s = a : 实例
->类型别名 :=> 实例
->s : 文字
->类型别名 :=> 文字
->a : 实例
->类型别名 :=> 实例
+>s = a : object
+>s : string
+>a : object
 
 var numObj: Number = 123;
 >numObj : Number
@@ -112,8 +82,7 @@ var numObj: Number = 123;
 var boolObj: Boolean = true;
 >boolObj : Boolean
 >Boolean : Boolean
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 var strObj: String = "string";
 >strObj : String
@@ -122,19 +91,16 @@ var strObj: String = "string";
 
 a = numObj; // ok
 >a = numObj : Number
->a : 实例
->类型别名 :=> 实例
+>a : object
 >numObj : Number
 
 a = boolObj; // ok
 >a = boolObj : Boolean
->a : 实例
->类型别名 :=> 实例
+>a : object
 >boolObj : Boolean
 
 a = strObj; // ok
 >a = strObj : String
->a : 实例
->类型别名 :=> 实例
+>a : object
 >strObj : String
 

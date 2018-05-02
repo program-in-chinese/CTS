@@ -2,105 +2,127 @@
 abstract class AbstractClass {
 >AbstractClass : AbstractClass
 
-    constructor(str: string) {
->str : 文字
->类型别名 :=> 文字
+    constructor(str: string, other: AbstractClass) {
+>str : string
+>other : AbstractClass
+>AbstractClass : AbstractClass
 
         this.method(parseInt(str));
->this.method(parseInt(str)) : 无值
->类型别名 :=> 无值
->this.method : (num: 数字) => 无值
->this : 本体
->method : (num: 数字) => 无值
->parseInt(str) : 数字
->类型别名 :=> 数字
->parseInt : (s: 文字, radix?: 数字) => 数字
->str : 文字
->类型别名 :=> 文字
+>this.method(parseInt(str)) : void
+>this.method : (num: number) => void
+>this : this
+>method : (num: number) => void
+>parseInt(str) : number
+>parseInt : (s: string, radix?: number) => number
+>str : string
 
         let val = this.prop.toLowerCase();
->val : 文字
->类型别名 :=> 文字
->this.prop.toLowerCase() : 文字
->类型别名 :=> 文字
->this.prop.toLowerCase : () => 文字
->this.prop : 文字
->类型别名 :=> 文字
->this : 本体
->prop : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>val : string
+>this.prop.toLowerCase() : string
+>this.prop.toLowerCase : () => string
+>this.prop : string
+>this : this
+>prop : string
+>toLowerCase : () => string
 
         if (!str) {
->!str : 真假
->类型别名 :=> 真假
->str : 文字
->类型别名 :=> 文字
+>!str : boolean
+>str : string
 
             this.prop = "Hello World";
 >this.prop = "Hello World" : "Hello World"
->this.prop : 文字
->类型别名 :=> 文字
->this : 本体
->prop : 文字
->类型别名 :=> 文字
+>this.prop : string
+>this : this
+>prop : string
 >"Hello World" : "Hello World"
         }
         this.cb(str);
->this.cb(str) : 无值
->类型别名 :=> 无值
->this.cb : (s: 文字) => 无值
->this : 本体
->cb : (s: 文字) => 无值
->str : 文字
->类型别名 :=> 文字
+>this.cb(str) : void
+>this.cb : (s: string) => void
+>this : this
+>cb : (s: string) => void
+>str : string
 
+        // OK, reference is inside function
         const innerFunction = () => {
->innerFunction : () => 文字
->() => {            return this.prop;        } : () => 文字
+>innerFunction : () => string
+>() => {            return this.prop;        } : () => string
 
             return this.prop;
->this.prop : 文字
->类型别名 :=> 文字
->this : 本体
->prop : 文字
->类型别名 :=> 文字
+>this.prop : string
+>this : this
+>prop : string
         }
+
+        // OK, references are to another instance
+        other.cb(other.prop);
+>other.cb(other.prop) : void
+>other.cb : (s: string) => void
+>other : AbstractClass
+>cb : (s: string) => void
+>other.prop : string
+>other : AbstractClass
+>prop : string
     }
 
     abstract prop: string;
->prop : 文字
->类型别名 :=> 文字
+>prop : string
 
     abstract cb: (s: string) => void;
->cb : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>cb : (s: string) => void
+>s : string
 
     abstract method(num: number): void;
->method : (num: 数字) => 无值
->num : 数字
->类型别名 :=> 数字
+>method : (num: number) => void
+>num : number
 
     method2() {
->method2 : () => 无值
+>method2 : () => void
 
         this.prop = this.prop + "!";
->this.prop = this.prop + "!" : 文字
->类型别名 :=> 文字
->this.prop : 文字
->类型别名 :=> 文字
->this : 本体
->prop : 文字
->类型别名 :=> 文字
->this.prop + "!" : 文字
->类型别名 :=> 文字
->this.prop : 文字
->类型别名 :=> 文字
->this : 本体
->prop : 文字
->类型别名 :=> 文字
+>this.prop = this.prop + "!" : string
+>this.prop : string
+>this : this
+>prop : string
+>this.prop + "!" : string
+>this.prop : string
+>this : this
+>prop : string
 >"!" : "!"
+    }
+}
+
+class User {
+>User : User
+
+    constructor(a: AbstractClass) {
+>a : AbstractClass
+>AbstractClass : AbstractClass
+
+        a.prop;
+>a.prop : string
+>a : AbstractClass
+>prop : string
+
+        a.cb("hi");
+>a.cb("hi") : void
+>a.cb : (s: string) => void
+>a : AbstractClass
+>cb : (s: string) => void
+>"hi" : "hi"
+
+        a.method(12);
+>a.method(12) : void
+>a.method : (num: number) => void
+>a : AbstractClass
+>method : (num: number) => void
+>12 : 12
+
+        a.method2();
+>a.method2() : void
+>a.method2 : () => void
+>a : AbstractClass
+>method2 : () => void
     }
 }
 

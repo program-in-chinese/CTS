@@ -1,21 +1,19 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react')
->React : 类为 React
+>React : typeof React
 
 declare function Component<U>(l: U): JSX.Element;
 >Component : <U>(l: U) => JSX.Element
 >U : U
 >l : U
 >U : U
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
 function createComponent<T extends { prop: number }>(arg: T) {
->createComponent : <T 扩展 { prop: 数字; }>(arg: T) => 无值
+>createComponent : <T extends { prop: number; }>(arg: T) => void
 >T : T
->prop : 数字
->类型别名 :=> 数字
+>prop : number
 >arg : T
 >T : T
 
@@ -30,8 +28,7 @@ function createComponent<T extends { prop: number }>(arg: T) {
 ><Component {...arg} prop1 /> : JSX.Element
 >Component : <U>(l: U) => JSX.Element
 >arg : T
->prop1 : 为真
->类型别名 :=> 为真
+>prop1 : true
 }
 
 declare function ComponentSpecific<U>(l: { prop: U }): JSX.Element;
@@ -40,25 +37,23 @@ declare function ComponentSpecific<U>(l: { prop: U }): JSX.Element;
 >l : { prop: U; }
 >prop : U
 >U : U
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
 declare function ComponentSpecific1<U>(l: { prop: U, "ignore-prop": number }): JSX.Element;
->ComponentSpecific1 : <U>(l: { prop: U; "ignore-prop": 数字; }) => JSX.Element
+>ComponentSpecific1 : <U>(l: { prop: U; "ignore-prop": number; }) => JSX.Element
 >U : U
->l : { prop: U; "ignore-prop": 数字; }
+>l : { prop: U; "ignore-prop": number; }
 >prop : U
 >U : U
->JSX : 任意
->类型别名 :=> 任意
+>"ignore-prop" : number
+>JSX : any
 >Element : JSX.Element
 
 function Bar<T extends { prop: number }>(arg: T) {
->Bar : <T 扩展 { prop: 数字; }>(arg: T) => 无值
+>Bar : <T extends { prop: number; }>(arg: T) => void
 >T : T
->prop : 数字
->类型别名 :=> 数字
+>prop : number
 >arg : T
 >T : T
 
@@ -67,16 +62,14 @@ function Bar<T extends { prop: number }>(arg: T) {
 ><ComponentSpecific {...arg} ignore-prop="hi" /> : JSX.Element
 >ComponentSpecific : <U>(l: { prop: U; }) => JSX.Element
 >arg : T
->ignore-prop : 文字
->类型别名 :=> 文字
+>ignore-prop : string
 
     let a2 = <ComponentSpecific1 {...arg} ignore-prop={10} />;  // U is number
 >a2 : JSX.Element
 ><ComponentSpecific1 {...arg} ignore-prop={10} /> : JSX.Element
->ComponentSpecific1 : <U>(l: { prop: U; "ignore-prop": 数字; }) => JSX.Element
+>ComponentSpecific1 : <U>(l: { prop: U; "ignore-prop": number; }) => JSX.Element
 >arg : T
->ignore-prop : 数字
->类型别名 :=> 数字
+>ignore-prop : number
 >10 : 10
 
     let a3 = <ComponentSpecific {...arg} prop="hello" />;   // U is "hello"
@@ -84,15 +77,13 @@ function Bar<T extends { prop: number }>(arg: T) {
 ><ComponentSpecific {...arg} prop="hello" /> : JSX.Element
 >ComponentSpecific : <U>(l: { prop: U; }) => JSX.Element
 >arg : T
->prop : 文字
->类型别名 :=> 文字
+>prop : string
 
     let a4 = <ComponentSpecific {...arg} prop1="hello" />;   // U is "hello"
 >a4 : JSX.Element
 ><ComponentSpecific {...arg} prop1="hello" /> : JSX.Element
 >ComponentSpecific : <U>(l: { prop: U; }) => JSX.Element
 >arg : T
->prop1 : 文字
->类型别名 :=> 文字
+>prop1 : string
 }
 

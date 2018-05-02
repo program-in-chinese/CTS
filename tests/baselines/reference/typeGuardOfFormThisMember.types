@@ -1,54 +1,45 @@
 === tests/cases/conformance/expressions/typeGuards/typeGuardOfFormThisMember.ts ===
 // There's a 'File' class in the stdlib, wrap with a namespace to avoid collision
 namespace Test {
->Test : 类为 Test
+>Test : typeof Test
 
 	export class FileSystemObject {
 >FileSystemObject : FileSystemObject
 
 		isFSO: this is FileSystemObject;
->isFSO : 真假
->类型别名 :=> 真假
+>isFSO : boolean
 >FileSystemObject : FileSystemObject
 
 		get isFile(): this is File {
->isFile : 真假
->类型别名 :=> 真假
+>isFile : boolean
 >File : File
 
 			return this instanceof File;
->this instanceof File : 真假
->类型别名 :=> 真假
->this : 本体
->File : 类为 File
+>this instanceof File : boolean
+>this : this
+>File : typeof File
 		}
 		set isFile(param) {
->isFile : 真假
->类型别名 :=> 真假
->param : 真假
->类型别名 :=> 真假
+>isFile : boolean
+>param : boolean
 
 			// noop
 		}
 		get isDirectory(): this is Directory {
->isDirectory : 真假
->类型别名 :=> 真假
+>isDirectory : boolean
 >Directory : Directory
 
 			return this instanceof Directory;
->this instanceof Directory : 真假
->类型别名 :=> 真假
->this : 本体
->Directory : 类为 Directory
+>this instanceof Directory : boolean
+>this : this
+>Directory : typeof Directory
 		}
 		isNetworked: this is (Networked & this);
->isNetworked : 真假
->类型别名 :=> 真假
+>isNetworked : boolean
 >Networked : Networked
 
 		constructor(public path: string) {}
->path : 文字
->类型别名 :=> 文字
+>path : string
 	}
 
 	export class File extends FileSystemObject {
@@ -56,15 +47,11 @@ namespace Test {
 >FileSystemObject : FileSystemObject
 
 		constructor(path: string, public content: string) { super(path); }
->path : 文字
->类型别名 :=> 文字
->content : 文字
->类型别名 :=> 文字
->super(path) : 无值
->类型别名 :=> 无值
->super : 类为 FileSystemObject
->path : 文字
->类型别名 :=> 文字
+>path : string
+>content : string
+>super(path) : void
+>super : typeof FileSystemObject
+>path : string
 	}
 	export class Directory extends FileSystemObject {
 >Directory : Directory
@@ -78,126 +65,91 @@ namespace Test {
 >Networked : Networked
 
 		host: string;
->host : 文字
->类型别名 :=> 文字
+>host : string
 	}
 
 	let file: FileSystemObject = new File("foo/bar.txt", "foo");
 >file : FileSystemObject
 >FileSystemObject : FileSystemObject
 >new File("foo/bar.txt", "foo") : File
->File : 类为 File
+>File : typeof File
 >"foo/bar.txt" : "foo/bar.txt"
 >"foo" : "foo"
 
 	file.isNetworked = false;
->file.isNetworked = false : 为假
->类型别名 :=> 为假
->file.isNetworked : 真假
->类型别名 :=> 真假
+>file.isNetworked = false : false
+>file.isNetworked : boolean
 >file : FileSystemObject
->isNetworked : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>isNetworked : boolean
+>false : false
 
 	file.isFSO = file.isFile;
->file.isFSO = file.isFile : 真假
->类型别名 :=> 真假
->file.isFSO : 真假
->类型别名 :=> 真假
+>file.isFSO = file.isFile : boolean
+>file.isFSO : boolean
 >file : FileSystemObject
->isFSO : 真假
->类型别名 :=> 真假
->file.isFile : 真假
->类型别名 :=> 真假
+>isFSO : boolean
+>file.isFile : boolean
 >file : FileSystemObject
->isFile : 真假
->类型别名 :=> 真假
+>isFile : boolean
 
 	file.isFile = true;
->file.isFile = true : 为真
->类型别名 :=> 为真
->file.isFile : 真假
->类型别名 :=> 真假
+>file.isFile = true : true
+>file.isFile : boolean
 >file : FileSystemObject
->isFile : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>isFile : boolean
+>true : true
 
 	let x = file.isFile;
->x : 真假
->类型别名 :=> 真假
->file.isFile : 为真
->类型别名 :=> 为真
+>x : boolean
+>file.isFile : true
 >file : FileSystemObject
->isFile : 为真
->类型别名 :=> 为真
+>isFile : true
 
 	if (file.isFile) {
->file.isFile : 为真
->类型别名 :=> 为真
+>file.isFile : true
 >file : FileSystemObject
->isFile : 为真
->类型别名 :=> 为真
+>isFile : true
 
 		file.content;
->file.content : 任意
->类型别名 :=> 任意
+>file.content : any
 >file : FileSystemObject
->content : 任意
->类型别名 :=> 任意
+>content : any
 
 		if (file.isNetworked) {
->file.isNetworked : 为假
->类型别名 :=> 为假
+>file.isNetworked : false
 >file : FileSystemObject
->isNetworked : 为假
->类型别名 :=> 为假
+>isNetworked : false
 
 			file.host;
->file.host : 任意
->类型别名 :=> 任意
+>file.host : any
 >file : FileSystemObject
->host : 任意
->类型别名 :=> 任意
+>host : any
 
 			file.content;
->file.content : 任意
->类型别名 :=> 任意
+>file.content : any
 >file : FileSystemObject
->content : 任意
->类型别名 :=> 任意
+>content : any
 		}
 	}
 	else if (file.isDirectory) {
->file.isDirectory : 真假
->类型别名 :=> 真假
+>file.isDirectory : boolean
 >file : FileSystemObject
->isDirectory : 真假
->类型别名 :=> 真假
+>isDirectory : boolean
 
 		file.children;
->file.children : 任意
->类型别名 :=> 任意
+>file.children : any
 >file : FileSystemObject
->children : 任意
->类型别名 :=> 任意
+>children : any
 	}
 	else if (file.isNetworked) {
->file.isNetworked : 为假
->类型别名 :=> 为假
+>file.isNetworked : false
 >file : FileSystemObject
->isNetworked : 为假
->类型别名 :=> 为假
+>isNetworked : false
 
 		file.host;
->file.host : 任意
->类型别名 :=> 任意
+>file.host : any
 >file : FileSystemObject
->host : 任意
->类型别名 :=> 任意
+>host : any
 	}
 	
 	interface GenericLeadGuard<T> extends GenericGuard<T> {
@@ -207,7 +159,7 @@ namespace Test {
 >T : T
 
 		lead(): void;
->lead : () => 无值
+>lead : () => void
 	}
 	
 	interface GenericFollowerGuard<T> extends GenericGuard<T> {
@@ -217,7 +169,7 @@ namespace Test {
 >T : T
 
 		follow(): void;
->follow : () => 无值
+>follow : () => void
 	}
 	
 	interface GenericGuard<T> {
@@ -229,14 +181,12 @@ namespace Test {
 >T : T
 
 		isLeader: this is (GenericLeadGuard<T>);
->isLeader : 真假
->类型别名 :=> 真假
+>isLeader : boolean
 >GenericLeadGuard : GenericLeadGuard<T>
 >T : T
 
 		isFollower: this is GenericFollowerGuard<T>;
->isFollower : 真假
->类型别名 :=> 真假
+>isFollower : boolean
 >GenericFollowerGuard : GenericFollowerGuard<T>
 >T : T
 	}
@@ -247,44 +197,33 @@ namespace Test {
 >File : File
 
 	if (guard.isLeader) {
->guard.isLeader : 真假
->类型别名 :=> 真假
+>guard.isLeader : boolean
 >guard : GenericGuard<File>
->isLeader : 真假
->类型别名 :=> 真假
+>isLeader : boolean
 
 		guard.lead();
->guard.lead() : 任意
->类型别名 :=> 任意
->guard.lead : 任意
->类型别名 :=> 任意
+>guard.lead() : any
+>guard.lead : any
 >guard : GenericGuard<File>
->lead : 任意
->类型别名 :=> 任意
+>lead : any
 	}
 	else if (guard.isFollower) {
->guard.isFollower : 真假
->类型别名 :=> 真假
+>guard.isFollower : boolean
 >guard : GenericGuard<File>
->isFollower : 真假
->类型别名 :=> 真假
+>isFollower : boolean
 
 		guard.follow();
->guard.follow() : 任意
->类型别名 :=> 任意
->guard.follow : 任意
->类型别名 :=> 任意
+>guard.follow() : any
+>guard.follow : any
 >guard : GenericGuard<File>
->follow : 任意
->类型别名 :=> 任意
+>follow : any
 	}
 
 	interface SpecificGuard {
 >SpecificGuard : SpecificGuard
 
 		isMoreSpecific: this is MoreSpecificGuard;
->isMoreSpecific : 真假
->类型别名 :=> 真假
+>isMoreSpecific : boolean
 >MoreSpecificGuard : MoreSpecificGuard
 	}
 
@@ -293,7 +232,7 @@ namespace Test {
 >SpecificGuard : SpecificGuard
 
 		do(): void;
->do : () => 无值
+>do : () => void
 	}
 
 	let general: SpecificGuard;
@@ -301,20 +240,15 @@ namespace Test {
 >SpecificGuard : SpecificGuard
 
 	if (general.isMoreSpecific) {
->general.isMoreSpecific : 真假
->类型别名 :=> 真假
+>general.isMoreSpecific : boolean
 >general : SpecificGuard
->isMoreSpecific : 真假
->类型别名 :=> 真假
+>isMoreSpecific : boolean
 
 		general.do();
->general.do() : 任意
->类型别名 :=> 任意
->general.do : 任意
->类型别名 :=> 任意
+>general.do() : any
+>general.do : any
 >general : SpecificGuard
->do : 任意
->类型别名 :=> 任意
+>do : any
 	}
 }
 

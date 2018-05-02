@@ -1,56 +1,51 @@
 === tests/cases/compiler/assignmentCompat1.ts ===
 var x = { one: 1 };
->x : { one: 数字; }
->{ one: 1 } : { one: 数字; }
->one : 数字
->类型别名 :=> 数字
+>x : { one: number; }
+>{ one: 1 } : { one: number; }
+>one : number
 >1 : 1
 
 var y: { [index: string]: any };
->y : { [index: 文字]: 任意; }
->index : 文字
->类型别名 :=> 文字
+>y : { [index: string]: any; }
+>index : string
 
 var z: { [index: number]: any };
->z : { [index: 数字]: 任意; }
->index : 数字
->类型别名 :=> 数字
+>z : { [index: number]: any; }
+>index : number
 
 x = y;  // Error
->x = y : { [index: 文字]: 任意; }
->x : { one: 数字; }
->y : { [index: 文字]: 任意; }
+>x = y : { [index: string]: any; }
+>x : { one: number; }
+>y : { [index: string]: any; }
 
 y = x;  // Ok because index signature type is any
->y = x : { one: 数字; }
->y : { [index: 文字]: 任意; }
->x : { one: 数字; }
+>y = x : { one: number; }
+>y : { [index: string]: any; }
+>x : { one: number; }
 
 x = z;  // Error
->x = z : { [index: 数字]: 任意; }
->x : { one: 数字; }
->z : { [index: 数字]: 任意; }
+>x = z : { [index: number]: any; }
+>x : { one: number; }
+>z : { [index: number]: any; }
 
 z = x;  // Ok because index signature type is any
->z = x : { one: 数字; }
->z : { [index: 数字]: 任意; }
->x : { one: 数字; }
+>z = x : { one: number; }
+>z : { [index: number]: any; }
+>x : { one: number; }
 
 y = "foo"; // Error
 >y = "foo" : "foo"
->y : { [index: 文字]: 任意; }
+>y : { [index: string]: any; }
 >"foo" : "foo"
 
 z = "foo"; // OK, string has numeric indexer
 >z = "foo" : "foo"
->z : { [index: 数字]: 任意; }
+>z : { [index: number]: any; }
 >"foo" : "foo"
 
 z = false; // Error
->z = false : 为假
->类型别名 :=> 为假
->z : { [index: 数字]: 任意; }
->false : 为假
->类型别名 :=> 为假
+>z = false : false
+>z : { [index: number]: any; }
+>false : false
 
 

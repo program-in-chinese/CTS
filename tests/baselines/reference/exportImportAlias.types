@@ -2,211 +2,182 @@
 // expect no errors here
 
 module A {
->A : 类为 A
+>A : typeof A
 
     export var x = 'hello world'
->x : 文字
->类型别名 :=> 文字
+>x : string
 >'hello world' : "hello world"
 
     export class Point {
 >Point : Point
 
         constructor(public x: number, public y: number) { }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
     }
     export module B {
->B : 任意
->类型别名 :=> 任意
+>B : any
 
         export interface Id {
 >Id : Id
 
             name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
         }
     }
 }
 
 module C {
->C : 类为 C
+>C : typeof C
 
     export import a = A;
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 }
 
 var a: string = C.a.x;
->a : 文字
->类型别名 :=> 文字
->C.a.x : 文字
->类型别名 :=> 文字
->C.a : 类为 A
->C : 类为 C
->a : 类为 A
->x : 文字
->类型别名 :=> 文字
+>a : string
+>C.a.x : string
+>C.a : typeof A
+>C : typeof C
+>a : typeof A
+>x : string
 
 var b: { x: number; y: number; } = new C.a.Point(0, 0);
->b : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>b : { x: number; y: number; }
+>x : number
+>y : number
 >new C.a.Point(0, 0) : A.Point
->C.a.Point : 类为 A.Point
->C.a : 类为 A
->C : 类为 C
->a : 类为 A
->Point : 类为 A.Point
+>C.a.Point : typeof A.Point
+>C.a : typeof A
+>C : typeof C
+>a : typeof A
+>Point : typeof A.Point
 >0 : 0
 >0 : 0
 
 var c: { name: string };
->c : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>c : { name: string; }
+>name : string
 
 var c: C.a.B.Id;
->c : { name: 文字; }
->C : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->B : 任意
->类型别名 :=> 任意
+>c : { name: string; }
+>C : any
+>a : any
+>B : any
 >Id : A.B.Id
 
 module X {
->X : 类为 X
+>X : typeof X
 
     export function Y() {
->Y : 类为 Y
+>Y : typeof Y
 
         return 42;
 >42 : 42
     }
 
     export module Y {
->Y : 类为 Y
+>Y : typeof Y
 
         export class Point {
 >Point : Point
 
             constructor(public x: number, public y: number) { }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
         }
     }
 }
 
 module Z {
->Z : 类为 Z
+>Z : typeof Z
 
     // 'y' should be a fundule here
     export import y = X.Y;
->y : 类为 y
->X : 类为 X
->Y : 类为 y
+>y : typeof y
+>X : typeof X
+>Y : typeof y
 }
 
 var m: number = Z.y();
->m : 数字
->类型别名 :=> 数字
->Z.y() : 数字
->类型别名 :=> 数字
->Z.y : 类为 X.Y
->Z : 类为 Z
->y : 类为 X.Y
+>m : number
+>Z.y() : number
+>Z.y : typeof X.Y
+>Z : typeof Z
+>y : typeof X.Y
 
 var n: { x: number; y: number; } = new Z.y.Point(0, 0);
->n : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>n : { x: number; y: number; }
+>x : number
+>y : number
 >new Z.y.Point(0, 0) : X.Y.Point
->Z.y.Point : 类为 X.Y.Point
->Z.y : 类为 X.Y
->Z : 类为 Z
->y : 类为 X.Y
->Point : 类为 X.Y.Point
+>Z.y.Point : typeof X.Y.Point
+>Z.y : typeof X.Y
+>Z : typeof Z
+>y : typeof X.Y
+>Point : typeof X.Y.Point
 >0 : 0
 >0 : 0
 
 module K {
->K : 类为 K
+>K : typeof K
 
     export class L {
 >L : L
 
         constructor(public name: string) { }
->name : 文字
->类型别名 :=> 文字
+>name : string
     }
 
     export module L {
->L : 类为 L
+>L : typeof L
 
         export var y = 12;
->y : 数字
->类型别名 :=> 数字
+>y : number
 >12 : 12
 
         export interface Point {
 >Point : Point
 
             x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
             y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
         }
     }
 }
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export import D = K.L;
->D : 类为 D
->K : 类为 K
+>D : typeof D
+>K : typeof K
 >L : D
 }
 
 var o: { name: string };
->o : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>o : { name: string; }
+>name : string
 
 var o = new M.D('Hello');
->o : { name: 文字; }
+>o : { name: string; }
 >new M.D('Hello') : K.L
->M.D : 类为 K.L
->M : 类为 M
->D : 类为 K.L
+>M.D : typeof K.L
+>M : typeof M
+>D : typeof K.L
 >'Hello' : "Hello"
 
 var p: { x: number; y: number; }
->p : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>p : { x: number; y: number; }
+>x : number
+>y : number
 
 var p: M.D.Point;
->p : { x: 数字; y: 数字; }
->M : 任意
->类型别名 :=> 任意
->D : 任意
->类型别名 :=> 任意
+>p : { x: number; y: number; }
+>M : any
+>D : any
 >Point : K.L.Point
 

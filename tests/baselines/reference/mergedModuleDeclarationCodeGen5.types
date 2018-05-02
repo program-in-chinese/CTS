@@ -1,25 +1,25 @@
 === tests/cases/compiler/mergedModuleDeclarationCodeGen5.ts ===
 module M.buz.plop {
->M : 类为 M
->buz : 类为 buz
->plop : 类为 buz.plop
+>M : typeof M
+>buz : typeof buz
+>plop : typeof buz.plop
 
     export function doom() { }
->doom : () => 无值
+>doom : () => void
 
     export function M() { }
->M : () => 无值
+>M : () => void
 }
 module M.buz.plop {
->M : 类为 M
->buz : 类为 buz
->plop : 类为 M.buz.plop
+>M : typeof M
+>buz : typeof buz
+>plop : typeof M.buz.plop
 
     function gunk() { }
->gunk : () => 无值
+>gunk : () => void
 
     function buz() { }
->buz : () => 无值
+>buz : () => void
 
     export class fudge { }
 >fudge : fudge
@@ -29,26 +29,26 @@ module M.buz.plop {
 
     // Emit these references as follows
     var v1 = gunk; // gunk
->v1 : () => 无值
->gunk : () => 无值
+>v1 : () => void
+>gunk : () => void
 
     var v2 = buz; // buz
->v2 : () => 无值
->buz : () => 无值
+>v2 : () => void
+>buz : () => void
 
     export var v3 = doom; // _plop.doom
->v3 : () => 无值
->doom : () => 无值
+>v3 : () => void
+>doom : () => void
 
     export var v4 = M; // _plop.M
->v4 : () => 无值
->M : () => 无值
+>v4 : () => void
+>M : () => void
 
     export var v5 = fudge; // fudge
->v5 : 类为 fudge
->fudge : 类为 fudge
+>v5 : typeof fudge
+>fudge : typeof fudge
 
     export var v6 = plop; // plop
->v6 : 类为 plop
->plop : 类为 plop
+>v6 : typeof plop
+>plop : typeof plop
 }

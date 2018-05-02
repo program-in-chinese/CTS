@@ -3,111 +3,99 @@
 // Inferences are made quadratic-pairwise to and from these overload sets
 
 module NonGenericParameter {
->NonGenericParameter : 类为 NonGenericParameter
+>NonGenericParameter : typeof NonGenericParameter
 
     var a: {
->a : { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }
+>a : { new (x: boolean): boolean; new (x: string): string; }
 
         new(x: boolean): boolean;
->x : 真假
->类型别名 :=> 真假
+>x : boolean
 
         new(x: string): string;
->x : 文字
->类型别名 :=> 文字
+>x : string
     }
 
     function foo4(cb: typeof a) {
->foo4 : (cb: { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }) => 真假
->cb : { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }
->a : { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }
+>foo4 : (cb: { new (x: boolean): boolean; new (x: string): string; }) => boolean
+>cb : { new (x: boolean): boolean; new (x: string): string; }
+>a : { new (x: boolean): boolean; new (x: string): string; }
 
         return new cb(null);
->new cb(null) : 真假
->类型别名 :=> 真假
->cb : { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }
->null : 空值
->类型别名 :=> 空值
+>new cb(null) : boolean
+>cb : { new (x: boolean): boolean; new (x: string): string; }
+>null : null
     }
 
     var r = foo4(a);
->r : 真假
->类型别名 :=> 真假
->foo4(a) : 真假
->类型别名 :=> 真假
->foo4 : (cb: { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }) => 真假
->a : { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }
+>r : boolean
+>foo4(a) : boolean
+>foo4 : (cb: { new (x: boolean): boolean; new (x: string): string; }) => boolean
+>a : { new (x: boolean): boolean; new (x: string): string; }
 
     var b: { new <T>(x: T): T };
->b : 新建 <T>(x: T) => T
+>b : new <T>(x: T) => T
 >T : T
 >x : T
 >T : T
 >T : T
 
     var r2 = foo4(b);
->r2 : 真假
->类型别名 :=> 真假
->foo4(b) : 真假
->类型别名 :=> 真假
->foo4 : (cb: { 新建 (x: 真假): 真假; 新建 (x: 文字): 文字; }) => 真假
->b : 新建 <T>(x: T) => T
+>r2 : boolean
+>foo4(b) : boolean
+>foo4 : (cb: { new (x: boolean): boolean; new (x: string): string; }) => boolean
+>b : new <T>(x: T) => T
 }
 
 module GenericParameter {
->GenericParameter : 类为 GenericParameter
+>GenericParameter : typeof GenericParameter
 
     function foo5<T>(cb: { new(x: T): string; new(x: number): T }) {
->foo5 : <T>(cb: { 新建 (x: T): 文字; 新建 (x: 数字): T; }) => { 新建 (x: T): 文字; 新建 (x: 数字): T; }
+>foo5 : <T>(cb: { new (x: T): string; new (x: number): T; }) => { new (x: T): string; new (x: number): T; }
 >T : T
->cb : { 新建 (x: T): 文字; 新建 (x: 数字): T; }
+>cb : { new (x: T): string; new (x: number): T; }
 >x : T
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
 
         return cb;
->cb : { 新建 (x: T): 文字; 新建 (x: 数字): T; }
+>cb : { new (x: T): string; new (x: number): T; }
     }
 
     var a: {
->a : { 新建 (x: 真假): 文字; 新建 (x: 数字): 真假; }
+>a : { new (x: boolean): string; new (x: number): boolean; }
 
         new (x: boolean): string;
->x : 真假
->类型别名 :=> 真假
+>x : boolean
 
         new (x: number): boolean;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
     var r5 = foo5(a); // new{} => string; new(x:number) => {}
->r5 : { 新建 (x: 真假): 文字; 新建 (x: 数字): 真假; }
->foo5(a) : { 新建 (x: 真假): 文字; 新建 (x: 数字): 真假; }
->foo5 : <T>(cb: { 新建 (x: T): 文字; 新建 (x: 数字): T; }) => { 新建 (x: T): 文字; 新建 (x: 数字): T; }
->a : { 新建 (x: 真假): 文字; 新建 (x: 数字): 真假; }
+>r5 : { new (x: boolean): string; new (x: number): boolean; }
+>foo5(a) : { new (x: boolean): string; new (x: number): boolean; }
+>foo5 : <T>(cb: { new (x: T): string; new (x: number): T; }) => { new (x: T): string; new (x: number): T; }
+>a : { new (x: boolean): string; new (x: number): boolean; }
 
     var b: { new<T>(x: T): string; new<T>(x: number): T; }
->b : { 新建 <T>(x: T): 文字; 新建 <T>(x: 数字): T; }
+>b : { new <T>(x: T): string; new <T>(x: number): T; }
 >T : T
 >x : T
 >T : T
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
 
     var r7 = foo5(b); // new any => string; new(x:number) => any
->r7 : { 新建 (x: 任意): 文字; 新建 (x: 数字): 任意; }
->foo5(b) : { 新建 (x: 任意): 文字; 新建 (x: 数字): 任意; }
->foo5 : <T>(cb: { 新建 (x: T): 文字; 新建 (x: 数字): T; }) => { 新建 (x: T): 文字; 新建 (x: 数字): T; }
->b : { 新建 <T>(x: T): 文字; 新建 <T>(x: 数字): T; }
+>r7 : { new (x: {}): string; new (x: number): {}; }
+>foo5(b) : { new (x: {}): string; new (x: number): {}; }
+>foo5 : <T>(cb: { new (x: T): string; new (x: number): T; }) => { new (x: T): string; new (x: number): T; }
+>b : { new <T>(x: T): string; new <T>(x: number): T; }
 
     function foo6<T>(cb: { new(x: T): string; new(x: T, y?: T): string }) {
->foo6 : <T>(cb: { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }) => { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>foo6 : <T>(cb: { new (x: T): string; new (x: T, y?: T): string; }) => { new (x: T): string; new (x: T, y?: T): string; }
 >T : T
->cb : { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>cb : { new (x: T): string; new (x: T, y?: T): string; }
 >x : T
 >T : T
 >x : T
@@ -116,27 +104,27 @@ module GenericParameter {
 >T : T
 
         return cb;
->cb : { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>cb : { new (x: T): string; new (x: T, y?: T): string; }
     }
 
     var r8 = foo6(a); // error
->r8 : { 新建 (x: 真假): 文字; 新建 (x: 真假, y?: 真假): 文字; }
->foo6(a) : { 新建 (x: 真假): 文字; 新建 (x: 真假, y?: 真假): 文字; }
->foo6 : <T>(cb: { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }) => { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
->a : { 新建 (x: 真假): 文字; 新建 (x: 数字): 真假; }
+>r8 : { new (x: boolean): string; new (x: boolean, y?: boolean): string; }
+>foo6(a) : { new (x: boolean): string; new (x: boolean, y?: boolean): string; }
+>foo6 : <T>(cb: { new (x: T): string; new (x: T, y?: T): string; }) => { new (x: T): string; new (x: T, y?: T): string; }
+>a : { new (x: boolean): string; new (x: number): boolean; }
 
     var r9 = foo6(b); // new any => string; new(x:any, y?:any) => string
->r9 : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo6(b) : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo6 : <T>(cb: { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }) => { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
->b : { 新建 <T>(x: T): 文字; 新建 <T>(x: 数字): T; }
+>r9 : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo6(b) : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo6 : <T>(cb: { new (x: T): string; new (x: T, y?: T): string; }) => { new (x: T): string; new (x: T, y?: T): string; }
+>b : { new <T>(x: T): string; new <T>(x: number): T; }
 
     function foo7<T>(x:T, cb: { new(x: T): string; new(x: T, y?: T): string }) {
->foo7 : <T>(x: T, cb: { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }) => { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>foo7 : <T>(x: T, cb: { new (x: T): string; new (x: T, y?: T): string; }) => { new (x: T): string; new (x: T, y?: T): string; }
 >T : T
 >x : T
 >T : T
->cb : { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>cb : { new (x: T): string; new (x: T, y?: T): string; }
 >x : T
 >T : T
 >x : T
@@ -145,47 +133,45 @@ module GenericParameter {
 >T : T
 
         return cb;
->cb : { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>cb : { new (x: T): string; new (x: T, y?: T): string; }
     }
 
     var r13 = foo7(1, b); // new any => string; new(x:any, y?:any) => string
->r13 : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo7(1, b) : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo7 : <T>(x: T, cb: { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }) => { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>r13 : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo7(1, b) : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo7 : <T>(x: T, cb: { new (x: T): string; new (x: T, y?: T): string; }) => { new (x: T): string; new (x: T, y?: T): string; }
 >1 : 1
->b : { 新建 <T>(x: T): 文字; 新建 <T>(x: 数字): T; }
+>b : { new <T>(x: T): string; new <T>(x: number): T; }
 
     var c: { new <T>(x: T): string; <T>(x: number): T; }
->c : { <T>(x: 数字): T; 新建 <T>(x: T): 文字; }
+>c : { <T>(x: number): T; new <T>(x: T): string; }
 >T : T
 >x : T
 >T : T
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
 
     var c2: { new <T>(x: T): string; new<T>(x: number): T; }
->c2 : { 新建 <T>(x: T): 文字; 新建 <T>(x: 数字): T; }
+>c2 : { new <T>(x: T): string; new <T>(x: number): T; }
 >T : T
 >x : T
 >T : T
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
 
     var r14 = foo7(1, c); // new any => string; new(x:any, y?:any) => string
->r14 : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo7(1, c) : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo7 : <T>(x: T, cb: { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }) => { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>r14 : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo7(1, c) : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo7 : <T>(x: T, cb: { new (x: T): string; new (x: T, y?: T): string; }) => { new (x: T): string; new (x: T, y?: T): string; }
 >1 : 1
->c : { <T>(x: 数字): T; 新建 <T>(x: T): 文字; }
+>c : { <T>(x: number): T; new <T>(x: T): string; }
 
     var r15 = foo7(1, c2); // new any => string; new(x:any, y?:any) => string
->r15 : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo7(1, c2) : { 新建 (x: 任意): 文字; 新建 (x: 任意, y?: 任意): 文字; }
->foo7 : <T>(x: T, cb: { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }) => { 新建 (x: T): 文字; 新建 (x: T, y?: T): 文字; }
+>r15 : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo7(1, c2) : { new (x: {}): string; new (x: {}, y?: {}): string; }
+>foo7 : <T>(x: T, cb: { new (x: T): string; new (x: T, y?: T): string; }) => { new (x: T): string; new (x: T, y?: T): string; }
 >1 : 1
->c2 : { 新建 <T>(x: T): 文字; 新建 <T>(x: 数字): T; }
+>c2 : { new <T>(x: T): string; new <T>(x: number): T; }
 }

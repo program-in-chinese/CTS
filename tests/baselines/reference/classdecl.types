@@ -4,91 +4,73 @@ class a {
 
     //constructor ();
     constructor (n: number);
->n : 数字
->类型别名 :=> 数字
+>n : number
 
     constructor (s: string);
->s : 文字
->类型别名 :=> 文字
+>s : string
 
     constructor (ns: any) {
->ns : 任意
->类型别名 :=> 任意
+>ns : any
 
     }
 
     public pgF() { }
->pgF : () => 无值
+>pgF : () => void
 
     public pv;
->pv : 任意
->类型别名 :=> 任意
+>pv : any
 
     public get d() {
->d : 数字
->类型别名 :=> 数字
+>d : number
 
         return 30;
 >30 : 30
     }
     public set d(a: number) {
->d : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
+>d : number
+>a : number
     }
 
     public static get p2() {
->p2 : { x: 数字; y: 数字; }
+>p2 : { x: number; y: number; }
 
         return { x: 30, y: 40 };
->{ x: 30, y: 40 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 30, y: 40 } : { x: number; y: number; }
+>x : number
 >30 : 30
->y : 数字
->类型别名 :=> 数字
+>y : number
 >40 : 40
     }
 
     private static d2() {
->d2 : () => 无值
+>d2 : () => void
     }
     private static get p3() {
->p3 : 文字
->类型别名 :=> 文字
+>p3 : string
 
         return "string";
 >"string" : "string"
     }
     private pv3;
->pv3 : 任意
->类型别名 :=> 任意
+>pv3 : any
 
     private foo(n: number): string;
->foo : { (n: 数字): 文字; (s: 文字): 文字; }
->n : 数字
->类型别名 :=> 数字
+>foo : { (n: number): string; (s: string): string; }
+>n : number
 
     private foo(s: string): string;
->foo : { (n: 数字): 文字; (s: 文字): 文字; }
->s : 文字
->类型别名 :=> 文字
+>foo : { (n: number): string; (s: string): string; }
+>s : string
 
     private foo(ns: any) {
->foo : { (n: 数字): 文字; (s: 文字): 文字; }
->ns : 任意
->类型别名 :=> 任意
+>foo : { (n: number): string; (s: string): string; }
+>ns : any
 
         return ns.toString();
->ns.toString() : 任意
->类型别名 :=> 任意
->ns.toString : 任意
->类型别名 :=> 任意
->ns : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>ns.toString() : any
+>ns.toString : any
+>ns : any
+>toString : any
     }
 }
 
@@ -98,7 +80,7 @@ class b extends a {
 }
 
 module m1 {
->m1 : 类为 m1
+>m1 : typeof m1
 
     export class b {
 >b : b
@@ -114,10 +96,10 @@ module m1 {
 }
 
 module m2 {
->m2 : 类为 m2
+>m2 : typeof m2
 
     export module m3 {
->m3 : 类为 m3
+>m3 : typeof m3
 
         export class c extends b {
 >c : c
@@ -125,9 +107,8 @@ module m2 {
         }
         export class ib2 implements m1.ib {
 >ib2 : ib2
->m1.ib : 任意
->类型别名 :=> 任意
->m1 : 类为 m1
+>m1.ib : any
+>m1 : typeof m1
 >ib : m1.ib
         }
     }
@@ -136,15 +117,14 @@ module m2 {
 class c extends m1.b {
 >c : c
 >m1.b : m1.b
->m1 : 类为 m1
->b : 类为 m1.b
+>m1 : typeof m1
+>b : typeof m1.b
 }
 
 class ib2 implements m1.ib {
 >ib2 : ib2
->m1.ib : 任意
->类型别名 :=> 任意
->m1 : 类为 m1
+>m1.ib : any
+>m1 : typeof m1
 >ib : m1.ib
 }
 
@@ -152,75 +132,59 @@ declare class aAmbient {
 >aAmbient : aAmbient
 
     constructor (n: number);
->n : 数字
->类型别名 :=> 数字
+>n : number
 
     constructor (s: string);
->s : 文字
->类型别名 :=> 文字
+>s : string
 
     public pgF(): void;
->pgF : () => 无值
+>pgF : () => void
 
     public pv;
->pv : 任意
->类型别名 :=> 任意
+>pv : any
 
     public d : number;
->d : 数字
->类型别名 :=> 数字
+>d : number
 
     static p2 : { x: number; y: number; };
->p2 : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>p2 : { x: number; y: number; }
+>x : number
+>y : number
 
     static d2();
->d2 : () => 任意
+>d2 : () => any
 
     static p3;
->p3 : 任意
->类型别名 :=> 任意
+>p3 : any
 
     private pv3;
->pv3 : 任意
->类型别名 :=> 任意
+>pv3 : any
 
     private foo(s);
->foo : (s: 任意) => 任意
->s : 任意
->类型别名 :=> 任意
+>foo : (s: any) => any
+>s : any
 }
 
 class d {
 >d : d
 
     private foo(n: number): string;
->foo : { (n: 数字): 文字; (s: 文字): 文字; }
->n : 数字
->类型别名 :=> 数字
+>foo : { (n: number): string; (s: string): string; }
+>n : number
 
     private foo(s: string): string;
->foo : { (n: 数字): 文字; (s: 文字): 文字; }
->s : 文字
->类型别名 :=> 文字
+>foo : { (n: number): string; (s: string): string; }
+>s : string
 
     private foo(ns: any) {
->foo : { (n: 数字): 文字; (s: 文字): 文字; }
->ns : 任意
->类型别名 :=> 任意
+>foo : { (n: number): string; (s: string): string; }
+>ns : any
 
         return ns.toString();
->ns.toString() : 任意
->类型别名 :=> 任意
->ns.toString : 任意
->类型别名 :=> 任意
->ns : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>ns.toString() : any
+>ns.toString : any
+>ns : any
+>toString : any
     }    
 }
 
@@ -228,28 +192,21 @@ class e {
 >e : e
 
     private foo(s: string): string;
->foo : { (s: 文字): 文字; (n: 数字): 文字; }
->s : 文字
->类型别名 :=> 文字
+>foo : { (s: string): string; (n: number): string; }
+>s : string
 
     private foo(n: number): string;
->foo : { (s: 文字): 文字; (n: 数字): 文字; }
->n : 数字
->类型别名 :=> 数字
+>foo : { (s: string): string; (n: number): string; }
+>n : number
 
     private foo(ns: any) {
->foo : { (s: 文字): 文字; (n: 数字): 文字; }
->ns : 任意
->类型别名 :=> 任意
+>foo : { (s: string): string; (n: number): string; }
+>ns : any
 
         return ns.toString();
->ns.toString() : 任意
->类型别名 :=> 任意
->ns.toString : 任意
->类型别名 :=> 任意
->ns : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>ns.toString() : any
+>ns.toString : any
+>ns : any
+>toString : any
     }
 }

@@ -1,6 +1,6 @@
 === tests/cases/compiler/underscoreMapFirst.ts ===
 declare module _ {
->_ : 类为 _
+>_ : typeof _
 
     interface Collection<T> { }
 >Collection : Collection<T>
@@ -13,13 +13,11 @@ declare module _ {
 >T : T
 
         [index: number]: T;
->index : 数字
->类型别名 :=> 数字
+>index : number
 >T : T
 
         length: number;
->length : 数字
->类型别名 :=> 数字
+>length : number
     }
 
     interface ListIterator<T, TResult> {
@@ -30,8 +28,7 @@ declare module _ {
         (value: T, index: number, list: T[]): TResult;
 >value : T
 >T : T
->index : 数字
->类型别名 :=> 数字
+>index : number
 >list : T[]
 >T : T
 >TResult : TResult
@@ -44,12 +41,11 @@ declare module _ {
 >T : T
 
         [index: string]: T;
->index : 文字
->类型别名 :=> 文字
+>index : string
 >T : T
     }
     export function pluck<T extends {}>(
->pluck : <T 扩展 {}>(list: Collection<T>, propertyName: 文字) => 任意[]
+>pluck : <T extends {}>(list: Collection<T>, propertyName: string) => any[]
 >T : T
 
         list: Collection<T>,
@@ -58,11 +54,10 @@ declare module _ {
 >T : T
 
         propertyName: string): any[];
->propertyName : 文字
->类型别名 :=> 文字
+>propertyName : string
 
     export function map<T, TResult>(
->map : <T, TResult>(list: List<T>, iterator: ListIterator<T, TResult>, context?: 任意) => TResult[]
+>map : <T, TResult>(list: List<T>, iterator: ListIterator<T, TResult>, context?: any) => TResult[]
 >T : T
 >TResult : TResult
 
@@ -78,8 +73,7 @@ declare module _ {
 >TResult : TResult
 
         context?: any): TResult[];
->context : 任意
->类型别名 :=> 任意
+>context : any
 >TResult : TResult
 
     export function first<T>(array: List<T>): T;
@@ -95,8 +89,7 @@ declare class View {
 >View : View
 
     model: any;
->model : 任意
->类型别名 :=> 任意
+>model : any
 }
 
 interface IData {
@@ -111,11 +104,10 @@ interface ISeries {
 >ISeries : ISeries
 
     items: any[];
->items : 任意[]
+>items : any[]
 
     key: string;
->key : 文字
->类型别名 :=> 文字
+>key : string
 }
 
 class MyView extends View {
@@ -129,37 +121,32 @@ class MyView extends View {
         var data: IData[] = this.model.get("data");
 >data : IData[]
 >IData : IData
->this.model.get("data") : 任意
->类型别名 :=> 任意
->this.model.get : 任意
->类型别名 :=> 任意
->this.model : 任意
->类型别名 :=> 任意
->this : 本体
->model : 任意
->类型别名 :=> 任意
->get : 任意
->类型别名 :=> 任意
+>this.model.get("data") : any
+>this.model.get : any
+>this.model : any
+>this : this
+>model : any
+>get : any
 >"data" : "data"
 
         var allSeries: ISeries[][] = _.pluck(data, "series");
 >allSeries : ISeries[][]
 >ISeries : ISeries
->_.pluck(data, "series") : 任意[]
->_.pluck : <T 扩展 {}>(list: _.Collection<T>, propertyName: 文字) => 任意[]
->_ : 类为 _
->pluck : <T 扩展 {}>(list: _.Collection<T>, propertyName: 文字) => 任意[]
+>_.pluck(data, "series") : any[]
+>_.pluck : <T extends {}>(list: _.Collection<T>, propertyName: string) => any[]
+>_ : typeof _
+>pluck : <T extends {}>(list: _.Collection<T>, propertyName: string) => any[]
 >data : IData[]
 >"series" : "series"
 
         return _.map(allSeries, _.first);
 >_.map(allSeries, _.first) : ISeries[]
->_.map : <T, TResult>(list: _.List<T>, iterator: _.ListIterator<T, TResult>, context?: 任意) => TResult[]
->_ : 类为 _
->map : <T, TResult>(list: _.List<T>, iterator: _.ListIterator<T, TResult>, context?: 任意) => TResult[]
+>_.map : <T, TResult>(list: _.List<T>, iterator: _.ListIterator<T, TResult>, context?: any) => TResult[]
+>_ : typeof _
+>map : <T, TResult>(list: _.List<T>, iterator: _.ListIterator<T, TResult>, context?: any) => TResult[]
 >allSeries : ISeries[][]
 >_.first : <T>(array: _.List<T>) => T
->_ : 类为 _
+>_ : typeof _
 >first : <T>(array: _.List<T>) => T
     }
 }

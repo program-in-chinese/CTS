@@ -12,65 +12,62 @@ function foo<T>(x: T) {
 }
 
 var a: { [x: string]: Date };
->a : { [x: 文字]: Date; }
->x : 文字
->类型别名 :=> 文字
+>a : { [x: string]: Date; }
+>x : string
 >Date : Date
 
 var r = foo(a);
->r : { [x: 文字]: Date; }
->foo(a) : { [x: 文字]: Date; }
+>r : { [x: string]: Date; }
+>foo(a) : { [x: string]: Date; }
 >foo : <T>(x: T) => T
->a : { [x: 文字]: Date; }
+>a : { [x: string]: Date; }
 
 function other<T>(arg: T) {
->other : <T>(arg: T) => 无值
+>other : <T>(arg: T) => void
 >T : T
 >arg : T
 >T : T
 
     var b: { [x: string]: T };
->b : { [x: 文字]: T; }
->x : 文字
->类型别名 :=> 文字
+>b : { [x: string]: T; }
+>x : string
 >T : T
 
     var r2 = foo(b); // T
->r2 : { [x: 文字]: T; }
->foo(b) : { [x: 文字]: T; }
+>r2 : { [x: string]: T; }
+>foo(b) : { [x: string]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 文字]: T; }
+>b : { [x: string]: T; }
 }
 
 function other2<T extends Date>(arg: T) {
->other2 : <T 扩展 Date>(arg: T) => 无值
+>other2 : <T extends Date>(arg: T) => void
 >T : T
 >Date : Date
 >arg : T
 >T : T
 
     var b: { [x: string]: T };
->b : { [x: 文字]: T; }
->x : 文字
->类型别名 :=> 文字
+>b : { [x: string]: T; }
+>x : string
 >T : T
 
     var r2 = foo(b);
->r2 : { [x: 文字]: T; }
->foo(b) : { [x: 文字]: T; }
+>r2 : { [x: string]: T; }
+>foo(b) : { [x: string]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 文字]: T; }
+>b : { [x: string]: T; }
 
     var d: Date = r2['hm']; // ok
 >d : Date
 >Date : Date
 >r2['hm'] : T
->r2 : { [x: 文字]: T; }
+>r2 : { [x: string]: T; }
 >'hm' : "hm"
 }
 
 function other3<T extends Date, U extends Date>(arg: T) {
->other3 : <T 扩展 Date, U 扩展 Date>(arg: T) => 无值
+>other3 : <T extends Date, U extends Date>(arg: T) => void
 >T : T
 >Date : Date
 >U : U
@@ -79,22 +76,21 @@ function other3<T extends Date, U extends Date>(arg: T) {
 >T : T
 
     var b: { [x: string]: T };
->b : { [x: 文字]: T; }
->x : 文字
->类型别名 :=> 文字
+>b : { [x: string]: T; }
+>x : string
 >T : T
 
     var r2 = foo(b);
->r2 : { [x: 文字]: T; }
->foo(b) : { [x: 文字]: T; }
+>r2 : { [x: string]: T; }
+>foo(b) : { [x: string]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 文字]: T; }
+>b : { [x: string]: T; }
 
     var d: Date = r2['hm']; // ok
 >d : Date
 >Date : Date
 >r2['hm'] : T
->r2 : { [x: 文字]: T; }
+>r2 : { [x: string]: T; }
 >'hm' : "hm"
 
     // BUG 821629

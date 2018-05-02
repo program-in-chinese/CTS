@@ -1,47 +1,37 @@
 === tests/cases/conformance/externalModules/foo_1.ts ===
 import foo = require("./foo_0");
->foo : 类为 foo
+>foo : typeof foo
 
 var x = new foo(true); // Should error
->x : 任意
->类型别名 :=> 任意
->new foo(true) : 任意
->类型别名 :=> 任意
->foo : 类为 foo
->true : 为真
->类型别名 :=> 为真
+>x : any
+>new foo(true) : any
+>foo : typeof foo
+>true : true
 
 var y = new foo({a: "test", b: 42}); // Should be OK
->y : foo<{ a: 文字; b: 数字; }>
->new foo({a: "test", b: 42}) : foo<{ a: 文字; b: 数字; }>
->foo : 类为 foo
->{a: "test", b: 42} : { a: 文字; b: 数字; }
->a : 文字
->类型别名 :=> 文字
+>y : foo<{ a: string; b: number; }>
+>new foo({a: "test", b: 42}) : foo<{ a: string; b: number; }>
+>foo : typeof foo
+>{a: "test", b: 42} : { a: string; b: number; }
+>a : string
 >"test" : "test"
->b : 数字
->类型别名 :=> 数字
+>b : number
 >42 : 42
 
 var z: number = y.test.b;
->z : 数字
->类型别名 :=> 数字
->y.test.b : 数字
->类型别名 :=> 数字
->y.test : { a: 文字; b: 数字; }
->y : foo<{ a: 文字; b: 数字; }>
->test : { a: 文字; b: 数字; }
->b : 数字
->类型别名 :=> 数字
+>z : number
+>y.test.b : number
+>y.test : { a: string; b: number; }
+>y : foo<{ a: string; b: number; }>
+>test : { a: string; b: number; }
+>b : number
 
 === tests/cases/conformance/externalModules/foo_0.ts ===
 class Foo<T extends {a: string; b:number;}>{
 >Foo : Foo<T>
 >T : T
->a : 文字
->类型别名 :=> 文字
->b : 数字
->类型别名 :=> 数字
+>a : string
+>b : number
 
 	test: T;
 >test : T

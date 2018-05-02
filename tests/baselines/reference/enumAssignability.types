@@ -12,13 +12,13 @@ enum F { B }
 var e = E.A;
 >e : E
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
 
 var f = F.B;
 >f : F
 >F.B : F
->F : 类为 F
+>F : typeof F
 >B : F
 
 e = f; 
@@ -42,30 +42,26 @@ f = 1; // ok
 >1 : 1
 
 var x: number = e; // ok
->x : 数字
->类型别名 :=> 数字
+>x : number
 >e : E
 
 x = f; // ok
 >x = f : F
->x : 数字
->类型别名 :=> 数字
+>x : number
 >f : F
 
 module Others {
->Others : 类为 Others
+>Others : typeof Others
 
     var a: any = e; // ok
->a : 任意
->类型别名 :=> 任意
+>a : any
 >e : E
 
     class C {
 >C : C
 
         foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
     }
     var ac: C;
 >ac : C
@@ -75,26 +71,22 @@ module Others {
 >I : I
 
         foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
     }
     var ai: I;
 >ai : I
 >I : I
 
     var b: number = e; // ok
->b : 数字
->类型别名 :=> 数字
+>b : number
 >e : E
 
     var c: string = e;
->c : 文字
->类型别名 :=> 文字
+>c : string
 >e : E
 
     var d: boolean = e;
->d : 真假
->类型别名 :=> 真假
+>d : boolean
 >e : E
 
     var ee: Date = e;
@@ -103,13 +95,11 @@ module Others {
 >e : E
 
     var f: any = e; // ok
->f : 任意
->类型别名 :=> 任意
+>f : any
 >e : E
 
     var g: void = e;
->g : 无值
->类型别名 :=> 无值
+>g : void
 >e : E
 
     var h: Object = e;
@@ -131,9 +121,8 @@ module Others {
 >e : E
 
     var l: (x: number) => string = e;
->l : (x: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
+>l : (x: number) => string
+>x : number
 >e : E
 
     ac = e;
@@ -147,13 +136,12 @@ module Others {
 >e : E
 
     var m: number[] = e;
->m : 数字[]
+>m : number[]
 >e : E
 
     var n: { foo: string } = e;
->n : { foo: 文字; }
->foo : 文字
->类型别名 :=> 文字
+>n : { foo: string; }
+>foo : string
 >e : E
 
     var o: <T>(x: T) => T = e;
@@ -175,7 +163,7 @@ module Others {
 >e : E
 
     function foo<T, U extends T, V extends Date, A extends Number, B extends E>(x: T, y: U, z: V) {
->foo : <T, U 扩展 T, V 扩展 Date, A 扩展 Number, B 扩展 E>(x: T, y: U, z: V) => 无值
+>foo : <T, U extends T, V extends Date, A extends Number, B extends E>(x: T, y: U, z: V) => void
 >T : T
 >U : U
 >T : T

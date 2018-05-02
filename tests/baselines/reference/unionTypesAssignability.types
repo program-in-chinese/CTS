@@ -1,6 +1,6 @@
 === tests/cases/conformance/types/typeRelationships/assignmentCompatibility/unionTypesAssignability.ts ===
 var unionNumberString: number | string;
->unionNumberString : 文字 | 数字
+>unionNumberString : string | number
 
 class C { }
 >C : C
@@ -8,12 +8,12 @@ class C { }
 class D extends C { foo1() { } }
 >D : D
 >C : C
->foo1 : () => 无值
+>foo1 : () => void
 
 class E extends C { foo2() { } }
 >E : E
 >C : C
->foo2 : () => 无值
+>foo2 : () => void
 
 var unionDE: D | E;
 >unionDE : D | E
@@ -21,12 +21,10 @@ var unionDE: D | E;
 >E : E
 
 var num: number;
->num : 数字
->类型别名 :=> 数字
+>num : number
 
 var str: string;
->str : 文字
->类型别名 :=> 文字
+>str : string
 
 var c: C;
 >c : C
@@ -87,48 +85,34 @@ e = unionDE; // error d is not assignable to e
 >unionDE : D | E
 
 num = num;
->num = num : 数字
->类型别名 :=> 数字
->num : 数字
->类型别名 :=> 数字
->num : 数字
->类型别名 :=> 数字
+>num = num : number
+>num : number
+>num : number
 
 num = str;
->num = str : 文字
->类型别名 :=> 文字
->num : 数字
->类型别名 :=> 数字
->str : 文字
->类型别名 :=> 文字
+>num = str : string
+>num : number
+>str : string
 
 num = unionNumberString; // error string is not assignable to number
->num = unionNumberString : 文字 | 数字
->num : 数字
->类型别名 :=> 数字
->unionNumberString : 文字 | 数字
+>num = unionNumberString : string | number
+>num : number
+>unionNumberString : string | number
 
 str = num;
->str = num : 数字
->类型别名 :=> 数字
->str : 文字
->类型别名 :=> 文字
->num : 数字
->类型别名 :=> 数字
+>str = num : number
+>str : string
+>num : number
 
 str = str;
->str = str : 文字
->类型别名 :=> 文字
->str : 文字
->类型别名 :=> 文字
->str : 文字
->类型别名 :=> 文字
+>str = str : string
+>str : string
+>str : string
 
 str = unionNumberString; // error since number is not assignable to string
->str = unionNumberString : 文字 | 数字
->str : 文字
->类型别名 :=> 文字
->unionNumberString : 文字 | 数字
+>str = unionNumberString : string | number
+>str : string
+>unionNumberString : string | number
 
 // A type T is assignable to a union type U if T is assignable to any type in U
 d = c;
@@ -177,117 +161,84 @@ unionDE = e; // ok
 >e : E
 
 num = num;
->num = num : 数字
->类型别名 :=> 数字
->num : 数字
->类型别名 :=> 数字
->num : 数字
->类型别名 :=> 数字
+>num = num : number
+>num : number
+>num : number
 
 str = num;
->str = num : 数字
->类型别名 :=> 数字
->str : 文字
->类型别名 :=> 文字
->num : 数字
->类型别名 :=> 数字
+>str = num : number
+>str : string
+>num : number
 
 unionNumberString = num; // ok 
->unionNumberString = num : 数字
->类型别名 :=> 数字
->unionNumberString : 文字 | 数字
->num : 数字
->类型别名 :=> 数字
+>unionNumberString = num : number
+>unionNumberString : string | number
+>num : number
 
 num = str;
->num = str : 文字
->类型别名 :=> 文字
->num : 数字
->类型别名 :=> 数字
->str : 文字
->类型别名 :=> 文字
+>num = str : string
+>num : number
+>str : string
 
 str = str;
->str = str : 文字
->类型别名 :=> 文字
->str : 文字
->类型别名 :=> 文字
->str : 文字
->类型别名 :=> 文字
+>str = str : string
+>str : string
+>str : string
 
 unionNumberString = str; // ok
->unionNumberString = str : 文字
->类型别名 :=> 文字
->unionNumberString : 文字 | 数字
->str : 文字
->类型别名 :=> 文字
+>unionNumberString = str : string
+>unionNumberString : string | number
+>str : string
 
 // Any
 var anyVar: any;
->anyVar : 任意
->类型别名 :=> 任意
+>anyVar : any
 
 anyVar = unionDE;
 >anyVar = unionDE : E
->anyVar : 任意
->类型别名 :=> 任意
+>anyVar : any
 >unionDE : E
 
 anyVar = unionNumberString;
->anyVar = unionNumberString : 文字
->类型别名 :=> 文字
->anyVar : 任意
->类型别名 :=> 任意
->unionNumberString : 文字
->类型别名 :=> 文字
+>anyVar = unionNumberString : string
+>anyVar : any
+>unionNumberString : string
 
 unionDE = anyVar;
->unionDE = anyVar : 任意
->类型别名 :=> 任意
+>unionDE = anyVar : any
 >unionDE : D | E
->anyVar : 任意
->类型别名 :=> 任意
+>anyVar : any
 
 unionNumberString = anyVar;
->unionNumberString = anyVar : 任意
->类型别名 :=> 任意
->unionNumberString : 文字 | 数字
->anyVar : 任意
->类型别名 :=> 任意
+>unionNumberString = anyVar : any
+>unionNumberString : string | number
+>anyVar : any
 
 // null
 unionDE = null;
->unionDE = null : 空值
->类型别名 :=> 空值
+>unionDE = null : null
 >unionDE : D | E
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 unionNumberString = null;
->unionNumberString = null : 空值
->类型别名 :=> 空值
->unionNumberString : 文字 | 数字
->null : 空值
->类型别名 :=> 空值
+>unionNumberString = null : null
+>unionNumberString : string | number
+>null : null
 
 // undefined
 unionDE = undefined;
->unionDE = undefined : 未定
->类型别名 :=> 未定
+>unionDE = undefined : undefined
 >unionDE : D | E
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 unionNumberString = undefined;
->unionNumberString = undefined : 未定
->类型别名 :=> 未定
->unionNumberString : 文字 | 数字
->undefined : 未定
->类型别名 :=> 未定
+>unionNumberString = undefined : undefined
+>unionNumberString : string | number
+>undefined : undefined
 
 // type parameters
 function foo<T, U>(t: T, u: U) {
->foo : <T, U>(t: T, u: U) => 无值
+>foo : <T, U>(t: T, u: U) => void
 >T : T
 >U : U
 >t : T
@@ -321,11 +272,9 @@ function foo<T, U>(t: T, u: U) {
 >u : U
 
     x = undefined;
->x = undefined : 未定
->类型别名 :=> 未定
+>x = undefined : undefined
 >x : T | U
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
     t = x; // error U not assignable to T
 >t = x : T | U

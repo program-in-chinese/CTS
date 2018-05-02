@@ -1,32 +1,27 @@
 === tests/cases/conformance/types/specifyingTypes/typeQueries/typeofANonExportedType.ts ===
 var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 
 export var r1: typeof x;
->r1 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>r1 : number
+>x : number
 
 var y = { foo: '' };
->y : { foo: 文字; }
->{ foo: '' } : { foo: 文字; }
->foo : 文字
->类型别名 :=> 文字
+>y : { foo: string; }
+>{ foo: '' } : { foo: string; }
+>foo : string
 >'' : ""
 
 export var r2: typeof y;
->r2 : { foo: 文字; }
->y : { foo: 文字; }
+>r2 : { foo: string; }
+>y : { foo: string; }
 
 class C {
 >C : C
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 export var c: C;
 >c : C
@@ -37,8 +32,8 @@ var c2: C;
 >C : C
 
 export var r3: typeof C;
->r3 : 类为 C
->C : 类为 C
+>r3 : typeof C
+>C : typeof C
 
 export var r4: typeof c;
 >r4 : C
@@ -52,8 +47,7 @@ interface I {
 >I : I
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 export var i: I;
 >i : I
@@ -72,50 +66,42 @@ export var r5: typeof i2;
 >i2 : I
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export var foo = '';
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 >'' : ""
 
     export class C {
 >C : C
 
         foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
     }
 }
 export var r6: typeof M;
->r6 : 类为 M
->M : 类为 M
+>r6 : typeof M
+>M : typeof M
 
 export var r7: typeof M.foo;
->r7 : 文字
->类型别名 :=> 文字
->M.foo : 文字
->类型别名 :=> 文字
->M : 类为 M
->foo : 文字
->类型别名 :=> 文字
+>r7 : string
+>M.foo : string
+>M : typeof M
+>foo : string
 
 import Z = M;
->Z : 类为 M
->M : 类为 M
+>Z : typeof M
+>M : typeof M
 
 export var r8: typeof Z;
->r8 : 类为 M
->Z : 类为 M
+>r8 : typeof M
+>Z : typeof M
 
 export var r9: typeof Z.foo;
->r9 : 文字
->类型别名 :=> 文字
->Z.foo : 文字
->类型别名 :=> 文字
->Z : 类为 M
->foo : 文字
->类型别名 :=> 文字
+>r9 : string
+>Z.foo : string
+>Z : typeof M
+>foo : string
 
 enum E {
 >E : E
@@ -124,41 +110,37 @@ enum E {
 >A : E
 }
 export var r10: typeof E;
->r10 : 类为 E
->E : 类为 E
+>r10 : typeof E
+>E : typeof E
 
 export var r11: typeof E.A;
 >r11 : E
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
 
 export var r12: typeof r12;
->r12 : 任意
->类型别名 :=> 任意
->r12 : 任意
->类型别名 :=> 任意
+>r12 : any
+>r12 : any
 
 function foo() { }
->foo : 类为 foo
+>foo : typeof foo
 
 module foo {
->foo : 类为 foo
+>foo : typeof foo
 
     export var y = 1;
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
 
     export class C {
 >C : C
 
         foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
     }
 }
 export var r13: typeof foo;
->r13 : 类为 foo
->foo : 类为 foo
+>r13 : typeof foo
+>foo : typeof foo
 

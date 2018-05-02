@@ -5,18 +5,15 @@
 
 class One { foo: string }
 >One : One
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 class Two { foo: string }
 >Two : Two
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 interface Three { foo: string }
 >Three : Three
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 interface Four<T> { foo: T }
 >Four : Four<T>
@@ -52,8 +49,7 @@ class B<T extends U, U extends Two> {
 >T : T
 >y : U
 >U : U
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 
 class C<T extends U, U extends Three> {
@@ -68,8 +64,7 @@ class C<T extends U, U extends Three> {
 >T : T
 >y : U
 >U : U
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 
 class D<T extends U, U extends Four<string>> {
@@ -84,8 +79,7 @@ class D<T extends U, U extends Four<string>> {
 >T : T
 >y : U
 >U : U
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 
 interface I<T extends U, U extends Five<string>> {
@@ -117,7 +111,7 @@ interface I2 {
 }
 
 var a: { new<T extends U, U extends One>(x: T, y: U): string }
->a : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
+>a : new <T extends U, U extends One>(x: T, y: U) => string
 >T : T
 >U : U
 >U : U
@@ -128,9 +122,9 @@ var a: { new<T extends U, U extends One>(x: T, y: U): string }
 >U : U
 
 var b = { new<T extends U, U extends Two>(x: T, y: U) { return ''; } }; // not a construct signature, function called new
->b : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
->{ new<T extends U, U extends Two>(x: T, y: U) { return ''; } } : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
->new : <T 扩展 U, U 扩展 Two>(x: T, y: U) => 文字
+>b : { new<T extends U, U extends Two>(x: T, y: U): string; }
+>{ new<T extends U, U extends Two>(x: T, y: U) { return ''; } } : { new<T extends U, U extends Two>(x: T, y: U): string; }
+>new : <T extends U, U extends Two>(x: T, y: U) => string
 >T : T
 >U : U
 >U : U
@@ -142,269 +136,254 @@ var b = { new<T extends U, U extends Two>(x: T, y: U) { return ''; } }; // not a
 >'' : ""
 
 function foo1b(x: B<Two, Two>);
->foo1b : { (x: B<Two, Two>): 任意; (x: B<Two, Two>): 任意; }
+>foo1b : { (x: B<Two, Two>): any; (x: B<Two, Two>): any; }
 >x : B<Two, Two>
 >B : B<T, U>
 >Two : Two
 >Two : Two
 
 function foo1b(x: B<Two, Two>); // error
->foo1b : { (x: B<Two, Two>): 任意; (x: B<Two, Two>): 任意; }
+>foo1b : { (x: B<Two, Two>): any; (x: B<Two, Two>): any; }
 >x : B<Two, Two>
 >B : B<T, U>
 >Two : Two
 >Two : Two
 
 function foo1b(x: any) { }
->foo1b : { (x: B<Two, Two>): 任意; (x: B<Two, Two>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo1b : { (x: B<Two, Two>): any; (x: B<Two, Two>): any; }
+>x : any
 
 function foo1c(x: C<Three, Three>);
->foo1c : { (x: C<Three, Three>): 任意; (x: C<Three, Three>): 任意; }
+>foo1c : { (x: C<Three, Three>): any; (x: C<Three, Three>): any; }
 >x : C<Three, Three>
 >C : C<T, U>
 >Three : Three
 >Three : Three
 
 function foo1c(x: C<Three, Three>); // error
->foo1c : { (x: C<Three, Three>): 任意; (x: C<Three, Three>): 任意; }
+>foo1c : { (x: C<Three, Three>): any; (x: C<Three, Three>): any; }
 >x : C<Three, Three>
 >C : C<T, U>
 >Three : Three
 >Three : Three
 
 function foo1c(x: any) { }
->foo1c : { (x: C<Three, Three>): 任意; (x: C<Three, Three>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo1c : { (x: C<Three, Three>): any; (x: C<Three, Three>): any; }
+>x : any
 
 function foo2(x: I<Five<string>, Five<string>>);
->foo2 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: I<Five<文字>, Five<文字>>): 任意; }
->x : I<Five<文字>, Five<文字>>
+>foo2 : { (x: I<Five<string>, Five<string>>): any; (x: I<Five<string>, Five<string>>): any; }
+>x : I<Five<string>, Five<string>>
 >I : I<T, U>
 >Five : Five<T>
 >Five : Five<T>
 
 function foo2(x: I<Five<string>, Five<string>>); // error
->foo2 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: I<Five<文字>, Five<文字>>): 任意; }
->x : I<Five<文字>, Five<文字>>
+>foo2 : { (x: I<Five<string>, Five<string>>): any; (x: I<Five<string>, Five<string>>): any; }
+>x : I<Five<string>, Five<string>>
 >I : I<T, U>
 >Five : Five<T>
 >Five : Five<T>
 
 function foo2(x: any) { }
->foo2 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: I<Five<文字>, Five<文字>>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo2 : { (x: I<Five<string>, Five<string>>): any; (x: I<Five<string>, Five<string>>): any; }
+>x : any
 
 function foo3(x: typeof a);
->foo3 : { (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
->a : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
+>foo3 : { (x: new <T extends U, U extends One>(x: T, y: U) => string): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : new <T extends U, U extends One>(x: T, y: U) => string
+>a : new <T extends U, U extends One>(x: T, y: U) => string
 
 function foo3(x: typeof a); // error
->foo3 : { (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
->a : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
+>foo3 : { (x: new <T extends U, U extends One>(x: T, y: U) => string): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : new <T extends U, U extends One>(x: T, y: U) => string
+>a : new <T extends U, U extends One>(x: T, y: U) => string
 
 function foo3(x: any) { }
->foo3 : { (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo3 : { (x: new <T extends U, U extends One>(x: T, y: U) => string): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : any
 
 function foo4(x: typeof b);
->foo4 : { (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
->b : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
+>foo4 : { (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : { new<T extends U, U extends Two>(x: T, y: U): string; }
+>b : { new<T extends U, U extends Two>(x: T, y: U): string; }
 
 function foo4(x: typeof b); // error
->foo4 : { (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
->b : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
+>foo4 : { (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : { new<T extends U, U extends Two>(x: T, y: U): string; }
+>b : { new<T extends U, U extends Two>(x: T, y: U): string; }
 
 function foo4(x: any) { }
->foo4 : { (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo4 : { (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : any
 
 function foo5c(x: C<Three, Three>);
->foo5c : { (x: C<Three, Three>): 任意; (x: D<Four<文字>, Four<文字>>): 任意; }
+>foo5c : { (x: C<Three, Three>): any; (x: D<Four<string>, Four<string>>): any; }
 >x : C<Three, Three>
 >C : C<T, U>
 >Three : Three
 >Three : Three
 
 function foo5c(x: D<Four<string>, Four<string>>); // error
->foo5c : { (x: C<Three, Three>): 任意; (x: D<Four<文字>, Four<文字>>): 任意; }
->x : D<Four<文字>, Four<文字>>
+>foo5c : { (x: C<Three, Three>): any; (x: D<Four<string>, Four<string>>): any; }
+>x : D<Four<string>, Four<string>>
 >D : D<T, U>
 >Four : Four<T>
 >Four : Four<T>
 
 function foo5c(x: any) { }
->foo5c : { (x: C<Three, Three>): 任意; (x: D<Four<文字>, Four<文字>>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo5c : { (x: C<Three, Three>): any; (x: D<Four<string>, Four<string>>): any; }
+>x : any
 
 function foo6c(x: C<Three, Three>);
->foo6c : { (x: C<Three, Three>): 任意; (x: D<Four<文字>, Four<文字>>): 任意; }
+>foo6c : { (x: C<Three, Three>): any; (x: D<Four<string>, Four<string>>): any; }
 >x : C<Three, Three>
 >C : C<T, U>
 >Three : Three
 >Three : Three
 
 function foo6c(x: D<Four<string>, Four<string>>); // error
->foo6c : { (x: C<Three, Three>): 任意; (x: D<Four<文字>, Four<文字>>): 任意; }
->x : D<Four<文字>, Four<文字>>
+>foo6c : { (x: C<Three, Three>): any; (x: D<Four<string>, Four<string>>): any; }
+>x : D<Four<string>, Four<string>>
 >D : D<T, U>
 >Four : Four<T>
 >Four : Four<T>
 
 function foo6c(x: any) { }
->foo6c : { (x: C<Three, Three>): 任意; (x: D<Four<文字>, Four<文字>>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo6c : { (x: C<Three, Three>): any; (x: D<Four<string>, Four<string>>): any; }
+>x : any
 
 function foo8(x: B<Two, Two>);
->foo8 : { (x: B<Two, Two>): 任意; (x: I<Five<文字>, Five<文字>>): 任意; }
+>foo8 : { (x: B<Two, Two>): any; (x: I<Five<string>, Five<string>>): any; }
 >x : B<Two, Two>
 >B : B<T, U>
 >Two : Two
 >Two : Two
 
 function foo8(x: I<Five<string>, Five<string>>); // error
->foo8 : { (x: B<Two, Two>): 任意; (x: I<Five<文字>, Five<文字>>): 任意; }
->x : I<Five<文字>, Five<文字>>
+>foo8 : { (x: B<Two, Two>): any; (x: I<Five<string>, Five<string>>): any; }
+>x : I<Five<string>, Five<string>>
 >I : I<T, U>
 >Five : Five<T>
 >Five : Five<T>
 
 function foo8(x: any) { }
->foo8 : { (x: B<Two, Two>): 任意; (x: I<Five<文字>, Five<文字>>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo8 : { (x: B<Two, Two>): any; (x: I<Five<string>, Five<string>>): any; }
+>x : any
 
 function foo9(x: B<Two, Two>);
->foo9 : { (x: B<Two, Two>): 任意; (x: C<Three, Three>): 任意; }
+>foo9 : { (x: B<Two, Two>): any; (x: C<Three, Three>): any; }
 >x : B<Two, Two>
 >B : B<T, U>
 >Two : Two
 >Two : Two
 
 function foo9(x: C<Three, Three>); // error
->foo9 : { (x: B<Two, Two>): 任意; (x: C<Three, Three>): 任意; }
+>foo9 : { (x: B<Two, Two>): any; (x: C<Three, Three>): any; }
 >x : C<Three, Three>
 >C : C<T, U>
 >Three : Three
 >Three : Three
 
 function foo9(x: any) { }
->foo9 : { (x: B<Two, Two>): 任意; (x: C<Three, Three>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo9 : { (x: B<Two, Two>): any; (x: C<Three, Three>): any; }
+>x : any
 
 function foo10(x: B<Two, Two>);
->foo10 : { (x: B<Two, Two>): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
+>foo10 : { (x: B<Two, Two>): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
 >x : B<Two, Two>
 >B : B<T, U>
 >Two : Two
 >Two : Two
 
 function foo10(x: typeof a); // ok
->foo10 : { (x: B<Two, Two>): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
->a : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
+>foo10 : { (x: B<Two, Two>): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : new <T extends U, U extends One>(x: T, y: U) => string
+>a : new <T extends U, U extends One>(x: T, y: U) => string
 
 function foo10(x: any) { }
->foo10 : { (x: B<Two, Two>): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo10 : { (x: B<Two, Two>): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : any
 
 function foo11(x: B<Two, Two>);
->foo11 : { (x: B<Two, Two>): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
+>foo11 : { (x: B<Two, Two>): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
 >x : B<Two, Two>
 >B : B<T, U>
 >Two : Two
 >Two : Two
 
 function foo11(x: typeof b); // ok
->foo11 : { (x: B<Two, Two>): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
->b : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
+>foo11 : { (x: B<Two, Two>): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : { new<T extends U, U extends Two>(x: T, y: U): string; }
+>b : { new<T extends U, U extends Two>(x: T, y: U): string; }
 
 function foo11(x: any) { }
->foo11 : { (x: B<Two, Two>): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo11 : { (x: B<Two, Two>): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : any
 
 function foo12(x: I<Five<string>, Five<string>>);
->foo12 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: C<Three, Three>): 任意; }
->x : I<Five<文字>, Five<文字>>
+>foo12 : { (x: I<Five<string>, Five<string>>): any; (x: C<Three, Three>): any; }
+>x : I<Five<string>, Five<string>>
 >I : I<T, U>
 >Five : Five<T>
 >Five : Five<T>
 
 function foo12(x: C<Three, Three>); // ok
->foo12 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: C<Three, Three>): 任意; }
+>foo12 : { (x: I<Five<string>, Five<string>>): any; (x: C<Three, Three>): any; }
 >x : C<Three, Three>
 >C : C<T, U>
 >Three : Three
 >Three : Three
 
 function foo12(x: any) { }
->foo12 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: C<Three, Three>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo12 : { (x: I<Five<string>, Five<string>>): any; (x: C<Three, Three>): any; }
+>x : any
 
 function foo12b(x: I2);
->foo12b : { (x: I2): 任意; (x: C<Three, Three>): 任意; }
+>foo12b : { (x: I2): any; (x: C<Three, Three>): any; }
 >x : I2
 >I2 : I2
 
 function foo12b(x: C<Three, Three>); // ok
->foo12b : { (x: I2): 任意; (x: C<Three, Three>): 任意; }
+>foo12b : { (x: I2): any; (x: C<Three, Three>): any; }
 >x : C<Three, Three>
 >C : C<T, U>
 >Three : Three
 >Three : Three
 
 function foo12b(x: any) { }
->foo12b : { (x: I2): 任意; (x: C<Three, Three>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo12b : { (x: I2): any; (x: C<Three, Three>): any; }
+>x : any
 
 function foo13(x: I<Five<string>, Five<string>>);
->foo13 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : I<Five<文字>, Five<文字>>
+>foo13 : { (x: I<Five<string>, Five<string>>): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : I<Five<string>, Five<string>>
 >I : I<T, U>
 >Five : Five<T>
 >Five : Five<T>
 
 function foo13(x: typeof a); // ok
->foo13 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
->a : 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字
+>foo13 : { (x: I<Five<string>, Five<string>>): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : new <T extends U, U extends One>(x: T, y: U) => string
+>a : new <T extends U, U extends One>(x: T, y: U) => string
 
 function foo13(x: any) { }
->foo13 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: 新建 <T 扩展 U, U 扩展 One>(x: T, y: U) => 文字): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo13 : { (x: I<Five<string>, Five<string>>): any; (x: new <T extends U, U extends One>(x: T, y: U) => string): any; }
+>x : any
 
 function foo14(x: I<Five<string>, Five<string>>);
->foo14 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : I<Five<文字>, Five<文字>>
+>foo14 : { (x: I<Five<string>, Five<string>>): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : I<Five<string>, Five<string>>
 >I : I<T, U>
 >Five : Five<T>
 >Five : Five<T>
 
 function foo14(x: typeof b); // ok
->foo14 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
->b : { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }
+>foo14 : { (x: I<Five<string>, Five<string>>): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : { new<T extends U, U extends Two>(x: T, y: U): string; }
+>b : { new<T extends U, U extends Two>(x: T, y: U): string; }
 
 function foo14(x: any) { }
->foo14 : { (x: I<Five<文字>, Five<文字>>): 任意; (x: { new<T 扩展 U, U 扩展 Two>(x: T, y: U): 文字; }): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo14 : { (x: I<Five<string>, Five<string>>): any; (x: { new<T extends U, U extends Two>(x: T, y: U): string; }): any; }
+>x : any
 

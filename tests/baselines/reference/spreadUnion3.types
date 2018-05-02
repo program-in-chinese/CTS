@@ -1,85 +1,66 @@
 === tests/cases/conformance/types/spread/spreadUnion3.ts ===
 function f(x: { y: string } | undefined): { y: string } {
->f : (x: { y: 文字; } | 未定) => { y: 文字; }
->x : { y: 文字; } | 未定
->y : 文字
->类型别名 :=> 文字
->y : 文字
->类型别名 :=> 文字
+>f : (x: { y: string; } | undefined) => { y: string; }
+>x : { y: string; } | undefined
+>y : string
+>y : string
 
     return { y: 123, ...x } // y: string | number
->{ y: 123, ...x } : { y: 数字; } | { y: 文字; }
->y : 数字
->类型别名 :=> 数字
+>{ y: 123, ...x } : { y: number; } | { y: string; }
+>y : number
 >123 : 123
->x : { y: 文字; } | 未定
+>x : { y: string; } | undefined
 }
 f(undefined)
->f(undefined) : { y: 文字; }
->f : (x: { y: 文字; } | 未定) => { y: 文字; }
->undefined : 未定
->类型别名 :=> 未定
+>f(undefined) : { y: string; }
+>f : (x: { y: string; } | undefined) => { y: string; }
+>undefined : undefined
 
 
 function g(t?: { a: number } | null): void {
->g : (t?: { a: 数字; } | 空值 | 未定) => 无值
->t : { a: 数字; } | 空值 | 未定
->a : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
+>g : (t?: { a: number; } | null | undefined) => void
+>t : { a: number; } | null | undefined
+>a : number
+>null : null
 
     let b = { ...t };
->b : {} | {} | { a: 数字; }
->{ ...t } : {} | {} | { a: 数字; }
->t : { a: 数字; } | 空值 | 未定
+>b : {}
+>{ ...t } : {} | {} | { a: number; }
+>t : { a: number; } | null | undefined
 
     let c: number = b.a;  // might not have 'a'
->c : 数字
->类型别名 :=> 数字
->b.a : 任意
->类型别名 :=> 任意
->b : {} | {} | { a: 数字; }
->a : 任意
->类型别名 :=> 任意
+>c : number
+>b.a : any
+>b : {}
+>a : any
 }
 g()
->g() : 无值
->类型别名 :=> 无值
->g : (t?: { a: 数字; } | 空值 | 未定) => 无值
+>g() : void
+>g : (t?: { a: number; } | null | undefined) => void
 
 g(undefined)
->g(undefined) : 无值
->类型别名 :=> 无值
->g : (t?: { a: 数字; } | 空值 | 未定) => 无值
->undefined : 未定
->类型别名 :=> 未定
+>g(undefined) : void
+>g : (t?: { a: number; } | null | undefined) => void
+>undefined : undefined
 
 g(null)
->g(null) : 无值
->类型别名 :=> 无值
->g : (t?: { a: 数字; } | 空值 | 未定) => 无值
->null : 空值
->类型别名 :=> 空值
+>g(null) : void
+>g : (t?: { a: number; } | null | undefined) => void
+>null : null
 
 // spreading nothing but null and undefined is not allowed
 declare const nullAndUndefinedUnion: null | undefined;
->nullAndUndefinedUnion : 空值 | 未定
->null : 空值
->类型别名 :=> 空值
+>nullAndUndefinedUnion : null | undefined
+>null : null
 
 var x = { ...nullAndUndefinedUnion, ...nullAndUndefinedUnion };
->x : 任意
->类型别名 :=> 任意
->{ ...nullAndUndefinedUnion, ...nullAndUndefinedUnion } : 任意
->类型别名 :=> 任意
->nullAndUndefinedUnion : 空值 | 未定
->nullAndUndefinedUnion : 空值 | 未定
+>x : any
+>{ ...nullAndUndefinedUnion, ...nullAndUndefinedUnion } : any
+>nullAndUndefinedUnion : null | undefined
+>nullAndUndefinedUnion : null | undefined
 
 var y = { ...nullAndUndefinedUnion };
->y : 任意
->类型别名 :=> 任意
->{ ...nullAndUndefinedUnion } : 任意
->类型别名 :=> 任意
->nullAndUndefinedUnion : 空值 | 未定
+>y : any
+>{ ...nullAndUndefinedUnion } : any
+>nullAndUndefinedUnion : null | undefined
 

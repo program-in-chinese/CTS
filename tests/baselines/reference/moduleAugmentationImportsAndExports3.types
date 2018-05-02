@@ -7,66 +7,57 @@ export class B {
 >B : B
 
     n: number;
->n : 数字
->类型别名 :=> 数字
+>n : number
 }
 
 === tests/cases/compiler/f3.ts ===
 import {A} from "./f1";
->A : 类为 A
+>A : typeof A
 
 A.prototype.foo = function () { return undefined; }
->A.prototype.foo = function () { return undefined; } : () => 任意
->A.prototype.foo : () => 任意
+>A.prototype.foo = function () { return undefined; } : () => any
+>A.prototype.foo : () => any
 >A.prototype : A
->A : 类为 A
+>A : typeof A
 >prototype : A
->foo : () => 任意
->function () { return undefined; } : () => 任意
->undefined : 未定
->类型别名 :=> 未定
+>foo : () => any
+>function () { return undefined; } : () => any
+>undefined : undefined
 
 namespace N {
->N : 任意
->类型别名 :=> 任意
+>N : any
 
     export interface Ifc { a }
 >Ifc : Ifc
->a : 任意
->类型别名 :=> 任意
+>a : any
 
     export interface Cls { a }
 >Cls : Cls
->a : 任意
->类型别名 :=> 任意
+>a : any
 }
 
 declare module "./f1" {
+>"./f1" : typeof "tests/cases/compiler/f1"
+
     import {B} from "./f2";
->B : 任意
->类型别名 :=> 任意
+>B : any
 
     import I = N.Ifc;
->I : 任意
->类型别名 :=> 任意
->N : 任意
->类型别名 :=> 任意
+>I : any
+>N : any
 >Ifc : I
 
     import C = N.Cls;
->C : 任意
->类型别名 :=> 任意
->N : 任意
->类型别名 :=> 任意
+>C : any
+>N : any
 >Cls : C
 
     interface A {
 >A : A
 
         foo(): B;
->foo : () => 任意
->B : 任意
->类型别名 :=> 任意
+>foo : () => any
+>B : any
 
         bar(): I;
 >bar : () => I
@@ -80,7 +71,7 @@ declare module "./f1" {
 
 === tests/cases/compiler/f4.ts ===
 import {A} from "./f1";
->A : 类为 A
+>A : typeof A
 
 import "./f3";
 
@@ -89,15 +80,11 @@ let a: A;
 >A : A
 
 let b = a.foo().n;
->b : 任意
->类型别名 :=> 任意
->a.foo().n : 任意
->类型别名 :=> 任意
->a.foo() : 任意
->类型别名 :=> 任意
->a.foo : () => 任意
+>b : any
+>a.foo().n : any
+>a.foo() : any
+>a.foo : () => any
 >a : A
->foo : () => 任意
->n : 任意
->类型别名 :=> 任意
+>foo : () => any
+>n : any
 

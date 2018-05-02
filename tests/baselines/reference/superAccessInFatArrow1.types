@@ -1,12 +1,12 @@
 === tests/cases/compiler/superAccessInFatArrow1.ts ===
 module test {
->test : 类为 test
+>test : typeof test
 
     export class A {
 >A : A
 
         foo() {
->foo : () => 无值
+>foo : () => void
         }
     }
     export class B extends A {
@@ -14,26 +14,24 @@ module test {
 >A : A
 
         bar(callback: () => void ) {
->bar : (callback: () => 无值) => 无值
->callback : () => 无值
+>bar : (callback: () => void) => void
+>callback : () => void
         }
         runme() {
->runme : () => 无值
+>runme : () => void
 
             this.bar(() => {
->this.bar(() => {                super.foo();            }) : 无值
->类型别名 :=> 无值
->this.bar : (callback: () => 无值) => 无值
->this : 本体
->bar : (callback: () => 无值) => 无值
->() => {                super.foo();            } : () => 无值
+>this.bar(() => {                super.foo();            }) : void
+>this.bar : (callback: () => void) => void
+>this : this
+>bar : (callback: () => void) => void
+>() => {                super.foo();            } : () => void
 
                 super.foo();
->super.foo() : 无值
->类型别名 :=> 无值
->super.foo : () => 无值
+>super.foo() : void
+>super.foo : () => void
 >super : A
->foo : () => 无值
+>foo : () => void
 
             });
         }

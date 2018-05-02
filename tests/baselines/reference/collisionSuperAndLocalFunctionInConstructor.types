@@ -1,13 +1,13 @@
 === tests/cases/compiler/collisionSuperAndLocalFunctionInConstructor.ts ===
 function _super() { // No error
->_super : () => 无值
+>_super : () => void
 }
 class Foo {
 >Foo : Foo
 
     constructor() {
         function _super() { // No error
->_super : () => 无值
+>_super : () => void
         }
     }
 }
@@ -17,12 +17,11 @@ class b extends Foo {
 
     constructor() {
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 Foo
+>super() : void
+>super : typeof Foo
 
         function _super() { // Should be error
->_super : () => 无值
+>_super : () => void
         }
     }
 }
@@ -32,16 +31,15 @@ class c extends Foo {
 
     constructor() {
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 Foo
+>super() : void
+>super : typeof Foo
 
         var x = () => {
->x : () => 无值
->() => {            function _super() { // Should be error            }        } : () => 无值
+>x : () => void
+>() => {            function _super() { // Should be error            }        } : () => void
 
             function _super() { // Should be error
->_super : () => 无值
+>_super : () => void
             }
         }
     }

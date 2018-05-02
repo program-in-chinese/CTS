@@ -1,36 +1,33 @@
 === tests/cases/conformance/externalModules/b.ts ===
 /// <reference path="math2d-augment.d.ts" />
 import * as m from 'math2d';
->m : 类为 m
+>m : typeof m
 
 let v = new m.Vector(3, 2);
 >v : m.Vector
 >new m.Vector(3, 2) : m.Vector
->m.Vector : 类为 m.Vector
->m : 类为 m
->Vector : 类为 m.Vector
+>m.Vector : typeof m.Vector
+>m : typeof m
+>Vector : typeof m.Vector
 >3 : 3
 >2 : 2
 
 let magnitude = m.getLength(v);
->magnitude : 数字
->类型别名 :=> 数字
->m.getLength(v) : 数字
->类型别名 :=> 数字
->m.getLength : (p: m.Vector) => 数字
->m : 类为 m
->getLength : (p: m.Vector) => 数字
+>magnitude : number
+>m.getLength(v) : number
+>m.getLength : (p: m.Vector) => number
+>m : typeof m
+>getLength : (p: m.Vector) => number
 >v : m.Vector
 
 let p: m.Point = v.translate(5, 5);
 >p : m.Point
->m : 任意
->类型别名 :=> 任意
+>m : any
 >Point : m.Point
 >v.translate(5, 5) : m.Vector
->v.translate : (dx: 数字, dy: 数字) => m.Vector
+>v.translate : (dx: number, dy: number) => m.Vector
 >v : m.Vector
->translate : (dx: 数字, dy: 数字) => m.Vector
+>translate : (dx: number, dy: number) => m.Vector
 >5 : 5
 >5 : 5
 
@@ -43,34 +40,29 @@ p = v.reverse();
 >reverse : () => m.Point
 
 var t = p.x;
->t : 数字
->类型别名 :=> 数字
->p.x : 数字
->类型别名 :=> 数字
+>t : number
+>p.x : number
 >p : m.Point
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 === tests/cases/conformance/externalModules/node_modules/math2d/index.d.ts ===
 export as namespace Math2d;
->Math2d : 类为 M2D
+>Math2d : typeof M2D
 
 export = M2D;
->M2D : 类为 M2D
+>M2D : typeof M2D
 
 declare namespace M2D {
->M2D : 类为 M2D
+>M2D : typeof M2D
 
 	interface Point {
 >Point : Point
 
 		x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 		y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 	}
 
 	class Vector implements Point {
@@ -78,30 +70,24 @@ declare namespace M2D {
 >Point : Point
 
 		x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 		y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 
 		constructor(x: number, y: number);
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
 
 		translate(dx: number, dy: number): Vector;
->translate : (dx: 数字, dy: 数字) => Vector
->dx : 数字
->类型别名 :=> 数字
->dy : 数字
->类型别名 :=> 数字
+>translate : (dx: number, dy: number) => Vector
+>dx : number
+>dy : number
 >Vector : Vector
 	}
 
 	function getLength(p: Vector): number;
->getLength : (p: Vector) => 数字
+>getLength : (p: Vector) => number
 >p : Vector
 >Vector : Vector
 
@@ -110,18 +96,19 @@ declare namespace M2D {
 
 === tests/cases/conformance/externalModules/math2d-augment.d.ts ===
 import * as Math2d from 'math2d';
->Math2d : 类为 Math2d
+>Math2d : typeof Math2d
 
 // Augment the module
 declare module 'math2d' {
+>'math2d' : typeof Math2d
+
 	// Add a method to the class
 	interface Vector {
 >Vector : Vector
 
 		reverse(): Math2d.Point;
 >reverse : () => Point
->Math2d : 任意
->类型别名 :=> 任意
+>Math2d : any
 >Point : Point
 	}
 }

@@ -1,177 +1,159 @@
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/functionExpressionIsOk.ts ===
 const f1 = async function * f() {
->f1 : () => AsyncIterableIterator<任意>
->async function * f() {} : () => AsyncIterableIterator<任意>
->f : () => AsyncIterableIterator<任意>
+>f1 : () => AsyncIterableIterator<any>
+>async function * f() {} : () => AsyncIterableIterator<any>
+>f : () => AsyncIterableIterator<any>
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitNameIsError.ts ===
 const f2 = async function * await() {
->f2 : () => 任意
->async function * : () => 任意
->await : () => 无值
->() {} : () => 无值
+>f2 : () => any
+>async function * : () => any
+>await : any
+>() {} : () => void
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldNameIsError.ts ===
 const f3 = async function * yield() {
->f3 : () => 任意
->async function * : () => 任意
->yield : () => 无值
->() {} : () => 无值
+>f3 : () => any
+>async function * : () => any
+>yield : any
+>() {} : () => void
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitParameterIsError.ts ===
 const f4 = async function * (await) {
->f4 : () => 任意
->async function * ( : () => 任意
->await : 任意
->类型别名 :=> 任意
+>f4 : () => any
+>async function * ( : () => any
+>await : any
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldParameterIsError.ts ===
 const f5 = async function * (yield) {
->f5 : () => 任意
->async function * ( : () => 任意
->yield : 任意
->类型别名 :=> 任意
+>f5 : () => any
+>async function * ( : () => any
+>yield : any
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitInParameterInitializerIsError.ts ===
 const f6 = async function * (a = await 1) {
->f6 : (a?: 数字) => AsyncIterableIterator<任意>
->async function * (a = await 1) {} : (a?: 数字) => AsyncIterableIterator<任意>
->a : 数字
->类型别名 :=> 数字
+>f6 : (a?: number) => AsyncIterableIterator<any>
+>async function * (a = await 1) {} : (a?: number) => AsyncIterableIterator<any>
+>a : number
 >await 1 : 1
 >1 : 1
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldInParameterInitializerIsError.ts ===
 const f7 = async function * (a = yield) {
->f7 : (a?: 任意) => AsyncIterableIterator<任意>
->async function * (a = yield) {} : (a?: 任意) => AsyncIterableIterator<任意>
->a : 任意
->类型别名 :=> 任意
->yield : 任意
->类型别名 :=> 任意
+>f7 : (a?: any) => AsyncIterableIterator<any>
+>async function * (a = yield) {} : (a?: any) => AsyncIterableIterator<any>
+>a : any
+>yield : any
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedAsyncGeneratorIsOk.ts ===
 const f8 = async function * () {
->f8 : () => AsyncIterableIterator<任意>
->async function * () {    async function * g() {    }} : () => AsyncIterableIterator<任意>
+>f8 : () => AsyncIterableIterator<any>
+>async function * () {    async function * g() {    }} : () => AsyncIterableIterator<any>
 
     async function * g() {
->g : () => AsyncIterableIterator<任意>
+>g : () => AsyncIterableIterator<any>
     }
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedFunctionDeclarationNamedYieldIsError.ts ===
 const f9 = async function * () {
->f9 : () => AsyncIterableIterator<() => 无值>
->async function * () {    function yield() {    }} : () => AsyncIterableIterator<() => 无值>
+>f9 : () => AsyncIterableIterator<() => void>
+>async function * () {    function yield() {    }} : () => AsyncIterableIterator<() => void>
 
     function yield() {
-> : () => 任意
->yield() {    } : 任意
->类型别名 :=> 任意
->() {    } : () => 无值
+> : () => any
+>yield() {    } : any
+>() {    } : () => void
     }
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedFunctionExpressionNamedYieldIsError.ts ===
 const f10 = async function * () {
->f10 : () => AsyncIterableIterator<() => 无值>
->async function * () {    const x = function yield() {    };} : () => AsyncIterableIterator<() => 无值>
+>f10 : () => AsyncIterableIterator<() => void>
+>async function * () {    const x = function yield() {    };} : () => AsyncIterableIterator<() => void>
 
     const x = function yield() {
->x : () => 任意
->function : () => 任意
->yield() {    } : 任意
->类型别名 :=> 任意
->() {    } : () => 无值
+>x : () => any
+>function : () => any
+>yield() {    } : any
+>() {    } : () => void
 
     };
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedFunctionDeclarationNamedAwaitIsError.ts ===
 const f11 = async function * () {
->f11 : () => AsyncIterableIterator<任意>
->async function * () {    function await() {    }} : () => AsyncIterableIterator<任意>
+>f11 : () => AsyncIterableIterator<any>
+>async function * () {    function await() {    }} : () => AsyncIterableIterator<any>
 
     function await() {
-> : () => 任意
->await() : 任意
->类型别名 :=> 任意
->() : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+> : () => any
+>await() : any
+>() : any
+> : any
     }
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedFunctionExpressionNamedAwaitIsError.ts ===
 const f12 = async function * () {
->f12 : () => AsyncIterableIterator<任意>
->async function * () {    const x = function await() {    };} : () => AsyncIterableIterator<任意>
+>f12 : () => AsyncIterableIterator<any>
+>async function * () {    const x = function await() {    };} : () => AsyncIterableIterator<any>
 
     const x = function await() {
->x : () => 任意
->function : () => 任意
->await() : 任意
->类型别名 :=> 任意
->() : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>x : () => any
+>function : () => any
+>await() : any
+>() : any
+> : any
 
     };
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldIsOk.ts ===
 const f13 = async function * () {
->f13 : () => AsyncIterableIterator<任意>
->async function * () {    yield;} : () => AsyncIterableIterator<任意>
+>f13 : () => AsyncIterableIterator<any>
+>async function * () {    yield;} : () => AsyncIterableIterator<any>
 
     yield;
->yield : 任意
->类型别名 :=> 任意
+>yield : any
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldWithValueIsOk.ts ===
 const f14 = async function * () {
->f14 : () => AsyncIterableIterator<1>
->async function * () {    yield 1;} : () => AsyncIterableIterator<1>
+>f14 : () => AsyncIterableIterator<number>
+>async function * () {    yield 1;} : () => AsyncIterableIterator<number>
 
     yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldStarMissingValueIsError.ts ===
 const f15 = async function * () {
->f15 : () => AsyncIterableIterator<任意>
->async function * () {    yield *;} : () => AsyncIterableIterator<任意>
+>f15 : () => AsyncIterableIterator<any>
+>async function * () {    yield *;} : () => AsyncIterableIterator<any>
 
     yield *;
->yield * : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>yield * : any
+> : any
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldStarWithValueIsOk.ts ===
 const f16 = async function * () {
->f16 : () => AsyncIterableIterator<任意>
->async function * () {    yield * [];} : () => AsyncIterableIterator<任意>
+>f16 : () => AsyncIterableIterator<any>
+>async function * () {    yield * [];} : () => AsyncIterableIterator<any>
 
     yield * [];
->yield * [] : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>yield * [] : any
+>[] : undefined[]
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitWithValueIsOk.ts ===
 const f17 = async function * () {
->f17 : () => AsyncIterableIterator<任意>
->async function * () {    await 1;} : () => AsyncIterableIterator<任意>
+>f17 : () => AsyncIterableIterator<any>
+>async function * () {    await 1;} : () => AsyncIterableIterator<any>
 
     await 1;
 >await 1 : 1
@@ -180,14 +162,12 @@ const f17 = async function * () {
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitMissingValueIsError.ts ===
 const f18 = async function * () {
->f18 : () => AsyncIterableIterator<任意>
->async function * () {    await;} : () => AsyncIterableIterator<任意>
+>f18 : () => AsyncIterableIterator<any>
+>async function * () {    await;} : () => AsyncIterableIterator<any>
 
     await;
->await : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>await : any
+> : any
 
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitAsTypeIsOk.ts ===
@@ -195,8 +175,8 @@ interface await {}
 >await : await
 
 const f19 = async function * () {
->f19 : () => AsyncIterableIterator<任意>
->async function * () {    let x: await;} : () => AsyncIterableIterator<任意>
+>f19 : () => AsyncIterableIterator<any>
+>async function * () {    let x: await;} : () => AsyncIterableIterator<any>
 
     let x: await;
 >x : await
@@ -208,8 +188,8 @@ interface yield {}
 >yield : yield
 
 const f20 = async function * () {
->f20 : () => AsyncIterableIterator<任意>
->async function * () {    let x: yield;} : () => AsyncIterableIterator<任意>
+>f20 : () => AsyncIterableIterator<any>
+>async function * () {    let x: yield;} : () => AsyncIterableIterator<any>
 
     let x: yield;
 >x : yield
@@ -218,14 +198,14 @@ const f20 = async function * () {
 };
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldInNestedComputedPropertyIsOk.ts ===
 const f21 = async function *() {
->f21 : () => AsyncIterableIterator<任意>
->async function *() {    const x = { [yield]: 1 };} : () => AsyncIterableIterator<任意>
+>f21 : () => AsyncIterableIterator<any>
+>async function *() {    const x = { [yield]: 1 };} : () => AsyncIterableIterator<any>
 
     const x = { [yield]: 1 };
->x : { [x: 数字]: 数字; }
->{ [yield]: 1 } : { [x: 数字]: 数字; }
->yield : 任意
->类型别名 :=> 任意
+>x : { [x: number]: number; }
+>{ [yield]: 1 } : { [x: number]: number; }
+>[yield] : number
+>yield : any
 >1 : 1
 
 };

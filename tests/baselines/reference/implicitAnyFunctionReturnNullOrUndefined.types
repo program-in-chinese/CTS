@@ -1,62 +1,54 @@
 === tests/cases/compiler/implicitAnyFunctionReturnNullOrUndefined.ts ===
 // this should be an error
 function nullWidenFunction() { return null;}             // error at "nullWidenFunction"
->nullWidenFunction : () => 任意
->null : 空值
->类型别名 :=> 空值
+>nullWidenFunction : () => any
+>null : null
 
 function undefinedWidenFunction() { return undefined; }  // error at "undefinedWidenFunction"
->undefinedWidenFunction : () => 任意
->undefined : 未定
->类型别名 :=> 未定
+>undefinedWidenFunction : () => any
+>undefined : undefined
 
 class C {
 >C : C
 
     nullWidenFuncOfC() {  // error at "nullWidenFuncOfC"
->nullWidenFuncOfC : () => 任意
+>nullWidenFuncOfC : () => any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 
     underfinedWidenFuncOfC() {  // error at "underfinedWidenFuncOfC"
->underfinedWidenFuncOfC : () => 任意
+>underfinedWidenFuncOfC : () => any
 
         return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
     }
 }
 
 // this should not be an error
 function foo1(): any { return null; }
->foo1 : () => 任意
->null : 空值
->类型别名 :=> 空值
+>foo1 : () => any
+>null : null
 
 function bar1(): any { return undefined; }
->bar1 : () => 任意
->undefined : 未定
->类型别名 :=> 未定
+>bar1 : () => any
+>undefined : undefined
 
 function fooBar(): number { return 1; }
->fooBar : () => 数字
+>fooBar : () => number
 >1 : 1
 
 function fooFoo() { return 5; }
->fooFoo : () => 数字
+>fooFoo : () => number
 >5 : 5
 
 // this should not be an error as the error is raised by expr above
 nullWidenFunction();
->nullWidenFunction() : 任意
->类型别名 :=> 任意
->nullWidenFunction : () => 任意
+>nullWidenFunction() : any
+>nullWidenFunction : () => any
 
 undefinedWidenFunction();
->undefinedWidenFunction() : 任意
->类型别名 :=> 任意
->undefinedWidenFunction : () => 任意
+>undefinedWidenFunction() : any
+>undefinedWidenFunction : () => any
 

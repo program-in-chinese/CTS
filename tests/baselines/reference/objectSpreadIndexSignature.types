@@ -1,62 +1,68 @@
 === tests/cases/conformance/types/spread/objectSpreadIndexSignature.ts ===
 declare let indexed1: { [n: string]: number; a: number; };
->indexed1 : { [n: 文字]: 数字; a: 数字; }
->n : 文字
->类型别名 :=> 文字
->a : 数字
->类型别名 :=> 数字
+>indexed1 : { [n: string]: number; a: number; }
+>n : string
+>a : number
 
 declare let indexed2: { [n: string]: boolean; c: boolean; };
->indexed2 : { [n: 文字]: 真假; c: 真假; }
->n : 文字
->类型别名 :=> 文字
->c : 真假
->类型别名 :=> 真假
+>indexed2 : { [n: string]: boolean; c: boolean; }
+>n : string
+>c : boolean
 
 declare let indexed3: { [n: string]: number };
->indexed3 : { [n: 文字]: 数字; }
->n : 文字
->类型别名 :=> 文字
+>indexed3 : { [n: string]: number; }
+>n : string
 
 let i = { ...indexed1, b: 11 };
->i : { b: 数字; a: 数字; }
->{ ...indexed1, b: 11 } : { b: 数字; a: 数字; }
->indexed1 : { [n: 文字]: 数字; a: 数字; }
->b : 数字
->类型别名 :=> 数字
+>i : { b: number; a: number; }
+>{ ...indexed1, b: 11 } : { b: number; a: number; }
+>indexed1 : { [n: string]: number; a: number; }
+>b : number
 >11 : 11
 
 // only indexed has indexer, so i[101]: any
 i[101];
->i[101] : 任意
->类型别名 :=> 任意
->i : { b: 数字; a: 数字; }
+>i[101] : any
+>i : { b: number; a: number; }
 >101 : 101
 
 let ii = { ...indexed1, ...indexed2 };
->ii : { [x: 文字]: 数字 | 真假; c: 真假; a: 数字; }
->{ ...indexed1, ...indexed2 } : { [x: 文字]: 数字 | 真假; c: 真假; a: 数字; }
->indexed1 : { [n: 文字]: 数字; a: 数字; }
->indexed2 : { [n: 文字]: 真假; c: 真假; }
+>ii : { [x: string]: number | boolean; c: boolean; a: number; }
+>{ ...indexed1, ...indexed2 } : { [x: string]: number | boolean; c: boolean; a: number; }
+>indexed1 : { [n: string]: number; a: number; }
+>indexed2 : { [n: string]: boolean; c: boolean; }
 
 // both have indexer, so i[1001]: number | boolean
 ii[1001];
->ii[1001] : 数字 | 真假
->ii : { [x: 文字]: 数字 | 真假; c: 真假; a: 数字; }
+>ii[1001] : number | boolean
+>ii : { [x: string]: number | boolean; c: boolean; a: number; }
 >1001 : 1001
 
 declare const b: boolean;
->b : 真假
->类型别名 :=> 真假
+>b : boolean
 
 indexed3 = { ...b ? indexed3 : undefined };
->indexed3 = { ...b ? indexed3 : undefined } : {} | { [n: 文字]: 数字; }
->indexed3 : { [n: 文字]: 数字; }
->{ ...b ? indexed3 : undefined } : {} | { [n: 文字]: 数字; }
->b ? indexed3 : undefined : { [n: 文字]: 数字; } | 未定
->b : 真假
->类型别名 :=> 真假
->indexed3 : { [n: 文字]: 数字; }
->undefined : 未定
->类型别名 :=> 未定
+>indexed3 = { ...b ? indexed3 : undefined } : {} | { [n: string]: number; }
+>indexed3 : { [n: string]: number; }
+>{ ...b ? indexed3 : undefined } : {} | { [n: string]: number; }
+>b ? indexed3 : undefined : { [n: string]: number; } | undefined
+>b : boolean
+>indexed3 : { [n: string]: number; }
+>undefined : undefined
+
+declare var roindex: { readonly [x:string]: number };
+>roindex : { readonly [x: string]: number; }
+>x : string
+
+var writable = { ...roindex };
+>writable : { [x: string]: number; }
+>{ ...roindex } : { [x: string]: number; }
+>roindex : { readonly [x: string]: number; }
+
+writable.a = 0;  // should be ok.
+>writable.a = 0 : 0
+>writable.a : number
+>writable : { [x: string]: number; }
+>a : number
+>0 : 0
 

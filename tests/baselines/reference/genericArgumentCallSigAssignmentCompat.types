@@ -1,7 +1,6 @@
 === tests/cases/compiler/genericArgumentCallSigAssignmentCompat.ts ===
 module Underscore {
->Underscore : 任意
->类型别名 :=> 任意
+>Underscore : any
 
     export interface Iterator<T, U> {
 >Iterator : Iterator<T, U>
@@ -11,10 +10,8 @@ module Underscore {
         (value: T, index: any, list: any): U;
 >value : T
 >T : T
->index : 任意
->类型别名 :=> 任意
->list : 任意
->类型别名 :=> 任意
+>index : any
+>list : any
 >U : U
     }
  
@@ -22,15 +19,14 @@ module Underscore {
 >Static : Static
 
         all<T>(list: T[], iterator?: Iterator<T, boolean>, context?: any): boolean;
->all : <T>(list: T[], iterator?: Iterator<T, 真假>, context?: 任意) => 真假
+>all : <T>(list: T[], iterator?: Iterator<T, boolean>, context?: any) => boolean
 >T : T
 >list : T[]
 >T : T
->iterator : Iterator<T, 真假>
+>iterator : Iterator<T, boolean>
 >Iterator : Iterator<T, U>
 >T : T
->context : 任意
->类型别名 :=> 任意
+>context : any
 
         identity<T>(value: T): T;
 >identity : <T>(value: T) => T
@@ -43,24 +39,20 @@ module Underscore {
  
 declare var _: Underscore.Static;
 >_ : Underscore.Static
->Underscore : 任意
->类型别名 :=> 任意
+>Underscore : any
 >Static : Underscore.Static
  
 // No error, Call signatures of types '<T>(value: T) => T' and 'Underscore.Iterator<{}, boolean>' are compatible when instantiated with any.
 // Ideally, we would not have a generic signature here, because it should be instantiated with {} during inferential typing
 _.all([true, 1, null, 'yes'], _.identity);
->_.all([true, 1, null, 'yes'], _.identity) : 任意
->类型别名 :=> 任意
->_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => 真假
+>_.all([true, 1, null, 'yes'], _.identity) : any
+>_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => boolean
 >_ : Underscore.Static
->all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => 真假
->[true, 1, null, 'yes'] : (文字 | 数字 | 真假)[]
->true : 为真
->类型别名 :=> 为真
+>all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => boolean
+>[true, 1, null, 'yes'] : (string | number | boolean)[]
+>true : true
 >1 : 1
->null : 空值
->类型别名 :=> 空值
+>null : null
 >'yes' : "yes"
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
@@ -68,14 +60,12 @@ _.all([true, 1, null, 'yes'], _.identity);
  
 // Ok, because fixing makes us infer boolean for T
 _.all([true], _.identity);
->_.all([true], _.identity) : 真假
->类型别名 :=> 真假
->_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => 真假
+>_.all([true], _.identity) : boolean
+>_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => boolean
 >_ : Underscore.Static
->all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => 真假
->[true] : 为真[]
->true : 为真
->类型别名 :=> 为真
+>all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => boolean
+>[true] : true[]
+>true : true
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
 >identity : <T>(value: T) => T

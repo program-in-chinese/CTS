@@ -1,112 +1,99 @@
 === tests/cases/conformance/internalModules/codeGeneration/importStatements.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export class Point {
 >Point : Point
 
         constructor(public x: number, public y: number) { }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
     }
 
     export var Origin = new Point(0, 0);
 >Origin : Point
 >new Point(0, 0) : Point
->Point : 类为 Point
+>Point : typeof Point
 >0 : 0
 >0 : 0
 }
 
 // no code gen expected
 module B {
->B : 任意
->类型别名 :=> 任意
+>B : any
 
     import a = A; //Error generates 'var <Alias> = <EntityName>;'
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 }
 
 // no code gen expected
 module C {
->C : 类为 C
+>C : typeof C
 
     import a = A; //Error generates 'var <Alias> = <EntityName>;'
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 
     var m: typeof a;
->m : 类为 a
->a : 类为 a
+>m : typeof a
+>a : typeof a
 
     var p: a.Point;
 >p : a.Point
->a : 任意
->类型别名 :=> 任意
+>a : any
 >Point : a.Point
 
     var p = {x:0, y:0 };
 >p : a.Point
->{x:0, y:0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{x:0, y:0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 }
 
 // code gen expected
 module D {
->D : 类为 D
+>D : typeof D
 
     import a = A;
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 
     var p = new a.Point(1, 1);
 >p : a.Point
 >new a.Point(1, 1) : a.Point
->a.Point : 类为 a.Point
->a : 类为 a
->Point : 类为 a.Point
+>a.Point : typeof a.Point
+>a : typeof a
+>Point : typeof a.Point
 >1 : 1
 >1 : 1
 }
 
 module E {
->E : 类为 E
+>E : typeof E
 
     import a = A;
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 
     export function xDist(x: a.Point) {
->xDist : (x: a.Point) => 数字
+>xDist : (x: a.Point) => number
 >x : a.Point
->a : 任意
->类型别名 :=> 任意
+>a : any
 >Point : a.Point
 
         return (a.Origin.x - x.x);
->(a.Origin.x - x.x) : 数字
->类型别名 :=> 数字
->a.Origin.x - x.x : 数字
->类型别名 :=> 数字
->a.Origin.x : 数字
->类型别名 :=> 数字
+>(a.Origin.x - x.x) : number
+>a.Origin.x - x.x : number
+>a.Origin.x : number
 >a.Origin : a.Point
->a : 类为 a
+>a : typeof a
 >Origin : a.Point
->x : 数字
->类型别名 :=> 数字
->x.x : 数字
->类型别名 :=> 数字
+>x : number
+>x.x : number
 >x : a.Point
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }

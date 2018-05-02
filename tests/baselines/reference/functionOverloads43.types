@@ -1,56 +1,47 @@
 === tests/cases/compiler/functionOverloads43.ts ===
 function foo(bar: { a:number }[]): number;
->foo : { (bar: { a: 数字; }[]): 数字; (bar: { a: 文字; }[]): 文字; }
->bar : { a: 数字; }[]
->a : 数字
->类型别名 :=> 数字
+>foo : { (bar: { a: number; }[]): number; (bar: { a: string; }[]): string; }
+>bar : { a: number; }[]
+>a : number
 
 function foo(bar: { a:string }[]): string;
->foo : { (bar: { a: 数字; }[]): 数字; (bar: { a: 文字; }[]): 文字; }
->bar : { a: 文字; }[]
->a : 文字
->类型别名 :=> 文字
+>foo : { (bar: { a: number; }[]): number; (bar: { a: string; }[]): string; }
+>bar : { a: string; }[]
+>a : string
 
 function foo([x]: { a:number | string }[]): string | number {
->foo : { (bar: { a: 数字; }[]): 数字; (bar: { a: 文字; }[]): 文字; }
->x : { a: 文字 | 数字; }
->a : 文字 | 数字
+>foo : { (bar: { a: number; }[]): number; (bar: { a: string; }[]): string; }
+>x : { a: string | number; }
+>a : string | number
 
     if (x) {
->x : { a: 文字 | 数字; }
+>x : { a: string | number; }
 
         return x.a;
->x.a : 文字 | 数字
->x : { a: 文字 | 数字; }
->a : 文字 | 数字
+>x.a : string | number
+>x : { a: string | number; }
+>a : string | number
     }
     
     return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 }
 
 var x = foo([{a: "str"}]);
->x : 文字
->类型别名 :=> 文字
->foo([{a: "str"}]) : 文字
->类型别名 :=> 文字
->foo : { (bar: { a: 数字; }[]): 数字; (bar: { a: 文字; }[]): 文字; }
->[{a: "str"}] : { a: 文字; }[]
->{a: "str"} : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>x : string
+>foo([{a: "str"}]) : string
+>foo : { (bar: { a: number; }[]): number; (bar: { a: string; }[]): string; }
+>[{a: "str"}] : { a: string; }[]
+>{a: "str"} : { a: string; }
+>a : string
 >"str" : "str"
 
 var y = foo([{a: 100}]);
->y : 数字
->类型别名 :=> 数字
->foo([{a: 100}]) : 数字
->类型别名 :=> 数字
->foo : { (bar: { a: 数字; }[]): 数字; (bar: { a: 文字; }[]): 文字; }
->[{a: 100}] : { a: 数字; }[]
->{a: 100} : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>y : number
+>foo([{a: 100}]) : number
+>foo : { (bar: { a: number; }[]): number; (bar: { a: string; }[]): string; }
+>[{a: 100}] : { a: number; }[]
+>{a: 100} : { a: number; }
+>a : number
 >100 : 100
 

@@ -3,11 +3,11 @@ class Sammy {
 >Sammy : Sammy
 
    foo() { return "hi"; }
->foo : () => 文字
+>foo : () => string
 >"hi" : "hi"
 
   static bar() {
->bar : () => 数字
+>bar : () => number
 
     return -1;
 >-1 : -1
@@ -15,11 +15,10 @@ class Sammy {
    }
 }
 module Sammy {
->Sammy : 类为 Sammy
+>Sammy : typeof Sammy
 
     export var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 }
 interface JQueryStatic {
@@ -36,60 +35,47 @@ var $: JQueryStatic;
 var instanceOfClassSammy: Sammy = new $.sammy(); // should be error
 >instanceOfClassSammy : Sammy
 >Sammy : Sammy
->new $.sammy() : 任意
->类型别名 :=> 任意
+>new $.sammy() : any
 >$.sammy : Sammy
 >$ : JQueryStatic
 >sammy : Sammy
 
 var r1 = instanceOfClassSammy.foo(); // r1 is string
->r1 : 文字
->类型别名 :=> 文字
->instanceOfClassSammy.foo() : 文字
->类型别名 :=> 文字
->instanceOfClassSammy.foo : () => 文字
+>r1 : string
+>instanceOfClassSammy.foo() : string
+>instanceOfClassSammy.foo : () => string
 >instanceOfClassSammy : Sammy
->foo : () => 文字
+>foo : () => string
 
 var r2 = $.sammy.foo();
->r2 : 文字
->类型别名 :=> 文字
->$.sammy.foo() : 文字
->类型别名 :=> 文字
->$.sammy.foo : () => 文字
+>r2 : string
+>$.sammy.foo() : string
+>$.sammy.foo : () => string
 >$.sammy : Sammy
 >$ : JQueryStatic
 >sammy : Sammy
->foo : () => 文字
+>foo : () => string
 
 var r3 = $.sammy.bar(); // error
->r3 : 任意
->类型别名 :=> 任意
->$.sammy.bar() : 任意
->类型别名 :=> 任意
->$.sammy.bar : 任意
->类型别名 :=> 任意
+>r3 : any
+>$.sammy.bar() : any
+>$.sammy.bar : any
 >$.sammy : Sammy
 >$ : JQueryStatic
 >sammy : Sammy
->bar : 任意
->类型别名 :=> 任意
+>bar : any
 
 var r4 = $.sammy.x; // error
->r4 : 任意
->类型别名 :=> 任意
->$.sammy.x : 任意
->类型别名 :=> 任意
+>r4 : any
+>$.sammy.x : any
 >$.sammy : Sammy
 >$ : JQueryStatic
 >sammy : Sammy
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 Sammy.bar();
->Sammy.bar() : 数字
->类型别名 :=> 数字
->Sammy.bar : () => 数字
->Sammy : 类为 Sammy
->bar : () => 数字
+>Sammy.bar() : number
+>Sammy.bar : () => number
+>Sammy : typeof Sammy
+>bar : () => number
 

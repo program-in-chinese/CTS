@@ -5,31 +5,28 @@
 ///<reference path='typescript.ts' />
 
 module TypeScript {
->TypeScript : 类为 TypeScript
+>TypeScript : typeof TypeScript
 
     export class AssignScopeContext {
 >AssignScopeContext : AssignScopeContext
 
         constructor (public scopeChain: ScopeChain,
->scopeChain : 任意
->类型别名 :=> 任意
+>scopeChain : any
 >ScopeChain : No type information available!
 
                      public typeFlow: TypeFlow,
->typeFlow : 任意
->类型别名 :=> 任意
+>typeFlow : any
 >TypeFlow : No type information available!
 
                      public modDeclChain: ModuleDeclaration[]) {
->modDeclChain : 任意[]
+>modDeclChain : any[]
 >ModuleDeclaration : No type information available!
         }
     }
 
     export function pushAssignScope(scope: SymbolScope,
->pushAssignScope : (scope: 任意, context: AssignScopeContext, type: 任意, classType: 任意, fnc: 任意) => 无值
->scope : 任意
->类型别名 :=> 任意
+>pushAssignScope : (scope: any, context: AssignScopeContext, type: any, classType: any, fnc: any) => void
+>scope : any
 >SymbolScope : No type information available!
 
         context: AssignScopeContext,
@@ -37,263 +34,183 @@ module TypeScript {
 >AssignScopeContext : AssignScopeContext
 
         type: Type,
->type : 任意
->类型别名 :=> 任意
+>type : any
 >Type : No type information available!
 
         classType: Type,
->classType : 任意
->类型别名 :=> 任意
+>classType : any
 >Type : No type information available!
 
         fnc: FuncDecl) {
->fnc : 任意
->类型别名 :=> 任意
+>fnc : any
 >FuncDecl : No type information available!
 
         var chain = new ScopeChain(null, context.scopeChain, scope);
->chain : 任意
->类型别名 :=> 任意
->new ScopeChain(null, context.scopeChain, scope) : 任意
->类型别名 :=> 任意
->ScopeChain : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->context.scopeChain : 任意
->类型别名 :=> 任意
+>chain : any
+>new ScopeChain(null, context.scopeChain, scope) : any
+>ScopeChain : any
+>null : null
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
 
         chain.thisType = type;
->chain.thisType = type : 任意
->类型别名 :=> 任意
->chain.thisType : 任意
->类型别名 :=> 任意
->chain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>chain.thisType = type : any
+>chain.thisType : any
+>chain : any
+>thisType : any
+>type : any
 
         chain.classType = classType;
->chain.classType = classType : 任意
->类型别名 :=> 任意
->chain.classType : 任意
->类型别名 :=> 任意
->chain : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
+>chain.classType = classType : any
+>chain.classType : any
+>chain : any
+>classType : any
+>classType : any
 
         chain.fnc = fnc;
->chain.fnc = fnc : 任意
->类型别名 :=> 任意
->chain.fnc : 任意
->类型别名 :=> 任意
->chain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
+>chain.fnc = fnc : any
+>chain.fnc : any
+>chain : any
+>fnc : any
+>fnc : any
 
         context.scopeChain = chain;
->context.scopeChain = chain : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain = chain : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->chain : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>chain : any
     }
 
     export function popAssignScope(context: AssignScopeContext) {
->popAssignScope : (context: AssignScopeContext) => 无值
+>popAssignScope : (context: AssignScopeContext) => void
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
 
         context.scopeChain = context.scopeChain.previous;
->context.scopeChain = context.scopeChain.previous : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain = context.scopeChain.previous : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->context.scopeChain.previous : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>context.scopeChain.previous : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->previous : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>previous : any
     }
 
     export function instanceCompare(a: Symbol, b: Symbol) {
->instanceCompare : (a: 任意, b: 任意) => 任意
->a : 任意
->类型别名 :=> 任意
+>instanceCompare : (a: any, b: any) => any
+>a : any
 >Symbol : No type information available!
->b : 任意
->类型别名 :=> 任意
+>b : any
 >Symbol : No type information available!
 
         if (((a == null) || (!a.isInstanceProperty()))) {
->((a == null) || (!a.isInstanceProperty())) : 真假
->类型别名 :=> 真假
->(a == null) || (!a.isInstanceProperty()) : 真假
->类型别名 :=> 真假
->(a == null) : 真假
->类型别名 :=> 真假
->a == null : 真假
->类型别名 :=> 真假
->a : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->(!a.isInstanceProperty()) : 真假
->类型别名 :=> 真假
->!a.isInstanceProperty() : 真假
->类型别名 :=> 真假
->a.isInstanceProperty() : 任意
->类型别名 :=> 任意
->a.isInstanceProperty : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->isInstanceProperty : 任意
->类型别名 :=> 任意
+>((a == null) || (!a.isInstanceProperty())) : boolean
+>(a == null) || (!a.isInstanceProperty()) : boolean
+>(a == null) : boolean
+>a == null : boolean
+>a : any
+>null : null
+>(!a.isInstanceProperty()) : boolean
+>!a.isInstanceProperty() : boolean
+>a.isInstanceProperty() : any
+>a.isInstanceProperty : any
+>a : any
+>isInstanceProperty : any
 
             return b;
->b : 任意
->类型别名 :=> 任意
+>b : any
         }
         else {
             return a;
->a : 任意
->类型别名 :=> 任意
+>a : any
         }
     }
 
     export function instanceFilterStop(s: Symbol) {
->instanceFilterStop : (s: 任意) => 任意
->s : 任意
->类型别名 :=> 任意
+>instanceFilterStop : (s: any) => any
+>s : any
 >Symbol : No type information available!
 
         return s.isInstanceProperty();
->s.isInstanceProperty() : 任意
->类型别名 :=> 任意
->s.isInstanceProperty : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
->isInstanceProperty : 任意
->类型别名 :=> 任意
+>s.isInstanceProperty() : any
+>s.isInstanceProperty : any
+>s : any
+>isInstanceProperty : any
     }
 
     export class ScopeSearchFilter {
 >ScopeSearchFilter : ScopeSearchFilter
 
         constructor (public select: (a: Symbol, b: Symbol) =>Symbol,
->select : (a: 任意, b: 任意) => 任意
->a : 任意
->类型别名 :=> 任意
+>select : (a: any, b: any) => any
+>a : any
 >Symbol : No type information available!
->b : 任意
->类型别名 :=> 任意
+>b : any
 >Symbol : No type information available!
 >Symbol : No type information available!
 
                             public stop: (s: Symbol) =>boolean) { }
->stop : (s: 任意) => 真假
->s : 任意
->类型别名 :=> 任意
+>stop : (s: any) => boolean
+>s : any
 >Symbol : No type information available!
 
         public result: Symbol = null;
->result : 任意
->类型别名 :=> 任意
+>result : any
 >Symbol : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         public reset() {
->reset : () => 无值
+>reset : () => void
 
             this.result = null;
->this.result = null : 空值
->类型别名 :=> 空值
->this.result : 任意
->类型别名 :=> 任意
->this : 本体
->result : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>this.result = null : null
+>this.result : any
+>this : this
+>result : any
+>null : null
         }
 
         public update(b: Symbol): boolean {
->update : (b: 任意) => 真假
->b : 任意
->类型别名 :=> 任意
+>update : (b: any) => boolean
+>b : any
 >Symbol : No type information available!
 
             this.result = this.select(this.result, b);
->this.result = this.select(this.result, b) : 任意
->类型别名 :=> 任意
->this.result : 任意
->类型别名 :=> 任意
->this : 本体
->result : 任意
->类型别名 :=> 任意
->this.select(this.result, b) : 任意
->类型别名 :=> 任意
->this.select : (a: 任意, b: 任意) => 任意
->this : 本体
->select : (a: 任意, b: 任意) => 任意
->this.result : 任意
->类型别名 :=> 任意
->this : 本体
->result : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>this.result = this.select(this.result, b) : any
+>this.result : any
+>this : this
+>result : any
+>this.select(this.result, b) : any
+>this.select : (a: any, b: any) => any
+>this : this
+>select : (a: any, b: any) => any
+>this.result : any
+>this : this
+>result : any
+>b : any
 
             if (this.result) {
->this.result : 任意
->类型别名 :=> 任意
->this : 本体
->result : 任意
->类型别名 :=> 任意
+>this.result : any
+>this : this
+>result : any
 
                 return this.stop(this.result);
->this.stop(this.result) : 真假
->类型别名 :=> 真假
->this.stop : (s: 任意) => 真假
->this : 本体
->stop : (s: 任意) => 真假
->this.result : 任意
->类型别名 :=> 任意
->this : 本体
->result : 任意
->类型别名 :=> 任意
+>this.stop(this.result) : boolean
+>this.stop : (s: any) => boolean
+>this : this
+>stop : (s: any) => boolean
+>this.result : any
+>this : this
+>result : any
             }
             else {
                 return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
             }
         }
     }
@@ -301,1946 +218,1158 @@ module TypeScript {
     export var instanceFilter = new ScopeSearchFilter(instanceCompare, instanceFilterStop);
 >instanceFilter : ScopeSearchFilter
 >new ScopeSearchFilter(instanceCompare, instanceFilterStop) : ScopeSearchFilter
->ScopeSearchFilter : 类为 ScopeSearchFilter
->instanceCompare : (a: 任意, b: 任意) => 任意
->instanceFilterStop : (s: 任意) => 任意
+>ScopeSearchFilter : typeof ScopeSearchFilter
+>instanceCompare : (a: any, b: any) => any
+>instanceFilterStop : (s: any) => any
 
     export function preAssignModuleScopes(ast: AST, context: AssignScopeContext) {
->preAssignModuleScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignModuleScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >AST : No type information available!
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
 
         var moduleDecl = <ModuleDeclaration>ast;
->moduleDecl : 任意
->类型别名 :=> 任意
-><ModuleDeclaration>ast : 任意
->类型别名 :=> 任意
+>moduleDecl : any
+><ModuleDeclaration>ast : any
 >ModuleDeclaration : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
         var memberScope: SymbolTableScope = null;
->memberScope : 任意
->类型别名 :=> 任意
+>memberScope : any
 >SymbolTableScope : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         var aggScope: SymbolAggregateScope = null;
->aggScope : 任意
->类型别名 :=> 任意
+>aggScope : any
 >SymbolAggregateScope : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         if (moduleDecl.name && moduleDecl.mod) {
->moduleDecl.name && moduleDecl.mod : 任意
->类型别名 :=> 任意
->moduleDecl.name : 任意
->类型别名 :=> 任意
->moduleDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->moduleDecl.mod : 任意
->类型别名 :=> 任意
->moduleDecl : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
+>moduleDecl.name && moduleDecl.mod : any
+>moduleDecl.name : any
+>moduleDecl : any
+>name : any
+>moduleDecl.mod : any
+>moduleDecl : any
+>mod : any
 
             moduleDecl.name.sym = moduleDecl.mod.symbol;
->moduleDecl.name.sym = moduleDecl.mod.symbol : 任意
->类型别名 :=> 任意
->moduleDecl.name.sym : 任意
->类型别名 :=> 任意
->moduleDecl.name : 任意
->类型别名 :=> 任意
->moduleDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->sym : 任意
->类型别名 :=> 任意
->moduleDecl.mod.symbol : 任意
->类型别名 :=> 任意
->moduleDecl.mod : 任意
->类型别名 :=> 任意
->moduleDecl : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>moduleDecl.name.sym = moduleDecl.mod.symbol : any
+>moduleDecl.name.sym : any
+>moduleDecl.name : any
+>moduleDecl : any
+>name : any
+>sym : any
+>moduleDecl.mod.symbol : any
+>moduleDecl.mod : any
+>moduleDecl : any
+>mod : any
+>symbol : any
         }
 
         var mod = moduleDecl.mod;
->mod : 任意
->类型别名 :=> 任意
->moduleDecl.mod : 任意
->类型别名 :=> 任意
->moduleDecl : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
+>mod : any
+>moduleDecl.mod : any
+>moduleDecl : any
+>mod : any
 
         // We're likely here because of error recovery
         if (!mod) {
->!mod : 真假
->类型别名 :=> 真假
->mod : 任意
->类型别名 :=> 任意
+>!mod : boolean
+>mod : any
 
             return;
         }
 
         memberScope = new SymbolTableScope(mod.members, mod.ambientMembers, mod.enclosedTypes, mod.ambientEnclosedTypes, mod.symbol);
->memberScope = new SymbolTableScope(mod.members, mod.ambientMembers, mod.enclosedTypes, mod.ambientEnclosedTypes, mod.symbol) : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->new SymbolTableScope(mod.members, mod.ambientMembers, mod.enclosedTypes, mod.ambientEnclosedTypes, mod.symbol) : 任意
->类型别名 :=> 任意
->SymbolTableScope : 任意
->类型别名 :=> 任意
->mod.members : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->members : 任意
->类型别名 :=> 任意
->mod.ambientMembers : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->ambientMembers : 任意
->类型别名 :=> 任意
->mod.enclosedTypes : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->enclosedTypes : 任意
->类型别名 :=> 任意
->mod.ambientEnclosedTypes : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->ambientEnclosedTypes : 任意
->类型别名 :=> 任意
->mod.symbol : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>memberScope = new SymbolTableScope(mod.members, mod.ambientMembers, mod.enclosedTypes, mod.ambientEnclosedTypes, mod.symbol) : any
+>memberScope : any
+>new SymbolTableScope(mod.members, mod.ambientMembers, mod.enclosedTypes, mod.ambientEnclosedTypes, mod.symbol) : any
+>SymbolTableScope : any
+>mod.members : any
+>mod : any
+>members : any
+>mod.ambientMembers : any
+>mod : any
+>ambientMembers : any
+>mod.enclosedTypes : any
+>mod : any
+>enclosedTypes : any
+>mod.ambientEnclosedTypes : any
+>mod : any
+>ambientEnclosedTypes : any
+>mod.symbol : any
+>mod : any
+>symbol : any
 
         mod.memberScope = memberScope;
->mod.memberScope = memberScope : 任意
->类型别名 :=> 任意
->mod.memberScope : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>mod.memberScope = memberScope : any
+>mod.memberScope : any
+>mod : any
+>memberScope : any
+>memberScope : any
 
         context.modDeclChain.push(moduleDecl);
->context.modDeclChain.push(moduleDecl) : 数字
->类型别名 :=> 数字
->context.modDeclChain.push : (...items: 任意[]) => 数字
->context.modDeclChain : 任意[]
+>context.modDeclChain.push(moduleDecl) : number
+>context.modDeclChain.push : (...items: any[]) => number
+>context.modDeclChain : any[]
 >context : AssignScopeContext
->modDeclChain : 任意[]
->push : (...items: 任意[]) => 数字
->moduleDecl : 任意
->类型别名 :=> 任意
+>modDeclChain : any[]
+>push : (...items: any[]) => number
+>moduleDecl : any
 
         context.typeFlow.checker.currentModDecl = moduleDecl;
->context.typeFlow.checker.currentModDecl = moduleDecl : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.currentModDecl : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.currentModDecl = moduleDecl : any
+>context.typeFlow.checker.currentModDecl : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->currentModDecl : 任意
->类型别名 :=> 任意
->moduleDecl : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>currentModDecl : any
+>moduleDecl : any
 
         aggScope = new SymbolAggregateScope(mod.symbol);
->aggScope = new SymbolAggregateScope(mod.symbol) : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->new SymbolAggregateScope(mod.symbol) : 任意
->类型别名 :=> 任意
->SymbolAggregateScope : 任意
->类型别名 :=> 任意
->mod.symbol : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>aggScope = new SymbolAggregateScope(mod.symbol) : any
+>aggScope : any
+>new SymbolAggregateScope(mod.symbol) : any
+>SymbolAggregateScope : any
+>mod.symbol : any
+>mod : any
+>symbol : any
 
         aggScope.addParentScope(memberScope);
->aggScope.addParentScope(memberScope) : 任意
->类型别名 :=> 任意
->aggScope.addParentScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->addParentScope : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>aggScope.addParentScope(memberScope) : any
+>aggScope.addParentScope : any
+>aggScope : any
+>addParentScope : any
+>memberScope : any
 
         aggScope.addParentScope(context.scopeChain.scope);
->aggScope.addParentScope(context.scopeChain.scope) : 任意
->类型别名 :=> 任意
->aggScope.addParentScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->addParentScope : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>aggScope.addParentScope(context.scopeChain.scope) : any
+>aggScope.addParentScope : any
+>aggScope : any
+>addParentScope : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
 
         pushAssignScope(aggScope, context, null, null, null);
->pushAssignScope(aggScope, context, null, null, null) : 无值
->类型别名 :=> 无值
->pushAssignScope : (scope: 任意, context: AssignScopeContext, type: 任意, classType: 任意, fnc: 任意) => 无值
->aggScope : 任意
->类型别名 :=> 任意
+>pushAssignScope(aggScope, context, null, null, null) : void
+>pushAssignScope : (scope: any, context: AssignScopeContext, type: any, classType: any, fnc: any) => void
+>aggScope : any
 >context : AssignScopeContext
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
+>null : null
+>null : null
+>null : null
 
         mod.containedScope = aggScope;
->mod.containedScope = aggScope : 任意
->类型别名 :=> 任意
->mod.containedScope : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
+>mod.containedScope = aggScope : any
+>mod.containedScope : any
+>mod : any
+>containedScope : any
+>aggScope : any
 
         if (mod.symbol) {
->mod.symbol : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>mod.symbol : any
+>mod : any
+>symbol : any
 
             context.typeFlow.addLocalsFromScope(mod.containedScope, mod.symbol, moduleDecl.vars, mod.members.privateMembers, true);
->context.typeFlow.addLocalsFromScope(mod.containedScope, mod.symbol, moduleDecl.vars, mod.members.privateMembers, true) : 任意
->类型别名 :=> 任意
->context.typeFlow.addLocalsFromScope : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.addLocalsFromScope(mod.containedScope, mod.symbol, moduleDecl.vars, mod.members.privateMembers, true) : any
+>context.typeFlow.addLocalsFromScope : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->addLocalsFromScope : 任意
->类型别名 :=> 任意
->mod.containedScope : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->mod.symbol : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
->moduleDecl.vars : 任意
->类型别名 :=> 任意
->moduleDecl : 任意
->类型别名 :=> 任意
->vars : 任意
->类型别名 :=> 任意
->mod.members.privateMembers : 任意
->类型别名 :=> 任意
->mod.members : 任意
->类型别名 :=> 任意
->mod : 任意
->类型别名 :=> 任意
->members : 任意
->类型别名 :=> 任意
->privateMembers : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
+>typeFlow : any
+>addLocalsFromScope : any
+>mod.containedScope : any
+>mod : any
+>containedScope : any
+>mod.symbol : any
+>mod : any
+>symbol : any
+>moduleDecl.vars : any
+>moduleDecl : any
+>vars : any
+>mod.members.privateMembers : any
+>mod.members : any
+>mod : any
+>members : any
+>privateMembers : any
+>true : true
         }
     }
 
     export function preAssignClassScopes(ast: AST, context: AssignScopeContext) {
->preAssignClassScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignClassScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >AST : No type information available!
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
 
         var classDecl = <InterfaceDeclaration>ast;
->classDecl : 任意
->类型别名 :=> 任意
-><InterfaceDeclaration>ast : 任意
->类型别名 :=> 任意
+>classDecl : any
+><InterfaceDeclaration>ast : any
 >InterfaceDeclaration : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
         var memberScope: SymbolTableScope = null;
->memberScope : 任意
->类型别名 :=> 任意
+>memberScope : any
 >SymbolTableScope : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         var aggScope: SymbolAggregateScope = null;
->aggScope : 任意
->类型别名 :=> 任意
+>aggScope : any
 >SymbolAggregateScope : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         if (classDecl.name && classDecl.type) {
->classDecl.name && classDecl.type : 任意
->类型别名 :=> 任意
->classDecl.name : 任意
->类型别名 :=> 任意
->classDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->classDecl.type : 任意
->类型别名 :=> 任意
->classDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>classDecl.name && classDecl.type : any
+>classDecl.name : any
+>classDecl : any
+>name : any
+>classDecl.type : any
+>classDecl : any
+>type : any
 
             classDecl.name.sym = classDecl.type.symbol;
->classDecl.name.sym = classDecl.type.symbol : 任意
->类型别名 :=> 任意
->classDecl.name.sym : 任意
->类型别名 :=> 任意
->classDecl.name : 任意
->类型别名 :=> 任意
->classDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->sym : 任意
->类型别名 :=> 任意
->classDecl.type.symbol : 任意
->类型别名 :=> 任意
->classDecl.type : 任意
->类型别名 :=> 任意
->classDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>classDecl.name.sym = classDecl.type.symbol : any
+>classDecl.name.sym : any
+>classDecl.name : any
+>classDecl : any
+>name : any
+>sym : any
+>classDecl.type.symbol : any
+>classDecl.type : any
+>classDecl : any
+>type : any
+>symbol : any
         }
 
         var classType = ast.type;
->classType : 任意
->类型别名 :=> 任意
->ast.type : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>classType : any
+>ast.type : any
+>ast : any
+>type : any
 
         if (classType) {
->classType : 任意
->类型别名 :=> 任意
+>classType : any
 
             var classSym = classType.symbol;
->classSym : 任意
->类型别名 :=> 任意
->classType.symbol : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>classSym : any
+>classType.symbol : any
+>classType : any
+>symbol : any
 
             memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(classType);
->memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(classType) : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
-><SymbolTableScope>context.typeFlow.checker.scopeOf(classType) : 任意
->类型别名 :=> 任意
+>memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(classType) : any
+>memberScope : any
+><SymbolTableScope>context.typeFlow.checker.scopeOf(classType) : any
 >SymbolTableScope : No type information available!
->context.typeFlow.checker.scopeOf(classType) : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.scopeOf : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.scopeOf(classType) : any
+>context.typeFlow.checker.scopeOf : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->scopeOf : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>scopeOf : any
+>classType : any
 
             aggScope = new SymbolAggregateScope(classType.symbol);
->aggScope = new SymbolAggregateScope(classType.symbol) : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->new SymbolAggregateScope(classType.symbol) : 任意
->类型别名 :=> 任意
->SymbolAggregateScope : 任意
->类型别名 :=> 任意
->classType.symbol : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>aggScope = new SymbolAggregateScope(classType.symbol) : any
+>aggScope : any
+>new SymbolAggregateScope(classType.symbol) : any
+>SymbolAggregateScope : any
+>classType.symbol : any
+>classType : any
+>symbol : any
 
             aggScope.addParentScope(memberScope);
->aggScope.addParentScope(memberScope) : 任意
->类型别名 :=> 任意
->aggScope.addParentScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->addParentScope : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>aggScope.addParentScope(memberScope) : any
+>aggScope.addParentScope : any
+>aggScope : any
+>addParentScope : any
+>memberScope : any
 
             aggScope.addParentScope(context.scopeChain.scope);
->aggScope.addParentScope(context.scopeChain.scope) : 任意
->类型别名 :=> 任意
->aggScope.addParentScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->addParentScope : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>aggScope.addParentScope(context.scopeChain.scope) : any
+>aggScope.addParentScope : any
+>aggScope : any
+>addParentScope : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
 
             classType.containedScope = aggScope;
->classType.containedScope = aggScope : 任意
->类型别名 :=> 任意
->classType.containedScope : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
+>classType.containedScope = aggScope : any
+>classType.containedScope : any
+>classType : any
+>containedScope : any
+>aggScope : any
 
             classType.memberScope = memberScope;
->classType.memberScope = memberScope : 任意
->类型别名 :=> 任意
->classType.memberScope : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>classType.memberScope = memberScope : any
+>classType.memberScope : any
+>classType : any
+>memberScope : any
+>memberScope : any
 
             var instanceType = classType.instanceType;
->instanceType : 任意
->类型别名 :=> 任意
->classType.instanceType : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->instanceType : 任意
->类型别名 :=> 任意
+>instanceType : any
+>classType.instanceType : any
+>classType : any
+>instanceType : any
 
             memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(instanceType);
->memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(instanceType) : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
-><SymbolTableScope>context.typeFlow.checker.scopeOf(instanceType) : 任意
->类型别名 :=> 任意
+>memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(instanceType) : any
+>memberScope : any
+><SymbolTableScope>context.typeFlow.checker.scopeOf(instanceType) : any
 >SymbolTableScope : No type information available!
->context.typeFlow.checker.scopeOf(instanceType) : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.scopeOf : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.scopeOf(instanceType) : any
+>context.typeFlow.checker.scopeOf : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->scopeOf : 任意
->类型别名 :=> 任意
->instanceType : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>scopeOf : any
+>instanceType : any
 
             instanceType.memberScope = memberScope;
->instanceType.memberScope = memberScope : 任意
->类型别名 :=> 任意
->instanceType.memberScope : 任意
->类型别名 :=> 任意
->instanceType : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>instanceType.memberScope = memberScope : any
+>instanceType.memberScope : any
+>instanceType : any
+>memberScope : any
+>memberScope : any
 
             aggScope = new SymbolAggregateScope(instanceType.symbol);
->aggScope = new SymbolAggregateScope(instanceType.symbol) : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->new SymbolAggregateScope(instanceType.symbol) : 任意
->类型别名 :=> 任意
->SymbolAggregateScope : 任意
->类型别名 :=> 任意
->instanceType.symbol : 任意
->类型别名 :=> 任意
->instanceType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>aggScope = new SymbolAggregateScope(instanceType.symbol) : any
+>aggScope : any
+>new SymbolAggregateScope(instanceType.symbol) : any
+>SymbolAggregateScope : any
+>instanceType.symbol : any
+>instanceType : any
+>symbol : any
 
             aggScope.addParentScope(context.scopeChain.scope);
->aggScope.addParentScope(context.scopeChain.scope) : 任意
->类型别名 :=> 任意
->aggScope.addParentScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->addParentScope : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>aggScope.addParentScope(context.scopeChain.scope) : any
+>aggScope.addParentScope : any
+>aggScope : any
+>addParentScope : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
 
             pushAssignScope(aggScope, context, instanceType, classType, null);
->pushAssignScope(aggScope, context, instanceType, classType, null) : 无值
->类型别名 :=> 无值
->pushAssignScope : (scope: 任意, context: AssignScopeContext, type: 任意, classType: 任意, fnc: 任意) => 无值
->aggScope : 任意
->类型别名 :=> 任意
+>pushAssignScope(aggScope, context, instanceType, classType, null) : void
+>pushAssignScope : (scope: any, context: AssignScopeContext, type: any, classType: any, fnc: any) => void
+>aggScope : any
 >context : AssignScopeContext
->instanceType : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>instanceType : any
+>classType : any
+>null : null
 
             instanceType.containedScope = aggScope;
->instanceType.containedScope = aggScope : 任意
->类型别名 :=> 任意
->instanceType.containedScope : 任意
->类型别名 :=> 任意
->instanceType : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
+>instanceType.containedScope = aggScope : any
+>instanceType.containedScope : any
+>instanceType : any
+>containedScope : any
+>aggScope : any
         }
         else {
             ast.type = context.typeFlow.anyType;
->ast.type = context.typeFlow.anyType : 任意
->类型别名 :=> 任意
->ast.type : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->context.typeFlow.anyType : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>ast.type = context.typeFlow.anyType : any
+>ast.type : any
+>ast : any
+>type : any
+>context.typeFlow.anyType : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->anyType : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>anyType : any
         }
     }
 
     export function preAssignInterfaceScopes(ast: AST, context: AssignScopeContext) {
->preAssignInterfaceScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignInterfaceScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >AST : No type information available!
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
 
         var interfaceDecl = <InterfaceDeclaration>ast;
->interfaceDecl : 任意
->类型别名 :=> 任意
-><InterfaceDeclaration>ast : 任意
->类型别名 :=> 任意
+>interfaceDecl : any
+><InterfaceDeclaration>ast : any
 >InterfaceDeclaration : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
         var memberScope: SymbolTableScope = null;
->memberScope : 任意
->类型别名 :=> 任意
+>memberScope : any
 >SymbolTableScope : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         var aggScope: SymbolAggregateScope = null;
->aggScope : 任意
->类型别名 :=> 任意
+>aggScope : any
 >SymbolAggregateScope : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         if (interfaceDecl.name && interfaceDecl.type) {
->interfaceDecl.name && interfaceDecl.type : 任意
->类型别名 :=> 任意
->interfaceDecl.name : 任意
->类型别名 :=> 任意
->interfaceDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->interfaceDecl.type : 任意
->类型别名 :=> 任意
->interfaceDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>interfaceDecl.name && interfaceDecl.type : any
+>interfaceDecl.name : any
+>interfaceDecl : any
+>name : any
+>interfaceDecl.type : any
+>interfaceDecl : any
+>type : any
 
             interfaceDecl.name.sym = interfaceDecl.type.symbol;
->interfaceDecl.name.sym = interfaceDecl.type.symbol : 任意
->类型别名 :=> 任意
->interfaceDecl.name.sym : 任意
->类型别名 :=> 任意
->interfaceDecl.name : 任意
->类型别名 :=> 任意
->interfaceDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->sym : 任意
->类型别名 :=> 任意
->interfaceDecl.type.symbol : 任意
->类型别名 :=> 任意
->interfaceDecl.type : 任意
->类型别名 :=> 任意
->interfaceDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>interfaceDecl.name.sym = interfaceDecl.type.symbol : any
+>interfaceDecl.name.sym : any
+>interfaceDecl.name : any
+>interfaceDecl : any
+>name : any
+>sym : any
+>interfaceDecl.type.symbol : any
+>interfaceDecl.type : any
+>interfaceDecl : any
+>type : any
+>symbol : any
         }
 
         var interfaceType = ast.type;
->interfaceType : 任意
->类型别名 :=> 任意
->ast.type : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>interfaceType : any
+>ast.type : any
+>ast : any
+>type : any
 
         memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(interfaceType);
->memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(interfaceType) : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
-><SymbolTableScope>context.typeFlow.checker.scopeOf(interfaceType) : 任意
->类型别名 :=> 任意
+>memberScope = <SymbolTableScope>context.typeFlow.checker.scopeOf(interfaceType) : any
+>memberScope : any
+><SymbolTableScope>context.typeFlow.checker.scopeOf(interfaceType) : any
 >SymbolTableScope : No type information available!
->context.typeFlow.checker.scopeOf(interfaceType) : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.scopeOf : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.scopeOf(interfaceType) : any
+>context.typeFlow.checker.scopeOf : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->scopeOf : 任意
->类型别名 :=> 任意
->interfaceType : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>scopeOf : any
+>interfaceType : any
 
         interfaceType.memberScope = memberScope;
->interfaceType.memberScope = memberScope : 任意
->类型别名 :=> 任意
->interfaceType.memberScope : 任意
->类型别名 :=> 任意
->interfaceType : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>interfaceType.memberScope = memberScope : any
+>interfaceType.memberScope : any
+>interfaceType : any
+>memberScope : any
+>memberScope : any
 
         aggScope = new SymbolAggregateScope(interfaceType.symbol);
->aggScope = new SymbolAggregateScope(interfaceType.symbol) : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->new SymbolAggregateScope(interfaceType.symbol) : 任意
->类型别名 :=> 任意
->SymbolAggregateScope : 任意
->类型别名 :=> 任意
->interfaceType.symbol : 任意
->类型别名 :=> 任意
->interfaceType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>aggScope = new SymbolAggregateScope(interfaceType.symbol) : any
+>aggScope : any
+>new SymbolAggregateScope(interfaceType.symbol) : any
+>SymbolAggregateScope : any
+>interfaceType.symbol : any
+>interfaceType : any
+>symbol : any
 
         aggScope.addParentScope(memberScope);
->aggScope.addParentScope(memberScope) : 任意
->类型别名 :=> 任意
->aggScope.addParentScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->addParentScope : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>aggScope.addParentScope(memberScope) : any
+>aggScope.addParentScope : any
+>aggScope : any
+>addParentScope : any
+>memberScope : any
 
         aggScope.addParentScope(context.scopeChain.scope);
->aggScope.addParentScope(context.scopeChain.scope) : 任意
->类型别名 :=> 任意
->aggScope.addParentScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
->addParentScope : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>aggScope.addParentScope(context.scopeChain.scope) : any
+>aggScope.addParentScope : any
+>aggScope : any
+>addParentScope : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
 
         pushAssignScope(aggScope, context, null, null, null);
->pushAssignScope(aggScope, context, null, null, null) : 无值
->类型别名 :=> 无值
->pushAssignScope : (scope: 任意, context: AssignScopeContext, type: 任意, classType: 任意, fnc: 任意) => 无值
->aggScope : 任意
->类型别名 :=> 任意
+>pushAssignScope(aggScope, context, null, null, null) : void
+>pushAssignScope : (scope: any, context: AssignScopeContext, type: any, classType: any, fnc: any) => void
+>aggScope : any
 >context : AssignScopeContext
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
+>null : null
+>null : null
+>null : null
 
         interfaceType.containedScope = aggScope;
->interfaceType.containedScope = aggScope : 任意
->类型别名 :=> 任意
->interfaceType.containedScope : 任意
->类型别名 :=> 任意
->interfaceType : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->aggScope : 任意
->类型别名 :=> 任意
+>interfaceType.containedScope = aggScope : any
+>interfaceType.containedScope : any
+>interfaceType : any
+>containedScope : any
+>aggScope : any
     }
 
     export function preAssignWithScopes(ast: AST, context: AssignScopeContext) {
->preAssignWithScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignWithScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >AST : No type information available!
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
 
         var withStmt = <WithStatement>ast;
->withStmt : 任意
->类型别名 :=> 任意
-><WithStatement>ast : 任意
->类型别名 :=> 任意
+>withStmt : any
+><WithStatement>ast : any
 >WithStatement : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
         var withType = withStmt.type;
->withType : 任意
->类型别名 :=> 任意
->withStmt.type : 任意
->类型别名 :=> 任意
->withStmt : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>withType : any
+>withStmt.type : any
+>withStmt : any
+>type : any
 
         var members = new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable()));
->members : 任意
->类型别名 :=> 任意
->new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable())) : 任意
->类型别名 :=> 任意
->ScopedMembers : 任意
->类型别名 :=> 任意
->new DualStringHashTable(new StringHashTable(), new StringHashTable()) : 任意
->类型别名 :=> 任意
->DualStringHashTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>members : any
+>new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable())) : any
+>ScopedMembers : any
+>new DualStringHashTable(new StringHashTable(), new StringHashTable()) : any
+>DualStringHashTable : any
+>new StringHashTable() : any
+>StringHashTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var ambientMembers = new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable()));
->ambientMembers : 任意
->类型别名 :=> 任意
->new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable())) : 任意
->类型别名 :=> 任意
->ScopedMembers : 任意
->类型别名 :=> 任意
->new DualStringHashTable(new StringHashTable(), new StringHashTable()) : 任意
->类型别名 :=> 任意
->DualStringHashTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>ambientMembers : any
+>new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable())) : any
+>ScopedMembers : any
+>new DualStringHashTable(new StringHashTable(), new StringHashTable()) : any
+>DualStringHashTable : any
+>new StringHashTable() : any
+>StringHashTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var withType = new Type();
->withType : 任意
->类型别名 :=> 任意
->new Type() : 任意
->类型别名 :=> 任意
->Type : 任意
->类型别名 :=> 任意
+>withType : any
+>new Type() : any
+>Type : any
 
         var withSymbol = new WithSymbol(withStmt.minChar, context.typeFlow.checker.locationInfo.unitIndex, withType);
->withSymbol : 任意
->类型别名 :=> 任意
->new WithSymbol(withStmt.minChar, context.typeFlow.checker.locationInfo.unitIndex, withType) : 任意
->类型别名 :=> 任意
->WithSymbol : 任意
->类型别名 :=> 任意
->withStmt.minChar : 任意
->类型别名 :=> 任意
->withStmt : 任意
->类型别名 :=> 任意
->minChar : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.locationInfo.unitIndex : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.locationInfo : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>withSymbol : any
+>new WithSymbol(withStmt.minChar, context.typeFlow.checker.locationInfo.unitIndex, withType) : any
+>WithSymbol : any
+>withStmt.minChar : any
+>withStmt : any
+>minChar : any
+>context.typeFlow.checker.locationInfo.unitIndex : any
+>context.typeFlow.checker.locationInfo : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->locationInfo : 任意
->类型别名 :=> 任意
->unitIndex : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>locationInfo : any
+>unitIndex : any
+>withType : any
 
         withType.members = members;
->withType.members = members : 任意
->类型别名 :=> 任意
->withType.members : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->members : 任意
->类型别名 :=> 任意
->members : 任意
->类型别名 :=> 任意
+>withType.members = members : any
+>withType.members : any
+>withType : any
+>members : any
+>members : any
 
         withType.ambientMembers = ambientMembers;
->withType.ambientMembers = ambientMembers : 任意
->类型别名 :=> 任意
->withType.ambientMembers : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->ambientMembers : 任意
->类型别名 :=> 任意
->ambientMembers : 任意
->类型别名 :=> 任意
+>withType.ambientMembers = ambientMembers : any
+>withType.ambientMembers : any
+>withType : any
+>ambientMembers : any
+>ambientMembers : any
 
         withType.symbol = withSymbol;
->withType.symbol = withSymbol : 任意
->类型别名 :=> 任意
->withType.symbol : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
->withSymbol : 任意
->类型别名 :=> 任意
+>withType.symbol = withSymbol : any
+>withType.symbol : any
+>withType : any
+>symbol : any
+>withSymbol : any
 
         withType.setHasImplementation();
->withType.setHasImplementation() : 任意
->类型别名 :=> 任意
->withType.setHasImplementation : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->setHasImplementation : 任意
->类型别名 :=> 任意
+>withType.setHasImplementation() : any
+>withType.setHasImplementation : any
+>withType : any
+>setHasImplementation : any
 
         withStmt.type = withType;
->withStmt.type = withType : 任意
->类型别名 :=> 任意
->withStmt.type : 任意
->类型别名 :=> 任意
->withStmt : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
+>withStmt.type = withType : any
+>withStmt.type : any
+>withStmt : any
+>type : any
+>withType : any
 
         var withScope = new TypeScript.SymbolScopeBuilder(withType.members, withType.ambientMembers, null, null, context.scopeChain.scope, withType.symbol);
->withScope : 任意
->类型别名 :=> 任意
->new TypeScript.SymbolScopeBuilder(withType.members, withType.ambientMembers, null, null, context.scopeChain.scope, withType.symbol) : 任意
->类型别名 :=> 任意
->TypeScript.SymbolScopeBuilder : 任意
->类型别名 :=> 任意
->TypeScript : 类为 TypeScript
->SymbolScopeBuilder : 任意
->类型别名 :=> 任意
->withType.members : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->members : 任意
->类型别名 :=> 任意
->withType.ambientMembers : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->ambientMembers : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>withScope : any
+>new TypeScript.SymbolScopeBuilder(withType.members, withType.ambientMembers, null, null, context.scopeChain.scope, withType.symbol) : any
+>TypeScript.SymbolScopeBuilder : any
+>TypeScript : typeof TypeScript
+>SymbolScopeBuilder : any
+>withType.members : any
+>withType : any
+>members : any
+>withType.ambientMembers : any
+>withType : any
+>ambientMembers : any
+>null : null
+>null : null
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
->withType.symbol : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
+>withType.symbol : any
+>withType : any
+>symbol : any
 
         pushAssignScope(withScope, context, null, null, null);
->pushAssignScope(withScope, context, null, null, null) : 无值
->类型别名 :=> 无值
->pushAssignScope : (scope: 任意, context: AssignScopeContext, type: 任意, classType: 任意, fnc: 任意) => 无值
->withScope : 任意
->类型别名 :=> 任意
+>pushAssignScope(withScope, context, null, null, null) : void
+>pushAssignScope : (scope: any, context: AssignScopeContext, type: any, classType: any, fnc: any) => void
+>withScope : any
 >context : AssignScopeContext
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
+>null : null
+>null : null
+>null : null
 
         withType.containedScope = withScope;
->withType.containedScope = withScope : 任意
->类型别名 :=> 任意
->withType.containedScope : 任意
->类型别名 :=> 任意
->withType : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->withScope : 任意
->类型别名 :=> 任意
+>withType.containedScope = withScope : any
+>withType.containedScope : any
+>withType : any
+>containedScope : any
+>withScope : any
     }
 
     export function preAssignFuncDeclScopes(ast: AST, context: AssignScopeContext) {
->preAssignFuncDeclScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignFuncDeclScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >AST : No type information available!
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
 
         var funcDecl = <FuncDecl>ast;
->funcDecl : 任意
->类型别名 :=> 任意
-><FuncDecl>ast : 任意
->类型别名 :=> 任意
+>funcDecl : any
+><FuncDecl>ast : any
 >FuncDecl : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
         var container: Symbol = null;
->container : 任意
->类型别名 :=> 任意
+>container : any
 >Symbol : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         var localContainer: Symbol = null;
->localContainer : 任意
->类型别名 :=> 任意
+>localContainer : any
 >Symbol : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
         if (funcDecl.type) {
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>funcDecl.type : any
+>funcDecl : any
+>type : any
 
             localContainer = ast.type.symbol;
->localContainer = ast.type.symbol : 任意
->类型别名 :=> 任意
->localContainer : 任意
->类型别名 :=> 任意
->ast.type.symbol : 任意
->类型别名 :=> 任意
->ast.type : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>localContainer = ast.type.symbol : any
+>localContainer : any
+>ast.type.symbol : any
+>ast.type : any
+>ast : any
+>type : any
+>symbol : any
         }
 
         var isStatic = hasFlag(funcDecl.fncFlags, FncFlags.Static);
->isStatic : 任意
->类型别名 :=> 任意
->hasFlag(funcDecl.fncFlags, FncFlags.Static) : 任意
->类型别名 :=> 任意
->hasFlag : 任意
->类型别名 :=> 任意
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.Static : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->Static : 任意
->类型别名 :=> 任意
+>isStatic : any
+>hasFlag(funcDecl.fncFlags, FncFlags.Static) : any
+>hasFlag : any
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.Static : any
+>FncFlags : any
+>Static : any
 
         var isInnerStatic = isStatic && context.scopeChain.fnc != null;
->isInnerStatic : 真假
->类型别名 :=> 真假
->isStatic && context.scopeChain.fnc != null : 真假
->类型别名 :=> 真假
->isStatic : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc != null : 真假
->类型别名 :=> 真假
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>isInnerStatic : boolean
+>isStatic && context.scopeChain.fnc != null : boolean
+>isStatic : any
+>context.scopeChain.fnc != null : boolean
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>scopeChain : any
+>fnc : any
+>null : null
 
         // for inner static functions, use the parent's member scope, so local vars cannot be captured
         var parentScope = isInnerStatic ? context.scopeChain.fnc.type.memberScope : context.scopeChain.scope;
->parentScope : 任意
->类型别名 :=> 任意
->isInnerStatic ? context.scopeChain.fnc.type.memberScope : context.scopeChain.scope : 任意
->类型别名 :=> 任意
->isInnerStatic : 真假
->类型别名 :=> 真假
->context.scopeChain.fnc.type.memberScope : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc.type : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>parentScope : any
+>isInnerStatic ? context.scopeChain.fnc.type.memberScope : context.scopeChain.scope : any
+>isInnerStatic : boolean
+>context.scopeChain.fnc.type.memberScope : any
+>context.scopeChain.fnc.type : any
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
+>type : any
+>memberScope : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
 
         // if this is not a method, but enclosed by class, use constructor as
         // the enclosing scope
         // REVIEW: Some twisted logic here - this needs to be cleaned up once old classes are removed
         //  - if it's a new class, always use the contained scope, since we initialize the constructor scope below
         if (context.scopeChain.thisType &&
->context.scopeChain.thisType &&            (!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.thisType &&            (!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
 
             (!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod))) {
->(!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor : 真假
->类型别名 :=> 真假
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
->hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->hasFlag : 任意
->类型别名 :=> 任意
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.ClassMethod : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->ClassMethod : 任意
->类型别名 :=> 任意
+>(!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : any
+>!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>!funcDecl.isConstructor : boolean
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
+>hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>hasFlag : any
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.ClassMethod : any
+>FncFlags : any
+>ClassMethod : any
 
             var instType = context.scopeChain.thisType;
->instType : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>instType : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
 
             if (!(instType.typeFlags & TypeFlags.IsClass) && !hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) {
->!(instType.typeFlags & TypeFlags.IsClass) && !hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 真假
->类型别名 :=> 真假
->!(instType.typeFlags & TypeFlags.IsClass) : 真假
->类型别名 :=> 真假
->(instType.typeFlags & TypeFlags.IsClass) : 数字
->类型别名 :=> 数字
->instType.typeFlags & TypeFlags.IsClass : 数字
->类型别名 :=> 数字
->instType.typeFlags : 任意
->类型别名 :=> 任意
->instType : 任意
->类型别名 :=> 任意
->typeFlags : 任意
->类型别名 :=> 任意
->TypeFlags.IsClass : 任意
->类型别名 :=> 任意
->TypeFlags : 任意
->类型别名 :=> 任意
->IsClass : 任意
->类型别名 :=> 任意
->!hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 真假
->类型别名 :=> 真假
->hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->hasFlag : 任意
->类型别名 :=> 任意
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.ClassMethod : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->ClassMethod : 任意
->类型别名 :=> 任意
+>!(instType.typeFlags & TypeFlags.IsClass) && !hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : boolean
+>!(instType.typeFlags & TypeFlags.IsClass) : boolean
+>(instType.typeFlags & TypeFlags.IsClass) : number
+>instType.typeFlags & TypeFlags.IsClass : number
+>instType.typeFlags : any
+>instType : any
+>typeFlags : any
+>TypeFlags.IsClass : any
+>TypeFlags : any
+>IsClass : any
+>!hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : boolean
+>hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>hasFlag : any
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.ClassMethod : any
+>FncFlags : any
+>ClassMethod : any
 
                 if (!funcDecl.isMethod() || isStatic) {
->!funcDecl.isMethod() || isStatic : 任意
->类型别名 :=> 任意
->!funcDecl.isMethod() : 真假
->类型别名 :=> 真假
->funcDecl.isMethod() : 任意
->类型别名 :=> 任意
->funcDecl.isMethod : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isMethod : 任意
->类型别名 :=> 任意
->isStatic : 任意
->类型别名 :=> 任意
+>!funcDecl.isMethod() || isStatic : any
+>!funcDecl.isMethod() : boolean
+>funcDecl.isMethod() : any
+>funcDecl.isMethod : any
+>funcDecl : any
+>isMethod : any
+>isStatic : any
 
                     parentScope = instType.constructorScope;
->parentScope = instType.constructorScope : 任意
->类型别名 :=> 任意
->parentScope : 任意
->类型别名 :=> 任意
->instType.constructorScope : 任意
->类型别名 :=> 任意
->instType : 任意
->类型别名 :=> 任意
->constructorScope : 任意
->类型别名 :=> 任意
+>parentScope = instType.constructorScope : any
+>parentScope : any
+>instType.constructorScope : any
+>instType : any
+>constructorScope : any
                 }
                 else {
                     // use constructor scope if a method as well
                     parentScope = instType.containedScope;
->parentScope = instType.containedScope : 任意
->类型别名 :=> 任意
->parentScope : 任意
->类型别名 :=> 任意
->instType.containedScope : 任意
->类型别名 :=> 任意
->instType : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
+>parentScope = instType.containedScope : any
+>parentScope : any
+>instType.containedScope : any
+>instType : any
+>containedScope : any
                 }
             }
             else {
                 if (context.scopeChain.previous.scope.container &&
->context.scopeChain.previous.scope.container &&                    context.scopeChain.previous.scope.container.declAST &&                    context.scopeChain.previous.scope.container.declAST.nodeType == NodeType.FuncDecl &&                    (<FuncDecl>context.scopeChain.previous.scope.container.declAST).isConstructor : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope.container &&                    context.scopeChain.previous.scope.container.declAST &&                    context.scopeChain.previous.scope.container.declAST.nodeType == NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->context.scopeChain.previous.scope.container &&                    context.scopeChain.previous.scope.container.declAST : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope.container : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope : 任意
->类型别名 :=> 任意
->context.scopeChain.previous : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.previous.scope.container &&                    context.scopeChain.previous.scope.container.declAST &&                    context.scopeChain.previous.scope.container.declAST.nodeType == NodeType.FuncDecl &&                    (<FuncDecl>context.scopeChain.previous.scope.container.declAST).isConstructor : any
+>context.scopeChain.previous.scope.container &&                    context.scopeChain.previous.scope.container.declAST &&                    context.scopeChain.previous.scope.container.declAST.nodeType == NodeType.FuncDecl : boolean
+>context.scopeChain.previous.scope.container &&                    context.scopeChain.previous.scope.container.declAST : any
+>context.scopeChain.previous.scope.container : any
+>context.scopeChain.previous.scope : any
+>context.scopeChain.previous : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->previous : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>previous : any
+>scope : any
+>container : any
 
                     context.scopeChain.previous.scope.container.declAST &&
->context.scopeChain.previous.scope.container.declAST : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope.container : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope : 任意
->类型别名 :=> 任意
->context.scopeChain.previous : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.previous.scope.container.declAST : any
+>context.scopeChain.previous.scope.container : any
+>context.scopeChain.previous.scope : any
+>context.scopeChain.previous : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->previous : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->declAST : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>previous : any
+>scope : any
+>container : any
+>declAST : any
 
                     context.scopeChain.previous.scope.container.declAST.nodeType == NodeType.FuncDecl &&
->context.scopeChain.previous.scope.container.declAST.nodeType == NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->context.scopeChain.previous.scope.container.declAST.nodeType : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope.container.declAST : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope.container : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope : 任意
->类型别名 :=> 任意
->context.scopeChain.previous : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.previous.scope.container.declAST.nodeType == NodeType.FuncDecl : boolean
+>context.scopeChain.previous.scope.container.declAST.nodeType : any
+>context.scopeChain.previous.scope.container.declAST : any
+>context.scopeChain.previous.scope.container : any
+>context.scopeChain.previous.scope : any
+>context.scopeChain.previous : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->previous : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->declAST : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.FuncDecl : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->FuncDecl : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>previous : any
+>scope : any
+>container : any
+>declAST : any
+>nodeType : any
+>NodeType.FuncDecl : any
+>NodeType : any
+>FuncDecl : any
 
                     (<FuncDecl>context.scopeChain.previous.scope.container.declAST).isConstructor) {
->(<FuncDecl>context.scopeChain.previous.scope.container.declAST).isConstructor : 任意
->类型别名 :=> 任意
->(<FuncDecl>context.scopeChain.previous.scope.container.declAST) : 任意
->类型别名 :=> 任意
-><FuncDecl>context.scopeChain.previous.scope.container.declAST : 任意
->类型别名 :=> 任意
+>(<FuncDecl>context.scopeChain.previous.scope.container.declAST).isConstructor : any
+>(<FuncDecl>context.scopeChain.previous.scope.container.declAST) : any
+><FuncDecl>context.scopeChain.previous.scope.container.declAST : any
 >FuncDecl : No type information available!
->context.scopeChain.previous.scope.container.declAST : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope.container : 任意
->类型别名 :=> 任意
->context.scopeChain.previous.scope : 任意
->类型别名 :=> 任意
->context.scopeChain.previous : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.previous.scope.container.declAST : any
+>context.scopeChain.previous.scope.container : any
+>context.scopeChain.previous.scope : any
+>context.scopeChain.previous : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->previous : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->declAST : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>previous : any
+>scope : any
+>container : any
+>declAST : any
+>isConstructor : any
 
                         // if the parent is the class constructor, use the constructor scope
                     parentScope = instType.constructorScope;
->parentScope = instType.constructorScope : 任意
->类型别名 :=> 任意
->parentScope : 任意
->类型别名 :=> 任意
->instType.constructorScope : 任意
->类型别名 :=> 任意
->instType : 任意
->类型别名 :=> 任意
->constructorScope : 任意
->类型别名 :=> 任意
+>parentScope = instType.constructorScope : any
+>parentScope : any
+>instType.constructorScope : any
+>instType : any
+>constructorScope : any
                 }
                 else if (isStatic && context.scopeChain.classType) {
->isStatic && context.scopeChain.classType : 任意
->类型别名 :=> 任意
->isStatic : 任意
->类型别名 :=> 任意
->context.scopeChain.classType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>isStatic && context.scopeChain.classType : any
+>isStatic : any
+>context.scopeChain.classType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>classType : any
 
                     parentScope = context.scopeChain.classType.containedScope;
->parentScope = context.scopeChain.classType.containedScope : 任意
->类型别名 :=> 任意
->parentScope : 任意
->类型别名 :=> 任意
->context.scopeChain.classType.containedScope : 任意
->类型别名 :=> 任意
->context.scopeChain.classType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>parentScope = context.scopeChain.classType.containedScope : any
+>parentScope : any
+>context.scopeChain.classType.containedScope : any
+>context.scopeChain.classType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>classType : any
+>containedScope : any
                 }
                 else {
                     // else, use the contained scope
                     parentScope = instType.containedScope;
->parentScope = instType.containedScope : 任意
->类型别名 :=> 任意
->parentScope : 任意
->类型别名 :=> 任意
->instType.containedScope : 任意
->类型别名 :=> 任意
->instType : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
+>parentScope = instType.containedScope : any
+>parentScope : any
+>instType.containedScope : any
+>instType : any
+>containedScope : any
                 }
             }
             container = instType.symbol;
->container = instType.symbol : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->instType.symbol : 任意
->类型别名 :=> 任意
->instType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>container = instType.symbol : any
+>container : any
+>instType.symbol : any
+>instType : any
+>symbol : any
         }
         else if (funcDecl.isConstructor && context.scopeChain.thisType) {
->funcDecl.isConstructor && context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>funcDecl.isConstructor && context.scopeChain.thisType : any
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
 
             // sets the container to the class type's symbol (which is shared by the instance type)
             container = context.scopeChain.thisType.symbol;
->container = context.scopeChain.thisType.symbol : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType.symbol : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>container = context.scopeChain.thisType.symbol : any
+>container : any
+>context.scopeChain.thisType.symbol : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
+>symbol : any
         }
 
         if (funcDecl.type == null || hasFlag(funcDecl.type.symbol.flags, SymbolFlags.TypeSetDuringScopeAssignment)) {
->funcDecl.type == null || hasFlag(funcDecl.type.symbol.flags, SymbolFlags.TypeSetDuringScopeAssignment) : 任意
->类型别名 :=> 任意
->funcDecl.type == null : 真假
->类型别名 :=> 真假
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->hasFlag(funcDecl.type.symbol.flags, SymbolFlags.TypeSetDuringScopeAssignment) : 任意
->类型别名 :=> 任意
->hasFlag : 任意
->类型别名 :=> 任意
->funcDecl.type.symbol.flags : 任意
->类型别名 :=> 任意
->funcDecl.type.symbol : 任意
->类型别名 :=> 任意
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
->flags : 任意
->类型别名 :=> 任意
->SymbolFlags.TypeSetDuringScopeAssignment : 任意
->类型别名 :=> 任意
->SymbolFlags : 任意
->类型别名 :=> 任意
->TypeSetDuringScopeAssignment : 任意
->类型别名 :=> 任意
+>funcDecl.type == null || hasFlag(funcDecl.type.symbol.flags, SymbolFlags.TypeSetDuringScopeAssignment) : any
+>funcDecl.type == null : boolean
+>funcDecl.type : any
+>funcDecl : any
+>type : any
+>null : null
+>hasFlag(funcDecl.type.symbol.flags, SymbolFlags.TypeSetDuringScopeAssignment) : any
+>hasFlag : any
+>funcDecl.type.symbol.flags : any
+>funcDecl.type.symbol : any
+>funcDecl.type : any
+>funcDecl : any
+>type : any
+>symbol : any
+>flags : any
+>SymbolFlags.TypeSetDuringScopeAssignment : any
+>SymbolFlags : any
+>TypeSetDuringScopeAssignment : any
 
             if (context.scopeChain.fnc && context.scopeChain.fnc.type) {
->context.scopeChain.fnc && context.scopeChain.fnc.type : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.fnc && context.scopeChain.fnc.type : any
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc.type : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
+>context.scopeChain.fnc.type : any
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
+>type : any
 
                 container = context.scopeChain.fnc.type.symbol;
->container = context.scopeChain.fnc.type.symbol : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc.type.symbol : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc.type : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>container = context.scopeChain.fnc.type.symbol : any
+>container : any
+>context.scopeChain.fnc.type.symbol : any
+>context.scopeChain.fnc.type : any
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
+>type : any
+>symbol : any
             }
 
             var funcScope = null;
->funcScope : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>funcScope : any
+>null : null
 
             var outerFnc: FuncDecl = context.scopeChain.fnc;
->outerFnc : 任意
->类型别名 :=> 任意
+>outerFnc : any
 >FuncDecl : No type information available!
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
 
             var nameText = funcDecl.name ? funcDecl.name.actualText : null;
->nameText : 任意
->类型别名 :=> 任意
->funcDecl.name ? funcDecl.name.actualText : null : 任意
->类型别名 :=> 任意
->funcDecl.name : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->funcDecl.name.actualText : 任意
->类型别名 :=> 任意
->funcDecl.name : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->actualText : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>nameText : any
+>funcDecl.name ? funcDecl.name.actualText : null : any
+>funcDecl.name : any
+>funcDecl : any
+>name : any
+>funcDecl.name.actualText : any
+>funcDecl.name : any
+>funcDecl : any
+>name : any
+>actualText : any
+>null : null
 
             var fgSym: TypeSymbol = null;
->fgSym : 任意
->类型别名 :=> 任意
+>fgSym : any
 >TypeSymbol : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             if (isStatic) {
->isStatic : 任意
->类型别名 :=> 任意
+>isStatic : any
 
                 // In the case of function-nested statics, no member list will have bee initialized for the function, so we need
                 // to copy it over.  We don't set this by default because having a non-null member list will throw off assignment
                 // compatibility tests
                 if (outerFnc.type.members == null && container.getType().memberScope) {
->outerFnc.type.members == null && container.getType().memberScope : 任意
->类型别名 :=> 任意
->outerFnc.type.members == null : 真假
->类型别名 :=> 真假
->outerFnc.type.members : 任意
->类型别名 :=> 任意
->outerFnc.type : 任意
->类型别名 :=> 任意
->outerFnc : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->members : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->container.getType().memberScope : 任意
->类型别名 :=> 任意
->container.getType() : 任意
->类型别名 :=> 任意
->container.getType : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->getType : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>outerFnc.type.members == null && container.getType().memberScope : any
+>outerFnc.type.members == null : boolean
+>outerFnc.type.members : any
+>outerFnc.type : any
+>outerFnc : any
+>type : any
+>members : any
+>null : null
+>container.getType().memberScope : any
+>container.getType() : any
+>container.getType : any
+>container : any
+>getType : any
+>memberScope : any
 
                     outerFnc.type.members = (<SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope).valueMembers;
->outerFnc.type.members = (<SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope).valueMembers : 任意
->类型别名 :=> 任意
->outerFnc.type.members : 任意
->类型别名 :=> 任意
->outerFnc.type : 任意
->类型别名 :=> 任意
->outerFnc : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->members : 任意
->类型别名 :=> 任意
->(<SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope).valueMembers : 任意
->类型别名 :=> 任意
->(<SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope) : 任意
->类型别名 :=> 任意
-><SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope : 任意
->类型别名 :=> 任意
+>outerFnc.type.members = (<SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope).valueMembers : any
+>outerFnc.type.members : any
+>outerFnc.type : any
+>outerFnc : any
+>type : any
+>members : any
+>(<SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope).valueMembers : any
+>(<SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope) : any
+><SymbolScopeBuilder>(<TypeSymbol>container).type.memberScope : any
 >SymbolScopeBuilder : No type information available!
->(<TypeSymbol>container).type.memberScope : 任意
->类型别名 :=> 任意
->(<TypeSymbol>container).type : 任意
->类型别名 :=> 任意
->(<TypeSymbol>container) : 任意
->类型别名 :=> 任意
-><TypeSymbol>container : 任意
->类型别名 :=> 任意
+>(<TypeSymbol>container).type.memberScope : any
+>(<TypeSymbol>container).type : any
+>(<TypeSymbol>container) : any
+><TypeSymbol>container : any
 >TypeSymbol : No type information available!
->container : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->valueMembers : 任意
->类型别名 :=> 任意
+>container : any
+>type : any
+>memberScope : any
+>valueMembers : any
                 }
                 funcScope = context.scopeChain.fnc.type.memberScope;
->funcScope = context.scopeChain.fnc.type.memberScope : 任意
->类型别名 :=> 任意
->funcScope : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc.type.memberScope : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc.type : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>funcScope = context.scopeChain.fnc.type.memberScope : any
+>funcScope : any
+>context.scopeChain.fnc.type.memberScope : any
+>context.scopeChain.fnc.type : any
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
+>type : any
+>memberScope : any
 
                 outerFnc.innerStaticFuncs[outerFnc.innerStaticFuncs.length] = funcDecl;
->outerFnc.innerStaticFuncs[outerFnc.innerStaticFuncs.length] = funcDecl : 任意
->类型别名 :=> 任意
->outerFnc.innerStaticFuncs[outerFnc.innerStaticFuncs.length] : 任意
->类型别名 :=> 任意
->outerFnc.innerStaticFuncs : 任意
->类型别名 :=> 任意
->outerFnc : 任意
->类型别名 :=> 任意
->innerStaticFuncs : 任意
->类型别名 :=> 任意
->outerFnc.innerStaticFuncs.length : 任意
->类型别名 :=> 任意
->outerFnc.innerStaticFuncs : 任意
->类型别名 :=> 任意
->outerFnc : 任意
->类型别名 :=> 任意
->innerStaticFuncs : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
+>outerFnc.innerStaticFuncs[outerFnc.innerStaticFuncs.length] = funcDecl : any
+>outerFnc.innerStaticFuncs[outerFnc.innerStaticFuncs.length] : any
+>outerFnc.innerStaticFuncs : any
+>outerFnc : any
+>innerStaticFuncs : any
+>outerFnc.innerStaticFuncs.length : any
+>outerFnc.innerStaticFuncs : any
+>outerFnc : any
+>innerStaticFuncs : any
+>length : any
+>funcDecl : any
             }
             else {
 
                 if (!funcDecl.isConstructor &&
->!funcDecl.isConstructor &&                    container &&                    container.declAST &&                    container.declAST.nodeType == NodeType.FuncDecl &&                    (<FuncDecl>container.declAST).isConstructor &&                    !funcDecl.isMethod() : 真假
->类型别名 :=> 真假
->!funcDecl.isConstructor &&                    container &&                    container.declAST &&                    container.declAST.nodeType == NodeType.FuncDecl &&                    (<FuncDecl>container.declAST).isConstructor : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor &&                    container &&                    container.declAST &&                    container.declAST.nodeType == NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->!funcDecl.isConstructor &&                    container &&                    container.declAST : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor &&                    container : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor : 真假
->类型别名 :=> 真假
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
+>!funcDecl.isConstructor &&                    container &&                    container.declAST &&                    container.declAST.nodeType == NodeType.FuncDecl &&                    (<FuncDecl>container.declAST).isConstructor &&                    !funcDecl.isMethod() : boolean
+>!funcDecl.isConstructor &&                    container &&                    container.declAST &&                    container.declAST.nodeType == NodeType.FuncDecl &&                    (<FuncDecl>container.declAST).isConstructor : any
+>!funcDecl.isConstructor &&                    container &&                    container.declAST &&                    container.declAST.nodeType == NodeType.FuncDecl : boolean
+>!funcDecl.isConstructor &&                    container &&                    container.declAST : any
+>!funcDecl.isConstructor &&                    container : any
+>!funcDecl.isConstructor : boolean
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
 
                     container &&
->container : 任意
->类型别名 :=> 任意
+>container : any
 
                     container.declAST &&
->container.declAST : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->declAST : 任意
->类型别名 :=> 任意
+>container.declAST : any
+>container : any
+>declAST : any
 
                     container.declAST.nodeType == NodeType.FuncDecl &&
->container.declAST.nodeType == NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->container.declAST.nodeType : 任意
->类型别名 :=> 任意
->container.declAST : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->declAST : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.FuncDecl : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->FuncDecl : 任意
->类型别名 :=> 任意
+>container.declAST.nodeType == NodeType.FuncDecl : boolean
+>container.declAST.nodeType : any
+>container.declAST : any
+>container : any
+>declAST : any
+>nodeType : any
+>NodeType.FuncDecl : any
+>NodeType : any
+>FuncDecl : any
 
                     (<FuncDecl>container.declAST).isConstructor &&
->(<FuncDecl>container.declAST).isConstructor : 任意
->类型别名 :=> 任意
->(<FuncDecl>container.declAST) : 任意
->类型别名 :=> 任意
-><FuncDecl>container.declAST : 任意
->类型别名 :=> 任意
+>(<FuncDecl>container.declAST).isConstructor : any
+>(<FuncDecl>container.declAST) : any
+><FuncDecl>container.declAST : any
 >FuncDecl : No type information available!
->container.declAST : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->declAST : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
+>container.declAST : any
+>container : any
+>declAST : any
+>isConstructor : any
 
                     !funcDecl.isMethod()) {
->!funcDecl.isMethod() : 真假
->类型别名 :=> 真假
->funcDecl.isMethod() : 任意
->类型别名 :=> 任意
->funcDecl.isMethod : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isMethod : 任意
->类型别名 :=> 任意
+>!funcDecl.isMethod() : boolean
+>funcDecl.isMethod() : any
+>funcDecl.isMethod : any
+>funcDecl : any
+>isMethod : any
 
                     funcScope = context.scopeChain.thisType.constructorScope;//locals;
->funcScope = context.scopeChain.thisType.constructorScope : 任意
->类型别名 :=> 任意
->funcScope : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType.constructorScope : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>funcScope = context.scopeChain.thisType.constructorScope : any
+>funcScope : any
+>context.scopeChain.thisType.constructorScope : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
->constructorScope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
+>constructorScope : any
                 }
                 else {
                     funcScope = context.scopeChain.scope;
->funcScope = context.scopeChain.scope : 任意
->类型别名 :=> 任意
->funcScope : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>funcScope = context.scopeChain.scope : any
+>funcScope : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
                 }
             }
 
@@ -2248,570 +1377,328 @@ module TypeScript {
             // accidentally coalescing function signatures with the same name (E.g., a function
             // 'f' the outer scope and a setter 'f' in an object literal within that scope)
             if (nameText && nameText != "__missing" && !funcDecl.isAccessor()) {
->nameText && nameText != "__missing" && !funcDecl.isAccessor() : 真假
->类型别名 :=> 真假
->nameText && nameText != "__missing" : 真假
->类型别名 :=> 真假
->nameText : 任意
->类型别名 :=> 任意
->nameText != "__missing" : 真假
->类型别名 :=> 真假
->nameText : 任意
->类型别名 :=> 任意
+>nameText && nameText != "__missing" && !funcDecl.isAccessor() : boolean
+>nameText && nameText != "__missing" : boolean
+>nameText : any
+>nameText != "__missing" : boolean
+>nameText : any
 >"__missing" : "__missing"
->!funcDecl.isAccessor() : 真假
->类型别名 :=> 真假
->funcDecl.isAccessor() : 任意
->类型别名 :=> 任意
->funcDecl.isAccessor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isAccessor : 任意
->类型别名 :=> 任意
+>!funcDecl.isAccessor() : boolean
+>funcDecl.isAccessor() : any
+>funcDecl.isAccessor : any
+>funcDecl : any
+>isAccessor : any
 
                 if (isStatic) {
->isStatic : 任意
->类型别名 :=> 任意
+>isStatic : any
 
                     fgSym = funcScope.findLocal(nameText, false, false);
->fgSym = funcScope.findLocal(nameText, false, false) : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->funcScope.findLocal(nameText, false, false) : 任意
->类型别名 :=> 任意
->funcScope.findLocal : 任意
->类型别名 :=> 任意
->funcScope : 任意
->类型别名 :=> 任意
->findLocal : 任意
->类型别名 :=> 任意
->nameText : 任意
->类型别名 :=> 任意
->false : 为假
->类型别名 :=> 为假
->false : 为假
->类型别名 :=> 为假
+>fgSym = funcScope.findLocal(nameText, false, false) : any
+>fgSym : any
+>funcScope.findLocal(nameText, false, false) : any
+>funcScope.findLocal : any
+>funcScope : any
+>findLocal : any
+>nameText : any
+>false : false
+>false : false
                 }
                 else {
                     // REVIEW: This logic should be symmetric with preCollectClassTypes
                     fgSym = funcScope.findLocal(nameText, false, false);
->fgSym = funcScope.findLocal(nameText, false, false) : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->funcScope.findLocal(nameText, false, false) : 任意
->类型别名 :=> 任意
->funcScope.findLocal : 任意
->类型别名 :=> 任意
->funcScope : 任意
->类型别名 :=> 任意
->findLocal : 任意
->类型别名 :=> 任意
->nameText : 任意
->类型别名 :=> 任意
->false : 为假
->类型别名 :=> 为假
->false : 为假
->类型别名 :=> 为假
+>fgSym = funcScope.findLocal(nameText, false, false) : any
+>fgSym : any
+>funcScope.findLocal(nameText, false, false) : any
+>funcScope.findLocal : any
+>funcScope : any
+>findLocal : any
+>nameText : any
+>false : false
+>false : false
                 }
             }
 
             context.typeFlow.checker.createFunctionSignature(funcDecl, container,
->context.typeFlow.checker.createFunctionSignature(funcDecl, container,                                                            funcScope, fgSym, fgSym == null) : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.createFunctionSignature : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.createFunctionSignature(funcDecl, container,                                                            funcScope, fgSym, fgSym == null) : any
+>context.typeFlow.checker.createFunctionSignature : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->createFunctionSignature : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>createFunctionSignature : any
+>funcDecl : any
+>container : any
 
                                                             funcScope, fgSym, fgSym == null);
->funcScope : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->fgSym == null : 真假
->类型别名 :=> 真假
->fgSym : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>funcScope : any
+>fgSym : any
+>fgSym == null : boolean
+>fgSym : any
+>null : null
 
             // it's a getter or setter for a class property                     
             if (!funcDecl.accessorSymbol && 
->!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) &&                container &&                 ((!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor()) ||                     (fgSym && fgSym.isAccessor()) : 任意
->类型别名 :=> 任意
->!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) &&                container &&                 ((!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor()) : 任意
->类型别名 :=> 任意
->!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) &&                container : 任意
->类型别名 :=> 任意
->!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) : 数字
->类型别名 :=> 数字
->!funcDecl.accessorSymbol : 真假
->类型别名 :=> 真假
->funcDecl.accessorSymbol : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->accessorSymbol : 任意
->类型别名 :=> 任意
+>!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) &&                container &&                 ((!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor()) ||                     (fgSym && fgSym.isAccessor()) : any
+>!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) &&                container &&                 ((!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor()) : any
+>!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) &&                container : any
+>!funcDecl.accessorSymbol &&                 (funcDecl.fncFlags & FncFlags.ClassMethod) : number
+>!funcDecl.accessorSymbol : boolean
+>funcDecl.accessorSymbol : any
+>funcDecl : any
+>accessorSymbol : any
 
                 (funcDecl.fncFlags & FncFlags.ClassMethod) &&
->(funcDecl.fncFlags & FncFlags.ClassMethod) : 数字
->类型别名 :=> 数字
->funcDecl.fncFlags & FncFlags.ClassMethod : 数字
->类型别名 :=> 数字
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.ClassMethod : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->ClassMethod : 任意
->类型别名 :=> 任意
+>(funcDecl.fncFlags & FncFlags.ClassMethod) : number
+>funcDecl.fncFlags & FncFlags.ClassMethod : number
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.ClassMethod : any
+>FncFlags : any
+>ClassMethod : any
 
                 container && 
->container : 任意
->类型别名 :=> 任意
+>container : any
 
                 ((!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor()) || 
->((!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor()) : 任意
->类型别名 :=> 任意
->(!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor() : 任意
->类型别名 :=> 任意
->(!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) : 真假
->类型别名 :=> 真假
->!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->!fgSym : 真假
->类型别名 :=> 真假
->fgSym : 任意
->类型别名 :=> 任意
->fgSym.declAST.nodeType != NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->fgSym.declAST.nodeType : 任意
->类型别名 :=> 任意
->fgSym.declAST : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->declAST : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.FuncDecl : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->FuncDecl : 任意
->类型别名 :=> 任意
->funcDecl.isAccessor() : 任意
->类型别名 :=> 任意
->funcDecl.isAccessor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isAccessor : 任意
->类型别名 :=> 任意
+>((!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor()) : any
+>(!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) && funcDecl.isAccessor() : any
+>(!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl) : boolean
+>!fgSym || fgSym.declAST.nodeType != NodeType.FuncDecl : boolean
+>!fgSym : boolean
+>fgSym : any
+>fgSym.declAST.nodeType != NodeType.FuncDecl : boolean
+>fgSym.declAST.nodeType : any
+>fgSym.declAST : any
+>fgSym : any
+>declAST : any
+>nodeType : any
+>NodeType.FuncDecl : any
+>NodeType : any
+>FuncDecl : any
+>funcDecl.isAccessor() : any
+>funcDecl.isAccessor : any
+>funcDecl : any
+>isAccessor : any
 
                     (fgSym && fgSym.isAccessor())) 
->(fgSym && fgSym.isAccessor()) : 任意
->类型别名 :=> 任意
->fgSym && fgSym.isAccessor() : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->fgSym.isAccessor() : 任意
->类型别名 :=> 任意
->fgSym.isAccessor : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->isAccessor : 任意
->类型别名 :=> 任意
+>(fgSym && fgSym.isAccessor()) : any
+>fgSym && fgSym.isAccessor() : any
+>fgSym : any
+>fgSym.isAccessor() : any
+>fgSym.isAccessor : any
+>fgSym : any
+>isAccessor : any
             {
                 funcDecl.accessorSymbol = context.typeFlow.checker.createAccessorSymbol(funcDecl, fgSym, container.getType(), (funcDecl.isMethod() && isStatic), true, funcScope, container);
->funcDecl.accessorSymbol = context.typeFlow.checker.createAccessorSymbol(funcDecl, fgSym, container.getType(), (funcDecl.isMethod() && isStatic), true, funcScope, container) : 任意
->类型别名 :=> 任意
->funcDecl.accessorSymbol : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->accessorSymbol : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.createAccessorSymbol(funcDecl, fgSym, container.getType(), (funcDecl.isMethod() && isStatic), true, funcScope, container) : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.createAccessorSymbol : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>funcDecl.accessorSymbol = context.typeFlow.checker.createAccessorSymbol(funcDecl, fgSym, container.getType(), (funcDecl.isMethod() && isStatic), true, funcScope, container) : any
+>funcDecl.accessorSymbol : any
+>funcDecl : any
+>accessorSymbol : any
+>context.typeFlow.checker.createAccessorSymbol(funcDecl, fgSym, container.getType(), (funcDecl.isMethod() && isStatic), true, funcScope, container) : any
+>context.typeFlow.checker.createAccessorSymbol : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->createAccessorSymbol : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->container.getType() : 任意
->类型别名 :=> 任意
->container.getType : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->getType : 任意
->类型别名 :=> 任意
->(funcDecl.isMethod() && isStatic) : 任意
->类型别名 :=> 任意
->funcDecl.isMethod() && isStatic : 任意
->类型别名 :=> 任意
->funcDecl.isMethod() : 任意
->类型别名 :=> 任意
->funcDecl.isMethod : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isMethod : 任意
->类型别名 :=> 任意
->isStatic : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
->funcScope : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>createAccessorSymbol : any
+>funcDecl : any
+>fgSym : any
+>container.getType() : any
+>container.getType : any
+>container : any
+>getType : any
+>(funcDecl.isMethod() && isStatic) : any
+>funcDecl.isMethod() && isStatic : any
+>funcDecl.isMethod() : any
+>funcDecl.isMethod : any
+>funcDecl : any
+>isMethod : any
+>isStatic : any
+>true : true
+>funcScope : any
+>container : any
             }
 
             funcDecl.type.symbol.flags |= SymbolFlags.TypeSetDuringScopeAssignment;
->funcDecl.type.symbol.flags |= SymbolFlags.TypeSetDuringScopeAssignment : 数字
->类型别名 :=> 数字
->funcDecl.type.symbol.flags : 任意
->类型别名 :=> 任意
->funcDecl.type.symbol : 任意
->类型别名 :=> 任意
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
->flags : 任意
->类型别名 :=> 任意
->SymbolFlags.TypeSetDuringScopeAssignment : 任意
->类型别名 :=> 任意
->SymbolFlags : 任意
->类型别名 :=> 任意
->TypeSetDuringScopeAssignment : 任意
->类型别名 :=> 任意
+>funcDecl.type.symbol.flags |= SymbolFlags.TypeSetDuringScopeAssignment : number
+>funcDecl.type.symbol.flags : any
+>funcDecl.type.symbol : any
+>funcDecl.type : any
+>funcDecl : any
+>type : any
+>symbol : any
+>flags : any
+>SymbolFlags.TypeSetDuringScopeAssignment : any
+>SymbolFlags : any
+>TypeSetDuringScopeAssignment : any
         }
 
         // Set the symbol for functions and their overloads
         if (funcDecl.name && funcDecl.type) {
->funcDecl.name && funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl.name : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>funcDecl.name && funcDecl.type : any
+>funcDecl.name : any
+>funcDecl : any
+>name : any
+>funcDecl.type : any
+>funcDecl : any
+>type : any
 
             funcDecl.name.sym = funcDecl.type.symbol;
->funcDecl.name.sym = funcDecl.type.symbol : 任意
->类型别名 :=> 任意
->funcDecl.name.sym : 任意
->类型别名 :=> 任意
->funcDecl.name : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->name : 任意
->类型别名 :=> 任意
->sym : 任意
->类型别名 :=> 任意
->funcDecl.type.symbol : 任意
->类型别名 :=> 任意
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>funcDecl.name.sym = funcDecl.type.symbol : any
+>funcDecl.name.sym : any
+>funcDecl.name : any
+>funcDecl : any
+>name : any
+>sym : any
+>funcDecl.type.symbol : any
+>funcDecl.type : any
+>funcDecl : any
+>type : any
+>symbol : any
         }
 
         // Keep track of the original scope type, because target typing might override
         // the "type" member. We need the original "Scope type" for completion list, etc.
         funcDecl.scopeType = funcDecl.type;
->funcDecl.scopeType = funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl.scopeType : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->scopeType : 任意
->类型别名 :=> 任意
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>funcDecl.scopeType = funcDecl.type : any
+>funcDecl.scopeType : any
+>funcDecl : any
+>scopeType : any
+>funcDecl.type : any
+>funcDecl : any
+>type : any
 
         // Overloads have no scope, so bail here
         if (funcDecl.isOverload) {
->funcDecl.isOverload : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isOverload : 任意
->类型别名 :=> 任意
+>funcDecl.isOverload : any
+>funcDecl : any
+>isOverload : any
 
             return;
         }
 
         var funcTable = new StringHashTable();
->funcTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>funcTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var funcMembers = new ScopedMembers(new DualStringHashTable(funcTable, new StringHashTable()));
->funcMembers : 任意
->类型别名 :=> 任意
->new ScopedMembers(new DualStringHashTable(funcTable, new StringHashTable())) : 任意
->类型别名 :=> 任意
->ScopedMembers : 任意
->类型别名 :=> 任意
->new DualStringHashTable(funcTable, new StringHashTable()) : 任意
->类型别名 :=> 任意
->DualStringHashTable : 任意
->类型别名 :=> 任意
->funcTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>funcMembers : any
+>new ScopedMembers(new DualStringHashTable(funcTable, new StringHashTable())) : any
+>ScopedMembers : any
+>new DualStringHashTable(funcTable, new StringHashTable()) : any
+>DualStringHashTable : any
+>funcTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var ambientFuncTable = new StringHashTable();
->ambientFuncTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>ambientFuncTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var ambientFuncMembers = new ScopedMembers(new DualStringHashTable(ambientFuncTable, new StringHashTable()));
->ambientFuncMembers : 任意
->类型别名 :=> 任意
->new ScopedMembers(new DualStringHashTable(ambientFuncTable, new StringHashTable())) : 任意
->类型别名 :=> 任意
->ScopedMembers : 任意
->类型别名 :=> 任意
->new DualStringHashTable(ambientFuncTable, new StringHashTable()) : 任意
->类型别名 :=> 任意
->DualStringHashTable : 任意
->类型别名 :=> 任意
->ambientFuncTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>ambientFuncMembers : any
+>new ScopedMembers(new DualStringHashTable(ambientFuncTable, new StringHashTable())) : any
+>ScopedMembers : any
+>new DualStringHashTable(ambientFuncTable, new StringHashTable()) : any
+>DualStringHashTable : any
+>ambientFuncTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var funcStaticTable = new StringHashTable();
->funcStaticTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>funcStaticTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var funcStaticMembers = new ScopedMembers(new DualStringHashTable(funcStaticTable, new StringHashTable()));
->funcStaticMembers : 任意
->类型别名 :=> 任意
->new ScopedMembers(new DualStringHashTable(funcStaticTable, new StringHashTable())) : 任意
->类型别名 :=> 任意
->ScopedMembers : 任意
->类型别名 :=> 任意
->new DualStringHashTable(funcStaticTable, new StringHashTable()) : 任意
->类型别名 :=> 任意
->DualStringHashTable : 任意
->类型别名 :=> 任意
->funcStaticTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>funcStaticMembers : any
+>new ScopedMembers(new DualStringHashTable(funcStaticTable, new StringHashTable())) : any
+>ScopedMembers : any
+>new DualStringHashTable(funcStaticTable, new StringHashTable()) : any
+>DualStringHashTable : any
+>funcStaticTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var ambientFuncStaticTable = new StringHashTable();
->ambientFuncStaticTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>ambientFuncStaticTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         var ambientFuncStaticMembers = new ScopedMembers(new DualStringHashTable(ambientFuncStaticTable, new StringHashTable()));
->ambientFuncStaticMembers : 任意
->类型别名 :=> 任意
->new ScopedMembers(new DualStringHashTable(ambientFuncStaticTable, new StringHashTable())) : 任意
->类型别名 :=> 任意
->ScopedMembers : 任意
->类型别名 :=> 任意
->new DualStringHashTable(ambientFuncStaticTable, new StringHashTable()) : 任意
->类型别名 :=> 任意
->DualStringHashTable : 任意
->类型别名 :=> 任意
->ambientFuncStaticTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>ambientFuncStaticMembers : any
+>new ScopedMembers(new DualStringHashTable(ambientFuncStaticTable, new StringHashTable())) : any
+>ScopedMembers : any
+>new DualStringHashTable(ambientFuncStaticTable, new StringHashTable()) : any
+>DualStringHashTable : any
+>ambientFuncStaticTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
         // REVIEW: Is it a problem that this is being set twice for properties and constructors?
         funcDecl.unitIndex = context.typeFlow.checker.locationInfo.unitIndex;
->funcDecl.unitIndex = context.typeFlow.checker.locationInfo.unitIndex : 任意
->类型别名 :=> 任意
->funcDecl.unitIndex : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->unitIndex : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.locationInfo.unitIndex : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.locationInfo : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>funcDecl.unitIndex = context.typeFlow.checker.locationInfo.unitIndex : any
+>funcDecl.unitIndex : any
+>funcDecl : any
+>unitIndex : any
+>context.typeFlow.checker.locationInfo.unitIndex : any
+>context.typeFlow.checker.locationInfo : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->locationInfo : 任意
->类型别名 :=> 任意
->unitIndex : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>locationInfo : any
+>unitIndex : any
 
         var locals = new SymbolScopeBuilder(funcMembers, ambientFuncMembers, null, null, parentScope, localContainer);
->locals : 任意
->类型别名 :=> 任意
->new SymbolScopeBuilder(funcMembers, ambientFuncMembers, null, null, parentScope, localContainer) : 任意
->类型别名 :=> 任意
->SymbolScopeBuilder : 任意
->类型别名 :=> 任意
->funcMembers : 任意
->类型别名 :=> 任意
->ambientFuncMembers : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->parentScope : 任意
->类型别名 :=> 任意
->localContainer : 任意
->类型别名 :=> 任意
+>locals : any
+>new SymbolScopeBuilder(funcMembers, ambientFuncMembers, null, null, parentScope, localContainer) : any
+>SymbolScopeBuilder : any
+>funcMembers : any
+>ambientFuncMembers : any
+>null : null
+>null : null
+>parentScope : any
+>localContainer : any
 
         var statics = new SymbolScopeBuilder(funcStaticMembers, ambientFuncStaticMembers, null, null, parentScope, null);
->statics : 任意
->类型别名 :=> 任意
->new SymbolScopeBuilder(funcStaticMembers, ambientFuncStaticMembers, null, null, parentScope, null) : 任意
->类型别名 :=> 任意
->SymbolScopeBuilder : 任意
->类型别名 :=> 任意
->funcStaticMembers : 任意
->类型别名 :=> 任意
->ambientFuncStaticMembers : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->parentScope : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>statics : any
+>new SymbolScopeBuilder(funcStaticMembers, ambientFuncStaticMembers, null, null, parentScope, null) : any
+>SymbolScopeBuilder : any
+>funcStaticMembers : any
+>ambientFuncStaticMembers : any
+>null : null
+>null : null
+>parentScope : any
+>null : null
 
         if (funcDecl.isConstructor && context.scopeChain.thisType) {
->funcDecl.isConstructor && context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>funcDecl.isConstructor && context.scopeChain.thisType : any
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
 
             context.scopeChain.thisType.constructorScope = locals;
->context.scopeChain.thisType.constructorScope = locals : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType.constructorScope : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.thisType.constructorScope = locals : any
+>context.scopeChain.thisType.constructorScope : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
->constructorScope : 任意
->类型别名 :=> 任意
->locals : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
+>constructorScope : any
+>locals : any
         }
 
         // basically, there are two problems
@@ -2824,1210 +1711,741 @@ module TypeScript {
         // constructor scope as appropriate
 
         funcDecl.symbols = funcTable;
->funcDecl.symbols = funcTable : 任意
->类型别名 :=> 任意
->funcDecl.symbols : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->symbols : 任意
->类型别名 :=> 任意
->funcTable : 任意
->类型别名 :=> 任意
+>funcDecl.symbols = funcTable : any
+>funcDecl.symbols : any
+>funcDecl : any
+>symbols : any
+>funcTable : any
 
         if (!funcDecl.isSpecialFn()) {
->!funcDecl.isSpecialFn() : 真假
->类型别名 :=> 真假
->funcDecl.isSpecialFn() : 任意
->类型别名 :=> 任意
->funcDecl.isSpecialFn : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isSpecialFn : 任意
->类型别名 :=> 任意
+>!funcDecl.isSpecialFn() : boolean
+>funcDecl.isSpecialFn() : any
+>funcDecl.isSpecialFn : any
+>funcDecl : any
+>isSpecialFn : any
 
             var group = funcDecl.type;
->group : 任意
->类型别名 :=> 任意
->funcDecl.type : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
+>group : any
+>funcDecl.type : any
+>funcDecl : any
+>type : any
 
             var signature = funcDecl.signature;
->signature : 任意
->类型别名 :=> 任意
->funcDecl.signature : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->signature : 任意
->类型别名 :=> 任意
+>signature : any
+>funcDecl.signature : any
+>funcDecl : any
+>signature : any
 
             if (!funcDecl.isConstructor) {
->!funcDecl.isConstructor : 真假
->类型别名 :=> 真假
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
+>!funcDecl.isConstructor : boolean
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
 
                 group.containedScope = locals;
->group.containedScope = locals : 任意
->类型别名 :=> 任意
->group.containedScope : 任意
->类型别名 :=> 任意
->group : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->locals : 任意
->类型别名 :=> 任意
+>group.containedScope = locals : any
+>group.containedScope : any
+>group : any
+>containedScope : any
+>locals : any
 
                 locals.container = group.symbol;
->locals.container = group.symbol : 任意
->类型别名 :=> 任意
->locals.container : 任意
->类型别名 :=> 任意
->locals : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->group.symbol : 任意
->类型别名 :=> 任意
->group : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>locals.container = group.symbol : any
+>locals.container : any
+>locals : any
+>container : any
+>group.symbol : any
+>group : any
+>symbol : any
 
                 group.memberScope = statics;
->group.memberScope = statics : 任意
->类型别名 :=> 任意
->group.memberScope : 任意
->类型别名 :=> 任意
->group : 任意
->类型别名 :=> 任意
->memberScope : 任意
->类型别名 :=> 任意
->statics : 任意
->类型别名 :=> 任意
+>group.memberScope = statics : any
+>group.memberScope : any
+>group : any
+>memberScope : any
+>statics : any
 
                 statics.container = group.symbol;
->statics.container = group.symbol : 任意
->类型别名 :=> 任意
->statics.container : 任意
->类型别名 :=> 任意
->statics : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
->group.symbol : 任意
->类型别名 :=> 任意
->group : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>statics.container = group.symbol : any
+>statics.container : any
+>statics : any
+>container : any
+>group.symbol : any
+>group : any
+>symbol : any
             }
             funcDecl.enclosingFnc = context.scopeChain.fnc;
->funcDecl.enclosingFnc = context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->funcDecl.enclosingFnc : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->enclosingFnc : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>funcDecl.enclosingFnc = context.scopeChain.fnc : any
+>funcDecl.enclosingFnc : any
+>funcDecl : any
+>enclosingFnc : any
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
 
             group.enclosingType = isStatic ? context.scopeChain.classType : context.scopeChain.thisType;
->group.enclosingType = isStatic ? context.scopeChain.classType : context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->group.enclosingType : 任意
->类型别名 :=> 任意
->group : 任意
->类型别名 :=> 任意
->enclosingType : 任意
->类型别名 :=> 任意
->isStatic ? context.scopeChain.classType : context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->isStatic : 任意
->类型别名 :=> 任意
->context.scopeChain.classType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>group.enclosingType = isStatic ? context.scopeChain.classType : context.scopeChain.thisType : any
+>group.enclosingType : any
+>group : any
+>enclosingType : any
+>isStatic ? context.scopeChain.classType : context.scopeChain.thisType : any
+>isStatic : any
+>context.scopeChain.classType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>classType : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
 
             // for mapping when type checking
             var fgSym = <TypeSymbol>ast.type.symbol;
->fgSym : 任意
->类型别名 :=> 任意
-><TypeSymbol>ast.type.symbol : 任意
->类型别名 :=> 任意
+>fgSym : any
+><TypeSymbol>ast.type.symbol : any
 >TypeSymbol : No type information available!
->ast.type.symbol : 任意
->类型别名 :=> 任意
->ast.type : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->type : 任意
->类型别名 :=> 任意
->symbol : 任意
->类型别名 :=> 任意
+>ast.type.symbol : any
+>ast.type : any
+>ast : any
+>type : any
+>symbol : any
 
             if (((funcDecl.fncFlags & FncFlags.Signature) == FncFlags.None) && funcDecl.vars) {
->((funcDecl.fncFlags & FncFlags.Signature) == FncFlags.None) && funcDecl.vars : 任意
->类型别名 :=> 任意
->((funcDecl.fncFlags & FncFlags.Signature) == FncFlags.None) : 真假
->类型别名 :=> 真假
->(funcDecl.fncFlags & FncFlags.Signature) == FncFlags.None : 真假
->类型别名 :=> 真假
->(funcDecl.fncFlags & FncFlags.Signature) : 数字
->类型别名 :=> 数字
->funcDecl.fncFlags & FncFlags.Signature : 数字
->类型别名 :=> 数字
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.Signature : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->Signature : 任意
->类型别名 :=> 任意
->FncFlags.None : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->None : 任意
->类型别名 :=> 任意
->funcDecl.vars : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->vars : 任意
->类型别名 :=> 任意
+>((funcDecl.fncFlags & FncFlags.Signature) == FncFlags.None) && funcDecl.vars : any
+>((funcDecl.fncFlags & FncFlags.Signature) == FncFlags.None) : boolean
+>(funcDecl.fncFlags & FncFlags.Signature) == FncFlags.None : boolean
+>(funcDecl.fncFlags & FncFlags.Signature) : number
+>funcDecl.fncFlags & FncFlags.Signature : number
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.Signature : any
+>FncFlags : any
+>Signature : any
+>FncFlags.None : any
+>FncFlags : any
+>None : any
+>funcDecl.vars : any
+>funcDecl : any
+>vars : any
 
                 context.typeFlow.addLocalsFromScope(locals, fgSym, funcDecl.vars,
->context.typeFlow.addLocalsFromScope(locals, fgSym, funcDecl.vars,                                                    funcTable, false) : 任意
->类型别名 :=> 任意
->context.typeFlow.addLocalsFromScope : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.addLocalsFromScope(locals, fgSym, funcDecl.vars,                                                    funcTable, false) : any
+>context.typeFlow.addLocalsFromScope : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->addLocalsFromScope : 任意
->类型别名 :=> 任意
->locals : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->funcDecl.vars : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->vars : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>addLocalsFromScope : any
+>locals : any
+>fgSym : any
+>funcDecl.vars : any
+>funcDecl : any
+>vars : any
 
                                                     funcTable, false);
->funcTable : 任意
->类型别名 :=> 任意
->false : 为假
->类型别名 :=> 为假
+>funcTable : any
+>false : false
 
                 context.typeFlow.addLocalsFromScope(statics, fgSym, funcDecl.statics,
->context.typeFlow.addLocalsFromScope(statics, fgSym, funcDecl.statics,                                                    funcStaticTable, false) : 任意
->类型别名 :=> 任意
->context.typeFlow.addLocalsFromScope : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.addLocalsFromScope(statics, fgSym, funcDecl.statics,                                                    funcStaticTable, false) : any
+>context.typeFlow.addLocalsFromScope : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->addLocalsFromScope : 任意
->类型别名 :=> 任意
->statics : 任意
->类型别名 :=> 任意
->fgSym : 任意
->类型别名 :=> 任意
->funcDecl.statics : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->statics : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>addLocalsFromScope : any
+>statics : any
+>fgSym : any
+>funcDecl.statics : any
+>funcDecl : any
+>statics : any
 
                                                     funcStaticTable, false);
->funcStaticTable : 任意
->类型别名 :=> 任意
->false : 为假
->类型别名 :=> 为假
+>funcStaticTable : any
+>false : false
             }
             if (signature.parameters) {
->signature.parameters : 任意
->类型别名 :=> 任意
->signature : 任意
->类型别名 :=> 任意
->parameters : 任意
->类型别名 :=> 任意
+>signature.parameters : any
+>signature : any
+>parameters : any
 
                 var len = signature.parameters.length;
->len : 任意
->类型别名 :=> 任意
->signature.parameters.length : 任意
->类型别名 :=> 任意
->signature.parameters : 任意
->类型别名 :=> 任意
->signature : 任意
->类型别名 :=> 任意
->parameters : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>len : any
+>signature.parameters.length : any
+>signature.parameters : any
+>signature : any
+>parameters : any
+>length : any
 
                 for (var i = 0; i < len; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < len : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->len : 任意
->类型别名 :=> 任意
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i < len : boolean
+>i : number
+>len : any
+>i++ : number
+>i : number
 
                     var paramSym: ParameterSymbol = signature.parameters[i];
->paramSym : 任意
->类型别名 :=> 任意
+>paramSym : any
 >ParameterSymbol : No type information available!
->signature.parameters[i] : 任意
->类型别名 :=> 任意
->signature.parameters : 任意
->类型别名 :=> 任意
->signature : 任意
->类型别名 :=> 任意
->parameters : 任意
->类型别名 :=> 任意
->i : 数字
->类型别名 :=> 数字
+>signature.parameters[i] : any
+>signature.parameters : any
+>signature : any
+>parameters : any
+>i : number
 
                     context.typeFlow.checker.resolveTypeLink(locals,
->context.typeFlow.checker.resolveTypeLink(locals,                                                                paramSym.parameter.typeLink, true) : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.resolveTypeLink : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.resolveTypeLink(locals,                                                                paramSym.parameter.typeLink, true) : any
+>context.typeFlow.checker.resolveTypeLink : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->resolveTypeLink : 任意
->类型别名 :=> 任意
->locals : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>resolveTypeLink : any
+>locals : any
 
                                                                 paramSym.parameter.typeLink, true);
->paramSym.parameter.typeLink : 任意
->类型别名 :=> 任意
->paramSym.parameter : 任意
->类型别名 :=> 任意
->paramSym : 任意
->类型别名 :=> 任意
->parameter : 任意
->类型别名 :=> 任意
->typeLink : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
+>paramSym.parameter.typeLink : any
+>paramSym.parameter : any
+>paramSym : any
+>parameter : any
+>typeLink : any
+>true : true
                 }
             }
             context.typeFlow.checker.resolveTypeLink(locals, signature.returnType,
->context.typeFlow.checker.resolveTypeLink(locals, signature.returnType,                                                        funcDecl.isSignature()) : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.resolveTypeLink : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.resolveTypeLink(locals, signature.returnType,                                                        funcDecl.isSignature()) : any
+>context.typeFlow.checker.resolveTypeLink : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->resolveTypeLink : 任意
->类型别名 :=> 任意
->locals : 任意
->类型别名 :=> 任意
->signature.returnType : 任意
->类型别名 :=> 任意
->signature : 任意
->类型别名 :=> 任意
->returnType : 任意
->类型别名 :=> 任意
+>typeFlow : any
+>checker : any
+>resolveTypeLink : any
+>locals : any
+>signature.returnType : any
+>signature : any
+>returnType : any
 
                                                         funcDecl.isSignature());
->funcDecl.isSignature() : 任意
->类型别名 :=> 任意
->funcDecl.isSignature : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isSignature : 任意
->类型别名 :=> 任意
+>funcDecl.isSignature() : any
+>funcDecl.isSignature : any
+>funcDecl : any
+>isSignature : any
         }
 
         if (!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) {
->!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor : 真假
->类型别名 :=> 真假
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
->hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->hasFlag : 任意
->类型别名 :=> 任意
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.ClassMethod : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->ClassMethod : 任意
->类型别名 :=> 任意
+>!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>!funcDecl.isConstructor : boolean
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
+>hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>hasFlag : any
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.ClassMethod : any
+>FncFlags : any
+>ClassMethod : any
 
             var thisType = (funcDecl.isConstructor && hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) ? context.scopeChain.thisType : null;
->thisType : 任意
->类型别名 :=> 任意
->(funcDecl.isConstructor && hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) ? context.scopeChain.thisType : null : 任意
->类型别名 :=> 任意
->(funcDecl.isConstructor && hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : 任意
->类型别名 :=> 任意
->funcDecl.isConstructor && hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
->hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->hasFlag : 任意
->类型别名 :=> 任意
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.ClassMethod : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->ClassMethod : 任意
->类型别名 :=> 任意
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>thisType : any
+>(funcDecl.isConstructor && hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) ? context.scopeChain.thisType : null : any
+>(funcDecl.isConstructor && hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : any
+>funcDecl.isConstructor && hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
+>hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>hasFlag : any
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.ClassMethod : any
+>FncFlags : any
+>ClassMethod : any
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>scopeChain : any
+>thisType : any
+>null : null
 
             pushAssignScope(locals, context, thisType, null, funcDecl);
->pushAssignScope(locals, context, thisType, null, funcDecl) : 无值
->类型别名 :=> 无值
->pushAssignScope : (scope: 任意, context: AssignScopeContext, type: 任意, classType: 任意, fnc: 任意) => 无值
->locals : 任意
->类型别名 :=> 任意
+>pushAssignScope(locals, context, thisType, null, funcDecl) : void
+>pushAssignScope : (scope: any, context: AssignScopeContext, type: any, classType: any, fnc: any) => void
+>locals : any
 >context : AssignScopeContext
->thisType : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->funcDecl : 任意
->类型别名 :=> 任意
+>thisType : any
+>null : null
+>funcDecl : any
         }
     }
 
     export function preAssignCatchScopes(ast: AST, context: AssignScopeContext) {
->preAssignCatchScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignCatchScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >AST : No type information available!
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
 
         var catchBlock = <Catch>ast;
->catchBlock : 任意
->类型别名 :=> 任意
-><Catch>ast : 任意
->类型别名 :=> 任意
+>catchBlock : any
+><Catch>ast : any
 >Catch : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
         if (catchBlock.param) {
->catchBlock.param : 任意
->类型别名 :=> 任意
->catchBlock : 任意
->类型别名 :=> 任意
->param : 任意
->类型别名 :=> 任意
+>catchBlock.param : any
+>catchBlock : any
+>param : any
 
             var catchTable = new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable())); // REVIEW: Should we be allocating a public table instead of a private one?
->catchTable : 任意
->类型别名 :=> 任意
->new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable())) : 任意
->类型别名 :=> 任意
->ScopedMembers : 任意
->类型别名 :=> 任意
->new DualStringHashTable(new StringHashTable(), new StringHashTable()) : 任意
->类型别名 :=> 任意
->DualStringHashTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
->new StringHashTable() : 任意
->类型别名 :=> 任意
->StringHashTable : 任意
->类型别名 :=> 任意
+>catchTable : any
+>new ScopedMembers(new DualStringHashTable(new StringHashTable(), new StringHashTable())) : any
+>ScopedMembers : any
+>new DualStringHashTable(new StringHashTable(), new StringHashTable()) : any
+>DualStringHashTable : any
+>new StringHashTable() : any
+>StringHashTable : any
+>new StringHashTable() : any
+>StringHashTable : any
 
             var catchLocals = new SymbolScopeBuilder(catchTable, null, null, null, context.scopeChain.scope,
->catchLocals : 任意
->类型别名 :=> 任意
->new SymbolScopeBuilder(catchTable, null, null, null, context.scopeChain.scope,                                                   context.scopeChain.scope.container) : 任意
->类型别名 :=> 任意
->SymbolScopeBuilder : 任意
->类型别名 :=> 任意
->catchTable : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>catchLocals : any
+>new SymbolScopeBuilder(catchTable, null, null, null, context.scopeChain.scope,                                                   context.scopeChain.scope.container) : any
+>SymbolScopeBuilder : any
+>catchTable : any
+>null : null
+>null : null
+>null : null
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
 
                                                    context.scopeChain.scope.container);
->context.scopeChain.scope.container : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.scope.container : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
->container : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
+>container : any
 
             catchBlock.containedScope = catchLocals;
->catchBlock.containedScope = catchLocals : 任意
->类型别名 :=> 任意
->catchBlock.containedScope : 任意
->类型别名 :=> 任意
->catchBlock : 任意
->类型别名 :=> 任意
->containedScope : 任意
->类型别名 :=> 任意
->catchLocals : 任意
->类型别名 :=> 任意
+>catchBlock.containedScope = catchLocals : any
+>catchBlock.containedScope : any
+>catchBlock : any
+>containedScope : any
+>catchLocals : any
 
             pushAssignScope(catchLocals, context, context.scopeChain.thisType, context.scopeChain.classType, context.scopeChain.fnc);
->pushAssignScope(catchLocals, context, context.scopeChain.thisType, context.scopeChain.classType, context.scopeChain.fnc) : 无值
->类型别名 :=> 无值
->pushAssignScope : (scope: 任意, context: AssignScopeContext, type: 任意, classType: 任意, fnc: 任意) => 无值
->catchLocals : 任意
->类型别名 :=> 任意
+>pushAssignScope(catchLocals, context, context.scopeChain.thisType, context.scopeChain.classType, context.scopeChain.fnc) : void
+>pushAssignScope : (scope: any, context: AssignScopeContext, type: any, classType: any, fnc: any) => void
+>catchLocals : any
 >context : AssignScopeContext
->context.scopeChain.thisType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>context.scopeChain.thisType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->thisType : 任意
->类型别名 :=> 任意
->context.scopeChain.classType : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>thisType : any
+>context.scopeChain.classType : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->classType : 任意
->类型别名 :=> 任意
->context.scopeChain.fnc : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>classType : any
+>context.scopeChain.fnc : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->fnc : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>fnc : any
         }
     }
 
     export function preAssignScopes(ast: AST, parent: AST, walker: IAstWalker) {
->preAssignScopes : (ast: 任意, parent: 任意, walker: 任意) => 任意
->ast : 任意
->类型别名 :=> 任意
+>preAssignScopes : (ast: any, parent: any, walker: any) => any
+>ast : any
 >AST : No type information available!
->parent : 任意
->类型别名 :=> 任意
+>parent : any
 >AST : No type information available!
->walker : 任意
->类型别名 :=> 任意
+>walker : any
 >IAstWalker : No type information available!
 
         var context:AssignScopeContext = walker.state;
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
->walker.state : 任意
->类型别名 :=> 任意
->walker : 任意
->类型别名 :=> 任意
->state : 任意
->类型别名 :=> 任意
+>walker.state : any
+>walker : any
+>state : any
 
         var go = true;
->go : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>go : boolean
+>true : true
 
         if (ast) {
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
             if (ast.nodeType == NodeType.List) {
->ast.nodeType == NodeType.List : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.List : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->List : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.List : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.List : any
+>NodeType : any
+>List : any
 
                 var list = <ASTList>ast;
->list : 任意
->类型别名 :=> 任意
-><ASTList>ast : 任意
->类型别名 :=> 任意
+>list : any
+><ASTList>ast : any
 >ASTList : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
                 list.enclosingScope = context.scopeChain.scope;
->list.enclosingScope = context.scopeChain.scope : 任意
->类型别名 :=> 任意
->list.enclosingScope : 任意
->类型别名 :=> 任意
->list : 任意
->类型别名 :=> 任意
->enclosingScope : 任意
->类型别名 :=> 任意
->context.scopeChain.scope : 任意
->类型别名 :=> 任意
->context.scopeChain : 任意
->类型别名 :=> 任意
+>list.enclosingScope = context.scopeChain.scope : any
+>list.enclosingScope : any
+>list : any
+>enclosingScope : any
+>context.scopeChain.scope : any
+>context.scopeChain : any
 >context : AssignScopeContext
->scopeChain : 任意
->类型别名 :=> 任意
->scope : 任意
->类型别名 :=> 任意
+>scopeChain : any
+>scope : any
             }
             else if (ast.nodeType == NodeType.ModuleDeclaration) {
->ast.nodeType == NodeType.ModuleDeclaration : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.ModuleDeclaration : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->ModuleDeclaration : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.ModuleDeclaration : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.ModuleDeclaration : any
+>NodeType : any
+>ModuleDeclaration : any
 
                 preAssignModuleScopes(ast, context);
->preAssignModuleScopes(ast, context) : 无值
->类型别名 :=> 无值
->preAssignModuleScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignModuleScopes(ast, context) : void
+>preAssignModuleScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.ClassDeclaration) {
->ast.nodeType == NodeType.ClassDeclaration : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.ClassDeclaration : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->ClassDeclaration : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.ClassDeclaration : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.ClassDeclaration : any
+>NodeType : any
+>ClassDeclaration : any
 
                 preAssignClassScopes(ast, context);
->preAssignClassScopes(ast, context) : 无值
->类型别名 :=> 无值
->preAssignClassScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignClassScopes(ast, context) : void
+>preAssignClassScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.InterfaceDeclaration) {
->ast.nodeType == NodeType.InterfaceDeclaration : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.InterfaceDeclaration : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->InterfaceDeclaration : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.InterfaceDeclaration : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.InterfaceDeclaration : any
+>NodeType : any
+>InterfaceDeclaration : any
 
                 preAssignInterfaceScopes(ast, context);
->preAssignInterfaceScopes(ast, context) : 无值
->类型别名 :=> 无值
->preAssignInterfaceScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignInterfaceScopes(ast, context) : void
+>preAssignInterfaceScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.With) {
->ast.nodeType == NodeType.With : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.With : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->With : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.With : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.With : any
+>NodeType : any
+>With : any
 
                 preAssignWithScopes(ast, context);
->preAssignWithScopes(ast, context) : 无值
->类型别名 :=> 无值
->preAssignWithScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignWithScopes(ast, context) : void
+>preAssignWithScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.FuncDecl) {
->ast.nodeType == NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.FuncDecl : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->FuncDecl : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.FuncDecl : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.FuncDecl : any
+>NodeType : any
+>FuncDecl : any
 
                 preAssignFuncDeclScopes(ast, context);
->preAssignFuncDeclScopes(ast, context) : 无值
->类型别名 :=> 无值
->preAssignFuncDeclScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignFuncDeclScopes(ast, context) : void
+>preAssignFuncDeclScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.Catch) {
->ast.nodeType == NodeType.Catch : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.Catch : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->Catch : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.Catch : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.Catch : any
+>NodeType : any
+>Catch : any
 
                 preAssignCatchScopes(ast, context);
->preAssignCatchScopes(ast, context) : 无值
->类型别名 :=> 无值
->preAssignCatchScopes : (ast: 任意, context: AssignScopeContext) => 无值
->ast : 任意
->类型别名 :=> 任意
+>preAssignCatchScopes(ast, context) : void
+>preAssignCatchScopes : (ast: any, context: AssignScopeContext) => void
+>ast : any
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.TypeRef) {
->ast.nodeType == NodeType.TypeRef : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.TypeRef : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->TypeRef : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.TypeRef : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.TypeRef : any
+>NodeType : any
+>TypeRef : any
 
                 go = false;
->go = false : 为假
->类型别名 :=> 为假
->go : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>go = false : false
+>go : boolean
+>false : false
             }
         }
         walker.options.goChildren = go;
->walker.options.goChildren = go : 真假
->类型别名 :=> 真假
->walker.options.goChildren : 任意
->类型别名 :=> 任意
->walker.options : 任意
->类型别名 :=> 任意
->walker : 任意
->类型别名 :=> 任意
->options : 任意
->类型别名 :=> 任意
->goChildren : 任意
->类型别名 :=> 任意
->go : 真假
->类型别名 :=> 真假
+>walker.options.goChildren = go : boolean
+>walker.options.goChildren : any
+>walker.options : any
+>walker : any
+>options : any
+>goChildren : any
+>go : boolean
 
         return ast;
->ast : 任意
->类型别名 :=> 任意
+>ast : any
     }
 
     export function postAssignScopes(ast: AST, parent: AST, walker: IAstWalker) {
->postAssignScopes : (ast: 任意, parent: 任意, walker: 任意) => 任意
->ast : 任意
->类型别名 :=> 任意
+>postAssignScopes : (ast: any, parent: any, walker: any) => any
+>ast : any
 >AST : No type information available!
->parent : 任意
->类型别名 :=> 任意
+>parent : any
 >AST : No type information available!
->walker : 任意
->类型别名 :=> 任意
+>walker : any
 >IAstWalker : No type information available!
 
         var context:AssignScopeContext = walker.state;
 >context : AssignScopeContext
 >AssignScopeContext : AssignScopeContext
->walker.state : 任意
->类型别名 :=> 任意
->walker : 任意
->类型别名 :=> 任意
->state : 任意
->类型别名 :=> 任意
+>walker.state : any
+>walker : any
+>state : any
 
         var go = true;
->go : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>go : boolean
+>true : true
 
         if (ast) {
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
             if (ast.nodeType == NodeType.ModuleDeclaration) {
->ast.nodeType == NodeType.ModuleDeclaration : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.ModuleDeclaration : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->ModuleDeclaration : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.ModuleDeclaration : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.ModuleDeclaration : any
+>NodeType : any
+>ModuleDeclaration : any
 
                 var prevModDecl = <ModuleDeclaration>ast;
->prevModDecl : 任意
->类型别名 :=> 任意
-><ModuleDeclaration>ast : 任意
->类型别名 :=> 任意
+>prevModDecl : any
+><ModuleDeclaration>ast : any
 >ModuleDeclaration : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
                 popAssignScope(context);
->popAssignScope(context) : 无值
->类型别名 :=> 无值
->popAssignScope : (context: AssignScopeContext) => 无值
+>popAssignScope(context) : void
+>popAssignScope : (context: AssignScopeContext) => void
 >context : AssignScopeContext
 
                 context.modDeclChain.pop();
->context.modDeclChain.pop() : 任意
->类型别名 :=> 任意
->context.modDeclChain.pop : () => 任意
->context.modDeclChain : 任意[]
+>context.modDeclChain.pop() : any
+>context.modDeclChain.pop : () => any
+>context.modDeclChain : any[]
 >context : AssignScopeContext
->modDeclChain : 任意[]
->pop : () => 任意
+>modDeclChain : any[]
+>pop : () => any
 
                 if (context.modDeclChain.length >= 1) {
->context.modDeclChain.length >= 1 : 真假
->类型别名 :=> 真假
->context.modDeclChain.length : 数字
->类型别名 :=> 数字
->context.modDeclChain : 任意[]
+>context.modDeclChain.length >= 1 : boolean
+>context.modDeclChain.length : number
+>context.modDeclChain : any[]
 >context : AssignScopeContext
->modDeclChain : 任意[]
->length : 数字
->类型别名 :=> 数字
+>modDeclChain : any[]
+>length : number
 >1 : 1
 
                     context.typeFlow.checker.currentModDecl = context.modDeclChain[context.modDeclChain.length - 1];
->context.typeFlow.checker.currentModDecl = context.modDeclChain[context.modDeclChain.length - 1] : 任意
->类型别名 :=> 任意
->context.typeFlow.checker.currentModDecl : 任意
->类型别名 :=> 任意
->context.typeFlow.checker : 任意
->类型别名 :=> 任意
->context.typeFlow : 任意
->类型别名 :=> 任意
+>context.typeFlow.checker.currentModDecl = context.modDeclChain[context.modDeclChain.length - 1] : any
+>context.typeFlow.checker.currentModDecl : any
+>context.typeFlow.checker : any
+>context.typeFlow : any
 >context : AssignScopeContext
->typeFlow : 任意
->类型别名 :=> 任意
->checker : 任意
->类型别名 :=> 任意
->currentModDecl : 任意
->类型别名 :=> 任意
->context.modDeclChain[context.modDeclChain.length - 1] : 任意
->类型别名 :=> 任意
->context.modDeclChain : 任意[]
+>typeFlow : any
+>checker : any
+>currentModDecl : any
+>context.modDeclChain[context.modDeclChain.length - 1] : any
+>context.modDeclChain : any[]
 >context : AssignScopeContext
->modDeclChain : 任意[]
->context.modDeclChain.length - 1 : 数字
->类型别名 :=> 数字
->context.modDeclChain.length : 数字
->类型别名 :=> 数字
->context.modDeclChain : 任意[]
+>modDeclChain : any[]
+>context.modDeclChain.length - 1 : number
+>context.modDeclChain.length : number
+>context.modDeclChain : any[]
 >context : AssignScopeContext
->modDeclChain : 任意[]
->length : 数字
->类型别名 :=> 数字
+>modDeclChain : any[]
+>length : number
 >1 : 1
                 }
             }
             else if (ast.nodeType == NodeType.ClassDeclaration) {
->ast.nodeType == NodeType.ClassDeclaration : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.ClassDeclaration : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->ClassDeclaration : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.ClassDeclaration : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.ClassDeclaration : any
+>NodeType : any
+>ClassDeclaration : any
 
                 popAssignScope(context);
->popAssignScope(context) : 无值
->类型别名 :=> 无值
->popAssignScope : (context: AssignScopeContext) => 无值
+>popAssignScope(context) : void
+>popAssignScope : (context: AssignScopeContext) => void
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.InterfaceDeclaration) {
->ast.nodeType == NodeType.InterfaceDeclaration : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.InterfaceDeclaration : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->InterfaceDeclaration : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.InterfaceDeclaration : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.InterfaceDeclaration : any
+>NodeType : any
+>InterfaceDeclaration : any
 
                 popAssignScope(context);
->popAssignScope(context) : 无值
->类型别名 :=> 无值
->popAssignScope : (context: AssignScopeContext) => 无值
+>popAssignScope(context) : void
+>popAssignScope : (context: AssignScopeContext) => void
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.With) {
->ast.nodeType == NodeType.With : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.With : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->With : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.With : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.With : any
+>NodeType : any
+>With : any
 
                 popAssignScope(context);
->popAssignScope(context) : 无值
->类型别名 :=> 无值
->popAssignScope : (context: AssignScopeContext) => 无值
+>popAssignScope(context) : void
+>popAssignScope : (context: AssignScopeContext) => void
 >context : AssignScopeContext
             }
             else if (ast.nodeType == NodeType.FuncDecl) {
->ast.nodeType == NodeType.FuncDecl : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.FuncDecl : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->FuncDecl : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.FuncDecl : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.FuncDecl : any
+>NodeType : any
+>FuncDecl : any
 
                 var funcDecl = <FuncDecl>ast;
->funcDecl : 任意
->类型别名 :=> 任意
-><FuncDecl>ast : 任意
->类型别名 :=> 任意
+>funcDecl : any
+><FuncDecl>ast : any
 >FuncDecl : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
                 if ((!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) && !funcDecl.isOverload) {
->(!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) && !funcDecl.isOverload : 真假
->类型别名 :=> 真假
->(!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->!funcDecl.isConstructor : 真假
->类型别名 :=> 真假
->funcDecl.isConstructor : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isConstructor : 任意
->类型别名 :=> 任意
->hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : 任意
->类型别名 :=> 任意
->hasFlag : 任意
->类型别名 :=> 任意
->funcDecl.fncFlags : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->fncFlags : 任意
->类型别名 :=> 任意
->FncFlags.ClassMethod : 任意
->类型别名 :=> 任意
->FncFlags : 任意
->类型别名 :=> 任意
->ClassMethod : 任意
->类型别名 :=> 任意
->!funcDecl.isOverload : 真假
->类型别名 :=> 真假
->funcDecl.isOverload : 任意
->类型别名 :=> 任意
->funcDecl : 任意
->类型别名 :=> 任意
->isOverload : 任意
->类型别名 :=> 任意
+>(!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) && !funcDecl.isOverload : boolean
+>(!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod)) : any
+>!funcDecl.isConstructor || hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>!funcDecl.isConstructor : boolean
+>funcDecl.isConstructor : any
+>funcDecl : any
+>isConstructor : any
+>hasFlag(funcDecl.fncFlags, FncFlags.ClassMethod) : any
+>hasFlag : any
+>funcDecl.fncFlags : any
+>funcDecl : any
+>fncFlags : any
+>FncFlags.ClassMethod : any
+>FncFlags : any
+>ClassMethod : any
+>!funcDecl.isOverload : boolean
+>funcDecl.isOverload : any
+>funcDecl : any
+>isOverload : any
 
                     popAssignScope(context);
->popAssignScope(context) : 无值
->类型别名 :=> 无值
->popAssignScope : (context: AssignScopeContext) => 无值
+>popAssignScope(context) : void
+>popAssignScope : (context: AssignScopeContext) => void
 >context : AssignScopeContext
                 }
             }
             else if (ast.nodeType == NodeType.Catch) {
->ast.nodeType == NodeType.Catch : 真假
->类型别名 :=> 真假
->ast.nodeType : 任意
->类型别名 :=> 任意
->ast : 任意
->类型别名 :=> 任意
->nodeType : 任意
->类型别名 :=> 任意
->NodeType.Catch : 任意
->类型别名 :=> 任意
->NodeType : 任意
->类型别名 :=> 任意
->Catch : 任意
->类型别名 :=> 任意
+>ast.nodeType == NodeType.Catch : boolean
+>ast.nodeType : any
+>ast : any
+>nodeType : any
+>NodeType.Catch : any
+>NodeType : any
+>Catch : any
 
                 var catchBlock = <Catch>ast;
->catchBlock : 任意
->类型别名 :=> 任意
-><Catch>ast : 任意
->类型别名 :=> 任意
+>catchBlock : any
+><Catch>ast : any
 >Catch : No type information available!
->ast : 任意
->类型别名 :=> 任意
+>ast : any
 
                 if (catchBlock.param) {
->catchBlock.param : 任意
->类型别名 :=> 任意
->catchBlock : 任意
->类型别名 :=> 任意
->param : 任意
->类型别名 :=> 任意
+>catchBlock.param : any
+>catchBlock : any
+>param : any
 
                     popAssignScope(context);
->popAssignScope(context) : 无值
->类型别名 :=> 无值
->popAssignScope : (context: AssignScopeContext) => 无值
+>popAssignScope(context) : void
+>popAssignScope : (context: AssignScopeContext) => void
 >context : AssignScopeContext
                 }
             }
             else {
                 go = false;
->go = false : 为假
->类型别名 :=> 为假
->go : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>go = false : false
+>go : boolean
+>false : false
             }
         }
         walker.options.goChildren = go;
->walker.options.goChildren = go : 真假
->类型别名 :=> 真假
->walker.options.goChildren : 任意
->类型别名 :=> 任意
->walker.options : 任意
->类型别名 :=> 任意
->walker : 任意
->类型别名 :=> 任意
->options : 任意
->类型别名 :=> 任意
->goChildren : 任意
->类型别名 :=> 任意
->go : 真假
->类型别名 :=> 真假
+>walker.options.goChildren = go : boolean
+>walker.options.goChildren : any
+>walker.options : any
+>walker : any
+>options : any
+>goChildren : any
+>go : boolean
 
         return ast;
->ast : 任意
->类型别名 :=> 任意
+>ast : any
     }
 }

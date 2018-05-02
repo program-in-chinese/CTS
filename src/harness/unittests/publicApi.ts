@@ -25,10 +25,10 @@ describe("Public APIs", () => {
     }
 
     describe("for the language service and compiler", () => {
-        verifyApi("ctsscript.d.ts");
+        verifyApi("typescript.d.ts");
     });
 
     describe("for the language server", () => {
-        verifyApi("ctsserverlibrary.d.ts");
+        verifyApi("tsserverlibrary.d.ts");
     });
 });

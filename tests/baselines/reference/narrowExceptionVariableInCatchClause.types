@@ -1,73 +1,57 @@
 === tests/cases/conformance/types/any/narrowExceptionVariableInCatchClause.ts ===
 declare function isFooError(x: any): x is { type: 'foo'; dontPanic(); };
->isFooError : (x: 任意) => x 作为 { type: "foo"; dontPanic(): 任意; }
->x : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>isFooError : (x: any) => x is { type: "foo"; dontPanic(): any; }
+>x : any
+>x : any
 >type : "foo"
->dontPanic : () => 任意
+>dontPanic : () => any
 
 function tryCatch() {
->tryCatch : () => 无值
+>tryCatch : () => void
 
     try {
         // do stuff...
     }
     catch (err) { // err is implicitly 'any' and cannot be annotated
->err : 任意
->类型别名 :=> 任意
+>err : any
 
         if (isFooError(err)) {
->isFooError(err) : 真假
->类型别名 :=> 真假
->isFooError : (x: 任意) => x 作为 { type: "foo"; dontPanic(): 任意; }
->err : 任意
->类型别名 :=> 任意
+>isFooError(err) : boolean
+>isFooError : (x: any) => x is { type: "foo"; dontPanic(): any; }
+>err : any
 
             err.dontPanic(); // OK
->err.dontPanic() : 任意
->类型别名 :=> 任意
->err.dontPanic : () => 任意
->err : { type: "foo"; dontPanic(): 任意; }
->dontPanic : () => 任意
+>err.dontPanic() : any
+>err.dontPanic : () => any
+>err : { type: "foo"; dontPanic(): any; }
+>dontPanic : () => any
 
             err.doPanic(); // ERROR: Property 'doPanic' does not exist on type '{...}'
->err.doPanic() : 任意
->类型别名 :=> 任意
->err.doPanic : 任意
->类型别名 :=> 任意
->err : { type: "foo"; dontPanic(): 任意; }
->doPanic : 任意
->类型别名 :=> 任意
+>err.doPanic() : any
+>err.doPanic : any
+>err : { type: "foo"; dontPanic(): any; }
+>doPanic : any
         }
 
         else if (err instanceof Error) {
->err instanceof Error : 真假
->类型别名 :=> 真假
->err : 任意
->类型别名 :=> 任意
+>err instanceof Error : boolean
+>err : any
 >Error : ErrorConstructor
 
             err.message;
->err.message : 文字
->类型别名 :=> 文字
+>err.message : string
 >err : Error
->message : 文字
->类型别名 :=> 文字
+>message : string
 
             err.massage; // ERROR: Property 'massage' does not exist on type 'Error'
->err.massage : 任意
->类型别名 :=> 任意
+>err.massage : any
 >err : Error
->massage : 任意
->类型别名 :=> 任意
+>massage : any
         }
 
         else {
             throw err;
->err : 任意
->类型别名 :=> 任意
+>err : any
         }
     }
 }

@@ -1,38 +1,36 @@
 === tests/cases/compiler/aliasUsageInIndexerOfClass_main.ts ===
 import Backbone = require("./aliasUsageInIndexerOfClass_backbone");
->Backbone : 类为 Backbone
+>Backbone : typeof Backbone
 
 import moduleA = require("./aliasUsageInIndexerOfClass_moduleA");
->moduleA : 类为 moduleA
+>moduleA : typeof moduleA
 
 interface IHasVisualizationModel {
 >IHasVisualizationModel : IHasVisualizationModel
 
     VisualizationModel: typeof Backbone.Model;
->VisualizationModel : 类为 Backbone.Model
->Backbone.Model : 类为 Backbone.Model
->Backbone : 类为 Backbone
->Model : 类为 Backbone.Model
+>VisualizationModel : typeof Backbone.Model
+>Backbone.Model : typeof Backbone.Model
+>Backbone : typeof Backbone
+>Model : typeof Backbone.Model
 }
 class N {
 >N : N
 
     [idx: string]: IHasVisualizationModel
->idx : 文字
->类型别名 :=> 文字
+>idx : string
 >IHasVisualizationModel : IHasVisualizationModel
 
     x = moduleA;
->x : 类为 moduleA
->moduleA : 类为 moduleA
+>x : typeof moduleA
+>moduleA : typeof moduleA
 }
 class N2 {
 >N2 : N2
 
     [idx: string]: typeof moduleA
->idx : 文字
->类型别名 :=> 文字
->moduleA : 类为 moduleA
+>idx : string
+>moduleA : typeof moduleA
 
     x: IHasVisualizationModel;
 >x : IHasVisualizationModel
@@ -43,19 +41,18 @@ export class Model {
 >Model : Model
 
     public someData: string;
->someData : 文字
->类型别名 :=> 文字
+>someData : string
 }
 
 === tests/cases/compiler/aliasUsageInIndexerOfClass_moduleA.ts ===
 import Backbone = require("./aliasUsageInIndexerOfClass_backbone");
->Backbone : 类为 Backbone
+>Backbone : typeof Backbone
 
 export class VisualizationModel extends Backbone.Model {
 >VisualizationModel : VisualizationModel
 >Backbone.Model : Backbone.Model
->Backbone : 类为 Backbone
->Model : 类为 Backbone.Model
+>Backbone : typeof Backbone
+>Model : typeof Backbone.Model
 
     // interesting stuff here
 }

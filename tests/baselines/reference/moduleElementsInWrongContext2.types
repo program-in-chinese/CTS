@@ -1,81 +1,67 @@
 === tests/cases/compiler/moduleElementsInWrongContext2.ts ===
 function blah () {
->blah : () => 无值
+>blah : () => void
 
     module M { }
->M : 任意
->类型别名 :=> 任意
+>M : any
 
     export namespace N {
->N : 任意
->类型别名 :=> 任意
+>N : any
 
         export interface I { }
 >I : I
     }
 
     namespace Q.K { }
->Q : 任意
->类型别名 :=> 任意
->K : 任意
->类型别名 :=> 任意
+>Q : any
+>K : any
 
     declare module "ambient" {
+>"ambient" : typeof "ambient"
 
     }
 
     export = M;
->M : 任意
->类型别名 :=> 任意
+>M : any
 
     var v;
->v : 任意
->类型别名 :=> 任意
+>v : any
 
     function foo() { }
->foo : () => 无值
+>foo : () => void
 
     export * from "ambient";
     export { foo };
->foo : () => 无值
+>foo : () => void
 
     export { baz as b } from "ambient";
->baz : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>baz : any
+>b : any
 
     export default v;
->v : 任意
->类型别名 :=> 任意
+>v : any
 
     export default class C { }
 >C : C
 
     export function bee() { }
->bee : () => 无值
+>bee : () => void
 
     import I = M;
->I : 任意
->类型别名 :=> 任意
->M : 任意
->类型别名 :=> 任意
+>I : any
+>M : any
 
     import I2 = require("foo");
->I2 : 任意
->类型别名 :=> 任意
+>I2 : any
 
     import * as Foo from "ambient";
->Foo : 任意
->类型别名 :=> 任意
+>Foo : any
 
     import bar from "ambient";
->bar : 任意
->类型别名 :=> 任意
+>bar : any
 
     import { baz } from "ambient";
->baz : 任意
->类型别名 :=> 任意
+>baz : any
 
     import "ambient";
 }

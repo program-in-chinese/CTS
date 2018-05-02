@@ -1,7 +1,6 @@
 === tests/cases/conformance/jsx/tsxInArrowFunction.tsx ===
 declare namespace JSX {
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 
     interface Element { }
 >Element : Element
@@ -10,11 +9,10 @@ declare namespace JSX {
 >IntrinsicElements : IntrinsicElements
 
         div: {
->div : { text?: 文字; }
+>div : { text?: string; }
 
             text?: string;
->text : 文字
->类型别名 :=> 文字
+>text : string
         }
     }
 }
@@ -23,61 +21,43 @@ declare namespace JSX {
 // didn't work
 <div>{() => <div text="wat" />}</div>;
 ><div>{() => <div text="wat" />}</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
+>div : any
 >() => <div text="wat" /> : () => JSX.Element
 ><div text="wat" /> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->text : 文字
->类型别名 :=> 文字
->div : 任意
->类型别名 :=> 任意
+>div : any
+>text : string
+>div : any
 
 // didn't work
 <div>{x => <div text="wat" />}</div>;
 ><div>{x => <div text="wat" />}</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->x => <div text="wat" /> : (x: 任意) => JSX.Element
->x : 任意
->类型别名 :=> 任意
+>div : any
+>x => <div text="wat" /> : (x: any) => JSX.Element
+>x : any
 ><div text="wat" /> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->text : 文字
->类型别名 :=> 文字
->div : 任意
->类型别名 :=> 任意
+>div : any
+>text : string
+>div : any
 
 // worked
 <div>{() => (<div text="wat" />)}</div>;
 ><div>{() => (<div text="wat" />)}</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
+>div : any
 >() => (<div text="wat" />) : () => JSX.Element
 >(<div text="wat" />) : JSX.Element
 ><div text="wat" /> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->text : 文字
->类型别名 :=> 文字
->div : 任意
->类型别名 :=> 任意
+>div : any
+>text : string
+>div : any
 
 // worked (!)
 <div>{() => <div text="wat"></div>}</div>;
 ><div>{() => <div text="wat"></div>}</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
+>div : any
 >() => <div text="wat"></div> : () => JSX.Element
 ><div text="wat"></div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->text : 文字
->类型别名 :=> 文字
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>text : string
+>div : any
+>div : any
 

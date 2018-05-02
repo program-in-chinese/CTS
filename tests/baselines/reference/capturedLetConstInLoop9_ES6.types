@@ -1,173 +1,137 @@
 === tests/cases/compiler/capturedLetConstInLoop9_ES6.ts ===
 for (let x = 0; x < 1; ++x) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
->x < 1 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x < 1 : boolean
+>x : number
 >1 : 1
->++x : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>++x : number
+>x : number
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     (function() { return x });
->(function() { return x }) : () => 任意
->function() { return x } : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x }) : () => any
+>function() { return x } : () => any
+>x : any
     {
         let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
         (function() { return x });
->(function() { return x }) : () => 任意
->function() { return x } : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x }) : () => any
+>function() { return x } : () => any
+>x : any
     }
 
     try { }
     catch (e) {
->e : 任意
->类型别名 :=> 任意
+>e : any
 
         let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
         (function() { return x });
->(function() { return x }) : () => 任意
->function() { return x } : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x }) : () => any
+>function() { return x } : () => any
+>x : any
     }
 
     switch (x) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
         case 1:
 >1 : 1
 
             let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
             (function() { return x });
->(function() { return x }) : () => 任意
->function() { return x } : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x }) : () => any
+>function() { return x } : () => any
+>x : any
 
            break;
     }
     
     while (1 == 1) {
->1 == 1 : 真假
->类型别名 :=> 真假
+>1 == 1 : boolean
 >1 : 1
 >1 : 1
 
         let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
         (function() { return x });
->(function() { return x }) : () => 任意
->function() { return x } : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x }) : () => any
+>function() { return x } : () => any
+>x : any
     }
     
     class A {
 >A : A
 
         m() {
->m : () => 任意
+>m : () => any
 
             return x + 1;
->x + 1 : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>x + 1 : any
+>x : any
 >1 : 1
         }
     }
 }
 
 declare function use(a: any);
->use : (a: 任意) => 任意
->a : 任意
->类型别名 :=> 任意
+>use : (a: any) => any
+>a : any
 
 function foo() {
 >foo : () => 50 | 100
 
     l0:
->l0 : 任意
->类型别名 :=> 任意
+>l0 : any
 
     for (let a of []) {
->a : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>a : any
+>[] : undefined[]
         
         if (a === 1) {
->a === 1 : 真假
->类型别名 :=> 真假
->a : 任意
->类型别名 :=> 任意
+>a === 1 : boolean
+>a : any
 >1 : 1
 
             break;
         }
         
         if (a === 2) {
->a === 2 : 真假
->类型别名 :=> 真假
->a : 任意
->类型别名 :=> 任意
+>a === 2 : boolean
+>a : any
 >2 : 2
 
             break l0;
->l0 : 任意
->类型别名 :=> 任意
+>l0 : any
         }
         
         for (let b of []) {
->b : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>b : any
+>[] : undefined[]
 
             var [{x, y:z}] = [{x:1, y:2}];
->x : 数字
->类型别名 :=> 数字
->y : 任意
->类型别名 :=> 任意
->z : 数字
->类型别名 :=> 数字
->[{x:1, y:2}] : [{ x: 数字; y: 数字; }]
->{x:1, y:2} : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>x : number
+>y : any
+>z : number
+>[{x:1, y:2}] : [{ x: number; y: number; }]
+>{x:1, y:2} : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
 
             if (b === 1) {
->b === 1 : 真假
->类型别名 :=> 真假
->b : 任意
->类型别名 :=> 任意
+>b === 1 : boolean
+>b : any
 >1 : 1
 
                 break;
@@ -175,31 +139,24 @@ function foo() {
             
             
             if (b === 2) {
->b === 2 : 真假
->类型别名 :=> 真假
->b : 任意
->类型别名 :=> 任意
+>b === 2 : boolean
+>b : any
 >2 : 2
 
                 break l0;
->l0 : 任意
->类型别名 :=> 任意
+>l0 : any
             }
             
             l1:
->l1 : 任意
->类型别名 :=> 任意
+>l1 : any
 
             if (b === 3) {
->b === 3 : 真假
->类型别名 :=> 真假
->b : 任意
->类型别名 :=> 任意
+>b === 3 : boolean
+>b : any
 >3 : 3
 
                 break l1;
->l1 : 任意
->类型别名 :=> 任意
+>l1 : any
             }
             
             return 50;
@@ -207,55 +164,41 @@ function foo() {
         }
 
         for (let b of []) {
->b : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>b : any
+>[] : undefined[]
 
             var [{x1, y:z1}] = [{x1:1, y:arguments.length}];
->x1 : 数字
->类型别名 :=> 数字
->y : 任意
->类型别名 :=> 任意
->z1 : 数字
->类型别名 :=> 数字
->[{x1:1, y:arguments.length}] : [{ x1: 数字; y: 数字; }]
->{x1:1, y:arguments.length} : { x1: 数字; y: 数字; }
->x1 : 数字
->类型别名 :=> 数字
+>x1 : number
+>y : any
+>z1 : number
+>[{x1:1, y:arguments.length}] : [{ x1: number; y: number; }]
+>{x1:1, y:arguments.length} : { x1: number; y: number; }
+>x1 : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
->arguments.length : 数字
->类型别名 :=> 数字
+>y : number
+>arguments.length : number
 >arguments : IArguments
->length : 数字
->类型别名 :=> 数字
+>length : number
 
             if (b === 1) {
->b === 1 : 真假
->类型别名 :=> 真假
->b : 任意
->类型别名 :=> 任意
+>b === 1 : boolean
+>b : any
 >1 : 1
 
                 break;
             }
             
             if (b === 2) {
->b === 2 : 真假
->类型别名 :=> 真假
->b : 任意
->类型别名 :=> 任意
+>b === 2 : boolean
+>b : any
 >2 : 2
 
                 break l0;
->l0 : 任意
->类型别名 :=> 任意
+>l0 : any
             }
             () => b
->() => b : () => 任意
->b : 任意
->类型别名 :=> 任意
+>() => b : () => any
+>b : any
 
             return 100;
 >100 : 100
@@ -263,76 +206,60 @@ function foo() {
 
         
         () => a;
->() => a : () => 任意
->a : 任意
->类型别名 :=> 任意
+>() => a : () => any
+>a : any
     }
     
     use(x);
->use(x) : 任意
->类型别名 :=> 任意
->use : (a: 任意) => 任意
->x : 数字
->类型别名 :=> 数字
+>use(x) : any
+>use : (a: any) => any
+>x : number
 
     use(z);
->use(z) : 任意
->类型别名 :=> 任意
->use : (a: 任意) => 任意
->z : 数字
->类型别名 :=> 数字
+>use(z) : any
+>use : (a: any) => any
+>z : number
 
     use(x1);
->use(x1) : 任意
->类型别名 :=> 任意
->use : (a: 任意) => 任意
->x1 : 数字
->类型别名 :=> 数字
+>use(x1) : any
+>use : (a: any) => any
+>x1 : number
 
     use(z1);
->use(z1) : 任意
->类型别名 :=> 任意
->use : (a: 任意) => 任意
->z1 : 数字
->类型别名 :=> 数字
+>use(z1) : any
+>use : (a: any) => any
+>z1 : number
 }
 
 function foo2() {
->foo2 : () => 无值
+>foo2 : () => void
 
     for (let x of []) {
->x : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>x : any
+>[] : undefined[]
 
         if (x === 1) {
->x === 1 : 真假
->类型别名 :=> 真假
->x : 任意
->类型别名 :=> 任意
+>x === 1 : boolean
+>x : any
 >1 : 1
 
             break;
         }
         else if (x === 2) {
->x === 2 : 真假
->类型别名 :=> 真假
->x : 任意
->类型别名 :=> 任意
+>x === 2 : boolean
+>x : any
 >2 : 2
 
             continue;
         }
         
         while (1 === 1) {
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
             if (x) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
                 break;
             }
@@ -342,8 +269,7 @@ function foo2() {
         }
         
         switch(x) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
             case 1: break;
 >1 : 1
@@ -353,13 +279,11 @@ function foo2() {
         }
         
         for (let y of []) {
->y : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>y : any
+>[] : undefined[]
 
             switch(y) {
->y : 任意
->类型别名 :=> 任意
+>y : any
 
                 case 1: break;
 >1 : 1
@@ -375,83 +299,60 @@ class C {
 >C : C
 
     constructor(private N: number) { }
->N : 数字
->类型别名 :=> 数字
+>N : number
 
     foo() {
->foo : () => 无值
+>foo : () => void
 
         for (let i = 0; i < 100; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 100 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 100 : boolean
+>i : number
 >100 : 100
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
             let f = () => this.N * i;
->f : () => 数字
->() => this.N * i : () => 数字
->this.N * i : 数字
->类型别名 :=> 数字
->this.N : 数字
->类型别名 :=> 数字
->this : 本体
->N : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>f : () => number
+>() => this.N * i : () => number
+>this.N * i : number
+>this.N : number
+>this : this
+>N : number
+>i : number
         }
     }
 }
 
 function foo3 () {
->foo3 : () => 无值
+>foo3 : () => void
 
     let x = arguments.length;
->x : 数字
->类型别名 :=> 数字
->arguments.length : 数字
->类型别名 :=> 数字
+>x : number
+>arguments.length : number
 >arguments : IArguments
->length : 数字
->类型别名 :=> 数字
+>length : number
 
     for (let y of []) {
->y : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>y : any
+>[] : undefined[]
 
         let z = arguments.length;
->z : 数字
->类型别名 :=> 数字
->arguments.length : 数字
->类型别名 :=> 数字
+>z : number
+>arguments.length : number
 >arguments : IArguments
->length : 数字
->类型别名 :=> 数字
+>length : number
 
         (function() { return y + z + arguments.length; });
->(function() { return y + z + arguments.length; }) : () => 任意
->function() { return y + z + arguments.length; } : () => 任意
->y + z + arguments.length : 任意
->类型别名 :=> 任意
->y + z : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->z : 数字
->类型别名 :=> 数字
->arguments.length : 数字
->类型别名 :=> 数字
+>(function() { return y + z + arguments.length; }) : () => any
+>function() { return y + z + arguments.length; } : () => any
+>y + z + arguments.length : any
+>y + z : any
+>y : any
+>z : number
+>arguments.length : number
 >arguments : IArguments
->length : 数字
->类型别名 :=> 数字
+>length : number
     }
 }

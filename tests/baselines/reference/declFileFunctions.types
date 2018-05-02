@@ -1,247 +1,194 @@
 === tests/cases/compiler/declFileFunctions_0.ts ===
 /** This comment should appear for foo*/
 export function foo() {
->foo : () => 无值
+>foo : () => void
 }
 /** This is comment for function signature*/
 export function fooWithParameters(/** this is comment about a*/a: string,
->fooWithParameters : (a: 文字, b: 数字) => 无值
->a : 文字
->类型别名 :=> 文字
+>fooWithParameters : (a: string, b: number) => void
+>a : string
 
     /** this is comment for b*/
     b: number) {
->b : 数字
->类型别名 :=> 数字
+>b : number
 
     var d = a;
->d : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
+>d : string
+>a : string
 }
 export function fooWithRestParameters(a: string, ...rests: string[]) {
->fooWithRestParameters : (a: 文字, ...rests: 文字[]) => 文字
->a : 文字
->类型别名 :=> 文字
->rests : 文字[]
+>fooWithRestParameters : (a: string, ...rests: string[]) => string
+>a : string
+>rests : string[]
 
     return a + rests.join("");
->a + rests.join("") : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
->rests.join("") : 文字
->类型别名 :=> 文字
->rests.join : (separator?: 文字) => 文字
->rests : 文字[]
->join : (separator?: 文字) => 文字
+>a + rests.join("") : string
+>a : string
+>rests.join("") : string
+>rests.join : (separator?: string) => string
+>rests : string[]
+>join : (separator?: string) => string
 >"" : ""
 }
 
 export function fooWithOverloads(a: string): string;
->fooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 文字
->类型别名 :=> 文字
+>fooWithOverloads : { (a: string): string; (a: number): number; }
+>a : string
 
 export function fooWithOverloads(a: number): number;
->fooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 数字
->类型别名 :=> 数字
+>fooWithOverloads : { (a: string): string; (a: number): number; }
+>a : number
 
 export function fooWithOverloads(a: any): any {
->fooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 任意
->类型别名 :=> 任意
+>fooWithOverloads : { (a: string): string; (a: number): number; }
+>a : any
 
     return a;
->a : 任意
->类型别名 :=> 任意
+>a : any
 }
 
 export function fooWithSingleOverload(a: string): string;
->fooWithSingleOverload : (a: 文字) => 文字
->a : 文字
->类型别名 :=> 文字
+>fooWithSingleOverload : (a: string) => string
+>a : string
 
 export function fooWithSingleOverload(a: any) {
->fooWithSingleOverload : (a: 文字) => 文字
->a : 任意
->类型别名 :=> 任意
+>fooWithSingleOverload : (a: string) => string
+>a : any
 
     return a;
->a : 任意
->类型别名 :=> 任意
+>a : any
 }
 
 export function fooWithTypePredicate(a: any): a is number {
->fooWithTypePredicate : (a: 任意) => a 作为 数字
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>fooWithTypePredicate : (a: any) => a is number
+>a : any
+>a : any
 
     return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
 }
 export function fooWithTypePredicateAndMulitpleParams(a: any, b: any, c: any): a is number {
->fooWithTypePredicateAndMulitpleParams : (a: 任意, b: 任意, c: 任意) => a 作为 数字
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>fooWithTypePredicateAndMulitpleParams : (a: any, b: any, c: any) => a is number
+>a : any
+>b : any
+>c : any
+>a : any
 
     return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
 }
 export function fooWithTypeTypePredicateAndGeneric<T>(a: any): a is T {
->fooWithTypeTypePredicateAndGeneric : <T>(a: 任意) => a 作为 T
+>fooWithTypeTypePredicateAndGeneric : <T>(a: any) => a is T
 >T : T
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>a : any
+>a : any
 >T : T
 
     return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
 }
 export function fooWithTypeTypePredicateAndRestParam(a: any, ...rest): a is number {
->fooWithTypeTypePredicateAndRestParam : (a: 任意, ...rest: 任意[]) => a 作为 数字
->a : 任意
->类型别名 :=> 任意
->rest : 任意[]
->a : 任意
->类型别名 :=> 任意
+>fooWithTypeTypePredicateAndRestParam : (a: any, ...rest: any[]) => a is number
+>a : any
+>rest : any[]
+>a : any
 
     return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
 }
 
 /** This comment should appear for nonExportedFoo*/
 function nonExportedFoo() {
->nonExportedFoo : () => 无值
+>nonExportedFoo : () => void
 }
 /** This is comment for function signature*/
 function nonExportedFooWithParameters(/** this is comment about a*/a: string,
->nonExportedFooWithParameters : (a: 文字, b: 数字) => 无值
->a : 文字
->类型别名 :=> 文字
+>nonExportedFooWithParameters : (a: string, b: number) => void
+>a : string
 
     /** this is comment for b*/
     b: number) {
->b : 数字
->类型别名 :=> 数字
+>b : number
 
     var d = a;
->d : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
+>d : string
+>a : string
 }
 function nonExportedFooWithRestParameters(a: string, ...rests: string[]) {
->nonExportedFooWithRestParameters : (a: 文字, ...rests: 文字[]) => 文字
->a : 文字
->类型别名 :=> 文字
->rests : 文字[]
+>nonExportedFooWithRestParameters : (a: string, ...rests: string[]) => string
+>a : string
+>rests : string[]
 
     return a + rests.join("");
->a + rests.join("") : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
->rests.join("") : 文字
->类型别名 :=> 文字
->rests.join : (separator?: 文字) => 文字
->rests : 文字[]
->join : (separator?: 文字) => 文字
+>a + rests.join("") : string
+>a : string
+>rests.join("") : string
+>rests.join : (separator?: string) => string
+>rests : string[]
+>join : (separator?: string) => string
 >"" : ""
 }
 
 function nonExportedFooWithOverloads(a: string): string;
->nonExportedFooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 文字
->类型别名 :=> 文字
+>nonExportedFooWithOverloads : { (a: string): string; (a: number): number; }
+>a : string
 
 function nonExportedFooWithOverloads(a: number): number;
->nonExportedFooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 数字
->类型别名 :=> 数字
+>nonExportedFooWithOverloads : { (a: string): string; (a: number): number; }
+>a : number
 
 function nonExportedFooWithOverloads(a: any): any {
->nonExportedFooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 任意
->类型别名 :=> 任意
+>nonExportedFooWithOverloads : { (a: string): string; (a: number): number; }
+>a : any
 
     return a;
->a : 任意
->类型别名 :=> 任意
+>a : any
 }
 
 === tests/cases/compiler/declFileFunctions_1.ts ===
 /** This comment should appear for foo*/
 function globalfoo() {
->globalfoo : () => 无值
+>globalfoo : () => void
 }
 /** This is comment for function signature*/
 function globalfooWithParameters(/** this is comment about a*/a: string,
->globalfooWithParameters : (a: 文字, b: 数字) => 无值
->a : 文字
->类型别名 :=> 文字
+>globalfooWithParameters : (a: string, b: number) => void
+>a : string
 
     /** this is comment for b*/
     b: number) {
->b : 数字
->类型别名 :=> 数字
+>b : number
 
     var d = a;
->d : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
+>d : string
+>a : string
 }
 function globalfooWithRestParameters(a: string, ...rests: string[]) {
->globalfooWithRestParameters : (a: 文字, ...rests: 文字[]) => 文字
->a : 文字
->类型别名 :=> 文字
->rests : 文字[]
+>globalfooWithRestParameters : (a: string, ...rests: string[]) => string
+>a : string
+>rests : string[]
 
     return a + rests.join("");
->a + rests.join("") : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
->rests.join("") : 文字
->类型别名 :=> 文字
->rests.join : (separator?: 文字) => 文字
->rests : 文字[]
->join : (separator?: 文字) => 文字
+>a + rests.join("") : string
+>a : string
+>rests.join("") : string
+>rests.join : (separator?: string) => string
+>rests : string[]
+>join : (separator?: string) => string
 >"" : ""
 }
 function globalfooWithOverloads(a: string): string;
->globalfooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 文字
->类型别名 :=> 文字
+>globalfooWithOverloads : { (a: string): string; (a: number): number; }
+>a : string
 
 function globalfooWithOverloads(a: number): number;
->globalfooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 数字
->类型别名 :=> 数字
+>globalfooWithOverloads : { (a: string): string; (a: number): number; }
+>a : number
 
 function globalfooWithOverloads(a: any): any {
->globalfooWithOverloads : { (a: 文字): 文字; (a: 数字): 数字; }
->a : 任意
->类型别名 :=> 任意
+>globalfooWithOverloads : { (a: string): string; (a: number): number; }
+>a : any
 
     return a;
->a : 任意
->类型别名 :=> 任意
+>a : any
 }

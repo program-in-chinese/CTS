@@ -1,44 +1,36 @@
 === tests/cases/conformance/externalModules/a.ts ===
 import * as Foo from './foo';
->Foo : 类为 Foo
+>Foo : typeof Foo
 
 Foo.fn();
->Foo.fn() : 无值
->类型别名 :=> 无值
->Foo.fn : () => 无值
->Foo : 类为 Foo
->fn : () => 无值
+>Foo.fn() : void
+>Foo.fn : () => void
+>Foo : typeof Foo
+>fn : () => void
 
 let x: Foo.Thing;
 >x : Foo.Thing
->Foo : 任意
->类型别名 :=> 任意
+>Foo : any
 >Thing : Foo.Thing
 
 let y: number = x.n;
->y : 数字
->类型别名 :=> 数字
->x.n : 数字
->类型别名 :=> 数字
+>y : number
+>x.n : number
 >x : Foo.Thing
->n : 数字
->类型别名 :=> 数字
+>n : number
 
 === tests/cases/conformance/externalModules/foo.d.ts ===
 export var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 export function fn(): void;
->fn : () => 无值
+>fn : () => void
 
 export interface Thing { n: typeof x }
 >Thing : Thing
->n : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>n : number
+>x : number
 
 export as namespace Foo;
->Foo : 类为 "tests/cases/conformance/externalModules/foo"
+>Foo : typeof "tests/cases/conformance/externalModules/foo"
 

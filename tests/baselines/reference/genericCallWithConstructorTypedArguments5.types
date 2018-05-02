@@ -2,43 +2,40 @@
 // Generic call with parameter of object type with member of function type of n args passed object whose associated member is call signature with n+1 args
 
 function foo<T, U>(arg: { cb: new(t: T) => U }) {
->foo : <T, U>(arg: { cb: 新建 (t: T) => U; }) => U
+>foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
 >T : T
 >U : U
->arg : { cb: 新建 (t: T) => U; }
->cb : 新建 (t: T) => U
+>arg : { cb: new (t: T) => U; }
+>cb : new (t: T) => U
 >t : T
 >T : T
 >U : U
 
     return new arg.cb(null);
 >new arg.cb(null) : U
->arg.cb : 新建 (t: T) => U
->arg : { cb: 新建 (t: T) => U; }
->cb : 新建 (t: T) => U
->null : 空值
->类型别名 :=> 空值
+>arg.cb : new (t: T) => U
+>arg : { cb: new (t: T) => U; }
+>cb : new (t: T) => U
+>null : null
 }
 
 var arg: { cb: new<T>(x: T) => string };
->arg : { cb: 新建 <T>(x: T) => 文字; }
->cb : 新建 <T>(x: T) => 文字
+>arg : { cb: new <T>(x: T) => string; }
+>cb : new <T>(x: T) => string
 >T : T
 >x : T
 >T : T
 
 var r = foo(arg); // {}
->r : 文字
->类型别名 :=> 文字
->foo(arg) : 文字
->类型别名 :=> 文字
->foo : <T, U>(arg: { cb: 新建 (t: T) => U; }) => U
->arg : { cb: 新建 <T>(x: T) => 文字; }
+>r : string
+>foo(arg) : string
+>foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
+>arg : { cb: new <T>(x: T) => string; }
 
 // more args not allowed
 var arg2: { cb: new <T>(x: T, y: T) => string };
->arg2 : { cb: 新建 <T>(x: T, y: T) => 文字; }
->cb : 新建 <T>(x: T, y: T) => 文字
+>arg2 : { cb: new <T>(x: T, y: T) => string; }
+>cb : new <T>(x: T, y: T) => string
 >T : T
 >x : T
 >T : T
@@ -46,35 +43,29 @@ var arg2: { cb: new <T>(x: T, y: T) => string };
 >T : T
 
 var r2 = foo(arg2); // error
->r2 : 任意
->类型别名 :=> 任意
->foo(arg2) : 任意
->类型别名 :=> 任意
->foo : <T, U>(arg: { cb: 新建 (t: T) => U; }) => U
->arg2 : { cb: 新建 <T>(x: T, y: T) => 文字; }
+>r2 : any
+>foo(arg2) : any
+>foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
+>arg2 : { cb: new <T>(x: T, y: T) => string; }
 
 var arg3: { cb: new (x: string, y: number) => string };
->arg3 : { cb: 新建 (x: 文字, y: 数字) => 文字; }
->cb : 新建 (x: 文字, y: 数字) => 文字
->x : 文字
->类型别名 :=> 文字
->y : 数字
->类型别名 :=> 数字
+>arg3 : { cb: new (x: string, y: number) => string; }
+>cb : new (x: string, y: number) => string
+>x : string
+>y : number
 
 var r3 = foo(arg3); // error
->r3 : 任意
->类型别名 :=> 任意
->foo(arg3) : 任意
->类型别名 :=> 任意
->foo : <T, U>(arg: { cb: 新建 (t: T) => U; }) => U
->arg3 : { cb: 新建 (x: 文字, y: 数字) => 文字; }
+>r3 : any
+>foo(arg3) : any
+>foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
+>arg3 : { cb: new (x: string, y: number) => string; }
 
 function foo2<T, U>(arg: { cb: new(t: T, t2: T) => U }) {
->foo2 : <T, U>(arg: { cb: 新建 (t: T, t2: T) => U; }) => U
+>foo2 : <T, U>(arg: { cb: new (t: T, t2: T) => U; }) => U
 >T : T
 >U : U
->arg : { cb: 新建 (t: T, t2: T) => U; }
->cb : 新建 (t: T, t2: T) => U
+>arg : { cb: new (t: T, t2: T) => U; }
+>cb : new (t: T, t2: T) => U
 >t : T
 >T : T
 >t2 : T
@@ -83,47 +74,38 @@ function foo2<T, U>(arg: { cb: new(t: T, t2: T) => U }) {
 
     return new arg.cb(null, null);
 >new arg.cb(null, null) : U
->arg.cb : 新建 (t: T, t2: T) => U
->arg : { cb: 新建 (t: T, t2: T) => U; }
->cb : 新建 (t: T, t2: T) => U
->null : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
+>arg.cb : new (t: T, t2: T) => U
+>arg : { cb: new (t: T, t2: T) => U; }
+>cb : new (t: T, t2: T) => U
+>null : null
+>null : null
 }
 
 // fewer args ok
 var r4 = foo(arg); // {}
->r4 : 文字
->类型别名 :=> 文字
->foo(arg) : 文字
->类型别名 :=> 文字
->foo : <T, U>(arg: { cb: 新建 (t: T) => U; }) => U
->arg : { cb: 新建 <T>(x: T) => 文字; }
+>r4 : string
+>foo(arg) : string
+>foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
+>arg : { cb: new <T>(x: T) => string; }
 
 var arg4: { cb: new (x: string) => string };
->arg4 : { cb: 新建 (x: 文字) => 文字; }
->cb : 新建 (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>arg4 : { cb: new (x: string) => string; }
+>cb : new (x: string) => string
+>x : string
 
 var r6 = foo(arg4); // string
->r6 : 文字
->类型别名 :=> 文字
->foo(arg4) : 文字
->类型别名 :=> 文字
->foo : <T, U>(arg: { cb: 新建 (t: T) => U; }) => U
->arg4 : { cb: 新建 (x: 文字) => 文字; }
+>r6 : string
+>foo(arg4) : string
+>foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
+>arg4 : { cb: new (x: string) => string; }
 
 var arg5: { cb: new () => string };
->arg5 : { cb: 新建 () => 文字; }
->cb : 新建 () => 文字
+>arg5 : { cb: new () => string; }
+>cb : new () => string
 
 var r7 = foo(arg5); // string
->r7 : 文字
->类型别名 :=> 文字
->foo(arg5) : 文字
->类型别名 :=> 文字
->foo : <T, U>(arg: { cb: 新建 (t: T) => U; }) => U
->arg5 : { cb: 新建 () => 文字; }
+>r7 : string
+>foo(arg5) : string
+>foo : <T, U>(arg: { cb: new (t: T) => U; }) => U
+>arg5 : { cb: new () => string; }
 

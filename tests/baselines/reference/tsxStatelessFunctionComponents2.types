@@ -1,159 +1,133 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 function Greet(x: {name?: string}) {
->Greet : (x: { name?: 文字; }) => JSX.Element
->x : { name?: 文字; }
->name : 文字
->类型别名 :=> 文字
+>Greet : (x: { name?: string; }) => JSX.Element
+>x : { name?: string; }
+>name : string
 
 	return <div>Hello, {x}</div>;
 ><div>Hello, {x}</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->x : { name?: 文字; }
->div : 任意
->类型别名 :=> 任意
+>div : any
+>x : { name?: string; }
+>div : any
 }
 
 class BigGreeter extends React.Component<{ name?: string }, {}> {
 >BigGreeter : BigGreeter
->React.Component : React.Component<{ name?: 文字; }, {}>
->React : 类为 React
->Component : 类为 React.Component
->name : 文字
->类型别名 :=> 文字
+>React.Component : React.Component<{ name?: string; }, {}>
+>React : typeof React
+>Component : typeof React.Component
+>name : string
 
 	render() {
 >render : () => JSX.Element
 
 		return <div></div>;
 ><div></div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
 	}
 	greeting: string;
->greeting : 文字
->类型别名 :=> 文字
+>greeting : string
 }
 
 // OK
 let a = <Greet />;
 >a : JSX.Element
 ><Greet /> : JSX.Element
->Greet : (x: { name?: 文字; }) => JSX.Element
+>Greet : (x: { name?: string; }) => JSX.Element
 
 // OK - always valid to specify 'key'
 let b = <Greet key="k" />;
 >b : JSX.Element
 ><Greet key="k" /> : JSX.Element
->Greet : (x: { name?: 文字; }) => JSX.Element
->key : 文字
->类型别名 :=> 文字
+>Greet : (x: { name?: string; }) => JSX.Element
+>key : string
 
 // Error - not allowed to specify 'ref' on SFCs
 let c = <Greet ref="myRef" />;
 >c : JSX.Element
 ><Greet ref="myRef" /> : JSX.Element
->Greet : (x: { name?: 文字; }) => JSX.Element
->ref : 文字
->类型别名 :=> 文字
+>Greet : (x: { name?: string; }) => JSX.Element
+>ref : string
 
 
 // OK - ref is valid for classes
 let d = <BigGreeter ref={x => x.greeting.substr(10)} />;
 >d : JSX.Element
 ><BigGreeter ref={x => x.greeting.substr(10)} /> : JSX.Element
->BigGreeter : 类为 BigGreeter
->ref : (x: BigGreeter) => 文字
->x => x.greeting.substr(10) : (x: BigGreeter) => 文字
+>BigGreeter : typeof BigGreeter
+>ref : (x: BigGreeter) => string
+>x => x.greeting.substr(10) : (x: BigGreeter) => string
 >x : BigGreeter
->x.greeting.substr(10) : 文字
->类型别名 :=> 文字
->x.greeting.substr : (from: 数字, length?: 数字) => 文字
->x.greeting : 文字
->类型别名 :=> 文字
+>x.greeting.substr(10) : string
+>x.greeting.substr : (from: number, length?: number) => string
+>x.greeting : string
 >x : BigGreeter
->greeting : 文字
->类型别名 :=> 文字
->substr : (from: 数字, length?: 数字) => 文字
+>greeting : string
+>substr : (from: number, length?: number) => string
 >10 : 10
 
 // Error ('subtr' not on string)
 let e = <BigGreeter ref={x => x.greeting.subtr(10)} />;
 >e : JSX.Element
 ><BigGreeter ref={x => x.greeting.subtr(10)} /> : JSX.Element
->BigGreeter : 类为 BigGreeter
->ref : (x: BigGreeter) => 任意
->x => x.greeting.subtr(10) : (x: BigGreeter) => 任意
+>BigGreeter : typeof BigGreeter
+>ref : (x: BigGreeter) => any
+>x => x.greeting.subtr(10) : (x: BigGreeter) => any
 >x : BigGreeter
->x.greeting.subtr(10) : 任意
->类型别名 :=> 任意
->x.greeting.subtr : 任意
->类型别名 :=> 任意
->x.greeting : 文字
->类型别名 :=> 文字
+>x.greeting.subtr(10) : any
+>x.greeting.subtr : any
+>x.greeting : string
 >x : BigGreeter
->greeting : 文字
->类型别名 :=> 文字
->subtr : 任意
->类型别名 :=> 任意
+>greeting : string
+>subtr : any
 >10 : 10
 
 // Error (ref callback is contextually typed)
 let f = <BigGreeter ref={x => x.notARealProperty} />;
 >f : JSX.Element
 ><BigGreeter ref={x => x.notARealProperty} /> : JSX.Element
->BigGreeter : 类为 BigGreeter
->ref : (x: BigGreeter) => 任意
->x => x.notARealProperty : (x: BigGreeter) => 任意
+>BigGreeter : typeof BigGreeter
+>ref : (x: BigGreeter) => any
+>x => x.notARealProperty : (x: BigGreeter) => any
 >x : BigGreeter
->x.notARealProperty : 任意
->类型别名 :=> 任意
+>x.notARealProperty : any
 >x : BigGreeter
->notARealProperty : 任意
->类型别名 :=> 任意
+>notARealProperty : any
 
 // OK - key is always valid
 let g = <BigGreeter key={100} />;
 >g : JSX.Element
 ><BigGreeter key={100} /> : JSX.Element
->BigGreeter : 类为 BigGreeter
->key : 数字
->类型别名 :=> 数字
+>BigGreeter : typeof BigGreeter
+>key : number
 >100 : 100
 
 // OK - contextually typed intrinsic ref callback parameter
 let h = <div ref={x => x.innerText} />;
 >h : JSX.Element
 ><div ref={x => x.innerText} /> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->ref : (x: HTMLDivElement) => 文字
->x => x.innerText : (x: HTMLDivElement) => 文字
+>div : any
+>ref : (x: HTMLDivElement) => string
+>x => x.innerText : (x: HTMLDivElement) => string
 >x : HTMLDivElement
->x.innerText : 文字
->类型别名 :=> 文字
+>x.innerText : string
 >x : HTMLDivElement
->innerText : 文字
->类型别名 :=> 文字
+>innerText : string
 
 // Error - property not on ontextually typed intrinsic ref callback parameter
 let i = <div ref={x => x.propertyNotOnHtmlDivElement} />;
 >i : JSX.Element
 ><div ref={x => x.propertyNotOnHtmlDivElement} /> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->ref : (x: HTMLDivElement) => 任意
->x => x.propertyNotOnHtmlDivElement : (x: HTMLDivElement) => 任意
+>div : any
+>ref : (x: HTMLDivElement) => any
+>x => x.propertyNotOnHtmlDivElement : (x: HTMLDivElement) => any
 >x : HTMLDivElement
->x.propertyNotOnHtmlDivElement : 任意
->类型别名 :=> 任意
+>x.propertyNotOnHtmlDivElement : any
 >x : HTMLDivElement
->propertyNotOnHtmlDivElement : 任意
->类型别名 :=> 任意
+>propertyNotOnHtmlDivElement : any
 
 

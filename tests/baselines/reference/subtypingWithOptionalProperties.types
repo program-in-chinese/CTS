@@ -3,45 +3,38 @@
 
 // returns { s?: number; }
 function f<T>(a: T) {
->f : <T>(a: T) => { s?: 数字; }
+>f : <T>(a: T) => { s?: number; }
 >T : T
 >a : T
 >T : T
 
     var b: { s?: number } = a;
->b : { s?: 数字; }
->s : 数字
->类型别名 :=> 数字
+>b : { s?: number; }
+>s : number
 >a : T
 
     return b;
->b : { s?: 数字; }
+>b : { s?: number; }
 }
 
 var r = f({ s: new Object() }); // ok
->r : { s?: 数字; }
->f({ s: new Object() }) : { s?: 数字; }
->f : <T>(a: T) => { s?: 数字; }
+>r : { s?: number; }
+>f({ s: new Object() }) : { s?: number; }
+>f : <T>(a: T) => { s?: number; }
 >{ s: new Object() } : { s: Object; }
 >s : Object
 >new Object() : Object
 >Object : ObjectConstructor
 
 r.s && r.s.toFixed(); // would blow up at runtime
->r.s && r.s.toFixed() : 文字
->类型别名 :=> 文字
->r.s : 数字
->类型别名 :=> 数字
->r : { s?: 数字; }
->s : 数字
->类型别名 :=> 数字
->r.s.toFixed() : 文字
->类型别名 :=> 文字
->r.s.toFixed : (fractionDigits?: 数字) => 文字
->r.s : 数字
->类型别名 :=> 数字
->r : { s?: 数字; }
->s : 数字
->类型别名 :=> 数字
->toFixed : (fractionDigits?: 数字) => 文字
+>r.s && r.s.toFixed() : string
+>r.s : number
+>r : { s?: number; }
+>s : number
+>r.s.toFixed() : string
+>r.s.toFixed : (fractionDigits?: number) => string
+>r.s : number
+>r : { s?: number; }
+>s : number
+>toFixed : (fractionDigits?: number) => string
 

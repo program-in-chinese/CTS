@@ -1,25 +1,24 @@
 === tests/cases/compiler/genericConstraintOnExtendedBuiltinTypes.ts ===
 declare module EndGate {
->EndGate : 类为 EndGate
+>EndGate : typeof EndGate
 
     export interface ICloneable {
 >ICloneable : ICloneable
 
         Clone(): any;
->Clone : () => 任意
+>Clone : () => any
     }
 }
 
 interface Number extends EndGate.ICloneable { }
 >Number : Number
->EndGate.ICloneable : 任意
->类型别名 :=> 任意
->EndGate : 类为 EndGate
+>EndGate.ICloneable : any
+>EndGate : typeof EndGate
 >ICloneable : EndGate.ICloneable
 
 module EndGate.Tweening {
->EndGate : 类为 EndGate
->Tweening : 类为 Tweening
+>EndGate : typeof EndGate
+>Tweening : typeof Tweening
 
     export class Tween<T extends ICloneable>{
 >Tween : Tween<T>
@@ -36,38 +35,33 @@ module EndGate.Tweening {
 >T : T
 
             this._from = from.Clone();
->this._from = from.Clone() : 任意
->类型别名 :=> 任意
+>this._from = from.Clone() : any
 >this._from : T
->this : 本体
+>this : this
 >_from : T
->from.Clone() : 任意
->类型别名 :=> 任意
->from.Clone : () => 任意
+>from.Clone() : any
+>from.Clone : () => any
 >from : T
->Clone : () => 任意
+>Clone : () => any
         }
     }
 }
 
 module EndGate.Tweening {
->EndGate : 类为 EndGate
->Tweening : 类为 Tweening
+>EndGate : typeof EndGate
+>Tweening : typeof Tweening
 
     export class NumberTween extends Tween<number>{
 >NumberTween : NumberTween
->Tween : Tween<数字>
+>Tween : Tween<number>
 
         constructor(from: number) {
->from : 数字
->类型别名 :=> 数字
+>from : number
 
             super(from);
->super(from) : 无值
->类型别名 :=> 无值
->super : 类为 Tween
->from : 数字
->类型别名 :=> 数字
+>super(from) : void
+>super : typeof Tween
+>from : number
         }
     }
 }

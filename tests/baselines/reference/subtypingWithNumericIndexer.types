@@ -3,27 +3,23 @@
 
 interface Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 interface Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 interface Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 class A {
 >A : A
 
     [x: number]: Base;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >Base : Base
 }
 
@@ -32,8 +28,7 @@ class B extends A {
 >A : A
 
     [x: number]: Derived; // ok
->x : 数字
->类型别名 :=> 数字
+>x : number
 >Derived : Derived
 }
 
@@ -42,13 +37,12 @@ class B2 extends A {
 >A : A
 
     [x: number]: Derived2; // ok
->x : 数字
->类型别名 :=> 数字
+>x : number
 >Derived2 : Derived2
 }
 
 module Generics {
->Generics : 类为 Generics
+>Generics : typeof Generics
 
     class A<T extends Base> {
 >A : A<T>
@@ -56,8 +50,7 @@ module Generics {
 >Base : Base
 
         [x: number]: T;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
     }
 
@@ -67,8 +60,7 @@ module Generics {
 >Base : Base
 
         [x: number]: Derived; // ok
->x : 数字
->类型别名 :=> 数字
+>x : number
 >Derived : Derived
     }
 
@@ -78,8 +70,7 @@ module Generics {
 >Base : Base
 
         [x: number]: Derived2; // ok
->x : 数字
->类型别名 :=> 数字
+>x : number
 >Derived2 : Derived2
     }
 
@@ -91,8 +82,7 @@ module Generics {
 >T : T
 
         [x: number]: Derived; // error, BUG?
->x : 数字
->类型别名 :=> 数字
+>x : number
 >Derived : Derived
     }
 
@@ -104,8 +94,7 @@ module Generics {
 >T : T
 
         [x: number]: Derived2; // error, BUG?
->x : 数字
->类型别名 :=> 数字
+>x : number
 >Derived2 : Derived2
     }
 }

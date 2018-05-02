@@ -5,38 +5,39 @@ export class A {}
 === tests/cases/compiler/b.ts ===
 export class B {x: number;}
 >B : B
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 === tests/cases/compiler/c.d.ts ===
 declare module "C" {
+>"C" : typeof "C"
+
     class Cls {y: string; }
 >Cls : Cls
->y : 文字
->类型别名 :=> 文字
+>y : string
 }
 
 === tests/cases/compiler/d.ts ===
 /// <reference path="c.d.ts"/>
 
 import {A} from "./a";
->A : 类为 A
+>A : typeof A
 
 import {B} from "./b";
->B : 类为 B
+>B : typeof B
 
 A.prototype.getB = function () { return undefined; }
->A.prototype.getB = function () { return undefined; } : () => 任意
+>A.prototype.getB = function () { return undefined; } : () => any
 >A.prototype.getB : () => B
 >A.prototype : A
->A : 类为 A
+>A : typeof A
 >prototype : A
 >getB : () => B
->function () { return undefined; } : () => 任意
->undefined : 未定
->类型别名 :=> 未定
+>function () { return undefined; } : () => any
+>undefined : undefined
 
 declare module "./a" {
+>"./a" : typeof "tests/cases/compiler/a"
+
     interface A {
 >A : A
 
@@ -48,23 +49,24 @@ declare module "./a" {
 
 === tests/cases/compiler/e.ts ===
 import {A} from "./a";
->A : 类为 A
+>A : typeof A
 
 import {Cls} from "C";
->Cls : 类为 Cls
+>Cls : typeof Cls
 
 A.prototype.getCls = function () { return undefined; }
->A.prototype.getCls = function () { return undefined; } : () => 任意
+>A.prototype.getCls = function () { return undefined; } : () => any
 >A.prototype.getCls : () => Cls
 >A.prototype : A
->A : 类为 A
+>A : typeof A
 >prototype : A
 >getCls : () => Cls
->function () { return undefined; } : () => 任意
->undefined : 未定
->类型别名 :=> 未定
+>function () { return undefined; } : () => any
+>undefined : undefined
 
 declare module "./a" {
+>"./a" : typeof "tests/cases/compiler/a"
+
     interface A {
 >A : A
 
@@ -76,7 +78,7 @@ declare module "./a" {
 
 === tests/cases/compiler/main.ts ===
 import {A} from "./a";
->A : 类为 A
+>A : typeof A
 
 import "d";
 import "e";
@@ -86,34 +88,26 @@ let a: A;
 >A : A
 
 let b = a.getB().x.toFixed();
->b : 文字
->类型别名 :=> 文字
->a.getB().x.toFixed() : 文字
->类型别名 :=> 文字
->a.getB().x.toFixed : (fractionDigits?: 数字) => 文字
->a.getB().x : 数字
->类型别名 :=> 数字
+>b : string
+>a.getB().x.toFixed() : string
+>a.getB().x.toFixed : (fractionDigits?: number) => string
+>a.getB().x : number
 >a.getB() : B
 >a.getB : () => B
 >a : A
 >getB : () => B
->x : 数字
->类型别名 :=> 数字
->toFixed : (fractionDigits?: 数字) => 文字
+>x : number
+>toFixed : (fractionDigits?: number) => string
 
 let c = a.getCls().y.toLowerCase();
->c : 文字
->类型别名 :=> 文字
->a.getCls().y.toLowerCase() : 文字
->类型别名 :=> 文字
->a.getCls().y.toLowerCase : () => 文字
->a.getCls().y : 文字
->类型别名 :=> 文字
+>c : string
+>a.getCls().y.toLowerCase() : string
+>a.getCls().y.toLowerCase : () => string
+>a.getCls().y : string
 >a.getCls() : Cls
 >a.getCls : () => Cls
 >a : A
 >getCls : () => Cls
->y : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>y : string
+>toLowerCase : () => string
 

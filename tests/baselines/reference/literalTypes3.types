@@ -1,31 +1,23 @@
 === tests/cases/conformance/types/literal/literalTypes3.ts ===
 function f1(s: string) {
->f1 : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>f1 : (s: string) => void
+>s : string
 
     if (s === "foo") {
->s === "foo" : 真假
->类型别名 :=> 真假
->s : 文字
->类型别名 :=> 文字
+>s === "foo" : boolean
+>s : string
 >"foo" : "foo"
 
         s;  // "foo"
 >s : "foo"
     }
     if (s === "foo" || s === "bar") {
->s === "foo" || s === "bar" : 真假
->类型别名 :=> 真假
->s === "foo" : 真假
->类型别名 :=> 真假
->s : 文字
->类型别名 :=> 文字
+>s === "foo" || s === "bar" : boolean
+>s === "foo" : boolean
+>s : string
 >"foo" : "foo"
->s === "bar" : 真假
->类型别名 :=> 真假
->s : 文字
->类型别名 :=> 文字
+>s === "bar" : boolean
+>s : string
 >"bar" : "bar"
 
         s;  // "foo" | "bar"
@@ -34,13 +26,11 @@ function f1(s: string) {
 }
 
 function f2(s: string) {
->f2 : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>f2 : (s: string) => void
+>s : string
 
     switch (s) {
->s : 文字
->类型别名 :=> 文字
+>s : string
 
         case "foo":
 >"foo" : "foo"
@@ -60,52 +50,38 @@ function f2(s: string) {
             break;
         default:
             s;  // string
->s : 文字
->类型别名 :=> 文字
+>s : string
     }
 }
 
 function f3(s: string) {
->f3 : (s: 文字) => "foo" | "bar" | 未定
->s : 文字
->类型别名 :=> 文字
+>f3 : (s: string) => "foo" | "bar" | undefined
+>s : string
 
     return s === "foo" || s === "bar" ? s : undefined;  // "foo" | "bar" | undefined
->s === "foo" || s === "bar" ? s : undefined : "foo" | "bar" | 未定
->s === "foo" || s === "bar" : 真假
->类型别名 :=> 真假
->s === "foo" : 真假
->类型别名 :=> 真假
->s : 文字
->类型别名 :=> 文字
+>s === "foo" || s === "bar" ? s : undefined : "foo" | "bar" | undefined
+>s === "foo" || s === "bar" : boolean
+>s === "foo" : boolean
+>s : string
 >"foo" : "foo"
->s === "bar" : 真假
->类型别名 :=> 真假
->s : 文字
->类型别名 :=> 文字
+>s === "bar" : boolean
+>s : string
 >"bar" : "bar"
 >s : "foo" | "bar"
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 }
 
 function f4(x: number) {
->f4 : (x: 数字) => 1 | 2
->x : 数字
->类型别名 :=> 数字
+>f4 : (x: number) => 1 | 2
+>x : number
 
     if (x === 1 || x === 2) {
->x === 1 || x === 2 : 真假
->类型别名 :=> 真假
->x === 1 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x === 1 || x === 2 : boolean
+>x === 1 : boolean
+>x : number
 >1 : 1
->x === 2 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x === 2 : boolean
+>x : number
 >2 : 2
 
         return x;  // 1 | 2
@@ -117,23 +93,17 @@ function f4(x: number) {
 }
 
 function f5(x: number, y: 1 | 2) {
->f5 : (x: 数字, y: 1 | 2) => 无值
->x : 数字
->类型别名 :=> 数字
+>f5 : (x: number, y: 1 | 2) => void
+>x : number
 >y : 1 | 2
 
     if (x === 0 || x === y) {
->x === 0 || x === y : 真假
->类型别名 :=> 真假
->x === 0 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x === 0 || x === y : boolean
+>x === 0 : boolean
+>x : number
 >0 : 0
->x === y : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x === y : boolean
+>x : number
 >y : 1 | 2
 
         x;  // 0 | 1 | 2
@@ -142,24 +112,18 @@ function f5(x: number, y: 1 | 2) {
 }
 
 function f6(x: number, y: 1 | 2) {
->f6 : (x: 数字, y: 1 | 2) => 无值
->x : 数字
->类型别名 :=> 数字
+>f6 : (x: number, y: 1 | 2) => void
+>x : number
 >y : 1 | 2
 
     if (y === x || 0 === x) {
->y === x || 0 === x : 真假
->类型别名 :=> 真假
->y === x : 真假
->类型别名 :=> 真假
+>y === x || 0 === x : boolean
+>y === x : boolean
 >y : 1 | 2
->x : 数字
->类型别名 :=> 数字
->0 === x : 真假
->类型别名 :=> 真假
+>x : number
+>0 === x : boolean
 >0 : 0
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         x;  // 0 | 1 | 2
 >x : 1 | 2 | 0
@@ -167,15 +131,14 @@ function f6(x: number, y: 1 | 2) {
 }
 
 function f7(x: number | "foo" | "bar", y: 1 | 2 | string) {
->f7 : (x: 数字 | "foo" | "bar", y: 文字 | 1 | 2) => 无值
->x : 数字 | "foo" | "bar"
->y : 文字 | 1 | 2
+>f7 : (x: number | "foo" | "bar", y: string | 1 | 2) => void
+>x : number | "foo" | "bar"
+>y : string | 1 | 2
 
     if (x === y) {
->x === y : 真假
->类型别名 :=> 真假
->x : 数字 | "foo" | "bar"
->y : 文字 | 1 | 2
+>x === y : boolean
+>x : number | "foo" | "bar"
+>y : string | 1 | 2
 
         x;  // "foo" | "bar" | 1 | 2
 >x : "foo" | "bar" | 1 | 2
@@ -183,11 +146,11 @@ function f7(x: number | "foo" | "bar", y: 1 | 2 | string) {
 }
 
 function f8(x: number | "foo" | "bar") {
->f8 : (x: 数字 | "foo" | "bar") => 无值
->x : 数字 | "foo" | "bar"
+>f8 : (x: number | "foo" | "bar") => void
+>x : number | "foo" | "bar"
 
     switch (x) {
->x : 数字 | "foo" | "bar"
+>x : number | "foo" | "bar"
 
         case 1:
 >1 : 1
@@ -208,6 +171,6 @@ function f8(x: number | "foo" | "bar") {
             break;
         default:
             x;  // number | "bar"
->x : 数字 | "bar"
+>x : number | "bar"
     }
 }

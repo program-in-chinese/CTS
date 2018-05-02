@@ -1,13 +1,12 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 interface PoisonedProp {
 >PoisonedProp : PoisonedProp
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     y: 2;
 >y : 2
@@ -16,8 +15,8 @@ interface PoisonedProp {
 class Poisoned extends React.Component<PoisonedProp, {}> {
 >Poisoned : Poisoned
 >React.Component : React.Component<PoisonedProp, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 >PoisonedProp : PoisonedProp
 
     render() {
@@ -25,26 +24,22 @@ class Poisoned extends React.Component<PoisonedProp, {}> {
 
         return <div>Hello</div>;
 ><div>Hello</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
     }
 }
 
 const obj: PoisonedProp = {
 >obj : PoisonedProp
 >PoisonedProp : PoisonedProp
->{    x: "hello world",    y: 2} : { x: 文字; y: 2; }
+>{    x: "hello world",    y: 2} : { x: string; y: 2; }
 
     x: "hello world",
->x : 文字
->类型别名 :=> 文字
+>x : string
 >"hello world" : "hello world"
 
     y: 2
->y : 数字
->类型别名 :=> 数字
+>y : 2
 >2 : 2
 
 };
@@ -53,74 +48,66 @@ const obj: PoisonedProp = {
 let p = <Poisoned {...obj} />;
 >p : JSX.Element
 ><Poisoned {...obj} /> : JSX.Element
->Poisoned : 类为 Poisoned
+>Poisoned : typeof Poisoned
 >obj : PoisonedProp
 
 class EmptyProp extends React.Component<{}, {}> {
 >EmptyProp : EmptyProp
 >React.Component : React.Component<{}, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 
     render() {
 >render : () => JSX.Element
 
         return <div>Default hi</div>;
 ><div>Default hi</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
     }
 }
 
 // OK
 let j: any;
->j : 任意
->类型别名 :=> 任意
+>j : any
 
 let e1 = <EmptyProp {...{}} />;
 >e1 : JSX.Element
 ><EmptyProp {...{}} /> : JSX.Element
->EmptyProp : 类为 EmptyProp
+>EmptyProp : typeof EmptyProp
 >{} : {}
 
 let e2 = <EmptyProp {...j} />
 >e2 : JSX.Element
 ><EmptyProp {...j} /> : JSX.Element
->EmptyProp : 类为 EmptyProp
->j : 任意
->类型别名 :=> 任意
+>EmptyProp : typeof EmptyProp
+>j : any
 
 let e3 = <EmptyProp {...{ ref: (input) => { this.textInput = input; } }} />
 >e3 : JSX.Element
 ><EmptyProp {...{ ref: (input) => { this.textInput = input; } }} /> : JSX.Element
->EmptyProp : 类为 EmptyProp
->{ ref: (input) => { this.textInput = input; } } : { ref: (input: EmptyProp) => 无值; }
->ref : (input: EmptyProp) => 无值
->(input) => { this.textInput = input; } : (input: EmptyProp) => 无值
+>EmptyProp : typeof EmptyProp
+>{ ref: (input) => { this.textInput = input; } } : { ref: (input: EmptyProp) => void; }
+>ref : (input: EmptyProp) => void
+>(input) => { this.textInput = input; } : (input: EmptyProp) => void
 >input : EmptyProp
 >this.textInput = input : EmptyProp
->this.textInput : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->textInput : 任意
->类型别名 :=> 任意
+>this.textInput : any
+>this : any
+>textInput : any
 >input : EmptyProp
 
 let e4 = <EmptyProp data-prop />
 >e4 : JSX.Element
 ><EmptyProp data-prop /> : JSX.Element
->EmptyProp : 类为 EmptyProp
->data-prop : 为真
->类型别名 :=> 为真
+>EmptyProp : typeof EmptyProp
+>data-prop : true
 
 let e5 = <EmptyProp {...{ "data-prop": true}} />
 >e5 : JSX.Element
 ><EmptyProp {...{ "data-prop": true}} /> : JSX.Element
->EmptyProp : 类为 EmptyProp
->{ "data-prop": true} : { "data-prop": 真假; }
->true : 为真
->类型别名 :=> 为真
+>EmptyProp : typeof EmptyProp
+>{ "data-prop": true} : { "data-prop": boolean; }
+>"data-prop" : boolean
+>true : true
 

@@ -1,20 +1,15 @@
 === tests/cases/compiler/unaryPlus.ts ===
 // allowed per spec
 var a = +1;
->a : 数字
->类型别名 :=> 数字
+>a : number
 >+1 : 1
 >1 : 1
 
 var b = +(<any>"");
->b : 数字
->类型别名 :=> 数字
->+(<any>"") : 数字
->类型别名 :=> 数字
->(<any>"") : 任意
->类型别名 :=> 任意
-><any>"" : 任意
->类型别名 :=> 任意
+>b : number
+>+(<any>"") : number
+>(<any>"") : any
+><any>"" : any
 >"" : ""
 
 enum E { some, thing };
@@ -23,33 +18,25 @@ enum E { some, thing };
 >thing : E.thing
 
 var c = +E.some;
->c : 数字
->类型别名 :=> 数字
->+E.some : 数字
->类型别名 :=> 数字
+>c : number
+>+E.some : number
 >E.some : E.some
->E : 类为 E
+>E : typeof E
 >some : E.some
 
 // also allowed, used to be errors
 var x = +"3"; //should be valid
->x : 数字
->类型别名 :=> 数字
->+"3" : 数字
->类型别名 :=> 数字
+>x : number
+>+"3" : number
 >"3" : "3"
 
 var y = -"3"; // should be valid
->y : 数字
->类型别名 :=> 数字
->-"3" : 数字
->类型别名 :=> 数字
+>y : number
+>-"3" : number
 >"3" : "3"
 
 var z = ~"3"; // should be valid
->z : 数字
->类型别名 :=> 数字
->~"3" : 数字
->类型别名 :=> 数字
+>z : number
+>~"3" : number
 >"3" : "3"
 

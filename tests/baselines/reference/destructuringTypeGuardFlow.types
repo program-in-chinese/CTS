@@ -3,201 +3,156 @@ type foo = {
 >foo : foo
 
   bar: number | null;
->bar : 数字 | 空值
->null : 空值
->类型别名 :=> 空值
+>bar : number | null
+>null : null
 
   baz: string;
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
   nested: {
->nested : { a: 数字; b: 文字 | 空值; }
+>nested : { a: number; b: string | null; }
 
     a: number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     b: string | null;
->b : 文字 | 空值
->null : 空值
->类型别名 :=> 空值
+>b : string | null
+>null : null
   }
 };
 
 const aFoo: foo = { bar: 3, baz: "b", nested: { a: 1, b: "y" } };
 >aFoo : foo
 >foo : foo
->{ bar: 3, baz: "b", nested: { a: 1, b: "y" } } : { bar: 数字; baz: 文字; nested: { a: 数字; b: 文字; }; }
->bar : 数字
->类型别名 :=> 数字
+>{ bar: 3, baz: "b", nested: { a: 1, b: "y" } } : { bar: number; baz: string; nested: { a: number; b: string; }; }
+>bar : number
 >3 : 3
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 >"b" : "b"
->nested : { a: 数字; b: 文字; }
->{ a: 1, b: "y" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>nested : { a: number; b: string; }
+>{ a: 1, b: "y" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"y" : "y"
 
 if (aFoo.bar && aFoo.nested.b) {
->aFoo.bar && aFoo.nested.b : 文字 | 0 | 空值
->aFoo.bar : 数字 | 空值
+>aFoo.bar && aFoo.nested.b : string | 0 | null
+>aFoo.bar : number | null
 >aFoo : foo
->bar : 数字 | 空值
->aFoo.nested.b : 文字 | 空值
->aFoo.nested : { a: 数字; b: 文字 | 空值; }
+>bar : number | null
+>aFoo.nested.b : string | null
+>aFoo.nested : { a: number; b: string | null; }
 >aFoo : foo
->nested : { a: 数字; b: 文字 | 空值; }
->b : 文字 | 空值
+>nested : { a: number; b: string | null; }
+>b : string | null
 
   const { bar, baz, nested: {a, b: text} } = aFoo;
->bar : 数字
->类型别名 :=> 数字
->baz : 文字
->类型别名 :=> 文字
->nested : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
->b : 任意
->类型别名 :=> 任意
->text : 文字
->类型别名 :=> 文字
+>bar : number
+>baz : string
+>nested : any
+>a : number
+>b : any
+>text : string
 >aFoo : foo
 
   const right: number = aFoo.bar;
->right : 数字
->类型别名 :=> 数字
->aFoo.bar : 数字
->类型别名 :=> 数字
+>right : number
+>aFoo.bar : number
 >aFoo : foo
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 
   const wrong: number = bar;
->wrong : 数字
->类型别名 :=> 数字
->bar : 数字
->类型别名 :=> 数字
+>wrong : number
+>bar : number
 
   const another: string = baz;
->another : 文字
->类型别名 :=> 文字
->baz : 文字
->类型别名 :=> 文字
+>another : string
+>baz : string
 
   const aAgain: number = a;
->aAgain : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
+>aAgain : number
+>a : number
 
   const bAgain: string = text;
->bAgain : 文字
->类型别名 :=> 文字
->text : 文字
->类型别名 :=> 文字
+>bAgain : string
+>text : string
 }
 
 type bar = {
 >bar : bar
 
   elem1: number | null;
->elem1 : 数字 | 空值
->null : 空值
->类型别名 :=> 空值
+>elem1 : number | null
+>null : null
 
   elem2: foo | null;
->elem2 : foo | 空值
+>elem2 : foo | null
 >foo : foo
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 };
 
 const bBar = { elem1: 7, elem2: aFoo };
->bBar : { elem1: 数字; elem2: foo; }
->{ elem1: 7, elem2: aFoo } : { elem1: 数字; elem2: foo; }
->elem1 : 数字
->类型别名 :=> 数字
+>bBar : { elem1: number; elem2: foo; }
+>{ elem1: 7, elem2: aFoo } : { elem1: number; elem2: foo; }
+>elem1 : number
 >7 : 7
 >elem2 : foo
 >aFoo : foo
 
 if (bBar.elem2 && bBar.elem2.bar && bBar.elem2.nested.b) {
->bBar.elem2 && bBar.elem2.bar && bBar.elem2.nested.b : 文字 | 0 | 空值
->bBar.elem2 && bBar.elem2.bar : 数字 | 空值
+>bBar.elem2 && bBar.elem2.bar && bBar.elem2.nested.b : string | 0 | null
+>bBar.elem2 && bBar.elem2.bar : number | null
 >bBar.elem2 : foo
->bBar : { elem1: 数字; elem2: foo; }
+>bBar : { elem1: number; elem2: foo; }
 >elem2 : foo
->bBar.elem2.bar : 数字 | 空值
+>bBar.elem2.bar : number | null
 >bBar.elem2 : foo
->bBar : { elem1: 数字; elem2: foo; }
+>bBar : { elem1: number; elem2: foo; }
 >elem2 : foo
->bar : 数字 | 空值
->bBar.elem2.nested.b : 文字 | 空值
->bBar.elem2.nested : { a: 数字; b: 文字 | 空值; }
+>bar : number | null
+>bBar.elem2.nested.b : string | null
+>bBar.elem2.nested : { a: number; b: string | null; }
 >bBar.elem2 : foo
->bBar : { elem1: 数字; elem2: foo; }
+>bBar : { elem1: number; elem2: foo; }
 >elem2 : foo
->nested : { a: 数字; b: 文字 | 空值; }
->b : 文字 | 空值
+>nested : { a: number; b: string | null; }
+>b : string | null
 
   const { bar, baz, nested: {a, b: text} } = bBar.elem2;
->bar : 数字
->类型别名 :=> 数字
->baz : 文字
->类型别名 :=> 文字
->nested : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
->b : 任意
->类型别名 :=> 任意
->text : 文字
->类型别名 :=> 文字
+>bar : number
+>baz : string
+>nested : any
+>a : number
+>b : any
+>text : string
 >bBar.elem2 : foo
->bBar : { elem1: 数字; elem2: foo; }
+>bBar : { elem1: number; elem2: foo; }
 >elem2 : foo
 
   const right: number = bBar.elem2.bar;
->right : 数字
->类型别名 :=> 数字
->bBar.elem2.bar : 数字
->类型别名 :=> 数字
+>right : number
+>bBar.elem2.bar : number
 >bBar.elem2 : foo
->bBar : { elem1: 数字; elem2: foo; }
+>bBar : { elem1: number; elem2: foo; }
 >elem2 : foo
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 
   const wrong: number = bar;
->wrong : 数字
->类型别名 :=> 数字
->bar : 数字
->类型别名 :=> 数字
+>wrong : number
+>bar : number
 
   const another: string = baz;
->another : 文字
->类型别名 :=> 文字
->baz : 文字
->类型别名 :=> 文字
+>another : string
+>baz : string
 
   const aAgain: number = a;
->aAgain : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
+>aAgain : number
+>a : number
 
   const bAgain: string = text;
->bAgain : 文字
->类型别名 :=> 文字
->text : 文字
->类型别名 :=> 文字
+>bAgain : string
+>text : string
 }
 

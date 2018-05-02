@@ -2,24 +2,21 @@
 // members N and M of types S and T have the same name, same accessibility, same optionality, and N is not assignable M
 
 module OnlyDerived {
->OnlyDerived : 类为 OnlyDerived
+>OnlyDerived : typeof OnlyDerived
 
     class Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
     class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
     class Derived2 extends Base { baz: string; }
 >Derived2 : Derived2
 >Base : Base
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
     class S { foo: Derived; }
 >S : S
@@ -72,14 +69,14 @@ module OnlyDerived {
 >{ foo: new Derived() } : { foo: Derived; }
 >foo : Derived
 >new Derived() : Derived
->Derived : 类为 Derived
+>Derived : typeof Derived
 
     var b2 = { foo: new Derived2() };
 >b2 : { foo: Derived2; }
 >{ foo: new Derived2() } : { foo: Derived2; }
 >foo : Derived2
 >new Derived2() : Derived2
->Derived2 : 类为 Derived2
+>Derived2 : typeof Derived2
 
     s = t; // error
 >s = t : T
@@ -178,24 +175,21 @@ module OnlyDerived {
 }
 
 module WithBase {
->WithBase : 类为 WithBase
+>WithBase : typeof WithBase
 
     class Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
     class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
     class Derived2 extends Base { baz: string; }
 >Derived2 : Derived2
 >Base : Base
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
     class S { foo: Base; }
 >S : S
@@ -248,14 +242,14 @@ module WithBase {
 >{ foo: new Base() } : { foo: Base; }
 >foo : Base
 >new Base() : Base
->Base : 类为 Base
+>Base : typeof Base
 
     var b2 = { foo: new Derived2() };
 >b2 : { foo: Derived2; }
 >{ foo: new Derived2() } : { foo: Derived2; }
 >foo : Derived2
 >new Derived2() : Derived2
->Derived2 : 类为 Derived2
+>Derived2 : typeof Derived2
 
     s = t; // ok
 >s = t : T

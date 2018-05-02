@@ -8,7 +8,7 @@ class Chain<T> {
 >T : T
 
     then<S extends T>(cb: (x: T) => S): Chain<S> {
->then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >S : S
 >T : T
 >cb : (x: T) => S
@@ -28,34 +28,32 @@ class Chain<T> {
 
         // Ok to go down the chain, but error to climb up the chain
         (new Chain(t)).then(tt => s).then(ss => t);
->(new Chain(t)).then(tt => s).then(ss => t) : 任意
->类型别名 :=> 任意
->(new Chain(t)).then(tt => s).then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>(new Chain(t)).then(tt => s).then(ss => t) : any
+>(new Chain(t)).then(tt => s).then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >(new Chain(t)).then(tt => s) : Chain<S>
->(new Chain(t)).then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>(new Chain(t)).then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >(new Chain(t)) : Chain<T>
 >new Chain(t) : Chain<T>
->Chain : 类为 Chain
+>Chain : typeof Chain
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >tt => s : (tt: T) => S
 >tt : T
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >ss => t : (ss: S) => T
 >ss : S
 >t : T
 
         // But error to try to climb up the chain
         (new Chain(s)).then(ss => t);
->(new Chain(s)).then(ss => t) : 任意
->类型别名 :=> 任意
->(new Chain(s)).then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>(new Chain(s)).then(ss => t) : any
+>(new Chain(s)).then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >(new Chain(s)) : Chain<S>
 >new Chain(s) : Chain<S>
->Chain : 类为 Chain
+>Chain : typeof Chain
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >ss => t : (ss: S) => T
 >ss : S
 >t : T
@@ -63,55 +61,54 @@ class Chain<T> {
         // Staying at T or S should be fine
         (new Chain(t)).then(tt => t).then(tt => t).then(tt => t);
 >(new Chain(t)).then(tt => t).then(tt => t).then(tt => t) : Chain<T>
->(new Chain(t)).then(tt => t).then(tt => t).then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>(new Chain(t)).then(tt => t).then(tt => t).then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >(new Chain(t)).then(tt => t).then(tt => t) : Chain<T>
->(new Chain(t)).then(tt => t).then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>(new Chain(t)).then(tt => t).then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >(new Chain(t)).then(tt => t) : Chain<T>
->(new Chain(t)).then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>(new Chain(t)).then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >(new Chain(t)) : Chain<T>
 >new Chain(t) : Chain<T>
->Chain : 类为 Chain
+>Chain : typeof Chain
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >tt => t : (tt: T) => T
 >tt : T
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >tt => t : (tt: T) => T
 >tt : T
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >tt => t : (tt: T) => T
 >tt : T
 >t : T
 
         (new Chain(s)).then(ss => s).then(ss => s).then(ss => s);
 >(new Chain(s)).then(ss => s).then(ss => s).then(ss => s) : Chain<S>
->(new Chain(s)).then(ss => s).then(ss => s).then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>(new Chain(s)).then(ss => s).then(ss => s).then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >(new Chain(s)).then(ss => s).then(ss => s) : Chain<S>
->(new Chain(s)).then(ss => s).then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>(new Chain(s)).then(ss => s).then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >(new Chain(s)).then(ss => s) : Chain<S>
->(new Chain(s)).then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>(new Chain(s)).then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >(new Chain(s)) : Chain<S>
 >new Chain(s) : Chain<S>
->Chain : 类为 Chain
+>Chain : typeof Chain
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >ss => s : (ss: S) => S
 >ss : S
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >ss => s : (ss: S) => S
 >ss : S
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain<S>
 >ss => s : (ss: S) => S
 >ss : S
 >s : S
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
@@ -120,8 +117,7 @@ interface I {
 >I : I
 
     x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 class Chain2<T extends I> {
 >Chain2 : Chain2<T>
@@ -133,7 +129,7 @@ class Chain2<T extends I> {
 >T : T
 
     then<S extends T>(cb: (x: T) => S): Chain2<S> {
->then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >S : S
 >T : T
 >cb : (x: T) => S
@@ -159,110 +155,103 @@ class Chain2<T extends I> {
         // Should get an error that we are assigning a string to a number
         (new Chain2(i)).then(ii => t).then(tt => s).value.x = "";
 >(new Chain2(i)).then(ii => t).then(tt => s).value.x = "" : ""
->(new Chain2(i)).then(ii => t).then(tt => s).value.x : 数字
->类型别名 :=> 数字
+>(new Chain2(i)).then(ii => t).then(tt => s).value.x : number
 >(new Chain2(i)).then(ii => t).then(tt => s).value : S
 >(new Chain2(i)).then(ii => t).then(tt => s) : Chain2<S>
->(new Chain2(i)).then(ii => t).then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>(new Chain2(i)).then(ii => t).then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >(new Chain2(i)).then(ii => t) : Chain2<T>
->(new Chain2(i)).then : <S 扩展 I>(cb: (x: I) => S) => Chain2<S>
+>(new Chain2(i)).then : <S extends I>(cb: (x: I) => S) => Chain2<S>
 >(new Chain2(i)) : Chain2<I>
 >new Chain2(i) : Chain2<I>
->Chain2 : 类为 Chain2
+>Chain2 : typeof Chain2
 >i : I
->then : <S 扩展 I>(cb: (x: I) => S) => Chain2<S>
+>then : <S extends I>(cb: (x: I) => S) => Chain2<S>
 >ii => t : (ii: I) => T
 >ii : I
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >tt => s : (tt: T) => S
 >tt : T
 >s : S
 >value : S
->x : 数字
->类型别名 :=> 数字
+>x : number
 >"" : ""
 
         // Staying at T or S should keep the constraint.
         // Get an error when we assign a string to a number in both cases
         (new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value.x = "";
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value.x = "" : ""
->(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value.x : 数字
->类型别名 :=> 数字
+>(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value.x : number
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t).value : T
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then(tt => t) : Chain2<T>
->(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t).then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >(new Chain2(i)).then(ii => t).then(tt => t).then(tt => t) : Chain2<T>
->(new Chain2(i)).then(ii => t).then(tt => t).then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>(new Chain2(i)).then(ii => t).then(tt => t).then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >(new Chain2(i)).then(ii => t).then(tt => t) : Chain2<T>
->(new Chain2(i)).then(ii => t).then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>(new Chain2(i)).then(ii => t).then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >(new Chain2(i)).then(ii => t) : Chain2<T>
->(new Chain2(i)).then : <S 扩展 I>(cb: (x: I) => S) => Chain2<S>
+>(new Chain2(i)).then : <S extends I>(cb: (x: I) => S) => Chain2<S>
 >(new Chain2(i)) : Chain2<I>
 >new Chain2(i) : Chain2<I>
->Chain2 : 类为 Chain2
+>Chain2 : typeof Chain2
 >i : I
->then : <S 扩展 I>(cb: (x: I) => S) => Chain2<S>
+>then : <S extends I>(cb: (x: I) => S) => Chain2<S>
 >ii => t : (ii: I) => T
 >ii : I
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >tt => t : (tt: T) => T
 >tt : T
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >tt => t : (tt: T) => T
 >tt : T
 >t : T
->then : <S 扩展 T>(cb: (x: T) => S) => Chain2<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain2<S>
 >tt => t : (tt: T) => T
 >tt : T
 >t : T
 >value : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >"" : ""
 
         (new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value.x = "";
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value.x = "" : ""
->(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value.x : 数字
->类型别名 :=> 数字
+>(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value.x : number
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s).value : S
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then(ss => s) : Chain2<S>
->(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then : <S 扩展 S>(cb: (x: S) => S) => Chain2<S>
+>(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s).then : <S extends S>(cb: (x: S) => S) => Chain2<S>
 >(new Chain2(i)).then(ii => s).then(ss => s).then(ss => s) : Chain2<S>
->(new Chain2(i)).then(ii => s).then(ss => s).then : <S 扩展 S>(cb: (x: S) => S) => Chain2<S>
+>(new Chain2(i)).then(ii => s).then(ss => s).then : <S extends S>(cb: (x: S) => S) => Chain2<S>
 >(new Chain2(i)).then(ii => s).then(ss => s) : Chain2<S>
->(new Chain2(i)).then(ii => s).then : <S 扩展 S>(cb: (x: S) => S) => Chain2<S>
+>(new Chain2(i)).then(ii => s).then : <S extends S>(cb: (x: S) => S) => Chain2<S>
 >(new Chain2(i)).then(ii => s) : Chain2<S>
->(new Chain2(i)).then : <S 扩展 I>(cb: (x: I) => S) => Chain2<S>
+>(new Chain2(i)).then : <S extends I>(cb: (x: I) => S) => Chain2<S>
 >(new Chain2(i)) : Chain2<I>
 >new Chain2(i) : Chain2<I>
->Chain2 : 类为 Chain2
+>Chain2 : typeof Chain2
 >i : I
->then : <S 扩展 I>(cb: (x: I) => S) => Chain2<S>
+>then : <S extends I>(cb: (x: I) => S) => Chain2<S>
 >ii => s : (ii: I) => S
 >ii : I
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain2<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain2<S>
 >ss => s : (ss: S) => S
 >ss : S
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain2<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain2<S>
 >ss => s : (ss: S) => S
 >ss : S
 >s : S
->then : <S 扩展 S>(cb: (x: S) => S) => Chain2<S>
+>then : <S extends S>(cb: (x: S) => S) => Chain2<S>
 >ss => s : (ss: S) => S
 >ss : S
 >s : S
 >value : S
->x : 数字
->类型别名 :=> 数字
+>x : number
 >"" : ""
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }

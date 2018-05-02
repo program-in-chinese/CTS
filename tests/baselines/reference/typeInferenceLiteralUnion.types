@@ -14,7 +14,7 @@ interface Numeric {
 >Numeric : Numeric
 
     valueOf(): number;
->valueOf : () => 数字
+>valueOf : () => number
 }
 
 // Not very useful, but meets Numeric
@@ -22,33 +22,25 @@ class NumCoercible {
 >NumCoercible : NumCoercible
 
     public a: number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     constructor(a: number) {
->a : 数字
->类型别名 :=> 数字
+>a : number
 
         this.a = a;
->this.a = a : 数字
->类型别名 :=> 数字
->this.a : 数字
->类型别名 :=> 数字
->this : 本体
->a : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
+>this.a = a : number
+>this.a : number
+>this : this
+>a : number
+>a : number
     }
     public valueOf() {
->valueOf : () => 数字
+>valueOf : () => number
 
         return this.a;
->this.a : 数字
->类型别名 :=> 数字
->this : 本体
->a : 数字
->类型别名 :=> 数字
+>this.a : number
+>this : this
+>a : number
     }
 }
 
@@ -56,10 +48,10 @@ class NumCoercible {
  * Return the min and max simultaneously.
  */
 export function extent<T extends Numeric>(array: Array<T | Primitive>): [T | Primitive, T | Primitive] | [undefined, undefined] {
->extent : <T 扩展 Numeric>(array: (文字 | 数字 | 真假 | Date | T)[]) => [文字 | 数字 | 真假 | Date | T, 文字 | 数字 | 真假 | Date | T] | [未定, 未定]
+>extent : <T extends Numeric>(array: (string | number | boolean | Date | T)[]) => [string | number | boolean | Date | T, string | number | boolean | Date | T] | [undefined, undefined]
 >T : T
 >Numeric : Numeric
->array : (文字 | 数字 | 真假 | Date | T)[]
+>array : (string | number | boolean | Date | T)[]
 >Array : T[]
 >T : T
 >Primitive : Primitive
@@ -69,32 +61,29 @@ export function extent<T extends Numeric>(array: Array<T | Primitive>): [T | Pri
 >Primitive : Primitive
 
     return [undefined, undefined];
->[undefined, undefined] : [未定, 未定]
->undefined : 未定
->类型别名 :=> 未定
->undefined : 未定
->类型别名 :=> 未定
+>[undefined, undefined] : [undefined, undefined]
+>undefined : undefined
+>undefined : undefined
 }
 
 
 let extentMixed: [Primitive | NumCoercible, Primitive | NumCoercible] | [undefined, undefined];
->extentMixed : [未定, 未定] | [文字 | 数字 | 真假 | Date | NumCoercible, 文字 | 数字 | 真假 | Date | NumCoercible]
+>extentMixed : [undefined, undefined] | [string | number | boolean | Date | NumCoercible, string | number | boolean | Date | NumCoercible]
 >Primitive : Primitive
 >NumCoercible : NumCoercible
 >Primitive : Primitive
 >NumCoercible : NumCoercible
 
 extentMixed = extent([new NumCoercible(10), 13, '12', true]);
->extentMixed = extent([new NumCoercible(10), 13, '12', true]) : [未定, 未定] | [文字 | 数字 | 真假 | Date | NumCoercible, 文字 | 数字 | 真假 | Date | NumCoercible]
->extentMixed : [未定, 未定] | [文字 | 数字 | 真假 | Date | NumCoercible, 文字 | 数字 | 真假 | Date | NumCoercible]
->extent([new NumCoercible(10), 13, '12', true]) : [未定, 未定] | [文字 | 数字 | 真假 | Date | NumCoercible, 文字 | 数字 | 真假 | Date | NumCoercible]
->extent : <T 扩展 Numeric>(array: (文字 | 数字 | 真假 | Date | T)[]) => [文字 | 数字 | 真假 | Date | T, 文字 | 数字 | 真假 | Date | T] | [未定, 未定]
->[new NumCoercible(10), 13, '12', true] : (为真 | NumCoercible | 13 | "12")[]
+>extentMixed = extent([new NumCoercible(10), 13, '12', true]) : [undefined, undefined] | [string | number | boolean | Date | NumCoercible, string | number | boolean | Date | NumCoercible]
+>extentMixed : [undefined, undefined] | [string | number | boolean | Date | NumCoercible, string | number | boolean | Date | NumCoercible]
+>extent([new NumCoercible(10), 13, '12', true]) : [undefined, undefined] | [string | number | boolean | Date | NumCoercible, string | number | boolean | Date | NumCoercible]
+>extent : <T extends Numeric>(array: (string | number | boolean | Date | T)[]) => [string | number | boolean | Date | T, string | number | boolean | Date | T] | [undefined, undefined]
+>[new NumCoercible(10), 13, '12', true] : (string | number | true | NumCoercible)[]
 >new NumCoercible(10) : NumCoercible
->NumCoercible : 类为 NumCoercible
+>NumCoercible : typeof NumCoercible
 >10 : 10
 >13 : 13
 >'12' : "12"
->true : 为真
->类型别名 :=> 为真
+>true : true
 

@@ -3,32 +3,29 @@ interface I {
 >I : I
 
 	f: (a: { a: number }) => void
->f : (a: { a: 数字; }) => 无值
->a : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>f : (a: { a: number; }) => void
+>a : { a: number; }
+>a : number
 }
 class X<T extends { a: string }> implements I {
 >X : X<T>
 >T : T
->a : 文字
->类型别名 :=> 文字
+>a : string
 >I : I
 
 	f(a: T): void { }
->f : (a: T) => 无值
+>f : (a: T) => void
 >a : T
 >T : T
 }
 var x = new X<{ a: string }>();
->x : X<{ a: 文字; }>
->new X<{ a: string }>() : X<{ a: 文字; }>
->X : 类为 X
->a : 文字
->类型别名 :=> 文字
+>x : X<{ a: string; }>
+>new X<{ a: string }>() : X<{ a: string; }>
+>X : typeof X
+>a : string
 
 var i: I = x; // Should not be allowed -- type of 'f' is incompatible with 'I'
 >i : I
 >I : I
->x : X<{ a: 文字; }>
+>x : X<{ a: string; }>
 

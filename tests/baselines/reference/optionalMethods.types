@@ -3,80 +3,71 @@ interface Foo {
 >Foo : Foo
 
     a: number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     b?: number;
->b : 数字 | 未定
+>b : number | undefined
 
     f(): number;
->f : () => 数字
+>f : () => number
 
     g?(): number;
->g : (() => 数字) | 未定
+>g : (() => number) | undefined
 }
 
 function test1(x: Foo) {
->test1 : (x: Foo) => 无值
+>test1 : (x: Foo) => void
 >x : Foo
 >Foo : Foo
 
     x.a;
->x.a : 数字
->类型别名 :=> 数字
+>x.a : number
 >x : Foo
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     x.b;
->x.b : 数字 | 未定
+>x.b : number | undefined
 >x : Foo
->b : 数字 | 未定
+>b : number | undefined
 
     x.f;
->x.f : () => 数字
+>x.f : () => number
 >x : Foo
->f : () => 数字
+>f : () => number
 
     x.g;
->x.g : (() => 数字) | 未定
+>x.g : (() => number) | undefined
 >x : Foo
->g : (() => 数字) | 未定
+>g : (() => number) | undefined
 
     let f1 = x.f();
->f1 : 数字
->类型别名 :=> 数字
->x.f() : 数字
->类型别名 :=> 数字
->x.f : () => 数字
+>f1 : number
+>x.f() : number
+>x.f : () => number
 >x : Foo
->f : () => 数字
+>f : () => number
 
     let g1 = x.g && x.g();
->g1 : 数字 | 未定
->x.g && x.g() : 数字 | 未定
->x.g : (() => 数字) | 未定
+>g1 : number | undefined
+>x.g && x.g() : number | undefined
+>x.g : (() => number) | undefined
 >x : Foo
->g : (() => 数字) | 未定
->x.g() : 数字
->类型别名 :=> 数字
->x.g : () => 数字
+>g : (() => number) | undefined
+>x.g() : number
+>x.g : () => number
 >x : Foo
->g : () => 数字
+>g : () => number
 
     let g2 = x.g ? x.g() : 0;
->g2 : 数字
->类型别名 :=> 数字
->x.g ? x.g() : 0 : 数字
->类型别名 :=> 数字
->x.g : (() => 数字) | 未定
+>g2 : number
+>x.g ? x.g() : 0 : number
+>x.g : (() => number) | undefined
 >x : Foo
->g : (() => 数字) | 未定
->x.g() : 数字
->类型别名 :=> 数字
->x.g : () => 数字
+>g : (() => number) | undefined
+>x.g() : number
+>x.g : () => number
 >x : Foo
->g : () => 数字
+>g : () => number
 >0 : 0
 }
 
@@ -84,33 +75,31 @@ class Bar {
 >Bar : Bar
 
     a: number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     b?: number;
->b : 数字 | 未定
+>b : number | undefined
 
     c? = 2;
->c : 数字 | 未定
+>c : number | undefined
 >2 : 2
 
     constructor(public d?: number, public e = 10) {}
->d : 数字 | 未定
->e : 数字
->类型别名 :=> 数字
+>d : number | undefined
+>e : number
 >10 : 10
 
     f() {
->f : () => 数字
+>f : () => number
 
         return 1;
 >1 : 1
     }
     g?(): number;  // Body of optional method can be omitted
->g : (() => 数字) | 未定
+>g : (() => number) | undefined
 
     h?() {
->h : (() => 数字) | 未定
+>h : (() => number) | undefined
 
         return 2;
 >2 : 2
@@ -118,110 +107,96 @@ class Bar {
 }
 
 function test2(x: Bar) {
->test2 : (x: Bar) => 无值
+>test2 : (x: Bar) => void
 >x : Bar
 >Bar : Bar
 
     x.a;
->x.a : 数字
->类型别名 :=> 数字
+>x.a : number
 >x : Bar
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     x.b;
->x.b : 数字 | 未定
+>x.b : number | undefined
 >x : Bar
->b : 数字 | 未定
+>b : number | undefined
 
     x.c;
->x.c : 数字 | 未定
+>x.c : number | undefined
 >x : Bar
->c : 数字 | 未定
+>c : number | undefined
 
     x.d;
->x.d : 数字 | 未定
+>x.d : number | undefined
 >x : Bar
->d : 数字 | 未定
+>d : number | undefined
 
     x.e;
->x.e : 数字
->类型别名 :=> 数字
+>x.e : number
 >x : Bar
->e : 数字
->类型别名 :=> 数字
+>e : number
 
     x.f;
->x.f : () => 数字
+>x.f : () => number
 >x : Bar
->f : () => 数字
+>f : () => number
 
     x.g;
->x.g : (() => 数字) | 未定
+>x.g : (() => number) | undefined
 >x : Bar
->g : (() => 数字) | 未定
+>g : (() => number) | undefined
 
     let f1 = x.f();
->f1 : 数字
->类型别名 :=> 数字
->x.f() : 数字
->类型别名 :=> 数字
->x.f : () => 数字
+>f1 : number
+>x.f() : number
+>x.f : () => number
 >x : Bar
->f : () => 数字
+>f : () => number
 
     let g1 = x.g && x.g();
->g1 : 数字 | 未定
->x.g && x.g() : 数字 | 未定
->x.g : (() => 数字) | 未定
+>g1 : number | undefined
+>x.g && x.g() : number | undefined
+>x.g : (() => number) | undefined
 >x : Bar
->g : (() => 数字) | 未定
->x.g() : 数字
->类型别名 :=> 数字
->x.g : () => 数字
+>g : (() => number) | undefined
+>x.g() : number
+>x.g : () => number
 >x : Bar
->g : () => 数字
+>g : () => number
 
     let g2 = x.g ? x.g() : 0;
->g2 : 数字
->类型别名 :=> 数字
->x.g ? x.g() : 0 : 数字
->类型别名 :=> 数字
->x.g : (() => 数字) | 未定
+>g2 : number
+>x.g ? x.g() : 0 : number
+>x.g : (() => number) | undefined
 >x : Bar
->g : (() => 数字) | 未定
->x.g() : 数字
->类型别名 :=> 数字
->x.g : () => 数字
+>g : (() => number) | undefined
+>x.g() : number
+>x.g : () => number
 >x : Bar
->g : () => 数字
+>g : () => number
 >0 : 0
 
     let h1 = x.h && x.h();
->h1 : 数字 | 未定
->x.h && x.h() : 数字 | 未定
->x.h : (() => 数字) | 未定
+>h1 : number | undefined
+>x.h && x.h() : number | undefined
+>x.h : (() => number) | undefined
 >x : Bar
->h : (() => 数字) | 未定
->x.h() : 数字
->类型别名 :=> 数字
->x.h : () => 数字
+>h : (() => number) | undefined
+>x.h() : number
+>x.h : () => number
 >x : Bar
->h : () => 数字
+>h : () => number
 
     let h2 = x.h ? x.h() : 0;
->h2 : 数字
->类型别名 :=> 数字
->x.h ? x.h() : 0 : 数字
->类型别名 :=> 数字
->x.h : (() => 数字) | 未定
+>h2 : number
+>x.h ? x.h() : 0 : number
+>x.h : (() => number) | undefined
 >x : Bar
->h : (() => 数字) | 未定
->x.h() : 数字
->类型别名 :=> 数字
->x.h : () => 数字
+>h : (() => number) | undefined
+>x.h() : number
+>x.h : () => number
 >x : Bar
->h : () => 数字
+>h : () => number
 >0 : 0
 }
 
@@ -229,10 +204,10 @@ class Base {
 >Base : Base
 
     a?: number;
->a : 数字 | 未定
+>a : number | undefined
 
     f?(): number;
->f : (() => 数字) | 未定
+>f : (() => number) | undefined
 }
 
 class Derived extends Base {
@@ -240,12 +215,11 @@ class Derived extends Base {
 >Base : Base
 
     a = 1;
->a : 数字
->类型别名 :=> 数字
+>a : number
 >1 : 1
 
     f(): number { return 1; }
->f : () => 数字
+>f : () => number
 >1 : 1
 }
 

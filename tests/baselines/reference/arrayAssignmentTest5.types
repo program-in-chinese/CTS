@@ -1,6 +1,6 @@
 === tests/cases/compiler/arrayAssignmentTest5.ts ===
 module Test {
->Test : 类为 Test
+>Test : typeof Test
 
     interface IState {
 >IState : IState
@@ -9,8 +9,7 @@ module Test {
 >IToken : IToken
 
         startIndex: number;
->startIndex : 数字
->类型别名 :=> 数字
+>startIndex : number
     }
     interface IStateToken extends IToken {
 >IStateToken : IStateToken
@@ -38,23 +37,19 @@ module Test {
 >IMode : IMode
 
         onEnter(line:string, state:IState, offset:number):IAction;
->onEnter : (line: 文字, state: IState, offset: 数字) => IAction
->line : 文字
->类型别名 :=> 文字
+>onEnter : (line: string, state: IState, offset: number) => IAction
+>line : string
 >state : IState
 >IState : IState
->offset : 数字
->类型别名 :=> 数字
+>offset : number
 >IAction : IAction
 
         tokenize(line:string, state:IState, includeStates:boolean):ILineTokens;
->tokenize : (line: 文字, state: IState, includeStates: 真假) => ILineTokens
->line : 文字
->类型别名 :=> 文字
+>tokenize : (line: string, state: IState, includeStates: boolean) => ILineTokens
+>line : string
 >state : IState
 >IState : IState
->includeStates : 真假
->类型别名 :=> 真假
+>includeStates : boolean
 >ILineTokens : ILineTokens
     }
     export class Bug implements IMode {
@@ -62,27 +57,23 @@ module Test {
 >IMode : IMode
 
         public onEnter(line:string, state:IState, offset:number):IAction {
->onEnter : (line: 文字, state: IState, offset: 数字) => IAction
->line : 文字
->类型别名 :=> 文字
+>onEnter : (line: string, state: IState, offset: number) => IAction
+>line : string
 >state : IState
 >IState : IState
->offset : 数字
->类型别名 :=> 数字
+>offset : number
 >IAction : IAction
 
             var lineTokens:ILineTokens= this.tokenize(line, state, true);
 >lineTokens : ILineTokens
 >ILineTokens : ILineTokens
 >this.tokenize(line, state, true) : ILineTokens
->this.tokenize : (line: 文字, state: IState, includeStates: 真假) => ILineTokens
->this : 本体
->tokenize : (line: 文字, state: IState, includeStates: 真假) => ILineTokens
->line : 文字
->类型别名 :=> 文字
+>this.tokenize : (line: string, state: IState, includeStates: boolean) => ILineTokens
+>this : this
+>tokenize : (line: string, state: IState, includeStates: boolean) => ILineTokens
+>line : string
 >state : IState
->true : 为真
->类型别名 :=> 为真
+>true : true
 
             var tokens:IStateToken[]= lineTokens.tokens;
 >tokens : IStateToken[]
@@ -92,40 +83,32 @@ module Test {
 >tokens : IToken[]
 
             if (tokens.length === 0) {
->tokens.length === 0 : 真假
->类型别名 :=> 真假
->tokens.length : 数字
->类型别名 :=> 数字
+>tokens.length === 0 : boolean
+>tokens.length : number
 >tokens : IStateToken[]
->length : 数字
->类型别名 :=> 数字
+>length : number
 >0 : 0
 
                 return this.onEnter(line, tokens, offset);        // <== this should produce an error since onEnter can not be called with (string, IStateToken[], offset)
 >this.onEnter(line, tokens, offset) : IAction
->this.onEnter : (line: 文字, state: IState, offset: 数字) => IAction
->this : 本体
->onEnter : (line: 文字, state: IState, offset: 数字) => IAction
->line : 文字
->类型别名 :=> 文字
+>this.onEnter : (line: string, state: IState, offset: number) => IAction
+>this : this
+>onEnter : (line: string, state: IState, offset: number) => IAction
+>line : string
 >tokens : IStateToken[]
->offset : 数字
->类型别名 :=> 数字
+>offset : number
             }
         }
         public tokenize(line:string, state:IState, includeStates:boolean):ILineTokens {
->tokenize : (line: 文字, state: IState, includeStates: 真假) => ILineTokens
->line : 文字
->类型别名 :=> 文字
+>tokenize : (line: string, state: IState, includeStates: boolean) => ILineTokens
+>line : string
 >state : IState
 >IState : IState
->includeStates : 真假
->类型别名 :=> 真假
+>includeStates : boolean
 >ILineTokens : ILineTokens
 
             return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
     }
 }

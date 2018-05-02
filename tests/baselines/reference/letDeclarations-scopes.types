@@ -1,228 +1,161 @@
 === tests/cases/compiler/letDeclarations-scopes.ts ===
 // global
 let l = "string";
->l : 文字
->类型别名 :=> 文字
+>l : string
 >"string" : "string"
 
 var n: number;
->n : 数字
->类型别名 :=> 数字
+>n : number
 
 // Control flow statements with blocks
 if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 else {
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 do {
    let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 
 } while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 var obj;
->obj : 任意
->类型别名 :=> 任意
+>obj : any
 
 with (obj) {
->obj : 任意
->类型别名 :=> 任意
+>obj : any
 
     let l = 0;
->l : 任意
->类型别名 :=> 任意
->0 : 任意
->类型别名 :=> 任意
+>l : any
+>0 : any
 
     n = l;
->n = l : 任意
->类型别名 :=> 任意
->n : 任意
->类型别名 :=> 任意
->l : 任意
->类型别名 :=> 任意
+>n = l : any
+>n : any
+>l : any
 }
 
 for (var i = 0; i < 10; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 10 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 10 : boolean
+>i : number
 >10 : 10
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 for (var i2 in {}) {
->i2 : 文字
->类型别名 :=> 文字
+>i2 : string
 >{} : {}
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     label: let l = 0;
->label : 任意
->类型别名 :=> 任意
->l : 数字
->类型别名 :=> 数字
+>label : any
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 while (false) {
->false : 为假
->类型别名 :=> 为假
+>false : false
 
     label2: label3: label4: let l = 0;
->label2 : 任意
->类型别名 :=> 任意
->label3 : 任意
->类型别名 :=> 任意
->label4 : 任意
->类型别名 :=> 任意
->l : 数字
->类型别名 :=> 数字
+>label2 : any
+>label3 : any
+>label4 : any
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 for (let l = 0; n = l; l++) {
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
->l++ : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
+>l++ : number
+>l : number
 
     let l = true;
->l : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>l : boolean
+>true : true
 
     var b3: boolean = l;
->b3 : 真假
->类型别名 :=> 真假
->l : 真假
->类型别名 :=> 真假
+>b3 : boolean
+>l : boolean
 }
 
 for (let l in {}) {
->l : 文字
->类型别名 :=> 文字
+>l : string
 >{} : {}
 
 }
@@ -230,48 +163,35 @@ for (let l in {}) {
 // Try/catch/finally
 try {
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 catch (e) {
->e : 任意
->类型别名 :=> 任意
+>e : any
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 finally {
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 // Switch
@@ -282,17 +202,13 @@ switch (0) {
 >0 : 0
 
         let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
         n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 
         break;
 }
@@ -300,124 +216,94 @@ switch (0) {
 // blocks
 {
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
     {
         let l = false;
->l : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>l : boolean
+>false : false
 
         var b: boolean = l;
->b : 真假
->类型别名 :=> 真假
->l : 真假
->类型别名 :=> 真假
+>b : boolean
+>l : boolean
     }
 }
 
 // functions
 function F() {
->F : () => 无值
+>F : () => void
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 }
 
 var F2 = () => {
->F2 : () => 无值
->() => {    let l = 0;    n = l;} : () => 无值
+>F2 : () => void
+>() => {    let l = 0;    n = l;} : () => void
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 
 };
 
 var F3 = function () {
->F3 : () => 无值
->function () {    let l = 0;    n = l;} : () => 无值
+>F3 : () => void
+>function () {    let l = 0;    n = l;} : () => void
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 
 };
 
 // modules
 module m {
->m : 类为 m
+>m : typeof m
 
     let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
     n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 
     {
        let l = false;
->l : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>l : boolean
+>false : false
 
        var b2: boolean = l;
->b2 : 真假
->类型别名 :=> 真假
->l : 为假
->类型别名 :=> 为假
+>b2 : boolean
+>l : false
     }
 
     lable: let l2 = 0;
->lable : 任意
->类型别名 :=> 任意
->l2 : 数字
->类型别名 :=> 数字
+>lable : any
+>l2 : number
 >0 : 0
 }
 
@@ -427,116 +313,88 @@ class C {
 
     constructor() {
         let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
         n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
     }
 
     method() {
->method : () => 无值
+>method : () => void
 
         let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
         n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
     }
 
     get v() {
->v : 数字
->类型别名 :=> 数字
+>v : number
 
         let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
         n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 
         return n;
->n : 数字
->类型别名 :=> 数字
+>n : number
     }
 
     set v(value) {
->v : 数字
->类型别名 :=> 数字
->value : 数字
->类型别名 :=> 数字
+>v : number
+>value : number
 
         let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
         n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
     }
 }
 
 // object literals
 var o = {
->o : { f(): 无值; f2: () => 无值; }
->{    f() {        let l = 0;        n = l;    },    f2: () => {        let l = 0;        n = l;    }} : { f(): 无值; f2: () => 无值; }
+>o : { f(): void; f2: () => void; }
+>{    f() {        let l = 0;        n = l;    },    f2: () => {        let l = 0;        n = l;    }} : { f(): void; f2: () => void; }
 
     f() {
->f : () => 无值
+>f : () => void
 
         let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
         n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
 
     },
     f2: () => {
->f2 : () => 无值
->() => {        let l = 0;        n = l;    } : () => 无值
+>f2 : () => void
+>() => {        let l = 0;        n = l;    } : () => void
 
         let l = 0;
->l : 数字
->类型别名 :=> 数字
+>l : number
 >0 : 0
 
         n = l;
->n = l : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->l : 数字
->类型别名 :=> 数字
+>n = l : number
+>n : number
+>l : number
     }
 }

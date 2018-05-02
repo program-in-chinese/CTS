@@ -1,53 +1,43 @@
 === tests/cases/compiler/internalAliasUninitializedModuleInsideLocalModuleWithoutExportAccessError.ts ===
 export module a {
->a : 任意
->类型别名 :=> 任意
+>a : any
 
     export module b {
->b : 任意
->类型别名 :=> 任意
+>b : any
 
         export interface I {
 >I : I
 
             foo();
->foo : () => 任意
+>foo : () => any
         }
     }
 }
 
 export module c {
->c : 类为 c
+>c : typeof c
 
     import b = a.b;
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>b : any
+>a : any
+>b : any
 
     export var x: b.I;
 >x : b.I
->b : 任意
->类型别名 :=> 任意
+>b : any
 >I : b.I
 
     x.foo();
->x.foo() : 任意
->类型别名 :=> 任意
->x.foo : () => 任意
+>x.foo() : any
+>x.foo : () => any
 >x : b.I
->foo : () => 任意
+>foo : () => any
 }
 
 
 export var z: c.b.I;
->z : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>z : any
+>c : any
+>b : any
 >I : No type information available!
 

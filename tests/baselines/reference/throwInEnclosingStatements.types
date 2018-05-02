@@ -1,28 +1,24 @@
 === tests/cases/conformance/statements/throwStatements/throwInEnclosingStatements.ts ===
 function fn(x) {
->fn : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
+>fn : (x: any) => void
+>x : any
 
     throw x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 <T>(x: T) => { throw x; }
-><T>(x: T) => { throw x; } : <T>(x: T) => 不及
+><T>(x: T) => { throw x; } : <T>(x: T) => never
 >T : T
 >x : T
 >T : T
 >x : T
 
 var y: string;
->y : 文字
->类型别名 :=> 文字
+>y : string
 
 switch (y) {
->y : 文字
->类型别名 :=> 文字
+>y : string
 
     case 'a':
 >'a' : "a"
@@ -32,60 +28,45 @@ switch (y) {
 
     default:
         throw y;
->y : 文字
->类型别名 :=> 文字
+>y : string
 }
 
 var z = 0;
->z : 数字
->类型别名 :=> 数字
+>z : number
 >0 : 0
 
 while (z < 10) {
->z < 10 : 真假
->类型别名 :=> 真假
->z : 数字
->类型别名 :=> 数字
+>z < 10 : boolean
+>z : number
 >10 : 10
 
     throw z;
->z : 数字
->类型别名 :=> 数字
+>z : number
 }
 
 for (var i = 0; ;) { throw i; }
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i : 数字
->类型别名 :=> 数字
+>i : number
 
 for (var idx in {}) { throw idx; }
->idx : 文字
->类型别名 :=> 文字
+>idx : string
 >{} : {}
->idx : 文字
->类型别名 :=> 文字
+>idx : string
 
 do { throw null; }while(true)
->null : 空值
->类型别名 :=> 空值
->true : 为真
->类型别名 :=> 为真
+>null : null
+>true : true
 
 var j = 0;
->j : 数字
->类型别名 :=> 数字
+>j : number
 >0 : 0
 
 while (j < 0) { throw j; }
->j < 0 : 真假
->类型别名 :=> 真假
->j : 数字
->类型别名 :=> 数字
+>j < 0 : boolean
+>j : number
 >0 : 0
->j : 数字
->类型别名 :=> 数字
+>j : number
 
 class C<T> {
 >C : C<T>
@@ -96,35 +77,33 @@ class C<T> {
 >T : T
 
     biz() {
->biz : () => 无值
+>biz : () => void
 
         throw this.value;
 >this.value : T
->this : 本体
+>this : this
 >value : T
     }
 
     constructor() {
         throw this;
->this : 本体
+>this : this
     }
 }
 
 var aa = {
->aa : { id: 数字; biz(): 无值; }
->{    id:12,    biz() {        throw this;    }} : { id: 数字; biz(): 无值; }
+>aa : { id: number; biz(): never; }
+>{    id:12,    biz() {        throw this;    }} : { id: number; biz(): never; }
 
     id:12,
->id : 数字
->类型别名 :=> 数字
+>id : number
 >12 : 12
 
     biz() {
->biz : () => 无值
+>biz : () => never
 
         throw this;
->this : 任意
->类型别名 :=> 任意
+>this : any
     }
 }
 

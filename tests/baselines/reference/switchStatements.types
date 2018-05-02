@@ -1,11 +1,10 @@
 === tests/cases/conformance/statements/switchStatements/switchStatements.ts ===
 module M {
->M : 类为 M
+>M : typeof M
 
     export function fn(x: number) {
->fn : (x: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
+>fn : (x: number) => string
+>x : number
 
         return '';
 >'' : ""
@@ -13,12 +12,10 @@ module M {
 }
 
 var x: any;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 switch (x) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     case '':
 >'' : ""
@@ -27,16 +24,13 @@ switch (x) {
 >12 : 12
 
     case true:
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     case null:
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     case undefined:
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
     case new Date(12):
 >new Date(12) : Date
@@ -51,53 +45,47 @@ switch (x) {
 >/[a-z]/ : RegExp
 
     case[]:
->[] : 未定[]
+>[] : undefined[]
 
     case {}:
 >{} : {}
 
     case { id: 12 }:
->{ id: 12 } : { id: 数字; }
->id : 数字
->类型别名 :=> 数字
+>{ id: 12 } : { id: number; }
+>id : number
 >12 : 12
 
     case['a']:
->['a'] : 文字[]
+>['a'] : string[]
 >'a' : "a"
 
     case typeof x:
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 任意
->类型别名 :=> 任意
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : any
 
     case typeof M:
->typeof M : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->M : 类为 M
+>typeof M : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>M : typeof M
 
     case M.fn(1):
->M.fn(1) : 文字
->类型别名 :=> 文字
->M.fn : (x: 数字) => 文字
->M : 类为 M
->fn : (x: 数字) => 文字
+>M.fn(1) : string
+>M.fn : (x: number) => string
+>M : typeof M
+>fn : (x: number) => string
 >1 : 1
 
     case <T>(x: number) => '':
-><T>(x: number) => '' : <T>(x: 数字) => 文字
+><T>(x: number) => '' : <T>(x: number) => string
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >'' : ""
 
     case (<T>(x: number) => '')(2):
->(<T>(x: number) => '')(2) : 文字
->类型别名 :=> 文字
->(<T>(x: number) => '') : <T>(x: 数字) => 文字
-><T>(x: number) => '' : <T>(x: 数字) => 文字
+>(<T>(x: number) => '')(2) : string
+>(<T>(x: number) => '') : <T>(x: number) => string
+><T>(x: number) => '' : <T>(x: number) => string
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >'' : ""
 >2 : 2
 
@@ -107,35 +95,31 @@ switch (x) {
 // basic assignable check, rest covered in tests for 'assignement compatibility'
 class C { id: number; }
 >C : C
->id : 数字
->类型别名 :=> 数字
+>id : number
 
 class D extends C { name: string }
 >D : D
 >C : C
->name : 文字
->类型别名 :=> 文字
+>name : string
 
 switch (new C()) {
 >new C() : C
->C : 类为 C
+>C : typeof C
 
     case new D():
 >new D() : D
->D : 类为 D
+>D : typeof D
 
     case { id: 12, name: '' }:
->{ id: 12, name: '' } : { id: 数字; name: 文字; }
->id : 数字
->类型别名 :=> 数字
+>{ id: 12, name: '' } : { id: number; name: string; }
+>id : number
 >12 : 12
->name : 文字
->类型别名 :=> 文字
+>name : string
 >'' : ""
 
     case new C():
 >new C() : C
->C : 类为 C
+>C : typeof C
 }
 
 switch ('') { }
@@ -145,16 +129,13 @@ switch (12) { }
 >12 : 12
 
 switch (true) { }
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 switch (null) { }
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 switch (undefined) { }
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 switch (new Date(12)) { }
 >new Date(12) : Date
@@ -169,33 +150,30 @@ switch (/[a-z]/) { }
 >/[a-z]/ : RegExp
 
 switch ([]) { }
->[] : 未定[]
+>[] : undefined[]
 
 switch ({}) { }
 >{} : {}
 
 switch ({ id: 12 }) { }
->{ id: 12 } : { id: 数字; }
->id : 数字
->类型别名 :=> 数字
+>{ id: 12 } : { id: number; }
+>id : number
 >12 : 12
 
 switch (['a']) { }
->['a'] : 文字[]
+>['a'] : string[]
 >'a' : "a"
 
 switch (<T>(x: number) => '') { }
-><T>(x: number) => '' : <T>(x: 数字) => 文字
+><T>(x: number) => '' : <T>(x: number) => string
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >'' : ""
 
 switch ((<T>(x: T) => '')(1)) { }
->(<T>(x: T) => '')(1) : 文字
->类型别名 :=> 文字
->(<T>(x: T) => '') : <T>(x: T) => 文字
-><T>(x: T) => '' : <T>(x: T) => 文字
+>(<T>(x: T) => '')(1) : string
+>(<T>(x: T) => '') : <T>(x: T) => string
+><T>(x: T) => '' : <T>(x: T) => string
 >T : T
 >x : T
 >T : T

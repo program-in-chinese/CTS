@@ -3,7 +3,7 @@ export class C1 {
 >C1 : C1
 
   m(): void;
->m : () => 无值
+>m : () => void
 }
 
 // merged with a namespace
@@ -11,10 +11,10 @@ export class C2 {
 >C2 : C2
 
   m(): void;
->m : () => 无值
+>m : () => void
 }
 export namespace C2 { }
->C2 : 类为 C2
+>C2 : typeof C2
 
 
 // merged with a namespace, multiple overloads
@@ -22,28 +22,24 @@ class C3 {
 >C3 : C3
 
   m(a, b);
->m : { (a: 任意, b: 任意): 任意; (a: 任意): 任意; }
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>m : { (a: any, b: any): any; (a: any): any; }
+>a : any
+>b : any
 
   m(a);
->m : { (a: 任意, b: 任意): 任意; (a: 任意): 任意; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any, b: any): any; (a: any): any; }
+>a : any
 }
 namespace C3 { }
->C3 : 类为 C3
+>C3 : typeof C3
 
 // static methods, multiple overloads
 class C4 {
 >C4 : C4
 
   static m(a): void;
->m : (a: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
+>m : (a: any) => void
+>a : any
 }
 
 // static methods, multiple overloads
@@ -51,12 +47,11 @@ class C5 {
 >C5 : C5
 
   static m(a): void;
->m : { (a: 任意): 无值; (): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (): void; }
+>a : any
 
   static m(): void;
->m : { (a: 任意): 无值; (): 无值; }
+>m : { (a: any): void; (): void; }
 }
 
 // merged with namespace, static methods
@@ -64,10 +59,10 @@ class C6 {
 >C6 : C6
 
   static m(): void;
->m : () => 无值
+>m : () => void
 }
 namespace C6 {
->C6 : 类为 C6
+>C6 : typeof C6
 }
 
 // merged with namespace, static methods, multiple overloads
@@ -75,15 +70,14 @@ class C7 {
 >C7 : C7
 
   static m(a): void;
->m : { (a: 任意): 无值; (): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (): void; }
+>a : any
 
   static m(): void;
->m : { (a: 任意): 无值; (): 无值; }
+>m : { (a: any): void; (): void; }
 }
 namespace C7 {
->C7 : 类为 C7
+>C7 : typeof C7
 }
 
 // merged with namespace, static methods, duplicate declarations
@@ -91,26 +85,21 @@ class C8 {
 >C8 : C8
 
   static m(a): void;
->m : { (a: 任意): 无值; (a: 任意, b: 任意): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (a: any, b: any): void; }
+>a : any
 
   static m(a, b): void;
->m : { (a: 任意): 无值; (a: 任意, b: 任意): 无值; }
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (a: any, b: any): void; }
+>a : any
+>b : any
 }
 namespace C8 {
->C8 : 类为 C8
+>C8 : typeof C8
 
   export function m(a?, b?): void { }
->m : (a?: 任意, b?: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>m : (a?: any, b?: any) => void
+>a : any
+>b : any
 }
 
 // merged with namespace, static methods, duplicate declarations
@@ -118,60 +107,53 @@ class C9 {
 >C9 : C9
 
   static m(a): void { }
->m : (a: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
+>m : (a: any) => void
+>a : any
 }
 namespace C9 {
->C9 : 类为 C9
+>C9 : typeof C9
 
   export function m(a): void;
->m : (a: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
+>m : (a: any) => void
+>a : any
 }
 
 // merged namespaces
 namespace N10 {
->N10 : 类为 N10
+>N10 : typeof N10
 
   export function m(a): void;
->m : { (a: 任意): 无值; (a: 任意): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (a: any): void; }
+>a : any
 }
 namespace N10 {
->N10 : 类为 N10
+>N10 : typeof N10
 
   export function m(a): void { }
->m : { (a: 任意): 无值; (a: 任意): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (a: any): void; }
+>a : any
 }
 
 // merged namespaces, duplicate defintions
 namespace N12 {
->N12 : 类为 N12
+>N12 : typeof N12
 
   export function m(a): void;
->m : { (a: 任意): 无值; (): 无值; (a: 任意): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (): void; (a: any): void; }
+>a : any
 
   export function m(): void;
->m : { (a: 任意): 无值; (): 无值; (a: 任意): 无值; }
+>m : { (a: any): void; (): void; (a: any): void; }
 
   export function m(a?): void { }
->m : { (a: 任意): 无值; (): 无值; (a: 任意): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (): void; (a: any): void; }
+>a : any
 }
 namespace N12 {
->N12 : 类为 N12
+>N12 : typeof N12
 
   export function m(a): void { }
->m : { (a: 任意): 无值; (): 无值; (a: 任意): 无值; }
->a : 任意
->类型别名 :=> 任意
+>m : { (a: any): void; (): void; (a: any): void; }
+>a : any
 }
 

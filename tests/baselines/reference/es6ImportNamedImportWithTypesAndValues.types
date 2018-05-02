@@ -3,23 +3,20 @@ export interface I {
 >I : I
 
     prop: string;
->prop : 文字
->类型别名 :=> 文字
+>prop : string
 }
 export interface I2 {
 >I2 : I2
 
     prop2: string;
->prop2 : 文字
->类型别名 :=> 文字
+>prop2 : string
 }
 export class C implements I {
 >C : C
 >I : I
 
     prop = "hello";
->prop : 文字
->类型别名 :=> 文字
+>prop : string
 >"hello" : "hello"
 }
 export class C2 implements I2 {
@@ -27,17 +24,15 @@ export class C2 implements I2 {
 >I2 : I2
 
     prop2 = "world";
->prop2 : 文字
->类型别名 :=> 文字
+>prop2 : string
 >"world" : "world"
 }
 
 === tests/cases/compiler/client.ts ===
 import { C, I, C2 } from "./server"; // Shouldnt emit I and C2 into the js file and emit C and I in .d.ts file
->C : 类为 C
->I : 任意
->类型别名 :=> 任意
->C2 : 类为 C2
+>C : typeof C
+>I : any
+>C2 : typeof C2
 
 export type cValInterface = I;
 >cValInterface : I
@@ -46,5 +41,5 @@ export type cValInterface = I;
 export var cVal = new C();
 >cVal : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 

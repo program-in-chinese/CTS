@@ -8,8 +8,7 @@ interface Foo {
 >kind : "foo"
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 }
 
 interface Bar {
@@ -19,21 +18,19 @@ interface Bar {
 >kind : "bar"
 
     length: string;
->length : 文字
->类型别名 :=> 文字
+>length : string
 }
 
 function f1(x: Foo | Bar | string) {
->f1 : (x: 文字 | Foo | Bar) => 无值
->x : 文字 | Foo | Bar
+>f1 : (x: string | Foo | Bar) => void
+>x : string | Foo | Bar
 >Foo : Foo
 >Bar : Bar
 
     if (typeof x !== 'string') {
->typeof x !== 'string' : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | Foo | Bar
+>typeof x !== 'string' : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | Foo | Bar
 >'string' : "string"
 
         switch(x.kind) {
@@ -45,26 +42,23 @@ function f1(x: Foo | Bar | string) {
 >'foo' : "foo"
 
                 x.name;
->x.name : 文字
->类型别名 :=> 文字
+>x.name : string
 >x : Foo
->name : 文字
->类型别名 :=> 文字
+>name : string
         }
     }
 }
 
 function f2(x: Foo | Bar | string | undefined) {
->f2 : (x: 文字 | Foo | Bar | 未定) => 无值
->x : 文字 | Foo | Bar | 未定
+>f2 : (x: string | Foo | Bar | undefined) => void
+>x : string | Foo | Bar | undefined
 >Foo : Foo
 >Bar : Bar
 
     if (typeof x === "object") {
->typeof x === "object" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | Foo | Bar | 未定
+>typeof x === "object" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | Foo | Bar | undefined
 >"object" : "object"
 
         switch(x.kind) {
@@ -76,30 +70,26 @@ function f2(x: Foo | Bar | string | undefined) {
 >'foo' : "foo"
 
                 x.name;
->x.name : 文字
->类型别名 :=> 文字
+>x.name : string
 >x : Foo
->name : 文字
->类型别名 :=> 文字
+>name : string
         }
     }
 }
 
 function f3(x: Foo | Bar | string | null) {
->f3 : (x: 文字 | Foo | Bar | 空值) => 无值
->x : 文字 | Foo | Bar | 空值
+>f3 : (x: string | Foo | Bar | null) => void
+>x : string | Foo | Bar | null
 >Foo : Foo
 >Bar : Bar
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     if (x && typeof x !== "string") {
->x && typeof x !== "string" : 真假 | "" | 空值
->x : 文字 | Foo | Bar | 空值
->typeof x !== "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | Foo | Bar
+>x && typeof x !== "string" : boolean | "" | null
+>x : string | Foo | Bar | null
+>typeof x !== "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | Foo | Bar
 >"string" : "string"
 
         switch(x.kind) {
@@ -111,30 +101,26 @@ function f3(x: Foo | Bar | string | null) {
 >'foo' : "foo"
 
                 x.name;
->x.name : 文字
->类型别名 :=> 文字
+>x.name : string
 >x : Foo
->name : 文字
->类型别名 :=> 文字
+>name : string
         }
     }
 }
 
 function f4(x: Foo | Bar | string | number | null) {
->f4 : (x: 文字 | 数字 | Foo | Bar | 空值) => 无值
->x : 文字 | 数字 | Foo | Bar | 空值
+>f4 : (x: string | number | Foo | Bar | null) => void
+>x : string | number | Foo | Bar | null
 >Foo : Foo
 >Bar : Bar
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     if (x && typeof x === "object") {
->x && typeof x === "object" : 真假 | "" | 0 | 空值
->x : 文字 | 数字 | Foo | Bar | 空值
->typeof x === "object" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字 | Foo | Bar
+>x && typeof x === "object" : boolean | "" | 0 | null
+>x : string | number | Foo | Bar | null
+>typeof x === "object" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number | Foo | Bar
 >"object" : "object"
 
         switch(x.kind) {
@@ -146,11 +132,9 @@ function f4(x: Foo | Bar | string | number | null) {
 >'foo' : "foo"
 
                 x.name;
->x.name : 文字
->类型别名 :=> 文字
+>x.name : string
 >x : Foo
->name : 文字
->类型别名 :=> 文字
+>name : string
         }
     }
 }

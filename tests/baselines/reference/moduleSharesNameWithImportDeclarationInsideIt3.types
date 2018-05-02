@@ -1,12 +1,12 @@
 === tests/cases/compiler/moduleSharesNameWithImportDeclarationInsideIt3.ts ===
 module Z {
->Z : 类为 Z
+>Z : typeof Z
 
     export module M {
->M : 类为 M
+>M : typeof M
 
         export function bar() {
->bar : () => 文字
+>bar : () => string
 
             return "";
 >"" : ""
@@ -16,27 +16,25 @@ module Z {
 >I : I
 }
 module A.M {
->A : 类为 A
->M : 类为 A.M
+>A : typeof A
+>M : typeof A.M
 
     import M = Z.M;
->M : 类为 M
->Z : 类为 Z
->M : 类为 M
+>M : typeof M
+>Z : typeof Z
+>M : typeof M
 
     import M = Z.I;
->M : 任意
->类型别名 :=> 任意
->Z : 类为 Z
+>M : any
+>Z : typeof Z
 >I : Z.I
 
     export function bar() {
->bar : () => 无值
+>bar : () => void
     }
     M.bar(); // Should call Z.M.bar
->M.bar() : 文字
->类型别名 :=> 文字
->M.bar : () => 文字
->M : 类为 M
->bar : () => 文字
+>M.bar() : string
+>M.bar : () => string
+>M : typeof M
+>bar : () => string
 }

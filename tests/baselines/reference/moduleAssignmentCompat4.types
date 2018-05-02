@@ -1,19 +1,19 @@
 === tests/cases/compiler/moduleAssignmentCompat4.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
    export module M {
->M : 类为 M
+>M : typeof M
 
         class C { }
 >C : C
     }
 }
 module B {
->B : 类为 B
+>B : typeof B
 
     export module M {
->M : 类为 M
+>M : typeof M
 
         export class D { }
 >D : D
@@ -21,28 +21,20 @@ module B {
 }
 
 var a: A;
->a : 任意
->类型别名 :=> 任意
+>a : any
 >A : No type information available!
 
 var b: B;
->b : 任意
->类型别名 :=> 任意
+>b : any
 >B : No type information available!
 
 a = b;
->a = b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>a = b : any
+>a : any
+>b : any
 
 b = a; // error
->b = a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>b = a : any
+>b : any
+>a : any
 

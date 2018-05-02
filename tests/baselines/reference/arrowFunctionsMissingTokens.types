@@ -1,224 +1,179 @@
 === tests/cases/compiler/arrowFunctionsMissingTokens.ts ===
 module missingArrowsWithCurly {
->missingArrowsWithCurly : 类为 missingArrowsWithCurly
+>missingArrowsWithCurly : typeof missingArrowsWithCurly
 
     var a = () { };
->a : () => 无值
->() { } : () => 无值
+>a : () => void
+>() { } : () => void
 
     var b = (): void { }
->b : () => 无值
->(): void { } : () => 无值
+>b : () => void
+>(): void { } : () => void
 
     var c = (x) { };
->c : (x: 任意) => 无值
->(x) { } : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
+>c : (x: any) => void
+>(x) { } : (x: any) => void
+>x : any
 
     var d = (x: number, y: string) { };
->d : (x: 数字, y: 文字) => 无值
->(x: number, y: string) { } : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>d : (x: number, y: string) => void
+>(x: number, y: string) { } : (x: number, y: string) => void
+>x : number
+>y : string
 
     var e = (x: number, y: string): void { };
->e : (x: 数字, y: 文字) => 无值
->(x: number, y: string): void { } : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>e : (x: number, y: string) => void
+>(x: number, y: string): void { } : (x: number, y: string) => void
+>x : number
+>y : string
 }
 
 module missingCurliesWithArrow {
->missingCurliesWithArrow : 类为 missingCurliesWithArrow
+>missingCurliesWithArrow : typeof missingCurliesWithArrow
 
     module withStatement {
->withStatement : 类为 withStatement
+>withStatement : typeof withStatement
 
         var a = () => var k = 10;};
->a : () => 无值
->() => var k = 10;} : () => 无值
->k : 数字
->类型别名 :=> 数字
+>a : () => void
+>() => var k = 10;} : () => void
+>k : number
 >10 : 10
 
         var b = (): void => var k = 10;}
->b : () => 无值
->(): void => var k = 10;} : () => 无值
->k : 数字
->类型别名 :=> 数字
+>b : () => void
+>(): void => var k = 10;} : () => void
+>k : number
 >10 : 10
 
         var c = (x) => var k = 10;};
->c : (x: 任意) => 无值
->(x) => var k = 10;} : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
->k : 数字
->类型别名 :=> 数字
+>c : (x: any) => void
+>(x) => var k = 10;} : (x: any) => void
+>x : any
+>k : number
 >10 : 10
 
         var d = (x: number, y: string) => var k = 10;};
->d : (x: 数字, y: 文字) => 无值
->(x: number, y: string) => var k = 10;} : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
->k : 数字
->类型别名 :=> 数字
+>d : (x: number, y: string) => void
+>(x: number, y: string) => var k = 10;} : (x: number, y: string) => void
+>x : number
+>y : string
+>k : number
 >10 : 10
 
         var e = (x: number, y: string): void => var k = 10;};
->e : (x: 数字, y: 文字) => 无值
->(x: number, y: string): void => var k = 10;} : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
->k : 数字
->类型别名 :=> 数字
+>e : (x: number, y: string) => void
+>(x: number, y: string): void => var k = 10;} : (x: number, y: string) => void
+>x : number
+>y : string
+>k : number
 >10 : 10
 
         var f = () => var k = 10;}
->f : () => 无值
->() => var k = 10;} : () => 无值
->k : 数字
->类型别名 :=> 数字
+>f : () => void
+>() => var k = 10;} : () => void
+>k : number
 >10 : 10
     }
 
     module withoutStatement {
->withoutStatement : 类为 withoutStatement
+>withoutStatement : typeof withoutStatement
 
         var a = () => };
->a : () => 任意
->() => : () => 任意
-> : 任意
->类型别名 :=> 任意
+>a : () => any
+>() => : () => any
+> : any
 
         var b = (): void => }
->b : () => 无值
->(): void => : () => 无值
-> : 任意
->类型别名 :=> 任意
+>b : () => void
+>(): void => : () => void
+> : any
 
         var c = (x) => };
->c : (x: 任意) => 任意
->(x) => : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>c : (x: any) => any
+>(x) => : (x: any) => any
+>x : any
+> : any
 
         var d = (x: number, y: string) => };
->d : (x: 数字, y: 文字) => 任意
->(x: number, y: string) => : (x: 数字, y: 文字) => 任意
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
-> : 任意
->类型别名 :=> 任意
+>d : (x: number, y: string) => any
+>(x: number, y: string) => : (x: number, y: string) => any
+>x : number
+>y : string
+> : any
 
         var e = (x: number, y: string): void => };
->e : (x: 数字, y: 文字) => 无值
->(x: number, y: string): void => : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
-> : 任意
->类型别名 :=> 任意
+>e : (x: number, y: string) => void
+>(x: number, y: string): void => : (x: number, y: string) => void
+>x : number
+>y : string
+> : any
 
         var f = () => }
->f : () => 任意
->() => : () => 任意
-> : 任意
->类型别名 :=> 任意
+>f : () => any
+>() => : () => any
+> : any
     }
 }
 
 module ce_nEst_pas_une_arrow_function {
->ce_nEst_pas_une_arrow_function : 类为 ce_nEst_pas_une_arrow_function
+>ce_nEst_pas_une_arrow_function : typeof ce_nEst_pas_une_arrow_function
 
     var a = ();
->a : 任意
->类型别名 :=> 任意
->() : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>a : any
+>() : any
+> : any
 
     var b = (): void;
->b : () => 无值
->(): void : () => 无值
-> : 任意
->类型别名 :=> 任意
+>b : () => void
+>(): void : () => void
+> : any
 
     var c = (x);
->c : 任意
->类型别名 :=> 任意
->(x) : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>c : any
+>(x) : any
+>x : any
 
     var d = (x: number, y: string);
->d : (x: 数字, y: 文字) => 任意
->(x: number, y: string) : (x: 数字, y: 文字) => 任意
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
-> : 任意
->类型别名 :=> 任意
+>d : (x: number, y: string) => any
+>(x: number, y: string) : (x: number, y: string) => any
+>x : number
+>y : string
+> : any
 
     var e = (x: number, y: string): void;
->e : (x: 数字, y: 文字) => 无值
->(x: number, y: string): void : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
-> : 任意
->类型别名 :=> 任意
+>e : (x: number, y: string) => void
+>(x: number, y: string): void : (x: number, y: string) => void
+>x : number
+>y : string
+> : any
 }
 
 module okay {
->okay : 类为 okay
+>okay : typeof okay
 
     var a = () => { };
->a : () => 无值
->() => { } : () => 无值
+>a : () => void
+>() => { } : () => void
 
     var b = (): void => { }
->b : () => 无值
->(): void => { } : () => 无值
+>b : () => void
+>(): void => { } : () => void
 
     var c = (x) => { };
->c : (x: 任意) => 无值
->(x) => { } : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
+>c : (x: any) => void
+>(x) => { } : (x: any) => void
+>x : any
 
     var d = (x: number, y: string) => { };
->d : (x: 数字, y: 文字) => 无值
->(x: number, y: string) => { } : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>d : (x: number, y: string) => void
+>(x: number, y: string) => { } : (x: number, y: string) => void
+>x : number
+>y : string
 
     var e = (x: number, y: string): void => { };
->e : (x: 数字, y: 文字) => 无值
->(x: number, y: string): void => { } : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>e : (x: number, y: string) => void
+>(x: number, y: string): void => { } : (x: number, y: string) => void
+>x : number
+>y : string
 }

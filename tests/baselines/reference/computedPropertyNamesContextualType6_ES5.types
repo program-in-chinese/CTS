@@ -4,8 +4,7 @@ interface I<T> {
 >T : T
 
     [s: string]: T;
->s : 文字
->类型别名 :=> 文字
+>s : string
 >T : T
 }
 
@@ -18,38 +17,37 @@ declare function foo<T>(obj: I<T>): T
 >T : T
 
 foo({
->foo({    p: "",    0: () => { },    ["hi" + "bye"]: true,    [0 + 1]: 0,    [+"hi"]: [0]}) : 文字 | 数字 | 真假 | (() => 无值) | 数字[]
+>foo({    p: "",    0: () => { },    ["hi" + "bye"]: true,    [0 + 1]: 0,    [+"hi"]: [0]}) : string | number | boolean | (() => void) | number[]
 >foo : <T>(obj: I<T>) => T
->{    p: "",    0: () => { },    ["hi" + "bye"]: true,    [0 + 1]: 0,    [+"hi"]: [0]} : { [x: 文字]: 为真 | "" | (() => 无值) | 0 | 数字[]; [x: 数字]: (() => 无值) | 0 | 数字[]; p: ""; 0: () => 无值; }
+>{    p: "",    0: () => { },    ["hi" + "bye"]: true,    [0 + 1]: 0,    [+"hi"]: [0]} : { [x: string]: string | number | true | (() => void) | number[]; [x: number]: number | (() => void) | number[]; p: string; 0: () => void; }
 
     p: "",
->p : 文字
->类型别名 :=> 文字
+>p : string
 >"" : ""
 
     0: () => { },
->() => { } : () => 无值
+>0 : () => void
+>() => { } : () => void
 
     ["hi" + "bye"]: true,
->"hi" + "bye" : 文字
->类型别名 :=> 文字
+>["hi" + "bye"] : true
+>"hi" + "bye" : string
 >"hi" : "hi"
 >"bye" : "bye"
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     [0 + 1]: 0,
->0 + 1 : 数字
->类型别名 :=> 数字
+>[0 + 1] : number
+>0 + 1 : number
 >0 : 0
 >1 : 1
 >0 : 0
 
     [+"hi"]: [0]
->+"hi" : 数字
->类型别名 :=> 数字
+>[+"hi"] : number[]
+>+"hi" : number
 >"hi" : "hi"
->[0] : 数字[]
+>[0] : number[]
 >0 : 0
 
 });

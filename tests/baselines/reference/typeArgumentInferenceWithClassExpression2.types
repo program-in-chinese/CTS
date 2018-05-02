@@ -1,29 +1,24 @@
 === tests/cases/conformance/es6/classExpressions/typeArgumentInferenceWithClassExpression2.ts ===
 function foo<T>(x = class { prop: T }): T {
->foo : <T>(x?: 类为 (Anonymous class)) => T
+>foo : <T>(x?: typeof (Anonymous class)) => T
 >T : T
->x : 类为 (Anonymous class)
->class { prop: T } : 类为 (Anonymous class)
+>x : typeof (Anonymous class)
+>class { prop: T } : typeof (Anonymous class)
 >prop : T
 >T : T
 >T : T
 
     return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 }
 
 // Should not infer string because it is a static property
 foo(class { static prop = "hello" }).length;
->foo(class { static prop = "hello" }).length : 任意
->类型别名 :=> 任意
->foo(class { static prop = "hello" }) : 任意
->类型别名 :=> 任意
->foo : <T>(x?: 类为 (Anonymous class)) => T
->class { static prop = "hello" } : 类为 (Anonymous class)
->prop : 文字
->类型别名 :=> 文字
+>foo(class { static prop = "hello" }).length : any
+>foo(class { static prop = "hello" }) : any
+>foo : <T>(x?: typeof (Anonymous class)) => T
+>class { static prop = "hello" } : typeof (Anonymous class)
+>prop : string
 >"hello" : "hello"
->length : 任意
->类型别名 :=> 任意
+>length : any
 

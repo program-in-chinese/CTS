@@ -1,63 +1,53 @@
 === tests/cases/compiler/duplicateObjectLiteralProperty.ts ===
 var x = {
->x : { a: { c: 数字; }; b: 真假; }
->{    a: 1,    b: true, // OK    a: 56,   // Duplicate    \u0061: "ss", // Duplicate    a: {        c: 1,        "c": 56, // Duplicate    }} : { a: { c: 数字; }; b: 真假; }
+>x : { a: { c: number; }; b: boolean; }
+>{    a: 1,    b: true, // OK    a: 56,   // Duplicate    \u0061: "ss", // Duplicate    a: {        c: 1,        "c": 56, // Duplicate    }} : { a: { c: number; }; b: boolean; }
 
     a: 1,
->a : 数字
->类型别名 :=> 数字
+>a : number
 >1 : 1
 
     b: true, // OK
->b : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>b : boolean
+>true : true
 
     a: 56,   // Duplicate
->a : 数字
->类型别名 :=> 数字
+>a : number
 >56 : 56
 
     \u0061: "ss", // Duplicate
->\u0061 : 数字
->类型别名 :=> 数字
+>\u0061 : number
 >"ss" : "ss"
 
     a: {
->a : 数字
->类型别名 :=> 数字
->{        c: 1,        "c": 56, // Duplicate    } : { c: 数字; }
+>a : number
+>{        c: 1,        "c": 56, // Duplicate    } : { c: number; }
 
         c: 1,
->c : 数字
->类型别名 :=> 数字
+>c : number
 >1 : 1
 
         "c": 56, // Duplicate
+>"c" : number
 >56 : 56
     }
 };
 
 
 var y = {
->y : { 只读 a: 数字; }
->{    get a() { return 0; },    set a(v: number) { },    get a() { return 0; }} : { 只读 a: 数字; }
+>y : { readonly a: number; }
+>{    get a() { return 0; },    set a(v: number) { },    get a() { return 0; }} : { readonly a: number; }
 
     get a() { return 0; },
->a : 数字
->类型别名 :=> 数字
+>a : number
 >0 : 0
 
     set a(v: number) { },
->a : 数字
->类型别名 :=> 数字
->v : 数字
->类型别名 :=> 数字
+>a : number
+>v : number
 
     get a() { return 0; }
->a : 数字
->类型别名 :=> 数字
+>a : number
 >0 : 0
 
 };

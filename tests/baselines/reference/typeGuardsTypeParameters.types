@@ -5,21 +5,19 @@ class C {
 >C : C
 
     prop: string;
->prop : 文字
->类型别名 :=> 文字
+>prop : string
 }
 
 function f1<T>(x: T) {
->f1 : <T>(x: T) => 无值
+>f1 : <T>(x: T) => void
 >T : T
 >x : T
 >T : T
 
     if (x instanceof C) {
->x instanceof C : 真假
->类型别名 :=> 真假
+>x instanceof C : boolean
 >x : T
->C : 类为 C
+>C : typeof C
 
         let v1: T = x;
 >v1 : T
@@ -32,85 +30,77 @@ function f1<T>(x: T) {
 >x : T & C
 
         x.prop;
->x.prop : 文字
->类型别名 :=> 文字
+>x.prop : string
 >x : T & C
->prop : 文字
->类型别名 :=> 文字
+>prop : string
     }
 }
 
 function f2<T>(x: T) {
->f2 : <T>(x: T) => 无值
+>f2 : <T>(x: T) => void
 >T : T
 >x : T
 >T : T
 
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
 >x : T
 >"string" : "string"
 
         let v1: T = x;
 >v1 : T
 >T : T
->x : T & 文字
+>x : T & string
 
         let v2: string = x;
->v2 : 文字
->类型别名 :=> 文字
->x : T & 文字
+>v2 : string
+>x : T & string
 
         x.length;
->x.length : 数字
->类型别名 :=> 数字
->x : T & 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : T & string
+>length : number
     }
 }
 
 // Repro from #13872
 
 function fun<T>(item: { [P in keyof T]: T[P] }) {
->fun : <T>(item: { [P 位于 键集 T]: T[P]; }) => 无值
+>fun : <T>(item: { [P in keyof T]: T[P]; }) => void
 >T : T
->item : { [P 位于 键集 T]: T[P]; }
+>item : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     const strings: string[] = [];
->strings : 文字[]
->[] : 不及[]
+>strings : string[]
+>[] : never[]
 
     for (const key in item) {
->key : 键集 T
->item : { [P 位于 键集 T]: T[P]; }
+>key : keyof T
+>item : { [P in keyof T]: T[P]; }
 
         const value = item[key];
->value : { [P 位于 键集 T]: T[P]; }[键集 T]
->item[key] : { [P 位于 键集 T]: T[P]; }[键集 T]
->item : { [P 位于 键集 T]: T[P]; }
->key : 键集 T
+>value : { [P in keyof T]: T[P]; }[keyof T]
+>item[key] : { [P in keyof T]: T[P]; }[keyof T]
+>item : { [P in keyof T]: T[P]; }
+>key : keyof T
 
         if (typeof value === "string") {
->typeof value === "string" : 真假
->类型别名 :=> 真假
->typeof value : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->value : { [P 位于 键集 T]: T[P]; }[键集 T]
+>typeof value === "string" : boolean
+>typeof value : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>value : { [P in keyof T]: T[P]; }[keyof T]
 >"string" : "string"
 
             strings.push(value);
->strings.push(value) : 数字
->类型别名 :=> 数字
->strings.push : (...items: 文字[]) => 数字
->strings : 文字[]
->push : (...items: 文字[]) => 数字
->value : { [P 位于 键集 T]: T[P]; }[键集 T] & 文字
+>strings.push(value) : number
+>strings.push : (...items: string[]) => number
+>strings : string[]
+>push : (...items: string[]) => number
+>value : { [P in keyof T]: T[P]; }[keyof T] & string
         }
     }
 }

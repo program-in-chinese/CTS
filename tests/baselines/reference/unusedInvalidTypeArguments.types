@@ -3,25 +3,19 @@
 
 
 type N = number;
->N : 数字
->类型别名 :=> 数字
+>N : number
 
 type U = number;
->U : 数字
->类型别名 :=> 数字
+>U : number
 
 export type Z = U<N>;
->Z : 任意
->类型别名 :=> 任意
->U : 数字
->类型别名 :=> 数字
->N : 数字
->类型别名 :=> 数字
+>Z : any
+>U : number
+>N : number
 
 === /classReference.ts ===
 type N = number;
->N : 数字
->类型别名 :=> 数字
+>N : number
 
 class C { }
 >C : C
@@ -29,125 +23,90 @@ class C { }
 // This uses getTypeFromClassOrInterfaceReference instead of getTypeFromTypeAliasReference.
 export class D extends C<N> {}
 >D : D
->C : 类为 C
->N : 数字
->类型别名 :=> 数字
+>C : typeof C
+>N : number
 
 === /interface.ts ===
 import { Foo } from "unknown";
->Foo : 任意
->类型别名 :=> 任意
+>Foo : any
 
 export interface I<T> { x: Foo<T>; }
 >I : I<T>
 >T : T
->x : 任意
->类型别名 :=> 任意
->Foo : 任意
->类型别名 :=> 任意
+>x : any
+>Foo : any
 >T : T
 
 === /call.ts ===
 import { foo } from "unknown";
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 
 type T = number;
->T : 数字
->类型别名 :=> 数字
+>T : number
 
 foo<T>();
->foo<T>() : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
->T : 数字
->类型别名 :=> 数字
+>foo<T>() : any
+>foo : any
+>T : number
 
 === /new.ts ===
 import { Foo } from "unkown";
->Foo : 任意
->类型别名 :=> 任意
+>Foo : any
 
 type T = number;
->T : 数字
->类型别名 :=> 数字
+>T : number
 
 new Foo<T>();
->new Foo<T>() : 任意
->类型别名 :=> 任意
->Foo : 任意
->类型别名 :=> 任意
->T : 数字
->类型别名 :=> 数字
+>new Foo<T>() : any
+>Foo : any
+>T : number
 
 === /callAny.ts ===
 declare var g: any;
->g : 任意
->类型别名 :=> 任意
+>g : any
 
 type U = number;
->U : 数字
->类型别名 :=> 数字
+>U : number
 
 g<U>();
->g<U>() : 任意
->类型别名 :=> 任意
->g : 任意
->类型别名 :=> 任意
->U : 数字
->类型别名 :=> 数字
+>g<U>() : any
+>g : any
+>U : number
 
 g<InvalidReference>(); // Should get error for type argument
->g<InvalidReference>() : 任意
->类型别名 :=> 任意
->g : 任意
->类型别名 :=> 任意
+>g<InvalidReference>() : any
+>g : any
 >InvalidReference : No type information available!
 
 === /super.ts ===
 import { A, B } from "unknown";
->A : 任意
->类型别名 :=> 任意
->B : 任意
->类型别名 :=> 任意
+>A : any
+>B : any
 
 type T = number;
->T : 数字
->类型别名 :=> 数字
+>T : number
 
 export class C extends A<B> {
 >C : C
->A : 任意
->类型别名 :=> 任意
->B : 任意
->类型别名 :=> 任意
+>A : any
+>B : any
 
     m() {
->m : () => 无值
+>m : () => void
 
         super.m<T>(1);
->super.m<T>(1) : 任意
->类型别名 :=> 任意
->super.m : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->m : 任意
->类型别名 :=> 任意
->T : 数字
->类型别名 :=> 数字
+>super.m<T>(1) : any
+>super.m : any
+>super : any
+>m : any
+>T : number
 >1 : 1
 
         super.m<InvalidReference>(); // Should get error for type argument
->super.m<InvalidReference>() : 任意
->类型别名 :=> 任意
->super.m : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->m : 任意
->类型别名 :=> 任意
+>super.m<InvalidReference>() : any
+>super.m : any
+>super : any
+>m : any
 >InvalidReference : No type information available!
     }
 }

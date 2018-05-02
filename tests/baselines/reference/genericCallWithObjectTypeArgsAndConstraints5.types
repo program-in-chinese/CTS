@@ -5,24 +5,21 @@ class C {
 >C : C
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 class D {
 >D : D
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     y: string;
->y : 文字
->类型别名 :=> 文字
+>y : string
 }
 
 function foo<T, U extends T>(t: T, t2: U) {
->foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
+>foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
 >T : T
 >U : U
 >T : T
@@ -47,36 +44,30 @@ var d: D;
 >D : D
 
 var r2 = foo(d, c); // the constraints are self-referencing, no downstream error
->r2 : 任意
->类型别名 :=> 任意
->foo(d, c) : 任意
->类型别名 :=> 任意
->foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
+>r2 : any
+>foo(d, c) : any
+>foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
 >d : D
 >c : C
 
 var r9 = foo(() => 1, () => { }); // the constraints are self-referencing, no downstream error
->r9 : 任意
->类型别名 :=> 任意
->foo(() => 1, () => { }) : 任意
->类型别名 :=> 任意
->foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
->() => 1 : () => 数字
+>r9 : any
+>foo(() => 1, () => { }) : any
+>foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
+>() => 1 : () => number
 >1 : 1
->() => { } : () => 无值
+>() => { } : () => void
 
 function other<T, U extends T>() {
->other : <T, U 扩展 T>() => 无值
+>other : <T, U extends T>() => void
 >T : T
 >U : U
 >T : T
 
     var r5 = foo<T, U>(c, d); // error
->r5 : 任意
->类型别名 :=> 任意
->foo<T, U>(c, d) : 任意
->类型别名 :=> 任意
->foo : <T, U 扩展 T>(t: T, t2: U) => (x: T) => U
+>r5 : any
+>foo<T, U>(c, d) : any
+>foo : <T, U extends T>(t: T, t2: U) => (x: T) => U
 >T : T
 >U : U
 >c : C

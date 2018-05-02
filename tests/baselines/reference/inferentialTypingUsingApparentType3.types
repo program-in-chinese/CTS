@@ -15,9 +15,8 @@ class CharField implements Field<string> {
 >Field : Field<T>
 
     clean(input: string) {
->clean : (input: 文字) => 文字
->input : 文字
->类型别名 :=> 文字
+>clean : (input: string) => string
+>input : string
 
         return "Yup";
 >"Yup" : "Yup"
@@ -29,9 +28,8 @@ class NumberField implements Field<number> {
 >Field : Field<T>
 
     clean(input: number) {
->clean : (input: 数字) => 数字
->input : 数字
->类型别名 :=> 数字
+>clean : (input: number) => number
+>input : number
 
         return 123;
 >123 : 123
@@ -42,8 +40,7 @@ class ObjectField<A, T extends { [name: string]: Field<any> }> {
 >ObjectField : ObjectField<A, T>
 >A : A
 >T : T
->name : 文字
->类型别名 :=> 文字
+>name : string
 >Field : Field<T>
 
     constructor(public fields: T) { }
@@ -54,18 +51,18 @@ class ObjectField<A, T extends { [name: string]: Field<any> }> {
 var person = new ObjectField({
 >person : ObjectField<{}, { id: NumberField; name: CharField; }>
 >new ObjectField({    id: new NumberField(),    name: new CharField()}) : ObjectField<{}, { id: NumberField; name: CharField; }>
->ObjectField : 类为 ObjectField
+>ObjectField : typeof ObjectField
 >{    id: new NumberField(),    name: new CharField()} : { id: NumberField; name: CharField; }
 
     id: new NumberField(),
 >id : NumberField
 >new NumberField() : NumberField
->NumberField : 类为 NumberField
+>NumberField : typeof NumberField
 
     name: new CharField()
 >name : CharField
 >new CharField() : CharField
->CharField : 类为 CharField
+>CharField : typeof CharField
 
 });
 

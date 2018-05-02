@@ -1,57 +1,43 @@
 === tests/cases/compiler/shadowingViaLocalValueOrBindingElement.ts ===
 if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         var x = 0; // Error
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
 
         var { x = 0 } = { x: 0 }; // Error
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
->{ x: 0 } : { x?: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0 } : { x?: number; }
+>x : number
 >0 : 0
 
         var { x: x = 0 } = { x: 0 }; // Error
->x : 任意
->类型别名 :=> 任意
->x : 数字
->类型别名 :=> 数字
+>x : any
+>x : number
 >0 : 0
->{ x: 0 } : { x?: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0 } : { x?: number; }
+>x : number
 >0 : 0
 
         var { x } = { x: 0 }; // Error
->x : 数字
->类型别名 :=> 数字
->{ x: 0 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>x : number
+>{ x: 0 } : { x: number; }
+>x : number
 >0 : 0
 
         var { x: x } = { x: 0 }; // Error
->x : 任意
->类型别名 :=> 任意
->x : 数字
->类型别名 :=> 数字
->{ x: 0 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>x : any
+>x : number
+>{ x: 0 } : { x: number; }
+>x : number
 >0 : 0
     }
 }

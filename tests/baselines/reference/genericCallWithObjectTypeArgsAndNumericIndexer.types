@@ -12,64 +12,61 @@ function foo<T>(x: T) {
 }
 
 var a: { [x: number]: Date };
->a : { [x: 数字]: Date; }
->x : 数字
->类型别名 :=> 数字
+>a : { [x: number]: Date; }
+>x : number
 >Date : Date
 
 var r = foo(a);
->r : { [x: 数字]: Date; }
->foo(a) : { [x: 数字]: Date; }
+>r : { [x: number]: Date; }
+>foo(a) : { [x: number]: Date; }
 >foo : <T>(x: T) => T
->a : { [x: 数字]: Date; }
+>a : { [x: number]: Date; }
 
 function other<T>(arg: T) {
->other : <T>(arg: T) => 无值
+>other : <T>(arg: T) => void
 >T : T
 >arg : T
 >T : T
 
     var b: { [x: number]: T };
->b : { [x: 数字]: T; }
->x : 数字
->类型别名 :=> 数字
+>b : { [x: number]: T; }
+>x : number
 >T : T
 
     var r2 = foo(b); // T
->r2 : { [x: 数字]: T; }
->foo(b) : { [x: 数字]: T; }
+>r2 : { [x: number]: T; }
+>foo(b) : { [x: number]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 数字]: T; }
+>b : { [x: number]: T; }
 }
 
 function other2<T extends Date>(arg: T) {
->other2 : <T 扩展 Date>(arg: T) => 无值
+>other2 : <T extends Date>(arg: T) => void
 >T : T
 >Date : Date
 >arg : T
 >T : T
 
     var b: { [x: number]: T };
->b : { [x: 数字]: T; }
->x : 数字
->类型别名 :=> 数字
+>b : { [x: number]: T; }
+>x : number
 >T : T
 
     var r2 = foo(b);
->r2 : { [x: 数字]: T; }
->foo(b) : { [x: 数字]: T; }
+>r2 : { [x: number]: T; }
+>foo(b) : { [x: number]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 数字]: T; }
+>b : { [x: number]: T; }
 
     var d = r2[1];
 >d : T
 >r2[1] : T
->r2 : { [x: 数字]: T; }
+>r2 : { [x: number]: T; }
 >1 : 1
 }
 
 function other3<T extends Date, U extends Date>(arg: T) {
->other3 : <T 扩展 Date, U 扩展 Date>(arg: T) => 无值
+>other3 : <T extends Date, U extends Date>(arg: T) => void
 >T : T
 >Date : Date
 >U : U
@@ -78,21 +75,20 @@ function other3<T extends Date, U extends Date>(arg: T) {
 >T : T
 
     var b: { [x: number]: T };
->b : { [x: 数字]: T; }
->x : 数字
->类型别名 :=> 数字
+>b : { [x: number]: T; }
+>x : number
 >T : T
 
     var r2 = foo(b);
->r2 : { [x: 数字]: T; }
->foo(b) : { [x: 数字]: T; }
+>r2 : { [x: number]: T; }
+>foo(b) : { [x: number]: T; }
 >foo : <T>(x: T) => T
->b : { [x: 数字]: T; }
+>b : { [x: number]: T; }
 
     var d = r2[1];
 >d : T
 >r2[1] : T
->r2 : { [x: 数字]: T; }
+>r2 : { [x: number]: T; }
 >1 : 1
 
     // BUG 821629

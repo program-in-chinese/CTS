@@ -4,20 +4,23 @@ class List<T> { }
 >T : T
 
 declare module 'mod1' {
+>'mod1' : typeof 'mod1'
+
     class Foo {
 >Foo : Foo
     }
 }
 
 declare module 'moo' {
+>'moo' : typeof 'moo'
+
     import x = require('mod1');
->x : 类为 x
+>x : typeof x
 
     export var p: List<x.Foo>;
 >p : List<x.Foo>
 >List : List<T>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >Foo : x.Foo
 }
 

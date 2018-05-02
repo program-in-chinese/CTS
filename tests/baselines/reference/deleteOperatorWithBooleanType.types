@@ -1,171 +1,120 @@
 === tests/cases/conformance/expressions/unaryOperators/deleteOperator/deleteOperatorWithBooleanType.ts ===
 // delete  operator on boolean type
 var BOOLEAN: boolean;
->BOOLEAN : 真假
->类型别名 :=> 真假
+>BOOLEAN : boolean
 
 function foo(): boolean { return true; }
->foo : () => 真假
->true : 为真
->类型别名 :=> 为真
+>foo : () => boolean
+>true : true
 
 class A {
 >A : A
 
     public a: boolean;
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
     static foo() { return false; }
->foo : () => 真假
->false : 为假
->类型别名 :=> 为假
+>foo : () => boolean
+>false : false
 }
 module M {
->M : 类为 M
+>M : typeof M
 
     export var n: boolean;
->n : 真假
->类型别名 :=> 真假
+>n : boolean
 }
 
 var objA = new A();
 >objA : A
 >new A() : A
->A : 类为 A
+>A : typeof A
 
 // boolean type var
 var ResultIsBoolean1 = delete BOOLEAN;
->ResultIsBoolean1 : 真假
->类型别名 :=> 真假
->delete BOOLEAN : 真假
->类型别名 :=> 真假
->BOOLEAN : 真假
->类型别名 :=> 真假
+>ResultIsBoolean1 : boolean
+>delete BOOLEAN : boolean
+>BOOLEAN : boolean
 
 // boolean type literal
 var ResultIsBoolean2 = delete true;
->ResultIsBoolean2 : 真假
->类型别名 :=> 真假
->delete true : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>ResultIsBoolean2 : boolean
+>delete true : boolean
+>true : true
 
 var ResultIsBoolean3 = delete { x: true, y: false };
->ResultIsBoolean3 : 真假
->类型别名 :=> 真假
->delete { x: true, y: false } : 真假
->类型别名 :=> 真假
->{ x: true, y: false } : { x: 真假; y: 真假; }
->x : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
->y : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>ResultIsBoolean3 : boolean
+>delete { x: true, y: false } : boolean
+>{ x: true, y: false } : { x: boolean; y: boolean; }
+>x : boolean
+>true : true
+>y : boolean
+>false : false
 
 // boolean type expressions
 var ResultIsBoolean4 = delete objA.a;
->ResultIsBoolean4 : 真假
->类型别名 :=> 真假
->delete objA.a : 真假
->类型别名 :=> 真假
->objA.a : 真假
->类型别名 :=> 真假
+>ResultIsBoolean4 : boolean
+>delete objA.a : boolean
+>objA.a : boolean
 >objA : A
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 var ResultIsBoolean5 = delete M.n;
->ResultIsBoolean5 : 真假
->类型别名 :=> 真假
->delete M.n : 真假
->类型别名 :=> 真假
->M.n : 真假
->类型别名 :=> 真假
->M : 类为 M
->n : 真假
->类型别名 :=> 真假
+>ResultIsBoolean5 : boolean
+>delete M.n : boolean
+>M.n : boolean
+>M : typeof M
+>n : boolean
 
 var ResultIsBoolean6 = delete foo();
->ResultIsBoolean6 : 真假
->类型别名 :=> 真假
->delete foo() : 真假
->类型别名 :=> 真假
->foo() : 真假
->类型别名 :=> 真假
->foo : () => 真假
+>ResultIsBoolean6 : boolean
+>delete foo() : boolean
+>foo() : boolean
+>foo : () => boolean
 
 var ResultIsBoolean7 = delete A.foo();
->ResultIsBoolean7 : 真假
->类型别名 :=> 真假
->delete A.foo() : 真假
->类型别名 :=> 真假
->A.foo() : 真假
->类型别名 :=> 真假
->A.foo : () => 真假
->A : 类为 A
->foo : () => 真假
+>ResultIsBoolean7 : boolean
+>delete A.foo() : boolean
+>A.foo() : boolean
+>A.foo : () => boolean
+>A : typeof A
+>foo : () => boolean
 
 // multiple delete  operator
 var ResultIsBoolean8 = delete delete BOOLEAN;
->ResultIsBoolean8 : 真假
->类型别名 :=> 真假
->delete delete BOOLEAN : 真假
->类型别名 :=> 真假
->delete BOOLEAN : 真假
->类型别名 :=> 真假
->BOOLEAN : 真假
->类型别名 :=> 真假
+>ResultIsBoolean8 : boolean
+>delete delete BOOLEAN : boolean
+>delete BOOLEAN : boolean
+>BOOLEAN : boolean
 
 // miss assignment operators
 delete true;
->delete true : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>delete true : boolean
+>true : true
 
 delete BOOLEAN;
->delete BOOLEAN : 真假
->类型别名 :=> 真假
->BOOLEAN : 真假
->类型别名 :=> 真假
+>delete BOOLEAN : boolean
+>BOOLEAN : boolean
 
 delete foo();
->delete foo() : 真假
->类型别名 :=> 真假
->foo() : 真假
->类型别名 :=> 真假
->foo : () => 真假
+>delete foo() : boolean
+>foo() : boolean
+>foo : () => boolean
 
 delete true, false;
->delete true, false : 为假
->类型别名 :=> 为假
->delete true : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
->false : 为假
->类型别名 :=> 为假
+>delete true, false : false
+>delete true : boolean
+>true : true
+>false : false
 
 delete objA.a;
->delete objA.a : 真假
->类型别名 :=> 真假
->objA.a : 真假
->类型别名 :=> 真假
+>delete objA.a : boolean
+>objA.a : boolean
 >objA : A
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 delete M.n;
->delete M.n : 真假
->类型别名 :=> 真假
->M.n : 真假
->类型别名 :=> 真假
->M : 类为 M
->n : 真假
->类型别名 :=> 真假
+>delete M.n : boolean
+>M.n : boolean
+>M : typeof M
+>n : boolean
 

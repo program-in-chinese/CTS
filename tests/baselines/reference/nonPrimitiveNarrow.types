@@ -3,85 +3,62 @@ class Narrow {
 >Narrow : Narrow
 
     narrowed: boolean
->narrowed : 真假
->类型别名 :=> 真假
+>narrowed : boolean
 }
 
 var a: object
->a : 实例
->类型别名 :=> 实例
+>a : object
 
 if (a instanceof Narrow) {
->a instanceof Narrow : 真假
->类型别名 :=> 真假
->a : 实例
->类型别名 :=> 实例
->Narrow : 类为 Narrow
+>a instanceof Narrow : boolean
+>a : object
+>Narrow : typeof Narrow
 
     a.narrowed; // ok
->a.narrowed : 真假
->类型别名 :=> 真假
+>a.narrowed : boolean
 >a : Narrow
->narrowed : 真假
->类型别名 :=> 真假
+>narrowed : boolean
 
     a = 123; // error
 >a = 123 : 123
->a : 实例
->类型别名 :=> 实例
+>a : object
 >123 : 123
 }
 
 if (typeof a === 'number') {
->typeof a === 'number' : 真假
->类型别名 :=> 真假
->typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->a : 实例
->类型别名 :=> 实例
+>typeof a === 'number' : boolean
+>typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>a : object
 >'number' : "number"
 
     a.toFixed(); // error, never
->a.toFixed() : 任意
->类型别名 :=> 任意
->a.toFixed : 任意
->类型别名 :=> 任意
->a : 不及
->类型别名 :=> 不及
->toFixed : 任意
->类型别名 :=> 任意
+>a.toFixed() : any
+>a.toFixed : any
+>a : never
+>toFixed : any
 }
 
 var b: object | null
->b : 实例
->类型别名 :=> 实例
->null : 空值
->类型别名 :=> 空值
+>b : object
+>null : null
 
 if (typeof b === 'object') {
->typeof b === 'object' : 真假
->类型别名 :=> 真假
->typeof b : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->b : 实例
->类型别名 :=> 实例
+>typeof b === 'object' : boolean
+>typeof b : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>b : object
 >'object' : "object"
 
    b.toString(); // ok, object | null
->b.toString() : 文字
->类型别名 :=> 文字
->b.toString : () => 文字
->b : 实例
->类型别名 :=> 实例
->toString : () => 文字
+>b.toString() : string
+>b.toString : () => string
+>b : object
+>toString : () => string
 
 } else {
    b.toString(); // error, never
->b.toString() : 任意
->类型别名 :=> 任意
->b.toString : 任意
->类型别名 :=> 任意
->b : 不及
->类型别名 :=> 不及
->toString : 任意
->类型别名 :=> 任意
+>b.toString() : any
+>b.toString : any
+>b : never
+>toString : any
 }
 

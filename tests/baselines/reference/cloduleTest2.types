@@ -1,166 +1,138 @@
 === tests/cases/compiler/cloduleTest2.ts ===
 module T1 {
->T1 : 类为 T1
+>T1 : typeof T1
 
     module m3d { export var y = 2; }
->m3d : 类为 m3d
->y : 数字
->类型别名 :=> 数字
+>m3d : typeof m3d
+>y : number
 >2 : 2
 
     declare class m3d { constructor(foo); foo(): void ; static bar(); }
 >m3d : m3d
->foo : 任意
->类型别名 :=> 任意
->foo : () => 无值
->bar : () => 任意
+>foo : any
+>foo : () => void
+>bar : () => any
 
     var r = new m3d(); // error
->r : 任意
->类型别名 :=> 任意
->new m3d() : 任意
->类型别名 :=> 任意
->m3d : 类为 m3d
+>r : any
+>new m3d() : any
+>m3d : typeof m3d
 }
 
 module T2 {
->T2 : 类为 T2
+>T2 : typeof T2
 
     declare class m3d { constructor(foo); foo(): void; static bar(); }
 >m3d : m3d
->foo : 任意
->类型别名 :=> 任意
->foo : () => 无值
->bar : () => 任意
+>foo : any
+>foo : () => void
+>bar : () => any
 
     module m3d { export var y = 2; }
->m3d : 类为 m3d
->y : 数字
->类型别名 :=> 数字
+>m3d : typeof m3d
+>y : number
 >2 : 2
 
     var r = new m3d(); // error
->r : 任意
->类型别名 :=> 任意
->new m3d() : 任意
->类型别名 :=> 任意
->m3d : 类为 m3d
+>r : any
+>new m3d() : any
+>m3d : typeof m3d
 }
 
 module T3 {
->T3 : 类为 T3
+>T3 : typeof T3
 
     module m3d { export var y = 2; }
->m3d : 类为 m3d
->y : 数字
->类型别名 :=> 数字
+>m3d : typeof m3d
+>y : number
 >2 : 2
 
     declare class m3d { foo(): void; static bar(); }
 >m3d : m3d
->foo : () => 无值
->bar : () => 任意
+>foo : () => void
+>bar : () => any
 
     var r = new m3d();
 >r : m3d
 >new m3d() : m3d
->m3d : 类为 m3d
+>m3d : typeof m3d
 
     r.foo();
->r.foo() : 无值
->类型别名 :=> 无值
->r.foo : () => 无值
+>r.foo() : void
+>r.foo : () => void
 >r : m3d
->foo : () => 无值
+>foo : () => void
 
     r.bar(); // error
->r.bar() : 任意
->类型别名 :=> 任意
->r.bar : 任意
->类型别名 :=> 任意
+>r.bar() : any
+>r.bar : any
 >r : m3d
->bar : 任意
->类型别名 :=> 任意
+>bar : any
 
     r.y; // error
->r.y : 任意
->类型别名 :=> 任意
+>r.y : any
 >r : m3d
->y : 任意
->类型别名 :=> 任意
+>y : any
 }
 
 module T4 {
->T4 : 类为 T4
+>T4 : typeof T4
 
     declare class m3d { foo(): void; static bar(); }
 >m3d : m3d
->foo : () => 无值
->bar : () => 任意
+>foo : () => void
+>bar : () => any
 
     module m3d { export var y = 2; }
->m3d : 类为 m3d
->y : 数字
->类型别名 :=> 数字
+>m3d : typeof m3d
+>y : number
 >2 : 2
 
     var r = new m3d();
 >r : m3d
 >new m3d() : m3d
->m3d : 类为 m3d
+>m3d : typeof m3d
 
     r.foo();
->r.foo() : 无值
->类型别名 :=> 无值
->r.foo : () => 无值
+>r.foo() : void
+>r.foo : () => void
 >r : m3d
->foo : () => 无值
+>foo : () => void
 
     r.bar(); // error
->r.bar() : 任意
->类型别名 :=> 任意
->r.bar : 任意
->类型别名 :=> 任意
+>r.bar() : any
+>r.bar : any
 >r : m3d
->bar : 任意
->类型别名 :=> 任意
+>bar : any
 
     r.y; // error
->r.y : 任意
->类型别名 :=> 任意
+>r.y : any
 >r : m3d
->y : 任意
->类型别名 :=> 任意
+>y : any
 }
 
 module m3d { export var y = 2; }
->m3d : 类为 m3d
->y : 数字
->类型别名 :=> 数字
+>m3d : typeof m3d
+>y : number
 >2 : 2
 
 declare class m3d { constructor(foo); foo(): void; static bar(); }
 >m3d : m3d
->foo : 任意
->类型别名 :=> 任意
->foo : () => 无值
->bar : () => 任意
+>foo : any
+>foo : () => void
+>bar : () => any
 
 var r = new m3d(); // error
->r : 任意
->类型别名 :=> 任意
->new m3d() : 任意
->类型别名 :=> 任意
->m3d : 类为 m3d
+>r : any
+>new m3d() : any
+>m3d : typeof m3d
 
 declare class m4d extends m3d { }
 >m4d : m4d
 >m3d : m3d
 
 var r2 = new m4d(); // error
->r2 : 任意
->类型别名 :=> 任意
->new m4d() : 任意
->类型别名 :=> 任意
->m4d : 类为 m4d
+>r2 : any
+>new m4d() : any
+>m4d : typeof m4d
 

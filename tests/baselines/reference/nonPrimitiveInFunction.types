@@ -1,66 +1,51 @@
 === tests/cases/conformance/types/nonPrimitive/nonPrimitiveInFunction.ts ===
 function takeObject(o: object) {}
->takeObject : (o: 实例) => 无值
->o : 实例
->类型别名 :=> 实例
+>takeObject : (o: object) => void
+>o : object
 
 function returnObject(): object {
->returnObject : () => 实例
+>returnObject : () => object
 
     return {};
 >{} : {}
 }
 
 var nonPrimitive: object;
->nonPrimitive : 实例
->类型别名 :=> 实例
+>nonPrimitive : object
 
 var primitive: boolean;
->primitive : 真假
->类型别名 :=> 真假
+>primitive : boolean
 
 takeObject(nonPrimitive);
->takeObject(nonPrimitive) : 无值
->类型别名 :=> 无值
->takeObject : (o: 实例) => 无值
->nonPrimitive : 实例
->类型别名 :=> 实例
+>takeObject(nonPrimitive) : void
+>takeObject : (o: object) => void
+>nonPrimitive : object
 
 nonPrimitive = returnObject();
->nonPrimitive = returnObject() : 实例
->类型别名 :=> 实例
->nonPrimitive : 实例
->类型别名 :=> 实例
->returnObject() : 实例
->类型别名 :=> 实例
->returnObject : () => 实例
+>nonPrimitive = returnObject() : object
+>nonPrimitive : object
+>returnObject() : object
+>returnObject : () => object
 
 takeObject(primitive); // expect error
->takeObject(primitive) : 无值
->类型别名 :=> 无值
->takeObject : (o: 实例) => 无值
->primitive : 真假
->类型别名 :=> 真假
+>takeObject(primitive) : void
+>takeObject : (o: object) => void
+>primitive : boolean
 
 primitive = returnObject(); // expect error
->primitive = returnObject() : 实例
->类型别名 :=> 实例
->primitive : 真假
->类型别名 :=> 真假
->returnObject() : 实例
->类型别名 :=> 实例
->returnObject : () => 实例
+>primitive = returnObject() : object
+>primitive : boolean
+>returnObject() : object
+>returnObject : () => object
 
 function returnError(): object {
->returnError : () => 实例
+>returnError : () => object
 
     var ret = 123;
->ret : 数字
->类型别名 :=> 数字
+>ret : number
 >123 : 123
 
     return ret; // expect error
->ret : 数字
->类型别名 :=> 数字
+>ret : number
 }
 

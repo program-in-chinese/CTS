@@ -2,46 +2,39 @@
 // Repro from #8418
 
 let cond: boolean;
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
 function foo(x: number): number { return 1; }
->foo : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>foo : (x: number) => number
+>x : number
 >1 : 1
 
 function test1() {
->test1 : () => 无值
+>test1 : () => void
 
     let x: number | undefined;
->x : 数字 | 未定
+>x : number | undefined
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         while (cond) {
->cond : 为真
->类型别名 :=> 为真
+>cond : true
 
             while (cond) {
->cond : 为真
->类型别名 :=> 为真
+>cond : true
 
                 x = foo(x);
->x = foo(x) : 任意
->类型别名 :=> 任意
->x : 数字 | 未定
->foo(x) : 数字
->类型别名 :=> 数字
->foo : (x: 数字) => 数字
->x : 数字 | 未定
+>x = foo(x) : any
+>x : number | undefined
+>foo(x) : number
+>foo : (x: number) => number
+>x : number | undefined
             }
         }
         x = 1;
 >x = 1 : 1
->x : 数字 | 未定
+>x : number | undefined
 >1 : 1
     }
 }
@@ -49,33 +42,28 @@ function test1() {
 // Repro from #8418
 
 function test2() {
->test2 : () => 无值
+>test2 : () => void
 
     let x: number | undefined;
->x : 数字 | 未定
+>x : number | undefined
 
     x = 1;
 >x = 1 : 1
->x : 数字 | 未定
+>x : number | undefined
 >1 : 1
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         while (cond) {
->cond : 为真
->类型别名 :=> 为真
+>cond : true
 
             x = foo(x);
->x = foo(x) : 数字
->类型别名 :=> 数字
->x : 数字 | 未定
->foo(x) : 数字
->类型别名 :=> 数字
->foo : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>x = foo(x) : number
+>x : number | undefined
+>foo(x) : number
+>foo : (x: number) => number
+>x : number
         }
     }
 }
@@ -83,7 +71,7 @@ function test2() {
 // Repro from #8511
 
 function mapUntilCant<a, b>(
->mapUntilCant : <a, b>(values: a[], canTake: (value: a, index: 数字) => 真假, mapping: (value: a, index: 数字) => b) => b[]
+>mapUntilCant : <a, b>(values: a[], canTake: (value: a, index: number) => boolean, mapping: (value: a, index: number) => b) => b[]
 >a : a
 >b : b
 
@@ -92,18 +80,16 @@ function mapUntilCant<a, b>(
 >a : a
 
     canTake: (value: a, index: number) => boolean,
->canTake : (value: a, index: 数字) => 真假
+>canTake : (value: a, index: number) => boolean
 >value : a
 >a : a
->index : 数字
->类型别名 :=> 数字
+>index : number
 
     mapping: (value: a, index: number) => b
->mapping : (value: a, index: 数字) => b
+>mapping : (value: a, index: number) => b
 >value : a
 >a : a
->index : 数字
->类型别名 :=> 数字
+>index : number
 >b : b
 
 ): b[] {
@@ -112,56 +98,42 @@ function mapUntilCant<a, b>(
     let result: b[] = [];
 >result : b[]
 >b : b
->[] : 不及[]
+>[] : never[]
 
     for (let index = 0, length = values.length; index < length; index++) {
->index : 数字
->类型别名 :=> 数字
+>index : number
 >0 : 0
->length : 数字
->类型别名 :=> 数字
->values.length : 数字
->类型别名 :=> 数字
+>length : number
+>values.length : number
 >values : a[]
->length : 数字
->类型别名 :=> 数字
->index < length : 真假
->类型别名 :=> 真假
->index : 数字
->类型别名 :=> 数字
->length : 数字
->类型别名 :=> 数字
->index++ : 数字
->类型别名 :=> 数字
->index : 数字
->类型别名 :=> 数字
+>length : number
+>index < length : boolean
+>index : number
+>length : number
+>index++ : number
+>index : number
 
         let value = values[index];
 >value : a
 >values[index] : a
 >values : a[]
->index : 数字
->类型别名 :=> 数字
+>index : number
 
         if (canTake(value, index)) {
->canTake(value, index) : 真假
->类型别名 :=> 真假
->canTake : (value: a, index: 数字) => 真假
+>canTake(value, index) : boolean
+>canTake : (value: a, index: number) => boolean
 >value : a
->index : 数字
->类型别名 :=> 数字
+>index : number
 
             result.push(mapping(value, index));
->result.push(mapping(value, index)) : 数字
->类型别名 :=> 数字
->result.push : (...items: b[]) => 数字
+>result.push(mapping(value, index)) : number
+>result.push : (...items: b[]) => number
 >result : b[]
->push : (...items: b[]) => 数字
+>push : (...items: b[]) => number
 >mapping(value, index) : b
->mapping : (value: a, index: 数字) => b
+>mapping : (value: a, index: number) => b
 >value : a
->index : 数字
->类型别名 :=> 数字
+>index : number
 
         } else {
             return result;

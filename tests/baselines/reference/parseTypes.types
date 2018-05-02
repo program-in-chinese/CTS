@@ -1,63 +1,56 @@
 === tests/cases/compiler/parseTypes.ts ===
 var x = <() => number>null;
->x : () => 数字
-><() => number>null : () => 数字
->null : 空值
->类型别名 :=> 空值
+>x : () => number
+><() => number>null : () => number
+>null : null
 
 var y = <{(): number; }>null;
->y : () => 数字
-><{(): number; }>null : () => 数字
->null : 空值
->类型别名 :=> 空值
+>y : () => number
+><{(): number; }>null : () => number
+>null : null
 
 var z = <{new(): number; }>null
->z : 新建 () => 数字
-><{new(): number; }>null : 新建 () => 数字
->null : 空值
->类型别名 :=> 空值
+>z : new () => number
+><{new(): number; }>null : new () => number
+>null : null
 
 var w = <{[x:number]: number; }>null
->w : { [x: 数字]: 数字; }
-><{[x:number]: number; }>null : { [x: 数字]: 数字; }
->x : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
+>w : { [x: number]: number; }
+><{[x:number]: number; }>null : { [x: number]: number; }
+>x : number
+>null : null
 
 function f() { return 3 };
->f : () => 数字
+>f : () => number
 >3 : 3
 
 function g(s: string) { true };
->g : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
->true : 为真
->类型别名 :=> 为真
+>g : (s: string) => void
+>s : string
+>true : true
 
 y=f;
->y=f : () => 数字
->y : () => 数字
->f : () => 数字
+>y=f : () => number
+>y : () => number
+>f : () => number
 
 y=g;
->y=g : (s: 文字) => 无值
->y : () => 数字
->g : (s: 文字) => 无值
+>y=g : (s: string) => void
+>y : () => number
+>g : (s: string) => void
 
 x=g;
->x=g : (s: 文字) => 无值
->x : () => 数字
->g : (s: 文字) => 无值
+>x=g : (s: string) => void
+>x : () => number
+>g : (s: string) => void
 
 w=g;
->w=g : (s: 文字) => 无值
->w : { [x: 数字]: 数字; }
->g : (s: 文字) => 无值
+>w=g : (s: string) => void
+>w : { [x: number]: number; }
+>g : (s: string) => void
 
 z=g;
->z=g : (s: 文字) => 无值
->z : 新建 () => 数字
->g : (s: 文字) => 无值
+>z=g : (s: string) => void
+>z : new () => number
+>g : (s: string) => void
 

@@ -1,12 +1,14 @@
 === tests/cases/compiler/stringPropCodeGen.ts ===
 var a = {
->a : { "foo": () => 无值; "bar": 数字; }
->{  "foo" : function() { },  "bar" : 5} : { "foo": () => 无值; "bar": 数字; }
+>a : { "foo": () => void; "bar": number; }
+>{  "foo" : function() { },  "bar" : 5} : { "foo": () => void; "bar": number; }
 
   "foo" : function() { },
->function() { } : () => 无值
+>"foo" : () => void
+>function() { } : () => void
 
   "bar" : 5
+>"bar" : number
 >5 : 5
 
 };
@@ -14,20 +16,16 @@ var a = {
 
 
 a.foo();
->a.foo() : 无值
->类型别名 :=> 无值
->a.foo : () => 无值
->a : { "foo": () => 无值; "bar": 数字; }
->foo : () => 无值
+>a.foo() : void
+>a.foo : () => void
+>a : { "foo": () => void; "bar": number; }
+>foo : () => void
 
 a.bar.toString();
->a.bar.toString() : 文字
->类型别名 :=> 文字
->a.bar.toString : (radix?: 数字) => 文字
->a.bar : 数字
->类型别名 :=> 数字
->a : { "foo": () => 无值; "bar": 数字; }
->bar : 数字
->类型别名 :=> 数字
->toString : (radix?: 数字) => 文字
+>a.bar.toString() : string
+>a.bar.toString : (radix?: number) => string
+>a.bar : number
+>a : { "foo": () => void; "bar": number; }
+>bar : number
+>toString : (radix?: number) => string
 

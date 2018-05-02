@@ -6,42 +6,36 @@ export interface i {
 >i : i
 }
 export module m {
->m : 类为 m
+>m : typeof m
 
     export var x = 10;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >10 : 10
 }
 export var x = 10;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >10 : 10
 
 export module uninstantiated {
->uninstantiated : 任意
->类型别名 :=> 任意
+>uninstantiated : any
 }
 
 === tests/cases/compiler/client.ts ===
 export { c } from "server";
->c : 类为 c
+>c : typeof c
 
 export { c as c2 } from "server";
->c : 类为 c
->c2 : 类为 c
+>c : typeof c
+>c2 : typeof c
 
 export { i, m as instantiatedModule } from "server";
->i : 任意
->类型别名 :=> 任意
->m : 类为 m
->instantiatedModule : 类为 m
+>i : any
+>m : typeof instantiatedModule
+>instantiatedModule : typeof instantiatedModule
 
 export { uninstantiated } from "server";
->uninstantiated : 任意
->类型别名 :=> 任意
+>uninstantiated : any
 
 export { x } from "server";
->x : 数字
->类型别名 :=> 数字
+>x : number
 

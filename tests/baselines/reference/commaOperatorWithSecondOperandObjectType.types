@@ -1,19 +1,15 @@
 === tests/cases/conformance/expressions/commaOperator/commaOperatorWithSecondOperandObjectType.ts ===
 var ANY: any;
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 
 var BOOLEAN: boolean;
->BOOLEAN : 真假
->类型别名 :=> 真假
+>BOOLEAN : boolean
 
 var NUMBER: number;
->NUMBER : 数字
->类型别名 :=> 数字
+>NUMBER : number
 
 var STRING: string;
->STRING : 文字
->类型别名 :=> 文字
+>STRING : string
 
 var OBJECT: Object;
 >OBJECT : Object
@@ -23,33 +19,28 @@ class CLASS {
 >CLASS : CLASS
 
     num: number;
->num : 数字
->类型别名 :=> 数字
+>num : number
 }
 
 //The second operand type is Object
 ANY, OBJECT;
 >ANY, OBJECT : Object
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 >OBJECT : Object
 
 BOOLEAN, OBJECT;
 >BOOLEAN, OBJECT : Object
->BOOLEAN : 真假
->类型别名 :=> 真假
+>BOOLEAN : boolean
 >OBJECT : Object
 
 NUMBER, OBJECT;
 >NUMBER, OBJECT : Object
->NUMBER : 数字
->类型别名 :=> 数字
+>NUMBER : number
 >OBJECT : Object
 
 STRING, OBJECT;
 >STRING, OBJECT : Object
->STRING : 文字
->类型别名 :=> 文字
+>STRING : string
 >OBJECT : Object
 
 OBJECT, OBJECT;
@@ -62,32 +53,28 @@ var resultIsObject1 = (ANY, OBJECT);
 >resultIsObject1 : Object
 >(ANY, OBJECT) : Object
 >ANY, OBJECT : Object
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 >OBJECT : Object
 
 var resultIsObject2 = (BOOLEAN, OBJECT);
 >resultIsObject2 : Object
 >(BOOLEAN, OBJECT) : Object
 >BOOLEAN, OBJECT : Object
->BOOLEAN : 真假
->类型别名 :=> 真假
+>BOOLEAN : boolean
 >OBJECT : Object
 
 var resultIsObject3 = (NUMBER, OBJECT);
 >resultIsObject3 : Object
 >(NUMBER, OBJECT) : Object
 >NUMBER, OBJECT : Object
->NUMBER : 数字
->类型别名 :=> 数字
+>NUMBER : number
 >OBJECT : Object
 
 var resultIsObject4 = (STRING, OBJECT);
 >resultIsObject4 : Object
 >(STRING, OBJECT) : Object
 >STRING, OBJECT : Object
->STRING : 文字
->类型别名 :=> 文字
+>STRING : string
 >OBJECT : Object
 
 var resultIsObject5 = (OBJECT, OBJECT);
@@ -100,33 +87,26 @@ var resultIsObject5 = (OBJECT, OBJECT);
 //Literal and expression
 null, OBJECT
 >null, OBJECT : Object
->null : 空值
->类型别名 :=> 空值
+>null : null
 >OBJECT : Object
 
 ANY = null, OBJECT
 >ANY = null, OBJECT : Object
->ANY = null : 空值
->类型别名 :=> 空值
->ANY : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>ANY = null : null
+>ANY : any
+>null : null
 >OBJECT : Object
 
 true, {}
 >true, {} : {}
->true : 为真
->类型别名 :=> 为真
+>true : true
 >{} : {}
 
 !BOOLEAN, []
->!BOOLEAN, [] : 未定[]
->!BOOLEAN : 真假
->类型别名 :=> 真假
->BOOLEAN : 真假
->类型别名 :=> 真假
->[] : 未定[]
+>!BOOLEAN, [] : undefined[]
+>!BOOLEAN : boolean
+>BOOLEAN : boolean
+>[] : undefined[]
 
 "string", new Date()
 >"string", new Date() : Date
@@ -136,57 +116,46 @@ true, {}
 
 STRING.toLowerCase(), new CLASS()
 >STRING.toLowerCase(), new CLASS() : CLASS
->STRING.toLowerCase() : 文字
->类型别名 :=> 文字
->STRING.toLowerCase : () => 文字
->STRING : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>STRING.toLowerCase() : string
+>STRING.toLowerCase : () => string
+>STRING : string
+>toLowerCase : () => string
 >new CLASS() : CLASS
->CLASS : 类为 CLASS
+>CLASS : typeof CLASS
 
 var resultIsObject6 = (null, OBJECT);
 >resultIsObject6 : Object
 >(null, OBJECT) : Object
 >null, OBJECT : Object
->null : 空值
->类型别名 :=> 空值
+>null : null
 >OBJECT : Object
 
 var resultIsObject7 = (ANY = null, OBJECT);
 >resultIsObject7 : Object
 >(ANY = null, OBJECT) : Object
 >ANY = null, OBJECT : Object
->ANY = null : 空值
->类型别名 :=> 空值
->ANY : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>ANY = null : null
+>ANY : any
+>null : null
 >OBJECT : Object
 
 var resultIsObject8 = (true, {});
 >resultIsObject8 : {}
 >(true, {}) : {}
 >true, {} : {}
->true : 为真
->类型别名 :=> 为真
+>true : true
 >{} : {}
 
 var resultIsObject9 = (!BOOLEAN, { a: 1, b: "s" });
->resultIsObject9 : { a: 数字; b: 文字; }
->(!BOOLEAN, { a: 1, b: "s" }) : { a: 数字; b: 文字; }
->!BOOLEAN, { a: 1, b: "s" } : { a: 数字; b: 文字; }
->!BOOLEAN : 真假
->类型别名 :=> 真假
->BOOLEAN : 真假
->类型别名 :=> 真假
->{ a: 1, b: "s" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>resultIsObject9 : { a: number; b: string; }
+>(!BOOLEAN, { a: 1, b: "s" }) : { a: number; b: string; }
+>!BOOLEAN, { a: 1, b: "s" } : { a: number; b: string; }
+>!BOOLEAN : boolean
+>BOOLEAN : boolean
+>{ a: 1, b: "s" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"s" : "s"
 
 var resultIsObject10 = ("string", new Date());
@@ -201,12 +170,10 @@ var resultIsObject11 = (STRING.toLowerCase(), new CLASS());
 >resultIsObject11 : CLASS
 >(STRING.toLowerCase(), new CLASS()) : CLASS
 >STRING.toLowerCase(), new CLASS() : CLASS
->STRING.toLowerCase() : 文字
->类型别名 :=> 文字
->STRING.toLowerCase : () => 文字
->STRING : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>STRING.toLowerCase() : string
+>STRING.toLowerCase : () => string
+>STRING : string
+>toLowerCase : () => string
 >new CLASS() : CLASS
->CLASS : 类为 CLASS
+>CLASS : typeof CLASS
 

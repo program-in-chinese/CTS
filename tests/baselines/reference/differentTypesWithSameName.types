@@ -1,19 +1,17 @@
 === tests/cases/compiler/differentTypesWithSameName.ts ===
 module m {
->m : 类为 m
+>m : typeof m
 
   export class variable{
 >variable : variable
 
     s: string;
->s : 文字
->类型别名 :=> 文字
+>s : string
   }
   export function doSomething(v: m.variable) {
->doSomething : (v: variable) => 无值
+>doSomething : (v: variable) => void
 >v : variable
->m : 任意
->类型别名 :=> 任意
+>m : any
 >variable : variable
     
   }
@@ -23,8 +21,7 @@ class variable {
 >variable : variable
 
  t: number;
->t : 数字
->类型别名 :=> 数字
+>t : number
 }
 
 
@@ -32,13 +29,12 @@ var v: variable = new variable();
 >v : variable
 >variable : variable
 >new variable() : variable
->variable : 类为 variable
+>variable : typeof variable
 
 m.doSomething(v);
->m.doSomething(v) : 无值
->类型别名 :=> 无值
->m.doSomething : (v: m.variable) => 无值
->m : 类为 m
->doSomething : (v: m.variable) => 无值
+>m.doSomething(v) : void
+>m.doSomething : (v: m.variable) => void
+>m : typeof m
+>doSomething : (v: m.variable) => void
 >v : variable
 

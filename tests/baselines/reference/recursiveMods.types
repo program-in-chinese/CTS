@@ -1,27 +1,26 @@
 === tests/cases/compiler/recursiveMods.ts ===
 export module Foo {
->Foo : 类为 Foo
+>Foo : typeof Foo
 
 	export class C {}
 >C : C
 }
 
 export module Foo {
->Foo : 类为 Foo
+>Foo : typeof Foo
 
 	function Bar() : C {
 >Bar : () => C
 >C : C
 
 		if (true) { return Bar();}
->true : 为真
->类型别名 :=> 为真
+>true : true
 >Bar() : C
 >Bar : () => C
 
 		return new C();
 >new C() : C
->C : 类为 C
+>C : typeof C
 	}
 
 	function Baz() : C {
@@ -39,7 +38,7 @@ export module Foo {
 	}
 
 	function Gar() {
->Gar : () => 无值
+>Gar : () => void
 
 		var c : C = Baz();
 >c : C

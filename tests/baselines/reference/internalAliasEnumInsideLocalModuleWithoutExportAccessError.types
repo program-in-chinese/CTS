@@ -1,6 +1,6 @@
 === tests/cases/compiler/internalAliasEnumInsideLocalModuleWithoutExportAccessError.ts ===
 export module a {
->a : 类为 a
+>a : typeof a
 
     export enum weekend {
 >weekend : weekend
@@ -17,31 +17,26 @@ export module a {
 }
 
 export module c {
->c : 类为 c
+>c : typeof c
 
     import b = a.weekend;
->b : 类为 b
->a : 类为 a
+>b : typeof b
+>a : typeof a
 >weekend : b
 
     export var bVal: b = b.Sunday;
 >bVal : b
 >b : b
 >b.Sunday : b.Sunday
->b : 类为 b
+>b : typeof b
 >Sunday : b.Sunday
 }
 
 var happyFriday = c.b.Friday;
->happyFriday : 任意
->类型别名 :=> 任意
->c.b.Friday : 任意
->类型别名 :=> 任意
->c.b : 任意
->类型别名 :=> 任意
->c : 类为 c
->b : 任意
->类型别名 :=> 任意
->Friday : 任意
->类型别名 :=> 任意
+>happyFriday : any
+>c.b.Friday : any
+>c.b : any
+>c : typeof c
+>b : any
+>Friday : any
 

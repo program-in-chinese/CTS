@@ -1,46 +1,42 @@
 === tests/cases/compiler/innerAliases2.ts ===
 module _provider {
->_provider : 类为 _provider
+>_provider : typeof _provider
 
                 export class UsefulClass {
 >UsefulClass : UsefulClass
 
                                 public foo() {
->foo : () => 无值
+>foo : () => void
                                 }
                 }
 }
 
 module consumer {
->consumer : 类为 consumer
+>consumer : typeof consumer
 
                 import provider = _provider;
->provider : 类为 provider
->_provider : 类为 provider
+>provider : typeof provider
+>_provider : typeof provider
                 
                 var g:provider.UsefulClass= null;
 >g : provider.UsefulClass
->provider : 任意
->类型别名 :=> 任意
+>provider : any
 >UsefulClass : provider.UsefulClass
->null : 空值
->类型别名 :=> 空值
+>null : null
                 
                 function use():provider.UsefulClass { 
 >use : () => provider.UsefulClass
->provider : 任意
->类型别名 :=> 任意
+>provider : any
 >UsefulClass : provider.UsefulClass
 
                                 var p2:provider.UsefulClass= new provider.UsefulClass();
 >p2 : provider.UsefulClass
->provider : 任意
->类型别名 :=> 任意
+>provider : any
 >UsefulClass : provider.UsefulClass
 >new provider.UsefulClass() : provider.UsefulClass
->provider.UsefulClass : 类为 provider.UsefulClass
->provider : 类为 provider
->UsefulClass : 类为 provider.UsefulClass
+>provider.UsefulClass : typeof provider.UsefulClass
+>provider : typeof provider
+>UsefulClass : typeof provider.UsefulClass
 
                                 return p2; 
 >p2 : provider.UsefulClass

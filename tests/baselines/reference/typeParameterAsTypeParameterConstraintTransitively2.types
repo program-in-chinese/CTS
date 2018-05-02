@@ -4,20 +4,17 @@
 
 interface A { foo: number }
 >A : A
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 
 interface B extends A { bar: string; }
 >B : B
 >A : A
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 interface C extends B { baz: boolean; }
 >C : C
 >B : B
->baz : 真假
->类型别名 :=> 真假
+>baz : boolean
 
 var a: A;
 >a : A
@@ -55,30 +52,23 @@ foo(1, 2, '');
 >'' : ""
 
 foo({ x: 1 }, { x: 1, y: '' }, { x: 2, y: 2, z: true });
->foo({ x: 1 }, { x: 1, y: '' }, { x: 2, y: 2, z: true }) : { x: 数字; y: 数字; z: 真假; }
+>foo({ x: 1 }, { x: 1, y: '' }, { x: 2, y: 2, z: true }) : { x: number; y: number; z: boolean; }
 >foo : <T, U, V>(x: T, y: U, z: V) => V
->{ x: 1 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1 } : { x: number; }
+>x : number
 >1 : 1
->{ x: 1, y: '' } : { x: 数字; y: 文字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: '' } : { x: number; y: string; }
+>x : number
 >1 : 1
->y : 文字
->类型别名 :=> 文字
+>y : string
 >'' : ""
->{ x: 2, y: 2, z: true } : { x: 数字; y: 数字; z: 为真; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 2, y: 2, z: true } : { x: number; y: number; z: true; }
+>x : number
 >2 : 2
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
->z : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>z : true
+>true : true
 
 foo(a, b, a);
 >foo(a, b, a) : A
@@ -91,36 +81,28 @@ foo(a, { foo: 1, bar: '', hm: true }, b);
 >foo(a, { foo: 1, bar: '', hm: true }, b) : B
 >foo : <T, U, V>(x: T, y: U, z: V) => V
 >a : A
->{ foo: 1, bar: '', hm: true } : { foo: 数字; bar: 文字; hm: 为真; }
->foo : 数字
->类型别名 :=> 数字
+>{ foo: 1, bar: '', hm: true } : { foo: number; bar: string; hm: true; }
+>foo : number
 >1 : 1
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 >'' : ""
->hm : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>hm : true
+>true : true
 >b : B
 
 foo((x: number, y: string) => { }, (x, y: boolean) => { }, () => { });
->foo((x: number, y: string) => { }, (x, y: boolean) => { }, () => { }) : () => 无值
+>foo((x: number, y: string) => { }, (x, y: boolean) => { }, () => { }) : () => void
 >foo : <T, U, V>(x: T, y: U, z: V) => V
->(x: number, y: string) => { } : (x: 数字, y: 文字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
->(x, y: boolean) => { } : (x: 任意, y: 真假) => 无值
->x : 任意
->类型别名 :=> 任意
->y : 真假
->类型别名 :=> 真假
->() => { } : () => 无值
+>(x: number, y: string) => { } : (x: number, y: string) => void
+>x : number
+>y : string
+>(x, y: boolean) => { } : (x: any, y: boolean) => void
+>x : any
+>y : boolean
+>() => { } : () => void
 
 function foo2<T extends A, U extends A, V extends A>(x: T, y: U, z: V): V { return z; }
->foo2 : <T 扩展 A, U 扩展 A, V 扩展 A>(x: T, y: U, z: V) => V
+>foo2 : <T extends A, U extends A, V extends A>(x: T, y: U, z: V) => V
 >T : T
 >A : A
 >U : U

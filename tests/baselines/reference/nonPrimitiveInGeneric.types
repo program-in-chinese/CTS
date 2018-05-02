@@ -1,13 +1,12 @@
 === tests/cases/conformance/types/nonPrimitive/nonPrimitiveInGeneric.ts ===
 function generic<T>(t: T) {
->generic : <T>(t: T) => 无值
+>generic : <T>(t: T) => void
 >T : T
 >t : T
 >T : T
 
     var o: object = t; // expect error
->o : 实例
->类型别名 :=> 实例
+>o : object
 >t : T
 }
 var a = {};
@@ -15,106 +14,89 @@ var a = {};
 >{} : {}
 
 var b = "42";
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"42" : "42"
 
 generic<object>({});
->generic<object>({}) : 无值
->类型别名 :=> 无值
->generic : <T>(t: T) => 无值
+>generic<object>({}) : void
+>generic : <T>(t: T) => void
 >{} : {}
 
 generic<object>(a);
->generic<object>(a) : 无值
->类型别名 :=> 无值
->generic : <T>(t: T) => 无值
+>generic<object>(a) : void
+>generic : <T>(t: T) => void
 >a : {}
 
 generic<object>(123); // expect error
->generic<object>(123) : 任意
->类型别名 :=> 任意
->generic : <T>(t: T) => 无值
+>generic<object>(123) : any
+>generic : <T>(t: T) => void
 >123 : 123
 
 generic<object>(b); // expect error
->generic<object>(b) : 任意
->类型别名 :=> 任意
->generic : <T>(t: T) => 无值
->b : 文字
->类型别名 :=> 文字
+>generic<object>(b) : any
+>generic : <T>(t: T) => void
+>b : string
 
 function bound<T extends object>(t: T) {
->bound : <T 扩展 实例>(t: T) => 无值
+>bound : <T extends object>(t: T) => void
 >T : T
 >t : T
 >T : T
 
     var o: object = t; // ok
->o : 实例
->类型别名 :=> 实例
+>o : object
 >t : T
 }
 
 bound({});
->bound({}) : 无值
->类型别名 :=> 无值
->bound : <T 扩展 实例>(t: T) => 无值
+>bound({}) : void
+>bound : <T extends object>(t: T) => void
 >{} : {}
 
 bound(a);
->bound(a) : 无值
->类型别名 :=> 无值
->bound : <T 扩展 实例>(t: T) => 无值
+>bound(a) : void
+>bound : <T extends object>(t: T) => void
 >a : {}
 
 bound(123); // expect error
->bound(123) : 任意
->类型别名 :=> 任意
->bound : <T 扩展 实例>(t: T) => 无值
+>bound(123) : any
+>bound : <T extends object>(t: T) => void
 >123 : 123
 
 bound(b); // expect error
->bound(b) : 任意
->类型别名 :=> 任意
->bound : <T 扩展 实例>(t: T) => 无值
->b : 文字
->类型别名 :=> 文字
+>bound(b) : any
+>bound : <T extends object>(t: T) => void
+>b : string
 
 function bound2<T extends object>() {}
->bound2 : <T 扩展 实例>() => 无值
+>bound2 : <T extends object>() => void
 >T : T
 
 bound2<{}>();
->bound2<{}>() : 无值
->类型别名 :=> 无值
->bound2 : <T 扩展 实例>() => 无值
+>bound2<{}>() : void
+>bound2 : <T extends object>() => void
 
 bound2<Object>();
->bound2<Object>() : 无值
->类型别名 :=> 无值
->bound2 : <T 扩展 实例>() => 无值
+>bound2<Object>() : void
+>bound2 : <T extends object>() => void
 >Object : Object
 
 bound2<number>(); // expect error
->bound2<number>() : 任意
->类型别名 :=> 任意
->bound2 : <T 扩展 实例>() => 无值
+>bound2<number>() : any
+>bound2 : <T extends object>() => void
 
 bound2<string>(); // expect error
->bound2<string>() : 任意
->类型别名 :=> 任意
->bound2 : <T 扩展 实例>() => 无值
+>bound2<string>() : any
+>bound2 : <T extends object>() => void
 
 function bound3<T extends {}>(t: T) {
->bound3 : <T 扩展 {}>(t: T) => 无值
+>bound3 : <T extends {}>(t: T) => void
 >T : T
 >t : T
 >T : T
 
     var o: object = t; // ok
->o : 实例
->类型别名 :=> 实例
+>o : object
 >t : T
 }
 
@@ -123,17 +105,16 @@ interface Proxy<T extends object> {}
 >T : T
 
 var x: Proxy<number>; // error
->x : Proxy<数字>
+>x : Proxy<number>
 >Proxy : Proxy<T>
 
 var y: Proxy<null>; // ok
->y : Proxy<空值>
+>y : Proxy<null>
 >Proxy : Proxy<T>
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var z: Proxy<undefined> ; // ok
->z : Proxy<未定>
+>z : Proxy<undefined>
 >Proxy : Proxy<T>
 
 
@@ -141,8 +122,7 @@ interface Blah {
 >Blah : Blah
 
     foo: number;
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 }
 
 var u: Proxy<Blah>; // ok

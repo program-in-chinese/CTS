@@ -1,16 +1,14 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 function EmptySFC1() {
 >EmptySFC1 : () => JSX.Element
 
     return <div>hello</div>;
 ><div>hello</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
 }
 
 function EmptySFC2() {
@@ -18,24 +16,19 @@ function EmptySFC2() {
 
     return <div>Hello</div>;
 ><div>Hello</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
 }
 
 function SFC2(prop: { x: boolean }) {
->SFC2 : (prop: { x: 真假; }) => JSX.Element
->prop : { x: 真假; }
->x : 真假
->类型别名 :=> 真假
+>SFC2 : (prop: { x: boolean; }) => JSX.Element
+>prop : { x: boolean; }
+>x : boolean
 
     return <h1>World</h1>;
 ><h1>World</h1> : JSX.Element
->h1 : 任意
->类型别名 :=> 任意
->h1 : 任意
->类型别名 :=> 任意
+>h1 : any
+>h1 : any
 }
 
 var EmptySFCComp = EmptySFC1 || EmptySFC2;
@@ -45,9 +38,9 @@ var EmptySFCComp = EmptySFC1 || EmptySFC2;
 >EmptySFC2 : () => JSX.Element
 
 var SFC2AndEmptyComp = SFC2 || EmptySFC1;
->SFC2AndEmptyComp : (prop: { x: 真假; }) => JSX.Element
->SFC2 || EmptySFC1 : (prop: { x: 真假; }) => JSX.Element
->SFC2 : (prop: { x: 真假; }) => JSX.Element
+>SFC2AndEmptyComp : (prop: { x: boolean; }) => JSX.Element
+>SFC2 || EmptySFC1 : (prop: { x: boolean; }) => JSX.Element
+>SFC2 : (prop: { x: boolean; }) => JSX.Element
 >EmptySFC1 : () => JSX.Element
 
 let a = <EmptySFCComp />
@@ -59,13 +52,11 @@ let a1 = <EmptySFCComp data-prop />
 >a1 : JSX.Element
 ><EmptySFCComp data-prop /> : JSX.Element
 >EmptySFCComp : () => JSX.Element
->data-prop : 为真
->类型别名 :=> 为真
+>data-prop : true
 
 let b = <SFC2AndEmptyComp x />
 >b : JSX.Element
 ><SFC2AndEmptyComp x /> : JSX.Element
->SFC2AndEmptyComp : (prop: { x: 真假; }) => JSX.Element
->x : 为真
->类型别名 :=> 为真
+>SFC2AndEmptyComp : (prop: { x: boolean; }) => JSX.Element
+>x : true
 

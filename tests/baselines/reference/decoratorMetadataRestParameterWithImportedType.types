@@ -3,8 +3,7 @@ export class SomeClass {
 >SomeClass : SomeClass
 
     field: string;
->field : 文字
->类型别名 :=> 文字
+>field : string
 }
 
 === tests/cases/compiler/aux1.ts ===
@@ -12,8 +11,7 @@ export class SomeClass1 {
 >SomeClass1 : SomeClass1
 
     field: string;
->field : 文字
->类型别名 :=> 文字
+>field : string
 }
 
 === tests/cases/compiler/aux2.ts ===
@@ -21,24 +19,22 @@ export class SomeClass2 {
 >SomeClass2 : SomeClass2
 
     field: string;
->field : 文字
->类型别名 :=> 文字
+>field : string
 }
 === tests/cases/compiler/main.ts ===
 import { SomeClass } from './aux';
->SomeClass : 类为 SomeClass
+>SomeClass : typeof SomeClass
 
 import { SomeClass1 } from './aux1';
->SomeClass1 : 类为 SomeClass1
+>SomeClass1 : typeof SomeClass1
 
 function annotation(): ClassDecorator {
 >annotation : () => ClassDecorator
 >ClassDecorator : ClassDecorator
 
     return (target: any): void => { };
->(target: any): void => { } : (target: 任意) => 无值
->target : 任意
->类型别名 :=> 任意
+>(target: any): void => { } : (target: any) => void
+>target : any
 }
 
 function annotation1(): MethodDecorator {
@@ -46,9 +42,8 @@ function annotation1(): MethodDecorator {
 >MethodDecorator : MethodDecorator
 
     return (target: any): void => { };
->(target: any): void => { } : (target: 任意) => 无值
->target : 任意
->类型别名 :=> 任意
+>(target: any): void => { } : (target: any) => void
+>target : any
 }
 
 @annotation()
@@ -69,7 +64,7 @@ export class ClassA {
         this.array = init;
 >this.array = init : SomeClass[]
 >this.array : SomeClass[]
->this : 本体
+>this : this
 >array : SomeClass[]
 >init : SomeClass[]
     }
@@ -79,7 +74,7 @@ export class ClassA {
 >annotation1 : () => MethodDecorator
 
     foo(... args: SomeClass1[]) {
->foo : (...args: SomeClass1[]) => 无值
+>foo : (...args: SomeClass1[]) => void
 >args : SomeClass1[]
 >SomeClass1 : SomeClass1
     }

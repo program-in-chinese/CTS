@@ -1,6 +1,6 @@
 === tests/cases/compiler/localImportNameVsGlobalName.ts ===
 module Keyboard {
->Keyboard : 类为 Keyboard
+>Keyboard : typeof Keyboard
 
   export enum Key { UP, DOWN, LEFT, RIGHT }
 >Key : Key
@@ -11,39 +11,36 @@ module Keyboard {
 }
 
 module App {
->App : 类为 App
+>App : typeof App
 
   import Key = Keyboard.Key;
->Key : 类为 Key
->Keyboard : 类为 Keyboard
+>Key : typeof Key
+>Keyboard : typeof Keyboard
 >Key : Key
 
   export function foo(key: Key): void {}
->foo : (key: Key) => 无值
+>foo : (key: Key) => void
 >key : Key
 >Key : Key
 
   foo(Key.UP);
->foo(Key.UP) : 无值
->类型别名 :=> 无值
->foo : (key: Key) => 无值
+>foo(Key.UP) : void
+>foo : (key: Key) => void
 >Key.UP : Key.UP
->Key : 类为 Key
+>Key : typeof Key
 >UP : Key.UP
 
   foo(Key.DOWN);
->foo(Key.DOWN) : 无值
->类型别名 :=> 无值
->foo : (key: Key) => 无值
+>foo(Key.DOWN) : void
+>foo : (key: Key) => void
 >Key.DOWN : Key.DOWN
->Key : 类为 Key
+>Key : typeof Key
 >DOWN : Key.DOWN
 
   foo(Key.LEFT);
->foo(Key.LEFT) : 无值
->类型别名 :=> 无值
->foo : (key: Key) => 无值
+>foo(Key.LEFT) : void
+>foo : (key: Key) => void
 >Key.LEFT : Key.LEFT
->Key : 类为 Key
+>Key : typeof Key
 >LEFT : Key.LEFT
 }

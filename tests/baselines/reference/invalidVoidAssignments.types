@@ -1,123 +1,97 @@
 === tests/cases/conformance/types/primitives/void/invalidVoidAssignments.ts ===
 var x: void;
->x : 无值
->类型别名 :=> 无值
+>x : void
 
 var a: boolean = x;
->a : 真假
->类型别名 :=> 真假
->x : 无值
->类型别名 :=> 无值
+>a : boolean
+>x : void
 
 var b: string = x;
->b : 文字
->类型别名 :=> 文字
->x : 无值
->类型别名 :=> 无值
+>b : string
+>x : void
 
 var c: number = x;
->c : 数字
->类型别名 :=> 数字
->x : 无值
->类型别名 :=> 无值
+>c : number
+>x : void
 
 var d: typeof undefined = x;
->d : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
->x : 无值
->类型别名 :=> 无值
+>d : any
+>undefined : undefined
+>x : void
 
 class C { foo: string; }
 >C : C
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 var e: C = x;
 >e : C
 >C : C
->x : 无值
->类型别名 :=> 无值
+>x : void
 
 interface I { bar: string; }
 >I : I
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 var f: I = x;
 >f : I
 >I : I
->x : 无值
->类型别名 :=> 无值
+>x : void
 
 var g: { baz: string } = 1;
->g : { baz: 文字; }
->baz : 文字
->类型别名 :=> 文字
+>g : { baz: string; }
+>baz : string
 >1 : 1
 
 var g2: { 0: number } = 1;
->g2 : { 0: 数字; }
+>g2 : { 0: number; }
+>0 : number
 >1 : 1
 
 module M { export var x = 1; }
->M : 类为 M
->x : 数字
->类型别名 :=> 数字
+>M : typeof M
+>x : number
 >1 : 1
 
 M = x;
->M = x : 无值
->类型别名 :=> 无值
->M : 任意
->类型别名 :=> 任意
->x : 无值
->类型别名 :=> 无值
+>M = x : void
+>M : any
+>x : void
 
 function i<T>(a: T) {
->i : <T>(a: T) => 无值
+>i : <T>(a: T) => void
 >T : T
 >a : T
 >T : T
 
     a = x;
->a = x : 无值
->类型别名 :=> 无值
+>a = x : void
 >a : T
->x : 无值
->类型别名 :=> 无值
+>x : void
 }
 i = x;
->i = x : 无值
->类型别名 :=> 无值
->i : 任意
->类型别名 :=> 任意
->x : 无值
->类型别名 :=> 无值
+>i = x : void
+>i : any
+>x : void
 
 enum E { A }
 >E : E
 >A : E
 
 x = E;
->x = E : 类为 E
->x : 无值
->类型别名 :=> 无值
->E : 类为 E
+>x = E : typeof E
+>x : void
+>E : typeof E
 
 x = E.A;
 >x = E.A : E
->x : 无值
->类型别名 :=> 无值
+>x : void
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
 
 x = { f() { } }
->x = { f() { } } : { f(): 无值; }
->x : 无值
->类型别名 :=> 无值
->{ f() { } } : { f(): 无值; }
->f : () => 无值
+>x = { f() { } } : { f(): void; }
+>x : void
+>{ f() { } } : { f(): void; }
+>f : () => void
 

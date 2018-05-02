@@ -1,121 +1,96 @@
 === tests/cases/conformance/controlFlow/controlFlowIIFE.ts ===
 declare function getStringOrNumber(): string | number;
->getStringOrNumber : () => 文字 | 数字
+>getStringOrNumber : () => string | number
 
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     let x = getStringOrNumber();
->x : 文字 | 数字
->getStringOrNumber() : 文字 | 数字
->getStringOrNumber : () => 文字 | 数字
+>x : string | number
+>getStringOrNumber() : string | number
+>getStringOrNumber : () => string | number
 
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
 
         let n = function() {
->n : 数字
->类型别名 :=> 数字
->function() {            return x.length;        }() : 数字
->类型别名 :=> 数字
->function() {            return x.length;        } : () => 数字
+>n : number
+>function() {            return x.length;        }() : number
+>function() {            return x.length;        } : () => number
 
             return x.length;
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : string
+>length : number
 
         }();
     }
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     let x = getStringOrNumber();
->x : 文字 | 数字
->getStringOrNumber() : 文字 | 数字
->getStringOrNumber : () => 文字 | 数字
+>x : string | number
+>getStringOrNumber() : string | number
+>getStringOrNumber : () => string | number
 
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
 
         let n = (function() {
->n : 数字
->类型别名 :=> 数字
->(function() {            return x.length;        })() : 数字
->类型别名 :=> 数字
->(function() {            return x.length;        }) : () => 数字
->function() {            return x.length;        } : () => 数字
+>n : number
+>(function() {            return x.length;        })() : number
+>(function() {            return x.length;        }) : () => number
+>function() {            return x.length;        } : () => number
 
             return x.length;
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : string
+>length : number
 
         })();
     }
 }
 
 function f3() {
->f3 : () => 无值
+>f3 : () => void
 
     let x = getStringOrNumber();
->x : 文字 | 数字
->getStringOrNumber() : 文字 | 数字
->getStringOrNumber : () => 文字 | 数字
+>x : string | number
+>getStringOrNumber() : string | number
+>getStringOrNumber : () => string | number
 
     let y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
 
         let n = (z => x.length + y + z)(y = 1);
->n : 数字
->类型别名 :=> 数字
->(z => x.length + y + z)(y = 1) : 数字
->类型别名 :=> 数字
->(z => x.length + y + z) : (z: 数字) => 数字
->z => x.length + y + z : (z: 数字) => 数字
->z : 数字
->类型别名 :=> 数字
->x.length + y + z : 数字
->类型别名 :=> 数字
->x.length + y : 数字
->类型别名 :=> 数字
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
->z : 数字
->类型别名 :=> 数字
+>n : number
+>(z => x.length + y + z)(y = 1) : number
+>(z => x.length + y + z) : (z: number) => number
+>z => x.length + y + z : (z: number) => number
+>z : number
+>x.length + y + z : number
+>x.length + y : number
+>x.length : number
+>x : string
+>length : number
+>y : number
+>z : number
 >y = 1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
     }
 }
@@ -123,48 +98,39 @@ function f3() {
 // Repros from #8381
 
 let maybeNumber: number | undefined;
->maybeNumber : 数字 | 未定
+>maybeNumber : number | undefined
 
 (function () {
->(function () {    maybeNumber = 1;})() : 无值
->类型别名 :=> 无值
->(function () {    maybeNumber = 1;}) : () => 无值
->function () {    maybeNumber = 1;} : () => 无值
+>(function () {    maybeNumber = 1;})() : void
+>(function () {    maybeNumber = 1;}) : () => void
+>function () {    maybeNumber = 1;} : () => void
 
     maybeNumber = 1;
 >maybeNumber = 1 : 1
->maybeNumber : 数字 | 未定
+>maybeNumber : number | undefined
 >1 : 1
 
 })();
 maybeNumber++;
->maybeNumber++ : 数字
->类型别名 :=> 数字
->maybeNumber : 数字
->类型别名 :=> 数字
+>maybeNumber++ : number
+>maybeNumber : number
 
 if (maybeNumber !== undefined) {
->maybeNumber !== undefined : 真假
->类型别名 :=> 真假
->maybeNumber : 数字
->类型别名 :=> 数字
->undefined : 未定
->类型别名 :=> 未定
+>maybeNumber !== undefined : boolean
+>maybeNumber : number
+>undefined : undefined
 
     maybeNumber++;
->maybeNumber++ : 数字
->类型别名 :=> 数字
->maybeNumber : 数字
->类型别名 :=> 数字
+>maybeNumber++ : number
+>maybeNumber : number
 }
 
 let test: string | undefined;
->test : 文字 | 未定
+>test : string | undefined
 
 if (!test) {
->!test : 真假
->类型别名 :=> 真假
->test : 文字 | 未定
+>!test : boolean
+>test : string | undefined
 
     throw new Error('Test is not defined');
 >new Error('Test is not defined') : Error
@@ -172,18 +138,15 @@ if (!test) {
 >'Test is not defined' : "Test is not defined"
 }
 (() => {
->(() => {    test.slice(1); // No error})() : 无值
->类型别名 :=> 无值
->(() => {    test.slice(1); // No error}) : () => 无值
->() => {    test.slice(1); // No error} : () => 无值
+>(() => {    test.slice(1); // No error})() : void
+>(() => {    test.slice(1); // No error}) : () => void
+>() => {    test.slice(1); // No error} : () => void
 
     test.slice(1); // No error
->test.slice(1) : 文字
->类型别名 :=> 文字
->test.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
->test : 文字
->类型别名 :=> 文字
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => 文字
+>test.slice(1) : string
+>test.slice : (start?: number | undefined, end?: number | undefined) => string
+>test : string
+>slice : (start?: number | undefined, end?: number | undefined) => string
 >1 : 1
 
 })();

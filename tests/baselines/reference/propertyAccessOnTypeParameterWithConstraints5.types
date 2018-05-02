@@ -3,7 +3,7 @@ class A {
 >A : A
 
     foo(): string { return ''; }
->foo : () => 文字
+>foo : () => string
 >'' : ""
 }
 
@@ -12,7 +12,7 @@ class B extends A {
 >A : A
 
     bar(): string {
->bar : () => 文字
+>bar : () => string
 
         return '';
 >'' : ""
@@ -27,55 +27,44 @@ class C<U extends T, T extends A> {
 >A : A
 
     f() {
->f : () => 文字
+>f : () => string
 
         var x: U;
 >x : U
 >U : U
 
         var a = x['foo'](); // should be string
->a : 文字
->类型别名 :=> 文字
->x['foo']() : 文字
->类型别名 :=> 文字
->x['foo'] : () => 文字
+>a : string
+>x['foo']() : string
+>x['foo'] : () => string
 >x : U
 >'foo' : "foo"
 
         return a + x.foo() + x.notHere();
->a + x.foo() + x.notHere() : 文字
->类型别名 :=> 文字
->a + x.foo() : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
->x.foo() : 文字
->类型别名 :=> 文字
->x.foo : () => 文字
+>a + x.foo() + x.notHere() : string
+>a + x.foo() : string
+>a : string
+>x.foo() : string
+>x.foo : () => string
 >x : U
->foo : () => 文字
->x.notHere() : 任意
->类型别名 :=> 任意
->x.notHere : 任意
->类型别名 :=> 任意
+>foo : () => string
+>x.notHere() : any
+>x.notHere : any
 >x : U
->notHere : 任意
->类型别名 :=> 任意
+>notHere : any
     }
 }
 
 var r = (new C<B, A>()).f();
->r : 文字
->类型别名 :=> 文字
->(new C<B, A>()).f() : 文字
->类型别名 :=> 文字
->(new C<B, A>()).f : () => 文字
+>r : string
+>(new C<B, A>()).f() : string
+>(new C<B, A>()).f : () => string
 >(new C<B, A>()) : C<B, A>
 >new C<B, A>() : C<B, A>
->C : 类为 C
+>C : typeof C
 >B : B
 >A : A
->f : () => 文字
+>f : () => string
 
 interface I<U extends T, T extends A> {
 >I : I<U, T>
@@ -95,31 +84,25 @@ var i: I<B, A>;
 >A : A
 
 var r2 = i.foo.notHere();
->r2 : 任意
->类型别名 :=> 任意
->i.foo.notHere() : 任意
->类型别名 :=> 任意
->i.foo.notHere : 任意
->类型别名 :=> 任意
+>r2 : any
+>i.foo.notHere() : any
+>i.foo.notHere : any
 >i.foo : B
 >i : I<B, A>
 >foo : B
->notHere : 任意
->类型别名 :=> 任意
+>notHere : any
 
 var r2b = i.foo['foo']();
->r2b : 文字
->类型别名 :=> 文字
->i.foo['foo']() : 文字
->类型别名 :=> 文字
->i.foo['foo'] : () => 文字
+>r2b : string
+>i.foo['foo']() : string
+>i.foo['foo'] : () => string
 >i.foo : B
 >i : I<B, A>
 >foo : B
 >'foo' : "foo"
 
 var a: {
->a : <U 扩展 T, T 扩展 A>() => U
+>a : <U extends T, T extends A>() => U
 
     <U extends T, T extends A>(): U;
 >U : U
@@ -130,35 +113,28 @@ var a: {
 }
 // BUG 794164
 var r3: string = a().notHere();
->r3 : 文字
->类型别名 :=> 文字
->a().notHere() : 任意
->类型别名 :=> 任意
->a().notHere : 任意
->类型别名 :=> 任意
+>r3 : string
+>a().notHere() : any
+>a().notHere : any
 >a() : A
->a : <U 扩展 T, T 扩展 A>() => U
->notHere : 任意
->类型别名 :=> 任意
+>a : <U extends T, T extends A>() => U
+>notHere : any
 
 var r3b: string = a()['foo']();
->r3b : 文字
->类型别名 :=> 文字
->a()['foo']() : 文字
->类型别名 :=> 文字
->a()['foo'] : () => 文字
+>r3b : string
+>a()['foo']() : string
+>a()['foo'] : () => string
 >a() : A
->a : <U 扩展 T, T 扩展 A>() => U
+>a : <U extends T, T extends A>() => U
 >'foo' : "foo"
 
 var b = {
->b : 任意
->类型别名 :=> 任意
->{    foo: <U extends T, T extends A>(x: U): U => {        var a = x['foo'](); // should be string        return a + x.notHere();    },    // BUG 794164    bar: b.foo(1).notHere()} : { foo: <U 扩展 T, T 扩展 A>(x: U) => U; bar: 任意; }
+>b : any
+>{    foo: <U extends T, T extends A>(x: U): U => {        var a = x['foo'](); // should be string        return a + x.notHere();    },    // BUG 794164    bar: b.foo(1).notHere()} : { foo: <U extends T, T extends A>(x: U) => U; bar: any; }
 
     foo: <U extends T, T extends A>(x: U): U => {
->foo : <U 扩展 T, T 扩展 A>(x: U) => U
-><U extends T, T extends A>(x: U): U => {        var a = x['foo'](); // should be string        return a + x.notHere();    } : <U 扩展 T, T 扩展 A>(x: U) => U
+>foo : <U extends T, T extends A>(x: U) => U
+><U extends T, T extends A>(x: U): U => {        var a = x['foo'](); // should be string        return a + x.notHere();    } : <U extends T, T extends A>(x: U) => U
 >U : U
 >T : T
 >T : T
@@ -168,60 +144,40 @@ var b = {
 >U : U
 
         var a = x['foo'](); // should be string
->a : 文字
->类型别名 :=> 文字
->x['foo']() : 文字
->类型别名 :=> 文字
->x['foo'] : () => 文字
+>a : string
+>x['foo']() : string
+>x['foo'] : () => string
 >x : U
 >'foo' : "foo"
 
         return a + x.notHere();
->a + x.notHere() : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
->x.notHere() : 任意
->类型别名 :=> 任意
->x.notHere : 任意
->类型别名 :=> 任意
+>a + x.notHere() : string
+>a : string
+>x.notHere() : any
+>x.notHere : any
 >x : U
->notHere : 任意
->类型别名 :=> 任意
+>notHere : any
 
     },
     // BUG 794164
     bar: b.foo(1).notHere()
->bar : 任意
->类型别名 :=> 任意
->b.foo(1).notHere() : 任意
->类型别名 :=> 任意
->b.foo(1).notHere : 任意
->类型别名 :=> 任意
->b.foo(1) : 任意
->类型别名 :=> 任意
->b.foo : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>bar : any
+>b.foo(1).notHere() : any
+>b.foo(1).notHere : any
+>b.foo(1) : any
+>b.foo : any
+>b : any
+>foo : any
 >1 : 1
->notHere : 任意
->类型别名 :=> 任意
+>notHere : any
 }
 
 var r4 = b.foo(new B()); // error after constraints above made illegal, doesn't matter
->r4 : 任意
->类型别名 :=> 任意
->b.foo(new B()) : 任意
->类型别名 :=> 任意
->b.foo : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>r4 : any
+>b.foo(new B()) : any
+>b.foo : any
+>b : any
+>foo : any
 >new B() : B
->B : 类为 B
+>B : typeof B
 

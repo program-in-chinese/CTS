@@ -1,6 +1,6 @@
 === tests/cases/conformance/expressions/binaryOperators/logicalOrOperator/logicalOrOperatorWithTypeParameters.ts ===
 function fn1<T, U>(t: T, u: U) {
->fn1 : <T, U>(t: T, u: U) => 无值
+>fn1 : <T, U>(t: T, u: U) => void
 >T : T
 >U : U
 >t : T
@@ -35,7 +35,7 @@ function fn1<T, U>(t: T, u: U) {
 }
 
 function fn2<T, U/* extends T*/, V/* extends T*/>(t: T, u: U, v: V) {
->fn2 : <T, U, V>(t: T, u: U, v: V) => 无值
+>fn2 : <T, U, V>(t: T, u: U, v: V) => void
 >T : T
 >U : U
 >V : V
@@ -82,17 +82,13 @@ function fn2<T, U/* extends T*/, V/* extends T*/>(t: T, u: U, v: V) {
 }
 
 function fn3<T extends { a: string; b: string }, U extends { a: string; b: number }>(t: T, u: U) {
->fn3 : <T 扩展 { a: 文字; b: 文字; }, U 扩展 { a: 文字; b: 数字; }>(t: T, u: U) => 无值
+>fn3 : <T extends { a: string; b: string; }, U extends { a: string; b: number; }>(t: T, u: U) => void
 >T : T
->a : 文字
->类型别名 :=> 文字
->b : 文字
->类型别名 :=> 文字
+>a : string
+>b : string
 >U : U
->a : 文字
->类型别名 :=> 文字
->b : 数字
->类型别名 :=> 数字
+>a : string
+>b : number
 >t : T
 >T : T
 >u : U
@@ -111,18 +107,16 @@ function fn3<T extends { a: string; b: string }, U extends { a: string; b: numbe
 >u : U
 
     var r3 = t || { a: '' };
->r3 : { a: 文字; }
->t || { a: '' } : { a: 文字; }
+>r3 : T | { a: string; }
+>t || { a: '' } : T | { a: string; }
 >t : T
->{ a: '' } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: '' } : { a: string; }
+>a : string
 >'' : ""
 
     var r4: { a: string } = t || u;
->r4 : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>r4 : { a: string; }
+>a : string
 >t || u : T | U
 >t : T
 >u : U

@@ -1,48 +1,39 @@
 === tests/cases/compiler/staticInheritance.ts ===
 function doThing(x: { n: string }) { }
->doThing : (x: { n: 文字; }) => 无值
->x : { n: 文字; }
->n : 文字
->类型别名 :=> 文字
+>doThing : (x: { n: string; }) => void
+>x : { n: string; }
+>n : string
 
 class A {
 >A : A
 
     static n: string;
->n : 文字
->类型别名 :=> 文字
+>n : string
 
     p = doThing(A); // OK
->p : 无值
->类型别名 :=> 无值
->doThing(A) : 无值
->类型别名 :=> 无值
->doThing : (x: { n: 文字; }) => 无值
->A : 类为 A
+>p : void
+>doThing(A) : void
+>doThing : (x: { n: string; }) => void
+>A : typeof A
 }
 class B extends A {
 >B : B
 >A : A
 
     p1 = doThing(A); // OK
->p1 : 无值
->类型别名 :=> 无值
->doThing(A) : 无值
->类型别名 :=> 无值
->doThing : (x: { n: 文字; }) => 无值
->A : 类为 A
+>p1 : void
+>doThing(A) : void
+>doThing : (x: { n: string; }) => void
+>A : typeof A
 
     p2 = doThing(B); // OK
->p2 : 无值
->类型别名 :=> 无值
->doThing(B) : 无值
->类型别名 :=> 无值
->doThing : (x: { n: 文字; }) => 无值
->B : 类为 B
+>p2 : void
+>doThing(B) : void
+>doThing : (x: { n: string; }) => void
+>B : typeof B
 }
 doThing(B); //OK
->doThing(B) : 无值
->类型别名 :=> 无值
->doThing : (x: { n: 文字; }) => 无值
->B : 类为 B
+>doThing(B) : void
+>doThing : (x: { n: string; }) => void
+>B : typeof B
 

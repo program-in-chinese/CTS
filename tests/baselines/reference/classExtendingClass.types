@@ -3,14 +3,13 @@ class C {
 >C : C
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
     thing() { }
->thing : () => 无值
+>thing : () => void
 
     static other() { }
->other : () => 无值
+>other : () => void
 }
 
 class D extends C {
@@ -18,8 +17,7 @@ class D extends C {
 >C : C
 
     bar: string;
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 }
 
 var d: D;
@@ -27,40 +25,30 @@ var d: D;
 >D : D
 
 var r = d.foo;
->r : 文字
->类型别名 :=> 文字
->d.foo : 文字
->类型别名 :=> 文字
+>r : string
+>d.foo : string
 >d : D
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 var r2 = d.bar;
->r2 : 文字
->类型别名 :=> 文字
->d.bar : 文字
->类型别名 :=> 文字
+>r2 : string
+>d.bar : string
 >d : D
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 var r3 = d.thing();
->r3 : 无值
->类型别名 :=> 无值
->d.thing() : 无值
->类型别名 :=> 无值
->d.thing : () => 无值
+>r3 : void
+>d.thing() : void
+>d.thing : () => void
 >d : D
->thing : () => 无值
+>thing : () => void
 
 var r4 = D.other();
->r4 : 无值
->类型别名 :=> 无值
->D.other() : 无值
->类型别名 :=> 无值
->D.other : () => 无值
->D : 类为 D
->other : () => 无值
+>r4 : void
+>D.other() : void
+>D.other : () => void
+>D : typeof D
+>other : () => void
 
 class C2<T> {
 >C2 : C2<T>
@@ -71,12 +59,12 @@ class C2<T> {
 >T : T
 
     thing(x: T) { }
->thing : (x: T) => 无值
+>thing : (x: T) => void
 >x : T
 >T : T
 
     static other<T>(x: T) { }
->other : <T>(x: T) => 无值
+>other : <T>(x: T) => void
 >T : T
 >x : T
 >T : T
@@ -89,49 +77,38 @@ class D2<T> extends C2<T> {
 >T : T
 
     bar: string;
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 }
 
 var d2: D2<string>;
->d2 : D2<文字>
+>d2 : D2<string>
 >D2 : D2<T>
 
 var r5 = d2.foo;
->r5 : 文字
->类型别名 :=> 文字
->d2.foo : 文字
->类型别名 :=> 文字
->d2 : D2<文字>
->foo : 文字
->类型别名 :=> 文字
+>r5 : string
+>d2.foo : string
+>d2 : D2<string>
+>foo : string
 
 var r6 = d2.bar;
->r6 : 文字
->类型别名 :=> 文字
->d2.bar : 文字
->类型别名 :=> 文字
->d2 : D2<文字>
->bar : 文字
->类型别名 :=> 文字
+>r6 : string
+>d2.bar : string
+>d2 : D2<string>
+>bar : string
 
 var r7 = d2.thing('');
->r7 : 无值
->类型别名 :=> 无值
->d2.thing('') : 无值
->类型别名 :=> 无值
->d2.thing : (x: 文字) => 无值
->d2 : D2<文字>
->thing : (x: 文字) => 无值
+>r7 : void
+>d2.thing('') : void
+>d2.thing : (x: string) => void
+>d2 : D2<string>
+>thing : (x: string) => void
 >'' : ""
 
 var r8 = D2.other(1);
->r8 : 无值
->类型别名 :=> 无值
->D2.other(1) : 无值
->类型别名 :=> 无值
->D2.other : <T>(x: T) => 无值
->D2 : 类为 D2
->other : <T>(x: T) => 无值
+>r8 : void
+>D2.other(1) : void
+>D2.other : <T>(x: T) => void
+>D2 : typeof D2
+>other : <T>(x: T) => void
 >1 : 1
 

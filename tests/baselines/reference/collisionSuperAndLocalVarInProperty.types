@@ -1,29 +1,26 @@
 === tests/cases/compiler/collisionSuperAndLocalVarInProperty.ts ===
 var _super = 10; // No Error
->_super : 数字
->类型别名 :=> 数字
+>_super : number
 >10 : 10
 
 class Foo {
 >Foo : Foo
 
    public prop1 = {
->prop1 : { doStuff: () => 无值; }
->{        doStuff: () => {            var _super = 10; // No error        }    } : { doStuff: () => 无值; }
+>prop1 : { doStuff: () => void; }
+>{        doStuff: () => {            var _super = 10; // No error        }    } : { doStuff: () => void; }
 
         doStuff: () => {
->doStuff : () => 无值
->() => {            var _super = 10; // No error        } : () => 无值
+>doStuff : () => void
+>() => {            var _super = 10; // No error        } : () => void
 
             var _super = 10; // No error
->_super : 数字
->类型别名 :=> 数字
+>_super : number
 >10 : 10
         }
     }
     public _super = 10; // No error
->_super : 数字
->类型别名 :=> 数字
+>_super : number
 >10 : 10
 }
 class b extends Foo {
@@ -31,21 +28,19 @@ class b extends Foo {
 >Foo : Foo
 
     public prop2 = {
->prop2 : { doStuff: () => 无值; }
->{        doStuff: () => {            var _super = 10; // Should be error         }    } : { doStuff: () => 无值; }
+>prop2 : { doStuff: () => void; }
+>{        doStuff: () => {            var _super = 10; // Should be error         }    } : { doStuff: () => void; }
 
         doStuff: () => {
->doStuff : () => 无值
->() => {            var _super = 10; // Should be error         } : () => 无值
+>doStuff : () => void
+>() => {            var _super = 10; // Should be error         } : () => void
 
             var _super = 10; // Should be error 
->_super : 数字
->类型别名 :=> 数字
+>_super : number
 >10 : 10
         }
     }
     public _super = 10; // No error
->_super : 数字
->类型别名 :=> 数字
+>_super : number
 >10 : 10
 }

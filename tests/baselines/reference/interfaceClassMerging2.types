@@ -3,23 +3,23 @@ interface Foo {
 >Foo : Foo
 
     interfaceFooMethod(): this;
->interfaceFooMethod : () => 本体
+>interfaceFooMethod : () => this
 
     interfaceFooProperty: this;
->interfaceFooProperty : 本体
+>interfaceFooProperty : this
 }
 
 class Foo {
 >Foo : Foo
 
     classFooProperty: this;
->classFooProperty : 本体
+>classFooProperty : this
 
     classFooMethod(): this {
->classFooMethod : () => 本体
+>classFooMethod : () => this
 
         return this;
->this : 本体
+>this : this
     }
 }
 
@@ -28,10 +28,10 @@ interface Bar {
 >Bar : Bar
 
     interfaceBarMethod(): this;
->interfaceBarMethod : () => 本体
+>interfaceBarMethod : () => this
 
     interfaceBarProperty: this;
->interfaceBarProperty : 本体
+>interfaceBarProperty : this
 }
 
 class Bar extends Foo {
@@ -39,13 +39,13 @@ class Bar extends Foo {
 >Foo : Foo
 
     classBarProperty: this;
->classBarProperty : 本体
+>classBarProperty : this
 
     classBarMethod(): this {
->classBarMethod : () => 本体
+>classBarMethod : () => this
 
         return this;
->this : 本体
+>this : this
     }
 }
 
@@ -53,7 +53,7 @@ class Bar extends Foo {
 var bar = new Bar();
 >bar : Bar
 >new Bar() : Bar
->Bar : 类为 Bar
+>Bar : typeof Bar
 
 bar.interfaceBarMethod().interfaceFooMethod().classBarMethod().classFooMethod();
 >bar.interfaceBarMethod().interfaceFooMethod().classBarMethod().classFooMethod() : Bar
@@ -74,7 +74,7 @@ bar.interfaceBarMethod().interfaceFooMethod().classBarMethod().classFooMethod();
 var foo = new Foo();
 >foo : Foo
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
 
 foo = bar;
 >foo = bar : Bar

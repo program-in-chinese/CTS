@@ -2,45 +2,38 @@
 // Binding for an import statement in a typeref position is being added to the global scope
 // Shouldn't compile b.B is not defined in C
 module A {
->A : 任意
->类型别名 :=> 任意
+>A : any
 
     import b = B;
->b : 类为 b
->B : 类为 b
+>b : typeof b
+>B : typeof b
 
     import c = C;
->c : 类为 c
->C : 类为 c
+>c : typeof c
+>C : typeof c
 }
 
 module B {
->B : 类为 B
+>B : typeof B
 
     import a = A;
->a : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>a : any
+>A : any
 
     export class B { }
 >B : B
 }
 
 module C {
->C : 类为 C
+>C : typeof C
 
     import a = A;
->a : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>a : any
+>A : any
 
     function hello(): b.B { return null; }
->hello : () => 任意
->b : 任意
->类型别名 :=> 任意
+>hello : () => any
+>b : any
 >B : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 }

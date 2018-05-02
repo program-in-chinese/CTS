@@ -3,26 +3,22 @@ class Base {
 >Base : Base
 
     public static x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     public static fn(): string {
->fn : () => 文字
+>fn : () => string
 
         return '';
 >'' : ""
     }
 
     public static get a() { return 1; }
->a : 数字
->类型别名 :=> 数字
+>a : number
 >1 : 1
 
     public static set a(v) { }
->a : 数字
->类型别名 :=> 数字
->v : 数字
->类型别名 :=> 数字
+>a : number
+>v : number
 }
 
 // BUG 847404
@@ -32,97 +28,73 @@ class Derived extends Base {
 >Base : Base
 
     private static x: string; 
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     private static fn(): string {
->fn : () => 文字
+>fn : () => string
 
         return '';
 >'' : ""
     }
 
     private static get a() { return 1; }
->a : 数字
->类型别名 :=> 数字
+>a : number
 >1 : 1
 
     private static set a(v) { }
->a : 数字
->类型别名 :=> 数字
->v : 数字
->类型别名 :=> 数字
+>a : number
+>v : number
 }
 
 var r = Base.x; // ok
->r : 文字
->类型别名 :=> 文字
->Base.x : 文字
->类型别名 :=> 文字
->Base : 类为 Base
->x : 文字
->类型别名 :=> 文字
+>r : string
+>Base.x : string
+>Base : typeof Base
+>x : string
 
 var r2 = Derived.x; // error
->r2 : 文字
->类型别名 :=> 文字
->Derived.x : 文字
->类型别名 :=> 文字
->Derived : 类为 Derived
->x : 文字
->类型别名 :=> 文字
+>r2 : string
+>Derived.x : string
+>Derived : typeof Derived
+>x : string
 
 var r3 = Base.fn(); // ok
->r3 : 文字
->类型别名 :=> 文字
->Base.fn() : 文字
->类型别名 :=> 文字
->Base.fn : () => 文字
->Base : 类为 Base
->fn : () => 文字
+>r3 : string
+>Base.fn() : string
+>Base.fn : () => string
+>Base : typeof Base
+>fn : () => string
 
 var r4 = Derived.fn(); // error
->r4 : 文字
->类型别名 :=> 文字
->Derived.fn() : 文字
->类型别名 :=> 文字
->Derived.fn : () => 文字
->Derived : 类为 Derived
->fn : () => 文字
+>r4 : string
+>Derived.fn() : string
+>Derived.fn : () => string
+>Derived : typeof Derived
+>fn : () => string
 
 var r5 = Base.a; // ok
->r5 : 数字
->类型别名 :=> 数字
->Base.a : 数字
->类型别名 :=> 数字
->Base : 类为 Base
->a : 数字
->类型别名 :=> 数字
+>r5 : number
+>Base.a : number
+>Base : typeof Base
+>a : number
 
 Base.a = 2; // ok
 >Base.a = 2 : 2
->Base.a : 数字
->类型别名 :=> 数字
->Base : 类为 Base
->a : 数字
->类型别名 :=> 数字
+>Base.a : number
+>Base : typeof Base
+>a : number
 >2 : 2
 
 var r6 = Derived.a; // error
->r6 : 数字
->类型别名 :=> 数字
->Derived.a : 数字
->类型别名 :=> 数字
->Derived : 类为 Derived
->a : 数字
->类型别名 :=> 数字
+>r6 : number
+>Derived.a : number
+>Derived : typeof Derived
+>a : number
 
 Derived.a = 2; // error
 >Derived.a = 2 : 2
->Derived.a : 数字
->类型别名 :=> 数字
->Derived : 类为 Derived
->a : 数字
->类型别名 :=> 数字
+>Derived.a : number
+>Derived : typeof Derived
+>a : number
 >2 : 2
 

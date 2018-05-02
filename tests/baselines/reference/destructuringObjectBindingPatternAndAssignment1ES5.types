@@ -5,68 +5,54 @@
 // V is an object assignment pattern and, for each assignment property P in V,
 //      S is the type Any, or
 var { a1 }: any = undefined;
->a1 : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>a1 : any
+>undefined : undefined
 
 var { a2 }: any = {};
->a2 : 任意
->类型别名 :=> 任意
+>a2 : any
 >{} : {}
 
 // V is an object assignment pattern and, for each assignment property P in V,
 //      S has an apparent property with the property name specified in
 //          P of a type that is assignable to the target given in P, or
 var { b1, } = { b1:1, };
->b1 : 数字
->类型别名 :=> 数字
->{ b1:1, } : { b1: 数字; }
->b1 : 数字
->类型别名 :=> 数字
+>b1 : number
+>{ b1:1, } : { b1: number; }
+>b1 : number
 >1 : 1
 
 var { b2: { b21 } = { b21: "string" }  } = { b2: { b21: "world" } };
->b2 : 任意
->类型别名 :=> 任意
->b21 : 文字
->类型别名 :=> 文字
->{ b21: "string" } : { b21: 文字; }
->b21 : 文字
->类型别名 :=> 文字
+>b2 : any
+>b21 : string
+>{ b21: "string" } : { b21: string; }
+>b21 : string
 >"string" : "string"
->{ b2: { b21: "world" } } : { b2?: { b21: 文字; }; }
->b2 : { b21: 文字; }
->{ b21: "world" } : { b21: 文字; }
->b21 : 文字
->类型别名 :=> 文字
+>{ b2: { b21: "world" } } : { b2?: { b21: string; }; }
+>b2 : { b21: string; }
+>{ b21: "world" } : { b21: string; }
+>b21 : string
 >"world" : "world"
 
 var {1: b3} = { 1: "string" };
->b3 : 文字
->类型别名 :=> 文字
->{ 1: "string" } : { 1: 文字; }
+>b3 : string
+>{ 1: "string" } : { 1: string; }
+>1 : string
 >"string" : "string"
 
 var {b4 = 1}: any = { b4: 100000 };
->b4 : 任意
->类型别名 :=> 任意
+>b4 : any
 >1 : 1
->{ b4: 100000 } : { b4: 数字; }
->b4 : 数字
->类型别名 :=> 数字
+>{ b4: 100000 } : { b4: number; }
+>b4 : number
 >100000 : 100000
 
 var {b5: { b52 }  } = { b5: { b52 } };
->b5 : 任意
->类型别名 :=> 任意
->b52 : 任意
->类型别名 :=> 任意
->{ b5: { b52 } } : { b5: { b52: 任意; }; }
->b5 : { b52: 任意; }
->{ b52 } : { b52: 任意; }
->b52 : 任意
->类型别名 :=> 任意
+>b5 : any
+>b52 : any
+>{ b5: { b52 } } : { b5: { b52: any; }; }
+>b5 : { b52: any; }
+>{ b52 } : { b52: any; }
+>b52 : any
 
 // V is an object assignment pattern and, for each assignment property P in V,
 //      P specifies a numeric property name and S has a numeric index signature
@@ -76,8 +62,7 @@ interface F {
 >F : F
 
     [idx: number]: boolean;
->idx : 数字
->类型别名 :=> 数字
+>idx : number
 }
 
 function foo(): F {
@@ -85,11 +70,11 @@ function foo(): F {
 >F : F
 
     return {
->{        1: true    } : { 1: 为真; }
+>{        1: true    } : { 1: true; }
 
         1: true
->true : 为真
->类型别名 :=> 为真
+>1 : true
+>true : true
 
     };
 }
@@ -99,23 +84,21 @@ function bar(): F {
 >F : F
 
     return {
->{        2: true    } : { 2: 为真; }
+>{        2: true    } : { 2: true; }
 
         2: true
->true : 为真
->类型别名 :=> 为真
+>2 : true
+>true : true
 
     };
 }
 var {1: c0} = foo();
->c0 : 真假
->类型别名 :=> 真假
+>c0 : boolean
 >foo() : F
 >foo : () => F
 
 var {1: c1} = bar();
->c1 : 真假
->类型别名 :=> 真假
+>c1 : boolean
 >bar() : F
 >bar : () => F
 
@@ -126,8 +109,7 @@ interface F1 {
 >F1 : F1
 
     [str: string]: number;
->str : 文字
->类型别名 :=> 文字
+>str : string
 }
 
 function foo1(): F1 {
@@ -135,22 +117,21 @@ function foo1(): F1 {
 >F1 : F1
 
     return {
->{        "prop1": 2    } : { "prop1": 数字; }
+>{        "prop1": 2    } : { "prop1": number; }
 
         "prop1": 2
+>"prop1" : number
 >2 : 2
     }
 }
 
 var {"prop1": d1} = foo1();
->d1 : 数字
->类型别名 :=> 数字
+>d1 : number
 >foo1() : F1
 >foo1 : () => F1
 
 var {"prop2": d1} = foo1();
->d1 : 数字
->类型别名 :=> 数字
+>d1 : number
 >foo1() : F1
 >foo1 : () => F1
 

@@ -1,30 +1,26 @@
 === tests/cases/compiler/moduleNewExportBug.ts ===
 module mod1 {
->mod1 : 类为 mod1
+>mod1 : typeof mod1
 
 	interface mInt {
 >mInt : mInt
 
 		new (bar:any):any;
->bar : 任意
->类型别名 :=> 任意
+>bar : any
 
         foo (bar:any):any;
->foo : (bar: 任意) => 任意
->bar : 任意
->类型别名 :=> 任意
+>foo : (bar: any) => any
+>bar : any
 	}
  
     class C { public moo() {}}
 >C : C
->moo : () => 无值
+>moo : () => void
 }
 
 var c : mod1.C; // ERROR: C should not be visible
->c : 任意
->类型别名 :=> 任意
->mod1 : 任意
->类型别名 :=> 任意
+>c : any
+>mod1 : any
 >C : No type information available!
 
 

@@ -1,38 +1,35 @@
 === tests/cases/conformance/expressions/contextualTyping/generatedContextualTyping.ts ===
 class Base { private p; }
 >Base : Base
->p : 任意
->类型别名 :=> 任意
+>p : any
 
 class Derived1 extends Base { private m; }
 >Derived1 : Derived1
 >Base : Base
->m : 任意
->类型别名 :=> 任意
+>m : any
 
 class Derived2 extends Base { private n; }
 >Derived2 : Derived2
 >Base : Base
->n : 任意
->类型别名 :=> 任意
+>n : any
 
 interface Genric<T> { func(n: T[]); }
 >Genric : Genric<T>
 >T : T
->func : (n: T[]) => 任意
+>func : (n: T[]) => any
 >n : T[]
 >T : T
 
 var b = new Base(), d1 = new Derived1(), d2 = new Derived2();
 >b : Base
 >new Base() : Base
->Base : 类为 Base
+>Base : typeof Base
 >d1 : Derived1
 >new Derived1() : Derived1
->Derived1 : 类为 Derived1
+>Derived1 : typeof Derived1
 >d2 : Derived2
 >new Derived2() : Derived2
->Derived2 : 类为 Derived2
+>Derived2 : typeof Derived2
 
 var x1: () => Base[] = () => [d1, d2];
 >x1 : () => Base[]
@@ -100,9 +97,8 @@ var x8: Array<Base> = [d1, d2];
 >d2 : Derived2
 
 var x9: { [n: number]: Base; } = [d1, d2];
->x9 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x9 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -119,15 +115,14 @@ var x10: {n: Base[]; }  = { n: [d1, d2] };
 >d2 : Derived2
 
 var x11: (s: Base[]) => any = n => { var n: Base[]; return null; };
->x11 : (s: Base[]) => 任意
+>x11 : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x12: Genric<Base> = { func: n => { return [d1, d2]; } };
 >x12 : Genric<Base>
@@ -216,9 +211,8 @@ class x20 { member: Array<Base> = [d1, d2] }
 
 class x21 { member: { [n: number]: Base; } = [d1, d2] }
 >x21 : x21
->member : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>member : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -237,15 +231,14 @@ class x22 { member: {n: Base[]; }  = { n: [d1, d2] } }
 
 class x23 { member: (s: Base[]) => any = n => { var n: Base[]; return null; } }
 >x23 : x23
->member : (s: Base[]) => 任意
+>member : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x24 { member: Genric<Base> = { func: n => { return [d1, d2]; } } }
 >x24 : x24
@@ -335,9 +328,8 @@ class x32 { private member: Array<Base> = [d1, d2] }
 
 class x33 { private member: { [n: number]: Base; } = [d1, d2] }
 >x33 : x33
->member : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>member : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -356,15 +348,14 @@ class x34 { private member: {n: Base[]; }  = { n: [d1, d2] } }
 
 class x35 { private member: (s: Base[]) => any = n => { var n: Base[]; return null; } }
 >x35 : x35
->member : (s: Base[]) => 任意
+>member : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x36 { private member: Genric<Base> = { func: n => { return [d1, d2]; } } }
 >x36 : x36
@@ -454,9 +445,8 @@ class x44 { public member: Array<Base> = [d1, d2] }
 
 class x45 { public member: { [n: number]: Base; } = [d1, d2] }
 >x45 : x45
->member : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>member : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -475,15 +465,14 @@ class x46 { public member: {n: Base[]; }  = { n: [d1, d2] } }
 
 class x47 { public member: (s: Base[]) => any = n => { var n: Base[]; return null; } }
 >x47 : x47
->member : (s: Base[]) => 任意
+>member : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x48 { public member: Genric<Base> = { func: n => { return [d1, d2]; } } }
 >x48 : x48
@@ -573,9 +562,8 @@ class x56 { static member: Array<Base> = [d1, d2] }
 
 class x57 { static member: { [n: number]: Base; } = [d1, d2] }
 >x57 : x57
->member : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>member : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -594,15 +582,14 @@ class x58 { static member: {n: Base[]; }  = { n: [d1, d2] } }
 
 class x59 { static member: (s: Base[]) => any = n => { var n: Base[]; return null; } }
 >x59 : x59
->member : (s: Base[]) => 任意
+>member : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x60 { static member: Genric<Base> = { func: n => { return [d1, d2]; } } }
 >x60 : x60
@@ -692,9 +679,8 @@ class x68 { private static member: Array<Base> = [d1, d2] }
 
 class x69 { private static member: { [n: number]: Base; } = [d1, d2] }
 >x69 : x69
->member : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>member : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -713,15 +699,14 @@ class x70 { private static member: {n: Base[]; }  = { n: [d1, d2] } }
 
 class x71 { private static member: (s: Base[]) => any = n => { var n: Base[]; return null; } }
 >x71 : x71
->member : (s: Base[]) => 任意
+>member : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x72 { private static member: Genric<Base> = { func: n => { return [d1, d2]; } } }
 >x72 : x72
@@ -811,9 +796,8 @@ class x80 { public static member: Array<Base> = [d1, d2] }
 
 class x81 { public static member: { [n: number]: Base; } = [d1, d2] }
 >x81 : x81
->member : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>member : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -832,15 +816,14 @@ class x82 { public static member: {n: Base[]; }  = { n: [d1, d2] } }
 
 class x83 { public static member: (s: Base[]) => any = n => { var n: Base[]; return null; } }
 >x83 : x83
->member : (s: Base[]) => 任意
+>member : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x84 { public static member: Genric<Base> = { func: n => { return [d1, d2]; } } }
 >x84 : x84
@@ -930,9 +913,8 @@ class x92 { constructor(parm: Array<Base> = [d1, d2]) { } }
 
 class x93 { constructor(parm: { [n: number]: Base; } = [d1, d2]) { } }
 >x93 : x93
->parm : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>parm : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -951,15 +933,14 @@ class x94 { constructor(parm: {n: Base[]; }  = { n: [d1, d2] }) { } }
 
 class x95 { constructor(parm: (s: Base[]) => any = n => { var n: Base[]; return null; }) { } }
 >x95 : x95
->parm : (s: Base[]) => 任意
+>parm : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x96 { constructor(parm: Genric<Base> = { func: n => { return [d1, d2]; } }) { } }
 >x96 : x96
@@ -1049,9 +1030,8 @@ class x104 { constructor(public parm: Array<Base> = [d1, d2]) { } }
 
 class x105 { constructor(public parm: { [n: number]: Base; } = [d1, d2]) { } }
 >x105 : x105
->parm : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>parm : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -1070,15 +1050,14 @@ class x106 { constructor(public parm: {n: Base[]; }  = { n: [d1, d2] }) { } }
 
 class x107 { constructor(public parm: (s: Base[]) => any = n => { var n: Base[]; return null; }) { } }
 >x107 : x107
->parm : (s: Base[]) => 任意
+>parm : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x108 { constructor(public parm: Genric<Base> = { func: n => { return [d1, d2]; } }) { } }
 >x108 : x108
@@ -1168,9 +1147,8 @@ class x116 { constructor(private parm: Array<Base> = [d1, d2]) { } }
 
 class x117 { constructor(private parm: { [n: number]: Base; } = [d1, d2]) { } }
 >x117 : x117
->parm : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>parm : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -1189,15 +1167,14 @@ class x118 { constructor(private parm: {n: Base[]; }  = { n: [d1, d2] }) { } }
 
 class x119 { constructor(private parm: (s: Base[]) => any = n => { var n: Base[]; return null; }) { } }
 >x119 : x119
->parm : (s: Base[]) => 任意
+>parm : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class x120 { constructor(private parm: Genric<Base> = { func: n => { return [d1, d2]; } }) { } }
 >x120 : x120
@@ -1213,7 +1190,7 @@ class x120 { constructor(private parm: Genric<Base> = { func: n => { return [d1,
 >d2 : Derived2
 
 function x121(parm: () => Base[] = () => [d1, d2]) { }
->x121 : (parm?: () => Base[]) => 无值
+>x121 : (parm?: () => Base[]) => void
 >parm : () => Base[]
 >Base : Base
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
@@ -1222,7 +1199,7 @@ function x121(parm: () => Base[] = () => [d1, d2]) { }
 >d2 : Derived2
 
 function x122(parm: () => Base[] = function() { return [d1, d2] }) { }
->x122 : (parm?: () => Base[]) => 无值
+>x122 : (parm?: () => Base[]) => void
 >parm : () => Base[]
 >Base : Base
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1231,7 +1208,7 @@ function x122(parm: () => Base[] = function() { return [d1, d2] }) { }
 >d2 : Derived2
 
 function x123(parm: () => Base[] = function named() { return [d1, d2] }) { }
->x123 : (parm?: () => Base[]) => 无值
+>x123 : (parm?: () => Base[]) => void
 >parm : () => Base[]
 >Base : Base
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1241,7 +1218,7 @@ function x123(parm: () => Base[] = function named() { return [d1, d2] }) { }
 >d2 : Derived2
 
 function x124(parm: { (): Base[]; } = () => [d1, d2]) { }
->x124 : (parm?: () => Base[]) => 无值
+>x124 : (parm?: () => Base[]) => void
 >parm : () => Base[]
 >Base : Base
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
@@ -1250,7 +1227,7 @@ function x124(parm: { (): Base[]; } = () => [d1, d2]) { }
 >d2 : Derived2
 
 function x125(parm: { (): Base[]; } = function() { return [d1, d2] }) { }
->x125 : (parm?: () => Base[]) => 无值
+>x125 : (parm?: () => Base[]) => void
 >parm : () => Base[]
 >Base : Base
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1259,7 +1236,7 @@ function x125(parm: { (): Base[]; } = function() { return [d1, d2] }) { }
 >d2 : Derived2
 
 function x126(parm: { (): Base[]; } = function named() { return [d1, d2] }) { }
->x126 : (parm?: () => Base[]) => 无值
+>x126 : (parm?: () => Base[]) => void
 >parm : () => Base[]
 >Base : Base
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1269,7 +1246,7 @@ function x126(parm: { (): Base[]; } = function named() { return [d1, d2] }) { }
 >d2 : Derived2
 
 function x127(parm: Base[] = [d1, d2]) { }
->x127 : (parm?: Base[]) => 无值
+>x127 : (parm?: Base[]) => void
 >parm : Base[]
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -1277,7 +1254,7 @@ function x127(parm: Base[] = [d1, d2]) { }
 >d2 : Derived2
 
 function x128(parm: Array<Base> = [d1, d2]) { }
->x128 : (parm?: Base[]) => 无值
+>x128 : (parm?: Base[]) => void
 >parm : Base[]
 >Array : T[]
 >Base : Base
@@ -1286,17 +1263,16 @@ function x128(parm: Array<Base> = [d1, d2]) { }
 >d2 : Derived2
 
 function x129(parm: { [n: number]: Base; } = [d1, d2]) { }
->x129 : (parm?: { [n: 数字]: Base; }) => 无值
->parm : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x129 : (parm?: { [n: number]: Base; }) => void
+>parm : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x130(parm: {n: Base[]; }  = { n: [d1, d2] }) { }
->x130 : (parm?: { n: Base[]; }) => 无值
+>x130 : (parm?: { n: Base[]; }) => void
 >parm : { n: Base[]; }
 >n : Base[]
 >Base : Base
@@ -1307,19 +1283,18 @@ function x130(parm: {n: Base[]; }  = { n: [d1, d2] }) { }
 >d2 : Derived2
 
 function x131(parm: (s: Base[]) => any = n => { var n: Base[]; return null; }) { }
->x131 : (parm?: (s: Base[]) => 任意) => 无值
->parm : (s: Base[]) => 任意
+>x131 : (parm?: (s: Base[]) => any) => void
+>parm : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 function x132(parm: Genric<Base> = { func: n => { return [d1, d2]; } }) { }
->x132 : (parm?: Genric<Base>) => 无值
+>x132 : (parm?: Genric<Base>) => void
 >parm : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
@@ -1397,9 +1372,8 @@ function x140(): Array<Base> { return [d1, d2]; }
 >d2 : Derived2
 
 function x141(): { [n: number]: Base; } { return [d1, d2]; }
->x141 : () => { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x141 : () => { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -1416,15 +1390,14 @@ function x142(): {n: Base[]; }  { return { n: [d1, d2] }; }
 >d2 : Derived2
 
 function x143(): (s: Base[]) => any { return n => { var n: Base[]; return null; }; }
->x143 : () => (s: Base[]) => 任意
+>x143 : () => (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 function x144(): Genric<Base> { return { func: n => { return [d1, d2]; } }; }
 >x144 : () => Genric<Base>
@@ -1536,9 +1509,8 @@ function x152(): Array<Base> { return [d1, d2]; return [d1, d2]; }
 >d2 : Derived2
 
 function x153(): { [n: number]: Base; } { return [d1, d2]; return [d1, d2]; }
->x153 : () => { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x153 : () => { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -1563,21 +1535,19 @@ function x154(): {n: Base[]; }  { return { n: [d1, d2] }; return { n: [d1, d2] }
 >d2 : Derived2
 
 function x155(): (s: Base[]) => any { return n => { var n: Base[]; return null; }; return n => { var n: Base[]; return null; }; }
->x155 : () => (s: Base[]) => 任意
+>x155 : () => (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>null : null
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 function x156(): Genric<Base> { return { func: n => { return [d1, d2]; } }; return { func: n => { return [d1, d2]; } }; }
 >x156 : () => Genric<Base>
@@ -1672,9 +1642,8 @@ var x164: () => Array<Base> = () => { return [d1, d2]; };
 >d2 : Derived2
 
 var x165: () => { [n: number]: Base; } = () => { return [d1, d2]; };
->x165 : () => { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x165 : () => { [n: number]: Base; }
+>n : number
 >Base : Base
 >() => { return [d1, d2]; } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -1693,16 +1662,15 @@ var x166: () => {n: Base[]; }  = () => { return { n: [d1, d2] }; };
 >d2 : Derived2
 
 var x167: () => (s: Base[]) => any = () => { return n => { var n: Base[]; return null; }; };
->x167 : () => (s: Base[]) => 任意
+>x167 : () => (s: Base[]) => any
 >s : Base[]
 >Base : Base
->() => { return n => { var n: Base[]; return null; }; } : () => (n: Base[]) => 任意
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>() => { return n => { var n: Base[]; return null; }; } : () => (n: Base[]) => any
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x168: () => Genric<Base> = () => { return { func: n => { return [d1, d2]; } }; };
 >x168 : () => Genric<Base>
@@ -1791,9 +1759,8 @@ var x176: () => Array<Base> = function() { return [d1, d2]; };
 >d2 : Derived2
 
 var x177: () => { [n: number]: Base; } = function() { return [d1, d2]; };
->x177 : () => { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x177 : () => { [n: number]: Base; }
+>n : number
 >Base : Base
 >function() { return [d1, d2]; } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -1812,16 +1779,15 @@ var x178: () => {n: Base[]; }  = function() { return { n: [d1, d2] }; };
 >d2 : Derived2
 
 var x179: () => (s: Base[]) => any = function() { return n => { var n: Base[]; return null; }; };
->x179 : () => (s: Base[]) => 任意
+>x179 : () => (s: Base[]) => any
 >s : Base[]
 >Base : Base
->function() { return n => { var n: Base[]; return null; }; } : () => (n: Base[]) => 任意
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>function() { return n => { var n: Base[]; return null; }; } : () => (n: Base[]) => any
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x180: () => Genric<Base> = function() { return { func: n => { return [d1, d2]; } }; };
 >x180 : () => Genric<Base>
@@ -1837,7 +1803,7 @@ var x180: () => Genric<Base> = function() { return { func: n => { return [d1, d2
 >d2 : Derived2
 
 module x181 { var t: () => Base[] = () => [d1, d2]; }
->x181 : 类为 x181
+>x181 : typeof x181
 >t : () => Base[]
 >Base : Base
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
@@ -1846,7 +1812,7 @@ module x181 { var t: () => Base[] = () => [d1, d2]; }
 >d2 : Derived2
 
 module x182 { var t: () => Base[] = function() { return [d1, d2] }; }
->x182 : 类为 x182
+>x182 : typeof x182
 >t : () => Base[]
 >Base : Base
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1855,7 +1821,7 @@ module x182 { var t: () => Base[] = function() { return [d1, d2] }; }
 >d2 : Derived2
 
 module x183 { var t: () => Base[] = function named() { return [d1, d2] }; }
->x183 : 类为 x183
+>x183 : typeof x183
 >t : () => Base[]
 >Base : Base
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1865,7 +1831,7 @@ module x183 { var t: () => Base[] = function named() { return [d1, d2] }; }
 >d2 : Derived2
 
 module x184 { var t: { (): Base[]; } = () => [d1, d2]; }
->x184 : 类为 x184
+>x184 : typeof x184
 >t : () => Base[]
 >Base : Base
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
@@ -1874,7 +1840,7 @@ module x184 { var t: { (): Base[]; } = () => [d1, d2]; }
 >d2 : Derived2
 
 module x185 { var t: { (): Base[]; } = function() { return [d1, d2] }; }
->x185 : 类为 x185
+>x185 : typeof x185
 >t : () => Base[]
 >Base : Base
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1883,7 +1849,7 @@ module x185 { var t: { (): Base[]; } = function() { return [d1, d2] }; }
 >d2 : Derived2
 
 module x186 { var t: { (): Base[]; } = function named() { return [d1, d2] }; }
->x186 : 类为 x186
+>x186 : typeof x186
 >t : () => Base[]
 >Base : Base
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1893,7 +1859,7 @@ module x186 { var t: { (): Base[]; } = function named() { return [d1, d2] }; }
 >d2 : Derived2
 
 module x187 { var t: Base[] = [d1, d2]; }
->x187 : 类为 x187
+>x187 : typeof x187
 >t : Base[]
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -1901,7 +1867,7 @@ module x187 { var t: Base[] = [d1, d2]; }
 >d2 : Derived2
 
 module x188 { var t: Array<Base> = [d1, d2]; }
->x188 : 类为 x188
+>x188 : typeof x188
 >t : Base[]
 >Array : T[]
 >Base : Base
@@ -1910,17 +1876,16 @@ module x188 { var t: Array<Base> = [d1, d2]; }
 >d2 : Derived2
 
 module x189 { var t: { [n: number]: Base; } = [d1, d2]; }
->x189 : 类为 x189
->t : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x189 : typeof x189
+>t : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 module x190 { var t: {n: Base[]; }  = { n: [d1, d2] }; }
->x190 : 类为 x190
+>x190 : typeof x190
 >t : { n: Base[]; }
 >n : Base[]
 >Base : Base
@@ -1931,19 +1896,18 @@ module x190 { var t: {n: Base[]; }  = { n: [d1, d2] }; }
 >d2 : Derived2
 
 module x191 { var t: (s: Base[]) => any = n => { var n: Base[]; return null; }; }
->x191 : 类为 x191
->t : (s: Base[]) => 任意
+>x191 : typeof x191
+>t : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 module x192 { var t: Genric<Base> = { func: n => { return [d1, d2]; } }; }
->x192 : 类为 x192
+>x192 : typeof x192
 >t : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
@@ -1956,7 +1920,7 @@ module x192 { var t: Genric<Base> = { func: n => { return [d1, d2]; } }; }
 >d2 : Derived2
 
 module x193 { export var t: () => Base[] = () => [d1, d2]; }
->x193 : 类为 x193
+>x193 : typeof x193
 >t : () => Base[]
 >Base : Base
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
@@ -1965,7 +1929,7 @@ module x193 { export var t: () => Base[] = () => [d1, d2]; }
 >d2 : Derived2
 
 module x194 { export var t: () => Base[] = function() { return [d1, d2] }; }
->x194 : 类为 x194
+>x194 : typeof x194
 >t : () => Base[]
 >Base : Base
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1974,7 +1938,7 @@ module x194 { export var t: () => Base[] = function() { return [d1, d2] }; }
 >d2 : Derived2
 
 module x195 { export var t: () => Base[] = function named() { return [d1, d2] }; }
->x195 : 类为 x195
+>x195 : typeof x195
 >t : () => Base[]
 >Base : Base
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -1984,7 +1948,7 @@ module x195 { export var t: () => Base[] = function named() { return [d1, d2] };
 >d2 : Derived2
 
 module x196 { export var t: { (): Base[]; } = () => [d1, d2]; }
->x196 : 类为 x196
+>x196 : typeof x196
 >t : () => Base[]
 >Base : Base
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
@@ -1993,7 +1957,7 @@ module x196 { export var t: { (): Base[]; } = () => [d1, d2]; }
 >d2 : Derived2
 
 module x197 { export var t: { (): Base[]; } = function() { return [d1, d2] }; }
->x197 : 类为 x197
+>x197 : typeof x197
 >t : () => Base[]
 >Base : Base
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -2002,7 +1966,7 @@ module x197 { export var t: { (): Base[]; } = function() { return [d1, d2] }; }
 >d2 : Derived2
 
 module x198 { export var t: { (): Base[]; } = function named() { return [d1, d2] }; }
->x198 : 类为 x198
+>x198 : typeof x198
 >t : () => Base[]
 >Base : Base
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
@@ -2012,7 +1976,7 @@ module x198 { export var t: { (): Base[]; } = function named() { return [d1, d2]
 >d2 : Derived2
 
 module x199 { export var t: Base[] = [d1, d2]; }
->x199 : 类为 x199
+>x199 : typeof x199
 >t : Base[]
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2020,7 +1984,7 @@ module x199 { export var t: Base[] = [d1, d2]; }
 >d2 : Derived2
 
 module x200 { export var t: Array<Base> = [d1, d2]; }
->x200 : 类为 x200
+>x200 : typeof x200
 >t : Base[]
 >Array : T[]
 >Base : Base
@@ -2029,17 +1993,16 @@ module x200 { export var t: Array<Base> = [d1, d2]; }
 >d2 : Derived2
 
 module x201 { export var t: { [n: number]: Base; } = [d1, d2]; }
->x201 : 类为 x201
->t : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x201 : typeof x201
+>t : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 module x202 { export var t: {n: Base[]; }  = { n: [d1, d2] }; }
->x202 : 类为 x202
+>x202 : typeof x202
 >t : { n: Base[]; }
 >n : Base[]
 >Base : Base
@@ -2050,19 +2013,18 @@ module x202 { export var t: {n: Base[]; }  = { n: [d1, d2] }; }
 >d2 : Derived2
 
 module x203 { export var t: (s: Base[]) => any = n => { var n: Base[]; return null; }; }
->x203 : 类为 x203
->t : (s: Base[]) => 任意
+>x203 : typeof x203
+>t : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 module x204 { export var t: Genric<Base> = { func: n => { return [d1, d2]; } }; }
->x204 : 类为 x204
+>x204 : typeof x204
 >t : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
@@ -2130,10 +2092,9 @@ var x212 = <Array<Base>>[d1, d2];
 >d2 : Derived2
 
 var x213 = <{ [n: number]: Base; }>[d1, d2];
->x213 : { [n: 数字]: Base; }
-><{ [n: number]: Base; }>[d1, d2] : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x213 : { [n: number]: Base; }
+><{ [n: number]: Base; }>[d1, d2] : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2169,8 +2130,7 @@ var x217 = (<() => Base[]>undefined) || function() { return [d1, d2] };
 >(<() => Base[]>undefined) : () => Base[]
 ><() => Base[]>undefined : () => Base[]
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2182,8 +2142,7 @@ var x218 = (<() => Base[]>undefined) || function named() { return [d1, d2] };
 >(<() => Base[]>undefined) : () => Base[]
 ><() => Base[]>undefined : () => Base[]
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2196,8 +2155,7 @@ var x219 = (<{ (): Base[]; }>undefined) || function() { return [d1, d2] };
 >(<{ (): Base[]; }>undefined) : () => Base[]
 ><{ (): Base[]; }>undefined : () => Base[]
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2209,8 +2167,7 @@ var x220 = (<{ (): Base[]; }>undefined) || function named() { return [d1, d2] };
 >(<{ (): Base[]; }>undefined) : () => Base[]
 ><{ (): Base[]; }>undefined : () => Base[]
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2223,8 +2180,7 @@ var x221 = (<Base[]>undefined) || [d1, d2];
 >(<Base[]>undefined) : Base[]
 ><Base[]>undefined : Base[]
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -2236,22 +2192,19 @@ var x222 = (<Array<Base>>undefined) || [d1, d2];
 ><Array<Base>>undefined : Base[]
 >Array : T[]
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x223 = (<{ [n: number]: Base; }>undefined) || [d1, d2];
->x223 : { [n: 数字]: Base; }
->(<{ [n: number]: Base; }>undefined) || [d1, d2] : { [n: 数字]: Base; }
->(<{ [n: number]: Base; }>undefined) : { [n: 数字]: Base; }
-><{ [n: number]: Base; }>undefined : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x223 : { [n: number]: Base; }
+>(<{ [n: number]: Base; }>undefined) || [d1, d2] : { [n: number]: Base; }
+>(<{ [n: number]: Base; }>undefined) : { [n: number]: Base; }
+><{ [n: number]: Base; }>undefined : { [n: number]: Base; }
+>n : number
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -2263,8 +2216,7 @@ var x224 = (<{n: Base[]; } >undefined) || { n: [d1, d2] };
 ><{n: Base[]; } >undefined : { n: Base[]; }
 >n : Base[]
 >Base : Base
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2353,12 +2305,11 @@ var x232: Array<Base>; x232 = [d1, d2];
 >d2 : Derived2
 
 var x233: { [n: number]: Base; }; x233 = [d1, d2];
->x233 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x233 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >x233 = [d1, d2] : (Derived1 | Derived2)[]
->x233 : { [n: 数字]: Base; }
+>x233 : { [n: number]: Base; }
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -2376,17 +2327,16 @@ var x234: {n: Base[]; } ; x234 = { n: [d1, d2] };
 >d2 : Derived2
 
 var x235: (s: Base[]) => any; x235 = n => { var n: Base[]; return null; };
->x235 : (s: Base[]) => 任意
+>x235 : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->x235 = n => { var n: Base[]; return null; } : (n: Base[]) => 任意
->x235 : (s: Base[]) => 任意
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>x235 = n => { var n: Base[]; return null; } : (n: Base[]) => any
+>x235 : (s: Base[]) => any
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x236: Genric<Base>; x236 = { func: n => { return [d1, d2]; } };
 >x236 : Genric<Base>
@@ -2492,10 +2442,9 @@ var x244: { n: Array<Base>; } = { n: [d1, d2] };
 >d2 : Derived2
 
 var x245: { n: { [n: number]: Base; }; } = { n: [d1, d2] };
->x245 : { n: { [n: 数字]: Base; }; }
->n : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x245 : { n: { [n: number]: Base; }; }
+>n : { [n: number]: Base; }
+>n : number
 >Base : Base
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
@@ -2517,18 +2466,17 @@ var x246: { n: {n: Base[]; } ; } = { n: { n: [d1, d2] } };
 >d2 : Derived2
 
 var x247: { n: (s: Base[]) => any; } = { n: n => { var n: Base[]; return null; } };
->x247 : { n: (s: Base[]) => 任意; }
->n : (s: Base[]) => 任意
+>x247 : { n: (s: Base[]) => any; }
+>n : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->{ n: n => { var n: Base[]; return null; } } : { n: (n: Base[]) => 任意; }
->n : (n: Base[]) => 任意
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>{ n: n => { var n: Base[]; return null; } } : { n: (n: Base[]) => any; }
+>n : (n: Base[]) => any
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x248: { n: Genric<Base>; } = { n: { func: n => { return [d1, d2]; } } };
 >x248 : { n: Genric<Base>; }
@@ -2591,9 +2539,8 @@ var x256: Array<Base>[] = [[d1, d2]];
 >d2 : Derived2
 
 var x257: { [n: number]: Base; }[] = [[d1, d2]];
->x257 : { [n: 数字]: Base; }[]
->n : 数字
->类型别名 :=> 数字
+>x257 : { [n: number]: Base; }[]
+>n : number
 >Base : Base
 >[[d1, d2]] : (Derived1 | Derived2)[][]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2632,8 +2579,7 @@ var x261: () => Base[] = function() { return [d1, d2] } || undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x262: () => Base[] = function named() { return [d1, d2] } || undefined;
 >x262 : () => Base[]
@@ -2644,8 +2590,7 @@ var x262: () => Base[] = function named() { return [d1, d2] } || undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x263: { (): Base[]; } = function() { return [d1, d2] } || undefined;
 >x263 : () => Base[]
@@ -2655,8 +2600,7 @@ var x263: { (): Base[]; } = function() { return [d1, d2] } || undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x264: { (): Base[]; } = function named() { return [d1, d2] } || undefined;
 >x264 : () => Base[]
@@ -2667,8 +2611,7 @@ var x264: { (): Base[]; } = function named() { return [d1, d2] } || undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x265: Base[] = [d1, d2] || undefined;
 >x265 : Base[]
@@ -2677,8 +2620,7 @@ var x265: Base[] = [d1, d2] || undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x266: Array<Base> = [d1, d2] || undefined;
 >x266 : Base[]
@@ -2688,20 +2630,17 @@ var x266: Array<Base> = [d1, d2] || undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x267: { [n: number]: Base; } = [d1, d2] || undefined;
->x267 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x267 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] || undefined : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x268: {n: Base[]; }  = { n: [d1, d2] } || undefined;
 >x268 : { n: Base[]; }
@@ -2713,15 +2652,13 @@ var x268: {n: Base[]; }  = { n: [d1, d2] } || undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x269: () => Base[] = undefined || function() { return [d1, d2] };
 >x269 : () => Base[]
 >Base : Base
 >undefined || function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2731,8 +2668,7 @@ var x270: () => Base[] = undefined || function named() { return [d1, d2] };
 >x270 : () => Base[]
 >Base : Base
 >undefined || function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2743,8 +2679,7 @@ var x271: { (): Base[]; } = undefined || function() { return [d1, d2] };
 >x271 : () => Base[]
 >Base : Base
 >undefined || function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2754,8 +2689,7 @@ var x272: { (): Base[]; } = undefined || function named() { return [d1, d2] };
 >x272 : () => Base[]
 >Base : Base
 >undefined || function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2766,8 +2700,7 @@ var x273: Base[] = undefined || [d1, d2];
 >x273 : Base[]
 >Base : Base
 >undefined || [d1, d2] : (Derived1 | Derived2)[]
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -2777,20 +2710,17 @@ var x274: Array<Base> = undefined || [d1, d2];
 >Array : T[]
 >Base : Base
 >undefined || [d1, d2] : (Derived1 | Derived2)[]
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x275: { [n: number]: Base; } = undefined || [d1, d2];
->x275 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x275 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >undefined || [d1, d2] : (Derived1 | Derived2)[]
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -2800,8 +2730,7 @@ var x276: {n: Base[]; }  = undefined || { n: [d1, d2] };
 >n : Base[]
 >Base : Base
 >undefined || { n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2888,9 +2817,8 @@ var x282: Array<Base> = [d1, d2] || [d1, d2];
 >d2 : Derived2
 
 var x283: { [n: number]: Base; } = [d1, d2] || [d1, d2];
->x283 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x283 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >[d1, d2] || [d1, d2] : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2920,8 +2848,7 @@ var x285: () => Base[] = true ? () => [d1, d2] : () => [d1, d2];
 >x285 : () => Base[]
 >Base : Base
 >true ? () => [d1, d2] : () => [d1, d2] : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2935,8 +2862,7 @@ var x286: () => Base[] = true ? function() { return [d1, d2] } : function() { re
 >x286 : () => Base[]
 >Base : Base
 >true ? function() { return [d1, d2] } : function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2950,8 +2876,7 @@ var x287: () => Base[] = true ? function named() { return [d1, d2] } : function 
 >x287 : () => Base[]
 >Base : Base
 >true ? function named() { return [d1, d2] } : function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -2967,8 +2892,7 @@ var x288: { (): Base[]; } = true ? () => [d1, d2] : () => [d1, d2];
 >x288 : () => Base[]
 >Base : Base
 >true ? () => [d1, d2] : () => [d1, d2] : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2982,8 +2906,7 @@ var x289: { (): Base[]; } = true ? function() { return [d1, d2] } : function() {
 >x289 : () => Base[]
 >Base : Base
 >true ? function() { return [d1, d2] } : function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -2997,8 +2920,7 @@ var x290: { (): Base[]; } = true ? function named() { return [d1, d2] } : functi
 >x290 : () => Base[]
 >Base : Base
 >true ? function named() { return [d1, d2] } : function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3014,8 +2936,7 @@ var x291: Base[] = true ? [d1, d2] : [d1, d2];
 >x291 : Base[]
 >Base : Base
 >true ? [d1, d2] : [d1, d2] : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -3028,8 +2949,7 @@ var x292: Array<Base> = true ? [d1, d2] : [d1, d2];
 >Array : T[]
 >Base : Base
 >true ? [d1, d2] : [d1, d2] : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -3038,13 +2958,11 @@ var x292: Array<Base> = true ? [d1, d2] : [d1, d2];
 >d2 : Derived2
 
 var x293: { [n: number]: Base; } = true ? [d1, d2] : [d1, d2];
->x293 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x293 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >true ? [d1, d2] : [d1, d2] : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -3057,8 +2975,7 @@ var x294: {n: Base[]; }  = true ? { n: [d1, d2] } : { n: [d1, d2] };
 >n : Base[]
 >Base : Base
 >true ? { n: [d1, d2] } : { n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
->true : 为真
->类型别名 :=> 为真
+>true : true
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3071,32 +2988,28 @@ var x294: {n: Base[]; }  = true ? { n: [d1, d2] } : { n: [d1, d2] };
 >d2 : Derived2
 
 var x295: (s: Base[]) => any = true ? n => { var n: Base[]; return null; } : n => { var n: Base[]; return null; };
->x295 : (s: Base[]) => 任意
+>x295 : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->true ? n => { var n: Base[]; return null; } : n => { var n: Base[]; return null; } : (n: Base[]) => 任意
->true : 为真
->类型别名 :=> 为真
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>true ? n => { var n: Base[]; return null; } : n => { var n: Base[]; return null; } : (n: Base[]) => any
+>true : true
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>null : null
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x296: Genric<Base> = true ? { func: n => { return [d1, d2]; } } : { func: n => { return [d1, d2]; } };
 >x296 : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
 >true ? { func: n => { return [d1, d2]; } } : { func: n => { return [d1, d2]; } } : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
->true : 为真
->类型别名 :=> 为真
+>true : true
 >{ func: n => { return [d1, d2]; } } : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
 >func : (n: Base[]) => (Derived1 | Derived2)[]
 >n => { return [d1, d2]; } : (n: Base[]) => (Derived1 | Derived2)[]
@@ -3116,10 +3029,8 @@ var x297: () => Base[] = true ? undefined : () => [d1, d2];
 >x297 : () => Base[]
 >Base : Base
 >true ? undefined : () => [d1, d2] : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -3129,10 +3040,8 @@ var x298: () => Base[] = true ? undefined : function() { return [d1, d2] };
 >x298 : () => Base[]
 >Base : Base
 >true ? undefined : function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -3142,10 +3051,8 @@ var x299: () => Base[] = true ? undefined : function named() { return [d1, d2] }
 >x299 : () => Base[]
 >Base : Base
 >true ? undefined : function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3156,10 +3063,8 @@ var x300: { (): Base[]; } = true ? undefined : () => [d1, d2];
 >x300 : () => Base[]
 >Base : Base
 >true ? undefined : () => [d1, d2] : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -3169,10 +3074,8 @@ var x301: { (): Base[]; } = true ? undefined : function() { return [d1, d2] };
 >x301 : () => Base[]
 >Base : Base
 >true ? undefined : function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
@@ -3182,10 +3085,8 @@ var x302: { (): Base[]; } = true ? undefined : function named() { return [d1, d2
 >x302 : () => Base[]
 >Base : Base
 >true ? undefined : function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3196,10 +3097,8 @@ var x303: Base[] = true ? undefined : [d1, d2];
 >x303 : Base[]
 >Base : Base
 >true ? undefined : [d1, d2] : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -3209,24 +3108,19 @@ var x304: Array<Base> = true ? undefined : [d1, d2];
 >Array : T[]
 >Base : Base
 >true ? undefined : [d1, d2] : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x305: { [n: number]: Base; } = true ? undefined : [d1, d2];
->x305 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x305 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >true ? undefined : [d1, d2] : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -3236,10 +3130,8 @@ var x306: {n: Base[]; }  = true ? undefined : { n: [d1, d2] };
 >n : Base[]
 >Base : Base
 >true ? undefined : { n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3247,30 +3139,25 @@ var x306: {n: Base[]; }  = true ? undefined : { n: [d1, d2] };
 >d2 : Derived2
 
 var x307: (s: Base[]) => any = true ? undefined : n => { var n: Base[]; return null; };
->x307 : (s: Base[]) => 任意
+>x307 : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->true ? undefined : n => { var n: Base[]; return null; } : (n: Base[]) => 任意
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>true ? undefined : n => { var n: Base[]; return null; } : (n: Base[]) => any
+>true : true
+>undefined : undefined
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x308: Genric<Base> = true ? undefined : { func: n => { return [d1, d2]; } };
 >x308 : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
 >true ? undefined : { func: n => { return [d1, d2]; } } : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
->true : 为真
->类型别名 :=> 为真
->undefined : 未定
->类型别名 :=> 未定
+>true : true
+>undefined : undefined
 >{ func: n => { return [d1, d2]; } } : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
 >func : (n: Base[]) => (Derived1 | Derived2)[]
 >n => { return [d1, d2]; } : (n: Base[]) => (Derived1 | Derived2)[]
@@ -3283,159 +3170,134 @@ var x309: () => Base[] = true ? () => [d1, d2] : undefined;
 >x309 : () => Base[]
 >Base : Base
 >true ? () => [d1, d2] : undefined : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x310: () => Base[] = true ? function() { return [d1, d2] } : undefined;
 >x310 : () => Base[]
 >Base : Base
 >true ? function() { return [d1, d2] } : undefined : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x311: () => Base[] = true ? function named() { return [d1, d2] } : undefined;
 >x311 : () => Base[]
 >Base : Base
 >true ? function named() { return [d1, d2] } : undefined : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x312: { (): Base[]; } = true ? () => [d1, d2] : undefined;
 >x312 : () => Base[]
 >Base : Base
 >true ? () => [d1, d2] : undefined : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x313: { (): Base[]; } = true ? function() { return [d1, d2] } : undefined;
 >x313 : () => Base[]
 >Base : Base
 >true ? function() { return [d1, d2] } : undefined : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x314: { (): Base[]; } = true ? function named() { return [d1, d2] } : undefined;
 >x314 : () => Base[]
 >Base : Base
 >true ? function named() { return [d1, d2] } : undefined : () => (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x315: Base[] = true ? [d1, d2] : undefined;
 >x315 : Base[]
 >Base : Base
 >true ? [d1, d2] : undefined : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x316: Array<Base> = true ? [d1, d2] : undefined;
 >x316 : Base[]
 >Array : T[]
 >Base : Base
 >true ? [d1, d2] : undefined : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x317: { [n: number]: Base; } = true ? [d1, d2] : undefined;
->x317 : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x317 : { [n: number]: Base; }
+>n : number
 >Base : Base
 >true ? [d1, d2] : undefined : (Derived1 | Derived2)[]
->true : 为真
->类型别名 :=> 为真
+>true : true
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x318: {n: Base[]; }  = true ? { n: [d1, d2] } : undefined;
 >x318 : { n: Base[]; }
 >n : Base[]
 >Base : Base
 >true ? { n: [d1, d2] } : undefined : { n: (Derived1 | Derived2)[]; }
->true : 为真
->类型别名 :=> 为真
+>true : true
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var x319: (s: Base[]) => any = true ? n => { var n: Base[]; return null; } : undefined;
->x319 : (s: Base[]) => 任意
+>x319 : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->true ? n => { var n: Base[]; return null; } : undefined : (n: Base[]) => 任意
->true : 为真
->类型别名 :=> 为真
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>true ? n => { var n: Base[]; return null; } : undefined : (n: Base[]) => any
+>true : true
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
->undefined : 未定
->类型别名 :=> 未定
+>null : null
+>undefined : undefined
 
 var x320: Genric<Base> = true ? { func: n => { return [d1, d2]; } } : undefined;
 >x320 : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
 >true ? { func: n => { return [d1, d2]; } } : undefined : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
->true : 为真
->类型别名 :=> 为真
+>true : true
 >{ func: n => { return [d1, d2]; } } : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
 >func : (n: Base[]) => (Derived1 | Derived2)[]
 >n => { return [d1, d2]; } : (n: Base[]) => (Derived1 | Derived2)[]
@@ -3443,40 +3305,36 @@ var x320: Genric<Base> = true ? { func: n => { return [d1, d2]; } } : undefined;
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 function x321(n: () => Base[]) { }; x321(() => [d1, d2]);
->x321 : (n: () => Base[]) => 无值
+>x321 : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x321(() => [d1, d2]) : 无值
->类型别名 :=> 无值
->x321 : (n: () => Base[]) => 无值
+>x321(() => [d1, d2]) : void
+>x321 : (n: () => Base[]) => void
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x322(n: () => Base[]) { }; x322(function() { return [d1, d2] });
->x322 : (n: () => Base[]) => 无值
+>x322 : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x322(function() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x322 : (n: () => Base[]) => 无值
+>x322(function() { return [d1, d2] }) : void
+>x322 : (n: () => Base[]) => void
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x323(n: () => Base[]) { }; x323(function named() { return [d1, d2] });
->x323 : (n: () => Base[]) => 无值
+>x323 : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x323(function named() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x323 : (n: () => Base[]) => 无值
+>x323(function named() { return [d1, d2] }) : void
+>x323 : (n: () => Base[]) => void
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3484,36 +3342,33 @@ function x323(n: () => Base[]) { }; x323(function named() { return [d1, d2] });
 >d2 : Derived2
 
 function x324(n: { (): Base[]; }) { }; x324(() => [d1, d2]);
->x324 : (n: () => Base[]) => 无值
+>x324 : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x324(() => [d1, d2]) : 无值
->类型别名 :=> 无值
->x324 : (n: () => Base[]) => 无值
+>x324(() => [d1, d2]) : void
+>x324 : (n: () => Base[]) => void
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x325(n: { (): Base[]; }) { }; x325(function() { return [d1, d2] });
->x325 : (n: () => Base[]) => 无值
+>x325 : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x325(function() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x325 : (n: () => Base[]) => 无值
+>x325(function() { return [d1, d2] }) : void
+>x325 : (n: () => Base[]) => void
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x326(n: { (): Base[]; }) { }; x326(function named() { return [d1, d2] });
->x326 : (n: () => Base[]) => 无值
+>x326 : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x326(function named() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x326 : (n: () => Base[]) => 无值
+>x326(function named() { return [d1, d2] }) : void
+>x326 : (n: () => Base[]) => void
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3521,49 +3376,44 @@ function x326(n: { (): Base[]; }) { }; x326(function named() { return [d1, d2] }
 >d2 : Derived2
 
 function x327(n: Base[]) { }; x327([d1, d2]);
->x327 : (n: Base[]) => 无值
+>x327 : (n: Base[]) => void
 >n : Base[]
 >Base : Base
->x327([d1, d2]) : 无值
->类型别名 :=> 无值
->x327 : (n: Base[]) => 无值
+>x327([d1, d2]) : void
+>x327 : (n: Base[]) => void
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x328(n: Array<Base>) { }; x328([d1, d2]);
->x328 : (n: Base[]) => 无值
+>x328 : (n: Base[]) => void
 >n : Base[]
 >Array : T[]
 >Base : Base
->x328([d1, d2]) : 无值
->类型别名 :=> 无值
->x328 : (n: Base[]) => 无值
+>x328([d1, d2]) : void
+>x328 : (n: Base[]) => void
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x329(n: { [n: number]: Base; }) { }; x329([d1, d2]);
->x329 : (n: { [n: 数字]: Base; }) => 无值
->n : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x329 : (n: { [n: number]: Base; }) => void
+>n : { [n: number]: Base; }
+>n : number
 >Base : Base
->x329([d1, d2]) : 无值
->类型别名 :=> 无值
->x329 : (n: { [n: 数字]: Base; }) => 无值
+>x329([d1, d2]) : void
+>x329 : (n: { [n: number]: Base; }) => void
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 function x330(n: {n: Base[]; } ) { }; x330({ n: [d1, d2] });
->x330 : (n: { n: Base[]; }) => 无值
+>x330 : (n: { n: Base[]; }) => void
 >n : { n: Base[]; }
 >n : Base[]
 >Base : Base
->x330({ n: [d1, d2] }) : 无值
->类型别名 :=> 无值
->x330 : (n: { n: Base[]; }) => 无值
+>x330({ n: [d1, d2] }) : void
+>x330 : (n: { n: Base[]; }) => void
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3571,28 +3421,25 @@ function x330(n: {n: Base[]; } ) { }; x330({ n: [d1, d2] });
 >d2 : Derived2
 
 function x331(n: (s: Base[]) => any) { }; x331(n => { var n: Base[]; return null; });
->x331 : (n: (s: Base[]) => 任意) => 无值
->n : (s: Base[]) => 任意
+>x331 : (n: (s: Base[]) => any) => void
+>n : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->x331(n => { var n: Base[]; return null; }) : 无值
->类型别名 :=> 无值
->x331 : (n: (s: Base[]) => 任意) => 无值
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>x331(n => { var n: Base[]; return null; }) : void
+>x331 : (n: (s: Base[]) => any) => void
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 function x332(n: Genric<Base>) { }; x332({ func: n => { return [d1, d2]; } });
->x332 : (n: Genric<Base>) => 无值
+>x332 : (n: Genric<Base>) => void
 >n : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
->x332({ func: n => { return [d1, d2]; } }) : 无值
->类型别名 :=> 无值
->x332 : (n: Genric<Base>) => 无值
+>x332({ func: n => { return [d1, d2]; } }) : void
+>x332 : (n: Genric<Base>) => void
 >{ func: n => { return [d1, d2]; } } : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
 >func : (n: Base[]) => (Derived1 | Derived2)[]
 >n => { return [d1, d2]; } : (n: Base[]) => (Derived1 | Derived2)[]
@@ -3707,15 +3554,14 @@ var x340 = (n: Array<Base>) => n; x340([d1, d2]);
 >d2 : Derived2
 
 var x341 = (n: { [n: number]: Base; }) => n; x341([d1, d2]);
->x341 : (n: { [n: 数字]: Base; }) => { [n: 数字]: Base; }
->(n: { [n: number]: Base; }) => n : (n: { [n: 数字]: Base; }) => { [n: 数字]: Base; }
->n : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x341 : (n: { [n: number]: Base; }) => { [n: number]: Base; }
+>(n: { [n: number]: Base; }) => n : (n: { [n: number]: Base; }) => { [n: number]: Base; }
+>n : { [n: number]: Base; }
+>n : number
 >Base : Base
->n : { [n: 数字]: Base; }
->x341([d1, d2]) : { [n: 数字]: Base; }
->x341 : (n: { [n: 数字]: Base; }) => { [n: 数字]: Base; }
+>n : { [n: number]: Base; }
+>x341([d1, d2]) : { [n: number]: Base; }
+>x341 : (n: { [n: number]: Base; }) => { [n: number]: Base; }
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
@@ -3736,20 +3582,19 @@ var x342 = (n: {n: Base[]; } ) => n; x342({ n: [d1, d2] });
 >d2 : Derived2
 
 var x343 = (n: (s: Base[]) => any) => n; x343(n => { var n: Base[]; return null; });
->x343 : (n: (s: Base[]) => 任意) => (s: Base[]) => 任意
->(n: (s: Base[]) => any) => n : (n: (s: Base[]) => 任意) => (s: Base[]) => 任意
->n : (s: Base[]) => 任意
+>x343 : (n: (s: Base[]) => any) => (s: Base[]) => any
+>(n: (s: Base[]) => any) => n : (n: (s: Base[]) => any) => (s: Base[]) => any
+>n : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->n : (s: Base[]) => 任意
->x343(n => { var n: Base[]; return null; }) : (s: Base[]) => 任意
->x343 : (n: (s: Base[]) => 任意) => (s: Base[]) => 任意
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>n : (s: Base[]) => any
+>x343(n => { var n: Base[]; return null; }) : (s: Base[]) => any
+>x343 : (n: (s: Base[]) => any) => (s: Base[]) => any
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x344 = (n: Genric<Base>) => n; x344({ func: n => { return [d1, d2]; } });
 >x344 : (n: Genric<Base>) => Genric<Base>
@@ -3769,39 +3614,36 @@ var x344 = (n: Genric<Base>) => n; x344({ func: n => { return [d1, d2]; } });
 >d2 : Derived2
 
 var x345 = function(n: () => Base[]) { }; x345(() => [d1, d2]);
->x345 : (n: () => Base[]) => 无值
->function(n: () => Base[]) { } : (n: () => Base[]) => 无值
+>x345 : (n: () => Base[]) => void
+>function(n: () => Base[]) { } : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x345(() => [d1, d2]) : 无值
->类型别名 :=> 无值
->x345 : (n: () => Base[]) => 无值
+>x345(() => [d1, d2]) : void
+>x345 : (n: () => Base[]) => void
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x346 = function(n: () => Base[]) { }; x346(function() { return [d1, d2] });
->x346 : (n: () => Base[]) => 无值
->function(n: () => Base[]) { } : (n: () => Base[]) => 无值
+>x346 : (n: () => Base[]) => void
+>function(n: () => Base[]) { } : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x346(function() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x346 : (n: () => Base[]) => 无值
+>x346(function() { return [d1, d2] }) : void
+>x346 : (n: () => Base[]) => void
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x347 = function(n: () => Base[]) { }; x347(function named() { return [d1, d2] });
->x347 : (n: () => Base[]) => 无值
->function(n: () => Base[]) { } : (n: () => Base[]) => 无值
+>x347 : (n: () => Base[]) => void
+>function(n: () => Base[]) { } : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x347(function named() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x347 : (n: () => Base[]) => 无值
+>x347(function named() { return [d1, d2] }) : void
+>x347 : (n: () => Base[]) => void
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3809,39 +3651,36 @@ var x347 = function(n: () => Base[]) { }; x347(function named() { return [d1, d2
 >d2 : Derived2
 
 var x348 = function(n: { (): Base[]; }) { }; x348(() => [d1, d2]);
->x348 : (n: () => Base[]) => 无值
->function(n: { (): Base[]; }) { } : (n: () => Base[]) => 无值
+>x348 : (n: () => Base[]) => void
+>function(n: { (): Base[]; }) { } : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x348(() => [d1, d2]) : 无值
->类型别名 :=> 无值
->x348 : (n: () => Base[]) => 无值
+>x348(() => [d1, d2]) : void
+>x348 : (n: () => Base[]) => void
 >() => [d1, d2] : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x349 = function(n: { (): Base[]; }) { }; x349(function() { return [d1, d2] });
->x349 : (n: () => Base[]) => 无值
->function(n: { (): Base[]; }) { } : (n: () => Base[]) => 无值
+>x349 : (n: () => Base[]) => void
+>function(n: { (): Base[]; }) { } : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x349(function() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x349 : (n: () => Base[]) => 无值
+>x349(function() { return [d1, d2] }) : void
+>x349 : (n: () => Base[]) => void
 >function() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x350 = function(n: { (): Base[]; }) { }; x350(function named() { return [d1, d2] });
->x350 : (n: () => Base[]) => 无值
->function(n: { (): Base[]; }) { } : (n: () => Base[]) => 无值
+>x350 : (n: () => Base[]) => void
+>function(n: { (): Base[]; }) { } : (n: () => Base[]) => void
 >n : () => Base[]
 >Base : Base
->x350(function named() { return [d1, d2] }) : 无值
->类型别名 :=> 无值
->x350 : (n: () => Base[]) => 无值
+>x350(function named() { return [d1, d2] }) : void
+>x350 : (n: () => Base[]) => void
 >function named() { return [d1, d2] } : () => (Derived1 | Derived2)[]
 >named : () => (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3849,53 +3688,48 @@ var x350 = function(n: { (): Base[]; }) { }; x350(function named() { return [d1,
 >d2 : Derived2
 
 var x351 = function(n: Base[]) { }; x351([d1, d2]);
->x351 : (n: Base[]) => 无值
->function(n: Base[]) { } : (n: Base[]) => 无值
+>x351 : (n: Base[]) => void
+>function(n: Base[]) { } : (n: Base[]) => void
 >n : Base[]
 >Base : Base
->x351([d1, d2]) : 无值
->类型别名 :=> 无值
->x351 : (n: Base[]) => 无值
+>x351([d1, d2]) : void
+>x351 : (n: Base[]) => void
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x352 = function(n: Array<Base>) { }; x352([d1, d2]);
->x352 : (n: Base[]) => 无值
->function(n: Array<Base>) { } : (n: Base[]) => 无值
+>x352 : (n: Base[]) => void
+>function(n: Array<Base>) { } : (n: Base[]) => void
 >n : Base[]
 >Array : T[]
 >Base : Base
->x352([d1, d2]) : 无值
->类型别名 :=> 无值
->x352 : (n: Base[]) => 无值
+>x352([d1, d2]) : void
+>x352 : (n: Base[]) => void
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x353 = function(n: { [n: number]: Base; }) { }; x353([d1, d2]);
->x353 : (n: { [n: 数字]: Base; }) => 无值
->function(n: { [n: number]: Base; }) { } : (n: { [n: 数字]: Base; }) => 无值
->n : { [n: 数字]: Base; }
->n : 数字
->类型别名 :=> 数字
+>x353 : (n: { [n: number]: Base; }) => void
+>function(n: { [n: number]: Base; }) { } : (n: { [n: number]: Base; }) => void
+>n : { [n: number]: Base; }
+>n : number
 >Base : Base
->x353([d1, d2]) : 无值
->类型别名 :=> 无值
->x353 : (n: { [n: 数字]: Base; }) => 无值
+>x353([d1, d2]) : void
+>x353 : (n: { [n: number]: Base; }) => void
 >[d1, d2] : (Derived1 | Derived2)[]
 >d1 : Derived1
 >d2 : Derived2
 
 var x354 = function(n: {n: Base[]; } ) { }; x354({ n: [d1, d2] });
->x354 : (n: { n: Base[]; }) => 无值
->function(n: {n: Base[]; } ) { } : (n: { n: Base[]; }) => 无值
+>x354 : (n: { n: Base[]; }) => void
+>function(n: {n: Base[]; } ) { } : (n: { n: Base[]; }) => void
 >n : { n: Base[]; }
 >n : Base[]
 >Base : Base
->x354({ n: [d1, d2] }) : 无值
->类型别名 :=> 无值
->x354 : (n: { n: Base[]; }) => 无值
+>x354({ n: [d1, d2] }) : void
+>x354 : (n: { n: Base[]; }) => void
 >{ n: [d1, d2] } : { n: (Derived1 | Derived2)[]; }
 >n : (Derived1 | Derived2)[]
 >[d1, d2] : (Derived1 | Derived2)[]
@@ -3903,30 +3737,27 @@ var x354 = function(n: {n: Base[]; } ) { }; x354({ n: [d1, d2] });
 >d2 : Derived2
 
 var x355 = function(n: (s: Base[]) => any) { }; x355(n => { var n: Base[]; return null; });
->x355 : (n: (s: Base[]) => 任意) => 无值
->function(n: (s: Base[]) => any) { } : (n: (s: Base[]) => 任意) => 无值
->n : (s: Base[]) => 任意
+>x355 : (n: (s: Base[]) => any) => void
+>function(n: (s: Base[]) => any) { } : (n: (s: Base[]) => any) => void
+>n : (s: Base[]) => any
 >s : Base[]
 >Base : Base
->x355(n => { var n: Base[]; return null; }) : 无值
->类型别名 :=> 无值
->x355 : (n: (s: Base[]) => 任意) => 无值
->n => { var n: Base[]; return null; } : (n: Base[]) => 任意
+>x355(n => { var n: Base[]; return null; }) : void
+>x355 : (n: (s: Base[]) => any) => void
+>n => { var n: Base[]; return null; } : (n: Base[]) => any
 >n : Base[]
 >n : Base[]
 >Base : Base
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var x356 = function(n: Genric<Base>) { }; x356({ func: n => { return [d1, d2]; } });
->x356 : (n: Genric<Base>) => 无值
->function(n: Genric<Base>) { } : (n: Genric<Base>) => 无值
+>x356 : (n: Genric<Base>) => void
+>function(n: Genric<Base>) { } : (n: Genric<Base>) => void
 >n : Genric<Base>
 >Genric : Genric<T>
 >Base : Base
->x356({ func: n => { return [d1, d2]; } }) : 无值
->类型别名 :=> 无值
->x356 : (n: Genric<Base>) => 无值
+>x356({ func: n => { return [d1, d2]; } }) : void
+>x356 : (n: Genric<Base>) => void
 >{ func: n => { return [d1, d2]; } } : { func: (n: Base[]) => (Derived1 | Derived2)[]; }
 >func : (n: Base[]) => (Derived1 | Derived2)[]
 >n => { return [d1, d2]; } : (n: Base[]) => (Derived1 | Derived2)[]

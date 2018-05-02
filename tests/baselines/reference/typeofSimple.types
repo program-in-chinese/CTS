@@ -1,20 +1,15 @@
 === tests/cases/compiler/typeofSimple.ts ===
 var v = 3;
->v : 数字
->类型别名 :=> 数字
+>v : number
 >3 : 3
 
 var v2: typeof v;
->v2 : 数字
->类型别名 :=> 数字
->v : 数字
->类型别名 :=> 数字
+>v2 : number
+>v : number
 
 var v3: string = v2; // Not assignment compatible
->v3 : 文字
->类型别名 :=> 文字
->v2 : 数字
->类型别名 :=> 数字
+>v3 : string
+>v2 : number
 
 interface I<T> { x: T; }
 >I : I<T>
@@ -26,24 +21,21 @@ interface J { }
 >J : J
 
 var numberJ: typeof J; //Error, cannot reference type in typeof
->numberJ : 任意
->类型别名 :=> 任意
->J : 任意
->类型别名 :=> 任意
+>numberJ : any
+>J : any
 
 var numberI: I<typeof v2>;
->numberI : I<数字>
+>numberI : I<number>
 >I : I<T>
->v2 : 数字
->类型别名 :=> 数字
+>v2 : number
 
 var fun: () => I<number>;
->fun : () => I<数字>
+>fun : () => I<number>
 >I : I<T>
 
 numberI = fun();
->numberI = fun() : I<数字>
->numberI : I<数字>
->fun() : I<数字>
->fun : () => I<数字>
+>numberI = fun() : I<number>
+>numberI : I<number>
+>fun() : I<number>
+>fun : () => I<number>
 

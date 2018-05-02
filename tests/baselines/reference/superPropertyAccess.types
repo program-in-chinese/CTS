@@ -3,39 +3,32 @@ class MyBase {
 >MyBase : MyBase
 
     m1(a: string) { return a; }
->m1 : (a: 文字) => 文字
->a : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
+>m1 : (a: string) => string
+>a : string
+>a : string
 
     private p1() { }
->p1 : () => 无值
+>p1 : () => void
 
     m2: () => void = function () { }
->m2 : () => 无值
->function () { } : () => 无值
+>m2 : () => void
+>function () { } : () => void
 
     d1: number = 42;
->d1 : 数字
->类型别名 :=> 数字
+>d1 : number
 >42 : 42
 
     private d2: number = 42;
->d2 : 数字
->类型别名 :=> 数字
+>d2 : number
 >42 : 42
 
     get value() {return 0 }
->value : 数字
->类型别名 :=> 数字
+>value : number
 >0 : 0
 
     set value(v: number) { }
->value : 数字
->类型别名 :=> 数字
->v : 数字
->类型别名 :=> 数字
+>value : number
+>v : number
 }
 
 
@@ -44,97 +37,79 @@ class MyDerived extends MyBase {
 >MyBase : MyBase
 
     foo() {
->foo : () => 无值
+>foo : () => void
 
         super.m1("hi");                                     // Should be allowed, method on base prototype
->super.m1("hi") : 文字
->类型别名 :=> 文字
->super.m1 : (a: 文字) => 文字
+>super.m1("hi") : string
+>super.m1 : (a: string) => string
 >super : MyBase
->m1 : (a: 文字) => 文字
+>m1 : (a: string) => string
 >"hi" : "hi"
 
         var l2 = super.m1.bind(this);                       // Should be allowed, can access properties as well as invoke
->l2 : 任意
->类型别名 :=> 任意
->super.m1.bind(this) : 任意
->类型别名 :=> 任意
->super.m1.bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
->super.m1 : (a: 文字) => 文字
+>l2 : any
+>super.m1.bind(this) : any
+>super.m1.bind : (this: Function, thisArg: any, ...argArray: any[]) => any
+>super.m1 : (a: string) => string
 >super : MyBase
->m1 : (a: 文字) => 文字
->bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
->this : 本体
+>m1 : (a: string) => string
+>bind : (this: Function, thisArg: any, ...argArray: any[]) => any
+>this : this
 
         var x: (a: string) => string = super.m1;            // Should be allowed, can assign to var with compatible signature
->x : (a: 文字) => 文字
->a : 文字
->类型别名 :=> 文字
->super.m1 : (a: 文字) => 文字
+>x : (a: string) => string
+>a : string
+>super.m1 : (a: string) => string
 >super : MyBase
->m1 : (a: 文字) => 文字
+>m1 : (a: string) => string
 
         super.m2.bind(this);                                // Should error, instance property, not a public instance member function
->super.m2.bind(this) : 任意
->类型别名 :=> 任意
->super.m2.bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
->super.m2 : () => 无值
+>super.m2.bind(this) : any
+>super.m2.bind : (this: Function, thisArg: any, ...argArray: any[]) => any
+>super.m2 : () => void
 >super : MyBase
->m2 : () => 无值
->bind : (this: Function, thisArg: 任意, ...argArray: 任意[]) => 任意
->this : 本体
+>m2 : () => void
+>bind : (this: Function, thisArg: any, ...argArray: any[]) => any
+>this : this
 
         super.p1();                                         // Should error, private not public instance member function
->super.p1() : 无值
->类型别名 :=> 无值
->super.p1 : () => 无值
+>super.p1() : void
+>super.p1 : () => void
 >super : MyBase
->p1 : () => 无值
+>p1 : () => void
 
         var l1 = super.d1;                                  // Should error, instance data property not a public instance member function
->l1 : 数字
->类型别名 :=> 数字
->super.d1 : 数字
->类型别名 :=> 数字
+>l1 : number
+>super.d1 : number
 >super : MyBase
->d1 : 数字
->类型别名 :=> 数字
+>d1 : number
 
         var l1 = super.d2;                                  // Should error, instance data property not a public instance member function
->l1 : 数字
->类型别名 :=> 数字
->super.d2 : 数字
->类型别名 :=> 数字
+>l1 : number
+>super.d2 : number
 >super : MyBase
->d2 : 数字
->类型别名 :=> 数字
+>d2 : number
 
         super.m1 = function (a: string) { return ""; };     // Should be allowed, we will not restrict assignment
->super.m1 = function (a: string) { return ""; } : (a: 文字) => 文字
->super.m1 : (a: 文字) => 文字
+>super.m1 = function (a: string) { return ""; } : (a: string) => string
+>super.m1 : (a: string) => string
 >super : MyBase
->m1 : (a: 文字) => 文字
->function (a: string) { return ""; } : (a: 文字) => 文字
->a : 文字
->类型别名 :=> 文字
+>m1 : (a: string) => string
+>function (a: string) { return ""; } : (a: string) => string
+>a : string
 >"" : ""
 
         super.value = 0;                                    // Should error, instance data property not a public instance member function
 >super.value = 0 : 0
->super.value : 数字
->类型别名 :=> 数字
+>super.value : number
 >super : MyBase
->value : 数字
->类型别名 :=> 数字
+>value : number
 >0 : 0
         
         var z = super.value;                                // Should error, instance data property not a public instance member function
->z : 数字
->类型别名 :=> 数字
->super.value : 数字
->类型别名 :=> 数字
+>z : number
+>super.value : number
 >super : MyBase
->value : 数字
->类型别名 :=> 数字
+>value : number
     }
 }

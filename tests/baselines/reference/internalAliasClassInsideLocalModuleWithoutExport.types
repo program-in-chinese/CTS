@@ -1,46 +1,42 @@
 === tests/cases/compiler/internalAliasClassInsideLocalModuleWithoutExport.ts ===
 export module x {
->x : 类为 x
+>x : typeof x
 
     export class c {
 >c : c
 
         foo(a: number) {
->foo : (a: 数字) => 数字
->a : 数字
->类型别名 :=> 数字
+>foo : (a: number) => number
+>a : number
 
             return a;
->a : 数字
->类型别名 :=> 数字
+>a : number
         }
     }
 }
 
 export module m2 {
->m2 : 类为 m2
+>m2 : typeof m2
 
     export module m3 {
->m3 : 类为 m3
+>m3 : typeof m3
 
         import c = x.c;
->c : 类为 c
->x : 类为 x
+>c : typeof c
+>x : typeof x
 >c : c
 
         export var cProp = new c();
 >cProp : c
 >new c() : c
->c : 类为 c
+>c : typeof c
 
         var cReturnVal = cProp.foo(10);
->cReturnVal : 数字
->类型别名 :=> 数字
->cProp.foo(10) : 数字
->类型别名 :=> 数字
->cProp.foo : (a: 数字) => 数字
+>cReturnVal : number
+>cProp.foo(10) : number
+>cProp.foo : (a: number) => number
 >cProp : c
->foo : (a: 数字) => 数字
+>foo : (a: number) => number
 >10 : 10
     }
 }

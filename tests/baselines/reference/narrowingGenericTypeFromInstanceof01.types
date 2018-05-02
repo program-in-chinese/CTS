@@ -4,8 +4,7 @@ class A<T> {
 >T : T
 
     constructor(private a: string) { }
->a : 文字
->类型别名 :=> 文字
+>a : string
 }
 
 class B<T> {
@@ -14,21 +13,21 @@ class B<T> {
 }
 
 function acceptA<T>(a: A<T>) { }
->acceptA : <T>(a: A<T>) => 无值
+>acceptA : <T>(a: A<T>) => void
 >T : T
 >a : A<T>
 >A : A<T>
 >T : T
 
 function acceptB<T>(b: B<T>) { }
->acceptB : <T>(b: B<T>) => 无值
+>acceptB : <T>(b: B<T>) => void
 >T : T
 >b : B<T>
 >B : B<T>
 >T : T
 
 function test<T>(x: A<T> | B<T>) {
->test : <T>(x: A<T> | B<T>) => 无值
+>test : <T>(x: A<T> | B<T>) => void
 >T : T
 >x : A<T> | B<T>
 >A : A<T>
@@ -37,54 +36,46 @@ function test<T>(x: A<T> | B<T>) {
 >T : T
 
     if (x instanceof B) {
->x instanceof B : 真假
->类型别名 :=> 真假
+>x instanceof B : boolean
 >x : A<T> | B<T>
->B : 类为 B
+>B : typeof B
 
         acceptA(x);
->acceptA(x) : 任意
->类型别名 :=> 任意
->acceptA : <T>(a: A<T>) => 无值
->x : A<T> | B<T>
+>acceptA(x) : any
+>acceptA : <T>(a: A<T>) => void
+>x : B<T>
     }
 
     if (x instanceof A) {
->x instanceof A : 真假
->类型别名 :=> 真假
+>x instanceof A : boolean
 >x : A<T> | B<T>
->A : 类为 A
+>A : typeof A
 
         acceptA(x);
->acceptA(x) : 无值
->类型别名 :=> 无值
->acceptA : <T>(a: A<T>) => 无值
+>acceptA(x) : void
+>acceptA : <T>(a: A<T>) => void
 >x : A<T>
     }
 
     if (x instanceof B) {
->x instanceof B : 真假
->类型别名 :=> 真假
+>x instanceof B : boolean
 >x : A<T> | B<T>
->B : 类为 B
+>B : typeof B
 
         acceptB(x);
->acceptB(x) : 无值
->类型别名 :=> 无值
->acceptB : <T>(b: B<T>) => 无值
->x : A<T> | B<T>
+>acceptB(x) : void
+>acceptB : <T>(b: B<T>) => void
+>x : B<T>
     }
 
     if (x instanceof B) {
->x instanceof B : 真假
->类型别名 :=> 真假
+>x instanceof B : boolean
 >x : A<T> | B<T>
->B : 类为 B
+>B : typeof B
 
         acceptB(x);
->acceptB(x) : 无值
->类型别名 :=> 无值
->acceptB : <T>(b: B<T>) => 无值
->x : A<T> | B<T>
+>acceptB(x) : void
+>acceptB : <T>(b: B<T>) => void
+>x : B<T>
     }
 }

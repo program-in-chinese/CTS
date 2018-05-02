@@ -1,37 +1,29 @@
 === tests/cases/compiler/genericDefaults.ts ===
 interface A { a: number; }
 >A : A
->a : 数字
->类型别名 :=> 数字
+>a : number
 
 interface B { b: number; }
 >B : B
->b : 数字
->类型别名 :=> 数字
+>b : number
 
 interface C { c: number; }
 >C : C
->c : 数字
->类型别名 :=> 数字
+>c : number
 
 interface D { d: number; }
 >D : D
->d : 数字
->类型别名 :=> 数字
+>d : number
 
 interface AB { a: number; b: number; }
 >AB : AB
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>a : number
+>b : number
 
 interface BC { b: number; c: number; }
 >BC : BC
->b : 数字
->类型别名 :=> 数字
->c : 数字
->类型别名 :=> 数字
+>b : number
+>c : number
 
 declare const a: A;
 >a : A
@@ -58,8 +50,7 @@ declare const bc: BC;
 >BC : BC
 
 declare const x: any;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 // function without type parameters
 declare function f00(a?: A): A;
@@ -724,7 +715,7 @@ f07<A, C, D>(a, c, d);
 
 // function with a type parameter with a default that refers to an earlier type parameter with a constraint
 declare function f08<T extends A, U = T>(a?: T, b?: U): [T, U];
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >T : T
 >A : A
 >U : U
@@ -739,40 +730,40 @@ declare function f08<T extends A, U = T>(a?: T, b?: U): [T, U];
 // inference
 f08();
 >f08() : [A, A]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 
 f08(a);
 >f08(a) : [A, A]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >a : A
 
 f08(a, a);
 >f08(a, a) : [A, A]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >a : A
 >a : A
 
 f08(a, b);
 >f08(a, b) : [A, B]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >a : A
 >b : B
 
 // no inference, partially supplied
 f08<A>();
 >f08<A>() : [A, A]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >A : A
 
 f08<A>(a);
 >f08<A>(a) : [A, A]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 
 f08<A>(a, a);
 >f08<A>(a, a) : [A, A]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 >a : A
@@ -780,20 +771,20 @@ f08<A>(a, a);
 // no inference, fully supplied
 f08<A, B>();
 >f08<A, B>() : [A, B]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >A : A
 >B : B
 
 f08<A, B>(a);
 >f08<A, B>(a) : [A, B]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >A : A
 >B : B
 >a : A
 
 f08<A, B>(a, b);
 >f08<A, B>(a, b) : [A, B]
->f08 : <T 扩展 A, U = T>(a?: T, b?: U) => [T, U]
+>f08 : <T extends A, U = T>(a?: T, b?: U) => [T, U]
 >A : A
 >B : B
 >a : A
@@ -801,7 +792,7 @@ f08<A, B>(a, b);
 
 // function with a type parameter with a constraint and a default that refers to an earlier type parameter
 declare function f09<T, U extends T = T>(a?: T, b?: U): [T, U];
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >T : T
 >U : U
 >T : T
@@ -816,47 +807,47 @@ declare function f09<T, U extends T = T>(a?: T, b?: U): [T, U];
 // inference
 f09();
 >f09() : [{}, {}]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 
 f09(a);
 >f09(a) : [A, A]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >a : A
 
 f09(a, a);
 >f09(a, a) : [A, A]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >a : A
 >a : A
 
 f09(a, ab);
 >f09(a, ab) : [A, AB]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >a : A
 >ab : AB
 
 // no inference, partially supplied
 f09<A>();
 >f09<A>() : [A, A]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 
 f09<A>(a);
 >f09<A>(a) : [A, A]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 
 f09<A>(a, a);
 >f09<A>(a, a) : [A, A]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 >a : A
 
 f09<A>(a, ab);
 >f09<A>(a, ab) : [A, A]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 >ab : AB
@@ -864,20 +855,20 @@ f09<A>(a, ab);
 // no inference, fully supplied
 f09<A, AB>();
 >f09<A, AB>() : [A, AB]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >AB : AB
 
 f09<A, AB>(a);
 >f09<A, AB>(a) : [A, AB]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >AB : AB
 >a : A
 
 f09<A, AB>(a, ab);
 >f09<A, AB>(a, ab) : [A, AB]
->f09 : <T, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f09 : <T, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >AB : AB
 >a : A
@@ -885,7 +876,7 @@ f09<A, AB>(a, ab);
 
 // function with a type parameter with a constraint and a default that refers to an earlier type parameter with a constraint
 declare function f10<T extends A, U extends T = T>(a?: T, b?: U): [T, U];
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >T : T
 >A : A
 >U : U
@@ -901,47 +892,47 @@ declare function f10<T extends A, U extends T = T>(a?: T, b?: U): [T, U];
 // inference
 f10();
 >f10() : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 
 f10(a);
 >f10(a) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >a : A
 
 f10(a, a);
 >f10(a, a) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >a : A
 >a : A
 
 f10(a, ab);
 >f10(a, ab) : [A, AB]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >a : A
 >ab : AB
 
 // no inference, partially supplied
 f10<A>();
 >f10<A>() : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 
 f10<A>(a);
 >f10<A>(a) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 
 f10<A>(a, a);
 >f10<A>(a, a) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 >a : A
 
 f10<A>(a, ab);
 >f10<A>(a, ab) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >a : A
 >ab : AB
@@ -949,20 +940,20 @@ f10<A>(a, ab);
 // no inference, fully supplied
 f10<A, A>();
 >f10<A, A>() : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >A : A
 
 f10<A, A>(a);
 >f10<A, A>(a) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >A : A
 >a : A
 
 f10<A, A>(a, a);
 >f10<A, A>(a, a) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >A : A
 >a : A
@@ -970,7 +961,7 @@ f10<A, A>(a, a);
 
 f10<A, A>(a, ab);
 >f10<A, A>(a, ab) : [A, A]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >A : A
 >a : A
@@ -978,20 +969,20 @@ f10<A, A>(a, ab);
 
 f10<A, AB>();
 >f10<A, AB>() : [A, AB]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >AB : AB
 
 f10<A, AB>(a);
 >f10<A, AB>(a) : [A, AB]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >AB : AB
 >a : A
 
 f10<A, AB>(a, ab);
 >f10<A, AB>(a, ab) : [A, AB]
->f10 : <T 扩展 A, U 扩展 T = T>(a?: T, b?: U) => [T, U]
+>f10 : <T extends A, U extends T = T>(a?: T, b?: U) => [T, U]
 >A : A
 >AB : AB
 >a : A
@@ -2079,30 +2070,22 @@ interface i00<T = number> { a: T; }
 >T : T
 
 const i00c00 = (<i00>x).a;
->i00c00 : 数字
->类型别名 :=> 数字
->(<i00>x).a : 数字
->类型别名 :=> 数字
->(<i00>x) : i00<数字>
-><i00>x : i00<数字>
+>i00c00 : number
+>(<i00>x).a : number
+>(<i00>x) : i00<number>
+><i00>x : i00<number>
 >i00 : i00<T>
->x : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
+>x : any
+>a : number
 
 const i00c01 = (<i00<number>>x).a;
->i00c01 : 数字
->类型别名 :=> 数字
->(<i00<number>>x).a : 数字
->类型别名 :=> 数字
->(<i00<number>>x) : i00<数字>
-><i00<number>>x : i00<数字>
+>i00c01 : number
+>(<i00<number>>x).a : number
+>(<i00<number>>x) : i00<number>
+><i00<number>>x : i00<number>
 >i00 : i00<T>
->x : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
+>x : any
+>a : number
 
 interface i01<T, U = T> { a: [T, U]; }
 >i01 : i01<T, U>
@@ -2114,24 +2097,22 @@ interface i01<T, U = T> { a: [T, U]; }
 >U : U
 
 const i01c00 = (<i01<number>>x).a;
->i01c00 : [数字, 数字]
->(<i01<number>>x).a : [数字, 数字]
->(<i01<number>>x) : i01<数字, 数字>
-><i01<number>>x : i01<数字, 数字>
+>i01c00 : [number, number]
+>(<i01<number>>x).a : [number, number]
+>(<i01<number>>x) : i01<number, number>
+><i01<number>>x : i01<number, number>
 >i01 : i01<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const i01c01 = (<i01<number, string>>x).a;
->i01c01 : [数字, 文字]
->(<i01<number, string>>x).a : [数字, 文字]
->(<i01<number, string>>x) : i01<数字, 文字>
-><i01<number, string>>x : i01<数字, 文字>
+>i01c01 : [number, string]
+>(<i01<number, string>>x).a : [number, string]
+>(<i01<number, string>>x) : i01<number, string>
+><i01<number, string>>x : i01<number, string>
 >i01 : i01<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 文字]
+>x : any
+>a : [number, string]
 
 interface i02<T extends number, U = T> { a: [T, U]; }
 >i02 : i02<T, U>
@@ -2143,14 +2124,13 @@ interface i02<T extends number, U = T> { a: [T, U]; }
 >U : U
 
 const i02c00 = (<i02<number>>x).a;
->i02c00 : [数字, 数字]
->(<i02<number>>x).a : [数字, 数字]
->(<i02<number>>x) : i02<数字, 数字>
-><i02<number>>x : i02<数字, 数字>
+>i02c00 : [number, number]
+>(<i02<number>>x).a : [number, number]
+>(<i02<number>>x) : i02<number, number>
+><i02<number>>x : i02<number, number>
 >i02 : i02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const i02c01 = (<i02<1>>x).a;
 >i02c01 : [1, 1]
@@ -2158,39 +2138,35 @@ const i02c01 = (<i02<1>>x).a;
 >(<i02<1>>x) : i02<1, 1>
 ><i02<1>>x : i02<1, 1>
 >i02 : i02<T, U>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : [1, 1]
 
 const i02c02 = (<i02<number, number>>x).a;
->i02c02 : [数字, 数字]
->(<i02<number, number>>x).a : [数字, 数字]
->(<i02<number, number>>x) : i02<数字, 数字>
-><i02<number, number>>x : i02<数字, 数字>
+>i02c02 : [number, number]
+>(<i02<number, number>>x).a : [number, number]
+>(<i02<number, number>>x) : i02<number, number>
+><i02<number, number>>x : i02<number, number>
 >i02 : i02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const i02c03 = (<i02<1, number>>x).a;
->i02c03 : [1, 数字]
->(<i02<1, number>>x).a : [1, 数字]
->(<i02<1, number>>x) : i02<1, 数字>
-><i02<1, number>>x : i02<1, 数字>
+>i02c03 : [1, number]
+>(<i02<1, number>>x).a : [1, number]
+>(<i02<1, number>>x) : i02<1, number>
+><i02<1, number>>x : i02<1, number>
 >i02 : i02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [1, 数字]
+>x : any
+>a : [1, number]
 
 const i02c04 = (<i02<number, 1>>x).a;
->i02c04 : [数字, 1]
->(<i02<number, 1>>x).a : [数字, 1]
->(<i02<number, 1>>x) : i02<数字, 1>
-><i02<number, 1>>x : i02<数字, 1>
+>i02c04 : [number, 1]
+>(<i02<number, 1>>x).a : [number, 1]
+>(<i02<number, 1>>x) : i02<number, 1>
+><i02<number, 1>>x : i02<number, 1>
 >i02 : i02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 1]
+>x : any
+>a : [number, 1]
 
 interface i03<T extends number, U extends T = T> { a: [T, U]; }
 >i03 : i03<T, U>
@@ -2203,14 +2179,13 @@ interface i03<T extends number, U extends T = T> { a: [T, U]; }
 >U : U
 
 const i03c00 = (<i03<number>>x).a;
->i03c00 : [数字, 数字]
->(<i03<number>>x).a : [数字, 数字]
->(<i03<number>>x) : i03<数字, 数字>
-><i03<number>>x : i03<数字, 数字>
+>i03c00 : [number, number]
+>(<i03<number>>x).a : [number, number]
+>(<i03<number>>x) : i03<number, number>
+><i03<number>>x : i03<number, number>
 >i03 : i03<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const i03c01 = (<i03<1>>x).a;
 >i03c01 : [1, 1]
@@ -2218,19 +2193,17 @@ const i03c01 = (<i03<1>>x).a;
 >(<i03<1>>x) : i03<1, 1>
 ><i03<1>>x : i03<1, 1>
 >i03 : i03<T, U>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : [1, 1]
 
 const i03c02 = (<i03<number, number>>x).a;
->i03c02 : [数字, 数字]
->(<i03<number, number>>x).a : [数字, 数字]
->(<i03<number, number>>x) : i03<数字, 数字>
-><i03<number, number>>x : i03<数字, 数字>
+>i03c02 : [number, number]
+>(<i03<number, number>>x).a : [number, number]
+>(<i03<number, number>>x) : i03<number, number>
+><i03<number, number>>x : i03<number, number>
 >i03 : i03<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const i03c03 = (<i03<1, 1>>x).a;
 >i03c03 : [1, 1]
@@ -2238,19 +2211,17 @@ const i03c03 = (<i03<1, 1>>x).a;
 >(<i03<1, 1>>x) : i03<1, 1>
 ><i03<1, 1>>x : i03<1, 1>
 >i03 : i03<T, U>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : [1, 1]
 
 const i03c04 = (<i03<number, 1>>x).a;
->i03c04 : [数字, 1]
->(<i03<number, 1>>x).a : [数字, 1]
->(<i03<number, 1>>x) : i03<数字, 1>
-><i03<number, 1>>x : i03<数字, 1>
+>i03c04 : [number, 1]
+>(<i03<number, 1>>x).a : [number, 1]
+>(<i03<number, 1>>x) : i03<number, 1>
+><i03<number, 1>>x : i03<number, 1>
 >i03 : i03<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 1]
+>x : any
+>a : [number, 1]
 
 interface i04 {}
 >i04 : i04<T, U>
@@ -2281,22 +2252,17 @@ const i05c00 = (<i05>x).a;
 >(<i05>x) : i05<{}>
 ><i05>x : i05<{}>
 >i05 : i05<T>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : {}
 
 const i05c01 = (<i05<number>>x).a;
->i05c01 : 数字
->类型别名 :=> 数字
->(<i05<number>>x).a : 数字
->类型别名 :=> 数字
->(<i05<number>>x) : i05<数字>
-><i05<number>>x : i05<数字>
+>i05c01 : number
+>(<i05<number>>x).a : number
+>(<i05<number>>x) : i05<number>
+><i05<number>>x : i05<number>
 >i05 : i05<T>
->x : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
+>x : any
+>a : number
 
 interface i06<T = U, U = T> { a: [T, U]; }
 >i06 : i06<T, U>
@@ -2314,29 +2280,26 @@ const i06c00 = (<i06>x).a;
 >(<i06>x) : i06<{}, {}>
 ><i06>x : i06<{}, {}>
 >i06 : i06<T, U>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : [{}, {}]
 
 const i06c01 = (<i06<number>>x).a;
->i06c01 : [数字, 数字]
->(<i06<number>>x).a : [数字, 数字]
->(<i06<number>>x) : i06<数字, 数字>
-><i06<number>>x : i06<数字, 数字>
+>i06c01 : [number, number]
+>(<i06<number>>x).a : [number, number]
+>(<i06<number>>x) : i06<number, number>
+><i06<number>>x : i06<number, number>
 >i06 : i06<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const i06c02 = (<i06<number, string>>x).a;
->i06c02 : [数字, 文字]
->(<i06<number, string>>x).a : [数字, 文字]
->(<i06<number, string>>x) : i06<数字, 文字>
-><i06<number, string>>x : i06<数字, 文字>
+>i06c02 : [number, string]
+>(<i06<number, string>>x).a : [number, string]
+>(<i06<number, string>>x) : i06<number, string>
+><i06<number, string>>x : i06<number, string>
 >i06 : i06<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 文字]
+>x : any
+>a : [number, string]
 
 interface i07 { a: A; }
 >i07 : i07<A>
@@ -2352,25 +2315,20 @@ interface i07<A = number> { b: A; }
 const i07c00 = (<i07>x).a;
 >i07c00 : A
 >(<i07>x).a : A
->(<i07>x) : i07<数字>
-><i07>x : i07<数字>
+>(<i07>x) : i07<number>
+><i07>x : i07<number>
 >i07 : i07<A>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : A
 
 const i07c01 = (<i07>x).b;
->i07c01 : 数字
->类型别名 :=> 数字
->(<i07>x).b : 数字
->类型别名 :=> 数字
->(<i07>x) : i07<数字>
-><i07>x : i07<数字>
+>i07c01 : number
+>(<i07>x).b : number
+>(<i07>x) : i07<number>
+><i07>x : i07<number>
 >i07 : i07<A>
->x : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
+>x : any
+>b : number
 
 const i07c02 = (<i07<B>>x).a;
 >i07c02 : A
@@ -2379,8 +2337,7 @@ const i07c02 = (<i07<B>>x).a;
 ><i07<B>>x : i07<B>
 >i07 : i07<A>
 >B : B
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : A
 
 const i07c03 = (<i07<B>>x).b;
@@ -2390,8 +2347,7 @@ const i07c03 = (<i07<B>>x).b;
 ><i07<B>>x : i07<B>
 >i07 : i07<A>
 >B : B
->x : 任意
->类型别名 :=> 任意
+>x : any
 >b : B
 
 interface Base01<T> { a: T; }
@@ -2413,24 +2369,24 @@ declare const Base01: Base01Constructor;
 >Base01Constructor : Base01Constructor
 
 const Base01c00 = new Base01();
->Base01c00 : Base01<数字>
->new Base01() : Base01<数字>
+>Base01c00 : Base01<number>
+>new Base01() : Base01<number>
 >Base01 : Base01Constructor
 
 const Base01c01 = new Base01(1);
->Base01c01 : Base01<数字>
->new Base01(1) : Base01<数字>
+>Base01c01 : Base01<number>
+>new Base01(1) : Base01<number>
 >Base01 : Base01Constructor
 >1 : 1
 
 const Base01c02 = new Base01<number>();
->Base01c02 : Base01<数字>
->new Base01<number>() : Base01<数字>
+>Base01c02 : Base01<number>
+>new Base01<number>() : Base01<number>
 >Base01 : Base01Constructor
 
 const Base01c03 = new Base01<number>(1);
->Base01c03 : Base01<数字>
->new Base01<number>(1) : Base01<数字>
+>Base01c03 : Base01<number>
+>new Base01<number>(1) : Base01<number>
 >Base01 : Base01Constructor
 >1 : 1
 
@@ -2443,23 +2399,23 @@ declare class Derived01<T> extends Base01<T> { }
 const Derived01c00 = new Derived01();
 >Derived01c00 : Derived01<{}>
 >new Derived01() : Derived01<{}>
->Derived01 : 类为 Derived01
+>Derived01 : typeof Derived01
 
 const Derived01c01 = new Derived01(1);
->Derived01c01 : Derived01<数字>
->new Derived01(1) : Derived01<数字>
->Derived01 : 类为 Derived01
+>Derived01c01 : Derived01<number>
+>new Derived01(1) : Derived01<number>
+>Derived01 : typeof Derived01
 >1 : 1
 
 const Derived01c02 = new Derived01<number>();
->Derived01c02 : Derived01<数字>
->new Derived01<number>() : Derived01<数字>
->Derived01 : 类为 Derived01
+>Derived01c02 : Derived01<number>
+>new Derived01<number>() : Derived01<number>
+>Derived01 : typeof Derived01
 
 const Derived01c03 = new Derived01<number>(1);
->Derived01c03 : Derived01<数字>
->new Derived01<number>(1) : Derived01<数字>
->Derived01 : 类为 Derived01
+>Derived01c03 : Derived01<number>
+>new Derived01<number>(1) : Derived01<number>
+>Derived01 : typeof Derived01
 >1 : 1
 
 declare class Derived02<T = string> extends Base01<T> { }
@@ -2469,25 +2425,25 @@ declare class Derived02<T = string> extends Base01<T> { }
 >T : T
 
 const Derived02c00 = new Derived02();
->Derived02c00 : Derived02<文字>
->new Derived02() : Derived02<文字>
->Derived02 : 类为 Derived02
+>Derived02c00 : Derived02<string>
+>new Derived02() : Derived02<string>
+>Derived02 : typeof Derived02
 
 const Derived02c01 = new Derived02(1);
->Derived02c01 : Derived02<数字>
->new Derived02(1) : Derived02<数字>
->Derived02 : 类为 Derived02
+>Derived02c01 : Derived02<number>
+>new Derived02(1) : Derived02<number>
+>Derived02 : typeof Derived02
 >1 : 1
 
 const Derived02c02 = new Derived02<number>();
->Derived02c02 : Derived02<数字>
->new Derived02<number>() : Derived02<数字>
->Derived02 : 类为 Derived02
+>Derived02c02 : Derived02<number>
+>new Derived02<number>() : Derived02<number>
+>Derived02 : typeof Derived02
 
 const Derived02c03 = new Derived02<number>(1);
->Derived02c03 : Derived02<数字>
->new Derived02<number>(1) : Derived02<数字>
->Derived02 : 类为 Derived02
+>Derived02c03 : Derived02<number>
+>new Derived02<number>(1) : Derived02<number>
+>Derived02 : typeof Derived02
 >1 : 1
 
 // https://github.com/Microsoft/TypeScript/issues/16211
@@ -2514,17 +2470,14 @@ declare class Derived03 extends Base02 {}
 const Derived03c00 = new Derived03(ab);
 >Derived03c00 : Derived03
 >new Derived03(ab) : Derived03
->Derived03 : 类为 Derived03
+>Derived03 : typeof Derived03
 >ab : AB
 
 const Derived03c01 = Derived03c00.a;
->Derived03c01 : 数字
->类型别名 :=> 数字
->Derived03c00.a : 数字
->类型别名 :=> 数字
+>Derived03c01 : number
+>Derived03c00.a : number
 >Derived03c00 : Derived03
->a : 数字
->类型别名 :=> 数字
+>a : number
 
 type DerivedProps = keyof Derived03;
 >DerivedProps : "a"
@@ -2537,30 +2490,22 @@ type t00<T = number> = { a: T; }
 >T : T
 
 const t00c00 = (<t00>x).a;
->t00c00 : 数字
->类型别名 :=> 数字
->(<t00>x).a : 数字
->类型别名 :=> 数字
->(<t00>x) : t00<数字>
-><t00>x : t00<数字>
+>t00c00 : number
+>(<t00>x).a : number
+>(<t00>x) : t00<number>
+><t00>x : t00<number>
 >t00 : t00<T>
->x : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
+>x : any
+>a : number
 
 const t00c01 = (<t00<number>>x).a;
->t00c01 : 数字
->类型别名 :=> 数字
->(<t00<number>>x).a : 数字
->类型别名 :=> 数字
->(<t00<number>>x) : t00<数字>
-><t00<number>>x : t00<数字>
+>t00c01 : number
+>(<t00<number>>x).a : number
+>(<t00<number>>x) : t00<number>
+><t00<number>>x : t00<number>
 >t00 : t00<T>
->x : 任意
->类型别名 :=> 任意
->a : 数字
->类型别名 :=> 数字
+>x : any
+>a : number
 
 type t01<T, U = T> = { a: [T, U]; }
 >t01 : t01<T, U>
@@ -2572,24 +2517,22 @@ type t01<T, U = T> = { a: [T, U]; }
 >U : U
 
 const t01c00 = (<t01<number>>x).a;
->t01c00 : [数字, 数字]
->(<t01<number>>x).a : [数字, 数字]
->(<t01<number>>x) : t01<数字, 数字>
-><t01<number>>x : t01<数字, 数字>
+>t01c00 : [number, number]
+>(<t01<number>>x).a : [number, number]
+>(<t01<number>>x) : t01<number, number>
+><t01<number>>x : t01<number, number>
 >t01 : t01<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const t01c01 = (<t01<number, string>>x).a;
->t01c01 : [数字, 文字]
->(<t01<number, string>>x).a : [数字, 文字]
->(<t01<number, string>>x) : t01<数字, 文字>
-><t01<number, string>>x : t01<数字, 文字>
+>t01c01 : [number, string]
+>(<t01<number, string>>x).a : [number, string]
+>(<t01<number, string>>x) : t01<number, string>
+><t01<number, string>>x : t01<number, string>
 >t01 : t01<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 文字]
+>x : any
+>a : [number, string]
 
 type t02<T extends number, U = T> = { a: [T, U]; }
 >t02 : t02<T, U>
@@ -2601,14 +2544,13 @@ type t02<T extends number, U = T> = { a: [T, U]; }
 >U : U
 
 const t02c00 = (<t02<number>>x).a;
->t02c00 : [数字, 数字]
->(<t02<number>>x).a : [数字, 数字]
->(<t02<number>>x) : t02<数字, 数字>
-><t02<number>>x : t02<数字, 数字>
+>t02c00 : [number, number]
+>(<t02<number>>x).a : [number, number]
+>(<t02<number>>x) : t02<number, number>
+><t02<number>>x : t02<number, number>
 >t02 : t02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const t02c01 = (<t02<1>>x).a;
 >t02c01 : [1, 1]
@@ -2616,39 +2558,35 @@ const t02c01 = (<t02<1>>x).a;
 >(<t02<1>>x) : t02<1, 1>
 ><t02<1>>x : t02<1, 1>
 >t02 : t02<T, U>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : [1, 1]
 
 const t02c02 = (<t02<number, number>>x).a;
->t02c02 : [数字, 数字]
->(<t02<number, number>>x).a : [数字, 数字]
->(<t02<number, number>>x) : t02<数字, 数字>
-><t02<number, number>>x : t02<数字, 数字>
+>t02c02 : [number, number]
+>(<t02<number, number>>x).a : [number, number]
+>(<t02<number, number>>x) : t02<number, number>
+><t02<number, number>>x : t02<number, number>
 >t02 : t02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const t02c03 = (<t02<1, number>>x).a;
->t02c03 : [1, 数字]
->(<t02<1, number>>x).a : [1, 数字]
->(<t02<1, number>>x) : t02<1, 数字>
-><t02<1, number>>x : t02<1, 数字>
+>t02c03 : [1, number]
+>(<t02<1, number>>x).a : [1, number]
+>(<t02<1, number>>x) : t02<1, number>
+><t02<1, number>>x : t02<1, number>
 >t02 : t02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [1, 数字]
+>x : any
+>a : [1, number]
 
 const t02c04 = (<t02<number, 1>>x).a;
->t02c04 : [数字, 1]
->(<t02<number, 1>>x).a : [数字, 1]
->(<t02<number, 1>>x) : t02<数字, 1>
-><t02<number, 1>>x : t02<数字, 1>
+>t02c04 : [number, 1]
+>(<t02<number, 1>>x).a : [number, 1]
+>(<t02<number, 1>>x) : t02<number, 1>
+><t02<number, 1>>x : t02<number, 1>
 >t02 : t02<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 1]
+>x : any
+>a : [number, 1]
 
 type t03<T extends number, U extends T = T> = { a: [T, U]; }
 >t03 : t03<T, U>
@@ -2661,14 +2599,13 @@ type t03<T extends number, U extends T = T> = { a: [T, U]; }
 >U : U
 
 const t03c00 = (<t03<number>>x).a;
->t03c00 : [数字, 数字]
->(<t03<number>>x).a : [数字, 数字]
->(<t03<number>>x) : t03<数字, 数字>
-><t03<number>>x : t03<数字, 数字>
+>t03c00 : [number, number]
+>(<t03<number>>x).a : [number, number]
+>(<t03<number>>x) : t03<number, number>
+><t03<number>>x : t03<number, number>
 >t03 : t03<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const t03c01 = (<t03<1>>x).a;
 >t03c01 : [1, 1]
@@ -2676,19 +2613,17 @@ const t03c01 = (<t03<1>>x).a;
 >(<t03<1>>x) : t03<1, 1>
 ><t03<1>>x : t03<1, 1>
 >t03 : t03<T, U>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : [1, 1]
 
 const t03c02 = (<t03<number, number>>x).a;
->t03c02 : [数字, 数字]
->(<t03<number, number>>x).a : [数字, 数字]
->(<t03<number, number>>x) : t03<数字, 数字>
-><t03<number, number>>x : t03<数字, 数字>
+>t03c02 : [number, number]
+>(<t03<number, number>>x).a : [number, number]
+>(<t03<number, number>>x) : t03<number, number>
+><t03<number, number>>x : t03<number, number>
 >t03 : t03<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 数字]
+>x : any
+>a : [number, number]
 
 const t03c03 = (<t03<1, 1>>x).a;
 >t03c03 : [1, 1]
@@ -2696,19 +2631,17 @@ const t03c03 = (<t03<1, 1>>x).a;
 >(<t03<1, 1>>x) : t03<1, 1>
 ><t03<1, 1>>x : t03<1, 1>
 >t03 : t03<T, U>
->x : 任意
->类型别名 :=> 任意
+>x : any
 >a : [1, 1]
 
 const t03c04 = (<t03<number, 1>>x).a;
->t03c04 : [数字, 1]
->(<t03<number, 1>>x).a : [数字, 1]
->(<t03<number, 1>>x) : t03<数字, 1>
-><t03<number, 1>>x : t03<数字, 1>
+>t03c04 : [number, 1]
+>(<t03<number, 1>>x).a : [number, 1]
+>(<t03<number, 1>>x) : t03<number, 1>
+><t03<number, 1>>x : t03<number, 1>
 >t03 : t03<T, U>
->x : 任意
->类型别名 :=> 任意
->a : [数字, 1]
+>x : any
+>a : [number, 1]
 
 // https://github.com/Microsoft/TypeScript/issues/16221
 interface SelfReference<T = SelfReference<string>> {}

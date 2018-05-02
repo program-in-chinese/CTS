@@ -3,59 +3,51 @@ class Foo { // error
 >Foo : Foo
 
     bar1() { /*WScript.Echo("bar1");*/ }
->bar1 : () => 无值
+>bar1 : () => void
 
     constructor(x: any) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
         // WScript.Echo("Constructor function has executed");
     }
 }
 
 function Foo(); // error
->Foo : () => 任意
+>Foo : () => any
 
 function F1(s:string) {return s;} // error
->F1 : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
->s : 文字
->类型别名 :=> 文字
+>F1 : (s: string) => string
+>s : string
+>s : string
 
 function F1(a:any) { return a;} // error
->F1 : (s: 文字) => 文字
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>F1 : (s: string) => string
+>a : any
+>a : any
 
 function Goo(s:string); // error - no implementation
->Goo : (s: 文字) => 任意
->s : 文字
->类型别名 :=> 文字
+>Goo : (s: string) => any
+>s : string
 
 declare function Gar(s:String); // expect no error
->Gar : (s: String) => 任意
+>Gar : (s: String) => any
 >s : String
 >String : String
 
 var f1 = new Foo("hey");
 >f1 : Foo
 >new Foo("hey") : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
 >"hey" : "hey"
 
 
 f1.bar1();
->f1.bar1() : 无值
->类型别名 :=> 无值
->f1.bar1 : () => 无值
+>f1.bar1() : void
+>f1.bar1 : () => void
 >f1 : Foo
->bar1 : () => 无值
+>bar1 : () => void
 
 Foo();
->Foo() : 任意
->类型别名 :=> 任意
->Foo : 类为 Foo
+>Foo() : any
+>Foo : typeof Foo
 

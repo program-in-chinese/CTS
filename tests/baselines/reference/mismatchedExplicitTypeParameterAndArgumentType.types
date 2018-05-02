@@ -13,21 +13,19 @@ function map<T, U>(xs: T[], f: (x: T) => U) {
     var ys: U[] = [];
 >ys : U[]
 >U : U
->[] : 未定[]
+>[] : undefined[]
 
     xs.forEach(x => ys.push(f(x)));
->xs.forEach(x => ys.push(f(x))) : 无值
->类型别名 :=> 无值
->xs.forEach : (callbackfn: (value: T, index: 数字, array: T[]) => 无值, thisArg?: 任意) => 无值
+>xs.forEach(x => ys.push(f(x))) : void
+>xs.forEach : (callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any) => void
 >xs : T[]
->forEach : (callbackfn: (value: T, index: 数字, array: T[]) => 无值, thisArg?: 任意) => 无值
->x => ys.push(f(x)) : (x: T) => 数字
+>forEach : (callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any) => void
+>x => ys.push(f(x)) : (x: T) => number
 >x : T
->ys.push(f(x)) : 数字
->类型别名 :=> 数字
->ys.push : (...items: U[]) => 数字
+>ys.push(f(x)) : number
+>ys.push : (...items: U[]) => number
 >ys : U[]
->push : (...items: U[]) => 数字
+>push : (...items: U[]) => number
 >f(x) : U
 >f : (x: T) => U
 >x : T
@@ -37,38 +35,32 @@ function map<T, U>(xs: T[], f: (x: T) => U) {
 }
 
 var r0 = map([1, ""], (x) => x.toString());
->r0 : 文字[]
->map([1, ""], (x) => x.toString()) : 文字[]
+>r0 : string[]
+>map([1, ""], (x) => x.toString()) : string[]
 >map : <T, U>(xs: T[], f: (x: T) => U) => U[]
->[1, ""] : (文字 | 数字)[]
+>[1, ""] : (string | number)[]
 >1 : 1
 >"" : ""
->(x) => x.toString() : (x: 文字 | 数字) => 文字
->x : 文字 | 数字
->x.toString() : 文字
->类型别名 :=> 文字
->x.toString : (() => 文字) | ((radix?: 数字) => 文字)
->x : 文字 | 数字
->toString : (() => 文字) | ((radix?: 数字) => 文字)
+>(x) => x.toString() : (x: string | number) => string
+>x : string | number
+>x.toString() : string
+>x.toString : (() => string) | ((radix?: number) => string)
+>x : string | number
+>toString : (() => string) | ((radix?: number) => string)
 
 var r5 = map<any, any>([1, ""], (x) => x.toString());
->r5 : 任意[]
->map<any, any>([1, ""], (x) => x.toString()) : 任意[]
+>r5 : any[]
+>map<any, any>([1, ""], (x) => x.toString()) : any[]
 >map : <T, U>(xs: T[], f: (x: T) => U) => U[]
->[1, ""] : (文字 | 数字)[]
+>[1, ""] : (string | number)[]
 >1 : 1
 >"" : ""
->(x) => x.toString() : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
->x.toString() : 任意
->类型别名 :=> 任意
->x.toString : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>(x) => x.toString() : (x: any) => any
+>x : any
+>x.toString() : any
+>x.toString : any
+>x : any
+>toString : any
 
 var r6 = map<Object, Object>([1, ""], (x) => x.toString());
 >r6 : Object[]
@@ -76,75 +68,55 @@ var r6 = map<Object, Object>([1, ""], (x) => x.toString());
 >map : <T, U>(xs: T[], f: (x: T) => U) => U[]
 >Object : Object
 >Object : Object
->[1, ""] : (文字 | 数字)[]
+>[1, ""] : (string | number)[]
 >1 : 1
 >"" : ""
->(x) => x.toString() : (x: Object) => 文字
+>(x) => x.toString() : (x: Object) => string
 >x : Object
->x.toString() : 文字
->类型别名 :=> 文字
->x.toString : () => 文字
+>x.toString() : string
+>x.toString : () => string
 >x : Object
->toString : () => 文字
+>toString : () => string
 
 var r7 = map<number, string>([1, ""], (x) => x.toString()); // error
->r7 : 任意
->类型别名 :=> 任意
->map<number, string>([1, ""], (x) => x.toString()) : 任意
->类型别名 :=> 任意
+>r7 : any
+>map<number, string>([1, ""], (x) => x.toString()) : any
 >map : <T, U>(xs: T[], f: (x: T) => U) => U[]
->[1, ""] : (文字 | 数字)[]
+>[1, ""] : (string | number)[]
 >1 : 1
 >"" : ""
->(x) => x.toString() : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
->x.toString() : 任意
->类型别名 :=> 任意
->x.toString : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>(x) => x.toString() : (x: any) => any
+>x : any
+>x.toString() : any
+>x.toString : any
+>x : any
+>toString : any
 
 var r7b = map<number>([1, ""], (x) => x.toString()); // error
->r7b : 任意
->类型别名 :=> 任意
->map<number>([1, ""], (x) => x.toString()) : 任意
->类型别名 :=> 任意
+>r7b : any
+>map<number>([1, ""], (x) => x.toString()) : any
 >map : <T, U>(xs: T[], f: (x: T) => U) => U[]
->[1, ""] : (文字 | 数字)[]
+>[1, ""] : (string | number)[]
 >1 : 1
 >"" : ""
->(x) => x.toString() : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
->x.toString() : 任意
->类型别名 :=> 任意
->x.toString : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>(x) => x.toString() : (x: any) => any
+>x : any
+>x.toString() : any
+>x.toString : any
+>x : any
+>toString : any
 
 var r8 = map<any, string>([1, ""], (x) => x.toString());
->r8 : 文字[]
->map<any, string>([1, ""], (x) => x.toString()) : 文字[]
+>r8 : string[]
+>map<any, string>([1, ""], (x) => x.toString()) : string[]
 >map : <T, U>(xs: T[], f: (x: T) => U) => U[]
->[1, ""] : (文字 | 数字)[]
+>[1, ""] : (string | number)[]
 >1 : 1
 >"" : ""
->(x) => x.toString() : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
->x.toString() : 任意
->类型别名 :=> 任意
->x.toString : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>(x) => x.toString() : (x: any) => any
+>x : any
+>x.toString() : any
+>x.toString : any
+>x : any
+>toString : any
 

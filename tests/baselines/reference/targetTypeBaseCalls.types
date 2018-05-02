@@ -1,43 +1,36 @@
 === tests/cases/compiler/targetTypeBaseCalls.ts ===
 function foo(x: (s: string) => void) { }
->foo : (x: (s: 文字) => 无值) => 无值
->x : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>foo : (x: (s: string) => void) => void
+>x : (s: string) => void
+>s : string
  
  
  
 class Foo { constructor(x: (s: string) => void){} }
 >Foo : Foo
->x : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>x : (s: string) => void
+>s : string
  
  
  
 foo(function(s) { s = 5 });  // Error, can’t assign number to string
->foo(function(s) { s = 5 }) : 无值
->类型别名 :=> 无值
->foo : (x: (s: 文字) => 无值) => 无值
->function(s) { s = 5 } : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>foo(function(s) { s = 5 }) : void
+>foo : (x: (s: string) => void) => void
+>function(s) { s = 5 } : (s: string) => void
+>s : string
 >s = 5 : 5
->s : 文字
->类型别名 :=> 文字
+>s : string
 >5 : 5
  
  
  
 new Foo(function(s) { s = 5 });  // error, if types are applied correctly
 >new Foo(function(s) { s = 5 }) : Foo
->Foo : 类为 Foo
->function(s) { s = 5 } : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>Foo : typeof Foo
+>function(s) { s = 5 } : (s: string) => void
+>s : string
 >s = 5 : 5
->s : 文字
->类型别名 :=> 文字
+>s : string
 >5 : 5
  
  
@@ -45,14 +38,11 @@ new Foo(function(s) { s = 5 });  // error, if types are applied correctly
 class Bar extends Foo { constructor() { super(function(s) { s = 5 }) } }  // error, if types are applied correctly
 >Bar : Bar
 >Foo : Foo
->super(function(s) { s = 5 }) : 无值
->类型别名 :=> 无值
->super : 类为 Foo
->function(s) { s = 5 } : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>super(function(s) { s = 5 }) : void
+>super : typeof Foo
+>function(s) { s = 5 } : (s: string) => void
+>s : string
 >s = 5 : 5
->s : 文字
->类型别名 :=> 文字
+>s : string
 >5 : 5
 

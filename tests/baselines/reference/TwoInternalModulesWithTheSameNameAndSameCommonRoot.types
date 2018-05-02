@@ -1,66 +1,56 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/part1.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
     }
 
     export module Utils {
->Utils : 类为 Utils
+>Utils : typeof Utils
 
         export function mirror<T extends Point>(p: T) {
->mirror : <T 扩展 Point>(p: T) => { x: 数字; y: 数字; }
+>mirror : <T extends Point>(p: T) => { x: number; y: number; }
 >T : T
 >Point : Point
 >p : T
 >T : T
 
             return { x: p.y, y: p.x };
->{ x: p.y, y: p.x } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->p.y : 数字
->类型别名 :=> 数字
+>{ x: p.y, y: p.x } : { x: number; y: number; }
+>x : number
+>p.y : number
 >p : T
->y : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
->p.x : 数字
->类型别名 :=> 数字
+>y : number
+>y : number
+>p.x : number
 >p : T
->x : 数字
->类型别名 :=> 数字
+>x : number
         }
     }
 }
 
 === tests/cases/conformance/internalModules/DeclarationMerging/part2.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export var Origin: Point = { x: 0, y: 0 };
 >Origin : Point
 >Point : Point
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 
     export module Utils {
->Utils : 类为 Utils
+>Utils : typeof Utils
 
         export class Plane {
 >Plane : Plane
@@ -78,68 +68,59 @@ module A {
 // test the merging actually worked
 
 var o: { x: number; y: number };
->o : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>o : { x: number; y: number; }
+>x : number
+>y : number
 
 var o: A.Point;
->o : { x: 数字; y: 数字; }
->A : 任意
->类型别名 :=> 任意
+>o : { x: number; y: number; }
+>A : any
 >Point : A.Point
 
 var o = A.Origin;
->o : { x: 数字; y: 数字; }
+>o : { x: number; y: number; }
 >A.Origin : A.Point
->A : 类为 A
+>A : typeof A
 >Origin : A.Point
 
 var o = A.Utils.mirror(o);
->o : { x: 数字; y: 数字; }
->A.Utils.mirror(o) : { x: 数字; y: 数字; }
->A.Utils.mirror : <T 扩展 A.Point>(p: T) => { x: 数字; y: 数字; }
->A.Utils : 类为 A.Utils
->A : 类为 A
->Utils : 类为 A.Utils
->mirror : <T 扩展 A.Point>(p: T) => { x: 数字; y: 数字; }
->o : { x: 数字; y: 数字; }
+>o : { x: number; y: number; }
+>A.Utils.mirror(o) : { x: number; y: number; }
+>A.Utils.mirror : <T extends A.Point>(p: T) => { x: number; y: number; }
+>A.Utils : typeof A.Utils
+>A : typeof A
+>Utils : typeof A.Utils
+>mirror : <T extends A.Point>(p: T) => { x: number; y: number; }
+>o : { x: number; y: number; }
 
 var p: { tl: A.Point; br: A.Point };
 >p : { tl: A.Point; br: A.Point; }
 >tl : A.Point
->A : 任意
->类型别名 :=> 任意
+>A : any
 >Point : A.Point
 >br : A.Point
->A : 任意
->类型别名 :=> 任意
+>A : any
 >Point : A.Point
 
 var p: A.Utils.Plane;
 >p : { tl: A.Point; br: A.Point; }
->A : 任意
->类型别名 :=> 任意
->Utils : 任意
->类型别名 :=> 任意
+>A : any
+>Utils : any
 >Plane : A.Utils.Plane
 
 var p = new A.Utils.Plane(o, { x: 1, y: 1 });
 >p : { tl: A.Point; br: A.Point; }
 >new A.Utils.Plane(o, { x: 1, y: 1 }) : A.Utils.Plane
->A.Utils.Plane : 类为 A.Utils.Plane
->A.Utils : 类为 A.Utils
->A : 类为 A
->Utils : 类为 A.Utils
->Plane : 类为 A.Utils.Plane
->o : { x: 数字; y: 数字; }
->{ x: 1, y: 1 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>A.Utils.Plane : typeof A.Utils.Plane
+>A.Utils : typeof A.Utils
+>A : typeof A
+>Utils : typeof A.Utils
+>Plane : typeof A.Utils.Plane
+>o : { x: number; y: number; }
+>{ x: 1, y: 1 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
 
 

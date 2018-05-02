@@ -1,46 +1,38 @@
 === tests/cases/compiler/multiModuleFundule1.ts ===
 function C(x: number) { }
->C : 类为 C
->x : 数字
->类型别名 :=> 数字
+>C : typeof C
+>x : number
 
 module C {
->C : 类为 C
+>C : typeof C
 
     export var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 }
 module C {
->C : 类为 C
+>C : typeof C
 
     export function foo() { }
->foo : () => 无值
+>foo : () => void
 }
 
 var r = C(2);
->r : 无值
->类型别名 :=> 无值
->C(2) : 无值
->类型别名 :=> 无值
->C : 类为 C
+>r : void
+>C(2) : void
+>C : typeof C
 >2 : 2
 
 var r2 = new C(2); // using void returning function as constructor
->r2 : 任意
->类型别名 :=> 任意
->new C(2) : 任意
->类型别名 :=> 任意
->C : 类为 C
+>r2 : any
+>new C(2) : any
+>C : typeof C
 >2 : 2
 
 var r3 = C.foo();
->r3 : 无值
->类型别名 :=> 无值
->C.foo() : 无值
->类型别名 :=> 无值
->C.foo : () => 无值
->C : 类为 C
->foo : () => 无值
+>r3 : void
+>C.foo() : void
+>C.foo : () => void
+>C : typeof C
+>foo : () => void
 

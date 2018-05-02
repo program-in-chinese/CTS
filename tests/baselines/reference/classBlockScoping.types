@@ -1,51 +1,45 @@
 === tests/cases/compiler/classBlockScoping.ts ===
 function f(b: boolean) {
->f : (b: 真假) => 无值
->b : 真假
->类型别名 :=> 真假
+>f : (b: boolean) => void
+>b : boolean
 
   let Foo: any;
->Foo : 任意
->类型别名 :=> 任意
+>Foo : any
 
   if (b) {
->b : 真假
->类型别名 :=> 真假
+>b : boolean
 
     Foo = class Foo {
->Foo = class Foo {      static y = new Foo();      static x() {        new Foo();      }      m() {        new Foo();      }    } : 类为 Foo
->Foo : 任意
->类型别名 :=> 任意
->class Foo {      static y = new Foo();      static x() {        new Foo();      }      m() {        new Foo();      }    } : 类为 Foo
->Foo : 类为 Foo
+>Foo = class Foo {      static y = new Foo();      static x() {        new Foo();      }      m() {        new Foo();      }    } : typeof Foo
+>Foo : any
+>class Foo {      static y = new Foo();      static x() {        new Foo();      }      m() {        new Foo();      }    } : typeof Foo
+>Foo : typeof Foo
 
       static y = new Foo();
 >y : Foo
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
 
       static x() {
->x : () => 无值
+>x : () => void
 
         new Foo();
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
       }
 
       m() {
->m : () => 无值
+>m : () => void
 
         new Foo();
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
       }
     };
 
     new Foo();
->new Foo() : 任意
->类型别名 :=> 任意
->Foo : 任意
->类型别名 :=> 任意
+>new Foo() : any
+>Foo : any
   }
   else {
     class Foo {
@@ -54,27 +48,27 @@ function f(b: boolean) {
       static y = new Foo();
 >y : Foo
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
 
       static x() {
->x : () => 无值
+>x : () => void
 
         new Foo();
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
       }
 
       m() {
->m : () => 无值
+>m : () => void
 
         new Foo();
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
       }
     }
 
     new Foo();
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
   }
 }

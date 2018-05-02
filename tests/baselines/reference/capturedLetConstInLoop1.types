@@ -1,349 +1,270 @@
 === tests/cases/compiler/capturedLetConstInLoop1.ts ===
 //==== let
 for (let x in {}) {
->x : 文字
->类型别名 :=> 文字
+>x : string
 >{} : {}
 
     (function() { return x});
->(function() { return x}) : () => 文字
->function() { return x} : () => 文字
->x : 文字
->类型别名 :=> 文字
+>(function() { return x}) : () => string
+>function() { return x} : () => string
+>x : string
 
     (() => x);
->(() => x) : () => 文字
->() => x : () => 文字
->x : 文字
->类型别名 :=> 文字
+>(() => x) : () => string
+>() => x : () => string
+>x : string
 }
 
 for (let x of []) {
->x : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>x : any
+>[] : undefined[]
 
     (function() { return x});
->(function() { return x}) : () => 任意
->function() { return x} : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x}) : () => any
+>function() { return x} : () => any
+>x : any
 
     (() => x);
->(() => x) : () => 任意
->() => x : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(() => x) : () => any
+>() => x : () => any
+>x : any
 }
 
 for (let x = 0; x < 1; ++x) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
->x < 1 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x < 1 : boolean
+>x : number
 >1 : 1
->++x : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>++x : number
+>x : number
 
     (function() { return x});
->(function() { return x}) : () => 数字
->function() { return x} : () => 数字
->x : 数字
->类型别名 :=> 数字
+>(function() { return x}) : () => number
+>function() { return x} : () => number
+>x : number
 
     (() => x);
->(() => x) : () => 数字
->() => x : () => 数字
->x : 数字
->类型别名 :=> 数字
+>(() => x) : () => number
+>() => x : () => number
+>x : number
 }
 
 while (1 === 1) {
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     (function() { return x});
->(function() { return x}) : () => 任意
->function() { return x} : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x}) : () => any
+>function() { return x} : () => any
+>x : any
 
     (() => x);
->(() => x) : () => 任意
->() => x : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(() => x) : () => any
+>() => x : () => any
+>x : any
 }
 
 do {
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     (function() { return x});
->(function() { return x}) : () => 任意
->function() { return x} : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x}) : () => any
+>function() { return x} : () => any
+>x : any
 
     (() => x);
->(() => x) : () => 任意
->() => x : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(() => x) : () => any
+>() => x : () => any
+>x : any
 
 } while (1 === 1)
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
 for (let y = 0; y < 1; ++y) {
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->y < 1 : 真假
->类型别名 :=> 真假
->y : 数字
->类型别名 :=> 数字
+>y < 1 : boolean
+>y : number
 >1 : 1
->++y : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>++y : number
+>y : number
 
     let x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 
     (function() { return x});
->(function() { return x}) : () => 数字
->function() { return x} : () => 数字
->x : 数字
->类型别名 :=> 数字
+>(function() { return x}) : () => number
+>function() { return x} : () => number
+>x : number
 
     (() => x);
->(() => x) : () => 数字
->() => x : () => 数字
->x : 数字
->类型别名 :=> 数字
+>(() => x) : () => number
+>() => x : () => number
+>x : number
 }
 
 for (let x = 0, y = 1; x < 1; ++x) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
->x < 1 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x < 1 : boolean
+>x : number
 >1 : 1
->++x : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>++x : number
+>x : number
 
     (function() { return x + y});
->(function() { return x + y}) : () => 数字
->function() { return x + y} : () => 数字
->x + y : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>(function() { return x + y}) : () => number
+>function() { return x + y} : () => number
+>x + y : number
+>x : number
+>y : number
 
     (() => x + y);
->(() => x + y) : () => 数字
->() => x + y : () => 数字
->x + y : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>(() => x + y) : () => number
+>() => x + y : () => number
+>x + y : number
+>x : number
+>y : number
 }
 
 while (1 === 1) {
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
     let x, y;
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>x : any
+>y : any
 
     (function() { return x + y});
->(function() { return x + y}) : () => 任意
->function() { return x + y} : () => 任意
->x + y : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>(function() { return x + y}) : () => any
+>function() { return x + y} : () => any
+>x + y : any
+>x : any
+>y : any
 
     (() => x + y);
->(() => x + y) : () => 任意
->() => x + y : () => 任意
->x + y : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>(() => x + y) : () => any
+>() => x + y : () => any
+>x + y : any
+>x : any
+>y : any
 }
 
 do {
     let x, y;
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>x : any
+>y : any
 
     (function() { return x + y});
->(function() { return x + y}) : () => 任意
->function() { return x + y} : () => 任意
->x + y : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>(function() { return x + y}) : () => any
+>function() { return x + y} : () => any
+>x + y : any
+>x : any
+>y : any
 
     (() => x + y);
->(() => x + y) : () => 任意
->() => x + y : () => 任意
->x + y : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>(() => x + y) : () => any
+>() => x + y : () => any
+>x + y : any
+>x : any
+>y : any
 
 } while (1 === 1)
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
 for (let y = 0; y < 1; ++y) {
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->y < 1 : 真假
->类型别名 :=> 真假
->y : 数字
->类型别名 :=> 数字
+>y < 1 : boolean
+>y : number
 >1 : 1
->++y : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>++y : number
+>y : number
 
     let x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 
     (function() { return x + y});
->(function() { return x + y}) : () => 数字
->function() { return x + y} : () => 数字
->x + y : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>(function() { return x + y}) : () => number
+>function() { return x + y} : () => number
+>x + y : number
+>x : number
+>y : number
 
     (() => x + y);
->(() => x + y) : () => 数字
->() => x + y : () => 数字
->x + y : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>(() => x + y) : () => number
+>() => x + y : () => number
+>x + y : number
+>x : number
+>y : number
 }
 
 //=========const
 for (const x in {}) {
->x : 文字
->类型别名 :=> 文字
+>x : string
 >{} : {}
 
     (function() { return x});
->(function() { return x}) : () => 文字
->function() { return x} : () => 文字
->x : 文字
->类型别名 :=> 文字
+>(function() { return x}) : () => string
+>function() { return x} : () => string
+>x : string
 
     (() => x);
->(() => x) : () => 文字
->() => x : () => 文字
->x : 文字
->类型别名 :=> 文字
+>(() => x) : () => string
+>() => x : () => string
+>x : string
 }
 
 for (const x of []) {
->x : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>x : any
+>[] : undefined[]
 
     (function() { return x});
->(function() { return x}) : () => 任意
->function() { return x} : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(function() { return x}) : () => any
+>function() { return x} : () => any
+>x : any
 
     (() => x);
->(() => x) : () => 任意
->() => x : () => 任意
->x : 任意
->类型别名 :=> 任意
+>(() => x) : () => any
+>() => x : () => any
+>x : any
 }
 
 for (const x = 0; x < 1;) {
 >x : 0
 >0 : 0
->x < 1 : 真假
->类型别名 :=> 真假
+>x < 1 : boolean
 >x : 0
 >1 : 1
 
     (function() { return x});
->(function() { return x}) : () => 数字
->function() { return x} : () => 数字
+>(function() { return x}) : () => number
+>function() { return x} : () => number
 >x : 0
 
     (() => x);
->(() => x) : () => 数字
->() => x : () => 数字
+>(() => x) : () => number
+>() => x : () => number
 >x : 0
 }
 
 while (1 === 1) {
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
@@ -352,13 +273,13 @@ while (1 === 1) {
 >1 : 1
 
     (function() { return x});
->(function() { return x}) : () => 数字
->function() { return x} : () => 数字
+>(function() { return x}) : () => number
+>function() { return x} : () => number
 >x : 1
 
     (() => x);
->(() => x) : () => 数字
->() => x : () => 数字
+>(() => x) : () => number
+>() => x : () => number
 >x : 1
 }
 
@@ -368,26 +289,24 @@ do {
 >1 : 1
 
     (function() { return x});
->(function() { return x}) : () => 数字
->function() { return x} : () => 数字
+>(function() { return x}) : () => number
+>function() { return x} : () => number
 >x : 1
 
     (() => x);
->(() => x) : () => 数字
->() => x : () => 数字
+>(() => x) : () => number
+>() => x : () => number
 >x : 1
 
 } while (1 === 1)
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
 for (const y = 0; y < 1;) {
 >y : 0
 >0 : 0
->y < 1 : 真假
->类型别名 :=> 真假
+>y < 1 : boolean
 >y : 0
 >1 : 1
 
@@ -396,13 +315,13 @@ for (const y = 0; y < 1;) {
 >1 : 1
 
     (function() { return x});
->(function() { return x}) : () => 数字
->function() { return x} : () => 数字
+>(function() { return x}) : () => number
+>function() { return x} : () => number
 >x : 1
 
     (() => x);
->(() => x) : () => 数字
->() => x : () => 数字
+>(() => x) : () => number
+>() => x : () => number
 >x : 1
 }
 
@@ -411,31 +330,27 @@ for (const x = 0, y = 1; x < 1;) {
 >0 : 0
 >y : 1
 >1 : 1
->x < 1 : 真假
->类型别名 :=> 真假
+>x < 1 : boolean
 >x : 0
 >1 : 1
 
     (function() { return x + y});
->(function() { return x + y}) : () => 数字
->function() { return x + y} : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(function() { return x + y}) : () => number
+>function() { return x + y} : () => number
+>x + y : number
 >x : 0
 >y : 1
 
     (() => x + y);
->(() => x + y) : () => 数字
->() => x + y : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(() => x + y) : () => number
+>() => x + y : () => number
+>x + y : number
 >x : 0
 >y : 1
 }
 
 while (1 === 1) {
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
@@ -446,18 +361,16 @@ while (1 === 1) {
 >1 : 1
 
     (function() { return x + y});
->(function() { return x + y}) : () => 数字
->function() { return x + y} : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(function() { return x + y}) : () => number
+>function() { return x + y} : () => number
+>x + y : number
 >x : 1
 >y : 1
 
     (() => x + y);
->(() => x + y) : () => 数字
->() => x + y : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(() => x + y) : () => number
+>() => x + y : () => number
+>x + y : number
 >x : 1
 >y : 1
 }
@@ -470,32 +383,28 @@ do {
 >1 : 1
 
     (function() { return x + y});
->(function() { return x + y}) : () => 数字
->function() { return x + y} : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(function() { return x + y}) : () => number
+>function() { return x + y} : () => number
+>x + y : number
 >x : 1
 >y : 1
 
     (() => x + y);
->(() => x + y) : () => 数字
->() => x + y : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(() => x + y) : () => number
+>() => x + y : () => number
+>x + y : number
 >x : 1
 >y : 1
 
 } while (1 === 1)
->1 === 1 : 真假
->类型别名 :=> 真假
+>1 === 1 : boolean
 >1 : 1
 >1 : 1
 
 for (const y = 0; y < 1;) {
 >y : 0
 >0 : 0
->y < 1 : 真假
->类型别名 :=> 真假
+>y < 1 : boolean
 >y : 0
 >1 : 1
 
@@ -504,18 +413,16 @@ for (const y = 0; y < 1;) {
 >1 : 1
 
     (function() { return x + y});
->(function() { return x + y}) : () => 数字
->function() { return x + y} : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(function() { return x + y}) : () => number
+>function() { return x + y} : () => number
+>x + y : number
 >x : 1
 >y : 0
 
     (() => x + y);
->(() => x + y) : () => 数字
->() => x + y : () => 数字
->x + y : 数字
->类型别名 :=> 数字
+>(() => x + y) : () => number
+>() => x + y : () => number
+>x + y : number
 >x : 1
 >y : 0
 }

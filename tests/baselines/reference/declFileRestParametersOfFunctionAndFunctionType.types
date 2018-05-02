@@ -1,34 +1,33 @@
 === tests/cases/compiler/declFileRestParametersOfFunctionAndFunctionType.ts ===
 function f1(...args) { }
->f1 : (...args: 任意[]) => 无值
->args : 任意[]
+>f1 : (...args: any[]) => void
+>args : any[]
 
 function f2(x: (...args) => void) { }
->f2 : (x: (...args: 任意[]) => 无值) => 无值
->x : (...args: 任意[]) => 无值
->args : 任意[]
+>f2 : (x: (...args: any[]) => void) => void
+>x : (...args: any[]) => void
+>args : any[]
 
 function f3(x: { (...args): void }) { }
->f3 : (x: (...args: 任意[]) => 无值) => 无值
->x : (...args: 任意[]) => 无值
->args : 任意[]
+>f3 : (x: (...args: any[]) => void) => void
+>x : (...args: any[]) => void
+>args : any[]
 
 function f4<T extends (...args) => void>() { }
->f4 : <T 扩展 (...args: 任意[]) => 无值>() => 无值
+>f4 : <T extends (...args: any[]) => void>() => void
 >T : T
->args : 任意[]
+>args : any[]
 
 function f5<T extends { (...args): void }>() { }
->f5 : <T 扩展 (...args: 任意[]) => 无值>() => 无值
+>f5 : <T extends (...args: any[]) => void>() => void
 >T : T
->args : 任意[]
+>args : any[]
 
 var f6 = () => { return [<any>10]; }
->f6 : () => 任意[]
->() => { return [<any>10]; } : () => 任意[]
->[<any>10] : 任意[]
-><any>10 : 任意
->类型别名 :=> 任意
+>f6 : () => any[]
+>() => { return [<any>10]; } : () => any[]
+>[<any>10] : any[]
+><any>10 : any
 >10 : 10
 
 

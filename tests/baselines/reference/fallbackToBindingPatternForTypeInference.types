@@ -1,66 +1,49 @@
 === tests/cases/compiler/fallbackToBindingPatternForTypeInference.ts ===
 declare function trans<T>(f: (x: T) => string): number;
->trans : <T>(f: (x: T) => 文字) => 数字
+>trans : <T>(f: (x: T) => string) => number
 >T : T
->f : (x: T) => 文字
+>f : (x: T) => string
 >x : T
 >T : T
 
 trans(({a}) => a);
->trans(({a}) => a) : 数字
->类型别名 :=> 数字
->trans : <T>(f: (x: T) => 文字) => 数字
->({a}) => a : ({ a }: { a: 任意; }) => 任意
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>trans(({a}) => a) : number
+>trans : <T>(f: (x: T) => string) => number
+>({a}) => a : ({ a }: { a: any; }) => any
+>a : any
+>a : any
 
 trans(([b,c]) => 'foo');
->trans(([b,c]) => 'foo') : 数字
->类型别名 :=> 数字
->trans : <T>(f: (x: T) => 文字) => 数字
->([b,c]) => 'foo' : ([b, c]: [任意, 任意]) => 文字
->b : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>trans(([b,c]) => 'foo') : number
+>trans : <T>(f: (x: T) => string) => number
+>([b,c]) => 'foo' : ([b, c]: [any, any]) => string
+>b : any
+>c : any
 >'foo' : "foo"
 
 trans(({d: [e,f]}) => 'foo');
->trans(({d: [e,f]}) => 'foo') : 数字
->类型别名 :=> 数字
->trans : <T>(f: (x: T) => 文字) => 数字
->({d: [e,f]}) => 'foo' : ({ d: [e, f] }: { d: [任意, 任意]; }) => 文字
->d : 任意
->类型别名 :=> 任意
->e : 任意
->类型别名 :=> 任意
->f : 任意
->类型别名 :=> 任意
+>trans(({d: [e,f]}) => 'foo') : number
+>trans : <T>(f: (x: T) => string) => number
+>({d: [e,f]}) => 'foo' : ({ d: [e, f] }: { d: [any, any]; }) => string
+>d : any
+>e : any
+>f : any
 >'foo' : "foo"
 
 trans(([{g},{h}]) => 'foo');
->trans(([{g},{h}]) => 'foo') : 数字
->类型别名 :=> 数字
->trans : <T>(f: (x: T) => 文字) => 数字
->([{g},{h}]) => 'foo' : ([{ g }, { h }]: [{ g: 任意; }, { h: 任意; }]) => 文字
->g : 任意
->类型别名 :=> 任意
->h : 任意
->类型别名 :=> 任意
+>trans(([{g},{h}]) => 'foo') : number
+>trans : <T>(f: (x: T) => string) => number
+>([{g},{h}]) => 'foo' : ([{ g }, { h }]: [{ g: any; }, { h: any; }]) => string
+>g : any
+>h : any
 >'foo' : "foo"
 
 trans(({a, b = 10}) => a);
->trans(({a, b = 10}) => a) : 数字
->类型别名 :=> 数字
->trans : <T>(f: (x: T) => 文字) => 数字
->({a, b = 10}) => a : ({ a, b }: { a: 任意; b?: 数字; }) => 任意
->a : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
+>trans(({a, b = 10}) => a) : number
+>trans : <T>(f: (x: T) => string) => number
+>({a, b = 10}) => a : ({ a, b }: { a: any; b?: number; }) => any
+>a : any
+>b : number
 >10 : 10
->a : 任意
->类型别名 :=> 任意
+>a : any
 

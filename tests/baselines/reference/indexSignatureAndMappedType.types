@@ -3,12 +3,11 @@
 // { [key: string]: Y } if X is related to Y.
 
 function f1<T, K extends string>(x: { [key: string]: T }, y: Record<K, T>) {
->f1 : <T, K 扩展 文字>(x: { [key: 文字]: T; }, y: Record<K, T>) => 无值
+>f1 : <T, K extends string>(x: { [key: string]: T; }, y: Record<K, T>) => void
 >T : T
 >K : K
->x : { [key: 文字]: T; }
->key : 文字
->类型别名 :=> 文字
+>x : { [key: string]: T; }
+>key : string
 >T : T
 >y : Record<K, T>
 >Record : Record<K, T>
@@ -17,45 +16,43 @@ function f1<T, K extends string>(x: { [key: string]: T }, y: Record<K, T>) {
 
     x = y;
 >x = y : Record<K, T>
->x : { [key: 文字]: T; }
+>x : { [key: string]: T; }
 >y : Record<K, T>
 
     y = x;  // Error
->y = x : { [key: 文字]: T; }
+>y = x : { [key: string]: T; }
 >y : Record<K, T>
->x : { [key: 文字]: T; }
+>x : { [key: string]: T; }
 }
 
 function f2<T>(x: { [key: string]: T }, y: Record<string, T>) {
->f2 : <T>(x: { [key: 文字]: T; }, y: Record<文字, T>) => 无值
+>f2 : <T>(x: { [key: string]: T; }, y: Record<string, T>) => void
 >T : T
->x : { [key: 文字]: T; }
->key : 文字
->类型别名 :=> 文字
+>x : { [key: string]: T; }
+>key : string
 >T : T
->y : Record<文字, T>
+>y : Record<string, T>
 >Record : Record<K, T>
 >T : T
 
     x = y;
->x = y : Record<文字, T>
->x : { [key: 文字]: T; }
->y : Record<文字, T>
+>x = y : Record<string, T>
+>x : { [key: string]: T; }
+>y : Record<string, T>
 
     y = x;
->y = x : { [key: 文字]: T; }
->y : Record<文字, T>
->x : { [key: 文字]: T; }
+>y = x : { [key: string]: T; }
+>y : Record<string, T>
+>x : { [key: string]: T; }
 }
 
 function f3<T, U, K extends string>(x: { [key: string]: T }, y: Record<K, U>) {
->f3 : <T, U, K 扩展 文字>(x: { [key: 文字]: T; }, y: Record<K, U>) => 无值
+>f3 : <T, U, K extends string>(x: { [key: string]: T; }, y: Record<K, U>) => void
 >T : T
 >U : U
 >K : K
->x : { [key: 文字]: T; }
->key : 文字
->类型别名 :=> 文字
+>x : { [key: string]: T; }
+>key : string
 >T : T
 >y : Record<K, U>
 >Record : Record<K, T>
@@ -64,13 +61,13 @@ function f3<T, U, K extends string>(x: { [key: string]: T }, y: Record<K, U>) {
 
     x = y;  // Error
 >x = y : Record<K, U>
->x : { [key: 文字]: T; }
+>x : { [key: string]: T; }
 >y : Record<K, U>
 
     y = x;  // Error
->y = x : { [key: 文字]: T; }
+>y = x : { [key: string]: T; }
 >y : Record<K, U>
->x : { [key: 文字]: T; }
+>x : { [key: string]: T; }
 }
 
 // Repro from #14548
@@ -79,8 +76,7 @@ type Dictionary = {
 >Dictionary : Dictionary
 
     [key: string]: string;
->key : 文字
->类型别名 :=> 文字
+>key : string
 
 };
 
@@ -88,8 +84,7 @@ interface IBaseEntity {
 >IBaseEntity : IBaseEntity
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     properties: Dictionary;
 >properties : Dictionary
@@ -102,7 +97,7 @@ interface IEntity<T extends string> extends IBaseEntity {
 >IBaseEntity : IBaseEntity
 
     properties: Record<T, string>;
->properties : Record<T, 文字>
+>properties : Record<T, string>
 >Record : Record<K, T>
 >T : T
 }

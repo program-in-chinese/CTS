@@ -1,4 +1,5 @@
 namespace ts {
+    /** [__`Transpile选项`__](#翻译) */
     export interface TranspileOptions {
         compilerOptions?: CompilerOptions;
         fileName?: string;
@@ -86,7 +87,7 @@ namespace ts {
                     outputText = text;
                 }
             },
-            getDefaultLibFileName: () => "lib.d.ts",
+            getDefaultLibFileName: () => `lib.${unicodeDic.Language.language}.es5.d.cts`,
             useCaseSensitiveFileNames: () => false,
             getCanonicalFileName: fileName => fileName,
             getCurrentDirectory: () => "",
@@ -154,3 +155,4 @@ namespace ts {
         return options;
     }
 }
+

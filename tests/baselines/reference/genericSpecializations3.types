@@ -11,15 +11,14 @@ interface IFoo<T> {
 }
 
 var iFoo: IFoo<number>;
->iFoo : IFoo<数字>
+>iFoo : IFoo<number>
 >IFoo : IFoo<T>
 
 iFoo.foo(1);
->iFoo.foo(1) : 数字
->类型别名 :=> 数字
->iFoo.foo : (x: 数字) => 数字
->iFoo : IFoo<数字>
->foo : (x: 数字) => 数字
+>iFoo.foo(1) : number
+>iFoo.foo : (x: number) => number
+>iFoo : IFoo<number>
+>foo : (x: number) => number
 >1 : 1
 
 class IntFooBad implements IFoo<number> { // error
@@ -27,11 +26,9 @@ class IntFooBad implements IFoo<number> { // error
 >IFoo : IFoo<T>
 
     foo(x: string): string { return null; }
->foo : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
->null : 空值
->类型别名 :=> 空值
+>foo : (x: string) => string
+>x : string
+>null : null
 }
 
 var intFooBad: IntFooBad;
@@ -43,11 +40,9 @@ class IntFoo implements IFoo<number> {
 >IFoo : IFoo<T>
 
     foo(x: number): number { return null; }
->foo : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
+>foo : (x: number) => number
+>x : number
+>null : null
 }
 
 var intFoo: IntFoo;
@@ -59,11 +54,9 @@ class StringFoo2 implements IFoo<string> {
 >IFoo : IFoo<T>
 
     foo(x: string): string { return null; }
->foo : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
->null : 空值
->类型别名 :=> 空值
+>foo : (x: string) => string
+>x : string
+>null : null
 }
 
 var stringFoo2: StringFoo2;
@@ -71,11 +64,10 @@ var stringFoo2: StringFoo2;
 >StringFoo2 : StringFoo2
 
 stringFoo2.foo("hm");
->stringFoo2.foo("hm") : 文字
->类型别名 :=> 文字
->stringFoo2.foo : (x: 文字) => 文字
+>stringFoo2.foo("hm") : string
+>stringFoo2.foo : (x: string) => string
 >stringFoo2 : StringFoo2
->foo : (x: 文字) => 文字
+>foo : (x: string) => string
 >"hm" : "hm"
 
 
@@ -100,8 +92,7 @@ class StringFoo3 implements IFoo<string> { // error
 >x : T
 >T : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 var stringFoo3: StringFoo3;
 >stringFoo3 : StringFoo3

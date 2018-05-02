@@ -1,66 +1,53 @@
 === tests/cases/conformance/expressions/typeGuards/typeGuardOfFormFunctionEquality.ts ===
 declare function isString1(a: number, b: Object): b is string;
->isString1 : (a: 数字, b: Object) => b 作为 文字
->a : 数字
->类型别名 :=> 数字
+>isString1 : (a: number, b: Object) => b is string
+>a : number
 >b : Object
 >Object : Object
->b : 任意
->类型别名 :=> 任意
+>b : any
 
 declare function isString2(a: Object): a is string;
->isString2 : (a: Object) => a 作为 文字
+>isString2 : (a: Object) => a is string
 >a : Object
 >Object : Object
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 switch (isString1(0, "")) {
->isString1(0, "") : 真假
->类型别名 :=> 真假
->isString1 : (a: 数字, b: Object) => b 作为 文字
+>isString1(0, "") : boolean
+>isString1 : (a: number, b: Object) => b is string
 >0 : 0
 >"" : ""
 
     case isString2(""):
->isString2("") : 真假
->类型别名 :=> 真假
->isString2 : (a: Object) => a 作为 文字
+>isString2("") : boolean
+>isString2 : (a: Object) => a is string
 >"" : ""
 
     default:
 }
 
 var x = isString1(0, "") === isString2("");
->x : 真假
->类型别名 :=> 真假
->isString1(0, "") === isString2("") : 真假
->类型别名 :=> 真假
->isString1(0, "") : 真假
->类型别名 :=> 真假
->isString1 : (a: 数字, b: Object) => b 作为 文字
+>x : boolean
+>isString1(0, "") === isString2("") : boolean
+>isString1(0, "") : boolean
+>isString1 : (a: number, b: Object) => b is string
 >0 : 0
 >"" : ""
->isString2("") : 真假
->类型别名 :=> 真假
->isString2 : (a: Object) => a 作为 文字
+>isString2("") : boolean
+>isString2 : (a: Object) => a is string
 >"" : ""
 
 function isString3(a: number, b: number, c: Object): c is string {
->isString3 : (a: 数字, b: 数字, c: Object) => c 作为 文字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>isString3 : (a: number, b: number, c: Object) => c is string
+>a : number
+>b : number
 >c : Object
 >Object : Object
->c : 任意
->类型别名 :=> 任意
+>c : any
 
     return isString1(0, c);
->isString1(0, c) : 真假
->类型别名 :=> 真假
->isString1 : (a: 数字, b: Object) => b 作为 文字
+>isString1(0, c) : boolean
+>isString1 : (a: number, b: Object) => b is string
 >0 : 0
 >c : Object
 }

@@ -2,7 +2,7 @@
 // Repro from #17829
 
 function base<T>() {
->base : <T>() => 类为 Base
+>base : <T>() => typeof Base
 >T : T
 
     class Base {
@@ -13,26 +13,23 @@ function base<T>() {
 >T : T
     }
     return Base;
->Base : 类为 Base
+>Base : typeof Base
 }
 
 class Gen<T> extends base<T>() {}  // Error, T not in scope
 >Gen : Gen<T>
 >T : T
->base<T>() : base<任意>.Base
->base : <T>() => 类为 Base
+>base<T>() : base<any>.Base
+>base : <T>() => typeof Base
 >T : No type information available!
 
 class Spec extends Gen<string> {}
 >Spec : Spec
->Gen : Gen<文字>
+>Gen : Gen<string>
 
 <string>Spec.prop;
-><string>Spec.prop : 文字
->类型别名 :=> 文字
->Spec.prop : 任意
->类型别名 :=> 任意
->Spec : 类为 Spec
->prop : 任意
->类型别名 :=> 任意
+><string>Spec.prop : string
+>Spec.prop : any
+>Spec : typeof Spec
+>prop : any
 

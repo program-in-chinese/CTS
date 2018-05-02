@@ -2,7 +2,7 @@
 // Repro from #14896
 
 type Attributes<Keys extends string> = {
->Attributes : { [Key 位于 Keys]: 文字; }
+>Attributes : { [Key in Keys]: string; }
 >Keys : Keys
 
     [Key in Keys]: string;
@@ -13,13 +13,13 @@ type Attributes<Keys extends string> = {
 class Query<A extends Attributes<keyof A>> {
 >Query : Query<A>
 >A : A
->Attributes : { [Key 位于 Keys]: 文字; }
+>Attributes : { [Key in Keys]: string; }
 >A : A
 
     multiply<B extends Attributes<keyof B>>(x: B): Query<A & B>;
->multiply : <B 扩展 { [Key 位于 Keys]: 文字; }>(x: B) => Query<A & B>
+>multiply : <B extends { [Key in keyof B]: string; }>(x: B) => Query<A & B>
 >B : B
->Attributes : { [Key 位于 Keys]: 文字; }
+>Attributes : { [Key in Keys]: string; }
 >B : B
 >x : B
 >B : B
@@ -31,122 +31,112 @@ class Query<A extends Attributes<keyof A>> {
 // Repro from #14940
 
 type ClassName<S> = keyof S;
->ClassName : 键集 S
+>ClassName : keyof S
 >S : S
 >S : S
 
 type ClassNameMap<S> = { [K in keyof S]?: boolean }
->ClassNameMap : { [K 位于 键集 S]?: 真假; }
+>ClassNameMap : { [K in keyof S]?: boolean; }
 >S : S
 >K : K
 >S : S
 
 type ClassNameObjectMap<S> = object & ClassNameMap<S>;
->ClassNameObjectMap : 实例 & { [K 位于 键集 S]?: 真假; }
+>ClassNameObjectMap : object & { [K in keyof S]?: boolean; }
 >S : S
->ClassNameMap : { [K 位于 键集 S]?: 真假; }
+>ClassNameMap : { [K in keyof S]?: boolean; }
 >S : S
 
 type ClassNameArg<S> = ClassName<S> | ClassNameObjectMap<S>;
->ClassNameArg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
+>ClassNameArg : keyof S | (object & { [K in keyof S]?: boolean; })
 >S : S
->ClassName : 键集 S
+>ClassName : keyof S
 >S : S
->ClassNameObjectMap : 实例 & { [K 位于 键集 S]?: 真假; }
+>ClassNameObjectMap : object & { [K in keyof S]?: boolean; }
 >S : S
 
 export function css<S extends { [K in keyof S]: string }>(styles: S, ...classNames: ClassNameArg<S>[]): string {
->css : <S 扩展 { [K 位于 键集 S]: 文字; }>(styles: S, ...classNames: (键集 S | (实例 & { [K 位于 键集 S]?: 真假; }))[]) => 文字
+>css : <S extends { [K in keyof S]: string; }>(styles: S, ...classNames: (keyof S | (object & { [K in keyof S]?: boolean; }))[]) => string
 >S : S
 >K : K
 >S : S
 >styles : S
 >S : S
->classNames : (键集 S | (实例 & { [K 位于 键集 S]?: 真假; }))[]
->ClassNameArg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
+>classNames : (keyof S | (object & { [K in keyof S]?: boolean; }))[]
+>ClassNameArg : keyof S | (object & { [K in keyof S]?: boolean; })
 >S : S
 
   const args = classNames.map(arg => {
->args : 任意[]
->classNames.map(arg => {    if (arg == null) {      return null;    }    if (typeof arg == "string") {      return styles[arg];    }    if (typeof arg == "object") {      return Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      }, {});    }  }) : 任意[]
->classNames.map : <U>(callbackfn: (value: 键集 S | (实例 & { [K 位于 键集 S]?: 真假; }), index: 数字, array: (键集 S | (实例 & { [K 位于 键集 S]?: 真假; }))[]) => U, thisArg?: 任意) => U[]
->classNames : (键集 S | (实例 & { [K 位于 键集 S]?: 真假; }))[]
->map : <U>(callbackfn: (value: 键集 S | (实例 & { [K 位于 键集 S]?: 真假; }), index: 数字, array: (键集 S | (实例 & { [K 位于 键集 S]?: 真假; }))[]) => U, thisArg?: 任意) => U[]
->arg => {    if (arg == null) {      return null;    }    if (typeof arg == "string") {      return styles[arg];    }    if (typeof arg == "object") {      return Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      }, {});    }  } : (arg: 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })) => 任意
->arg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
+>args : any[]
+>classNames.map(arg => {    if (arg == null) {      return null;    }    if (typeof arg == "string") {      return styles[arg];    }    if (typeof arg == "object") {      return Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      }, {});    }  }) : any[]
+>classNames.map : <U>(callbackfn: (value: keyof S | (object & { [K in keyof S]?: boolean; }), index: number, array: (keyof S | (object & { [K in keyof S]?: boolean; }))[]) => U, thisArg?: any) => U[]
+>classNames : (keyof S | (object & { [K in keyof S]?: boolean; }))[]
+>map : <U>(callbackfn: (value: keyof S | (object & { [K in keyof S]?: boolean; }), index: number, array: (keyof S | (object & { [K in keyof S]?: boolean; }))[]) => U, thisArg?: any) => U[]
+>arg => {    if (arg == null) {      return null;    }    if (typeof arg == "string") {      return styles[arg];    }    if (typeof arg == "object") {      return Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      }, {});    }  } : (arg: keyof S | (object & { [K in keyof S]?: boolean; })) => any
+>arg : keyof S | (object & { [K in keyof S]?: boolean; })
 
     if (arg == null) {
->arg == null : 真假
->类型别名 :=> 真假
->arg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
->null : 空值
->类型别名 :=> 空值
+>arg == null : boolean
+>arg : keyof S | (object & { [K in keyof S]?: boolean; })
+>null : null
 
       return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
     if (typeof arg == "string") {
->typeof arg == "string" : 真假
->类型别名 :=> 真假
->typeof arg : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->arg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
+>typeof arg == "string" : boolean
+>typeof arg : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>arg : keyof S | (object & { [K in keyof S]?: boolean; })
 >"string" : "string"
 
       return styles[arg];
->styles[arg] : S[键集 S]
+>styles[arg] : S[keyof S]
 >styles : S
->arg : 键集 S
+>arg : keyof S
     }
     if (typeof arg == "object") {
->typeof arg == "object" : 真假
->类型别名 :=> 真假
->typeof arg : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->arg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
+>typeof arg == "object" : boolean
+>typeof arg : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>arg : object & { [K in keyof S]?: boolean; }
 >"object" : "object"
 
       return Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {
->Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      }, {}) : 任意
->类型别名 :=> 任意
->Object.keys(arg).reduce : { (callbackfn: (previousValue: 文字, currentValue: 文字, currentIndex: 数字, array: 文字[]) => 文字): 文字; (callbackfn: (previousValue: 文字, currentValue: 文字, currentIndex: 数字, array: 文字[]) => 文字, initialValue: 文字): 文字; <U>(callbackfn: (previousValue: U, currentValue: 文字, currentIndex: 数字, array: 文字[]) => U, initialValue: U): U; }
->Object.keys(arg) : 文字[]
->Object.keys : (o: {}) => 文字[]
+>Object.keys(arg).reduce<ClassNameObject>((obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      }, {}) : any
+>Object.keys(arg).reduce : { (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }
+>Object.keys(arg) : string[]
+>Object.keys : (o: {}) => string[]
 >Object : ObjectConstructor
->keys : (o: {}) => 文字[]
->arg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
->reduce : { (callbackfn: (previousValue: 文字, currentValue: 文字, currentIndex: 数字, array: 文字[]) => 文字): 文字; (callbackfn: (previousValue: 文字, currentValue: 文字, currentIndex: 数字, array: 文字[]) => 文字, initialValue: 文字): 文字; <U>(callbackfn: (previousValue: U, currentValue: 文字, currentIndex: 数字, array: 文字[]) => U, initialValue: U): U; }
+>keys : (o: {}) => string[]
+>arg : object & { [K in keyof S]?: boolean; }
+>reduce : { (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }
 >ClassNameObject : No type information available!
->(obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      } : (obj: 任意, key: 键集 S) => 任意
->obj : 任意
->类型别名 :=> 任意
+>(obj: ClassNameObject, key: keyof S) => {        const exportedClassName = styles[key];        obj[exportedClassName] = (arg as ClassNameMap<S>)[key];         return obj;      } : (obj: any, key: keyof S) => any
+>obj : any
 >ClassNameObject : No type information available!
->key : 键集 S
+>key : keyof S
 >S : S
 
         const exportedClassName = styles[key];
->exportedClassName : S[键集 S]
->styles[key] : S[键集 S]
+>exportedClassName : S[keyof S]
+>styles[key] : S[keyof S]
 >styles : S
->key : 键集 S
+>key : keyof S
 
         obj[exportedClassName] = (arg as ClassNameMap<S>)[key]; 
->obj[exportedClassName] = (arg as ClassNameMap<S>)[key] : { [K 位于 键集 S]?: 真假; }[键集 S]
->obj[exportedClassName] : 任意
->类型别名 :=> 任意
->obj : 任意
->类型别名 :=> 任意
->exportedClassName : S[键集 S]
->(arg as ClassNameMap<S>)[key] : { [K 位于 键集 S]?: 真假; }[键集 S]
->(arg as ClassNameMap<S>) : { [K 位于 键集 S]?: 真假; }
->arg as ClassNameMap<S> : { [K 位于 键集 S]?: 真假; }
->arg : 键集 S | (实例 & { [K 位于 键集 S]?: 真假; })
->ClassNameMap : { [K 位于 键集 S]?: 真假; }
+>obj[exportedClassName] = (arg as ClassNameMap<S>)[key] : { [K in keyof S]?: boolean; }[keyof S]
+>obj[exportedClassName] : any
+>obj : any
+>exportedClassName : S[keyof S]
+>(arg as ClassNameMap<S>)[key] : { [K in keyof S]?: boolean; }[keyof S]
+>(arg as ClassNameMap<S>) : { [K in keyof S]?: boolean; }
+>arg as ClassNameMap<S> : { [K in keyof S]?: boolean; }
+>arg : object & { [K in keyof S]?: boolean; }
+>ClassNameMap : { [K in keyof S]?: boolean; }
 >S : S
->key : 键集 S
+>key : keyof S
 
         return obj;
->obj : 任意
->类型别名 :=> 任意
+>obj : any
 
       }, {});
 >{} : {}

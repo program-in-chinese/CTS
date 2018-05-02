@@ -1,19 +1,19 @@
-tests/cases/conformance/jsx/file.tsx(8,34): error TS2322: Type 'T & { ignore-prop: 10; }' is not assignable to type 'IntrinsicAttributes & { prop: 数字; "ignore-prop": 文字; }'.
-  Type 'T & { ignore-prop: 10; }' is not assignable to type '{ prop: 数字; "ignore-prop": 文字; }'.
+tests/cases/conformance/jsx/file.tsx(8,34): error TS2322: Type 'T & { ignore-prop: number; }' is not assignable to type 'IntrinsicAttributes & { prop: number; "ignore-prop": string; }'.
+  Type 'T & { ignore-prop: number; }' is not assignable to type '{ prop: number; "ignore-prop": string; }'.
     Types of property '"ignore-prop"' are incompatible.
-      Type '10' is not assignable to type '文字'.
-tests/cases/conformance/jsx/file.tsx(13,34): error TS2322: Type 'T' is not assignable to type 'IntrinsicAttributes & { prop: {}; "ignore-prop": 文字; }'.
-  Type 'T' is not assignable to type '{ prop: {}; "ignore-prop": 文字; }'.
-tests/cases/conformance/jsx/file.tsx(20,19): error TS2322: Type '{ func: (a: 数字, b: 文字) => 无值; }' is not assignable to type 'IntrinsicAttributes & { func: (arg: 数字) => 无值; }'.
-  Type '{ func: (a: 数字, b: 文字) => 无值; }' is not assignable to type '{ func: (arg: 数字) => 无值; }'.
+      Type 'number' is not assignable to type 'string'.
+tests/cases/conformance/jsx/file.tsx(13,34): error TS2322: Type 'T' is not assignable to type 'IntrinsicAttributes & { prop: {}; "ignore-prop": string; }'.
+  Type 'T' is not assignable to type '{ prop: {}; "ignore-prop": string; }'.
+tests/cases/conformance/jsx/file.tsx(20,19): error TS2322: Type '{ func: (a: number, b: string) => void; }' is not assignable to type 'IntrinsicAttributes & { func: (arg: number) => void; }'.
+  Type '{ func: (a: number, b: string) => void; }' is not assignable to type '{ func: (arg: number) => void; }'.
     Types of property 'func' are incompatible.
-      Type '(a: 数字, b: 文字) => 无值' is not assignable to type '(arg: 数字) => 无值'.
-tests/cases/conformance/jsx/file.tsx(31,30): error TS2322: Type '{ values: 数字[]; selectHandler: (val: 文字) => 无值; }' is not assignable to type 'IntrinsicAttributes & InferParamProp<数字>'.
-  Type '{ values: 数字[]; selectHandler: (val: 文字) => 无值; }' is not assignable to type 'InferParamProp<数字>'.
+      Type '(a: number, b: string) => void' is not assignable to type '(arg: number) => void'.
+tests/cases/conformance/jsx/file.tsx(31,30): error TS2322: Type '{ values: number[]; selectHandler: (val: string) => void; }' is not assignable to type 'IntrinsicAttributes & InferParamProp<number>'.
+  Type '{ values: number[]; selectHandler: (val: string) => void; }' is not assignable to type 'InferParamProp<number>'.
     Types of property 'selectHandler' are incompatible.
-      Type '(val: 文字) => 无值' is not assignable to type '(selectedVal: 数字) => 无值'.
+      Type '(val: string) => void' is not assignable to type '(selectedVal: number) => void'.
         Types of parameters 'val' and 'selectedVal' are incompatible.
-          Type '数字' is not assignable to type '文字'.
+          Type 'number' is not assignable to type 'string'.
 
 
 ==== tests/cases/conformance/jsx/file.tsx (4 errors) ====
@@ -26,18 +26,18 @@ tests/cases/conformance/jsx/file.tsx(31,30): error TS2322: Type '{ values: 数�
     function Bar<T extends {prop: number}>(arg: T) {
         let a1 = <ComponentSpecific1 {...arg} ignore-prop={10} />;
                                      ~~~~~~~~~~~~~~~~~~~~~~~~~
-!!! error TS2322: Type 'T & { ignore-prop: 10; }' is not assignable to type 'IntrinsicAttributes & { prop: 数字; "ignore-prop": 文字; }'.
-!!! error TS2322:   Type 'T & { ignore-prop: 10; }' is not assignable to type '{ prop: 数字; "ignore-prop": 文字; }'.
+!!! error TS2322: Type 'T & { ignore-prop: number; }' is not assignable to type 'IntrinsicAttributes & { prop: number; "ignore-prop": string; }'.
+!!! error TS2322:   Type 'T & { ignore-prop: number; }' is not assignable to type '{ prop: number; "ignore-prop": string; }'.
 !!! error TS2322:     Types of property '"ignore-prop"' are incompatible.
-!!! error TS2322:       Type '10' is not assignable to type '文字'.
+!!! error TS2322:       Type 'number' is not assignable to type 'string'.
      }
     
     // Error
     function Baz<T>(arg: T) {
         let a0 = <ComponentSpecific1 {...arg} />
                                      ~~~~~~~~
-!!! error TS2322: Type 'T' is not assignable to type 'IntrinsicAttributes & { prop: {}; "ignore-prop": 文字; }'.
-!!! error TS2322:   Type 'T' is not assignable to type '{ prop: {}; "ignore-prop": 文字; }'.
+!!! error TS2322: Type 'T' is not assignable to type 'IntrinsicAttributes & { prop: {}; "ignore-prop": string; }'.
+!!! error TS2322:   Type 'T' is not assignable to type '{ prop: {}; "ignore-prop": string; }'.
     }
     
     declare function Link<U>(l: {func: (arg: U)=>void}): JSX.Element;
@@ -46,10 +46,10 @@ tests/cases/conformance/jsx/file.tsx(31,30): error TS2322: Type '{ values: 数�
     function createLink(func: (a: number, b: string)=>void) {
         let o = <Link func={func} />
                       ~~~~~~~~~~~
-!!! error TS2322: Type '{ func: (a: 数字, b: 文字) => 无值; }' is not assignable to type 'IntrinsicAttributes & { func: (arg: 数字) => 无值; }'.
-!!! error TS2322:   Type '{ func: (a: 数字, b: 文字) => 无值; }' is not assignable to type '{ func: (arg: 数字) => 无值; }'.
+!!! error TS2322: Type '{ func: (a: number, b: string) => void; }' is not assignable to type 'IntrinsicAttributes & { func: (arg: number) => void; }'.
+!!! error TS2322:   Type '{ func: (a: number, b: string) => void; }' is not assignable to type '{ func: (arg: number) => void; }'.
 !!! error TS2322:     Types of property 'func' are incompatible.
-!!! error TS2322:       Type '(a: 数字, b: 文字) => 无值' is not assignable to type '(arg: 数字) => 无值'.
+!!! error TS2322:       Type '(a: number, b: string) => void' is not assignable to type '(arg: number) => void'.
     }
     
     interface InferParamProp<T> {
@@ -62,10 +62,10 @@ tests/cases/conformance/jsx/file.tsx(31,30): error TS2322: Type '{ values: 数�
     // Error
     let i = <InferParamComponent values={[1, 2, 3, 4]} selectHandler={(val: string) => { }} />;
                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!!! error TS2322: Type '{ values: 数字[]; selectHandler: (val: 文字) => 无值; }' is not assignable to type 'IntrinsicAttributes & InferParamProp<数字>'.
-!!! error TS2322:   Type '{ values: 数字[]; selectHandler: (val: 文字) => 无值; }' is not assignable to type 'InferParamProp<数字>'.
+!!! error TS2322: Type '{ values: number[]; selectHandler: (val: string) => void; }' is not assignable to type 'IntrinsicAttributes & InferParamProp<number>'.
+!!! error TS2322:   Type '{ values: number[]; selectHandler: (val: string) => void; }' is not assignable to type 'InferParamProp<number>'.
 !!! error TS2322:     Types of property 'selectHandler' are incompatible.
-!!! error TS2322:       Type '(val: 文字) => 无值' is not assignable to type '(selectedVal: 数字) => 无值'.
+!!! error TS2322:       Type '(val: string) => void' is not assignable to type '(selectedVal: number) => void'.
 !!! error TS2322:         Types of parameters 'val' and 'selectedVal' are incompatible.
-!!! error TS2322:           Type '数字' is not assignable to type '文字'.
+!!! error TS2322:           Type 'number' is not assignable to type 'string'.
     

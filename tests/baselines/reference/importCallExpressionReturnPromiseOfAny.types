@@ -4,142 +4,115 @@ export class C {}
 
 === tests/cases/conformance/dynamicImport/1.ts ===
 import * as defaultModule from "./defaultPath";
->defaultModule : 类为 defaultModule
+>defaultModule : typeof defaultModule
 
 declare function getSpecifier(): string;
->getSpecifier : () => 文字
+>getSpecifier : () => string
 
 declare function ValidSomeCondition(): boolean;
->ValidSomeCondition : () => 真假
+>ValidSomeCondition : () => boolean
 
 declare var whatToLoad: boolean;
->whatToLoad : 真假
->类型别名 :=> 真假
+>whatToLoad : boolean
 
 declare const directory: string;
->directory : 文字
->类型别名 :=> 文字
+>directory : string
 
 declare const moduleFile: number;
->moduleFile : 数字
->类型别名 :=> 数字
+>moduleFile : number
 
 import(`${directory}\${moduleFile}`);
->import(`${directory}\${moduleFile}`) : Promise<任意>
->`${directory}\${moduleFile}` : 文字
->类型别名 :=> 文字
->directory : 文字
->类型别名 :=> 文字
+>import(`${directory}\${moduleFile}`) : Promise<any>
+>`${directory}\${moduleFile}` : string
+>directory : string
 
 import(getSpecifier());
->import(getSpecifier()) : Promise<任意>
->getSpecifier() : 文字
->类型别名 :=> 文字
->getSpecifier : () => 文字
+>import(getSpecifier()) : Promise<any>
+>getSpecifier() : string
+>getSpecifier : () => string
 
 var p1 = import(ValidSomeCondition() ? "./0" : "externalModule");
->p1 : Promise<任意>
->import(ValidSomeCondition() ? "./0" : "externalModule") : Promise<任意>
+>p1 : Promise<any>
+>import(ValidSomeCondition() ? "./0" : "externalModule") : Promise<any>
 >ValidSomeCondition() ? "./0" : "externalModule" : "./0" | "externalModule"
->ValidSomeCondition() : 真假
->类型别名 :=> 真假
->ValidSomeCondition : () => 真假
+>ValidSomeCondition() : boolean
+>ValidSomeCondition : () => boolean
 >"./0" : "./0"
 >"externalModule" : "externalModule"
 
 var p1: Promise<any> = import(getSpecifier());
->p1 : Promise<任意>
+>p1 : Promise<any>
 >Promise : Promise<T>
->import(getSpecifier()) : Promise<任意>
->getSpecifier() : 文字
->类型别名 :=> 文字
->getSpecifier : () => 文字
+>import(getSpecifier()) : Promise<any>
+>getSpecifier() : string
+>getSpecifier : () => string
 
 var p11: Promise<typeof defaultModule> = import(getSpecifier());
->p11 : Promise<类为 defaultModule>
+>p11 : Promise<typeof defaultModule>
 >Promise : Promise<T>
->defaultModule : 类为 defaultModule
->import(getSpecifier()) : Promise<任意>
->getSpecifier() : 文字
->类型别名 :=> 文字
->getSpecifier : () => 文字
+>defaultModule : typeof defaultModule
+>import(getSpecifier()) : Promise<any>
+>getSpecifier() : string
+>getSpecifier : () => string
 
 const p2 = import(whatToLoad ? getSpecifier() : "defaulPath") as Promise<typeof defaultModule>;
->p2 : Promise<类为 defaultModule>
->import(whatToLoad ? getSpecifier() : "defaulPath") as Promise<typeof defaultModule> : Promise<类为 defaultModule>
->import(whatToLoad ? getSpecifier() : "defaulPath") : Promise<任意>
->whatToLoad ? getSpecifier() : "defaulPath" : 文字
->类型别名 :=> 文字
->whatToLoad : 真假
->类型别名 :=> 真假
->getSpecifier() : 文字
->类型别名 :=> 文字
->getSpecifier : () => 文字
+>p2 : Promise<typeof defaultModule>
+>import(whatToLoad ? getSpecifier() : "defaulPath") as Promise<typeof defaultModule> : Promise<typeof defaultModule>
+>import(whatToLoad ? getSpecifier() : "defaulPath") : Promise<any>
+>whatToLoad ? getSpecifier() : "defaulPath" : string
+>whatToLoad : boolean
+>getSpecifier() : string
+>getSpecifier : () => string
 >"defaulPath" : "defaulPath"
 >Promise : Promise<T>
->defaultModule : 类为 defaultModule
+>defaultModule : typeof defaultModule
 
 p1.then(zero => {
->p1.then(zero => {    return zero.foo();  // ok, zero is any}) : Promise<任意>
->p1.then : <TResult1 = 任意, TResult2 = 不及>(onfulfilled?: (value: 任意) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: 任意) => TResult2 | PromiseLike<TResult2>) => Promise<TResult1 | TResult2>
->p1 : Promise<任意>
->then : <TResult1 = 任意, TResult2 = 不及>(onfulfilled?: (value: 任意) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: 任意) => TResult2 | PromiseLike<TResult2>) => Promise<TResult1 | TResult2>
->zero => {    return zero.foo();  // ok, zero is any} : (zero: 任意) => 任意
->zero : 任意
->类型别名 :=> 任意
+>p1.then(zero => {    return zero.foo();  // ok, zero is any}) : Promise<any>
+>p1.then : <TResult1 = any, TResult2 = never>(onfulfilled?: (value: any) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>) => Promise<TResult1 | TResult2>
+>p1 : Promise<any>
+>then : <TResult1 = any, TResult2 = never>(onfulfilled?: (value: any) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>) => Promise<TResult1 | TResult2>
+>zero => {    return zero.foo();  // ok, zero is any} : (zero: any) => any
+>zero : any
 
     return zero.foo();  // ok, zero is any
->zero.foo() : 任意
->类型别名 :=> 任意
->zero.foo : 任意
->类型别名 :=> 任意
->zero : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>zero.foo() : any
+>zero.foo : any
+>zero : any
+>foo : any
 
 });
 
 let j: string;
->j : 文字
->类型别名 :=> 文字
+>j : string
 
 var p3: Promise<typeof defaultModule> = import(j=getSpecifier());
->p3 : Promise<类为 defaultModule>
+>p3 : Promise<typeof defaultModule>
 >Promise : Promise<T>
->defaultModule : 类为 defaultModule
->import(j=getSpecifier()) : Promise<任意>
->j=getSpecifier() : 文字
->类型别名 :=> 文字
->j : 文字
->类型别名 :=> 文字
->getSpecifier() : 文字
->类型别名 :=> 文字
->getSpecifier : () => 文字
+>defaultModule : typeof defaultModule
+>import(j=getSpecifier()) : Promise<any>
+>j=getSpecifier() : string
+>j : string
+>getSpecifier() : string
+>getSpecifier : () => string
 
 function * loadModule(directories: string[]) {
->loadModule : (directories: 文字[]) => IterableIterator<文字>
->directories : 文字[]
+>loadModule : (directories: string[]) => IterableIterator<string>
+>directories : string[]
 
     for (const directory of directories) {
->directory : 任意
->类型别名 :=> 任意
->directories : 文字[]
+>directory : string
+>directories : string[]
 
         const path = `${directory}\moduleFile`;
->path : 文字
->类型别名 :=> 文字
->`${directory}\moduleFile` : 文字
->类型别名 :=> 文字
->directory : 任意
->类型别名 :=> 任意
+>path : string
+>`${directory}\moduleFile` : string
+>directory : string
 
         import(yield path);
->import(yield path) : Promise<任意>
->yield path : 任意
->类型别名 :=> 任意
->path : 文字
->类型别名 :=> 文字
+>import(yield path) : Promise<any>
+>yield path : any
+>path : string
     }
 }
 

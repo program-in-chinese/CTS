@@ -1,138 +1,104 @@
 === tests/cases/compiler/strictModeReservedWord.ts ===
 let let = 10;
->let : 数字
->类型别名 :=> 数字
+>let : number
 >10 : 10
 
 function foo() {
->foo : () => 无值
+>foo : () => void
 
     "use strict"
 >"use strict" : "use strict"
 
     var public = 10;
->public : 数字
->类型别名 :=> 数字
+>public : number
 >10 : 10
 
     var static = "hi";
->static : 文字
->类型别名 :=> 文字
+>static : string
 >"hi" : "hi"
 
     let let = "blah";
->let : 文字
->类型别名 :=> 文字
+>let : string
 >"blah" : "blah"
 
     var package = "hello"
->package : 文字
->类型别名 :=> 文字
+>package : string
 >"hello" : "hello"
 
     function package() { }
->package : () => 无值
+>package : () => void
 
     function bar(private, implements, let) { }
->bar : (private: 任意, implements: 任意, let: 任意) => 无值
->private : 任意
->类型别名 :=> 任意
->implements : 任意
->类型别名 :=> 任意
->let : 任意
->类型别名 :=> 任意
+>bar : (private: any, implements: any, let: any) => void
+>private : any
+>implements : any
+>let : any
 
     function baz<implements, protected>() { }
->baz : <implements, protected>() => 无值
+>baz : <implements, protected>() => void
 >implements : implements
 >protected : protected
 
     function barn(cb: (private, public, package) => void) { }
->barn : (cb: (private: 任意, public: 任意, package: 任意) => 无值) => 无值
->cb : (private: 任意, public: 任意, package: 任意) => 无值
->private : 任意
->类型别名 :=> 任意
->public : 任意
->类型别名 :=> 任意
->package : 任意
->类型别名 :=> 任意
+>barn : (cb: (private: any, public: any, package: any) => void) => void
+>cb : (private: any, public: any, package: any) => void
+>private : any
+>public : any
+>package : any
 
     barn((private, public, package) => { });
->barn((private, public, package) => { }) : 无值
->类型别名 :=> 无值
->barn : (cb: (private: 任意, public: 任意, package: 任意) => 无值) => 无值
->(private, public, package) => { } : (private: 任意, public: 任意, package: 任意) => 无值
->private : 任意
->类型别名 :=> 任意
->public : 任意
->类型别名 :=> 任意
->package : 任意
->类型别名 :=> 任意
+>barn((private, public, package) => { }) : void
+>barn : (cb: (private: any, public: any, package: any) => void) => void
+>(private, public, package) => { } : (private: any, public: any, package: any) => void
+>private : any
+>public : any
+>package : any
 
     var myClass = class package extends public {}
->myClass : 类为 package
->class package extends public {} : 类为 package
->package : 类为 package
->public : 数字
->类型别名 :=> 数字
+>myClass : typeof package
+>class package extends public {} : typeof package
+>package : typeof package
+>public : number
 
     var b: public.bar;
->b : 任意
->类型别名 :=> 任意
->public : 任意
->类型别名 :=> 任意
+>b : any
+>public : any
 >bar : No type information available!
 
     function foo(x: private.x) { }
->foo : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
->private : 任意
->类型别名 :=> 任意
+>foo : (x: any) => void
+>x : any
+>private : any
 >x : No type information available!
 
     function foo1(x: private.package.x) { }
->foo1 : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
->private : 任意
->类型别名 :=> 任意
->package : 任意
->类型别名 :=> 任意
+>foo1 : (x: any) => void
+>x : any
+>private : any
+>package : any
 >x : No type information available!
 
     function foo2(x: private.package.protected) { }
->foo2 : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
->private : 任意
->类型别名 :=> 任意
->package : 任意
->类型别名 :=> 任意
+>foo2 : (x: any) => void
+>x : any
+>private : any
+>package : any
 >protected : No type information available!
 
     let b: interface.package.implements.B;
->b : 任意
->类型别名 :=> 任意
->interface : 任意
->类型别名 :=> 任意
->package : 任意
->类型别名 :=> 任意
->implements : 任意
->类型别名 :=> 任意
+>b : any
+>interface : any
+>package : any
+>implements : any
 >B : No type information available!
 
     ublic();
->ublic() : 任意
->类型别名 :=> 任意
->ublic : 任意
->类型别名 :=> 任意
+>ublic() : any
+>ublic : any
 
     static();
->static() : 任意
->类型别名 :=> 任意
->static : 文字
->类型别名 :=> 文字
+>static() : any
+>static : string
 }
 
 

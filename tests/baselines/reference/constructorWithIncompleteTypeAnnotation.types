@@ -1,160 +1,124 @@
 === tests/cases/compiler/constructorWithIncompleteTypeAnnotation.ts ===
 declare module "fs" {
+>"fs" : typeof "fs"
+
     export class File {
 >File : File
 
         constructor(filename: string);
->filename : 文字
->类型别名 :=> 文字
+>filename : string
 
         public ReadAllText(): string;
->ReadAllText : () => 文字
+>ReadAllText : () => string
     }
     export interface IFile {
 >IFile : IFile
 
         [index: number]: string;
->index : 数字
->类型别名 :=> 数字
+>index : number
     }
 }
 
 import fs = module("fs");
->fs : 任意
->类型别名 :=> 任意
->module : No type information available!
+>fs : any
+>module : any
 >("fs") : "fs"
 >"fs" : "fs"
 
 
 module TypeScriptAllInOne {
->TypeScriptAllInOne : 类为 TypeScriptAllInOne
+>TypeScriptAllInOne : typeof TypeScriptAllInOne
 
     export class Program {
 >Program : Program
 
         static Main(...args: string[]) {
->Main : (...args: 文字[]) => 无值
->args : 文字[]
+>Main : (...args: string[]) => void
+>args : string[]
 
             try {
                 var bfs = new BasicFeatures();
 >bfs : BasicFeatures
 >new BasicFeatures() : BasicFeatures
->BasicFeatures : 类为 BasicFeatures
+>BasicFeatures : typeof BasicFeatures
 
                 var retValue: number = 0;
->retValue : 数字
->类型别名 :=> 数字
+>retValue : number
 >0 : 0
 
                 retValue = bfs.VARIABLES();
->retValue = bfs.VARIABLES() : 数字
->类型别名 :=> 数字
->retValue : 数字
->类型别名 :=> 数字
->bfs.VARIABLES() : 数字
->类型别名 :=> 数字
->bfs.VARIABLES : () => 数字
+>retValue = bfs.VARIABLES() : number
+>retValue : number
+>bfs.VARIABLES() : number
+>bfs.VARIABLES : () => number
 >bfs : BasicFeatures
->VARIABLES : () => 数字
+>VARIABLES : () => number
 
                 if (retValue != 0 ^=  {
->retValue != 0 : 真假
->类型别名 :=> 真假
->retValue : 数字
->类型别名 :=> 数字
+>retValue != 0 : boolean
+>retValue : number
 >0 : 0
->^=  {                    return 1;                } : 数字
->类型别名 :=> 数字
-> : 任意
->类型别名 :=> 任意
->{                    return 1;                } : { return: 数字; }
+>^=  {                    return 1;                } : number
+> : any
+>{                    return 1;                } : { return: number; }
 
                     return 1;
->return : 数字
->类型别名 :=> 数字
+>return : number
 >1 : 1
                 }
 
                  case  = bfs.STATEMENTS(4);
->case : 任意
->类型别名 :=> 任意
->bfs.STATEMENTS(4) : 任意
->类型别名 :=> 任意
->bfs.STATEMENTS : 任意
->类型别名 :=> 任意
->bfs : 任意
->类型别名 :=> 任意
->STATEMENTS : 任意
->类型别名 :=> 任意
+>case : any
+>bfs.STATEMENTS(4) : any
+>bfs.STATEMENTS : any
+>bfs : any
+>STATEMENTS : any
 >4 : 4
 
                 if (retValue != 0) {
->if : (retValue?: 真假) => 任意
->retValue : 真假
->类型别名 :=> 真假
->!= 0 : 真假
->类型别名 :=> 真假
-> : 任意
->类型别名 :=> 任意
+>if : (retValue: any) => any
+>retValue : any
+>!= 0 : boolean
+> : any
 >0 : 0
 
                     return 1;
 >1 : 1
 
                  ^ 
->^                 retValue : 数字
->类型别名 :=> 数字
-> : 任意
->类型别名 :=> 任意
+>^                 retValue : number
+> : any
 
 
                 retValue = bfs.TYPES();
->retValue : 真假
->类型别名 :=> 真假
->bfs.TYPES() : 任意
->类型别名 :=> 任意
->bfs.TYPES : 任意
->类型别名 :=> 任意
->bfs : 任意
->类型别名 :=> 任意
->TYPES : 任意
->类型别名 :=> 任意
+>retValue : any
+>bfs.TYPES() : any
+>bfs.TYPES : any
+>bfs : any
+>TYPES : any
 
                 if (retValue != 0) {
->retValue != 0 : 真假
->类型别名 :=> 真假
->retValue : 真假
->类型别名 :=> 真假
+>retValue != 0 : boolean
+>retValue : any
 >0 : 0
 
                     return 1 && 
->1 && : 任意
->类型别名 :=> 任意
+>1 && : any
 >1 : 1
                 }
-> : 任意
->类型别名 :=> 任意
+> : any
 
                 retValue = bfs.OPERATOR ' );
->retValue = bfs.OPERATOR : 任意
->类型别名 :=> 任意
->retValue : 真假
->类型别名 :=> 真假
->bfs.OPERATOR : 任意
->类型别名 :=> 任意
->bfs : 任意
->类型别名 :=> 任意
->OPERATOR : 任意
->类型别名 :=> 任意
+>retValue = bfs.OPERATOR : any
+>retValue : any
+>bfs.OPERATOR : any
+>bfs : any
+>OPERATOR : any
 >' ); : " );"
 
                 if (retValue != 0) {
->retValue != 0 : 真假
->类型别名 :=> 真假
->retValue : 真假
->类型别名 :=> 真假
+>retValue != 0 : boolean
+>retValue : any
 >0 : 0
 
                     return 1;
@@ -162,35 +126,24 @@ module TypeScriptAllInOne {
                 }
             }
             catch (e) {
->catch : (e: 任意) => 无值
->e : 任意
->类型别名 :=> 任意
+>e : any
 
                 console.log(e);
->console.log(e) : 任意
->类型别名 :=> 任意
->console.log : 任意
->类型别名 :=> 任意
->console : 任意
->类型别名 :=> 任意
->log : 任意
->类型别名 :=> 任意
->e : 任意
->类型别名 :=> 任意
+>console.log(e) : any
+>console.log : any
+>console : any
+>log : any
+>e : any
             }
             finally {
 
             }
 
             console.log('Done');
->console.log('Done') : 任意
->类型别名 :=> 任意
->console.log : 任意
->类型别名 :=> 任意
->console : 任意
->类型别名 :=> 任意
->log : 任意
->类型别名 :=> 任意
+>console.log('Done') : any
+>console.log : any
+>console : any
+>log : any
 >'Done' : "Done"
 
             return 0;
@@ -207,131 +160,88 @@ module TypeScriptAllInOne {
         /// </summary>
         /// <returns></returns>
         public VARIABLES(): number {
->VARIABLES : () => 数字
+>VARIABLES : () => number
 
             var local = Number.MAX_VALUE;
->local : 数字
->类型别名 :=> 数字
->Number.MAX_VALUE : 数字
->类型别名 :=> 数字
+>local : number
+>Number.MAX_VALUE : number
 >Number : NumberConstructor
->MAX_VALUE : 数字
->类型别名 :=> 数字
+>MAX_VALUE : number
 
             var min = Number.MIN_VALUE;
->min : 数字
->类型别名 :=> 数字
->Number.MIN_VALUE : 数字
->类型别名 :=> 数字
+>min : number
+>Number.MIN_VALUE : number
 >Number : NumberConstructor
->MIN_VALUE : 数字
->类型别名 :=> 数字
+>MIN_VALUE : number
 
             var inf = Number.NEGATIVE_INFINITY - 
->inf : 数字
->类型别名 :=> 数字
->Number.NEGATIVE_INFINITY - : 数字
->类型别名 :=> 数字
->Number.NEGATIVE_INFINITY : 数字
->类型别名 :=> 数字
+>inf : number
+>Number.NEGATIVE_INFINITY - : number
+>Number.NEGATIVE_INFINITY : number
 >Number : NumberConstructor
->NEGATIVE_INFINITY : 数字
->类型别名 :=> 数字
+>NEGATIVE_INFINITY : number
 
             var nan = Number.NaN;
-> : 任意
->类型别名 :=> 任意
->nan : 数字
->类型别名 :=> 数字
->Number.NaN : 数字
->类型别名 :=> 数字
+> : any
+>nan : number
+>Number.NaN : number
 >Number : NumberConstructor
->NaN : 数字
->类型别名 :=> 数字
+>NaN : number
 
             var undef = undefined;
->undef : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>undef : any
+>undefined : undefined
 
             var  _\uD4A5\u7204\uC316\uE59F  = local;
->_\uD4A5\u7204\uC316 : 任意
->类型别名 :=> 任意
->uE59F : 数字
->类型别名 :=> 数字
->local : 数字
->类型别名 :=> 数字
+>_\uD4A5\u7204\uC316 : any
+>uE59F : number
+>local : number
 
             var мир = local;
->мир : 数字
->类型别名 :=> 数字
->local : 数字
->类型别名 :=> 数字
+>мир : number
+>local : number
 
             var local5 = <fs.File>null;
->local5 : 任意
->类型别名 :=> 任意
-><fs.File>null : 任意
->类型别名 :=> 任意
->fs : 任意
->类型别名 :=> 任意
->File : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>local5 : any
+><fs.File>null : any
+>fs : any
+>File : any
+>null : null
 
             var local6 = local5 instanceof fs.File;
->local6 : 真假
->类型别名 :=> 真假
->local5 instanceof fs.File : 真假
->类型别名 :=> 真假
->local5 : 任意
->类型别名 :=> 任意
->fs.File : 任意
->类型别名 :=> 任意
->fs : 任意
->类型别名 :=> 任意
->File : 任意
->类型别名 :=> 任意
+>local6 : boolean
+>local5 instanceof fs.File : boolean
+>local5 : any
+>fs.File : any
+>fs : any
+>File : any
 
             var hex = 0xBADC0DE, Hex = 0XDEADBEEF;
->hex : 数字
->类型别名 :=> 数字
+>hex : number
 >0xBADC0DE : 195936478
->Hex : 数字
->类型别名 :=> 数字
+>Hex : number
 >0XDEADBEEF : 3735928559
 
             var float = 6.02e23, float2 = 6.02E-23
->float : 数字
->类型别名 :=> 数字
+>float : number
 >6.02e23 : 6.02e+23
->float2 : 数字
->类型别名 :=> 数字
+>float2 : number
 >6.02E-23 : 6.02e-23
 
             var char = 'c', \u0066 = '\u0066', hexchar = '\x42' != 
->char : 文字
->类型别名 :=> 文字
+>char : string
 >'c' : "c"
->\u0066 : 文字
->类型别名 :=> 文字
+>\u0066 : string
 >'\u0066' : "f"
->hexchar : 真假
->类型别名 :=> 真假
->'\x42' != : 真假
->类型别名 :=> 真假
+>hexchar : boolean
+>'\x42' != : boolean
 >'\x42' : "B"
 
             var quoted = '"', quoted2 = "'";
-> : 任意
->类型别名 :=> 任意
->quoted : 文字
->类型别名 :=> 文字
+> : any
+>quoted : string
 >'"' : "\""
->quoted2 : 文字
->类型别名 :=> 文字
+>quoted2 : string
 >"'" : "'"
 
             var reg = /\w*/;
@@ -339,253 +249,173 @@ module TypeScriptAllInOne {
 >/\w*/ : RegExp
 
             var objLit = { "var": number = 42, equals: function (x) { return x["var"] === 42; },  instanceof : () => 'objLit{42}' };
->objLit : { "var": 数字; equals: (x: 任意) => 真假; instanceof: () => 文字; }
->{ "var": number = 42, equals: function (x) { return x["var"] === 42; },  instanceof : () => 'objLit{42}' } : { "var": 数字; equals: (x: 任意) => 真假; instanceof: () => 文字; }
+>objLit : { "var": number; equals: (x: any) => boolean; instanceof: () => string; }
+>{ "var": number = 42, equals: function (x) { return x["var"] === 42; },  instanceof : () => 'objLit{42}' } : { "var": number; equals: (x: any) => boolean; instanceof: () => string; }
+>"var" : number
 >number = 42 : 42
->number : 数字
->类型别名 :=> 数字
+>number : number
 >42 : 42
->equals : (x: 任意) => 真假
->function (x) { return x["var"] === 42; } : (x: 任意) => 真假
->x : 任意
->类型别名 :=> 任意
->x["var"] === 42 : 真假
->类型别名 :=> 真假
->x["var"] : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>equals : (x: any) => boolean
+>function (x) { return x["var"] === 42; } : (x: any) => boolean
+>x : any
+>x["var"] === 42 : boolean
+>x["var"] : any
+>x : any
 >"var" : "var"
 >42 : 42
->instanceof : () => 文字
->() => 'objLit{42}' : () => 文字
+>instanceof : () => string
+>() => 'objLit{42}' : () => string
 >'objLit{42}' : "objLit{42}"
 
             var weekday = Weekdays.Monday;
 >weekday : Weekdays
 >Weekdays.Monday : Weekdays.Monday
->Weekdays : 类为 Weekdays
+>Weekdays : typeof Weekdays
 >Monday : Weekdays.Monday
 
             var con = char + f + hexchar + float.toString() + float2.toString() + reg.toString() + objLit + weekday;
->con : 文字
->类型别名 :=> 文字
->char + f + hexchar + float.toString() + float2.toString() + reg.toString() + objLit + weekday : 文字
->类型别名 :=> 文字
->char + f + hexchar + float.toString() + float2.toString() + reg.toString() + objLit : 文字
->类型别名 :=> 文字
->char + f + hexchar + float.toString() + float2.toString() + reg.toString() : 文字
->类型别名 :=> 文字
->char + f + hexchar + float.toString() + float2.toString() : 文字
->类型别名 :=> 文字
->char + f + hexchar + float.toString() : 文字
->类型别名 :=> 文字
->char + f + hexchar : 文字
->类型别名 :=> 文字
->char + f : 文字
->类型别名 :=> 文字
->char : 文字
->类型别名 :=> 文字
->f : 文字
->类型别名 :=> 文字
->hexchar : 真假
->类型别名 :=> 真假
->float.toString() : 文字
->类型别名 :=> 文字
->float.toString : (radix?: 数字) => 文字
->float : 数字
->类型别名 :=> 数字
->toString : (radix?: 数字) => 文字
->float2.toString() : 文字
->类型别名 :=> 文字
->float2.toString : (radix?: 数字) => 文字
->float2 : 数字
->类型别名 :=> 数字
->toString : (radix?: 数字) => 文字
->reg.toString() : 文字
->类型别名 :=> 文字
->reg.toString : () => 文字
+>con : string
+>char + f + hexchar + float.toString() + float2.toString() + reg.toString() + objLit + weekday : string
+>char + f + hexchar + float.toString() + float2.toString() + reg.toString() + objLit : string
+>char + f + hexchar + float.toString() + float2.toString() + reg.toString() : string
+>char + f + hexchar + float.toString() + float2.toString() : string
+>char + f + hexchar + float.toString() : string
+>char + f + hexchar : string
+>char + f : string
+>char : string
+>f : string
+>hexchar : boolean
+>float.toString() : string
+>float.toString : (radix?: number) => string
+>float : number
+>toString : (radix?: number) => string
+>float2.toString() : string
+>float2.toString : (radix?: number) => string
+>float2 : number
+>toString : (radix?: number) => string
+>reg.toString() : string
+>reg.toString : () => string
 >reg : RegExp
->toString : () => 文字
->objLit : { "var": 数字; equals: (x: 任意) => 真假; instanceof: () => 文字; }
+>toString : () => string
+>objLit : { "var": number; equals: (x: any) => boolean; instanceof: () => string; }
 >weekday : Weekdays.Monday
 
             //
             var any = 0 ^= 
->any : 数字
->类型别名 :=> 数字
->0 ^= : 数字
->类型别名 :=> 数字
+>any : number
+>0 ^= : number
 >0 : 0
 
             var bool = 0;
-> : 任意
->类型别名 :=> 任意
->bool : 数字
->类型别名 :=> 数字
+> : any
+>bool : number
 >0 : 0
 
             var declare = 0;
->declare : 数字
->类型别名 :=> 数字
+>declare : number
 >0 : 0
 
             var constructor = 0;
->constructor : 数字
->类型别名 :=> 数字
+>constructor : number
 >0 : 0
 
             var get = 0;
->get : 数字
->类型别名 :=> 数字
+>get : number
 >0 : 0
 
             var implements = 0;
->implements : 数字
->类型别名 :=> 数字
+>implements : number
 >0 : 0
 
             var interface = 0;
->interface : 数字
->类型别名 :=> 数字
+>interface : number
 >0 : 0
 
             var let = 0;
->let : 数字
->类型别名 :=> 数字
+>let : number
 >0 : 0
 
             var module = 0;
->module : 数字
->类型别名 :=> 数字
+>module : number
 >0 : 0
 
             var number = 0;
->number : 数字
->类型别名 :=> 数字
+>number : number
 >0 : 0
 
             var package = 0;
->package : 数字
->类型别名 :=> 数字
+>package : number
 >0 : 0
 
             var private = 0;
->private : 数字
->类型别名 :=> 数字
+>private : number
 >0 : 0
 
             var protected = 0;
->protected : 数字
->类型别名 :=> 数字
+>protected : number
 >0 : 0
 
             var public = 0;
->public : 数字
->类型别名 :=> 数字
+>public : number
 >0 : 0
 
             var set = 0;
->set : 数字
->类型别名 :=> 数字
+>set : number
 >0 : 0
 
             var static = 0;
->static : 数字
->类型别名 :=> 数字
+>static : number
 >0 : 0
 
             var string = 0 /> 
->string : 真假
->类型别名 :=> 真假
->0 /> : 真假
->类型别名 :=> 真假
->0 / : 数字
->类型别名 :=> 数字
+>string : boolean
+>0 /> : boolean
+>0 / : number
 >0 : 0
-> : 任意
->类型别名 :=> 任意
+> : any
 
             var yield = 0;
-> : 任意
->类型别名 :=> 任意
->yield : 数字
->类型别名 :=> 数字
+> : any
+>yield : number
 >0 : 0
 
             var sum3 = any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static + string + yield;
->sum3 : 任意
->类型别名 :=> 任意
->any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static + string + yield : 任意
->类型别名 :=> 任意
->any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static + string : 任意
->类型别名 :=> 任意
->any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let + module + number + package + private : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let + module + number + package : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let + module + number : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let + module : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface + let : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements + interface : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get + implements : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor + get : 数字
->类型别名 :=> 数字
->any + bool + declare + constructor : 数字
->类型别名 :=> 数字
->any + bool + declare : 数字
->类型别名 :=> 数字
->any + bool : 数字
->类型别名 :=> 数字
->any : 数字
->类型别名 :=> 数字
->bool : 数字
->类型别名 :=> 数字
->declare : 数字
->类型别名 :=> 数字
->constructor : 数字
->类型别名 :=> 数字
->get : 数字
->类型别名 :=> 数字
->implements : 数字
->类型别名 :=> 数字
->interface : 数字
->类型别名 :=> 数字
->let : 数字
->类型别名 :=> 数字
->module : 数字
->类型别名 :=> 数字
->number : 数字
->类型别名 :=> 数字
->package : 数字
->类型别名 :=> 数字
->private : 数字
->类型别名 :=> 数字
->protected : 数字
->类型别名 :=> 数字
->public : 数字
->类型别名 :=> 数字
->set : 数字
->类型别名 :=> 数字
->static : 数字
->类型别名 :=> 数字
->string : 真假
->类型别名 :=> 真假
->yield : 数字
->类型别名 :=> 数字
+>sum3 : any
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static + string + yield : any
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static + string : any
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static : number
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set : number
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public : number
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected : number
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package + private : number
+>any + bool + declare + constructor + get + implements + interface + let + module + number + package : number
+>any + bool + declare + constructor + get + implements + interface + let + module + number : number
+>any + bool + declare + constructor + get + implements + interface + let + module : number
+>any + bool + declare + constructor + get + implements + interface + let : number
+>any + bool + declare + constructor + get + implements + interface : number
+>any + bool + declare + constructor + get + implements : number
+>any + bool + declare + constructor + get : number
+>any + bool + declare + constructor : number
+>any + bool + declare : number
+>any + bool : number
+>any : number
+>bool : number
+>declare : number
+>constructor : number
+>get : number
+>implements : number
+>interface : number
+>let : number
+>module : number
+>number : number
+>package : number
+>private : number
+>protected : number
+>public : number
+>set : number
+>static : number
+>string : boolean
+>yield : number
 
             return 0;
 >0 : 0
@@ -597,46 +427,38 @@ module TypeScriptAllInOne {
         /// <param name="i"></param>
         /// <returns></returns>
         STATEMENTS(i: number): number {
->STATEMENTS : (i: 数字) => 数字
->i : 数字
->类型别名 :=> 数字
+>STATEMENTS : (i: number) => number
+>i : number
 
             var retVal = 0;
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
 >0 : 0
 
             if (i == 1)
->i == 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i == 1 : boolean
+>i : number
 >1 : 1
 
                 retVal = 1;
 >retVal = 1 : 1
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
 >1 : 1
 
             else
                 retVal = 0;
 >retVal = 0 : 0
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
 >0 : 0
 
             switch (i) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 
                 case 2:
 >2 : 2
 
                     retVal = 1;
 >retVal = 1 : 1
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
 >1 : 1
 
                     break;
@@ -645,8 +467,7 @@ module TypeScriptAllInOne {
 
                     retVal = 1;
 >retVal = 1 : 1
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
 >1 : 1
 
                     break;
@@ -655,42 +476,33 @@ module TypeScriptAllInOne {
             }
 
             for (var x in { x: 0, y: 1 }) {
->x : 文字
->类型别名 :=> 文字
->{ x: 0, y: 1 } : { x: 数字; y: 数字; }
->x : 文字
->类型别名 :=> 文字
+>x : string
+>{ x: 0, y: 1 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 文字
->类型别名 :=> 文字
+>y : number
 >1 : 1
 
              ! 
->! : 真假
->类型别名 :=> 真假
+>! : boolean
 
             try {
-> : 任意
->类型别名 :=> 任意
+> : any
 
                 throw null;
->null : 空值
->类型别名 :=> 空值
+>null : null
             }
             catch (Exception)  ? 
->Exception : 任意
->类型别名 :=> 任意
+>Exception : any
             }
             finally {
                 try { }
                 catch (Exception) { }
->Exception : 任意
->类型别名 :=> 任意
+>Exception : any
             }
 
             return retVal;
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
         }
 
         /// <summary>
@@ -698,17 +510,16 @@ module TypeScriptAllInOne {
         /// </summary>
         /// <returns></returns>
         public TYPES(): number {
->TYPES : () => 数字
+>TYPES : () => number
 
             var retVal = 0;
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
 >0 : 0
 
             var c = new CLASS();
 >c : CLASS
 >new CLASS() : CLASS
->CLASS : 类为 CLASS
+>CLASS : typeof CLASS
 
             var xx: IF = c;
 >xx : IF
@@ -716,37 +527,27 @@ module TypeScriptAllInOne {
 >c : CLASS
 
             retVal +=  catch .Property;
->retVal += : 任意
->类型别名 :=> 任意
->retVal : 数字
->类型别名 :=> 数字
-> : 任意
->类型别名 :=> 任意
->Property : 任意
->类型别名 :=> 任意
+>retVal += : any
+>retVal : number
+> : any
+>Property : any
 
             retVal += c.Member();
->retVal += c.Member() : 数字
->类型别名 :=> 数字
->retVal : 数字
->类型别名 :=> 数字
->c.Member() : 数字
->类型别名 :=> 数字
->c.Member : () => 数字
+>retVal += c.Member() : number
+>retVal : number
+>c.Member() : number
+>c.Member : () => number
 >c : CLASS
->Member : () => 数字
+>Member : () => number
 
             retVal += xx.Foo() ? 0 : 1;
->retVal += xx.Foo() ? 0 : 1 : 数字
->类型别名 :=> 数字
->retVal : 数字
->类型别名 :=> 数字
+>retVal += xx.Foo() ? 0 : 1 : number
+>retVal : number
 >xx.Foo() ? 0 : 1 : 0 | 1
->xx.Foo() : 任意
->类型别名 :=> 任意
->xx.Foo : () => 任意
+>xx.Foo() : any
+>xx.Foo : () => any
 >xx : IF
->Foo : () => 任意
+>Foo : () => any
 >0 : 0
 >1 : 1
 
@@ -756,24 +557,20 @@ module TypeScriptAllInOne {
 >{ a: new CLASS() } : { a: CLASS; }
 >a : CLASS
 >new CLASS() : CLASS
->CLASS : 类为 CLASS
+>CLASS : typeof CLASS
 
             retVal += anony.a.d();
->retVal += anony.a.d() : 任意
->类型别名 :=> 任意
->retVal : 数字
->类型别名 :=> 数字
->anony.a.d() : 无值
->类型别名 :=> 无值
->anony.a.d : () => 无值
+>retVal += anony.a.d() : any
+>retVal : number
+>anony.a.d() : void
+>anony.a.d : () => void
 >anony.a : CLASS
 >anony : { a: CLASS; }
 >a : CLASS
->d : () => 无值
+>d : () => void
 
             return retVal;
->retVal : 数字
->类型别名 :=> 数字
+>retVal : number
         }
 
 
@@ -782,11 +579,11 @@ module TypeScriptAllInOne {
         ///// </summary>
         ///// <returns></returns>
         public OPERATOR(): number {
->OPERATOR : () => 数字
+>OPERATOR : () => number
 
             var a: number[] = [1, 2, 3, 4, 5, ];/*[] bug*/ // YES []
->a : 数字[]
->[1, 2, 3, 4, 5, ] : 数字[]
+>a : number[]
+>[1, 2, 3, 4, 5, ] : number[]
 >1 : 1
 >2 : 2
 >3 : 3
@@ -794,336 +591,203 @@ module TypeScriptAllInOne {
 >5 : 5
 
             var i = a[1];/*[]*/
->i : 数字
->类型别名 :=> 数字
->a[1] : 数字
->类型别名 :=> 数字
->a : 数字[]
+>i : number
+>a[1] : number
+>a : number[]
 >1 : 1
 
             i = i + i - i * i / i % i & i | i ^ i;/*+ - * / % & | ^*/
->i = i + i - i * i / i % i & i | i ^ i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i + i - i * i / i % i & i | i ^ i : 数字
->类型别名 :=> 数字
->i + i - i * i / i % i & i : 数字
->类型别名 :=> 数字
->i + i - i * i / i % i : 数字
->类型别名 :=> 数字
->i + i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i * i / i % i : 数字
->类型别名 :=> 数字
->i * i / i : 数字
->类型别名 :=> 数字
->i * i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i ^ i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i = i + i - i * i / i % i & i | i ^ i : number
+>i : number
+>i + i - i * i / i % i & i | i ^ i : number
+>i + i - i * i / i % i & i : number
+>i + i - i * i / i % i : number
+>i + i : number
+>i : number
+>i : number
+>i * i / i % i : number
+>i * i / i : number
+>i * i : number
+>i : number
+>i : number
+>i : number
+>i : number
+>i : number
+>i ^ i : number
+>i : number
+>i : number
 
             var b  =  true && false || true ^ false;/*& | ^*/
->b : 数字
->类型别名 :=> 数字
->true && false || true ^ false : 数字
->类型别名 :=> 数字
->true && false : 为假
->类型别名 :=> 为假
->true : 为真
->类型别名 :=> 为真
->false : 为假
->类型别名 :=> 为假
->true ^ false : 数字
->类型别名 :=> 数字
->true : 为真
->类型别名 :=> 为真
->false : 为假
->类型别名 :=> 为假
+>b : number
+>true && false || true ^ false : number
+>true && false : false
+>true : true
+>false : false
+>true ^ false : number
+>true : true
+>false : false
 
             b = !b;/*!*/
->b = !b : 真假
->类型别名 :=> 真假
->b : 数字
->类型别名 :=> 数字
->!b : 真假
->类型别名 :=> 真假
->b : 数字
->类型别名 :=> 数字
+>b = !b : boolean
+>b : number
+>!b : boolean
+>b : number
 
             i = ~i;/*~i*/
->i = ~i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->~i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i = ~i : number
+>i : number
+>~i : number
+>i : number
 
             b = i < (i - 1) && (i + 1) > i;/*< && >*/
->b = i < (i - 1) && (i + 1) > i : 真假
->类型别名 :=> 真假
->b : 数字
->类型别名 :=> 数字
->i < (i - 1) && (i + 1) > i : 真假
->类型别名 :=> 真假
->i < (i - 1) : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->(i - 1) : 数字
->类型别名 :=> 数字
->i - 1 : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>b = i < (i - 1) && (i + 1) > i : boolean
+>b : number
+>i < (i - 1) && (i + 1) > i : boolean
+>i < (i - 1) : boolean
+>i : number
+>(i - 1) : number
+>i - 1 : number
+>i : number
 >1 : 1
->(i + 1) > i : 真假
->类型别名 :=> 真假
->(i + 1) : 数字
->类型别名 :=> 数字
->i + 1 : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>(i + 1) > i : boolean
+>(i + 1) : number
+>i + 1 : number
+>i : number
 >1 : 1
->i : 数字
->类型别名 :=> 数字
+>i : number
 
             var f = true ? 1 : 0;/*? :*/   // YES :
->f : 数字
->类型别名 :=> 数字
+>f : number
 >true ? 1 : 0 : 0 | 1
->true : 为真
->类型别名 :=> 为真
+>true : true
 >1 : 1
 >0 : 0
 
             i++;/*++*/
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
             i--;/*--*/
->i-- : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i-- : number
+>i : number
 
             b = true && false || true;/*&& ||*/
->b = true && false || true : 为真
->类型别名 :=> 为真
->b : 数字
->类型别名 :=> 数字
->true && false || true : 为真
->类型别名 :=> 为真
->true && false : 为假
->类型别名 :=> 为假
->true : 为真
->类型别名 :=> 为真
->false : 为假
->类型别名 :=> 为假
->true : 为真
->类型别名 :=> 为真
+>b = true && false || true : true
+>b : number
+>true && false || true : true
+>true && false : false
+>true : true
+>false : false
+>true : true
 
             i = i << 5;/*<<*/
->i = i << 5 : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i << 5 : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i = i << 5 : number
+>i : number
+>i << 5 : number
+>i : number
 >5 : 5
 
             i = i >> 5;/*>>*/
->i = i >> 5 : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i >> 5 : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i = i >> 5 : number
+>i : number
+>i >> 5 : number
+>i : number
 >5 : 5
 
             var j = i;
->j : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>j : number
+>i : number
 
             b = i == j && i != j && i <= j && i >= j;/*= == && != <= >=*/
->b = i == j && i != j && i <= j && i >= j : 真假
->类型别名 :=> 真假
->b : 数字
->类型别名 :=> 数字
->i == j && i != j && i <= j && i >= j : 真假
->类型别名 :=> 真假
->i == j && i != j && i <= j : 真假
->类型别名 :=> 真假
->i == j && i != j : 真假
->类型别名 :=> 真假
->i == j : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->j : 数字
->类型别名 :=> 数字
->i != j : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->j : 数字
->类型别名 :=> 数字
->i <= j : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->j : 数字
->类型别名 :=> 数字
->i >= j : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->j : 数字
->类型别名 :=> 数字
+>b = i == j && i != j && i <= j && i >= j : boolean
+>b : number
+>i == j && i != j && i <= j && i >= j : boolean
+>i == j && i != j && i <= j : boolean
+>i == j && i != j : boolean
+>i == j : boolean
+>i : number
+>j : number
+>i != j : boolean
+>i : number
+>j : number
+>i <= j : boolean
+>i : number
+>j : number
+>i >= j : boolean
+>i : number
+>j : number
 
             i += <number>5.0;/*+=*/
->i += <number>5.0 : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
-><number>5.0 : 数字
->类型别名 :=> 数字
+>i += <number>5.0 : number
+>i : number
+><number>5.0 : number
 >5.0 : 5
 
             i -= i;/*-=*/
->i -= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i -= i : number
+>i : number
+>i : number
 
             i *= i;/**=*/
->i *= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i *= i : number
+>i : number
+>i : number
 
             if (i == 0)
->i == 0 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i == 0 : boolean
+>i : number
 >0 : 0
 
                 i++;
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
             i /= i;/*/=*/
->i /= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i /= i : number
+>i : number
+>i : number
 
             i %= i;/*%=*/
->i %= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i %= i : number
+>i : number
+>i : number
 
             i &= i;/*&=*/
->i &= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i &= i : number
+>i : number
+>i : number
 
             i |= i;/*|=*/
->i |= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i |= i : number
+>i : number
+>i : number
 
             i ^= i;/*^=*/
->i ^= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i ^= i : number
+>i : number
+>i : number
 
             i <<= i;/*<<=*/
->i <<= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i <<= i : number
+>i : number
+>i : number
 
             i >>= i;/*>>=*/
->i >>= i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i >>= i : number
+>i : number
+>i : number
 
             if (i == 0 &&  != b && f == 1)
->i == 0 &&  != b && f == 1 : 真假
->类型别名 :=> 真假
->i == 0 &&  != b : 真假
->类型别名 :=> 真假
->i == 0 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i == 0 &&  != b && f == 1 : boolean
+>i == 0 &&  != b : boolean
+>i == 0 : boolean
+>i : number
 >0 : 0
->!= b : 真假
->类型别名 :=> 真假
-> : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
->f == 1 : 真假
->类型别名 :=> 真假
->f : 数字
->类型别名 :=> 数字
+>!= b : boolean
+> : any
+>b : number
+>f == 1 : boolean
+>f : number
 >1 : 1
 
                 return 0;
@@ -1139,7 +803,7 @@ module TypeScriptAllInOne {
 >IF : IF
 
         Foo(): bool;
->Foo : () => 任意
+>Foo : () => any
 >bool : No type information available!
     }
 
@@ -1148,55 +812,46 @@ module TypeScriptAllInOne {
 >IF : IF
 
          case  d = () => {  yield  0; };
->d : () => 无值
->() => {  yield  0; } : () => 无值
->yield  0 : 任意
->类型别名 :=> 任意
+>d : () => void
+>() => {  yield  0; } : () => void
+>yield  0 : any
 >0 : 0
 
         public get Property() { return 0; }
->Property : 数字
->类型别名 :=> 数字
+>Property : number
 >0 : 0
 
         public Member() {
->Member : () => 数字
+>Member : () => number
 
             return 0;
 >0 : 0
         }
         public Foo(): bool {
->Foo : () => 任意
+>Foo : () => any
 >bool : No type information available!
 
             var myEvent = () => { return 1; };
->myEvent : () => 数字
->() => { return 1; } : () => 数字
+>myEvent : () => number
+>() => { return 1; } : () => number
 >1 : 1
 
             if (myEvent() == 1)
->myEvent() == 1 : 真假
->类型别名 :=> 真假
->myEvent() : 数字
->类型别名 :=> 数字
->myEvent : () => 数字
+>myEvent() == 1 : boolean
+>myEvent() : number
+>myEvent : () => number
 >1 : 1
 
                 return true ? 
->true ? : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
+>true ? : any
+>true : true
 
             else
-> : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+> : any
+> : any
 
                 return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
         }
     }
 
@@ -1206,37 +861,25 @@ module TypeScriptAllInOne {
 >A : A
 
         public method1(val:number) {
->method1(val:number) : 任意
->类型别名 :=> 任意
->method1 : 任意
->类型别名 :=> 任意
->val : 任意
->类型别名 :=> 任意
->number : 任意
->类型别名 :=> 任意
+>method1(val:number) : any
+>method1 : any
+>val : any
+>number : any
 
             return val;
->val : 任意
->类型别名 :=> 任意
+>val : any
         }
         public method2() {
->method2() : 任意
->类型别名 :=> 任意
->method2 : 任意
->类型别名 :=> 任意
+>method2() : any
+>method2 : any
 
             return 2 * this.method1(2);
->2 * this.method1(2) : 数字
->类型别名 :=> 数字
+>2 * this.method1(2) : number
 >2 : 2
->this.method1(2) : 任意
->类型别名 :=> 任意
->this.method1 : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->method1 : 任意
->类型别名 :=> 任意
+>this.method1(2) : any
+>this.method1 : any
+>this : any
+>method1 : any
 >2 : 2
         }
     }
@@ -1246,16 +889,13 @@ module TypeScriptAllInOne {
 >A : A
 
         public method2() {
->method2 : () => 任意
+>method2 : () => any
 
             return this.method1(2);
->this.method1(2) : 任意
->类型别名 :=> 任意
->this.method1 : 任意
->类型别名 :=> 任意
->this : 本体
->method1 : 任意
->类型别名 :=> 任意
+>this.method1(2) : any
+>this.method1 : any
+>this : this
+>method1 : any
 >2 : 2
         }
     }
@@ -1264,69 +904,43 @@ module TypeScriptAllInOne {
 >Overloading : Overloading
 
         private otherValue = 42;
->otherValue : 数字
->类型别名 :=> 数字
+>otherValue : number
 >42 : 42
 
         constructor(private value: number, public name: string)  :  }
->value : 数字
->类型别名 :=> 数字
->name : 文字
->类型别名 :=> 文字
+>value : number
+>name : string
 > : No type information available!
        
         public Overloads(value: string);
->Overloads(value: string) : 任意
->类型别名 :=> 任意
->Overloads : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
->string : 任意
->类型别名 :=> 任意
+>Overloads(value: string) : any
+>Overloads : any
+>value : any
+>string : any
 
         public Overloads( while : string, ...rest: string[]) {  & 
->Overloads( : 任意
->类型别名 :=> 任意
->Overloads : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
->string, : 任意
->类型别名 :=> 任意
->string : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
->rest : 任意
->类型别名 :=> 任意
->string[] : 任意
->类型别名 :=> 任意
->string : 任意
->类型别名 :=> 任意
->&         public : 数字
->类型别名 :=> 数字
-> : 任意
->类型别名 :=> 任意
+>Overloads( : any
+>Overloads : any
+> : any
+> : any
+>string, : any
+>string : any
+> : any
+>rest : any
+>string[] : any
+>string : any
+>&         public : number
+> : any
 
         public DefaultValue(value?: string = "Hello") { }
->public : 任意
->类型别名 :=> 任意
->DefaultValue(value?: string = "Hello") : 任意
->类型别名 :=> 任意
->DefaultValue : 任意
->类型别名 :=> 任意
->value?: string = "Hello" : 任意
->类型别名 :=> 任意
->value : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>public : any
+>DefaultValue(value?: string = "Hello") : any
+>DefaultValue : any
+>value?: string = "Hello" : any
+>value : any
+> : any
 >string = "Hello" : "Hello"
->string : 任意
->类型别名 :=> 任意
+>string : any
 >"Hello" : "Hello"
     }
 }
@@ -1358,15 +972,14 @@ interface IDisposable {
 >IDisposable : IDisposable
 
     Dispose(): void;
->Dispose : () => 无值
+>Dispose : () => void
 }
 
 TypeScriptAllInOne.Program.Main();
->TypeScriptAllInOne.Program.Main() : 无值
->类型别名 :=> 无值
->TypeScriptAllInOne.Program.Main : (...args: 文字[]) => 无值
->TypeScriptAllInOne.Program : 类为 TypeScriptAllInOne.Program
->TypeScriptAllInOne : 类为 TypeScriptAllInOne
->Program : 类为 TypeScriptAllInOne.Program
->Main : (...args: 文字[]) => 无值
+>TypeScriptAllInOne.Program.Main() : void
+>TypeScriptAllInOne.Program.Main : (...args: string[]) => void
+>TypeScriptAllInOne.Program : typeof TypeScriptAllInOne.Program
+>TypeScriptAllInOne : typeof TypeScriptAllInOne
+>Program : typeof TypeScriptAllInOne.Program
+>Main : (...args: string[]) => void
 

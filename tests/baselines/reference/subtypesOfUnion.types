@@ -6,13 +6,11 @@ enum E { e1, e2 }
 
 interface I8 { [x: string]: number[]; }
 >I8 : I8
->x : 文字
->类型别名 :=> 文字
+>x : string
 
 class A { foo: number; }
 >A : A
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 
 class A2<T> { foo: T; }
 >A2 : A2<T>
@@ -21,23 +19,20 @@ class A2<T> { foo: T; }
 >T : T
 
 function f() { }
->f : 类为 f
+>f : typeof f
 
 module f { export var bar = 1; }
->f : 类为 f
->bar : 数字
->类型别名 :=> 数字
+>f : typeof f
+>bar : number
 >1 : 1
 
 class c { baz: string }
 >c : c
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 module c { export var bar = 1; }
->c : 类为 c
->bar : 数字
->类型别名 :=> 数字
+>c : typeof c
+>bar : number
 >1 : 1
 
 // A type T is a subtype of a union type U if T is a subtype of any type in U.
@@ -46,24 +41,19 @@ interface I1<T> {
 >T : T
 
     [x: string]: string | number;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: any; // ok
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 
     foo2: string; // ok
->foo2 : 文字
->类型别名 :=> 文字
+>foo2 : string
 
     foo3: number; // ok
->foo3 : 数字
->类型别名 :=> 数字
+>foo3 : number
 
     foo4: boolean; // error 
->foo4 : 真假
->类型别名 :=> 真假
+>foo4 : boolean
 
     foo5: E; // ok - subtype of number 
 >foo5 : E
@@ -78,9 +68,8 @@ interface I1<T> {
 >RegExp : RegExp
 
     foo8: { bar: number }; // error
->foo8 : { bar: 数字; }
->bar : 数字
->类型别名 :=> 数字
+>foo8 : { bar: number; }
+>bar : number
 
     foo9: I8; // error
 >foo9 : I8
@@ -91,13 +80,12 @@ interface I1<T> {
 >A : A
 
     foo11: A2<number>; // error
->foo11 : A2<数字>
+>foo11 : A2<number>
 >A2 : A2<T>
 
     foo12: (x) => number; //error
->foo12 : (x: 任意) => 数字
->x : 任意
->类型别名 :=> 任意
+>foo12 : (x: any) => number
+>x : any
 
     foo13: <T>(x: T) => T; // error
 >foo13 : <T>(x: T) => T
@@ -107,12 +95,12 @@ interface I1<T> {
 >T : T
 
     foo14: typeof f; // error
->foo14 : 类为 f
->f : 类为 f
+>foo14 : typeof f
+>f : typeof f
 
     foo15: typeof c; // error
->foo15 : 类为 c
->c : 类为 c
+>foo15 : typeof c
+>c : typeof c
 
     foo16: T; // error
 >foo16 : T
@@ -130,25 +118,20 @@ interface I2<T> {
 >T : T
 
     [x: string]: E | number;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >E : E
 
     foo: any; // ok
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 
     foo2: string; // error
->foo2 : 文字
->类型别名 :=> 文字
+>foo2 : string
 
     foo3: number; // ok
->foo3 : 数字
->类型别名 :=> 数字
+>foo3 : number
 
     foo4: boolean; // error 
->foo4 : 真假
->类型别名 :=> 真假
+>foo4 : boolean
 
     foo5: E; // ok
 >foo5 : E
@@ -163,9 +146,8 @@ interface I2<T> {
 >RegExp : RegExp
 
     foo8: { bar: number }; // error
->foo8 : { bar: 数字; }
->bar : 数字
->类型别名 :=> 数字
+>foo8 : { bar: number; }
+>bar : number
 
     foo9: I8; // error
 >foo9 : I8
@@ -176,13 +158,12 @@ interface I2<T> {
 >A : A
 
     foo11: A2<number>; // error
->foo11 : A2<数字>
+>foo11 : A2<number>
 >A2 : A2<T>
 
     foo12: (x) => number; //error
->foo12 : (x: 任意) => 数字
->x : 任意
->类型别名 :=> 任意
+>foo12 : (x: any) => number
+>x : any
 
     foo13: <T>(x: T) => T; // error
 >foo13 : <T>(x: T) => T
@@ -192,12 +173,12 @@ interface I2<T> {
 >T : T
 
     foo14: typeof f; // error
->foo14 : 类为 f
->f : 类为 f
+>foo14 : typeof f
+>f : typeof f
 
     foo15: typeof c; // error
->foo15 : 类为 c
->c : 类为 c
+>foo15 : typeof c
+>c : typeof c
 
     foo16: T; // error
 >foo16 : T

@@ -8,29 +8,29 @@ export class C {}
 
 === tests/cases/conformance/dynamicImport/1.ts ===
 import * as defaultModule from "./defaultPath";
->defaultModule : 类为 defaultModule
+>defaultModule : typeof defaultModule
 
 import * as anotherModule from "./anotherModule";
->anotherModule : 类为 anotherModule
+>anotherModule : typeof anotherModule
 
 let p1: Promise<typeof anotherModule> = import("./defaultPath");
->p1 : Promise<类为 anotherModule>
+>p1 : Promise<typeof anotherModule>
 >Promise : Promise<T>
->anotherModule : 类为 anotherModule
->import("./defaultPath") : Promise<类为 defaultModule>
+>anotherModule : typeof anotherModule
+>import("./defaultPath") : Promise<typeof defaultModule>
 >"./defaultPath" : "./defaultPath"
 
 let p2 = import("./defaultPath") as Promise<typeof anotherModule>;
->p2 : Promise<类为 anotherModule>
->import("./defaultPath") as Promise<typeof anotherModule> : Promise<类为 anotherModule>
->import("./defaultPath") : Promise<类为 defaultModule>
+>p2 : Promise<typeof anotherModule>
+>import("./defaultPath") as Promise<typeof anotherModule> : Promise<typeof anotherModule>
+>import("./defaultPath") : Promise<typeof defaultModule>
 >"./defaultPath" : "./defaultPath"
 >Promise : Promise<T>
->anotherModule : 类为 anotherModule
+>anotherModule : typeof anotherModule
 
 let p3: Promise<any> = import("./defaultPath");
->p3 : Promise<任意>
+>p3 : Promise<any>
 >Promise : Promise<T>
->import("./defaultPath") : Promise<类为 defaultModule>
+>import("./defaultPath") : Promise<typeof defaultModule>
 >"./defaultPath" : "./defaultPath"
 

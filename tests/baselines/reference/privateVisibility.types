@@ -3,75 +3,63 @@ class Foo {
 >Foo : Foo
 
 	public pubMeth() {this.privMeth();}
->pubMeth : () => 无值
->this.privMeth() : 无值
->类型别名 :=> 无值
->this.privMeth : () => 无值
->this : 本体
->privMeth : () => 无值
+>pubMeth : () => void
+>this.privMeth() : void
+>this.privMeth : () => void
+>this : this
+>privMeth : () => void
 
 	private privMeth() {}
->privMeth : () => 无值
+>privMeth : () => void
 
 	public pubProp = 0;
->pubProp : 数字
->类型别名 :=> 数字
+>pubProp : number
 >0 : 0
 
 	private privProp = 0;
->privProp : 数字
->类型别名 :=> 数字
+>privProp : number
 >0 : 0
 }
 
 var f = new Foo();
 >f : Foo
 >new Foo() : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
 
 f.privMeth(); // should not work
->f.privMeth() : 无值
->类型别名 :=> 无值
->f.privMeth : () => 无值
+>f.privMeth() : void
+>f.privMeth : () => void
 >f : Foo
->privMeth : () => 无值
+>privMeth : () => void
 
 f.privProp; // should not work
->f.privProp : 数字
->类型别名 :=> 数字
+>f.privProp : number
 >f : Foo
->privProp : 数字
->类型别名 :=> 数字
+>privProp : number
 
 f.pubMeth(); // should work
->f.pubMeth() : 无值
->类型别名 :=> 无值
->f.pubMeth : () => 无值
+>f.pubMeth() : void
+>f.pubMeth : () => void
 >f : Foo
->pubMeth : () => 无值
+>pubMeth : () => void
 
 f.pubProp; // should work
->f.pubProp : 数字
->类型别名 :=> 数字
+>f.pubProp : number
 >f : Foo
->pubProp : 数字
->类型别名 :=> 数字
+>pubProp : number
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export class C { public pub = 0; private priv = 1; }
 >C : C
->pub : 数字
->类型别名 :=> 数字
+>pub : number
 >0 : 0
->priv : 数字
->类型别名 :=> 数字
+>priv : number
 >1 : 1
 
     export var V = 0;
->V : 数字
->类型别名 :=> 数字
+>V : number
 >0 : 0
 }
 
@@ -79,22 +67,18 @@ module M {
 var c = new M.C();
 >c : M.C
 >new M.C() : M.C
->M.C : 类为 M.C
->M : 类为 M
->C : 类为 M.C
+>M.C : typeof M.C
+>M : typeof M
+>C : typeof M.C
 
 c.pub; // should work
->c.pub : 数字
->类型别名 :=> 数字
+>c.pub : number
 >c : M.C
->pub : 数字
->类型别名 :=> 数字
+>pub : number
 
 c.priv; // should not work
->c.priv : 数字
->类型别名 :=> 数字
+>c.priv : number
 >c : M.C
->priv : 数字
->类型别名 :=> 数字
+>priv : number
 
 

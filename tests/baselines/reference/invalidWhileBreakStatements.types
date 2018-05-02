@@ -6,85 +6,68 @@ break;
 
 // non-existent label
 ONE:
->ONE : 任意
->类型别名 :=> 任意
+>ONE : any
 
 while (true) break TWO;
->true : 为真
->类型别名 :=> 为真
->TWO : 任意
->类型别名 :=> 任意
+>true : true
+>TWO : any
 
 // break from inside function
 TWO:
->TWO : 任意
->类型别名 :=> 任意
+>TWO : any
 
 while (true){
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     var x = () => {
->x : () => 无值
->() => {        break TWO;    } : () => 无值
+>x : () => void
+>() => {        break TWO;    } : () => void
 
         break TWO;
->TWO : 任意
->类型别名 :=> 任意
+>TWO : any
     }
 }
 
 THREE:
->THREE : 任意
->类型别名 :=> 任意
+>THREE : any
 
 while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     var fn = function () {
->fn : () => 无值
->function () {        break THREE;    } : () => 无值
+>fn : () => void
+>function () {        break THREE;    } : () => void
 
         break THREE;
->THREE : 任意
->类型别名 :=> 任意
+>THREE : any
     }
 }
 
 // break forward
 while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     break FIVE;
->FIVE : 任意
->类型别名 :=> 任意
+>FIVE : any
 
     FIVE:
->FIVE : 任意
->类型别名 :=> 任意
+>FIVE : any
 
     while (true) { }
->true : 为真
->类型别名 :=> 为真
+>true : true
 }
 
 // label on non-loop statement
 NINE:
->NINE : 任意
->类型别名 :=> 任意
+>NINE : any
 
 var y = 12;
->y : 数字
->类型别名 :=> 数字
+>y : number
 >12 : 12
 
 while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     break NINE;
->NINE : 任意
->类型别名 :=> 任意
+>NINE : any
 }

@@ -1,13 +1,12 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 interface PoisonedProp {
 >PoisonedProp : PoisonedProp
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     y: "2";
 >y : "2"
@@ -16,8 +15,8 @@ interface PoisonedProp {
 class Poisoned extends React.Component<PoisonedProp, {}> {
 >Poisoned : Poisoned
 >React.Component : React.Component<PoisonedProp, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 >PoisonedProp : PoisonedProp
 
     render() {
@@ -25,10 +24,8 @@ class Poisoned extends React.Component<PoisonedProp, {}> {
 
         return <div>Hello</div>;
 ><div>Hello</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
     }
 }
 
@@ -40,46 +37,39 @@ const obj = {};
 let p = <Poisoned {...obj} />;
 >p : JSX.Element
 ><Poisoned {...obj} /> : JSX.Element
->Poisoned : 类为 Poisoned
+>Poisoned : typeof Poisoned
 >obj : {}
 
 let y = <Poisoned />;
 >y : JSX.Element
 ><Poisoned /> : JSX.Element
->Poisoned : 类为 Poisoned
+>Poisoned : typeof Poisoned
 
 let z = <Poisoned x y/>;
 >z : JSX.Element
 ><Poisoned x y/> : JSX.Element
->Poisoned : 类为 Poisoned
->x : 为真
->类型别名 :=> 为真
->y : 为真
->类型别名 :=> 为真
+>Poisoned : typeof Poisoned
+>x : true
+>y : true
 
 let w = <Poisoned {...{x: 5, y: "2"}}/>;
 >w : JSX.Element
 ><Poisoned {...{x: 5, y: "2"}}/> : JSX.Element
->Poisoned : 类为 Poisoned
->{x: 5, y: "2"} : { x: 数字; y: "2"; }
->x : 数字
->类型别名 :=> 数字
+>Poisoned : typeof Poisoned
+>{x: 5, y: "2"} : { x: number; y: "2"; }
+>x : number
 >5 : 5
->y : 文字
->类型别名 :=> 文字
+>y : "2"
 >"2" : "2"
 
 let w1 = <Poisoned {...{x: 5, y: "2"}} X="hi" />;
 >w1 : JSX.Element
 ><Poisoned {...{x: 5, y: "2"}} X="hi" /> : JSX.Element
->Poisoned : 类为 Poisoned
->{x: 5, y: "2"} : { x: 数字; y: "2"; }
->x : 数字
->类型别名 :=> 数字
+>Poisoned : typeof Poisoned
+>{x: 5, y: "2"} : { x: number; y: "2"; }
+>x : number
 >5 : 5
->y : 文字
->类型别名 :=> 文字
+>y : "2"
 >"2" : "2"
->X : 文字
->类型别名 :=> 文字
+>X : string
 

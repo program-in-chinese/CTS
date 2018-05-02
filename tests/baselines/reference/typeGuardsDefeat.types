@@ -2,123 +2,104 @@
 // Also note that it is possible to defeat a type guard by calling a function that changes the 
 // type of the guarded variable.
 function foo(x: number | string) {
->foo : (x: 文字 | 数字) => 数字
->x : 文字 | 数字
+>foo : (x: string | number) => number
+>x : string | number
 
     function f() {
->f : () => 无值
+>f : () => void
 
         x = 10;
 >x = 10 : 10
->x : 文字 | 数字
+>x : string | number
 >10 : 10
     }
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
 
         f();
->f() : 无值
->类型别名 :=> 无值
->f : () => 无值
+>f() : void
+>f : () => void
 
         return x.length; // string
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : string
+>length : number
     }
     else {
         return x++; // number
->x++ : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x++ : number
+>x : number
     }
 }
 function foo2(x: number | string) {
->foo2 : (x: 文字 | 数字) => 数字
->x : 文字 | 数字
+>foo2 : (x: string | number) => number
+>x : string | number
 
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
 
         return x.length; // string
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : string
+>length : number
     }
     else {
         var f = function () {
->f : () => 数字
->function () {            return x * x;        } : () => 数字
+>f : () => number
+>function () {            return x * x;        } : () => number
 
             return x * x;
->x * x : 数字
->类型别名 :=> 数字
->x : 文字 | 数字
->x : 文字 | 数字
+>x * x : number
+>x : string | number
+>x : string | number
 
         };
     }
     x = "hello";
 >x = "hello" : "hello"
->x : 文字 | 数字
+>x : string | number
 >"hello" : "hello"
 
     f();
->f() : 数字
->类型别名 :=> 数字
->f : () => 数字
+>f() : number
+>f : () => number
 }
 function foo3(x: number | string) {
->foo3 : (x: 文字 | 数字) => 数字
->x : 文字 | 数字
+>foo3 : (x: string | number) => number
+>x : string | number
 
     if (typeof x === "string") {
->typeof x === "string" : 真假
->类型别名 :=> 真假
->typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->x : 文字 | 数字
+>typeof x === "string" : boolean
+>typeof x : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>x : string | number
 >"string" : "string"
 
         return x.length; // string
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : string
+>length : number
     }
     else {
         var f = () => x * x;
->f : () => 数字
->() => x * x : () => 数字
->x * x : 数字
->类型别名 :=> 数字
->x : 文字 | 数字
->x : 文字 | 数字
+>f : () => number
+>() => x * x : () => number
+>x * x : number
+>x : string | number
+>x : string | number
     }
     x = "hello";
 >x = "hello" : "hello"
->x : 文字 | 数字
+>x : string | number
 >"hello" : "hello"
 
     f();
->f() : 数字
->类型别名 :=> 数字
->f : () => 数字
+>f() : number
+>f : () => number
 }
 

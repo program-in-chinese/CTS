@@ -1,171 +1,120 @@
 === tests/cases/conformance/expressions/unaryOperators/bitwiseNotOperator/bitwiseNotOperatorWithBooleanType.ts ===
 // ~ operator on boolean type
 var BOOLEAN: boolean;
->BOOLEAN : 真假
->类型别名 :=> 真假
+>BOOLEAN : boolean
 
 function foo(): boolean { return true; }
->foo : () => 真假
->true : 为真
->类型别名 :=> 为真
+>foo : () => boolean
+>true : true
 
 class A {
 >A : A
 
     public a: boolean;
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
     static foo() { return false; }
->foo : () => 真假
->false : 为假
->类型别名 :=> 为假
+>foo : () => boolean
+>false : false
 }
 module M {
->M : 类为 M
+>M : typeof M
 
     export var n: boolean;
->n : 真假
->类型别名 :=> 真假
+>n : boolean
 }
 
 var objA = new A();
 >objA : A
 >new A() : A
->A : 类为 A
+>A : typeof A
 
 // boolean type var
 var ResultIsNumber1 = ~BOOLEAN;
->ResultIsNumber1 : 数字
->类型别名 :=> 数字
->~BOOLEAN : 数字
->类型别名 :=> 数字
->BOOLEAN : 真假
->类型别名 :=> 真假
+>ResultIsNumber1 : number
+>~BOOLEAN : number
+>BOOLEAN : boolean
 
 // boolean type literal
 var ResultIsNumber2 = ~true;
->ResultIsNumber2 : 数字
->类型别名 :=> 数字
->~true : 数字
->类型别名 :=> 数字
->true : 为真
->类型别名 :=> 为真
+>ResultIsNumber2 : number
+>~true : number
+>true : true
 
 var ResultIsNumber3 = ~{ x: true, y: false };
->ResultIsNumber3 : 数字
->类型别名 :=> 数字
->~{ x: true, y: false } : 数字
->类型别名 :=> 数字
->{ x: true, y: false } : { x: 真假; y: 真假; }
->x : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
->y : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>ResultIsNumber3 : number
+>~{ x: true, y: false } : number
+>{ x: true, y: false } : { x: boolean; y: boolean; }
+>x : boolean
+>true : true
+>y : boolean
+>false : false
 
 // boolean type expressions
 var ResultIsNumber4 = ~objA.a;
->ResultIsNumber4 : 数字
->类型别名 :=> 数字
->~objA.a : 数字
->类型别名 :=> 数字
->objA.a : 真假
->类型别名 :=> 真假
+>ResultIsNumber4 : number
+>~objA.a : number
+>objA.a : boolean
 >objA : A
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 var ResultIsNumber5 = ~M.n;
->ResultIsNumber5 : 数字
->类型别名 :=> 数字
->~M.n : 数字
->类型别名 :=> 数字
->M.n : 真假
->类型别名 :=> 真假
->M : 类为 M
->n : 真假
->类型别名 :=> 真假
+>ResultIsNumber5 : number
+>~M.n : number
+>M.n : boolean
+>M : typeof M
+>n : boolean
 
 var ResultIsNumber6 = ~foo();
->ResultIsNumber6 : 数字
->类型别名 :=> 数字
->~foo() : 数字
->类型别名 :=> 数字
->foo() : 真假
->类型别名 :=> 真假
->foo : () => 真假
+>ResultIsNumber6 : number
+>~foo() : number
+>foo() : boolean
+>foo : () => boolean
 
 var ResultIsNumber7 = ~A.foo();
->ResultIsNumber7 : 数字
->类型别名 :=> 数字
->~A.foo() : 数字
->类型别名 :=> 数字
->A.foo() : 真假
->类型别名 :=> 真假
->A.foo : () => 真假
->A : 类为 A
->foo : () => 真假
+>ResultIsNumber7 : number
+>~A.foo() : number
+>A.foo() : boolean
+>A.foo : () => boolean
+>A : typeof A
+>foo : () => boolean
 
 // multiple ~ operators
 var ResultIsNumber8 = ~~BOOLEAN;
->ResultIsNumber8 : 数字
->类型别名 :=> 数字
->~~BOOLEAN : 数字
->类型别名 :=> 数字
->~BOOLEAN : 数字
->类型别名 :=> 数字
->BOOLEAN : 真假
->类型别名 :=> 真假
+>ResultIsNumber8 : number
+>~~BOOLEAN : number
+>~BOOLEAN : number
+>BOOLEAN : boolean
 
 // miss assignment operators
 ~true;
->~true : 数字
->类型别名 :=> 数字
->true : 为真
->类型别名 :=> 为真
+>~true : number
+>true : true
 
 ~BOOLEAN;
->~BOOLEAN : 数字
->类型别名 :=> 数字
->BOOLEAN : 真假
->类型别名 :=> 真假
+>~BOOLEAN : number
+>BOOLEAN : boolean
 
 ~foo();
->~foo() : 数字
->类型别名 :=> 数字
->foo() : 真假
->类型别名 :=> 真假
->foo : () => 真假
+>~foo() : number
+>foo() : boolean
+>foo : () => boolean
 
 ~true, false;
->~true, false : 为假
->类型别名 :=> 为假
->~true : 数字
->类型别名 :=> 数字
->true : 为真
->类型别名 :=> 为真
->false : 为假
->类型别名 :=> 为假
+>~true, false : false
+>~true : number
+>true : true
+>false : false
 
 ~objA.a;
->~objA.a : 数字
->类型别名 :=> 数字
->objA.a : 真假
->类型别名 :=> 真假
+>~objA.a : number
+>objA.a : boolean
 >objA : A
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 ~M.n;
->~M.n : 数字
->类型别名 :=> 数字
->M.n : 真假
->类型别名 :=> 真假
->M : 类为 M
->n : 真假
->类型别名 :=> 真假
+>~M.n : number
+>M.n : boolean
+>M : typeof M
+>n : boolean
 

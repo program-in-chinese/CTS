@@ -1,74 +1,57 @@
 === tests/cases/compiler/classMemberInitializerScoping.ts ===
 var aaa = 1;
->aaa : 数字
->类型别名 :=> 数字
+>aaa : number
 >1 : 1
 
 class CCC {
 >CCC : CCC
 
     y: number = aaa;
->y : 数字
->类型别名 :=> 数字
->aaa : 任意
->类型别名 :=> 任意
+>y : number
+>aaa : any
 
     static staticY: number = aaa; // This shouldnt be error
->staticY : 数字
->类型别名 :=> 数字
->aaa : 数字
->类型别名 :=> 数字
+>staticY : number
+>aaa : number
 
     constructor(aaa) {
->aaa : 任意
->类型别名 :=> 任意
+>aaa : any
 
         this.y = ''; // was: error, cannot assign string to number
 >this.y = '' : ""
->this.y : 数字
->类型别名 :=> 数字
->this : 本体
->y : 数字
->类型别名 :=> 数字
+>this.y : number
+>this : this
+>y : number
 >'' : ""
     }
 }
 
 // above is equivalent to this:
 var aaaa = 1;
->aaaa : 数字
->类型别名 :=> 数字
+>aaaa : number
 >1 : 1
 
 class CCCC {
 >CCCC : CCCC
 
     y: any;
->y : 任意
->类型别名 :=> 任意
+>y : any
 
     constructor(aaaa) {
->aaaa : 任意
->类型别名 :=> 任意
+>aaaa : any
 
         this.y = aaaa;
->this.y = aaaa : 任意
->类型别名 :=> 任意
->this.y : 任意
->类型别名 :=> 任意
->this : 本体
->y : 任意
->类型别名 :=> 任意
->aaaa : 任意
->类型别名 :=> 任意
+>this.y = aaaa : any
+>this.y : any
+>this : this
+>y : any
+>aaaa : any
 
         this.y = '';
 >this.y = '' : ""
->this.y : 任意
->类型别名 :=> 任意
->this : 本体
->y : 任意
->类型别名 :=> 任意
+>this.y : any
+>this : this
+>y : any
 >'' : ""
     }
 }

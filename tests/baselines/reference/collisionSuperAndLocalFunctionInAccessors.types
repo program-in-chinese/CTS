@@ -1,28 +1,25 @@
 === tests/cases/compiler/collisionSuperAndLocalFunctionInAccessors.ts ===
 function _super() { // No error
->_super : () => 无值
+>_super : () => void
 }
 class Foo {
 >Foo : Foo
 
     get prop1(): number {
->prop1 : 数字
->类型别名 :=> 数字
+>prop1 : number
 
         function _super() { // No error
->_super : () => 无值
+>_super : () => void
         }
         return 10;
 >10 : 10
     }
     set prop1(val: number) {
->prop1 : 数字
->类型别名 :=> 数字
->val : 数字
->类型别名 :=> 数字
+>prop1 : number
+>val : number
 
         function _super() { // No error
->_super : () => 无值
+>_super : () => void
         }
     }
 }
@@ -31,23 +28,20 @@ class b extends Foo {
 >Foo : Foo
 
     get prop2(): number {
->prop2 : 数字
->类型别名 :=> 数字
+>prop2 : number
 
         function _super() { // Should be error
->_super : () => 无值
+>_super : () => void
         }
         return 10;
 >10 : 10
     }
     set prop2(val: number) {
->prop2 : 数字
->类型别名 :=> 数字
->val : 数字
->类型别名 :=> 数字
+>prop2 : number
+>val : number
 
         function _super() { // Should be error
->_super : () => 无值
+>_super : () => void
         }
     }
 }
@@ -56,32 +50,29 @@ class c extends Foo {
 >Foo : Foo
 
     get prop2(): number {
->prop2 : 数字
->类型别名 :=> 数字
+>prop2 : number
 
         var x = () => {
->x : () => 无值
->() => {            function _super() { // Should be error            }        } : () => 无值
+>x : () => void
+>() => {            function _super() { // Should be error            }        } : () => void
 
             function _super() { // Should be error
->_super : () => 无值
+>_super : () => void
             }
         }
         return 10;
 >10 : 10
     }
     set prop2(val: number) {
->prop2 : 数字
->类型别名 :=> 数字
->val : 数字
->类型别名 :=> 数字
+>prop2 : number
+>val : number
 
         var x = () => {
->x : () => 无值
->() => {            function _super() { // Should be error            }        } : () => 无值
+>x : () => void
+>() => {            function _super() { // Should be error            }        } : () => void
 
             function _super() { // Should be error
->_super : () => 无值
+>_super : () => void
             }
         }
     }

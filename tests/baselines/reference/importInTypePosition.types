@@ -1,59 +1,53 @@
 === tests/cases/compiler/importInTypePosition.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export class Point {
 >Point : Point
 
         constructor(public x: number, public y: number) { }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
     }
     export var Origin = new Point(0, 0);
 >Origin : Point
 >new Point(0, 0) : Point
->Point : 类为 Point
+>Point : typeof Point
 >0 : 0
 >0 : 0
 }
 
 // no code gen expected
 module B {
->B : 任意
->类型别名 :=> 任意
+>B : any
 
     import a = A; //Error generates 'var <Alias> = <EntityName>;'
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 }
 // no code gen expected
 module C {
->C : 类为 C
+>C : typeof C
 
     import a = A; //Error generates 'var <Alias> = <EntityName>;'
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 
     var m: typeof a;
->m : 类为 a
->a : 类为 a
+>m : typeof a
+>a : typeof a
 
     var p: a.Point;
 >p : a.Point
->a : 任意
->类型别名 :=> 任意
+>a : any
 >Point : a.Point
 
     var p = { x: 0, y: 0 };
 >p : a.Point
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 }
 

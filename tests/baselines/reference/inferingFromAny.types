@@ -1,10 +1,9 @@
 === tests/cases/conformance/salsa/a.ts ===
 var a: any;
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var t: [any, any];
->t : [任意, 任意]
+>t : [any, any]
 
 declare function f1<T>(t: T): T
 >f1 : <T>(t: T) => T
@@ -41,29 +40,27 @@ declare function f4<T>(x: { bar: T; baz: T }): T;
 >T : T
 
 declare function f5<T>(x: (a: T) => void): T;
->f5 : <T>(x: (a: T) => 无值) => T
+>f5 : <T>(x: (a: T) => void) => T
 >T : T
->x : (a: T) => 无值
+>x : (a: T) => void
 >a : T
 >T : T
 >T : T
 
 declare function f6<T>(x: new (a: T) => {}): T;
->f6 : <T>(x: 新建 (a: T) => {}) => T
+>f6 : <T>(x: new (a: T) => {}) => T
 >T : T
->x : 新建 (a: T) => {}
+>x : new (a: T) => {}
 >a : T
 >T : T
 >T : T
 
 declare function f7<T>(x: (a: any) => a is T): T;
->f7 : <T>(x: (a: 任意) => a 作为 T) => T
+>f7 : <T>(x: (a: any) => a is T) => T
 >T : T
->x : (a: 任意) => a 作为 T
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>x : (a: any) => a is T
+>a : any
+>a : any
 >T : T
 >T : T
 
@@ -75,27 +72,25 @@ declare function f8<T>(x: () => T): T;
 >T : T
 
 declare function f9<T>(x: new () => T): T;
->f9 : <T>(x: 新建 () => T) => T
+>f9 : <T>(x: new () => T) => T
 >T : T
->x : 新建 () => T
+>x : new () => T
 >T : T
 >T : T
 
 declare function f10<T>(x: { [x: string]: T }): T;
->f10 : <T>(x: { [x: 文字]: T; }) => T
+>f10 : <T>(x: { [x: string]: T; }) => T
 >T : T
->x : { [x: 文字]: T; }
->x : 文字
->类型别名 :=> 文字
+>x : { [x: string]: T; }
+>x : string
 >T : T
 >T : T
 
 declare function f11<T>(x: { [x: number]: T }): T;
->f11 : <T>(x: { [x: 数字]: T; }) => T
+>f11 : <T>(x: { [x: number]: T; }) => T
 >T : T
->x : { [x: 数字]: T; }
->x : 数字
->类型别名 :=> 数字
+>x : { [x: number]: T; }
+>x : number
 >T : T
 >T : T
 
@@ -154,21 +149,21 @@ declare function f16<T>(x: Partial<T>): T;
 >T : T
 
 declare function f17<T, K>(x: {[P in keyof T]: K}): T;
->f17 : <T, K>(x: { [P 位于 键集 T]: K; }) => T
+>f17 : <T, K>(x: { [P in keyof T]: K; }) => T
 >T : T
 >K : K
->x : { [P 位于 键集 T]: K; }
+>x : { [P in keyof T]: K; }
 >P : P
 >T : T
 >K : K
 >T : T
 
 declare function f18<T, K extends keyof T>(x: {[P in K]: T[P]}): T;
->f18 : <T, K 扩展 键集 T>(x: { [P 位于 K]: T[P]; }) => T
+>f18 : <T, K extends keyof T>(x: { [P in K]: T[P]; }) => T
 >T : T
 >K : K
 >T : T
->x : { [P 位于 K]: T[P]; }
+>x : { [P in K]: T[P]; }
 >P : P
 >K : K
 >T : T
@@ -176,7 +171,7 @@ declare function f18<T, K extends keyof T>(x: {[P in K]: T[P]}): T;
 >T : T
 
 declare function f19<T, K extends keyof T>(k: K, x: T[K]): T;
->f19 : <T, K 扩展 键集 T>(k: K, x: T[K]) => T
+>f19 : <T, K extends keyof T>(k: K, x: T[K]) => T
 >T : T
 >K : K
 >T : T
@@ -189,167 +184,117 @@ declare function f19<T, K extends keyof T>(k: K, x: T[K]): T;
 
 === tests/cases/conformance/salsa/a.js ===
 var a = f1(a);
->a : 任意
->类型别名 :=> 任意
->f1(a) : 任意
->类型别名 :=> 任意
+>a : any
+>f1(a) : any
 >f1 : <T>(t: T) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = f2(a);
->a : 任意
->类型别名 :=> 任意
->f2(a) : 任意
->类型别名 :=> 任意
+>a : any
+>f2(a) : any
 >f2 : <T>(t: T[]) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var t = f3(a);
->t : [任意, 任意]
->f3(a) : [任意, 任意]
+>t : [any, any]
+>f3(a) : [any, any]
 >f3 : <T, U>(t: [T, U]) => [T, U]
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = f4(a);
->a : 任意
->类型别名 :=> 任意
->f4(a) : 任意
->类型别名 :=> 任意
+>a : any
+>f4(a) : any
 >f4 : <T>(x: { bar: T; baz: T; }) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = f5(a);
->a : 任意
->类型别名 :=> 任意
->f5(a) : 任意
->类型别名 :=> 任意
->f5 : <T>(x: (a: T) => 无值) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f5(a) : any
+>f5 : <T>(x: (a: T) => void) => T
+>a : any
 
 var a = f6(a);
->a : 任意
->类型别名 :=> 任意
->f6(a) : 任意
->类型别名 :=> 任意
->f6 : <T>(x: 新建 (a: T) => {}) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f6(a) : any
+>f6 : <T>(x: new (a: T) => {}) => T
+>a : any
 
 var a = f7(a);
->a : 任意
->类型别名 :=> 任意
->f7(a) : 任意
->类型别名 :=> 任意
->f7 : <T>(x: (a: 任意) => a 作为 T) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f7(a) : any
+>f7 : <T>(x: (a: any) => a is T) => T
+>a : any
 
 var a = f8(a);
->a : 任意
->类型别名 :=> 任意
->f8(a) : 任意
->类型别名 :=> 任意
+>a : any
+>f8(a) : any
 >f8 : <T>(x: () => T) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = f9(a);
->a : 任意
->类型别名 :=> 任意
->f9(a) : 任意
->类型别名 :=> 任意
->f9 : <T>(x: 新建 () => T) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f9(a) : any
+>f9 : <T>(x: new () => T) => T
+>a : any
 
 var a = f10(a);
->a : 任意
->类型别名 :=> 任意
->f10(a) : 任意
->类型别名 :=> 任意
->f10 : <T>(x: { [x: 文字]: T; }) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f10(a) : any
+>f10 : <T>(x: { [x: string]: T; }) => T
+>a : any
 
 var a = f11(a);
->a : 任意
->类型别名 :=> 任意
->f11(a) : 任意
->类型别名 :=> 任意
->f11 : <T>(x: { [x: 数字]: T; }) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f11(a) : any
+>f11 : <T>(x: { [x: number]: T; }) => T
+>a : any
 
 var t = f12(a);
->t : [任意, 任意]
->f12(a) : [任意, 任意]
+>t : [any, any]
+>f12(a) : [any, any]
 >f12 : <T, U>(x: T | U) => [T, U]
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var t = f13(a);
->t : [任意, 任意]
->f13(a) : [任意, 任意]
+>t : [any, any]
+>f13(a) : [any, any]
 >f13 : <T, U>(x: T & U) => [T, U]
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var t = f14(a);
->t : [任意, 任意]
->f14(a) : [任意, 任意]
+>t : [any, any]
+>f14(a) : [any, any]
 >f14 : <T, U>(x: { a: T | U; b: U & T; }) => [T, U]
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = f15(a);
->a : 任意
->类型别名 :=> 任意
->f15(a) : 任意
->类型别名 :=> 任意
+>a : any
+>f15(a) : any
 >f15 : <T>(x: I<T>) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = f16(a);
->a : 任意
->类型别名 :=> 任意
->f16(a) : 任意
->类型别名 :=> 任意
+>a : any
+>f16(a) : any
 >f16 : <T>(x: Partial<T>) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = f17(a);
->a : 任意
->类型别名 :=> 任意
->f17(a) : 任意
->类型别名 :=> 任意
->f17 : <T, K>(x: { [P 位于 键集 T]: K; }) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f17(a) : any
+>f17 : <T, K>(x: { [P in keyof T]: K; }) => T
+>a : any
 
 var a = f18(a);
->a : 任意
->类型别名 :=> 任意
->f18(a) : 任意
->类型别名 :=> 任意
->f18 : <T, K 扩展 键集 T>(x: { [P 位于 K]: T[P]; }) => T
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f18(a) : any
+>f18 : <T, K extends keyof T>(x: { [P in K]: T[P]; }) => T
+>a : any
 
 var a = f19(a, a);
->a : 任意
->类型别名 :=> 任意
->f19(a, a) : 任意
->类型别名 :=> 任意
->f19 : <T, K 扩展 键集 T>(k: K, x: T[K]) => T
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>a : any
+>f19(a, a) : any
+>f19 : <T, K extends keyof T>(k: K, x: T[K]) => T
+>a : any
+>a : any
 

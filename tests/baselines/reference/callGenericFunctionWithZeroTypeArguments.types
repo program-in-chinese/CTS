@@ -7,12 +7,10 @@ function f<T>(x: T): T { return null; }
 >x : T
 >T : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var r = f(1);
->r : 数字
->类型别名 :=> 数字
+>r : number
 >f(1) : 1
 >f : <T>(x: T) => T
 >1 : 1
@@ -24,12 +22,10 @@ var f2 = <T>(x: T): T => { return null; }
 >x : T
 >T : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var r2 = f2(1);
->r2 : 数字
->类型别名 :=> 数字
+>r2 : number
 >f2(1) : 1
 >f2 : <T>(x: T) => T
 >1 : 1
@@ -42,8 +38,7 @@ var f3: { <T>(x: T): T; }
 >T : T
 
 var r3 = f3(1);
->r3 : 数字
->类型别名 :=> 数字
+>r3 : number
 >f3(1) : 1
 >f3 : <T>(x: T) => T
 >1 : 1
@@ -59,18 +54,16 @@ class C {
 >T : T
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 var r4 = (new C()).f(1);
->r4 : 数字
->类型别名 :=> 数字
+>r4 : number
 >(new C()).f(1) : 1
 >(new C()).f : <T>(x: T) => T
 >(new C()) : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 >f : <T>(x: T) => T
 >1 : 1
 
@@ -89,8 +82,7 @@ var i: I;
 >I : I
 
 var r5 = i.f(1);
->r5 : 数字
->类型别名 :=> 数字
+>r5 : number
 >i.f(1) : 1
 >i.f : <T>(x: T) => T
 >i : I
@@ -108,8 +100,7 @@ class C2<T> {
 >T : T
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 var r6 = (new C2()).f(1);
@@ -118,7 +109,7 @@ var r6 = (new C2()).f(1);
 >(new C2()).f : (x: {}) => {}
 >(new C2()) : C2<{}>
 >new C2() : C2<{}>
->C2 : 类为 C2
+>C2 : typeof C2
 >f : (x: {}) => {}
 >1 : 1
 
@@ -133,16 +124,14 @@ interface I2<T> {
 >T : T
 }
 var i2: I2<number>;
->i2 : I2<数字>
+>i2 : I2<number>
 >I2 : I2<T>
 
 var r7 = i2.f(1);
->r7 : 数字
->类型别名 :=> 数字
->i2.f(1) : 数字
->类型别名 :=> 数字
->i2.f : (x: 数字) => 数字
->i2 : I2<数字>
->f : (x: 数字) => 数字
+>r7 : number
+>i2.f(1) : number
+>i2.f : (x: number) => number
+>i2 : I2<number>
+>f : (x: number) => number
 >1 : 1
 

@@ -1,39 +1,36 @@
 === tests/cases/compiler/file3.ts ===
 import x = require("file1");
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 import "file2";
 let a: x.A; // should not work
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
 >A : No type information available!
 
 === tests/cases/compiler/file1.d.ts ===
 declare module "file1" {
+>"file1" : typeof "file1"
+
     var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     export = x;
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 
 === tests/cases/compiler/file2.ts ===
 /// <reference path="file1.d.ts"/>
 import x = require("file1"); 
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 // augmentation for 'file1'
 // should error since 'file1' does not have namespace meaning
 declare module "file1" {
+>"file1" : any
+
     interface A { a }
 >A : A
->a : 任意
->类型别名 :=> 任意
+>a : any
 }
 

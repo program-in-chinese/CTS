@@ -1,157 +1,153 @@
 === tests/cases/compiler/declarationEmit_nameConflicts_0.ts ===
 import im = require('./declarationEmit_nameConflicts_1');
->im : 类为 im
+>im : typeof im
 
 export module M {
->M : 类为 M
+>M : typeof M
 
     export function f() { }
->f : () => 无值
+>f : () => void
 
     export class C { }
 >C : C
 
     export module N {
->N : 类为 N
+>N : typeof N
 
         export function g() { };
->g : () => 无值
+>g : () => void
 
         export interface I { }
 >I : I
     }
 
     export import a = M.f;
->a : () => 无值
->M : 类为 M
->f : () => 无值
+>a : () => void
+>M : typeof M
+>f : () => void
 
     export import b = M.C;
->b : 类为 C
->M : 类为 M
+>b : typeof C
+>M : typeof M
 >C : C
 
     export import c = N;
->c : 类为 N
->N : 类为 N
+>c : typeof N
+>N : typeof N
 
     export import d = im;
->d : 类为 d
->im : 类为 d
+>d : typeof d
+>im : typeof d
 }
 
 export module M.P {
->M : 类为 M
->P : 类为 P
+>M : typeof M
+>P : typeof P
 
     export function f() { }
->f : () => 无值
+>f : () => void
 
     export class C { }
 >C : C
 
     export module N {
->N : 类为 N
+>N : typeof N
 
         export function g() { };
->g : () => 无值
+>g : () => void
 
         export interface I { }
 >I : I
     }
     export import im = M.P.f;
->im : () => 无值
->M : 类为 M
->P : 类为 P
->f : () => 无值
+>im : () => void
+>M : typeof M
+>P : typeof P
+>f : () => void
 
     export var a = M.a; // emitted incorrectly as typeof f
->a : () => 无值
->M.a : () => 无值
->M : 类为 M
->a : () => 无值
+>a : () => void
+>M.a : () => void
+>M : typeof M
+>a : () => void
 
     export var b = M.b; // ok
->b : 类为 M.C
->M.b : 类为 M.C
->M : 类为 M
->b : 类为 M.C
+>b : typeof M.C
+>M.b : typeof M.C
+>M : typeof M
+>b : typeof M.C
 
     export var c = M.c; // ok
->c : 类为 M.N
->M.c : 类为 M.N
->M : 类为 M
->c : 类为 M.N
+>c : typeof M.N
+>M.c : typeof M.N
+>M : typeof M
+>c : typeof M.N
 
     export var g = M.c.g; // ok
->g : () => 无值
->M.c.g : () => 无值
->M.c : 类为 M.N
->M : 类为 M
->c : 类为 M.N
->g : () => 无值
+>g : () => void
+>M.c.g : () => void
+>M.c : typeof M.N
+>M : typeof M
+>c : typeof M.N
+>g : () => void
 
     export var d = M.d; // emitted incorrectly as typeof im
->d : 类为 M.d
->M.d : 类为 M.d
->M : 类为 M
->d : 类为 M.d
+>d : typeof M.d
+>M.d : typeof M.d
+>M : typeof M
+>d : typeof M.d
 }
 
 export module M.Q {
->M : 类为 M
->Q : 类为 Q
+>M : typeof M
+>Q : typeof Q
 
     export function f() { }
->f : () => 无值
+>f : () => void
 
     export class C { }
 >C : C
 
     export module N {
->N : 类为 N
+>N : typeof N
 
         export function g() { };
->g : () => 无值
+>g : () => void
 
         export interface I { }
 >I : I
     }
     export interface b extends M.b { } // ok
 >b : b
->M.b : 任意
->类型别名 :=> 任意
->M : 类为 M
+>M.b : any
+>M : typeof M
 >b : M.C
 
     export interface I extends M.c.I { } // ok
 >I : I
->M.c.I : 任意
->类型别名 :=> 任意
->M.c : 类为 M.N
->M : 类为 M
->c : 类为 M.N
+>M.c.I : any
+>M.c : typeof M.N
+>M : typeof M
+>c : typeof M.N
 >I : M.c.I
 
     export module c {
->c : 任意
->类型别名 :=> 任意
+>c : any
 
         export interface I extends M.c.I { } // ok
 >I : I
->M.c.I : 任意
->类型别名 :=> 任意
->M.c : 类为 M.N
->M : 类为 M
->c : 类为 M.N
+>M.c.I : any
+>M.c : typeof M.N
+>M : typeof M
+>c : typeof M.N
 >I : M.c.I
     }
 }
 === tests/cases/compiler/declarationEmit_nameConflicts_1.ts ===
 module f { export class c { } }
->f : 类为 f
+>f : typeof f
 >c : c
 
 export = f;
->f : 类为 f
+>f : typeof f
 

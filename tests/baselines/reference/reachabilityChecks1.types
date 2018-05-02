@@ -1,35 +1,29 @@
 === tests/cases/compiler/reachabilityChecks1.ts ===
 while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 
 module A {
->A : 类为 A
+>A : typeof A
 
     while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 module A1 {
->A1 : 类为 A1
+>A1 : typeof A1
 
     do {} while(true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     module A {
->A : 任意
->类型别名 :=> 任意
+>A : any
 
         interface F {}
 >F : F
@@ -37,43 +31,38 @@ module A1 {
 }
 
 module A2 {
->A2 : 类为 A2
+>A2 : typeof A2
 
     while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     module A {
->A : 类为 A
+>A : typeof A
 
         var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
     }
 }
 
 module A3 {
->A3 : 类为 A3
+>A3 : typeof A3
 
     while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     type T = string;
->T : 文字
->类型别名 :=> 文字
+>T : string
 }
 
 module A4 {
->A4 : 类为 A4
+>A4 : typeof A4
 
     while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     module A {
->A : 类为 A
+>A : typeof A
 
         const enum E { X }
 >E : E
@@ -82,13 +71,11 @@ module A4 {
 }
 
 function f1(x) {
->f1 : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
+>f1 : (x: any) => void
+>x : any
 
     if (x) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
         return;
     }
@@ -99,12 +86,11 @@ function f1(x) {
 >"123" : "123"
     }
     var x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     return;
     class A {
@@ -113,22 +99,20 @@ function f2() {
 }
 
 module B {
->B : 类为 B
+>B : typeof B
 
     for (; ;);
     module C {
->C : 任意
->类型别名 :=> 任意
+>C : any
     }
 }
 
 function f3() {
->f3 : () => 无值
+>f3 : () => void
 
     do {
     } while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     enum E {
 >E : E
@@ -140,11 +124,10 @@ function f3() {
 }
 
 function f4() {
->f4 : () => 无值
+>f4 : () => void
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         throw new Error();
 >new Error() : Error

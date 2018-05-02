@@ -1,135 +1,106 @@
 === tests/cases/conformance/internalModules/codeGeneration/importStatementsInterfaces.ts ===
 module A {
->A : 任意
->类型别名 :=> 任意
+>A : any
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
     }
 
     export module inA {
->inA : 任意
->类型别名 :=> 任意
+>inA : any
 
         export interface Point3D extends Point {
 >Point3D : Point3D
 >Point : Point
 
             z: number;
->z : 数字
->类型别名 :=> 数字
+>z : number
         }
     }
 }
 
 // no code gen expected
 module B {
->B : 任意
->类型别名 :=> 任意
+>B : any
 
     import a = A;
->a : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>a : any
+>A : any
 }
 
 // no code gen expected
 module C {
->C : 类为 C
+>C : typeof C
 
     import a = A;
->a : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>a : any
+>A : any
 
     import b = a.inA;
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->inA : 任意
->类型别名 :=> 任意
+>b : any
+>a : any
+>inA : any
 
     var m: typeof a;
->m : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>m : any
+>a : any
 
     var p: b.Point3D;
 >p : b.Point3D
->b : 任意
->类型别名 :=> 任意
+>b : any
 >Point3D : b.Point3D
 
     var p = {x:0, y:0, z: 0 };
 >p : b.Point3D
->{x:0, y:0, z: 0 } : { x: 数字; y: 数字; z: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{x:0, y:0, z: 0 } : { x: number; y: number; z: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->z : 数字
->类型别名 :=> 数字
+>z : number
 >0 : 0
 }
 
 // no code gen expected
 module D {
->D : 类为 D
+>D : typeof D
 
     import a = A;
->a : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>a : any
+>A : any
 
     var p : a.Point;
 >p : a.Point
->a : 任意
->类型别名 :=> 任意
+>a : any
 >Point : a.Point
 }
 
 // no code gen expected
 module E {
->E : 类为 E
+>E : typeof E
 
     import a = A.inA;
->a : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
->inA : 任意
->类型别名 :=> 任意
+>a : any
+>A : any
+>inA : any
 
     export function xDist(x: a.Point3D) {
->xDist : (x: a.Point3D) => 数字
+>xDist : (x: a.Point3D) => number
 >x : a.Point3D
->a : 任意
->类型别名 :=> 任意
+>a : any
 >Point3D : a.Point3D
 
         return 0 - x.x;
->0 - x.x : 数字
->类型别名 :=> 数字
+>0 - x.x : number
 >0 : 0
->x.x : 数字
->类型别名 :=> 数字
+>x.x : number
 >x : a.Point3D
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }

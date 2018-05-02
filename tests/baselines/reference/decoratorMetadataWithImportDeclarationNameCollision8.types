@@ -1,60 +1,55 @@
 === tests/cases/compiler/service.ts ===
 import database = require('./db');
->database : 类为 database
+>database : typeof database
 
 function someDecorator(target) {
->someDecorator : (target: 任意) => 任意
->target : 任意
->类型别名 :=> 任意
+>someDecorator : (target: any) => any
+>target : any
 
     return target;
->target : 任意
->类型别名 :=> 任意
+>target : any
 }
 @someDecorator
->someDecorator : (target: 任意) => 任意
+>someDecorator : (target: any) => any
 
 class MyClass {
 >MyClass : MyClass
 
     db: database.db;
 >db : database.db
->database : 任意
->类型别名 :=> 任意
+>database : any
 >db : database.db
 
     constructor(db: database.db) { // no collision
 >db : database.db
->database : 任意
->类型别名 :=> 任意
+>database : any
 >db : database.db
 
         this.db = db;
 >this.db = db : database.db
 >this.db : database.db
->this : 本体
+>this : this
 >db : database.db
 >db : database.db
 
         this.db.doSomething();
->this.db.doSomething() : 无值
->类型别名 :=> 无值
->this.db.doSomething : () => 无值
+>this.db.doSomething() : void
+>this.db.doSomething : () => void
 >this.db : database.db
->this : 本体
+>this : this
 >db : database.db
->doSomething : () => 无值
+>doSomething : () => void
     }
 }
 export {MyClass};
->MyClass : 类为 MyClass
+>MyClass : typeof MyClass
 
 === tests/cases/compiler/db.ts ===
 export class db {
 >db : db
 
     public doSomething() {
->doSomething : () => 无值
+>doSomething : () => void
     }
 }
 

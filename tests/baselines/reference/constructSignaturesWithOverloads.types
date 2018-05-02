@@ -5,26 +5,21 @@ class C {
 >C : C
 
     constructor(x: number, y?: string);
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 
     constructor(x: number, y: string);
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 
     constructor(x: number) { }
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 
 var r1 = new C(1, '');
 >r1 : C
 >new C(1, '') : C
->C : 类为 C
+>C : typeof C
 >1 : 1
 >'' : ""
 
@@ -35,14 +30,12 @@ class C2<T> {
     constructor(x: T, y?: string);
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 
     constructor(x: T, y: string);
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 
     constructor(x: T) { }
 >x : T
@@ -50,9 +43,9 @@ class C2<T> {
 }
 
 var r2 = new C2(1, '');
->r2 : C2<数字>
->new C2(1, '') : C2<数字>
->C2 : 类为 C2
+>r2 : C2<number>
+>new C2(1, '') : C2<number>
+>C2 : typeof C2
 >1 : 1
 >'' : ""
 
@@ -60,17 +53,13 @@ interface I {
 >I : I
 
     new(x: number, y?: string): C;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 
     new(x: number, y: string): C;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 }
 
@@ -92,16 +81,14 @@ interface I2<T> {
     new (x: T, y?: string): C2<T>;
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 
     new (x: T, y: string): C2<T>;
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 
@@ -109,8 +96,7 @@ interface I2<T> {
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 
@@ -118,58 +104,52 @@ interface I2<T> {
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 
 }
 
 var i2: I2<number>;
->i2 : I2<数字>
+>i2 : I2<number>
 >I2 : I2<T>
 
 var r4 = new i2(1, '');
->r4 : C2<数字>
->new i2(1, '') : C2<数字>
->i2 : I2<数字>
+>r4 : C2<number>
+>new i2(1, '') : C2<number>
+>i2 : I2<number>
 >1 : 1
 >'' : ""
 
 var a: {
->a : { 新建 (x: 数字, y?: 文字): C; 新建 (x: 数字, y: 文字): C; }
+>a : { new (x: number, y?: string): C; new (x: number, y: string): C; }
 
     new(x: number, y?: string): C;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 
     new(x: number, y: string): C;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 }
 
 var r5 = new a(1, '');
 >r5 : C
 >new a(1, '') : C
->a : { 新建 (x: 数字, y?: 文字): C; 新建 (x: 数字, y: 文字): C; }
+>a : { new (x: number, y?: string): C; new (x: number, y: string): C; }
 >1 : 1
 >'' : ""
 
 var b: {
->b : { 新建 <T>(x: T, y?: 文字): C2<T>; 新建 <T>(x: T, y: 文字): C2<T>; }
+>b : { new <T>(x: T, y?: string): C2<T>; new <T>(x: T, y: string): C2<T>; }
 
     new<T>(x: T, y?: string): C2<T>;
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 
@@ -177,16 +157,15 @@ var b: {
 >T : T
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 >C2 : C2<T>
 >T : T
 }
 
 var r6 = new b(1, '');
->r6 : C2<数字>
->new b(1, '') : C2<数字>
->b : { 新建 <T>(x: T, y?: 文字): C2<T>; 新建 <T>(x: T, y: 文字): C2<T>; }
+>r6 : C2<number>
+>new b(1, '') : C2<number>
+>b : { new <T>(x: T, y?: string): C2<T>; new <T>(x: T, y: string): C2<T>; }
 >1 : 1
 >'' : ""
 

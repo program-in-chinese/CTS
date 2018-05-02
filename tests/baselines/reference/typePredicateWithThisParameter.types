@@ -5,43 +5,36 @@ interface Foo {
 >Foo : Foo
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 interface Bar {
 >Bar : Bar
 
     bar: string;
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 }
 
 function isFoo1(object: {}): object is Foo {
->isFoo1 : (object: {}) => object 作为 Foo
+>isFoo1 : (object: {}) => object is Foo
 >object : {}
->object : 任意
->类型别名 :=> 任意
+>object : any
 >Foo : Foo
 
     return 'foo' in object;
->'foo' in object : 真假
->类型别名 :=> 真假
+>'foo' in object : boolean
 >'foo' : "foo"
 >object : {}
 }
 
 function isFoo2(this: void, object: {}): object is Foo {
->isFoo2 : (this: 无值, object: {}) => object 作为 Foo
->this : 无值
->类型别名 :=> 无值
+>isFoo2 : (this: void, object: {}) => object is Foo
+>this : void
 >object : {}
->object : 任意
->类型别名 :=> 任意
+>object : any
 >Foo : Foo
 
     return 'foo' in object;
->'foo' in object : 真假
->类型别名 :=> 真假
+>'foo' in object : boolean
 >'foo' : "foo"
 >object : {}
 }
@@ -52,34 +45,28 @@ declare let test: Foo | Bar;
 >Bar : Bar
 
 if (isFoo1(test)) {
->isFoo1(test) : 真假
->类型别名 :=> 真假
->isFoo1 : (object: {}) => object 作为 Foo
+>isFoo1(test) : boolean
+>isFoo1 : (object: {}) => object is Foo
 >test : Foo | Bar
 
     test.foo = 'hi';
 >test.foo = 'hi' : "hi"
->test.foo : 文字
->类型别名 :=> 文字
+>test.foo : string
 >test : Foo
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 >'hi' : "hi"
 }
 
 if (isFoo2(test)) {
->isFoo2(test) : 真假
->类型别名 :=> 真假
->isFoo2 : (this: 无值, object: {}) => object 作为 Foo
+>isFoo2(test) : boolean
+>isFoo2 : (this: void, object: {}) => object is Foo
 >test : Foo | Bar
 
     test.foo = 'hi';
 >test.foo = 'hi' : "hi"
->test.foo : 文字
->类型别名 :=> 文字
+>test.foo : string
 >test : Foo
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 >'hi' : "hi"
 }
 

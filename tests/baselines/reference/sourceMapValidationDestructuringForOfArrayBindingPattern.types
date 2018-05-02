@@ -1,477 +1,389 @@
 === tests/cases/compiler/sourceMapValidationDestructuringForOfArrayBindingPattern.ts ===
 declare var console: {
->console : { log(msg: 任意): 无值; }
+>console : { log(msg: any): void; }
 
     log(msg: any): void;
->log : (msg: 任意) => 无值
->msg : 任意
->类型别名 :=> 任意
+>log : (msg: any) => void
+>msg : any
 }
 type Robot = [number, string, string];
->Robot : [数字, 文字, 文字]
+>Robot : [number, string, string]
 
 type MultiSkilledRobot = [string, [string, string]];
->MultiSkilledRobot : [文字, [文字, 文字]]
+>MultiSkilledRobot : [string, [string, string]]
 
 let robotA: Robot = [1, "mower", "mowing"];
->robotA : [数字, 文字, 文字]
->Robot : [数字, 文字, 文字]
->[1, "mower", "mowing"] : [数字, 文字, 文字]
+>robotA : [number, string, string]
+>Robot : [number, string, string]
+>[1, "mower", "mowing"] : [number, string, string]
 >1 : 1
 >"mower" : "mower"
 >"mowing" : "mowing"
 
 let robotB: Robot = [2, "trimmer", "trimming"];
->robotB : [数字, 文字, 文字]
->Robot : [数字, 文字, 文字]
->[2, "trimmer", "trimming"] : [数字, 文字, 文字]
+>robotB : [number, string, string]
+>Robot : [number, string, string]
+>[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2
 >"trimmer" : "trimmer"
 >"trimming" : "trimming"
 
 let robots = [robotA, robotB];
->robots : [数字, 文字, 文字][]
->[robotA, robotB] : [数字, 文字, 文字][]
->robotA : [数字, 文字, 文字]
->robotB : [数字, 文字, 文字]
+>robots : [number, string, string][]
+>[robotA, robotB] : [number, string, string][]
+>robotA : [number, string, string]
+>robotB : [number, string, string]
 
 function getRobots() {
->getRobots : () => [数字, 文字, 文字][]
+>getRobots : () => [number, string, string][]
 
     return robots;
->robots : [数字, 文字, 文字][]
+>robots : [number, string, string][]
 }
 
 let multiRobotA: MultiSkilledRobot = ["mower", ["mowing", ""]];
->multiRobotA : [文字, [文字, 文字]]
->MultiSkilledRobot : [文字, [文字, 文字]]
->["mower", ["mowing", ""]] : [文字, [文字, 文字]]
+>multiRobotA : [string, [string, string]]
+>MultiSkilledRobot : [string, [string, string]]
+>["mower", ["mowing", ""]] : [string, [string, string]]
 >"mower" : "mower"
->["mowing", ""] : [文字, 文字]
+>["mowing", ""] : [string, string]
 >"mowing" : "mowing"
 >"" : ""
 
 let multiRobotB: MultiSkilledRobot = ["trimmer", ["trimming", "edging"]];
->multiRobotB : [文字, [文字, 文字]]
->MultiSkilledRobot : [文字, [文字, 文字]]
->["trimmer", ["trimming", "edging"]] : [文字, [文字, 文字]]
+>multiRobotB : [string, [string, string]]
+>MultiSkilledRobot : [string, [string, string]]
+>["trimmer", ["trimming", "edging"]] : [string, [string, string]]
 >"trimmer" : "trimmer"
->["trimming", "edging"] : [文字, 文字]
+>["trimming", "edging"] : [string, string]
 >"trimming" : "trimming"
 >"edging" : "edging"
 
 let multiRobots = [multiRobotA, multiRobotB];
->multiRobots : [文字, [文字, 文字]][]
->[multiRobotA, multiRobotB] : [文字, [文字, 文字]][]
->multiRobotA : [文字, [文字, 文字]]
->multiRobotB : [文字, [文字, 文字]]
+>multiRobots : [string, [string, string]][]
+>[multiRobotA, multiRobotB] : [string, [string, string]][]
+>multiRobotA : [string, [string, string]]
+>multiRobotB : [string, [string, string]]
 
 function getMultiRobots() {
->getMultiRobots : () => [文字, [文字, 文字]][]
+>getMultiRobots : () => [string, [string, string]][]
 
     return multiRobots;
->multiRobots : [文字, [文字, 文字]][]
+>multiRobots : [string, [string, string]][]
 }
 
 for (let [, nameA] of robots) {
-> : 未定
->类型别名 :=> 未定
->nameA : 文字
->类型别名 :=> 文字
->robots : [数字, 文字, 文字][]
+> : undefined
+>nameA : string
+>robots : [number, string, string][]
 
     console.log(nameA);
->console.log(nameA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA : 文字
->类型别名 :=> 文字
+>console.log(nameA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA : string
 }
 for (let [, nameA] of getRobots()) {
-> : 未定
->类型别名 :=> 未定
->nameA : 文字
->类型别名 :=> 文字
->getRobots() : [数字, 文字, 文字][]
->getRobots : () => [数字, 文字, 文字][]
+> : undefined
+>nameA : string
+>getRobots() : [number, string, string][]
+>getRobots : () => [number, string, string][]
 
     console.log(nameA);
->console.log(nameA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA : 文字
->类型别名 :=> 文字
+>console.log(nameA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA : string
 }
 for (let [, nameA] of [robotA, robotB]) {
-> : 未定
->类型别名 :=> 未定
->nameA : 文字
->类型别名 :=> 文字
->[robotA, robotB] : [数字, 文字, 文字][]
->robotA : [数字, 文字, 文字]
->robotB : [数字, 文字, 文字]
+> : undefined
+>nameA : string
+>[robotA, robotB] : [number, string, string][]
+>robotA : [number, string, string]
+>robotB : [number, string, string]
 
     console.log(nameA);
->console.log(nameA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA : 文字
->类型别名 :=> 文字
+>console.log(nameA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA : string
 }
 for (let [, [primarySkillA, secondarySkillA]] of multiRobots) {
-> : 未定
->类型别名 :=> 未定
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->multiRobots : [文字, [文字, 文字]][]
+> : undefined
+>primarySkillA : string
+>secondarySkillA : string
+>multiRobots : [string, [string, string]][]
 
     console.log(primarySkillA);
->console.log(primarySkillA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->primarySkillA : 文字
->类型别名 :=> 文字
+>console.log(primarySkillA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>primarySkillA : string
 }
 for (let [, [primarySkillA, secondarySkillA]] of getMultiRobots()) {
-> : 未定
->类型别名 :=> 未定
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->getMultiRobots() : [文字, [文字, 文字]][]
->getMultiRobots : () => [文字, [文字, 文字]][]
+> : undefined
+>primarySkillA : string
+>secondarySkillA : string
+>getMultiRobots() : [string, [string, string]][]
+>getMultiRobots : () => [string, [string, string]][]
 
     console.log(primarySkillA);
->console.log(primarySkillA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->primarySkillA : 文字
->类型别名 :=> 文字
+>console.log(primarySkillA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>primarySkillA : string
 }
 for (let [, [primarySkillA, secondarySkillA]] of [multiRobotA, multiRobotB]) {
-> : 未定
->类型别名 :=> 未定
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->[multiRobotA, multiRobotB] : [文字, [文字, 文字]][]
->multiRobotA : [文字, [文字, 文字]]
->multiRobotB : [文字, [文字, 文字]]
+> : undefined
+>primarySkillA : string
+>secondarySkillA : string
+>[multiRobotA, multiRobotB] : [string, [string, string]][]
+>multiRobotA : [string, [string, string]]
+>multiRobotB : [string, [string, string]]
 
     console.log(primarySkillA);
->console.log(primarySkillA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->primarySkillA : 文字
->类型别名 :=> 文字
+>console.log(primarySkillA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>primarySkillA : string
 }
 
 for (let [numberB] of robots) {
->numberB : 数字
->类型别名 :=> 数字
->robots : [数字, 文字, 文字][]
+>numberB : number
+>robots : [number, string, string][]
 
     console.log(numberB);
->console.log(numberB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberB : 数字
->类型别名 :=> 数字
+>console.log(numberB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberB : number
 }
 for (let [numberB] of getRobots()) {
->numberB : 数字
->类型别名 :=> 数字
->getRobots() : [数字, 文字, 文字][]
->getRobots : () => [数字, 文字, 文字][]
+>numberB : number
+>getRobots() : [number, string, string][]
+>getRobots : () => [number, string, string][]
 
     console.log(numberB);
->console.log(numberB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberB : 数字
->类型别名 :=> 数字
+>console.log(numberB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberB : number
 }
 for (let [numberB] of [robotA, robotB]) {
->numberB : 数字
->类型别名 :=> 数字
->[robotA, robotB] : [数字, 文字, 文字][]
->robotA : [数字, 文字, 文字]
->robotB : [数字, 文字, 文字]
+>numberB : number
+>[robotA, robotB] : [number, string, string][]
+>robotA : [number, string, string]
+>robotB : [number, string, string]
 
     console.log(numberB);
->console.log(numberB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberB : 数字
->类型别名 :=> 数字
+>console.log(numberB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberB : number
 }
 for (let [nameB] of multiRobots) {
->nameB : 文字
->类型别名 :=> 文字
->multiRobots : [文字, [文字, 文字]][]
+>nameB : string
+>multiRobots : [string, [string, string]][]
 
     console.log(nameB);
->console.log(nameB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameB : 文字
->类型别名 :=> 文字
+>console.log(nameB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameB : string
 }
 for (let [nameB] of getMultiRobots()) {
->nameB : 文字
->类型别名 :=> 文字
->getMultiRobots() : [文字, [文字, 文字]][]
->getMultiRobots : () => [文字, [文字, 文字]][]
+>nameB : string
+>getMultiRobots() : [string, [string, string]][]
+>getMultiRobots : () => [string, [string, string]][]
 
     console.log(nameB);
->console.log(nameB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameB : 文字
->类型别名 :=> 文字
+>console.log(nameB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameB : string
 }
 for (let [nameB] of [multiRobotA, multiRobotB]) {
->nameB : 文字
->类型别名 :=> 文字
->[multiRobotA, multiRobotB] : [文字, [文字, 文字]][]
->multiRobotA : [文字, [文字, 文字]]
->multiRobotB : [文字, [文字, 文字]]
+>nameB : string
+>[multiRobotA, multiRobotB] : [string, [string, string]][]
+>multiRobotA : [string, [string, string]]
+>multiRobotB : [string, [string, string]]
 
     console.log(nameB);
->console.log(nameB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameB : 文字
->类型别名 :=> 文字
+>console.log(nameB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameB : string
 }
 
 for (let [numberA2, nameA2, skillA2] of robots) {
->numberA2 : 数字
->类型别名 :=> 数字
->nameA2 : 文字
->类型别名 :=> 文字
->skillA2 : 文字
->类型别名 :=> 文字
->robots : [数字, 文字, 文字][]
+>numberA2 : number
+>nameA2 : string
+>skillA2 : string
+>robots : [number, string, string][]
 
     console.log(nameA2);
->console.log(nameA2) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA2 : 文字
->类型别名 :=> 文字
+>console.log(nameA2) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA2 : string
 }
 for (let [numberA2, nameA2, skillA2] of getRobots()) {
->numberA2 : 数字
->类型别名 :=> 数字
->nameA2 : 文字
->类型别名 :=> 文字
->skillA2 : 文字
->类型别名 :=> 文字
->getRobots() : [数字, 文字, 文字][]
->getRobots : () => [数字, 文字, 文字][]
+>numberA2 : number
+>nameA2 : string
+>skillA2 : string
+>getRobots() : [number, string, string][]
+>getRobots : () => [number, string, string][]
 
     console.log(nameA2);
->console.log(nameA2) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA2 : 文字
->类型别名 :=> 文字
+>console.log(nameA2) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA2 : string
 }
 for (let [numberA2, nameA2, skillA2] of [robotA, robotB]) {
->numberA2 : 数字
->类型别名 :=> 数字
->nameA2 : 文字
->类型别名 :=> 文字
->skillA2 : 文字
->类型别名 :=> 文字
->[robotA, robotB] : [数字, 文字, 文字][]
->robotA : [数字, 文字, 文字]
->robotB : [数字, 文字, 文字]
+>numberA2 : number
+>nameA2 : string
+>skillA2 : string
+>[robotA, robotB] : [number, string, string][]
+>robotA : [number, string, string]
+>robotB : [number, string, string]
 
     console.log(nameA2);
->console.log(nameA2) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA2 : 文字
->类型别名 :=> 文字
+>console.log(nameA2) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA2 : string
 }
 for (let [nameMA, [primarySkillA, secondarySkillA]] of multiRobots) {
->nameMA : 文字
->类型别名 :=> 文字
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->multiRobots : [文字, [文字, 文字]][]
+>nameMA : string
+>primarySkillA : string
+>secondarySkillA : string
+>multiRobots : [string, [string, string]][]
 
     console.log(nameMA);
->console.log(nameMA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameMA : 文字
->类型别名 :=> 文字
+>console.log(nameMA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameMA : string
 }
 for (let [nameMA, [primarySkillA, secondarySkillA]] of getMultiRobots()) {
->nameMA : 文字
->类型别名 :=> 文字
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->getMultiRobots() : [文字, [文字, 文字]][]
->getMultiRobots : () => [文字, [文字, 文字]][]
+>nameMA : string
+>primarySkillA : string
+>secondarySkillA : string
+>getMultiRobots() : [string, [string, string]][]
+>getMultiRobots : () => [string, [string, string]][]
 
     console.log(nameMA);
->console.log(nameMA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameMA : 文字
->类型别名 :=> 文字
+>console.log(nameMA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameMA : string
 }
 for (let [nameMA, [primarySkillA, secondarySkillA]] of [multiRobotA, multiRobotB]) {
->nameMA : 文字
->类型别名 :=> 文字
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->[multiRobotA, multiRobotB] : [文字, [文字, 文字]][]
->multiRobotA : [文字, [文字, 文字]]
->multiRobotB : [文字, [文字, 文字]]
+>nameMA : string
+>primarySkillA : string
+>secondarySkillA : string
+>[multiRobotA, multiRobotB] : [string, [string, string]][]
+>multiRobotA : [string, [string, string]]
+>multiRobotB : [string, [string, string]]
 
     console.log(nameMA);
->console.log(nameMA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameMA : 文字
->类型别名 :=> 文字
+>console.log(nameMA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameMA : string
 }
 
 for (let [numberA3, ...robotAInfo] of robots) {
->numberA3 : 数字
->类型别名 :=> 数字
->robotAInfo : (文字 | 数字)[]
->robots : [数字, 文字, 文字][]
+>numberA3 : number
+>robotAInfo : (string | number)[]
+>robots : [number, string, string][]
 
     console.log(numberA3);
->console.log(numberA3) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberA3 : 数字
->类型别名 :=> 数字
+>console.log(numberA3) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberA3 : number
 }
 for (let [numberA3, ...robotAInfo] of getRobots()) {
->numberA3 : 数字
->类型别名 :=> 数字
->robotAInfo : (文字 | 数字)[]
->getRobots() : [数字, 文字, 文字][]
->getRobots : () => [数字, 文字, 文字][]
+>numberA3 : number
+>robotAInfo : (string | number)[]
+>getRobots() : [number, string, string][]
+>getRobots : () => [number, string, string][]
 
     console.log(numberA3);
->console.log(numberA3) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberA3 : 数字
->类型别名 :=> 数字
+>console.log(numberA3) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberA3 : number
 }
 for (let [numberA3, ...robotAInfo] of [robotA, robotB]) {
->numberA3 : 数字
->类型别名 :=> 数字
->robotAInfo : (文字 | 数字)[]
->[robotA, robotB] : [数字, 文字, 文字][]
->robotA : [数字, 文字, 文字]
->robotB : [数字, 文字, 文字]
+>numberA3 : number
+>robotAInfo : (string | number)[]
+>[robotA, robotB] : [number, string, string][]
+>robotA : [number, string, string]
+>robotB : [number, string, string]
 
     console.log(numberA3);
->console.log(numberA3) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberA3 : 数字
->类型别名 :=> 数字
+>console.log(numberA3) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberA3 : number
 }
 for (let [...multiRobotAInfo] of multiRobots) {
->multiRobotAInfo : (文字 | [文字, 文字])[]
->multiRobots : [文字, [文字, 文字]][]
+>multiRobotAInfo : (string | [string, string])[]
+>multiRobots : [string, [string, string]][]
 
     console.log(multiRobotAInfo);
->console.log(multiRobotAInfo) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->multiRobotAInfo : (文字 | [文字, 文字])[]
+>console.log(multiRobotAInfo) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>multiRobotAInfo : (string | [string, string])[]
 }
 for (let [...multiRobotAInfo] of getMultiRobots()) {
->multiRobotAInfo : (文字 | [文字, 文字])[]
->getMultiRobots() : [文字, [文字, 文字]][]
->getMultiRobots : () => [文字, [文字, 文字]][]
+>multiRobotAInfo : (string | [string, string])[]
+>getMultiRobots() : [string, [string, string]][]
+>getMultiRobots : () => [string, [string, string]][]
 
     console.log(multiRobotAInfo);
->console.log(multiRobotAInfo) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->multiRobotAInfo : (文字 | [文字, 文字])[]
+>console.log(multiRobotAInfo) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>multiRobotAInfo : (string | [string, string])[]
 }
 for (let [...multiRobotAInfo] of [multiRobotA, multiRobotB]) {
->multiRobotAInfo : (文字 | [文字, 文字])[]
->[multiRobotA, multiRobotB] : [文字, [文字, 文字]][]
->multiRobotA : [文字, [文字, 文字]]
->multiRobotB : [文字, [文字, 文字]]
+>multiRobotAInfo : (string | [string, string])[]
+>[multiRobotA, multiRobotB] : [string, [string, string]][]
+>multiRobotA : [string, [string, string]]
+>multiRobotB : [string, [string, string]]
 
     console.log(multiRobotAInfo);
->console.log(multiRobotAInfo) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->multiRobotAInfo : (文字 | [文字, 文字])[]
+>console.log(multiRobotAInfo) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>multiRobotAInfo : (string | [string, string])[]
 }

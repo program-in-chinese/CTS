@@ -1,7 +1,6 @@
 === tests/cases/conformance/jsx/react.d.ts ===
 declare module JSX {
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 
 	interface Element { }
 >Element : Element
@@ -13,8 +12,7 @@ declare module JSX {
 >ElementAttributesProperty : ElementAttributesProperty
 
 		props;
->props : 任意
->类型别名 :=> 任意
+>props : any
 	}
 }
 
@@ -23,38 +21,33 @@ export class MyComponent {
 >MyComponent : MyComponent
 
   render() {
->render : () => 无值
+>render : () => void
   }
 
   props: {
->props : { [s: 文字]: 真假; }
+>props : { [s: string]: boolean; }
 
   	[s: string]: boolean;
->s : 文字
->类型别名 :=> 文字
+>s : string
   }
 }
 
 // Should be an error
 <MyComponent bar='world' />;
 ><MyComponent bar='world' /> : JSX.Element
->MyComponent : 类为 MyComponent
->bar : 文字
->类型别名 :=> 文字
+>MyComponent : typeof MyComponent
+>bar : string
 
 // Should be OK
 <MyComponent bar={true} />;
 ><MyComponent bar={true} /> : JSX.Element
->MyComponent : 类为 MyComponent
->bar : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>MyComponent : typeof MyComponent
+>bar : boolean
+>true : true
 
 // Should be ok
 <MyComponent data-bar='hello' />;
 ><MyComponent data-bar='hello' /> : JSX.Element
->MyComponent : 类为 MyComponent
->data-bar : 文字
->类型别名 :=> 文字
+>MyComponent : typeof MyComponent
+>data-bar : string
 

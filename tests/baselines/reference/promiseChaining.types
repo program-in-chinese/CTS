@@ -22,41 +22,37 @@ class Chain<T> {
 >cb(this.value) : S
 >cb : (x: T) => S
 >this.value : T
->this : 本体
+>this : this
 >value : T
 
         // should get a fresh type parameter which each then call
         var z = this.then(x => result)/*S*/.then(x => "abc")/*string*/.then(x => x.length)/*number*/; // No error
->z : Chain<数字>
->this.then(x => result)/*S*/.then(x => "abc")/*string*/.then(x => x.length) : Chain<数字>
->this.then(x => result)/*S*/.then(x => "abc")/*string*/.then : <S>(cb: (x: 文字) => S) => Chain<S>
->this.then(x => result)/*S*/.then(x => "abc") : Chain<文字>
+>z : Chain<number>
+>this.then(x => result)/*S*/.then(x => "abc")/*string*/.then(x => x.length) : Chain<number>
+>this.then(x => result)/*S*/.then(x => "abc")/*string*/.then : <S>(cb: (x: string) => S) => Chain<S>
+>this.then(x => result)/*S*/.then(x => "abc") : Chain<string>
 >this.then(x => result)/*S*/.then : <S>(cb: (x: S) => S) => Chain<S>
 >this.then(x => result) : Chain<S>
 >this.then : <S>(cb: (x: T) => S) => Chain<S>
->this : 本体
+>this : this
 >then : <S>(cb: (x: T) => S) => Chain<S>
 >x => result : (x: T) => S
 >x : T
 >result : S
 >then : <S>(cb: (x: S) => S) => Chain<S>
->x => "abc" : (x: S) => 文字
+>x => "abc" : (x: S) => string
 >x : S
 >"abc" : "abc"
->then : <S>(cb: (x: 文字) => S) => Chain<S>
->x => x.length : (x: 文字) => 数字
->x : 文字
->类型别名 :=> 文字
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>then : <S>(cb: (x: string) => S) => Chain<S>
+>x => x.length : (x: string) => number
+>x : string
+>x.length : number
+>x : string
+>length : number
 
         return new Chain(result);
 >new Chain(result) : Chain<S>
->Chain : 类为 Chain
+>Chain : typeof Chain
 >result : S
     }
 }

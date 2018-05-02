@@ -3,40 +3,33 @@ interface Shape {
 >Shape : Shape
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     width: number;
->width : 数字
->类型别名 :=> 数字
+>width : number
 
     height: number;
->height : 数字
->类型别名 :=> 数字
+>height : number
 
     visible: boolean;
->visible : 真假
->类型别名 :=> 真假
+>visible : boolean
 }
 
 interface Named {
 >Named : Named
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 }
 
 interface Point {
 >Point : Point
 
     x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 }
 
 // Constraint checking
@@ -56,7 +49,7 @@ type T02 = { [P in Date]: number };  // Error
 >Date : Date
 
 type T03 = Record<Date, number>;  // Error
->T03 : Record<Date, 数字>
+>T03 : Record<Date, number>
 >Record : Record<K, T>
 >Date : Date
 
@@ -88,17 +81,17 @@ type T14 = Pick<Shape, keyof Point>;  // Error
 >Point : Point
 
 type T15 = Pick<Shape, never>;
->T15 : Pick<Shape, 不及>
+>T15 : Pick<Shape, never>
 >Pick : Pick<T, K>
 >Shape : Shape
 
 type T16 = Pick<Shape, undefined>;  // Error
->T16 : Pick<Shape, 未定>
+>T16 : Pick<Shape, undefined>
 >Pick : Pick<T, K>
 >Shape : Shape
 
 function f1<T>(x: T) {
->f1 : <T>(x: T) => 无值
+>f1 : <T>(x: T) => void
 >T : T
 >x : T
 >T : T
@@ -111,7 +104,7 @@ function f1<T>(x: T) {
 }
 
 function f2<T extends string | number>(x: T) {
->f2 : <T 扩展 文字 | 数字>(x: T) => 无值
+>f2 : <T extends string | number>(x: T) => void
 >T : T
 >x : T
 >T : T
@@ -124,7 +117,7 @@ function f2<T extends string | number>(x: T) {
 }
 
 function f3<T extends keyof Shape>(x: T) {
->f3 : <T 扩展 "name" | "width" | "height" | "visible">(x: T) => 无值
+>f3 : <T extends "name" | "width" | "height" | "visible">(x: T) => void
 >T : T
 >Shape : Shape
 >x : T
@@ -138,7 +131,7 @@ function f3<T extends keyof Shape>(x: T) {
 }
 
 function f4<T extends keyof Named>(x: T) {
->f4 : <T 扩展 "name">(x: T) => 无值
+>f4 : <T extends "name">(x: T) => void
 >T : T
 >Named : Named
 >x : T
@@ -154,62 +147,62 @@ function f4<T extends keyof Named>(x: T) {
 // Type identity checking
 
 function f10<T>() {
->f10 : <T>() => 无值
+>f10 : <T>() => void
 >T : T
 
     type K = keyof T;
->K : 键集 T
+>K : keyof T
 >T : T
 
     var x: { [P in keyof T]: T[P] };
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     var x: { [Q in keyof T]: T[Q] };
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >Q : Q
 >T : T
 >T : T
 >Q : Q
 
     var x: { [R in K]: T[R] };
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >R : R
->K : 键集 T
+>K : keyof T
 >T : T
 >R : R
 }
 
 function f11<T>() {
->f11 : <T>() => 无值
+>f11 : <T>() => void
 >T : T
 
     var x: { [P in keyof T]: T[P] };
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     var x: { [P in keyof T]?: T[P] };  // Error
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     var x: { readonly [P in keyof T]: T[P] };  // Error
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     var x: { readonly [P in keyof T]?: T[P] };  // Error
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
@@ -217,18 +210,18 @@ function f11<T>() {
 }
 
 function f12<T>() {
->f12 : <T>() => 无值
+>f12 : <T>() => void
 >T : T
 
     var x: { [P in keyof T]: T[P] };
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     var x: { [P in keyof T]: T[P][] };  // Error
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
@@ -258,130 +251,100 @@ declare function objAndPartial<T>(primary: T, secondary: Partial<T>): T;
 >T : T
 
 function f20() {
->f20 : () => 无值
+>f20 : () => void
 
     let x1 = objAndReadonly({ x: 0, y: 0 }, { x: 1 });  // Error
->x1 : 任意
->类型别名 :=> 任意
->objAndReadonly({ x: 0, y: 0 }, { x: 1 }) : 任意
->类型别名 :=> 任意
+>x1 : any
+>objAndReadonly({ x: 0, y: 0 }, { x: 1 }) : any
 >objAndReadonly : <T>(primary: T, secondary: Readonly<T>) => T
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->{ x: 1 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1 } : { x: number; }
+>x : number
 >1 : 1
 
     let x2 = objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1 });
->x2 : { x: 数字; y: 数字; }
->objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1 }) : { x: 数字; y: 数字; }
+>x2 : { x: number; y: number; }
+>objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1 }) : { x: number; y: number; }
 >objAndReadonly : <T>(primary: T, secondary: Readonly<T>) => T
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->{ x: 1, y: 1 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: 1 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
 
     let x3 = objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 });  // Error
->x3 : 任意
->类型别名 :=> 任意
->objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 }) : 任意
->类型别名 :=> 任意
+>x3 : any
+>objAndReadonly({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 }) : any
 >objAndReadonly : <T>(primary: T, secondary: Readonly<T>) => T
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->{ x: 1, y: 1, z: 1 } : { x: 数字; y: 数字; z: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: 1, z: 1 } : { x: number; y: number; z: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
->z : 数字
->类型别名 :=> 数字
+>z : number
 >1 : 1
 }
 
 function f21() {
->f21 : () => 无值
+>f21 : () => void
 
     let x1 = objAndPartial({ x: 0, y: 0 }, { x: 1 });
->x1 : { x: 数字; y: 数字; }
->objAndPartial({ x: 0, y: 0 }, { x: 1 }) : { x: 数字; y: 数字; }
+>x1 : { x: number; y: number; }
+>objAndPartial({ x: 0, y: 0 }, { x: 1 }) : { x: number; y: number; }
 >objAndPartial : <T>(primary: T, secondary: Partial<T>) => T
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->{ x: 1 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1 } : { x: number; }
+>x : number
 >1 : 1
 
     let x2 = objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1 });
->x2 : { x: 数字; y: 数字; }
->objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1 }) : { x: 数字; y: 数字; }
+>x2 : { x: number; y: number; }
+>objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1 }) : { x: number; y: number; }
 >objAndPartial : <T>(primary: T, secondary: Partial<T>) => T
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->{ x: 1, y: 1 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: 1 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
 
     let x3 = objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 });  // Error
->x3 : 任意
->类型别名 :=> 任意
->objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 }) : 任意
->类型别名 :=> 任意
+>x3 : any
+>objAndPartial({ x: 0, y: 0 }, { x: 1, y: 1, z: 1 }) : any
 >objAndPartial : <T>(primary: T, secondary: Partial<T>) => T
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
->{ x: 1, y: 1, z: 1 } : { x: 数字; y: 数字; z: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: 1, z: 1 } : { x: number; y: number; z: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
->z : 数字
->类型别名 :=> 数字
+>z : number
 >1 : 1
 }
 
@@ -391,15 +354,14 @@ interface Foo {
 >Foo : Foo
 
     a: string;
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     b?: number;
->b : 数字 | 未定
+>b : number | undefined
 }
 
 function setState<T, K extends keyof T>(obj: T, props: Pick<T, K>) {
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >T : T
 >K : K
 >T : T
@@ -428,83 +390,65 @@ function setState<T, K extends keyof T>(obj: T, props: Pick<T, K>) {
 let foo: Foo = { a: "hello", b: 42 };
 >foo : Foo
 >Foo : Foo
->{ a: "hello", b: 42 } : { a: 文字; b: 数字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: "hello", b: 42 } : { a: string; b: number; }
+>a : string
 >"hello" : "hello"
->b : 数字
->类型别名 :=> 数字
+>b : number
 >42 : 42
 
 setState(foo, { a: "test", b: 43 })
->setState(foo, { a: "test", b: 43 }) : 无值
->类型别名 :=> 无值
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState(foo, { a: "test", b: 43 }) : void
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >foo : Foo
->{ a: "test", b: 43 } : { a: 文字; b: 数字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: "test", b: 43 } : { a: string; b: number; }
+>a : string
 >"test" : "test"
->b : 数字
->类型别名 :=> 数字
+>b : number
 >43 : 43
 
 setState(foo, { a: "hi" });
->setState(foo, { a: "hi" }) : 无值
->类型别名 :=> 无值
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState(foo, { a: "hi" }) : void
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >foo : Foo
->{ a: "hi" } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: "hi" } : { a: string; }
+>a : string
 >"hi" : "hi"
 
 setState(foo, { b: undefined });
->setState(foo, { b: undefined }) : 无值
->类型别名 :=> 无值
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState(foo, { b: undefined }) : void
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >foo : Foo
->{ b: undefined } : { b: 未定; }
->b : 未定
->类型别名 :=> 未定
->undefined : 未定
->类型别名 :=> 未定
+>{ b: undefined } : { b: undefined; }
+>b : undefined
+>undefined : undefined
 
 setState(foo, { });
->setState(foo, { }) : 无值
->类型别名 :=> 无值
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState(foo, { }) : void
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >foo : Foo
 >{ } : {}
 
 setState(foo, foo);
->setState(foo, foo) : 无值
->类型别名 :=> 无值
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState(foo, foo) : void
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >foo : Foo
 >foo : Foo
 
 setState(foo, { a: undefined });  // Error
->setState(foo, { a: undefined }) : 任意
->类型别名 :=> 任意
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState(foo, { a: undefined }) : any
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >foo : Foo
->{ a: undefined } : { a: 未定; }
->a : 未定
->类型别名 :=> 未定
->undefined : 未定
->类型别名 :=> 未定
+>{ a: undefined } : { a: undefined; }
+>a : undefined
+>undefined : undefined
 
 setState(foo, { c: true });  // Error
->setState(foo, { c: true }) : 任意
->类型别名 :=> 任意
->setState : <T, K 扩展 键集 T>(obj: T, props: Pick<T, K>) => 无值
+>setState(foo, { c: true }) : any
+>setState : <T, K extends keyof T>(obj: T, props: Pick<T, K>) => void
 >foo : Foo
->{ c: true } : { c: 真假; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: boolean; }
+>c : boolean
+>true : true
 
 class C<T> {
 >C : C<T>
@@ -515,7 +459,7 @@ class C<T> {
 >T : T
 
     setState<K extends keyof T>(props: Pick<T, K>) {
->setState : <K 扩展 键集 T>(props: Pick<T, K>) => 无值
+>setState : <K extends keyof T>(props: Pick<T, K>) => void
 >K : K
 >T : T
 >props : Pick<T, K>
@@ -531,7 +475,7 @@ class C<T> {
 >this.state[k] = props[k] : Pick<T, K>[K]
 >this.state[k] : T[K]
 >this.state : T
->this : 本体
+>this : this
 >state : T
 >k : K
 >props[k] : Pick<T, K>[K]
@@ -544,118 +488,98 @@ class C<T> {
 let c = new C<Foo>();
 >c : C<Foo>
 >new C<Foo>() : C<Foo>
->C : 类为 C
+>C : typeof C
 >Foo : Foo
 
 c.setState({ a: "test", b: 43 });
->c.setState({ a: "test", b: 43 }) : 无值
->类型别名 :=> 无值
->c.setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>c.setState({ a: "test", b: 43 }) : void
+>c.setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >c : C<Foo>
->setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
->{ a: "test", b: 43 } : { a: 文字; b: 数字; }
->a : 文字
->类型别名 :=> 文字
+>setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
+>{ a: "test", b: 43 } : { a: string; b: number; }
+>a : string
 >"test" : "test"
->b : 数字
->类型别名 :=> 数字
+>b : number
 >43 : 43
 
 c.setState({ a: "hi" });
->c.setState({ a: "hi" }) : 无值
->类型别名 :=> 无值
->c.setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>c.setState({ a: "hi" }) : void
+>c.setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >c : C<Foo>
->setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
->{ a: "hi" } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
+>{ a: "hi" } : { a: string; }
+>a : string
 >"hi" : "hi"
 
 c.setState({ b: undefined });
->c.setState({ b: undefined }) : 无值
->类型别名 :=> 无值
->c.setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>c.setState({ b: undefined }) : void
+>c.setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >c : C<Foo>
->setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
->{ b: undefined } : { b: 未定; }
->b : 未定
->类型别名 :=> 未定
->undefined : 未定
->类型别名 :=> 未定
+>setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
+>{ b: undefined } : { b: undefined; }
+>b : undefined
+>undefined : undefined
 
 c.setState({ });
->c.setState({ }) : 无值
->类型别名 :=> 无值
->c.setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>c.setState({ }) : void
+>c.setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >c : C<Foo>
->setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >{ } : {}
 
 c.setState(foo);
->c.setState(foo) : 无值
->类型别名 :=> 无值
->c.setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>c.setState(foo) : void
+>c.setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >c : C<Foo>
->setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >foo : Foo
 
 c.setState({ a: undefined });  // Error
->c.setState({ a: undefined }) : 任意
->类型别名 :=> 任意
->c.setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>c.setState({ a: undefined }) : any
+>c.setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >c : C<Foo>
->setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
->{ a: undefined } : { a: 未定; }
->a : 未定
->类型别名 :=> 未定
->undefined : 未定
->类型别名 :=> 未定
+>setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
+>{ a: undefined } : { a: undefined; }
+>a : undefined
+>undefined : undefined
 
 c.setState({ c: true });  // Error
->c.setState({ c: true }) : 任意
->类型别名 :=> 任意
->c.setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
+>c.setState({ c: true }) : any
+>c.setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
 >c : C<Foo>
->setState : <K 扩展 "a" | "b">(props: Pick<Foo, K>) => 无值
->{ c: true } : { c: 真假; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>setState : <K extends "a" | "b">(props: Pick<Foo, K>) => void
+>{ c: true } : { c: boolean; }
+>c : boolean
+>true : true
 
 type T2 = { a?: number, [key: string]: any };
 >T2 : T2
->a : 数字 | 未定
->key : 文字
->类型别名 :=> 文字
+>a : number | undefined
+>key : string
 
 let x1: T2 = { a: 'no' };  // Error
 >x1 : T2
 >T2 : T2
->{ a: 'no' } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: 'no' } : { a: string; }
+>a : string
 >'no' : "no"
 
 let x2: Partial<T2> = { a: 'no' }; // Error
 >x2 : Partial<T2>
 >Partial : Partial<T>
 >T2 : T2
->{ a: 'no' } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: 'no' } : { a: string; }
+>a : string
 >'no' : "no"
 
 let x3: { [P in keyof T2]: T2[P]} = { a: 'no' };  // Error
->x3 : { [x: 文字]: 任意; a?: 数字 | 未定; }
+>x3 : { [x: string]: any; a?: number | undefined; }
 >P : P
 >T2 : T2
 >T2 : T2
 >P : P
->{ a: 'no' } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: 'no' } : { a: string; }
+>a : string
 >'no' : "no"
 
 // Repro from #13044
@@ -667,14 +591,14 @@ type Foo2<T, F extends keyof T> = {
 >T : T
 
     pf: {[P in F]?: T[P]},
->pf : { [P 位于 F]?: T[P] | 未定; }
+>pf : { [P in F]?: T[P] | undefined; }
 >P : P
 >F : F
 >T : T
 >P : P
 
     pt: {[P in T]?: T[P]}, // note: should be in keyof T
->pt : { [P 位于 T]?: T[P] | 未定; }
+>pt : { [P in T]?: T[P] | undefined; }
 >P : P
 >T : T
 >T : T
@@ -683,46 +607,37 @@ type Foo2<T, F extends keyof T> = {
 };
 type O = {x: number, y: boolean};
 >O : O
->x : 数字
->类型别名 :=> 数字
->y : 真假
->类型别名 :=> 真假
+>x : number
+>y : boolean
 
 let o: O = {x: 5, y: false};
 >o : O
 >O : O
->{x: 5, y: false} : { x: 数字; y: 为假; }
->x : 数字
->类型别名 :=> 数字
+>{x: 5, y: false} : { x: number; y: false; }
+>x : number
 >5 : 5
->y : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>y : false
+>false : false
 
 let f: Foo2<O, 'x'> = {
 >f : Foo2<O, "x">
 >Foo2 : Foo2<T, F>
 >O : O
->{    pf: {x: 7},    pt: {x: 7, y: false},} : { pf: { x: 数字; }; pt: { x: 数字; y: 真假; }; }
+>{    pf: {x: 7},    pt: {x: 7, y: false},} : { pf: { x: number; }; pt: { x: number; y: boolean; }; }
 
     pf: {x: 7},
->pf : { x: 数字; }
->{x: 7} : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>pf : { x: number; }
+>{x: 7} : { x: number; }
+>x : number
 >7 : 7
 
     pt: {x: 7, y: false},
->pt : { x: 数字; y: 真假; }
->{x: 7, y: false} : { x: 数字; y: 真假; }
->x : 数字
->类型别名 :=> 数字
+>pt : { x: number; y: boolean; }
+>{x: 7, y: false} : { x: number; y: boolean; }
+>x : number
 >7 : 7
->y : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>y : boolean
+>false : false
 
 };
 

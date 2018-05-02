@@ -1,35 +1,27 @@
 === tests/cases/compiler/typeMatch1.ts ===
 interface I { z; }
 >I : I
->z : 任意
->类型别名 :=> 任意
+>z : any
 
 interface I2 { z; }
 >I2 : I2
->z : 任意
->类型别名 :=> 任意
+>z : any
 
 var x1: { z: number; f(n: number): string; f(s: string): number; }
->x1 : { z: 数字; f(n: 数字): 文字; f(s: 文字): 数字; }
->z : 数字
->类型别名 :=> 数字
->f : { (n: 数字): 文字; (s: 文字): 数字; }
->n : 数字
->类型别名 :=> 数字
->f : { (n: 数字): 文字; (s: 文字): 数字; }
->s : 文字
->类型别名 :=> 文字
+>x1 : { z: number; f(n: number): string; f(s: string): number; }
+>z : number
+>f : { (n: number): string; (s: string): number; }
+>n : number
+>f : { (n: number): string; (s: string): number; }
+>s : string
 
 var x2: { z:number;f:{(n:number):string;(s:string):number;}; } = x1;
->x2 : { z: 数字; f: { (n: 数字): 文字; (s: 文字): 数字; }; }
->z : 数字
->类型别名 :=> 数字
->f : { (n: 数字): 文字; (s: 文字): 数字; }
->n : 数字
->类型别名 :=> 数字
->s : 文字
->类型别名 :=> 文字
->x1 : { z: 数字; f(n: 数字): 文字; f(s: 文字): 数字; }
+>x2 : { z: number; f: { (n: number): string; (s: string): number; }; }
+>z : number
+>f : { (n: number): string; (s: string): number; }
+>n : number
+>s : string
+>x1 : { z: number; f(n: number): string; f(s: string): number; }
 
 var i:I;
 >i : I
@@ -40,15 +32,13 @@ var i2:I2;
 >I2 : I2
 
 var x3:{ z; }= i;
->x3 : { z: 任意; }
->z : 任意
->类型别名 :=> 任意
+>x3 : { z: any; }
+>z : any
 >i : I
 
 var x4:{ z; }= i2;
->x4 : { z: 任意; }
->z : 任意
->类型别名 :=> 任意
+>x4 : { z: any; }
+>z : any
 >i2 : I2
 
 var x5:I=i2;
@@ -58,23 +48,21 @@ var x5:I=i2;
 
 class C { private x; }
 >C : C
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 class D { private x; }
 >D : D
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 var x6=new C();
 >x6 : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
 var x7=new D();
 >x7 : D
 >new D() : D
->D : 类为 D
+>D : typeof D
 
 x6 = x7;
 >x6 = x7 : D
@@ -82,20 +70,18 @@ x6 = x7;
 >x7 : D
 
 x6=C;
->x6=C : 类为 C
+>x6=C : typeof C
 >x6 : C
->C : 类为 C
+>C : typeof C
 
 C==D;
->C==D : 真假
->类型别名 :=> 真假
->C : 类为 C
->D : 类为 D
+>C==D : boolean
+>C : typeof C
+>D : typeof D
 
 C==C;
->C==C : 真假
->类型别名 :=> 真假
->C : 类为 C
->C : 类为 C
+>C==C : boolean
+>C : typeof C
+>C : typeof C
 
 

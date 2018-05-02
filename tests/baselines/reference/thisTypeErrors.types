@@ -1,163 +1,137 @@
 === tests/cases/conformance/types/thisType/thisTypeErrors.ts ===
 var x1: this;
->x1 : 任意
->类型别名 :=> 任意
+>x1 : any
 
 var x2: { a: this };
->x2 : { a: 任意; }
->a : 任意
->类型别名 :=> 任意
+>x2 : { a: any; }
+>a : any
 
 var x3: this[];
->x3 : 任意[]
+>x3 : any[]
 
 function f1(x: this): this {
->f1 : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>f1 : (x: any) => any
+>x : any
 
     var y: this;
->y : 任意
->类型别名 :=> 任意
+>y : any
 
     return this;
->this : 任意
->类型别名 :=> 任意
+>this : any
 }
 
 interface I1 {
 >I1 : I1
 
     a: { x: this };
->a : { x: 任意; }
->x : 任意
->类型别名 :=> 任意
+>a : { x: any; }
+>x : any
 
     b: { (): this };
->b : () => 任意
+>b : () => any
 
     c: { new (): this };
->c : 新建 () => 任意
+>c : new () => any
 
     d: { [x: string]: this };
->d : { [x: 文字]: 任意; }
->x : 文字
->类型别名 :=> 文字
+>d : { [x: string]: any; }
+>x : string
 
     e: { f(x: this): this };
->e : { f(x: 任意): 任意; }
->f : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>e : { f(x: any): any; }
+>f : (x: any) => any
+>x : any
 }
 
 class C1 {
 >C1 : C1
 
     a: { x: this };
->a : { x: 任意; }
->x : 任意
->类型别名 :=> 任意
+>a : { x: any; }
+>x : any
 
     b: { (): this };
->b : () => 任意
+>b : () => any
 
     c: { new (): this };
->c : 新建 () => 任意
+>c : new () => any
 
     d: { [x: string]: this };
->d : { [x: 文字]: 任意; }
->x : 文字
->类型别名 :=> 文字
+>d : { [x: string]: any; }
+>x : string
 
     e: { f(x: this): this };
->e : { f(x: 任意): 任意; }
->f : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>e : { f(x: any): any; }
+>f : (x: any) => any
+>x : any
 }
 
 class C2 {
 >C2 : C2
 
     static x: this;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     static y = <this>undefined;
->y : 任意
->类型别名 :=> 任意
-><this>undefined : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>y : any
+><this>undefined : any
+>undefined : undefined
 
     static foo(x: this): this {
->foo : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>foo : (x: any) => any
+>x : any
 
         return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
     }
 }
 
 namespace N1 {
->N1 : 类为 N1
+>N1 : typeof N1
 
     export var x: this;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     export var y = this;
->y : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>y : any
+>this : any
 }
 
 class C3 {
 >C3 : C3
 
     x1 = {
->x1 : { g(x: 任意): 任意; }
->{        g(x: this): this {            return undefined;        }    } : { g(x: 任意): 任意; }
+>x1 : { g(x: any): any; }
+>{        g(x: this): this {            return undefined;        }    } : { g(x: any): any; }
 
         g(x: this): this {
->g : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>g : (x: any) => any
+>x : any
 
             return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
         }
     }
     f() {
->f : () => 无值
+>f : () => void
 
         function g(x: this): this {
->g : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>g : (x: any) => any
+>x : any
 
             return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
         }
         let x2 = {
->x2 : { h(x: 任意): 任意; }
->{            h(x: this): this {                return undefined;            }        } : { h(x: 任意): 任意; }
+>x2 : { h(x: any): any; }
+>{            h(x: this): this {                return undefined;            }        } : { h(x: any): any; }
 
             h(x: this): this {
->h : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>h : (x: any) => any
+>x : any
 
                 return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
             }
         }
     }

@@ -5,193 +5,153 @@ class C {
 >C : C
 
     private x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     private get y() { return this.x; }
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 本体
->x : 文字
->类型别名 :=> 文字
+>y : string
+>this.x : string
+>this : this
+>x : string
 
     private set y(x) { this.y = this.x; }
->y : 文字
->类型别名 :=> 文字
->x : 文字
->类型别名 :=> 文字
->this.y = this.x : 文字
->类型别名 :=> 文字
->this.y : 文字
->类型别名 :=> 文字
->this : 本体
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 本体
->x : 文字
->类型别名 :=> 文字
+>y : string
+>x : string
+>this.y = this.x : string
+>this.y : string
+>this : this
+>y : string
+>this.x : string
+>this : this
+>x : string
 
     private foo() { return this.foo; }
->foo : () => 任意
->this.foo : () => 任意
->this : 本体
->foo : () => 任意
+>foo : () => any
+>this.foo : () => any
+>this : this
+>foo : () => any
 
     private static x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     private static get y() { return this.x; }
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 类为 C
->x : 文字
->类型别名 :=> 文字
+>y : string
+>this.x : string
+>this : typeof C
+>x : string
 
     private static set y(x) { this.y = this.x; }
->y : 文字
->类型别名 :=> 文字
->x : 文字
->类型别名 :=> 文字
->this.y = this.x : 文字
->类型别名 :=> 文字
->this.y : 文字
->类型别名 :=> 文字
->this : 类为 C
->y : 文字
->类型别名 :=> 文字
->this.x : 文字
->类型别名 :=> 文字
->this : 类为 C
->x : 文字
->类型别名 :=> 文字
+>y : string
+>x : string
+>this.y = this.x : string
+>this.y : string
+>this : typeof C
+>y : string
+>this.x : string
+>this : typeof C
+>x : string
 
     private static foo() { return this.foo; }
->foo : () => 类为 C.foo
->this.foo : () => 类为 C.foo
->this : 类为 C
->foo : () => 类为 C.foo
+>foo : () => typeof C.foo
+>this.foo : () => typeof C.foo
+>this : typeof C
+>foo : () => typeof C.foo
 
     private static bar() { this.foo(); }
->bar : () => 无值
->this.foo() : () => 类为 C.foo
->this.foo : () => 类为 C.foo
->this : 类为 C
->foo : () => 类为 C.foo
+>bar : () => void
+>this.foo() : () => typeof C.foo
+>this.foo : () => typeof C.foo
+>this : typeof C
+>foo : () => typeof C.foo
 
     private bar() {
->bar : () => 无值
+>bar : () => void
 
         class C2 {
 >C2 : C2
 
             private foo() {
->foo : () => 无值
+>foo : () => void
 
                 let x: C;
 >x : C
 >C : C
 
                 var x1 = x.foo;
->x1 : () => 任意
->x.foo : () => 任意
+>x1 : () => any
+>x.foo : () => any
 >x : C
->foo : () => 任意
+>foo : () => any
 
                 var x2 = x.bar;
->x2 : () => 无值
->x.bar : () => 无值
+>x2 : () => void
+>x.bar : () => void
 >x : C
->bar : () => 无值
+>bar : () => void
 
                 var x3 = x.x;
->x3 : 文字
->类型别名 :=> 文字
->x.x : 文字
->类型别名 :=> 文字
+>x3 : string
+>x.x : string
 >x : C
->x : 文字
->类型别名 :=> 文字
+>x : string
 
                 var x4 = x.y;
->x4 : 文字
->类型别名 :=> 文字
->x.y : 文字
->类型别名 :=> 文字
+>x4 : string
+>x.y : string
 >x : C
->y : 文字
->类型别名 :=> 文字
+>y : string
 
                 var sx1 = C.x;
->sx1 : 文字
->类型别名 :=> 文字
->C.x : 文字
->类型别名 :=> 文字
->C : 类为 C
->x : 文字
->类型别名 :=> 文字
+>sx1 : string
+>C.x : string
+>C : typeof C
+>x : string
 
                 var sx2 = C.y;
->sx2 : 文字
->类型别名 :=> 文字
->C.y : 文字
->类型别名 :=> 文字
->C : 类为 C
->y : 文字
->类型别名 :=> 文字
+>sx2 : string
+>C.y : string
+>C : typeof C
+>y : string
 
                 var sx3 = C.bar;
->sx3 : () => 无值
->C.bar : () => 无值
->C : 类为 C
->bar : () => 无值
+>sx3 : () => void
+>C.bar : () => void
+>C : typeof C
+>bar : () => void
 
                 var sx4 = C.foo;
->sx4 : () => 类为 C.foo
->C.foo : () => 类为 C.foo
->C : 类为 C
->foo : () => 类为 C.foo
+>sx4 : () => typeof C.foo
+>C.foo : () => typeof C.foo
+>C : typeof C
+>foo : () => typeof C.foo
 
                 let y = new C();
 >y : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
                 var y1 = y.foo;
->y1 : () => 任意
->y.foo : () => 任意
+>y1 : () => any
+>y.foo : () => any
 >y : C
->foo : () => 任意
+>foo : () => any
 
                 var y2 = y.bar;
->y2 : () => 无值
->y.bar : () => 无值
+>y2 : () => void
+>y.bar : () => void
 >y : C
->bar : () => 无值
+>bar : () => void
 
                 var y3 = y.x;
->y3 : 文字
->类型别名 :=> 文字
->y.x : 文字
->类型别名 :=> 文字
+>y3 : string
+>y.x : string
 >y : C
->x : 文字
->类型别名 :=> 文字
+>x : string
 
                 var y4 = y.y;
->y4 : 文字
->类型别名 :=> 文字
->y.y : 文字
->类型别名 :=> 文字
+>y4 : string
+>y.y : string
 >y : C
->y : 文字
->类型别名 :=> 文字
+>y : string
             }
         }
     }

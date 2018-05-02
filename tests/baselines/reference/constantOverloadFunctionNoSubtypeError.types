@@ -1,52 +1,49 @@
 === tests/cases/compiler/constantOverloadFunctionNoSubtypeError.ts ===
 class Base { foo() { } }
 >Base : Base
->foo : () => 无值
+>foo : () => void
 
 class Derived1 extends Base { bar() { } }
 >Derived1 : Derived1
 >Base : Base
->bar : () => 无值
+>bar : () => void
 
 class Derived2 extends Base { baz() { } }
 >Derived2 : Derived2
 >Base : Base
->baz : () => 无值
+>baz : () => void
 
 class Derived3 extends Base { biz() { } }
 >Derived3 : Derived3
 >Base : Base
->biz : () => 无值
+>biz : () => void
 
 function foo(tagName: 'canvas'): Derived3;
->foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: 数字): Base; }
+>foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: number): Base; }
 >tagName : "canvas"
 >Derived3 : Derived3
 
 function foo(tagName:  'div'): Derived2;
->foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: 数字): Base; }
+>foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: number): Base; }
 >tagName : "div"
 >Derived2 : Derived2
 
 function foo(tagName: 'span'): Derived1;
->foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: 数字): Base; }
+>foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: number): Base; }
 >tagName : "span"
 >Derived1 : Derived1
 
 function foo(tagName: number): Base;
->foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: 数字): Base; }
->tagName : 数字
->类型别名 :=> 数字
+>foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: number): Base; }
+>tagName : number
 >Base : Base
 
 function foo(tagName: any): Base {
->foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: 数字): Base; }
->tagName : 任意
->类型别名 :=> 任意
+>foo : { (tagName: "canvas"): Derived3; (tagName: "div"): Derived2; (tagName: "span"): Derived1; (tagName: number): Base; }
+>tagName : any
 >Base : Base
 
     return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 

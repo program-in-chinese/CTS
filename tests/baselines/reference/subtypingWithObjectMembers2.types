@@ -3,8 +3,7 @@ interface Base {
 >Base : Base
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 
 interface Derived extends Base {
@@ -12,15 +11,13 @@ interface Derived extends Base {
 >Base : Base
 
     bar: string;
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 }
 
 // N and M have the same name, same accessibility, same optionality, and N is a subtype of M
 // foo properties are valid, bar properties cause errors in the derived class declarations
 module NotOptional {
->NotOptional : 任意
->类型别名 :=> 任意
+>NotOptional : any
 
     interface A {
 >A : A
@@ -43,17 +40,18 @@ module NotOptional {
 >Derived : Derived
 
         bar: string; // error
->bar : 文字
->类型别名 :=> 文字
+>bar : string
     }
 
     interface A2 {
 >A2 : A2
 
         1: Base;
+>1 : Base
 >Base : Base
 
         2.0: Base;
+>2.0 : Base
 >Base : Base
     }
 
@@ -62,18 +60,22 @@ module NotOptional {
 >A2 : A2
 
         1: Derived; // ok
+>1 : Derived
 >Derived : Derived
 
         2: string; // error
+>2 : string
     }
 
     interface A3 {
 >A3 : A3
 
         '1': Base;
+>'1' : Base
 >Base : Base
 
         '2.0': Base;
+>'2.0' : Base
 >Base : Base
     }
 
@@ -82,16 +84,17 @@ module NotOptional {
 >A3 : A3
 
         '1': Derived; // ok
+>'1' : Derived
 >Derived : Derived
 
         '2.0': string; // error
+>'2.0' : string
     }
 }
 
 // same cases as above but with optional
 module Optional {
->Optional : 任意
->类型别名 :=> 任意
+>Optional : any
 
     interface A {
 >A : A
@@ -114,17 +117,18 @@ module Optional {
 >Derived : Derived
 
         bar?: string; // error
->bar : 文字
->类型别名 :=> 文字
+>bar : string
     }
 
     interface A2 {
 >A2 : A2
 
         1?: Base;
+>1 : Base
 >Base : Base
 
         2.0?: Base;
+>2.0 : Base
 >Base : Base
     }
 
@@ -133,18 +137,22 @@ module Optional {
 >A2 : A2
 
         1?: Derived; // ok
+>1 : Derived
 >Derived : Derived
 
         2?: string; // error
+>2 : string
     }
 
     interface A3 {
 >A3 : A3
 
         '1'?: Base;
+>'1' : Base
 >Base : Base
 
         '2.0'?: Base;
+>'2.0' : Base
 >Base : Base
     }
 
@@ -153,8 +161,10 @@ module Optional {
 >A3 : A3
 
         '1'?: Derived; // ok
+>'1' : Derived
 >Derived : Derived
 
         '2.0'?: string; // error
+>'2.0' : string
     }
 }

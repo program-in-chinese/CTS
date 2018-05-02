@@ -1,67 +1,61 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/TwoInternalModulesThatMergeEachWithExportedClassesOfTheSameName.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export class Point {
 >Point : Point
 
         x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
     }
 }
 
 module A{
->A : 类为 A
+>A : typeof A
 
     // expected error
     export class Point {
 >Point : A.Point
 
         origin: number;
->origin : 数字
->类型别名 :=> 数字
+>origin : number
 
         angle: number;
->angle : 数字
->类型别名 :=> 数字
+>angle : number
     }
 }
 
 module X.Y.Z {
->X : 类为 X
->Y : 类为 Y
->Z : 类为 Z
+>X : typeof X
+>Y : typeof Y
+>Z : typeof Z
 
     export class Line {
 >Line : Line
 
         length: number;
->length : 数字
->类型别名 :=> 数字
+>length : number
     }
 }
 
 module X {
->X : 类为 X
+>X : typeof X
 
     export module Y {
->Y : 类为 Y
+>Y : typeof Y
 
         export module Z {
->Z : 类为 Z
+>Z : typeof Z
 
             // expected error
             export class Line {
 >Line : Z.Line
 
                 name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
             }
         }
     }

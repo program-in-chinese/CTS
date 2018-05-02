@@ -1,17 +1,16 @@
 === tests/cases/compiler/interMixingModulesInterfaces0.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export module B {
->B : 类为 B
+>B : typeof B
 
         export function createB(): B {
 >createB : () => B
 >B : B
 
             return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
     }
 
@@ -19,24 +18,21 @@ module A {
 >B : B
 
         name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
         value: number;
->value : 数字
->类型别名 :=> 数字
+>value : number
     }
 }
 
 var x: A.B = A.B.createB();
 >x : A.B
->A : 任意
->类型别名 :=> 任意
+>A : any
 >B : A.B
 >A.B.createB() : A.B
 >A.B.createB : () => A.B
->A.B : 类为 A.B
->A : 类为 A
->B : 类为 A.B
+>A.B : typeof A.B
+>A : typeof A
+>B : typeof A.B
 >createB : () => A.B
 

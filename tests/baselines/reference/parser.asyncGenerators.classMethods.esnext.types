@@ -3,7 +3,7 @@ class C1 {
 >C1 : C1
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitMethodNameIsOk.ts ===
@@ -11,7 +11,7 @@ class C2 {
 >C2 : C2
 
     async * await() {
->await : () => AsyncIterableIterator<任意>
+>await : () => AsyncIterableIterator<any>
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldMethodNameIsOk.ts ===
@@ -19,7 +19,7 @@ class C3 {
 >C3 : C3
 
     async * yield() {
->yield : () => AsyncIterableIterator<任意>
+>yield : () => AsyncIterableIterator<any>
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitParameterIsError.ts ===
@@ -27,9 +27,8 @@ class C4 {
 >C4 : C4
 
     async * f(await) {
->f : () => 任意
->await : 任意
->类型别名 :=> 任意
+>f : () => any
+>await : any
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldParameterIsError.ts ===
@@ -37,9 +36,8 @@ class C5 {
 >C5 : C5
 
     async * f(yield) {
->f : () => 任意
->yield : 任意
->类型别名 :=> 任意
+>f : () => any
+>yield : any
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitInParameterInitializerIsError.ts ===
@@ -47,9 +45,8 @@ class C6 {
 >C6 : C6
 
     async * f(a = await 1) {
->f : (a?: 数字) => AsyncIterableIterator<任意>
->a : 数字
->类型别名 :=> 数字
+>f : (a?: number) => AsyncIterableIterator<any>
+>a : number
 >await 1 : 1
 >1 : 1
     }
@@ -59,11 +56,9 @@ class C7 {
 >C7 : C7
 
     async * f(a = yield) {
->f : (a?: 任意) => AsyncIterableIterator<任意>
->a : 任意
->类型别名 :=> 任意
->yield : 任意
->类型别名 :=> 任意
+>f : (a?: any) => AsyncIterableIterator<any>
+>a : any
+>yield : any
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/nestedAsyncGeneratorIsOk.ts ===
@@ -71,10 +66,10 @@ class C8 {
 >C8 : C8
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         async function * g() {
->g : () => AsyncIterableIterator<任意>
+>g : () => AsyncIterableIterator<any>
         }
     }
 }
@@ -83,13 +78,12 @@ class C9 {
 >C9 : C9
 
     async * f() {
->f : () => AsyncIterableIterator<() => 无值>
+>f : () => AsyncIterableIterator<() => void>
 
         function yield() {
-> : () => 任意
->yield() {        } : 任意
->类型别名 :=> 任意
->() {        } : () => 无值
+> : () => any
+>yield() {        } : any
+>() {        } : () => void
         }
     }
 }
@@ -98,14 +92,13 @@ class C10 {
 >C10 : C10
 
     async * f() {
->f : () => AsyncIterableIterator<() => 无值>
+>f : () => AsyncIterableIterator<() => void>
 
         const x = function yield() {
->x : () => 任意
->function : () => 任意
->yield() {        } : 任意
->类型别名 :=> 任意
->() {        } : () => 无值
+>x : () => any
+>function : () => any
+>yield() {        } : any
+>() {        } : () => void
 
         };
     }
@@ -115,16 +108,13 @@ class C11 {
 >C11 : C11
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         function await() {
-> : () => 任意
->await() : 任意
->类型别名 :=> 任意
->() : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+> : () => any
+>await() : any
+>() : any
+> : any
         }
     }
 }
@@ -133,17 +123,14 @@ class C12 {
 >C12 : C12
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         const x = function await() {
->x : () => 任意
->function : () => 任意
->await() : 任意
->类型别名 :=> 任意
->() : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>x : () => any
+>function : () => any
+>await() : any
+>() : any
+> : any
 
         };
     }
@@ -153,11 +140,10 @@ class C13 {
 >C13 : C13
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         yield;
->yield : 任意
->类型别名 :=> 任意
+>yield : any
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldWithValueIsOk.ts ===
@@ -165,11 +151,10 @@ class C14 {
 >C14 : C14
 
     async * f() {
->f : () => AsyncIterableIterator<1>
+>f : () => AsyncIterableIterator<number>
 
         yield 1;
->yield 1 : 任意
->类型别名 :=> 任意
+>yield 1 : any
 >1 : 1
     }
 }
@@ -178,13 +163,11 @@ class C15 {
 >C15 : C15
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         yield *;
->yield * : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>yield * : any
+> : any
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldStarWithValueIsOk.ts ===
@@ -192,12 +175,11 @@ class C16 {
 >C16 : C16
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         yield * [];
->yield * [] : 任意
->类型别名 :=> 任意
->[] : 未定[]
+>yield * [] : any
+>[] : undefined[]
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitWithValueIsOk.ts ===
@@ -205,7 +187,7 @@ class C17 {
 >C17 : C17
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         await 1;
 >await 1 : 1
@@ -217,13 +199,11 @@ class C18 {
 >C18 : C18
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         await;
->await : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>await : any
+> : any
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/awaitAsTypeIsOk.ts ===
@@ -234,7 +214,7 @@ class C19 {
 >C19 : C19
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         let x: await;
 >x : await
@@ -249,7 +229,7 @@ class C20 {
 >C20 : C20
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         let x: yield;
 >x : yield
@@ -261,8 +241,8 @@ class C21 {
 >C21 : C21
 
     async * [yield]() {
->yield : 任意
->类型别名 :=> 任意
+>[yield] : () => AsyncIterableIterator<any>
+>yield : any
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/yieldInNestedComputedPropertyIsOk.ts ===
@@ -270,13 +250,13 @@ class C22 {
 >C22 : C22
 
     async * f() {
->f : () => AsyncIterableIterator<任意>
+>f : () => AsyncIterableIterator<any>
 
         const x = { [yield]: 1 };
->x : { [x: 数字]: 数字; }
->{ [yield]: 1 } : { [x: 数字]: 数字; }
->yield : 任意
->类型别名 :=> 任意
+>x : { [x: number]: number; }
+>{ [yield]: 1 } : { [x: number]: number; }
+>[yield] : number
+>yield : any
 >1 : 1
     }
 }
@@ -285,8 +265,8 @@ class C23 {
 >C23 : C23
 
     async * get x() {
->get : () => 任意
->x : () => 数字
+>get : () => any
+>x : () => number
 
         return 1;
 >1 : 1
@@ -297,10 +277,9 @@ class C24 {
 >C24 : C24
 
     async * set x(value: number) {
->set : () => 任意
->x : (value: 数字) => 无值
->value : 数字
->类型别名 :=> 数字
+>set : () => any
+>x : (value: number) => void
+>value : number
     }
 }
 === tests/cases/conformance/parser/ecmascriptnext/asyncGenerators/asyncGeneratorPropertyIsError.ts ===
@@ -308,5 +287,6 @@ class C25 {
 >C25 : C25
 
     async * x = 1;
->x : () => 任意
+>x : () => any
+>1 : any
 }

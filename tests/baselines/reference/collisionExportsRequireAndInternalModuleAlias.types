@@ -1,69 +1,69 @@
 === tests/cases/compiler/collisionExportsRequireAndInternalModuleAlias.ts ===
 export module m {
->m : 类为 m
+>m : typeof m
 
     export class c {
 >c : c
     }
 }
 import exports = m.c;
->exports : 类为 exports
->m : 类为 m
+>exports : typeof exports
+>m : typeof m
 >c : exports
 
 import require = m.c;
->require : 类为 exports
->m : 类为 m
+>require : typeof exports
+>m : typeof m
 >c : exports
 
 new exports();
 >new exports() : exports
->exports : 类为 exports
+>exports : typeof exports
 
 new require();
 >new require() : exports
->require : 类为 exports
+>require : typeof exports
 
 module m1 {
->m1 : 类为 m1
+>m1 : typeof m1
 
     import exports = m.c;
->exports : 类为 exports
->m : 类为 m
+>exports : typeof exports
+>m : typeof m
 >c : exports
 
     import require = m.c;
->require : 类为 exports
->m : 类为 m
+>require : typeof exports
+>m : typeof m
 >c : exports
 
     new exports();
 >new exports() : exports
->exports : 类为 exports
+>exports : typeof exports
 
     new require();
 >new require() : exports
->require : 类为 exports
+>require : typeof exports
 }
 
 module m2 {
->m2 : 类为 m2
+>m2 : typeof m2
 
     export import exports = m.c;
->exports : 类为 exports
->m : 类为 m
+>exports : typeof exports
+>m : typeof m
 >c : exports
 
     export import require = m.c;
->require : 类为 exports
->m : 类为 m
+>require : typeof exports
+>m : typeof m
 >c : exports
 
     new exports();
 >new exports() : exports
->exports : 类为 exports
+>exports : typeof exports
 
     new require();
 >new require() : exports
->require : 类为 exports
+>require : typeof exports
 }

@@ -1,30 +1,26 @@
 === tests/cases/compiler/targetTypeVoidFunc.ts ===
 function f1(): { new (): number; } {
->f1 : () => 新建 () => 数字
+>f1 : () => new () => number
 
     return function () { return; }
->function () { return; } : () => 无值
+>function () { return; } : () => void
 
 }; 
 
 var x = f1();
->x : 新建 () => 数字
->f1() : 新建 () => 数字
->f1 : () => 新建 () => 数字
+>x : new () => number
+>f1() : new () => number
+>f1 : () => new () => number
 
 var y = new x();
->y : 数字
->类型别名 :=> 数字
->new x() : 数字
->类型别名 :=> 数字
->x : 新建 () => 数字
+>y : number
+>new x() : number
+>x : new () => number
 
 var z = new (f1())();
->z : 数字
->类型别名 :=> 数字
->new (f1())() : 数字
->类型别名 :=> 数字
->(f1()) : 新建 () => 数字
->f1() : 新建 () => 数字
->f1 : () => 新建 () => 数字
+>z : number
+>new (f1())() : number
+>(f1()) : new () => number
+>f1() : new () => number
+>f1 : () => new () => number
 

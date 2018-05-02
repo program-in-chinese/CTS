@@ -4,65 +4,57 @@ class Main {
 
     constructor() {
         this.register("a", "b", "c");
->this.register("a", "b", "c") : 无值
->类型别名 :=> 无值
->this.register : (...names: 文字[]) => 无值
->this : 本体
->register : (...names: 文字[]) => 无值
+>this.register("a", "b", "c") : void
+>this.register : (...names: string[]) => void
+>this : this
+>register : (...names: string[]) => void
 >"a" : "a"
 >"b" : "b"
 >"c" : "c"
     }
 
     private register(...names: string[]): void {
->register : (...names: 文字[]) => 无值
->names : 文字[]
+>register : (...names: string[]) => void
+>names : string[]
 
         for (let name of names) {
->name : 文字
->类型别名 :=> 文字
->names : 文字[]
+>name : string
+>names : string[]
 
             this.bar({
->this.bar({                [name + ".a"]: () => { this.foo(name); },            }) : 无值
->类型别名 :=> 无值
->this.bar : (a: 任意) => 无值
->this : 本体
->bar : (a: 任意) => 无值
->{                [name + ".a"]: () => { this.foo(name); },            } : { [x: 文字]: () => 无值; }
+>this.bar({                [name + ".a"]: () => { this.foo(name); },            }) : void
+>this.bar : (a: any) => void
+>this : this
+>bar : (a: any) => void
+>{                [name + ".a"]: () => { this.foo(name); },            } : { [x: string]: () => void; }
 
                 [name + ".a"]: () => { this.foo(name); },
->name + ".a" : 文字
->类型别名 :=> 文字
->name : 文字
->类型别名 :=> 文字
+>[name + ".a"] : () => void
+>name + ".a" : string
+>name : string
 >".a" : ".a"
->() => { this.foo(name); } : () => 无值
->this.foo(name) : 无值
->类型别名 :=> 无值
->this.foo : (name: 文字) => 无值
->this : 本体
->foo : (name: 文字) => 无值
->name : 文字
->类型别名 :=> 文字
+>() => { this.foo(name); } : () => void
+>this.foo(name) : void
+>this.foo : (name: string) => void
+>this : this
+>foo : (name: string) => void
+>name : string
 
             });
         }
     }
 
     private bar(a: any): void { }
->bar : (a: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
+>bar : (a: any) => void
+>a : any
 
     private foo(name: string): void { }
->foo : (name: 文字) => 无值
->name : 文字
->类型别名 :=> 文字
+>foo : (name: string) => void
+>name : string
 
 }
 
 new Main();
 >new Main() : Main
->Main : 类为 Main
+>Main : typeof Main
 

@@ -1,6 +1,6 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react')
->React : 类为 React
+>React : typeof React
 
 declare function ComponentWithTwoAttributes<K,V>(l: {key1: K, value: V}): JSX.Element;
 >ComponentWithTwoAttributes : <K, V>(l: { key1: K; value: V; }) => JSX.Element
@@ -11,13 +11,12 @@ declare function ComponentWithTwoAttributes<K,V>(l: {key1: K, value: V}): JSX.El
 >K : K
 >value : V
 >V : V
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
 // OK
 function Baz<T,U>(key1: T, value: U) {
->Baz : <T, U>(key1: T, value: U) => 无值
+>Baz : <T, U>(key1: T, value: U) => void
 >T : T
 >U : U
 >key1 : T
@@ -42,48 +41,44 @@ function Baz<T,U>(key1: T, value: U) {
 >key1 : T
 >value : U
 >value : U
->key : 文字
->类型别名 :=> 文字
+>key : string
 }
 
 declare function Link<U>(l: {func: (arg: U)=>void}): JSX.Element;
->Link : <U>(l: { func: (arg: U) => 无值; }) => JSX.Element
+>Link : <U>(l: { func: (arg: U) => void; }) => JSX.Element
 >U : U
->l : { func: (arg: U) => 无值; }
->func : (arg: U) => 无值
+>l : { func: (arg: U) => void; }
+>func : (arg: U) => void
 >arg : U
 >U : U
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
 // OK
 function createLink(func: (a: number)=>void) {
->createLink : (func: (a: 数字) => 无值) => 无值
->func : (a: 数字) => 无值
->a : 数字
->类型别名 :=> 数字
+>createLink : (func: (a: number) => void) => void
+>func : (a: number) => void
+>a : number
 
     let o = <Link func={func} />
 >o : JSX.Element
 ><Link func={func} /> : JSX.Element
->Link : <U>(l: { func: (arg: U) => 无值; }) => JSX.Element
->func : (a: 数字) => 无值
->func : (a: 数字) => 无值
+>Link : <U>(l: { func: (arg: U) => void; }) => JSX.Element
+>func : (a: number) => void
+>func : (a: number) => void
 }
 
 function createLink1(func: (a: number)=>boolean) {
->createLink1 : (func: (a: 数字) => 真假) => 无值
->func : (a: 数字) => 真假
->a : 数字
->类型别名 :=> 数字
+>createLink1 : (func: (a: number) => boolean) => void
+>func : (a: number) => boolean
+>a : number
 
     let o = <Link func={func} />
 >o : JSX.Element
 ><Link func={func} /> : JSX.Element
->Link : <U>(l: { func: (arg: U) => 无值; }) => JSX.Element
->func : (a: 数字) => 真假
->func : (a: 数字) => 真假
+>Link : <U>(l: { func: (arg: U) => void; }) => JSX.Element
+>func : (a: number) => boolean
+>func : (a: number) => boolean
 }
 
 interface InferParamProp<T> {
@@ -96,7 +91,7 @@ interface InferParamProp<T> {
 >T : T
 
     selectHandler: (selectedVal: T) => void;
->selectHandler : (selectedVal: T) => 无值
+>selectHandler : (selectedVal: T) => void
 >selectedVal : T
 >T : T
 }
@@ -107,8 +102,7 @@ declare function InferParamComponent<T>(attr: InferParamProp<T>): JSX.Element;
 >attr : InferParamProp<T>
 >InferParamProp : InferParamProp<T>
 >T : T
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
 // OK
@@ -116,14 +110,13 @@ let i = <InferParamComponent values={[1, 2, 3, 4]} selectHandler={(val) => { }} 
 >i : JSX.Element
 ><InferParamComponent values={[1, 2, 3, 4]} selectHandler={(val) => { }} /> : JSX.Element
 >InferParamComponent : <T>(attr: InferParamProp<T>) => JSX.Element
->values : 数字[]
->[1, 2, 3, 4] : 数字[]
+>values : number[]
+>[1, 2, 3, 4] : number[]
 >1 : 1
 >2 : 2
 >3 : 3
 >4 : 4
->selectHandler : (val: 数字) => 无值
->(val) => { } : (val: 数字) => 无值
->val : 数字
->类型别名 :=> 数字
+>selectHandler : (val: number) => void
+>(val) => { } : (val: number) => void
+>val : number
 

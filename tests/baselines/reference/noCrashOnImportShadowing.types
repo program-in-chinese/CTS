@@ -5,65 +5,56 @@ export const zzz = 123;
 
 === tests/cases/compiler/a.ts ===
 import * as B from "./b";
->B : 类为 B
+>B : typeof B
 
 interface B {
 >B : B
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 const x: B = { x: "" };
 >x : B
 >B : B
->{ x: "" } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>{ x: "" } : { x: string; }
+>x : string
 >"" : ""
 
 B.zzz;
 >B.zzz : 123
->B : 类为 B
+>B : typeof B
 >zzz : 123
 
 export { B };
->B : 任意
->类型别名 :=> 任意
+>B : any
 
 === tests/cases/compiler/index.ts ===
 import { B } from "./a";
->B : 任意
->类型别名 :=> 任意
+>B : any
 
 const x: B = { x: "" };
 >x : B
 >B : B
->{ x: "" } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>{ x: "" } : { x: string; }
+>x : string
 >"" : ""
 
 B.zzz;
->B.zzz : 任意
->类型别名 :=> 任意
->B : 任意
->类型别名 :=> 任意
->zzz : 任意
->类型别名 :=> 任意
+>B.zzz : any
+>B : any
+>zzz : any
 
 import * as OriginalB from "./b";
->OriginalB : 类为 OriginalB
+>OriginalB : typeof OriginalB
 
 OriginalB.zzz;
 >OriginalB.zzz : 123
->OriginalB : 类为 OriginalB
+>OriginalB : typeof OriginalB
 >zzz : 123
 
 const y: OriginalB = x;
->y : 任意
->类型别名 :=> 任意
+>y : any
 >OriginalB : No type information available!
 >x : B
 

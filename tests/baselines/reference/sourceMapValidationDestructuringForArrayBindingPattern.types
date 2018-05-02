@@ -1,755 +1,549 @@
 === tests/cases/compiler/sourceMapValidationDestructuringForArrayBindingPattern.ts ===
 declare var console: {
->console : { log(msg: 任意): 无值; }
+>console : { log(msg: any): void; }
 
     log(msg: any): void;
->log : (msg: 任意) => 无值
->msg : 任意
->类型别名 :=> 任意
+>log : (msg: any) => void
+>msg : any
 }
 type Robot = [number, string, string];
->Robot : [数字, 文字, 文字]
+>Robot : [number, string, string]
 
 type MultiSkilledRobot = [string, [string, string]];
->MultiSkilledRobot : [文字, [文字, 文字]]
+>MultiSkilledRobot : [string, [string, string]]
 
 let robotA: Robot = [1, "mower", "mowing"];
->robotA : [数字, 文字, 文字]
->Robot : [数字, 文字, 文字]
->[1, "mower", "mowing"] : [数字, 文字, 文字]
+>robotA : [number, string, string]
+>Robot : [number, string, string]
+>[1, "mower", "mowing"] : [number, string, string]
 >1 : 1
 >"mower" : "mower"
 >"mowing" : "mowing"
 
 function getRobot() {
->getRobot : () => [数字, 文字, 文字]
+>getRobot : () => [number, string, string]
 
     return robotA;
->robotA : [数字, 文字, 文字]
+>robotA : [number, string, string]
 }
 
 let multiRobotA: MultiSkilledRobot = ["mower", ["mowing", ""]];
->multiRobotA : [文字, [文字, 文字]]
->MultiSkilledRobot : [文字, [文字, 文字]]
->["mower", ["mowing", ""]] : [文字, [文字, 文字]]
+>multiRobotA : [string, [string, string]]
+>MultiSkilledRobot : [string, [string, string]]
+>["mower", ["mowing", ""]] : [string, [string, string]]
 >"mower" : "mower"
->["mowing", ""] : [文字, 文字]
+>["mowing", ""] : [string, string]
 >"mowing" : "mowing"
 >"" : ""
 
 let multiRobotB: MultiSkilledRobot = ["trimmer", ["trimming", "edging"]];
->multiRobotB : [文字, [文字, 文字]]
->MultiSkilledRobot : [文字, [文字, 文字]]
->["trimmer", ["trimming", "edging"]] : [文字, [文字, 文字]]
+>multiRobotB : [string, [string, string]]
+>MultiSkilledRobot : [string, [string, string]]
+>["trimmer", ["trimming", "edging"]] : [string, [string, string]]
 >"trimmer" : "trimmer"
->["trimming", "edging"] : [文字, 文字]
+>["trimming", "edging"] : [string, string]
 >"trimming" : "trimming"
 >"edging" : "edging"
 
 function getMultiRobot() {
->getMultiRobot : () => [文字, [文字, 文字]]
+>getMultiRobot : () => [string, [string, string]]
 
     return multiRobotA;
->multiRobotA : [文字, [文字, 文字]]
+>multiRobotA : [string, [string, string]]
 }
 
 for (let [, nameA] = robotA, i = 0; i < 1; i++) {
-> : 未定
->类型别名 :=> 未定
->nameA : 文字
->类型别名 :=> 文字
->robotA : [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+> : undefined
+>nameA : string
+>robotA : [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameA);
->console.log(nameA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA : 文字
->类型别名 :=> 文字
+>console.log(nameA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA : string
 }
 for (let [, nameA] = getRobot(), i = 0; i < 1; i++) {
-> : 未定
->类型别名 :=> 未定
->nameA : 文字
->类型别名 :=> 文字
->getRobot() : [数字, 文字, 文字]
->getRobot : () => [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+> : undefined
+>nameA : string
+>getRobot() : [number, string, string]
+>getRobot : () => [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameA);
->console.log(nameA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA : 文字
->类型别名 :=> 文字
+>console.log(nameA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA : string
 }
 for (let [, nameA] = [2, "trimmer", "trimming"], i = 0; i < 1; i++) {
-> : 未定
->类型别名 :=> 未定
->nameA : 文字
->类型别名 :=> 文字
->[2, "trimmer", "trimming"] : [数字, 文字, 文字]
+> : undefined
+>nameA : string
+>[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2
 >"trimmer" : "trimmer"
 >"trimming" : "trimming"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameA);
->console.log(nameA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA : 文字
->类型别名 :=> 文字
+>console.log(nameA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA : string
 }
 for (let [, [primarySkillA, secondarySkillA]] = multiRobotA, i = 0; i < 1; i++) {
-> : 未定
->类型别名 :=> 未定
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->multiRobotA : [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+> : undefined
+>primarySkillA : string
+>secondarySkillA : string
+>multiRobotA : [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(primarySkillA);
->console.log(primarySkillA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->primarySkillA : 文字
->类型别名 :=> 文字
+>console.log(primarySkillA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>primarySkillA : string
 }
 for (let [, [primarySkillA, secondarySkillA]] = getMultiRobot(), i = 0; i < 1; i++) {
-> : 未定
->类型别名 :=> 未定
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->getMultiRobot() : [文字, [文字, 文字]]
->getMultiRobot : () => [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+> : undefined
+>primarySkillA : string
+>secondarySkillA : string
+>getMultiRobot() : [string, [string, string]]
+>getMultiRobot : () => [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(primarySkillA);
->console.log(primarySkillA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->primarySkillA : 文字
->类型别名 :=> 文字
+>console.log(primarySkillA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>primarySkillA : string
 }
 for (let [, [primarySkillA, secondarySkillA]] = ["trimmer", ["trimming", "edging"]], i = 0; i < 1; i++) {
-> : 未定
->类型别名 :=> 未定
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->["trimmer", ["trimming", "edging"]] : [文字, [文字, 文字]]
+> : undefined
+>primarySkillA : string
+>secondarySkillA : string
+>["trimmer", ["trimming", "edging"]] : [string, [string, string]]
 >"trimmer" : "trimmer"
->["trimming", "edging"] : [文字, 文字]
+>["trimming", "edging"] : [string, string]
 >"trimming" : "trimming"
 >"edging" : "edging"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(primarySkillA);
->console.log(primarySkillA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->primarySkillA : 文字
->类型别名 :=> 文字
+>console.log(primarySkillA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>primarySkillA : string
 }
 
 for (let [numberB] = robotA, i = 0; i < 1; i++) {
->numberB : 数字
->类型别名 :=> 数字
->robotA : [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+>numberB : number
+>robotA : [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(numberB);
->console.log(numberB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberB : 数字
->类型别名 :=> 数字
+>console.log(numberB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberB : number
 }
 for (let [numberB] = getRobot(), i = 0; i < 1; i++) {
->numberB : 数字
->类型别名 :=> 数字
->getRobot() : [数字, 文字, 文字]
->getRobot : () => [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+>numberB : number
+>getRobot() : [number, string, string]
+>getRobot : () => [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(numberB);
->console.log(numberB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberB : 数字
->类型别名 :=> 数字
+>console.log(numberB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberB : number
 }
 for (let [numberB] = [2, "trimmer", "trimming"], i = 0; i < 1; i++) {
->numberB : 数字
->类型别名 :=> 数字
->[2, "trimmer", "trimming"] : [数字, 文字, 文字]
+>numberB : number
+>[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2
 >"trimmer" : "trimmer"
 >"trimming" : "trimming"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(numberB);
->console.log(numberB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberB : 数字
->类型别名 :=> 数字
+>console.log(numberB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberB : number
 }
 for (let [nameB] = multiRobotA, i = 0; i < 1; i++) {
->nameB : 文字
->类型别名 :=> 文字
->multiRobotA : [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+>nameB : string
+>multiRobotA : [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameB);
->console.log(nameB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameB : 文字
->类型别名 :=> 文字
+>console.log(nameB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameB : string
 }
 for (let [nameB] = getMultiRobot(), i = 0; i < 1; i++) {
->nameB : 文字
->类型别名 :=> 文字
->getMultiRobot() : [文字, [文字, 文字]]
->getMultiRobot : () => [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+>nameB : string
+>getMultiRobot() : [string, [string, string]]
+>getMultiRobot : () => [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameB);
->console.log(nameB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameB : 文字
->类型别名 :=> 文字
+>console.log(nameB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameB : string
 }
 for (let [nameB] = ["trimmer", ["trimming", "edging"]], i = 0; i < 1; i++) {
->nameB : 文字
->类型别名 :=> 文字
->["trimmer", ["trimming", "edging"]] : [文字, 文字[]]
+>nameB : string
+>["trimmer", ["trimming", "edging"]] : [string, string[]]
 >"trimmer" : "trimmer"
->["trimming", "edging"] : 文字[]
+>["trimming", "edging"] : string[]
 >"trimming" : "trimming"
 >"edging" : "edging"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameB);
->console.log(nameB) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameB : 文字
->类型别名 :=> 文字
+>console.log(nameB) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameB : string
 }
 
 for (let [numberA2, nameA2, skillA2] = robotA, i = 0; i < 1; i++) {
->numberA2 : 数字
->类型别名 :=> 数字
->nameA2 : 文字
->类型别名 :=> 文字
->skillA2 : 文字
->类型别名 :=> 文字
->robotA : [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+>numberA2 : number
+>nameA2 : string
+>skillA2 : string
+>robotA : [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameA2);
->console.log(nameA2) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA2 : 文字
->类型别名 :=> 文字
+>console.log(nameA2) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA2 : string
 }
 for (let [numberA2, nameA2, skillA2] = getRobot(), i = 0; i < 1; i++) {
->numberA2 : 数字
->类型别名 :=> 数字
->nameA2 : 文字
->类型别名 :=> 文字
->skillA2 : 文字
->类型别名 :=> 文字
->getRobot() : [数字, 文字, 文字]
->getRobot : () => [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+>numberA2 : number
+>nameA2 : string
+>skillA2 : string
+>getRobot() : [number, string, string]
+>getRobot : () => [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameA2);
->console.log(nameA2) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA2 : 文字
->类型别名 :=> 文字
+>console.log(nameA2) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA2 : string
 }
 for (let [numberA2, nameA2, skillA2] = [2, "trimmer", "trimming"], i = 0; i < 1; i++) {
->numberA2 : 数字
->类型别名 :=> 数字
->nameA2 : 文字
->类型别名 :=> 文字
->skillA2 : 文字
->类型别名 :=> 文字
->[2, "trimmer", "trimming"] : [数字, 文字, 文字]
+>numberA2 : number
+>nameA2 : string
+>skillA2 : string
+>[2, "trimmer", "trimming"] : [number, string, string]
 >2 : 2
 >"trimmer" : "trimmer"
 >"trimming" : "trimming"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameA2);
->console.log(nameA2) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameA2 : 文字
->类型别名 :=> 文字
+>console.log(nameA2) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameA2 : string
 }
 for (let [nameMA, [primarySkillA, secondarySkillA]] = multiRobotA, i = 0; i < 1; i++) {
->nameMA : 文字
->类型别名 :=> 文字
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->multiRobotA : [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+>nameMA : string
+>primarySkillA : string
+>secondarySkillA : string
+>multiRobotA : [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameMA);
->console.log(nameMA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameMA : 文字
->类型别名 :=> 文字
+>console.log(nameMA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameMA : string
 }
 for (let [nameMA, [primarySkillA, secondarySkillA]] = getMultiRobot(), i = 0; i < 1; i++) {
->nameMA : 文字
->类型别名 :=> 文字
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->getMultiRobot() : [文字, [文字, 文字]]
->getMultiRobot : () => [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+>nameMA : string
+>primarySkillA : string
+>secondarySkillA : string
+>getMultiRobot() : [string, [string, string]]
+>getMultiRobot : () => [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameMA);
->console.log(nameMA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameMA : 文字
->类型别名 :=> 文字
+>console.log(nameMA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameMA : string
 }
 for (let [nameMA, [primarySkillA, secondarySkillA]] = ["trimmer", ["trimming", "edging"]], i = 0; i < 1; i++) {
->nameMA : 文字
->类型别名 :=> 文字
->primarySkillA : 文字
->类型别名 :=> 文字
->secondarySkillA : 文字
->类型别名 :=> 文字
->["trimmer", ["trimming", "edging"]] : [文字, [文字, 文字]]
+>nameMA : string
+>primarySkillA : string
+>secondarySkillA : string
+>["trimmer", ["trimming", "edging"]] : [string, [string, string]]
 >"trimmer" : "trimmer"
->["trimming", "edging"] : [文字, 文字]
+>["trimming", "edging"] : [string, string]
 >"trimming" : "trimming"
 >"edging" : "edging"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(nameMA);
->console.log(nameMA) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->nameMA : 文字
->类型别名 :=> 文字
+>console.log(nameMA) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>nameMA : string
 }
 
 for (let [numberA3, ...robotAInfo] = robotA, i = 0; i < 1; i++) {
->numberA3 : 数字
->类型别名 :=> 数字
->robotAInfo : (文字 | 数字)[]
->robotA : [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+>numberA3 : number
+>robotAInfo : (string | number)[]
+>robotA : [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(numberA3);
->console.log(numberA3) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberA3 : 数字
->类型别名 :=> 数字
+>console.log(numberA3) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberA3 : number
 }
 for (let [numberA3, ...robotAInfo] = getRobot(), i = 0; i < 1; i++) {
->numberA3 : 数字
->类型别名 :=> 数字
->robotAInfo : (文字 | 数字)[]
->getRobot() : [数字, 文字, 文字]
->getRobot : () => [数字, 文字, 文字]
->i : 数字
->类型别名 :=> 数字
+>numberA3 : number
+>robotAInfo : (string | number)[]
+>getRobot() : [number, string, string]
+>getRobot : () => [number, string, string]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(numberA3);
->console.log(numberA3) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberA3 : 数字
->类型别名 :=> 数字
+>console.log(numberA3) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberA3 : number
 }
 for (let [numberA3, ...robotAInfo] = [2, "trimmer", "trimming"], i = 0; i < 1; i++) {
->numberA3 : 文字 | 数字
->robotAInfo : (文字 | 数字)[]
->[2, "trimmer", "trimming"] : (文字 | 数字)[]
+>numberA3 : string | number
+>robotAInfo : (string | number)[]
+>[2, "trimmer", "trimming"] : (string | number)[]
 >2 : 2
 >"trimmer" : "trimmer"
 >"trimming" : "trimming"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(numberA3);
->console.log(numberA3) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->numberA3 : 文字 | 数字
+>console.log(numberA3) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>numberA3 : string | number
 }
 for (let [...multiRobotAInfo] = multiRobotA, i = 0; i < 1; i++) {
->multiRobotAInfo : (文字 | [文字, 文字])[]
->multiRobotA : [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+>multiRobotAInfo : (string | [string, string])[]
+>multiRobotA : [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(multiRobotAInfo);
->console.log(multiRobotAInfo) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->multiRobotAInfo : (文字 | [文字, 文字])[]
+>console.log(multiRobotAInfo) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>multiRobotAInfo : (string | [string, string])[]
 }
 for (let [...multiRobotAInfo] = getMultiRobot(), i = 0; i < 1; i++) {
->multiRobotAInfo : (文字 | [文字, 文字])[]
->getMultiRobot() : [文字, [文字, 文字]]
->getMultiRobot : () => [文字, [文字, 文字]]
->i : 数字
->类型别名 :=> 数字
+>multiRobotAInfo : (string | [string, string])[]
+>getMultiRobot() : [string, [string, string]]
+>getMultiRobot : () => [string, [string, string]]
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(multiRobotAInfo);
->console.log(multiRobotAInfo) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->multiRobotAInfo : (文字 | [文字, 文字])[]
+>console.log(multiRobotAInfo) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>multiRobotAInfo : (string | [string, string])[]
 }
 for (let [...multiRobotAInfo] = ["trimmer", ["trimming", "edging"]], i = 0; i < 1; i++) {
->multiRobotAInfo : (文字 | 文字[])[]
->["trimmer", ["trimming", "edging"]] : (文字 | 文字[])[]
+>multiRobotAInfo : (string | string[])[]
+>["trimmer", ["trimming", "edging"]] : (string | string[])[]
 >"trimmer" : "trimmer"
->["trimming", "edging"] : 文字[]
+>["trimming", "edging"] : string[]
 >"trimming" : "trimming"
 >"edging" : "edging"
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     console.log(multiRobotAInfo);
->console.log(multiRobotAInfo) : 无值
->类型别名 :=> 无值
->console.log : (msg: 任意) => 无值
->console : { log(msg: 任意): 无值; }
->log : (msg: 任意) => 无值
->multiRobotAInfo : (文字 | 文字[])[]
+>console.log(multiRobotAInfo) : void
+>console.log : (msg: any) => void
+>console : { log(msg: any): void; }
+>log : (msg: any) => void
+>multiRobotAInfo : (string | string[])[]
 }

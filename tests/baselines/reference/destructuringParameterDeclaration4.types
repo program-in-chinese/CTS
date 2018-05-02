@@ -22,103 +22,87 @@ type stringOrNumArray = Array<String|Number>;
 >Number : Number
 
 function a0(...x: [number, number, string]) { }  // Error, rest parameter must be array type
->a0 : (...x: [数字, 数字, 文字]) => 无值
->x : [数字, 数字, 文字]
+>a0 : (...x: [number, number, string]) => void
+>x : [number, number, string]
 
 function a1(...x: (number|string)[]) { }
->a1 : (...x: (文字 | 数字)[]) => 无值
->x : (文字 | 数字)[]
+>a1 : (...x: (string | number)[]) => void
+>x : (string | number)[]
 
 function a2(...a: someArray) { }  // Error, rest parameter must be array type
->a2 : (...a: someArray) => 无值
+>a2 : (...a: someArray) => void
 >a : someArray
 >someArray : someArray
 
 function a3(...b?) { }            // Error, can't be optional
->a3 : (...b?: 任意[]) => 无值
->b : 任意[]
+>a3 : (...b?: any[]) => void
+>b : any[]
 
 function a4(...b = [1,2,3]) { }   // Error, can't have initializer
->a4 : (...b?: 数字[]) => 无值
->b : 数字[]
->[1,2,3] : 数字[]
+>a4 : (...b?: number[]) => void
+>b : number[]
+>[1,2,3] : number[]
 >1 : 1
 >2 : 2
 >3 : 3
 
 function a5([a, b, [[c]]]) { }
->a5 : ([a, b, [[c]]]: [任意, 任意, [[任意]]]) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>a5 : ([a, b, [[c]]]: [any, any, [[any]]]) => void
+>a : any
+>b : any
+>c : any
 
 function a6([a, b, c, ...x]: number[]) { }
->a6 : ([a, b, c, ...x]: 数字[]) => 无值
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->c : 数字
->类型别名 :=> 数字
->x : 数字[]
+>a6 : ([a, b, c, ...x]: number[]) => void
+>a : number
+>b : number
+>c : number
+>x : number[]
 
 
 a1(1, 2, "hello", true);  // Error, parameter type is (number|string)[]
->a1(1, 2, "hello", true) : 无值
->类型别名 :=> 无值
->a1 : (...x: (文字 | 数字)[]) => 无值
+>a1(1, 2, "hello", true) : void
+>a1 : (...x: (string | number)[]) => void
 >1 : 1
 >2 : 2
 >"hello" : "hello"
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 a1(...array2);            // Error parameter type is (number|string)[]
->a1(...array2) : 无值
->类型别名 :=> 无值
->a1 : (...x: (文字 | 数字)[]) => 无值
->...array2 : 任意
->类型别名 :=> 任意
->array2 : 任意
->类型别名 :=> 任意
+>a1(...array2) : void
+>a1 : (...x: (string | number)[]) => void
+>...array2 : any
+>array2 : any
 
 a5([1, 2, "string", false, true]);       // Error, parameter type is [any, any, [[any]]]
->a5([1, 2, "string", false, true]) : 无值
->类型别名 :=> 无值
->a5 : ([a, b, [[c]]]: [任意, 任意, [[任意]]]) => 无值
->[1, 2, "string", false, true] : (文字 | 数字 | 真假)[]
+>a5([1, 2, "string", false, true]) : void
+>a5 : ([a, b, [[c]]]: [any, any, [[any]]]) => void
+>[1, 2, "string", false, true] : (string | number | boolean)[]
 >1 : 1
 >2 : 2
 >"string" : "string"
->false : 为假
->类型别名 :=> 为假
->true : 为真
->类型别名 :=> 为真
+>false : false
+>true : true
 
 a5([1, 2]);                              // Error, parameter type is [any, any, [[any]]]
->a5([1, 2]) : 无值
->类型别名 :=> 无值
->a5 : ([a, b, [[c]]]: [任意, 任意, [[任意]]]) => 无值
->[1, 2] : 数字[]
+>a5([1, 2]) : void
+>a5 : ([a, b, [[c]]]: [any, any, [[any]]]) => void
+>[1, 2] : number[]
 >1 : 1
 >2 : 2
 
 a6([1, 2, "string"]);                   // Error, parameter type is number[]
->a6([1, 2, "string"]) : 无值
->类型别名 :=> 无值
->a6 : ([a, b, c, ...x]: 数字[]) => 无值
->[1, 2, "string"] : (文字 | 数字)[]
+>a6([1, 2, "string"]) : void
+>a6 : ([a, b, c, ...x]: number[]) => void
+>[1, 2, "string"] : (string | number)[]
 >1 : 1
 >2 : 2
 >"string" : "string"
 
 
 var temp = [1, 2, 3];
->temp : 数字[]
->[1, 2, 3] : 数字[]
+>temp : number[]
+>[1, 2, 3] : number[]
 >1 : 1
 >2 : 2
 >3 : 3
@@ -127,36 +111,29 @@ class C {
 >C : C
 
     constructor(public ...temp) { }  // Error, rest parameter can't have properties
->temp : 任意[]
+>temp : any[]
 }
 
 // Rest parameter with generic
 function foo1<T extends Number>(...a: T[]) { }
->foo1 : <T 扩展 Number>(...a: T[]) => 无值
+>foo1 : <T extends Number>(...a: T[]) => void
 >T : T
 >Number : Number
 >a : T[]
 >T : T
 
 foo1(1, 2, "string", E1.a, E.b);  // Error
->foo1(1, 2, "string", E1.a, E.b) : 无值
->类型别名 :=> 无值
->foo1 : <T 扩展 Number>(...a: T[]) => 无值
+>foo1(1, 2, "string", E1.a, E.b) : void
+>foo1 : <T extends Number>(...a: T[]) => void
 >1 : 1
 >2 : 2
 >"string" : "string"
->E1.a : 任意
->类型别名 :=> 任意
->E1 : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->E.b : 任意
->类型别名 :=> 任意
->E : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>E1.a : any
+>E1 : any
+>a : any
+>E.b : any
+>E : any
+>b : any
 
 
 

@@ -1,16 +1,15 @@
 === tests/cases/conformance/expressions/binaryOperators/additionOperator/additionOperatorWithAnyAndEveryType.ts ===
 function foo() { }
->foo : () => 无值
+>foo : () => void
 
 class C {
 >C : C
 
     public a: string;
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     static foo() { }
->foo : () => 无值
+>foo : () => void
 }
 enum E { a, b, c }
 >E : E
@@ -19,25 +18,20 @@ enum E { a, b, c }
 >c : E.c
 
 module M { export var a }
->M : 类为 M
->a : 任意
->类型别名 :=> 任意
+>M : typeof M
+>a : any
 
 var a: any;
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var b: boolean;
->b : 真假
->类型别名 :=> 真假
+>b : boolean
 
 var c: number;
->c : 数字
->类型别名 :=> 数字
+>c : number
 
 var d: string;
->d : 文字
->类型别名 :=> 文字
+>d : string
 
 var e: Object;
 >e : Object
@@ -45,204 +39,133 @@ var e: Object;
 
 // any as left operand, result is type Any except plusing string
 var r1 = a + a;
->r1 : 任意
->类型别名 :=> 任意
->a + a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>r1 : any
+>a + a : any
+>a : any
+>a : any
 
 var r2 = a + b;
->r2 : 任意
->类型别名 :=> 任意
->a + b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->b : 真假
->类型别名 :=> 真假
+>r2 : any
+>a + b : any
+>a : any
+>b : boolean
 
 var r3 = a + c;
->r3 : 任意
->类型别名 :=> 任意
->a + c : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->c : 数字
->类型别名 :=> 数字
+>r3 : any
+>a + c : any
+>a : any
+>c : number
 
 var r4 = a + d;
->r4 : 文字
->类型别名 :=> 文字
->a + d : 文字
->类型别名 :=> 文字
->a : 任意
->类型别名 :=> 任意
->d : 文字
->类型别名 :=> 文字
+>r4 : string
+>a + d : string
+>a : any
+>d : string
 
 var r5 = a + e;
->r5 : 任意
->类型别名 :=> 任意
->a + e : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>r5 : any
+>a + e : any
+>a : any
 >e : Object
 
 // any as right operand, result is type Any except plusing string
 var r6 = b + a;
->r6 : 任意
->类型别名 :=> 任意
->b + a : 任意
->类型别名 :=> 任意
->b : 真假
->类型别名 :=> 真假
->a : 任意
->类型别名 :=> 任意
+>r6 : any
+>b + a : any
+>b : boolean
+>a : any
 
 var r7 = c + a;
->r7 : 任意
->类型别名 :=> 任意
->c + a : 任意
->类型别名 :=> 任意
->c : 数字
->类型别名 :=> 数字
->a : 任意
->类型别名 :=> 任意
+>r7 : any
+>c + a : any
+>c : number
+>a : any
 
 var r8 = d + a;
->r8 : 文字
->类型别名 :=> 文字
->d + a : 文字
->类型别名 :=> 文字
->d : 文字
->类型别名 :=> 文字
->a : 任意
->类型别名 :=> 任意
+>r8 : string
+>d + a : string
+>d : string
+>a : any
 
 var r9 = e + a;
->r9 : 任意
->类型别名 :=> 任意
->e + a : 任意
->类型别名 :=> 任意
+>r9 : any
+>e + a : any
 >e : Object
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 // other cases
 var r10 = a + foo;
->r10 : 任意
->类型别名 :=> 任意
->a + foo : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->foo : () => 无值
+>r10 : any
+>a + foo : any
+>a : any
+>foo : () => void
 
 var r11 = a + foo();
->r11 : 任意
->类型别名 :=> 任意
->a + foo() : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->foo() : 无值
->类型别名 :=> 无值
->foo : () => 无值
+>r11 : any
+>a + foo() : any
+>a : any
+>foo() : void
+>foo : () => void
 
 var r12 = a + C;
->r12 : 任意
->类型别名 :=> 任意
->a + C : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->C : 类为 C
+>r12 : any
+>a + C : any
+>a : any
+>C : typeof C
 
 var r13 = a + new C();
->r13 : 任意
->类型别名 :=> 任意
->a + new C() : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>r13 : any
+>a + new C() : any
+>a : any
 >new C() : C
->C : 类为 C
+>C : typeof C
 
 var r14 = a + E;
->r14 : 任意
->类型别名 :=> 任意
->a + E : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->E : 类为 E
+>r14 : any
+>a + E : any
+>a : any
+>E : typeof E
 
 var r15 = a + E.a;
->r15 : 任意
->类型别名 :=> 任意
->a + E.a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>r15 : any
+>a + E.a : any
+>a : any
 >E.a : E.a
->E : 类为 E
+>E : typeof E
 >a : E.a
 
 var r16 = a + M;
->r16 : 任意
->类型别名 :=> 任意
->a + M : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->M : 类为 M
+>r16 : any
+>a + M : any
+>a : any
+>M : typeof M
 
 var r17 = a + '';
->r17 : 文字
->类型别名 :=> 文字
->a + '' : 文字
->类型别名 :=> 文字
->a : 任意
->类型别名 :=> 任意
+>r17 : string
+>a + '' : string
+>a : any
 >'' : ""
 
 var r18 = a + 123;
->r18 : 任意
->类型别名 :=> 任意
->a + 123 : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>r18 : any
+>a + 123 : any
+>a : any
 >123 : 123
 
 var r19 = a + { a: '' };
->r19 : 任意
->类型别名 :=> 任意
->a + { a: '' } : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->{ a: '' } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>r19 : any
+>a + { a: '' } : any
+>a : any
+>{ a: '' } : { a: string; }
+>a : string
 >'' : ""
 
 var r20 = a + ((a: string) => { return a });
->r20 : 任意
->类型别名 :=> 任意
->a + ((a: string) => { return a }) : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->((a: string) => { return a }) : (a: 文字) => 文字
->(a: string) => { return a } : (a: 文字) => 文字
->a : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
+>r20 : any
+>a + ((a: string) => { return a }) : any
+>a : any
+>((a: string) => { return a }) : (a: string) => string
+>(a: string) => { return a } : (a: string) => string
+>a : string
+>a : string
 

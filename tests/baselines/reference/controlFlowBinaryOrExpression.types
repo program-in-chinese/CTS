@@ -1,134 +1,112 @@
 === tests/cases/conformance/controlFlow/controlFlowBinaryOrExpression.ts ===
 let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
 let cond: boolean;
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
 (x = "") || (x = 0);
 >(x = "") || (x = 0) : 0
 >(x = "") : ""
 >x = "" : ""
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"" : ""
 >(x = 0) : 0
 >x = 0 : 0
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >0 : 0
 
 x; // string | number
->x : 文字 | 数字
+>x : string | number
 
 x = "";
 >x = "" : ""
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"" : ""
 
 cond || (x = 0);
->cond || (x = 0) : 为真 | 0
->cond : 真假
->类型别名 :=> 真假
+>cond || (x = 0) : true | 0
+>cond : boolean
 >(x = 0) : 0
 >x = 0 : 0
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >0 : 0
 
 x; // string | number
->x : 文字 | 数字
+>x : string | number
 
 export interface NodeList {
 >NodeList : NodeList
 
     length: number;
->length : 数字
->类型别名 :=> 数字
+>length : number
 }
 
 export interface HTMLCollection {
 >HTMLCollection : HTMLCollection
 
     length: number;
->length : 数字
->类型别名 :=> 数字
+>length : number
 }
 
 declare function isNodeList(sourceObj: any): sourceObj is NodeList;
->isNodeList : (sourceObj: 任意) => sourceObj 作为 NodeList
->sourceObj : 任意
->类型别名 :=> 任意
->sourceObj : 任意
->类型别名 :=> 任意
+>isNodeList : (sourceObj: any) => sourceObj is NodeList
+>sourceObj : any
+>sourceObj : any
 >NodeList : NodeList
 
 declare function isHTMLCollection(sourceObj: any): sourceObj is HTMLCollection;
->isHTMLCollection : (sourceObj: 任意) => sourceObj 作为 HTMLCollection
->sourceObj : 任意
->类型别名 :=> 任意
->sourceObj : 任意
->类型别名 :=> 任意
+>isHTMLCollection : (sourceObj: any) => sourceObj is HTMLCollection
+>sourceObj : any
+>sourceObj : any
 >HTMLCollection : HTMLCollection
 
 type EventTargetLike = {a: string} | HTMLCollection | NodeList;
->EventTargetLike : NodeList | HTMLCollection | { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>EventTargetLike : NodeList | HTMLCollection | { a: string; }
+>a : string
 >HTMLCollection : HTMLCollection
 >NodeList : NodeList
 
 var sourceObj: EventTargetLike = <any>undefined;
->sourceObj : NodeList | HTMLCollection | { a: 文字; }
->EventTargetLike : NodeList | HTMLCollection | { a: 文字; }
-><any>undefined : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
+>sourceObj : NodeList | HTMLCollection | { a: string; }
+>EventTargetLike : NodeList | HTMLCollection | { a: string; }
+><any>undefined : any
+>undefined : undefined
 
 if (isNodeList(sourceObj)) {
->isNodeList(sourceObj) : 真假
->类型别名 :=> 真假
->isNodeList : (sourceObj: 任意) => sourceObj 作为 NodeList
->sourceObj : NodeList | HTMLCollection | { a: 文字; }
+>isNodeList(sourceObj) : boolean
+>isNodeList : (sourceObj: any) => sourceObj is NodeList
+>sourceObj : NodeList | HTMLCollection | { a: string; }
 
     sourceObj.length;
->sourceObj.length : 数字
->类型别名 :=> 数字
+>sourceObj.length : number
 >sourceObj : NodeList | HTMLCollection
->length : 数字
->类型别名 :=> 数字
+>length : number
 }
 
 if (isHTMLCollection(sourceObj)) {
->isHTMLCollection(sourceObj) : 真假
->类型别名 :=> 真假
->isHTMLCollection : (sourceObj: 任意) => sourceObj 作为 HTMLCollection
->sourceObj : NodeList | HTMLCollection | { a: 文字; }
+>isHTMLCollection(sourceObj) : boolean
+>isHTMLCollection : (sourceObj: any) => sourceObj is HTMLCollection
+>sourceObj : NodeList | HTMLCollection | { a: string; }
 
     sourceObj.length;
->sourceObj.length : 数字
->类型别名 :=> 数字
+>sourceObj.length : number
 >sourceObj : NodeList | HTMLCollection
->length : 数字
->类型别名 :=> 数字
+>length : number
 }
 
 if (isNodeList(sourceObj) || isHTMLCollection(sourceObj)) {
->isNodeList(sourceObj) || isHTMLCollection(sourceObj) : 真假
->类型别名 :=> 真假
->isNodeList(sourceObj) : 真假
->类型别名 :=> 真假
->isNodeList : (sourceObj: 任意) => sourceObj 作为 NodeList
->sourceObj : NodeList | HTMLCollection | { a: 文字; }
->isHTMLCollection(sourceObj) : 真假
->类型别名 :=> 真假
->isHTMLCollection : (sourceObj: 任意) => sourceObj 作为 HTMLCollection
->sourceObj : { a: 文字; }
+>isNodeList(sourceObj) || isHTMLCollection(sourceObj) : boolean
+>isNodeList(sourceObj) : boolean
+>isNodeList : (sourceObj: any) => sourceObj is NodeList
+>sourceObj : NodeList | HTMLCollection | { a: string; }
+>isHTMLCollection(sourceObj) : boolean
+>isHTMLCollection : (sourceObj: any) => sourceObj is HTMLCollection
+>sourceObj : { a: string; }
 
     sourceObj.length;
->sourceObj.length : 数字
->类型别名 :=> 数字
+>sourceObj.length : number
 >sourceObj : NodeList
->length : 数字
->类型别名 :=> 数字
+>length : number
 }
 

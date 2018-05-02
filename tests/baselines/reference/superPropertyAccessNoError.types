@@ -11,24 +11,24 @@ class SomeBaseClass {
 >SomeBaseClass : SomeBaseClass
 
     public func() {
->func : () => 文字
+>func : () => string
 
         return '';
 >'' : ""
     }
 
     static func() {
->func : () => 数字
+>func : () => number
 
         return 3;
 >3 : 3
     }
 
     returnThis() {
->returnThis : () => 本体
+>returnThis : () => this
 
         return this;
->this : 本体
+>this : this
     }
 }
 
@@ -38,174 +38,142 @@ class SomeDerivedClass extends SomeBaseClass {
 
     constructor() {
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 SomeBaseClass
+>super() : void
+>super : typeof SomeBaseClass
 
         var x = super.func();
->x : 文字
->类型别名 :=> 文字
->super.func() : 文字
->类型别名 :=> 文字
->super.func : () => 文字
+>x : string
+>super.func() : string
+>super.func : () => string
 >super : SomeBaseClass
->func : () => 文字
+>func : () => string
 
         var x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
     }
 
     fn() {
->fn : () => 无值
+>fn : () => void
 
         var x = super.func();
->x : 文字
->类型别名 :=> 文字
->super.func() : 文字
->类型别名 :=> 文字
->super.func : () => 文字
+>x : string
+>super.func() : string
+>super.func : () => string
 >super : SomeBaseClass
->func : () => 文字
+>func : () => string
 
         var x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
         var y = () => super.func();
->y : () => 文字
->() => super.func() : () => 文字
->super.func() : 文字
->类型别名 :=> 文字
->super.func : () => 文字
+>y : () => string
+>() => super.func() : () => string
+>super.func() : string
+>super.func : () => string
 >super : SomeBaseClass
->func : () => 文字
+>func : () => string
     }
 
     get a() {
->a : 任意
->类型别名 :=> 任意
+>a : any
 
         var x = super.func();
->x : 文字
->类型别名 :=> 文字
->super.func() : 文字
->类型别名 :=> 文字
->super.func : () => 文字
+>x : string
+>super.func() : string
+>super.func : () => string
 >super : SomeBaseClass
->func : () => 文字
+>func : () => string
 
         var x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 
     set a(n) {
->a : 任意
->类型别名 :=> 任意
->n : 任意
->类型别名 :=> 任意
+>a : any
+>n : any
 
         var x = super.func();
->x : 文字
->类型别名 :=> 文字
->super.func() : 文字
->类型别名 :=> 文字
->super.func : () => 文字
+>x : string
+>super.func() : string
+>super.func : () => string
 >super : SomeBaseClass
->func : () => 文字
+>func : () => string
 
         var x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
     }
 
     static fn() {
->fn : () => 无值
+>fn : () => void
 
         var x = super.func();
->x : 数字
->类型别名 :=> 数字
->super.func() : 数字
->类型别名 :=> 数字
->super.func : () => 数字
->super : 类为 SomeBaseClass
->func : () => 数字
+>x : number
+>super.func() : number
+>super.func : () => number
+>super : typeof SomeBaseClass
+>func : () => number
 
         var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 
     static get a() {
->a : 任意
->类型别名 :=> 任意
+>a : any
 
         var x = super.func();
->x : 数字
->类型别名 :=> 数字
->super.func() : 数字
->类型别名 :=> 数字
->super.func : () => 数字
->super : 类为 SomeBaseClass
->func : () => 数字
+>x : number
+>super.func() : number
+>super.func : () => number
+>super : typeof SomeBaseClass
+>func : () => number
 
         var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 
     static set a(n) {
->a : 任意
->类型别名 :=> 任意
->n : 任意
->类型别名 :=> 任意
+>a : any
+>n : any
 
         var x = super.func();
->x : 数字
->类型别名 :=> 数字
->super.func() : 数字
->类型别名 :=> 数字
->super.func : () => 数字
->super : 类为 SomeBaseClass
->func : () => 数字
+>x : number
+>super.func() : number
+>super.func : () => number
+>super : typeof SomeBaseClass
+>func : () => number
 
         var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 
     returnThis() {
->returnThis : () => 本体
+>returnThis : () => this
 
         return super.returnThis();
->super.returnThis() : 本体
->super.returnThis : () => 本体
+>super.returnThis() : this
+>super.returnThis : () => this
 >super : SomeBaseClass
->returnThis : () => 本体
+>returnThis : () => this
     }
 }
 
 let instance = new SomeDerivedClass();
 >instance : SomeDerivedClass
 >new SomeDerivedClass() : SomeDerivedClass
->SomeDerivedClass : 类为 SomeDerivedClass
+>SomeDerivedClass : typeof SomeDerivedClass
 
 instance.returnThis().fn();
->instance.returnThis().fn() : 无值
->类型别名 :=> 无值
->instance.returnThis().fn : () => 无值
+>instance.returnThis().fn() : void
+>instance.returnThis().fn : () => void
 >instance.returnThis() : SomeDerivedClass
 >instance.returnThis : () => SomeDerivedClass
 >instance : SomeDerivedClass
 >returnThis : () => SomeDerivedClass
->fn : () => 无值
+>fn : () => void
 

@@ -1,85 +1,60 @@
 === tests/cases/compiler/declarationEmitDestructuringObjectLiteralPattern2.ts ===
 var { a: x11, b: { a: y11, b: { a: z11 }}} = { a: 1, b: { a: "hello", b: { a: true } } };
->a : 任意
->类型别名 :=> 任意
->x11 : 数字
->类型别名 :=> 数字
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->y11 : 文字
->类型别名 :=> 文字
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->z11 : 真假
->类型别名 :=> 真假
->{ a: 1, b: { a: "hello", b: { a: true } } } : { a: 数字; b: { a: 文字; b: { a: 真假; }; }; }
->a : 数字
->类型别名 :=> 数字
+>a : any
+>x11 : number
+>b : any
+>a : any
+>y11 : string
+>b : any
+>a : any
+>z11 : boolean
+>{ a: 1, b: { a: "hello", b: { a: true } } } : { a: number; b: { a: string; b: { a: boolean; }; }; }
+>a : number
 >1 : 1
->b : { a: 文字; b: { a: 真假; }; }
->{ a: "hello", b: { a: true } } : { a: 文字; b: { a: 真假; }; }
->a : 文字
->类型别名 :=> 文字
+>b : { a: string; b: { a: boolean; }; }
+>{ a: "hello", b: { a: true } } : { a: string; b: { a: boolean; }; }
+>a : string
 >"hello" : "hello"
->b : { a: 真假; }
->{ a: true } : { a: 真假; }
->a : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>b : { a: boolean; }
+>{ a: true } : { a: boolean; }
+>a : boolean
+>true : true
 
 function f15() {
->f15 : () => { a4: 文字; b4: 数字; c4: 真假; }
+>f15 : () => { a4: string; b4: number; c4: boolean; }
 
     var a4 = "hello";
->a4 : 文字
->类型别名 :=> 文字
+>a4 : string
 >"hello" : "hello"
 
     var b4 = 1;
->b4 : 数字
->类型别名 :=> 数字
+>b4 : number
 >1 : 1
 
     var c4 = true;
->c4 : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>c4 : boolean
+>true : true
 
     return { a4, b4, c4 };
->{ a4, b4, c4 } : { a4: 文字; b4: 数字; c4: 真假; }
->a4 : 文字
->类型别名 :=> 文字
->b4 : 数字
->类型别名 :=> 数字
->c4 : 为真
->类型别名 :=> 为真
+>{ a4, b4, c4 } : { a4: string; b4: number; c4: boolean; }
+>a4 : string
+>b4 : number
+>c4 : boolean
 }
 var { a4, b4, c4 } = f15();
->a4 : 文字
->类型别名 :=> 文字
->b4 : 数字
->类型别名 :=> 数字
->c4 : 真假
->类型别名 :=> 真假
->f15() : { a4: 文字; b4: 数字; c4: 真假; }
->f15 : () => { a4: 文字; b4: 数字; c4: 真假; }
+>a4 : string
+>b4 : number
+>c4 : boolean
+>f15() : { a4: string; b4: number; c4: boolean; }
+>f15 : () => { a4: string; b4: number; c4: boolean; }
 
 module m {
->m : 类为 m
+>m : typeof m
 
     export var { a4, b4, c4 } = f15();
->a4 : 文字
->类型别名 :=> 文字
->b4 : 数字
->类型别名 :=> 数字
->c4 : 真假
->类型别名 :=> 真假
->f15() : { a4: 文字; b4: 数字; c4: 真假; }
->f15 : () => { a4: 文字; b4: 数字; c4: 真假; }
+>a4 : string
+>b4 : number
+>c4 : boolean
+>f15() : { a4: string; b4: number; c4: boolean; }
+>f15 : () => { a4: string; b4: number; c4: boolean; }
 }

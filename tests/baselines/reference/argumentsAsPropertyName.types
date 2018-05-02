@@ -4,45 +4,36 @@ type MyType = {
 >MyType : MyType
 
     arguments: Array<string>
->arguments : 文字[]
+>arguments : string[]
 >Array : T[]
 }
 
 declare function use(s: any);
->use : (s: 任意) => 任意
->s : 任意
->类型别名 :=> 任意
+>use : (s: any) => any
+>s : any
 
 function myFunction(myType: MyType) {
->myFunction : (myType: MyType) => 无值
+>myFunction : (myType: MyType) => void
 >myType : MyType
 >MyType : MyType
 
     for (let i = 0; i < 10; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 10 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 10 : boolean
+>i : number
 >10 : 10
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
         use(myType.arguments[i]);
->use(myType.arguments[i]) : 任意
->类型别名 :=> 任意
->use : (s: 任意) => 任意
->myType.arguments[i] : 文字
->类型别名 :=> 文字
->myType.arguments : 文字[]
+>use(myType.arguments[i]) : any
+>use : (s: any) => any
+>myType.arguments[i] : string
+>myType.arguments : string[]
 >myType : MyType
->arguments : 文字[]
->i : 数字
->类型别名 :=> 数字
+>arguments : string[]
+>i : number
 
         // create closure so that tsc will turn loop body into function
         const x = 5;
@@ -50,20 +41,17 @@ function myFunction(myType: MyType) {
 >5 : 5
 
         [1, 2, 3].forEach(function(j) { use(x); })
->[1, 2, 3].forEach(function(j) { use(x); }) : 无值
->类型别名 :=> 无值
->[1, 2, 3].forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
->[1, 2, 3] : 数字[]
+>[1, 2, 3].forEach(function(j) { use(x); }) : void
+>[1, 2, 3].forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
+>[1, 2, 3] : number[]
 >1 : 1
 >2 : 2
 >3 : 3
->forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
->function(j) { use(x); } : (j: 数字) => 无值
->j : 数字
->类型别名 :=> 数字
->use(x) : 任意
->类型别名 :=> 任意
->use : (s: 任意) => 任意
+>forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
+>function(j) { use(x); } : (j: number) => void
+>j : number
+>use(x) : any
+>use : (s: any) => any
 >x : 5
     }
 }

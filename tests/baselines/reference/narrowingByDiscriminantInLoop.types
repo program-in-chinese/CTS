@@ -10,8 +10,7 @@ interface IDLTypeDescription {
 >IDLTypeDescription : IDLTypeDescription
 
     origin: string;
->origin : 文字
->类型别名 :=> 文字
+>origin : string
 }
 
 interface InterfaceType {
@@ -40,12 +39,11 @@ interface ConstantMemberType {
 >type : "const"
 
     idlType: string;
->idlType : 文字
->类型别名 :=> 文字
+>idlType : string
 }
 
 function insertInterface(callbackType: InterfaceType) {
->insertInterface : (callbackType: InterfaceType) => 无值
+>insertInterface : (callbackType: InterfaceType) => void
 >callbackType : InterfaceType
 >InterfaceType : InterfaceType
 
@@ -56,36 +54,30 @@ function insertInterface(callbackType: InterfaceType) {
 >members : IDLMemberTypes[]
 
         if (memberType.type === "const") {
->memberType.type === "const" : 真假
->类型别名 :=> 真假
+>memberType.type === "const" : boolean
 >memberType.type : "operation" | "const"
 >memberType : IDLMemberTypes
 >type : "operation" | "const"
 >"const" : "const"
 
             memberType.idlType;  // string
->memberType.idlType : 文字
->类型别名 :=> 文字
+>memberType.idlType : string
 >memberType : ConstantMemberType
->idlType : 文字
->类型别名 :=> 文字
+>idlType : string
         }
         else if (memberType.type === "operation") {
->memberType.type === "operation" : 真假
->类型别名 :=> 真假
+>memberType.type === "operation" : boolean
 >memberType.type : "operation"
 >memberType : OperationMemberType
 >type : "operation"
 >"operation" : "operation"
 
             memberType.idlType.origin;  // string
->memberType.idlType.origin : 文字
->类型别名 :=> 文字
+>memberType.idlType.origin : string
 >memberType.idlType : IDLTypeDescription
 >memberType : OperationMemberType
 >idlType : IDLTypeDescription
->origin : 文字
->类型别名 :=> 文字
+>origin : string
 
             (memberType.idlType as IDLTypeDescription);
 >(memberType.idlType as IDLTypeDescription) : IDLTypeDescription
@@ -99,7 +91,7 @@ function insertInterface(callbackType: InterfaceType) {
 }
 
 function insertInterface2(callbackType: InterfaceType) {
->insertInterface2 : (callbackType: InterfaceType) => 无值
+>insertInterface2 : (callbackType: InterfaceType) => void
 >callbackType : InterfaceType
 >InterfaceType : InterfaceType
 
@@ -110,61 +102,52 @@ function insertInterface2(callbackType: InterfaceType) {
 >members : IDLMemberTypes[]
 
         if (memberType.type === "operation") {
->memberType.type === "operation" : 真假
->类型别名 :=> 真假
+>memberType.type === "operation" : boolean
 >memberType.type : "operation" | "const"
 >memberType : IDLMemberTypes
 >type : "operation" | "const"
 >"operation" : "operation"
 
             memberType.idlType.origin;  // string
->memberType.idlType.origin : 文字
->类型别名 :=> 文字
+>memberType.idlType.origin : string
 >memberType.idlType : IDLTypeDescription
 >memberType : OperationMemberType
 >idlType : IDLTypeDescription
->origin : 文字
->类型别名 :=> 文字
+>origin : string
         }
     }
 }
 
 function foo(memberType: IDLMemberTypes) {
->foo : (memberType: IDLMemberTypes) => 无值
+>foo : (memberType: IDLMemberTypes) => void
 >memberType : IDLMemberTypes
 >IDLMemberTypes : IDLMemberTypes
 
     if (memberType.type === "const") {
->memberType.type === "const" : 真假
->类型别名 :=> 真假
+>memberType.type === "const" : boolean
 >memberType.type : "operation" | "const"
 >memberType : IDLMemberTypes
 >type : "operation" | "const"
 >"const" : "const"
 
         memberType.idlType;  // string
->memberType.idlType : 文字
->类型别名 :=> 文字
+>memberType.idlType : string
 >memberType : ConstantMemberType
->idlType : 文字
->类型别名 :=> 文字
+>idlType : string
     }
     else if (memberType.type === "operation") {
->memberType.type === "operation" : 真假
->类型别名 :=> 真假
+>memberType.type === "operation" : boolean
 >memberType.type : "operation"
 >memberType : OperationMemberType
 >type : "operation"
 >"operation" : "operation"
 
         memberType.idlType.origin;  // string
->memberType.idlType.origin : 文字
->类型别名 :=> 文字
+>memberType.idlType.origin : string
 >memberType.idlType : IDLTypeDescription
 >memberType : OperationMemberType
 >idlType : IDLTypeDescription
->origin : 文字
->类型别名 :=> 文字
+>origin : string
     }
 }
 
@@ -174,133 +157,104 @@ interface A {
 >A : A
 
     kind: true;
->kind : 为真
->类型别名 :=> 为真
->true : 为真
->类型别名 :=> 为真
+>kind : true
+>true : true
 
     prop: { a: string; };
->prop : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>prop : { a: string; }
+>a : string
 }
 
 interface B {
 >B : B
 
     kind: false;
->kind : 为假
->类型别名 :=> 为假
->false : 为假
->类型别名 :=> 为假
+>kind : false
+>false : false
 
     prop: { b: string; }
->prop : { b: 文字; }
->b : 文字
->类型别名 :=> 文字
+>prop : { b: string; }
+>b : string
 }
 
 function f1(x: A | B) {
->f1 : (x: A | B) => 无值
+>f1 : (x: A | B) => void
 >x : A | B
 >A : A
 >B : B
 
     while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         x.prop;
->x.prop : { a: 文字; } | { b: 文字; }
+>x.prop : { a: string; } | { b: string; }
 >x : A | B
->prop : { a: 文字; } | { b: 文字; }
+>prop : { a: string; } | { b: string; }
 
         if (x.kind === true) {
->x.kind === true : 真假
->类型别名 :=> 真假
->x.kind : 真假
->类型别名 :=> 真假
+>x.kind === true : boolean
+>x.kind : boolean
 >x : A | B
->kind : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>kind : boolean
+>true : true
 
             x.prop.a;
->x.prop.a : 文字
->类型别名 :=> 文字
->x.prop : { a: 文字; }
+>x.prop.a : string
+>x.prop : { a: string; }
 >x : A
->prop : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>prop : { a: string; }
+>a : string
         }
         if (x.kind === false) {
->x.kind === false : 真假
->类型别名 :=> 真假
->x.kind : 真假
->类型别名 :=> 真假
+>x.kind === false : boolean
+>x.kind : boolean
 >x : A | B
->kind : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>kind : boolean
+>false : false
 
             x.prop.b;
->x.prop.b : 文字
->类型别名 :=> 文字
->x.prop : { b: 文字; }
+>x.prop.b : string
+>x.prop : { b: string; }
 >x : B
->prop : { b: 文字; }
->b : 文字
->类型别名 :=> 文字
+>prop : { b: string; }
+>b : string
         }
     }
 }
 
 function f2(x: A | B) {
->f2 : (x: A | B) => 无值
+>f2 : (x: A | B) => void
 >x : A | B
 >A : A
 >B : B
 
     while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         if (x.kind) {
->x.kind : 真假
->类型别名 :=> 真假
+>x.kind : boolean
 >x : A | B
->kind : 真假
->类型别名 :=> 真假
+>kind : boolean
 
             x.prop.a;
->x.prop.a : 文字
->类型别名 :=> 文字
->x.prop : { a: 文字; }
+>x.prop.a : string
+>x.prop : { a: string; }
 >x : A
->prop : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>prop : { a: string; }
+>a : string
         }
         if (!x.kind) {
->!x.kind : 真假
->类型别名 :=> 真假
->x.kind : 真假
->类型别名 :=> 真假
+>!x.kind : boolean
+>x.kind : boolean
 >x : A | B
->kind : 真假
->类型别名 :=> 真假
+>kind : boolean
 
             x.prop.b;
->x.prop.b : 文字
->类型别名 :=> 文字
->x.prop : { b: 文字; }
+>x.prop.b : string
+>x.prop : { b: string; }
 >x : B
->prop : { b: 文字; }
->b : 文字
->类型别名 :=> 文字
+>prop : { b: string; }
+>b : string
         }
     }
 }

@@ -3,19 +3,17 @@
 // no errors expected here
 
 function f1() {
->f1 : () => 数字
+>f1 : () => number
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         return 1;
 >1 : 1
 
     } else {
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
@@ -23,19 +21,16 @@ function f2() {
 >f2 : () => 1 | 2
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         return 1;
 >1 : 1
 
     } else if (false) {
->false : 为假
->类型别名 :=> 为假
+>false : false
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     } else {
         return 2;
@@ -44,19 +39,17 @@ function f2() {
 }
 
 function f4() {
->f4 : () => 数字
+>f4 : () => number
 
     try {
         return 1;
 >1 : 1
     }
     catch (e) {
->e : 任意
->类型别名 :=> 任意
+>e : any
 
         return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
     }
     finally {
         return 1;
@@ -82,16 +75,14 @@ function f6<T>(x: T) {
 >T : T
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         return x;
 >x : T
 
     } else {
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
@@ -104,69 +95,61 @@ function f6<T>(x: T) {
 //}
 
 var a: { x: number; y?: number };
->a : { x: 数字; y?: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>a : { x: number; y?: number; }
+>x : number
+>y : number
 
 var b: { x: number; z?: number };
->b : { x: 数字; z?: 数字; }
->x : 数字
->类型别名 :=> 数字
->z : 数字
->类型别名 :=> 数字
+>b : { x: number; z?: number; }
+>x : number
+>z : number
 
 // returns typeof a
 function f9() {
->f9 : () => { x: 数字; y?: 数字; } | { x: 数字; z?: 数字; }
+>f9 : () => { x: number; y?: number; } | { x: number; z?: number; }
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         return a;
->a : { x: 数字; y?: 数字; }
+>a : { x: number; y?: number; }
 
     } else {
         return b;
->b : { x: 数字; z?: 数字; }
+>b : { x: number; z?: number; }
     }
 }
 
 // returns typeof b
 function f10() {
->f10 : () => { x: 数字; y?: 数字; } | { x: 数字; z?: 数字; }
+>f10 : () => { x: number; y?: number; } | { x: number; z?: number; }
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         return b;
->b : { x: 数字; z?: 数字; }
+>b : { x: number; z?: number; }
 
     } else {
         return a;
->a : { x: 数字; y?: 数字; }
+>a : { x: number; y?: number; }
     }
 }
 
 // returns number => void
 function f11() {
->f11 : () => (x: 数字) => 无值
+>f11 : () => (x: number) => void
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         return (x: number) => { }
->(x: number) => { } : (x: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
+>(x: number) => { } : (x: number) => void
+>x : number
 
     } else {
         return (x: Object) => { }
->(x: Object) => { } : (x: Object) => 无值
+>(x: Object) => { } : (x: Object) => void
 >x : Object
 >Object : Object
     }
@@ -174,21 +157,19 @@ function f11() {
 
 // returns Object => void
 function f12() {
->f12 : () => (x: Object) => 无值
+>f12 : () => (x: Object) => void
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         return (x: Object) => { }
->(x: Object) => { } : (x: Object) => 无值
+>(x: Object) => { } : (x: Object) => void
 >x : Object
 >Object : Object
 
     } else {
         return (x: number) => { }        
->(x: number) => { } : (x: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
+>(x: number) => { } : (x: number) => void
+>x : number
     }
 }

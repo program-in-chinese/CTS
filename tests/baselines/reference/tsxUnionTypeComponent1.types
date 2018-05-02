@@ -1,67 +1,63 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 interface ComponentProps {
 >ComponentProps : ComponentProps
 
     AnyComponent: React.StatelessComponent<any> | React.ComponentClass<any>;
->AnyComponent : React.StatelessComponent<任意> | React.ComponentClass<任意>
->React : 任意
->类型别名 :=> 任意
+>AnyComponent : React.StatelessComponent<any> | React.ComponentClass<any>
+>React : any
 >StatelessComponent : React.StatelessComponent<P>
->React : 任意
->类型别名 :=> 任意
+>React : any
 >ComponentClass : React.ComponentClass<P>
 }
 
 class MyComponent extends React.Component<ComponentProps, {}> {
 >MyComponent : MyComponent
 >React.Component : React.Component<ComponentProps, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 >ComponentProps : ComponentProps
 
     render() {
 >render : () => JSX.Element
 
         const { AnyComponent } = this.props;
->AnyComponent : React.StatelessComponent<任意> | React.ComponentClass<任意>
+>AnyComponent : React.StatelessComponent<any> | React.ComponentClass<any>
 >this.props : ComponentProps & { children?: React.ReactNode; }
->this : 本体
+>this : this
 >props : ComponentProps & { children?: React.ReactNode; }
 
         return (<AnyComponent />);
 >(<AnyComponent />) : JSX.Element
 ><AnyComponent /> : JSX.Element
->AnyComponent : React.StatelessComponent<任意> | React.ComponentClass<任意>
+>AnyComponent : React.StatelessComponent<any> | React.ComponentClass<any>
     }
 }
 
 // Stateless Component As Props
 <MyComponent AnyComponent={() => <button>test</button>}/>
 ><MyComponent AnyComponent={() => <button>test</button>}/> : JSX.Element
->MyComponent : 类为 MyComponent
+>MyComponent : typeof MyComponent
 >AnyComponent : () => JSX.Element
 >() => <button>test</button> : () => JSX.Element
 ><button>test</button> : JSX.Element
->button : 任意
->类型别名 :=> 任意
->button : 任意
->类型别名 :=> 任意
+>button : any
+>button : any
 
 // Component Class as Props
 class MyButtonComponent extends React.Component<{},{}> {
 >MyButtonComponent : MyButtonComponent
 >React.Component : React.Component<{}, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 }
 
 <MyComponent AnyComponent={MyButtonComponent} />
 ><MyComponent AnyComponent={MyButtonComponent} /> : JSX.Element
->MyComponent : 类为 MyComponent
->AnyComponent : 类为 MyButtonComponent
->MyButtonComponent : 类为 MyButtonComponent
+>MyComponent : typeof MyComponent
+>AnyComponent : typeof MyButtonComponent
+>MyButtonComponent : typeof MyButtonComponent
 
 

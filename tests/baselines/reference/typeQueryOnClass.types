@@ -4,105 +4,86 @@ class C<T> {
 >T : T
 
     constructor(x: number);
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     constructor(x: string);
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     constructor(public x) { }
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     static foo(x: number);
->foo : { (x: 数字): 任意; (x: {}): 任意; }
->x : 数字
->类型别名 :=> 数字
+>foo : { (x: number): any; (x: {}): any; }
+>x : number
 
     static foo(x: {});
->foo : { (x: 数字): 任意; (x: {}): 任意; }
+>foo : { (x: number): any; (x: {}): any; }
 >x : {}
 
     static foo(x) { }
->foo : { (x: 数字): 任意; (x: {}): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo : { (x: number): any; (x: {}): any; }
+>x : any
 
     static bar(x) { }
->bar : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
+>bar : (x: any) => void
+>x : any
 
     static sa = 1;
->sa : 数字
->类型别名 :=> 数字
+>sa : number
 >1 : 1
 
     static sb = () => 1;
->sb : () => 数字
->() => 1 : () => 数字
+>sb : () => number
+>() => 1 : () => number
 >1 : 1
 
     static get sc() {
->sc : 数字
->类型别名 :=> 数字
+>sc : number
 
         return 1;
 >1 : 1
     }
     static set sc(x) {
->sc : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>sc : number
+>x : number
     }
 
     static get sd() {
->sd : 数字
->类型别名 :=> 数字
+>sd : number
 
         return 1;
 >1 : 1
     }
 
     baz(x): string { return ''; }
->baz : (x: 任意) => 文字
->x : 任意
->类型别名 :=> 任意
+>baz : (x: any) => string
+>x : any
 >'' : ""
 
     ia = 1;
->ia : 数字
->类型别名 :=> 数字
+>ia : number
 >1 : 1
 
     ib = () => this.ia;
->ib : () => 数字
->() => this.ia : () => 数字
->this.ia : 数字
->类型别名 :=> 数字
->this : 本体
->ia : 数字
->类型别名 :=> 数字
+>ib : () => number
+>() => this.ia : () => number
+>this.ia : number
+>this : this
+>ia : number
 
     get ic() {
->ic : 数字
->类型别名 :=> 数字
+>ic : number
 
         return 1;
 >1 : 1
     }
     set ic(x) {
->ic : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>ic : number
+>x : number
     }
 
     get id() {
->id : 数字
->类型别名 :=> 数字
+>id : number
 
         return 1;
 >1 : 1
@@ -111,43 +92,42 @@ class C<T> {
 }
 
 var c: C<string>;
->c : C<文字>
+>c : C<string>
 >C : C<T>
 
 // BUG 820454
 var r1: typeof C;
->r1 : 类为 C
->C : 类为 C
+>r1 : typeof C
+>C : typeof C
 
 var r2: typeof c;
->r2 : C<文字>
->c : C<文字>
+>r2 : C<string>
+>c : C<string>
 
 class D<T> {
 >D : D<T>
 >T : T
 
     constructor(public y?) { }
->y : 任意
->类型别名 :=> 任意
+>y : any
 
     x: T;
 >x : T
 >T : T
 
     foo() { }
->foo : () => 无值
+>foo : () => void
 }
 
 var d: D<string>;
->d : D<文字>
+>d : D<string>
 >D : D<T>
 
 var r3: typeof D;
->r3 : 类为 D
->D : 类为 D
+>r3 : typeof D
+>D : typeof D
 
 var r4: typeof d;
->r4 : D<文字>
->d : D<文字>
+>r4 : D<string>
+>d : D<string>
 

@@ -1,17 +1,15 @@
 === tests/cases/compiler/genericNewInterface.ts ===
 function createInstance<T>(ctor: new (s: string) => T): T {
->createInstance : <T>(ctor: 新建 (s: 文字) => T) => T
+>createInstance : <T>(ctor: new (s: string) => T) => T
 >T : T
->ctor : 新建 (s: 文字) => T
->s : 文字
->类型别名 :=> 文字
+>ctor : new (s: string) => T
+>s : string
 >T : T
 >T : T
 
     return new ctor(42); //should be an error
->new ctor(42) : 任意
->类型别名 :=> 任意
->ctor : 新建 (s: 文字) => T
+>new ctor(42) : any
+>ctor : new (s: string) => T
 >42 : 42
 }
                    
@@ -20,8 +18,7 @@ interface INewable<T> {
 >T : T
 
     new (param: string): T;
->param : 文字
->类型别名 :=> 文字
+>param : string
 >T : T
 }
 
@@ -34,8 +31,7 @@ function createInstance2<T>(ctor: INewable<T>): T {
 >T : T
 
     return new ctor(1024); //should be an error
->new ctor(1024) : 任意
->类型别名 :=> 任意
+>new ctor(1024) : any
 >ctor : INewable<T>
 >1024 : 1024
 }

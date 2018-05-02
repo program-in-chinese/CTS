@@ -3,12 +3,11 @@ class MyBase {
 >MyBase : MyBase
 
   getValue(): number { return 1; }
->getValue : () => 数字
+>getValue : () => number
 >1 : 1
 
   get value(): number { return 1; }
->value : 数字
->类型别名 :=> 数字
+>value : number
 >1 : 1
 }
 
@@ -18,74 +17,55 @@ class MyDerived extends MyBase {
 
   constructor() {
     super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 MyBase
+>super() : void
+>super : typeof MyBase
 
     const f1 = super.getValue();
->f1 : 数字
->类型别名 :=> 数字
->super.getValue() : 数字
->类型别名 :=> 数字
->super.getValue : () => 数字
+>f1 : number
+>super.getValue() : number
+>super.getValue : () => number
 >super : MyBase
->getValue : () => 数字
+>getValue : () => number
 
     const f2 = super.value;
->f2 : 数字
->类型别名 :=> 数字
->super.value : 数字
->类型别名 :=> 数字
+>f2 : number
+>super.value : number
 >super : MyBase
->value : 数字
->类型别名 :=> 数字
+>value : number
   }
 }
 
 var d = new MyDerived();
 >d : MyDerived
 >new MyDerived() : MyDerived
->MyDerived : 类为 MyDerived
+>MyDerived : typeof MyDerived
 
 var f3 = d.value;
->f3 : 数字
->类型别名 :=> 数字
->d.value : 数字
->类型别名 :=> 数字
+>f3 : number
+>d.value : number
 >d : MyDerived
->value : 数字
->类型别名 :=> 数字
+>value : number
 
 class A {
 >A : A
 
     private _property: string;
->_property : 文字
->类型别名 :=> 文字
+>_property : string
 
     get property() { return this._property; }
->property : 文字
->类型别名 :=> 文字
->this._property : 文字
->类型别名 :=> 文字
->this : 本体
->_property : 文字
->类型别名 :=> 文字
+>property : string
+>this._property : string
+>this : this
+>_property : string
 
     set property(value: string) { this._property = value }
->property : 文字
->类型别名 :=> 文字
->value : 文字
->类型别名 :=> 文字
->this._property = value : 文字
->类型别名 :=> 文字
->this._property : 文字
->类型别名 :=> 文字
->this : 本体
->_property : 文字
->类型别名 :=> 文字
->value : 文字
->类型别名 :=> 文字
+>property : string
+>value : string
+>this._property = value : string
+>this._property : string
+>this : this
+>_property : string
+>value : string
 }
 
 class B extends A {
@@ -93,23 +73,16 @@ class B extends A {
 >A : A
 
     set property(value: string) {
->property : 文字
->类型别名 :=> 文字
->value : 文字
->类型别名 :=> 文字
+>property : string
+>value : string
 
         super.property = value + " addition";
->super.property = value + " addition" : 文字
->类型别名 :=> 文字
->super.property : 文字
->类型别名 :=> 文字
+>super.property = value + " addition" : string
+>super.property : string
 >super : A
->property : 文字
->类型别名 :=> 文字
->value + " addition" : 文字
->类型别名 :=> 文字
->value : 文字
->类型别名 :=> 文字
+>property : string
+>value + " addition" : string
+>value : string
 >" addition" : " addition"
     }
 }

@@ -1,15 +1,15 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/module.ts ===
 module X.Y {
->X : 类为 X
->Y : 类为 Y
+>X : typeof X
+>Y : typeof Y
 
     export module Point {
->Point : 类为 Point
+>Point : typeof Point
 
         export var Origin = new Point(0, 0);
 >Origin : Point
 >new Point(0, 0) : Point
->Point : 类为 Point
+>Point : typeof Point
 >0 : 0
 >0 : 0
     }
@@ -17,59 +17,47 @@ module X.Y {
 
 === tests/cases/conformance/internalModules/DeclarationMerging/classPoint.ts ===
 module X.Y {
->X : 类为 X
->Y : 类为 Y
+>X : typeof X
+>Y : typeof Y
 
     // duplicate identifier
     export class Point {
 >Point : Point
 
         constructor(x: number, y: number) {
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
 
             this.x = x;
->this.x = x : 数字
->类型别名 :=> 数字
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>this.x = x : number
+>this.x : number
+>this : this
+>x : number
+>x : number
 
             this.y = y;
->this.y = y : 数字
->类型别名 :=> 数字
->this.y : 数字
->类型别名 :=> 数字
->this : 本体
->y : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>this.y = y : number
+>this.y : number
+>this : this
+>y : number
+>y : number
         }
         x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
     }
 }
 
 === tests/cases/conformance/internalModules/DeclarationMerging/simple.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export var Instance = new A();
 >Instance : A
 >new A() : A
->A : 类为 A
+>A : typeof A
 }
 
 // duplicate identifier
@@ -77,7 +65,6 @@ class A {
 >A : A
 
     id: string;
->id : 文字
->类型别名 :=> 文字
+>id : string
 }
 

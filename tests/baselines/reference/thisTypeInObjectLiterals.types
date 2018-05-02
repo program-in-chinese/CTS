@@ -1,145 +1,117 @@
 === tests/cases/conformance/types/thisType/thisTypeInObjectLiterals.ts ===
 let o = {
->o : { d: 文字; m(): 数字; f: () => 数字; }
->{    d: "bar",    m() {        return this.d.length;    },    f: function() {        return this.d.length;    }} : { d: 文字; m(): 数字; f: () => 数字; }
+>o : { d: string; m(): number; f: () => number; }
+>{    d: "bar",    m() {        return this.d.length;    },    f: function() {        return this.d.length;    }} : { d: string; m(): number; f: () => number; }
 
     d: "bar",
->d : 文字
->类型别名 :=> 文字
+>d : string
 >"bar" : "bar"
 
     m() {
->m : () => 数字
+>m : () => number
 
         return this.d.length;
->this.d.length : 数字
->类型别名 :=> 数字
->this.d : 文字
->类型别名 :=> 文字
->this : { d: 文字; m(): 数字; f: () => 数字; }
->d : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>this.d.length : number
+>this.d : string
+>this : { d: string; m(): number; f: () => number; }
+>d : string
+>length : number
 
     },
     f: function() {
->f : () => 数字
->function() {        return this.d.length;    } : () => 数字
+>f : () => number
+>function() {        return this.d.length;    } : () => number
 
         return this.d.length;
->this.d.length : 数字
->类型别名 :=> 数字
->this.d : 文字
->类型别名 :=> 文字
->this : { d: 文字; m(): 数字; f: () => 数字; }
->d : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>this.d.length : number
+>this.d : string
+>this : { d: string; m(): number; f: () => number; }
+>d : string
+>length : number
     }
 }
 
 let mutuallyRecursive = {
->mutuallyRecursive : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
->{    a: 100,    start() {        return this.passthrough(this.a);    },    passthrough(n: number) {        return this.sub1(n);    },    sub1(n: number): number {        if (n > 0) {            return this.passthrough(n - 1);        }        return n;    }} : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
+>mutuallyRecursive : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
+>{    a: 100,    start() {        return this.passthrough(this.a);    },    passthrough(n: number) {        return this.sub1(n);    },    sub1(n: number): number {        if (n > 0) {            return this.passthrough(n - 1);        }        return n;    }} : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
 
     a: 100,
->a : 数字
->类型别名 :=> 数字
+>a : number
 >100 : 100
 
     start() {
->start : () => 数字
+>start : () => number
 
         return this.passthrough(this.a);
->this.passthrough(this.a) : 数字
->类型别名 :=> 数字
->this.passthrough : (n: 数字) => 数字
->this : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
->passthrough : (n: 数字) => 数字
->this.a : 数字
->类型别名 :=> 数字
->this : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
->a : 数字
->类型别名 :=> 数字
+>this.passthrough(this.a) : number
+>this.passthrough : (n: number) => number
+>this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
+>passthrough : (n: number) => number
+>this.a : number
+>this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
+>a : number
 
     },
     passthrough(n: number) {
->passthrough : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
+>passthrough : (n: number) => number
+>n : number
 
         return this.sub1(n);
->this.sub1(n) : 数字
->类型别名 :=> 数字
->this.sub1 : (n: 数字) => 数字
->this : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
->sub1 : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
+>this.sub1(n) : number
+>this.sub1 : (n: number) => number
+>this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
+>sub1 : (n: number) => number
+>n : number
 
     },
     sub1(n: number): number {
->sub1 : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
+>sub1 : (n: number) => number
+>n : number
 
         if (n > 0) {
->n > 0 : 真假
->类型别名 :=> 真假
->n : 数字
->类型别名 :=> 数字
+>n > 0 : boolean
+>n : number
 >0 : 0
 
             return this.passthrough(n - 1);
->this.passthrough(n - 1) : 数字
->类型别名 :=> 数字
->this.passthrough : (n: 数字) => 数字
->this : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
->passthrough : (n: 数字) => 数字
->n - 1 : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
+>this.passthrough(n - 1) : number
+>this.passthrough : (n: number) => number
+>this : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
+>passthrough : (n: number) => number
+>n - 1 : number
+>n : number
 >1 : 1
         }
         return n;
->n : 数字
->类型别名 :=> 数字
+>n : number
     }
 }
 var i: number = mutuallyRecursive.start();
->i : 数字
->类型别名 :=> 数字
->mutuallyRecursive.start() : 数字
->类型别名 :=> 数字
->mutuallyRecursive.start : () => 数字
->mutuallyRecursive : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
->start : () => 数字
+>i : number
+>mutuallyRecursive.start() : number
+>mutuallyRecursive.start : () => number
+>mutuallyRecursive : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
+>start : () => number
 
 interface I {
 >I : I
 
     a: number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     start(): number;
->start : () => 数字
+>start : () => number
 
     passthrough(n: number): number;
->passthrough : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
+>passthrough : (n: number) => number
+>n : number
 
     sub1(n: number): number;
->sub1 : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
+>sub1 : (n: number) => number
+>n : number
 }
 var impl: I = mutuallyRecursive;
 >impl : I
 >I : I
->mutuallyRecursive : { a: 数字; start(): 数字; passthrough(n: 数字): 数字; sub1(n: 数字): 数字; }
+>mutuallyRecursive : { a: number; start(): number; passthrough(n: number): number; sub1(n: number): number; }
 

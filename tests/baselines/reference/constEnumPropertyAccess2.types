@@ -16,32 +16,28 @@ const enum G {
 
     C = A + B,
 >C : G
->A + B : 数字
->类型别名 :=> 数字
+>A + B : number
 >A : G
 >B : G
 
     D = A * 2
 >D : G
->A * 2 : 数字
->类型别名 :=> 数字
+>A * 2 : number
 >A : G
 >2 : 2
 }
 
 // Error from referring constant enum in any other context than a property access
 var z = G;
->z : 类为 G
->G : 类为 G
+>z : typeof G
+>G : typeof G
 
 var z1 = G[G.A];
->z1 : 任意
->类型别名 :=> 任意
->G[G.A] : 任意
->类型别名 :=> 任意
->G : 类为 G
+>z1 : any
+>G[G.A] : any
+>G : typeof G
 >G.A : G
->G : 类为 G
+>G : typeof G
 >A : G
 
 var g: G;
@@ -54,16 +50,14 @@ g = "string";
 >"string" : "string"
 
 function foo(x: G) { }
->foo : (x: G) => 无值
+>foo : (x: G) => void
 >x : G
 >G : G
 
 G.B = 3;
 >G.B = 3 : 3
->G.B : 任意
->类型别名 :=> 任意
->G : 类为 G
->B : 任意
->类型别名 :=> 任意
+>G.B : any
+>G : typeof G
+>B : any
 >3 : 3
 

@@ -1,20 +1,19 @@
 === tests/cases/compiler/contextualSignatureInstantiationWithTypeParameterConstrainedToOuterTypeParameter.ts ===
 function f<T>() {
->f : <T>() => <U 扩展 T>(u: U) => U
+>f : <T>() => <U extends T>(u: U) => U
 >T : T
 
     function g<U extends T>(u: U): U { return null }
->g : <U 扩展 T>(u: U) => U
+>g : <U extends T>(u: U) => U
 >U : U
 >T : T
 >u : U
 >U : U
 >U : U
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     return g;
->g : <U 扩展 T>(u: U) => U
+>g : <U extends T>(u: U) => U
 }
 var h: <V, W>(v: V, func: (v: V) => W) => W;
 >h : <V, W>(v: V, func: (v: V) => W) => W
@@ -29,12 +28,10 @@ var h: <V, W>(v: V, func: (v: V) => W) => W;
 >W : W
 
 var x = h("", f<string>()); // Call should succeed and x should be string. All type parameters should be instantiated to string
->x : 文字
->类型别名 :=> 文字
->h("", f<string>()) : 文字
->类型别名 :=> 文字
+>x : string
+>h("", f<string>()) : string
 >h : <V, W>(v: V, func: (v: V) => W) => W
 >"" : ""
->f<string>() : <U 扩展 文字>(u: U) => U
->f : <T>() => <U 扩展 T>(u: U) => U
+>f<string>() : <U extends string>(u: U) => U
+>f : <T>() => <U extends T>(u: U) => U
 

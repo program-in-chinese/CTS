@@ -3,7 +3,7 @@
 // this would cause the compiler to run out of memory.
 
 function outer<T>(x: T) {
->outer : <T>(x: T) => 类为 Inner
+>outer : <T>(x: T) => typeof Inner
 >T : T
 >x : T
 >T : T
@@ -17,41 +17,38 @@ function outer<T>(x: T) {
 >x : T
   }
   return Inner;
->Inner : 类为 Inner
+>Inner : typeof Inner
 }
 let y: number = outer(5).y;
->y : 数字
->类型别名 :=> 数字
->outer(5).y : 数字
->类型别名 :=> 数字
->outer(5) : 类为 Inner
->outer : <T>(x: T) => 类为 Inner
+>y : number
+>outer(5).y : number
+>outer(5) : typeof Inner
+>outer : <T>(x: T) => typeof Inner
 >5 : 5
->y : 数字
->类型别名 :=> 数字
+>y : number
 
 class ListWrapper2 {
 >ListWrapper2 : ListWrapper2
 
   static clone<T>(dit: typeof ListWrapper2, array: T[]): T[] { return array.slice(0); }
->clone : <T>(dit: 类为 ListWrapper2, array: T[]) => T[]
+>clone : <T>(dit: typeof ListWrapper2, array: T[]) => T[]
 >T : T
->dit : 类为 ListWrapper2
->ListWrapper2 : 类为 ListWrapper2
+>dit : typeof ListWrapper2
+>ListWrapper2 : typeof ListWrapper2
 >array : T[]
 >T : T
 >T : T
 >array.slice(0) : T[]
->array.slice : (start?: 数字, end?: 数字) => T[]
+>array.slice : (start?: number, end?: number) => T[]
 >array : T[]
->slice : (start?: 数字, end?: 数字) => T[]
+>slice : (start?: number, end?: number) => T[]
 >0 : 0
 
   static reversed<T>(dit: typeof ListWrapper2, array: T[]): T[] {
->reversed : <T>(dit: 类为 ListWrapper2, array: T[]) => T[]
+>reversed : <T>(dit: typeof ListWrapper2, array: T[]) => T[]
 >T : T
->dit : 类为 ListWrapper2
->ListWrapper2 : 类为 ListWrapper2
+>dit : typeof ListWrapper2
+>ListWrapper2 : typeof ListWrapper2
 >array : T[]
 >T : T
 >T : T
@@ -59,10 +56,10 @@ class ListWrapper2 {
     var a = ListWrapper2.clone(dit, array);
 >a : T[]
 >ListWrapper2.clone(dit, array) : T[]
->ListWrapper2.clone : <T>(dit: 类为 ListWrapper2, array: T[]) => T[]
->ListWrapper2 : 类为 ListWrapper2
->clone : <T>(dit: 类为 ListWrapper2, array: T[]) => T[]
->dit : 类为 ListWrapper2
+>ListWrapper2.clone : <T>(dit: typeof ListWrapper2, array: T[]) => T[]
+>ListWrapper2 : typeof ListWrapper2
+>clone : <T>(dit: typeof ListWrapper2, array: T[]) => T[]
+>dit : typeof ListWrapper2
 >array : T[]
 
     return a;
@@ -70,7 +67,7 @@ class ListWrapper2 {
   }
 }
 namespace tessst {
->tessst : 类为 tessst
+>tessst : typeof tessst
 
     /**
      * Iterates through 'array' by index and performs the callback on each element of array until the callback
@@ -78,16 +75,15 @@ namespace tessst {
      * If no such value is found, the callback is applied to each element of array and undefined is returned.
      */
     export function funkyFor<T, U>(array: T[], callback: (element: T, index: number) => U): U {
->funkyFor : <T, U>(array: T[], callback: (element: T, index: 数字) => U) => U
+>funkyFor : <T, U>(array: T[], callback: (element: T, index: number) => U) => U
 >T : T
 >U : U
 >array : T[]
 >T : T
->callback : (element: T, index: 数字) => U
+>callback : (element: T, index: number) => U
 >element : T
 >T : T
->index : 数字
->类型别名 :=> 数字
+>index : number
 >U : U
 >U : U
 
@@ -95,37 +91,26 @@ namespace tessst {
 >array : T[]
 
             for (let i = 0, len = array.length; i < len; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->len : 数字
->类型别名 :=> 数字
->array.length : 数字
->类型别名 :=> 数字
+>len : number
+>array.length : number
 >array : T[]
->length : 数字
->类型别名 :=> 数字
->i < len : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->len : 数字
->类型别名 :=> 数字
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>length : number
+>i < len : boolean
+>i : number
+>len : number
+>i++ : number
+>i : number
 
                 const result = callback(array[i], i);
 >result : U
 >callback(array[i], i) : U
->callback : (element: T, index: 数字) => U
+>callback : (element: T, index: number) => U
 >array[i] : T
 >array : T[]
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i : number
+>i : number
 
                 if (result) {
 >result : U
@@ -136,20 +121,17 @@ namespace tessst {
             }
         }
         return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
     }
 }
 interface Scanner {
 >Scanner : Scanner
 
   scanRange<T>(start: number, length: number, callback: () => T): T;
->scanRange : <T>(start: 数字, length: 数字, callback: () => T) => T
+>scanRange : <T>(start: number, length: number, callback: () => T) => T
 >T : T
->start : 数字
->类型别名 :=> 数字
->length : 数字
->类型别名 :=> 数字
+>start : number
+>length : number
 >callback : () => T
 >T : T
 >T : T
@@ -160,99 +142,82 @@ class ListWrapper {
   // JS has no way to express a statically fixed size list, but dart does so we
   // keep both methods.
   static createFixedSize(dit: typeof ListWrapper, size: number): any[] { return new Array(size); }
->createFixedSize : (dit: 类为 ListWrapper, size: 数字) => 任意[]
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
->size : 数字
->类型别名 :=> 数字
->new Array(size) : 任意[]
+>createFixedSize : (dit: typeof ListWrapper, size: number) => any[]
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
+>size : number
+>new Array(size) : any[]
 >Array : ArrayConstructor
->size : 数字
->类型别名 :=> 数字
+>size : number
 
   static createGrowableSize(dit: typeof ListWrapper, size: number): any[] { return new Array(size); }
->createGrowableSize : (dit: 类为 ListWrapper, size: 数字) => 任意[]
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
->size : 数字
->类型别名 :=> 数字
->new Array(size) : 任意[]
+>createGrowableSize : (dit: typeof ListWrapper, size: number) => any[]
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
+>size : number
+>new Array(size) : any[]
 >Array : ArrayConstructor
->size : 数字
->类型别名 :=> 数字
+>size : number
 
   static clone<T>(dit: typeof ListWrapper, array: T[]): T[] { return array.slice(0); }
->clone : <T>(dit: 类为 ListWrapper, array: T[]) => T[]
+>clone : <T>(dit: typeof ListWrapper, array: T[]) => T[]
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >array : T[]
 >T : T
 >T : T
 >array.slice(0) : T[]
->array.slice : (start?: 数字, end?: 数字) => T[]
+>array.slice : (start?: number, end?: number) => T[]
 >array : T[]
->slice : (start?: 数字, end?: 数字) => T[]
+>slice : (start?: number, end?: number) => T[]
 >0 : 0
 
   static forEachWithIndex<T>(dit: typeof ListWrapper, array: T[], fn: (t: T, n: number) => void) {
->forEachWithIndex : <T>(dit: 类为 ListWrapper, array: T[], fn: (t: T, n: 数字) => 无值) => 无值
+>forEachWithIndex : <T>(dit: typeof ListWrapper, array: T[], fn: (t: T, n: number) => void) => void
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >array : T[]
 >T : T
->fn : (t: T, n: 数字) => 无值
+>fn : (t: T, n: number) => void
 >t : T
 >T : T
->n : 数字
->类型别名 :=> 数字
+>n : number
 
     for (var i = 0; i < array.length; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < array.length : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->array.length : 数字
->类型别名 :=> 数字
+>i < array.length : boolean
+>i : number
+>array.length : number
 >array : T[]
->length : 数字
->类型别名 :=> 数字
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>length : number
+>i++ : number
+>i : number
 
       fn(array[i], i);
->fn(array[i], i) : 无值
->类型别名 :=> 无值
->fn : (t: T, n: 数字) => 无值
+>fn(array[i], i) : void
+>fn : (t: T, n: number) => void
 >array[i] : T
 >array : T[]
->i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i : number
+>i : number
     }
   }
   static first<T>(dit: typeof ListWrapper, array: T[]): T {
->first : <T>(dit: 类为 ListWrapper, array: T[]) => T
+>first : <T>(dit: typeof ListWrapper, array: T[]) => T
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >array : T[]
 >T : T
 >T : T
 
     if (!array) return null;
->!array : 真假
->类型别名 :=> 真假
+>!array : boolean
 >array : T[]
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     return array[0];
 >array[0] : T
@@ -260,91 +225,77 @@ class ListWrapper {
 >0 : 0
   }
   static last<T>(dit: typeof ListWrapper, array: T[]): T {
->last : <T>(dit: 类为 ListWrapper, array: T[]) => T
+>last : <T>(dit: typeof ListWrapper, array: T[]) => T
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >array : T[]
 >T : T
 >T : T
 
     if (!array || array.length == 0) return null;
->!array || array.length == 0 : 真假
->类型别名 :=> 真假
->!array : 真假
->类型别名 :=> 真假
+>!array || array.length == 0 : boolean
+>!array : boolean
 >array : T[]
->array.length == 0 : 真假
->类型别名 :=> 真假
->array.length : 数字
->类型别名 :=> 数字
+>array.length == 0 : boolean
+>array.length : number
 >array : T[]
->length : 数字
->类型别名 :=> 数字
+>length : number
 >0 : 0
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     return array[array.length - 1];
 >array[array.length - 1] : T
 >array : T[]
->array.length - 1 : 数字
->类型别名 :=> 数字
->array.length : 数字
->类型别名 :=> 数字
+>array.length - 1 : number
+>array.length : number
 >array : T[]
->length : 数字
->类型别名 :=> 数字
+>length : number
 >1 : 1
   }
   static indexOf<T>(dit: typeof ListWrapper, array: T[], value: T, startIndex: number = 0): number {
->indexOf : <T>(dit: 类为 ListWrapper, array: T[], value: T, startIndex?: 数字) => 数字
+>indexOf : <T>(dit: typeof ListWrapper, array: T[], value: T, startIndex?: number) => number
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >array : T[]
 >T : T
 >value : T
 >T : T
->startIndex : 数字
->类型别名 :=> 数字
+>startIndex : number
 >0 : 0
 
     return array.indexOf(value, startIndex);
->array.indexOf(value, startIndex) : 数字
->类型别名 :=> 数字
->array.indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>array.indexOf(value, startIndex) : number
+>array.indexOf : (searchElement: T, fromIndex?: number) => number
 >array : T[]
->indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>indexOf : (searchElement: T, fromIndex?: number) => number
 >value : T
->startIndex : 数字
->类型别名 :=> 数字
+>startIndex : number
   }
   static contains<T>(dit: typeof ListWrapper, list: T[], el: T): boolean { return list.indexOf(el) !== -1; }
->contains : <T>(dit: 类为 ListWrapper, list: T[], el: T) => 真假
+>contains : <T>(dit: typeof ListWrapper, list: T[], el: T) => boolean
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >list : T[]
 >T : T
 >el : T
 >T : T
->list.indexOf(el) !== -1 : 真假
->类型别名 :=> 真假
->list.indexOf(el) : 数字
->类型别名 :=> 数字
->list.indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>list.indexOf(el) !== -1 : boolean
+>list.indexOf(el) : number
+>list.indexOf : (searchElement: T, fromIndex?: number) => number
 >list : T[]
->indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>indexOf : (searchElement: T, fromIndex?: number) => number
 >el : T
 >-1 : -1
 >1 : 1
 
   static reversed<T>(dit: typeof ListWrapper, array: T[]): T[] {
->reversed : <T>(dit: 类为 ListWrapper, array: T[]) => T[]
+>reversed : <T>(dit: typeof ListWrapper, array: T[]) => T[]
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >array : T[]
 >T : T
 >T : T
@@ -352,10 +303,10 @@ class ListWrapper {
     var a = ListWrapper.clone(dit, array);
 >a : T[]
 >ListWrapper.clone(dit, array) : T[]
->ListWrapper.clone : <T>(dit: 类为 ListWrapper, array: T[]) => T[]
->ListWrapper : 类为 ListWrapper
->clone : <T>(dit: 类为 ListWrapper, array: T[]) => T[]
->dit : 类为 ListWrapper
+>ListWrapper.clone : <T>(dit: typeof ListWrapper, array: T[]) => T[]
+>ListWrapper : typeof ListWrapper
+>clone : <T>(dit: typeof ListWrapper, array: T[]) => T[]
+>dit : typeof ListWrapper
 >array : T[]
 
     let scanner: Scanner;
@@ -363,30 +314,27 @@ class ListWrapper {
 >Scanner : Scanner
 
     scanner.scanRange(3, 5, () => {  });
->scanner.scanRange(3, 5, () => {  }) : 无值
->类型别名 :=> 无值
->scanner.scanRange : <T>(start: 数字, length: 数字, callback: () => T) => T
+>scanner.scanRange(3, 5, () => {  }) : void
+>scanner.scanRange : <T>(start: number, length: number, callback: () => T) => T
 >scanner : Scanner
->scanRange : <T>(start: 数字, length: 数字, callback: () => T) => T
+>scanRange : <T>(start: number, length: number, callback: () => T) => T
 >3 : 3
 >5 : 5
->() => {  } : () => 无值
+>() => {  } : () => void
 
     return tessst.funkyFor(array, t => t.toString()) ? a.reverse() : a;
 >tessst.funkyFor(array, t => t.toString()) ? a.reverse() : a : T[]
->tessst.funkyFor(array, t => t.toString()) : 文字
->类型别名 :=> 文字
->tessst.funkyFor : <T, U>(array: T[], callback: (element: T, index: 数字) => U) => U
->tessst : 类为 tessst
->funkyFor : <T, U>(array: T[], callback: (element: T, index: 数字) => U) => U
+>tessst.funkyFor(array, t => t.toString()) : string
+>tessst.funkyFor : <T, U>(array: T[], callback: (element: T, index: number) => U) => U
+>tessst : typeof tessst
+>funkyFor : <T, U>(array: T[], callback: (element: T, index: number) => U) => U
 >array : T[]
->t => t.toString() : (t: T) => 文字
+>t => t.toString() : (t: T) => string
 >t : T
->t.toString() : 文字
->类型别名 :=> 文字
->t.toString : () => 文字
+>t.toString() : string
+>t.toString : () => string
 >t : T
->toString : () => 文字
+>toString : () => string
 >a.reverse() : T[]
 >a.reverse : () => T[]
 >a : T[]
@@ -394,498 +342,397 @@ class ListWrapper {
 >a : T[]
   }
   static concat(dit: typeof ListWrapper, a: any[], b: any[]): any[] { return a.concat(b); }
->concat : (dit: 类为 ListWrapper, a: 任意[], b: 任意[]) => 任意[]
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
->a : 任意[]
->b : 任意[]
->a.concat(b) : 任意[]
->a.concat : { (...items: ReadonlyArray<任意>[]): 任意[]; (...items: 任意[]): 任意[]; }
->a : 任意[]
->concat : { (...items: ReadonlyArray<任意>[]): 任意[]; (...items: 任意[]): 任意[]; }
->b : 任意[]
+>concat : (dit: typeof ListWrapper, a: any[], b: any[]) => any[]
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
+>a : any[]
+>b : any[]
+>a.concat(b) : any[]
+>a.concat : { (...items: ConcatArray<any>[]): any[]; (...items: any[]): any[]; }
+>a : any[]
+>concat : { (...items: ConcatArray<any>[]): any[]; (...items: any[]): any[]; }
+>b : any[]
 
   static insert<T>(dit: typeof ListWrapper, list: T[], index: number, value: T) { list.splice(index, 0, value); }
->insert : <T>(dit: 类为 ListWrapper, list: T[], index: 数字, value: T) => 无值
+>insert : <T>(dit: typeof ListWrapper, list: T[], index: number, value: T) => void
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >list : T[]
 >T : T
->index : 数字
->类型别名 :=> 数字
+>index : number
 >value : T
 >T : T
 >list.splice(index, 0, value) : T[]
->list.splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
+>list.splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
 >list : T[]
->splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
->index : 数字
->类型别名 :=> 数字
+>splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
+>index : number
 >0 : 0
 >value : T
 
   static removeAt<T>(dit: typeof ListWrapper, list: T[], index: number): T {
->removeAt : <T>(dit: 类为 ListWrapper, list: T[], index: 数字) => T
+>removeAt : <T>(dit: typeof ListWrapper, list: T[], index: number) => T
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >list : T[]
 >T : T
->index : 数字
->类型别名 :=> 数字
+>index : number
 >T : T
 
     var res = list[index];
 >res : T
 >list[index] : T
 >list : T[]
->index : 数字
->类型别名 :=> 数字
+>index : number
 
     list.splice(index, 1);
 >list.splice(index, 1) : T[]
->list.splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
+>list.splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
 >list : T[]
->splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
->index : 数字
->类型别名 :=> 数字
+>splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
+>index : number
 >1 : 1
 
     return res;
 >res : T
   }
   static removeAll<T>(dit: typeof ListWrapper, list: T[], items: T[]) {
->removeAll : <T>(dit: 类为 ListWrapper, list: T[], items: T[]) => 无值
+>removeAll : <T>(dit: typeof ListWrapper, list: T[], items: T[]) => void
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >list : T[]
 >T : T
 >items : T[]
 >T : T
 
     for (var i = 0; i < items.length; ++i) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < items.length : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->items.length : 数字
->类型别名 :=> 数字
+>i < items.length : boolean
+>i : number
+>items.length : number
 >items : T[]
->length : 数字
->类型别名 :=> 数字
->++i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>length : number
+>++i : number
+>i : number
 
       var index = list.indexOf(items[i]);
->index : 数字
->类型别名 :=> 数字
->list.indexOf(items[i]) : 数字
->类型别名 :=> 数字
->list.indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>index : number
+>list.indexOf(items[i]) : number
+>list.indexOf : (searchElement: T, fromIndex?: number) => number
 >list : T[]
->indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>indexOf : (searchElement: T, fromIndex?: number) => number
 >items[i] : T
 >items : T[]
->i : 数字
->类型别名 :=> 数字
+>i : number
 
       list.splice(index, 1);
 >list.splice(index, 1) : T[]
->list.splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
+>list.splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
 >list : T[]
->splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
->index : 数字
->类型别名 :=> 数字
+>splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
+>index : number
 >1 : 1
     }
   }
   static remove<T>(dit: typeof ListWrapper, list: T[], el: T): boolean {
->remove : <T>(dit: 类为 ListWrapper, list: T[], el: T) => 真假
+>remove : <T>(dit: typeof ListWrapper, list: T[], el: T) => boolean
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >list : T[]
 >T : T
 >el : T
 >T : T
 
     var index = list.indexOf(el);
->index : 数字
->类型别名 :=> 数字
->list.indexOf(el) : 数字
->类型别名 :=> 数字
->list.indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>index : number
+>list.indexOf(el) : number
+>list.indexOf : (searchElement: T, fromIndex?: number) => number
 >list : T[]
->indexOf : (searchElement: T, fromIndex?: 数字) => 数字
+>indexOf : (searchElement: T, fromIndex?: number) => number
 >el : T
 
     if (index > -1) {
->index > -1 : 真假
->类型别名 :=> 真假
->index : 数字
->类型别名 :=> 数字
+>index > -1 : boolean
+>index : number
 >-1 : -1
 >1 : 1
 
       list.splice(index, 1);
 >list.splice(index, 1) : T[]
->list.splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
+>list.splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
 >list : T[]
->splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
->index : 数字
->类型别名 :=> 数字
+>splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
+>index : number
 >1 : 1
 
       return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
     }
     return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
   }
   static clear(dit: typeof ListWrapper, list: any[]) { list.length = 0; }
->clear : (dit: 类为 ListWrapper, list: 任意[]) => 无值
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
->list : 任意[]
+>clear : (dit: typeof ListWrapper, list: any[]) => void
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
+>list : any[]
 >list.length = 0 : 0
->list.length : 数字
->类型别名 :=> 数字
->list : 任意[]
->length : 数字
->类型别名 :=> 数字
+>list.length : number
+>list : any[]
+>length : number
 >0 : 0
 
   static isEmpty(dit: typeof ListWrapper, list: any[]): boolean { return list.length == 0; }
->isEmpty : (dit: 类为 ListWrapper, list: 任意[]) => 真假
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
->list : 任意[]
->list.length == 0 : 真假
->类型别名 :=> 真假
->list.length : 数字
->类型别名 :=> 数字
->list : 任意[]
->length : 数字
->类型别名 :=> 数字
+>isEmpty : (dit: typeof ListWrapper, list: any[]) => boolean
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
+>list : any[]
+>list.length == 0 : boolean
+>list.length : number
+>list : any[]
+>length : number
 >0 : 0
 
   static fill(dit: typeof ListWrapper, list: any[], value: any, start: number = 0, end: number = null) {
->fill : (dit: 类为 ListWrapper, list: 任意[], value: 任意, start?: 数字, end?: 数字) => 无值
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
->list : 任意[]
->value : 任意
->类型别名 :=> 任意
->start : 数字
->类型别名 :=> 数字
+>fill : (dit: typeof ListWrapper, list: any[], value: any, start?: number, end?: number) => void
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
+>list : any[]
+>value : any
+>start : number
 >0 : 0
->end : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
+>end : number
+>null : null
 
     list.fill(value, start, end === null ? list.length : end);
->list.fill(value, start, end === null ? list.length : end) : 无值
->类型别名 :=> 无值
->list.fill : (value: 任意, start: 数字, end: 数字) => 无值
->list : 任意[]
->fill : (value: 任意, start: 数字, end: 数字) => 无值
->value : 任意
->类型别名 :=> 任意
->start : 数字
->类型别名 :=> 数字
->end === null ? list.length : end : 数字
->类型别名 :=> 数字
->end === null : 真假
->类型别名 :=> 真假
->end : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
->list.length : 数字
->类型别名 :=> 数字
->list : 任意[]
->length : 数字
->类型别名 :=> 数字
->end : 数字
->类型别名 :=> 数字
+>list.fill(value, start, end === null ? list.length : end) : void
+>list.fill : (value: any, start: number, end: number) => void
+>list : any[]
+>fill : (value: any, start: number, end: number) => void
+>value : any
+>start : number
+>end === null ? list.length : end : number
+>end === null : boolean
+>end : number
+>null : null
+>list.length : number
+>list : any[]
+>length : number
+>end : number
   }
   static equals(dit: typeof ListWrapper, a: any[], b: any[]): boolean {
->equals : (dit: 类为 ListWrapper, a: 任意[], b: 任意[]) => 真假
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
->a : 任意[]
->b : 任意[]
+>equals : (dit: typeof ListWrapper, a: any[], b: any[]) => boolean
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
+>a : any[]
+>b : any[]
 
     if (a.length != b.length) return false;
->a.length != b.length : 真假
->类型别名 :=> 真假
->a.length : 数字
->类型别名 :=> 数字
->a : 任意[]
->length : 数字
->类型别名 :=> 数字
->b.length : 数字
->类型别名 :=> 数字
->b : 任意[]
->length : 数字
->类型别名 :=> 数字
->false : 为假
->类型别名 :=> 为假
+>a.length != b.length : boolean
+>a.length : number
+>a : any[]
+>length : number
+>b.length : number
+>b : any[]
+>length : number
+>false : false
 
     for (var i = 0; i < a.length; ++i) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < a.length : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->a.length : 数字
->类型别名 :=> 数字
->a : 任意[]
->length : 数字
->类型别名 :=> 数字
->++i : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i < a.length : boolean
+>i : number
+>a.length : number
+>a : any[]
+>length : number
+>++i : number
+>i : number
 
       if (a[i] !== b[i]) return false;
->a[i] !== b[i] : 真假
->类型别名 :=> 真假
->a[i] : 任意
->类型别名 :=> 任意
->a : 任意[]
->i : 数字
->类型别名 :=> 数字
->b[i] : 任意
->类型别名 :=> 任意
->b : 任意[]
->i : 数字
->类型别名 :=> 数字
->false : 为假
->类型别名 :=> 为假
+>a[i] !== b[i] : boolean
+>a[i] : any
+>a : any[]
+>i : number
+>b[i] : any
+>b : any[]
+>i : number
+>false : false
     }
     return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
   }
   static slice<T>(dit: typeof ListWrapper, l: T[], from: number = 0, to: number = null): T[] {
->slice : <T>(dit: 类为 ListWrapper, l: T[], from?: 数字, to?: 数字) => T[]
+>slice : <T>(dit: typeof ListWrapper, l: T[], from?: number, to?: number) => T[]
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >l : T[]
 >T : T
->from : 数字
->类型别名 :=> 数字
+>from : number
 >0 : 0
->to : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
+>to : number
+>null : null
 >T : T
 
     return l.slice(from, to === null ? undefined : to);
 >l.slice(from, to === null ? undefined : to) : T[]
->l.slice : (start?: 数字, end?: 数字) => T[]
+>l.slice : (start?: number, end?: number) => T[]
 >l : T[]
->slice : (start?: 数字, end?: 数字) => T[]
->from : 数字
->类型别名 :=> 数字
->to === null ? undefined : to : 数字
->类型别名 :=> 数字
->to === null : 真假
->类型别名 :=> 真假
->to : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
->undefined : 未定
->类型别名 :=> 未定
->to : 数字
->类型别名 :=> 数字
+>slice : (start?: number, end?: number) => T[]
+>from : number
+>to === null ? undefined : to : number
+>to === null : boolean
+>to : number
+>null : null
+>undefined : undefined
+>to : number
   }
   static splice<T>(dit: typeof ListWrapper, l: T[], from: number, length: number): T[] { return l.splice(from, length); }
->splice : <T>(dit: 类为 ListWrapper, l: T[], from: 数字, length: 数字) => T[]
+>splice : <T>(dit: typeof ListWrapper, l: T[], from: number, length: number) => T[]
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >l : T[]
 >T : T
->from : 数字
->类型别名 :=> 数字
->length : 数字
->类型别名 :=> 数字
+>from : number
+>length : number
 >T : T
 >l.splice(from, length) : T[]
->l.splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
+>l.splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
 >l : T[]
->splice : { (start: 数字, deleteCount?: 数字): T[]; (start: 数字, deleteCount: 数字, ...items: T[]): T[]; }
->from : 数字
->类型别名 :=> 数字
->length : 数字
->类型别名 :=> 数字
+>splice : { (start: number, deleteCount?: number): T[]; (start: number, deleteCount: number, ...items: T[]): T[]; }
+>from : number
+>length : number
 
   static sort<T>(dit: typeof ListWrapper, l: T[], compareFn?: (a: T, b: T) => number) {
->sort : <T>(dit: 类为 ListWrapper, l: T[], compareFn?: (a: T, b: T) => 数字) => 无值
+>sort : <T>(dit: typeof ListWrapper, l: T[], compareFn?: (a: T, b: T) => number) => void
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >l : T[]
 >T : T
->compareFn : (a: T, b: T) => 数字
+>compareFn : (a: T, b: T) => number
 >a : T
 >T : T
 >b : T
 >T : T
 
     if (isPresent(compareFn)) {
->isPresent(compareFn) : 真假
->类型别名 :=> 真假
->isPresent : <T>(compareFn?: (a: T, b: T) => 数字) => 真假
->compareFn : (a: T, b: T) => 数字
+>isPresent(compareFn) : boolean
+>isPresent : <T>(compareFn?: (a: T, b: T) => number) => boolean
+>compareFn : (a: T, b: T) => number
 
       l.sort(compareFn);
 >l.sort(compareFn) : T[]
->l.sort : (compareFn?: (a: T, b: T) => 数字) => T[]
+>l.sort : (compareFn?: (a: T, b: T) => number) => T[]
 >l : T[]
->sort : (compareFn?: (a: T, b: T) => 数字) => T[]
->compareFn : (a: T, b: T) => 数字
+>sort : (compareFn?: (a: T, b: T) => number) => T[]
+>compareFn : (a: T, b: T) => number
 
     } else {
       l.sort();
 >l.sort() : T[]
->l.sort : (compareFn?: (a: T, b: T) => 数字) => T[]
+>l.sort : (compareFn?: (a: T, b: T) => number) => T[]
 >l : T[]
->sort : (compareFn?: (a: T, b: T) => 数字) => T[]
+>sort : (compareFn?: (a: T, b: T) => number) => T[]
     }
   }
   static toString<T>(dit: typeof ListWrapper, l: T[]): string { return l.toString(); }
->toString : <T>(dit: 类为 ListWrapper, l: T[]) => 文字
+>toString : <T>(dit: typeof ListWrapper, l: T[]) => string
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >l : T[]
 >T : T
->l.toString() : 文字
->类型别名 :=> 文字
->l.toString : () => 文字
+>l.toString() : string
+>l.toString : () => string
 >l : T[]
->toString : () => 文字
+>toString : () => string
 
   static toJSON<T>(dit: typeof ListWrapper, l: T[]): string { return JSON.stringify(l); }
->toJSON : <T>(dit: 类为 ListWrapper, l: T[]) => 文字
+>toJSON : <T>(dit: typeof ListWrapper, l: T[]) => string
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >l : T[]
 >T : T
->JSON.stringify(l) : 文字
->类型别名 :=> 文字
->JSON.stringify : { (value: 任意, replacer?: (key: 文字, value: 任意) => 任意, space?: 文字 | 数字): 文字; (value: 任意, replacer?: (文字 | 数字)[], space?: 文字 | 数字): 文字; }
+>JSON.stringify(l) : string
+>JSON.stringify : { (value: any, replacer?: (key: string, value: any) => any, space?: string | number): string; (value: any, replacer?: (string | number)[], space?: string | number): string; }
 >JSON : JSON
->stringify : { (value: 任意, replacer?: (key: 文字, value: 任意) => 任意, space?: 文字 | 数字): 文字; (value: 任意, replacer?: (文字 | 数字)[], space?: 文字 | 数字): 文字; }
+>stringify : { (value: any, replacer?: (key: string, value: any) => any, space?: string | number): string; (value: any, replacer?: (string | number)[], space?: string | number): string; }
 >l : T[]
 
   static maximum<T>(dit: typeof ListWrapper, list: T[], predicate: (t: T) => number): T {
->maximum : <T>(dit: 类为 ListWrapper, list: T[], predicate: (t: T) => 数字) => T
+>maximum : <T>(dit: typeof ListWrapper, list: T[], predicate: (t: T) => number) => T
 >T : T
->dit : 类为 ListWrapper
->ListWrapper : 类为 ListWrapper
+>dit : typeof ListWrapper
+>ListWrapper : typeof ListWrapper
 >list : T[]
 >T : T
->predicate : (t: T) => 数字
+>predicate : (t: T) => number
 >t : T
 >T : T
 >T : T
 
     if (list.length == 0) {
->list.length == 0 : 真假
->类型别名 :=> 真假
->list.length : 数字
->类型别名 :=> 数字
+>list.length == 0 : boolean
+>list.length : number
 >list : T[]
->length : 数字
->类型别名 :=> 数字
+>length : number
 >0 : 0
 
       return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
     var solution: T = null;
 >solution : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     var maxValue = -Infinity;
->maxValue : 数字
->类型别名 :=> 数字
->-Infinity : 数字
->类型别名 :=> 数字
->Infinity : 数字
->类型别名 :=> 数字
+>maxValue : number
+>-Infinity : number
+>Infinity : number
 
     for (var index = 0; index < list.length; index++) {
->index : 数字
->类型别名 :=> 数字
+>index : number
 >0 : 0
->index < list.length : 真假
->类型别名 :=> 真假
->index : 数字
->类型别名 :=> 数字
->list.length : 数字
->类型别名 :=> 数字
+>index < list.length : boolean
+>index : number
+>list.length : number
 >list : T[]
->length : 数字
->类型别名 :=> 数字
->index++ : 数字
->类型别名 :=> 数字
->index : 数字
->类型别名 :=> 数字
+>length : number
+>index++ : number
+>index : number
 
       var candidate = list[index];
 >candidate : T
 >list[index] : T
 >list : T[]
->index : 数字
->类型别名 :=> 数字
+>index : number
 
       if (isBlank(candidate)) {
->isBlank(candidate) : 真假
->类型别名 :=> 真假
->isBlank : (x: 任意) => 真假
+>isBlank(candidate) : boolean
+>isBlank : (x: any) => boolean
 >candidate : T
 
         continue;
       }
       var candidateValue = predicate(candidate);
->candidateValue : 数字
->类型别名 :=> 数字
->predicate(candidate) : 数字
->类型别名 :=> 数字
->predicate : (t: T) => 数字
+>candidateValue : number
+>predicate(candidate) : number
+>predicate : (t: T) => number
 >candidate : T
 
       if (candidateValue > maxValue) {
->candidateValue > maxValue : 真假
->类型别名 :=> 真假
->candidateValue : 数字
->类型别名 :=> 数字
->maxValue : 数字
->类型别名 :=> 数字
+>candidateValue > maxValue : boolean
+>candidateValue : number
+>maxValue : number
 
         solution = candidate;
 >solution = candidate : T
@@ -893,12 +740,9 @@ class ListWrapper {
 >candidate : T
 
         maxValue = candidateValue;
->maxValue = candidateValue : 数字
->类型别名 :=> 数字
->maxValue : 数字
->类型别名 :=> 数字
->candidateValue : 数字
->类型别名 :=> 数字
+>maxValue = candidateValue : number
+>maxValue : number
+>candidateValue : number
       }
     }
     return solution;
@@ -906,27 +750,26 @@ class ListWrapper {
   }
 }
 let cloned = ListWrapper.clone(ListWrapper, [1,2,3,4]);
->cloned : 数字[]
->ListWrapper.clone(ListWrapper, [1,2,3,4]) : 数字[]
->ListWrapper.clone : <T>(dit: 类为 ListWrapper, array: T[]) => T[]
->ListWrapper : 类为 ListWrapper
->clone : <T>(dit: 类为 ListWrapper, array: T[]) => T[]
->ListWrapper : 类为 ListWrapper
->[1,2,3,4] : 数字[]
+>cloned : number[]
+>ListWrapper.clone(ListWrapper, [1,2,3,4]) : number[]
+>ListWrapper.clone : <T>(dit: typeof ListWrapper, array: T[]) => T[]
+>ListWrapper : typeof ListWrapper
+>clone : <T>(dit: typeof ListWrapper, array: T[]) => T[]
+>ListWrapper : typeof ListWrapper
+>[1,2,3,4] : number[]
 >1 : 1
 >2 : 2
 >3 : 3
 >4 : 4
 
 declare function isBlank(x: any): boolean;
->isBlank : (x: 任意) => 真假
->x : 任意
->类型别名 :=> 任意
+>isBlank : (x: any) => boolean
+>x : any
 
 declare function isPresent<T>(compareFn?: (a: T, b: T) => number): boolean;
->isPresent : <T>(compareFn?: (a: T, b: T) => 数字) => 真假
+>isPresent : <T>(compareFn?: (a: T, b: T) => number) => boolean
 >T : T
->compareFn : (a: T, b: T) => 数字
+>compareFn : (a: T, b: T) => number
 >a : T
 >T : T
 >b : T
@@ -937,11 +780,8 @@ interface Array<T> {
 >T : T
 
 	fill(value: any, start: number, end: number): void;
->fill : (value: 任意, start: 数字, end: 数字) => 无值
->value : 任意
->类型别名 :=> 任意
->start : 数字
->类型别名 :=> 数字
->end : 数字
->类型别名 :=> 数字
+>fill : (value: any, start: number, end: number) => void
+>value : any
+>start : number
+>end : number
 }

@@ -2,10 +2,10 @@
 // Repro from #12513
 
 function f1<K extends string, T>(obj: { [P in K]: T }, k: K) {
->f1 : <K 扩展 文字, T>(obj: { [P 位于 K]: T; }, k: K) => 无值
+>f1 : <K extends string, T>(obj: { [P in K]: T; }, k: K) => void
 >K : K
 >T : T
->obj : { [P 位于 K]: T; }
+>obj : { [P in K]: T; }
 >P : P
 >K : K
 >T : T
@@ -13,12 +13,10 @@ function f1<K extends string, T>(obj: { [P in K]: T }, k: K) {
 >K : K
 
     const b = k in obj;
->b : 真假
->类型别名 :=> 真假
->k in obj : 真假
->类型别名 :=> 真假
+>b : boolean
+>k in obj : boolean
 >k : K
->obj : { [P 位于 K]: T; }
+>obj : { [P in K]: T; }
 
     let k1: K;
 >k1 : K
@@ -26,77 +24,75 @@ function f1<K extends string, T>(obj: { [P in K]: T }, k: K) {
 
     for (k1 in obj) {
 >k1 : K
->obj : { [P 位于 K]: T; }
+>obj : { [P in K]: T; }
 
         let x1 = obj[k1];
->x1 : { [P 位于 K]: T; }[K]
->obj[k1] : { [P 位于 K]: T; }[K]
->obj : { [P 位于 K]: T; }
+>x1 : { [P in K]: T; }[K]
+>obj[k1] : { [P in K]: T; }[K]
+>obj : { [P in K]: T; }
 >k1 : K
     }
     for (let k2 in obj) {
 >k2 : K
->obj : { [P 位于 K]: T; }
+>obj : { [P in K]: T; }
 
         let x2 = obj[k2];
->x2 : { [P 位于 K]: T; }[K]
->obj[k2] : { [P 位于 K]: T; }[K]
->obj : { [P 位于 K]: T; }
+>x2 : { [P in K]: T; }[K]
+>obj[k2] : { [P in K]: T; }[K]
+>obj : { [P in K]: T; }
 >k2 : K
     }
 }
 
 function f2<T>(obj: { [P in keyof T]: T[P] }, k: keyof T) {
->f2 : <T>(obj: { [P 位于 键集 T]: T[P]; }, k: 键集 T) => 无值
+>f2 : <T>(obj: { [P in keyof T]: T[P]; }, k: keyof T) => void
 >T : T
->obj : { [P 位于 键集 T]: T[P]; }
+>obj : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
->k : 键集 T
+>k : keyof T
 >T : T
 
     const b = k in obj;
->b : 真假
->类型别名 :=> 真假
->k in obj : 真假
->类型别名 :=> 真假
->k : 键集 T
->obj : { [P 位于 键集 T]: T[P]; }
+>b : boolean
+>k in obj : boolean
+>k : keyof T
+>obj : { [P in keyof T]: T[P]; }
 
     let k1: keyof T;
->k1 : 键集 T
+>k1 : keyof T
 >T : T
 
     for (k1 in obj) {
->k1 : 键集 T
->obj : { [P 位于 键集 T]: T[P]; }
+>k1 : keyof T
+>obj : { [P in keyof T]: T[P]; }
 
         let x1 = obj[k1];
->x1 : { [P 位于 键集 T]: T[P]; }[键集 T]
->obj[k1] : { [P 位于 键集 T]: T[P]; }[键集 T]
->obj : { [P 位于 键集 T]: T[P]; }
->k1 : 键集 T
+>x1 : { [P in keyof T]: T[P]; }[keyof T]
+>obj[k1] : { [P in keyof T]: T[P]; }[keyof T]
+>obj : { [P in keyof T]: T[P]; }
+>k1 : keyof T
     }
     for (let k2 in obj) {
->k2 : 键集 T
->obj : { [P 位于 键集 T]: T[P]; }
+>k2 : keyof T
+>obj : { [P in keyof T]: T[P]; }
 
         let x2 = obj[k2];
->x2 : { [P 位于 键集 T]: T[P]; }[键集 T]
->obj[k2] : { [P 位于 键集 T]: T[P]; }[键集 T]
->obj : { [P 位于 键集 T]: T[P]; }
->k2 : 键集 T
+>x2 : { [P in keyof T]: T[P]; }[keyof T]
+>obj[k2] : { [P in keyof T]: T[P]; }[keyof T]
+>obj : { [P in keyof T]: T[P]; }
+>k2 : keyof T
     }
 }
 
 function f3<T, K extends keyof T>(obj: { [P in K]: T[P] }, k: K) {
->f3 : <T, K 扩展 键集 T>(obj: { [P 位于 K]: T[P]; }, k: K) => 无值
+>f3 : <T, K extends keyof T>(obj: { [P in K]: T[P]; }, k: K) => void
 >T : T
 >K : K
 >T : T
->obj : { [P 位于 K]: T[P]; }
+>obj : { [P in K]: T[P]; }
 >P : P
 >K : K
 >T : T
@@ -105,12 +101,10 @@ function f3<T, K extends keyof T>(obj: { [P in K]: T[P] }, k: K) {
 >K : K
 
     const b = k in obj;
->b : 真假
->类型别名 :=> 真假
->k in obj : 真假
->类型别名 :=> 真假
+>b : boolean
+>k in obj : boolean
 >k : K
->obj : { [P 位于 K]: T[P]; }
+>obj : { [P in K]: T[P]; }
 
     let k1: K;
 >k1 : K
@@ -118,22 +112,22 @@ function f3<T, K extends keyof T>(obj: { [P in K]: T[P] }, k: K) {
 
     for (k1 in obj) {
 >k1 : K
->obj : { [P 位于 K]: T[P]; }
+>obj : { [P in K]: T[P]; }
 
         let x1 = obj[k1];
->x1 : { [P 位于 K]: T[P]; }[K]
->obj[k1] : { [P 位于 K]: T[P]; }[K]
->obj : { [P 位于 K]: T[P]; }
+>x1 : { [P in K]: T[P]; }[K]
+>obj[k1] : { [P in K]: T[P]; }[K]
+>obj : { [P in K]: T[P]; }
 >k1 : K
     }
     for (let k2 in obj) {
 >k2 : K
->obj : { [P 位于 K]: T[P]; }
+>obj : { [P in K]: T[P]; }
 
         let x2 = obj[k2];
->x2 : { [P 位于 K]: T[P]; }[K]
->obj[k2] : { [P 位于 K]: T[P]; }[K]
->obj : { [P 位于 K]: T[P]; }
+>x2 : { [P in K]: T[P]; }[K]
+>obj[k2] : { [P in K]: T[P]; }[K]
+>obj : { [P in K]: T[P]; }
 >k2 : K
     }
 }

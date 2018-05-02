@@ -3,7 +3,7 @@
 // no errors expected except illegal constraints
 
 function foo<T, U extends T>(x: T, y: U): U { return y; }
->foo : <T, U 扩展 T>(x: T, y: U) => U
+>foo : <T, U extends T>(x: T, y: U) => U
 >T : T
 >U : U
 >T : T
@@ -15,18 +15,16 @@ function foo<T, U extends T>(x: T, y: U): U { return y; }
 >y : U
 
 var r = foo(1, 2);
->r : 数字
->类型别名 :=> 数字
+>r : number
 >foo(1, 2) : 2
->foo : <T, U 扩展 T>(x: T, y: U) => U
+>foo : <T, U extends T>(x: T, y: U) => U
 >1 : 1
 >2 : 2
 
 var r = foo({}, 1);
->r : 数字
->类型别名 :=> 数字
+>r : number
 >foo({}, 1) : 1
->foo : <T, U 扩展 T>(x: T, y: U) => U
+>foo : <T, U extends T>(x: T, y: U) => U
 >{} : {}
 >1 : 1
 
@@ -34,16 +32,14 @@ interface A {
 >A : A
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 interface B extends A {
 >B : B
 >A : A
 
     bar: number;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 }
 var a: A;
 >a : A
@@ -56,28 +52,25 @@ var b: B;
 var r2 = foo(a, b);
 >r2 : B
 >foo(a, b) : B
->foo : <T, U 扩展 T>(x: T, y: U) => U
+>foo : <T, U extends T>(x: T, y: U) => U
 >a : A
 >b : B
 
 var r3 = foo({ x: 1 }, { x: 2, y: 3 });
->r3 : { x: 数字; y: 数字; }
->foo({ x: 1 }, { x: 2, y: 3 }) : { x: 数字; y: 数字; }
->foo : <T, U 扩展 T>(x: T, y: U) => U
->{ x: 1 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>r3 : { x: number; y: number; }
+>foo({ x: 1 }, { x: 2, y: 3 }) : { x: number; y: number; }
+>foo : <T, U extends T>(x: T, y: U) => U
+>{ x: 1 } : { x: number; }
+>x : number
 >1 : 1
->{ x: 2, y: 3 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 2, y: 3 } : { x: number; y: number; }
+>x : number
 >2 : 2
->y : 数字
->类型别名 :=> 数字
+>y : number
 >3 : 3
 
 function foo2<T, U extends { length: T }>(x: T, y: U) { return y; }
->foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
+>foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
 >T : T
 >U : U
 >length : T
@@ -90,41 +83,38 @@ function foo2<T, U extends { length: T }>(x: T, y: U) { return y; }
 
 foo2(1, '');
 >foo2(1, '') : ""
->foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
+>foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
 >1 : 1
 >'' : ""
 
 foo2({}, { length: 2 }); 
->foo2({}, { length: 2 }) : { length: 数字; }
->foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
+>foo2({}, { length: 2 }) : { length: number; }
+>foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
 >{} : {}
->{ length: 2 } : { length: 数字; }
->length : 数字
->类型别名 :=> 数字
+>{ length: 2 } : { length: number; }
+>length : number
 >2 : 2
 
 foo2(1, { width: 3, length: 2 }); 
->foo2(1, { width: 3, length: 2 }) : { width: 数字; length: 数字; }
->foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
+>foo2(1, { width: 3, length: 2 }) : { width: number; length: number; }
+>foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
 >1 : 1
->{ width: 3, length: 2 } : { width: 数字; length: 数字; }
->width : 数字
->类型别名 :=> 数字
+>{ width: 3, length: 2 } : { width: number; length: number; }
+>width : number
 >3 : 3
->length : 数字
->类型别名 :=> 数字
+>length : number
 >2 : 2
 
 foo2(1, []);
->foo2(1, []) : 任意[]
->foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
+>foo2(1, []) : any[]
+>foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
 >1 : 1
->[] : 未定[]
+>[] : undefined[]
 
 foo2(1, ['']);
->foo2(1, ['']) : 文字[]
->foo2 : <T, U 扩展 { length: T; }>(x: T, y: U) => U
+>foo2(1, ['']) : string[]
+>foo2 : <T, U extends { length: T; }>(x: T, y: U) => U
 >1 : 1
->[''] : 文字[]
+>[''] : string[]
 >'' : ""
 

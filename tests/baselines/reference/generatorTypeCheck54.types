@@ -1,28 +1,24 @@
 === tests/cases/conformance/es6/yieldExpressions/generatorTypeCheck54.ts ===
 class Foo { x: number }
 >Foo : Foo
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 class Baz { z: number }
 >Baz : Baz
->z : 数字
->类型别名 :=> 数字
+>z : number
 
 function* g() {
->g : () => IterableIterator<任意>
+>g : () => IterableIterator<Foo | Baz>
 
     yield* [new Foo];
->yield* [new Foo] : 任意
->类型别名 :=> 任意
+>yield* [new Foo] : any
 >[new Foo] : Foo[]
 >new Foo : Foo
->Foo : 类为 Foo
+>Foo : typeof Foo
 
     yield* [new Baz];
->yield* [new Baz] : 任意
->类型别名 :=> 任意
+>yield* [new Baz] : any
 >[new Baz] : Baz[]
 >new Baz : Baz
->Baz : 类为 Baz
+>Baz : typeof Baz
 }

@@ -1,6 +1,6 @@
 === tests/cases/compiler/checkForObjectTooStrict.ts ===
 module Foo {
->Foo : 类为 Foo
+>Foo : typeof Foo
 
     export class Object {
 >Object : Object
@@ -14,15 +14,14 @@ module Foo {
 class Bar extends Foo.Object { // should work
 >Bar : Bar
 >Foo.Object : Foo.Object
->Foo : 类为 Foo
->Object : 类为 Foo.Object
+>Foo : typeof Foo
+>Object : typeof Foo.Object
 
     constructor () {
 
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 Foo.Object
+>super() : void
+>super : typeof Foo.Object
 
     }
 
@@ -36,8 +35,7 @@ class Baz extends Object {
     constructor () { // ERROR, as expected
 
         super();
->super() : 无值
->类型别名 :=> 无值
+>super() : void
 >super : ObjectConstructor
 
     }

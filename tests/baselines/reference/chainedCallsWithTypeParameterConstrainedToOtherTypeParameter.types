@@ -9,7 +9,7 @@ class Chain<T extends A> {
 >T : T
 
     then<S extends T>(cb: (x: T) => S): Chain<S> {
->then : <S 扩展 T>(cb: (x: T) => S) => Chain<S>
+>then : <S extends T>(cb: (x: T) => S) => Chain<S>
 >S : S
 >T : T
 >cb : (x: T) => S
@@ -20,8 +20,7 @@ class Chain<T extends A> {
 >S : S
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
@@ -29,64 +28,56 @@ class A {
 >A : A
 
     x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 class B extends A {
 >B : B
 >A : A
 
     y;
->y : 任意
->类型别名 :=> 任意
+>y : any
 }
 class C extends B {
 >C : C
 >B : B
 
     z;
->z : 任意
->类型别名 :=> 任意
+>z : any
 }
 
 // Ok to go down the chain, but error to try to climb back up
 (new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then(b => new A);
->(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then(b => new A) : 任意
->类型别名 :=> 任意
->(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then : 任意
->类型别名 :=> 任意
->(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B) : 任意
->类型别名 :=> 任意
->(new Chain(new A)).then(a => new B).then(b => new C).then : <S 扩展 C>(cb: (x: C) => S) => Chain<S>
+>(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then(b => new A) : any
+>(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B).then : any
+>(new Chain(new A)).then(a => new B).then(b => new C).then(c => new B) : any
+>(new Chain(new A)).then(a => new B).then(b => new C).then : <S extends C>(cb: (x: C) => S) => Chain<S>
 >(new Chain(new A)).then(a => new B).then(b => new C) : Chain<C>
->(new Chain(new A)).then(a => new B).then : <S 扩展 B>(cb: (x: B) => S) => Chain<S>
+>(new Chain(new A)).then(a => new B).then : <S extends B>(cb: (x: B) => S) => Chain<S>
 >(new Chain(new A)).then(a => new B) : Chain<B>
->(new Chain(new A)).then : <S 扩展 A>(cb: (x: A) => S) => Chain<S>
+>(new Chain(new A)).then : <S extends A>(cb: (x: A) => S) => Chain<S>
 >(new Chain(new A)) : Chain<A>
 >new Chain(new A) : Chain<A>
->Chain : 类为 Chain
+>Chain : typeof Chain
 >new A : A
->A : 类为 A
->then : <S 扩展 A>(cb: (x: A) => S) => Chain<S>
+>A : typeof A
+>then : <S extends A>(cb: (x: A) => S) => Chain<S>
 >a => new B : (a: A) => B
 >a : A
 >new B : B
->B : 类为 B
->then : <S 扩展 B>(cb: (x: B) => S) => Chain<S>
+>B : typeof B
+>then : <S extends B>(cb: (x: B) => S) => Chain<S>
 >b => new C : (b: B) => C
 >b : B
 >new C : C
->C : 类为 C
->then : <S 扩展 C>(cb: (x: C) => S) => Chain<S>
+>C : typeof C
+>then : <S extends C>(cb: (x: C) => S) => Chain<S>
 >c => new B : (c: C) => B
 >c : C
 >new B : B
->B : 类为 B
->then : 任意
->类型别名 :=> 任意
->b => new A : (b: 任意) => A
->b : 任意
->类型别名 :=> 任意
+>B : typeof B
+>then : any
+>b => new A : (b: any) => A
+>b : any
 >new A : A
->A : 类为 A
+>A : typeof A
 

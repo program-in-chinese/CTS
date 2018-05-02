@@ -1,90 +1,68 @@
 === tests/cases/compiler/libMembers.ts ===
 var s="hello";
->s : 文字
->类型别名 :=> 文字
+>s : string
 >"hello" : "hello"
 
 s.substring(0);
->s.substring(0) : 文字
->类型别名 :=> 文字
->s.substring : (start: 数字, end?: 数字) => 文字
->s : 文字
->类型别名 :=> 文字
->substring : (start: 数字, end?: 数字) => 文字
+>s.substring(0) : string
+>s.substring : (start: number, end?: number) => string
+>s : string
+>substring : (start: number, end?: number) => string
 >0 : 0
 
 s.substring(3,4);
->s.substring(3,4) : 文字
->类型别名 :=> 文字
->s.substring : (start: 数字, end?: 数字) => 文字
->s : 文字
->类型别名 :=> 文字
->substring : (start: 数字, end?: 数字) => 文字
+>s.substring(3,4) : string
+>s.substring : (start: number, end?: number) => string
+>s : string
+>substring : (start: number, end?: number) => string
 >3 : 3
 >4 : 4
 
 s.subby(12);   // error unresolved
->s.subby(12) : 任意
->类型别名 :=> 任意
->s.subby : 任意
->类型别名 :=> 任意
->s : 文字
->类型别名 :=> 文字
->subby : 任意
->类型别名 :=> 任意
+>s.subby(12) : any
+>s.subby : any
+>s : string
+>subby : any
 >12 : 12
 
 String.fromCharCode(12);
->String.fromCharCode(12) : 文字
->类型别名 :=> 文字
->String.fromCharCode : (...codes: 数字[]) => 文字
+>String.fromCharCode(12) : string
+>String.fromCharCode : (...codes: number[]) => string
 >String : StringConstructor
->fromCharCode : (...codes: 数字[]) => 文字
+>fromCharCode : (...codes: number[]) => string
 >12 : 12
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export class C {
 >C : C
     }
     var a=new C[];
->a : 任意
->类型别名 :=> 任意
->new C[] : 任意
->类型别名 :=> 任意
->C[] : 任意
->类型别名 :=> 任意
->C : 类为 C
+>a : any
+>new C[] : any
+>C[] : any
+>C : typeof C
 
     a.length;
->a.length : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>a.length : any
+>a : any
+>length : any
 
     a.push(new C());
->a.push(new C()) : 任意
->类型别名 :=> 任意
->a.push : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->push : 任意
->类型别名 :=> 任意
+>a.push(new C()) : any
+>a.push : any
+>a : any
+>push : any
 >new C() : C
->C : 类为 C
+>C : typeof C
 
     (new C()).prototype;
->(new C()).prototype : 任意
->类型别名 :=> 任意
+>(new C()).prototype : any
 >(new C()) : C
 >new C() : C
->C : 类为 C
->prototype : 任意
->类型别名 :=> 任意
+>C : typeof C
+>prototype : any
 }
 
 

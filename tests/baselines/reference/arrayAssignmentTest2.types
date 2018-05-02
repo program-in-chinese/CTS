@@ -3,7 +3,7 @@ interface I1 {
 >I1 : I1
 
 	IM1():void[];
->IM1 : () => 无值[]
+>IM1 : () => void[]
 }
 
 class C1 implements I1 { 
@@ -11,15 +11,13 @@ class C1 implements I1 {
 >I1 : I1
 
 	IM1():void[] {return null;}
->IM1 : () => 无值[]
->null : 空值
->类型别名 :=> 空值
+>IM1 : () => void[]
+>null : null
 
 	C1M1():C1[] {return null;}
 >C1M1 : () => C1[]
 >C1 : C1
->null : 空值
->类型别名 :=> 空值
+>null : null
  }
 class C2 extends C1 {
 >C2 : C2
@@ -28,15 +26,14 @@ class C2 extends C1 {
 	C2M1():C2[] { return null;}
 >C2M1 : () => C2[]
 >C2 : C2
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 
 class C3 {
 >C3 : C3
 
 	CM3M1() { return 3;}
->CM3M1 : () => 数字
+>CM3M1 : () => number
 >3 : 3
 }
 
@@ -53,16 +50,14 @@ Type 1 of any[]:
 
 */
 var a1 : any = null;
->a1 : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>a1 : any
+>null : null
 
 var c1 : C1 = new C1();
 >c1 : C1
 >C1 : C1
 >new C1() : C1
->C1 : 类为 C1
+>C1 : typeof C1
 
 var i1 : I1 = c1;
 >i1 : I1
@@ -73,65 +68,64 @@ var c2 : C2 = new C2();
 >c2 : C2
 >C2 : C2
 >new C2() : C2
->C2 : 类为 C2
+>C2 : typeof C2
 
 var c3 : C3 = new C3();
 >c3 : C3
 >C3 : C3
 >new C3() : C3
->C3 : 类为 C3
+>C3 : typeof C3
 
 var o1 = {one : 1};
->o1 : { one: 数字; }
->{one : 1} : { one: 数字; }
->one : 数字
->类型别名 :=> 数字
+>o1 : { one: number; }
+>{one : 1} : { one: number; }
+>one : number
 >1 : 1
 
 var f1 = function () { return new C1();}
 >f1 : () => C1
 >function () { return new C1();} : () => C1
 >new C1() : C1
->C1 : 类为 C1
+>C1 : typeof C1
 
 var arr_any: any[] = [];
->arr_any : 任意[]
->[] : 未定[]
+>arr_any : any[]
+>[] : undefined[]
 
 var arr_i1: I1[] = [];
 >arr_i1 : I1[]
 >I1 : I1
->[] : 未定[]
+>[] : undefined[]
 
 var arr_c1: C1[] = [];
 >arr_c1 : C1[]
 >C1 : C1
->[] : 未定[]
+>[] : undefined[]
 
 var arr_c2: C2[] = [];
 >arr_c2 : C2[]
 >C2 : C2
->[] : 未定[]
+>[] : undefined[]
 
 var arr_i1_2: I1[] = [];
 >arr_i1_2 : I1[]
 >I1 : I1
->[] : 未定[]
+>[] : undefined[]
 
 var arr_c1_2: C1[] = [];
 >arr_c1_2 : C1[]
 >C1 : C1
->[] : 未定[]
+>[] : undefined[]
 
 var arr_c2_2: C2[] = [];
 >arr_c2_2 : C2[]
 >C2 : C2
->[] : 未定[]
+>[] : undefined[]
 
 var arr_c3: C3[] = [];
 >arr_c3 : C3[]
 >C3 : C3
->[] : 未定[]
+>[] : undefined[]
 
 // "clean up error" occurs at this point
 arr_c3 = arr_c2_2; // should be an error - is
@@ -151,45 +145,42 @@ arr_c3 = arr_i1_2; // should be an error - is
 
 arr_any = f1; // should be an error - is
 >arr_any = f1 : () => C1
->arr_any : 任意[]
+>arr_any : any[]
 >f1 : () => C1
 
 arr_any = function () { return null;} // should be an error - is
->arr_any = function () { return null;} : () => 任意
->arr_any : 任意[]
->function () { return null;} : () => 任意
->null : 空值
->类型别名 :=> 空值
+>arr_any = function () { return null;} : () => any
+>arr_any : any[]
+>function () { return null;} : () => any
+>null : null
 
 arr_any = o1; // should be an error - is
->arr_any = o1 : { one: 数字; }
->arr_any : 任意[]
->o1 : { one: 数字; }
+>arr_any = o1 : { one: number; }
+>arr_any : any[]
+>o1 : { one: number; }
 
 arr_any = a1; // should be ok - is
->arr_any = a1 : 任意
->类型别名 :=> 任意
->arr_any : 任意[]
->a1 : 任意
->类型别名 :=> 任意
+>arr_any = a1 : any
+>arr_any : any[]
+>a1 : any
 
 arr_any = c1; // should be an error - is
 >arr_any = c1 : C1
->arr_any : 任意[]
+>arr_any : any[]
 >c1 : C1
 
 arr_any = c2; // should be an error - is
 >arr_any = c2 : C2
->arr_any : 任意[]
+>arr_any : any[]
 >c2 : C2
 
 arr_any = c3; // should be an error - is
 >arr_any = c3 : C3
->arr_any : 任意[]
+>arr_any : any[]
 >c3 : C3
 
 arr_any = i1; // should be an error - is
 >arr_any = i1 : I1
->arr_any : 任意[]
+>arr_any : any[]
 >i1 : I1
 

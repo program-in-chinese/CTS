@@ -1,157 +1,120 @@
 === tests/cases/compiler/overloadResolutionTest1.ts ===
 function foo(bar:{a:number;}[]):string;
->foo : { (bar: { a: 数字; }[]): 文字; (bar: { a: 真假; }[]): 数字; }
->bar : { a: 数字; }[]
->a : 数字
->类型别名 :=> 数字
+>foo : { (bar: { a: number; }[]): string; (bar: { a: boolean; }[]): number; }
+>bar : { a: number; }[]
+>a : number
 
 function foo(bar:{a:boolean;}[]):number;
->foo : { (bar: { a: 数字; }[]): 文字; (bar: { a: 真假; }[]): 数字; }
->bar : { a: 真假; }[]
->a : 真假
->类型别名 :=> 真假
+>foo : { (bar: { a: number; }[]): string; (bar: { a: boolean; }[]): number; }
+>bar : { a: boolean; }[]
+>a : boolean
 
 function foo(bar:{a:any;}[]):any{ return bar };
->foo : { (bar: { a: 数字; }[]): 文字; (bar: { a: 真假; }[]): 数字; }
->bar : { a: 任意; }[]
->a : 任意
->类型别名 :=> 任意
->bar : { a: 任意; }[]
+>foo : { (bar: { a: number; }[]): string; (bar: { a: boolean; }[]): number; }
+>bar : { a: any; }[]
+>a : any
+>bar : { a: any; }[]
 
 var x1 = foo([{a:true}]); // works
->x1 : 数字
->类型别名 :=> 数字
->foo([{a:true}]) : 数字
->类型别名 :=> 数字
->foo : { (bar: { a: 数字; }[]): 文字; (bar: { a: 真假; }[]): 数字; }
->[{a:true}] : { a: 为真; }[]
->{a:true} : { a: 为真; }
->a : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>x1 : number
+>foo([{a:true}]) : number
+>foo : { (bar: { a: number; }[]): string; (bar: { a: boolean; }[]): number; }
+>[{a:true}] : { a: true; }[]
+>{a:true} : { a: true; }
+>a : true
+>true : true
 
 var x11 = foo([{a:0}]); // works
->x11 : 文字
->类型别名 :=> 文字
->foo([{a:0}]) : 文字
->类型别名 :=> 文字
->foo : { (bar: { a: 数字; }[]): 文字; (bar: { a: 真假; }[]): 数字; }
->[{a:0}] : { a: 数字; }[]
->{a:0} : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>x11 : string
+>foo([{a:0}]) : string
+>foo : { (bar: { a: number; }[]): string; (bar: { a: boolean; }[]): number; }
+>[{a:0}] : { a: number; }[]
+>{a:0} : { a: number; }
+>a : number
 >0 : 0
 
 var x111 = foo([{a:"s"}]); // error - does not match any signature
->x111 : 任意
->类型别名 :=> 任意
->foo([{a:"s"}]) : 任意
->类型别名 :=> 任意
->foo : { (bar: { a: 数字; }[]): 文字; (bar: { a: 真假; }[]): 数字; }
->[{a:"s"}] : { a: 文字; }[]
->{a:"s"} : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>x111 : any
+>foo([{a:"s"}]) : any
+>foo : { (bar: { a: number; }[]): string; (bar: { a: boolean; }[]): number; }
+>[{a:"s"}] : { a: string; }[]
+>{a:"s"} : { a: string; }
+>a : string
 >"s" : "s"
 
 var x1111 = foo([{a:null}]); // works - ambiguous call is resolved to be the first in the overload set so this returns a string
->x1111 : 文字
->类型别名 :=> 文字
->foo([{a:null}]) : 文字
->类型别名 :=> 文字
->foo : { (bar: { a: 数字; }[]): 文字; (bar: { a: 真假; }[]): 数字; }
->[{a:null}] : { a: 空值; }[]
->{a:null} : { a: 空值; }
->a : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
+>x1111 : string
+>foo([{a:null}]) : string
+>foo : { (bar: { a: number; }[]): string; (bar: { a: boolean; }[]): number; }
+>[{a:null}] : { a: null; }[]
+>{a:null} : { a: null; }
+>a : null
+>null : null
 
 
 
 function foo2(bar:{a:number;}):string;
->foo2 : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->bar : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>foo2 : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>bar : { a: number; }
+>a : number
 
 function foo2(bar:{a:boolean;}):number;
->foo2 : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->bar : { a: 真假; }
->a : 真假
->类型别名 :=> 真假
+>foo2 : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>bar : { a: boolean; }
+>a : boolean
 
 function foo2(bar:{a:any;}):any{ return bar };
->foo2 : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->bar : { a: 任意; }
->a : 任意
->类型别名 :=> 任意
->bar : { a: 任意; }
+>foo2 : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>bar : { a: any; }
+>a : any
+>bar : { a: any; }
 
 var x2 = foo2({a:0}); // works
->x2 : 文字
->类型别名 :=> 文字
->foo2({a:0}) : 文字
->类型别名 :=> 文字
->foo2 : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->{a:0} : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>x2 : string
+>foo2({a:0}) : string
+>foo2 : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>{a:0} : { a: number; }
+>a : number
 >0 : 0
 
 var x3 = foo2({a:true}); // works
->x3 : 数字
->类型别名 :=> 数字
->foo2({a:true}) : 数字
->类型别名 :=> 数字
->foo2 : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->{a:true} : { a: 为真; }
->a : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>x3 : number
+>foo2({a:true}) : number
+>foo2 : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>{a:true} : { a: true; }
+>a : true
+>true : true
 
 var x4 = foo2({a:"s"}); // error
->x4 : 任意
->类型别名 :=> 任意
->foo2({a:"s"}) : 任意
->类型别名 :=> 任意
->foo2 : { (bar: { a: 数字; }): 文字; (bar: { a: 真假; }): 数字; }
->{a:"s"} : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>x4 : any
+>foo2({a:"s"}) : any
+>foo2 : { (bar: { a: number; }): string; (bar: { a: boolean; }): number; }
+>{a:"s"} : { a: string; }
+>a : string
 >"s" : "s"
 
 
 function foo4(bar:{a:number;}):number;
->foo4 : { (bar: { a: 数字; }): 数字; (bar: { a: 文字; }): 文字; }
->bar : { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>foo4 : { (bar: { a: number; }): number; (bar: { a: string; }): string; }
+>bar : { a: number; }
+>a : number
 
 function foo4(bar:{a:string;}):string;
->foo4 : { (bar: { a: 数字; }): 数字; (bar: { a: 文字; }): 文字; }
->bar : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>foo4 : { (bar: { a: number; }): number; (bar: { a: string; }): string; }
+>bar : { a: string; }
+>a : string
 
 function foo4(bar:{a:any;}):any{ return bar };
->foo4 : { (bar: { a: 数字; }): 数字; (bar: { a: 文字; }): 文字; }
->bar : { a: 任意; }
->a : 任意
->类型别名 :=> 任意
->bar : { a: 任意; }
+>foo4 : { (bar: { a: number; }): number; (bar: { a: string; }): string; }
+>bar : { a: any; }
+>a : any
+>bar : { a: any; }
 
 var x = foo4({a:true}); // error
->x : 任意
->类型别名 :=> 任意
->foo4({a:true}) : 任意
->类型别名 :=> 任意
->foo4 : { (bar: { a: 数字; }): 数字; (bar: { a: 文字; }): 文字; }
->{a:true} : { a: 真假; }
->a : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>x : any
+>foo4({a:true}) : any
+>foo4 : { (bar: { a: number; }): number; (bar: { a: string; }): string; }
+>{a:true} : { a: boolean; }
+>a : boolean
+>true : true
 

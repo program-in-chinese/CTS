@@ -3,72 +3,65 @@
 
 class Base { foo: string }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 class Derived1 extends Base { bar: string }
 >Derived1 : Derived1
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 class Derived2 extends Base { baz: string }
 >Derived2 : Derived2
 >Base : Base
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 class C {
 >C : C
 
     foo(x: 'hi'): Derived1;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >x : "hi"
 >Derived1 : Derived1
 
     foo(x: 'bye'): Derived2;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >x : "bye"
 >Derived2 : Derived2
 
     foo(x: string): Base;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
->x : 文字
->类型别名 :=> 文字
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
+>x : string
 >Base : Base
 
     foo(x) {
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
->x : 任意
->类型别名 :=> 任意
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
+>x : any
 
         return x;
->x : 任意
->类型别名 :=> 任意
+>x : any
     }
 }
 var c = new C();
 >c : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
 interface I {
 >I : I
 
     foo(x: 'hi'): Derived1;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >x : "hi"
 >Derived1 : Derived1
 
     foo(x: 'bye'): Derived2;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >x : "bye"
 >Derived2 : Derived2
 
     foo(x: string): Base;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
->x : 文字
->类型别名 :=> 文字
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
+>x : string
 >Base : Base
 }
 var i: I;
@@ -76,22 +69,21 @@ var i: I;
 >I : I
 
 var a: {
->a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: 文字): Base; }
+>a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: string): Base; }
 
     foo(x: 'hi'): Derived1;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >x : "hi"
 >Derived1 : Derived1
 
     foo(x: 'bye'): Derived2;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >x : "bye"
 >Derived2 : Derived2
 
     foo(x: string): Base;
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
->x : 文字
->类型别名 :=> 文字
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
+>x : string
 >Base : Base
 
 };
@@ -102,9 +94,9 @@ c = i;
 >i : I
 
 c = a;
->c = a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: 文字): Base; }
+>c = a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: string): Base; }
 >c : C
->a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: 文字): Base; }
+>a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: string): Base; }
 
 i = c;
 >i = c : C
@@ -112,44 +104,44 @@ i = c;
 >c : C
 
 i = a;
->i = a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: 文字): Base; }
+>i = a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: string): Base; }
 >i : I
->a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: 文字): Base; }
+>a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: string): Base; }
 
 a = c;
 >a = c : C
->a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: 文字): Base; }
+>a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: string): Base; }
 >c : C
 
 a = i;
 >a = i : I
->a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: 文字): Base; }
+>a : { foo(x: "hi"): Derived1; foo(x: "bye"): Derived2; foo(x: string): Base; }
 >i : I
 
 var r1: Derived1 = c.foo('hi');
 >r1 : Derived1
 >Derived1 : Derived1
 >c.foo('hi') : Derived1
->c.foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>c.foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >c : C
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >'hi' : "hi"
 
 var r2: Derived2 = c.foo('bye');
 >r2 : Derived2
 >Derived2 : Derived2
 >c.foo('bye') : Derived2
->c.foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>c.foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >c : C
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >'bye' : "bye"
 
 var r3: Base = c.foo('hm');
 >r3 : Base
 >Base : Base
 >c.foo('hm') : Base
->c.foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>c.foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >c : C
->foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: 文字): Base; }
+>foo : { (x: "hi"): Derived1; (x: "bye"): Derived2; (x: string): Base; }
 >'hm' : "hm"
 

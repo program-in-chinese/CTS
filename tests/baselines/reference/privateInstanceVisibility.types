@@ -1,34 +1,30 @@
 === tests/cases/compiler/privateInstanceVisibility.ts ===
 module Test {
->Test : 类为 Test
+>Test : typeof Test
  
     export class Example {
 >Example : Example
  
         private someNumber: number;
->someNumber : 数字
->类型别名 :=> 数字
+>someNumber : number
  
         
 
         public doSomething() {
->doSomething : () => 无值
+>doSomething : () => void
  
             var that = this;                      
->that : 本体
->this : 本体
+>that : this
+>this : this
 
             function innerFunction() {
->innerFunction : () => 无值
+>innerFunction : () => void
                 
                 var num = that.someNumber;
->num : 数字
->类型别名 :=> 数字
->that.someNumber : 数字
->类型别名 :=> 数字
->that : 本体
->someNumber : 数字
->类型别名 :=> 数字
+>num : number
+>that.someNumber : number
+>that : this
+>someNumber : number
  
             }
  
@@ -44,35 +40,27 @@ class C {
 >C : C
 
     private x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     getX() { return this.x; }
->getX : () => 数字
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
+>getX : () => number
+>this.x : number
+>this : this
+>x : number
 
     clone(other: C) {
->clone : (other: C) => 无值
+>clone : (other: C) => void
 >other : C
 >C : C
 
         this.x = other.x;
->this.x = other.x : 数字
->类型别名 :=> 数字
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
->other.x : 数字
->类型别名 :=> 数字
+>this.x = other.x : number
+>this.x : number
+>this : this
+>x : number
+>other.x : number
 >other : C
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     }
 }

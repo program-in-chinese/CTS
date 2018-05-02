@@ -1,23 +1,19 @@
 === tests/cases/compiler/intersectionTypeNormalization.ts ===
 interface A { a: string }
 >A : A
->a : 文字
->类型别名 :=> 文字
+>a : string
 
 interface B { b: string }
 >B : B
->b : 文字
->类型别名 :=> 文字
+>b : string
 
 interface C { c: string }
 >C : C
->c : 文字
->类型别名 :=> 文字
+>c : string
 
 interface D { d: string }
 >D : D
->d : 文字
->类型别名 :=> 文字
+>d : string
 
 // Identical ways of writing the same type
 type X1 = (A | B) & (C | D);
@@ -61,13 +57,11 @@ var x: X3;
 
 interface X { x: string }
 >X : X
->x : 文字
->类型别名 :=> 文字
+>x : string
 
 interface Y { y: string }
 >Y : Y
->y : 文字
->类型别名 :=> 文字
+>y : string
 
 // Identical ways of writing the same type
 type Y1 = (A | X & Y) & (C | D);
@@ -115,13 +109,11 @@ var y: Y3;
 
 interface M { m: string }
 >M : M
->m : 文字
->类型别名 :=> 文字
+>m : string
 
 interface N { n: string }
 >N : N
->n : 文字
->类型别名 :=> 文字
+>n : string
 
 // Identical ways of writing the same type
 type Z1 = (A | X & (M | N)) & (C | D);
@@ -200,19 +192,17 @@ type ToString = {
 >ToString : ToString
 
     toString(): string;
->toString : () => 文字
+>toString : () => string
 }
 
 type BoxedValue = { kind: 'int',    num: number }
 >BoxedValue : BoxedValue
 >kind : "int"
->num : 数字
->类型别名 :=> 数字
+>num : number
 
                 | { kind: 'string', str: string }
 >kind : "string"
->str : 文字
->类型别名 :=> 文字
+>str : string
 
 type IntersectionFail = BoxedValue & ToString
 >IntersectionFail : IntersectionFail
@@ -222,51 +212,43 @@ type IntersectionFail = BoxedValue & ToString
 type IntersectionInline = { kind: 'int',    num: number } & ToString
 >IntersectionInline : IntersectionInline
 >kind : "int"
->num : 数字
->类型别名 :=> 数字
+>num : number
 >ToString : ToString
 
                         | { kind: 'string', str: string } & ToString
 >kind : "string"
->str : 文字
->类型别名 :=> 文字
+>str : string
 >ToString : ToString
 
 function getValueAsString(value: IntersectionFail): string {
->getValueAsString : (value: IntersectionFail) => 文字
+>getValueAsString : (value: IntersectionFail) => string
 >value : IntersectionFail
 >IntersectionFail : IntersectionFail
 
     if (value.kind === 'int') {
->value.kind === 'int' : 真假
->类型别名 :=> 真假
+>value.kind === 'int' : boolean
 >value.kind : "string" | "int"
 >value : IntersectionFail
 >kind : "string" | "int"
 >'int' : "int"
 
         return '' + value.num;
->'' + value.num : 文字
->类型别名 :=> 文字
+>'' + value.num : string
 >'' : ""
->value.num : 数字
->类型别名 :=> 数字
->value : { kind: "int"; num: 数字; } & ToString
->num : 数字
->类型别名 :=> 数字
+>value.num : number
+>value : { kind: "int"; num: number; } & ToString
+>num : number
     }
     return value.str;
->value.str : 文字
->类型别名 :=> 文字
->value : { kind: "string"; str: 文字; } & ToString
->str : 文字
->类型别名 :=> 文字
+>value.str : string
+>value : { kind: "string"; str: string; } & ToString
+>str : string
 }
 
 // Repro from #12535
 
 namespace enums {
->enums : 类为 enums
+>enums : typeof enums
 
     export const enum A {
 >A : A
@@ -334,8 +316,7 @@ type Foo = {
 
     genreId: enums.Genre;
 >genreId : enums.Genre
->enums : 任意
->类型别名 :=> 任意
+>enums : any
 >Genre : enums.Genre
 
 };
@@ -345,8 +326,7 @@ type Bar = {
 
     genreId: enums.Genre;
 >genreId : enums.Genre
->enums : 任意
->类型别名 :=> 任意
+>enums : any
 >Genre : enums.Genre
 
 };
@@ -357,15 +337,13 @@ type FooBar = Foo & Bar;
 >Bar : Bar
 
 function foo(so: any) {
->foo : (so: 任意) => enums.Genre
->so : 任意
->类型别名 :=> 任意
+>foo : (so: any) => enums.Genre
+>so : any
 
     const val = so as FooBar;
 >val : FooBar
 >so as FooBar : FooBar
->so : 任意
->类型别名 :=> 任意
+>so : any
 >FooBar : FooBar
 
     const isGenre = val.genreId;

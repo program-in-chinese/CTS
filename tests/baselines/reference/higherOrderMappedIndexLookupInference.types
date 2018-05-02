@@ -2,34 +2,34 @@
 // @strict
 
 function f1(a: <T>() => keyof T, b: <U>() => keyof U) {
->f1 : (a: <T>() => 键集 T, b: <U>() => 键集 U) => 无值
->a : <T>() => 键集 T
+>f1 : (a: <T>() => keyof T, b: <U>() => keyof U) => void
+>a : <T>() => keyof T
 >T : T
 >T : T
->b : <U>() => 键集 U
+>b : <U>() => keyof U
 >U : U
 >U : U
 
     a = b;
->a = b : <U>() => 键集 U
->a : <T>() => 键集 T
->b : <U>() => 键集 U
+>a = b : <U>() => keyof U
+>a : <T>() => keyof T
+>b : <U>() => keyof U
 
     b = a;
->b = a : <T>() => 键集 T
->b : <U>() => 键集 U
->a : <T>() => 键集 T
+>b = a : <T>() => keyof T
+>b : <U>() => keyof U
+>a : <T>() => keyof T
 }
 
 function f2(a: <T, K extends keyof T>() => T[K], b: <U, L extends keyof U>() => U[L]) {
->f2 : (a: <T, K 扩展 键集 T>() => T[K], b: <U, L 扩展 键集 U>() => U[L]) => 无值
->a : <T, K 扩展 键集 T>() => T[K]
+>f2 : (a: <T, K extends keyof T>() => T[K], b: <U, L extends keyof U>() => U[L]) => void
+>a : <T, K extends keyof T>() => T[K]
 >T : T
 >K : K
 >T : T
 >T : T
 >K : K
->b : <U, L 扩展 键集 U>() => U[L]
+>b : <U, L extends keyof U>() => U[L]
 >U : U
 >L : L
 >U : U
@@ -37,25 +37,25 @@ function f2(a: <T, K extends keyof T>() => T[K], b: <U, L extends keyof U>() => 
 >L : L
 
     a = b;
->a = b : <U, L 扩展 键集 U>() => U[L]
->a : <T, K 扩展 键集 T>() => T[K]
->b : <U, L 扩展 键集 U>() => U[L]
+>a = b : <U, L extends keyof U>() => U[L]
+>a : <T, K extends keyof T>() => T[K]
+>b : <U, L extends keyof U>() => U[L]
 
     b = a;
->b = a : <T, K 扩展 键集 T>() => T[K]
->b : <U, L 扩展 键集 U>() => U[L]
->a : <T, K 扩展 键集 T>() => T[K]
+>b = a : <T, K extends keyof T>() => T[K]
+>b : <U, L extends keyof U>() => U[L]
+>a : <T, K extends keyof T>() => T[K]
 }
 
 function f3(a: <T>() => { [K in keyof T]: T[K] }, b: <U>() => { [K in keyof U]: U[K] }) {
->f3 : (a: <T>() => { [K 位于 键集 T]: T[K]; }, b: <U>() => { [K 位于 键集 U]: U[K]; }) => 无值
->a : <T>() => { [K 位于 键集 T]: T[K]; }
+>f3 : (a: <T>() => { [K in keyof T]: T[K]; }, b: <U>() => { [K in keyof U]: U[K]; }) => void
+>a : <T>() => { [K in keyof T]: T[K]; }
 >T : T
 >K : K
 >T : T
 >T : T
 >K : K
->b : <U>() => { [K 位于 键集 U]: U[K]; }
+>b : <U>() => { [K in keyof U]: U[K]; }
 >U : U
 >K : K
 >U : U
@@ -63,14 +63,14 @@ function f3(a: <T>() => { [K in keyof T]: T[K] }, b: <U>() => { [K in keyof U]: 
 >K : K
 
     a = b;
->a = b : <U>() => { [K 位于 键集 U]: U[K]; }
->a : <T>() => { [K 位于 键集 T]: T[K]; }
->b : <U>() => { [K 位于 键集 U]: U[K]; }
+>a = b : <U>() => { [K in keyof U]: U[K]; }
+>a : <T>() => { [K in keyof T]: T[K]; }
+>b : <U>() => { [K in keyof U]: U[K]; }
 
     b = a;
->b = a : <T>() => { [K 位于 键集 T]: T[K]; }
->b : <U>() => { [K 位于 键集 U]: U[K]; }
->a : <T>() => { [K 位于 键集 T]: T[K]; }
+>b = a : <T>() => { [K in keyof T]: T[K]; }
+>b : <U>() => { [K in keyof U]: U[K]; }
+>a : <T>() => { [K in keyof T]: T[K]; }
 }
 
 // Repro from #18338
@@ -90,7 +90,7 @@ declare const f: <T>() => IdMapped<T>;
 >T : T
 
 declare const g: <U>() => { [K in keyof U]: U[K] };
->g : <U>() => { [K 位于 键集 U]: U[K]; }
+>g : <U>() => { [K in keyof U]: U[K]; }
 >U : U
 >K : K
 >U : U
@@ -98,7 +98,7 @@ declare const g: <U>() => { [K in keyof U]: U[K] };
 >K : K
 
 const h: typeof g = f;
->h : <U>() => { [K 位于 键集 U]: U[K]; }
->g : <U>() => { [K 位于 键集 U]: U[K]; }
+>h : <U>() => { [K in keyof U]: U[K]; }
+>g : <U>() => { [K in keyof U]: U[K]; }
 >f : <T>() => IdMapped<T>
 

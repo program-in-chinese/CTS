@@ -2,23 +2,22 @@
 // Repro from #14837
 
 type Foo<T extends "true", B> = { "true": Foo<T, Foo<T, B>> }[T];
->Foo : { "true": 任意[T]; }[T]
+>Foo : { "true": any[T]; }[T]
 >T : T
 >B : B
->Foo : { "true": 任意[T]; }[T]
+>"true" : { "true": any[T]; }[T]
+>Foo : { "true": any[T]; }[T]
 >T : T
->Foo : { "true": 任意[T]; }[T]
+>Foo : { "true": any[T]; }[T]
 >T : T
 >B : B
 >T : T
 
 let f1: Foo<"true", {}>;
->f1 : 任意
->类型别名 :=> 任意
->Foo : { "true": 任意[T]; }[T]
+>f1 : any
+>Foo : { "true": any[T]; }[T]
 
 let f2: Foo<"false", {}>;
->f2 : 任意
->类型别名 :=> 任意
->Foo : { "true": 任意[T]; }[T]
+>f2 : any
+>Foo : { "true": any[T]; }[T]
 

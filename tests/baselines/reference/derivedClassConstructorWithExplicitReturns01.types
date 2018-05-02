@@ -3,29 +3,25 @@ class C {
 >C : C
 
     cProp = 10;
->cProp : 数字
->类型别名 :=> 数字
+>cProp : number
 >10 : 10
 
     foo() { return "this never gets used."; }
->foo : () => 文字
+>foo : () => string
 >"this never gets used." : "this never gets used."
 
     constructor(value: number) {
->value : 数字
->类型别名 :=> 数字
+>value : number
 
         return {
->{            cProp: value,            foo() {                return "well this looks kinda C-ish.";            }        } : { cProp: 数字; foo(): 文字; }
+>{            cProp: value,            foo() {                return "well this looks kinda C-ish.";            }        } : { cProp: number; foo(): string; }
 
             cProp: value,
->cProp : 数字
->类型别名 :=> 数字
->value : 数字
->类型别名 :=> 数字
+>cProp : number
+>value : number
 
             foo() {
->foo : () => 文字
+>foo : () => string
 
                 return "well this looks kinda C-ish.";
 >"well this looks kinda C-ish." : "well this looks kinda C-ish."
@@ -39,57 +35,50 @@ class D extends C {
 >C : C
 
     dProp = () => this;
->dProp : () => 本体
->() => this : () => 本体
->this : 本体
+>dProp : () => this
+>() => this : () => this
+>this : this
 
     constructor(a = 100) {
->a : 数字
->类型别名 :=> 数字
+>a : number
 >100 : 100
 
         super(a);
->super(a) : 无值
->类型别名 :=> 无值
->super : 类为 C
->a : 数字
->类型别名 :=> 数字
+>super(a) : void
+>super : typeof C
+>a : number
 
         if (Math.random() < 0.5) {
->Math.random() < 0.5 : 真假
->类型别名 :=> 真假
->Math.random() : 数字
->类型别名 :=> 数字
->Math.random : () => 数字
+>Math.random() < 0.5 : boolean
+>Math.random() : number
+>Math.random : () => number
 >Math : Math
->random : () => 数字
+>random : () => number
 >0.5 : 0.5
 
             "You win!"
 >"You win!" : "You win!"
 
             return {
->{                cProp: 1,                dProp: () => this,                foo() { return "You win!!!!!" }            } : { cProp: 数字; dProp: () => 本体; foo(): 文字; }
+>{                cProp: 1,                dProp: () => this,                foo() { return "You win!!!!!" }            } : { cProp: number; dProp: () => this; foo(): string; }
 
                 cProp: 1,
->cProp : 数字
->类型别名 :=> 数字
+>cProp : number
 >1 : 1
 
                 dProp: () => this,
->dProp : () => 本体
->() => this : () => 本体
->this : 本体
+>dProp : () => this
+>() => this : () => this
+>this : this
 
                 foo() { return "You win!!!!!" }
->foo : () => 文字
+>foo : () => string
 >"You win!!!!!" : "You win!!!!!"
 
             };
         }
         else
             return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }

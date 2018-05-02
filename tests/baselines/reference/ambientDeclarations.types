@@ -1,70 +1,58 @@
 === tests/cases/conformance/ambient/ambientDeclarations.ts ===
 // Ambient variable without type annotation
 declare var n;
->n : 任意
->类型别名 :=> 任意
+>n : any
 
 // Ambient variable with type annotation
 declare var m: string;
->m : 文字
->类型别名 :=> 文字
+>m : string
 
 // Ambient function with no type annotations
 declare function fn1();
->fn1 : () => 任意
+>fn1 : () => any
 
 // Ambient function with type annotations
 declare function fn2(n: string): number;
->fn2 : (n: 文字) => 数字
->n : 文字
->类型别名 :=> 文字
+>fn2 : (n: string) => number
+>n : string
 
 // Ambient function with valid overloads
 declare function fn3(n: string): number;
->fn3 : (n: 文字) => 数字
->n : 文字
->类型别名 :=> 文字
+>fn3 : (n: string) => number
+>n : string
 
 declare function fn4(n: number, y: number): string;
->fn4 : (n: 数字, y: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>fn4 : (n: number, y: number) => string
+>n : number
+>y : number
 
 // Ambient function with optional parameters
 declare function fn5(x, y?);
->fn5 : (x: 任意, y?: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>fn5 : (x: any, y?: any) => any
+>x : any
+>y : any
 
 declare function fn6(e?);
->fn6 : (e?: 任意) => 任意
->e : 任意
->类型别名 :=> 任意
+>fn6 : (e?: any) => any
+>e : any
 
 declare function fn7(x, y?, ...z);
->fn7 : (x: 任意, y?: 任意, ...z: 任意[]) => 任意
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->z : 任意[]
+>fn7 : (x: any, y?: any, ...z: any[]) => any
+>x : any
+>y : any
+>z : any[]
 
 declare function fn8(y?, ...z: number[]);
->fn8 : (y?: 任意, ...z: 数字[]) => 任意
->y : 任意
->类型别名 :=> 任意
->z : 数字[]
+>fn8 : (y?: any, ...z: number[]) => any
+>y : any
+>z : number[]
 
 declare function fn9(...q: {}[]);
->fn9 : (...q: {}[]) => 任意
+>fn9 : (...q: {}[]) => any
 >q : {}[]
 
 declare function fn10<T>(...q: T[]);
->fn10 : <T>(...q: T[]) => 任意
+>fn10 : <T>(...q: T[]) => any
 >T : T
 >q : T[]
 >T : T
@@ -79,19 +67,17 @@ declare class cls {
 >cls : cls
 
     static static(p): number;
->static : (p: 任意) => 数字
->p : 任意
->类型别名 :=> 任意
+>static : (p: any) => number
+>p : any
 
     static q;
->q : 任意
->类型别名 :=> 任意
+>q : any
 
     private fn();
->fn : () => 任意
+>fn : () => any
 
     private static fns();
->fns : () => 任意
+>fns : () => any
 }
 
 // Ambient enum
@@ -138,58 +124,49 @@ declare enum E3 {
 >A : E3
 }
 declare module E3 {
->E3 : 类为 E3
+>E3 : typeof E3
 
     var B;
->B : 任意
->类型别名 :=> 任意
+>B : any
 }
 var x = E3.B;
->x : 任意
->类型别名 :=> 任意
->E3.B : 任意
->类型别名 :=> 任意
->E3 : 类为 E3
->B : 任意
->类型别名 :=> 任意
+>x : any
+>E3.B : any
+>E3 : typeof E3
+>B : any
 
 // Ambient module
 declare module M1 {
->M1 : 类为 M1
+>M1 : typeof M1
 
     var x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     function fn(): number;
->fn : () => 数字
+>fn : () => number
 }
 
 // Ambient module members are always exported with or without export keyword
 var p = M1.x;
->p : 任意
->类型别名 :=> 任意
->M1.x : 任意
->类型别名 :=> 任意
->M1 : 类为 M1
->x : 任意
->类型别名 :=> 任意
+>p : any
+>M1.x : any
+>M1 : typeof M1
+>x : any
 
 var q = M1.fn();
->q : 数字
->类型别名 :=> 数字
->M1.fn() : 数字
->类型别名 :=> 数字
->M1.fn : () => 数字
->M1 : 类为 M1
->fn : () => 数字
+>q : number
+>M1.fn() : number
+>M1.fn : () => number
+>M1 : typeof M1
+>fn : () => number
 
 // Ambient external module in the global module
 // Ambient external module with a string literal name that is a top level external module name
 declare module 'external1' {
+>'external1' : typeof 'external1'
+
     var q;
->q : 任意
->类型别名 :=> 任意
+>q : any
 }
 
 

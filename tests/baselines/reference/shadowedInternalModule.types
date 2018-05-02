@@ -2,65 +2,57 @@
 // all errors imported modules conflict with local variables
 
 module A {
->A : 类为 A
+>A : typeof A
 
     export var Point = { x: 0, y: 0 }
->Point : { x: 数字; y: 数字; }
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>Point : { x: number; y: number; }
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
     }
 } 
 
 module B {
->B : 类为 B
+>B : typeof B
 
     var A = { x: 0, y: 0 };
->A : { x: 数字; y: 数字; }
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>A : { x: number; y: number; }
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 
     import Point = A;
->Point : 类为 Point
->A : 类为 Point
+>Point : typeof Point
+>A : typeof Point
 }
 
 module X {
->X : 类为 X
+>X : typeof X
 
     export module Y {
->Y : 类为 Y
+>Y : typeof Y
 
         export interface Point{
 >Point : Point
 
             x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
             y: number
->y : 数字
->类型别名 :=> 数字
+>y : number
         }
     }
 
@@ -68,22 +60,19 @@ module X {
 >Y : Y
 
         name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
     }
 }
 
 module Z {
->Z : 类为 Z
+>Z : typeof Z
 
     import Y = X.Y;
->Y : 数字
->类型别名 :=> 数字
->X : 类为 X
+>Y : number
+>X : typeof X
 >Y : Y
 
     var Y = 12;
->Y : 数字
->类型别名 :=> 数字
+>Y : number
 >12 : 12
 }

@@ -3,16 +3,14 @@ class A {
 >A : A
 
     a: number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 }
 class B extends A {
 >B : B
 >A : A
 
     b: number;
->b : 数字
->类型别名 :=> 数字
+>b : number
 }
 enum Compass {
 >Compass : Compass
@@ -25,282 +23,228 @@ enum Compass {
 }
 
 var numIndex: { [n: number]: string } = { 3: 'three', 'three': 'three' };
->numIndex : { [n: 数字]: 文字; }
->n : 数字
->类型别名 :=> 数字
->{ 3: 'three', 'three': 'three' } : { 3: 文字; 'three': 文字; }
+>numIndex : { [n: number]: string; }
+>n : number
+>{ 3: 'three', 'three': 'three' } : { 3: string; 'three': string; }
+>3 : string
 >'three' : "three"
+>'three' : string
 >'three' : "three"
 
 var strIndex: { [n: string]: Compass } = { 'N': Compass.North, 'E': Compass.East };
->strIndex : { [n: 文字]: Compass; }
->n : 文字
->类型别名 :=> 文字
+>strIndex : { [n: string]: Compass; }
+>n : string
 >Compass : Compass
 >{ 'N': Compass.North, 'E': Compass.East } : { 'N': Compass.North; 'E': Compass.East; }
+>'N' : Compass.North
 >Compass.North : Compass.North
->Compass : 类为 Compass
+>Compass : typeof Compass
 >North : Compass.North
+>'E' : Compass.East
 >Compass.East : Compass.East
->Compass : 类为 Compass
+>Compass : typeof Compass
 >East : Compass.East
 
 var bothIndex:
->bothIndex : { [n: 文字]: A; [m: 数字]: B; }
+>bothIndex : { [n: string]: A; [m: number]: B; }
     {
         [n: string]: A;
->n : 文字
->类型别名 :=> 文字
+>n : string
 >A : A
 
         [m: number]: B;
->m : 数字
->类型别名 :=> 数字
+>m : number
 >B : B
 
     };
 
 function noIndex() { }
->noIndex : () => 无值
+>noIndex : () => void
 
 var obj = {
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
->{    10: 'ten',    x: 'hello',    y: 32,    z: { n: 'world', m: 15, o: () => false },    'literal property': 100} : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
+>{    10: 'ten',    x: 'hello',    y: 32,    z: { n: 'world', m: 15, o: () => false },    'literal property': 100} : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
 
     10: 'ten',
+>10 : string
 >'ten' : "ten"
 
     x: 'hello',
->x : 文字
->类型别名 :=> 文字
+>x : string
 >'hello' : "hello"
 
     y: 32,
->y : 数字
->类型别名 :=> 数字
+>y : number
 >32 : 32
 
     z: { n: 'world', m: 15, o: () => false },
->z : { n: 文字; m: 数字; o: () => 真假; }
->{ n: 'world', m: 15, o: () => false } : { n: 文字; m: 数字; o: () => 真假; }
->n : 文字
->类型别名 :=> 文字
+>z : { n: string; m: number; o: () => boolean; }
+>{ n: 'world', m: 15, o: () => false } : { n: string; m: number; o: () => boolean; }
+>n : string
 >'world' : "world"
->m : 数字
->类型别名 :=> 数字
+>m : number
 >15 : 15
->o : () => 真假
->() => false : () => 真假
->false : 为假
->类型别名 :=> 为假
+>o : () => boolean
+>() => false : () => boolean
+>false : false
 
     'literal property': 100
+>'literal property' : number
 >100 : 100
 
 };
 var anyVar: any = {};
->anyVar : 任意
->类型别名 :=> 任意
+>anyVar : any
 >{} : {}
 
 var stringOrNumber: string | number;
->stringOrNumber : 文字 | 数字
+>stringOrNumber : string | number
 
 var someObject: { name: string };
->someObject : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>someObject : { name: string; }
+>name : string
 
 // Assign to a property access
 obj.y = 4;
 >obj.y = 4 : 4
->obj.y : 数字
->类型别名 :=> 数字
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
->y : 数字
->类型别名 :=> 数字
+>obj.y : number
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
+>y : number
 >4 : 4
 
 // Property access on value of type 'any'
 anyVar.x = anyVar.y = obj.x = anyVar.z;
->anyVar.x = anyVar.y = obj.x = anyVar.z : 任意
->类型别名 :=> 任意
->anyVar.x : 任意
->类型别名 :=> 任意
->anyVar : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->anyVar.y = obj.x = anyVar.z : 任意
->类型别名 :=> 任意
->anyVar.y : 任意
->类型别名 :=> 任意
->anyVar : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->obj.x = anyVar.z : 任意
->类型别名 :=> 任意
->obj.x : 文字
->类型别名 :=> 文字
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
->x : 文字
->类型别名 :=> 文字
->anyVar.z : 任意
->类型别名 :=> 任意
->anyVar : 任意
->类型别名 :=> 任意
->z : 任意
->类型别名 :=> 任意
+>anyVar.x = anyVar.y = obj.x = anyVar.z : any
+>anyVar.x : any
+>anyVar : any
+>x : any
+>anyVar.y = obj.x = anyVar.z : any
+>anyVar.y : any
+>anyVar : any
+>y : any
+>obj.x = anyVar.z : any
+>obj.x : string
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
+>x : string
+>anyVar.z : any
+>anyVar : any
+>z : any
 
 // Dotted property access of property that exists
 var aa = obj.x;
->aa : 文字
->类型别名 :=> 文字
->obj.x : 文字
->类型别名 :=> 文字
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
->x : 文字
->类型别名 :=> 文字
+>aa : string
+>obj.x : string
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
+>x : string
 
 // Dotted property access of property that exists on value's apparent type
 var bb = obj.hasOwnProperty;
->bb : (v: 文字) => 真假
->obj.hasOwnProperty : (v: 文字) => 真假
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
->hasOwnProperty : (v: 文字) => 真假
+>bb : (v: string) => boolean
+>obj.hasOwnProperty : (v: string) => boolean
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
+>hasOwnProperty : (v: string) => boolean
 
 // Dotted property access of property that doesn't exist on value's apparent type
 var cc = obj.qqq; // error
->cc : 任意
->类型别名 :=> 任意
->obj.qqq : 任意
->类型别名 :=> 任意
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
->qqq : 任意
->类型别名 :=> 任意
+>cc : any
+>obj.qqq : any
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
+>qqq : any
 
 // Bracket notation property access using string literal value on type with property of that literal name
 var dd = obj['literal property'];
->dd : 数字
->类型别名 :=> 数字
->obj['literal property'] : 数字
->类型别名 :=> 数字
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
+>dd : number
+>obj['literal property'] : number
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
 >'literal property' : "literal property"
 
 var dd: number;
->dd : 数字
->类型别名 :=> 数字
+>dd : number
 
 // Bracket notation property access using string literal value on type without property of that literal name
 var ee = obj['wa wa wa wa wa'];
->ee : 任意
->类型别名 :=> 任意
->obj['wa wa wa wa wa'] : 任意
->类型别名 :=> 任意
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
+>ee : any
+>obj['wa wa wa wa wa'] : any
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
 >'wa wa wa wa wa' : "wa wa wa wa wa"
 
 var ee: any;
->ee : 任意
->类型别名 :=> 任意
+>ee : any
 
 // Bracket notation property access using numeric string literal value on type with property of that literal name
 var ff = obj['10'];
->ff : 文字
->类型别名 :=> 文字
->obj['10'] : 文字
->类型别名 :=> 文字
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
+>ff : string
+>obj['10'] : string
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
 >'10' : "10"
 
 var ff: string;
->ff : 文字
->类型别名 :=> 文字
+>ff : string
 
 // Bracket notation property access using numeric string literal value on type without property of that literal name
 var gg = obj['1'];
->gg : 任意
->类型别名 :=> 任意
->obj['1'] : 任意
->类型别名 :=> 任意
->obj : { 10: 文字; x: 文字; y: 数字; z: { n: 文字; m: 数字; o: () => 真假; }; 'literal property': 数字; }
+>gg : any
+>obj['1'] : any
+>obj : { 10: string; x: string; y: number; z: { n: string; m: number; o: () => boolean; }; 'literal property': number; }
 >'1' : "1"
 
 var gg: any;
->gg : 任意
->类型别名 :=> 任意
+>gg : any
 
 // Bracket notation property access using numeric value on type with numeric index signature
 var hh = numIndex[3.0];
->hh : 文字
->类型别名 :=> 文字
->numIndex[3.0] : 文字
->类型别名 :=> 文字
->numIndex : { [n: 数字]: 文字; }
+>hh : string
+>numIndex[3.0] : string
+>numIndex : { [n: number]: string; }
 >3.0 : 3
 
 var hh: string;
->hh : 文字
->类型别名 :=> 文字
+>hh : string
 
 // Bracket notation property access using enum value on type with numeric index signature
 var ii = numIndex[Compass.South];
->ii : 文字
->类型别名 :=> 文字
->numIndex[Compass.South] : 文字
->类型别名 :=> 文字
->numIndex : { [n: 数字]: 文字; }
+>ii : string
+>numIndex[Compass.South] : string
+>numIndex : { [n: number]: string; }
 >Compass.South : Compass.South
->Compass : 类为 Compass
+>Compass : typeof Compass
 >South : Compass.South
 
 var ii: string;
->ii : 文字
->类型别名 :=> 文字
+>ii : string
 
 // Bracket notation property access using value of type 'any' on type with numeric index signature
 var jj = numIndex[anyVar];
->jj : 文字
->类型别名 :=> 文字
->numIndex[anyVar] : 文字
->类型别名 :=> 文字
->numIndex : { [n: 数字]: 文字; }
->anyVar : 任意
->类型别名 :=> 任意
+>jj : string
+>numIndex[anyVar] : string
+>numIndex : { [n: number]: string; }
+>anyVar : any
 
 var jj: string;
->jj : 文字
->类型别名 :=> 文字
+>jj : string
 
 // Bracket notation property access using string value on type with numeric index signature
 var kk = numIndex['what'];
->kk : 任意
->类型别名 :=> 任意
->numIndex['what'] : 任意
->类型别名 :=> 任意
->numIndex : { [n: 数字]: 文字; }
+>kk : any
+>numIndex['what'] : any
+>numIndex : { [n: number]: string; }
 >'what' : "what"
 
 var kk: any;
->kk : 任意
->类型别名 :=> 任意
+>kk : any
 
 // Bracket notation property access using value of other type on type with numeric index signature and no string index signature
 var ll = numIndex[someObject]; // Error
->ll : 任意
->类型别名 :=> 任意
->numIndex[someObject] : 任意
->类型别名 :=> 任意
->numIndex : { [n: 数字]: 文字; }
->someObject : { name: 文字; }
+>ll : any
+>numIndex[someObject] : any
+>numIndex : { [n: number]: string; }
+>someObject : { name: string; }
 
 // Bracket notation property access using string value on type with string index signature and no numeric index signature
 var mm = strIndex['N'];
 >mm : Compass
 >strIndex['N'] : Compass
->strIndex : { [n: 文字]: Compass; }
+>strIndex : { [n: string]: Compass; }
 >'N' : "N"
 
 var mm: Compass;
@@ -310,7 +254,7 @@ var mm: Compass;
 var mm2 = strIndex['zzz'];
 >mm2 : Compass
 >strIndex['zzz'] : Compass
->strIndex : { [n: 文字]: Compass; }
+>strIndex : { [n: string]: Compass; }
 >'zzz' : "zzz"
 
 var mm2: Compass;
@@ -321,7 +265,7 @@ var mm2: Compass;
 var nn = strIndex[10];
 >nn : Compass
 >strIndex[10] : Compass
->strIndex : { [n: 文字]: Compass; }
+>strIndex : { [n: string]: Compass; }
 >10 : 10
 
 var nn: Compass;
@@ -332,9 +276,9 @@ var nn: Compass;
 var oo = strIndex[Compass.East];
 >oo : Compass
 >strIndex[Compass.East] : Compass
->strIndex : { [n: 文字]: Compass; }
+>strIndex : { [n: string]: Compass; }
 >Compass.East : Compass.East
->Compass : 类为 Compass
+>Compass : typeof Compass
 >East : Compass.East
 
 var oo: Compass;
@@ -345,11 +289,9 @@ var oo: Compass;
 var pp = strIndex[<any>null];
 >pp : Compass
 >strIndex[<any>null] : Compass
->strIndex : { [n: 文字]: Compass; }
-><any>null : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>strIndex : { [n: string]: Compass; }
+><any>null : any
+>null : null
 
 var pp: Compass;
 >pp : Compass
@@ -357,90 +299,71 @@ var pp: Compass;
 
 // Bracket notation property access using numeric value on type with no index signatures
 var qq = noIndex[123];
->qq : 任意
->类型别名 :=> 任意
->noIndex[123] : 任意
->类型别名 :=> 任意
->noIndex : () => 无值
+>qq : any
+>noIndex[123] : any
+>noIndex : () => void
 >123 : 123
 
 var qq: any;
->qq : 任意
->类型别名 :=> 任意
+>qq : any
 
 // Bracket notation property access using string value on type with no index signatures
 var rr = noIndex['zzzz'];
->rr : 任意
->类型别名 :=> 任意
->noIndex['zzzz'] : 任意
->类型别名 :=> 任意
->noIndex : () => 无值
+>rr : any
+>noIndex['zzzz'] : any
+>noIndex : () => void
 >'zzzz' : "zzzz"
 
 var rr: any;
->rr : 任意
->类型别名 :=> 任意
+>rr : any
 
 // Bracket notation property access using enum value on type with no index signatures
 var ss = noIndex[Compass.South];
->ss : 任意
->类型别名 :=> 任意
->noIndex[Compass.South] : 任意
->类型别名 :=> 任意
->noIndex : () => 无值
+>ss : any
+>noIndex[Compass.South] : any
+>noIndex : () => void
 >Compass.South : Compass.South
->Compass : 类为 Compass
+>Compass : typeof Compass
 >South : Compass.South
 
 var ss: any;
->ss : 任意
->类型别名 :=> 任意
+>ss : any
 
 // Bracket notation property access using value of type 'any' on type with no index signatures
 var tt = noIndex[<any>null];
->tt : 任意
->类型别名 :=> 任意
->noIndex[<any>null] : 任意
->类型别名 :=> 任意
->noIndex : () => 无值
-><any>null : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>tt : any
+>noIndex[<any>null] : any
+>noIndex : () => void
+><any>null : any
+>null : null
 
 var tt: any;
->tt : 任意
->类型别名 :=> 任意
+>tt : any
 
 // Bracket notation property access using values of other types on type with no index signatures
 var uu = noIndex[someObject]; // Error
->uu : 任意
->类型别名 :=> 任意
->noIndex[someObject] : 任意
->类型别名 :=> 任意
->noIndex : () => 无值
->someObject : { name: 文字; }
+>uu : any
+>noIndex[someObject] : any
+>noIndex : () => void
+>someObject : { name: string; }
 
 // Bracket notation property access using numeric value on type with numeric index signature and string index signature
 var vv = noIndex[32];
->vv : 任意
->类型别名 :=> 任意
->noIndex[32] : 任意
->类型别名 :=> 任意
->noIndex : () => 无值
+>vv : any
+>noIndex[32] : any
+>noIndex : () => void
 >32 : 32
 
 var vv: any;
->vv : 任意
->类型别名 :=> 任意
+>vv : any
 
 // Bracket notation property access using enum value on type with numeric index signature and string index signature
 var ww = bothIndex[Compass.East];
 >ww : B
 >bothIndex[Compass.East] : B
->bothIndex : { [n: 文字]: A; [m: 数字]: B; }
+>bothIndex : { [n: string]: A; [m: number]: B; }
 >Compass.East : Compass.East
->Compass : 类为 Compass
+>Compass : typeof Compass
 >East : Compass.East
 
 var ww: B;
@@ -451,11 +374,9 @@ var ww: B;
 var xx = bothIndex[<any>null];
 >xx : B
 >bothIndex[<any>null] : B
->bothIndex : { [n: 文字]: A; [m: 数字]: B; }
-><any>null : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>bothIndex : { [n: string]: A; [m: number]: B; }
+><any>null : any
+>null : null
 
 var xx: B;
 >xx : B
@@ -465,7 +386,7 @@ var xx: B;
 var yy = bothIndex['foo'];
 >yy : A
 >bothIndex['foo'] : A
->bothIndex : { [n: 文字]: A; [m: 数字]: B; }
+>bothIndex : { [n: string]: A; [m: number]: B; }
 >'foo' : "foo"
 
 var yy: A;
@@ -476,7 +397,7 @@ var yy: A;
 var zz = bothIndex['1.0'];
 >zz : A
 >bothIndex['1.0'] : A
->bothIndex : { [n: 文字]: A; [m: 数字]: B; }
+>bothIndex : { [n: string]: A; [m: number]: B; }
 >'1.0' : "1.0"
 
 var zz: A;
@@ -485,30 +406,25 @@ var zz: A;
 
 // Bracket notation property access using value of other type on type with numeric index signature and no string index signature and string index signature
 var zzzz = bothIndex[someObject]; // Error
->zzzz : 任意
->类型别名 :=> 任意
->bothIndex[someObject] : 任意
->类型别名 :=> 任意
->bothIndex : { [n: 文字]: A; [m: 数字]: B; }
->someObject : { name: 文字; }
+>zzzz : any
+>bothIndex[someObject] : any
+>bothIndex : { [n: string]: A; [m: number]: B; }
+>someObject : { name: string; }
 
 var x1 = numIndex[stringOrNumber];
->x1 : 任意
->类型别名 :=> 任意
->numIndex[stringOrNumber] : 任意
->类型别名 :=> 任意
->numIndex : { [n: 数字]: 文字; }
->stringOrNumber : 文字 | 数字
+>x1 : any
+>numIndex[stringOrNumber] : any
+>numIndex : { [n: number]: string; }
+>stringOrNumber : string | number
 
 var x1: any;
->x1 : 任意
->类型别名 :=> 任意
+>x1 : any
 
 var x2 = strIndex[stringOrNumber];
 >x2 : Compass
 >strIndex[stringOrNumber] : Compass
->strIndex : { [n: 文字]: Compass; }
->stringOrNumber : 文字 | 数字
+>strIndex : { [n: string]: Compass; }
+>stringOrNumber : string | number
 
 var x2: Compass;
 >x2 : Compass
@@ -517,8 +433,8 @@ var x2: Compass;
 var x3 = bothIndex[stringOrNumber];
 >x3 : A | B
 >bothIndex[stringOrNumber] : A | B
->bothIndex : { [n: 文字]: A; [m: 数字]: B; }
->stringOrNumber : 文字 | 数字
+>bothIndex : { [n: string]: A; [m: number]: B; }
+>stringOrNumber : string | number
 
 var x3: A;
 >x3 : A | B

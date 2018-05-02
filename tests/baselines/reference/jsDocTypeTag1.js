@@ -5,7 +5,7 @@
       "position": 26
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 26,
@@ -38,7 +38,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{String}"
+        }
+      ]
     }
   },
   {
@@ -47,7 +52,7 @@
       "position": 55
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 55,
@@ -80,7 +85,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Number}"
+        }
+      ]
     }
   },
   {
@@ -89,7 +99,7 @@
       "position": 85
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 85,
@@ -122,7 +132,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Boolean}"
+        }
+      ]
     }
   },
   {
@@ -131,7 +146,7 @@
       "position": 112
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 112,
@@ -164,7 +179,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Void}"
+        }
+      ]
     }
   },
   {
@@ -173,7 +193,7 @@
       "position": 144
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 144,
@@ -206,7 +226,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Undefined}"
+        }
+      ]
     }
   },
   {
@@ -215,7 +240,7 @@
       "position": 171
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 171,
@@ -248,7 +273,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Null}"
+        }
+      ]
     }
   },
   {
@@ -257,7 +287,7 @@
       "position": 200
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 200,
@@ -298,7 +328,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Array}"
+        }
+      ]
     }
   },
   {
@@ -307,7 +342,7 @@
       "position": 230
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 230,
@@ -352,7 +387,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Promise}"
+        }
+      ]
     }
   },
   {
@@ -361,7 +401,7 @@
       "position": 259
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 259,
@@ -394,7 +434,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Object}"
+        }
+      ]
     }
   },
   {
@@ -403,7 +448,7 @@
       "position": 292
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 292,
@@ -436,7 +481,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{Function}"
+        }
+      ]
     }
   },
   {
@@ -445,7 +495,7 @@
       "position": 319
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 319,
@@ -478,7 +528,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{*}"
+        }
+      ]
     }
   },
   {
@@ -487,7 +542,7 @@
       "position": 349
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 349,
@@ -520,7 +575,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{?}"
+        }
+      ]
     }
   },
   {
@@ -529,7 +589,7 @@
       "position": 389
     },
     "quickInfo": {
-      "kind": "值量",
+      "kind": "var",
       "kindModifiers": "",
       "textSpan": {
         "start": 389,
@@ -578,7 +638,12 @@
         }
       ],
       "documentation": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "type",
+          "text": "{String|Number}"
+        }
+      ]
     }
   }
 ]

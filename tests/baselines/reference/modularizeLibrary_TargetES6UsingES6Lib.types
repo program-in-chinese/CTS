@@ -1,104 +1,90 @@
 === tests/cases/compiler/modularizeLibrary_TargetES6UsingES6Lib.ts ===
 // Using Es6 array
 function f(x: number, y: number, z: number) {
->f : (x: 数字, y: 数字, z: 数字) => 任意[]
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
->z : 数字
->类型别名 :=> 数字
+>f : (x: number, y: number, z: number) => any[]
+>x : number
+>y : number
+>z : number
 
     return Array.from(arguments);
->Array.from(arguments) : 任意[]
->Array.from : { <T, U = T>(iterable: Iterable<T>, mapfn?: (v: T, k: 数字) => U, thisArg?: 任意): U[]; <T, U = T>(arrayLike: ArrayLike<T>, mapfn?: (v: T, k: 数字) => U, thisArg?: 任意): U[]; }
+>Array.from(arguments) : any[]
+>Array.from : { <T>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T, U>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T>(arrayLike: ArrayLike<T>): T[]; <T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
 >Array : ArrayConstructor
->from : { <T, U = T>(iterable: Iterable<T>, mapfn?: (v: T, k: 数字) => U, thisArg?: 任意): U[]; <T, U = T>(arrayLike: ArrayLike<T>, mapfn?: (v: T, k: 数字) => U, thisArg?: 任意): U[]; }
+>from : { <T>(iterable: Iterable<T> | ArrayLike<T>): T[]; <T, U>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; <T>(arrayLike: ArrayLike<T>): T[]; <T, U>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[]; }
 >arguments : IArguments
 }
 
 f(1, 2, 3);  // no error
->f(1, 2, 3) : 任意[]
->f : (x: 数字, y: 数字, z: 数字) => 任意[]
+>f(1, 2, 3) : any[]
+>f : (x: number, y: number, z: number) => any[]
 >1 : 1
 >2 : 2
 >3 : 3
 
 // Using ES6 collection
 var m = new Map<string, number>();
->m : Map<文字, 数字>
->new Map<string, number>() : Map<文字, 数字>
+>m : Map<string, number>
+>new Map<string, number>() : Map<string, number>
 >Map : MapConstructor
 
 m.clear();
->m.clear() : 无值
->类型别名 :=> 无值
->m.clear : () => 无值
->m : Map<文字, 数字>
->clear : () => 无值
+>m.clear() : void
+>m.clear : () => void
+>m : Map<string, number>
+>clear : () => void
 
 // Using ES6 iterable
 m.keys();
->m.keys() : IterableIterator<文字>
->m.keys : () => IterableIterator<文字>
->m : Map<文字, 数字>
->keys : () => IterableIterator<文字>
+>m.keys() : IterableIterator<string>
+>m.keys : () => IterableIterator<string>
+>m : Map<string, number>
+>keys : () => IterableIterator<string>
 
 // Using ES6 function
 function Baz() { }
->Baz : () => 无值
+>Baz : () => void
 
 Baz.name;
->Baz.name : 文字
->类型别名 :=> 文字
->Baz : () => 无值
->name : 文字
->类型别名 :=> 文字
+>Baz.name : string
+>Baz : () => void
+>name : string
 
 // Using ES6 math
 Math.sign(1);
->Math.sign(1) : 数字
->类型别名 :=> 数字
->Math.sign : (x: 数字) => 数字
+>Math.sign(1) : number
+>Math.sign : (x: number) => number
 >Math : Math
->sign : (x: 数字) => 数字
+>sign : (x: number) => number
 >1 : 1
 
 // Using ES6 object
 var o = {
->o : { a: 数字; [Symbol.hasInstance](value: 任意): 真假; }
->{    a: 2,    [Symbol.hasInstance](value: any) {        return false;    }} : { a: 数字; [Symbol.hasInstance](value: 任意): 真假; }
+>o : { a: number; [Symbol.hasInstance](value: any): boolean; }
+>{    a: 2,    [Symbol.hasInstance](value: any) {        return false;    }} : { a: number; [Symbol.hasInstance](value: any): boolean; }
 
     a: 2,
->a : 数字
->类型别名 :=> 数字
+>a : number
 >2 : 2
 
     [Symbol.hasInstance](value: any) {
->Symbol.hasInstance : 符号
->类型别名 :=> 符号
+>[Symbol.hasInstance] : (value: any) => boolean
+>Symbol.hasInstance : symbol
 >Symbol : SymbolConstructor
->hasInstance : 符号
->类型别名 :=> 符号
->value : 任意
->类型别名 :=> 任意
+>hasInstance : symbol
+>value : any
 
         return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
     }
 };
 o.hasOwnProperty(Symbol.hasInstance);
->o.hasOwnProperty(Symbol.hasInstance) : 真假
->类型别名 :=> 真假
->o.hasOwnProperty : { (v: 文字): 真假; (v: PropertyKey): 真假; }
->o : { a: 数字; [Symbol.hasInstance](value: 任意): 真假; }
->hasOwnProperty : { (v: 文字): 真假; (v: PropertyKey): 真假; }
->Symbol.hasInstance : 符号
->类型别名 :=> 符号
+>o.hasOwnProperty(Symbol.hasInstance) : boolean
+>o.hasOwnProperty : { (v: string): boolean; (v: PropertyKey): boolean; }
+>o : { a: number; [Symbol.hasInstance](value: any): boolean; }
+>hasOwnProperty : { (v: string): boolean; (v: PropertyKey): boolean; }
+>Symbol.hasInstance : symbol
 >Symbol : SymbolConstructor
->hasInstance : 符号
->类型别名 :=> 符号
+>hasInstance : symbol
 
 // Using Es6 proxy
 var t = {}
@@ -114,11 +100,10 @@ var p = new Proxy(t, {});
 
 // Using ES6 reflect
 Reflect.isExtensible({});
->Reflect.isExtensible({}) : 真假
->类型别名 :=> 真假
->Reflect.isExtensible : (target: 实例) => 真假
->Reflect : 类为 Reflect
->isExtensible : (target: 实例) => 真假
+>Reflect.isExtensible({}) : boolean
+>Reflect.isExtensible : (target: object) => boolean
+>Reflect : typeof Reflect
+>isExtensible : (target: object) => boolean
 >{} : {}
 
 // Using Es6 regexp
@@ -129,52 +114,42 @@ var reg = new RegExp("/s");
 >"/s" : "/s"
 
 reg.flags;
->reg.flags : 文字
->类型别名 :=> 文字
+>reg.flags : string
 >reg : RegExp
->flags : 文字
->类型别名 :=> 文字
+>flags : string
 
 // Using ES6 string
 var str = "Hello world";
->str : 文字
->类型别名 :=> 文字
+>str : string
 >"Hello world" : "Hello world"
 
 str.includes("hello", 0);
->str.includes("hello", 0) : 真假
->类型别名 :=> 真假
->str.includes : (searchString: 文字, position?: 数字) => 真假
->str : 文字
->类型别名 :=> 文字
->includes : (searchString: 文字, position?: 数字) => 真假
+>str.includes("hello", 0) : boolean
+>str.includes : (searchString: string, position?: number) => boolean
+>str : string
+>includes : (searchString: string, position?: number) => boolean
 >"hello" : "hello"
 >0 : 0
 
 // Using ES6 symbol
 var s = Symbol();
->s : 符号
->类型别名 :=> 符号
->Symbol() : 符号
->类型别名 :=> 符号
+>s : symbol
+>Symbol() : symbol
 >Symbol : SymbolConstructor
 
 // Using ES6 wellknown-symbol
 const o1 = {
->o1 : { [Symbol.hasInstance](value: 任意): 真假; }
->{    [Symbol.hasInstance](value: any) {        return false;    }} : { [Symbol.hasInstance](value: 任意): 真假; }
+>o1 : { [Symbol.hasInstance](value: any): boolean; }
+>{    [Symbol.hasInstance](value: any) {        return false;    }} : { [Symbol.hasInstance](value: any): boolean; }
 
     [Symbol.hasInstance](value: any) {
->Symbol.hasInstance : 符号
->类型别名 :=> 符号
+>[Symbol.hasInstance] : (value: any) => boolean
+>Symbol.hasInstance : symbol
 >Symbol : SymbolConstructor
->hasInstance : 符号
->类型别名 :=> 符号
->value : 任意
->类型别名 :=> 任意
+>hasInstance : symbol
+>value : any
 
         return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
     }
 }

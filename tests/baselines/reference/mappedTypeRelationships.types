@@ -1,20 +1,20 @@
 === tests/cases/conformance/types/mapped/mappedTypeRelationships.ts ===
 function f1<T>(x: T, k: keyof T) {
->f1 : <T>(x: T, k: 键集 T) => T[键集 T]
+>f1 : <T>(x: T, k: keyof T) => T[keyof T]
 >T : T
 >x : T
 >T : T
->k : 键集 T
+>k : keyof T
 >T : T
 
     return x[k];
->x[k] : T[键集 T]
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
+>k : keyof T
 }
 
 function f2<T, K extends keyof T>(x: T, k: K) {
->f2 : <T, K 扩展 键集 T>(x: T, k: K) => T[K]
+>f2 : <T, K extends keyof T>(x: T, k: K) => T[K]
 >T : T
 >K : K
 >T : T
@@ -30,7 +30,7 @@ function f2<T, K extends keyof T>(x: T, k: K) {
 }
 
 function f3<T, U extends T>(x: T, y: U, k: keyof T) {
->f3 : <T, U 扩展 T>(x: T, y: U, k: 键集 T) => 无值
+>f3 : <T, U extends T>(x: T, y: U, k: keyof T) => void
 >T : T
 >U : U
 >T : T
@@ -38,30 +38,30 @@ function f3<T, U extends T>(x: T, y: U, k: keyof T) {
 >T : T
 >y : U
 >U : U
->k : 键集 T
+>k : keyof T
 >T : T
 
     x[k] = y[k];
->x[k] = y[k] : U[键集 T]
->x[k] : T[键集 T]
+>x[k] = y[k] : U[keyof T]
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
->y[k] : U[键集 T]
+>k : keyof T
+>y[k] : U[keyof T]
 >y : U
->k : 键集 T
+>k : keyof T
 
     y[k] = x[k];  // Error
->y[k] = x[k] : T[键集 T]
->y[k] : U[键集 T]
+>y[k] = x[k] : T[keyof T]
+>y[k] : U[keyof T]
 >y : U
->k : 键集 T
->x[k] : T[键集 T]
+>k : keyof T
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
+>k : keyof T
 }
 
 function f4<T, U extends T, K extends keyof T>(x: T, y: U, k: K) {
->f4 : <T, U 扩展 T, K 扩展 键集 T>(x: T, y: U, k: K) => 无值
+>f4 : <T, U extends T, K extends keyof T>(x: T, y: U, k: K) => void
 >T : T
 >U : U
 >T : T
@@ -94,7 +94,7 @@ function f4<T, U extends T, K extends keyof T>(x: T, y: U, k: K) {
 }
 
 function f5<T, U extends T>(x: T, y: U, k: keyof U) {
->f5 : <T, U 扩展 T>(x: T, y: U, k: 键集 U) => 无值
+>f5 : <T, U extends T>(x: T, y: U, k: keyof U) => void
 >T : T
 >U : U
 >T : T
@@ -102,30 +102,30 @@ function f5<T, U extends T>(x: T, y: U, k: keyof U) {
 >T : T
 >y : U
 >U : U
->k : 键集 U
+>k : keyof U
 >U : U
 
     x[k] = y[k];  // Error
->x[k] = y[k] : U[键集 U]
->x[k] : T[键集 U]
+>x[k] = y[k] : U[keyof U]
+>x[k] : T[keyof U]
 >x : T
->k : 键集 U
->y[k] : U[键集 U]
+>k : keyof U
+>y[k] : U[keyof U]
 >y : U
->k : 键集 U
+>k : keyof U
 
     y[k] = x[k];  // Error
->y[k] = x[k] : T[键集 U]
->y[k] : U[键集 U]
+>y[k] = x[k] : T[keyof U]
+>y[k] : U[keyof U]
 >y : U
->k : 键集 U
->x[k] : T[键集 U]
+>k : keyof U
+>x[k] : T[keyof U]
 >x : T
->k : 键集 U
+>k : keyof U
 }
 
 function f6<T, U extends T, K extends keyof U>(x: T, y: U, k: K) {
->f6 : <T, U 扩展 T, K 扩展 键集 U>(x: T, y: U, k: K) => 无值
+>f6 : <T, U extends T, K extends keyof U>(x: T, y: U, k: K) => void
 >T : T
 >U : U
 >T : T
@@ -158,37 +158,37 @@ function f6<T, U extends T, K extends keyof U>(x: T, y: U, k: K) {
 }
 
 function f10<T>(x: T, y: Partial<T>, k: keyof T) {
->f10 : <T>(x: T, y: Partial<T>, k: 键集 T) => 无值
+>f10 : <T>(x: T, y: Partial<T>, k: keyof T) => void
 >T : T
 >x : T
 >T : T
 >y : Partial<T>
 >Partial : Partial<T>
 >T : T
->k : 键集 T
+>k : keyof T
 >T : T
 
     x[k] = y[k];  // Error
->x[k] = y[k] : Partial<T>[键集 T]
->x[k] : T[键集 T]
+>x[k] = y[k] : Partial<T>[keyof T]
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
->y[k] : Partial<T>[键集 T]
+>k : keyof T
+>y[k] : Partial<T>[keyof T]
 >y : Partial<T>
->k : 键集 T
+>k : keyof T
 
     y[k] = x[k];
->y[k] = x[k] : T[键集 T]
->y[k] : Partial<T>[键集 T]
+>y[k] = x[k] : T[keyof T]
+>y[k] : Partial<T>[keyof T]
 >y : Partial<T>
->k : 键集 T
->x[k] : T[键集 T]
+>k : keyof T
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
+>k : keyof T
 }
 
 function f11<T, K extends keyof T>(x: T, y: Partial<T>, k: K) {
->f11 : <T, K 扩展 键集 T>(x: T, y: Partial<T>, k: K) => 无值
+>f11 : <T, K extends keyof T>(x: T, y: Partial<T>, k: K) => void
 >T : T
 >K : K
 >T : T
@@ -220,7 +220,7 @@ function f11<T, K extends keyof T>(x: T, y: Partial<T>, k: K) {
 }
 
 function f12<T, U extends T>(x: T, y: Partial<U>, k: keyof T) {
->f12 : <T, U 扩展 T>(x: T, y: Partial<U>, k: 键集 T) => 无值
+>f12 : <T, U extends T>(x: T, y: Partial<U>, k: keyof T) => void
 >T : T
 >U : U
 >T : T
@@ -229,30 +229,30 @@ function f12<T, U extends T>(x: T, y: Partial<U>, k: keyof T) {
 >y : Partial<U>
 >Partial : Partial<T>
 >U : U
->k : 键集 T
+>k : keyof T
 >T : T
 
     x[k] = y[k];  // Error
->x[k] = y[k] : Partial<U>[键集 T]
->x[k] : T[键集 T]
+>x[k] = y[k] : Partial<U>[keyof T]
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
->y[k] : Partial<U>[键集 T]
+>k : keyof T
+>y[k] : Partial<U>[keyof T]
 >y : Partial<U>
->k : 键集 T
+>k : keyof T
 
     y[k] = x[k];  // Error
->y[k] = x[k] : T[键集 T]
->y[k] : Partial<U>[键集 T]
+>y[k] = x[k] : T[keyof T]
+>y[k] : Partial<U>[keyof T]
 >y : Partial<U>
->k : 键集 T
->x[k] : T[键集 T]
+>k : keyof T
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
+>k : keyof T
 }
 
 function f13<T, U extends T, K extends keyof T>(x: T, y: Partial<U>, k: K) {
->f13 : <T, U 扩展 T, K 扩展 键集 T>(x: T, y: Partial<U>, k: K) => 无值
+>f13 : <T, U extends T, K extends keyof T>(x: T, y: Partial<U>, k: K) => void
 >T : T
 >U : U
 >T : T
@@ -286,37 +286,37 @@ function f13<T, U extends T, K extends keyof T>(x: T, y: Partial<U>, k: K) {
 }
 
 function f20<T>(x: T, y: Readonly<T>, k: keyof T) {
->f20 : <T>(x: T, y: Readonly<T>, k: 键集 T) => 无值
+>f20 : <T>(x: T, y: Readonly<T>, k: keyof T) => void
 >T : T
 >x : T
 >T : T
 >y : Readonly<T>
 >Readonly : Readonly<T>
 >T : T
->k : 键集 T
+>k : keyof T
 >T : T
 
     x[k] = y[k];
->x[k] = y[k] : Readonly<T>[键集 T]
->x[k] : T[键集 T]
+>x[k] = y[k] : Readonly<T>[keyof T]
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
->y[k] : Readonly<T>[键集 T]
+>k : keyof T
+>y[k] : Readonly<T>[keyof T]
 >y : Readonly<T>
->k : 键集 T
+>k : keyof T
 
     y[k] = x[k];  // Error
->y[k] = x[k] : T[键集 T]
->y[k] : Readonly<T>[键集 T]
+>y[k] = x[k] : T[keyof T]
+>y[k] : Readonly<T>[keyof T]
 >y : Readonly<T>
->k : 键集 T
->x[k] : T[键集 T]
+>k : keyof T
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
+>k : keyof T
 }
 
 function f21<T, K extends keyof T>(x: T, y: Readonly<T>, k: K) {
->f21 : <T, K 扩展 键集 T>(x: T, y: Readonly<T>, k: K) => 无值
+>f21 : <T, K extends keyof T>(x: T, y: Readonly<T>, k: K) => void
 >T : T
 >K : K
 >T : T
@@ -348,7 +348,7 @@ function f21<T, K extends keyof T>(x: T, y: Readonly<T>, k: K) {
 }
 
 function f22<T, U extends T>(x: T, y: Readonly<U>, k: keyof T) {
->f22 : <T, U 扩展 T>(x: T, y: Readonly<U>, k: 键集 T) => 无值
+>f22 : <T, U extends T>(x: T, y: Readonly<U>, k: keyof T) => void
 >T : T
 >U : U
 >T : T
@@ -357,30 +357,30 @@ function f22<T, U extends T>(x: T, y: Readonly<U>, k: keyof T) {
 >y : Readonly<U>
 >Readonly : Readonly<T>
 >U : U
->k : 键集 T
+>k : keyof T
 >T : T
 
     x[k] = y[k];
->x[k] = y[k] : Readonly<U>[键集 T]
->x[k] : T[键集 T]
+>x[k] = y[k] : Readonly<U>[keyof T]
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
->y[k] : Readonly<U>[键集 T]
+>k : keyof T
+>y[k] : Readonly<U>[keyof T]
 >y : Readonly<U>
->k : 键集 T
+>k : keyof T
 
     y[k] = x[k];  // Error
->y[k] = x[k] : T[键集 T]
->y[k] : Readonly<U>[键集 T]
+>y[k] = x[k] : T[keyof T]
+>y[k] : Readonly<U>[keyof T]
 >y : Readonly<U>
->k : 键集 T
->x[k] : T[键集 T]
+>k : keyof T
+>x[k] : T[keyof T]
 >x : T
->k : 键集 T
+>k : keyof T
 }
 
 function f23<T, U extends T, K extends keyof T>(x: T, y: Readonly<U>, k: K) {
->f23 : <T, U 扩展 T, K 扩展 键集 T>(x: T, y: Readonly<U>, k: K) => 无值
+>f23 : <T, U extends T, K extends keyof T>(x: T, y: Readonly<U>, k: K) => void
 >T : T
 >U : U
 >T : T
@@ -415,13 +415,11 @@ function f23<T, U extends T, K extends keyof T>(x: T, y: Readonly<U>, k: K) {
 
 type Thing = { a: string, b: string };
 >Thing : Thing
->a : 文字
->类型别名 :=> 文字
->b : 文字
->类型别名 :=> 文字
+>a : string
+>b : string
 
 function f30<T>(x: T, y: Partial<T>) {
->f30 : <T>(x: T, y: Partial<T>) => 无值
+>f30 : <T>(x: T, y: Partial<T>) => void
 >T : T
 >x : T
 >T : T
@@ -441,7 +439,7 @@ function f30<T>(x: T, y: Partial<T>) {
 }
 
 function f31<T extends Thing>(x: Partial<Thing>, y: Partial<T>) {
->f31 : <T 扩展 Thing>(x: Partial<Thing>, y: Partial<T>) => 无值
+>f31 : <T extends Thing>(x: Partial<Thing>, y: Partial<T>) => void
 >T : T
 >Thing : Thing
 >x : Partial<Thing>
@@ -463,7 +461,7 @@ function f31<T extends Thing>(x: Partial<Thing>, y: Partial<T>) {
 }
 
 function f40<T>(x: T, y: Readonly<T>) {
->f40 : <T>(x: T, y: Readonly<T>) => 无值
+>f40 : <T>(x: T, y: Readonly<T>) => void
 >T : T
 >x : T
 >T : T
@@ -483,7 +481,7 @@ function f40<T>(x: T, y: Readonly<T>) {
 }
 
 function f41<T extends Thing>(x: Readonly<Thing>, y: Readonly<T>) {
->f41 : <T 扩展 Thing>(x: Readonly<Thing>, y: Readonly<T>) => 无值
+>f41 : <T extends Thing>(x: Readonly<Thing>, y: Readonly<T>) => void
 >T : T
 >Thing : Thing
 >x : Readonly<Thing>
@@ -508,47 +506,43 @@ type Item = {
 >Item : Item
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 }
 
 type ItemMap = {
 >ItemMap : ItemMap
 
     [x: string]: Item;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Item : Item
 }
 
 function f50<T extends ItemMap>(obj: T, key: keyof T) {
->f50 : <T 扩展 ItemMap>(obj: T, key: 键集 T) => 文字
+>f50 : <T extends ItemMap>(obj: T, key: keyof T) => string
 >T : T
 >ItemMap : ItemMap
 >obj : T
 >T : T
->key : 键集 T
+>key : keyof T
 >T : T
 
     let item: Item = obj[key];
 >item : Item
 >Item : Item
->obj[key] : T[键集 T]
+>obj[key] : T[keyof T]
 >obj : T
->key : 键集 T
+>key : keyof T
 
     return obj[key].name;
->obj[key].name : 文字
->类型别名 :=> 文字
->obj[key] : T[键集 T]
+>obj[key].name : string
+>obj[key] : T[keyof T]
 >obj : T
->key : 键集 T
->name : 文字
->类型别名 :=> 文字
+>key : keyof T
+>name : string
 }
 
 function f51<T extends ItemMap, K extends keyof T>(obj: T, key: K) {
->f51 : <T 扩展 ItemMap, K 扩展 键集 T>(obj: T, key: K) => 文字
+>f51 : <T extends ItemMap, K extends keyof T>(obj: T, key: K) => string
 >T : T
 >ItemMap : ItemMap
 >K : K
@@ -566,13 +560,11 @@ function f51<T extends ItemMap, K extends keyof T>(obj: T, key: K) {
 >key : K
 
     return obj[key].name;
->obj[key].name : 文字
->类型别名 :=> 文字
+>obj[key].name : string
 >obj[key] : T[K]
 >obj : T
 >key : K
->name : 文字
->类型别名 :=> 文字
+>name : string
 }
 
 type T1<T> = {
@@ -598,7 +590,7 @@ type T2<T> = {
 }
 
 function f60<U>(x: T1<U>, y: T2<U>) {
->f60 : <U>(x: T1<U>, y: T2<U>) => 无值
+>f60 : <U>(x: T1<U>, y: T2<U>) => void
 >U : U
 >x : T1<U>
 >T1 : T1<T>
@@ -630,7 +622,7 @@ type Identity<T> = {
 }
 
 function f61<U>(x: Identity<U>, y: Partial<U>) {
->f61 : <U>(x: Identity<U>, y: Partial<U>) => 无值
+>f61 : <U>(x: Identity<U>, y: Partial<U>) => void
 >U : U
 >x : Identity<U>
 >Identity : Identity<T>
@@ -651,7 +643,7 @@ function f61<U>(x: Identity<U>, y: Partial<U>) {
 }
 
 function f62<U>(x: Identity<U>, y: Readonly<U>) {
->f62 : <U>(x: Identity<U>, y: Readonly<U>) => 无值
+>f62 : <U>(x: Identity<U>, y: Readonly<U>) => void
 >U : U
 >x : Identity<U>
 >Identity : Identity<T>
@@ -672,195 +664,253 @@ function f62<U>(x: Identity<U>, y: Readonly<U>) {
 }
 
 function f70<T>(x: { [P in keyof T]: T[P] }, y: { [P in keyof T]: T[P] }) {
->f70 : <T>(x: { [P 位于 键集 T]: T[P]; }, y: { [P 位于 键集 T]: T[P]; }) => 无值
+>f70 : <T>(x: { [P in keyof T]: T[P]; }, y: { [P in keyof T]: T[P]; }) => void
 >T : T
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
->y : { [P 位于 键集 T]: T[P]; }
+>y : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     x = y;
->x = y : { [P 位于 键集 T]: T[P]; }
->x : { [P 位于 键集 T]: T[P]; }
->y : { [P 位于 键集 T]: T[P]; }
+>x = y : { [P in keyof T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
+>y : { [P in keyof T]: T[P]; }
 
     y = x;
->y = x : { [P 位于 键集 T]: T[P]; }
->y : { [P 位于 键集 T]: T[P]; }
->x : { [P 位于 键集 T]: T[P]; }
+>y = x : { [P in keyof T]: T[P]; }
+>y : { [P in keyof T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 }
 
 function f71<T, U extends T>(x: { [P in keyof T]: T[P] }, y: { [P in keyof T]: U[P] }) {
->f71 : <T, U 扩展 T>(x: { [P 位于 键集 T]: T[P]; }, y: { [P 位于 键集 T]: U[P]; }) => 无值
+>f71 : <T, U extends T>(x: { [P in keyof T]: T[P]; }, y: { [P in keyof T]: U[P]; }) => void
 >T : T
 >U : U
 >T : T
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
->y : { [P 位于 键集 T]: U[P]; }
+>y : { [P in keyof T]: U[P]; }
 >P : P
 >T : T
 >U : U
 >P : P
 
     x = y;
->x = y : { [P 位于 键集 T]: U[P]; }
->x : { [P 位于 键集 T]: T[P]; }
->y : { [P 位于 键集 T]: U[P]; }
+>x = y : { [P in keyof T]: U[P]; }
+>x : { [P in keyof T]: T[P]; }
+>y : { [P in keyof T]: U[P]; }
 
     y = x;  // Error
->y = x : { [P 位于 键集 T]: T[P]; }
->y : { [P 位于 键集 T]: U[P]; }
->x : { [P 位于 键集 T]: T[P]; }
+>y = x : { [P in keyof T]: T[P]; }
+>y : { [P in keyof T]: U[P]; }
+>x : { [P in keyof T]: T[P]; }
 }
 
 function f72<T, U extends T>(x: { [P in keyof T]: T[P] }, y: { [P in keyof U]: U[P] }) {
->f72 : <T, U 扩展 T>(x: { [P 位于 键集 T]: T[P]; }, y: { [P 位于 键集 U]: U[P]; }) => 无值
+>f72 : <T, U extends T>(x: { [P in keyof T]: T[P]; }, y: { [P in keyof U]: U[P]; }) => void
 >T : T
 >U : U
 >T : T
->x : { [P 位于 键集 T]: T[P]; }
+>x : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
->y : { [P 位于 键集 U]: U[P]; }
+>y : { [P in keyof U]: U[P]; }
 >P : P
 >U : U
 >U : U
 >P : P
 
     x = y;
->x = y : { [P 位于 键集 U]: U[P]; }
->x : { [P 位于 键集 T]: T[P]; }
->y : { [P 位于 键集 U]: U[P]; }
+>x = y : { [P in keyof U]: U[P]; }
+>x : { [P in keyof T]: T[P]; }
+>y : { [P in keyof U]: U[P]; }
 
     y = x;  // Error
->y = x : { [P 位于 键集 T]: T[P]; }
->y : { [P 位于 键集 U]: U[P]; }
->x : { [P 位于 键集 T]: T[P]; }
+>y = x : { [P in keyof T]: T[P]; }
+>y : { [P in keyof U]: U[P]; }
+>x : { [P in keyof T]: T[P]; }
 }
 
 function f73<T, K extends keyof T>(x: { [P in K]: T[P] }, y: { [P in keyof T]: T[P] }) {
->f73 : <T, K 扩展 键集 T>(x: { [P 位于 K]: T[P]; }, y: { [P 位于 键集 T]: T[P]; }) => 无值
+>f73 : <T, K extends keyof T>(x: { [P in K]: T[P]; }, y: { [P in keyof T]: T[P]; }) => void
 >T : T
 >K : K
 >T : T
->x : { [P 位于 K]: T[P]; }
+>x : { [P in K]: T[P]; }
 >P : P
 >K : K
 >T : T
 >P : P
->y : { [P 位于 键集 T]: T[P]; }
+>y : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
 >P : P
 
     x = y;
->x = y : { [P 位于 键集 T]: T[P]; }
->x : { [P 位于 K]: T[P]; }
->y : { [P 位于 键集 T]: T[P]; }
+>x = y : { [P in keyof T]: T[P]; }
+>x : { [P in K]: T[P]; }
+>y : { [P in keyof T]: T[P]; }
 
     y = x;  // Error
->y = x : { [P 位于 K]: T[P]; }
->y : { [P 位于 键集 T]: T[P]; }
->x : { [P 位于 K]: T[P]; }
+>y = x : { [P in K]: T[P]; }
+>y : { [P in keyof T]: T[P]; }
+>x : { [P in K]: T[P]; }
 }
 
 function f74<T, U extends T, K extends keyof T>(x: { [P in K]: T[P] }, y: { [P in keyof U]: U[P] }) {
->f74 : <T, U 扩展 T, K 扩展 键集 T>(x: { [P 位于 K]: T[P]; }, y: { [P 位于 键集 U]: U[P]; }) => 无值
+>f74 : <T, U extends T, K extends keyof T>(x: { [P in K]: T[P]; }, y: { [P in keyof U]: U[P]; }) => void
 >T : T
 >U : U
 >T : T
 >K : K
 >T : T
->x : { [P 位于 K]: T[P]; }
+>x : { [P in K]: T[P]; }
 >P : P
 >K : K
 >T : T
 >P : P
->y : { [P 位于 键集 U]: U[P]; }
+>y : { [P in keyof U]: U[P]; }
 >P : P
 >U : U
 >U : U
 >P : P
 
     x = y;
->x = y : { [P 位于 键集 U]: U[P]; }
->x : { [P 位于 K]: T[P]; }
->y : { [P 位于 键集 U]: U[P]; }
+>x = y : { [P in keyof U]: U[P]; }
+>x : { [P in K]: T[P]; }
+>y : { [P in keyof U]: U[P]; }
 
     y = x;  // Error
->y = x : { [P 位于 K]: T[P]; }
->y : { [P 位于 键集 U]: U[P]; }
->x : { [P 位于 K]: T[P]; }
+>y = x : { [P in K]: T[P]; }
+>y : { [P in keyof U]: U[P]; }
+>x : { [P in K]: T[P]; }
 }
 
 function f75<T, U extends T, K extends keyof T>(x: { [P in K]: T[P] }, y: { [P in keyof T]: U[P] }) {
->f75 : <T, U 扩展 T, K 扩展 键集 T>(x: { [P 位于 K]: T[P]; }, y: { [P 位于 键集 T]: U[P]; }) => 无值
+>f75 : <T, U extends T, K extends keyof T>(x: { [P in K]: T[P]; }, y: { [P in keyof T]: U[P]; }) => void
 >T : T
 >U : U
 >T : T
 >K : K
 >T : T
->x : { [P 位于 K]: T[P]; }
+>x : { [P in K]: T[P]; }
 >P : P
 >K : K
 >T : T
 >P : P
->y : { [P 位于 键集 T]: U[P]; }
+>y : { [P in keyof T]: U[P]; }
 >P : P
 >T : T
 >U : U
 >P : P
 
     x = y;
->x = y : { [P 位于 键集 T]: U[P]; }
->x : { [P 位于 K]: T[P]; }
->y : { [P 位于 键集 T]: U[P]; }
+>x = y : { [P in keyof T]: U[P]; }
+>x : { [P in K]: T[P]; }
+>y : { [P in keyof T]: U[P]; }
 
     y = x;  // Error
->y = x : { [P 位于 K]: T[P]; }
->y : { [P 位于 键集 T]: U[P]; }
->x : { [P 位于 K]: T[P]; }
+>y = x : { [P in K]: T[P]; }
+>y : { [P in keyof T]: U[P]; }
+>x : { [P in K]: T[P]; }
 }
 
 function f76<T, U extends T, K extends keyof T>(x: { [P in K]: T[P] }, y: { [P in K]: U[P] }) {
->f76 : <T, U 扩展 T, K 扩展 键集 T>(x: { [P 位于 K]: T[P]; }, y: { [P 位于 K]: U[P]; }) => 无值
+>f76 : <T, U extends T, K extends keyof T>(x: { [P in K]: T[P]; }, y: { [P in K]: U[P]; }) => void
 >T : T
 >U : U
 >T : T
 >K : K
 >T : T
->x : { [P 位于 K]: T[P]; }
+>x : { [P in K]: T[P]; }
 >P : P
 >K : K
 >T : T
 >P : P
->y : { [P 位于 K]: U[P]; }
+>y : { [P in K]: U[P]; }
 >P : P
 >K : K
 >U : U
 >P : P
 
     x = y;
->x = y : { [P 位于 K]: U[P]; }
->x : { [P 位于 K]: T[P]; }
->y : { [P 位于 K]: U[P]; }
+>x = y : { [P in K]: U[P]; }
+>x : { [P in K]: T[P]; }
+>y : { [P in K]: U[P]; }
 
     y = x;  // Error
->y = x : { [P 位于 K]: T[P]; }
->y : { [P 位于 K]: U[P]; }
->x : { [P 位于 K]: T[P]; }
+>y = x : { [P in K]: T[P]; }
+>y : { [P in K]: U[P]; }
+>x : { [P in K]: T[P]; }
+}
+
+function f80<T>(t: T): Partial<T> {
+>f80 : <T>(t: T) => Partial<T>
+>T : T
+>t : T
+>T : T
+>Partial : Partial<T>
+>T : T
+
+    return t;
+>t : T
+}
+
+function f81<T, K extends keyof T>(t: T, k: K): Partial<T[K]> {
+>f81 : <T, K extends keyof T>(t: T, k: K) => Partial<T[K]>
+>T : T
+>K : K
+>T : T
+>t : T
+>T : T
+>k : K
+>K : K
+>Partial : Partial<T>
+>T : T
+>K : K
+
+    return t[k];
+>t[k] : T[K]
+>t : T
+>k : K
+}
+
+function f82<T, K1 extends keyof T, K2 extends keyof T[K1]>(t: T, k1: K1, k2: K2): Partial<T[K1][K2]> {
+>f82 : <T, K1 extends keyof T, K2 extends keyof T[K1]>(t: T, k1: K1, k2: K2) => Partial<T[K1][K2]>
+>T : T
+>K1 : K1
+>T : T
+>K2 : K2
+>T : T
+>K1 : K1
+>t : T
+>T : T
+>k1 : K1
+>K1 : K1
+>k2 : K2
+>K2 : K2
+>Partial : Partial<T>
+>T : T
+>K1 : K1
+>K2 : K2
+
+    return t[k1][k2];
+>t[k1][k2] : T[K1][K2]
+>t[k1] : T[K1]
+>t : T
+>k1 : K1
+>k2 : K2
 }
 

@@ -5,21 +5,19 @@ interface A {
 >A : A
 
     foo(x: number): number;
->foo : { (x: 数字): 数字; (x: 文字): 文字; (x: Date): Date; }
->x : 数字
->类型别名 :=> 数字
+>foo : { (x: number): number; (x: string): string; (x: Date): Date; }
+>x : number
 
     foo(x: string): string;
->foo : { (x: 数字): 数字; (x: 文字): 文字; (x: Date): Date; }
->x : 文字
->类型别名 :=> 文字
+>foo : { (x: number): number; (x: string): string; (x: Date): Date; }
+>x : string
 }
 
 interface A {
 >A : A
 
     foo(x: Date): Date;
->foo : { (x: 数字): 数字; (x: 文字): 文字; (x: Date): Date; }
+>foo : { (x: number): number; (x: string): string; (x: Date): Date; }
 >x : Date
 >Date : Date
 >Date : Date
@@ -30,14 +28,13 @@ interface B<T> {
 >T : T
 
     foo(x: T): number;
->foo : { (x: T): 数字; (x: 文字): 文字; (x: T): Date; (x: Date): 文字; }
+>foo : { (x: T): number; (x: string): string; (x: T): Date; (x: Date): string; }
 >x : T
 >T : T
 
     foo(x: string): string;
->foo : { (x: T): 数字; (x: 文字): 文字; (x: T): Date; (x: Date): 文字; }
->x : 文字
->类型别名 :=> 文字
+>foo : { (x: T): number; (x: string): string; (x: T): Date; (x: Date): string; }
+>x : string
 }
 
 interface B<T> {
@@ -45,29 +42,28 @@ interface B<T> {
 >T : T
 
     foo(x: T): Date;
->foo : { (x: T): 数字; (x: 文字): 文字; (x: T): Date; (x: Date): 文字; }
+>foo : { (x: T): number; (x: string): string; (x: T): Date; (x: Date): string; }
 >x : T
 >T : T
 >Date : Date
 
     foo(x: Date): string;
->foo : { (x: T): 数字; (x: 文字): 文字; (x: T): Date; (x: Date): 文字; }
+>foo : { (x: T): number; (x: string): string; (x: T): Date; (x: Date): string; }
 >x : Date
 >Date : Date
 }
 
 var b: B<boolean>;
->b : B<真假>
+>b : B<boolean>
 >B : B<T>
 
 var r = b.foo(true); // returns Date
 >r : Date
 >b.foo(true) : Date
->b.foo : { (x: 真假): 数字; (x: 文字): 文字; (x: 真假): Date; (x: Date): 文字; }
->b : B<真假>
->foo : { (x: 真假): 数字; (x: 文字): 文字; (x: 真假): Date; (x: Date): 文字; }
->true : 为真
->类型别名 :=> 为真
+>b.foo : { (x: boolean): number; (x: string): string; (x: boolean): Date; (x: Date): string; }
+>b : B<boolean>
+>foo : { (x: boolean): number; (x: string): string; (x: boolean): Date; (x: Date): string; }
+>true : true
 
 // add generic overload
 interface C<T, U> {
@@ -76,18 +72,16 @@ interface C<T, U> {
 >U : U
 
     foo(x: T, y: U): string;
->foo : { (x: T, y: U): 文字; (x: 文字, y: 文字): 数字; <W>(x: W, y: W): W; }
+>foo : { (x: T, y: U): string; (x: string, y: string): number; <W>(x: W, y: W): W; }
 >x : T
 >T : T
 >y : U
 >U : U
 
     foo(x: string, y: string): number;
->foo : { (x: T, y: U): 文字; (x: 文字, y: 文字): 数字; <W>(x: W, y: W): W; }
->x : 文字
->类型别名 :=> 文字
->y : 文字
->类型别名 :=> 文字
+>foo : { (x: T, y: U): string; (x: string, y: string): number; <W>(x: W, y: W): W; }
+>x : string
+>y : string
 }
 
 interface C<T, U> {
@@ -96,7 +90,7 @@ interface C<T, U> {
 >U : U
 
     foo<W>(x: W, y: W): W;
->foo : { (x: T, y: U): 文字; (x: 文字, y: 文字): 数字; <W>(x: W, y: W): W; }
+>foo : { (x: T, y: U): string; (x: string, y: string): number; <W>(x: W, y: W): W; }
 >W : W
 >x : W
 >W : W
@@ -106,17 +100,16 @@ interface C<T, U> {
 }
 
 var c: C<boolean, Date>;
->c : C<真假, Date>
+>c : C<boolean, Date>
 >C : C<T, U>
 >Date : Date
 
 var r2 = c.foo(1, 2); // number
->r2 : 数字
->类型别名 :=> 数字
+>r2 : number
 >c.foo(1, 2) : 1 | 2
->c.foo : { (x: 真假, y: Date): 文字; (x: 文字, y: 文字): 数字; <W>(x: W, y: W): W; }
->c : C<真假, Date>
->foo : { (x: 真假, y: Date): 文字; (x: 文字, y: 文字): 数字; <W>(x: W, y: W): W; }
+>c.foo : { (x: boolean, y: Date): string; (x: string, y: string): number; <W>(x: W, y: W): W; }
+>c : C<boolean, Date>
+>foo : { (x: boolean, y: Date): string; (x: string, y: string): number; <W>(x: W, y: W): W; }
 >1 : 1
 >2 : 2
 
@@ -160,18 +153,16 @@ interface D<T, U> {
 }
 
 var d: D<boolean, Date>;
->d : D<真假, Date>
+>d : D<boolean, Date>
 >D : D<T, U>
 >Date : Date
 
 var r3 = d.foo(1, 1); // boolean, last definition wins
->r3 : 真假
->类型别名 :=> 真假
->d.foo(1, 1) : 真假
->类型别名 :=> 真假
->d.foo : { <A>(x: A, y: A): Date; <W>(x: W, y: W): 真假; }
->d : D<真假, Date>
->foo : { <A>(x: A, y: A): Date; <W>(x: W, y: W): 真假; }
+>r3 : boolean
+>d.foo(1, 1) : boolean
+>d.foo : { <A>(x: A, y: A): Date; <W>(x: W, y: W): boolean; }
+>d : D<boolean, Date>
+>foo : { <A>(x: A, y: A): Date; <W>(x: W, y: W): boolean; }
 >1 : 1
 >1 : 1
 

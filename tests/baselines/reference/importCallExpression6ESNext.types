@@ -3,58 +3,52 @@ export class B {
 >B : B
 
     print() { return "I am B"}
->print : () => 文字
+>print : () => string
 >"I am B" : "I am B"
 }
 
 export function foo() { return "foo" }
->foo : () => 文字
+>foo : () => string
 >"foo" : "foo"
 
 === tests/cases/conformance/dynamicImport/1.ts ===
 export function backup() { return "backup"; }
->backup : () => 文字
+>backup : () => string
 >"backup" : "backup"
 
 === tests/cases/conformance/dynamicImport/2.ts ===
 declare function bar(): boolean;
->bar : () => 真假
+>bar : () => boolean
 
 const specify = bar() ? "./0" : undefined;
 >specify : "./0"
 >bar() ? "./0" : undefined : "./0"
->bar() : 真假
->类型别名 :=> 真假
->bar : () => 真假
+>bar() : boolean
+>bar : () => boolean
 >"./0" : "./0"
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 let myModule = import(specify);
->myModule : Promise<任意>
->import(specify) : Promise<任意>
+>myModule : Promise<any>
+>import(specify) : Promise<any>
 >specify : "./0"
 
 let myModule1 = import(undefined);
->myModule1 : Promise<任意>
->import(undefined) : Promise<任意>
->undefined : 未定
->类型别名 :=> 未定
+>myModule1 : Promise<any>
+>import(undefined) : Promise<any>
+>undefined : undefined
 
 let myModule2 = import(bar() ? "./1" : null);
->myModule2 : Promise<任意>
->import(bar() ? "./1" : null) : Promise<任意>
+>myModule2 : Promise<any>
+>import(bar() ? "./1" : null) : Promise<any>
 >bar() ? "./1" : null : "./1"
->bar() : 真假
->类型别名 :=> 真假
->bar : () => 真假
+>bar() : boolean
+>bar : () => boolean
 >"./1" : "./1"
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 let myModule3 = import(null);
->myModule3 : Promise<任意>
->import(null) : Promise<任意>
->null : 空值
->类型别名 :=> 空值
+>myModule3 : Promise<any>
+>import(null) : Promise<any>
+>null : null
 

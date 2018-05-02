@@ -1,5 +1,7 @@
 === tests/cases/conformance/jsx/react.d.ts ===
 declare module 'react' {
+>'react' : typeof 'react'
+
 	class Component<T, U> { }
 >Component : Component<T, U>
 >T : T
@@ -8,49 +10,45 @@ declare module 'react' {
 
 === tests/cases/conformance/jsx/app.tsx ===
 import * as React from 'react';
->React : 类为 React
+>React : typeof React
 
 // Should see var button_1 = require('./button') here
 import { Button } from './button';
->Button : 类为 Button
+>Button : typeof Button
 
 export class App extends React.Component<any, any> {
 >App : App
->React.Component : React.Component<任意, 任意>
->React : 类为 React
->Component : 类为 React.Component
+>React.Component : React.Component<any, any>
+>React : typeof React
+>Component : typeof React.Component
 
     render() {
->render : () => 任意
+>render : () => any
 
         return <Button />;
-><Button /> : 任意
->类型别名 :=> 任意
->Button : 类为 Button
+><Button /> : any
+>Button : typeof Button
     }
 
 }
 
 === tests/cases/conformance/jsx/button.tsx ===
 import * as React from 'react';
->React : 类为 React
+>React : typeof React
 
 export class Button extends React.Component<any, any> {
 >Button : Button
->React.Component : React.Component<任意, 任意>
->React : 类为 React
->Component : 类为 React.Component
+>React.Component : React.Component<any, any>
+>React : typeof React
+>Component : typeof React.Component
 
     render() {
->render : () => 任意
+>render : () => any
 
         return <button>Some button</button>;
-><button>Some button</button> : 任意
->类型别名 :=> 任意
->button : 任意
->类型别名 :=> 任意
->button : 任意
->类型别名 :=> 任意
+><button>Some button</button> : any
+>button : any
+>button : any
     }
 
 }

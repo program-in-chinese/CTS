@@ -3,49 +3,43 @@ interface I {
 >I : I
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 class C extends I { } // error
 >C : C
->I : 任意
->类型别名 :=> 任意
+>I : any
 
 class C2 extends { foo: string; } { } // error
 >C2 : C2
->{ foo: string; } : { foo: 任意; }
->foo : 任意
->类型别名 :=> 任意
->string : 任意
->类型别名 :=> 任意
+>{ foo: string; } : { foo: any; }
+>foo : any
+>string : any
 
 var x: { foo: string; }
->x : { foo: 文字; }
->foo : 文字
->类型别名 :=> 文字
+>x : { foo: string; }
+>foo : string
 
 class C3 extends x { } // error
 >C3 : C3
->x : { foo: 文字; }
+>x : { foo: string; }
 
 module M { export var x = 1; }
->M : 类为 M
->x : 数字
->类型别名 :=> 数字
+>M : typeof M
+>x : number
 >1 : 1
 
 class C4 extends M { } // error
 >C4 : C4
->M : 类为 M
+>M : typeof M
 
 function foo() { }
->foo : () => 无值
+>foo : () => void
 
 class C5 extends foo { } // error
 >C5 : C5
->foo : () => 无值
+>foo : () => void
 
 class C6 extends []{ } // error
 >C6 : C6
->[] : 未定[]
+>[] : undefined[]
 

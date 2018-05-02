@@ -9,28 +9,26 @@ interface Pair<T1, T2> { first: T1; second: T2; }
 >T2 : T2
 
 var x: Pair<string, number>
->x : Pair<文字, 数字>
+>x : Pair<string, number>
 >Pair : Pair<T1, T2>
 
 var y: { first: string; second: number; }
->y : { first: 文字; second: 数字; }
->first : 文字
->类型别名 :=> 文字
->second : 数字
->类型别名 :=> 数字
+>y : { first: string; second: number; }
+>first : string
+>second : number
 
 x = y;
->x = y : { first: 文字; second: 数字; }
->x : Pair<文字, 数字>
->y : { first: 文字; second: 数字; }
+>x = y : { first: string; second: number; }
+>x : Pair<string, number>
+>y : { first: string; second: number; }
 
 y = x;
->y = x : Pair<文字, 数字>
->y : { first: 文字; second: 数字; }
->x : Pair<文字, 数字>
+>y = x : Pair<string, number>
+>y : { first: string; second: number; }
+>x : Pair<string, number>
 
 declare function f<T, U>(x: Pair<T, U>);
->f : <T, U>(x: Pair<T, U>) => 任意
+>f : <T, U>(x: Pair<T, U>) => any
 >T : T
 >U : U
 >x : Pair<T, U>
@@ -39,7 +37,7 @@ declare function f<T, U>(x: Pair<T, U>);
 >U : U
 
 declare function f2<T, U>(x: { first: T; second: U; });
->f2 : <T, U>(x: { first: T; second: U; }) => 任意
+>f2 : <T, U>(x: { first: T; second: U; }) => any
 >T : T
 >U : U
 >x : { first: T; second: U; }
@@ -49,26 +47,22 @@ declare function f2<T, U>(x: { first: T; second: U; });
 >U : U
 
 f(x);
->f(x) : 任意
->类型别名 :=> 任意
->f : <T, U>(x: Pair<T, U>) => 任意
->x : Pair<文字, 数字>
+>f(x) : any
+>f : <T, U>(x: Pair<T, U>) => any
+>x : Pair<string, number>
 
 f(y);
->f(y) : 任意
->类型别名 :=> 任意
->f : <T, U>(x: Pair<T, U>) => 任意
->y : { first: 文字; second: 数字; }
+>f(y) : any
+>f : <T, U>(x: Pair<T, U>) => any
+>y : { first: string; second: number; }
 
 f2(x);
->f2(x) : 任意
->类型别名 :=> 任意
->f2 : <T, U>(x: { first: T; second: U; }) => 任意
->x : Pair<文字, 数字>
+>f2(x) : any
+>f2 : <T, U>(x: { first: T; second: U; }) => any
+>x : Pair<string, number>
 
 f2(y);
->f2(y) : 任意
->类型别名 :=> 任意
->f2 : <T, U>(x: { first: T; second: U; }) => 任意
->y : { first: 文字; second: 数字; }
+>f2(y) : any
+>f2 : <T, U>(x: { first: T; second: U; }) => any
+>y : { first: string; second: number; }
 

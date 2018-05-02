@@ -3,22 +3,20 @@ export class SomeClass {
 >SomeClass : SomeClass
 
     field: string;
->field : 文字
->类型别名 :=> 文字
+>field : string
 }
 
 === tests/cases/compiler/test.ts ===
 import { SomeClass } from './auxiliry';
->SomeClass : 类为 SomeClass
+>SomeClass : typeof SomeClass
 
 function annotation(): PropertyDecorator {
 >annotation : () => PropertyDecorator
 >PropertyDecorator : PropertyDecorator
 
     return (target: any): void => { };
->(target: any): void => { } : (target: 任意) => 无值
->target : 任意
->类型别名 :=> 任意
+>(target: any): void => { } : (target: any) => void
+>target : any
 }
 export class ClassA {
 >ClassA : ClassA
@@ -26,8 +24,7 @@ export class ClassA {
     @annotation() array: SomeClass | null | string;
 >annotation() : PropertyDecorator
 >annotation : () => PropertyDecorator
->array : 文字 | SomeClass
+>array : string | SomeClass
 >SomeClass : SomeClass
->null : 空值
->类型别名 :=> 空值
+>null : null
 }

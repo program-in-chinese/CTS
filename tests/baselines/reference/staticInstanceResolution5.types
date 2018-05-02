@@ -1,26 +1,23 @@
 === tests/cases/compiler/staticInstanceResolution5_1.ts ===
 import WinJS = require('staticInstanceResolution5_0');
->WinJS : 类为 WinJS
+>WinJS : typeof WinJS
 
 // these 3 should be errors
 var x = (w1: WinJS) => { };
->x : (w1: 任意) => 无值
->(w1: WinJS) => { } : (w1: 任意) => 无值
->w1 : 任意
->类型别名 :=> 任意
+>x : (w1: any) => void
+>(w1: WinJS) => { } : (w1: any) => void
+>w1 : any
 >WinJS : No type information available!
 
 var y = function (w2: WinJS) { }
->y : (w2: 任意) => 无值
->function (w2: WinJS) { } : (w2: 任意) => 无值
->w2 : 任意
->类型别名 :=> 任意
+>y : (w2: any) => void
+>function (w2: WinJS) { } : (w2: any) => void
+>w2 : any
 >WinJS : No type information available!
 
 function z(w3: WinJS) { }
->z : (w3: 任意) => 无值
->w3 : 任意
->类型别名 :=> 任意
+>z : (w3: any) => void
+>w3 : any
 >WinJS : No type information available!
 
 === tests/cases/compiler/staticInstanceResolution5_0.ts ===
@@ -28,14 +25,12 @@ export class Promise {
 >Promise : Promise
 
     static timeout(delay: number): Promise {
->timeout : (delay: 数字) => Promise
->delay : 数字
->类型别名 :=> 数字
+>timeout : (delay: number) => Promise
+>delay : number
 >Promise : Promise
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 

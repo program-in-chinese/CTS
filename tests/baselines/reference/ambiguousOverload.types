@@ -1,83 +1,59 @@
 === tests/cases/compiler/ambiguousOverload.ts ===
 function foof(bar: string, y): number;
->foof : { (bar: 文字, y: 任意): 数字; (bar: 文字, x: 任意): 文字; }
->bar : 文字
->类型别名 :=> 文字
->y : 任意
->类型别名 :=> 任意
+>foof : { (bar: string, y: any): number; (bar: string, x: any): string; }
+>bar : string
+>y : any
 
 function foof(bar: string, x): string;
->foof : { (bar: 文字, y: 任意): 数字; (bar: 文字, x: 任意): 文字; }
->bar : 文字
->类型别名 :=> 文字
->x : 任意
->类型别名 :=> 任意
+>foof : { (bar: string, y: any): number; (bar: string, x: any): string; }
+>bar : string
+>x : any
 
 function foof(bar: any): any { return bar };
->foof : { (bar: 文字, y: 任意): 数字; (bar: 文字, x: 任意): 文字; }
->bar : 任意
->类型别名 :=> 任意
->bar : 任意
->类型别名 :=> 任意
+>foof : { (bar: string, y: any): number; (bar: string, x: any): string; }
+>bar : any
+>bar : any
 
 var x: number = foof("s", null);
->x : 数字
->类型别名 :=> 数字
->foof("s", null) : 数字
->类型别名 :=> 数字
->foof : { (bar: 文字, y: 任意): 数字; (bar: 文字, x: 任意): 文字; }
+>x : number
+>foof("s", null) : number
+>foof : { (bar: string, y: any): number; (bar: string, x: any): string; }
 >"s" : "s"
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var y: string = foof("s", null);
->y : 文字
->类型别名 :=> 文字
->foof("s", null) : 数字
->类型别名 :=> 数字
->foof : { (bar: 文字, y: 任意): 数字; (bar: 文字, x: 任意): 文字; }
+>y : string
+>foof("s", null) : number
+>foof : { (bar: string, y: any): number; (bar: string, x: any): string; }
 >"s" : "s"
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 function foof2(bar: string, x): string;
->foof2 : { (bar: 文字, x: 任意): 文字; (bar: 文字, y: 任意): 数字; }
->bar : 文字
->类型别名 :=> 文字
->x : 任意
->类型别名 :=> 任意
+>foof2 : { (bar: string, x: any): string; (bar: string, y: any): number; }
+>bar : string
+>x : any
 
 function foof2(bar: string, y): number;
->foof2 : { (bar: 文字, x: 任意): 文字; (bar: 文字, y: 任意): 数字; }
->bar : 文字
->类型别名 :=> 文字
->y : 任意
->类型别名 :=> 任意
+>foof2 : { (bar: string, x: any): string; (bar: string, y: any): number; }
+>bar : string
+>y : any
 
 function foof2(bar: any): any { return bar };
->foof2 : { (bar: 文字, x: 任意): 文字; (bar: 文字, y: 任意): 数字; }
->bar : 任意
->类型别名 :=> 任意
->bar : 任意
->类型别名 :=> 任意
+>foof2 : { (bar: string, x: any): string; (bar: string, y: any): number; }
+>bar : any
+>bar : any
 
 var x2: string = foof2("s", null);
->x2 : 文字
->类型别名 :=> 文字
->foof2("s", null) : 文字
->类型别名 :=> 文字
->foof2 : { (bar: 文字, x: 任意): 文字; (bar: 文字, y: 任意): 数字; }
+>x2 : string
+>foof2("s", null) : string
+>foof2 : { (bar: string, x: any): string; (bar: string, y: any): number; }
 >"s" : "s"
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var y2: number = foof2("s", null);
->y2 : 数字
->类型别名 :=> 数字
->foof2("s", null) : 文字
->类型别名 :=> 文字
->foof2 : { (bar: 文字, x: 任意): 文字; (bar: 文字, y: 任意): 数字; }
+>y2 : number
+>foof2("s", null) : string
+>foof2 : { (bar: string, x: any): string; (bar: string, y: any): number; }
 >"s" : "s"
->null : 空值
->类型别名 :=> 空值
+>null : null
 

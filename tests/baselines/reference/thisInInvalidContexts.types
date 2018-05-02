@@ -4,16 +4,15 @@ class ErrClass1 {
 >ErrClass1 : ErrClass1
 
     static t = this; // Error
->t : 类为 ErrClass1
->this : 类为 ErrClass1
+>t : typeof ErrClass1
+>this : typeof ErrClass1
 }
 
 class BaseErrClass {
 >BaseErrClass : BaseErrClass
 
     constructor(t: any) { }
->t : 任意
->类型别名 :=> 任意
+>t : any
 }
 
 class ClassWithNoInitializer extends BaseErrClass {
@@ -21,16 +20,14 @@ class ClassWithNoInitializer extends BaseErrClass {
 >BaseErrClass : BaseErrClass
 
     t;
->t : 任意
->类型别名 :=> 任意
+>t : any
 
     //'this' in optional super call
     constructor() {
         super(this); // Error
->super(this) : 无值
->类型别名 :=> 无值
->super : 类为 BaseErrClass
->this : 本体
+>super(this) : void
+>super : typeof BaseErrClass
+>this : this
     }
 }
 
@@ -39,29 +36,25 @@ class ClassWithInitializer extends BaseErrClass {
 >BaseErrClass : BaseErrClass
 
     t = 4;
->t : 数字
->类型别名 :=> 数字
+>t : number
 >4 : 4
 
     //'this' in required super call
     constructor() {
         super(this); // Error
->super(this) : 无值
->类型别名 :=> 无值
->super : 类为 BaseErrClass
->this : 本体
+>super(this) : void
+>super : typeof BaseErrClass
+>this : this
     }
 }
 
 module M {
->M : 类为 M
+>M : typeof M
 
     //'this' in module variable
     var x = this; // Error
->x : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>x : any
+>this : any
 }
 
 //'this' as type parameter constraint
@@ -69,22 +62,19 @@ module M {
 
 //'this' as a type argument
 function genericFunc<T>(x: T) { }
->genericFunc : <T>(x: T) => 无值
+>genericFunc : <T>(x: T) => void
 >T : T
 >x : T
 >T : T
 
 genericFunc<this>(undefined);  // Should be an error
->genericFunc<this>(undefined) : 无值
->类型别名 :=> 无值
->genericFunc : <T>(x: T) => 无值
->undefined : 未定
->类型别名 :=> 未定
+>genericFunc<this>(undefined) : void
+>genericFunc : <T>(x: T) => void
+>undefined : undefined
 
 class ErrClass3 extends this {
 >ErrClass3 : ErrClass3
->this : 任意
->类型别名 :=> 任意
+>this : any
 
 }
 
@@ -94,17 +84,13 @@ enum SomeEnum {
 
     A = this, // Should not be allowed
 >A : SomeEnum
->this : 任意
->类型别名 :=> 任意
+>this : any
 
     B = this.spaaaace // Also should not be allowed
 >B : SomeEnum
->this.spaaaace : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->spaaaace : 任意
->类型别名 :=> 任意
+>this.spaaaace : any
+>this : any
+>spaaaace : any
 }
 
 

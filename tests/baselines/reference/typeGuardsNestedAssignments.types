@@ -3,40 +3,34 @@ class Foo {
 >Foo : Foo
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 declare function getFooOrNull(): Foo | null;
->getFooOrNull : () => Foo | 空值
+>getFooOrNull : () => Foo | null
 >Foo : Foo
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 declare function getStringOrNumberOrNull(): string | number | null;
->getStringOrNumberOrNull : () => 文字 | 数字 | 空值
->null : 空值
->类型别名 :=> 空值
+>getStringOrNumberOrNull : () => string | number | null
+>null : null
 
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     let foo: Foo | null;
->foo : Foo | 空值
+>foo : Foo | null
 >Foo : Foo
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     if ((foo = getFooOrNull()) !== null) {
->(foo = getFooOrNull()) !== null : 真假
->类型别名 :=> 真假
->(foo = getFooOrNull()) : Foo | 空值
->foo = getFooOrNull() : Foo | 空值
->foo : Foo | 空值
->getFooOrNull() : Foo | 空值
->getFooOrNull : () => Foo | 空值
->null : 空值
->类型别名 :=> 空值
+>(foo = getFooOrNull()) !== null : boolean
+>(foo = getFooOrNull()) : Foo | null
+>foo = getFooOrNull() : Foo | null
+>foo : Foo | null
+>getFooOrNull() : Foo | null
+>getFooOrNull : () => Foo | null
+>null : null
 
         foo;  // Foo
 >foo : Foo
@@ -44,37 +38,33 @@ function f1() {
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     let foo1: Foo | null;
->foo1 : Foo | 空值
+>foo1 : Foo | null
 >Foo : Foo
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     let foo2: Foo | null;
->foo2 : Foo | 空值
+>foo2 : Foo | null
 >Foo : Foo
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     if ((foo1 = getFooOrNull(), foo2 = foo1) !== null) {
->(foo1 = getFooOrNull(), foo2 = foo1) !== null : 真假
->类型别名 :=> 真假
->(foo1 = getFooOrNull(), foo2 = foo1) : Foo | 空值
->foo1 = getFooOrNull(), foo2 = foo1 : Foo | 空值
->foo1 = getFooOrNull() : Foo | 空值
->foo1 : Foo | 空值
->getFooOrNull() : Foo | 空值
->getFooOrNull : () => Foo | 空值
->foo2 = foo1 : Foo | 空值
->foo2 : Foo | 空值
->foo1 : Foo | 空值
->null : 空值
->类型别名 :=> 空值
+>(foo1 = getFooOrNull(), foo2 = foo1) !== null : boolean
+>(foo1 = getFooOrNull(), foo2 = foo1) : Foo | null
+>foo1 = getFooOrNull(), foo2 = foo1 : Foo | null
+>foo1 = getFooOrNull() : Foo | null
+>foo1 : Foo | null
+>getFooOrNull() : Foo | null
+>getFooOrNull : () => Foo | null
+>foo2 = foo1 : Foo | null
+>foo2 : Foo | null
+>foo1 : Foo | null
+>null : null
 
         foo1;  // Foo | null
->foo1 : Foo | 空值
+>foo1 : Foo | null
 
         foo2;  // Foo
 >foo2 : Foo
@@ -82,23 +72,21 @@ function f2() {
 }
 
 function f3() {
->f3 : () => 无值
+>f3 : () => void
 
     let obj: Object | null;
->obj : Object | 空值
+>obj : Object | null
 >Object : Object
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     if ((obj = getFooOrNull()) instanceof Foo) {
->(obj = getFooOrNull()) instanceof Foo : 真假
->类型别名 :=> 真假
->(obj = getFooOrNull()) : Foo | 空值
->obj = getFooOrNull() : Foo | 空值
->obj : Object | 空值
->getFooOrNull() : Foo | 空值
->getFooOrNull : () => Foo | 空值
->Foo : 类为 Foo
+>(obj = getFooOrNull()) instanceof Foo : boolean
+>(obj = getFooOrNull()) : Foo | null
+>obj = getFooOrNull() : Foo | null
+>obj : Object | null
+>getFooOrNull() : Foo | null
+>getFooOrNull : () => Foo | null
+>Foo : typeof Foo
 
         obj;
 >obj : Foo
@@ -106,27 +94,24 @@ function f3() {
 }
 
 function f4() {
->f4 : () => 无值
+>f4 : () => void
 
     let x: string | number | null;
->x : 文字 | 数字 | 空值
->null : 空值
->类型别名 :=> 空值
+>x : string | number | null
+>null : null
 
     if (typeof (x = getStringOrNumberOrNull()) === "number") {
->typeof (x = getStringOrNumberOrNull()) === "number" : 真假
->类型别名 :=> 真假
->typeof (x = getStringOrNumberOrNull()) : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->(x = getStringOrNumberOrNull()) : 文字 | 数字 | 空值
->x = getStringOrNumberOrNull() : 文字 | 数字 | 空值
->x : 文字 | 数字 | 空值
->getStringOrNumberOrNull() : 文字 | 数字 | 空值
->getStringOrNumberOrNull : () => 文字 | 数字 | 空值
+>typeof (x = getStringOrNumberOrNull()) === "number" : boolean
+>typeof (x = getStringOrNumberOrNull()) : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>(x = getStringOrNumberOrNull()) : string | number | null
+>x = getStringOrNumberOrNull() : string | number | null
+>x : string | number | null
+>getStringOrNumberOrNull() : string | number | null
+>getStringOrNumberOrNull : () => string | number | null
 >"number" : "number"
 
         x;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 
@@ -137,44 +122,33 @@ const re = /./g
 >/./g : RegExp
 
 let match: RegExpExecArray | null
->match : RegExpExecArray | 空值
+>match : RegExpExecArray | null
 >RegExpExecArray : RegExpExecArray
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 while ((match = re.exec("xxx")) != null) {
->(match = re.exec("xxx")) != null : 真假
->类型别名 :=> 真假
->(match = re.exec("xxx")) : RegExpExecArray | 空值
->match = re.exec("xxx") : RegExpExecArray | 空值
->match : RegExpExecArray | 空值
->re.exec("xxx") : RegExpExecArray | 空值
->re.exec : (string: 文字) => RegExpExecArray | 空值
+>(match = re.exec("xxx")) != null : boolean
+>(match = re.exec("xxx")) : RegExpExecArray | null
+>match = re.exec("xxx") : RegExpExecArray | null
+>match : RegExpExecArray | null
+>re.exec("xxx") : RegExpExecArray | null
+>re.exec : (string: string) => RegExpExecArray | null
 >re : RegExp
->exec : (string: 文字) => RegExpExecArray | 空值
+>exec : (string: string) => RegExpExecArray | null
 >"xxx" : "xxx"
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     const length = match[1].length + match[2].length
->length : 数字
->类型别名 :=> 数字
->match[1].length + match[2].length : 数字
->类型别名 :=> 数字
->match[1].length : 数字
->类型别名 :=> 数字
->match[1] : 文字
->类型别名 :=> 文字
+>length : number
+>match[1].length + match[2].length : number
+>match[1].length : number
+>match[1] : string
 >match : RegExpExecArray
 >1 : 1
->length : 数字
->类型别名 :=> 数字
->match[2].length : 数字
->类型别名 :=> 数字
->match[2] : 文字
->类型别名 :=> 文字
+>length : number
+>match[2].length : number
+>match[2] : string
 >match : RegExpExecArray
 >2 : 2
->length : 数字
->类型别名 :=> 数字
+>length : number
 }

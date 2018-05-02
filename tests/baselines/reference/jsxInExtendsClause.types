@@ -1,7 +1,7 @@
 === tests/cases/compiler/jsxInExtendsClause.tsx ===
 // https://github.com/Microsoft/TypeScript/issues/13157
 declare namespace React {
->React : 类为 React
+>React : typeof React
 
   interface ComponentClass<P> { new (): Component<P, {}>; }
 >ComponentClass : ComponentClass<P>
@@ -18,12 +18,10 @@ declare function createComponentClass<P>(factory: () => React.ComponentClass<P>)
 >createComponentClass : <P>(factory: () => React.ComponentClass<P>) => React.ComponentClass<P>
 >P : P
 >factory : () => React.ComponentClass<P>
->React : 任意
->类型别名 :=> 任意
+>React : any
 >ComponentClass : React.ComponentClass<P>
 >P : P
->React : 任意
->类型别名 :=> 任意
+>React : any
 >ComponentClass : React.ComponentClass<P>
 >P : P
 
@@ -31,21 +29,18 @@ class Foo extends createComponentClass(() => class extends React.Component<{}, {
 >Foo : Foo
 >createComponentClass(() => class extends React.Component<{}, {}> {  render() {    return <span>Hello, world!</span>;  }}) : React.Component<{}, {}>
 >createComponentClass : <P>(factory: () => React.ComponentClass<P>) => React.ComponentClass<P>
->() => class extends React.Component<{}, {}> {  render() {    return <span>Hello, world!</span>;  }} : () => 类为 (Anonymous class)
->class extends React.Component<{}, {}> {  render() {    return <span>Hello, world!</span>;  }} : 类为 (Anonymous class)
+>() => class extends React.Component<{}, {}> {  render() {    return <span>Hello, world!</span>;  }} : () => typeof (Anonymous class)
+>class extends React.Component<{}, {}> {  render() {    return <span>Hello, world!</span>;  }} : typeof (Anonymous class)
 >React.Component : React.Component<{}, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 
   render() {
->render : () => 任意
+>render : () => any
 
     return <span>Hello, world!</span>;
-><span>Hello, world!</span> : 任意
->类型别名 :=> 任意
->span : 任意
->类型别名 :=> 任意
->span : 任意
->类型别名 :=> 任意
+><span>Hello, world!</span> : any
+>span : any
+>span : any
   }
 }) {}

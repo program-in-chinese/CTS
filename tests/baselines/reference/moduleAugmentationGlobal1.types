@@ -1,17 +1,15 @@
 === tests/cases/compiler/f1.ts ===
 export class A {x: number;}
 >A : A
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 === tests/cases/compiler/f2.ts ===
 import {A} from "./f1";
->A : 类为 A
+>A : typeof A
 
 // change the shape of Array<T>
 declare global {
->global : 任意
->类型别名 :=> 任意
+>global : any
 
     interface Array<T> {
 >Array : T[]
@@ -24,19 +22,16 @@ declare global {
 }
 
 let x = [1];
->x : 数字[]
->[1] : 数字[]
+>x : number[]
+>[1] : number[]
 >1 : 1
 
 let y = x.getA().x;
->y : 数字
->类型别名 :=> 数字
->x.getA().x : 数字
->类型别名 :=> 数字
+>y : number
+>x.getA().x : number
 >x.getA() : A
 >x.getA : () => A
->x : 数字[]
+>x : number[]
 >getA : () => A
->x : 数字
->类型别名 :=> 数字
+>x : number
 

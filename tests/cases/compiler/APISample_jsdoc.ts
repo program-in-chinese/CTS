@@ -12,7 +12,7 @@
 
 declare var console: any;
 
-import * as ts from ""typescript"";
+import * as ts from "typescript";
 
 // excerpted from https://github.com/YousefED/typescript-json-schema
 // (converted from a method and modified; for example, `this: any` to compensate, among other changes)
@@ -25,7 +25,7 @@ function parseCommentsIntoDefinition(this: any,
     }
 
     // the comments for a symbol
-    let comments = symbol.getDocumentationComment();
+    let comments = symbol.getDocumentationComment(undefined);
 
     if (comments.length) {
         definition.description = comments.map(comment => comment.kind === "lineBreak" ? comment.text : comment.text.trim().replace(/\r\n/g, "\n")).join("");

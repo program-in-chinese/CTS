@@ -3,19 +3,16 @@ export interface IOptions {
 >IOptions : IOptions
 
     italic?: boolean;
->italic : 真假
->类型别名 :=> 真假
+>italic : boolean
 
     bold?: boolean;
->bold : 真假
->类型别名 :=> 真假
+>bold : boolean
 }
 export interface IMap {
 >IMap : IMap
 
     [s: string]: IOptions;
->s : 文字
->类型别名 :=> 文字
+>s : string
 >IOptions : IOptions
 }
 
@@ -27,45 +24,41 @@ class Bug {
 >IMap : IMap
 
     ok() {
->ok : () => 无值
+>ok : () => void
 
         this.values = {};
 >this.values = {} : {}
 >this.values : IMap
->this : 本体
+>this : this
 >values : IMap
 >{} : {}
 
         this.values['comments'] = { italic: true };
->this.values['comments'] = { italic: true } : { italic: 为真; }
+>this.values['comments'] = { italic: true } : { italic: true; }
 >this.values['comments'] : IOptions
 >this.values : IMap
->this : 本体
+>this : this
 >values : IMap
 >'comments' : "comments"
->{ italic: true } : { italic: 为真; }
->italic : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ italic: true } : { italic: true; }
+>italic : true
+>true : true
     }
     shouldBeOK() {
->shouldBeOK : () => 无值
+>shouldBeOK : () => void
 
         this.values = {
->this.values = {            comments: { italic: true }        } : { comments: { italic: 为真; }; }
+>this.values = {            comments: { italic: true }        } : { comments: { italic: true; }; }
 >this.values : IMap
->this : 本体
+>this : this
 >values : IMap
->{            comments: { italic: true }        } : { comments: { italic: 为真; }; }
+>{            comments: { italic: true }        } : { comments: { italic: true; }; }
 
             comments: { italic: true }
->comments : { italic: 为真; }
->{ italic: true } : { italic: 为真; }
->italic : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>comments : { italic: true; }
+>{ italic: true } : { italic: true; }
+>italic : true
+>true : true
 
         };
     }

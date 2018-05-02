@@ -1,310 +1,265 @@
 === tests/cases/conformance/controlFlow/controlFlowIterationErrors.ts ===
 let cond: boolean;
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
 function len(s: string) {
->len : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
+>len : (s: string) => number
+>s : string
 
     return s.length;
->s.length : 数字
->类型别名 :=> 数字
->s : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>s.length : number
+>s : string
+>length : number
 }
 
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "";
 >x = "" : ""
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"" : ""
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = len(x);
->x = len(x) : 任意
->类型别名 :=> 任意
->x : 文字 | 数字 | 真假
->len(x) : 数字
->类型别名 :=> 数字
->len : (s: 文字) => 数字
->x : 文字 | 数字
+>x = len(x) : any
+>x : string | number | boolean
+>len(x) : number
+>len : (s: string) => number
+>x : string | number
 
         x;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
     x;
->x : 文字 | 数字
+>x : string | number
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "";
 >x = "" : ""
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"" : ""
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x;
->x : 文字 | 数字
+>x : string | number
 
         x = len(x);
->x = len(x) : 任意
->类型别名 :=> 任意
->x : 文字 | 数字 | 真假
->len(x) : 数字
->类型别名 :=> 数字
->len : (s: 文字) => 数字
->x : 文字 | 数字
+>x = len(x) : any
+>x : string | number | boolean
+>len(x) : number
+>len : (s: string) => number
+>x : string | number
     }
     x;
->x : 文字 | 数字
+>x : string | number
 }
 
 declare function foo(x: string): number;
->foo : { (x: 文字): 数字; (x: 数字): 文字; }
->x : 文字
->类型别名 :=> 文字
+>foo : { (x: string): number; (x: number): string; }
+>x : string
 
 declare function foo(x: number): string;
->foo : { (x: 文字): 数字; (x: 数字): 文字; }
->x : 数字
->类型别名 :=> 数字
+>foo : { (x: string): number; (x: number): string; }
+>x : number
 
 function g1() {
->g1 : () => 无值
+>g1 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "";
 >x = "" : ""
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"" : ""
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = foo(x);
->x = foo(x) : 任意
->类型别名 :=> 任意
->x : 文字 | 数字 | 真假
->foo(x) : 任意
->类型别名 :=> 任意
->foo : { (x: 文字): 数字; (x: 数字): 文字; }
->x : 文字 | 数字
+>x = foo(x) : any
+>x : string | number | boolean
+>foo(x) : any
+>foo : { (x: string): number; (x: number): string; }
+>x : string | number
 
         x;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
     }
     x;
->x : 文字 | 数字
+>x : string | number
 }
 
 function g2() {
->g2 : () => 无值
+>g2 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "";
 >x = "" : ""
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"" : ""
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x;
->x : 文字 | 数字
+>x : string | number
 
         x = foo(x);
->x = foo(x) : 任意
->类型别名 :=> 任意
->x : 文字 | 数字 | 真假
->foo(x) : 任意
->类型别名 :=> 任意
->foo : { (x: 文字): 数字; (x: 数字): 文字; }
->x : 文字 | 数字
+>x = foo(x) : any
+>x : string | number | boolean
+>foo(x) : any
+>foo : { (x: string): number; (x: number): string; }
+>x : string | number
     }
     x;
->x : 文字 | 数字
+>x : string | number
 }
 
 function asNumber(x: string | number): number {
->asNumber : (x: 文字 | 数字) => 数字
->x : 文字 | 数字
+>asNumber : (x: string | number) => number
+>x : string | number
 
     return +x;
->+x : 数字
->类型别名 :=> 数字
->x : 文字 | 数字
+>+x : number
+>x : string | number
 }
 
 function h1() {
->h1 : () => 无值
+>h1 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "0";
 >x = "0" : "0"
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"0" : "0"
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = +x + 1;
->x = +x + 1 : 数字
->类型别名 :=> 数字
->x : 文字 | 数字 | 真假
->+x + 1 : 数字
->类型别名 :=> 数字
->+x : 数字
->类型别名 :=> 数字
->x : 文字 | 数字
+>x = +x + 1 : number
+>x : string | number | boolean
+>+x + 1 : number
+>+x : number
+>x : string | number
 >1 : 1
 
         x;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 
 function h2() {
->h2 : () => 无值
+>h2 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "0";
 >x = "0" : "0"
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"0" : "0"
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x = asNumber(x) + 1;
->x = asNumber(x) + 1 : 数字
->类型别名 :=> 数字
->x : 文字 | 数字 | 真假
->asNumber(x) + 1 : 数字
->类型别名 :=> 数字
->asNumber(x) : 数字
->类型别名 :=> 数字
->asNumber : (x: 文字 | 数字) => 数字
->x : 文字 | 数字
+>x = asNumber(x) + 1 : number
+>x : string | number | boolean
+>asNumber(x) + 1 : number
+>asNumber(x) : number
+>asNumber : (x: string | number) => number
+>x : string | number
 >1 : 1
 
         x;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 
 function h3() {
->h3 : () => 无值
+>h3 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "0";
 >x = "0" : "0"
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"0" : "0"
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         let y = asNumber(x);
->y : 数字
->类型别名 :=> 数字
->asNumber(x) : 数字
->类型别名 :=> 数字
->asNumber : (x: 文字 | 数字) => 数字
->x : 文字 | 数字
+>y : number
+>asNumber(x) : number
+>asNumber : (x: string | number) => number
+>x : string | number
 
         x = y + 1;
->x = y + 1 : 数字
->类型别名 :=> 数字
->x : 文字 | 数字 | 真假
->y + 1 : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x = y + 1 : number
+>x : string | number | boolean
+>y + 1 : number
+>y : number
 >1 : 1
 
         x;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 
 function h4() {
->h4 : () => 无值
+>h4 : () => void
 
     let x: string | number | boolean;
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 
     x = "0";
 >x = "0" : "0"
->x : 文字 | 数字 | 真假
+>x : string | number | boolean
 >"0" : "0"
 
     while (cond) {
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
         x;
->x : 文字 | 数字
+>x : string | number
 
         let y = asNumber(x);
->y : 数字
->类型别名 :=> 数字
->asNumber(x) : 数字
->类型别名 :=> 数字
->asNumber : (x: 文字 | 数字) => 数字
->x : 文字 | 数字
+>y : number
+>asNumber(x) : number
+>asNumber : (x: string | number) => number
+>x : string | number
 
         x = y + 1;
->x = y + 1 : 数字
->类型别名 :=> 数字
->x : 文字 | 数字 | 真假
->y + 1 : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x = y + 1 : number
+>x : string | number | boolean
+>y + 1 : number
+>y : number
 >1 : 1
 
         x;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 

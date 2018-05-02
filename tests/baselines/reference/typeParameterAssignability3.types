@@ -3,11 +3,10 @@
 
 class Foo { foo: string; }
 >Foo : Foo
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 function foo<T extends Foo, U extends Foo>(t: T, u: U) {
->foo : <T 扩展 Foo, U 扩展 Foo>(t: T, u: U) => 无值
+>foo : <T extends Foo, U extends Foo>(t: T, u: U) => void
 >T : T
 >Foo : Foo
 >U : U
@@ -72,25 +71,25 @@ class C<T extends Foo, U extends Foo> {
 >U : U
 
     r = () => {
->r : () => 无值
->() => {        this.t = this.u; // error        this.u = this.t; // error    } : () => 无值
+>r : () => void
+>() => {        this.t = this.u; // error        this.u = this.t; // error    } : () => void
 
         this.t = this.u; // error
 >this.t = this.u : U
 >this.t : T
->this : 本体
+>this : this
 >t : T
 >this.u : U
->this : 本体
+>this : this
 >u : U
 
         this.u = this.t; // error
 >this.u = this.t : T
 >this.u : U
->this : 本体
+>this : this
 >u : U
 >this.t : T
->this : 本体
+>this : this
 >t : T
     }
 }

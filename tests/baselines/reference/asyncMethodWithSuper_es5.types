@@ -3,7 +3,7 @@ class A {
 >A : A
 
     x() {
->x : () => 无值
+>x : () => void
     }
 }
 
@@ -13,115 +13,111 @@ class B extends A {
 
     // async method with only call/get on 'super' does not require a binding
     async simple() {
->simple : () => Promise<无值>
+>simple : () => Promise<void>
 
         // call with property access
         super.x();
->super.x() : 无值
->类型别名 :=> 无值
->super.x : () => 无值
+>super.x() : void
+>super.x : () => void
 >super : A
->x : () => 无值
+>x : () => void
 
         // call with element access
         super["x"]();
->super["x"]() : 无值
->类型别名 :=> 无值
->super["x"] : () => 无值
+>super["x"]() : void
+>super["x"] : () => void
 >super : A
 >"x" : "x"
 
         // property access (read)
         const a = super.x;
->a : () => 无值
->super.x : () => 无值
+>a : () => void
+>super.x : () => void
 >super : A
->x : () => 无值
+>x : () => void
 
         // element access (read)
         const b = super["x"];
->b : () => 无值
->super["x"] : () => 无值
+>b : () => void
+>super["x"] : () => void
 >super : A
 >"x" : "x"
     }
 
     // async method with assignment/destructuring on 'super' requires a binding
     async advanced() {
->advanced : () => Promise<无值>
+>advanced : () => Promise<void>
 
         const f = () => {};
->f : () => 无值
->() => {} : () => 无值
+>f : () => void
+>() => {} : () => void
 
         // call with property access
         super.x();
->super.x() : 无值
->类型别名 :=> 无值
->super.x : () => 无值
+>super.x() : void
+>super.x : () => void
 >super : A
->x : () => 无值
+>x : () => void
 
         // call with element access
         super["x"]();
->super["x"]() : 无值
->类型别名 :=> 无值
->super["x"] : () => 无值
+>super["x"]() : void
+>super["x"] : () => void
 >super : A
 >"x" : "x"
 
         // property access (read)
         const a = super.x;
->a : () => 无值
->super.x : () => 无值
+>a : () => void
+>super.x : () => void
 >super : A
->x : () => 无值
+>x : () => void
 
         // element access (read)
         const b = super["x"];
->b : () => 无值
->super["x"] : () => 无值
+>b : () => void
+>super["x"] : () => void
 >super : A
 >"x" : "x"
 
         // property access (assign)
         super.x = f;
->super.x = f : () => 无值
->super.x : () => 无值
+>super.x = f : () => void
+>super.x : () => void
 >super : A
->x : () => 无值
->f : () => 无值
+>x : () => void
+>f : () => void
 
         // element access (assign)
         super["x"] = f;
->super["x"] = f : () => 无值
->super["x"] : () => 无值
+>super["x"] = f : () => void
+>super["x"] : () => void
 >super : A
 >"x" : "x"
->f : () => 无值
+>f : () => void
 
         // destructuring assign with property access
         ({ f: super.x } = { f });
->({ f: super.x } = { f }) : { f: () => 无值; }
->{ f: super.x } = { f } : { f: () => 无值; }
->{ f: super.x } : { f: () => 无值; }
->f : () => 无值
->super.x : () => 无值
+>({ f: super.x } = { f }) : { f: () => void; }
+>{ f: super.x } = { f } : { f: () => void; }
+>{ f: super.x } : { f: () => void; }
+>f : () => void
+>super.x : () => void
 >super : A
->x : () => 无值
->{ f } : { f: () => 无值; }
->f : () => 无值
+>x : () => void
+>{ f } : { f: () => void; }
+>f : () => void
 
         // destructuring assign with element access
         ({ f: super["x"] } = { f });
->({ f: super["x"] } = { f }) : { f: () => 无值; }
->{ f: super["x"] } = { f } : { f: () => 无值; }
->{ f: super["x"] } : { f: () => 无值; }
->f : () => 无值
->super["x"] : () => 无值
+>({ f: super["x"] } = { f }) : { f: () => void; }
+>{ f: super["x"] } = { f } : { f: () => void; }
+>{ f: super["x"] } : { f: () => void; }
+>f : () => void
+>super["x"] : () => void
 >super : A
 >"x" : "x"
->{ f } : { f: () => 无值; }
->f : () => 无值
+>{ f } : { f: () => void; }
+>f : () => void
     }
 }

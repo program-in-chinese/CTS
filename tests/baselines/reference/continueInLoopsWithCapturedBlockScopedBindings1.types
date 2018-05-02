@@ -1,19 +1,16 @@
 === tests/cases/compiler/continueInLoopsWithCapturedBlockScopedBindings1.ts ===
 function foo() {
->foo : () => 无值
+>foo : () => void
 
     for (const i of [0, 1]) {
->i : 数字
->类型别名 :=> 数字
->[0, 1] : 数字[]
+>i : number
+>[0, 1] : number[]
 >0 : 0
 >1 : 1
 
         if (i === 0) {
->i === 0 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i === 0 : boolean
+>i : number
 >0 : 0
 
             continue;
@@ -21,14 +18,12 @@ function foo() {
 
         // Trigger non-simple-loop emit
         (() => {
->(() => {            return i;        })() : 数字
->类型别名 :=> 数字
->(() => {            return i;        }) : () => 数字
->() => {            return i;        } : () => 数字
+>(() => {            return i;        })() : number
+>(() => {            return i;        }) : () => number
+>() => {            return i;        } : () => number
 
             return i;
->i : 数字
->类型别名 :=> 数字
+>i : number
 
         })();
     }

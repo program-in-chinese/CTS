@@ -5,10 +5,9 @@ enum E { v1, v2 };
 >v2 : E.v2
 
 function f<T extends { b: string }>(p1: T, p2: T[]) {
->f : <T 扩展 { b: 文字; }>(p1: T, p2: T[]) => 无值
+>f : <T extends { b: string; }>(p1: T, p2: T[]) => void
 >T : T
->b : 文字
->类型别名 :=> 文字
+>b : string
 >p1 : T
 >T : T
 >p2 : T[]
@@ -23,11 +22,11 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 >T : T
 
     var k: keyof T;
->k : 键集 T
+>k : keyof T
 >T : T
 
     var mapped_generic: {[P in keyof T]: T[P]};
->mapped_generic : { [P 位于 键集 T]: T[P]; }
+>mapped_generic : { [P in keyof T]: T[P]; }
 >P : P
 >T : T
 >T : T
@@ -40,34 +39,28 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 >P : P
 
     var union_generic: T | { a: number };
->union_generic : T | { a: 数字; }
+>union_generic : T | { a: number; }
 >T : T
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     var union_primitive: { a: number } | number;
->union_primitive : 数字 | { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>union_primitive : number | { a: number; }
+>a : number
 
     var intersection_generic: T & { a: number };
->intersection_generic : T & { a: 数字; }
+>intersection_generic : T & { a: number; }
 >T : T
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     var intersection_primitive: { a: number } | string;
->intersection_primitive : 文字 | { a: 数字; }
->a : 数字
->类型别名 :=> 数字
+>intersection_primitive : string | { a: number; }
+>a : number
 
     var num: number;
->num : 数字
->类型别名 :=> 数字
+>num : number
 
     var str: number;
->str : 数字
->类型别名 :=> 数字
+>str : number
 
     var literal_string: "string";
 >literal_string : "string"
@@ -76,18 +69,14 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 >literal_number : 42
 
     var u: undefined;
->u : 未定
->类型别名 :=> 未定
+>u : undefined
 
     var n: null;
->n : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
+>n : null
+>null : null
 
     var a: any;
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 
     var e: E;
@@ -95,44 +84,34 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 >E : E
 
     var o1 = { ...p1 };   // Error, generic type paramterre
->o1 : 任意
->类型别名 :=> 任意
->{ ...p1 } : 任意
->类型别名 :=> 任意
+>o1 : any
+>{ ...p1 } : any
 >p1 : T
 
     var o2 = { ...p2 };   // OK
->o2 : { [x: 数字]: T; length: 数字; toString(): 文字; toLocaleString(): 文字; push(...items: T[]): 数字; pop(): T; concat(...items: ReadonlyArray<T>[]): T[]; concat(...items: (T | ReadonlyArray<T>)[]): T[]; join(separator?: 文字): 文字; reverse(): T[]; shift(): T; slice(start?: 数字, end?: 数字): T[]; sort(compareFn?: (a: T, b: T) => 数字): T[]; splice(start: 数字, deleteCount?: 数字): T[]; splice(start: 数字, deleteCount: 数字, ...items: T[]): T[]; unshift(...items: T[]): 数字; indexOf(searchElement: T, fromIndex?: 数字): 数字; lastIndexOf(searchElement: T, fromIndex?: 数字): 数字; every(callbackfn: (value: T, index: 数字, array: T[]) => 真假, thisArg?: 任意): 真假; some(callbackfn: (value: T, index: 数字, array: T[]) => 真假, thisArg?: 任意): 真假; forEach(callbackfn: (value: T, index: 数字, array: T[]) => 无值, thisArg?: 任意): 无值; map<U>(callbackfn: (value: T, index: 数字, array: T[]) => U, thisArg?: 任意): U[]; filter<S 扩展 T>(callbackfn: (value: T, index: 数字, array: T[]) => value 作为 S, thisArg?: 任意): S[]; filter(callbackfn: (value: T, index: 数字, array: T[]) => 任意, thisArg?: 任意): T[]; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T): T; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T, initialValue: T): T; reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: 数字, array: T[]) => U, initialValue: U): U; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T): T; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T, initialValue: T): T; reduceRight<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: 数字, array: T[]) => U, initialValue: U): U; }
->{ ...p2 } : { [n: 数字]: T; length: 数字; toString(): 文字; toLocaleString(): 文字; push(...items: T[]): 数字; pop(): T; concat(...items: ReadonlyArray<T>[]): T[]; concat(...items: (T | ReadonlyArray<T>)[]): T[]; join(separator?: 文字): 文字; reverse(): T[]; shift(): T; slice(start?: 数字, end?: 数字): T[]; sort(compareFn?: (a: T, b: T) => 数字): T[]; splice(start: 数字, deleteCount?: 数字): T[]; splice(start: 数字, deleteCount: 数字, ...items: T[]): T[]; unshift(...items: T[]): 数字; indexOf(searchElement: T, fromIndex?: 数字): 数字; lastIndexOf(searchElement: T, fromIndex?: 数字): 数字; every(callbackfn: (value: T, index: 数字, array: T[]) => 真假, thisArg?: 任意): 真假; some(callbackfn: (value: T, index: 数字, array: T[]) => 真假, thisArg?: 任意): 真假; forEach(callbackfn: (value: T, index: 数字, array: T[]) => 无值, thisArg?: 任意): 无值; map<U>(callbackfn: (value: T, index: 数字, array: T[]) => U, thisArg?: 任意): U[]; filter<S 扩展 T>(callbackfn: (value: T, index: 数字, array: T[]) => value 作为 S, thisArg?: 任意): S[]; filter(callbackfn: (value: T, index: 数字, array: T[]) => 任意, thisArg?: 任意): T[]; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T): T; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T, initialValue: T): T; reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: 数字, array: T[]) => U, initialValue: U): U; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T): T; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: 数字, array: T[]) => T, initialValue: T): T; reduceRight<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: 数字, array: T[]) => U, initialValue: U): U; }
+>o2 : { [x: number]: T; length: number; toString(): string; toLocaleString(): string; push(...items: T[]): number; pop(): T; concat(...items: ConcatArray<T>[]): T[]; concat(...items: (T | ConcatArray<T>)[]): T[]; join(separator?: string): string; reverse(): T[]; shift(): T; slice(start?: number, end?: number): T[]; sort(compareFn?: (a: T, b: T) => number): T[]; splice(start: number, deleteCount?: number): T[]; splice(start: number, deleteCount: number, ...items: T[]): T[]; unshift(...items: T[]): number; indexOf(searchElement: T, fromIndex?: number): number; lastIndexOf(searchElement: T, fromIndex?: number): number; every(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean; some(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean; forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void; map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[]; filter<S extends T>(callbackfn: (value: T, index: number, array: T[]) => value is S, thisArg?: any): S[]; filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[]; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): T; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue: T): T; reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): T; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue: T): T; reduceRight<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U; }
+>{ ...p2 } : { [n: number]: T; length: number; toString(): string; toLocaleString(): string; push(...items: T[]): number; pop(): T; concat(...items: ConcatArray<T>[]): T[]; concat(...items: (T | ConcatArray<T>)[]): T[]; join(separator?: string): string; reverse(): T[]; shift(): T; slice(start?: number, end?: number): T[]; sort(compareFn?: (a: T, b: T) => number): T[]; splice(start: number, deleteCount?: number): T[]; splice(start: number, deleteCount: number, ...items: T[]): T[]; unshift(...items: T[]): number; indexOf(searchElement: T, fromIndex?: number): number; lastIndexOf(searchElement: T, fromIndex?: number): number; every(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean; some(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean; forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void; map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[]; filter<S extends T>(callbackfn: (value: T, index: number, array: T[]) => value is S, thisArg?: any): S[]; filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[]; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): T; reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue: T): T; reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): T; reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue: T): T; reduceRight<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U; }
 >p2 : T[]
 
     var o3 = { ...t };   // Error, generic type paramter
->o3 : 任意
->类型别名 :=> 任意
->{ ...t } : 任意
->类型别名 :=> 任意
+>o3 : any
+>{ ...t } : any
 >t : T
 
     var o4 = { ...i };   // Error, index access
->o4 : 任意
->类型别名 :=> 任意
->{ ...i } : 任意
->类型别名 :=> 任意
+>o4 : any
+>{ ...i } : any
 >i : T["b"]
 
     var o5 = { ...k };   // Error, index
->o5 : 任意
->类型别名 :=> 任意
->{ ...k } : 任意
->类型别名 :=> 任意
->k : 键集 T
+>o5 : any
+>{ ...k } : any
+>k : keyof T
 
     var o6 = { ...mapped_generic }; // Error, generic mapped object type
->o6 : 任意
->类型别名 :=> 任意
->{ ...mapped_generic } : 任意
->类型别名 :=> 任意
->mapped_generic : { [P 位于 键集 T]: T[P]; }
+>o6 : any
+>{ ...mapped_generic } : any
+>mapped_generic : { [P in keyof T]: T[P]; }
 
     var o7 = { ...mapped };  // OK, non-generic mapped type
 >o7 : { b: T["b"]; }
@@ -140,92 +119,63 @@ function f<T extends { b: string }>(p1: T, p2: T[]) {
 >mapped : { b: T["b"]; }
 
     var o8 = { ...union_generic };  // Error, union with generic type parameter
->o8 : 任意
->类型别名 :=> 任意
->{ ...union_generic } : 任意
->类型别名 :=> 任意
->union_generic : T | { a: 数字; }
+>o8 : any
+>{ ...union_generic } : any
+>union_generic : T | { a: number; }
 
     var o9 = { ...union_primitive };  // Error, union with generic type parameter
->o9 : 任意
->类型别名 :=> 任意
->{ ...union_primitive } : 任意
->类型别名 :=> 任意
->union_primitive : 数字 | { a: 数字; }
+>o9 : any
+>{ ...union_primitive } : any
+>union_primitive : number | { a: number; }
 
     var o10 = { ...intersection_generic };  // Error, intersection with generic type parameter
->o10 : 任意
->类型别名 :=> 任意
->{ ...intersection_generic } : 任意
->类型别名 :=> 任意
->intersection_generic : T & { a: 数字; }
+>o10 : any
+>{ ...intersection_generic } : any
+>intersection_generic : T & { a: number; }
 
     var o11 = { ...intersection_primitive };  // Error, intersection with generic type parameter
->o11 : 任意
->类型别名 :=> 任意
->{ ...intersection_primitive } : 任意
->类型别名 :=> 任意
->intersection_primitive : 文字 | { a: 数字; }
+>o11 : any
+>{ ...intersection_primitive } : any
+>intersection_primitive : string | { a: number; }
 
     var o12 = { ...num };  // Error
->o12 : 任意
->类型别名 :=> 任意
->{ ...num } : 任意
->类型别名 :=> 任意
->num : 数字
->类型别名 :=> 数字
+>o12 : any
+>{ ...num } : any
+>num : number
 
     var o13 = { ...str };  // Error
->o13 : 任意
->类型别名 :=> 任意
->{ ...str } : 任意
->类型别名 :=> 任意
->str : 数字
->类型别名 :=> 数字
+>o13 : any
+>{ ...str } : any
+>str : number
 
     var o14 = { ...u };  // error, undefined-only not allowed
->o14 : 任意
->类型别名 :=> 任意
->{ ...u } : 任意
->类型别名 :=> 任意
->u : 未定
->类型别名 :=> 未定
+>o14 : any
+>{ ...u } : any
+>u : undefined
 
     var o15 = { ...n };  // error, null-only not allowed
->o15 : 任意
->类型别名 :=> 任意
->{ ...n } : 任意
->类型别名 :=> 任意
->n : 空值
->类型别名 :=> 空值
+>o15 : any
+>{ ...n } : any
+>n : null
 
     var o16 = { ...a };  // OK
->o16 : 任意
->类型别名 :=> 任意
->{ ...a } : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>o16 : any
+>{ ...a } : any
+>a : any
 
     var o17 = { ...literal_string };  // Error
->o17 : 任意
->类型别名 :=> 任意
->{ ...literal_string } : 任意
->类型别名 :=> 任意
+>o17 : any
+>{ ...literal_string } : any
 >literal_string : "string"
 
     var o18 = { ...literal_number };  // Error
->o18 : 任意
->类型别名 :=> 任意
->{ ...literal_number } : 任意
->类型别名 :=> 任意
+>o18 : any
+>{ ...literal_number } : any
 >literal_number : 42
 
     var o19 = { ...e };  // Error, enum
->o19 : 任意
->类型别名 :=> 任意
->{ ...e } : 任意
->类型别名 :=> 任意
+>o19 : any
+>{ ...e } : any
 >e : E
 }
 

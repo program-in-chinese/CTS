@@ -7,10 +7,8 @@ class C1 {
 >C1 : C1
 
     constructor(n: number, s: string) { }
->n : 数字
->类型别名 :=> 数字
->s : 文字
->类型别名 :=> 文字
+>n : number
+>s : string
 }
 
 class T<T> {
@@ -23,17 +21,16 @@ class T<T> {
 }
 
 var anyCtor: {
->anyCtor : 新建 () => 任意
+>anyCtor : new () => any
 
     new (): any;
 };
 
 var anyCtor1: {
->anyCtor1 : 新建 (n: 任意) => 任意
+>anyCtor1 : new (n: any) => any
 
     new (n): any;
->n : 任意
->类型别名 :=> 任意
+>n : any
 
 };
 
@@ -51,7 +48,7 @@ var nestedCtor: nestedCtor;
 var a = new C0;
 >a : C0
 >new C0 : C0
->C0 : 类为 C0
+>C0 : typeof C0
 
 var a: C0;
 >a : C0
@@ -62,7 +59,7 @@ var a: C0;
 var c1 = new T;
 >c1 : T<{}>
 >new T : T<{}>
->T : 类为 T
+>T : typeof T
 
 var c1: T<{}>;
 >c1 : T<{}>
@@ -70,81 +67,65 @@ var c1: T<{}>;
 
 // Construct expression where constructor is of type 'any' with no parentheses
 var d = new anyCtor;
->d : 任意
->类型别名 :=> 任意
->new anyCtor : 任意
->类型别名 :=> 任意
->anyCtor : 新建 () => 任意
+>d : any
+>new anyCtor : any
+>anyCtor : new () => any
 
 var d: any;
->d : 任意
->类型别名 :=> 任意
+>d : any
 
 // Construct expression where constructor is of type 'any' with > 1 arg
 var d = new anyCtor1(undefined);
->d : 任意
->类型别名 :=> 任意
->new anyCtor1(undefined) : 任意
->类型别名 :=> 任意
->anyCtor1 : 新建 (n: 任意) => 任意
->undefined : 未定
->类型别名 :=> 未定
+>d : any
+>new anyCtor1(undefined) : any
+>anyCtor1 : new (n: any) => any
+>undefined : undefined
 
 // Construct expression of type where apparent type has a construct signature with 0 arguments
 function newFn1<T extends { new (): number }>(s: T) {
->newFn1 : <T 扩展 新建 () => 数字>(s: T) => 无值
+>newFn1 : <T extends new () => number>(s: T) => void
 >T : T
 >s : T
 >T : T
 
     var p = new s;
->p : 数字
->类型别名 :=> 数字
->new s : 数字
->类型别名 :=> 数字
+>p : number
+>new s : number
 >s : T
 
     var p: number;
->p : 数字
->类型别名 :=> 数字
+>p : number
 }
 
 // Construct expression of type where apparent type has a construct signature with 1 arguments
 function newFn2<T extends { new (s: number): string}>(s: T) {
->newFn2 : <T 扩展 新建 (s: 数字) => 文字>(s: T) => 无值
+>newFn2 : <T extends new (s: number) => string>(s: T) => void
 >T : T
->s : 数字
->类型别名 :=> 数字
+>s : number
 >s : T
 >T : T
 
     var p = new s(32);
->p : 文字
->类型别名 :=> 文字
->new s(32) : 文字
->类型别名 :=> 文字
+>p : string
+>new s(32) : string
 >s : T
 >32 : 32
 
     var p: string;
->p : 文字
->类型别名 :=> 文字
+>p : string
 }
 
 // Construct expression of void returning function
 function fnVoid(): void { }
->fnVoid : () => 无值
+>fnVoid : () => void
 
 var t = new fnVoid();
->t : 任意
->类型别名 :=> 任意
->new fnVoid() : 任意
->类型别名 :=> 任意
->fnVoid : () => 无值
+>t : any
+>new fnVoid() : any
+>fnVoid : () => void
 
 var t: any;
->t : 任意
->类型别名 :=> 任意
+>t : any
 
 // Chained new expressions
 var nested = new (new (new nestedCtor())())();

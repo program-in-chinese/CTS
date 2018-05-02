@@ -3,26 +3,23 @@ class c {
 >c : c
 
     private p: string;
->p : 文字
->类型别名 :=> 文字
+>p : string
 }
 module m {
->m : 类为 m
+>m : typeof m
 
     export class c {
 >c : c
 
         private q: string;
->q : 文字
->类型别名 :=> 文字
+>q : string
     }
     export class g<T> {
 >g : g<T>
 >T : T
 
         private r: string;
->r : 文字
->类型别名 :=> 文字
+>r : string
     }
 }
 class g<T> {
@@ -30,67 +27,64 @@ class g<T> {
 >T : T
 
     private s: string;
->s : 文字
->类型别名 :=> 文字
+>s : string
 }
 
 // Just the name
 var k: c | m.c = new c() || new m.c();
 >k : c | m.c
 >c : c
->m : 任意
->类型别名 :=> 任意
+>m : any
 >c : m.c
 >new c() || new m.c() : c | m.c
 >new c() : c
->c : 类为 c
+>c : typeof c
 >new m.c() : m.c
->m.c : 类为 m.c
->m : 类为 m
->c : 类为 m.c
+>m.c : typeof m.c
+>m : typeof m
+>c : typeof m.c
 
 var l = new c() || new m.c();
 >l : c | m.c
 >new c() || new m.c() : c | m.c
 >new c() : c
->c : 类为 c
+>c : typeof c
 >new m.c() : m.c
->m.c : 类为 m.c
->m : 类为 m
->c : 类为 m.c
+>m.c : typeof m.c
+>m : typeof m
+>c : typeof m.c
 
 var x: g<string> | m.g<number> |  (() => c) = new g<string>() ||  new m.g<number>() || (() => new c());
->x : g<文字> | m.g<数字> | (() => c)
+>x : g<string> | m.g<number> | (() => c)
 >g : g<T>
->m : 任意
->类型别名 :=> 任意
+>m : any
 >g : m.g<T>
 >c : c
->new g<string>() ||  new m.g<number>() || (() => new c()) : g<文字> | m.g<数字> | (() => c)
->new g<string>() ||  new m.g<number>() : g<文字> | m.g<数字>
->new g<string>() : g<文字>
->g : 类为 g
->new m.g<number>() : m.g<数字>
->m.g : 类为 m.g
->m : 类为 m
->g : 类为 m.g
+>new g<string>() ||  new m.g<number>() || (() => new c()) : g<string> | m.g<number> | (() => c)
+>new g<string>() ||  new m.g<number>() : g<string> | m.g<number>
+>new g<string>() : g<string>
+>g : typeof g
+>new m.g<number>() : m.g<number>
+>m.g : typeof m.g
+>m : typeof m
+>g : typeof m.g
 >(() => new c()) : () => c
 >() => new c() : () => c
 >new c() : c
->c : 类为 c
+>c : typeof c
 
 var y = new g<string>() || new m.g<number>() || (() => new c());
->y : g<文字> | m.g<数字> | (() => c)
->new g<string>() || new m.g<number>() || (() => new c()) : g<文字> | m.g<数字> | (() => c)
->new g<string>() || new m.g<number>() : g<文字> | m.g<数字>
->new g<string>() : g<文字>
->g : 类为 g
->new m.g<number>() : m.g<数字>
->m.g : 类为 m.g
->m : 类为 m
->g : 类为 m.g
+>y : g<string> | m.g<number> | (() => c)
+>new g<string>() || new m.g<number>() || (() => new c()) : g<string> | m.g<number> | (() => c)
+>new g<string>() || new m.g<number>() : g<string> | m.g<number>
+>new g<string>() : g<string>
+>g : typeof g
+>new m.g<number>() : m.g<number>
+>m.g : typeof m.g
+>m : typeof m
+>g : typeof m.g
 >(() => new c()) : () => c
 >() => new c() : () => c
 >new c() : c
->c : 类为 c
+>c : typeof c
 

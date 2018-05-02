@@ -4,41 +4,35 @@
  * @return {function(this: string, number): number}
  */
 function id1(c) {
->id1 : (c: (this: 文字, arg1: 数字) => 数字) => (this: 文字, arg1: 数字) => 数字
->c : (this: 文字, arg1: 数字) => 数字
+>id1 : (c: (this: string, arg1: number) => number) => (this: string, arg1: number) => number
+>c : (this: string, arg1: number) => number
 
     return c
->c : (this: 文字, arg1: 数字) => 数字
+>c : (this: string, arg1: number) => number
 }
 
 var x = id1(function (n) { return this.length + n });
->x : (this: 文字, arg1: 数字) => 数字
->id1(function (n) { return this.length + n }) : (this: 文字, arg1: 数字) => 数字
->id1 : (c: (this: 文字, arg1: 数字) => 数字) => (this: 文字, arg1: 数字) => 数字
->function (n) { return this.length + n } : (this: 文字, n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
->this.length + n : 数字
->类型别名 :=> 数字
->this.length : 数字
->类型别名 :=> 数字
->this : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
+>x : (this: string, arg1: number) => number
+>id1(function (n) { return this.length + n }) : (this: string, arg1: number) => number
+>id1 : (c: (this: string, arg1: number) => number) => (this: string, arg1: number) => number
+>function (n) { return this.length + n } : (this: string, n: number) => number
+>n : number
+>this.length + n : number
+>this.length : number
+>this : string
+>length : number
+>n : number
 
 /**
  * @param {function(new: { length: number }, number): number} c is just passing on through
  * @return {function(new: { length: number }, number): number}
  */
 function id2(c) {
->id2 : (c: 新建 (arg1: 数字) => { length: 数字; }) => 新建 (arg1: 数字) => { length: 数字; }
->c : 新建 (arg1: 数字) => { length: 数字; }
+>id2 : (c: new (arg1: number) => { length: number; }) => new (arg1: number) => { length: number; }
+>c : new (arg1: number) => { length: number; }
 
     return c
->c : 新建 (arg1: 数字) => { length: 数字; }
+>c : new (arg1: number) => { length: number; }
 }
 
 class C {
@@ -46,40 +40,33 @@ class C {
 
     /** @param {number} n */
     constructor(n) {
->n : 数字
->类型别名 :=> 数字
+>n : number
 
         this.length = n;
->this.length = n : 数字
->类型别名 :=> 数字
->this.length : 数字
->类型别名 :=> 数字
->this : 本体
->length : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
+>this.length = n : number
+>this.length : number
+>this : this
+>length : number
+>n : number
     }
 }
 
 var y = id2(C);
->y : 新建 (arg1: 数字) => { length: 数字; }
->id2(C) : 新建 (arg1: 数字) => { length: 数字; }
->id2 : (c: 新建 (arg1: 数字) => { length: 数字; }) => 新建 (arg1: 数字) => { length: 数字; }
->C : 类为 C
+>y : new (arg1: number) => { length: number; }
+>id2(C) : new (arg1: number) => { length: number; }
+>id2 : (c: new (arg1: number) => { length: number; }) => new (arg1: number) => { length: number; }
+>C : typeof C
 
 var z = new y(12);
->z : { length: 数字; }
->new y(12) : { length: 数字; }
->y : 新建 (arg1: 数字) => { length: 数字; }
+>z : { length: number; }
+>new y(12) : { length: number; }
+>y : new (arg1: number) => { length: number; }
 >12 : 12
 
 z.length;
->z.length : 数字
->类型别名 :=> 数字
->z : { length: 数字; }
->length : 数字
->类型别名 :=> 数字
+>z.length : number
+>z : { length: number; }
+>length : number
 
 /** @type {function ("a" | "b", 1 | 2): 3 | 4} */
 var f = function (ab, onetwo) { return ab === "a" ? 3 : 4;  }
@@ -88,8 +75,7 @@ var f = function (ab, onetwo) { return ab === "a" ? 3 : 4;  }
 >ab : "a" | "b"
 >onetwo : 1 | 2
 >ab === "a" ? 3 : 4 : 3 | 4
->ab === "a" : 真假
->类型别名 :=> 真假
+>ab === "a" : boolean
 >ab : "a" | "b"
 >"a" : "a"
 >3 : 3

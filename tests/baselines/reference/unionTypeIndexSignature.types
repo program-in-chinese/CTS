@@ -1,110 +1,89 @@
 === tests/cases/conformance/types/union/unionTypeIndexSignature.ts ===
 var numOrDate: number | Date;
->numOrDate : 数字 | Date
+>numOrDate : number | Date
 >Date : Date
 
 var anyVar: number;
->anyVar : 数字
->类型别名 :=> 数字
+>anyVar : number
 
 // If each type in U has a string index signature, 
 // U has a string index signature of a union type of the types of the string index signatures from each type in U.
 
 var unionOfDifferentReturnType: { [a: string]: number; } | { [a: string]: Date; };
->unionOfDifferentReturnType : { [a: 文字]: 数字; } | { [a: 文字]: Date; }
->a : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
+>unionOfDifferentReturnType : { [a: string]: number; } | { [a: string]: Date; }
+>a : string
+>a : string
 >Date : Date
 
 numOrDate = unionOfDifferentReturnType["hello"]; // number | Date
->numOrDate = unionOfDifferentReturnType["hello"] : 数字 | Date
->numOrDate : 数字 | Date
->unionOfDifferentReturnType["hello"] : 数字 | Date
->unionOfDifferentReturnType : { [a: 文字]: 数字; } | { [a: 文字]: Date; }
+>numOrDate = unionOfDifferentReturnType["hello"] : number | Date
+>numOrDate : number | Date
+>unionOfDifferentReturnType["hello"] : number | Date
+>unionOfDifferentReturnType : { [a: string]: number; } | { [a: string]: Date; }
 >"hello" : "hello"
 
 numOrDate = unionOfDifferentReturnType[10]; // number | Date
->numOrDate = unionOfDifferentReturnType[10] : 数字 | Date
->numOrDate : 数字 | Date
->unionOfDifferentReturnType[10] : 数字 | Date
->unionOfDifferentReturnType : { [a: 文字]: 数字; } | { [a: 文字]: Date; }
+>numOrDate = unionOfDifferentReturnType[10] : number | Date
+>numOrDate : number | Date
+>unionOfDifferentReturnType[10] : number | Date
+>unionOfDifferentReturnType : { [a: string]: number; } | { [a: string]: Date; }
 >10 : 10
 
 var unionOfTypesWithAndWithoutStringSignature: { [a: string]: number; } | boolean;
->unionOfTypesWithAndWithoutStringSignature : 真假 | { [a: 文字]: 数字; }
->a : 文字
->类型别名 :=> 文字
+>unionOfTypesWithAndWithoutStringSignature : boolean | { [a: string]: number; }
+>a : string
 
 anyVar = unionOfTypesWithAndWithoutStringSignature["hello"]; // any
->anyVar = unionOfTypesWithAndWithoutStringSignature["hello"] : 任意
->类型别名 :=> 任意
->anyVar : 数字
->类型别名 :=> 数字
->unionOfTypesWithAndWithoutStringSignature["hello"] : 任意
->类型别名 :=> 任意
->unionOfTypesWithAndWithoutStringSignature : 真假 | { [a: 文字]: 数字; }
+>anyVar = unionOfTypesWithAndWithoutStringSignature["hello"] : any
+>anyVar : number
+>unionOfTypesWithAndWithoutStringSignature["hello"] : any
+>unionOfTypesWithAndWithoutStringSignature : boolean | { [a: string]: number; }
 >"hello" : "hello"
 
 anyVar = unionOfTypesWithAndWithoutStringSignature[10]; // any
->anyVar = unionOfTypesWithAndWithoutStringSignature[10] : 任意
->类型别名 :=> 任意
->anyVar : 数字
->类型别名 :=> 数字
->unionOfTypesWithAndWithoutStringSignature[10] : 任意
->类型别名 :=> 任意
->unionOfTypesWithAndWithoutStringSignature : 真假 | { [a: 文字]: 数字; }
+>anyVar = unionOfTypesWithAndWithoutStringSignature[10] : any
+>anyVar : number
+>unionOfTypesWithAndWithoutStringSignature[10] : any
+>unionOfTypesWithAndWithoutStringSignature : boolean | { [a: string]: number; }
 >10 : 10
 
 // If each type in U has a numeric index signature, 
 // U has a numeric index signature of a union type of the types of the numeric index signatures from each type in U.
 var unionOfDifferentReturnType1: { [a: number]: number; } | { [a: number]: Date; };
->unionOfDifferentReturnType1 : { [a: 数字]: 数字; } | { [a: 数字]: Date; }
->a : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
+>unionOfDifferentReturnType1 : { [a: number]: number; } | { [a: number]: Date; }
+>a : number
+>a : number
 >Date : Date
 
 numOrDate = unionOfDifferentReturnType1["hello"]; // any
->numOrDate = unionOfDifferentReturnType1["hello"] : 任意
->类型别名 :=> 任意
->numOrDate : 数字 | Date
->unionOfDifferentReturnType1["hello"] : 任意
->类型别名 :=> 任意
->unionOfDifferentReturnType1 : { [a: 数字]: 数字; } | { [a: 数字]: Date; }
+>numOrDate = unionOfDifferentReturnType1["hello"] : any
+>numOrDate : number | Date
+>unionOfDifferentReturnType1["hello"] : any
+>unionOfDifferentReturnType1 : { [a: number]: number; } | { [a: number]: Date; }
 >"hello" : "hello"
 
 numOrDate = unionOfDifferentReturnType1[10]; // number | Date
->numOrDate = unionOfDifferentReturnType1[10] : 数字 | Date
->numOrDate : 数字 | Date
->unionOfDifferentReturnType1[10] : 数字 | Date
->unionOfDifferentReturnType1 : { [a: 数字]: 数字; } | { [a: 数字]: Date; }
+>numOrDate = unionOfDifferentReturnType1[10] : number | Date
+>numOrDate : number | Date
+>unionOfDifferentReturnType1[10] : number | Date
+>unionOfDifferentReturnType1 : { [a: number]: number; } | { [a: number]: Date; }
 >10 : 10
 
 var unionOfTypesWithAndWithoutStringSignature1: { [a: number]: number; } | boolean;
->unionOfTypesWithAndWithoutStringSignature1 : 真假 | { [a: 数字]: 数字; }
->a : 数字
->类型别名 :=> 数字
+>unionOfTypesWithAndWithoutStringSignature1 : boolean | { [a: number]: number; }
+>a : number
 
 anyVar = unionOfTypesWithAndWithoutStringSignature1["hello"]; // any
->anyVar = unionOfTypesWithAndWithoutStringSignature1["hello"] : 任意
->类型别名 :=> 任意
->anyVar : 数字
->类型别名 :=> 数字
->unionOfTypesWithAndWithoutStringSignature1["hello"] : 任意
->类型别名 :=> 任意
->unionOfTypesWithAndWithoutStringSignature1 : 真假 | { [a: 数字]: 数字; }
+>anyVar = unionOfTypesWithAndWithoutStringSignature1["hello"] : any
+>anyVar : number
+>unionOfTypesWithAndWithoutStringSignature1["hello"] : any
+>unionOfTypesWithAndWithoutStringSignature1 : boolean | { [a: number]: number; }
 >"hello" : "hello"
 
 anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
->anyVar = unionOfTypesWithAndWithoutStringSignature1[10] : 任意
->类型别名 :=> 任意
->anyVar : 数字
->类型别名 :=> 数字
->unionOfTypesWithAndWithoutStringSignature1[10] : 任意
->类型别名 :=> 任意
->unionOfTypesWithAndWithoutStringSignature1 : 真假 | { [a: 数字]: 数字; }
+>anyVar = unionOfTypesWithAndWithoutStringSignature1[10] : any
+>anyVar : number
+>unionOfTypesWithAndWithoutStringSignature1[10] : any
+>unionOfTypesWithAndWithoutStringSignature1 : boolean | { [a: number]: number; }
 >10 : 10
 

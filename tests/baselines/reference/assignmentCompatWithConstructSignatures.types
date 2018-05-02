@@ -5,43 +5,39 @@ interface T {
 >T : T
 
     new (x: number): void;
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 var t: T;
 >t : T
 >T : T
 
 var a: { new (x: number): void };
->a : 新建 (x: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
+>a : new (x: number) => void
+>x : number
 
 t = a;
->t = a : 新建 (x: 数字) => 无值
+>t = a : new (x: number) => void
 >t : T
->a : 新建 (x: 数字) => 无值
+>a : new (x: number) => void
 
 a = t;
 >a = t : T
->a : 新建 (x: 数字) => 无值
+>a : new (x: number) => void
 >t : T
 
 interface S {
 >S : S
 
     new (x: number): string;
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 var s: S;
 >s : S
 >S : S
 
 var a2: { new (x: number): string };
->a2 : 新建 (x: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
+>a2 : new (x: number) => string
+>x : number
 
 t = s;
 >t = s : S
@@ -49,35 +45,33 @@ t = s;
 >s : S
 
 t = a2;
->t = a2 : 新建 (x: 数字) => 文字
+>t = a2 : new (x: number) => string
 >t : T
->a2 : 新建 (x: 数字) => 文字
+>a2 : new (x: number) => string
 
 a = s;
 >a = s : S
->a : 新建 (x: 数字) => 无值
+>a : new (x: number) => void
 >s : S
 
 a = a2;
->a = a2 : 新建 (x: 数字) => 文字
->a : 新建 (x: 数字) => 无值
->a2 : 新建 (x: 数字) => 文字
+>a = a2 : new (x: number) => string
+>a : new (x: number) => void
+>a2 : new (x: number) => string
 
 interface S2 {
 >S2 : S2
 
     (x: string): void;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 var s2: S2;
 >s2 : S2
 >S2 : S2
 
 var a3: { (x: string): void };
->a3 : (x: 文字) => 无值
->x : 文字
->类型别名 :=> 文字
+>a3 : (x: string) => void
+>x : string
 
 // these are errors
 t = s2;
@@ -86,49 +80,45 @@ t = s2;
 >s2 : S2
 
 t = a3;
->t = a3 : (x: 文字) => 无值
+>t = a3 : (x: string) => void
 >t : T
->a3 : (x: 文字) => 无值
+>a3 : (x: string) => void
 
 t = (x: string) => 1;
->t = (x: string) => 1 : (x: 文字) => 数字
+>t = (x: string) => 1 : (x: string) => number
 >t : T
->(x: string) => 1 : (x: 文字) => 数字
->x : 文字
->类型别名 :=> 文字
+>(x: string) => 1 : (x: string) => number
+>x : string
 >1 : 1
 
 t = function (x: string) { return ''; }
->t = function (x: string) { return ''; } : (x: 文字) => 文字
+>t = function (x: string) { return ''; } : (x: string) => string
 >t : T
->function (x: string) { return ''; } : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>function (x: string) { return ''; } : (x: string) => string
+>x : string
 >'' : ""
 
 a = s2;
 >a = s2 : S2
->a : 新建 (x: 数字) => 无值
+>a : new (x: number) => void
 >s2 : S2
 
 a = a3;
->a = a3 : (x: 文字) => 无值
->a : 新建 (x: 数字) => 无值
->a3 : (x: 文字) => 无值
+>a = a3 : (x: string) => void
+>a : new (x: number) => void
+>a3 : (x: string) => void
 
 a = (x: string) => 1;
->a = (x: string) => 1 : (x: 文字) => 数字
->a : 新建 (x: 数字) => 无值
->(x: string) => 1 : (x: 文字) => 数字
->x : 文字
->类型别名 :=> 文字
+>a = (x: string) => 1 : (x: string) => number
+>a : new (x: number) => void
+>(x: string) => 1 : (x: string) => number
+>x : string
 >1 : 1
 
 a = function (x: string) { return ''; }
->a = function (x: string) { return ''; } : (x: 文字) => 文字
->a : 新建 (x: 数字) => 无值
->function (x: string) { return ''; } : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>a = function (x: string) { return ''; } : (x: string) => string
+>a : new (x: number) => void
+>function (x: string) { return ''; } : (x: string) => string
+>x : string
 >'' : ""
 

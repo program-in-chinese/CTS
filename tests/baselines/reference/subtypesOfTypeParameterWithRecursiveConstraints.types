@@ -8,7 +8,7 @@ class Foo<T> { foo: T; }
 >T : T
 
 function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: V) {
->f : <T 扩展 Foo<U>, U 扩展 Foo<T>, V 扩展 Foo<V>>(t: T, u: U, v: V) => 无值
+>f : <T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: V) => void
 >T : T
 >Foo : Foo<T>
 >U : U
@@ -29,16 +29,14 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r1 = true ? t : u;
 >r1 : U | T
 >true ? t : u : U | T
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >u : U
 
     var r1 = true ? u : t;
 >r1 : U | T
 >true ? u : t : U | T
->true : 为真
->类型别名 :=> 为真
+>true : true
 >u : U
 >t : T
 
@@ -46,16 +44,14 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r2 = true ? t : v;
 >r2 : T | V
 >true ? t : v : T | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >v : V
 
     var r2 = true ? v : t;
 >r2 : T | V
 >true ? v : t : T | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >v : V
 >t : T
 
@@ -63,16 +59,14 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r3 = true ? v : u;
 >r3 : U | V
 >true ? v : u : U | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >v : V
 >u : U
 
     var r3 = true ? u : v;
 >r3 : U | V
 >true ? u : v : U | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >u : U
 >v : V
 
@@ -80,20 +74,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r4 = true ? t : new Foo<T>();
 >r4 : T | Foo<T>
 >true ? t : new Foo<T>() : T | Foo<T>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >new Foo<T>() : Foo<T>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >T : T
 
     var r4 = true ? new Foo<T>() : t;
 >r4 : T | Foo<T>
 >true ? new Foo<T>() : t : T | Foo<T>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<T>() : Foo<T>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >T : T
 >t : T
 
@@ -101,20 +93,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r5 = true ? u : new Foo<T>();
 >r5 : Foo<T>
 >true ? u : new Foo<T>() : Foo<T>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >u : U
 >new Foo<T>() : Foo<T>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >T : T
 
     var r5 = true ? new Foo<T>() : u;
 >r5 : Foo<T>
 >true ? new Foo<T>() : u : Foo<T>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<T>() : Foo<T>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >T : T
 >u : U
 
@@ -122,20 +112,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r6 = true ? v : new Foo<T>();
 >r6 : Foo<T> | V
 >true ? v : new Foo<T>() : Foo<T> | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >v : V
 >new Foo<T>() : Foo<T>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >T : T
 
     var r6 = true ? new Foo<T>() : v;
 >r6 : Foo<T> | V
 >true ? new Foo<T>() : v : Foo<T> | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<T>() : Foo<T>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >T : T
 >v : V
 
@@ -144,20 +132,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r7 = true ? t : new Foo<U>();
 >r7 : Foo<U>
 >true ? t : new Foo<U>() : Foo<U>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >new Foo<U>() : Foo<U>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >U : U
 
     var r7 = true ? new Foo<U>() : t;
 >r7 : Foo<U>
 >true ? new Foo<U>() : t : Foo<U>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<U>() : Foo<U>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >U : U
 >t : T
 
@@ -165,20 +151,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r8 = true ? u : new Foo<U>();
 >r8 : U | Foo<U>
 >true ? u : new Foo<U>() : U | Foo<U>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >u : U
 >new Foo<U>() : Foo<U>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >U : U
 
     var r8 = true ? new Foo<U>() : u;
 >r8 : U | Foo<U>
 >true ? new Foo<U>() : u : U | Foo<U>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<U>() : Foo<U>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >U : U
 >u : U
 
@@ -186,20 +170,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r9 = true ? v : new Foo<U>();
 >r9 : Foo<U> | V
 >true ? v : new Foo<U>() : Foo<U> | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >v : V
 >new Foo<U>() : Foo<U>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >U : U
 
     var r9 = true ? new Foo<U>() : v;
 >r9 : Foo<U> | V
 >true ? new Foo<U>() : v : Foo<U> | V
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<U>() : Foo<U>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >U : U
 >v : V
 
@@ -208,20 +190,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r10 = true ? t : new Foo<V>();
 >r10 : T | Foo<V>
 >true ? t : new Foo<V>() : T | Foo<V>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >t : T
 >new Foo<V>() : Foo<V>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >V : V
 
     var r10 = true ? new Foo<V>() : t;
 >r10 : T | Foo<V>
 >true ? new Foo<V>() : t : T | Foo<V>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<V>() : Foo<V>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >V : V
 >t : T
 
@@ -229,20 +209,18 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r11 = true ? u : new Foo<V>();
 >r11 : U | Foo<V>
 >true ? u : new Foo<V>() : U | Foo<V>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >u : U
 >new Foo<V>() : Foo<V>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >V : V
 
     var r11 = true ? new Foo<V>() : u;
 >r11 : U | Foo<V>
 >true ? new Foo<V>() : u : U | Foo<V>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<V>() : Foo<V>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >V : V
 >u : U
 
@@ -250,26 +228,24 @@ function f<T extends Foo<U>, U extends Foo<T>, V extends Foo<V>>(t: T, u: U, v: 
     var r12 = true ? v : new Foo<V>();
 >r12 : Foo<V>
 >true ? v : new Foo<V>() : Foo<V>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >v : V
 >new Foo<V>() : Foo<V>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >V : V
 
     var r12 = true ? new Foo<V>() : v;
 >r12 : Foo<V>
 >true ? new Foo<V>() : v : Foo<V>
->true : 为真
->类型别名 :=> 为真
+>true : true
 >new Foo<V>() : Foo<V>
->Foo : 类为 Foo
+>Foo : typeof Foo
 >V : V
 >v : V
 }
 
 module M1 {
->M1 : 类为 M1
+>M1 : typeof M1
 
     class Base<T> {
 >Base : Base<T>
@@ -295,8 +271,7 @@ module M1 {
 >T : T
 
         [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
         foo: T
@@ -319,8 +294,7 @@ module M1 {
 >T : T
 
         [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
         foo: U
@@ -343,8 +317,7 @@ module M1 {
 >T : T
 
         [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
         foo: V
@@ -367,8 +340,7 @@ module M1 {
 >U : U
 
         [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
         foo: T
@@ -391,8 +363,7 @@ module M1 {
 >U : U
 
         [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
         foo: U
@@ -415,8 +386,7 @@ module M1 {
 >U : U
 
         [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
         foo: V
@@ -439,8 +409,7 @@ module M1 {
 >V : V
 
         [x: string]: V;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >V : V
 
         foo: T
@@ -463,8 +432,7 @@ module M1 {
 >V : V
 
         [x: string]: V;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >V : V
 
         foo: U
@@ -487,8 +455,7 @@ module M1 {
 >V : V
 
         [x: string]: V;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >V : V
 
         foo: V
@@ -499,7 +466,7 @@ module M1 {
 
 
 module M2 {
->M2 : 类为 M2
+>M2 : typeof M2
 
     class Base2<T> {
 >Base2 : Base2<T>
@@ -526,8 +493,7 @@ module M2 {
 >T : T
 
         [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
         foo: T
@@ -550,8 +516,7 @@ module M2 {
 >T : T
 
         [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
         foo: U
@@ -574,8 +539,7 @@ module M2 {
 >T : T
 
         [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
         foo: V
@@ -598,8 +562,7 @@ module M2 {
 >U : U
 
         [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
         foo: T
@@ -622,8 +585,7 @@ module M2 {
 >U : U
 
         [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
         foo: U
@@ -646,8 +608,7 @@ module M2 {
 >U : U
 
         [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
         foo: V
@@ -670,8 +631,7 @@ module M2 {
 >V : V
 
         [x: string]: V;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >V : V
 
         foo: T
@@ -694,8 +654,7 @@ module M2 {
 >V : V
 
         [x: string]: V;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >V : V
 
         foo: U
@@ -718,8 +677,7 @@ module M2 {
 >V : V
 
         [x: string]: V;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >V : V
 
         foo: V

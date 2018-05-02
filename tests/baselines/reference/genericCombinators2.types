@@ -5,18 +5,17 @@ interface Collection<T, U> {
 >U : U
 
     length: number;
->length : 数字
->类型别名 :=> 数字
+>length : number
 
     add(x: T, y: U): void;
->add : (x: T, y: U) => 无值
+>add : (x: T, y: U) => void
 >x : T
 >T : T
 >y : U
 >U : U
 
     remove(x: T, y: U): boolean;
->remove : (x: T, y: U) => 真假
+>remove : (x: T, y: U) => boolean
 >x : T
 >T : T
 >y : U
@@ -27,14 +26,14 @@ interface Combinators {
 >Combinators : Combinators
 
     map<T, U>(c: Collection<T, U>, f: (x: T, y: U) => any): Collection<any, any>;
->map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => 任意): Collection<任意, 任意>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
+>map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => any): Collection<any, any>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
 >T : T
 >U : U
 >c : Collection<T, U>
 >Collection : Collection<T, U>
 >T : T
 >U : U
->f : (x: T, y: U) => 任意
+>f : (x: T, y: U) => any
 >x : T
 >T : T
 >y : U
@@ -42,7 +41,7 @@ interface Combinators {
 >Collection : Collection<T, U>
 
     map<T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>;
->map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => 任意): Collection<任意, 任意>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
+>map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => any): Collection<any, any>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
 >T : T
 >U : U
 >V : V
@@ -66,54 +65,42 @@ var _: Combinators;
 >Combinators : Combinators
 
 var c2: Collection<number, string>;
->c2 : Collection<数字, 文字>
+>c2 : Collection<number, string>
 >Collection : Collection<T, U>
 
 var rf1 = (x: number, y: string) => { return x.toFixed() };
->rf1 : (x: 数字, y: 文字) => 文字
->(x: number, y: string) => { return x.toFixed() } : (x: 数字, y: 文字) => 文字
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
->x.toFixed() : 文字
->类型别名 :=> 文字
->x.toFixed : (fractionDigits?: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
->toFixed : (fractionDigits?: 数字) => 文字
+>rf1 : (x: number, y: string) => string
+>(x: number, y: string) => { return x.toFixed() } : (x: number, y: string) => string
+>x : number
+>y : string
+>x.toFixed() : string
+>x.toFixed : (fractionDigits?: number) => string
+>x : number
+>toFixed : (fractionDigits?: number) => string
 
 var r5a = _.map<number, string, Date>(c2, (x, y) => { return x.toFixed() });
->r5a : 任意
->类型别名 :=> 任意
->_.map<number, string, Date>(c2, (x, y) => { return x.toFixed() }) : 任意
->类型别名 :=> 任意
->_.map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => 任意): Collection<任意, 任意>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
+>r5a : any
+>_.map<number, string, Date>(c2, (x, y) => { return x.toFixed() }) : any
+>_.map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => any): Collection<any, any>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
 >_ : Combinators
->map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => 任意): Collection<任意, 任意>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
+>map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => any): Collection<any, any>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
 >Date : Date
->c2 : Collection<数字, 文字>
->(x, y) => { return x.toFixed() } : (x: 数字, y: 文字) => 文字
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
->x.toFixed() : 文字
->类型别名 :=> 文字
->x.toFixed : (fractionDigits?: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
->toFixed : (fractionDigits?: 数字) => 文字
+>c2 : Collection<number, string>
+>(x, y) => { return x.toFixed() } : (x: number, y: string) => string
+>x : number
+>y : string
+>x.toFixed() : string
+>x.toFixed : (fractionDigits?: number) => string
+>x : number
+>toFixed : (fractionDigits?: number) => string
 
 var r5b = _.map<number, string, Date>(c2, rf1);
->r5b : 任意
->类型别名 :=> 任意
->_.map<number, string, Date>(c2, rf1) : 任意
->类型别名 :=> 任意
->_.map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => 任意): Collection<任意, 任意>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
+>r5b : any
+>_.map<number, string, Date>(c2, rf1) : any
+>_.map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => any): Collection<any, any>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
 >_ : Combinators
->map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => 任意): Collection<任意, 任意>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
+>map : { <T, U>(c: Collection<T, U>, f: (x: T, y: U) => any): Collection<any, any>; <T, U, V>(c: Collection<T, U>, f: (x: T, y: U) => V): Collection<T, V>; }
 >Date : Date
->c2 : Collection<数字, 文字>
->rf1 : (x: 数字, y: 文字) => 文字
+>c2 : Collection<number, string>
+>rf1 : (x: number, y: string) => string
 

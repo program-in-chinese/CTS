@@ -3,25 +3,19 @@ declare class Point
 >Point : Point
 {
       constructor(x: number, y: number);
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
 
       public x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
       public y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 
       public add(dx: number, dy: number): Point;
->add : (dx: 数字, dy: 数字) => Point
->dx : 数字
->类型别名 :=> 数字
->dy : 数字
->类型别名 :=> 数字
+>add : (dx: number, dy: number) => Point
+>dx : number
+>dy : number
 >Point : Point
 
       static origin: Point;
@@ -34,63 +28,42 @@ declare class Point
 // Because Point is a constructor function, this is inferred
 // to be Point and return type is inferred to be void
 function Point(x, y) {
->Point : (x: 任意, y: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>Point : (x: any, y: any) => void
+>x : any
+>y : any
 
     this.x = x;
->this.x = x : 任意
->类型别名 :=> 任意
->this.x : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>this.x = x : any
+>this.x : any
+>this : any
+>x : any
+>x : any
 
     this.y = y;
->this.y = y : 任意
->类型别名 :=> 任意
->this.y : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>this.y = y : any
+>this.y : any
+>this : any
+>y : any
+>y : any
 }
 
 declare function EF1(a:number, b:number):number;
->EF1 : (a: 数字, b: 数字) => 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>EF1 : (a: number, b: number) => number
+>a : number
+>b : number
 
 function EF1(a,b) { return a+b; }
->EF1 : (a: 数字, b: 数字) => 数字
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->a+b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>EF1 : (a: number, b: number) => number
+>a : any
+>b : any
+>a+b : any
+>a : any
+>b : any
 
 var x = EF1(1,2);
->x : 数字
->类型别名 :=> 数字
->EF1(1,2) : 数字
->类型别名 :=> 数字
->EF1 : (a: 数字, b: 数字) => 数字
+>x : number
+>EF1(1,2) : number
+>EF1 : (a: number, b: number) => number
 >1 : 1
 >2 : 2
 
@@ -98,10 +71,10 @@ var x = EF1(1,2);
 Point.origin = new Point(0, 0);
 >Point.origin = new Point(0, 0) : Point
 >Point.origin : Point
->Point : 类为 Point
+>Point : typeof Point
 >origin : Point
 >new Point(0, 0) : Point
->Point : 类为 Point
+>Point : typeof Point
 >0 : 0
 >0 : 0
 
@@ -109,229 +82,163 @@ Point.origin = new Point(0, 0);
 // this inferred as Point because of obj.prop assignment
 // dx, dy, and return type inferred using target typing
 Point.prototype.add = function(dx, dy) {
->Point.prototype.add = function(dx, dy) {    return new Point(this.x + dx, this.y + dy);} : (dx: 数字, dy: 数字) => Point
->Point.prototype.add : (dx: 数字, dy: 数字) => Point
+>Point.prototype.add = function(dx, dy) {    return new Point(this.x + dx, this.y + dy);} : (dx: number, dy: number) => Point
+>Point.prototype.add : (dx: number, dy: number) => Point
 >Point.prototype : Point
->Point : 类为 Point
+>Point : typeof Point
 >prototype : Point
->add : (dx: 数字, dy: 数字) => Point
->function(dx, dy) {    return new Point(this.x + dx, this.y + dy);} : (dx: 数字, dy: 数字) => Point
->dx : 数字
->类型别名 :=> 数字
->dy : 数字
->类型别名 :=> 数字
+>add : (dx: number, dy: number) => Point
+>function(dx, dy) {    return new Point(this.x + dx, this.y + dy);} : (dx: number, dy: number) => Point
+>dx : number
+>dy : number
 
     return new Point(this.x + dx, this.y + dy);
 >new Point(this.x + dx, this.y + dy) : Point
->Point : 类为 Point
->this.x + dx : 任意
->类型别名 :=> 任意
->this.x : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->dx : 数字
->类型别名 :=> 数字
->this.y + dy : 任意
->类型别名 :=> 任意
->this.y : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->dy : 数字
->类型别名 :=> 数字
+>Point : typeof Point
+>this.x + dx : any
+>this.x : any
+>this : any
+>x : any
+>dx : number
+>this.y + dy : any
+>this.y : any
+>this : any
+>y : any
+>dy : number
 
 };
 
 var f : number = 5;
->f : 数字
->类型别名 :=> 数字
+>f : number
 >5 : 5
 
 // Object literal type inferred using target typing
 // this in function add inferred to be type of object literal (i.e. Point)
 // dx, dy, and return type of add inferred using target typing
 Point.prototype = {
->Point.prototype = {    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    }} : { x: 数字; y: 数字; add: (dx: 数字, dy: 数字) => Point; }
+>Point.prototype = {    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    }} : { x: number; y: number; add: (dx: number, dy: number) => Point; }
 >Point.prototype : Point
->Point : 类为 Point
+>Point : typeof Point
 >prototype : Point
->{    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    }} : { x: 数字; y: 数字; add: (dx: 数字, dy: 数字) => Point; }
+>{    x: 0,    y: 0,    add: function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    }} : { x: number; y: number; add: (dx: number, dy: number) => Point; }
 
     x: 0,
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
 
     y: 0,
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 
     add: function(dx, dy) {
->add : (dx: 数字, dy: 数字) => Point
->function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    } : (dx: 数字, dy: 数字) => Point
->dx : 数字
->类型别名 :=> 数字
->dy : 数字
->类型别名 :=> 数字
+>add : (dx: number, dy: number) => Point
+>function(dx, dy) {        return new Point(this.x + dx, this.y + dy);    } : (dx: number, dy: number) => Point
+>dx : number
+>dy : number
 
         return new Point(this.x + dx, this.y + dy);
 >new Point(this.x + dx, this.y + dy) : Point
->Point : 类为 Point
->this.x + dx : 任意
->类型别名 :=> 任意
->this.x : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->dx : 数字
->类型别名 :=> 数字
->this.y + dy : 任意
->类型别名 :=> 任意
->this.y : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->dy : 数字
->类型别名 :=> 数字
+>Point : typeof Point
+>this.x + dx : any
+>this.x : any
+>this : any
+>x : any
+>dx : number
+>this.y + dy : any
+>this.y : any
+>this : any
+>y : any
+>dy : number
     }
 };
 
 declare var z;
->z : 任意
->类型别名 :=> 任意
+>z : any
 
 z = function(a: number) {
->z = function(a: number) {    a} : (a: 数字) => 无值
->z : 任意
->类型别名 :=> 任意
->function(a: number) {    a} : (a: 数字) => 无值
->a : 数字
->类型别名 :=> 数字
+>z = function(a: number) {    a} : (a: number) => void
+>z : any
+>function(a: number) {    a} : (a: number) => void
+>a : number
 
     a
->a : 数字
->类型别名 :=> 数字
+>a : number
 }
 
 declare class C {
 >C : C
 
     constructor(a:number, b:number);
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>a : number
+>b : number
 
 	public a : number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
 	public b: number;    
->b : 数字
->类型别名 :=> 数字
+>b : number
 
 	C1M1(c:number,d:number):number;
->C1M1 : (c: 数字, d: 数字) => 数字
->c : 数字
->类型别名 :=> 数字
->d : 数字
->类型别名 :=> 数字
+>C1M1 : (c: number, d: number) => number
+>c : number
+>d : number
 } 
 
 function C(a,b) {
->C : (a: 任意, b: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>C : (a: any, b: any) => void
+>a : any
+>b : any
 
 	this.a=a;
->this.a=a : 任意
->类型别名 :=> 任意
->this.a : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>this.a=a : any
+>this.a : any
+>this : any
+>a : any
+>a : any
 
 	this.b=b;
->this.b=b : 任意
->类型别名 :=> 任意
->this.b : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>this.b=b : any
+>this.b : any
+>this : any
+>b : any
+>b : any
 }
 
 C.prototype = 
->C.prototype = 	{	a:0,		b:0, 		C1M1: function(c,d) {     				return (this.a + c) + (this.b + d);			}	} : { a: 数字; b: 数字; C1M1: (c: 数字, d: 数字) => 任意; }
+>C.prototype = 	{	a:0,		b:0, 		C1M1: function(c,d) {     				return (this.a + c) + (this.b + d);			}	} : { a: number; b: number; C1M1: (c: number, d: number) => any; }
 >C.prototype : C
->C : 类为 C
+>C : typeof C
 >prototype : C
 
 	{	a:0,
->{	a:0,		b:0, 		C1M1: function(c,d) {     				return (this.a + c) + (this.b + d);			}	} : { a: 数字; b: 数字; C1M1: (c: 数字, d: 数字) => 任意; }
->a : 数字
->类型别名 :=> 数字
+>{	a:0,		b:0, 		C1M1: function(c,d) {     				return (this.a + c) + (this.b + d);			}	} : { a: number; b: number; C1M1: (c: number, d: number) => any; }
+>a : number
 >0 : 0
 
 		b:0, 
->b : 数字
->类型别名 :=> 数字
+>b : number
 >0 : 0
 
 		C1M1: function(c,d) {     
->C1M1 : (c: 数字, d: 数字) => 任意
->function(c,d) {     				return (this.a + c) + (this.b + d);			} : (c: 数字, d: 数字) => 任意
->c : 数字
->类型别名 :=> 数字
->d : 数字
->类型别名 :=> 数字
+>C1M1 : (c: number, d: number) => any
+>function(c,d) {     				return (this.a + c) + (this.b + d);			} : (c: number, d: number) => any
+>c : number
+>d : number
 
 				return (this.a + c) + (this.b + d);
->(this.a + c) + (this.b + d) : 任意
->类型别名 :=> 任意
->(this.a + c) : 任意
->类型别名 :=> 任意
->this.a + c : 任意
->类型别名 :=> 任意
->this.a : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->c : 数字
->类型别名 :=> 数字
->(this.b + d) : 任意
->类型别名 :=> 任意
->this.b + d : 任意
->类型别名 :=> 任意
->this.b : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->d : 数字
->类型别名 :=> 数字
+>(this.a + c) + (this.b + d) : any
+>(this.a + c) : any
+>this.a + c : any
+>this.a : any
+>this : any
+>a : any
+>c : number
+>(this.b + d) : any
+>this.b + d : any
+>this.b : any
+>this : any
+>b : any
+>d : number
 			}
 	};
 

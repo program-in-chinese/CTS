@@ -1,45 +1,39 @@
 === tests/cases/compiler/moduleDuplicateIdentifiers.ts ===
 export var Foo = 2;
->Foo : 数字
->类型别名 :=> 数字
+>Foo : number
 >2 : 2
 
 export var Foo = 42; // Should error
->Foo : 数字
->类型别名 :=> 数字
+>Foo : number
 >42 : 42
 
 export interface Bar {
 >Bar : Bar
 
 	_brand1: any;
->_brand1 : 任意
->类型别名 :=> 任意
+>_brand1 : any
 }
 
 export interface Bar { // Shouldn't error
 >Bar : Bar
 
 	_brand2: any;
->_brand2 : 任意
->类型别名 :=> 任意
+>_brand2 : any
 }
 
 export namespace FooBar {
->FooBar : 类为 FooBar
+>FooBar : typeof FooBar
 
 	export var member1 = 2;
->member1 : 数字
->类型别名 :=> 数字
+>member1 : number
 >2 : 2
 }
 
 export namespace FooBar { // Shouldn't error
->FooBar : 类为 FooBar
+>FooBar : typeof FooBar
 
 	export var member2 = 42;
->member2 : 数字
->类型别名 :=> 数字
+>member2 : number
 >42 : 42
 }
 
@@ -47,8 +41,7 @@ export class Kettle {
 >Kettle : Kettle
 
 	member1 = 2;
->member1 : 数字
->类型别名 :=> 数字
+>member1 : number
 >2 : 2
 }
 
@@ -56,20 +49,17 @@ export class Kettle { // Should error
 >Kettle : Kettle
 
 	member2 = 42;
->member2 : 数字
->类型别名 :=> 数字
+>member2 : number
 >42 : 42
 }
 
 export var Pot = 2;
->Pot : 数字
->类型别名 :=> 数字
+>Pot : number
 >2 : 2
 
 Pot = 42; // Shouldn't error
 >Pot = 42 : 42
->Pot : 数字
->类型别名 :=> 数字
+>Pot : number
 >42 : 42
 
 export enum Utensils {

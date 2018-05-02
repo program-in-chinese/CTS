@@ -12,44 +12,37 @@ enum Colors {
 var x = Colors.Red; // type of 'x' should be 'Colors'
 >x : Colors
 >Colors.Red : Colors.Red
->Colors : 类为 Colors
+>Colors : typeof Colors
 >Red : Colors.Red
 
 var p = x.Green; // error
->p : 任意
->类型别名 :=> 任意
->x.Green : 任意
->类型别名 :=> 任意
+>p : any
+>x.Green : any
 >x : Colors.Red
->Green : 任意
->类型别名 :=> 任意
+>Green : any
 
 x.toFixed(); // ok
->x.toFixed() : 文字
->类型别名 :=> 文字
->x.toFixed : (fractionDigits?: 数字) => 文字
+>x.toFixed() : string
+>x.toFixed : (fractionDigits?: number) => string
 >x : Colors.Red
->toFixed : (fractionDigits?: 数字) => 文字
+>toFixed : (fractionDigits?: number) => string
 
 // Now with generics
 function fill<B extends Colors>(f: B) {
->fill : <B 扩展 Colors>(f: B) => 无值
+>fill : <B extends Colors>(f: B) => void
 >B : B
 >Colors : Colors
 >f : B
 >B : B
 
     f.Green; // error
->f.Green : 任意
->类型别名 :=> 任意
+>f.Green : any
 >f : B
->Green : 任意
->类型别名 :=> 任意
+>Green : any
 
     f.toFixed(); // ok
->f.toFixed() : 文字
->类型别名 :=> 文字
->f.toFixed : (fractionDigits?: 数字) => 文字
+>f.toFixed() : string
+>f.toFixed : (fractionDigits?: number) => string
 >f : B
->toFixed : (fractionDigits?: 数字) => 文字
+>toFixed : (fractionDigits?: number) => string
 }

@@ -8,14 +8,14 @@ class G<T>{ bar(x: T) { return x; } }
 >x : T
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export class C { foo() { } }
 >C : C
->foo : () => 无值
+>foo : () => void
 
     export module C {
->C : 类为 C
+>C : typeof C
 
         export class X {
 >X : X
@@ -25,26 +25,23 @@ module M {
     var g1 = new G<C>();
 >g1 : G<C>
 >new G<C>() : G<C>
->G : 类为 G
+>G : typeof G
 >C : C
 
     g1.bar(null).foo();
->g1.bar(null).foo() : 无值
->类型别名 :=> 无值
->g1.bar(null).foo : () => 无值
+>g1.bar(null).foo() : void
+>g1.bar(null).foo : () => void
 >g1.bar(null) : C
 >g1.bar : (x: C) => C
 >g1 : G<C>
 >bar : (x: C) => C
->null : 空值
->类型别名 :=> 空值
->foo : () => 无值
+>null : null
+>foo : () => void
 }
 var g2 = new G<M.C>() // was: error Type reference cannot refer to container 'M.C'.
 >g2 : G<M.C>
 >new G<M.C>() : G<M.C>
->G : 类为 G
->M : 任意
->类型别名 :=> 任意
+>G : typeof G
+>M : any
 >C : M.C
 

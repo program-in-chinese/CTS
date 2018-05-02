@@ -5,9 +5,8 @@ class C {
 >C : C
 
     foo(x: number) { }
->foo : (x: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
+>foo : (x: number) => void
+>x : number
 }
 
 class D extends C {
@@ -15,7 +14,7 @@ class D extends C {
 >C : C
 
     foo() { } // ok to drop parameters
->foo : () => 无值
+>foo : () => void
 }
 
 class E extends D {
@@ -23,9 +22,8 @@ class E extends D {
 >D : D
 
     foo(x?: string) { } // ok to add optional parameters
->foo : (x?: 文字) => 无值
->x : 文字
->类型别名 :=> 文字
+>foo : (x?: string) => void
+>x : string
 }
 
 var c: C;
@@ -46,22 +44,18 @@ c = e;
 >e : E
 
 var r = c.foo(1);
->r : 无值
->类型别名 :=> 无值
->c.foo(1) : 无值
->类型别名 :=> 无值
->c.foo : (x: 数字) => 无值
+>r : void
+>c.foo(1) : void
+>c.foo : (x: number) => void
 >c : C
->foo : (x: 数字) => 无值
+>foo : (x: number) => void
 >1 : 1
 
 var r2 = e.foo('');
->r2 : 无值
->类型别名 :=> 无值
->e.foo('') : 无值
->类型别名 :=> 无值
->e.foo : (x?: 文字) => 无值
+>r2 : void
+>e.foo('') : void
+>e.foo : (x?: string) => void
 >e : E
->foo : (x?: 文字) => 无值
+>foo : (x?: string) => void
 >'' : ""
 

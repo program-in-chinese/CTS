@@ -1,26 +1,25 @@
 === tests/cases/compiler/typeParameterArgumentEquivalence.ts ===
 function foo<T>() {
->foo : <T>() => 无值
+>foo : <T>() => void
 >T : T
 
     var x: (item: number) => boolean;
->x : (item: 数字) => 真假
->item : 数字
->类型别名 :=> 数字
+>x : (item: number) => boolean
+>item : number
 
     var y: (item: T) => boolean;
->y : (item: T) => 真假
+>y : (item: T) => boolean
 >item : T
 >T : T
 
     x = y;  // Should be an error
->x = y : (item: T) => 真假
->x : (item: 数字) => 真假
->y : (item: T) => 真假
+>x = y : (item: T) => boolean
+>x : (item: number) => boolean
+>y : (item: T) => boolean
 
     y = x;  // Shound be an error
->y = x : (item: 数字) => 真假
->y : (item: T) => 真假
->x : (item: 数字) => 真假
+>y = x : (item: number) => boolean
+>y : (item: T) => boolean
+>x : (item: number) => boolean
 }
 

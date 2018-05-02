@@ -1,20 +1,17 @@
 === tests/cases/conformance/types/typeRelationships/subtypesAndSuperTypes/subtypingWithObjectMembers.ts ===
 class Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 // N and M have the same name, same accessibility, same optionality, and N is a subtype of M
 // foo properties are valid, bar properties cause errors in the derived class declarations
@@ -39,17 +36,18 @@ class B extends A {
 >Derived : Derived
 
     bar: string; // error
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 }
 
 class A2 {
 >A2 : A2
 
     1: Base; 
+>1 : Base
 >Base : Base
 
     2.0: Base;
+>2.0 : Base
 >Base : Base
 }
 
@@ -58,18 +56,22 @@ class B2 extends A2 {
 >A2 : A2
 
     1: Derived; // ok
+>1 : Derived
 >Derived : Derived
 
     2: string; // error
+>2 : string
 }
 
 class A3 {
 >A3 : A3
 
     '1': Base;
+>'1' : Base
 >Base : Base
 
     '2.0': Base;
+>'2.0' : Base
 >Base : Base
 }
 
@@ -78,13 +80,15 @@ class B3 extends A3 {
 >A3 : A3
 
     '1': Derived; // ok
+>'1' : Derived
 >Derived : Derived
 
     '2.0': string; // error
+>'2.0' : string
 }
 
 module TwoLevels {
->TwoLevels : 类为 TwoLevels
+>TwoLevels : typeof TwoLevels
 
     class A {
 >A : A
@@ -107,17 +111,18 @@ module TwoLevels {
 >Derived2 : Derived2
 
         bar: string; // error
->bar : 文字
->类型别名 :=> 文字
+>bar : string
     }
 
     class A2 {
 >A2 : A2
 
         1: Base;
+>1 : Base
 >Base : Base
 
         2.0: Base;
+>2.0 : Base
 >Base : Base
     }
 
@@ -126,18 +131,22 @@ module TwoLevels {
 >A2 : A2
 
         1: Derived2; // ok
+>1 : Derived2
 >Derived2 : Derived2
 
         2: string; // error
+>2 : string
     }
 
     class A3 {
 >A3 : A3
 
         '1': Base;
+>'1' : Base
 >Base : Base
 
         '2.0': Base;
+>'2.0' : Base
 >Base : Base
     }
 
@@ -146,8 +155,10 @@ module TwoLevels {
 >A3 : A3
 
         '1': Derived2; // ok
+>'1' : Derived2
 >Derived2 : Derived2
 
         '2.0': string; // error
+>'2.0' : string
     }
 }

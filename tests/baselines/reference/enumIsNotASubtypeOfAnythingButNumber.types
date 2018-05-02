@@ -9,8 +9,7 @@ interface I {
 >I : I
 
     [x: string]: any;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: E; // ok
 >foo : E
@@ -22,8 +21,7 @@ interface I2 {
 >I2 : I2
 
     [x: string]: number;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: E; // ok
 >foo : E
@@ -35,8 +33,7 @@ interface I3 {
 >I3 : I3
 
     [x: string]: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: E;
 >foo : E
@@ -48,8 +45,7 @@ interface I4 {
 >I4 : I4
 
     [x: string]: boolean;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: E;
 >foo : E
@@ -61,8 +57,7 @@ interface I5 {
 >I5 : I5
 
     [x: string]: Date;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Date : Date
 
     foo: E;
@@ -75,8 +70,7 @@ interface I6 {
 >I6 : I6
 
     [x: string]: RegExp;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >RegExp : RegExp
 
     foo: E;
@@ -89,10 +83,8 @@ interface I7 {
 >I7 : I7
 
     [x: string]: { bar: number };
->x : 文字
->类型别名 :=> 文字
->bar : 数字
->类型别名 :=> 数字
+>x : string
+>bar : number
 
     foo: E;
 >foo : E
@@ -104,8 +96,7 @@ interface I8 {
 >I8 : I8
 
     [x: string]: number[];
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: E;
 >foo : E
@@ -117,8 +108,7 @@ interface I9 {
 >I9 : I9
 
     [x: string]: I8;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >I8 : I8
 
     foo: E;
@@ -128,15 +118,13 @@ interface I9 {
 
 class A { foo: number; }
 >A : A
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 
 interface I10 {
 >I10 : I10
 
     [x: string]: A;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >A : A
 
     foo: E;
@@ -154,8 +142,7 @@ interface I11 {
 >I11 : I11
 
     [x: string]: A2<number>;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >A2 : A2<T>
 
     foo: E;
@@ -168,10 +155,8 @@ interface I12 {
 >I12 : I12
 
     [x: string]: (x) => number;
->x : 文字
->类型别名 :=> 文字
->x : 任意
->类型别名 :=> 任意
+>x : string
+>x : any
 
     foo: E;
 >foo : E
@@ -183,8 +168,7 @@ interface I13 {
 >I13 : I13
 
     [x: string]: <T>(x: T) => T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 >x : T
 >T : T
@@ -204,8 +188,7 @@ interface I14 {
 >I14 : I14
 
     [x: string]: E2;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >E2 : E2
 
     foo: E;
@@ -215,23 +198,21 @@ interface I14 {
 
 
 function f() { }
->f : 类为 f
+>f : typeof f
 
 module f {
->f : 类为 f
+>f : typeof f
 
     export var bar = 1;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 >1 : 1
 }
 interface I15 {
 >I15 : I15
 
     [x: string]: typeof f;
->x : 文字
->类型别名 :=> 文字
->f : 类为 f
+>x : string
+>f : typeof f
 
     foo: E;
 >foo : E
@@ -241,24 +222,21 @@ interface I15 {
 
 class c { baz: string }
 >c : c
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 module c {
->c : 类为 c
+>c : typeof c
 
     export var bar = 1;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 >1 : 1
 }
 interface I16 {
 >I16 : I16
 
     [x: string]: typeof c;
->x : 文字
->类型别名 :=> 文字
->c : 类为 c
+>x : string
+>c : typeof c
 
     foo: E;
 >foo : E
@@ -271,8 +249,7 @@ interface I17<T> {
 >T : T
 
     [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
     foo: E;
@@ -288,8 +265,7 @@ interface I18<T, U extends T> {
 >T : T
 
     [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
     foo: E;
@@ -302,8 +278,7 @@ interface I19 {
 >I19 : I19
 
     [x: string]: Object;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Object : Object
 
     foo: E; // BUG 831833
@@ -316,8 +291,7 @@ interface I20 {
 >I20 : I20
 
     [x: string]: {};
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: E; // BUG 831833
 >foo : E

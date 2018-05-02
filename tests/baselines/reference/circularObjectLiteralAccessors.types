@@ -2,46 +2,36 @@
 // Repro from #6000
 
 const a = {
->a : { b: { foo: 文字; }; foo: 文字; }
->{    b: {        get foo(): string {            return a.foo;        },        set foo(value: string) {            a.foo = value;        }    },    foo: ''} : { b: { foo: 文字; }; foo: 文字; }
+>a : { b: { foo: string; }; foo: string; }
+>{    b: {        get foo(): string {            return a.foo;        },        set foo(value: string) {            a.foo = value;        }    },    foo: ''} : { b: { foo: string; }; foo: string; }
 
     b: {
->b : { foo: 文字; }
->{        get foo(): string {            return a.foo;        },        set foo(value: string) {            a.foo = value;        }    } : { foo: 文字; }
+>b : { foo: string; }
+>{        get foo(): string {            return a.foo;        },        set foo(value: string) {            a.foo = value;        }    } : { foo: string; }
 
         get foo(): string {
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
             return a.foo;
->a.foo : 文字
->类型别名 :=> 文字
->a : { b: { foo: 文字; }; foo: 文字; }
->foo : 文字
->类型别名 :=> 文字
+>a.foo : string
+>a : { b: { foo: string; }; foo: string; }
+>foo : string
 
         },
         set foo(value: string) {
->foo : 文字
->类型别名 :=> 文字
->value : 文字
->类型别名 :=> 文字
+>foo : string
+>value : string
 
             a.foo = value;
->a.foo = value : 文字
->类型别名 :=> 文字
->a.foo : 文字
->类型别名 :=> 文字
->a : { b: { foo: 文字; }; foo: 文字; }
->foo : 文字
->类型别名 :=> 文字
->value : 文字
->类型别名 :=> 文字
+>a.foo = value : string
+>a.foo : string
+>a : { b: { foo: string; }; foo: string; }
+>foo : string
+>value : string
         }
     },
     foo: ''
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 >'' : ""
 
 };

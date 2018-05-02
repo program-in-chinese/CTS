@@ -3,182 +3,144 @@ interface I {
 >I : I
 
     n: number;
->n : 数字
->类型别名 :=> 数字
+>n : number
 
     explicitThis(this: this, m: number): number;
->explicitThis : (this: 本体, m: 数字) => 数字
->this : 本体
->m : 数字
->类型别名 :=> 数字
+>explicitThis : (this: this, m: number) => number
+>this : this
+>m : number
 }
 interface Unused {
 >Unused : Unused
 
     implicitNoThis(m: number): number;
->implicitNoThis : (m: 数字) => 数字
->m : 数字
->类型别名 :=> 数字
+>implicitNoThis : (m: number) => number
+>m : number
 }
 class C implements I {
 >C : C
 >I : I
 
     n: number;
->n : 数字
->类型别名 :=> 数字
+>n : number
 
     explicitThis(this: this, m: number): number {
->explicitThis : (this: 本体, m: 数字) => 数字
->this : 本体
->m : 数字
->类型别名 :=> 数字
+>explicitThis : (this: this, m: number) => number
+>this : this
+>m : number
 
         return this.n + m;
->this.n + m : 数字
->类型别名 :=> 数字
->this.n : 数字
->类型别名 :=> 数字
->this : 本体
->n : 数字
->类型别名 :=> 数字
->m : 数字
->类型别名 :=> 数字
+>this.n + m : number
+>this.n : number
+>this : this
+>n : number
+>m : number
     }
     implicitThis(m: number): number {
->implicitThis : (m: 数字) => 数字
->m : 数字
->类型别名 :=> 数字
+>implicitThis : (m: number) => number
+>m : number
 
         return this.n + m;
->this.n + m : 数字
->类型别名 :=> 数字
->this.n : 数字
->类型别名 :=> 数字
->this : 本体
->n : 数字
->类型别名 :=> 数字
->m : 数字
->类型别名 :=> 数字
+>this.n + m : number
+>this.n : number
+>this : this
+>n : number
+>m : number
     }
     explicitVoid(this: void, m: number): number {
->explicitVoid : (this: 无值, m: 数字) => 数字
->this : 无值
->类型别名 :=> 无值
->m : 数字
->类型别名 :=> 数字
+>explicitVoid : (this: void, m: number) => number
+>this : void
+>m : number
 
         return m + 1;
->m + 1 : 数字
->类型别名 :=> 数字
->m : 数字
->类型别名 :=> 数字
+>m + 1 : number
+>m : number
 >1 : 1
     }
 }
 let c = new C();
 >c : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
 c.explicitVoid = c.explicitThis; // error, 'void' is missing everything
->c.explicitVoid = c.explicitThis : (this: C, m: 数字) => 数字
->c.explicitVoid : (this: 无值, m: 数字) => 数字
+>c.explicitVoid = c.explicitThis : (this: C, m: number) => number
+>c.explicitVoid : (this: void, m: number) => number
 >c : C
->explicitVoid : (this: 无值, m: 数字) => 数字
->c.explicitThis : (this: C, m: 数字) => 数字
+>explicitVoid : (this: void, m: number) => number
+>c.explicitThis : (this: C, m: number) => number
 >c : C
->explicitThis : (this: C, m: 数字) => 数字
+>explicitThis : (this: C, m: number) => number
 
 let o = {
->o : { n: 数字; explicitThis: (m: 数字) => 任意; implicitThis(m: 数字): 数字; }
->{    n: 101,    explicitThis: function (m: number) {        return m + this.n.length; // error, 'length' does not exist on 'number'    },    implicitThis(m: number): number { return m; }} : { n: 数字; explicitThis: (m: 数字) => 任意; implicitThis(m: 数字): 数字; }
+>o : { n: number; explicitThis: (m: number) => any; implicitThis(m: number): number; }
+>{    n: 101,    explicitThis: function (m: number) {        return m + this.n.length; // error, 'length' does not exist on 'number'    },    implicitThis(m: number): number { return m; }} : { n: number; explicitThis: (m: number) => any; implicitThis(m: number): number; }
 
     n: 101,
->n : 数字
->类型别名 :=> 数字
+>n : number
 >101 : 101
 
     explicitThis: function (m: number) {
->explicitThis : (m: 数字) => 任意
->function (m: number) {        return m + this.n.length; // error, 'length' does not exist on 'number'    } : (m: 数字) => 任意
->m : 数字
->类型别名 :=> 数字
+>explicitThis : (m: number) => any
+>function (m: number) {        return m + this.n.length; // error, 'length' does not exist on 'number'    } : (m: number) => any
+>m : number
 
         return m + this.n.length; // error, 'length' does not exist on 'number'
->m + this.n.length : 任意
->类型别名 :=> 任意
->m : 数字
->类型别名 :=> 数字
->this.n.length : 任意
->类型别名 :=> 任意
->this.n : 数字
->类型别名 :=> 数字
->this : { n: 数字; explicitThis: (m: 数字) => 任意; implicitThis(m: 数字): 数字; }
->n : 数字
->类型别名 :=> 数字
->length : 任意
->类型别名 :=> 任意
+>m + this.n.length : any
+>m : number
+>this.n.length : any
+>this.n : number
+>this : { n: number; explicitThis: (m: number) => any; implicitThis(m: number): number; }
+>n : number
+>length : any
 
     },
     implicitThis(m: number): number { return m; }
->implicitThis : (m: 数字) => 数字
->m : 数字
->类型别名 :=> 数字
->m : 数字
->类型别名 :=> 数字
+>implicitThis : (m: number) => number
+>m : number
+>m : number
 
 };
 let i: I = o;
 >i : I
 >I : I
->o : { n: 数字; explicitThis: (m: 数字) => 任意; implicitThis(m: 数字): 数字; }
+>o : { n: number; explicitThis: (m: number) => any; implicitThis(m: number): number; }
 
 let o2: I = {
 >o2 : I
 >I : I
->{    n: 1001,    explicitThis: function (m) {         return m + this.n.length;  // error, this.n: number, no member 'length'    },} : { n: 数字; explicitThis: (this: I, m: 数字) => 任意; }
+>{    n: 1001,    explicitThis: function (m) {         return m + this.n.length;  // error, this.n: number, no member 'length'    },} : { n: number; explicitThis: (this: I, m: number) => any; }
 
     n: 1001,
->n : 数字
->类型别名 :=> 数字
+>n : number
 >1001 : 1001
 
     explicitThis: function (m) {
->explicitThis : (this: I, m: 数字) => 任意
->function (m) {         return m + this.n.length;  // error, this.n: number, no member 'length'    } : (this: I, m: 数字) => 任意
->m : 数字
->类型别名 :=> 数字
+>explicitThis : (this: I, m: number) => any
+>function (m) {         return m + this.n.length;  // error, this.n: number, no member 'length'    } : (this: I, m: number) => any
+>m : number
 
          return m + this.n.length;  // error, this.n: number, no member 'length'
->m + this.n.length : 任意
->类型别名 :=> 任意
->m : 数字
->类型别名 :=> 数字
->this.n.length : 任意
->类型别名 :=> 任意
->this.n : 数字
->类型别名 :=> 数字
+>m + this.n.length : any
+>m : number
+>this.n.length : any
+>this.n : number
 >this : I
->n : 数字
->类型别名 :=> 数字
->length : 任意
->类型别名 :=> 任意
+>n : number
+>length : any
 
     },
 }
 let x = i.explicitThis;
->x : (this: I, m: 数字) => 数字
->i.explicitThis : (this: I, m: 数字) => 数字
+>x : (this: I, m: number) => number
+>i.explicitThis : (this: I, m: number) => number
 >i : I
->explicitThis : (this: I, m: 数字) => 数字
+>explicitThis : (this: I, m: number) => number
 
 let n = x(12); // callee:void doesn't match this:I
->n : 数字
->类型别名 :=> 数字
->x(12) : 数字
->类型别名 :=> 数字
->x : (this: I, m: 数字) => 数字
+>n : number
+>x(12) : number
+>x : (this: I, m: number) => number
 >12 : 12
 
 let u: Unused;
@@ -186,75 +148,67 @@ let u: Unused;
 >Unused : Unused
 
 let y = u.implicitNoThis;
->y : (m: 数字) => 数字
->u.implicitNoThis : (m: 数字) => 数字
+>y : (m: number) => number
+>u.implicitNoThis : (m: number) => number
 >u : Unused
->implicitNoThis : (m: 数字) => 数字
+>implicitNoThis : (m: number) => number
 
 n = y(12); // ok, callee:void matches this:any
->n = y(12) : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
->y(12) : 数字
->类型别名 :=> 数字
->y : (m: 数字) => 数字
+>n = y(12) : number
+>n : number
+>y(12) : number
+>y : (m: number) => number
 >12 : 12
 
 c.explicitVoid = c.implicitThis // ok, implicitThis(this:any)
->c.explicitVoid = c.implicitThis : (m: 数字) => 数字
->c.explicitVoid : (this: 无值, m: 数字) => 数字
+>c.explicitVoid = c.implicitThis : (m: number) => number
+>c.explicitVoid : (this: void, m: number) => number
 >c : C
->explicitVoid : (this: 无值, m: 数字) => 数字
->c.implicitThis : (m: 数字) => 数字
+>explicitVoid : (this: void, m: number) => number
+>c.implicitThis : (m: number) => number
 >c : C
->implicitThis : (m: 数字) => 数字
+>implicitThis : (m: number) => number
 
 o.implicitThis = c.implicitThis; // ok, implicitThis(this:any)
->o.implicitThis = c.implicitThis : (m: 数字) => 数字
->o.implicitThis : (m: 数字) => 数字
->o : { n: 数字; explicitThis: (m: 数字) => 任意; implicitThis(m: 数字): 数字; }
->implicitThis : (m: 数字) => 数字
->c.implicitThis : (m: 数字) => 数字
+>o.implicitThis = c.implicitThis : (m: number) => number
+>o.implicitThis : (m: number) => number
+>o : { n: number; explicitThis: (m: number) => any; implicitThis(m: number): number; }
+>implicitThis : (m: number) => number
+>c.implicitThis : (m: number) => number
 >c : C
->implicitThis : (m: 数字) => 数字
+>implicitThis : (m: number) => number
 
 o.implicitThis = c.explicitThis; // ok, implicitThis(this:any) is assignable to explicitThis(this: this)
->o.implicitThis = c.explicitThis : (this: C, m: 数字) => 数字
->o.implicitThis : (m: 数字) => 数字
->o : { n: 数字; explicitThis: (m: 数字) => 任意; implicitThis(m: 数字): 数字; }
->implicitThis : (m: 数字) => 数字
->c.explicitThis : (this: C, m: 数字) => 数字
+>o.implicitThis = c.explicitThis : (this: C, m: number) => number
+>o.implicitThis : (m: number) => number
+>o : { n: number; explicitThis: (m: number) => any; implicitThis(m: number): number; }
+>implicitThis : (m: number) => number
+>c.explicitThis : (this: C, m: number) => number
 >c : C
->explicitThis : (this: C, m: 数字) => 数字
+>explicitThis : (this: C, m: number) => number
 
 o.implicitThis = i.explicitThis;
->o.implicitThis = i.explicitThis : (this: I, m: 数字) => 数字
->o.implicitThis : (m: 数字) => 数字
->o : { n: 数字; explicitThis: (m: 数字) => 任意; implicitThis(m: 数字): 数字; }
->implicitThis : (m: 数字) => 数字
->i.explicitThis : (this: I, m: 数字) => 数字
+>o.implicitThis = i.explicitThis : (this: I, m: number) => number
+>o.implicitThis : (m: number) => number
+>o : { n: number; explicitThis: (m: number) => any; implicitThis(m: number): number; }
+>implicitThis : (m: number) => number
+>i.explicitThis : (this: I, m: number) => number
 >i : I
->explicitThis : (this: I, m: 数字) => 数字
+>explicitThis : (this: I, m: number) => number
 
 i.explicitThis = function(m) {
->i.explicitThis = function(m) {     return this.n.length;  // error, this.n: number} : (this: I, m: 数字) => 任意
->i.explicitThis : (this: I, m: 数字) => 数字
+>i.explicitThis = function(m) {     return this.n.length;  // error, this.n: number} : (this: I, m: number) => any
+>i.explicitThis : (this: I, m: number) => number
 >i : I
->explicitThis : (this: I, m: 数字) => 数字
->function(m) {     return this.n.length;  // error, this.n: number} : (this: I, m: 数字) => 任意
->m : 数字
->类型别名 :=> 数字
+>explicitThis : (this: I, m: number) => number
+>function(m) {     return this.n.length;  // error, this.n: number} : (this: I, m: number) => any
+>m : number
 
      return this.n.length;  // error, this.n: number
->this.n.length : 任意
->类型别名 :=> 任意
->this.n : 数字
->类型别名 :=> 数字
+>this.n.length : any
+>this.n : number
 >this : I
->n : 数字
->类型别名 :=> 数字
->length : 任意
->类型别名 :=> 任意
+>n : number
+>length : any
 }
 

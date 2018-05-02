@@ -2,76 +2,56 @@
 // Repros from #10378
 
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     var a: boolean | number | string;
->a : 文字 | 数字 | 真假
+>a : string | number | boolean
 
     if (typeof a !== 'boolean') {
->typeof a !== 'boolean' : 真假
->类型别名 :=> 真假
->typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->a : 文字 | 数字 | 真假
+>typeof a !== 'boolean' : boolean
+>typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>a : string | number | boolean
 >'boolean' : "boolean"
 
         // a is narrowed to "number | string"
         for (var i = 0; i < 1; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 1 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 1 : boolean
+>i : number
 >1 : 1
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
             for (var j = 0; j < 1; j++) {}
->j : 数字
->类型别名 :=> 数字
+>j : number
 >0 : 0
->j < 1 : 真假
->类型别名 :=> 真假
->j : 数字
->类型别名 :=> 数字
+>j < 1 : boolean
+>j : number
 >1 : 1
->j++ : 数字
->类型别名 :=> 数字
->j : 数字
->类型别名 :=> 数字
+>j++ : number
+>j : number
 
             if (typeof a === 'string') {
->typeof a === 'string' : 真假
->类型别名 :=> 真假
->typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->a : 文字 | 数字
+>typeof a === 'string' : boolean
+>typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>a : string | number
 >'string' : "string"
 
                 // a is narrowed to "string'
                 for (var j = 0; j < 1; j++) {
->j : 数字
->类型别名 :=> 数字
+>j : number
 >0 : 0
->j < 1 : 真假
->类型别名 :=> 真假
->j : 数字
->类型别名 :=> 数字
+>j < 1 : boolean
+>j : number
 >1 : 1
->j++ : 数字
->类型别名 :=> 数字
->j : 数字
->类型别名 :=> 数字
+>j++ : number
+>j : number
 
                     a.length; // Should not error here
->a.length : 数字
->类型别名 :=> 数字
->a : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>a.length : number
+>a : string
+>length : number
                 }
             }
         }
@@ -79,16 +59,15 @@ function f1() {
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     var a: string | number;
->a : 文字 | 数字
+>a : string | number
 
     if (typeof a === 'string') {
->typeof a === 'string' : 真假
->类型别名 :=> 真假
->typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->a : 文字 | 数字
+>typeof a === 'string' : boolean
+>typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>a : string | number
 >'string' : "string"
 
         while (1) {
@@ -98,23 +77,18 @@ function f2() {
 >1 : 1
 
             if (typeof a === 'string') {
->typeof a === 'string' : 真假
->类型别名 :=> 真假
->typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->a : 文字
->类型别名 :=> 文字
+>typeof a === 'string' : boolean
+>typeof a : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>a : string
 >'string' : "string"
 
                 while (1) {
 >1 : 1
 
                     a.length; // Should not error here
->a.length : 数字
->类型别名 :=> 数字
->a : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>a.length : number
+>a : string
+>length : number
                 }
             }
         }

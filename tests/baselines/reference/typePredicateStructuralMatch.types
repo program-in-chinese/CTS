@@ -4,54 +4,51 @@
 getResults1([]);
 >getResults1([]) : Result[]
 >getResults1 : (value: Result[] | { data: Result[]; }) => Result[]
->[] : 未定[]
+>[] : undefined[]
 
 getResults1({data: []});
 >getResults1({data: []}) : Result[]
 >getResults1 : (value: Result[] | { data: Result[]; }) => Result[]
->{data: []} : { data: 未定[]; }
->data : 未定[]
->[] : 未定[]
+>{data: []} : { data: undefined[]; }
+>data : undefined[]
+>[] : undefined[]
 
 getResults2([]);
 >getResults2([]) : Result[]
 >getResults2 : (value: Result[] | { data: Result[]; }) => Result[]
->[] : 未定[]
+>[] : undefined[]
 
 getResults2({data: []});
 >getResults2({data: []}) : Result[]
 >getResults2 : (value: Result[] | { data: Result[]; }) => Result[]
->{data: []} : { data: 未定[]; }
->data : 未定[]
->[] : 未定[]
+>{data: []} : { data: undefined[]; }
+>data : undefined[]
+>[] : undefined[]
 
 type Result = { value: string };
 >Result : Result
->value : 文字
->类型别名 :=> 文字
+>value : string
 
 type Results = Result[];
 >Results : Result[]
 >Result : Result
 
 function isResponseInData<T>(value: T | { data: T}): value is { data: T } {
->isResponseInData : <T>(value: T | { data: T; }) => value 作为 { data: T; }
+>isResponseInData : <T>(value: T | { data: T; }) => value is { data: T; }
 >T : T
 >value : T | { data: T; }
 >T : T
 >data : T
 >T : T
->value : 任意
->类型别名 :=> 任意
+>value : any
 >data : T
 >T : T
 
     return value.hasOwnProperty('data');
->value.hasOwnProperty('data') : 真假
->类型别名 :=> 真假
->value.hasOwnProperty : (v: 文字) => 真假
+>value.hasOwnProperty('data') : boolean
+>value.hasOwnProperty : (v: string) => boolean
 >value : T | { data: T; }
->hasOwnProperty : (v: 文字) => 真假
+>hasOwnProperty : (v: string) => boolean
 >'data' : "data"
 }
 
@@ -65,9 +62,8 @@ function getResults1(value: Results | { data: Results }): Results {
 
     return isResponseInData(value) ? value.data : value;
 >isResponseInData(value) ? value.data : value : Result[]
->isResponseInData(value) : 真假
->类型别名 :=> 真假
->isResponseInData : <T>(value: T | { data: T; }) => value 作为 { data: T; }
+>isResponseInData(value) : boolean
+>isResponseInData : <T>(value: T | { data: T; }) => value is { data: T; }
 >value : Result[] | { data: Result[]; }
 >value.data : Result[]
 >value : { data: Result[]; }
@@ -76,24 +72,21 @@ function getResults1(value: Results | { data: Results }): Results {
 }
 
 function isPlainResponse<T>(value: T | { data: T}): value is T {
->isPlainResponse : <T>(value: T | { data: T; }) => value 作为 T
+>isPlainResponse : <T>(value: T | { data: T; }) => value is T
 >T : T
 >value : T | { data: T; }
 >T : T
 >data : T
 >T : T
->value : 任意
->类型别名 :=> 任意
+>value : any
 >T : T
 
     return !value.hasOwnProperty('data');
->!value.hasOwnProperty('data') : 真假
->类型别名 :=> 真假
->value.hasOwnProperty('data') : 真假
->类型别名 :=> 真假
->value.hasOwnProperty : (v: 文字) => 真假
+>!value.hasOwnProperty('data') : boolean
+>value.hasOwnProperty('data') : boolean
+>value.hasOwnProperty : (v: string) => boolean
 >value : T | { data: T; }
->hasOwnProperty : (v: 文字) => 真假
+>hasOwnProperty : (v: string) => boolean
 >'data' : "data"
 }
 
@@ -107,9 +100,8 @@ function getResults2(value: Results | { data: Results }): Results {
 
     return isPlainResponse(value) ? value : value.data;
 >isPlainResponse(value) ? value : value.data : Result[]
->isPlainResponse(value) : 真假
->类型别名 :=> 真假
->isPlainResponse : <T>(value: T | { data: T; }) => value 作为 T
+>isPlainResponse(value) : boolean
+>isPlainResponse : <T>(value: T | { data: T; }) => value is T
 >value : Result[] | { data: Result[]; }
 >value : Result[]
 >value.data : Result[]

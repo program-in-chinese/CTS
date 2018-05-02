@@ -1,31 +1,29 @@
 === tests/cases/compiler/importOnAliasedIdentifiers.ts ===
 module A {
->A : 类为 A
+>A : typeof A
 
     export interface X { s: string }
 >X : X
->s : 文字
->类型别名 :=> 文字
+>s : string
 
     export var X: X;
 >X : X
 >X : X
 }
 module B {
->B : 类为 B
+>B : typeof B
 
     interface A { n: number }
 >A : A
->n : 数字
->类型别名 :=> 数字
+>n : number
 
     import Y = A; // Alias only for module A
->Y : 类为 Y
->A : 类为 Y
+>Y : typeof Y
+>A : typeof Y
 
     import Z = A.X; // Alias for both type and member A.X
 >Z : Y.X
->A : 类为 Y
+>A : typeof Y
 >X : Y.X
 
     var v: Z = Z;

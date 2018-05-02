@@ -1,238 +1,183 @@
 === tests/cases/conformance/types/rest/objectRest.ts ===
 var o = { a: 1, b: 'no' }
->o : { a: 数字; b: 文字; }
->{ a: 1, b: 'no' } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>o : { a: number; b: string; }
+>{ a: 1, b: 'no' } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >'no' : "no"
 
 var { ...clone } = o;
->clone : { a: 数字; b: 文字; }
->o : { a: 数字; b: 文字; }
+>clone : { a: number; b: string; }
+>o : { a: number; b: string; }
 
 var { a, ...justB } = o;
->a : 数字
->类型别名 :=> 数字
->justB : { b: 文字; }
->o : { a: 数字; b: 文字; }
+>a : number
+>justB : { b: string; }
+>o : { a: number; b: string; }
 
 var { a, b: renamed, ...empty } = o;
->a : 数字
->类型别名 :=> 数字
->b : 任意
->类型别名 :=> 任意
->renamed : 文字
->类型别名 :=> 文字
+>a : number
+>b : any
+>renamed : string
 >empty : {}
->o : { a: 数字; b: 文字; }
+>o : { a: number; b: string; }
 
 var { ['b']: renamed, ...justA } = o;
 >'b' : "b"
->renamed : 文字
->类型别名 :=> 文字
->justA : { a: 数字; }
->o : { a: 数字; b: 文字; }
+>renamed : string
+>justA : { a: number; }
+>o : { a: number; b: string; }
 
 var { 'b': renamed, ...justA } = o;
->renamed : 文字
->类型别名 :=> 文字
->justA : { a: 数字; }
->o : { a: 数字; b: 文字; }
+>renamed : string
+>justA : { a: number; }
+>o : { a: number; b: string; }
 
 var { b: { '0': n, '1': oooo }, ...justA } = o;
->b : 任意
->类型别名 :=> 任意
->n : 文字
->类型别名 :=> 文字
->oooo : 文字
->类型别名 :=> 文字
->justA : { a: 数字; }
->o : { a: 数字; b: 文字; }
+>b : any
+>n : string
+>oooo : string
+>justA : { a: number; }
+>o : { a: number; b: string; }
 
 let o2 = { c: 'terrible idea?', d: 'yes' };
->o2 : { c: 文字; d: 文字; }
->{ c: 'terrible idea?', d: 'yes' } : { c: 文字; d: 文字; }
->c : 文字
->类型别名 :=> 文字
+>o2 : { c: string; d: string; }
+>{ c: 'terrible idea?', d: 'yes' } : { c: string; d: string; }
+>c : string
 >'terrible idea?' : "terrible idea?"
->d : 文字
->类型别名 :=> 文字
+>d : string
 >'yes' : "yes"
 
 var { d: renamed, ...d } = o2;
->d : 任意
->类型别名 :=> 任意
->renamed : 文字
->类型别名 :=> 文字
->d : { c: 文字; }
->o2 : { c: 文字; d: 文字; }
+>d : any
+>renamed : string
+>d : { c: string; }
+>o2 : { c: string; d: string; }
 
 let nestedrest: { x: number, n1: { y: number, n2: { z: number, n3: { n4: number } } }, rest: number, restrest: number };
->nestedrest : { x: 数字; n1: { y: 数字; n2: { z: 数字; n3: { n4: 数字; }; }; }; rest: 数字; restrest: 数字; }
->x : 数字
->类型别名 :=> 数字
->n1 : { y: 数字; n2: { z: 数字; n3: { n4: 数字; }; }; }
->y : 数字
->类型别名 :=> 数字
->n2 : { z: 数字; n3: { n4: 数字; }; }
->z : 数字
->类型别名 :=> 数字
->n3 : { n4: 数字; }
->n4 : 数字
->类型别名 :=> 数字
->rest : 数字
->类型别名 :=> 数字
->restrest : 数字
->类型别名 :=> 数字
+>nestedrest : { x: number; n1: { y: number; n2: { z: number; n3: { n4: number; }; }; }; rest: number; restrest: number; }
+>x : number
+>n1 : { y: number; n2: { z: number; n3: { n4: number; }; }; }
+>y : number
+>n2 : { z: number; n3: { n4: number; }; }
+>z : number
+>n3 : { n4: number; }
+>n4 : number
+>rest : number
+>restrest : number
 
 var { x, n1: { y, n2: { z, n3: { ...nr } } }, ...restrest } = nestedrest;
->x : 数字
->类型别名 :=> 数字
->n1 : 任意
->类型别名 :=> 任意
->y : 数字
->类型别名 :=> 数字
->n2 : 任意
->类型别名 :=> 任意
->z : 数字
->类型别名 :=> 数字
->n3 : 任意
->类型别名 :=> 任意
->nr : { n4: 数字; }
->restrest : { rest: 数字; restrest: 数字; }
->nestedrest : { x: 数字; n1: { y: 数字; n2: { z: 数字; n3: { n4: 数字; }; }; }; rest: 数字; restrest: 数字; }
+>x : number
+>n1 : any
+>y : number
+>n2 : any
+>z : number
+>n3 : any
+>nr : { n4: number; }
+>restrest : { rest: number; restrest: number; }
+>nestedrest : { x: number; n1: { y: number; n2: { z: number; n3: { n4: number; }; }; }; rest: number; restrest: number; }
 
 let complex: { x: { ka, ki }, y: number };
->complex : { x: { ka: 任意; ki: 任意; }; y: 数字; }
->x : { ka: 任意; ki: 任意; }
->ka : 任意
->类型别名 :=> 任意
->ki : 任意
->类型别名 :=> 任意
->y : 数字
->类型别名 :=> 数字
+>complex : { x: { ka: any; ki: any; }; y: number; }
+>x : { ka: any; ki: any; }
+>ka : any
+>ki : any
+>y : number
 
 var { x: { ka, ...nested }, y: other, ...rest } = complex;
->x : 任意
->类型别名 :=> 任意
->ka : 任意
->类型别名 :=> 任意
->nested : { ki: 任意; }
->y : 任意
->类型别名 :=> 任意
->other : 数字
->类型别名 :=> 数字
+>x : any
+>ka : any
+>nested : { ki: any; }
+>y : any
+>other : number
 >rest : {}
->complex : { x: { ka: 任意; ki: 任意; }; y: 数字; }
+>complex : { x: { ka: any; ki: any; }; y: number; }
 
 ({x: { ka, ...nested }, y: other, ...rest} = complex);
->({x: { ka, ...nested }, y: other, ...rest} = complex) : { x: { ka: 任意; ki: 任意; }; y: 数字; }
->{x: { ka, ...nested }, y: other, ...rest} = complex : { x: { ka: 任意; ki: 任意; }; y: 数字; }
->{x: { ka, ...nested }, y: other, ...rest} : { x: { ki: 任意; ka: 任意; }; y: 数字; }
->x : { ki: 任意; ka: 任意; }
->{ ka, ...nested } : { ki: 任意; ka: 任意; }
->ka : 任意
->类型别名 :=> 任意
->nested : { ki: 任意; }
->y : 数字
->类型别名 :=> 数字
->other : 数字
->类型别名 :=> 数字
+>({x: { ka, ...nested }, y: other, ...rest} = complex) : { x: { ka: any; ki: any; }; y: number; }
+>{x: { ka, ...nested }, y: other, ...rest} = complex : { x: { ka: any; ki: any; }; y: number; }
+>{x: { ka, ...nested }, y: other, ...rest} : { x: { ki: any; ka: any; }; y: number; }
+>x : { ki: any; ka: any; }
+>{ ka, ...nested } : { ki: any; ka: any; }
+>ka : any
+>nested : { ki: any; }
+>y : number
+>other : number
 >rest : {}
->complex : { x: { ka: 任意; ki: 任意; }; y: 数字; }
+>complex : { x: { ka: any; ki: any; }; y: number; }
 
 var { x, ...fresh } = { x: 1, y: 2 };
->x : 数字
->类型别名 :=> 数字
->fresh : { y: 数字; }
->{ x: 1, y: 2 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>x : number
+>fresh : { y: number; }
+>{ x: 1, y: 2 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
 
 ({ x, ...fresh } = { x: 1, y: 2 });
->({ x, ...fresh } = { x: 1, y: 2 }) : { x: 数字; y: 数字; }
->{ x, ...fresh } = { x: 1, y: 2 } : { x: 数字; y: 数字; }
->{ x, ...fresh } : { y: 数字; x: 数字; }
->x : 数字
->类型别名 :=> 数字
->fresh : { y: 数字; }
->{ x: 1, y: 2 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>({ x, ...fresh } = { x: 1, y: 2 }) : { x: number; y: number; }
+>{ x, ...fresh } = { x: 1, y: 2 } : { x: number; y: number; }
+>{ x, ...fresh } : { y: number; x: number; }
+>x : number
+>fresh : { y: number; }
+>{ x: 1, y: 2 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
 
 class Removable {
 >Removable : Removable
 
     private x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     protected y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 
     set z(value: number) { }
->z : 数字
->类型别名 :=> 数字
->value : 数字
->类型别名 :=> 数字
+>z : number
+>value : number
 
     get both(): number { return 12 }
->both : 数字
->类型别名 :=> 数字
+>both : number
 >12 : 12
 
     set both(value: number) { }
->both : 数字
->类型别名 :=> 数字
->value : 数字
->类型别名 :=> 数字
+>both : number
+>value : number
 
     m() { }
->m : () => 无值
+>m : () => void
 
     removed: string;
->removed : 文字
->类型别名 :=> 文字
+>removed : string
 
     remainder: string;
->remainder : 文字
->类型别名 :=> 文字
+>remainder : string
 }
 interface I {
 >I : I
 
     m(): void;
->m : () => 无值
+>m : () => void
 
     removed: string;
->removed : 文字
->类型别名 :=> 文字
+>removed : string
 
     remainder: string;
->remainder : 文字
->类型别名 :=> 文字
+>remainder : string
 }
 var removable = new Removable();
 >removable : Removable
 >new Removable() : Removable
->Removable : 类为 Removable
+>Removable : typeof Removable
 
 var { removed, ...removableRest } = removable;
->removed : 文字
->类型别名 :=> 文字
->removableRest : { both: 数字; remainder: 文字; }
+>removed : string
+>removableRest : { both: number; remainder: string; }
 >removable : Removable
 
 var i: I = removable;
@@ -241,62 +186,48 @@ var i: I = removable;
 >removable : Removable
 
 var { removed, ...removableRest2 } = i;
->removed : 文字
->类型别名 :=> 文字
->removableRest2 : { m(): 无值; remainder: 文字; }
+>removed : string
+>removableRest2 : { m(): void; remainder: string; }
 >i : I
 
 let computed = 'b';
->computed : 文字
->类型别名 :=> 文字
+>computed : string
 >'b' : "b"
 
 let computed2 = 'a';
->computed2 : 文字
->类型别名 :=> 文字
+>computed2 : string
 >'a' : "a"
 
 var { [computed]: stillNotGreat, [computed2]: soSo,  ...o } = o;
->computed : 文字
->类型别名 :=> 文字
->stillNotGreat : 任意
->类型别名 :=> 任意
->computed2 : 文字
->类型别名 :=> 文字
->soSo : 任意
->类型别名 :=> 任意
->o : { a: 数字; b: 文字; }
->o : { a: 数字; b: 文字; }
+>computed : string
+>stillNotGreat : any
+>computed2 : string
+>soSo : any
+>o : { a: number; b: string; }
+>o : { a: number; b: string; }
 
 ({ [computed]: stillNotGreat, [computed2]: soSo, ...o } = o);
->({ [computed]: stillNotGreat, [computed2]: soSo, ...o } = o) : { a: 数字; b: 文字; }
->{ [computed]: stillNotGreat, [computed2]: soSo, ...o } = o : { a: 数字; b: 文字; }
->{ [computed]: stillNotGreat, [computed2]: soSo, ...o } : { a: 数字; b: 文字; }
->computed : 文字
->类型别名 :=> 文字
->stillNotGreat : 任意
->类型别名 :=> 任意
->computed2 : 文字
->类型别名 :=> 文字
->soSo : 任意
->类型别名 :=> 任意
->o : { a: 数字; b: 文字; }
->o : { a: 数字; b: 文字; }
+>({ [computed]: stillNotGreat, [computed2]: soSo, ...o } = o) : { a: number; b: string; }
+>{ [computed]: stillNotGreat, [computed2]: soSo, ...o } = o : { a: number; b: string; }
+>{ [computed]: stillNotGreat, [computed2]: soSo, ...o } : { a: number; b: string; }
+>[computed] : any
+>computed : string
+>stillNotGreat : any
+>[computed2] : any
+>computed2 : string
+>soSo : any
+>o : { a: number; b: string; }
+>o : { a: number; b: string; }
 
 var noContextualType = ({ aNumber = 12, ...notEmptyObject }) => aNumber + notEmptyObject.anythingGoes;
->noContextualType : ({ aNumber, ...notEmptyObject }: { [x: 文字]: 任意; aNumber?: 数字; }) => 任意
->({ aNumber = 12, ...notEmptyObject }) => aNumber + notEmptyObject.anythingGoes : ({ aNumber, ...notEmptyObject }: { [x: 文字]: 任意; aNumber?: 数字; }) => 任意
->aNumber : 数字
->类型别名 :=> 数字
+>noContextualType : ({ aNumber, ...notEmptyObject }: { [x: string]: any; aNumber?: number; }) => any
+>({ aNumber = 12, ...notEmptyObject }) => aNumber + notEmptyObject.anythingGoes : ({ aNumber, ...notEmptyObject }: { [x: string]: any; aNumber?: number; }) => any
+>aNumber : number
 >12 : 12
->notEmptyObject : { [x: 文字]: 任意; }
->aNumber + notEmptyObject.anythingGoes : 任意
->类型别名 :=> 任意
->aNumber : 数字
->类型别名 :=> 数字
->notEmptyObject.anythingGoes : 任意
->类型别名 :=> 任意
->notEmptyObject : { [x: 文字]: 任意; }
->anythingGoes : 任意
->类型别名 :=> 任意
+>notEmptyObject : { [x: string]: any; }
+>aNumber + notEmptyObject.anythingGoes : any
+>aNumber : number
+>notEmptyObject.anythingGoes : any
+>notEmptyObject : { [x: string]: any; }
+>anythingGoes : any
 

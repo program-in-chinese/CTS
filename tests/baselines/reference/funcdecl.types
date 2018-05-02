@@ -1,193 +1,167 @@
 === tests/cases/compiler/funcdecl.ts ===
 function simpleFunc() {
->simpleFunc : () => 文字
+>simpleFunc : () => string
 
     return "this is my simple func";
 >"this is my simple func" : "this is my simple func"
 }
 var simpleFuncVar = simpleFunc;
->simpleFuncVar : () => 文字
->simpleFunc : () => 文字
+>simpleFuncVar : () => string
+>simpleFunc : () => string
 
 function anotherFuncNoReturn() {
->anotherFuncNoReturn : () => 无值
+>anotherFuncNoReturn : () => void
 }
 var anotherFuncNoReturnVar = anotherFuncNoReturn;
->anotherFuncNoReturnVar : () => 无值
->anotherFuncNoReturn : () => 无值
+>anotherFuncNoReturnVar : () => void
+>anotherFuncNoReturn : () => void
 
 function withReturn() : string{
->withReturn : () => 文字
+>withReturn : () => string
 
     return "Hello";
 >"Hello" : "Hello"
 }
 var withReturnVar = withReturn;
->withReturnVar : () => 文字
->withReturn : () => 文字
+>withReturnVar : () => string
+>withReturn : () => string
 
 function withParams(a : string) : string{
->withParams : (a: 文字) => 文字
->a : 文字
->类型别名 :=> 文字
+>withParams : (a: string) => string
+>a : string
 
     return a;
->a : 文字
->类型别名 :=> 文字
+>a : string
 }
 var withparamsVar = withParams;
->withparamsVar : (a: 文字) => 文字
->withParams : (a: 文字) => 文字
+>withparamsVar : (a: string) => string
+>withParams : (a: string) => string
 
 function withMultiParams(a : number, b, c: Object) {
->withMultiParams : (a: 数字, b: 任意, c: Object) => 数字
->a : 数字
->类型别名 :=> 数字
->b : 任意
->类型别名 :=> 任意
+>withMultiParams : (a: number, b: any, c: Object) => number
+>a : number
+>b : any
 >c : Object
 >Object : Object
 
     return a;
->a : 数字
->类型别名 :=> 数字
+>a : number
 }
 var withMultiParamsVar = withMultiParams;
->withMultiParamsVar : (a: 数字, b: 任意, c: Object) => 数字
->withMultiParams : (a: 数字, b: 任意, c: Object) => 数字
+>withMultiParamsVar : (a: number, b: any, c: Object) => number
+>withMultiParams : (a: number, b: any, c: Object) => number
 
 function withOptionalParams(a?: string) {
->withOptionalParams : (a?: 文字) => 无值
->a : 文字
->类型别名 :=> 文字
+>withOptionalParams : (a?: string) => void
+>a : string
 }
 var withOptionalParamsVar = withOptionalParams;
->withOptionalParamsVar : (a?: 文字) => 无值
->withOptionalParams : (a?: 文字) => 无值
+>withOptionalParamsVar : (a?: string) => void
+>withOptionalParams : (a?: string) => void
 
 function withInitializedParams(a: string, b0, b = 30, c = "string value") {
->withInitializedParams : (a: 文字, b0: 任意, b?: 数字, c?: 文字) => 无值
->a : 文字
->类型别名 :=> 文字
->b0 : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
+>withInitializedParams : (a: string, b0: any, b?: number, c?: string) => void
+>a : string
+>b0 : any
+>b : number
 >30 : 30
->c : 文字
->类型别名 :=> 文字
+>c : string
 >"string value" : "string value"
 }
 var withInitializedParamsVar = withInitializedParams;
->withInitializedParamsVar : (a: 文字, b0: 任意, b?: 数字, c?: 文字) => 无值
->withInitializedParams : (a: 文字, b0: 任意, b?: 数字, c?: 文字) => 无值
+>withInitializedParamsVar : (a: string, b0: any, b?: number, c?: string) => void
+>withInitializedParams : (a: string, b0: any, b?: number, c?: string) => void
 
 function withOptionalInitializedParams(a: string, c: string = "hello string") {
->withOptionalInitializedParams : (a: 文字, c?: 文字) => 无值
->a : 文字
->类型别名 :=> 文字
->c : 文字
->类型别名 :=> 文字
+>withOptionalInitializedParams : (a: string, c?: string) => void
+>a : string
+>c : string
 >"hello string" : "hello string"
 }
 var withOptionalInitializedParamsVar = withOptionalInitializedParams;
->withOptionalInitializedParamsVar : (a: 文字, c?: 文字) => 无值
->withOptionalInitializedParams : (a: 文字, c?: 文字) => 无值
+>withOptionalInitializedParamsVar : (a: string, c?: string) => void
+>withOptionalInitializedParams : (a: string, c?: string) => void
 
 function withRestParams(a: string, ... myRestParameter : number[]) {
->withRestParams : (a: 文字, ...myRestParameter: 数字[]) => 数字[]
->a : 文字
->类型别名 :=> 文字
->myRestParameter : 数字[]
+>withRestParams : (a: string, ...myRestParameter: number[]) => number[]
+>a : string
+>myRestParameter : number[]
 
     return myRestParameter;
->myRestParameter : 数字[]
+>myRestParameter : number[]
 }
 var withRestParamsVar = withRestParams;
->withRestParamsVar : (a: 文字, ...myRestParameter: 数字[]) => 数字[]
->withRestParams : (a: 文字, ...myRestParameter: 数字[]) => 数字[]
+>withRestParamsVar : (a: string, ...myRestParameter: number[]) => number[]
+>withRestParams : (a: string, ...myRestParameter: number[]) => number[]
 
 function overload1(n: number) : string;
->overload1 : { (n: 数字): 文字; (s: 文字): 文字; }
->n : 数字
->类型别名 :=> 数字
+>overload1 : { (n: number): string; (s: string): string; }
+>n : number
 
 function overload1(s: string) : string;
->overload1 : { (n: 数字): 文字; (s: 文字): 文字; }
->s : 文字
->类型别名 :=> 文字
+>overload1 : { (n: number): string; (s: string): string; }
+>s : string
 
 function overload1(ns: any) {
->overload1 : { (n: 数字): 文字; (s: 文字): 文字; }
->ns : 任意
->类型别名 :=> 任意
+>overload1 : { (n: number): string; (s: string): string; }
+>ns : any
 
     return ns.toString();
->ns.toString() : 任意
->类型别名 :=> 任意
->ns.toString : 任意
->类型别名 :=> 任意
->ns : 任意
->类型别名 :=> 任意
->toString : 任意
->类型别名 :=> 任意
+>ns.toString() : any
+>ns.toString : any
+>ns : any
+>toString : any
 }
 var withOverloadSignature = overload1;
->withOverloadSignature : { (n: 数字): 文字; (s: 文字): 文字; }
->overload1 : { (n: 数字): 文字; (s: 文字): 文字; }
+>withOverloadSignature : { (n: number): string; (s: string): string; }
+>overload1 : { (n: number): string; (s: string): string; }
 
 function f(n: () => void) { }
->f : (n: () => 无值) => 无值
->n : () => 无值
+>f : (n: () => void) => void
+>n : () => void
 
 module m2 {
->m2 : 类为 m2
+>m2 : typeof m2
 
     export function foo(n: () => void ) {
->foo : (n: () => 无值) => 无值
->n : () => 无值
+>foo : (n: () => void) => void
+>n : () => void
     }
 
 }
 
 m2.foo(() =>  {
->m2.foo(() =>  {    var b = 30;    return b;}) : 无值
->类型别名 :=> 无值
->m2.foo : (n: () => 无值) => 无值
->m2 : 类为 m2
->foo : (n: () => 无值) => 无值
->() =>  {    var b = 30;    return b;} : () => 数字
+>m2.foo(() =>  {    var b = 30;    return b;}) : void
+>m2.foo : (n: () => void) => void
+>m2 : typeof m2
+>foo : (n: () => void) => void
+>() =>  {    var b = 30;    return b;} : () => number
 
     var b = 30;
->b : 数字
->类型别名 :=> 数字
+>b : number
 >30 : 30
 
     return b;
->b : 数字
->类型别名 :=> 数字
+>b : number
 
 });
 
 
 declare function fooAmbient(n: number): string;
->fooAmbient : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
+>fooAmbient : (n: number) => string
+>n : number
 
 declare function overloadAmbient(n: number): string;
->overloadAmbient : { (n: 数字): 文字; (s: 文字): 文字; }
->n : 数字
->类型别名 :=> 数字
+>overloadAmbient : { (n: number): string; (s: string): string; }
+>n : number
 
 declare function overloadAmbient(s: string): string;
->overloadAmbient : { (n: 数字): 文字; (s: 文字): 文字; }
->s : 文字
->类型别名 :=> 文字
+>overloadAmbient : { (n: number): string; (s: string): string; }
+>s : string
 
 var f2 = () => {
->f2 : () => 文字
->() => {    return "string";} : () => 文字
+>f2 : () => string
+>() => {    return "string";} : () => string
 
     return "string";
 >"string" : "string"

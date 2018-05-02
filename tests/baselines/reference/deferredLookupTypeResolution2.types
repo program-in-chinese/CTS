@@ -2,71 +2,69 @@
 // Repro from #17456
 
 type StringContains<S extends string, L extends string> = ({ [K in S]: 'true' } & { [key: string]: 'false'})[L];
->StringContains : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>StringContains : ({ [K in S]: "true"; } & { [key: string]: "false"; })[L]
 >S : S
 >L : L
 >K : K
 >S : S
->key : 文字
->类型别名 :=> 文字
+>key : string
 >L : L
 
 type ObjectHasKey<O, L extends string> = StringContains<keyof O, L>;
->ObjectHasKey : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>ObjectHasKey : ({ [K in keyof O]: "true"; } & { [key: string]: "false"; })[L]
 >O : O
 >L : L
->StringContains : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>StringContains : ({ [K in S]: "true"; } & { [key: string]: "false"; })[L]
 >O : O
 >L : L
 
 type A<T> = ObjectHasKey<T, '0'>;
->A : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["0"]
+>A : ({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["0"]
 >T : T
->ObjectHasKey : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>ObjectHasKey : ({ [K in keyof O]: "true"; } & { [key: string]: "false"; })[L]
 >T : T
 
 type B = ObjectHasKey<[string, number], '1'>;  // "true"
 >B : "true"
->ObjectHasKey : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>ObjectHasKey : ({ [K in keyof O]: "true"; } & { [key: string]: "false"; })[L]
 
 type C = ObjectHasKey<[string, number], '2'>;  // "false"
 >C : "false"
->ObjectHasKey : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>ObjectHasKey : ({ [K in keyof O]: "true"; } & { [key: string]: "false"; })[L]
 
 type D = A<[string]>;  // "true"
 >D : "true"
->A : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["0"]
+>A : ({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["0"]
 
 // Error, "false" not handled
 type E<T> = { true: 'true' }[ObjectHasKey<T, '1'>];
->E : { true: "true"; }[({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["1"]]
+>E : { true: "true"; }[({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["1"]]
 >T : T
 >true : "true"
->ObjectHasKey : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>ObjectHasKey : ({ [K in keyof O]: "true"; } & { [key: string]: "false"; })[L]
 >T : T
 
 type Juxtapose<T> = ({ true: 'otherwise' } & { [k: string]: 'true' })[ObjectHasKey<T, '1'>];
->Juxtapose : ({ true: "otherwise"; } & { [k: 文字]: "true"; })[({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["1"]]
+>Juxtapose : ({ true: "otherwise"; } & { [k: string]: "true"; })[({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["1"]]
 >T : T
 >true : "otherwise"
->k : 文字
->类型别名 :=> 文字
->ObjectHasKey : ({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })[L]
+>k : string
+>ObjectHasKey : ({ [K in keyof O]: "true"; } & { [key: string]: "false"; })[L]
 >T : T
 
 // Error, "otherwise" is missing
 type DeepError<T> = { true: 'true' }[Juxtapose<T>];
->DeepError : { true: "true"; }[({ true: "otherwise"; } & { [k: 文字]: "true"; })[({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["1"]]]
+>DeepError : { true: "true"; }[({ true: "otherwise"; } & { [k: string]: "true"; })[({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["1"]]]
 >T : T
 >true : "true"
->Juxtapose : ({ true: "otherwise"; } & { [k: 文字]: "true"; })[({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["1"]]
+>Juxtapose : ({ true: "otherwise"; } & { [k: string]: "true"; })[({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["1"]]
 >T : T
 
 type DeepOK<T> = { true: 'true', otherwise: 'false' }[Juxtapose<T>];
->DeepOK : { true: "true"; otherwise: "false"; }[({ true: "otherwise"; } & { [k: 文字]: "true"; })[({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["1"]]]
+>DeepOK : { true: "true"; otherwise: "false"; }[({ true: "otherwise"; } & { [k: string]: "true"; })[({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["1"]]]
 >T : T
 >true : "true"
 >otherwise : "false"
->Juxtapose : ({ true: "otherwise"; } & { [k: 文字]: "true"; })[({ [K 位于 S]: "true"; } & { [key: 文字]: "false"; })["1"]]
+>Juxtapose : ({ true: "otherwise"; } & { [k: string]: "true"; })[({ [K in keyof T]: "true"; } & { [key: string]: "false"; })["1"]]
 >T : T
 

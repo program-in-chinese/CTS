@@ -1,77 +1,48 @@
 === tests/cases/compiler/noImplicitAnyDestructuringParameterDeclaration.ts ===
 function f1([a], {b}, c, d) { // error
->f1 : ([a]: [任意], { b }: { b: 任意; }, c: 任意, d: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
->d : 任意
->类型别名 :=> 任意
+>f1 : ([a]: [any], { b }: { b: any; }, c: any, d: any) => void
+>a : any
+>b : any
+>c : any
+>d : any
 }
 function f2([a = undefined], {b = null}, c = undefined, d = null) { // error
->f2 : ([a]: [任意], { b }: { b?: 空值; }, c?: 任意, d?: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
->b : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->c : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
->d : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>f2 : ([a]: [any], { b }: { b?: null; }, c?: any, d?: any) => void
+>a : any
+>undefined : undefined
+>b : any
+>null : null
+>c : any
+>undefined : undefined
+>d : any
+>null : null
 }
 function f3([a]: [any], {b}: { b: any }, c: any, d: any) {
->f3 : ([a]: [任意], { b }: { b: 任意; }, c: 任意, d: 任意) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
->d : 任意
->类型别名 :=> 任意
+>f3 : ([a]: [any], { b }: { b: any; }, c: any, d: any) => void
+>a : any
+>b : any
+>b : any
+>c : any
+>d : any
 }
 function f4({b}: { b }, x: { b }) { // error in type instead
->f4 : ({ b }: { b: 任意; }, x: { b: 任意; }) => 无值
->b : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->x : { b: 任意; }
->b : 任意
->类型别名 :=> 任意
+>f4 : ({ b }: { b: any; }, x: { b: any; }) => void
+>b : any
+>b : any
+>x : { b: any; }
+>b : any
 }
 function f5([a1] = [undefined], {b1} = { b1: null }, c1 = undefined, d1 = null) { // error
->f5 : ([a1]?: [任意], { b1 }?: { b1: 任意; }, c1?: 任意, d1?: 任意) => 无值
->a1 : 任意
->类型别名 :=> 任意
->[undefined] : [未定]
->undefined : 未定
->类型别名 :=> 未定
->b1 : 任意
->类型别名 :=> 任意
->{ b1: null } : { b1: 空值; }
->b1 : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
->c1 : 任意
->类型别名 :=> 任意
->undefined : 未定
->类型别名 :=> 未定
->d1 : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>f5 : ([a1]?: [any], { b1 }?: { b1: any; }, c1?: any, d1?: any) => void
+>a1 : any
+>[undefined] : [undefined]
+>undefined : undefined
+>b1 : any
+>{ b1: null } : { b1: null; }
+>b1 : null
+>null : null
+>c1 : any
+>undefined : undefined
+>d1 : any
+>null : null
 }

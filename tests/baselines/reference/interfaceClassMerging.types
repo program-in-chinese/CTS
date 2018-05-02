@@ -3,42 +3,35 @@ interface Foo {
 >Foo : Foo
 
     method(a: number): string;
->method : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>method : (a: number) => string
+>a : number
 
     optionalMethod?(a: number): string;
->optionalMethod : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>optionalMethod : (a: number) => string
+>a : number
 
     property: string;
->property : 文字
->类型别名 :=> 文字
+>property : string
 
     optionalProperty?: string;
->optionalProperty : 文字
->类型别名 :=> 文字
+>optionalProperty : string
 }
 
 class Foo {
 >Foo : Foo
 
     additionalProperty: string;
->additionalProperty : 文字
->类型别名 :=> 文字
+>additionalProperty : string
 
     additionalMethod(a: number): string {
->additionalMethod : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>additionalMethod : (a: number) => string
+>a : number
 
         return this.method(0);
->this.method(0) : 文字
->类型别名 :=> 文字
->this.method : (a: 数字) => 文字
->this : 本体
->method : (a: 数字) => 文字
+>this.method(0) : string
+>this.method : (a: number) => string
+>this : this
+>method : (a: number) => string
 >0 : 0
     }
 }
@@ -48,16 +41,13 @@ class Bar extends Foo {
 >Foo : Foo
 
     method(a: number) {
->method : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>method : (a: number) => string
+>a : number
 
         return this.optionalProperty;
->this.optionalProperty : 文字
->类型别名 :=> 文字
->this : 本体
->optionalProperty : 文字
->类型别名 :=> 文字
+>this.optionalProperty : string
+>this : this
+>optionalProperty : string
     }
 }
 
@@ -65,83 +55,70 @@ class Bar extends Foo {
 var bar = new Bar();
 >bar : Bar
 >new Bar() : Bar
->Bar : 类为 Bar
+>Bar : typeof Bar
 
 bar.method(0);
->bar.method(0) : 文字
->类型别名 :=> 文字
->bar.method : (a: 数字) => 文字
+>bar.method(0) : string
+>bar.method : (a: number) => string
 >bar : Bar
->method : (a: 数字) => 文字
+>method : (a: number) => string
 >0 : 0
 
 bar.optionalMethod(1);
->bar.optionalMethod(1) : 文字
->类型别名 :=> 文字
->bar.optionalMethod : (a: 数字) => 文字
+>bar.optionalMethod(1) : string
+>bar.optionalMethod : (a: number) => string
 >bar : Bar
->optionalMethod : (a: 数字) => 文字
+>optionalMethod : (a: number) => string
 >1 : 1
 
 bar.property;
->bar.property : 文字
->类型别名 :=> 文字
+>bar.property : string
 >bar : Bar
->property : 文字
->类型别名 :=> 文字
+>property : string
 
 bar.optionalProperty;
->bar.optionalProperty : 文字
->类型别名 :=> 文字
+>bar.optionalProperty : string
 >bar : Bar
->optionalProperty : 文字
->类型别名 :=> 文字
+>optionalProperty : string
 
 bar.additionalProperty;
->bar.additionalProperty : 文字
->类型别名 :=> 文字
+>bar.additionalProperty : string
 >bar : Bar
->additionalProperty : 文字
->类型别名 :=> 文字
+>additionalProperty : string
 
 bar.additionalMethod(2);
->bar.additionalMethod(2) : 文字
->类型别名 :=> 文字
->bar.additionalMethod : (a: 数字) => 文字
+>bar.additionalMethod(2) : string
+>bar.additionalMethod : (a: number) => string
 >bar : Bar
->additionalMethod : (a: 数字) => 文字
+>additionalMethod : (a: number) => string
 >2 : 2
 
 var obj: {
->obj : { method(a: 数字): 文字; property: 文字; additionalProperty: 文字; additionalMethod(a: 数字): 文字; }
+>obj : { method(a: number): string; property: string; additionalProperty: string; additionalMethod(a: number): string; }
 
     method(a: number): string;
->method : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>method : (a: number) => string
+>a : number
 
     property: string;
->property : 文字
->类型别名 :=> 文字
+>property : string
 
     additionalProperty: string;
->additionalProperty : 文字
->类型别名 :=> 文字
+>additionalProperty : string
 
     additionalMethod(a: number): string;
->additionalMethod : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>additionalMethod : (a: number) => string
+>a : number
 
 };
 
 bar = obj;
->bar = obj : { method(a: 数字): 文字; property: 文字; additionalProperty: 文字; additionalMethod(a: 数字): 文字; }
+>bar = obj : { method(a: number): string; property: string; additionalProperty: string; additionalMethod(a: number): string; }
 >bar : Bar
->obj : { method(a: 数字): 文字; property: 文字; additionalProperty: 文字; additionalMethod(a: 数字): 文字; }
+>obj : { method(a: number): string; property: string; additionalProperty: string; additionalMethod(a: number): string; }
 
 obj = bar;
 >obj = bar : Bar
->obj : { method(a: 数字): 文字; property: 文字; additionalProperty: 文字; additionalMethod(a: 数字): 文字; }
+>obj : { method(a: number): string; property: string; additionalProperty: string; additionalMethod(a: number): string; }
 >bar : Bar
 

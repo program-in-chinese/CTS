@@ -3,20 +3,16 @@ interface I {
 >I : I
 
     [s: string]: (s: string) => number;
->s : 文字
->类型别名 :=> 文字
->s : 文字
->类型别名 :=> 文字
+>s : string
+>s : string
 }
 
 interface J {
 >J : J
 
     [s: number]: (s: string) => number;
->s : 数字
->类型别名 :=> 数字
->s : 文字
->类型别名 :=> 文字
+>s : number
+>s : string
 }
 
 var x: I;
@@ -28,73 +24,59 @@ var y: J;
 >J : J
 
 x = {
->x = {    s: t => t * t, // Should error} : { s: (t: 文字) => 数字; }
+>x = {    s: t => t * t, // Should error} : { s: (t: string) => number; }
 >x : I
->{    s: t => t * t, // Should error} : { s: (t: 文字) => 数字; }
+>{    s: t => t * t, // Should error} : { s: (t: string) => number; }
 
     s: t => t * t, // Should error
->s : (t: 文字) => 数字
->t => t * t : (t: 文字) => 数字
->t : 文字
->类型别名 :=> 文字
->t * t : 数字
->类型别名 :=> 数字
->t : 文字
->类型别名 :=> 文字
->t : 文字
->类型别名 :=> 文字
+>s : (t: string) => number
+>t => t * t : (t: string) => number
+>t : string
+>t * t : number
+>t : string
+>t : string
 
 };
 x = {
->x = {    0: t => t * t, // Should error} : { 0: (t: 文字) => 数字; }
+>x = {    0: t => t * t, // Should error} : { 0: (t: string) => number; }
 >x : I
->{    0: t => t * t, // Should error} : { 0: (t: 文字) => 数字; }
+>{    0: t => t * t, // Should error} : { 0: (t: string) => number; }
 
     0: t => t * t, // Should error
->t => t * t : (t: 文字) => 数字
->t : 文字
->类型别名 :=> 文字
->t * t : 数字
->类型别名 :=> 数字
->t : 文字
->类型别名 :=> 文字
->t : 文字
->类型别名 :=> 文字
+>0 : (t: string) => number
+>t => t * t : (t: string) => number
+>t : string
+>t * t : number
+>t : string
+>t : string
 
 };
 y = {
->y = {    s: t => t * t, // Should error} : { s: (t: 任意) => 数字; }
+>y = {    s: t => t * t, // Should error} : { s: (t: any) => number; }
 >y : J
->{    s: t => t * t, // Should error} : { s: (t: 任意) => 数字; }
+>{    s: t => t * t, // Should error} : { s: (t: any) => number; }
 
     s: t => t * t, // Should error
->s : (t: 任意) => 数字
->t => t * t : (t: 任意) => 数字
->t : 任意
->类型别名 :=> 任意
->t * t : 数字
->类型别名 :=> 数字
->t : 任意
->类型别名 :=> 任意
->t : 任意
->类型别名 :=> 任意
+>s : (t: any) => number
+>t => t * t : (t: any) => number
+>t : any
+>t * t : number
+>t : any
+>t : any
 
 };
 y = {
->y = {    0: t => t * t, // Should error} : { 0: (t: 文字) => 数字; }
+>y = {    0: t => t * t, // Should error} : { 0: (t: string) => number; }
 >y : J
->{    0: t => t * t, // Should error} : { 0: (t: 文字) => 数字; }
+>{    0: t => t * t, // Should error} : { 0: (t: string) => number; }
 
     0: t => t * t, // Should error
->t => t * t : (t: 文字) => 数字
->t : 文字
->类型别名 :=> 文字
->t * t : 数字
->类型别名 :=> 数字
->t : 文字
->类型别名 :=> 文字
->t : 文字
->类型别名 :=> 文字
+>0 : (t: string) => number
+>t => t * t : (t: string) => number
+>t : string
+>t * t : number
+>t : string
+>t : string
 
 };
 

@@ -10,60 +10,51 @@ class C<T extends number> {
     get X(): T { return null; }
 >X : T
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     foo(): T {
 >foo : () => T
 >T : T
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
 class D extends C<number> {
 >D : D
->C : C<数字>
+>C : C<number>
 
     x: any;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     get X(): any {
->X : 任意
->类型别名 :=> 任意
+>X : any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
     foo(): any {
->foo : () => 任意
+>foo : () => any
 
         return 1;
 >1 : 1
     }
 
     static y: any;
->y : 任意
->类型别名 :=> 任意
+>y : any
 
     static get Y(): any {
->Y : 任意
->类型别名 :=> 任意
+>Y : any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
     static bar(): any {
->bar : () => 任意
+>bar : () => any
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
@@ -92,7 +83,7 @@ class E<T extends string> extends D {
 }
 
 var c: C<number>;
->c : C<数字>
+>c : C<number>
 >C : C<T>
 
 var d: D;
@@ -100,25 +91,23 @@ var d: D;
 >D : D
 
 var e: E<string>;
->e : E<文字>
+>e : E<string>
 >E : E<T>
 
 c = d;
 >c = d : D
->c : C<数字>
+>c : C<number>
 >d : D
 
 c = e;
->c = e : E<文字>
->c : C<数字>
->e : E<文字>
+>c = e : E<string>
+>c : C<number>
+>e : E<string>
 
 var r = c.foo(); // e.foo would return string
->r : 数字
->类型别名 :=> 数字
->c.foo() : 数字
->类型别名 :=> 数字
->c.foo : () => 数字
->c : C<数字>
->foo : () => 数字
+>r : number
+>c.foo() : number
+>c.foo : () => number
+>c : C<number>
+>foo : () => number
 

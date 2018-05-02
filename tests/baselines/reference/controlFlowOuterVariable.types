@@ -2,47 +2,40 @@
 // Repros from #10641
 
 const CONFIG = {
->CONFIG : { foo: 文字; setFoo: (foo: 文字) => 无值; }
->{    foo: '',    setFoo: function(foo: string) {        CONFIG.foo = foo;    }} : { foo: 文字; setFoo: (foo: 文字) => 无值; }
+>CONFIG : { foo: string; setFoo: (foo: string) => void; }
+>{    foo: '',    setFoo: function(foo: string) {        CONFIG.foo = foo;    }} : { foo: string; setFoo: (foo: string) => void; }
 
     foo: '',
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 >'' : ""
 
     setFoo: function(foo: string) {
->setFoo : (foo: 文字) => 无值
->function(foo: string) {        CONFIG.foo = foo;    } : (foo: 文字) => 无值
->foo : 文字
->类型别名 :=> 文字
+>setFoo : (foo: string) => void
+>function(foo: string) {        CONFIG.foo = foo;    } : (foo: string) => void
+>foo : string
 
         CONFIG.foo = foo;
->CONFIG.foo = foo : 文字
->类型别名 :=> 文字
->CONFIG.foo : 文字
->类型别名 :=> 文字
->CONFIG : { foo: 文字; setFoo: (foo: 文字) => 无值; }
->foo : 文字
->类型别名 :=> 文字
->foo : 文字
->类型别名 :=> 文字
+>CONFIG.foo = foo : string
+>CONFIG.foo : string
+>CONFIG : { foo: string; setFoo: (foo: string) => void; }
+>foo : string
+>foo : string
     }
 };
 
 const helper = function<T>(t: T[]) {
->helper : <T>(t: T[]) => 无值
->function<T>(t: T[]) {    helper(t.slice(1));} : <T>(t: T[]) => 无值
+>helper : <T>(t: T[]) => void
+>function<T>(t: T[]) {    helper(t.slice(1));} : <T>(t: T[]) => void
 >T : T
 >t : T[]
 >T : T
 
     helper(t.slice(1));
->helper(t.slice(1)) : 无值
->类型别名 :=> 无值
->helper : <T>(t: T[]) => 无值
+>helper(t.slice(1)) : void
+>helper : <T>(t: T[]) => void
 >t.slice(1) : T[]
->t.slice : (start?: 数字 | 未定, end?: 数字 | 未定) => T[]
+>t.slice : (start?: number | undefined, end?: number | undefined) => T[]
 >t : T[]
->slice : (start?: 数字 | 未定, end?: 数字 | 未定) => T[]
+>slice : (start?: number | undefined, end?: number | undefined) => T[]
 >1 : 1
 }

@@ -3,10 +3,10 @@ class P {
 >P : P
 
     x() { }
->x : () => 无值
+>x : () => void
 
     static y() { }
->y : () => 无值
+>y : () => void
 }
 
 class Q extends P {
@@ -14,108 +14,75 @@ class Q extends P {
 >P : P
 
     xx = super;
->xx : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
+>xx : any
+>super : any
 >super : P
-> : 任意
->类型别名 :=> 任意
+> : any
 
     static yy = super; // error for static initializer accessing super
->yy : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>yy : any
+>super : any
+>super : any
+> : any
 
     // Super is not allowed in constructor args
     constructor(public z = super, zz = super, zzz = () => super) {
->z : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
->zz : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
->zzz : () => 任意
->() => super : () => 任意
->super : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
-> : 任意
->类型别名 :=> 任意
+>z : any
+>super : any
+>super : any
+> : any
+>zz : any
+>super : any
+>super : any
+> : any
+>zzz : () => any
+>() => super : () => any
+>super : any
+>super : any
+> : any
 
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 P
+>super() : void
+>super : typeof P
     }
 
     foo(zz = super) {
->foo : (zz?: 任意) => 无值
->zz : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
+>foo : (zz?: any) => void
+>zz : any
+>super : any
 >super : P
-> : 任意
->类型别名 :=> 任意
+> : any
 
         super.x();
->super.x() : 无值
->类型别名 :=> 无值
->super.x : () => 无值
+>super.x() : void
+>super.x : () => void
 >super : P
->x : () => 无值
+>x : () => void
 
         super.y(); // error
->super.y() : 任意
->类型别名 :=> 任意
->super.y : 任意
->类型别名 :=> 任意
+>super.y() : any
+>super.y : any
 >super : P
->y : 任意
->类型别名 :=> 任意
+>y : any
     }
 
     static bar(zz = super) {
->bar : (zz?: 任意) => 无值
->zz : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->super : 类为 P
-> : 任意
->类型别名 :=> 任意
+>bar : (zz?: any) => void
+>zz : any
+>super : any
+>super : typeof P
+> : any
 
         super.x(); // error
->super.x() : 任意
->类型别名 :=> 任意
->super.x : 任意
->类型别名 :=> 任意
->super : 类为 P
->x : 任意
->类型别名 :=> 任意
+>super.x() : any
+>super.x : any
+>super : typeof P
+>x : any
 
         super.y();
->super.y() : 无值
->类型别名 :=> 无值
->super.y : () => 无值
->super : 类为 P
->y : () => 无值
+>super.y() : void
+>super.y : () => void
+>super : typeof P
+>y : () => void
     }
 }

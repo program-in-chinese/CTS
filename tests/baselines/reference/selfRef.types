@@ -1,44 +1,37 @@
 === tests/cases/compiler/selfRef.ts ===
 module M
->M : 类为 M
+>M : typeof M
 {
     export class Test
 >Test : Test
     {
       private name = "hello";
->name : 文字
->类型别名 :=> 文字
+>name : string
 >"hello" : "hello"
 
       public setName = function(value: string): void {
->setName : (value: 文字) => 无值
->function(value: string): void {	  (function () {	      name=value;	  })();      } : (value: 文字) => 无值
->value : 文字
->类型别名 :=> 文字
+>setName : (value: string) => void
+>function(value: string): void {	  (function () {	      name=value;	  })();      } : (value: string) => void
+>value : string
 
 	  (function () {
->(function () {	      name=value;	  })() : 无值
->类型别名 :=> 无值
->(function () {	      name=value;	  }) : () => 无值
->function () {	      name=value;	  } : () => 无值
+>(function () {	      name=value;	  })() : void
+>(function () {	      name=value;	  }) : () => void
+>function () {	      name=value;	  } : () => void
 
 	      name=value;
->name=value : 文字
->类型别名 :=> 文字
->name : 任意
->类型别名 :=> 任意
->value : 文字
->类型别名 :=> 文字
+>name=value : string
+>name : any
+>value : string
 
 	  })();
       }
       public getName = function(): string {
->getName : () => 文字
->function(): string {          return name;      } : () => 文字
+>getName : () => string
+>function(): string {          return name;      } : () => string
 
           return name;
->name : 任意
->类型别名 :=> 任意
+>name : any
       }
     }
 }

@@ -1,24 +1,21 @@
 === tests/cases/conformance/expressions/typeGuards/typeGuardOfFormNotExpr.ts ===
 var str: string;
->str : 文字
->类型别名 :=> 文字
+>str : string
 
 var bool: boolean;
->bool : 真假
->类型别名 :=> 真假
+>bool : boolean
 
 var num: number;
->num : 数字
->类型别名 :=> 数字
+>num : number
 
 var strOrNum: string | number;
->strOrNum : 文字 | 数字
+>strOrNum : string | number
 
 var strOrNumOrBool: string | number | boolean;
->strOrNumOrBool : 文字 | 数字 | 真假
+>strOrNumOrBool : string | number | boolean
 
 var numOrBool: number | boolean;
->numOrBool : 数字 | 真假
+>numOrBool : number | boolean
 
 // A type guard of the form !expr
 // - when true, narrows the type of x by expr when false, or
@@ -26,198 +23,148 @@ var numOrBool: number | boolean;
 
 // !typeguard1
 if (!(typeof strOrNum === "string")) {
->!(typeof strOrNum === "string") : 真假
->类型别名 :=> 真假
->(typeof strOrNum === "string") : 真假
->类型别名 :=> 真假
->typeof strOrNum === "string" : 真假
->类型别名 :=> 真假
->typeof strOrNum : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNum : 文字 | 数字
+>!(typeof strOrNum === "string") : boolean
+>(typeof strOrNum === "string") : boolean
+>typeof strOrNum === "string" : boolean
+>typeof strOrNum : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNum : string | number
 >"string" : "string"
 
     num === strOrNum; // number
->num === strOrNum : 真假
->类型别名 :=> 真假
->num : 数字
->类型别名 :=> 数字
->strOrNum : 数字
->类型别名 :=> 数字
+>num === strOrNum : boolean
+>num : number
+>strOrNum : number
 }
 else {
     str = strOrNum; // string
->str = strOrNum : 文字
->类型别名 :=> 文字
->str : 文字
->类型别名 :=> 文字
->strOrNum : 文字
->类型别名 :=> 文字
+>str = strOrNum : string
+>str : string
+>strOrNum : string
 }
 // !(typeguard1 || typeguard2)
 if (!(typeof strOrNumOrBool === "string" || typeof strOrNumOrBool === "number")) {
->!(typeof strOrNumOrBool === "string" || typeof strOrNumOrBool === "number") : 真假
->类型别名 :=> 真假
->(typeof strOrNumOrBool === "string" || typeof strOrNumOrBool === "number") : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool === "string" || typeof strOrNumOrBool === "number" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool === "string" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 文字 | 数字 | 真假
+>!(typeof strOrNumOrBool === "string" || typeof strOrNumOrBool === "number") : boolean
+>(typeof strOrNumOrBool === "string" || typeof strOrNumOrBool === "number") : boolean
+>typeof strOrNumOrBool === "string" || typeof strOrNumOrBool === "number" : boolean
+>typeof strOrNumOrBool === "string" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : string | number | boolean
 >"string" : "string"
->typeof strOrNumOrBool === "number" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 数字 | 真假
+>typeof strOrNumOrBool === "number" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : number | boolean
 >"number" : "number"
 
     bool = strOrNumOrBool; // boolean
->bool = strOrNumOrBool : 真假
->类型别名 :=> 真假
->bool : 真假
->类型别名 :=> 真假
->strOrNumOrBool : 真假
->类型别名 :=> 真假
+>bool = strOrNumOrBool : boolean
+>bool : boolean
+>strOrNumOrBool : boolean
 }
 else {
     strOrNum = strOrNumOrBool; // string | number
->strOrNum = strOrNumOrBool : 文字 | 数字
->strOrNum : 文字 | 数字
->strOrNumOrBool : 文字 | 数字
+>strOrNum = strOrNumOrBool : string | number
+>strOrNum : string | number
+>strOrNumOrBool : string | number
 }
 // !(typeguard1) || !(typeguard2)
 if (!(typeof strOrNumOrBool !== "string") || !(typeof strOrNumOrBool !== "number")) {
->!(typeof strOrNumOrBool !== "string") || !(typeof strOrNumOrBool !== "number") : 真假
->类型别名 :=> 真假
->!(typeof strOrNumOrBool !== "string") : 真假
->类型别名 :=> 真假
->(typeof strOrNumOrBool !== "string") : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool !== "string" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 文字 | 数字 | 真假
+>!(typeof strOrNumOrBool !== "string") || !(typeof strOrNumOrBool !== "number") : boolean
+>!(typeof strOrNumOrBool !== "string") : boolean
+>(typeof strOrNumOrBool !== "string") : boolean
+>typeof strOrNumOrBool !== "string" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : string | number | boolean
 >"string" : "string"
->!(typeof strOrNumOrBool !== "number") : 真假
->类型别名 :=> 真假
->(typeof strOrNumOrBool !== "number") : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool !== "number" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 数字 | 真假
+>!(typeof strOrNumOrBool !== "number") : boolean
+>(typeof strOrNumOrBool !== "number") : boolean
+>typeof strOrNumOrBool !== "number" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : number | boolean
 >"number" : "number"
 
     strOrNum = strOrNumOrBool; // string | number
->strOrNum = strOrNumOrBool : 文字 | 数字
->strOrNum : 文字 | 数字
->strOrNumOrBool : 文字 | 数字
+>strOrNum = strOrNumOrBool : string | number
+>strOrNum : string | number
+>strOrNumOrBool : string | number
 }
 else {
     bool = strOrNumOrBool; // boolean
->bool = strOrNumOrBool : 真假
->类型别名 :=> 真假
->bool : 真假
->类型别名 :=> 真假
->strOrNumOrBool : 真假
->类型别名 :=> 真假
+>bool = strOrNumOrBool : boolean
+>bool : boolean
+>strOrNumOrBool : boolean
 }
 // !(typeguard1 && typeguard2)
 if (!(typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number")) {
->!(typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number") : 真假
->类型别名 :=> 真假
->(typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number") : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool !== "string" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 文字 | 数字 | 真假
+>!(typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number") : boolean
+>(typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number") : boolean
+>typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number" : boolean
+>typeof strOrNumOrBool !== "string" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : string | number | boolean
 >"string" : "string"
->typeof strOrNumOrBool !== "number" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 数字 | 真假
+>typeof strOrNumOrBool !== "number" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : number | boolean
 >"number" : "number"
 
     strOrNum = strOrNumOrBool; // string | number
->strOrNum = strOrNumOrBool : 文字 | 数字
->strOrNum : 文字 | 数字
->strOrNumOrBool : 文字 | 数字
+>strOrNum = strOrNumOrBool : string | number
+>strOrNum : string | number
+>strOrNumOrBool : string | number
 }
 else {
     bool = strOrNumOrBool; // boolean
->bool = strOrNumOrBool : 真假
->类型别名 :=> 真假
->bool : 真假
->类型别名 :=> 真假
->strOrNumOrBool : 真假
->类型别名 :=> 真假
+>bool = strOrNumOrBool : boolean
+>bool : boolean
+>strOrNumOrBool : boolean
 }
 // !(typeguard1) && !(typeguard2)
 if (!(typeof strOrNumOrBool === "string") && !(typeof strOrNumOrBool === "number")) {
->!(typeof strOrNumOrBool === "string") && !(typeof strOrNumOrBool === "number") : 真假
->类型别名 :=> 真假
->!(typeof strOrNumOrBool === "string") : 真假
->类型别名 :=> 真假
->(typeof strOrNumOrBool === "string") : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool === "string" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 文字 | 数字 | 真假
+>!(typeof strOrNumOrBool === "string") && !(typeof strOrNumOrBool === "number") : boolean
+>!(typeof strOrNumOrBool === "string") : boolean
+>(typeof strOrNumOrBool === "string") : boolean
+>typeof strOrNumOrBool === "string" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : string | number | boolean
 >"string" : "string"
->!(typeof strOrNumOrBool === "number") : 真假
->类型别名 :=> 真假
->(typeof strOrNumOrBool === "number") : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool === "number" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 数字 | 真假
+>!(typeof strOrNumOrBool === "number") : boolean
+>(typeof strOrNumOrBool === "number") : boolean
+>typeof strOrNumOrBool === "number" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : number | boolean
 >"number" : "number"
 
     bool = strOrNumOrBool; // boolean
->bool = strOrNumOrBool : 真假
->类型别名 :=> 真假
->bool : 真假
->类型别名 :=> 真假
->strOrNumOrBool : 真假
->类型别名 :=> 真假
+>bool = strOrNumOrBool : boolean
+>bool : boolean
+>strOrNumOrBool : boolean
 }
 else {
     strOrNum = strOrNumOrBool; // string | number
->strOrNum = strOrNumOrBool : 文字 | 数字
->strOrNum : 文字 | 数字
->strOrNumOrBool : 文字 | 数字
+>strOrNum = strOrNumOrBool : string | number
+>strOrNum : string | number
+>strOrNumOrBool : string | number
 }
 // !(typeguard1) && simpleExpr
 if (!(typeof strOrNumOrBool === "string") && numOrBool !== strOrNumOrBool) {
->!(typeof strOrNumOrBool === "string") && numOrBool !== strOrNumOrBool : 真假
->类型别名 :=> 真假
->!(typeof strOrNumOrBool === "string") : 真假
->类型别名 :=> 真假
->(typeof strOrNumOrBool === "string") : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool === "string" : 真假
->类型别名 :=> 真假
->typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "文字" | "数字" | "真假" | "符号" | "未定" | "对象" | "函数"
->strOrNumOrBool : 文字 | 数字 | 真假
+>!(typeof strOrNumOrBool === "string") && numOrBool !== strOrNumOrBool : boolean
+>!(typeof strOrNumOrBool === "string") : boolean
+>(typeof strOrNumOrBool === "string") : boolean
+>typeof strOrNumOrBool === "string" : boolean
+>typeof strOrNumOrBool : "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function"
+>strOrNumOrBool : string | number | boolean
 >"string" : "string"
->numOrBool !== strOrNumOrBool : 真假
->类型别名 :=> 真假
->numOrBool : 数字 | 真假
->strOrNumOrBool : 数字 | 真假
+>numOrBool !== strOrNumOrBool : boolean
+>numOrBool : number | boolean
+>strOrNumOrBool : number | boolean
 
     numOrBool = strOrNumOrBool; // number | boolean
->numOrBool = strOrNumOrBool : 数字 | 真假
->numOrBool : 数字 | 真假
->strOrNumOrBool : 数字 | 真假
+>numOrBool = strOrNumOrBool : number | boolean
+>numOrBool : number | boolean
+>strOrNumOrBool : number | boolean
 }
 else {
     var r1: string | number | boolean = strOrNumOrBool; // string | number | boolean
->r1 : 文字 | 数字 | 真假
->strOrNumOrBool : 文字 | 数字 | 真假
+>r1 : string | number | boolean
+>strOrNumOrBool : string | number | boolean
 }

@@ -1,6 +1,6 @@
 === tests/cases/compiler/mergedDeclarations3.ts ===
 module M {
->M : 类为 M
+>M : typeof M
 
  export enum Color {
 >Color : Color
@@ -11,106 +11,92 @@ module M {
  }
 }
 module M {
->M : 类为 M
+>M : typeof M
 
  export module Color {
->Color : 类为 Color
+>Color : typeof Color
 
    export var Blue = 4;
->Blue : 数字
->类型别名 :=> 数字
+>Blue : number
 >4 : 4
   }
 }
 var p = M.Color.Blue; // ok
->p : 数字
->类型别名 :=> 数字
->M.Color.Blue : 数字
->类型别名 :=> 数字
->M.Color : 类为 M.Color
->M : 类为 M
->Color : 类为 M.Color
->Blue : 数字
->类型别名 :=> 数字
+>p : number
+>M.Color.Blue : number
+>M.Color : typeof M.Color
+>M : typeof M
+>Color : typeof M.Color
+>Blue : number
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export function foo() {
->foo : 类为 foo
+>foo : typeof foo
     }
 }
 
 module M {
->M : 类为 M
+>M : typeof M
 
     module foo {
->foo : 类为 foo
+>foo : typeof foo
 
         export var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
     }
 }
 
 module M {
->M : 类为 M
+>M : typeof M
 
     export module foo {
->foo : 类为 foo
+>foo : typeof foo
 
         export var y = 2
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
     }
 }
 
 module M {
->M : 类为 M
+>M : typeof M
 
     module foo {
->foo : 类为 foo
+>foo : typeof foo
 
         export var z = 1;
->z : 数字
->类型别名 :=> 数字
+>z : number
 >1 : 1
     }
 }
 
 M.foo() // ok
->M.foo() : 无值
->类型别名 :=> 无值
->M.foo : 类为 M.foo
->M : 类为 M
->foo : 类为 M.foo
+>M.foo() : void
+>M.foo : typeof M.foo
+>M : typeof M
+>foo : typeof M.foo
 
 M.foo.x // error
->M.foo.x : 任意
->类型别名 :=> 任意
->M.foo : 类为 M.foo
->M : 类为 M
->foo : 类为 M.foo
->x : 任意
->类型别名 :=> 任意
+>M.foo.x : any
+>M.foo : typeof M.foo
+>M : typeof M
+>foo : typeof M.foo
+>x : any
 
 M.foo.y // ok
->M.foo.y : 数字
->类型别名 :=> 数字
->M.foo : 类为 M.foo
->M : 类为 M
->foo : 类为 M.foo
->y : 数字
->类型别名 :=> 数字
+>M.foo.y : number
+>M.foo : typeof M.foo
+>M : typeof M
+>foo : typeof M.foo
+>y : number
 
 M.foo.z // error
->M.foo.z : 任意
->类型别名 :=> 任意
->M.foo : 类为 M.foo
->M : 类为 M
->foo : 类为 M.foo
->z : 任意
->类型别名 :=> 任意
+>M.foo.z : any
+>M.foo : typeof M.foo
+>M : typeof M
+>foo : typeof M.foo
+>z : any
 

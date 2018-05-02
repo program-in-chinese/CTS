@@ -2,42 +2,37 @@
 type Constructor<T> = new(...args: any[]) => T;
 >Constructor : Constructor<T>
 >T : T
->args : 任意[]
+>args : any[]
 >T : T
 
 function Tagged<T extends Constructor<{}>>(Base: T) {
->Tagged : <T 扩展 Constructor<{}>>(Base: T) => { 新建 (...args: 任意[]): (Anonymous class); prototype: Tagged<任意>.(Anonymous class); } & T
+>Tagged : <T extends Constructor<{}>>(Base: T) => { new (...args: any[]): (Anonymous class); prototype: Tagged<any>.(Anonymous class); } & T
 >T : T
 >Constructor : Constructor<T>
 >Base : T
 >T : T
 
   return class extends Base {
->class extends Base {    _tag: string;    constructor(...args: any[]) {      super(...args);      this._tag = "";    }  } : { 新建 (...args: 任意[]): (Anonymous class); prototype: Tagged<任意>.(Anonymous class); } & T
+>class extends Base {    _tag: string;    constructor(...args: any[]) {      super(...args);      this._tag = "";    }  } : { new (...args: any[]): (Anonymous class); prototype: Tagged<any>.(Anonymous class); } & T
 >Base : {}
 
     _tag: string;
->_tag : 文字
->类型别名 :=> 文字
+>_tag : string
 
     constructor(...args: any[]) {
->args : 任意[]
+>args : any[]
 
       super(...args);
->super(...args) : 无值
->类型别名 :=> 无值
+>super(...args) : void
 >super : T
->...args : 任意
->类型别名 :=> 任意
->args : 任意[]
+>...args : any
+>args : any[]
 
       this._tag = "";
 >this._tag = "" : ""
->this._tag : 文字
->类型别名 :=> 文字
->this : 本体
->_tag : 文字
->类型别名 :=> 文字
+>this._tag : string
+>this : this
+>_tag : string
 >"" : ""
     }
   };
@@ -47,7 +42,7 @@ class A {
 >A : A
 
   toString () {
->toString : () => 文字
+>toString : () => string
 
     return "class A";
 >"class A" : "class A"
@@ -56,12 +51,12 @@ class A {
 
 class B extends Tagged(A) {
 >B : B
->Tagged(A) : Tagged<类为 A>.(Anonymous class) & A
->Tagged : <T 扩展 Constructor<{}>>(Base: T) => { 新建 (...args: 任意[]): (Anonymous class); prototype: Tagged<任意>.(Anonymous class); } & T
->A : 类为 A
+>Tagged(A) : Tagged<typeof A>.(Anonymous class) & A
+>Tagged : <T extends Constructor<{}>>(Base: T) => { new (...args: any[]): (Anonymous class); prototype: Tagged<any>.(Anonymous class); } & T
+>A : typeof A
 
   toString () { // Should not be an error
->toString : () => 文字
+>toString : () => string
 
     return "class B";
 >"class B" : "class B"
@@ -73,7 +68,7 @@ class C extends A {
 >A : A
 
   toString () { // Should not be an error
->toString : () => 文字
+>toString : () => string
 
     return "class C";
 >"class C" : "class C"

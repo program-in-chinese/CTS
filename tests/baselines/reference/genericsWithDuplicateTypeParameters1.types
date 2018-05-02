@@ -1,6 +1,6 @@
 === tests/cases/compiler/genericsWithDuplicateTypeParameters1.ts ===
 function f<x, x>() { }
->f : <x>() => 无值
+>f : <x>() => void
 >x : x
 >x : x
 
@@ -13,8 +13,7 @@ function f2<X, X>(a: X, b: X): X { return null; }
 >b : X
 >X : X
 >X : X
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 class C<X, X> {
 >C : C<X>
@@ -22,7 +21,7 @@ class C<X, X> {
 >X : X
 
     public f<x, x>() {}
->f : <x>() => 无值
+>f : <x>() => void
 >x : x
 >x : x
 
@@ -35,8 +34,7 @@ class C<X, X> {
 >b : X
 >X : X
 >X : X
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 
 interface I<X, X> {
@@ -45,7 +43,7 @@ interface I<X, X> {
 >X : X
 
     f<X, X>();
->f : <X>() => 任意
+>f : <X>() => any
 >X : X
 >X : X
 
@@ -61,13 +59,13 @@ interface I<X, X> {
 }
 
 var m = {
->m : { a: <X>() => 无值; b: <X>(a: X, b: X) => X; }
->{    a: function f<X, X>() {},    b: function f2<X, X>(a: X, b: X): X { return null; }} : { a: <X>() => 无值; b: <X>(a: X, b: X) => X; }
+>m : { a: <X>() => void; b: <X>(a: X, b: X) => X; }
+>{    a: function f<X, X>() {},    b: function f2<X, X>(a: X, b: X): X { return null; }} : { a: <X>() => void; b: <X>(a: X, b: X) => X; }
 
     a: function f<X, X>() {},
->a : <X>() => 无值
->function f<X, X>() {} : <X>() => 无值
->f : <X>() => 无值
+>a : <X>() => void
+>function f<X, X>() {} : <X>() => void
+>f : <X>() => void
 >X : X
 >X : X
 
@@ -82,6 +80,5 @@ var m = {
 >b : X
 >X : X
 >X : X
->null : 空值
->类型别名 :=> 空值
+>null : null
 }

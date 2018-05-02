@@ -5,19 +5,17 @@ interface I {
     (strs: TemplateStringsArray, ...subs: number[]): I;
 >strs : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
->subs : 数字[]
+>subs : number[]
 >I : I
 
     member: {
->member : 新建 (s: 文字) => 新建 (n: 数字) => 新建 () => 真假
+>member : new (s: string) => new (n: number) => new () => boolean
 
         new (s: string): {
->s : 文字
->类型别名 :=> 文字
+>s : string
 
             new (n: number): {
->n : 数字
->类型别名 :=> 数字
+>n : number
 
                 new (): boolean;
             }
@@ -29,24 +27,19 @@ var f: I;
 >I : I
 
 var x = new new new f `abc${ 0 }def`.member("hello")(42) === true;
->x : 真假
->类型别名 :=> 真假
->new new new f `abc${ 0 }def`.member("hello")(42) === true : 真假
->类型别名 :=> 真假
->new new new f `abc${ 0 }def`.member("hello")(42) : 真假
->类型别名 :=> 真假
->new new f `abc${ 0 }def`.member("hello")(42) : 新建 () => 真假
->new f `abc${ 0 }def`.member("hello") : 新建 (n: 数字) => 新建 () => 真假
->f `abc${ 0 }def`.member : 新建 (s: 文字) => 新建 (n: 数字) => 新建 () => 真假
+>x : boolean
+>new new new f `abc${ 0 }def`.member("hello")(42) === true : boolean
+>new new new f `abc${ 0 }def`.member("hello")(42) : boolean
+>new new f `abc${ 0 }def`.member("hello")(42) : new () => boolean
+>new f `abc${ 0 }def`.member("hello") : new (n: number) => new () => boolean
+>f `abc${ 0 }def`.member : new (s: string) => new (n: number) => new () => boolean
 >f `abc${ 0 }def` : I
 >f : I
->`abc${ 0 }def` : 文字
->类型别名 :=> 文字
+>`abc${ 0 }def` : string
 >0 : 0
->member : 新建 (s: 文字) => 新建 (n: 数字) => 新建 () => 真假
+>member : new (s: string) => new (n: number) => new () => boolean
 >"hello" : "hello"
 >42 : 42
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 

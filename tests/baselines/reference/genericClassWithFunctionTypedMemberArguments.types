@@ -3,7 +3,7 @@
 // Using function arguments, no errors expected
 
 module ImmediatelyFix {
->ImmediatelyFix : 类为 ImmediatelyFix
+>ImmediatelyFix : typeof ImmediatelyFix
 
     class C<T> {
 >C : C<T>
@@ -20,37 +20,34 @@ module ImmediatelyFix {
             return x(null);
 >x(null) : T
 >x : (a: T) => T
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
     }
 
     var c = new C<number>();
->c : C<数字>
->new C<number>() : C<数字>
->C : 类为 C
+>c : C<number>
+>new C<number>() : C<number>
+>C : typeof C
 
     var r = c.foo(<U>(x: U) => ''); // {}
 >r : {}
 >c.foo(<U>(x: U) => '') : {}
 >c.foo : <T>(x: (a: T) => T) => T
->c : C<数字>
+>c : C<number>
 >foo : <T>(x: (a: T) => T) => T
-><U>(x: U) => '' : <U>(x: U) => 文字
+><U>(x: U) => '' : <U>(x: U) => string
 >U : U
 >x : U
 >U : U
 >'' : ""
 
     var r2 = c.foo<string>(<U>(x: U) => ''); // string 
->r2 : 文字
->类型别名 :=> 文字
->c.foo<string>(<U>(x: U) => '') : 文字
->类型别名 :=> 文字
+>r2 : string
+>c.foo<string>(<U>(x: U) => '') : string
 >c.foo : <T>(x: (a: T) => T) => T
->c : C<数字>
+>c : C<number>
 >foo : <T>(x: (a: T) => T) => T
-><U>(x: U) => '' : <U>(x: U) => 文字
+><U>(x: U) => '' : <U>(x: U) => string
 >U : U
 >x : U
 >U : U
@@ -60,9 +57,9 @@ module ImmediatelyFix {
 >r3 : {}
 >c.foo(x => '') : {}
 >c.foo : <T>(x: (a: T) => T) => T
->c : C<数字>
+>c : C<number>
 >foo : <T>(x: (a: T) => T) => T
->x => '' : (x: {}) => 文字
+>x => '' : (x: {}) => string
 >x : {}
 >'' : ""
 
@@ -80,46 +77,40 @@ module ImmediatelyFix {
             return x(null);
 >x(null) : T
 >x : (a: T) => T
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
     }
 
     var c2 = new C2<number>();
->c2 : C2<数字>
->new C2<number>() : C2<数字>
->C2 : 类为 C2
+>c2 : C2<number>
+>new C2<number>() : C2<number>
+>C2 : typeof C2
 
     var ra = c2.foo(<U>(x: U) => 1); // number
->ra : 数字
->类型别名 :=> 数字
->c2.foo(<U>(x: U) => 1) : 数字
->类型别名 :=> 数字
->c2.foo : (x: (a: 数字) => 数字) => 数字
->c2 : C2<数字>
->foo : (x: (a: 数字) => 数字) => 数字
-><U>(x: U) => 1 : <U>(x: U) => 数字
+>ra : number
+>c2.foo(<U>(x: U) => 1) : number
+>c2.foo : (x: (a: number) => number) => number
+>c2 : C2<number>
+>foo : (x: (a: number) => number) => number
+><U>(x: U) => 1 : <U>(x: U) => number
 >U : U
 >x : U
 >U : U
 >1 : 1
 
     var r3a = c2.foo(x => 1); // number
->r3a : 数字
->类型别名 :=> 数字
->c2.foo(x => 1) : 数字
->类型别名 :=> 数字
->c2.foo : (x: (a: 数字) => 数字) => 数字
->c2 : C2<数字>
->foo : (x: (a: 数字) => 数字) => 数字
->x => 1 : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>r3a : number
+>c2.foo(x => 1) : number
+>c2.foo : (x: (a: number) => number) => number
+>c2 : C2<number>
+>foo : (x: (a: number) => number) => number
+>x => 1 : (x: number) => number
+>x : number
 >1 : 1
 }
 
 module WithCandidates {
->WithCandidates : 类为 WithCandidates
+>WithCandidates : typeof WithCandidates
 
     class C<T> {
 >C : C<T>
@@ -144,48 +135,41 @@ module WithCandidates {
     }
 
     var c: C<number>;
->c : C<数字>
+>c : C<number>
 >C : C<T>
 
     var r4 = c.foo2(1, function <Z>(a: Z) { return '' }); // string, contextual signature instantiation is applied to generic functions
->r4 : 文字
->类型别名 :=> 文字
->c.foo2(1, function <Z>(a: Z) { return '' }) : 文字
->类型别名 :=> 文字
+>r4 : string
+>c.foo2(1, function <Z>(a: Z) { return '' }) : string
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
->c : C<数字>
+>c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >1 : 1
->function <Z>(a: Z) { return '' } : <Z>(a: Z) => 文字
+>function <Z>(a: Z) { return '' } : <Z>(a: Z) => string
 >Z : Z
 >a : Z
 >Z : Z
 >'' : ""
 
     var r5 = c.foo2(1, (a) => ''); // string
->r5 : 文字
->类型别名 :=> 文字
->c.foo2(1, (a) => '') : 文字
->类型别名 :=> 文字
+>r5 : string
+>c.foo2(1, (a) => '') : string
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
->c : C<数字>
+>c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >1 : 1
->(a) => '' : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>(a) => '' : (a: number) => string
+>a : number
 >'' : ""
 
     var r6 = c.foo2<string, number>('', <Z>(a: Z) => 1); // number
->r6 : 数字
->类型别名 :=> 数字
->c.foo2<string, number>('', <Z>(a: Z) => 1) : 数字
->类型别名 :=> 数字
+>r6 : number
+>c.foo2<string, number>('', <Z>(a: Z) => 1) : number
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
->c : C<数字>
+>c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >'' : ""
-><Z>(a: Z) => 1 : <Z>(a: Z) => 数字
+><Z>(a: Z) => 1 : <Z>(a: Z) => number
 >Z : Z
 >a : Z
 >Z : Z
@@ -215,19 +199,17 @@ module WithCandidates {
     }
 
     var c2: C2<number, string>;
->c2 : C2<数字, 文字>
+>c2 : C2<number, string>
 >C2 : C2<T, U>
 
     var r7 = c2.foo3(1, <Z>(a: Z) => '', ''); // string
->r7 : 文字
->类型别名 :=> 文字
->c2.foo3(1, <Z>(a: Z) => '', '') : 文字
->类型别名 :=> 文字
->c2.foo3 : (x: 数字, cb: (a: 数字) => 文字, y: 文字) => 文字
->c2 : C2<数字, 文字>
->foo3 : (x: 数字, cb: (a: 数字) => 文字, y: 文字) => 文字
+>r7 : string
+>c2.foo3(1, <Z>(a: Z) => '', '') : string
+>c2.foo3 : (x: number, cb: (a: number) => string, y: string) => string
+>c2 : C2<number, string>
+>foo3 : (x: number, cb: (a: number) => string, y: string) => string
 >1 : 1
-><Z>(a: Z) => '' : <Z>(a: Z) => 文字
+><Z>(a: Z) => '' : <Z>(a: Z) => string
 >Z : Z
 >a : Z
 >Z : Z
@@ -235,17 +217,14 @@ module WithCandidates {
 >'' : ""
 
     var r8 = c2.foo3(1, function (a) { return '' }, ''); // string
->r8 : 文字
->类型别名 :=> 文字
->c2.foo3(1, function (a) { return '' }, '') : 文字
->类型别名 :=> 文字
->c2.foo3 : (x: 数字, cb: (a: 数字) => 文字, y: 文字) => 文字
->c2 : C2<数字, 文字>
->foo3 : (x: 数字, cb: (a: 数字) => 文字, y: 文字) => 文字
+>r8 : string
+>c2.foo3(1, function (a) { return '' }, '') : string
+>c2.foo3 : (x: number, cb: (a: number) => string, y: string) => string
+>c2 : C2<number, string>
+>foo3 : (x: number, cb: (a: number) => string, y: string) => string
 >1 : 1
->function (a) { return '' } : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>function (a) { return '' } : (a: number) => string
+>a : number
 >'' : ""
 >'' : ""
 
@@ -274,11 +253,11 @@ module WithCandidates {
         }
     }
     var c3: C3<number, string>;
->c3 : C3<数字, 文字>
+>c3 : C3<number, string>
 >C3 : C3<T, U>
 
     function other<T, U>(t: T, u: U) {
->other : <T, U>(t: T, u: U) => 无值
+>other : <T, U>(t: T, u: U) => void
 >T : T
 >U : U
 >t : T
@@ -287,75 +266,63 @@ module WithCandidates {
 >U : U
 
         var r10 = c.foo2(1, (x: T) => ''); // error
->r10 : 任意
->类型别名 :=> 任意
->c.foo2(1, (x: T) => '') : 任意
->类型别名 :=> 任意
+>r10 : any
+>c.foo2(1, (x: T) => '') : any
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
->c : C<数字>
+>c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >1 : 1
->(x: T) => '' : (x: T) => 文字
+>(x: T) => '' : (x: T) => string
 >x : T
 >T : T
 >'' : ""
 
         var r10 = c.foo2(1, (x) => ''); // string
->r10 : 任意
->类型别名 :=> 任意
->c.foo2(1, (x) => '') : 文字
->类型别名 :=> 文字
+>r10 : any
+>c.foo2(1, (x) => '') : string
 >c.foo2 : <T, U>(x: T, cb: (a: T) => U) => U
->c : C<数字>
+>c : C<number>
 >foo2 : <T, U>(x: T, cb: (a: T) => U) => U
 >1 : 1
->(x) => '' : (x: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
+>(x) => '' : (x: number) => string
+>x : number
 >'' : ""
 
         var r11 = c3.foo3(1, (x: T) => '', ''); // error
->r11 : 任意
->类型别名 :=> 任意
->c3.foo3(1, (x: T) => '', '') : 任意
->类型别名 :=> 任意
+>r11 : any
+>c3.foo3(1, (x: T) => '', '') : any
 >c3.foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
->c3 : C3<数字, 文字>
+>c3 : C3<number, string>
 >foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
 >1 : 1
->(x: T) => '' : (x: T) => 文字
+>(x: T) => '' : (x: T) => string
 >x : T
 >T : T
 >'' : ""
 >'' : ""
 
         var r11b = c3.foo3(1, (x: T) => '', 1); // error
->r11b : 任意
->类型别名 :=> 任意
->c3.foo3(1, (x: T) => '', 1) : 任意
->类型别名 :=> 任意
+>r11b : any
+>c3.foo3(1, (x: T) => '', 1) : any
 >c3.foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
->c3 : C3<数字, 文字>
+>c3 : C3<number, string>
 >foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
 >1 : 1
->(x: T) => '' : (x: T) => 文字
+>(x: T) => '' : (x: T) => string
 >x : T
 >T : T
 >'' : ""
 >1 : 1
 
         var r12 = c3.foo3(1, function (a) { return '' }, 1); // error
->r12 : 任意
->类型别名 :=> 任意
->c3.foo3(1, function (a) { return '' }, 1) : 任意
->类型别名 :=> 任意
+>r12 : any
+>c3.foo3(1, function (a) { return '' }, 1) : any
 >c3.foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
->c3 : C3<数字, 文字>
+>c3 : C3<number, string>
 >foo3 : <T, U>(x: T, cb: (a: T) => U, y: U) => U
 >1 : 1
->function (a) { return '' } : (a: 数字) => 文字
->a : 数字
->类型别名 :=> 数字
+>function (a) { return '' } : (a: number) => string
+>a : number
 >'' : ""
 >1 : 1
     }

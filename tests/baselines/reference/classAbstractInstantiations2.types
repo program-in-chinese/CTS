@@ -9,66 +9,59 @@ abstract class B {
 >B : B
 
     foo(): number { return this.bar(); }
->foo : () => 数字
->this.bar() : 数字
->类型别名 :=> 数字
->this.bar : () => 数字
->this : 本体
->bar : () => 数字
+>foo : () => number
+>this.bar() : number
+>this.bar : () => number
+>this : this
+>bar : () => number
 
     abstract bar() : number;
->bar : () => 数字
+>bar : () => number
 }
 
 new B; // error
->new B : 任意
->类型别名 :=> 任意
->B : 类为 B
+>new B : any
+>B : typeof B
 
 var BB: typeof B = B;
->BB : 类为 B
->B : 类为 B
->B : 类为 B
+>BB : typeof B
+>B : typeof B
+>B : typeof B
 
 var AA: typeof A = BB; // error, AA is not of abstract type.
->AA : 类为 A
->A : 类为 A
->BB : 类为 B
+>AA : typeof A
+>A : typeof A
+>BB : typeof B
 
 new AA;
 >new AA : A
->AA : 类为 A
+>AA : typeof A
 
 function constructB(Factory : typeof B) {
->constructB : (Factory: 类为 B) => 无值
->Factory : 类为 B
->B : 类为 B
+>constructB : (Factory: typeof B) => void
+>Factory : typeof B
+>B : typeof B
 
     new Factory; // error -- Factory is of type typeof B.
->new Factory : 任意
->类型别名 :=> 任意
->Factory : 类为 B
+>new Factory : any
+>Factory : typeof B
 }
 
 var BB = B;
->BB : 类为 B
->B : 类为 B
+>BB : typeof B
+>B : typeof B
 
 new BB; // error -- BB is of type typeof B.
->new BB : 任意
->类型别名 :=> 任意
->BB : 类为 B
+>new BB : any
+>BB : typeof B
 
 var x : any = C;
->x : 任意
->类型别名 :=> 任意
->C : 类为 C
+>x : any
+>C : typeof C
 
 new x; // okay -- undefined behavior at runtime
->new x : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>new x : any
+>x : any
 
 class C extends B { } // error -- not declared abstract
 >C : C
@@ -83,7 +76,7 @@ class E extends B { // okay -- implements abstract method
 >B : B
 
     bar() { return 1; }
->bar : () => 数字
+>bar : () => number
 >1 : 1
 }
 
@@ -92,10 +85,10 @@ abstract class F extends B {
 >B : B
 
     abstract foo() : number;
->foo : () => 数字
+>foo : () => number
 
     bar() { return 2; }
->bar : () => 数字
+>bar : () => number
 >2 : 2
 }
 
@@ -103,36 +96,31 @@ abstract class G {
 >G : G
 
     abstract qux(x : number) : string;
->qux : { (x: 数字): 文字; (): 数字; }
->x : 数字
->类型别名 :=> 数字
+>qux : { (x: number): string; (): number; }
+>x : number
 
     abstract qux() : number;
->qux : { (x: 数字): 文字; (): 数字; }
+>qux : { (x: number): string; (): number; }
 
     y : number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 
     abstract quz(x : number, y : string) : boolean; // error -- declarations must be adjacent
->quz : (x: 数字, y: 文字) => 真假
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>quz : (x: number, y: string) => boolean
+>x : number
+>y : string
 
     abstract nom(): boolean;
->nom : { (): 真假; (x: 数字): 真假; }
+>nom : { (): boolean; (x: number): boolean; }
 
     nom(x : number): boolean; // error -- use of modifier abstract must match on all overloads.
->nom : { (): 真假; (x: 数字): 真假; }
->x : 数字
->类型别名 :=> 数字
+>nom : { (): boolean; (x: number): boolean; }
+>x : number
 }
 
 class H { // error -- not declared abstract
 >H : H
 
     abstract baz() : number;
->baz : () => 数字
+>baz : () => number
 }

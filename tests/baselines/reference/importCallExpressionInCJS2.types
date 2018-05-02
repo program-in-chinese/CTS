@@ -1,64 +1,51 @@
 === tests/cases/conformance/dynamicImport/0.ts ===
 export function foo() { return "foo"; }
->foo : () => 文字
+>foo : () => string
 >"foo" : "foo"
 
 === tests/cases/conformance/dynamicImport/1.ts ===
 export function backup() { return "backup"; }
->backup : () => 文字
+>backup : () => string
 >"backup" : "backup"
 
 === tests/cases/conformance/dynamicImport/2.ts ===
 async function compute(promise: Promise<any>) {
->compute : (promise: Promise<任意>) => Promise<任意>
->promise : Promise<任意>
+>compute : (promise: Promise<any>) => Promise<any>
+>promise : Promise<any>
 >Promise : Promise<T>
 
     let j = await promise;
->j : 任意
->类型别名 :=> 任意
->await promise : 任意
->类型别名 :=> 任意
->promise : Promise<任意>
+>j : any
+>await promise : any
+>promise : Promise<any>
 
     if (!j) {
->!j : 真假
->类型别名 :=> 真假
->j : 任意
->类型别名 :=> 任意
+>!j : boolean
+>j : any
 
         j = await import("./1");
->j = await import("./1") : 类为 "tests/cases/conformance/dynamicImport/1"
->j : 任意
->类型别名 :=> 任意
->await import("./1") : 类为 "tests/cases/conformance/dynamicImport/1"
->import("./1") : Promise<类为 "tests/cases/conformance/dynamicImport/1">
+>j = await import("./1") : typeof "tests/cases/conformance/dynamicImport/1"
+>j : any
+>await import("./1") : typeof "tests/cases/conformance/dynamicImport/1"
+>import("./1") : Promise<typeof "tests/cases/conformance/dynamicImport/1">
 >"./1" : "./1"
 
         return j.backup();
->j.backup() : 任意
->类型别名 :=> 任意
->j.backup : 任意
->类型别名 :=> 任意
->j : 任意
->类型别名 :=> 任意
->backup : 任意
->类型别名 :=> 任意
+>j.backup() : any
+>j.backup : any
+>j : any
+>backup : any
     }
     return j.foo();
->j.foo() : 任意
->类型别名 :=> 任意
->j.foo : 任意
->类型别名 :=> 任意
->j : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>j.foo() : any
+>j.foo : any
+>j : any
+>foo : any
 }
 
 compute(import("./0"));
->compute(import("./0")) : Promise<任意>
->compute : (promise: Promise<任意>) => Promise<任意>
->import("./0") : Promise<类为 "tests/cases/conformance/dynamicImport/0">
+>compute(import("./0")) : Promise<any>
+>compute : (promise: Promise<any>) => Promise<any>
+>import("./0") : Promise<typeof "tests/cases/conformance/dynamicImport/0">
 >"./0" : "./0"
 

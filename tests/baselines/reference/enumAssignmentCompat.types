@@ -1,6 +1,6 @@
 === tests/cases/compiler/enumAssignmentCompat.ts ===
 module W {
->W : 类为 W
+>W : typeof W
 
     export class D { }
 >D : D
@@ -39,50 +39,48 @@ interface WStatic {
 var x: WStatic = W;
 >x : WStatic
 >WStatic : WStatic
->W : 类为 W
+>W : typeof W
 
 var y: typeof W = W;
->y : 类为 W
->W : 类为 W
->W : 类为 W
+>y : typeof W
+>W : typeof W
+>W : typeof W
 
 var z: number = W; // error
->z : 数字
->类型别名 :=> 数字
->W : 类为 W
+>z : number
+>W : typeof W
 
 var a: number = W.a;
->a : 数字
->类型别名 :=> 数字
+>a : number
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 
 var b: typeof W = W.a; // error
->b : 类为 W
->W : 类为 W
+>b : typeof W
+>W : typeof W
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 
 var c: typeof W.a = W.a;
 >c : W.a
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 
 var d: typeof W = 3; // error
->d : 类为 W
->W : 类为 W
+>d : typeof W
+>W : typeof W
 >3 : 3
 
 var e: typeof W.a = 4;
 >e : W.a
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 >4 : 4
 
@@ -90,7 +88,7 @@ var f: WStatic = W.a; // error
 >f : WStatic
 >WStatic : WStatic
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 
 var g: WStatic = 5; // error
@@ -107,24 +105,23 @@ var i: W = W.a;
 >i : W
 >W : W
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 
 i = W.a;
 >i = W.a : W.a
 >i : W
 >W.a : W.a
->W : 类为 W
+>W : typeof W
 >a : W.a
 
 W.D;
->W.D : 类为 W.D
->W : 类为 W
->D : 类为 W.D
+>W.D : typeof W.D
+>W : typeof W
+>D : typeof W.D
 
 var p: W.D;
 >p : W.D
->W : 任意
->类型别名 :=> 任意
+>W : any
 >D : W.D
 

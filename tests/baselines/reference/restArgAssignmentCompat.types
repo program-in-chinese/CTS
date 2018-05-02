@@ -1,56 +1,44 @@
 === tests/cases/compiler/restArgAssignmentCompat.ts ===
 function f(...x: number[]) {
->f : (...x: 数字[]) => 无值
->x : 数字[]
+>f : (...x: number[]) => void
+>x : number[]
 
     x.forEach((n, i) => void ('item ' + i + ' = ' + n));
->x.forEach((n, i) => void ('item ' + i + ' = ' + n)) : 无值
->类型别名 :=> 无值
->x.forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
->x : 数字[]
->forEach : (callbackfn: (value: 数字, index: 数字, array: 数字[]) => 无值, thisArg?: 任意) => 无值
->(n, i) => void ('item ' + i + ' = ' + n) : (n: 数字, i: 数字) => 任意
->n : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
->void ('item ' + i + ' = ' + n) : 未定
->类型别名 :=> 未定
->('item ' + i + ' = ' + n) : 文字
->类型别名 :=> 文字
->'item ' + i + ' = ' + n : 文字
->类型别名 :=> 文字
->'item ' + i + ' = ' : 文字
->类型别名 :=> 文字
->'item ' + i : 文字
->类型别名 :=> 文字
+>x.forEach((n, i) => void ('item ' + i + ' = ' + n)) : void
+>x.forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
+>x : number[]
+>forEach : (callbackfn: (value: number, index: number, array: number[]) => void, thisArg?: any) => void
+>(n, i) => void ('item ' + i + ' = ' + n) : (n: number, i: number) => any
+>n : number
+>i : number
+>void ('item ' + i + ' = ' + n) : undefined
+>('item ' + i + ' = ' + n) : string
+>'item ' + i + ' = ' + n : string
+>'item ' + i + ' = ' : string
+>'item ' + i : string
 >'item ' : "item "
->i : 数字
->类型别名 :=> 数字
+>i : number
 >' = ' : " = "
->n : 数字
->类型别名 :=> 数字
+>n : number
 }
 function g(x: number[], y: string) { }
->g : (x: 数字[], y: 文字) => 无值
->x : 数字[]
->y : 文字
->类型别名 :=> 文字
+>g : (x: number[], y: string) => void
+>x : number[]
+>y : string
 
 var n = g;
->n : (x: 数字[], y: 文字) => 无值
->g : (x: 数字[], y: 文字) => 无值
+>n : (x: number[], y: string) => void
+>g : (x: number[], y: string) => void
 
 n = f;
->n = f : (...x: 数字[]) => 无值
->n : (x: 数字[], y: 文字) => 无值
->f : (...x: 数字[]) => 无值
+>n = f : (...x: number[]) => void
+>n : (x: number[], y: string) => void
+>f : (...x: number[]) => void
 
 n([4], 'foo');
->n([4], 'foo') : 无值
->类型别名 :=> 无值
->n : (x: 数字[], y: 文字) => 无值
->[4] : 数字[]
+>n([4], 'foo') : void
+>n : (x: number[], y: string) => void
+>[4] : number[]
 >4 : 4
 >'foo' : "foo"
 

@@ -12,72 +12,58 @@ interface I<T> {
 }
 
 var c: I;
->c : 任意
->类型别名 :=> 任意
+>c : any
 >I : I<T>
 
 var a: { x: I };
->a : { x: 任意; }
->x : 任意
->类型别名 :=> 任意
+>a : { x: any; }
+>x : any
 >I : I<T>
 
 var b: { (x: I): I };
->b : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>b : (x: any) => any
+>x : any
 >I : I<T>
 >I : I<T>
 
 var d: { [x: I]: I };
 >d : {}
->x : 任意
->类型别名 :=> 任意
+>x : any
 >I : I<T>
 >I : I<T>
 
 var e = (x: I) => { var y: I; return y; }
->e : (x: 任意) => 任意
->(x: I) => { var y: I; return y; } : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>e : (x: any) => any
+>(x: I) => { var y: I; return y; } : (x: any) => any
+>x : any
 >I : I<T>
->y : 任意
->类型别名 :=> 任意
+>y : any
 >I : I<T>
->y : 任意
->类型别名 :=> 任意
+>y : any
 
 function f(x: I): I { var y: I; return y; }
->f : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>f : (x: any) => any
+>x : any
 >I : I<T>
 >I : I<T>
->y : 任意
->类型别名 :=> 任意
+>y : any
 >I : I<T>
->y : 任意
->类型别名 :=> 任意
+>y : any
 
 var g = function f(x: I): I { var y: I; return y; }
->g : (x: 任意) => 任意
->function f(x: I): I { var y: I; return y; } : (x: 任意) => 任意
->f : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>g : (x: any) => any
+>function f(x: I): I { var y: I; return y; } : (x: any) => any
+>f : (x: any) => any
+>x : any
 >I : I<T>
 >I : I<T>
->y : 任意
->类型别名 :=> 任意
+>y : any
 >I : I<T>
->y : 任意
->类型别名 :=> 任意
+>y : any
 
 class D extends I {
 >D : D
->I : 任意
->类型别名 :=> 任意
+>I : any
 }
 
 interface U extends I {}
@@ -85,8 +71,7 @@ interface U extends I {}
 >I : I<T>
 
 module M {
->M : 任意
->类型别名 :=> 任意
+>M : any
 
     export interface E<T> { foo: T }
 >E : E<T>
@@ -97,61 +82,47 @@ module M {
 
 class D2 extends M.C { }
 >D2 : D2
->M.C : 任意
->类型别名 :=> 任意
->M : 任意
->类型别名 :=> 任意
->C : 任意
->类型别名 :=> 任意
+>M.C : any
+>M : any
+>C : any
 
 interface D3<T extends M.E> { }
 >D3 : D3<T>
 >T : T
->M : 任意
->类型别名 :=> 任意
+>M : any
 >E : M.E<T>
 
 interface I2 extends M.C { }
 >I2 : I2
->M.C : 任意
->类型别名 :=> 任意
->M : 任意
->类型别名 :=> 任意
+>M.C : any
+>M : any
 >C : No type information available!
 
 function h<T extends I>(x: T) { }
->h : <T 扩展 任意>(x: T) => 无值
+>h : <T extends any>(x: T) => void
 >T : T
 >I : I<T>
 >x : T
 >T : T
 
 function i<T extends M.E>(x: T) { }
->i : <T 扩展 任意>(x: T) => 无值
+>i : <T extends any>(x: T) => void
 >T : T
->M : 任意
->类型别名 :=> 任意
+>M : any
 >E : M.E<T>
 >x : T
 >T : T
 
 var j = <C>null;
->j : 任意
->类型别名 :=> 任意
-><C>null : 任意
->类型别名 :=> 任意
+>j : any
+><C>null : any
 >C : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var k = <M.E>null;
->k : 任意
->类型别名 :=> 任意
-><M.E>null : 任意
->类型别名 :=> 任意
->M : 任意
->类型别名 :=> 任意
+>k : any
+><M.E>null : any
+>M : any
 >E : M.E<T>
->null : 空值
->类型别名 :=> 空值
+>null : null
 

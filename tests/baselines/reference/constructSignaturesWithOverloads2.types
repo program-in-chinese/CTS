@@ -6,34 +6,28 @@ class C {
 >C : C
 
     constructor(x: number, y?: string);
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 
     constructor(x: number, y: string);
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 
     constructor(x: number) { }
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 module C {
->C : 类为 C
+>C : typeof C
 
     export var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 }
 
 var r1 = new C(1, '');
 >r1 : C
 >new C(1, '') : C
->C : 类为 C
+>C : typeof C
 >1 : 1
 >'' : ""
 
@@ -44,32 +38,29 @@ class C2<T> {
     constructor(x: T, y?: string);
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 
     constructor(x: T, y: string);
 >x : T
 >T : T
->y : 文字
->类型别名 :=> 文字
+>y : string
 
     constructor(x: T) { }
 >x : T
 >T : T
 }
 module C2 {
->C2 : 类为 C2
+>C2 : typeof C2
 
     export var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 }
 
 var r2 = new C2(1, '');
->r2 : C2<数字>
->new C2(1, '') : C2<数字>
->C2 : 类为 C2
+>r2 : C2<number>
+>new C2(1, '') : C2<number>
+>C2 : typeof C2
 >1 : 1
 >'' : ""
 
@@ -78,17 +69,13 @@ interface I {
 >I : I<T>
 
     new (x: number, y?: string): C;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 
     new (x: number, y: string): C;
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>x : number
+>y : string
 >C : C
 }
 
@@ -99,35 +86,33 @@ interface I<T> {
     new (x: T, y?: number): C2<T>;
 >x : T
 >T : T
->y : 数字
->类型别名 :=> 数字
+>y : number
 >C2 : C2<T>
 >T : T
 
     new (x: T, y: number): C2<T>;
 >x : T
 >T : T
->y : 数字
->类型别名 :=> 数字
+>y : number
 >C2 : C2<T>
 >T : T
 }
 
 var i2: I<number>;
->i2 : I<数字>
+>i2 : I<number>
 >I : I<T>
 
 var r4 = new i2(1, '');
 >r4 : C
 >new i2(1, '') : C
->i2 : I<数字>
+>i2 : I<number>
 >1 : 1
 >'' : ""
 
 var r5 = new i2(1, 1);
->r5 : C2<数字>
->new i2(1, 1) : C2<数字>
->i2 : I<数字>
+>r5 : C2<number>
+>new i2(1, 1) : C2<number>
+>i2 : I<number>
 >1 : 1
 >1 : 1
 

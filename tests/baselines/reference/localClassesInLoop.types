@@ -1,59 +1,46 @@
 === tests/cases/compiler/localClassesInLoop.ts ===
 declare function use(a: any);
->use : (a: 任意) => 任意
->a : 任意
->类型别名 :=> 任意
+>use : (a: any) => any
+>a : any
 
 "use strict"
 >"use strict" : "use strict"
 
 var data = [];
->data : 任意[]
->[] : 未定[]
+>data : any[]
+>[] : undefined[]
 
 for (let x = 0; x < 2; ++x) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
->x < 2 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x < 2 : boolean
+>x : number
 >2 : 2
->++x : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>++x : number
+>x : number
 
     class C { }
 >C : C
 
     data.push(() => C);
->data.push(() => C) : 数字
->类型别名 :=> 数字
->data.push : (...items: 任意[]) => 数字
->data : 任意[]
->push : (...items: 任意[]) => 数字
->() => C : () => 类为 C
->C : 类为 C
+>data.push(() => C) : number
+>data.push : (...items: any[]) => number
+>data : any[]
+>push : (...items: any[]) => number
+>() => C : () => typeof C
+>C : typeof C
 }
 
 use(data[0]() === data[1]());
->use(data[0]() === data[1]()) : 任意
->类型别名 :=> 任意
->use : (a: 任意) => 任意
->data[0]() === data[1]() : 真假
->类型别名 :=> 真假
->data[0]() : 任意
->类型别名 :=> 任意
->data[0] : 任意
->类型别名 :=> 任意
->data : 任意[]
+>use(data[0]() === data[1]()) : any
+>use : (a: any) => any
+>data[0]() === data[1]() : boolean
+>data[0]() : any
+>data[0] : any
+>data : any[]
 >0 : 0
->data[1]() : 任意
->类型别名 :=> 任意
->data[1] : 任意
->类型别名 :=> 任意
->data : 任意[]
+>data[1]() : any
+>data[1] : any
+>data : any[]
 >1 : 1
 

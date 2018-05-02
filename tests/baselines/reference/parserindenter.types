@@ -18,288 +18,192 @@
 
 
 module Formatting {
->Formatting : 类为 Formatting
+>Formatting : typeof Formatting
 
     export class Indenter implements ILineIndenationResolver  {
 >Indenter : Indenter
 >ILineIndenationResolver : No type information available!
 
         private indentationBag: IndentationBag;
->indentationBag : 任意
->类型别名 :=> 任意
+>indentationBag : any
 >IndentationBag : No type information available!
 
         private scriptBlockBeginLineNumber: number;
->scriptBlockBeginLineNumber : 数字
->类型别名 :=> 数字
+>scriptBlockBeginLineNumber : number
 
         private offsetIndentationDeltas: Dictionary_int_int;
->offsetIndentationDeltas : 任意
->类型别名 :=> 任意
+>offsetIndentationDeltas : any
 >Dictionary_int_int : No type information available!
 
         constructor(
             public logger: TypeScript.ILogger,
->logger : 任意
->类型别名 :=> 任意
->TypeScript : 任意
->类型别名 :=> 任意
+>logger : any
+>TypeScript : any
 >ILogger : No type information available!
 
             public tree: ParseTree,
->tree : 任意
->类型别名 :=> 任意
+>tree : any
 >ParseTree : No type information available!
 
             public snapshot: ITextSnapshot,
->snapshot : 任意
->类型别名 :=> 任意
+>snapshot : any
 >ITextSnapshot : No type information available!
 
             public languageHostIndentation: string,
->languageHostIndentation : 文字
->类型别名 :=> 文字
+>languageHostIndentation : string
 
             public editorOptions: Services.EditorOptions,
->editorOptions : 任意
->类型别名 :=> 任意
->Services : 任意
->类型别名 :=> 任意
+>editorOptions : any
+>Services : any
 >EditorOptions : No type information available!
 
             public firstToken: TokenSpan,
->firstToken : 任意
->类型别名 :=> 任意
+>firstToken : any
 >TokenSpan : No type information available!
 
             public smartIndent: boolean) {
->smartIndent : 真假
->类型别名 :=> 真假
+>smartIndent : boolean
 
             this.indentationBag = new IndentationBag(this.snapshot);
->this.indentationBag = new IndentationBag(this.snapshot) : 任意
->类型别名 :=> 任意
->this.indentationBag : 任意
->类型别名 :=> 任意
->this : 本体
->indentationBag : 任意
->类型别名 :=> 任意
->new IndentationBag(this.snapshot) : 任意
->类型别名 :=> 任意
->IndentationBag : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
+>this.indentationBag = new IndentationBag(this.snapshot) : any
+>this.indentationBag : any
+>this : this
+>indentationBag : any
+>new IndentationBag(this.snapshot) : any
+>IndentationBag : any
+>this.snapshot : any
+>this : this
+>snapshot : any
 
             this.scriptBlockBeginLineNumber = -1;
 >this.scriptBlockBeginLineNumber = -1 : -1
->this.scriptBlockBeginLineNumber : 数字
->类型别名 :=> 数字
->this : 本体
->scriptBlockBeginLineNumber : 数字
->类型别名 :=> 数字
+>this.scriptBlockBeginLineNumber : number
+>this : this
+>scriptBlockBeginLineNumber : number
 >-1 : -1
 >1 : 1
 
             this.offsetIndentationDeltas = new Dictionary_int_int();     // text offset -> indentation delta
->this.offsetIndentationDeltas = new Dictionary_int_int() : 任意
->类型别名 :=> 任意
->this.offsetIndentationDeltas : 任意
->类型别名 :=> 任意
->this : 本体
->offsetIndentationDeltas : 任意
->类型别名 :=> 任意
->new Dictionary_int_int() : 任意
->类型别名 :=> 任意
->Dictionary_int_int : 任意
->类型别名 :=> 任意
+>this.offsetIndentationDeltas = new Dictionary_int_int() : any
+>this.offsetIndentationDeltas : any
+>this : this
+>offsetIndentationDeltas : any
+>new Dictionary_int_int() : any
+>Dictionary_int_int : any
 
             // by default the root (program) has zero indendation
             this.tree.Root.SetIndentationOverride("");
->this.tree.Root.SetIndentationOverride("") : 任意
->类型别名 :=> 任意
->this.tree.Root.SetIndentationOverride : 任意
->类型别名 :=> 任意
->this.tree.Root : 任意
->类型别名 :=> 任意
->this.tree : 任意
->类型别名 :=> 任意
->this : 本体
->tree : 任意
->类型别名 :=> 任意
->Root : 任意
->类型别名 :=> 任意
->SetIndentationOverride : 任意
->类型别名 :=> 任意
+>this.tree.Root.SetIndentationOverride("") : any
+>this.tree.Root.SetIndentationOverride : any
+>this.tree.Root : any
+>this.tree : any
+>this : this
+>tree : any
+>Root : any
+>SetIndentationOverride : any
 >"" : ""
 
             this.ApplyScriptBlockIndentation(this.languageHostIndentation, this.tree);
->this.ApplyScriptBlockIndentation(this.languageHostIndentation, this.tree) : 无值
->类型别名 :=> 无值
->this.ApplyScriptBlockIndentation : (languageHostIndentation: 文字, tree: 任意) => 无值
->this : 本体
->ApplyScriptBlockIndentation : (languageHostIndentation: 文字, tree: 任意) => 无值
->this.languageHostIndentation : 文字
->类型别名 :=> 文字
->this : 本体
->languageHostIndentation : 文字
->类型别名 :=> 文字
->this.tree : 任意
->类型别名 :=> 任意
->this : 本体
->tree : 任意
->类型别名 :=> 任意
+>this.ApplyScriptBlockIndentation(this.languageHostIndentation, this.tree) : void
+>this.ApplyScriptBlockIndentation : (languageHostIndentation: string, tree: any) => void
+>this : this
+>ApplyScriptBlockIndentation : (languageHostIndentation: string, tree: any) => void
+>this.languageHostIndentation : string
+>this : this
+>languageHostIndentation : string
+>this.tree : any
+>this : this
+>tree : any
 
             this.FillInheritedIndentation(this.tree);
->this.FillInheritedIndentation(this.tree) : 无值
->类型别名 :=> 无值
->this.FillInheritedIndentation : (tree: 任意) => 无值
->this : 本体
->FillInheritedIndentation : (tree: 任意) => 无值
->this.tree : 任意
->类型别名 :=> 任意
->this : 本体
->tree : 任意
->类型别名 :=> 任意
+>this.FillInheritedIndentation(this.tree) : void
+>this.FillInheritedIndentation : (tree: any) => void
+>this : this
+>FillInheritedIndentation : (tree: any) => void
+>this.tree : any
+>this : this
+>tree : any
 
         }
 
         public GetIndentationEdits(token: TokenSpan, nextToken: TokenSpan, node: ParseNode, sameLineIndent: boolean): List_TextEditInfo {
->GetIndentationEdits : (token: 任意, nextToken: 任意, node: 任意, sameLineIndent: 真假) => 任意
->token : 任意
->类型别名 :=> 任意
+>GetIndentationEdits : (token: any, nextToken: any, node: any, sameLineIndent: boolean) => any
+>token : any
 >TokenSpan : No type information available!
->nextToken : 任意
->类型别名 :=> 任意
+>nextToken : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
->sameLineIndent : 真假
->类型别名 :=> 真假
+>sameLineIndent : boolean
 >List_TextEditInfo : No type information available!
 
             if (this.logger.information()) {
->this.logger.information() : 任意
->类型别名 :=> 任意
->this.logger.information : 任意
->类型别名 :=> 任意
->this.logger : 任意
->类型别名 :=> 任意
->this : 本体
->logger : 任意
->类型别名 :=> 任意
->information : 任意
->类型别名 :=> 任意
+>this.logger.information() : any
+>this.logger.information : any
+>this.logger : any
+>this : this
+>logger : any
+>information : any
 
                 this.logger.log("GetIndentationEdits(" +
->this.logger.log("GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" +                    ")") : 任意
->类型别名 :=> 任意
->this.logger.log : 任意
->类型别名 :=> 任意
->this.logger : 任意
->类型别名 :=> 任意
->this : 本体
->logger : 任意
->类型别名 :=> 任意
->log : 任意
->类型别名 :=> 任意
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" +                    ")" : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition() : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() : 文字
->类型别名 :=> 文字
->"GetIndentationEdits(" +                    "t1=[" : 文字
->类型别名 :=> 文字
+>this.logger.log("GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" +                    ")") : any
+>this.logger.log : any
+>this.logger : any
+>this : this
+>logger : any
+>log : any
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" +                    ")" : string
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" : string
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) : string
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +                    "t2=[" : string
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " : string
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition() : string
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() + "," : string
+>"GetIndentationEdits(" +                    "t1=[" + token.Span.startPosition() : string
+>"GetIndentationEdits(" +                    "t1=[" : string
 >"GetIndentationEdits(" : "GetIndentationEdits("
 
                     "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition()+ "], " +
 >"t1=[" : "t1=["
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
 >"," : ","
->token.Span.endPosition() : 任意
->类型别名 :=> 任意
->token.Span.endPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->endPosition : 任意
->类型别名 :=> 任意
+>token.Span.endPosition() : any
+>token.Span.endPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>endPosition : any
 >"], " : "], "
 
                     "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" +
 >"t2=[" : "t2=["
->(nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) : 文字
->类型别名 :=> 文字
->nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition()) : 文字
->类型别名 :=> 文字
->nextToken == null : 真假
->类型别名 :=> 真假
->nextToken : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>(nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) : string
+>nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition()) : string
+>nextToken == null : boolean
+>nextToken : any
+>null : null
 >"null" : "null"
->(nextToken.Span.startPosition() + "," + nextToken.Span.endPosition()) : 文字
->类型别名 :=> 文字
->nextToken.Span.startPosition() + "," + nextToken.Span.endPosition() : 文字
->类型别名 :=> 文字
->nextToken.Span.startPosition() + "," : 文字
->类型别名 :=> 文字
->nextToken.Span.startPosition() : 任意
->类型别名 :=> 任意
->nextToken.Span.startPosition : 任意
->类型别名 :=> 任意
->nextToken.Span : 任意
->类型别名 :=> 任意
->nextToken : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>(nextToken.Span.startPosition() + "," + nextToken.Span.endPosition()) : string
+>nextToken.Span.startPosition() + "," + nextToken.Span.endPosition() : string
+>nextToken.Span.startPosition() + "," : string
+>nextToken.Span.startPosition() : any
+>nextToken.Span.startPosition : any
+>nextToken.Span : any
+>nextToken : any
+>Span : any
+>startPosition : any
 >"," : ","
->nextToken.Span.endPosition() : 任意
->类型别名 :=> 任意
->nextToken.Span.endPosition : 任意
->类型别名 :=> 任意
->nextToken.Span : 任意
->类型别名 :=> 任意
->nextToken : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->endPosition : 任意
->类型别名 :=> 任意
+>nextToken.Span.endPosition() : any
+>nextToken.Span.endPosition : any
+>nextToken.Span : any
+>nextToken : any
+>Span : any
+>endPosition : any
 >"]" : "]"
 
                     ")");
@@ -307,172 +211,107 @@ module Formatting {
             }
 
             var result = this.GetIndentationEditsWorker(token, nextToken, node, sameLineIndent);
->result : 任意
->类型别名 :=> 任意
->this.GetIndentationEditsWorker(token, nextToken, node, sameLineIndent) : 任意
->类型别名 :=> 任意
->this.GetIndentationEditsWorker : (token: 任意, nextToken: 任意, node: 任意, sameLineIndent: 真假) => 任意
->this : 本体
->GetIndentationEditsWorker : (token: 任意, nextToken: 任意, node: 任意, sameLineIndent: 真假) => 任意
->token : 任意
->类型别名 :=> 任意
->nextToken : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->sameLineIndent : 真假
->类型别名 :=> 真假
+>result : any
+>this.GetIndentationEditsWorker(token, nextToken, node, sameLineIndent) : any
+>this.GetIndentationEditsWorker : (token: any, nextToken: any, node: any, sameLineIndent: boolean) => any
+>this : this
+>GetIndentationEditsWorker : (token: any, nextToken: any, node: any, sameLineIndent: boolean) => any
+>token : any
+>nextToken : any
+>node : any
+>sameLineIndent : boolean
 
             if (this.logger.information()) {
->this.logger.information() : 任意
->类型别名 :=> 任意
->this.logger.information : 任意
->类型别名 :=> 任意
->this.logger : 任意
->类型别名 :=> 任意
->this : 本体
->logger : 任意
->类型别名 :=> 任意
->information : 任意
->类型别名 :=> 任意
+>this.logger.information() : any
+>this.logger.information : any
+>this.logger : any
+>this : this
+>logger : any
+>information : any
 
                 for (var i = 0; i < result.count() ; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < result.count() : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->result.count() : 任意
->类型别名 :=> 任意
->result.count : 任意
->类型别名 :=> 任意
->result : 任意
->类型别名 :=> 任意
->count : 任意
->类型别名 :=> 任意
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i < result.count() : boolean
+>i : number
+>result.count() : any
+>result.count : any
+>result : any
+>count : any
+>i++ : number
+>i : number
 
                     var edit = result.get(i);
->edit : 任意
->类型别名 :=> 任意
->result.get(i) : 任意
->类型别名 :=> 任意
->result.get : 任意
->类型别名 :=> 任意
->result : 任意
->类型别名 :=> 任意
->get : 任意
->类型别名 :=> 任意
->i : 数字
->类型别名 :=> 数字
+>edit : any
+>result.get(i) : any
+>result.get : any
+>result : any
+>get : any
+>i : number
 
                     this.logger.log("edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" + TypeScript.stringToLiteral(edit.replaceWith, 30) + "\"");
->this.logger.log("edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" + TypeScript.stringToLiteral(edit.replaceWith, 30) + "\"") : 任意
->类型别名 :=> 任意
->this.logger.log : 任意
->类型别名 :=> 任意
->this.logger : 任意
->类型别名 :=> 任意
->this : 本体
->logger : 任意
->类型别名 :=> 任意
->log : 任意
->类型别名 :=> 任意
->"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" + TypeScript.stringToLiteral(edit.replaceWith, 30) + "\"" : 文字
->类型别名 :=> 文字
->"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" + TypeScript.stringToLiteral(edit.replaceWith, 30) : 文字
->类型别名 :=> 文字
->"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" : 文字
->类型别名 :=> 文字
->"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) : 文字
->类型别名 :=> 文字
->"edit: minChar=" + edit.position + ", limChar=" : 文字
->类型别名 :=> 文字
->"edit: minChar=" + edit.position : 文字
->类型别名 :=> 文字
+>this.logger.log("edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" + TypeScript.stringToLiteral(edit.replaceWith, 30) + "\"") : any
+>this.logger.log : any
+>this.logger : any
+>this : this
+>logger : any
+>log : any
+>"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" + TypeScript.stringToLiteral(edit.replaceWith, 30) + "\"" : string
+>"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" + TypeScript.stringToLiteral(edit.replaceWith, 30) : string
+>"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) + ", text=\"" : string
+>"edit: minChar=" + edit.position + ", limChar=" + (edit.position + edit.length) : string
+>"edit: minChar=" + edit.position + ", limChar=" : string
+>"edit: minChar=" + edit.position : string
 >"edit: minChar=" : "edit: minChar="
->edit.position : 任意
->类型别名 :=> 任意
->edit : 任意
->类型别名 :=> 任意
->position : 任意
->类型别名 :=> 任意
+>edit.position : any
+>edit : any
+>position : any
 >", limChar=" : ", limChar="
->(edit.position + edit.length) : 任意
->类型别名 :=> 任意
->edit.position + edit.length : 任意
->类型别名 :=> 任意
->edit.position : 任意
->类型别名 :=> 任意
->edit : 任意
->类型别名 :=> 任意
->position : 任意
->类型别名 :=> 任意
->edit.length : 任意
->类型别名 :=> 任意
->edit : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>(edit.position + edit.length) : any
+>edit.position + edit.length : any
+>edit.position : any
+>edit : any
+>position : any
+>edit.length : any
+>edit : any
+>length : any
 >", text=\"" : ", text=\""
->TypeScript.stringToLiteral(edit.replaceWith, 30) : 任意
->类型别名 :=> 任意
->TypeScript.stringToLiteral : 任意
->类型别名 :=> 任意
->TypeScript : 任意
->类型别名 :=> 任意
->stringToLiteral : 任意
->类型别名 :=> 任意
->edit.replaceWith : 任意
->类型别名 :=> 任意
->edit : 任意
->类型别名 :=> 任意
->replaceWith : 任意
->类型别名 :=> 任意
+>TypeScript.stringToLiteral(edit.replaceWith, 30) : any
+>TypeScript.stringToLiteral : any
+>TypeScript : any
+>stringToLiteral : any
+>edit.replaceWith : any
+>edit : any
+>replaceWith : any
 >30 : 30
 >"\"" : "\""
                 }
             }
 
             return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
         }
 
         public GetIndentationEditsWorker(token: TokenSpan, nextToken: TokenSpan, node: ParseNode, sameLineIndent: boolean): List_TextEditInfo {
->GetIndentationEditsWorker : (token: 任意, nextToken: 任意, node: 任意, sameLineIndent: 真假) => 任意
->token : 任意
->类型别名 :=> 任意
+>GetIndentationEditsWorker : (token: any, nextToken: any, node: any, sameLineIndent: boolean) => any
+>token : any
 >TokenSpan : No type information available!
->nextToken : 任意
->类型别名 :=> 任意
+>nextToken : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
->sameLineIndent : 真假
->类型别名 :=> 真假
+>sameLineIndent : boolean
 >List_TextEditInfo : No type information available!
 
             var result = new List_TextEditInfo();
->result : 任意
->类型别名 :=> 任意
->new List_TextEditInfo() : 任意
->类型别名 :=> 任意
->List_TextEditInfo : 任意
->类型别名 :=> 任意
+>result : any
+>new List_TextEditInfo() : any
+>List_TextEditInfo : any
 
             var indentationInfo: IndentationInfo = null;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 >IndentationInfo : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             // This handles the case:
             //      return (
@@ -485,264 +324,158 @@ module Formatting {
             // It's also done in ParseTree when we traverse up the tree because we don't have the 
             // tokens for nodes outside the span we are formatting.
             this.AdjustStartOffsetIfNeeded(token, node);
->this.AdjustStartOffsetIfNeeded(token, node) : 无值
->类型别名 :=> 无值
->this.AdjustStartOffsetIfNeeded : (token: 任意, node: 任意) => 无值
->this : 本体
->AdjustStartOffsetIfNeeded : (token: 任意, node: 任意) => 无值
->token : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>this.AdjustStartOffsetIfNeeded(token, node) : void
+>this.AdjustStartOffsetIfNeeded : (token: any, node: any) => void
+>this : this
+>AdjustStartOffsetIfNeeded : (token: any, node: any) => void
+>token : any
+>node : any
 
             // Don't adjust indentation on the same line of a script block
             if (this.scriptBlockBeginLineNumber == token.lineNumber()) {
->this.scriptBlockBeginLineNumber == token.lineNumber() : 真假
->类型别名 :=> 真假
->this.scriptBlockBeginLineNumber : 数字
->类型别名 :=> 数字
->this : 本体
->scriptBlockBeginLineNumber : 数字
->类型别名 :=> 数字
->token.lineNumber() : 任意
->类型别名 :=> 任意
->token.lineNumber : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->lineNumber : 任意
->类型别名 :=> 任意
+>this.scriptBlockBeginLineNumber == token.lineNumber() : boolean
+>this.scriptBlockBeginLineNumber : number
+>this : this
+>scriptBlockBeginLineNumber : number
+>token.lineNumber() : any
+>token.lineNumber : any
+>token : any
+>lineNumber : any
 
                 return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
             }
 
             // Don't indent multi-line strings
             if (!sameLineIndent && this.IsMultiLineString(token)) {
->!sameLineIndent && this.IsMultiLineString(token) : 真假
->类型别名 :=> 真假
->!sameLineIndent : 真假
->类型别名 :=> 真假
->sameLineIndent : 真假
->类型别名 :=> 真假
->this.IsMultiLineString(token) : 真假
->类型别名 :=> 真假
->this.IsMultiLineString : (token: 任意) => 真假
->this : 本体
->IsMultiLineString : (token: 任意) => 真假
->token : 任意
->类型别名 :=> 任意
+>!sameLineIndent && this.IsMultiLineString(token) : boolean
+>!sameLineIndent : boolean
+>sameLineIndent : boolean
+>this.IsMultiLineString(token) : boolean
+>this.IsMultiLineString : (token: any) => boolean
+>this : this
+>IsMultiLineString : (token: any) => boolean
+>token : any
 
                 return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
             }
 
             // Special cases for the tokens that don't show up in the tree, such as curly braces and comments
             indentationInfo = this.GetSpecialCaseIndentation(token, node);
->indentationInfo = this.GetSpecialCaseIndentation(token, node) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->this.GetSpecialCaseIndentation(token, node) : 任意
->类型别名 :=> 任意
->this.GetSpecialCaseIndentation : (token: 任意, node: 任意) => 任意
->this : 本体
->GetSpecialCaseIndentation : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>indentationInfo = this.GetSpecialCaseIndentation(token, node) : any
+>indentationInfo : any
+>this.GetSpecialCaseIndentation(token, node) : any
+>this.GetSpecialCaseIndentation : (token: any, node: any) => any
+>this : this
+>GetSpecialCaseIndentation : (token: any, node: any) => any
+>token : any
+>node : any
 
             if (indentationInfo == null) {
->indentationInfo == null : 真假
->类型别名 :=> 真假
->indentationInfo : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>indentationInfo == null : boolean
+>indentationInfo : any
+>null : null
 
                 //// For anything else
 
                 // Get the indentation level only from the node that starts on the same offset as the token
                 // otherwise the token is not meant to be indented
                 while (!node.CanIndent() && node.Parent != null && token.Span.span.start() == node.Parent.AuthorNode.Details.StartOffset)
->!node.CanIndent() && node.Parent != null && token.Span.span.start() == node.Parent.AuthorNode.Details.StartOffset : 真假
->类型别名 :=> 真假
->!node.CanIndent() && node.Parent != null : 真假
->类型别名 :=> 真假
->!node.CanIndent() : 真假
->类型别名 :=> 真假
->node.CanIndent() : 任意
->类型别名 :=> 任意
->node.CanIndent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
->node.Parent != null : 真假
->类型别名 :=> 真假
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->token.Span.span.start() == node.Parent.AuthorNode.Details.StartOffset : 真假
->类型别名 :=> 真假
->token.Span.span.start() : 任意
->类型别名 :=> 任意
->token.Span.span.start : 任意
->类型别名 :=> 任意
->token.Span.span : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->span : 任意
->类型别名 :=> 任意
->start : 任意
->类型别名 :=> 任意
->node.Parent.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->node.Parent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.Parent.AuthorNode : 任意
->类型别名 :=> 任意
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>!node.CanIndent() && node.Parent != null && token.Span.span.start() == node.Parent.AuthorNode.Details.StartOffset : boolean
+>!node.CanIndent() && node.Parent != null : boolean
+>!node.CanIndent() : boolean
+>node.CanIndent() : any
+>node.CanIndent : any
+>node : any
+>CanIndent : any
+>node.Parent != null : boolean
+>node.Parent : any
+>node : any
+>Parent : any
+>null : null
+>token.Span.span.start() == node.Parent.AuthorNode.Details.StartOffset : boolean
+>token.Span.span.start() : any
+>token.Span.span.start : any
+>token.Span.span : any
+>token.Span : any
+>token : any
+>Span : any
+>span : any
+>start : any
+>node.Parent.AuthorNode.Details.StartOffset : any
+>node.Parent.AuthorNode.Details : any
+>node.Parent.AuthorNode : any
+>node.Parent : any
+>node : any
+>Parent : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                     node = node.Parent;
->node = node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>node = node.Parent : any
+>node : any
+>node.Parent : any
+>node : any
+>Parent : any
 
                 if (node.CanIndent() && token.Span.span.start() == node.AuthorNode.Details.StartOffset) {
->node.CanIndent() && token.Span.span.start() == node.AuthorNode.Details.StartOffset : 真假
->类型别名 :=> 真假
->node.CanIndent() : 任意
->类型别名 :=> 任意
->node.CanIndent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
->token.Span.span.start() == node.AuthorNode.Details.StartOffset : 真假
->类型别名 :=> 真假
->token.Span.span.start() : 任意
->类型别名 :=> 任意
->token.Span.span.start : 任意
->类型别名 :=> 任意
->token.Span.span : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->span : 任意
->类型别名 :=> 任意
->start : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>node.CanIndent() && token.Span.span.start() == node.AuthorNode.Details.StartOffset : boolean
+>node.CanIndent() : any
+>node.CanIndent : any
+>node : any
+>CanIndent : any
+>token.Span.span.start() == node.AuthorNode.Details.StartOffset : boolean
+>token.Span.span.start() : any
+>token.Span.span.start : any
+>token.Span.span : any
+>token.Span : any
+>token : any
+>Span : any
+>span : any
+>start : any
+>node.AuthorNode.Details.StartOffset : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                     indentationInfo = node.GetEffectiveIndentation(this);
->indentationInfo = node.GetEffectiveIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetEffectiveIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetEffectiveIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetEffectiveIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetEffectiveIndentation(this) : any
+>indentationInfo : any
+>node.GetEffectiveIndentation(this) : any
+>node.GetEffectiveIndentation : any
+>node : any
+>GetEffectiveIndentation : any
+>this : this
                 }
                 else {
                     //// Special cases for anything else that is not in the tree and should be indented
 
                     // check for label (identifier followed by a colon)
                     if (token.Token == AuthorTokenKind.atkIdentifier && nextToken != null && nextToken.Token == AuthorTokenKind.atkColon) {
->token.Token == AuthorTokenKind.atkIdentifier && nextToken != null && nextToken.Token == AuthorTokenKind.atkColon : 真假
->类型别名 :=> 真假
->token.Token == AuthorTokenKind.atkIdentifier && nextToken != null : 真假
->类型别名 :=> 真假
->token.Token == AuthorTokenKind.atkIdentifier : 真假
->类型别名 :=> 真假
->token.Token : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Token : 任意
->类型别名 :=> 任意
->AuthorTokenKind.atkIdentifier : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkIdentifier : 任意
->类型别名 :=> 任意
->nextToken != null : 真假
->类型别名 :=> 真假
->nextToken : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->nextToken.Token == AuthorTokenKind.atkColon : 真假
->类型别名 :=> 真假
->nextToken.Token : 任意
->类型别名 :=> 任意
->nextToken : 任意
->类型别名 :=> 任意
->Token : 任意
->类型别名 :=> 任意
->AuthorTokenKind.atkColon : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkColon : 任意
->类型别名 :=> 任意
+>token.Token == AuthorTokenKind.atkIdentifier && nextToken != null && nextToken.Token == AuthorTokenKind.atkColon : boolean
+>token.Token == AuthorTokenKind.atkIdentifier && nextToken != null : boolean
+>token.Token == AuthorTokenKind.atkIdentifier : boolean
+>token.Token : any
+>token : any
+>Token : any
+>AuthorTokenKind.atkIdentifier : any
+>AuthorTokenKind : any
+>atkIdentifier : any
+>nextToken != null : boolean
+>nextToken : any
+>null : null
+>nextToken.Token == AuthorTokenKind.atkColon : boolean
+>nextToken.Token : any
+>nextToken : any
+>Token : any
+>AuthorTokenKind.atkColon : any
+>AuthorTokenKind : any
+>atkColon : any
 
                         // This will make the label on the same level as the surrounding function/block
                         // ex: 
@@ -752,19 +485,13 @@ module Formatting {
                         //          statement;
                         // }
                         indentationInfo = node.GetEffectiveChildrenIndentation(this);
->indentationInfo = node.GetEffectiveChildrenIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetEffectiveChildrenIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetEffectiveChildrenIndentation(this) : any
+>indentationInfo : any
+>node.GetEffectiveChildrenIndentation(this) : any
+>node.GetEffectiveChildrenIndentation : any
+>node : any
+>GetEffectiveChildrenIndentation : any
+>this : this
                     }
                     else {
                         //// Move the token the same indentation-delta that moved its indentable parent
@@ -773,140 +500,91 @@ module Formatting {
                         ////        b;
                         //// The declaration 'b' would remain under 'a' even if 'var' got indented.
                         indentationInfo = this.ApplyIndentationDeltaFromParent(token, node);
->indentationInfo = this.ApplyIndentationDeltaFromParent(token, node) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDeltaFromParent(token, node) : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDeltaFromParent : (token: 任意, node: 任意) => 任意
->this : 本体
->ApplyIndentationDeltaFromParent : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>indentationInfo = this.ApplyIndentationDeltaFromParent(token, node) : any
+>indentationInfo : any
+>this.ApplyIndentationDeltaFromParent(token, node) : any
+>this.ApplyIndentationDeltaFromParent : (token: any, node: any) => any
+>this : this
+>ApplyIndentationDeltaFromParent : (token: any, node: any) => any
+>token : any
+>node : any
                     }
                 }
             }
 
             // Get the indent edit from the indentation info
             if (indentationInfo != null) {
->indentationInfo != null : 真假
->类型别名 :=> 真假
->indentationInfo : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>indentationInfo != null : boolean
+>indentationInfo : any
+>null : null
 
                 var edit = this.GetIndentEdit(indentationInfo, token.Span.startPosition(), sameLineIndent);
->edit : 任意
->类型别名 :=> 任意
->this.GetIndentEdit(indentationInfo, token.Span.startPosition(), sameLineIndent) : 任意
->类型别名 :=> 任意
->this.GetIndentEdit : (indentInfo: 任意, tokenStartPosition: 数字, sameLineIndent: 真假) => 任意
->this : 本体
->GetIndentEdit : (indentInfo: 任意, tokenStartPosition: 数字, sameLineIndent: 真假) => 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
->sameLineIndent : 真假
->类型别名 :=> 真假
+>edit : any
+>this.GetIndentEdit(indentationInfo, token.Span.startPosition(), sameLineIndent) : any
+>this.GetIndentEdit : (indentInfo: any, tokenStartPosition: number, sameLineIndent: boolean) => any
+>this : this
+>GetIndentEdit : (indentInfo: any, tokenStartPosition: number, sameLineIndent: boolean) => any
+>indentationInfo : any
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
+>sameLineIndent : boolean
 
                 if (edit != null) {
->edit != null : 真假
->类型别名 :=> 真假
->edit : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>edit != null : boolean
+>edit : any
+>null : null
 
                     this.RegisterIndentation(edit, sameLineIndent);
->this.RegisterIndentation(edit, sameLineIndent) : 无值
->类型别名 :=> 无值
->this.RegisterIndentation : (indent: 任意, sameLineIndent: 真假) => 无值
->this : 本体
->RegisterIndentation : (indent: 任意, sameLineIndent: 真假) => 无值
->edit : 任意
->类型别名 :=> 任意
->sameLineIndent : 真假
->类型别名 :=> 真假
+>this.RegisterIndentation(edit, sameLineIndent) : void
+>this.RegisterIndentation : (indent: any, sameLineIndent: boolean) => void
+>this : this
+>RegisterIndentation : (indent: any, sameLineIndent: boolean) => void
+>edit : any
+>sameLineIndent : boolean
 
                     result.add(edit);
->result.add(edit) : 任意
->类型别名 :=> 任意
->result.add : 任意
->类型别名 :=> 任意
->result : 任意
->类型别名 :=> 任意
->add : 任意
->类型别名 :=> 任意
->edit : 任意
->类型别名 :=> 任意
+>result.add(edit) : any
+>result.add : any
+>result : any
+>add : any
+>edit : any
 
                     // multi-line comments, apply delta indentation to all the other lines
                     if (token.Token == AuthorTokenKind.atkComment) {
->token.Token == AuthorTokenKind.atkComment : 真假
->类型别名 :=> 真假
->token.Token : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Token : 任意
->类型别名 :=> 任意
->AuthorTokenKind.atkComment : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkComment : 任意
->类型别名 :=> 任意
+>token.Token == AuthorTokenKind.atkComment : boolean
+>token.Token : any
+>token : any
+>Token : any
+>AuthorTokenKind.atkComment : any
+>AuthorTokenKind : any
+>atkComment : any
 
                         var commentEdits = this.GetCommentIndentationEdits(token);
->commentEdits : 任意
->类型别名 :=> 任意
->this.GetCommentIndentationEdits(token) : 任意
->类型别名 :=> 任意
->this.GetCommentIndentationEdits : (token: 任意) => 任意
->this : 本体
->GetCommentIndentationEdits : (token: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
+>commentEdits : any
+>this.GetCommentIndentationEdits(token) : any
+>this.GetCommentIndentationEdits : (token: any) => any
+>this : this
+>GetCommentIndentationEdits : (token: any) => any
+>token : any
 
                         commentEdits.foreach((item) => {
->commentEdits.foreach((item) => {                            result.add(item);                        }) : 任意
->类型别名 :=> 任意
->commentEdits.foreach : 任意
->类型别名 :=> 任意
->commentEdits : 任意
->类型别名 :=> 任意
->foreach : 任意
->类型别名 :=> 任意
->(item) => {                            result.add(item);                        } : (item: 任意) => 无值
->item : 任意
->类型别名 :=> 任意
+>commentEdits.foreach((item) => {                            result.add(item);                        }) : any
+>commentEdits.foreach : any
+>commentEdits : any
+>foreach : any
+>(item) => {                            result.add(item);                        } : (item: any) => void
+>item : any
 
                             result.add(item);
->result.add(item) : 任意
->类型别名 :=> 任意
->result.add : 任意
->类型别名 :=> 任意
->result : 任意
->类型别名 :=> 任意
->add : 任意
->类型别名 :=> 任意
->item : 任意
->类型别名 :=> 任意
+>result.add(item) : any
+>result.add : any
+>result : any
+>add : any
+>item : any
 
                         });
                     }
@@ -914,393 +592,249 @@ module Formatting {
             }
 
             return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
         }
 
         private GetCommentIndentationEdits(token: TokenSpan): List_TextEditInfo {
->GetCommentIndentationEdits : (token: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
+>GetCommentIndentationEdits : (token: any) => any
+>token : any
 >TokenSpan : No type information available!
 >List_TextEditInfo : No type information available!
 
             var result = new List_TextEditInfo();
->result : 任意
->类型别名 :=> 任意
->new List_TextEditInfo() : 任意
->类型别名 :=> 任意
->List_TextEditInfo : 任意
->类型别名 :=> 任意
+>result : any
+>new List_TextEditInfo() : any
+>List_TextEditInfo : any
 
             if (token.Token != AuthorTokenKind.atkComment)
->token.Token != AuthorTokenKind.atkComment : 真假
->类型别名 :=> 真假
->token.Token : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Token : 任意
->类型别名 :=> 任意
->AuthorTokenKind.atkComment : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkComment : 任意
->类型别名 :=> 任意
+>token.Token != AuthorTokenKind.atkComment : boolean
+>token.Token : any
+>token : any
+>Token : any
+>AuthorTokenKind.atkComment : any
+>AuthorTokenKind : any
+>atkComment : any
 
                 return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
 
             var commentLastLineNumber = this.snapshot.GetLineNumberFromPosition(token.Span.endPosition());
->commentLastLineNumber : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->token.Span.endPosition() : 任意
->类型别名 :=> 任意
->token.Span.endPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->endPosition : 任意
->类型别名 :=> 任意
+>commentLastLineNumber : any
+>this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>token.Span.endPosition() : any
+>token.Span.endPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>endPosition : any
 
             if (token.lineNumber() == commentLastLineNumber)
->token.lineNumber() == commentLastLineNumber : 真假
->类型别名 :=> 真假
->token.lineNumber() : 任意
->类型别名 :=> 任意
->token.lineNumber : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->lineNumber : 任意
->类型别名 :=> 任意
->commentLastLineNumber : 任意
->类型别名 :=> 任意
+>token.lineNumber() == commentLastLineNumber : boolean
+>token.lineNumber() : any
+>token.lineNumber : any
+>token : any
+>lineNumber : any
+>commentLastLineNumber : any
 
                 return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
 
             var commentFirstLineIndentationDelta = this.GetIndentationDelta(token.Span.startPosition(), null);
->commentFirstLineIndentationDelta : 数字
->类型别名 :=> 数字
->this.GetIndentationDelta(token.Span.startPosition(), null) : 数字
->类型别名 :=> 数字
->this.GetIndentationDelta : (tokenStartPosition: 数字, childTokenStartPosition: 数字) => 数字
->this : 本体
->GetIndentationDelta : (tokenStartPosition: 数字, childTokenStartPosition: 数字) => 数字
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>commentFirstLineIndentationDelta : number
+>this.GetIndentationDelta(token.Span.startPosition(), null) : number
+>this.GetIndentationDelta : (tokenStartPosition: number, childTokenStartPosition: number) => number
+>this : this
+>GetIndentationDelta : (tokenStartPosition: number, childTokenStartPosition: number) => number
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
+>null : null
 
             if (commentFirstLineIndentationDelta != undefined) {
->commentFirstLineIndentationDelta != undefined : 真假
->类型别名 :=> 真假
->commentFirstLineIndentationDelta : 数字
->类型别名 :=> 数字
->undefined : 未定
->类型别名 :=> 未定
+>commentFirstLineIndentationDelta != undefined : boolean
+>commentFirstLineIndentationDelta : number
+>undefined : undefined
 
                 for (var line = token.lineNumber() + 1; line <= commentLastLineNumber; line++) {
->line : 任意
->类型别名 :=> 任意
->token.lineNumber() + 1 : 任意
->类型别名 :=> 任意
->token.lineNumber() : 任意
->类型别名 :=> 任意
->token.lineNumber : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->lineNumber : 任意
->类型别名 :=> 任意
+>line : any
+>token.lineNumber() + 1 : any
+>token.lineNumber() : any
+>token.lineNumber : any
+>token : any
+>lineNumber : any
 >1 : 1
->line <= commentLastLineNumber : 真假
->类型别名 :=> 真假
->line : 任意
->类型别名 :=> 任意
->commentLastLineNumber : 任意
->类型别名 :=> 任意
->line++ : 数字
->类型别名 :=> 数字
->line : 任意
->类型别名 :=> 任意
+>line <= commentLastLineNumber : boolean
+>line : any
+>commentLastLineNumber : any
+>line++ : number
+>line : any
 
                     var lineStartPosition = this.snapshot.GetLineFromLineNumber(line).startPosition();
->lineStartPosition : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromLineNumber(line).startPosition() : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromLineNumber(line).startPosition : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromLineNumber(line) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromLineNumber : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineFromLineNumber : 任意
->类型别名 :=> 任意
->line : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>lineStartPosition : any
+>this.snapshot.GetLineFromLineNumber(line).startPosition() : any
+>this.snapshot.GetLineFromLineNumber(line).startPosition : any
+>this.snapshot.GetLineFromLineNumber(line) : any
+>this.snapshot.GetLineFromLineNumber : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineFromLineNumber : any
+>line : any
+>startPosition : any
 
                     var lineIndent = this.GetLineIndentationForOffset(lineStartPosition);
->lineIndent : 文字
->类型别名 :=> 文字
->this.GetLineIndentationForOffset(lineStartPosition) : 文字
->类型别名 :=> 文字
->this.GetLineIndentationForOffset : (offset: 数字) => 文字
->this : 本体
->GetLineIndentationForOffset : (offset: 数字) => 文字
->lineStartPosition : 任意
->类型别名 :=> 任意
+>lineIndent : string
+>this.GetLineIndentationForOffset(lineStartPosition) : string
+>this.GetLineIndentationForOffset : (offset: number) => string
+>this : this
+>GetLineIndentationForOffset : (offset: number) => string
+>lineStartPosition : any
 
                     var commentIndentationInfo = this.ApplyIndentationDelta2(lineIndent, commentFirstLineIndentationDelta);
->commentIndentationInfo : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDelta2(lineIndent, commentFirstLineIndentationDelta) : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDelta2 : (currentIndent: 文字, delta: 数字) => 任意
->this : 本体
->ApplyIndentationDelta2 : (currentIndent: 文字, delta: 数字) => 任意
->lineIndent : 文字
->类型别名 :=> 文字
->commentFirstLineIndentationDelta : 数字
->类型别名 :=> 数字
+>commentIndentationInfo : any
+>this.ApplyIndentationDelta2(lineIndent, commentFirstLineIndentationDelta) : any
+>this.ApplyIndentationDelta2 : (currentIndent: string, delta: number) => any
+>this : this
+>ApplyIndentationDelta2 : (currentIndent: string, delta: number) => any
+>lineIndent : string
+>commentFirstLineIndentationDelta : number
 
                     if (commentIndentationInfo != null) {
->commentIndentationInfo != null : 真假
->类型别名 :=> 真假
->commentIndentationInfo : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>commentIndentationInfo != null : boolean
+>commentIndentationInfo : any
+>null : null
 
                         var tokenStartPosition = lineStartPosition + lineIndent.length;
->tokenStartPosition : 任意
->类型别名 :=> 任意
->lineStartPosition + lineIndent.length : 任意
->类型别名 :=> 任意
->lineStartPosition : 任意
->类型别名 :=> 任意
->lineIndent.length : 数字
->类型别名 :=> 数字
->lineIndent : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>tokenStartPosition : any
+>lineStartPosition + lineIndent.length : any
+>lineStartPosition : any
+>lineIndent.length : number
+>lineIndent : string
+>length : number
 
                         var commentIndentationEdit = this.GetIndentEdit(commentIndentationInfo, tokenStartPosition, false);
->commentIndentationEdit : 任意
->类型别名 :=> 任意
->this.GetIndentEdit(commentIndentationInfo, tokenStartPosition, false) : 任意
->类型别名 :=> 任意
->this.GetIndentEdit : (indentInfo: 任意, tokenStartPosition: 数字, sameLineIndent: 真假) => 任意
->this : 本体
->GetIndentEdit : (indentInfo: 任意, tokenStartPosition: 数字, sameLineIndent: 真假) => 任意
->commentIndentationInfo : 任意
->类型别名 :=> 任意
->tokenStartPosition : 任意
->类型别名 :=> 任意
->false : 为假
->类型别名 :=> 为假
+>commentIndentationEdit : any
+>this.GetIndentEdit(commentIndentationInfo, tokenStartPosition, false) : any
+>this.GetIndentEdit : (indentInfo: any, tokenStartPosition: number, sameLineIndent: boolean) => any
+>this : this
+>GetIndentEdit : (indentInfo: any, tokenStartPosition: number, sameLineIndent: boolean) => any
+>commentIndentationInfo : any
+>tokenStartPosition : any
+>false : false
 
                         if (commentIndentationEdit != null) {
->commentIndentationEdit != null : 真假
->类型别名 :=> 真假
->commentIndentationEdit : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>commentIndentationEdit != null : boolean
+>commentIndentationEdit : any
+>null : null
 
                             result.add(commentIndentationEdit);
->result.add(commentIndentationEdit) : 任意
->类型别名 :=> 任意
->result.add : 任意
->类型别名 :=> 任意
->result : 任意
->类型别名 :=> 任意
->add : 任意
->类型别名 :=> 任意
->commentIndentationEdit : 任意
->类型别名 :=> 任意
+>result.add(commentIndentationEdit) : any
+>result.add : any
+>result : any
+>add : any
+>commentIndentationEdit : any
                         }
                     }
                 }
             }
 
             return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
         }
 
         static GetIndentSizeFromIndentText(indentText: string, editorOptions: Services.EditorOptions): number {
->GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->indentText : 文字
->类型别名 :=> 文字
->editorOptions : 任意
->类型别名 :=> 任意
->Services : 任意
->类型别名 :=> 任意
+>GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>indentText : string
+>editorOptions : any
+>Services : any
 >EditorOptions : No type information available!
 
             return GetIndentSizeFromText(indentText, editorOptions, /*includeNonIndentChars:*/ false);
->GetIndentSizeFromText(indentText, editorOptions, /*includeNonIndentChars:*/ false) : 任意
->类型别名 :=> 任意
->GetIndentSizeFromText : 任意
->类型别名 :=> 任意
->indentText : 文字
->类型别名 :=> 文字
->editorOptions : 任意
->类型别名 :=> 任意
->false : 为假
->类型别名 :=> 为假
+>GetIndentSizeFromText(indentText, editorOptions, /*includeNonIndentChars:*/ false) : any
+>GetIndentSizeFromText : any
+>indentText : string
+>editorOptions : any
+>false : false
         }
 
         static GetIndentSizeFromText(text: string, editorOptions: Services.EditorOptions, includeNonIndentChars: boolean): number {
->GetIndentSizeFromText : (text: 文字, editorOptions: 任意, includeNonIndentChars: 真假) => 数字
->text : 文字
->类型别名 :=> 文字
->editorOptions : 任意
->类型别名 :=> 任意
->Services : 任意
->类型别名 :=> 任意
+>GetIndentSizeFromText : (text: string, editorOptions: any, includeNonIndentChars: boolean) => number
+>text : string
+>editorOptions : any
+>Services : any
 >EditorOptions : No type information available!
->includeNonIndentChars : 真假
->类型别名 :=> 真假
+>includeNonIndentChars : boolean
 
             var indentSize = 0;
->indentSize : 数字
->类型别名 :=> 数字
+>indentSize : number
 >0 : 0
 
             for (var i = 0; i < text.length; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < text.length : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->text.length : 数字
->类型别名 :=> 数字
->text : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i < text.length : boolean
+>i : number
+>text.length : number
+>text : string
+>length : number
+>i++ : number
+>i : number
 
                 var c = text.charAt(i);
->c : 文字
->类型别名 :=> 文字
->text.charAt(i) : 文字
->类型别名 :=> 文字
->text.charAt : (pos: 数字) => 文字
->text : 文字
->类型别名 :=> 文字
->charAt : (pos: 数字) => 文字
->i : 数字
->类型别名 :=> 数字
+>c : string
+>text.charAt(i) : string
+>text.charAt : (pos: number) => string
+>text : string
+>charAt : (pos: number) => string
+>i : number
 
                 if (c == '\t')
->c == '\t' : 真假
->类型别名 :=> 真假
->c : 文字
->类型别名 :=> 文字
+>c == '\t' : boolean
+>c : string
 >'\t' : "\t"
 
                     indentSize = (indentSize + editorOptions.TabSize) - (indentSize % editorOptions.TabSize);
->indentSize = (indentSize + editorOptions.TabSize) - (indentSize % editorOptions.TabSize) : 数字
->类型别名 :=> 数字
->indentSize : 数字
->类型别名 :=> 数字
->(indentSize + editorOptions.TabSize) - (indentSize % editorOptions.TabSize) : 数字
->类型别名 :=> 数字
->(indentSize + editorOptions.TabSize) : 任意
->类型别名 :=> 任意
->indentSize + editorOptions.TabSize : 任意
->类型别名 :=> 任意
->indentSize : 数字
->类型别名 :=> 数字
->editorOptions.TabSize : 任意
->类型别名 :=> 任意
->editorOptions : 任意
->类型别名 :=> 任意
->TabSize : 任意
->类型别名 :=> 任意
->(indentSize % editorOptions.TabSize) : 数字
->类型别名 :=> 数字
->indentSize % editorOptions.TabSize : 数字
->类型别名 :=> 数字
->indentSize : 数字
->类型别名 :=> 数字
->editorOptions.TabSize : 任意
->类型别名 :=> 任意
->editorOptions : 任意
->类型别名 :=> 任意
->TabSize : 任意
->类型别名 :=> 任意
+>indentSize = (indentSize + editorOptions.TabSize) - (indentSize % editorOptions.TabSize) : number
+>indentSize : number
+>(indentSize + editorOptions.TabSize) - (indentSize % editorOptions.TabSize) : number
+>(indentSize + editorOptions.TabSize) : any
+>indentSize + editorOptions.TabSize : any
+>indentSize : number
+>editorOptions.TabSize : any
+>editorOptions : any
+>TabSize : any
+>(indentSize % editorOptions.TabSize) : number
+>indentSize % editorOptions.TabSize : number
+>indentSize : number
+>editorOptions.TabSize : any
+>editorOptions : any
+>TabSize : any
 
                 else if (c == ' ')
->c == ' ' : 真假
->类型别名 :=> 真假
->c : 文字
->类型别名 :=> 文字
+>c == ' ' : boolean
+>c : string
 >' ' : " "
 
                     indentSize += 1;
->indentSize += 1 : 数字
->类型别名 :=> 数字
->indentSize : 数字
->类型别名 :=> 数字
+>indentSize += 1 : number
+>indentSize : number
 >1 : 1
 
                 else {
                     if (includeNonIndentChars)
->includeNonIndentChars : 真假
->类型别名 :=> 真假
+>includeNonIndentChars : boolean
 
                         indentSize += 1;
->indentSize += 1 : 数字
->类型别名 :=> 数字
->indentSize : 数字
->类型别名 :=> 数字
+>indentSize += 1 : number
+>indentSize : number
 >1 : 1
 
                     else
@@ -1309,886 +843,555 @@ module Formatting {
             }
 
             return indentSize;
->indentSize : 数字
->类型别名 :=> 数字
+>indentSize : number
         }
 
         private GetSpecialCaseIndentation(token: TokenSpan, node: ParseNode): IndentationInfo {
->GetSpecialCaseIndentation : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
+>GetSpecialCaseIndentation : (token: any, node: any) => any
+>token : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
 >IndentationInfo : No type information available!
 
             var indentationInfo: IndentationInfo = null;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 >IndentationInfo : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             switch (token.Token) {
->token.Token : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Token : 任意
->类型别名 :=> 任意
+>token.Token : any
+>token : any
+>Token : any
 
                 case AuthorTokenKind.atkLCurly: // { is not part of the tree
->AuthorTokenKind.atkLCurly : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkLCurly : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkLCurly : any
+>AuthorTokenKind : any
+>atkLCurly : any
 
                     indentationInfo = this.GetSpecialCaseIndentationForLCurly(node);
->indentationInfo = this.GetSpecialCaseIndentationForLCurly(node) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->this.GetSpecialCaseIndentationForLCurly(node) : 任意
->类型别名 :=> 任意
->this.GetSpecialCaseIndentationForLCurly : (node: 任意) => 任意
->this : 本体
->GetSpecialCaseIndentationForLCurly : (node: 任意) => 任意
->node : 任意
->类型别名 :=> 任意
+>indentationInfo = this.GetSpecialCaseIndentationForLCurly(node) : any
+>indentationInfo : any
+>this.GetSpecialCaseIndentationForLCurly(node) : any
+>this.GetSpecialCaseIndentationForLCurly : (node: any) => any
+>this : this
+>GetSpecialCaseIndentationForLCurly : (node: any) => any
+>node : any
 
                     return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 
                 case AuthorTokenKind.atkElse:   // else is not part of the tree
->AuthorTokenKind.atkElse : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkElse : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkElse : any
+>AuthorTokenKind : any
+>atkElse : any
 
                 case AuthorTokenKind.atkRBrack: // ] is not part of the tree
->AuthorTokenKind.atkRBrack : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkRBrack : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkRBrack : any
+>AuthorTokenKind : any
+>atkRBrack : any
 
                     indentationInfo = node.GetNodeStartLineIndentation(this);
->indentationInfo = node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetNodeStartLineIndentation(this) : any
+>indentationInfo : any
+>node.GetNodeStartLineIndentation(this) : any
+>node.GetNodeStartLineIndentation : any
+>node : any
+>GetNodeStartLineIndentation : any
+>this : this
 
                     return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 
                 case AuthorTokenKind.atkRCurly: // } is not part of the tree
->AuthorTokenKind.atkRCurly : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkRCurly : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkRCurly : any
+>AuthorTokenKind : any
+>atkRCurly : any
 
                     // if '}' is for a body-block, get indentation based on its parent.
                     if (node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkBlock && node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneBody)
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkBlock && node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneBody : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkBlock : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkBlock : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkBlock : 任意
->类型别名 :=> 任意
->node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneBody : 真假
->类型别名 :=> 真假
->node.AuthorNode.EdgeLabel : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->EdgeLabel : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge.apneBody : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge : 任意
->类型别名 :=> 任意
->apneBody : 任意
->类型别名 :=> 任意
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkBlock && node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneBody : boolean
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkBlock : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkBlock : any
+>AuthorParseNodeKind : any
+>apnkBlock : any
+>node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneBody : boolean
+>node.AuthorNode.EdgeLabel : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>EdgeLabel : any
+>AuthorParseNodeEdge.apneBody : any
+>AuthorParseNodeEdge : any
+>apneBody : any
 
                         node = node.Parent;
->node = node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>node = node.Parent : any
+>node : any
+>node.Parent : any
+>node : any
+>Parent : any
 
                     indentationInfo = node.GetNodeStartLineIndentation(this);
->indentationInfo = node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetNodeStartLineIndentation(this) : any
+>indentationInfo : any
+>node.GetNodeStartLineIndentation(this) : any
+>node.GetNodeStartLineIndentation : any
+>node : any
+>GetNodeStartLineIndentation : any
+>this : this
 
                     return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 
                 case AuthorTokenKind.atkWhile: // while (in do-while) is not part of the tree
->AuthorTokenKind.atkWhile : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkWhile : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkWhile : any
+>AuthorTokenKind : any
+>atkWhile : any
 
                     if (node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkDoWhile) {
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkDoWhile : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkDoWhile : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkDoWhile : 任意
->类型别名 :=> 任意
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkDoWhile : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkDoWhile : any
+>AuthorParseNodeKind : any
+>apnkDoWhile : any
 
                         indentationInfo = node.GetNodeStartLineIndentation(this);
->indentationInfo = node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetNodeStartLineIndentation(this) : any
+>indentationInfo : any
+>node.GetNodeStartLineIndentation(this) : any
+>node.GetNodeStartLineIndentation : any
+>node : any
+>GetNodeStartLineIndentation : any
+>this : this
 
                         return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
                     }
 
                     return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 
                 case AuthorTokenKind.atkSColon:
->AuthorTokenKind.atkSColon : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkSColon : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkSColon : any
+>AuthorTokenKind : any
+>atkSColon : any
 
                     return this.GetSpecialCaseIndentationForSemicolon(token, node);
->this.GetSpecialCaseIndentationForSemicolon(token, node) : 任意
->类型别名 :=> 任意
->this.GetSpecialCaseIndentationForSemicolon : (token: 任意, node: 任意) => 任意
->this : 本体
->GetSpecialCaseIndentationForSemicolon : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>this.GetSpecialCaseIndentationForSemicolon(token, node) : any
+>this.GetSpecialCaseIndentationForSemicolon : (token: any, node: any) => any
+>this : this
+>GetSpecialCaseIndentationForSemicolon : (token: any, node: any) => any
+>token : any
+>node : any
 
                 case AuthorTokenKind.atkComment:
->AuthorTokenKind.atkComment : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkComment : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkComment : any
+>AuthorTokenKind : any
+>atkComment : any
 
                     return this.GetSpecialCaseIndentationForComment(token, node);
->this.GetSpecialCaseIndentationForComment(token, node) : 任意
->类型别名 :=> 任意
->this.GetSpecialCaseIndentationForComment : (token: 任意, node: 任意) => 任意
->this : 本体
->GetSpecialCaseIndentationForComment : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>this.GetSpecialCaseIndentationForComment(token, node) : any
+>this.GetSpecialCaseIndentationForComment : (token: any, node: any) => any
+>this : this
+>GetSpecialCaseIndentationForComment : (token: any, node: any) => any
+>token : any
+>node : any
 
                 default:
                     return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
             }
         }
 
         private GetSpecialCaseIndentationForLCurly(node: ParseNode): IndentationInfo {
->GetSpecialCaseIndentationForLCurly : (node: 任意) => 任意
->node : 任意
->类型别名 :=> 任意
+>GetSpecialCaseIndentationForLCurly : (node: any) => any
+>node : any
 >ParseNode : No type information available!
 >IndentationInfo : No type information available!
 
             var indentationInfo: IndentationInfo = null;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 >IndentationInfo : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             if (node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl ||
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl ||                node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen || node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneElse : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl ||                node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkFncDecl : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkFncDecl : 任意
->类型别名 :=> 任意
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl ||                node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen || node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneElse : boolean
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl ||                node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen : boolean
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkFncDecl : any
+>AuthorParseNodeKind : any
+>apnkFncDecl : any
 
                 node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen || node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneElse) {
->node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen : 真假
->类型别名 :=> 真假
->node.AuthorNode.EdgeLabel : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->EdgeLabel : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge.apneThen : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge : 任意
->类型别名 :=> 任意
->apneThen : 任意
->类型别名 :=> 任意
->node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneElse : 真假
->类型别名 :=> 真假
->node.AuthorNode.EdgeLabel : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->EdgeLabel : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge.apneElse : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge : 任意
->类型别名 :=> 任意
->apneElse : 任意
->类型别名 :=> 任意
+>node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen : boolean
+>node.AuthorNode.EdgeLabel : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>EdgeLabel : any
+>AuthorParseNodeEdge.apneThen : any
+>AuthorParseNodeEdge : any
+>apneThen : any
+>node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneElse : boolean
+>node.AuthorNode.EdgeLabel : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>EdgeLabel : any
+>AuthorParseNodeEdge.apneElse : any
+>AuthorParseNodeEdge : any
+>apneElse : any
 
                     // flushed with the node (function & if)
                 indentationInfo = node.GetNodeStartLineIndentation(this);
->indentationInfo = node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetNodeStartLineIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetNodeStartLineIndentation(this) : any
+>indentationInfo : any
+>node.GetNodeStartLineIndentation(this) : any
+>node.GetNodeStartLineIndentation : any
+>node : any
+>GetNodeStartLineIndentation : any
+>this : this
 
                 return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
             }
             else if (node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject && !node.CanIndent()) {
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject && !node.CanIndent() : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkObject : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkObject : 任意
->类型别名 :=> 任意
->!node.CanIndent() : 真假
->类型别名 :=> 真假
->node.CanIndent() : 任意
->类型别名 :=> 任意
->node.CanIndent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject && !node.CanIndent() : boolean
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkObject : any
+>AuthorParseNodeKind : any
+>apnkObject : any
+>!node.CanIndent() : boolean
+>node.CanIndent() : any
+>node.CanIndent : any
+>node : any
+>CanIndent : any
 
                 // if the open curly belongs to a non-indented object, do nothing here.
                 return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
             }
 
             // effective identation of the block
             indentationInfo = node.GetEffectiveIndentation(this);
->indentationInfo = node.GetEffectiveIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetEffectiveIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetEffectiveIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetEffectiveIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetEffectiveIndentation(this) : any
+>indentationInfo : any
+>node.GetEffectiveIndentation(this) : any
+>node.GetEffectiveIndentation : any
+>node : any
+>GetEffectiveIndentation : any
+>this : this
 
             return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
         }
 
         private GetSpecialCaseIndentationForSemicolon(token: TokenSpan, node: ParseNode): IndentationInfo {
->GetSpecialCaseIndentationForSemicolon : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
+>GetSpecialCaseIndentationForSemicolon : (token: any, node: any) => any
+>token : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
 >IndentationInfo : No type information available!
 
             var indentationInfo: IndentationInfo = null;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 >IndentationInfo : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             if (this.smartIndent) {
->this.smartIndent : 真假
->类型别名 :=> 真假
->this : 本体
->smartIndent : 真假
->类型别名 :=> 真假
+>this.smartIndent : boolean
+>this : this
+>smartIndent : boolean
 
                 indentationInfo = node.GetEffectiveChildrenIndentation(this);
->indentationInfo = node.GetEffectiveChildrenIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetEffectiveChildrenIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetEffectiveChildrenIndentation(this) : any
+>indentationInfo : any
+>node.GetEffectiveChildrenIndentation(this) : any
+>node.GetEffectiveChildrenIndentation : any
+>node : any
+>GetEffectiveChildrenIndentation : any
+>this : this
 
                 return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
             }
             else {
                 // Indent all semicolons except the ones that belong to the for statement parts (initalizer, condition, itnrement)
                 if (node.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkFor) {
->node.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkFor : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkFor : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkFor : 任意
->类型别名 :=> 任意
+>node.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkFor : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkFor : any
+>AuthorParseNodeKind : any
+>apnkFor : any
 
                     // The passed node is actually either the program or the list because semicolon doesn't belong
                     // to any statement in the tree, though the statement extends up to the semicolon position.
                     // To find the correct statement, we look for the adjacent node on the left of the semicolon.
                     var semiColonStartSpan = new Span(token.Span.startPosition(), 0);
->semiColonStartSpan : 任意
->类型别名 :=> 任意
->new Span(token.Span.startPosition(), 0) : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>semiColonStartSpan : any
+>new Span(token.Span.startPosition(), 0) : any
+>Span : any
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
 >0 : 0
 
                     node = ParseTree.FindCommonParentNode(semiColonStartSpan, semiColonStartSpan, node);
->node = ParseTree.FindCommonParentNode(semiColonStartSpan, semiColonStartSpan, node) : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->ParseTree.FindCommonParentNode(semiColonStartSpan, semiColonStartSpan, node) : 任意
->类型别名 :=> 任意
->ParseTree.FindCommonParentNode : 任意
->类型别名 :=> 任意
->ParseTree : 任意
->类型别名 :=> 任意
->FindCommonParentNode : 任意
->类型别名 :=> 任意
->semiColonStartSpan : 任意
->类型别名 :=> 任意
->semiColonStartSpan : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>node = ParseTree.FindCommonParentNode(semiColonStartSpan, semiColonStartSpan, node) : any
+>node : any
+>ParseTree.FindCommonParentNode(semiColonStartSpan, semiColonStartSpan, node) : any
+>ParseTree.FindCommonParentNode : any
+>ParseTree : any
+>FindCommonParentNode : any
+>semiColonStartSpan : any
+>semiColonStartSpan : any
+>node : any
 
                     indentationInfo = node.GetEffectiveChildrenIndentation(this);
->indentationInfo = node.GetEffectiveChildrenIndentation(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentation(this) : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentation : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetEffectiveChildrenIndentation : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetEffectiveChildrenIndentation(this) : any
+>indentationInfo : any
+>node.GetEffectiveChildrenIndentation(this) : any
+>node.GetEffectiveChildrenIndentation : any
+>node : any
+>GetEffectiveChildrenIndentation : any
+>this : this
 
                     return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
                 }
             }
 
             return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
 
         private GetSpecialCaseIndentationForComment(token: TokenSpan, node: ParseNode): IndentationInfo {
->GetSpecialCaseIndentationForComment : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
+>GetSpecialCaseIndentationForComment : (token: any, node: any) => any
+>token : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
 >IndentationInfo : No type information available!
 
             var indentationInfo: IndentationInfo = null;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 >IndentationInfo : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             // Only indent line comment and the first line of block comment
             var twoCharSpan = token.Span.Intersection(new Span(token.Span.startPosition(), 2));
->twoCharSpan : 任意
->类型别名 :=> 任意
->token.Span.Intersection(new Span(token.Span.startPosition(), 2)) : 任意
->类型别名 :=> 任意
->token.Span.Intersection : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->Intersection : 任意
->类型别名 :=> 任意
->new Span(token.Span.startPosition(), 2) : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>twoCharSpan : any
+>token.Span.Intersection(new Span(token.Span.startPosition(), 2)) : any
+>token.Span.Intersection : any
+>token.Span : any
+>token : any
+>Span : any
+>Intersection : any
+>new Span(token.Span.startPosition(), 2) : any
+>Span : any
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
 >2 : 2
 
             if (twoCharSpan != null && (twoCharSpan.GetText() == "//" || twoCharSpan.GetText() == "/*")) {
->twoCharSpan != null && (twoCharSpan.GetText() == "//" || twoCharSpan.GetText() == "/*") : 真假
->类型别名 :=> 真假
->twoCharSpan != null : 真假
->类型别名 :=> 真假
->twoCharSpan : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->(twoCharSpan.GetText() == "//" || twoCharSpan.GetText() == "/*") : 真假
->类型别名 :=> 真假
->twoCharSpan.GetText() == "//" || twoCharSpan.GetText() == "/*" : 真假
->类型别名 :=> 真假
->twoCharSpan.GetText() == "//" : 真假
->类型别名 :=> 真假
->twoCharSpan.GetText() : 任意
->类型别名 :=> 任意
->twoCharSpan.GetText : 任意
->类型别名 :=> 任意
->twoCharSpan : 任意
->类型别名 :=> 任意
->GetText : 任意
->类型别名 :=> 任意
+>twoCharSpan != null && (twoCharSpan.GetText() == "//" || twoCharSpan.GetText() == "/*") : boolean
+>twoCharSpan != null : boolean
+>twoCharSpan : any
+>null : null
+>(twoCharSpan.GetText() == "//" || twoCharSpan.GetText() == "/*") : boolean
+>twoCharSpan.GetText() == "//" || twoCharSpan.GetText() == "/*" : boolean
+>twoCharSpan.GetText() == "//" : boolean
+>twoCharSpan.GetText() : any
+>twoCharSpan.GetText : any
+>twoCharSpan : any
+>GetText : any
 >"//" : "//"
->twoCharSpan.GetText() == "/*" : 真假
->类型别名 :=> 真假
->twoCharSpan.GetText() : 任意
->类型别名 :=> 任意
->twoCharSpan.GetText : 任意
->类型别名 :=> 任意
->twoCharSpan : 任意
->类型别名 :=> 任意
->GetText : 任意
->类型别名 :=> 任意
+>twoCharSpan.GetText() == "/*" : boolean
+>twoCharSpan.GetText() : any
+>twoCharSpan.GetText : any
+>twoCharSpan : any
+>GetText : any
 >"/*" : "/*"
 
                 while (node.ChildrenIndentationDelta == null && node.Parent != null)
->node.ChildrenIndentationDelta == null && node.Parent != null : 真假
->类型别名 :=> 真假
->node.ChildrenIndentationDelta == null : 真假
->类型别名 :=> 真假
->node.ChildrenIndentationDelta : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->ChildrenIndentationDelta : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->node.Parent != null : 真假
->类型别名 :=> 真假
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>node.ChildrenIndentationDelta == null && node.Parent != null : boolean
+>node.ChildrenIndentationDelta == null : boolean
+>node.ChildrenIndentationDelta : any
+>node : any
+>ChildrenIndentationDelta : any
+>null : null
+>node.Parent != null : boolean
+>node.Parent : any
+>node : any
+>Parent : any
+>null : null
 
                     node = node.Parent;
->node = node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>node = node.Parent : any
+>node : any
+>node.Parent : any
+>node : any
+>Parent : any
 
                 if (this.CanIndentComment(token, node)) {
->this.CanIndentComment(token, node) : 真假
->类型别名 :=> 真假
->this.CanIndentComment : (token: 任意, node: 任意) => 真假
->this : 本体
->CanIndentComment : (token: 任意, node: 任意) => 真假
->token : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>this.CanIndentComment(token, node) : boolean
+>this.CanIndentComment : (token: any, node: any) => boolean
+>this : this
+>CanIndentComment : (token: any, node: any) => boolean
+>token : any
+>node : any
 
                     indentationInfo = node.GetEffectiveChildrenIndentationForComment(this);
->indentationInfo = node.GetEffectiveChildrenIndentationForComment(this) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentationForComment(this) : 任意
->类型别名 :=> 任意
->node.GetEffectiveChildrenIndentationForComment : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->GetEffectiveChildrenIndentationForComment : 任意
->类型别名 :=> 任意
->this : 本体
+>indentationInfo = node.GetEffectiveChildrenIndentationForComment(this) : any
+>indentationInfo : any
+>node.GetEffectiveChildrenIndentationForComment(this) : any
+>node.GetEffectiveChildrenIndentationForComment : any
+>node : any
+>GetEffectiveChildrenIndentationForComment : any
+>this : this
                 }
                 else {
                     indentationInfo = this.ApplyIndentationDeltaFromParent(token, node);
->indentationInfo = this.ApplyIndentationDeltaFromParent(token, node) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDeltaFromParent(token, node) : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDeltaFromParent : (token: 任意, node: 任意) => 任意
->this : 本体
->ApplyIndentationDeltaFromParent : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>indentationInfo = this.ApplyIndentationDeltaFromParent(token, node) : any
+>indentationInfo : any
+>this.ApplyIndentationDeltaFromParent(token, node) : any
+>this.ApplyIndentationDeltaFromParent : (token: any, node: any) => any
+>this : this
+>ApplyIndentationDeltaFromParent : (token: any, node: any) => any
+>token : any
+>node : any
                 }
             }
 
             return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
         }
 
         private CanIndentComment(token: TokenSpan, node: ParseNode): boolean {
->CanIndentComment : (token: 任意, node: 任意) => 真假
->token : 任意
->类型别名 :=> 任意
+>CanIndentComment : (token: any, node: any) => boolean
+>token : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
 
             switch (node.AuthorNode.Details.Kind) {
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
 
                 case AuthorParseNodeKind.apnkProg:
->AuthorParseNodeKind.apnkProg : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkProg : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkProg : any
+>AuthorParseNodeKind : any
+>apnkProg : any
 
                 case AuthorParseNodeKind.apnkBlock:
->AuthorParseNodeKind.apnkBlock : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkBlock : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkBlock : any
+>AuthorParseNodeKind : any
+>apnkBlock : any
 
                 case AuthorParseNodeKind.apnkSwitch:
->AuthorParseNodeKind.apnkSwitch : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkSwitch : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkSwitch : any
+>AuthorParseNodeKind : any
+>apnkSwitch : any
 
                 case AuthorParseNodeKind.apnkCase:
->AuthorParseNodeKind.apnkCase : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkCase : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkCase : any
+>AuthorParseNodeKind : any
+>apnkCase : any
 
                 case AuthorParseNodeKind.apnkDefaultCase:
->AuthorParseNodeKind.apnkDefaultCase : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkDefaultCase : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkDefaultCase : any
+>AuthorParseNodeKind : any
+>apnkDefaultCase : any
 
                 case AuthorParseNodeKind.apnkIf:
->AuthorParseNodeKind.apnkIf : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkIf : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkIf : any
+>AuthorParseNodeKind : any
+>apnkIf : any
 
                 case AuthorParseNodeKind.apnkFor:
->AuthorParseNodeKind.apnkFor : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkFor : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkFor : any
+>AuthorParseNodeKind : any
+>apnkFor : any
 
                 case AuthorParseNodeKind.apnkForIn:
->AuthorParseNodeKind.apnkForIn : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkForIn : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkForIn : any
+>AuthorParseNodeKind : any
+>apnkForIn : any
 
                 case AuthorParseNodeKind.apnkWhile:
->AuthorParseNodeKind.apnkWhile : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkWhile : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkWhile : any
+>AuthorParseNodeKind : any
+>apnkWhile : any
 
                 case AuthorParseNodeKind.apnkWith:
->AuthorParseNodeKind.apnkWith : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkWith : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkWith : any
+>AuthorParseNodeKind : any
+>apnkWith : any
 
                 case AuthorParseNodeKind.apnkDoWhile:
->AuthorParseNodeKind.apnkDoWhile : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkDoWhile : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkDoWhile : any
+>AuthorParseNodeKind : any
+>apnkDoWhile : any
 
                 case AuthorParseNodeKind.apnkObject:
->AuthorParseNodeKind.apnkObject : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkObject : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkObject : any
+>AuthorParseNodeKind : any
+>apnkObject : any
 
                     return true;
->true : 为真
->类型别名 :=> 为真
+>true : true
 
                 case AuthorParseNodeKind.apnkFncDecl:
->AuthorParseNodeKind.apnkFncDecl : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkFncDecl : 任意
->类型别名 :=> 任意
+>AuthorParseNodeKind.apnkFncDecl : any
+>AuthorParseNodeKind : any
+>apnkFncDecl : any
 
                     // Comments before arguments are not indented.
                     // This code doesn't cover the cases of comment after the last argument or 
@@ -2196,134 +1399,85 @@ module Formatting {
                     // function foo(/* test */ a,
                     //              /* test */ b)
                     var result = true;
->result : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>result : boolean
+>true : true
 
                     var children = ParseNodeExtensions.FindChildrenWithEdge(node, AuthorParseNodeEdge.apneArgument);
->children : 任意
->类型别名 :=> 任意
->ParseNodeExtensions.FindChildrenWithEdge(node, AuthorParseNodeEdge.apneArgument) : 任意
->类型别名 :=> 任意
->ParseNodeExtensions.FindChildrenWithEdge : 任意
->类型别名 :=> 任意
->ParseNodeExtensions : 任意
->类型别名 :=> 任意
->FindChildrenWithEdge : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge.apneArgument : 任意
->类型别名 :=> 任意
->AuthorParseNodeEdge : 任意
->类型别名 :=> 任意
->apneArgument : 任意
->类型别名 :=> 任意
+>children : any
+>ParseNodeExtensions.FindChildrenWithEdge(node, AuthorParseNodeEdge.apneArgument) : any
+>ParseNodeExtensions.FindChildrenWithEdge : any
+>ParseNodeExtensions : any
+>FindChildrenWithEdge : any
+>node : any
+>AuthorParseNodeEdge.apneArgument : any
+>AuthorParseNodeEdge : any
+>apneArgument : any
 
                     children.foreach((argumentNode) => {
->children.foreach((argumentNode) => {                        if (token.Span.startPosition() < argumentNode.AuthorNode.Details.StartOffset)                            result = false;                    }) : 任意
->类型别名 :=> 任意
->children.foreach : 任意
->类型别名 :=> 任意
->children : 任意
->类型别名 :=> 任意
->foreach : 任意
->类型别名 :=> 任意
->(argumentNode) => {                        if (token.Span.startPosition() < argumentNode.AuthorNode.Details.StartOffset)                            result = false;                    } : (argumentNode: 任意) => 无值
->argumentNode : 任意
->类型别名 :=> 任意
+>children.foreach((argumentNode) => {                        if (token.Span.startPosition() < argumentNode.AuthorNode.Details.StartOffset)                            result = false;                    }) : any
+>children.foreach : any
+>children : any
+>foreach : any
+>(argumentNode) => {                        if (token.Span.startPosition() < argumentNode.AuthorNode.Details.StartOffset)                            result = false;                    } : (argumentNode: any) => void
+>argumentNode : any
 
                         if (token.Span.startPosition() < argumentNode.AuthorNode.Details.StartOffset)
->token.Span.startPosition() < argumentNode.AuthorNode.Details.StartOffset : 真假
->类型别名 :=> 真假
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
->argumentNode.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->argumentNode.AuthorNode.Details : 任意
->类型别名 :=> 任意
->argumentNode.AuthorNode : 任意
->类型别名 :=> 任意
->argumentNode : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>token.Span.startPosition() < argumentNode.AuthorNode.Details.StartOffset : boolean
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
+>argumentNode.AuthorNode.Details.StartOffset : any
+>argumentNode.AuthorNode.Details : any
+>argumentNode.AuthorNode : any
+>argumentNode : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                             result = false;
->result = false : 为假
->类型别名 :=> 为假
->result : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>result = false : false
+>result : boolean
+>false : false
 
                     });
 
                     return result;
->result : 为真
->类型别名 :=> 为真
+>result : true
             }
 
             return false;
->false : 为假
->类型别名 :=> 为假
+>false : false
         }
 
         private ApplyScriptBlockIndentation(languageHostIndentation: string, tree: ParseTree): void
->ApplyScriptBlockIndentation : (languageHostIndentation: 文字, tree: 任意) => 无值
->languageHostIndentation : 文字
->类型别名 :=> 文字
->tree : 任意
->类型别名 :=> 任意
+>ApplyScriptBlockIndentation : (languageHostIndentation: string, tree: any) => void
+>languageHostIndentation : string
+>tree : any
 >ParseTree : No type information available!
         {
             if (languageHostIndentation == null || tree.StartNodeSelf == null)
->languageHostIndentation == null || tree.StartNodeSelf == null : 真假
->类型别名 :=> 真假
->languageHostIndentation == null : 真假
->类型别名 :=> 真假
->languageHostIndentation : 文字
->类型别名 :=> 文字
->null : 空值
->类型别名 :=> 空值
->tree.StartNodeSelf == null : 真假
->类型别名 :=> 真假
->tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodeSelf : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>languageHostIndentation == null || tree.StartNodeSelf == null : boolean
+>languageHostIndentation == null : boolean
+>languageHostIndentation : string
+>null : null
+>tree.StartNodeSelf == null : boolean
+>tree.StartNodeSelf : any
+>tree : any
+>StartNodeSelf : any
+>null : null
 
                 return;
 
             var scriptBlockIndentation = this.ApplyIndentationLevel(languageHostIndentation, 1);
->scriptBlockIndentation : 文字
->类型别名 :=> 文字
->this.ApplyIndentationLevel(languageHostIndentation, 1) : 文字
->类型别名 :=> 文字
->this.ApplyIndentationLevel : (existingIndentation: 文字, level: 数字) => 文字
->this : 本体
->ApplyIndentationLevel : (existingIndentation: 文字, level: 数字) => 文字
->languageHostIndentation : 文字
->类型别名 :=> 文字
+>scriptBlockIndentation : string
+>this.ApplyIndentationLevel(languageHostIndentation, 1) : string
+>this.ApplyIndentationLevel : (existingIndentation: string, level: number) => string
+>this : this
+>ApplyIndentationLevel : (existingIndentation: string, level: number) => string
+>languageHostIndentation : string
 >1 : 1
 
             //TypeScript: Projection snapshots not supported
@@ -2370,390 +1524,244 @@ module Formatting {
 
             // The root is the program.
             tree.Root.SetIndentationOverride(scriptBlockIndentation);
->tree.Root.SetIndentationOverride(scriptBlockIndentation) : 任意
->类型别名 :=> 任意
->tree.Root.SetIndentationOverride : 任意
->类型别名 :=> 任意
->tree.Root : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->Root : 任意
->类型别名 :=> 任意
->SetIndentationOverride : 任意
->类型别名 :=> 任意
->scriptBlockIndentation : 文字
->类型别名 :=> 文字
+>tree.Root.SetIndentationOverride(scriptBlockIndentation) : any
+>tree.Root.SetIndentationOverride : any
+>tree.Root : any
+>tree : any
+>Root : any
+>SetIndentationOverride : any
+>scriptBlockIndentation : string
         }
 
         private GetIndentEdit(indentInfo: IndentationInfo, tokenStartPosition: number, sameLineIndent: boolean): TextEditInfo {
->GetIndentEdit : (indentInfo: 任意, tokenStartPosition: 数字, sameLineIndent: 真假) => 任意
->indentInfo : 任意
->类型别名 :=> 任意
+>GetIndentEdit : (indentInfo: any, tokenStartPosition: number, sameLineIndent: boolean) => any
+>indentInfo : any
 >IndentationInfo : No type information available!
->tokenStartPosition : 数字
->类型别名 :=> 数字
->sameLineIndent : 真假
->类型别名 :=> 真假
+>tokenStartPosition : number
+>sameLineIndent : boolean
 >TextEditInfo : No type information available!
 
             var indentText = this.ApplyIndentationLevel(indentInfo.Prefix, indentInfo.Level);
->indentText : 文字
->类型别名 :=> 文字
->this.ApplyIndentationLevel(indentInfo.Prefix, indentInfo.Level) : 文字
->类型别名 :=> 文字
->this.ApplyIndentationLevel : (existingIndentation: 文字, level: 数字) => 文字
->this : 本体
->ApplyIndentationLevel : (existingIndentation: 文字, level: 数字) => 文字
->indentInfo.Prefix : 任意
->类型别名 :=> 任意
->indentInfo : 任意
->类型别名 :=> 任意
->Prefix : 任意
->类型别名 :=> 任意
->indentInfo.Level : 任意
->类型别名 :=> 任意
->indentInfo : 任意
->类型别名 :=> 任意
->Level : 任意
->类型别名 :=> 任意
+>indentText : string
+>this.ApplyIndentationLevel(indentInfo.Prefix, indentInfo.Level) : string
+>this.ApplyIndentationLevel : (existingIndentation: string, level: number) => string
+>this : this
+>ApplyIndentationLevel : (existingIndentation: string, level: number) => string
+>indentInfo.Prefix : any
+>indentInfo : any
+>Prefix : any
+>indentInfo.Level : any
+>indentInfo : any
+>Level : any
 
             if (sameLineIndent) {
->sameLineIndent : 真假
->类型别名 :=> 真假
+>sameLineIndent : boolean
 
                 return new TextEditInfo(tokenStartPosition, 0, indentText);
->new TextEditInfo(tokenStartPosition, 0, indentText) : 任意
->类型别名 :=> 任意
->TextEditInfo : 任意
->类型别名 :=> 任意
->tokenStartPosition : 数字
->类型别名 :=> 数字
+>new TextEditInfo(tokenStartPosition, 0, indentText) : any
+>TextEditInfo : any
+>tokenStartPosition : number
 >0 : 0
->indentText : 文字
->类型别名 :=> 文字
+>indentText : string
             }
             else {
                 var snapshotLine = this.snapshot.GetLineFromPosition(tokenStartPosition);
->snapshotLine : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(tokenStartPosition) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineFromPosition : 任意
->类型别名 :=> 任意
->tokenStartPosition : 数字
->类型别名 :=> 数字
+>snapshotLine : any
+>this.snapshot.GetLineFromPosition(tokenStartPosition) : any
+>this.snapshot.GetLineFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineFromPosition : any
+>tokenStartPosition : number
 
                 var currentIndentSpan = new Span(snapshotLine.startPosition(), tokenStartPosition - snapshotLine.startPosition());
->currentIndentSpan : 任意
->类型别名 :=> 任意
->new Span(snapshotLine.startPosition(), tokenStartPosition - snapshotLine.startPosition()) : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->snapshotLine.startPosition() : 任意
->类型别名 :=> 任意
->snapshotLine.startPosition : 任意
->类型别名 :=> 任意
->snapshotLine : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
->tokenStartPosition - snapshotLine.startPosition() : 数字
->类型别名 :=> 数字
->tokenStartPosition : 数字
->类型别名 :=> 数字
->snapshotLine.startPosition() : 任意
->类型别名 :=> 任意
->snapshotLine.startPosition : 任意
->类型别名 :=> 任意
->snapshotLine : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>currentIndentSpan : any
+>new Span(snapshotLine.startPosition(), tokenStartPosition - snapshotLine.startPosition()) : any
+>Span : any
+>snapshotLine.startPosition() : any
+>snapshotLine.startPosition : any
+>snapshotLine : any
+>startPosition : any
+>tokenStartPosition - snapshotLine.startPosition() : number
+>tokenStartPosition : number
+>snapshotLine.startPosition() : any
+>snapshotLine.startPosition : any
+>snapshotLine : any
+>startPosition : any
 
                 var currentIndentText = this.snapshot.GetText(currentIndentSpan);
->currentIndentText : 任意
->类型别名 :=> 任意
->this.snapshot.GetText(currentIndentSpan) : 任意
->类型别名 :=> 任意
->this.snapshot.GetText : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetText : 任意
->类型别名 :=> 任意
->currentIndentSpan : 任意
->类型别名 :=> 任意
+>currentIndentText : any
+>this.snapshot.GetText(currentIndentSpan) : any
+>this.snapshot.GetText : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetText : any
+>currentIndentSpan : any
 
                 if (currentIndentText !== indentText) {
->currentIndentText !== indentText : 真假
->类型别名 :=> 真假
->currentIndentText : 任意
->类型别名 :=> 任意
->indentText : 文字
->类型别名 :=> 文字
+>currentIndentText !== indentText : boolean
+>currentIndentText : any
+>indentText : string
 
                     if (this.logger.debug()) {
->this.logger.debug() : 任意
->类型别名 :=> 任意
->this.logger.debug : 任意
->类型别名 :=> 任意
->this.logger : 任意
->类型别名 :=> 任意
->this : 本体
->logger : 任意
->类型别名 :=> 任意
->debug : 任意
->类型别名 :=> 任意
+>this.logger.debug() : any
+>this.logger.debug : any
+>this.logger : any
+>this : this
+>logger : any
+>debug : any
 
                         // Verify that currentIndentText is all whitespaces
                         for (var i = 0, len = currentIndentText.length; i < len; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->len : 任意
->类型别名 :=> 任意
->currentIndentText.length : 任意
->类型别名 :=> 任意
->currentIndentText : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
->i < len : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
->len : 任意
->类型别名 :=> 任意
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>len : any
+>currentIndentText.length : any
+>currentIndentText : any
+>length : any
+>i < len : boolean
+>i : number
+>len : any
+>i++ : number
+>i : number
 
                             var c = currentIndentText.charCodeAt(i);
->c : 任意
->类型别名 :=> 任意
->currentIndentText.charCodeAt(i) : 任意
->类型别名 :=> 任意
->currentIndentText.charCodeAt : 任意
->类型别名 :=> 任意
->currentIndentText : 任意
->类型别名 :=> 任意
->charCodeAt : 任意
->类型别名 :=> 任意
->i : 数字
->类型别名 :=> 数字
+>c : any
+>currentIndentText.charCodeAt(i) : any
+>currentIndentText.charCodeAt : any
+>currentIndentText : any
+>charCodeAt : any
+>i : number
 
                             if (!StringUtils.IsWhiteSpace(c)) {
->!StringUtils.IsWhiteSpace(c) : 真假
->类型别名 :=> 真假
->StringUtils.IsWhiteSpace(c) : 任意
->类型别名 :=> 任意
->StringUtils.IsWhiteSpace : 任意
->类型别名 :=> 任意
->StringUtils : 任意
->类型别名 :=> 任意
->IsWhiteSpace : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>!StringUtils.IsWhiteSpace(c) : boolean
+>StringUtils.IsWhiteSpace(c) : any
+>StringUtils.IsWhiteSpace : any
+>StringUtils : any
+>IsWhiteSpace : any
+>c : any
 
                                 Debug.Fail("Formatting error: Will remove user code when indenting the line: " + snapshotLine.getText());
->Debug.Fail("Formatting error: Will remove user code when indenting the line: " + snapshotLine.getText()) : 任意
->类型别名 :=> 任意
->Debug.Fail : 任意
->类型别名 :=> 任意
->Debug : 任意
->类型别名 :=> 任意
->Fail : 任意
->类型别名 :=> 任意
->"Formatting error: Will remove user code when indenting the line: " + snapshotLine.getText() : 文字
->类型别名 :=> 文字
+>Debug.Fail("Formatting error: Will remove user code when indenting the line: " + snapshotLine.getText()) : any
+>Debug.Fail : any
+>Debug : any
+>Fail : any
+>"Formatting error: Will remove user code when indenting the line: " + snapshotLine.getText() : string
 >"Formatting error: Will remove user code when indenting the line: " : "Formatting error: Will remove user code when indenting the line: "
->snapshotLine.getText() : 任意
->类型别名 :=> 任意
->snapshotLine.getText : 任意
->类型别名 :=> 任意
->snapshotLine : 任意
->类型别名 :=> 任意
->getText : 任意
->类型别名 :=> 任意
+>snapshotLine.getText() : any
+>snapshotLine.getText : any
+>snapshotLine : any
+>getText : any
 
                                 break;
                             }
                         }
                     }
                     return new TextEditInfo(currentIndentSpan.start(), currentIndentSpan.length(), indentText);
->new TextEditInfo(currentIndentSpan.start(), currentIndentSpan.length(), indentText) : 任意
->类型别名 :=> 任意
->TextEditInfo : 任意
->类型别名 :=> 任意
->currentIndentSpan.start() : 任意
->类型别名 :=> 任意
->currentIndentSpan.start : 任意
->类型别名 :=> 任意
->currentIndentSpan : 任意
->类型别名 :=> 任意
->start : 任意
->类型别名 :=> 任意
->currentIndentSpan.length() : 任意
->类型别名 :=> 任意
->currentIndentSpan.length : 任意
->类型别名 :=> 任意
->currentIndentSpan : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
->indentText : 文字
->类型别名 :=> 文字
+>new TextEditInfo(currentIndentSpan.start(), currentIndentSpan.length(), indentText) : any
+>TextEditInfo : any
+>currentIndentSpan.start() : any
+>currentIndentSpan.start : any
+>currentIndentSpan : any
+>start : any
+>currentIndentSpan.length() : any
+>currentIndentSpan.length : any
+>currentIndentSpan : any
+>length : any
+>indentText : string
                 }
             }
 
             return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
 
         private ApplyIndentationLevel(existingIndentation: string, level: number): string {
->ApplyIndentationLevel : (existingIndentation: 文字, level: 数字) => 文字
->existingIndentation : 文字
->类型别名 :=> 文字
->level : 数字
->类型别名 :=> 数字
+>ApplyIndentationLevel : (existingIndentation: string, level: number) => string
+>existingIndentation : string
+>level : number
 
             var indentSize = this.editorOptions.IndentSize;
->indentSize : 任意
->类型别名 :=> 任意
->this.editorOptions.IndentSize : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
->IndentSize : 任意
->类型别名 :=> 任意
+>indentSize : any
+>this.editorOptions.IndentSize : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
+>IndentSize : any
 
             var tabSize = this.editorOptions.TabSize;
->tabSize : 任意
->类型别名 :=> 任意
->this.editorOptions.TabSize : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
->TabSize : 任意
->类型别名 :=> 任意
+>tabSize : any
+>this.editorOptions.TabSize : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
+>TabSize : any
 
             var convertTabsToSpaces = this.editorOptions.ConvertTabsToSpaces;
->convertTabsToSpaces : 任意
->类型别名 :=> 任意
->this.editorOptions.ConvertTabsToSpaces : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
->ConvertTabsToSpaces : 任意
->类型别名 :=> 任意
+>convertTabsToSpaces : any
+>this.editorOptions.ConvertTabsToSpaces : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
+>ConvertTabsToSpaces : any
 
             if (level < 0) {
->level < 0 : 真假
->类型别名 :=> 真假
->level : 数字
->类型别名 :=> 数字
+>level < 0 : boolean
+>level : number
 >0 : 0
 
                 if (StringUtils.IsNullOrEmpty(existingIndentation))
->StringUtils.IsNullOrEmpty(existingIndentation) : 任意
->类型别名 :=> 任意
->StringUtils.IsNullOrEmpty : 任意
->类型别名 :=> 任意
->StringUtils : 任意
->类型别名 :=> 任意
->IsNullOrEmpty : 任意
->类型别名 :=> 任意
->existingIndentation : 文字
->类型别名 :=> 文字
+>StringUtils.IsNullOrEmpty(existingIndentation) : any
+>StringUtils.IsNullOrEmpty : any
+>StringUtils : any
+>IsNullOrEmpty : any
+>existingIndentation : string
 
                     return "";
 >"" : ""
 
                 var totalIndent = 0;
->totalIndent : 数字
->类型别名 :=> 数字
+>totalIndent : number
 >0 : 0
 
                 StringUtils.foreach(existingIndentation, (c) => {
->StringUtils.foreach(existingIndentation, (c) => {                    if (c == '\t')                        totalIndent += tabSize;                    else                        totalIndent++;                }) : 任意
->类型别名 :=> 任意
->StringUtils.foreach : 任意
->类型别名 :=> 任意
->StringUtils : 任意
->类型别名 :=> 任意
->foreach : 任意
->类型别名 :=> 任意
->existingIndentation : 文字
->类型别名 :=> 文字
->(c) => {                    if (c == '\t')                        totalIndent += tabSize;                    else                        totalIndent++;                } : (c: 任意) => 无值
->c : 任意
->类型别名 :=> 任意
+>StringUtils.foreach(existingIndentation, (c) => {                    if (c == '\t')                        totalIndent += tabSize;                    else                        totalIndent++;                }) : any
+>StringUtils.foreach : any
+>StringUtils : any
+>foreach : any
+>existingIndentation : string
+>(c) => {                    if (c == '\t')                        totalIndent += tabSize;                    else                        totalIndent++;                } : (c: any) => void
+>c : any
 
                     if (c == '\t')
->c == '\t' : 真假
->类型别名 :=> 真假
->c : 任意
->类型别名 :=> 任意
+>c == '\t' : boolean
+>c : any
 >'\t' : "\t"
 
                         totalIndent += tabSize;
->totalIndent += tabSize : 任意
->类型别名 :=> 任意
->totalIndent : 数字
->类型别名 :=> 数字
->tabSize : 任意
->类型别名 :=> 任意
+>totalIndent += tabSize : any
+>totalIndent : number
+>tabSize : any
 
                     else
                         totalIndent++;
->totalIndent++ : 数字
->类型别名 :=> 数字
->totalIndent : 数字
->类型别名 :=> 数字
+>totalIndent++ : number
+>totalIndent : number
 
                 });
 
                 totalIndent += level * indentSize;
->totalIndent += level * indentSize : 数字
->类型别名 :=> 数字
->totalIndent : 数字
->类型别名 :=> 数字
->level * indentSize : 数字
->类型别名 :=> 数字
->level : 数字
->类型别名 :=> 数字
->indentSize : 任意
->类型别名 :=> 任意
+>totalIndent += level * indentSize : number
+>totalIndent : number
+>level * indentSize : number
+>level : number
+>indentSize : any
 
                 if (totalIndent < 0)
->totalIndent < 0 : 真假
->类型别名 :=> 真假
->totalIndent : 数字
->类型别名 :=> 数字
+>totalIndent < 0 : boolean
+>totalIndent : number
 >0 : 0
 
                     return "";
@@ -2761,684 +1769,435 @@ module Formatting {
 
                 else
                     return this.GetIndentString(null, totalIndent, tabSize, convertTabsToSpaces);
->this.GetIndentString(null, totalIndent, tabSize, convertTabsToSpaces) : 文字
->类型别名 :=> 文字
->this.GetIndentString : (prefix: 文字, totalIndentSize: 数字, tabSize: 数字, convertTabsToSpaces: 真假) => 文字
->this : 本体
->GetIndentString : (prefix: 文字, totalIndentSize: 数字, tabSize: 数字, convertTabsToSpaces: 真假) => 文字
->null : 空值
->类型别名 :=> 空值
->totalIndent : 数字
->类型别名 :=> 数字
->tabSize : 任意
->类型别名 :=> 任意
->convertTabsToSpaces : 任意
->类型别名 :=> 任意
+>this.GetIndentString(null, totalIndent, tabSize, convertTabsToSpaces) : string
+>this.GetIndentString : (prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean) => string
+>this : this
+>GetIndentString : (prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean) => string
+>null : null
+>totalIndent : number
+>tabSize : any
+>convertTabsToSpaces : any
             }
 
             var totalIndentSize = level * indentSize;
->totalIndentSize : 数字
->类型别名 :=> 数字
->level * indentSize : 数字
->类型别名 :=> 数字
->level : 数字
->类型别名 :=> 数字
->indentSize : 任意
->类型别名 :=> 任意
+>totalIndentSize : number
+>level * indentSize : number
+>level : number
+>indentSize : any
 
             return this.GetIndentString(existingIndentation, totalIndentSize, tabSize, convertTabsToSpaces);
->this.GetIndentString(existingIndentation, totalIndentSize, tabSize, convertTabsToSpaces) : 文字
->类型别名 :=> 文字
->this.GetIndentString : (prefix: 文字, totalIndentSize: 数字, tabSize: 数字, convertTabsToSpaces: 真假) => 文字
->this : 本体
->GetIndentString : (prefix: 文字, totalIndentSize: 数字, tabSize: 数字, convertTabsToSpaces: 真假) => 文字
->existingIndentation : 文字
->类型别名 :=> 文字
->totalIndentSize : 数字
->类型别名 :=> 数字
->tabSize : 任意
->类型别名 :=> 任意
->convertTabsToSpaces : 任意
->类型别名 :=> 任意
+>this.GetIndentString(existingIndentation, totalIndentSize, tabSize, convertTabsToSpaces) : string
+>this.GetIndentString : (prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean) => string
+>this : this
+>GetIndentString : (prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean) => string
+>existingIndentation : string
+>totalIndentSize : number
+>tabSize : any
+>convertTabsToSpaces : any
         }
 
         private GetIndentString(prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean): string {
->GetIndentString : (prefix: 文字, totalIndentSize: 数字, tabSize: 数字, convertTabsToSpaces: 真假) => 文字
->prefix : 文字
->类型别名 :=> 文字
->totalIndentSize : 数字
->类型别名 :=> 数字
->tabSize : 数字
->类型别名 :=> 数字
->convertTabsToSpaces : 真假
->类型别名 :=> 真假
+>GetIndentString : (prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean) => string
+>prefix : string
+>totalIndentSize : number
+>tabSize : number
+>convertTabsToSpaces : boolean
 
             var tabString = convertTabsToSpaces ? StringUtils.create(' ', tabSize) : "\t";
->tabString : 任意
->类型别名 :=> 任意
->convertTabsToSpaces ? StringUtils.create(' ', tabSize) : "\t" : 任意
->类型别名 :=> 任意
->convertTabsToSpaces : 真假
->类型别名 :=> 真假
->StringUtils.create(' ', tabSize) : 任意
->类型别名 :=> 任意
->StringUtils.create : 任意
->类型别名 :=> 任意
->StringUtils : 任意
->类型别名 :=> 任意
->create : 任意
->类型别名 :=> 任意
+>tabString : any
+>convertTabsToSpaces ? StringUtils.create(' ', tabSize) : "\t" : any
+>convertTabsToSpaces : boolean
+>StringUtils.create(' ', tabSize) : any
+>StringUtils.create : any
+>StringUtils : any
+>create : any
 >' ' : " "
->tabSize : 数字
->类型别名 :=> 数字
+>tabSize : number
 >"\t" : "\t"
 
             var text = "";
->text : 文字
->类型别名 :=> 文字
+>text : string
 >"" : ""
 
             if (!StringUtils.IsNullOrEmpty(prefix))
->!StringUtils.IsNullOrEmpty(prefix) : 真假
->类型别名 :=> 真假
->StringUtils.IsNullOrEmpty(prefix) : 任意
->类型别名 :=> 任意
->StringUtils.IsNullOrEmpty : 任意
->类型别名 :=> 任意
->StringUtils : 任意
->类型别名 :=> 任意
->IsNullOrEmpty : 任意
->类型别名 :=> 任意
->prefix : 文字
->类型别名 :=> 文字
+>!StringUtils.IsNullOrEmpty(prefix) : boolean
+>StringUtils.IsNullOrEmpty(prefix) : any
+>StringUtils.IsNullOrEmpty : any
+>StringUtils : any
+>IsNullOrEmpty : any
+>prefix : string
 
                 text += prefix;
->text += prefix : 文字
->类型别名 :=> 文字
->text : 文字
->类型别名 :=> 文字
->prefix : 文字
->类型别名 :=> 文字
+>text += prefix : string
+>text : string
+>prefix : string
 
             var pos = 0;
->pos : 数字
->类型别名 :=> 数字
+>pos : number
 >0 : 0
 
             // fill first with tabs
             while (pos <= totalIndentSize - tabSize) {
->pos <= totalIndentSize - tabSize : 真假
->类型别名 :=> 真假
->pos : 数字
->类型别名 :=> 数字
->totalIndentSize - tabSize : 数字
->类型别名 :=> 数字
->totalIndentSize : 数字
->类型别名 :=> 数字
->tabSize : 数字
->类型别名 :=> 数字
+>pos <= totalIndentSize - tabSize : boolean
+>pos : number
+>totalIndentSize - tabSize : number
+>totalIndentSize : number
+>tabSize : number
 
                 text += tabString;
->text += tabString : 文字
->类型别名 :=> 文字
->text : 文字
->类型别名 :=> 文字
->tabString : 任意
->类型别名 :=> 任意
+>text += tabString : string
+>text : string
+>tabString : any
 
                 pos += tabSize;
->pos += tabSize : 数字
->类型别名 :=> 数字
->pos : 数字
->类型别名 :=> 数字
->tabSize : 数字
->类型别名 :=> 数字
+>pos += tabSize : number
+>pos : number
+>tabSize : number
             }
 
             // fill the reminder with spaces
             while (pos < totalIndentSize) {
->pos < totalIndentSize : 真假
->类型别名 :=> 真假
->pos : 数字
->类型别名 :=> 数字
->totalIndentSize : 数字
->类型别名 :=> 数字
+>pos < totalIndentSize : boolean
+>pos : number
+>totalIndentSize : number
 
                 text += ' ';
->text += ' ' : 文字
->类型别名 :=> 文字
->text : 文字
->类型别名 :=> 文字
+>text += ' ' : string
+>text : string
 >' ' : " "
 
                 pos++;
->pos++ : 数字
->类型别名 :=> 数字
->pos : 数字
->类型别名 :=> 数字
+>pos++ : number
+>pos : number
             }
 
             return text;
->text : 文字
->类型别名 :=> 文字
+>text : string
         }
 
         private  ApplyIndentationDeltaFromParent(token: TokenSpan, node: ParseNode): IndentationInfo {
->ApplyIndentationDeltaFromParent : (token: 任意, node: 任意) => 任意
->token : 任意
->类型别名 :=> 任意
+>ApplyIndentationDeltaFromParent : (token: any, node: any) => any
+>token : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
 >IndentationInfo : No type information available!
 
             var indentationInfo: IndentationInfo = null;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 >IndentationInfo : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             var indentableParent = node;
->indentableParent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>indentableParent : any
+>node : any
 
             while (indentableParent != null && !indentableParent.CanIndent())
->indentableParent != null && !indentableParent.CanIndent() : 真假
->类型别名 :=> 真假
->indentableParent != null : 真假
->类型别名 :=> 真假
->indentableParent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->!indentableParent.CanIndent() : 真假
->类型别名 :=> 真假
->indentableParent.CanIndent() : 任意
->类型别名 :=> 任意
->indentableParent.CanIndent : 任意
->类型别名 :=> 任意
->indentableParent : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
+>indentableParent != null && !indentableParent.CanIndent() : boolean
+>indentableParent != null : boolean
+>indentableParent : any
+>null : null
+>!indentableParent.CanIndent() : boolean
+>indentableParent.CanIndent() : any
+>indentableParent.CanIndent : any
+>indentableParent : any
+>CanIndent : any
 
                 indentableParent = indentableParent.Parent;
->indentableParent = indentableParent.Parent : 任意
->类型别名 :=> 任意
->indentableParent : 任意
->类型别名 :=> 任意
->indentableParent.Parent : 任意
->类型别名 :=> 任意
->indentableParent : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>indentableParent = indentableParent.Parent : any
+>indentableParent : any
+>indentableParent.Parent : any
+>indentableParent : any
+>Parent : any
 
             if (indentableParent != null && indentableParent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg) {
->indentableParent != null && indentableParent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : 真假
->类型别名 :=> 真假
->indentableParent != null : 真假
->类型别名 :=> 真假
->indentableParent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->indentableParent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : 真假
->类型别名 :=> 真假
->indentableParent.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->indentableParent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->indentableParent.AuthorNode : 任意
->类型别名 :=> 任意
->indentableParent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkProg : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkProg : 任意
->类型别名 :=> 任意
+>indentableParent != null && indentableParent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : boolean
+>indentableParent != null : boolean
+>indentableParent : any
+>null : null
+>indentableParent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : boolean
+>indentableParent.AuthorNode.Details.Kind : any
+>indentableParent.AuthorNode.Details : any
+>indentableParent.AuthorNode : any
+>indentableParent : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkProg : any
+>AuthorParseNodeKind : any
+>apnkProg : any
 
                 var parentIndentationDeltaSize = this.GetIndentationDelta(indentableParent.AuthorNode.Details.StartOffset, token.Span.startPosition());
->parentIndentationDeltaSize : 数字
->类型别名 :=> 数字
->this.GetIndentationDelta(indentableParent.AuthorNode.Details.StartOffset, token.Span.startPosition()) : 数字
->类型别名 :=> 数字
->this.GetIndentationDelta : (tokenStartPosition: 数字, childTokenStartPosition: 数字) => 数字
->this : 本体
->GetIndentationDelta : (tokenStartPosition: 数字, childTokenStartPosition: 数字) => 数字
->indentableParent.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->indentableParent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->indentableParent.AuthorNode : 任意
->类型别名 :=> 任意
->indentableParent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>parentIndentationDeltaSize : number
+>this.GetIndentationDelta(indentableParent.AuthorNode.Details.StartOffset, token.Span.startPosition()) : number
+>this.GetIndentationDelta : (tokenStartPosition: number, childTokenStartPosition: number) => number
+>this : this
+>GetIndentationDelta : (tokenStartPosition: number, childTokenStartPosition: number) => number
+>indentableParent.AuthorNode.Details.StartOffset : any
+>indentableParent.AuthorNode.Details : any
+>indentableParent.AuthorNode : any
+>indentableParent : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
 
                 if (parentIndentationDeltaSize !== undefined) {
->parentIndentationDeltaSize !== undefined : 真假
->类型别名 :=> 真假
->parentIndentationDeltaSize : 数字
->类型别名 :=> 数字
->undefined : 未定
->类型别名 :=> 未定
+>parentIndentationDeltaSize !== undefined : boolean
+>parentIndentationDeltaSize : number
+>undefined : undefined
 
                     indentationInfo = this.ApplyIndentationDelta1(token.Span.startPosition(), parentIndentationDeltaSize);
->indentationInfo = this.ApplyIndentationDelta1(token.Span.startPosition(), parentIndentationDeltaSize) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDelta1(token.Span.startPosition(), parentIndentationDeltaSize) : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDelta1 : (tokenStartPosition: 数字, delta: 数字) => 任意
->this : 本体
->ApplyIndentationDelta1 : (tokenStartPosition: 数字, delta: 数字) => 任意
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
->parentIndentationDeltaSize : 数字
->类型别名 :=> 数字
+>indentationInfo = this.ApplyIndentationDelta1(token.Span.startPosition(), parentIndentationDeltaSize) : any
+>indentationInfo : any
+>this.ApplyIndentationDelta1(token.Span.startPosition(), parentIndentationDeltaSize) : any
+>this.ApplyIndentationDelta1 : (tokenStartPosition: number, delta: number) => any
+>this : this
+>ApplyIndentationDelta1 : (tokenStartPosition: number, delta: number) => any
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
+>parentIndentationDeltaSize : number
                 }
             }
 
             return indentationInfo;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
         }
 
         private ApplyIndentationDelta1(tokenStartPosition: number, delta: number): IndentationInfo {
->ApplyIndentationDelta1 : (tokenStartPosition: 数字, delta: 数字) => 任意
->tokenStartPosition : 数字
->类型别名 :=> 数字
->delta : 数字
->类型别名 :=> 数字
+>ApplyIndentationDelta1 : (tokenStartPosition: number, delta: number) => any
+>tokenStartPosition : number
+>delta : number
 >IndentationInfo : No type information available!
 
             // Get current indentation
             var snapshotLine = this.snapshot.GetLineFromPosition(tokenStartPosition);
->snapshotLine : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(tokenStartPosition) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineFromPosition : 任意
->类型别名 :=> 任意
->tokenStartPosition : 数字
->类型别名 :=> 数字
+>snapshotLine : any
+>this.snapshot.GetLineFromPosition(tokenStartPosition) : any
+>this.snapshot.GetLineFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineFromPosition : any
+>tokenStartPosition : number
 
             var currentIndentSpan = new Span(snapshotLine.startPosition(), tokenStartPosition - snapshotLine.startPosition());
->currentIndentSpan : 任意
->类型别名 :=> 任意
->new Span(snapshotLine.startPosition(), tokenStartPosition - snapshotLine.startPosition()) : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->snapshotLine.startPosition() : 任意
->类型别名 :=> 任意
->snapshotLine.startPosition : 任意
->类型别名 :=> 任意
->snapshotLine : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
->tokenStartPosition - snapshotLine.startPosition() : 数字
->类型别名 :=> 数字
->tokenStartPosition : 数字
->类型别名 :=> 数字
->snapshotLine.startPosition() : 任意
->类型别名 :=> 任意
->snapshotLine.startPosition : 任意
->类型别名 :=> 任意
->snapshotLine : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>currentIndentSpan : any
+>new Span(snapshotLine.startPosition(), tokenStartPosition - snapshotLine.startPosition()) : any
+>Span : any
+>snapshotLine.startPosition() : any
+>snapshotLine.startPosition : any
+>snapshotLine : any
+>startPosition : any
+>tokenStartPosition - snapshotLine.startPosition() : number
+>tokenStartPosition : number
+>snapshotLine.startPosition() : any
+>snapshotLine.startPosition : any
+>snapshotLine : any
+>startPosition : any
 
             var currentIndent = this.snapshot.GetText(currentIndentSpan);
->currentIndent : 任意
->类型别名 :=> 任意
->this.snapshot.GetText(currentIndentSpan) : 任意
->类型别名 :=> 任意
->this.snapshot.GetText : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetText : 任意
->类型别名 :=> 任意
->currentIndentSpan : 任意
->类型别名 :=> 任意
+>currentIndent : any
+>this.snapshot.GetText(currentIndentSpan) : any
+>this.snapshot.GetText : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetText : any
+>currentIndentSpan : any
 
             // Calculate new indentation from current-indentation and delta
             return this.ApplyIndentationDelta2(currentIndent, delta);
->this.ApplyIndentationDelta2(currentIndent, delta) : 任意
->类型别名 :=> 任意
->this.ApplyIndentationDelta2 : (currentIndent: 文字, delta: 数字) => 任意
->this : 本体
->ApplyIndentationDelta2 : (currentIndent: 文字, delta: 数字) => 任意
->currentIndent : 任意
->类型别名 :=> 任意
->delta : 数字
->类型别名 :=> 数字
+>this.ApplyIndentationDelta2(currentIndent, delta) : any
+>this.ApplyIndentationDelta2 : (currentIndent: string, delta: number) => any
+>this : this
+>ApplyIndentationDelta2 : (currentIndent: string, delta: number) => any
+>currentIndent : any
+>delta : number
         }
 
         private ApplyIndentationDelta2(currentIndent: string, delta: number): IndentationInfo {
->ApplyIndentationDelta2 : (currentIndent: 文字, delta: 数字) => 任意
->currentIndent : 文字
->类型别名 :=> 文字
->delta : 数字
->类型别名 :=> 数字
+>ApplyIndentationDelta2 : (currentIndent: string, delta: number) => any
+>currentIndent : string
+>delta : number
 >IndentationInfo : No type information available!
 
             if (delta == 0)
->delta == 0 : 真假
->类型别名 :=> 真假
->delta : 数字
->类型别名 :=> 数字
+>delta == 0 : boolean
+>delta : number
 >0 : 0
 
                 return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             var currentIndentSize = Indenter.GetIndentSizeFromIndentText(currentIndent, this.editorOptions);
->currentIndentSize : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText(currentIndent, this.editorOptions) : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->Indenter : 类为 Indenter
->GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->currentIndent : 文字
->类型别名 :=> 文字
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
+>currentIndentSize : number
+>Indenter.GetIndentSizeFromIndentText(currentIndent, this.editorOptions) : number
+>Indenter.GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>Indenter : typeof Indenter
+>GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>currentIndent : string
+>this.editorOptions : any
+>this : this
+>editorOptions : any
 
             var newIndentSize = currentIndentSize + delta;
->newIndentSize : 数字
->类型别名 :=> 数字
->currentIndentSize + delta : 数字
->类型别名 :=> 数字
->currentIndentSize : 数字
->类型别名 :=> 数字
->delta : 数字
->类型别名 :=> 数字
+>newIndentSize : number
+>currentIndentSize + delta : number
+>currentIndentSize : number
+>delta : number
 
             if (newIndentSize < 0) {
->newIndentSize < 0 : 真假
->类型别名 :=> 真假
->newIndentSize : 数字
->类型别名 :=> 数字
+>newIndentSize < 0 : boolean
+>newIndentSize : number
 >0 : 0
 
                 newIndentSize = 0;
 >newIndentSize = 0 : 0
->newIndentSize : 数字
->类型别名 :=> 数字
+>newIndentSize : number
 >0 : 0
             }
 
             var newIndent = this.GetIndentString(null, newIndentSize, this.editorOptions.TabSize, this.editorOptions.ConvertTabsToSpaces);
->newIndent : 文字
->类型别名 :=> 文字
->this.GetIndentString(null, newIndentSize, this.editorOptions.TabSize, this.editorOptions.ConvertTabsToSpaces) : 文字
->类型别名 :=> 文字
->this.GetIndentString : (prefix: 文字, totalIndentSize: 数字, tabSize: 数字, convertTabsToSpaces: 真假) => 文字
->this : 本体
->GetIndentString : (prefix: 文字, totalIndentSize: 数字, tabSize: 数字, convertTabsToSpaces: 真假) => 文字
->null : 空值
->类型别名 :=> 空值
->newIndentSize : 数字
->类型别名 :=> 数字
->this.editorOptions.TabSize : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
->TabSize : 任意
->类型别名 :=> 任意
->this.editorOptions.ConvertTabsToSpaces : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
->ConvertTabsToSpaces : 任意
->类型别名 :=> 任意
+>newIndent : string
+>this.GetIndentString(null, newIndentSize, this.editorOptions.TabSize, this.editorOptions.ConvertTabsToSpaces) : string
+>this.GetIndentString : (prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean) => string
+>this : this
+>GetIndentString : (prefix: string, totalIndentSize: number, tabSize: number, convertTabsToSpaces: boolean) => string
+>null : null
+>newIndentSize : number
+>this.editorOptions.TabSize : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
+>TabSize : any
+>this.editorOptions.ConvertTabsToSpaces : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
+>ConvertTabsToSpaces : any
 
             if (newIndent != null) {
->newIndent != null : 真假
->类型别名 :=> 真假
->newIndent : 文字
->类型别名 :=> 文字
->null : 空值
->类型别名 :=> 空值
+>newIndent != null : boolean
+>newIndent : string
+>null : null
 
                 return new IndentationInfo(newIndent, 0);
->new IndentationInfo(newIndent, 0) : 任意
->类型别名 :=> 任意
->IndentationInfo : 任意
->类型别名 :=> 任意
->newIndent : 文字
->类型别名 :=> 文字
+>new IndentationInfo(newIndent, 0) : any
+>IndentationInfo : any
+>newIndent : string
 >0 : 0
             }
 
             return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
         }
 
         private GetIndentationDelta(tokenStartPosition: number, childTokenStartPosition: number/*?*/): number/*?*/ {
->GetIndentationDelta : (tokenStartPosition: 数字, childTokenStartPosition: 数字) => 数字
->tokenStartPosition : 数字
->类型别名 :=> 数字
->childTokenStartPosition : 数字
->类型别名 :=> 数字
+>GetIndentationDelta : (tokenStartPosition: number, childTokenStartPosition: number) => number
+>tokenStartPosition : number
+>childTokenStartPosition : number
 
             Debug.Assert(childTokenStartPosition !== undefined, "Error: caller must pass 'null' for undefined position");
->Debug.Assert(childTokenStartPosition !== undefined, "Error: caller must pass 'null' for undefined position") : 任意
->类型别名 :=> 任意
->Debug.Assert : 任意
->类型别名 :=> 任意
->Debug : 任意
->类型别名 :=> 任意
->Assert : 任意
->类型别名 :=> 任意
->childTokenStartPosition !== undefined : 真假
->类型别名 :=> 真假
->childTokenStartPosition : 数字
->类型别名 :=> 数字
->undefined : 未定
->类型别名 :=> 未定
+>Debug.Assert(childTokenStartPosition !== undefined, "Error: caller must pass 'null' for undefined position") : any
+>Debug.Assert : any
+>Debug : any
+>Assert : any
+>childTokenStartPosition !== undefined : boolean
+>childTokenStartPosition : number
+>undefined : undefined
 >"Error: caller must pass 'null' for undefined position" : "Error: caller must pass 'null' for undefined position"
 
             var indentationDeltaSize = this.offsetIndentationDeltas.GetValue(tokenStartPosition);
->indentationDeltaSize : 任意
->类型别名 :=> 任意
->this.offsetIndentationDeltas.GetValue(tokenStartPosition) : 任意
->类型别名 :=> 任意
->this.offsetIndentationDeltas.GetValue : 任意
->类型别名 :=> 任意
->this.offsetIndentationDeltas : 任意
->类型别名 :=> 任意
->this : 本体
->offsetIndentationDeltas : 任意
->类型别名 :=> 任意
->GetValue : 任意
->类型别名 :=> 任意
->tokenStartPosition : 数字
->类型别名 :=> 数字
+>indentationDeltaSize : any
+>this.offsetIndentationDeltas.GetValue(tokenStartPosition) : any
+>this.offsetIndentationDeltas.GetValue : any
+>this.offsetIndentationDeltas : any
+>this : this
+>offsetIndentationDeltas : any
+>GetValue : any
+>tokenStartPosition : number
 
             if (indentationDeltaSize === null) {
->indentationDeltaSize === null : 真假
->类型别名 :=> 真假
->indentationDeltaSize : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>indentationDeltaSize === null : boolean
+>indentationDeltaSize : any
+>null : null
 
                 var indentEditInfo = this.indentationBag.FindIndent(tokenStartPosition);
->indentEditInfo : 任意
->类型别名 :=> 任意
->this.indentationBag.FindIndent(tokenStartPosition) : 任意
->类型别名 :=> 任意
->this.indentationBag.FindIndent : 任意
->类型别名 :=> 任意
->this.indentationBag : 任意
->类型别名 :=> 任意
->this : 本体
->indentationBag : 任意
->类型别名 :=> 任意
->FindIndent : 任意
->类型别名 :=> 任意
->tokenStartPosition : 数字
->类型别名 :=> 数字
+>indentEditInfo : any
+>this.indentationBag.FindIndent(tokenStartPosition) : any
+>this.indentationBag.FindIndent : any
+>this.indentationBag : any
+>this : this
+>indentationBag : any
+>FindIndent : any
+>tokenStartPosition : number
 
                 // No recorded indentation, return null
                 if (indentEditInfo == null)
->indentEditInfo == null : 真假
->类型别名 :=> 真假
->indentEditInfo : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>indentEditInfo == null : boolean
+>indentEditInfo : any
+>null : null
 
                     return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 
                 var origIndentText = this.snapshot.GetText(new Span(indentEditInfo.OrigIndentPosition, indentEditInfo.OrigIndentLength()));
->origIndentText : 任意
->类型别名 :=> 任意
->this.snapshot.GetText(new Span(indentEditInfo.OrigIndentPosition, indentEditInfo.OrigIndentLength())) : 任意
->类型别名 :=> 任意
->this.snapshot.GetText : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetText : 任意
->类型别名 :=> 任意
->new Span(indentEditInfo.OrigIndentPosition, indentEditInfo.OrigIndentLength()) : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->indentEditInfo.OrigIndentPosition : 任意
->类型别名 :=> 任意
->indentEditInfo : 任意
->类型别名 :=> 任意
->OrigIndentPosition : 任意
->类型别名 :=> 任意
->indentEditInfo.OrigIndentLength() : 任意
->类型别名 :=> 任意
->indentEditInfo.OrigIndentLength : 任意
->类型别名 :=> 任意
->indentEditInfo : 任意
->类型别名 :=> 任意
->OrigIndentLength : 任意
->类型别名 :=> 任意
+>origIndentText : any
+>this.snapshot.GetText(new Span(indentEditInfo.OrigIndentPosition, indentEditInfo.OrigIndentLength())) : any
+>this.snapshot.GetText : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetText : any
+>new Span(indentEditInfo.OrigIndentPosition, indentEditInfo.OrigIndentLength()) : any
+>Span : any
+>indentEditInfo.OrigIndentPosition : any
+>indentEditInfo : any
+>OrigIndentPosition : any
+>indentEditInfo.OrigIndentLength() : any
+>indentEditInfo.OrigIndentLength : any
+>indentEditInfo : any
+>OrigIndentLength : any
 
                 var newIndentText = indentEditInfo.Indentation();
->newIndentText : 任意
->类型别名 :=> 任意
->indentEditInfo.Indentation() : 任意
->类型别名 :=> 任意
->indentEditInfo.Indentation : 任意
->类型别名 :=> 任意
->indentEditInfo : 任意
->类型别名 :=> 任意
->Indentation : 任意
->类型别名 :=> 任意
+>newIndentText : any
+>indentEditInfo.Indentation() : any
+>indentEditInfo.Indentation : any
+>indentEditInfo : any
+>Indentation : any
 
                 var origIndentSize = Indenter.GetIndentSizeFromText(origIndentText, this.editorOptions, /*includeNonIndentChars*/true);
->origIndentSize : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromText(origIndentText, this.editorOptions, /*includeNonIndentChars*/true) : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromText : (text: 文字, editorOptions: 任意, includeNonIndentChars: 真假) => 数字
->Indenter : 类为 Indenter
->GetIndentSizeFromText : (text: 文字, editorOptions: 任意, includeNonIndentChars: 真假) => 数字
->origIndentText : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
+>origIndentSize : number
+>Indenter.GetIndentSizeFromText(origIndentText, this.editorOptions, /*includeNonIndentChars*/true) : number
+>Indenter.GetIndentSizeFromText : (text: string, editorOptions: any, includeNonIndentChars: boolean) => number
+>Indenter : typeof Indenter
+>GetIndentSizeFromText : (text: string, editorOptions: any, includeNonIndentChars: boolean) => number
+>origIndentText : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
+>true : true
 
                 var newIndentSize = Indenter.GetIndentSizeFromIndentText(newIndentText, this.editorOptions);
->newIndentSize : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText(newIndentText, this.editorOptions) : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->Indenter : 类为 Indenter
->GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->newIndentText : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
+>newIndentSize : number
+>Indenter.GetIndentSizeFromIndentText(newIndentText, this.editorOptions) : number
+>Indenter.GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>Indenter : typeof Indenter
+>GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>newIndentText : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
 
                 // Check the child's position whether it's before the parent position
                 // if so indent the child based on the first token on the line as opposed to the parent position
@@ -3455,1499 +2214,905 @@ module Formatting {
                 //     i++) {                                        for (i = 0; i < 10;
                 //                                                       i++) {
                 if (childTokenStartPosition !== null) {
->childTokenStartPosition !== null : 真假
->类型别名 :=> 真假
->childTokenStartPosition : 数字
->类型别名 :=> 数字
->null : 空值
->类型别名 :=> 空值
+>childTokenStartPosition !== null : boolean
+>childTokenStartPosition : number
+>null : null
 
                     var childTokenLineStartPosition = this.snapshot.GetLineFromPosition(childTokenStartPosition).startPosition();
->childTokenLineStartPosition : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(childTokenStartPosition).startPosition() : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(childTokenStartPosition).startPosition : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(childTokenStartPosition) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineFromPosition : 任意
->类型别名 :=> 任意
->childTokenStartPosition : 数字
->类型别名 :=> 数字
->startPosition : 任意
->类型别名 :=> 任意
+>childTokenLineStartPosition : any
+>this.snapshot.GetLineFromPosition(childTokenStartPosition).startPosition() : any
+>this.snapshot.GetLineFromPosition(childTokenStartPosition).startPosition : any
+>this.snapshot.GetLineFromPosition(childTokenStartPosition) : any
+>this.snapshot.GetLineFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineFromPosition : any
+>childTokenStartPosition : number
+>startPosition : any
 
                     var childIndentText = this.snapshot.GetText(new Span(childTokenLineStartPosition, childTokenStartPosition - childTokenLineStartPosition));
->childIndentText : 任意
->类型别名 :=> 任意
->this.snapshot.GetText(new Span(childTokenLineStartPosition, childTokenStartPosition - childTokenLineStartPosition)) : 任意
->类型别名 :=> 任意
->this.snapshot.GetText : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetText : 任意
->类型别名 :=> 任意
->new Span(childTokenLineStartPosition, childTokenStartPosition - childTokenLineStartPosition) : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->childTokenLineStartPosition : 任意
->类型别名 :=> 任意
->childTokenStartPosition - childTokenLineStartPosition : 数字
->类型别名 :=> 数字
->childTokenStartPosition : 数字
->类型别名 :=> 数字
->childTokenLineStartPosition : 任意
->类型别名 :=> 任意
+>childIndentText : any
+>this.snapshot.GetText(new Span(childTokenLineStartPosition, childTokenStartPosition - childTokenLineStartPosition)) : any
+>this.snapshot.GetText : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetText : any
+>new Span(childTokenLineStartPosition, childTokenStartPosition - childTokenLineStartPosition) : any
+>Span : any
+>childTokenLineStartPosition : any
+>childTokenStartPosition - childTokenLineStartPosition : number
+>childTokenStartPosition : number
+>childTokenLineStartPosition : any
 
                     var childIndentSize = Indenter.GetIndentSizeFromIndentText(childIndentText, this.editorOptions);
->childIndentSize : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText(childIndentText, this.editorOptions) : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->Indenter : 类为 Indenter
->GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->childIndentText : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
+>childIndentSize : number
+>Indenter.GetIndentSizeFromIndentText(childIndentText, this.editorOptions) : number
+>Indenter.GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>Indenter : typeof Indenter
+>GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>childIndentText : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
 
                     if (childIndentSize < origIndentSize)
->childIndentSize < origIndentSize : 真假
->类型别名 :=> 真假
->childIndentSize : 数字
->类型别名 :=> 数字
->origIndentSize : 数字
->类型别名 :=> 数字
+>childIndentSize < origIndentSize : boolean
+>childIndentSize : number
+>origIndentSize : number
 
                         origIndentSize = Indenter.GetIndentSizeFromIndentText(origIndentText, this.editorOptions);
->origIndentSize = Indenter.GetIndentSizeFromIndentText(origIndentText, this.editorOptions) : 数字
->类型别名 :=> 数字
->origIndentSize : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText(origIndentText, this.editorOptions) : 数字
->类型别名 :=> 数字
->Indenter.GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->Indenter : 类为 Indenter
->GetIndentSizeFromIndentText : (indentText: 文字, editorOptions: 任意) => 数字
->origIndentText : 任意
->类型别名 :=> 任意
->this.editorOptions : 任意
->类型别名 :=> 任意
->this : 本体
->editorOptions : 任意
->类型别名 :=> 任意
+>origIndentSize = Indenter.GetIndentSizeFromIndentText(origIndentText, this.editorOptions) : number
+>origIndentSize : number
+>Indenter.GetIndentSizeFromIndentText(origIndentText, this.editorOptions) : number
+>Indenter.GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>Indenter : typeof Indenter
+>GetIndentSizeFromIndentText : (indentText: string, editorOptions: any) => number
+>origIndentText : any
+>this.editorOptions : any
+>this : this
+>editorOptions : any
                 }
 
                 indentationDeltaSize = newIndentSize - origIndentSize;
->indentationDeltaSize = newIndentSize - origIndentSize : 数字
->类型别名 :=> 数字
->indentationDeltaSize : 任意
->类型别名 :=> 任意
->newIndentSize - origIndentSize : 数字
->类型别名 :=> 数字
->newIndentSize : 数字
->类型别名 :=> 数字
->origIndentSize : 数字
->类型别名 :=> 数字
+>indentationDeltaSize = newIndentSize - origIndentSize : number
+>indentationDeltaSize : any
+>newIndentSize - origIndentSize : number
+>newIndentSize : number
+>origIndentSize : number
 
                 this.offsetIndentationDeltas.Add(tokenStartPosition, indentationDeltaSize);
->this.offsetIndentationDeltas.Add(tokenStartPosition, indentationDeltaSize) : 任意
->类型别名 :=> 任意
->this.offsetIndentationDeltas.Add : 任意
->类型别名 :=> 任意
->this.offsetIndentationDeltas : 任意
->类型别名 :=> 任意
->this : 本体
->offsetIndentationDeltas : 任意
->类型别名 :=> 任意
->Add : 任意
->类型别名 :=> 任意
->tokenStartPosition : 数字
->类型别名 :=> 数字
->indentationDeltaSize : 任意
->类型别名 :=> 任意
+>this.offsetIndentationDeltas.Add(tokenStartPosition, indentationDeltaSize) : any
+>this.offsetIndentationDeltas.Add : any
+>this.offsetIndentationDeltas : any
+>this : this
+>offsetIndentationDeltas : any
+>Add : any
+>tokenStartPosition : number
+>indentationDeltaSize : any
             }
 
             return indentationDeltaSize;
->indentationDeltaSize : 任意
->类型别名 :=> 任意
+>indentationDeltaSize : any
         }
 
         private FillInheritedIndentation(tree: ParseTree): void
->FillInheritedIndentation : (tree: 任意) => 无值
->tree : 任意
->类型别名 :=> 任意
+>FillInheritedIndentation : (tree: any) => void
+>tree : any
 >ParseTree : No type information available!
         {
             var offset = -1;
->offset : 数字
->类型别名 :=> 数字
+>offset : number
 >-1 : -1
 >1 : 1
 
             var indentNode: ParseNode = null;
->indentNode : 任意
->类型别名 :=> 任意
+>indentNode : any
 >ParseNode : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             if (tree.StartNodeSelf != null) {
->tree.StartNodeSelf != null : 真假
->类型别名 :=> 真假
->tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodeSelf : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>tree.StartNodeSelf != null : boolean
+>tree.StartNodeSelf : any
+>tree : any
+>StartNodeSelf : any
+>null : null
 
                 if (!this.smartIndent && tree.StartNodePreviousSibling !== null && tree.StartNodeSelf.AuthorNode.Label == 0 && tree.StartNodePreviousSibling.Label == 0) {
->!this.smartIndent && tree.StartNodePreviousSibling !== null && tree.StartNodeSelf.AuthorNode.Label == 0 && tree.StartNodePreviousSibling.Label == 0 : 真假
->类型别名 :=> 真假
->!this.smartIndent && tree.StartNodePreviousSibling !== null && tree.StartNodeSelf.AuthorNode.Label == 0 : 真假
->类型别名 :=> 真假
->!this.smartIndent && tree.StartNodePreviousSibling !== null : 真假
->类型别名 :=> 真假
->!this.smartIndent : 真假
->类型别名 :=> 真假
->this.smartIndent : 真假
->类型别名 :=> 真假
->this : 本体
->smartIndent : 真假
->类型别名 :=> 真假
->tree.StartNodePreviousSibling !== null : 真假
->类型别名 :=> 真假
->tree.StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->tree.StartNodeSelf.AuthorNode.Label == 0 : 真假
->类型别名 :=> 真假
->tree.StartNodeSelf.AuthorNode.Label : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf.AuthorNode : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodeSelf : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Label : 任意
->类型别名 :=> 任意
+>!this.smartIndent && tree.StartNodePreviousSibling !== null && tree.StartNodeSelf.AuthorNode.Label == 0 && tree.StartNodePreviousSibling.Label == 0 : boolean
+>!this.smartIndent && tree.StartNodePreviousSibling !== null && tree.StartNodeSelf.AuthorNode.Label == 0 : boolean
+>!this.smartIndent && tree.StartNodePreviousSibling !== null : boolean
+>!this.smartIndent : boolean
+>this.smartIndent : boolean
+>this : this
+>smartIndent : boolean
+>tree.StartNodePreviousSibling !== null : boolean
+>tree.StartNodePreviousSibling : any
+>tree : any
+>StartNodePreviousSibling : any
+>null : null
+>tree.StartNodeSelf.AuthorNode.Label == 0 : boolean
+>tree.StartNodeSelf.AuthorNode.Label : any
+>tree.StartNodeSelf.AuthorNode : any
+>tree.StartNodeSelf : any
+>tree : any
+>StartNodeSelf : any
+>AuthorNode : any
+>Label : any
 >0 : 0
->tree.StartNodePreviousSibling.Label == 0 : 真假
->类型别名 :=> 真假
->tree.StartNodePreviousSibling.Label : 任意
->类型别名 :=> 任意
->tree.StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->Label : 任意
->类型别名 :=> 任意
+>tree.StartNodePreviousSibling.Label == 0 : boolean
+>tree.StartNodePreviousSibling.Label : any
+>tree.StartNodePreviousSibling : any
+>tree : any
+>StartNodePreviousSibling : any
+>Label : any
 >0 : 0
 
                     indentNode = tree.StartNodeSelf;
->indentNode = tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodeSelf : 任意
->类型别名 :=> 任意
+>indentNode = tree.StartNodeSelf : any
+>indentNode : any
+>tree.StartNodeSelf : any
+>tree : any
+>StartNodeSelf : any
 
                     offset = tree.StartNodePreviousSibling.Details.StartOffset;
->offset = tree.StartNodePreviousSibling.Details.StartOffset : 任意
->类型别名 :=> 任意
->offset : 数字
->类型别名 :=> 数字
->tree.StartNodePreviousSibling.Details.StartOffset : 任意
->类型别名 :=> 任意
->tree.StartNodePreviousSibling.Details : 任意
->类型别名 :=> 任意
->tree.StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>offset = tree.StartNodePreviousSibling.Details.StartOffset : any
+>offset : number
+>tree.StartNodePreviousSibling.Details.StartOffset : any
+>tree.StartNodePreviousSibling.Details : any
+>tree.StartNodePreviousSibling : any
+>tree : any
+>StartNodePreviousSibling : any
+>Details : any
+>StartOffset : any
 
                     // In case the sibling node is on the same line of a parent node, ex:
                     //      case 1: a++;
                     //          break;
                     // In this example, the sibling of break is a++ but a++ is on the same line of its parent.
                     var lineNum = this.snapshot.GetLineNumberFromPosition(offset);
->lineNum : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition(offset) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->offset : 数字
->类型别名 :=> 数字
+>lineNum : any
+>this.snapshot.GetLineNumberFromPosition(offset) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>offset : number
 
                     var node = indentNode;
->node : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
+>node : any
+>indentNode : any
 
                     while (node.Parent != null && this.snapshot.GetLineNumberFromPosition(node.Parent.AuthorNode.Details.StartOffset) == lineNum) {
->node.Parent != null && this.snapshot.GetLineNumberFromPosition(node.Parent.AuthorNode.Details.StartOffset) == lineNum : 真假
->类型别名 :=> 真假
->node.Parent != null : 真假
->类型别名 :=> 真假
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->this.snapshot.GetLineNumberFromPosition(node.Parent.AuthorNode.Details.StartOffset) == lineNum : 真假
->类型别名 :=> 真假
->this.snapshot.GetLineNumberFromPosition(node.Parent.AuthorNode.Details.StartOffset) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->node.Parent.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->node.Parent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.Parent.AuthorNode : 任意
->类型别名 :=> 任意
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
->lineNum : 任意
->类型别名 :=> 任意
+>node.Parent != null && this.snapshot.GetLineNumberFromPosition(node.Parent.AuthorNode.Details.StartOffset) == lineNum : boolean
+>node.Parent != null : boolean
+>node.Parent : any
+>node : any
+>Parent : any
+>null : null
+>this.snapshot.GetLineNumberFromPosition(node.Parent.AuthorNode.Details.StartOffset) == lineNum : boolean
+>this.snapshot.GetLineNumberFromPosition(node.Parent.AuthorNode.Details.StartOffset) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>node.Parent.AuthorNode.Details.StartOffset : any
+>node.Parent.AuthorNode.Details : any
+>node.Parent.AuthorNode : any
+>node.Parent : any
+>node : any
+>Parent : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
+>lineNum : any
 
                         node = node.Parent;
->node = node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->node.Parent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>node = node.Parent : any
+>node : any
+>node.Parent : any
+>node : any
+>Parent : any
 
                         if (node.CanIndent()) {
->node.CanIndent() : 任意
->类型别名 :=> 任意
->node.CanIndent : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
+>node.CanIndent() : any
+>node.CanIndent : any
+>node : any
+>CanIndent : any
 
                             indentNode = node;
->indentNode = node : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
+>indentNode = node : any
+>indentNode : any
+>node : any
 
                             indentNode.IndentationDelta = 0;
 >indentNode.IndentationDelta = 0 : 0
->indentNode.IndentationDelta : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->IndentationDelta : 任意
->类型别名 :=> 任意
+>indentNode.IndentationDelta : any
+>indentNode : any
+>IndentationDelta : any
 >0 : 0
                         }
                     }
                 }
                 else {
                     var parent: ParseNode;
->parent : 任意
->类型别名 :=> 任意
+>parent : any
 >ParseNode : No type information available!
 
                     // Otherwise base on parent indentation.
                     if (this.smartIndent) {
->this.smartIndent : 真假
->类型别名 :=> 真假
->this : 本体
->smartIndent : 真假
->类型别名 :=> 真假
+>this.smartIndent : boolean
+>this : this
+>smartIndent : boolean
 
                         // in smartIndent the self node is the parent node since it's the closest node to the new line
                         // ... unless in case if the startNodeSelf represents the firstToken then we need to choose its parent
                         parent = tree.StartNodeSelf;
->parent = tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodeSelf : 任意
->类型别名 :=> 任意
+>parent = tree.StartNodeSelf : any
+>parent : any
+>tree.StartNodeSelf : any
+>tree : any
+>StartNodeSelf : any
 
                         while (parent != null && parent.AuthorNode.Details.StartOffset == this.firstToken.Span.startPosition())
->parent != null && parent.AuthorNode.Details.StartOffset == this.firstToken.Span.startPosition() : 真假
->类型别名 :=> 真假
->parent != null : 真假
->类型别名 :=> 真假
->parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->parent.AuthorNode.Details.StartOffset == this.firstToken.Span.startPosition() : 真假
->类型别名 :=> 真假
->parent.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->parent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->parent.AuthorNode : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
->this.firstToken.Span.startPosition() : 任意
->类型别名 :=> 任意
->this.firstToken.Span.startPosition : 任意
->类型别名 :=> 任意
->this.firstToken.Span : 任意
->类型别名 :=> 任意
->this.firstToken : 任意
->类型别名 :=> 任意
->this : 本体
->firstToken : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>parent != null && parent.AuthorNode.Details.StartOffset == this.firstToken.Span.startPosition() : boolean
+>parent != null : boolean
+>parent : any
+>null : null
+>parent.AuthorNode.Details.StartOffset == this.firstToken.Span.startPosition() : boolean
+>parent.AuthorNode.Details.StartOffset : any
+>parent.AuthorNode.Details : any
+>parent.AuthorNode : any
+>parent : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
+>this.firstToken.Span.startPosition() : any
+>this.firstToken.Span.startPosition : any
+>this.firstToken.Span : any
+>this.firstToken : any
+>this : this
+>firstToken : any
+>Span : any
+>startPosition : any
 
                             parent = parent.Parent;
->parent = parent.Parent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->parent.Parent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>parent = parent.Parent : any
+>parent : any
+>parent.Parent : any
+>parent : any
+>Parent : any
                     }
                     else {
                         // Get the parent that is really on a different line from the self node
                         var startNodeLineNumber = this.snapshot.GetLineNumberFromPosition(tree.StartNodeSelf.AuthorNode.Details.StartOffset);
->startNodeLineNumber : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition(tree.StartNodeSelf.AuthorNode.Details.StartOffset) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf.AuthorNode.Details : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf.AuthorNode : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodeSelf : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>startNodeLineNumber : any
+>this.snapshot.GetLineNumberFromPosition(tree.StartNodeSelf.AuthorNode.Details.StartOffset) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>tree.StartNodeSelf.AuthorNode.Details.StartOffset : any
+>tree.StartNodeSelf.AuthorNode.Details : any
+>tree.StartNodeSelf.AuthorNode : any
+>tree.StartNodeSelf : any
+>tree : any
+>StartNodeSelf : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                         parent = tree.StartNodeSelf.Parent;
->parent = tree.StartNodeSelf.Parent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf.Parent : 任意
->类型别名 :=> 任意
->tree.StartNodeSelf : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodeSelf : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>parent = tree.StartNodeSelf.Parent : any
+>parent : any
+>tree.StartNodeSelf.Parent : any
+>tree.StartNodeSelf : any
+>tree : any
+>StartNodeSelf : any
+>Parent : any
 
                         while (parent != null &&
->parent != null &&                                startNodeLineNumber == this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset) : 真假
->类型别名 :=> 真假
->parent != null : 真假
->类型别名 :=> 真假
->parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>parent != null &&                                startNodeLineNumber == this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset) : boolean
+>parent != null : boolean
+>parent : any
+>null : null
 
                                 startNodeLineNumber == this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset)) {
->startNodeLineNumber == this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset) : 真假
->类型别名 :=> 真假
->startNodeLineNumber : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->parent.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->parent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->parent.AuthorNode : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>startNodeLineNumber == this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset) : boolean
+>startNodeLineNumber : any
+>this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>parent.AuthorNode.Details.StartOffset : any
+>parent.AuthorNode.Details : any
+>parent.AuthorNode : any
+>parent : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                             parent = parent.Parent;
->parent = parent.Parent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->parent.Parent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>parent = parent.Parent : any
+>parent : any
+>parent.Parent : any
+>parent : any
+>Parent : any
                         }
                     }
 
                     // The parent node to take its indentation is the first parent that has indentation.
                     while (parent != null && !parent.CanIndent()) {
->parent != null && !parent.CanIndent() : 真假
->类型别名 :=> 真假
->parent != null : 真假
->类型别名 :=> 真假
->parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->!parent.CanIndent() : 真假
->类型别名 :=> 真假
->parent.CanIndent() : 任意
->类型别名 :=> 任意
->parent.CanIndent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
+>parent != null && !parent.CanIndent() : boolean
+>parent != null : boolean
+>parent : any
+>null : null
+>!parent.CanIndent() : boolean
+>parent.CanIndent() : any
+>parent.CanIndent : any
+>parent : any
+>CanIndent : any
 
                         parent = parent.Parent;
->parent = parent.Parent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->parent.Parent : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>parent = parent.Parent : any
+>parent : any
+>parent.Parent : any
+>parent : any
+>Parent : any
                     }
 
                     // Skip Program since it has no indentation
                     if (parent != null && parent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg) {
->parent != null && parent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : 真假
->类型别名 :=> 真假
->parent != null : 真假
->类型别名 :=> 真假
->parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->parent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : 真假
->类型别名 :=> 真假
->parent.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->parent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->parent.AuthorNode : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkProg : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkProg : 任意
->类型别名 :=> 任意
+>parent != null && parent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : boolean
+>parent != null : boolean
+>parent : any
+>null : null
+>parent.AuthorNode.Details.Kind != AuthorParseNodeKind.apnkProg : boolean
+>parent.AuthorNode.Details.Kind : any
+>parent.AuthorNode.Details : any
+>parent.AuthorNode : any
+>parent : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkProg : any
+>AuthorParseNodeKind : any
+>apnkProg : any
 
                         offset = parent.AuthorNode.Details.StartOffset;
->offset = parent.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->offset : 数字
->类型别名 :=> 数字
->parent.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->parent.AuthorNode.Details : 任意
->类型别名 :=> 任意
->parent.AuthorNode : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>offset = parent.AuthorNode.Details.StartOffset : any
+>offset : number
+>parent.AuthorNode.Details.StartOffset : any
+>parent.AuthorNode.Details : any
+>parent.AuthorNode : any
+>parent : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                         indentNode = parent;
->indentNode = parent : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->parent : 任意
->类型别名 :=> 任意
+>indentNode = parent : any
+>indentNode : any
+>parent : any
                     }
                 }
             }
 
             if (indentNode != null) {
->indentNode != null : 真假
->类型别名 :=> 真假
->indentNode : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>indentNode != null : boolean
+>indentNode : any
+>null : null
 
                 var indentOverride = this.GetLineIndentationForOffset(offset);
->indentOverride : 文字
->类型别名 :=> 文字
->this.GetLineIndentationForOffset(offset) : 文字
->类型别名 :=> 文字
->this.GetLineIndentationForOffset : (offset: 数字) => 文字
->this : 本体
->GetLineIndentationForOffset : (offset: 数字) => 文字
->offset : 数字
->类型别名 :=> 数字
+>indentOverride : string
+>this.GetLineIndentationForOffset(offset) : string
+>this.GetLineIndentationForOffset : (offset: number) => string
+>this : this
+>GetLineIndentationForOffset : (offset: number) => string
+>offset : number
 
                 // Set the indentation on all the siblings to be the same as indentNode
                 if (!this.smartIndent && tree.StartNodePreviousSibling !== null && indentNode.Parent != null) {
->!this.smartIndent && tree.StartNodePreviousSibling !== null && indentNode.Parent != null : 真假
->类型别名 :=> 真假
->!this.smartIndent && tree.StartNodePreviousSibling !== null : 真假
->类型别名 :=> 真假
->!this.smartIndent : 真假
->类型别名 :=> 真假
->this.smartIndent : 真假
->类型别名 :=> 真假
->this : 本体
->smartIndent : 真假
->类型别名 :=> 真假
->tree.StartNodePreviousSibling !== null : 真假
->类型别名 :=> 真假
->tree.StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->tree : 任意
->类型别名 :=> 任意
->StartNodePreviousSibling : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->indentNode.Parent != null : 真假
->类型别名 :=> 真假
->indentNode.Parent : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>!this.smartIndent && tree.StartNodePreviousSibling !== null && indentNode.Parent != null : boolean
+>!this.smartIndent && tree.StartNodePreviousSibling !== null : boolean
+>!this.smartIndent : boolean
+>this.smartIndent : boolean
+>this : this
+>smartIndent : boolean
+>tree.StartNodePreviousSibling !== null : boolean
+>tree.StartNodePreviousSibling : any
+>tree : any
+>StartNodePreviousSibling : any
+>null : null
+>indentNode.Parent != null : boolean
+>indentNode.Parent : any
+>indentNode : any
+>Parent : any
+>null : null
 
                     ParseNodeExtensions.GetChildren(indentNode.Parent).foreach((sibling) => {
->ParseNodeExtensions.GetChildren(indentNode.Parent).foreach((sibling) => {                        if (sibling !== indentNode) {                            if (sibling.CanIndent())                                sibling.SetIndentationOverride(indentOverride);                        }                    }) : 任意
->类型别名 :=> 任意
->ParseNodeExtensions.GetChildren(indentNode.Parent).foreach : 任意
->类型别名 :=> 任意
->ParseNodeExtensions.GetChildren(indentNode.Parent) : 任意
->类型别名 :=> 任意
->ParseNodeExtensions.GetChildren : 任意
->类型别名 :=> 任意
->ParseNodeExtensions : 任意
->类型别名 :=> 任意
->GetChildren : 任意
->类型别名 :=> 任意
->indentNode.Parent : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
->foreach : 任意
->类型别名 :=> 任意
->(sibling) => {                        if (sibling !== indentNode) {                            if (sibling.CanIndent())                                sibling.SetIndentationOverride(indentOverride);                        }                    } : (sibling: 任意) => 无值
->sibling : 任意
->类型别名 :=> 任意
+>ParseNodeExtensions.GetChildren(indentNode.Parent).foreach((sibling) => {                        if (sibling !== indentNode) {                            if (sibling.CanIndent())                                sibling.SetIndentationOverride(indentOverride);                        }                    }) : any
+>ParseNodeExtensions.GetChildren(indentNode.Parent).foreach : any
+>ParseNodeExtensions.GetChildren(indentNode.Parent) : any
+>ParseNodeExtensions.GetChildren : any
+>ParseNodeExtensions : any
+>GetChildren : any
+>indentNode.Parent : any
+>indentNode : any
+>Parent : any
+>foreach : any
+>(sibling) => {                        if (sibling !== indentNode) {                            if (sibling.CanIndent())                                sibling.SetIndentationOverride(indentOverride);                        }                    } : (sibling: any) => void
+>sibling : any
 
                         if (sibling !== indentNode) {
->sibling !== indentNode : 真假
->类型别名 :=> 真假
->sibling : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
+>sibling !== indentNode : boolean
+>sibling : any
+>indentNode : any
 
                             if (sibling.CanIndent())
->sibling.CanIndent() : 任意
->类型别名 :=> 任意
->sibling.CanIndent : 任意
->类型别名 :=> 任意
->sibling : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
+>sibling.CanIndent() : any
+>sibling.CanIndent : any
+>sibling : any
+>CanIndent : any
 
                                 sibling.SetIndentationOverride(indentOverride);
->sibling.SetIndentationOverride(indentOverride) : 任意
->类型别名 :=> 任意
->sibling.SetIndentationOverride : 任意
->类型别名 :=> 任意
->sibling : 任意
->类型别名 :=> 任意
->SetIndentationOverride : 任意
->类型别名 :=> 任意
->indentOverride : 文字
->类型别名 :=> 文字
+>sibling.SetIndentationOverride(indentOverride) : any
+>sibling.SetIndentationOverride : any
+>sibling : any
+>SetIndentationOverride : any
+>indentOverride : string
                         }
                     });
                 }
 
                 // Set the indent override string on the indent node and on every parent (on different line) after adjusting the indent by the negative delta
                 var lastDelta = 0;
->lastDelta : 数字
->类型别名 :=> 数字
+>lastDelta : number
 >0 : 0
 
                 var lastLine = this.snapshot.GetLineNumberFromPosition(indentNode.AuthorNode.Details.StartOffset);
->lastLine : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition(indentNode.AuthorNode.Details.StartOffset) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->indentNode.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->indentNode.AuthorNode.Details : 任意
->类型别名 :=> 任意
->indentNode.AuthorNode : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>lastLine : any
+>this.snapshot.GetLineNumberFromPosition(indentNode.AuthorNode.Details.StartOffset) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>indentNode.AuthorNode.Details.StartOffset : any
+>indentNode.AuthorNode.Details : any
+>indentNode.AuthorNode : any
+>indentNode : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                 do {
                     var currentLine = this.snapshot.GetLineNumberFromPosition(indentNode.AuthorNode.Details.StartOffset);
->currentLine : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition(indentNode.AuthorNode.Details.StartOffset) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->indentNode.AuthorNode.Details.StartOffset : 任意
->类型别名 :=> 任意
->indentNode.AuthorNode.Details : 任意
->类型别名 :=> 任意
->indentNode.AuthorNode : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->StartOffset : 任意
->类型别名 :=> 任意
+>currentLine : any
+>this.snapshot.GetLineNumberFromPosition(indentNode.AuthorNode.Details.StartOffset) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>indentNode.AuthorNode.Details.StartOffset : any
+>indentNode.AuthorNode.Details : any
+>indentNode.AuthorNode : any
+>indentNode : any
+>AuthorNode : any
+>Details : any
+>StartOffset : any
 
                     if (lastLine != currentLine) {
->lastLine != currentLine : 真假
->类型别名 :=> 真假
->lastLine : 任意
->类型别名 :=> 任意
->currentLine : 任意
->类型别名 :=> 任意
+>lastLine != currentLine : boolean
+>lastLine : any
+>currentLine : any
 
                         lastLine = currentLine;
->lastLine = currentLine : 任意
->类型别名 :=> 任意
->lastLine : 任意
->类型别名 :=> 任意
->currentLine : 任意
->类型别名 :=> 任意
+>lastLine = currentLine : any
+>lastLine : any
+>currentLine : any
 
                         indentOverride = this.ApplyIndentationLevel(indentOverride, -lastDelta);
->indentOverride = this.ApplyIndentationLevel(indentOverride, -lastDelta) : 文字
->类型别名 :=> 文字
->indentOverride : 文字
->类型别名 :=> 文字
->this.ApplyIndentationLevel(indentOverride, -lastDelta) : 文字
->类型别名 :=> 文字
->this.ApplyIndentationLevel : (existingIndentation: 文字, level: 数字) => 文字
->this : 本体
->ApplyIndentationLevel : (existingIndentation: 文字, level: 数字) => 文字
->indentOverride : 文字
->类型别名 :=> 文字
->-lastDelta : 数字
->类型别名 :=> 数字
->lastDelta : 数字
->类型别名 :=> 数字
+>indentOverride = this.ApplyIndentationLevel(indentOverride, -lastDelta) : string
+>indentOverride : string
+>this.ApplyIndentationLevel(indentOverride, -lastDelta) : string
+>this.ApplyIndentationLevel : (existingIndentation: string, level: number) => string
+>this : this
+>ApplyIndentationLevel : (existingIndentation: string, level: number) => string
+>indentOverride : string
+>-lastDelta : number
+>lastDelta : number
 
                         lastDelta = 0;
 >lastDelta = 0 : 0
->lastDelta : 数字
->类型别名 :=> 数字
+>lastDelta : number
 >0 : 0
                     }
 
                     if (indentNode.CanIndent()) {
->indentNode.CanIndent() : 任意
->类型别名 :=> 任意
->indentNode.CanIndent : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->CanIndent : 任意
->类型别名 :=> 任意
+>indentNode.CanIndent() : any
+>indentNode.CanIndent : any
+>indentNode : any
+>CanIndent : any
 
                         indentNode.SetIndentationOverride(indentOverride);
->indentNode.SetIndentationOverride(indentOverride) : 任意
->类型别名 :=> 任意
->indentNode.SetIndentationOverride : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->SetIndentationOverride : 任意
->类型别名 :=> 任意
->indentOverride : 文字
->类型别名 :=> 文字
+>indentNode.SetIndentationOverride(indentOverride) : any
+>indentNode.SetIndentationOverride : any
+>indentNode : any
+>SetIndentationOverride : any
+>indentOverride : string
 
                         lastDelta = indentNode.IndentationDelta;
->lastDelta = indentNode.IndentationDelta : 任意
->类型别名 :=> 任意
->lastDelta : 数字
->类型别名 :=> 数字
->indentNode.IndentationDelta : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->IndentationDelta : 任意
->类型别名 :=> 任意
+>lastDelta = indentNode.IndentationDelta : any
+>lastDelta : number
+>indentNode.IndentationDelta : any
+>indentNode : any
+>IndentationDelta : any
                     }
 
                     indentNode = indentNode.Parent;
->indentNode = indentNode.Parent : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->indentNode.Parent : 任意
->类型别名 :=> 任意
->indentNode : 任意
->类型别名 :=> 任意
->Parent : 任意
->类型别名 :=> 任意
+>indentNode = indentNode.Parent : any
+>indentNode : any
+>indentNode.Parent : any
+>indentNode : any
+>Parent : any
                 }
                 while (indentNode != null);
->indentNode != null : 真假
->类型别名 :=> 真假
->indentNode : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>indentNode != null : boolean
+>indentNode : any
+>null : null
             }
         }
 
         public GetLineIndentationForOffset(offset: number): string {
->GetLineIndentationForOffset : (offset: 数字) => 文字
->offset : 数字
->类型别名 :=> 数字
+>GetLineIndentationForOffset : (offset: number) => string
+>offset : number
 
             var indentationEdit: IndentationEditInfo;
->indentationEdit : 任意
->类型别名 :=> 任意
+>indentationEdit : any
 >IndentationEditInfo : No type information available!
 
             // First check if we already have indentation info in our indentation bag
             indentationEdit = this.indentationBag.FindIndent(offset);
->indentationEdit = this.indentationBag.FindIndent(offset) : 任意
->类型别名 :=> 任意
->indentationEdit : 任意
->类型别名 :=> 任意
->this.indentationBag.FindIndent(offset) : 任意
->类型别名 :=> 任意
->this.indentationBag.FindIndent : 任意
->类型别名 :=> 任意
->this.indentationBag : 任意
->类型别名 :=> 任意
->this : 本体
->indentationBag : 任意
->类型别名 :=> 任意
->FindIndent : 任意
->类型别名 :=> 任意
->offset : 数字
->类型别名 :=> 数字
+>indentationEdit = this.indentationBag.FindIndent(offset) : any
+>indentationEdit : any
+>this.indentationBag.FindIndent(offset) : any
+>this.indentationBag.FindIndent : any
+>this.indentationBag : any
+>this : this
+>indentationBag : any
+>FindIndent : any
+>offset : number
 
             if (indentationEdit != null) {
->indentationEdit != null : 真假
->类型别名 :=> 真假
->indentationEdit : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>indentationEdit != null : boolean
+>indentationEdit : any
+>null : null
 
                 return indentationEdit.Indentation();
->indentationEdit.Indentation() : 任意
->类型别名 :=> 任意
->indentationEdit.Indentation : 任意
->类型别名 :=> 任意
->indentationEdit : 任意
->类型别名 :=> 任意
->Indentation : 任意
->类型别名 :=> 任意
+>indentationEdit.Indentation() : any
+>indentationEdit.Indentation : any
+>indentationEdit : any
+>Indentation : any
             }
             else {
                 // Otherwise, use the indentation from the textBuffer
                 var line = this.snapshot.GetLineFromPosition(offset);
->line : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(offset) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineFromPosition : 任意
->类型别名 :=> 任意
->offset : 数字
->类型别名 :=> 数字
+>line : any
+>this.snapshot.GetLineFromPosition(offset) : any
+>this.snapshot.GetLineFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineFromPosition : any
+>offset : number
 
                 var lineText = line.getText();
->lineText : 任意
->类型别名 :=> 任意
->line.getText() : 任意
->类型别名 :=> 任意
->line.getText : 任意
->类型别名 :=> 任意
->line : 任意
->类型别名 :=> 任意
->getText : 任意
->类型别名 :=> 任意
+>lineText : any
+>line.getText() : any
+>line.getText : any
+>line : any
+>getText : any
 
                 var index = 0;
->index : 数字
->类型别名 :=> 数字
+>index : number
 >0 : 0
 
                 while (index < lineText.length && (lineText.charAt(index) == ' ' || lineText.charAt(index) == '\t')) {
->index < lineText.length && (lineText.charAt(index) == ' ' || lineText.charAt(index) == '\t') : 真假
->类型别名 :=> 真假
->index < lineText.length : 真假
->类型别名 :=> 真假
->index : 数字
->类型别名 :=> 数字
->lineText.length : 任意
->类型别名 :=> 任意
->lineText : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
->(lineText.charAt(index) == ' ' || lineText.charAt(index) == '\t') : 真假
->类型别名 :=> 真假
->lineText.charAt(index) == ' ' || lineText.charAt(index) == '\t' : 真假
->类型别名 :=> 真假
->lineText.charAt(index) == ' ' : 真假
->类型别名 :=> 真假
->lineText.charAt(index) : 任意
->类型别名 :=> 任意
->lineText.charAt : 任意
->类型别名 :=> 任意
->lineText : 任意
->类型别名 :=> 任意
->charAt : 任意
->类型别名 :=> 任意
->index : 数字
->类型别名 :=> 数字
+>index < lineText.length && (lineText.charAt(index) == ' ' || lineText.charAt(index) == '\t') : boolean
+>index < lineText.length : boolean
+>index : number
+>lineText.length : any
+>lineText : any
+>length : any
+>(lineText.charAt(index) == ' ' || lineText.charAt(index) == '\t') : boolean
+>lineText.charAt(index) == ' ' || lineText.charAt(index) == '\t' : boolean
+>lineText.charAt(index) == ' ' : boolean
+>lineText.charAt(index) : any
+>lineText.charAt : any
+>lineText : any
+>charAt : any
+>index : number
 >' ' : " "
->lineText.charAt(index) == '\t' : 真假
->类型别名 :=> 真假
->lineText.charAt(index) : 任意
->类型别名 :=> 任意
->lineText.charAt : 任意
->类型别名 :=> 任意
->lineText : 任意
->类型别名 :=> 任意
->charAt : 任意
->类型别名 :=> 任意
->index : 数字
->类型别名 :=> 数字
+>lineText.charAt(index) == '\t' : boolean
+>lineText.charAt(index) : any
+>lineText.charAt : any
+>lineText : any
+>charAt : any
+>index : number
 >'\t' : "\t"
 
                     ++index;
->++index : 数字
->类型别名 :=> 数字
->index : 数字
->类型别名 :=> 数字
+>++index : number
+>index : number
                 }
 
                 return lineText.substr(0, index);
->lineText.substr(0, index) : 任意
->类型别名 :=> 任意
->lineText.substr : 任意
->类型别名 :=> 任意
->lineText : 任意
->类型别名 :=> 任意
->substr : 任意
->类型别名 :=> 任意
+>lineText.substr(0, index) : any
+>lineText.substr : any
+>lineText : any
+>substr : any
 >0 : 0
->index : 数字
->类型别名 :=> 数字
+>index : number
             }
         }
 
         private RegisterIndentation(indent: TextEditInfo, sameLineIndent: boolean): void
->RegisterIndentation : (indent: 任意, sameLineIndent: 真假) => 无值
->indent : 任意
->类型别名 :=> 任意
+>RegisterIndentation : (indent: any, sameLineIndent: boolean) => void
+>indent : any
 >TextEditInfo : No type information available!
->sameLineIndent : 真假
->类型别名 :=> 真假
+>sameLineIndent : boolean
         {
             var indentationInfo: IndentationEditInfo = null;
->indentationInfo : 任意
->类型别名 :=> 任意
+>indentationInfo : any
 >IndentationEditInfo : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
             if (sameLineIndent) {
->sameLineIndent : 真假
->类型别名 :=> 真假
+>sameLineIndent : boolean
 
                 // Consider the original indentation from the beginning of the line up to the indent position (or really the token position)
                 var lineStartPosition = this.snapshot.GetLineFromPosition(indent.Position).startPosition();
->lineStartPosition : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(indent.Position).startPosition() : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(indent.Position).startPosition : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition(indent.Position) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineFromPosition : 任意
->类型别名 :=> 任意
->indent.Position : 任意
->类型别名 :=> 任意
->indent : 任意
->类型别名 :=> 任意
->Position : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>lineStartPosition : any
+>this.snapshot.GetLineFromPosition(indent.Position).startPosition() : any
+>this.snapshot.GetLineFromPosition(indent.Position).startPosition : any
+>this.snapshot.GetLineFromPosition(indent.Position) : any
+>this.snapshot.GetLineFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineFromPosition : any
+>indent.Position : any
+>indent : any
+>Position : any
+>startPosition : any
 
                 var lineIndentLength = indent.Position - lineStartPosition;
->lineIndentLength : 数字
->类型别名 :=> 数字
->indent.Position - lineStartPosition : 数字
->类型别名 :=> 数字
->indent.Position : 任意
->类型别名 :=> 任意
->indent : 任意
->类型别名 :=> 任意
->Position : 任意
->类型别名 :=> 任意
->lineStartPosition : 任意
->类型别名 :=> 任意
+>lineIndentLength : number
+>indent.Position - lineStartPosition : number
+>indent.Position : any
+>indent : any
+>Position : any
+>lineStartPosition : any
 
                 indentationInfo = IndentationEditInfo.create2(indent.Position, indent.ReplaceWith, lineStartPosition, lineIndentLength);
->indentationInfo = IndentationEditInfo.create2(indent.Position, indent.ReplaceWith, lineStartPosition, lineIndentLength) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->IndentationEditInfo.create2(indent.Position, indent.ReplaceWith, lineStartPosition, lineIndentLength) : 任意
->类型别名 :=> 任意
->IndentationEditInfo.create2 : 任意
->类型别名 :=> 任意
->IndentationEditInfo : 任意
->类型别名 :=> 任意
->create2 : 任意
->类型别名 :=> 任意
->indent.Position : 任意
->类型别名 :=> 任意
->indent : 任意
->类型别名 :=> 任意
->Position : 任意
->类型别名 :=> 任意
->indent.ReplaceWith : 任意
->类型别名 :=> 任意
->indent : 任意
->类型别名 :=> 任意
->ReplaceWith : 任意
->类型别名 :=> 任意
->lineStartPosition : 任意
->类型别名 :=> 任意
->lineIndentLength : 数字
->类型别名 :=> 数字
+>indentationInfo = IndentationEditInfo.create2(indent.Position, indent.ReplaceWith, lineStartPosition, lineIndentLength) : any
+>indentationInfo : any
+>IndentationEditInfo.create2(indent.Position, indent.ReplaceWith, lineStartPosition, lineIndentLength) : any
+>IndentationEditInfo.create2 : any
+>IndentationEditInfo : any
+>create2 : any
+>indent.Position : any
+>indent : any
+>Position : any
+>indent.ReplaceWith : any
+>indent : any
+>ReplaceWith : any
+>lineStartPosition : any
+>lineIndentLength : number
             }
             else {
                 indentationInfo = new IndentationEditInfo(indent);
->indentationInfo = new IndentationEditInfo(indent) : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
->new IndentationEditInfo(indent) : 任意
->类型别名 :=> 任意
->IndentationEditInfo : 任意
->类型别名 :=> 任意
->indent : 任意
->类型别名 :=> 任意
+>indentationInfo = new IndentationEditInfo(indent) : any
+>indentationInfo : any
+>new IndentationEditInfo(indent) : any
+>IndentationEditInfo : any
+>indent : any
             }
 
             this.indentationBag.AddIndent(indentationInfo);
->this.indentationBag.AddIndent(indentationInfo) : 任意
->类型别名 :=> 任意
->this.indentationBag.AddIndent : 任意
->类型别名 :=> 任意
->this.indentationBag : 任意
->类型别名 :=> 任意
->this : 本体
->indentationBag : 任意
->类型别名 :=> 任意
->AddIndent : 任意
->类型别名 :=> 任意
->indentationInfo : 任意
->类型别名 :=> 任意
+>this.indentationBag.AddIndent(indentationInfo) : any
+>this.indentationBag.AddIndent : any
+>this.indentationBag : any
+>this : this
+>indentationBag : any
+>AddIndent : any
+>indentationInfo : any
         }
 
         public RegisterIndentation2(position: number, indent: string): void
->RegisterIndentation2 : (position: 数字, indent: 文字) => 无值
->position : 数字
->类型别名 :=> 数字
->indent : 文字
->类型别名 :=> 文字
+>RegisterIndentation2 : (position: number, indent: string) => void
+>position : number
+>indent : string
         {
             this.RegisterIndentation(new TextEditInfo(position, 0, indent), false);
->this.RegisterIndentation(new TextEditInfo(position, 0, indent), false) : 无值
->类型别名 :=> 无值
->this.RegisterIndentation : (indent: 任意, sameLineIndent: 真假) => 无值
->this : 本体
->RegisterIndentation : (indent: 任意, sameLineIndent: 真假) => 无值
->new TextEditInfo(position, 0, indent) : 任意
->类型别名 :=> 任意
->TextEditInfo : 任意
->类型别名 :=> 任意
->position : 数字
->类型别名 :=> 数字
+>this.RegisterIndentation(new TextEditInfo(position, 0, indent), false) : void
+>this.RegisterIndentation : (indent: any, sameLineIndent: boolean) => void
+>this : this
+>RegisterIndentation : (indent: any, sameLineIndent: boolean) => void
+>new TextEditInfo(position, 0, indent) : any
+>TextEditInfo : any
+>position : number
 >0 : 0
->indent : 文字
->类型别名 :=> 文字
->false : 为假
->类型别名 :=> 为假
+>indent : string
+>false : false
         }
 
         private AdjustStartOffsetIfNeeded(token: TokenSpan, node: ParseNode): void
->AdjustStartOffsetIfNeeded : (token: 任意, node: 任意) => 无值
->token : 任意
->类型别名 :=> 任意
+>AdjustStartOffsetIfNeeded : (token: any, node: any) => void
+>token : any
 >TokenSpan : No type information available!
->node : 任意
->类型别名 :=> 任意
+>node : any
 >ParseNode : No type information available!
         {
             if (token == null)
->token == null : 真假
->类型别名 :=> 真假
->token : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>token == null : boolean
+>token : any
+>null : null
 
                 return;
 
             var updateStartOffset = false;
->updateStartOffset : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>updateStartOffset : boolean
+>false : false
 
             switch (token.Token) {
->token.Token : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Token : 任意
->类型别名 :=> 任意
+>token.Token : any
+>token : any
+>Token : any
 
                 case AuthorTokenKind.atkFunction:
->AuthorTokenKind.atkFunction : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkFunction : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkFunction : any
+>AuthorTokenKind : any
+>atkFunction : any
 
                     updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl;
->updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl : 真假
->类型别名 :=> 真假
->updateStartOffset : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkFncDecl : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkFncDecl : 任意
->类型别名 :=> 任意
+>updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl : boolean
+>updateStartOffset : boolean
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkFncDecl : any
+>AuthorParseNodeKind : any
+>apnkFncDecl : any
 
                     break;
 
                 case AuthorTokenKind.atkLCurly:
->AuthorTokenKind.atkLCurly : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkLCurly : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkLCurly : any
+>AuthorTokenKind : any
+>atkLCurly : any
 
                     updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject;
->updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject : 真假
->类型别名 :=> 真假
->updateStartOffset : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkObject : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkObject : 任意
->类型别名 :=> 任意
+>updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject : boolean
+>updateStartOffset : boolean
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkObject : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkObject : any
+>AuthorParseNodeKind : any
+>apnkObject : any
 
                     break;
 
                 case AuthorTokenKind.atkLBrack:
->AuthorTokenKind.atkLBrack : 任意
->类型别名 :=> 任意
->AuthorTokenKind : 任意
->类型别名 :=> 任意
->atkLBrack : 任意
->类型别名 :=> 任意
+>AuthorTokenKind.atkLBrack : any
+>AuthorTokenKind : any
+>atkLBrack : any
 
                     updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkArray;
->updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkArray : 真假
->类型别名 :=> 真假
->updateStartOffset : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkArray : 真假
->类型别名 :=> 真假
->node.AuthorNode.Details.Kind : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->Kind : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind.apnkArray : 任意
->类型别名 :=> 任意
->AuthorParseNodeKind : 任意
->类型别名 :=> 任意
->apnkArray : 任意
->类型别名 :=> 任意
+>updateStartOffset = node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkArray : boolean
+>updateStartOffset : boolean
+>node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkArray : boolean
+>node.AuthorNode.Details.Kind : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>Kind : any
+>AuthorParseNodeKind.apnkArray : any
+>AuthorParseNodeKind : any
+>apnkArray : any
 
                     break;
             }
 
             if (updateStartOffset) {
->updateStartOffset : 真假
->类型别名 :=> 真假
+>updateStartOffset : boolean
 
                 ParseNodeExtensions.SetNodeSpan(node, token.Span.startPosition(), node.AuthorNode.Details.EndOffset);
->ParseNodeExtensions.SetNodeSpan(node, token.Span.startPosition(), node.AuthorNode.Details.EndOffset) : 任意
->类型别名 :=> 任意
->ParseNodeExtensions.SetNodeSpan : 任意
->类型别名 :=> 任意
->ParseNodeExtensions : 任意
->类型别名 :=> 任意
->SetNodeSpan : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details.EndOffset : 任意
->类型别名 :=> 任意
->node.AuthorNode.Details : 任意
->类型别名 :=> 任意
->node.AuthorNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->AuthorNode : 任意
->类型别名 :=> 任意
->Details : 任意
->类型别名 :=> 任意
->EndOffset : 任意
->类型别名 :=> 任意
+>ParseNodeExtensions.SetNodeSpan(node, token.Span.startPosition(), node.AuthorNode.Details.EndOffset) : any
+>ParseNodeExtensions.SetNodeSpan : any
+>ParseNodeExtensions : any
+>SetNodeSpan : any
+>node : any
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
+>node.AuthorNode.Details.EndOffset : any
+>node.AuthorNode.Details : any
+>node.AuthorNode : any
+>node : any
+>AuthorNode : any
+>Details : any
+>EndOffset : any
             }
         }
 
         private IsMultiLineString(token: TokenSpan): boolean {
->IsMultiLineString : (token: 任意) => 真假
->token : 任意
->类型别名 :=> 任意
+>IsMultiLineString : (token: any) => boolean
+>token : any
 >TokenSpan : No type information available!
 
             return token.tokenID === TypeScript.TokenID.StringLiteral &&
->token.tokenID === TypeScript.TokenID.StringLiteral &&                this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) > this.snapshot.GetLineNumberFromPosition(token.Span.startPosition()) : 真假
->类型别名 :=> 真假
->token.tokenID === TypeScript.TokenID.StringLiteral : 真假
->类型别名 :=> 真假
->token.tokenID : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->tokenID : 任意
->类型别名 :=> 任意
->TypeScript.TokenID.StringLiteral : 任意
->类型别名 :=> 任意
->TypeScript.TokenID : 任意
->类型别名 :=> 任意
->TypeScript : 任意
->类型别名 :=> 任意
->TokenID : 任意
->类型别名 :=> 任意
->StringLiteral : 任意
->类型别名 :=> 任意
+>token.tokenID === TypeScript.TokenID.StringLiteral &&                this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) > this.snapshot.GetLineNumberFromPosition(token.Span.startPosition()) : boolean
+>token.tokenID === TypeScript.TokenID.StringLiteral : boolean
+>token.tokenID : any
+>token : any
+>tokenID : any
+>TypeScript.TokenID.StringLiteral : any
+>TypeScript.TokenID : any
+>TypeScript : any
+>TokenID : any
+>StringLiteral : any
 
                 this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) > this.snapshot.GetLineNumberFromPosition(token.Span.startPosition());
->this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) > this.snapshot.GetLineNumberFromPosition(token.Span.startPosition()) : 真假
->类型别名 :=> 真假
->this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->token.Span.endPosition() : 任意
->类型别名 :=> 任意
->token.Span.endPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->endPosition : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition(token.Span.startPosition()) : 任意
->类型别名 :=> 任意
->this.snapshot.GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->this.snapshot : 任意
->类型别名 :=> 任意
->this : 本体
->snapshot : 任意
->类型别名 :=> 任意
->GetLineNumberFromPosition : 任意
->类型别名 :=> 任意
->token.Span.startPosition() : 任意
->类型别名 :=> 任意
->token.Span.startPosition : 任意
->类型别名 :=> 任意
->token.Span : 任意
->类型别名 :=> 任意
->token : 任意
->类型别名 :=> 任意
->Span : 任意
->类型别名 :=> 任意
->startPosition : 任意
->类型别名 :=> 任意
+>this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) > this.snapshot.GetLineNumberFromPosition(token.Span.startPosition()) : boolean
+>this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>token.Span.endPosition() : any
+>token.Span.endPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>endPosition : any
+>this.snapshot.GetLineNumberFromPosition(token.Span.startPosition()) : any
+>this.snapshot.GetLineNumberFromPosition : any
+>this.snapshot : any
+>this : this
+>snapshot : any
+>GetLineNumberFromPosition : any
+>token.Span.startPosition() : any
+>token.Span.startPosition : any
+>token.Span : any
+>token : any
+>Span : any
+>startPosition : any
         }
     }
 }

@@ -3,68 +3,53 @@ export default class db {
 >db : db
 
     public doSomething() {
->doSomething : () => 无值
+>doSomething : () => void
     }
 }
 
 === tests/cases/compiler/service.ts ===
 import db from './db';
->db : 类为 db
+>db : typeof db
 
 function someDecorator(target) {
->someDecorator : (target: 任意) => 任意
->target : 任意
->类型别名 :=> 任意
+>someDecorator : (target: any) => any
+>target : any
 
     return target;
->target : 任意
->类型别名 :=> 任意
+>target : any
 }
 @someDecorator
->someDecorator : (target: 任意) => 任意
+>someDecorator : (target: any) => any
 
 class MyClass {
 >MyClass : MyClass
 
     db: db.db; //error
->db : 任意
->类型别名 :=> 任意
->db : 任意
->类型别名 :=> 任意
+>db : any
+>db : any
 >db : No type information available!
 
     constructor(db: db.db) { // error
->db : 任意
->类型别名 :=> 任意
->db : 任意
->类型别名 :=> 任意
+>db : any
+>db : any
 >db : No type information available!
 
         this.db = db;
->this.db = db : 任意
->类型别名 :=> 任意
->this.db : 任意
->类型别名 :=> 任意
->this : 本体
->db : 任意
->类型别名 :=> 任意
->db : 任意
->类型别名 :=> 任意
+>this.db = db : any
+>this.db : any
+>this : this
+>db : any
+>db : any
 
         this.db.doSomething();
->this.db.doSomething() : 任意
->类型别名 :=> 任意
->this.db.doSomething : 任意
->类型别名 :=> 任意
->this.db : 任意
->类型别名 :=> 任意
->this : 本体
->db : 任意
->类型别名 :=> 任意
->doSomething : 任意
->类型别名 :=> 任意
+>this.db.doSomething() : any
+>this.db.doSomething : any
+>this.db : any
+>this : this
+>db : any
+>doSomething : any
     }
 }
 export {MyClass};
->MyClass : 类为 MyClass
+>MyClass : typeof MyClass
 

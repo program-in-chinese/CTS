@@ -1,145 +1,127 @@
 === tests/cases/conformance/salsa/a.js ===
 var variable = {};
->variable : { [x: 文字]: 任意; }
->{} : { [x: 文字]: 任意; }
+>variable : { [x: string]: any; a: number; }
+>{} : { [x: string]: any; a: number; }
 
 variable.a = 0;
 >variable.a = 0 : 0
->variable.a : 任意
->类型别名 :=> 任意
->variable : { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>variable.a : number
+>variable : { [x: string]: any; a: number; }
+>a : number
 >0 : 0
 
 class C {
 >C : C
 
     initializedMember = {};
->initializedMember : { [x: 文字]: 任意; }
->{} : { [x: 文字]: 任意; }
+>initializedMember : { [x: string]: any; }
+>{} : { [x: string]: any; }
 
     constructor() {
         this.member = {};
->this.member = {} : { [x: 文字]: 任意; }
->this.member : { [x: 文字]: 任意; }
->this : 本体
->member : { [x: 文字]: 任意; }
->{} : { [x: 文字]: 任意; }
+>this.member = {} : { [x: string]: any; }
+>this.member : { [x: string]: any; }
+>this : this
+>member : { [x: string]: any; }
+>{} : { [x: string]: any; }
 
         this.member.a = 0;
 >this.member.a = 0 : 0
->this.member.a : 任意
->类型别名 :=> 任意
->this.member : { [x: 文字]: 任意; }
->this : 本体
->member : { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>this.member.a : any
+>this.member : { [x: string]: any; }
+>this : this
+>member : { [x: string]: any; }
+>a : any
 >0 : 0
     }
 }
 
 var obj = {
->obj : { [x: 文字]: 任意; property: { [x: 文字]: 任意; }; }
->{    property: {}} : { [x: 文字]: 任意; property: { [x: 文字]: 任意; }; }
+>obj : { [x: string]: any; property: { [x: string]: any; }; }
+>{    property: {}} : { [x: string]: any; property: { [x: string]: any; }; }
 
     property: {}
->property : { [x: 文字]: 任意; }
->{} : { [x: 文字]: 任意; }
+>property : { [x: string]: any; }
+>{} : { [x: string]: any; }
 
 };
 
 obj.property.a = 0;
 >obj.property.a = 0 : 0
->obj.property.a : 任意
->类型别名 :=> 任意
->obj.property : { [x: 文字]: 任意; }
->obj : { [x: 文字]: 任意; property: { [x: 文字]: 任意; }; }
->property : { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>obj.property.a : any
+>obj.property : { [x: string]: any; }
+>obj : { [x: string]: any; property: { [x: string]: any; }; }
+>property : { [x: string]: any; }
+>a : any
 >0 : 0
 
 var arr = [{}];
->arr : { [x: 文字]: 任意; }[]
->[{}] : { [x: 文字]: 任意; }[]
->{} : { [x: 文字]: 任意; }
+>arr : { [x: string]: any; }[]
+>[{}] : { [x: string]: any; }[]
+>{} : { [x: string]: any; }
 
 function getObj() {
->getObj : () => { [x: 文字]: 任意; }
+>getObj : () => { [x: string]: any; }
 
     return {};
->{} : { [x: 文字]: 任意; }
+>{} : { [x: string]: any; }
 }
 
 
 === tests/cases/conformance/salsa/b.ts ===
 variable.a = 1;
 >variable.a = 1 : 1
->variable.a : 任意
->类型别名 :=> 任意
->variable : { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>variable.a : number
+>variable : { [x: string]: any; a: number; }
+>a : number
 >1 : 1
 
 (new C()).member.a = 1;
 >(new C()).member.a = 1 : 1
->(new C()).member.a : 任意
->类型别名 :=> 任意
->(new C()).member : { [x: 文字]: 任意; }
+>(new C()).member.a : any
+>(new C()).member : { [x: string]: any; }
 >(new C()) : C
 >new C() : C
->C : 类为 C
->member : { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>C : typeof C
+>member : { [x: string]: any; }
+>a : any
 >1 : 1
 
 (new C()).initializedMember.a = 1;
 >(new C()).initializedMember.a = 1 : 1
->(new C()).initializedMember.a : 任意
->类型别名 :=> 任意
->(new C()).initializedMember : { [x: 文字]: 任意; }
+>(new C()).initializedMember.a : any
+>(new C()).initializedMember : { [x: string]: any; }
 >(new C()) : C
 >new C() : C
->C : 类为 C
->initializedMember : { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>C : typeof C
+>initializedMember : { [x: string]: any; }
+>a : any
 >1 : 1
 
 obj.property.a = 1;
 >obj.property.a = 1 : 1
->obj.property.a : 任意
->类型别名 :=> 任意
->obj.property : { [x: 文字]: 任意; }
->obj : { [x: 文字]: 任意; property: { [x: 文字]: 任意; }; }
->property : { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>obj.property.a : any
+>obj.property : { [x: string]: any; }
+>obj : { [x: string]: any; property: { [x: string]: any; }; }
+>property : { [x: string]: any; }
+>a : any
 >1 : 1
 
 arr[0].a = 1;
 >arr[0].a = 1 : 1
->arr[0].a : 任意
->类型别名 :=> 任意
->arr[0] : { [x: 文字]: 任意; }
->arr : { [x: 文字]: 任意; }[]
+>arr[0].a : any
+>arr[0] : { [x: string]: any; }
+>arr : { [x: string]: any; }[]
 >0 : 0
->a : 任意
->类型别名 :=> 任意
+>a : any
 >1 : 1
 
 getObj().a = 1;
 >getObj().a = 1 : 1
->getObj().a : 任意
->类型别名 :=> 任意
->getObj() : { [x: 文字]: 任意; }
->getObj : () => { [x: 文字]: 任意; }
->a : 任意
->类型别名 :=> 任意
+>getObj().a : any
+>getObj() : { [x: string]: any; }
+>getObj : () => { [x: string]: any; }
+>a : any
 >1 : 1
 
 

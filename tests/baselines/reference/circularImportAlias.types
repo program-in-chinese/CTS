@@ -2,50 +2,47 @@
 // expected no error
 
 module B {
->B : 类为 a.b
+>B : typeof a.b
 
     export import a = A;
->a : 类为 a
->A : 类为 a
+>a : typeof a
+>A : typeof a
 
     export class D extends a.C {
 >D : D
 >a.C : a.C
->a : 类为 a
->C : 类为 a.C
+>a : typeof a
+>C : typeof a.C
 
         id: number;
->id : 数字
->类型别名 :=> 数字
+>id : number
     }
 }
 
 module A {
->A : 类为 b.a
+>A : typeof b.a
 
     export class C { name: string }
 >C : C
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     export import b = B;
->b : 类为 b
->B : 类为 b
+>b : typeof b
+>B : typeof b
 }
 
 var c: { name: string };
->c : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>c : { name: string; }
+>name : string
 
 var c = new B.a.C();
->c : { name: 文字; }
+>c : { name: string; }
 >new B.a.C() : A.C
->B.a.C : 类为 A.C
->B.a : 类为 A
->B : 类为 B
->a : 类为 A
->C : 类为 A.C
+>B.a.C : typeof A.C
+>B.a : typeof A
+>B : typeof B
+>a : typeof A
+>C : typeof A.C
 
 
 

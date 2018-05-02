@@ -1,30 +1,26 @@
 === tests/cases/compiler/importUsedInExtendsList1_1.ts ===
 ///<reference path='importUsedInExtendsList1_require.ts'/>
 import foo = require('./importUsedInExtendsList1_require');
->foo : 类为 foo
+>foo : typeof foo
 
 class Sub extends foo.Super { }
 >Sub : Sub
 >foo.Super : foo.Super
->foo : 类为 foo
->Super : 类为 foo.Super
+>foo : typeof foo
+>Super : typeof foo.Super
 
 var s: Sub;
 >s : Sub
 >Sub : Sub
 
 var r: string = s.foo;
->r : 文字
->类型别名 :=> 文字
->s.foo : 文字
->类型别名 :=> 文字
+>r : string
+>s.foo : string
 >s : Sub
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 === tests/cases/compiler/importUsedInExtendsList1_require.ts ===
 export class Super { foo: string; }
 >Super : Super
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 

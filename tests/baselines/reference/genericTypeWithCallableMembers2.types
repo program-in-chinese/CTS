@@ -1,24 +1,22 @@
 === tests/cases/compiler/genericTypeWithCallableMembers2.ts ===
 function foo1<T extends { (): string; }>(f: T) {
->foo1 : <T 扩展 () => 文字>(f: T) => 文字
+>foo1 : <T extends () => string>(f: T) => string
 >T : T
 >f : T
 >T : T
 
     return f(); // should return 'string', once returned 'any'
->f() : 文字
->类型别名 :=> 文字
+>f() : string
 >f : T
 }
  
 function foo2<T extends { new (): string; }>(f: T) {
->foo2 : <T 扩展 新建 () => 文字>(f: T) => 文字
+>foo2 : <T extends new () => string>(f: T) => string
 >T : T
 >f : T
 >T : T
 
     return new f(); // should be legal, once was an error
->new f() : 文字
->类型别名 :=> 文字
+>new f() : string
 >f : T
 }

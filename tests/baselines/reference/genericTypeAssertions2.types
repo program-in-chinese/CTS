@@ -2,7 +2,7 @@
 class A<T> { foo(x: T) { } }
 >A : A<T>
 >T : T
->foo : (x: T) => 无值
+>foo : (x: T) => void
 >x : T
 >T : T
 
@@ -17,52 +17,51 @@ class B<T> extends A<T> {
 >T : T
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 
 var foo = new A<number>();
->foo : A<数字>
->new A<number>() : A<数字>
->A : 类为 A
+>foo : A<number>
+>new A<number>() : A<number>
+>A : typeof A
 
 var r: A<string> = <B<string>>new B();
->r : A<文字>
+>r : A<string>
 >A : A<T>
-><B<string>>new B() : B<文字>
+><B<string>>new B() : B<string>
 >B : B<T>
->new B() : B<文字>
->B : 类为 B
+>new B() : B<string>
+>B : typeof B
 
 var r2: A<number> = <B<string>>new B(); // error
->r2 : A<数字>
+>r2 : A<number>
 >A : A<T>
-><B<string>>new B() : B<文字>
+><B<string>>new B() : B<string>
 >B : B<T>
->new B() : B<文字>
->B : 类为 B
+>new B() : B<string>
+>B : typeof B
 
 var r3: B<number> = <A<number>>new B(); // error
->r3 : B<数字>
+>r3 : B<number>
 >B : B<T>
-><A<number>>new B() : A<数字>
+><A<number>>new B() : A<number>
 >A : A<T>
->new B() : B<数字>
->B : 类为 B
+>new B() : B<number>
+>B : typeof B
 
 var r4: A<number> = <A<number>>new A();
->r4 : A<数字>
+>r4 : A<number>
 >A : A<T>
-><A<number>>new A() : A<数字>
+><A<number>>new A() : A<number>
 >A : A<T>
->new A() : A<数字>
->A : 类为 A
+>new A() : A<number>
+>A : typeof A
 
 var r5: A<number> = <A<number>>[]; // error
->r5 : A<数字>
+>r5 : A<number>
 >A : A<T>
-><A<number>>[] : A<数字>
+><A<number>>[] : A<number>
 >A : A<T>
->[] : 未定[]
+>[] : undefined[]
 

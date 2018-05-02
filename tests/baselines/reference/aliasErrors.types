@@ -1,109 +1,98 @@
 === tests/cases/compiler/aliasErrors.ts ===
 module foo {    
->foo : 类为 foo
+>foo : typeof foo
 
     export class Provide {
 >Provide : Provide
     }
     export module bar { export module baz {export class boo {}}}
->bar : 类为 bar
->baz : 类为 baz
+>bar : typeof bar
+>baz : typeof baz
 >boo : boo
 }
 
 import provide = foo;
->provide : 类为 foo
->foo : 类为 foo
+>provide : typeof foo
+>foo : typeof foo
 
 import booz = foo.bar.baz;
->booz : 类为 booz
->foo : 类为 foo
->bar : 类为 provide.bar
->baz : 类为 booz
+>booz : typeof booz
+>foo : typeof foo
+>bar : typeof provide.bar
+>baz : typeof booz
 
 import beez = foo.bar;
->beez : 类为 provide.bar
->foo : 类为 foo
->bar : 类为 provide.bar
+>beez : typeof provide.bar
+>foo : typeof foo
+>bar : typeof provide.bar
 
 import m = no;
->m : 任意
->类型别名 :=> 任意
->no : No type information available!
+>m : any
+>no : any
 
 import m2 = no.mod;
->m2 : 任意
->类型别名 :=> 任意
->no : No type information available!
->mod : No type information available!
+>m2 : any
+>no : any
+>mod : any
 
 import n = 5;
->n : 任意
->类型别名 :=> 任意
-> : No type information available!
+>n : any
+> : any
 >5 : 5
 
 import o = "s";
->o : 任意
->类型别名 :=> 任意
-> : No type information available!
+>o : any
+> : any
 >"s" : "s"
 
 import q = null;
->q : 任意
->类型别名 :=> 任意
-> : No type information available!
->null : 空值
->类型别名 :=> 空值
+>q : any
+> : any
+>null : null
 
 import r = undefined;
->r : 任意
->类型别名 :=> 任意
->undefined : No type information available!
+>r : any
+>undefined : any
 
 
 var p = new provide.Provide();
 >p : provide.Provide
 >new provide.Provide() : provide.Provide
->provide.Provide : 类为 provide.Provide
->provide : 类为 foo
->Provide : 类为 provide.Provide
+>provide.Provide : typeof provide.Provide
+>provide : typeof foo
+>Provide : typeof provide.Provide
 
 function use() {
->use : () => 无值
+>use : () => void
     
   beez.baz.boo;
->beez.baz.boo : 类为 booz.boo
->beez.baz : 类为 booz
->beez : 类为 provide.bar
->baz : 类为 booz
->boo : 类为 booz.boo
+>beez.baz.boo : typeof booz.boo
+>beez.baz : typeof booz
+>beez : typeof provide.bar
+>baz : typeof booz
+>boo : typeof booz.boo
 
   var p1: provide.Provide; 
 >p1 : provide.Provide
->provide : 任意
->类型别名 :=> 任意
+>provide : any
 >Provide : provide.Provide
 
   var p2: foo.Provide;
 >p2 : provide.Provide
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 >Provide : provide.Provide
 
   var p3:booz.bar;
->p3 : 任意
->类型别名 :=> 任意
->booz : 任意
->类型别名 :=> 任意
+>p3 : any
+>booz : any
 >bar : No type information available!
 
   var p22 = new provide.Provide();
 >p22 : provide.Provide
 >new provide.Provide() : provide.Provide
->provide.Provide : 类为 provide.Provide
->provide : 类为 foo
->Provide : 类为 provide.Provide
+>provide.Provide : typeof provide.Provide
+>provide : typeof foo
+>Provide : typeof provide.Provide
 }
 
 

@@ -11,23 +11,18 @@ function f<T, U>(x: T, y: U): T { return null; }
 >y : U
 >U : U
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var r1 = f<number>(1, '');
->r1 : 任意
->类型别名 :=> 任意
->f<number>(1, '') : 任意
->类型别名 :=> 任意
+>r1 : any
+>f<number>(1, '') : any
 >f : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
 
 var r1b = f<number, string, number>(1, '');
->r1b : 任意
->类型别名 :=> 任意
->f<number, string, number>(1, '') : 任意
->类型别名 :=> 任意
+>r1b : any
+>f<number, string, number>(1, '') : any
 >f : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
@@ -42,23 +37,18 @@ var f2 = <T, U>(x: T, y: U): T => { return null; }
 >y : U
 >U : U
 >T : T
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var r2 = f2<number>(1, '');
->r2 : 任意
->类型别名 :=> 任意
->f2<number>(1, '') : 任意
->类型别名 :=> 任意
+>r2 : any
+>f2<number>(1, '') : any
 >f2 : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
 
 var r2b = f2<number, string, number>(1, '');
->r2b : 任意
->类型别名 :=> 任意
->f2<number, string, number>(1, '') : 任意
->类型别名 :=> 任意
+>r2b : any
+>f2<number, string, number>(1, '') : any
 >f2 : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
@@ -74,19 +64,15 @@ var f3: { <T, U>(x: T, y: U): T; }
 >T : T
 
 var r3 = f3<number>(1, '');
->r3 : 任意
->类型别名 :=> 任意
->f3<number>(1, '') : 任意
->类型别名 :=> 任意
+>r3 : any
+>f3<number>(1, '') : any
 >f3 : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
 
 var r3b = f3<number, string, number>(1, '');
->r3b : 任意
->类型别名 :=> 任意
->f3<number, string, number>(1, '') : 任意
->类型别名 :=> 任意
+>r3b : any
+>f3<number, string, number>(1, '') : any
 >f3 : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
@@ -105,32 +91,27 @@ class C {
 >T : T
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 var r4 = (new C()).f<number>(1, '');
->r4 : 任意
->类型别名 :=> 任意
->(new C()).f<number>(1, '') : 任意
->类型别名 :=> 任意
+>r4 : any
+>(new C()).f<number>(1, '') : any
 >(new C()).f : <T, U>(x: T, y: U) => T
 >(new C()) : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 >f : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
 
 var r4b = (new C()).f<number, string, number>(1, '');
->r4b : 任意
->类型别名 :=> 任意
->(new C()).f<number, string, number>(1, '') : 任意
->类型别名 :=> 任意
+>r4b : any
+>(new C()).f<number, string, number>(1, '') : any
 >(new C()).f : <T, U>(x: T, y: U) => T
 >(new C()) : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 >f : <T, U>(x: T, y: U) => T
 >1 : 1
 >'' : ""
@@ -153,10 +134,8 @@ var i: I;
 >I : I
 
 var r5 = i.f<number>(1, '');
->r5 : 任意
->类型别名 :=> 任意
->i.f<number>(1, '') : 任意
->类型别名 :=> 任意
+>r5 : any
+>i.f<number>(1, '') : any
 >i.f : <T, U>(x: T, y: U) => T
 >i : I
 >f : <T, U>(x: T, y: U) => T
@@ -164,10 +143,8 @@ var r5 = i.f<number>(1, '');
 >'' : ""
 
 var r5b = i.f<number, string, number>(1, '');
->r5b : 任意
->类型别名 :=> 任意
->i.f<number, string, number>(1, '') : 任意
->类型别名 :=> 任意
+>r5b : any
+>i.f<number, string, number>(1, '') : any
 >i.f : <T, U>(x: T, y: U) => T
 >i : I
 >f : <T, U>(x: T, y: U) => T
@@ -188,8 +165,7 @@ class C2<T, U> {
 >T : T
 
         return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
     }
 }
 var r6 = (new C2()).f<number>(1, '');
@@ -198,7 +174,7 @@ var r6 = (new C2()).f<number>(1, '');
 >(new C2()).f : (x: {}, y: {}) => {}
 >(new C2()) : C2<{}, {}>
 >new C2() : C2<{}, {}>
->C2 : 类为 C2
+>C2 : typeof C2
 >f : (x: {}, y: {}) => {}
 >1 : 1
 >'' : ""
@@ -209,7 +185,7 @@ var r6b = (new C2()).f<number, string, number>(1, '');
 >(new C2()).f : (x: {}, y: {}) => {}
 >(new C2()) : C2<{}, {}>
 >new C2() : C2<{}, {}>
->C2 : 类为 C2
+>C2 : typeof C2
 >f : (x: {}, y: {}) => {}
 >1 : 1
 >'' : ""
@@ -228,28 +204,24 @@ interface I2<T, U> {
 >T : T
 }
 var i2: I2<number, string>;
->i2 : I2<数字, 文字>
+>i2 : I2<number, string>
 >I2 : I2<T, U>
 
 var r7 = i2.f<number>(1, '');
->r7 : 数字
->类型别名 :=> 数字
->i2.f<number>(1, '') : 数字
->类型别名 :=> 数字
->i2.f : (x: 数字, y: 文字) => 数字
->i2 : I2<数字, 文字>
->f : (x: 数字, y: 文字) => 数字
+>r7 : number
+>i2.f<number>(1, '') : number
+>i2.f : (x: number, y: string) => number
+>i2 : I2<number, string>
+>f : (x: number, y: string) => number
 >1 : 1
 >'' : ""
 
 var r7b = i2.f<number, string, number>(1, '');
->r7b : 数字
->类型别名 :=> 数字
->i2.f<number, string, number>(1, '') : 数字
->类型别名 :=> 数字
->i2.f : (x: 数字, y: 文字) => 数字
->i2 : I2<数字, 文字>
->f : (x: 数字, y: 文字) => 数字
+>r7b : number
+>i2.f<number, string, number>(1, '') : number
+>i2.f : (x: number, y: string) => number
+>i2 : I2<number, string>
+>f : (x: number, y: string) => number
 >1 : 1
 >'' : ""
 

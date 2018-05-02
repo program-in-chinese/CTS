@@ -6,8 +6,7 @@ var os = require("os");
 var path = require("path");
 var child_process = require("child_process");
 var fold = require("travis-fold");
-var ts = require("./lib/ctsScript");
-
+var ts = require("./lib/typescript");
 
 // Variables
 var compilerDirectory = "src/compiler/";
@@ -86,7 +85,7 @@ var servicesSources = filesFromConfig("./src/services/tsconfig.json");
 var cancellationTokenSources = filesFromConfig(path.join(serverDirectory, "cancellationToken/tsconfig.json"));
 var typingsInstallerSources = filesFromConfig(path.join(serverDirectory, "typingsInstaller/tsconfig.json"));
 var watchGuardSources = filesFromConfig(path.join(serverDirectory, "watchGuard/tsconfig.json"));
-var serverSources = filesFromConfig(path.join(serverDirectory, "tsconfig.json"))
+var serverSources = filesFromConfig(path.join(serverDirectory, "tsconfig.json"));
 var languageServiceLibrarySources = filesFromConfig(path.join(serverDirectory, "tsconfig.library.json"));
 
 var typesMapOutputPath = path.join(builtLocalDirectory, 'typesMap.json');
@@ -105,6 +104,7 @@ var harnessCoreSources = [
     "projectsRunner.ts",
     "loggedIO.ts",
     "rwcRunner.ts",
+    "externalCompileRunner.ts",
     "test262Runner.ts",
     "./parallel/shared.ts",
     "./parallel/host.ts",
@@ -129,6 +129,7 @@ var harnessSources = harnessCoreSources.concat([
     "textStorage.ts",
     "moduleResolution.ts",
     "tsconfigParsing.ts",
+    "asserts.ts",
     "builder.ts",
     "commandLineParsing.ts",
     "configurationExtension.ts",
@@ -140,6 +141,7 @@ var harnessSources = harnessCoreSources.concat([
     "typingsInstaller.ts",
     "projectErrors.ts",
     "matchFiles.ts",
+    "organizeImports.ts",
     "initializeTSConfig.ts",
     "extractConstants.ts",
     "extractFunctions.ts",
@@ -196,15 +198,26 @@ var es2017LibrarySource = [
     "es2017.object.d.ts",
     "es2017.sharedmemory.d.ts",
     "es2017.string.d.ts",
-    "es2017.intl.d.ts"
+    "es2017.intl.d.ts",
+    "es2017.typedarrays.d.ts",
 ];
 
 var es2017LibrarySourceMap = es2017LibrarySource.map(function (source) {
     return { target: "lib." + source, sources: ["header.d.ts", source] };
 });
 
+var es2018LibrarySource = [
+    "es2018.regexp.d.ts",
+    "es2018.promise.d.ts"
+];
+
+var es2018LibrarySourceMap = es2018LibrarySource.map(function (source) {
+    return { target: "lib." + source, sources: ["header.d.ts", source] };
+});
+
 var esnextLibrarySource = [
-    "esnext.asynciterable.d.ts"
+    "esnext.asynciterable.d.ts",
+    "esnext.array.d.ts"
 ];
 
 var esnextLibrarySourceMap = esnextLibrarySource.map(function (source) {
@@ -225,6 +238,7 @@ var librarySourceMap = [
     { target: "lib.es2015.d.ts", sources: ["header.d.ts", "es2015.d.ts"] },
     { target: "lib.es2016.d.ts", sources: ["header.d.ts", "es2016.d.ts"] },
     { target: "lib.es2017.d.ts", sources: ["header.d.ts", "es2017.d.ts"] },
+    { target: "lib.es2018.d.ts", sources: ["header.d.ts", "es2018.d.ts"] },
     { target: "lib.esnext.d.ts", sources: ["header.d.ts", "esnext.d.ts"] },
 
     // JavaScript + all host library
@@ -232,8 +246,9 @@ var librarySourceMap = [
     { target: "lib.es6.d.ts", sources: ["header.d.ts", "es5.d.ts"].concat(es2015LibrarySources, hostsLibrarySources, "dom.iterable.d.ts") },
     { target: "lib.es2016.full.d.ts", sources: ["header.d.ts", "es2016.d.ts"].concat(hostsLibrarySources, "dom.iterable.d.ts") },
     { target: "lib.es2017.full.d.ts", sources: ["header.d.ts", "es2017.d.ts"].concat(hostsLibrarySources, "dom.iterable.d.ts") },
+    { target: "lib.es2018.full.d.ts", sources: ["header.d.ts", "es2018.d.ts"].concat(hostsLibrarySources, "dom.iterable.d.ts") },
     { target: "lib.esnext.full.d.ts", sources: ["header.d.ts", "esnext.d.ts"].concat(hostsLibrarySources, "dom.iterable.d.ts") },
-].concat(es2015LibrarySourceMap, es2016LibrarySourceMap, es2017LibrarySourceMap, esnextLibrarySourceMap);
+].concat(es2015LibrarySourceMap, es2016LibrarySourceMap, es2017LibrarySourceMap, es2018LibrarySourceMap, esnextLibrarySourceMap);
 
 var libraryTargets = librarySourceMap.map(function (f) {
     return path.join(builtLocalDirectory, f.target);
@@ -289,7 +304,7 @@ function concatenateFiles(destinationFile, sourceFiles) {
 
 var useDebugMode = true;
 var host = process.env.TYPESCRIPT_HOST || process.env.host || "node";
-var compilerFilename = "cts.js";
+var compilerFilename = "tsc.js";
 var LKGCompiler = path.join(LKGDirectory, compilerFilename);
 var builtLocalCompiler = path.join(builtLocalDirectory, compilerFilename);
 
@@ -319,7 +334,7 @@ function compileFile(outFile, sources, prereqs, prefixes, useBuiltCompiler, opts
         var startCompileTime = mark();
         opts = opts || {};
         var compilerPath = useBuiltCompiler ? builtLocalCompiler : LKGCompiler;
-        var options = "--noImplicitAny --noImplicitThis --alwaysStrict --noEmitOnError --types "
+        var options = "--noImplicitAny --noImplicitThis --alwaysStrict --noEmitOnError --types ";
         if (opts.types) {
             options += opts.types.join(",");
         }
@@ -368,10 +383,10 @@ function compileFile(outFile, sources, prereqs, prefixes, useBuiltCompiler, opts
         }
         options += " --target es5";
         if (opts.lib) {
-            options += " --lib " + opts.lib
+            options += " --lib " + opts.lib;
         }
         else {
-            options += " --lib es5"
+            options += " --lib es5";
         }
         options += " --noUnusedLocals --noUnusedParameters";
 
@@ -483,7 +498,7 @@ task("localize", [generatedLCGFile]);
 var buildProtocolTs = path.join(scriptsDirectory, "buildProtocol.ts");
 var buildProtocolJs = path.join(scriptsDirectory, "buildProtocol.js");
 var buildProtocolDts = path.join(builtLocalDirectory, "protocol.d.ts");
-var typescriptServicesDts = path.join(builtLocalDirectory, "ctsServices.d.ts");
+var typescriptServicesDts = path.join(builtLocalDirectory, "typescriptServices.d.ts");
 var typesMapJson = path.join(builtLocalDirectory, "typesMap.json");
 
 file(buildProtocolTs);
@@ -513,7 +528,7 @@ file(buildProtocolDts, [buildProtocolTs, buildProtocolJs, typescriptServicesDts]
         complete();
     });
     ex.run();
-}, { async: true })
+}, { async: true });
 
 // The generated diagnostics map; built for the compiler and for the 'generate-diagnostics' task
 file(diagnosticInfoMapTs, [processDiagnosticMessagesJs, diagnosticMessagesJson], function () {
@@ -543,16 +558,16 @@ desc("Generates a diagnostic file in TypeScript based on an input JSON file");
 task("generate-diagnostics", [diagnosticInfoMapTs]);
 
 // Publish nightly
-var configureNightlyJs = path.join(scriptsDirectory, "configureNightly.js");
-var configureNightlyTs = path.join(scriptsDirectory, "configureNightly.ts");
+var configurePrereleaseJs = path.join(scriptsDirectory, "configurePrerelease.js");
+var configurePrereleaseTs = path.join(scriptsDirectory, "configurePrerelease.ts");
 var packageJson = "package.json";
 var versionFile = path.join(compilerDirectory, "core.ts");
 
-file(configureNightlyTs);
+file(configurePrereleaseTs);
 
-compileFile(/*outfile*/configureNightlyJs,
-            /*sources*/[configureNightlyTs],
-            /*prereqs*/[configureNightlyTs],
+compileFile(/*outfile*/configurePrereleaseJs,
+            /*sources*/[configurePrereleaseTs],
+            /*prereqs*/[configurePrereleaseTs],
             /*prefixes*/[],
             /*useBuiltCompiler*/ false,
     { noOutFile: false, generateDeclarations: false, keepComments: false, noResolve: false, stripInternal: false });
@@ -561,8 +576,8 @@ task("setDebugMode", function () {
     useDebugMode = true;
 });
 
-task("configure-nightly", [configureNightlyJs], function () {
-    var cmd = host + " " + configureNightlyJs + " " + packageJson + " " + versionFile;
+task("configure-nightly", [configurePrereleaseJs], function () {
+    var cmd = host + " " + configurePrereleaseJs + " dev " + packageJson + " " + versionFile;
     console.log(cmd);
     exec(cmd);
 }, { async: true });
@@ -570,6 +585,19 @@ task("configure-nightly", [configureNightlyJs], function () {
 desc("Configure, build, test, and publish the nightly release.");
 task("publish-nightly", ["configure-nightly", "LKG", "clean", "setDebugMode", "runtests-parallel"], function () {
     var cmd = "npm publish --tag next";
+    console.log(cmd);
+    exec(cmd);
+});
+
+task("configure-insiders", [configurePrereleaseJs], function () {
+    var cmd = host + " " + configurePrereleaseJs + " insiders " + packageJson + " " + versionFile;
+    console.log(cmd);
+    exec(cmd);
+}, { async: true });
+
+desc("Configure, build, test, and publish the insiders release.");
+task("publish-insiders", ["configure-insiders", "LKG", "clean", "setDebugMode", "runtests-parallel"], function () {
+    var cmd = "npm publish --tag insiders";
     console.log(cmd);
     exec(cmd);
 });
@@ -595,11 +623,11 @@ task("importDefinitelyTypedTests", [importDefinitelyTypedTestsJs], function () {
 var tscFile = path.join(builtLocalDirectory, compilerFilename);
 compileFile(tscFile, compilerSources, [builtLocalDirectory, copyright].concat(compilerSources), [copyright], /*useBuiltCompiler:*/ false);
 
-var servicesFile = path.join(builtLocalDirectory, "ctsServices.js");
-var standaloneDefinitionsFile = path.join(builtLocalDirectory, "ctsServices.d.ts");
-var nodePackageFile = path.join(builtLocalDirectory, "ctsScript.js");
-var nodeDefinitionsFile = path.join(builtLocalDirectory, "ctsScript.d.ts");
-var nodeStandaloneDefinitionsFile = path.join(builtLocalDirectory, "ctsScript_standalone.d.ts");
+var servicesFile = path.join(builtLocalDirectory, "typescriptServices.js");
+var standaloneDefinitionsFile = path.join(builtLocalDirectory, "typescriptServices.d.ts");
+var nodePackageFile = path.join(builtLocalDirectory, "typescript.js");
+var nodeDefinitionsFile = path.join(builtLocalDirectory, "typescript.d.ts");
+var nodeStandaloneDefinitionsFile = path.join(builtLocalDirectory, "typescript_standalone.d.ts");
 
 compileFile(servicesFile, servicesSources, [builtLocalDirectory, copyright].concat(servicesSources),
             /*prefixes*/[copyright],
@@ -620,7 +648,7 @@ compileFile(servicesFile, servicesSources, [builtLocalDirectory, copyright].conc
         // Stanalone/web definition file using global 'ts' namespace
         jake.cpR(standaloneDefinitionsFile, nodeDefinitionsFile, { silent: true });
         var definitionFileContents = fs.readFileSync(nodeDefinitionsFile).toString();
-        definitionFileContents = removeConstModifierFromEnumDeclarations(definitionFileContents)
+        definitionFileContents = removeConstModifierFromEnumDeclarations(definitionFileContents);
         fs.writeFileSync(standaloneDefinitionsFile, definitionFileContents);
 
         // Official node package definition file, pointed to by 'typings' in package.json
@@ -639,16 +667,16 @@ file(typescriptServicesDts, [servicesFile]);
 var cancellationTokenFile = path.join(builtLocalDirectory, "cancellationToken.js");
 compileFile(cancellationTokenFile, cancellationTokenSources, [builtLocalDirectory].concat(cancellationTokenSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], outDir: builtLocalDirectory, noOutFile: true, lib: "es6" });
 
-var typingsInstallerFile = path.join(builtLocalDirectory, "ctsInstaller.js");
+var typingsInstallerFile = path.join(builtLocalDirectory, "typingsInstaller.js");
 compileFile(typingsInstallerFile, typingsInstallerSources, [builtLocalDirectory].concat(typingsInstallerSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], outDir: builtLocalDirectory, noOutFile: false, lib: "es6" });
 
 var watchGuardFile = path.join(builtLocalDirectory, "watchGuard.js");
 compileFile(watchGuardFile, watchGuardSources, [builtLocalDirectory].concat(watchGuardSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], outDir: builtLocalDirectory, noOutFile: false, lib: "es6" });
 
-var serverFile = path.join(builtLocalDirectory, "ctsServer.js");
+var serverFile = path.join(builtLocalDirectory, "tsserver.js");
 compileFile(serverFile, serverSources, [builtLocalDirectory, copyright, cancellationTokenFile, typingsInstallerFile, watchGuardFile].concat(serverSources).concat(servicesSources), /*prefixes*/ [copyright], /*useBuiltCompiler*/ true, { types: ["node"], preserveConstEnums: true, lib: "es6" });
-var tsserverLibraryFile = path.join(builtLocalDirectory, "ctsServerlibrary.js");
-var tsserverLibraryDefinitionFile = path.join(builtLocalDirectory, "ctsServerlibrary.d.ts");
+var tsserverLibraryFile = path.join(builtLocalDirectory, "tsserverlibrary.js");
+var tsserverLibraryDefinitionFile = path.join(builtLocalDirectory, "tsserverlibrary.d.ts");
 file(typesMapOutputPath, function() {
     var content = fs.readFileSync(path.join(serverDirectory, 'typesMap.json'));
     // Validate that it's valid JSON
@@ -699,7 +727,7 @@ task("local", ["build-fold-start", "generate-diagnostics", "lib", tscFile, servi
 
 // Local target to build only tsc.js
 desc("Builds only the compiler");
-task("cts", ["generate-diagnostics", "lib", tscFile]);
+task("tsc", ["generate-diagnostics", "lib", tscFile]);
 
 // Local target to build the compiler and services
 desc("Sets release mode flag");
@@ -729,7 +757,10 @@ compileFile(word2mdJs,
     [word2mdTs],
     [word2mdTs],
     [],
-            /*useBuiltCompiler*/ false);
+    /*useBuiltCompiler*/ false,
+    {
+        lib: "scripthost,es5"
+    });
 
 // The generated spec.md; built for the 'generate-spec' task
 file(specMd, [word2mdJs, specWord], function () {
@@ -843,14 +874,16 @@ function cleanTestDirs() {
 }
 
 // used to pass data from jake command line directly to run.js
-function writeTestConfigFile(tests, light, taskConfigsFolder, workerCount, stackTraceLimit, colors) {
+function writeTestConfigFile(tests, runners, light, taskConfigsFolder, workerCount, stackTraceLimit, colors, testTimeout) {
     var testConfigContents = JSON.stringify({
+        runners: runners ? runners.split(",") : undefined,
         test: tests ? [tests] : undefined,
         light: light,
         workerCount: workerCount,
         taskConfigsFolder: taskConfigsFolder,
         stackTraceLimit: stackTraceLimit,
-        noColor: !colors
+        noColor: !colors,
+        timeout: testTimeout
     });
     fs.writeFileSync('test.config', testConfigContents);
 }
@@ -870,6 +903,7 @@ function runConsoleTests(defaultReporter, runInParallel) {
     var debug = process.env.debug || process.env["debug-brk"] || process.env.d;
     var inspect = process.env.inspect || process.env["inspect-brk"] || process.env.i;
     var testTimeout = process.env.timeout || defaultTestTimeout;
+    var runners = process.env.runners || process.env.runner || process.env.ru;
     var tests = process.env.test || process.env.tests || process.env.t;
     var light = process.env.light === undefined || process.env.light !== "false";
     var stackTraceLimit = process.env.stackTraceLimit;
@@ -891,12 +925,12 @@ function runConsoleTests(defaultReporter, runInParallel) {
         workerCount = process.env.workerCount || process.env.p || os.cpus().length;
     }
 
-    if (tests || light || taskConfigsFolder) {
-        writeTestConfigFile(tests, light, taskConfigsFolder, workerCount, stackTraceLimit, colors);
-    }
-
     if (tests && tests.toLocaleLowerCase() === "rwc") {
         testTimeout = 800000;
+    }
+
+    if (tests || runners || light || testTimeout || taskConfigsFolder) {
+        writeTestConfigFile(tests, runners, light, taskConfigsFolder, workerCount, stackTraceLimit, colors, testTimeout);
     }
 
     var colorsFlag = process.env.color || process.env.colors;
@@ -1027,14 +1061,15 @@ task("runtests-browser", ["browserify", nodeServerOutFile], function () {
     cleanTestDirs();
     host = "node";
     var browser = process.env.browser || process.env.b ||  (os.platform() === "linux" ? "chrome" : "IE");
+    var runners = process.env.runners || process.env.runner || process.env.ru;
     var tests = process.env.test || process.env.tests || process.env.t;
     var light = process.env.light || false;
     var testConfigFile = 'test.config';
     if (fs.existsSync(testConfigFile)) {
         fs.unlinkSync(testConfigFile);
     }
-    if (tests || light) {
-        writeTestConfigFile(tests, light);
+    if (tests || runners || light) {
+        writeTestConfigFile(tests, runners, light);
     }
 
     tests = tests ? tests : '';
@@ -1126,7 +1161,7 @@ var webhostPath = "tests/webhost/webtsc.ts";
 var webhostJsPath = "tests/webhost/webtsc.js";
 compileFile(webhostJsPath, [webhostPath], [tscFile, webhostPath].concat(libraryTargets), [], /*useBuiltCompiler*/true);
 
-desc("Builds the cts web host");
+desc("Builds the tsc web host");
 task("webhost", [webhostJsPath], function () {
     jake.cpR(path.join(builtLocalDirectory, "lib.d.ts"), "tests/webhost/", { silent: true });
 });
@@ -1160,7 +1195,7 @@ var instrumenterPath = harnessDirectory + 'instrumenter.ts';
 var instrumenterJsPath = builtLocalDirectory + 'instrumenter.js';
 compileFile(instrumenterJsPath, [instrumenterPath], [tscFile, instrumenterPath].concat(libraryTargets), [], /*useBuiltCompiler*/ true, { lib: "es6", types: ["node"], noOutFile: true, outDir: builtLocalDirectory });
 
-desc("Builds an instrumented cts.js - run with test=[testname]");
+desc("Builds an instrumented tsc.js - run with test=[testname]");
 task('tsc-instrumented', [loggedIOJsPath, instrumenterJsPath, tscFile], function () {
     var test = process.env.test || process.env.tests || process.env.t || "iocapture";
     var cmd = host + ' ' + instrumenterJsPath + " record " + test + " " + builtLocalDirectory + compilerFilename;
@@ -1174,27 +1209,17 @@ task('tsc-instrumented', [loggedIOJsPath, instrumenterJsPath, tscFile], function
 
 desc("Updates the sublime plugin's tsserver");
 task("update-sublime", ["local", serverFile], function () {
-    jake.cpR(serverFile, "../TypeScript-Sublime-Plugin/ctsServer/");
-    jake.cpR(serverFile + ".map", "../TypeScript-Sublime-Plugin/ctsServer/");
+    jake.cpR(serverFile, "../TypeScript-Sublime-Plugin/tsserver/");
+    jake.cpR(serverFile + ".map", "../TypeScript-Sublime-Plugin/tsserver/");
 });
 
 var tslintRuleDir = "scripts/tslint/rules";
-var tslintRules = [
-    "booleanTriviaRule",
-    "debugAssertRule",
-    "nextLineRule",
-    "noBomRule",
-    "noIncrementDecrementRule",
-    "noInOperatorRule",
-    "noTypeAssertionWhitespaceRule",
-    "objectLiteralSurroundingSpaceRule",
-    "typeOperatorSpacingRule",
-];
+var tslintRules = fs.readdirSync(tslintRuleDir);
 var tslintRulesFiles = tslintRules.map(function (p) {
-    return path.join(tslintRuleDir, p + ".ts");
+    return path.join(tslintRuleDir, p);
 });
 var tslintRulesOutFiles = tslintRules.map(function (p) {
-    return path.join(builtLocalDirectory, "tslint/rules", p + ".js");
+    return path.join(builtLocalDirectory, "tslint/rules", p.replace(".ts", ".js"));
 });
 var tslintFormattersDir = "scripts/tslint/formatters";
 var tslintFormatters = [
@@ -1230,7 +1255,7 @@ task("build-rules-end", [], function () {
 var lintTargets = compilerSources
     .concat(harnessSources)
     // Other harness sources
-    .concat(["instrumenter.ts"].map(function (f) { return path.join(harnessDirectory, f) }))
+    .concat(["instrumenter.ts"].map(function (f) { return path.join(harnessDirectory, f); }))
     .concat(serverSources)
     .concat(tslintRulesFiles)
     .concat(servicesSources)
@@ -1238,7 +1263,7 @@ var lintTargets = compilerSources
     .concat(cancellationTokenSources)
     .concat(["Gulpfile.ts"])
     .concat([nodeServerInFile, perftscPath, "tests/perfsys.ts", webhostPath])
-    .map(function (p) { return path.resolve(p) });
+    .map(function (p) { return path.resolve(p); });
 // keep only unique items
 lintTargets = Array.from(new Set(lintTargets));
 
@@ -1279,14 +1304,13 @@ function spawnLintWorker(files, callback) {
 desc("Runs tslint on the compiler sources. Optional arguments are: f[iles]=regex");
 task("lint", ["build-rules"], () => {
     if (fold.isTravis()) console.log(fold.start("lint"));
-    const fileMatcher = process.env.f || process.env.file || process.env.files;
-    const files = fileMatcher
-        ? `src/**/${fileMatcher}`
-        : "Gulpfile.ts 'scripts/generateLocalizedDiagnosticMessages.ts' 'scripts/tslint/**/*.ts' 'src/**/*.ts' --exclude src/lib/es5.d.ts --exclude 'src/lib/*.generated.d.ts'";
-    const cmd = `node node_modules/tslint/bin/tslint ${files} --formatters-dir ./built/local/tslint/formatters --format autolinkableStylish`;
-    console.log("Linting: " + cmd);
-    jake.exec([cmd], { interactive: true }, () => {
+   function lint(project, cb) {
+        const cmd = `node node_modules/tslint/bin/tslint --project ${project} --formatters-dir ./built/local/tslint/formatters --format autolinkableStylish`;
+        console.log("Linting: " + cmd);
+        jake.exec([cmd], { interactive: true, windowsVerbatimArguments: true }, cb);
+   }
+   lint("scripts/tslint/tsconfig.json", () => lint("src/tsconfig-base.json", () => {
         if (fold.isTravis()) console.log(fold.end("lint"));
         complete();
-    });
+   }));
 });

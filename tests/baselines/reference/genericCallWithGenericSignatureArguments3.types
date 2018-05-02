@@ -27,45 +27,39 @@ function foo<T>(x: T, a: (x: T) => T, b: (x: T) => T) {
 }
 
 var r1 = foo('', (x: string) => '', (x: Object) => null); // any => any
->r1 : (x: 任意) => 任意
->foo('', (x: string) => '', (x: Object) => null) : (x: 任意) => 任意
+>r1 : (x: any) => any
+>foo('', (x: string) => '', (x: Object) => null) : (x: any) => any
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >'' : ""
->(x: string) => '' : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>(x: string) => '' : (x: string) => string
+>x : string
 >'' : ""
->(x: Object) => null : (x: Object) => 任意
+>(x: Object) => null : (x: Object) => any
 >x : Object
 >Object : Object
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var r1ii = foo('', (x) => '', (x) => null); // string => string
->r1ii : (x: 文字) => 文字
->foo('', (x) => '', (x) => null) : (x: 文字) => 文字
+>r1ii : (x: string) => string
+>foo('', (x) => '', (x) => null) : (x: string) => string
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >'' : ""
->(x) => '' : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>(x) => '' : (x: string) => string
+>x : string
 >'' : ""
->(x) => null : (x: 文字) => 任意
->x : 文字
->类型别名 :=> 文字
->null : 空值
->类型别名 :=> 空值
+>(x) => null : (x: string) => any
+>x : string
+>null : null
 
 var r2 = foo('', (x: string) => '', (x: Object) => ''); // string => string
 >r2 : (x: Object) => Object
 >foo('', (x: string) => '', (x: Object) => '') : (x: Object) => Object
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >'' : ""
->(x: string) => '' : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>(x: string) => '' : (x: string) => string
+>x : string
 >'' : ""
->(x: Object) => '' : (x: Object) => 文字
+>(x: Object) => '' : (x: Object) => string
 >x : Object
 >Object : Object
 >'' : ""
@@ -74,30 +68,25 @@ var r3 = foo(null, (x: Object) => '', (x: string) => ''); // Object => Object
 >r3 : (x: Object) => Object
 >foo(null, (x: Object) => '', (x: string) => '') : (x: Object) => Object
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->null : 空值
->类型别名 :=> 空值
->(x: Object) => '' : (x: Object) => 文字
+>null : null
+>(x: Object) => '' : (x: Object) => string
 >x : Object
 >Object : Object
 >'' : ""
->(x: string) => '' : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>(x: string) => '' : (x: string) => string
+>x : string
 >'' : ""
 
 var r4 = foo(null, (x) => '', (x) => ''); // any => any
->r4 : (x: 任意) => 任意
->foo(null, (x) => '', (x) => '') : (x: 任意) => 任意
+>r4 : (x: any) => any
+>foo(null, (x) => '', (x) => '') : (x: any) => any
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
->null : 空值
->类型别名 :=> 空值
->(x) => '' : (x: 任意) => 文字
->x : 任意
->类型别名 :=> 任意
+>null : null
+>(x) => '' : (x: any) => string
+>x : any
 >'' : ""
->(x) => '' : (x: 任意) => 文字
->x : 任意
->类型别名 :=> 任意
+>(x) => '' : (x: any) => string
+>x : any
 >'' : ""
 
 var r5 = foo(new Object(), (x) => '', (x) => ''); // Object => Object
@@ -106,10 +95,10 @@ var r5 = foo(new Object(), (x) => '', (x) => ''); // Object => Object
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >new Object() : Object
 >Object : ObjectConstructor
->(x) => '' : (x: Object) => 文字
+>(x) => '' : (x: Object) => string
 >x : Object
 >'' : ""
->(x) => '' : (x: Object) => 文字
+>(x) => '' : (x: Object) => string
 >x : Object
 >'' : ""
 
@@ -122,23 +111,22 @@ enum F { A }
 >A : F
 
 var r6 = foo(E.A, (x: number) => E.A, (x: F) => F.A); // number => number 
->r6 : (x: 数字) => 数字
->foo(E.A, (x: number) => E.A, (x: F) => F.A) : (x: 数字) => 数字
+>r6 : (x: number) => number
+>foo(E.A, (x: number) => E.A, (x: F) => F.A) : (x: number) => number
 >foo : <T>(x: T, a: (x: T) => T, b: (x: T) => T) => (x: T) => T
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
->(x: number) => E.A : (x: 数字) => E
->x : 数字
->类型别名 :=> 数字
+>(x: number) => E.A : (x: number) => E
+>x : number
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
 >(x: F) => F.A : (x: F) => F
 >x : F
 >F : F
 >F.A : F
->F : 类为 F
+>F : typeof F
 >A : F
 
 
@@ -168,94 +156,77 @@ function foo2<T, U>(x: T, a: (x: T) => U, b: (x: T) => U) {
 }
 
 var r8 = foo2('', (x) => '', (x) => null); // string => string
->r8 : (x: 文字) => 任意
->foo2('', (x) => '', (x) => null) : (x: 文字) => 任意
+>r8 : (x: string) => any
+>foo2('', (x) => '', (x) => null) : (x: string) => any
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
 >'' : ""
->(x) => '' : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>(x) => '' : (x: string) => string
+>x : string
 >'' : ""
->(x) => null : (x: 文字) => 任意
->x : 文字
->类型别名 :=> 文字
->null : 空值
->类型别名 :=> 空值
+>(x) => null : (x: string) => any
+>x : string
+>null : null
 
 var r9 = foo2(null, (x) => '', (x) => ''); // any => any
->r9 : (x: 任意) => 文字
->foo2(null, (x) => '', (x) => '') : (x: 任意) => 文字
+>r9 : (x: any) => string
+>foo2(null, (x) => '', (x) => '') : (x: any) => string
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
->null : 空值
->类型别名 :=> 空值
->(x) => '' : (x: 任意) => 文字
->x : 任意
->类型别名 :=> 任意
+>null : null
+>(x) => '' : (x: any) => string
+>x : any
 >'' : ""
->(x) => '' : (x: 任意) => 文字
->x : 任意
->类型别名 :=> 任意
+>(x) => '' : (x: any) => string
+>x : any
 >'' : ""
 
 var r10 = foo2(null, (x: Object) => '', (x: string) => ''); // Object => Object
->r10 : (x: Object) => 文字
->foo2(null, (x: Object) => '', (x: string) => '') : (x: Object) => 文字
+>r10 : (x: Object) => string
+>foo2(null, (x: Object) => '', (x: string) => '') : (x: Object) => string
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
->null : 空值
->类型别名 :=> 空值
->(x: Object) => '' : (x: Object) => 文字
+>null : null
+>(x: Object) => '' : (x: Object) => string
 >x : Object
 >Object : Object
 >'' : ""
->(x: string) => '' : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>(x: string) => '' : (x: string) => string
+>x : string
 >'' : ""
 
 var x: (a: string) => boolean;
->x : (a: 文字) => 真假
->a : 文字
->类型别名 :=> 文字
+>x : (a: string) => boolean
+>a : string
 
 var r11 = foo2(x, (a1: (y: string) => string) => (n: Object) => 1, (a2: (z: string) => string) => 2); // error
->r11 : 任意
->类型别名 :=> 任意
->foo2(x, (a1: (y: string) => string) => (n: Object) => 1, (a2: (z: string) => string) => 2) : 任意
->类型别名 :=> 任意
+>r11 : any
+>foo2(x, (a1: (y: string) => string) => (n: Object) => 1, (a2: (z: string) => string) => 2) : any
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
->x : (a: 文字) => 真假
->(a1: (y: string) => string) => (n: Object) => 1 : (a1: (y: 文字) => 文字) => (n: Object) => 数字
->a1 : (y: 文字) => 文字
->y : 文字
->类型别名 :=> 文字
->(n: Object) => 1 : (n: Object) => 数字
+>x : (a: string) => boolean
+>(a1: (y: string) => string) => (n: Object) => 1 : (a1: (y: string) => string) => (n: Object) => number
+>a1 : (y: string) => string
+>y : string
+>(n: Object) => 1 : (n: Object) => number
 >n : Object
 >Object : Object
 >1 : 1
->(a2: (z: string) => string) => 2 : (a2: (z: 文字) => 文字) => 数字
->a2 : (z: 文字) => 文字
->z : 文字
->类型别名 :=> 文字
+>(a2: (z: string) => string) => 2 : (a2: (z: string) => string) => number
+>a2 : (z: string) => string
+>z : string
 >2 : 2
 
 var r12 = foo2(x, (a1: (y: string) => boolean) => (n: Object) => 1, (a2: (z: string) => boolean) => 2); // error
->r12 : 任意
->类型别名 :=> 任意
->foo2(x, (a1: (y: string) => boolean) => (n: Object) => 1, (a2: (z: string) => boolean) => 2) : 任意
->类型别名 :=> 任意
+>r12 : any
+>foo2(x, (a1: (y: string) => boolean) => (n: Object) => 1, (a2: (z: string) => boolean) => 2) : any
 >foo2 : <T, U>(x: T, a: (x: T) => U, b: (x: T) => U) => (x: T) => U
->x : (a: 文字) => 真假
->(a1: (y: string) => boolean) => (n: Object) => 1 : (a1: (y: 文字) => 真假) => (n: Object) => 数字
->a1 : (y: 文字) => 真假
->y : 文字
->类型别名 :=> 文字
->(n: Object) => 1 : (n: Object) => 数字
+>x : (a: string) => boolean
+>(a1: (y: string) => boolean) => (n: Object) => 1 : (a1: (y: string) => boolean) => (n: Object) => number
+>a1 : (y: string) => boolean
+>y : string
+>(n: Object) => 1 : (n: Object) => number
 >n : Object
 >Object : Object
 >1 : 1
->(a2: (z: string) => boolean) => 2 : (a2: (z: 文字) => 真假) => 数字
->a2 : (z: 文字) => 真假
->z : 文字
->类型别名 :=> 文字
+>(a2: (z: string) => boolean) => 2 : (a2: (z: string) => boolean) => number
+>a2 : (z: string) => boolean
+>z : string
 >2 : 2
 

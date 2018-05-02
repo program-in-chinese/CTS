@@ -2,24 +2,24 @@
 export {}; // Make this a module scope, so these are local variables.
 
 function f() {
->f : () => 无值
+>f : () => void
 
     f;
->f : () => 无值
+>f : () => void
 
     function g() {
->g : () => 无值
+>g : () => void
 
         g;
->g : () => 无值
+>g : () => void
     }
 }
 class C {
 >C : C
 
     m() { C; }
->m : () => 无值
->C : 类为 C
+>m : () => void
+>C : typeof C
 }
 enum E { A = 0, B = E.A }
 >E : E
@@ -27,26 +27,49 @@ enum E { A = 0, B = E.A }
 >0 : 0
 >B : E
 >E.A : E
->E : 类为 E
+>E : typeof E
 >A : E
+
+interface I { x: I };
+>I : I
+>x : I
+>I : I
+
+type T = { x: T };
+>T : { x: T; }
+>x : { x: T; }
+>T : { x: T; }
+
+namespace N { N; }
+>N : typeof N
+>N : typeof N
+
+// Avoid a false positive.
+// Previously `T` was considered unused due to merging with the property,
+// back when all non-blocks were checked for recursion.
+export interface A<T> { T: T }
+>A : A<T>
+>T : T
+>T : T
+>T : T
 
 class P { private m() { this.m; } }
 >P : P
->m : () => 无值
->this.m : () => 无值
->this : 本体
->m : () => 无值
+>m : () => void
+>this.m : () => void
+>this : this
+>m : () => void
 
 P;
->P : 类为 P
+>P : typeof P
 
 // Does not detect mutual recursion.
 function g() { D; }
->g : () => 无值
->D : 类为 D
+>g : () => void
+>D : typeof D
 
 class D { m() { g; } }
 >D : D
->m : () => 无值
->g : () => 无值
+>m : () => void
+>g : () => void
 

@@ -3,36 +3,29 @@
 >'use strict' : "use strict"
 
 for (let x; ;) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     function foo() { x };
->foo : () => 无值
->x : 任意
->类型别名 :=> 任意
+>foo : () => void
+>x : any
 }
 
 for (let x; ;) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     function foo1() { x };
->foo1 : () => 无值
->x : 任意
->类型别名 :=> 任意
+>foo1 : () => void
+>x : any
 }
 
 for (let x; ;) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     (() => { x })();
->(() => { x })() : 不及
->类型别名 :=> 不及
->(() => { x }) : () => 不及
->() => { x } : () => 不及
->x : 任意
->类型别名 :=> 任意
+>(() => { x })() : never
+>(() => { x }) : () => never
+>() => { x } : () => never
+>x : any
 }
 
 for (const x = 1; ;) {
@@ -40,50 +33,40 @@ for (const x = 1; ;) {
 >1 : 1
 
     (() => { x })();
->(() => { x })() : 不及
->类型别名 :=> 不及
->(() => { x }) : () => 不及
->() => { x } : () => 不及
+>(() => { x })() : never
+>(() => { x }) : () => never
+>() => { x } : () => never
 >x : 1
 }
 
 for (let x; ;) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     ({ foo() { x }})
->({ foo() { x }}) : { foo(): 无值; }
->{ foo() { x }} : { foo(): 无值; }
->foo : () => 无值
->x : 任意
->类型别名 :=> 任意
+>({ foo() { x }}) : { foo(): void; }
+>{ foo() { x }} : { foo(): void; }
+>foo : () => void
+>x : any
 }
 
 for (let x; ;) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     ({ get foo() { return x } })
->({ get foo() { return x } }) : { 只读 foo: 任意; }
->{ get foo() { return x } } : { 只读 foo: 任意; }
->foo : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>({ get foo() { return x } }) : { readonly foo: any; }
+>{ get foo() { return x } } : { readonly foo: any; }
+>foo : any
+>x : any
 }
 
 for (let x; ;) {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     ({ set foo(v) { x } })
->({ set foo(v) { x } }) : { foo: 任意; }
->{ set foo(v) { x } } : { foo: 任意; }
->foo : 任意
->类型别名 :=> 任意
->v : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>({ set foo(v) { x } }) : { foo: any; }
+>{ set foo(v) { x } } : { foo: any; }
+>foo : any
+>v : any
+>x : any
 }
 

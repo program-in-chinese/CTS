@@ -1,89 +1,74 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/part1.ts ===
 export module A {
->A : 类为 A
+>A : typeof A
 
     export interface Point {
 >Point : Point
 
         x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
     }
 
     export module Utils {
->Utils : 类为 Utils
+>Utils : typeof Utils
 
         export function mirror<T extends Point>(p: T) {
->mirror : <T 扩展 Point>(p: T) => { x: 数字; y: 数字; }
+>mirror : <T extends Point>(p: T) => { x: number; y: number; }
 >T : T
 >Point : Point
 >p : T
 >T : T
 
             return { x: p.y, y: p.x };
->{ x: p.y, y: p.x } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->p.y : 数字
->类型别名 :=> 数字
+>{ x: p.y, y: p.x } : { x: number; y: number; }
+>x : number
+>p.y : number
 >p : T
->y : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
->p.x : 数字
->类型别名 :=> 数字
+>y : number
+>y : number
+>p.x : number
 >p : T
->x : 数字
->类型别名 :=> 数字
+>x : number
         }
     }
 
     export var Origin: Point = { x: 0, y: 0 };
 >Origin : Point
 >Point : Point
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 }
 
 === tests/cases/conformance/internalModules/DeclarationMerging/part2.ts ===
 export module A {
->A : 类为 A
+>A : typeof A
 
     // collision with 'Origin' var in other part of merged module
     export var Origin: Point = { x: 0, y: 0 };
->Origin : 任意
->类型别名 :=> 任意
+>Origin : any
 >Point : No type information available!
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 
     export module Utils {
->Utils : 类为 Utils
+>Utils : typeof Utils
 
         export class Plane {
 >Plane : Plane
 
             constructor(public tl: Point, public br: Point) { }
->tl : 任意
->类型别名 :=> 任意
+>tl : any
 >Point : No type information available!
->br : 任意
->类型别名 :=> 任意
+>br : any
 >Point : No type information available!
         }
     }

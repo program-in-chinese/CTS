@@ -8,102 +8,78 @@ enum ENUM1 { A, B, "" };
 >ENUM1 : ENUM1
 >A : ENUM1.A
 >B : ENUM1.B
+>"" : ENUM1.
 
 // enum type var
 var ResultIsAny1 = void ENUM;
->ResultIsAny1 : 任意
->类型别名 :=> 任意
->void ENUM : 未定
->类型别名 :=> 未定
->ENUM : 类为 ENUM
+>ResultIsAny1 : any
+>void ENUM : undefined
+>ENUM : typeof ENUM
 
 var ResultIsAny2 = void ENUM1;
->ResultIsAny2 : 任意
->类型别名 :=> 任意
->void ENUM1 : 未定
->类型别名 :=> 未定
->ENUM1 : 类为 ENUM1
+>ResultIsAny2 : any
+>void ENUM1 : undefined
+>ENUM1 : typeof ENUM1
 
 // enum type expressions
 var ResultIsAny3 = void ENUM1["A"];
->ResultIsAny3 : 任意
->类型别名 :=> 任意
->void ENUM1["A"] : 未定
->类型别名 :=> 未定
+>ResultIsAny3 : any
+>void ENUM1["A"] : undefined
 >ENUM1["A"] : ENUM1.A
->ENUM1 : 类为 ENUM1
+>ENUM1 : typeof ENUM1
 >"A" : "A"
 
 var ResultIsAny4 = void (ENUM[0] + ENUM1["B"]);
->ResultIsAny4 : 任意
->类型别名 :=> 任意
->void (ENUM[0] + ENUM1["B"]) : 未定
->类型别名 :=> 未定
->(ENUM[0] + ENUM1["B"]) : 文字
->类型别名 :=> 文字
->ENUM[0] + ENUM1["B"] : 文字
->类型别名 :=> 文字
->ENUM[0] : 文字
->类型别名 :=> 文字
->ENUM : 类为 ENUM
+>ResultIsAny4 : any
+>void (ENUM[0] + ENUM1["B"]) : undefined
+>(ENUM[0] + ENUM1["B"]) : string
+>ENUM[0] + ENUM1["B"] : string
+>ENUM[0] : string
+>ENUM : typeof ENUM
 >0 : 0
 >ENUM1["B"] : ENUM1.B
->ENUM1 : 类为 ENUM1
+>ENUM1 : typeof ENUM1
 >"B" : "B"
 
 // multiple void  operators
 var ResultIsAny5 = void void ENUM;
->ResultIsAny5 : 任意
->类型别名 :=> 任意
->void void ENUM : 未定
->类型别名 :=> 未定
->void ENUM : 未定
->类型别名 :=> 未定
->ENUM : 类为 ENUM
+>ResultIsAny5 : any
+>void void ENUM : undefined
+>void ENUM : undefined
+>ENUM : typeof ENUM
 
 var ResultIsAny6 = void void void (ENUM[0] + ENUM1.B);
->ResultIsAny6 : 任意
->类型别名 :=> 任意
->void void void (ENUM[0] + ENUM1.B) : 未定
->类型别名 :=> 未定
->void void (ENUM[0] + ENUM1.B) : 未定
->类型别名 :=> 未定
->void (ENUM[0] + ENUM1.B) : 未定
->类型别名 :=> 未定
->(ENUM[0] + ENUM1.B) : 文字
->类型别名 :=> 文字
->ENUM[0] + ENUM1.B : 文字
->类型别名 :=> 文字
->ENUM[0] : 文字
->类型别名 :=> 文字
->ENUM : 类为 ENUM
+>ResultIsAny6 : any
+>void void void (ENUM[0] + ENUM1.B) : undefined
+>void void (ENUM[0] + ENUM1.B) : undefined
+>void (ENUM[0] + ENUM1.B) : undefined
+>(ENUM[0] + ENUM1.B) : string
+>ENUM[0] + ENUM1.B : string
+>ENUM[0] : string
+>ENUM : typeof ENUM
 >0 : 0
 >ENUM1.B : ENUM1.B
->ENUM1 : 类为 ENUM1
+>ENUM1 : typeof ENUM1
 >B : ENUM1.B
 
 // miss assignment operators
 void ENUM;
->void ENUM : 未定
->类型别名 :=> 未定
->ENUM : 类为 ENUM
+>void ENUM : undefined
+>ENUM : typeof ENUM
 
 void ENUM1;
->void ENUM1 : 未定
->类型别名 :=> 未定
->ENUM1 : 类为 ENUM1
+>void ENUM1 : undefined
+>ENUM1 : typeof ENUM1
 
 void ENUM1["B"];
->void ENUM1["B"] : 未定
->类型别名 :=> 未定
+>void ENUM1["B"] : undefined
 >ENUM1["B"] : ENUM1.B
->ENUM1 : 类为 ENUM1
+>ENUM1 : typeof ENUM1
 >"B" : "B"
 
 void ENUM, ENUM1;
->void ENUM, ENUM1 : 类为 ENUM1
->void ENUM : 未定
->类型别名 :=> 未定
->ENUM : 类为 ENUM
->ENUM1 : 类为 ENUM1
+>void ENUM, ENUM1 : typeof ENUM1
+>void ENUM : undefined
+>ENUM : typeof ENUM
+>ENUM1 : typeof ENUM1
 

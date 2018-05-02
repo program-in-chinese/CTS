@@ -1,24 +1,21 @@
 === tests/cases/compiler/parameterReferenceInInitializer1.ts ===
 function fn<a>(y: Y, set: (y: Y, x: number) => void): a {
->fn : <a>(y: Y, set: (y: Y, x: 数字) => 无值) => a
+>fn : <a>(y: Y, set: (y: Y, x: number) => void) => a
 >a : a
 >y : Y
 >Y : Y
->set : (y: Y, x: 数字) => 无值
+>set : (y: Y, x: number) => void
 >y : Y
 >Y : Y
->x : 数字
->类型别名 :=> 数字
+>x : number
 >a : a
 
     return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 }
 interface Y { x: number }
 >Y : Y
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 class C {
 >C : C
@@ -31,21 +28,16 @@ class C {
         public x = fn(y, (y, x) => y.x = x) // expected to work, but actually doesn't
 >x : {}
 >fn(y, (y, x) => y.x = x) : {}
->fn : <a>(y: Y, set: (y: Y, x: 数字) => 无值) => a
+>fn : <a>(y: Y, set: (y: Y, x: number) => void) => a
 >y : Y
->(y, x) => y.x = x : (y: Y, x: 数字) => 数字
+>(y, x) => y.x = x : (y: Y, x: number) => number
 >y : Y
->x : 数字
->类型别名 :=> 数字
->y.x = x : 数字
->类型别名 :=> 数字
->y.x : 数字
->类型别名 :=> 数字
+>x : number
+>y.x = x : number
+>y.x : number
 >y : Y
->x : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x : number
+>x : number
 
     ) {
     }

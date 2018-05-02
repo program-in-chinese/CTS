@@ -3,36 +3,35 @@ export class B {
 >B : B
 
     print() { return "I am B"}
->print : () => 文字
+>print : () => string
 >"I am B" : "I am B"
 }
 
 === tests/cases/conformance/dynamicImport/2.ts ===
 async function foo() {
->foo : () => Promise<无值>
+>foo : () => Promise<void>
 
     class C extends (await import("./0")).B {}
 >C : C
 >(await import("./0")).B : B
->(await import("./0")) : 类为 "tests/cases/conformance/dynamicImport/0" & { default: 类为 "tests/cases/conformance/dynamicImport/0"; }
->await import("./0") : 类为 "tests/cases/conformance/dynamicImport/0" & { default: 类为 "tests/cases/conformance/dynamicImport/0"; }
->import("./0") : Promise<类为 "tests/cases/conformance/dynamicImport/0" & { default: 类为 "tests/cases/conformance/dynamicImport/0"; }>
+>(await import("./0")) : typeof "tests/cases/conformance/dynamicImport/0"
+>await import("./0") : typeof "tests/cases/conformance/dynamicImport/0"
+>import("./0") : Promise<typeof "tests/cases/conformance/dynamicImport/0">
 >"./0" : "./0"
->B : 类为 B
+>B : typeof B
 
     var c = new C();
 >c : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
     c.print();
->c.print() : 文字
->类型别名 :=> 文字
->c.print : () => 文字
+>c.print() : string
+>c.print : () => string
 >c : C
->print : () => 文字
+>print : () => string
 }
 foo();
->foo() : Promise<无值>
->foo : () => Promise<无值>
+>foo() : Promise<void>
+>foo : () => Promise<void>
 

@@ -1,60 +1,53 @@
 === tests/cases/compiler/file1.ts ===
 function foo() {}
->foo : 类为 foo
+>foo : typeof foo
 
 namespace foo {
->foo : 类为 foo
+>foo : typeof foo
 
     export var v = 1;
->v : 数字
->类型别名 :=> 数字
+>v : number
 >1 : 1
 }
 export = foo;
->foo : 类为 foo
+>foo : typeof foo
 
 === tests/cases/compiler/file2.ts ===
 import x = require("./file1"); 
->x : 类为 x
+>x : typeof x
 
 x.b = 1;
 >x.b = 1 : 1
->x.b : 数字
->类型别名 :=> 数字
->x : 类为 x
->b : 数字
->类型别名 :=> 数字
+>x.b : number
+>x : typeof x
+>b : number
 >1 : 1
 
 // OK - './file1' is a namespace
 declare module "./file1" {
+>"./file1" : typeof x
+
     interface A { a }
 >A : A
->a : 任意
->类型别名 :=> 任意
+>a : any
 
     let b: number;
->b : 数字
->类型别名 :=> 数字
+>b : number
 }
 
 === tests/cases/compiler/file3.ts ===
 import * as x from "./file1";
->x : 类为 x
+>x : typeof x
 
 import "./file2";
 let a: x.A;
 >a : x.A
->x : 任意
->类型别名 :=> 任意
+>x : any
 >A : x.A
 
 let b = x.b;
->b : 数字
->类型别名 :=> 数字
->x.b : 数字
->类型别名 :=> 数字
->x : 类为 x
->b : 数字
->类型别名 :=> 数字
+>b : number
+>x.b : number
+>x : typeof x
+>b : number
 

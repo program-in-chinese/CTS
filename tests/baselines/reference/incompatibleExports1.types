@@ -1,9 +1,10 @@
 === tests/cases/compiler/incompatibleExports1.ts ===
 declare module "foo" { 
+>"foo" : typeof "foo"
+
     export interface x { a: string } 
 >x : x
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     interface y { a: Date }
 >y : y
@@ -15,23 +16,23 @@ declare module "foo" {
 }
  
 declare module "baz" {
+>"baz" : typeof "baz"
+
     export module a {
->a : 类为 a
+>a : typeof a
 
         export var b: number;
->b : 数字
->类型别名 :=> 数字
+>b : number
     }
  
     module c {
->c : 类为 c
+>c : typeof c
 
         export var c: string;
->c : 文字
->类型别名 :=> 文字
+>c : string
     }
  
     export = c;
->c : 类为 c
+>c : typeof c
 }
 

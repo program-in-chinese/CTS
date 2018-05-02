@@ -12,31 +12,26 @@ declare function map<S, T>(f: (x: S) => T): (a: S[]) => T[];
 >T : T
 
 var e = <K>(x: string, y?: K) => x.length;
->e : <K>(x: 文字, y?: K) => 数字
-><K>(x: string, y?: K) => x.length : <K>(x: 文字, y?: K) => 数字
+>e : <K>(x: string, y?: K) => number
+><K>(x: string, y?: K) => x.length : <K>(x: string, y?: K) => number
 >K : K
->x : 文字
->类型别名 :=> 文字
+>x : string
 >y : K
 >K : K
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : string
+>length : number
 
 var r99 = map(e); // should be {}[] for S since a generic lambda is not inferentially typed
->r99 : (a: {}[]) => 数字[]
->map(e) : (a: {}[]) => 数字[]
+>r99 : (a: {}[]) => number[]
+>map(e) : (a: {}[]) => number[]
 >map : <S, T>(f: (x: S) => T) => (a: S[]) => T[]
->e : <K>(x: 文字, y?: K) => 数字
+>e : <K>(x: string, y?: K) => number
 
 declare function map2<S extends { length: number }, T>(f: (x: S) => T): (a: S[]) => T[];
->map2 : <S 扩展 { length: 数字; }, T>(f: (x: S) => T) => (a: S[]) => T[]
+>map2 : <S extends { length: number; }, T>(f: (x: S) => T) => (a: S[]) => T[]
 >S : S
->length : 数字
->类型别名 :=> 数字
+>length : number
 >T : T
 >f : (x: S) => T
 >x : S
@@ -47,23 +42,19 @@ declare function map2<S extends { length: number }, T>(f: (x: S) => T): (a: S[])
 >T : T
 
 var e2 = <K>(x: string, y?: K) => x.length;
->e2 : <K>(x: 文字, y?: K) => 数字
-><K>(x: string, y?: K) => x.length : <K>(x: 文字, y?: K) => 数字
+>e2 : <K>(x: string, y?: K) => number
+><K>(x: string, y?: K) => x.length : <K>(x: string, y?: K) => number
 >K : K
->x : 文字
->类型别名 :=> 文字
+>x : string
 >y : K
 >K : K
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x.length : number
+>x : string
+>length : number
 
 var r100 = map2(e2); // type arg inference should fail for S since a generic lambda is not inferentially typed. Falls back to { length: number }
->r100 : (a: { length: 数字; }[]) => 数字[]
->map2(e2) : (a: { length: 数字; }[]) => 数字[]
->map2 : <S 扩展 { length: 数字; }, T>(f: (x: S) => T) => (a: S[]) => T[]
->e2 : <K>(x: 文字, y?: K) => 数字
+>r100 : (a: { length: number; }[]) => number[]
+>map2(e2) : (a: { length: number; }[]) => number[]
+>map2 : <S extends { length: number; }, T>(f: (x: S) => T) => (a: S[]) => T[]
+>e2 : <K>(x: string, y?: K) => number
 

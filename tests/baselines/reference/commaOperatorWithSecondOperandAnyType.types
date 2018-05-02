@@ -1,19 +1,15 @@
 === tests/cases/conformance/expressions/commaOperator/commaOperatorWithSecondOperandAnyType.ts ===
 var ANY: any;
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 
 var BOOLEAN: boolean;
->BOOLEAN : 真假
->类型别名 :=> 真假
+>BOOLEAN : boolean
 
 var NUMBER: number;
->NUMBER : 数字
->类型别名 :=> 数字
+>NUMBER : number
 
 var STRING: string;
->STRING : 文字
->类型别名 :=> 文字
+>STRING : string
 
 var OBJECT: Object;
 >OBJECT : Object
@@ -21,258 +17,165 @@ var OBJECT: Object;
 
 //The second operand type is any
 ANY, ANY;
->ANY, ANY : 任意
->类型别名 :=> 任意
->ANY : 任意
->类型别名 :=> 任意
->ANY : 任意
->类型别名 :=> 任意
+>ANY, ANY : any
+>ANY : any
+>ANY : any
 
 BOOLEAN, ANY;
->BOOLEAN, ANY : 任意
->类型别名 :=> 任意
->BOOLEAN : 真假
->类型别名 :=> 真假
->ANY : 任意
->类型别名 :=> 任意
+>BOOLEAN, ANY : any
+>BOOLEAN : boolean
+>ANY : any
 
 NUMBER, ANY;
->NUMBER, ANY : 任意
->类型别名 :=> 任意
->NUMBER : 数字
->类型别名 :=> 数字
->ANY : 任意
->类型别名 :=> 任意
+>NUMBER, ANY : any
+>NUMBER : number
+>ANY : any
 
 STRING, ANY;
->STRING, ANY : 任意
->类型别名 :=> 任意
->STRING : 文字
->类型别名 :=> 文字
->ANY : 任意
->类型别名 :=> 任意
+>STRING, ANY : any
+>STRING : string
+>ANY : any
 
 OBJECT, ANY;
->OBJECT, ANY : 任意
->类型别名 :=> 任意
+>OBJECT, ANY : any
 >OBJECT : Object
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 
 //Return type is any
 var resultIsAny1 = (ANY, ANY);
->resultIsAny1 : 任意
->类型别名 :=> 任意
->(ANY, ANY) : 任意
->类型别名 :=> 任意
->ANY, ANY : 任意
->类型别名 :=> 任意
->ANY : 任意
->类型别名 :=> 任意
->ANY : 任意
->类型别名 :=> 任意
+>resultIsAny1 : any
+>(ANY, ANY) : any
+>ANY, ANY : any
+>ANY : any
+>ANY : any
 
 var resultIsAny2 = (BOOLEAN, ANY);
->resultIsAny2 : 任意
->类型别名 :=> 任意
->(BOOLEAN, ANY) : 任意
->类型别名 :=> 任意
->BOOLEAN, ANY : 任意
->类型别名 :=> 任意
->BOOLEAN : 真假
->类型别名 :=> 真假
->ANY : 任意
->类型别名 :=> 任意
+>resultIsAny2 : any
+>(BOOLEAN, ANY) : any
+>BOOLEAN, ANY : any
+>BOOLEAN : boolean
+>ANY : any
 
 var resultIsAny3 = (NUMBER, ANY);
->resultIsAny3 : 任意
->类型别名 :=> 任意
->(NUMBER, ANY) : 任意
->类型别名 :=> 任意
->NUMBER, ANY : 任意
->类型别名 :=> 任意
->NUMBER : 数字
->类型别名 :=> 数字
->ANY : 任意
->类型别名 :=> 任意
+>resultIsAny3 : any
+>(NUMBER, ANY) : any
+>NUMBER, ANY : any
+>NUMBER : number
+>ANY : any
 
 var resultIsAny4 = (STRING, ANY);
->resultIsAny4 : 任意
->类型别名 :=> 任意
->(STRING, ANY) : 任意
->类型别名 :=> 任意
->STRING, ANY : 任意
->类型别名 :=> 任意
->STRING : 文字
->类型别名 :=> 文字
->ANY : 任意
->类型别名 :=> 任意
+>resultIsAny4 : any
+>(STRING, ANY) : any
+>STRING, ANY : any
+>STRING : string
+>ANY : any
 
 var resultIsAny5 = (OBJECT, ANY);
->resultIsAny5 : 任意
->类型别名 :=> 任意
->(OBJECT, ANY) : 任意
->类型别名 :=> 任意
->OBJECT, ANY : 任意
->类型别名 :=> 任意
+>resultIsAny5 : any
+>(OBJECT, ANY) : any
+>OBJECT, ANY : any
 >OBJECT : Object
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 
 //Literal and expression
 var x: any;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 1, ANY;
->1, ANY : 任意
->类型别名 :=> 任意
+>1, ANY : any
 >1 : 1
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 
 ++NUMBER, ANY;
->++NUMBER, ANY : 任意
->类型别名 :=> 任意
->++NUMBER : 数字
->类型别名 :=> 数字
->NUMBER : 数字
->类型别名 :=> 数字
->ANY : 任意
->类型别名 :=> 任意
+>++NUMBER, ANY : any
+>++NUMBER : number
+>NUMBER : number
+>ANY : any
 
 "string", [null, 1];
->"string", [null, 1] : 数字[]
+>"string", [null, 1] : number[]
 >"string" : "string"
->[null, 1] : 数字[]
->null : 空值
->类型别名 :=> 空值
+>[null, 1] : number[]
+>null : null
 >1 : 1
 
 "string".charAt(0), [null, 1];
->"string".charAt(0), [null, 1] : 数字[]
->"string".charAt(0) : 文字
->类型别名 :=> 文字
->"string".charAt : (pos: 数字) => 文字
+>"string".charAt(0), [null, 1] : number[]
+>"string".charAt(0) : string
+>"string".charAt : (pos: number) => string
 >"string" : "string"
->charAt : (pos: 数字) => 文字
+>charAt : (pos: number) => string
 >0 : 0
->[null, 1] : 数字[]
->null : 空值
->类型别名 :=> 空值
+>[null, 1] : number[]
+>null : null
 >1 : 1
 
 true, x("any");
->true, x("any") : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
->x("any") : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>true, x("any") : any
+>true : true
+>x("any") : any
+>x : any
 >"any" : "any"
 
 !BOOLEAN, x.doSomeThing();
->!BOOLEAN, x.doSomeThing() : 任意
->类型别名 :=> 任意
->!BOOLEAN : 真假
->类型别名 :=> 真假
->BOOLEAN : 真假
->类型别名 :=> 真假
->x.doSomeThing() : 任意
->类型别名 :=> 任意
->x.doSomeThing : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->doSomeThing : 任意
->类型别名 :=> 任意
+>!BOOLEAN, x.doSomeThing() : any
+>!BOOLEAN : boolean
+>BOOLEAN : boolean
+>x.doSomeThing() : any
+>x.doSomeThing : any
+>x : any
+>doSomeThing : any
 
 var resultIsAny6 = (1, ANY);
->resultIsAny6 : 任意
->类型别名 :=> 任意
->(1, ANY) : 任意
->类型别名 :=> 任意
->1, ANY : 任意
->类型别名 :=> 任意
+>resultIsAny6 : any
+>(1, ANY) : any
+>1, ANY : any
 >1 : 1
->ANY : 任意
->类型别名 :=> 任意
+>ANY : any
 
 var resultIsAny7 = (++NUMBER, ANY);
->resultIsAny7 : 任意
->类型别名 :=> 任意
->(++NUMBER, ANY) : 任意
->类型别名 :=> 任意
->++NUMBER, ANY : 任意
->类型别名 :=> 任意
->++NUMBER : 数字
->类型别名 :=> 数字
->NUMBER : 数字
->类型别名 :=> 数字
->ANY : 任意
->类型别名 :=> 任意
+>resultIsAny7 : any
+>(++NUMBER, ANY) : any
+>++NUMBER, ANY : any
+>++NUMBER : number
+>NUMBER : number
+>ANY : any
 
 var resultIsAny8 = ("string", null);
->resultIsAny8 : 任意
->类型别名 :=> 任意
->("string", null) : 空值
->类型别名 :=> 空值
->"string", null : 空值
->类型别名 :=> 空值
+>resultIsAny8 : any
+>("string", null) : null
+>"string", null : null
 >"string" : "string"
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var resultIsAny9 = ("string".charAt(0), undefined);
->resultIsAny9 : 任意
->类型别名 :=> 任意
->("string".charAt(0), undefined) : 未定
->类型别名 :=> 未定
->"string".charAt(0), undefined : 未定
->类型别名 :=> 未定
->"string".charAt(0) : 文字
->类型别名 :=> 文字
->"string".charAt : (pos: 数字) => 文字
+>resultIsAny9 : any
+>("string".charAt(0), undefined) : undefined
+>"string".charAt(0), undefined : undefined
+>"string".charAt(0) : string
+>"string".charAt : (pos: number) => string
 >"string" : "string"
->charAt : (pos: 数字) => 文字
+>charAt : (pos: number) => string
 >0 : 0
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 var resultIsAny10 = (true, x("any"));
->resultIsAny10 : 任意
->类型别名 :=> 任意
->(true, x("any")) : 任意
->类型别名 :=> 任意
->true, x("any") : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
->x("any") : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>resultIsAny10 : any
+>(true, x("any")) : any
+>true, x("any") : any
+>true : true
+>x("any") : any
+>x : any
 >"any" : "any"
 
 var resultIsAny11 = (!BOOLEAN, x.doSomeThing());
->resultIsAny11 : 任意
->类型别名 :=> 任意
->(!BOOLEAN, x.doSomeThing()) : 任意
->类型别名 :=> 任意
->!BOOLEAN, x.doSomeThing() : 任意
->类型别名 :=> 任意
->!BOOLEAN : 真假
->类型别名 :=> 真假
->BOOLEAN : 真假
->类型别名 :=> 真假
->x.doSomeThing() : 任意
->类型别名 :=> 任意
->x.doSomeThing : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->doSomeThing : 任意
->类型别名 :=> 任意
+>resultIsAny11 : any
+>(!BOOLEAN, x.doSomeThing()) : any
+>!BOOLEAN, x.doSomeThing() : any
+>!BOOLEAN : boolean
+>BOOLEAN : boolean
+>x.doSomeThing() : any
+>x.doSomeThing : any
+>x : any
+>doSomeThing : any
 

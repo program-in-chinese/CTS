@@ -1,21 +1,17 @@
 === tests/cases/conformance/types/typeRelationships/assignmentCompatibility/callSignatureAssignabilityInInheritance.ts ===
 module CallSignature {
->CallSignature : 任意
->类型别名 :=> 任意
+>CallSignature : any
 
     interface Base { // T
 >Base : Base
 
         // M's
         (x: number): void;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         (x: number, y: number): void;
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
     }
 
     // S's
@@ -25,14 +21,11 @@ module CallSignature {
 
         // N's
         (x: number): number; // ok because base returns void
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         (x: number, y: number): boolean; // ok because base returns void
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
 
         <T>(x: T): string; // ok because base returns void
 >T : T
@@ -45,8 +38,7 @@ module CallSignature {
 
         // M's
         (x: number): number;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 
     // S's
@@ -56,8 +48,7 @@ module CallSignature {
 
         // N's
         (x: number): string; // error because base returns non-void;
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 
     // S's
@@ -74,27 +65,23 @@ module CallSignature {
 }
 
 module MemberWithCallSignature {
->MemberWithCallSignature : 任意
->类型别名 :=> 任意
+>MemberWithCallSignature : any
 
     interface Base { // T
 >Base : Base
 
         // M's
         a: (x: number) => void;
->a : (x: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
+>a : (x: number) => void
+>x : number
 
         a2: (x: number, y: number) => void;
->a2 : (x: 数字, y: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>a2 : (x: number, y: number) => void
+>x : number
+>y : number
 
         a3: <T>(x: T) => void;
->a3 : <T>(x: T) => 无值
+>a3 : <T>(x: T) => void
 >T : T
 >x : T
 >T : T
@@ -107,19 +94,16 @@ module MemberWithCallSignature {
 
         // N's
         a: (x: number) => number; // ok because base returns void
->a : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>a : (x: number) => number
+>x : number
 
         a2: (x: number, y: number) => boolean; // ok because base returns void
->a2 : (x: 数字, y: 数字) => 真假
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>a2 : (x: number, y: number) => boolean
+>x : number
+>y : number
 
         a3: <T>(x: T) => string; // ok because base returns void
->a3 : <T>(x: T) => 文字
+>a3 : <T>(x: T) => string
 >T : T
 >x : T
 >T : T
@@ -130,9 +114,8 @@ module MemberWithCallSignature {
 
         // M's
         a: (x: number) => number;
->a : (x: 数字) => 数字
->x : 数字
->类型别名 :=> 数字
+>a : (x: number) => number
+>x : number
 
         a2: <T>(x: T) => T;
 >a2 : <T>(x: T) => T
@@ -149,9 +132,8 @@ module MemberWithCallSignature {
 
         // N's
         a: (x: number) => string; // error because base returns non-void;
->a : (x: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
+>a : (x: number) => string
+>x : number
     }
 
     // S's
@@ -161,7 +143,7 @@ module MemberWithCallSignature {
 
         // N's
         a2: <T>(x: T) => string; // error because base returns non-void;
->a2 : <T>(x: T) => 文字
+>a2 : <T>(x: T) => string
 >T : T
 >x : T
 >T : T

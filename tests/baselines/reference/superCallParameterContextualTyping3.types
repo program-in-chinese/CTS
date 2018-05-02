@@ -4,7 +4,7 @@ interface ContextualType<T> {
 >T : T
 
     method(parameter: T): void;
->method : (parameter: T) => 无值
+>method : (parameter: T) => void
 >parameter : T
 >T : T
 }
@@ -20,7 +20,7 @@ class CBase<T>  {
     }
 
     foo(param: ContextualType<T>) {
->foo : (param: ContextualType<T>) => 无值
+>foo : (param: ContextualType<T>) => void
 >param : ContextualType<T>
 >ContextualType : ContextualType<T>
 >T : T
@@ -29,54 +29,44 @@ class CBase<T>  {
 
 class C extends CBase<string> {
 >C : C
->CBase : CBase<文字>
+>CBase : CBase<string>
 
     constructor() {
         // Should be okay.
         // 'p' should have type 'string'.
         super({
->super({            method(p) {                p.length;            }        }) : 无值
->类型别名 :=> 无值
->super : 类为 CBase
->{            method(p) {                p.length;            }        } : { method(p: 文字): 无值; }
+>super({            method(p) {                p.length;            }        }) : void
+>super : typeof CBase
+>{            method(p) {                p.length;            }        } : { method(p: string): void; }
 
             method(p) {
->method : (p: 文字) => 无值
->p : 文字
->类型别名 :=> 文字
+>method : (p: string) => void
+>p : string
 
                 p.length;
->p.length : 数字
->类型别名 :=> 数字
->p : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>p.length : number
+>p : string
+>length : number
             }
         });
 
         // Should be okay.
         // 'p' should have type 'string'.
         super.foo({
->super.foo({            method(p) {                p.length;            }        }) : 无值
->类型别名 :=> 无值
->super.foo : (param: ContextualType<文字>) => 无值
->super : CBase<文字>
->foo : (param: ContextualType<文字>) => 无值
->{            method(p) {                p.length;            }        } : { method(p: 文字): 无值; }
+>super.foo({            method(p) {                p.length;            }        }) : void
+>super.foo : (param: ContextualType<string>) => void
+>super : CBase<string>
+>foo : (param: ContextualType<string>) => void
+>{            method(p) {                p.length;            }        } : { method(p: string): void; }
 
             method(p) {
->method : (p: 文字) => 无值
->p : 文字
->类型别名 :=> 文字
+>method : (p: string) => void
+>p : string
 
                 p.length;
->p.length : 数字
->类型别名 :=> 数字
->p : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>p.length : number
+>p : string
+>length : number
             }
         });
     }

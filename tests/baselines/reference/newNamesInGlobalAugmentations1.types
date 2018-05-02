@@ -2,70 +2,53 @@
 export {};
 
 declare module M.M1 {
->M : 类为 M
->M1 : 类为 M1
+>M : typeof M
+>M1 : typeof M1
 
     export let x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 declare global {
->global : 类为 global
+>global : typeof global
 
     interface SymbolConstructor {
 >SymbolConstructor : SymbolConstructor
 
         observable: symbol;
->observable : 符号
->类型别名 :=> 符号
+>observable : symbol
     }
     class Cls {x}
 >Cls : Cls
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     let [a, b]: number[];
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>a : number
+>b : number
 
     export import X = M.M1.x;
->X : 数字
->类型别名 :=> 数字
->M : 类为 M
->M1 : 类为 M.M1
->x : 数字
->类型别名 :=> 数字
+>X : number
+>M : typeof M
+>M1 : typeof M.M1
+>x : number
 }
 
 === tests/cases/compiler/main.ts ===
 Symbol.observable;
->Symbol.observable : 符号
->类型别名 :=> 符号
+>Symbol.observable : symbol
 >Symbol : SymbolConstructor
->observable : 符号
->类型别名 :=> 符号
+>observable : symbol
 
 new Cls().x
->new Cls().x : 任意
->类型别名 :=> 任意
+>new Cls().x : any
 >new Cls() : Cls
->Cls : 类为 Cls
->x : 任意
->类型别名 :=> 任意
+>Cls : typeof Cls
+>x : any
 
 let c = a + b + X;
->c : 任意
->类型别名 :=> 任意
->a + b + X : 任意
->类型别名 :=> 任意
->a + b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->X : 数字
->类型别名 :=> 数字
+>c : number
+>a + b + X : number
+>a + b : number
+>a : number
+>b : number
+>X : number
 

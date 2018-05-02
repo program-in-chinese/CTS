@@ -1,76 +1,56 @@
 === tests/cases/compiler/sourceMapValidationStatements.ts ===
 function f() {
->f : () => 无值
+>f : () => void
 
     var y;
->y : 任意
->类型别名 :=> 任意
+>y : any
 
     var x = 0;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
 
     for (var i = 0; i < 10; i++) {
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 10 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 10 : boolean
+>i : number
 >10 : 10
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
         x += i;
->x += i : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>x += i : number
+>x : number
+>i : number
 
         x *= 0;
->x *= 0 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x *= 0 : number
+>x : number
 >0 : 0
     }
     if (x > 17) {
->x > 17 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x > 17 : boolean
+>x : number
 >17 : 17
 
         x /= 9;
->x /= 9 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x /= 9 : number
+>x : number
 >9 : 9
 
     } else {
         x += 10;
->x += 10 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x += 10 : number
+>x : number
 >10 : 10
 
         x++;
->x++ : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x++ : number
+>x : number
     }
     var a = [
->a : 数字[]
->[        1,        2,        3    ] : 数字[]
+>a : number[]
+>[        1,        2,        3    ] : number[]
 
         1,
 >1 : 1
@@ -83,85 +63,66 @@ function f() {
 
     ];
     var obj = {
->obj : { z: 数字; q: 文字; }
->{        z: 1,        q: "hello"    } : { z: 数字; q: 文字; }
+>obj : { z: number; q: string; }
+>{        z: 1,        q: "hello"    } : { z: number; q: string; }
 
         z: 1,
->z : 数字
->类型别名 :=> 数字
+>z : number
 >1 : 1
 
         q: "hello"
->q : 文字
->类型别名 :=> 文字
+>q : string
 >"hello" : "hello"
 
     };
     for (var j in a) {
->j : 文字
->类型别名 :=> 文字
->a : 数字[]
+>j : string
+>a : number[]
 
         obj.z = a[j];
->obj.z = a[j] : 数字
->类型别名 :=> 数字
->obj.z : 数字
->类型别名 :=> 数字
->obj : { z: 数字; q: 文字; }
->z : 数字
->类型别名 :=> 数字
->a[j] : 数字
->类型别名 :=> 数字
->a : 数字[]
->j : 文字
->类型别名 :=> 文字
+>obj.z = a[j] : number
+>obj.z : number
+>obj : { z: number; q: string; }
+>z : number
+>a[j] : number
+>a : number[]
+>j : string
 
         var v = 10;
->v : 数字
->类型别名 :=> 数字
+>v : number
 >10 : 10
     }
     try {
         obj.q = "ohhh";
 >obj.q = "ohhh" : "ohhh"
->obj.q : 文字
->类型别名 :=> 文字
->obj : { z: 数字; q: 文字; }
->q : 文字
->类型别名 :=> 文字
+>obj.q : string
+>obj : { z: number; q: string; }
+>q : string
 >"ohhh" : "ohhh"
 
     } catch (e) {
->e : 任意
->类型别名 :=> 任意
+>e : any
 
         if (obj.z < 10) {
->obj.z < 10 : 真假
->类型别名 :=> 真假
->obj.z : 数字
->类型别名 :=> 数字
->obj : { z: 数字; q: 文字; }
->z : 数字
->类型别名 :=> 数字
+>obj.z < 10 : boolean
+>obj.z : number
+>obj : { z: number; q: string; }
+>z : number
 >10 : 10
 
             obj.z = 12;
 >obj.z = 12 : 12
->obj.z : 数字
->类型别名 :=> 数字
->obj : { z: 数字; q: 文字; }
->z : 数字
->类型别名 :=> 数字
+>obj.z : number
+>obj : { z: number; q: string; }
+>z : number
 >12 : 12
 
         } else {
             obj.q = "hmm";
 >obj.q = "hmm" : "hmm"
->obj.q : 文字
->类型别名 :=> 文字
->obj : { z: 数字; q: 文字; }
->q : 文字
->类型别名 :=> 文字
+>obj.q : string
+>obj : { z: number; q: string; }
+>q : string
 >"hmm" : "hmm"
         }
     }
@@ -171,56 +132,42 @@ function f() {
 >Error : ErrorConstructor
 
     } catch (e1) {
->e1 : 任意
->类型别名 :=> 任意
+>e1 : any
 
         var b = e1;
->b : 任意
->类型别名 :=> 任意
->e1 : 任意
->类型别名 :=> 任意
+>b : any
+>e1 : any
 
     } finally {
         y = 70;
 >y = 70 : 70
->y : 任意
->类型别名 :=> 任意
+>y : any
 >70 : 70
     }
     with (obj) {
->obj : { z: 数字; q: 文字; }
+>obj : { z: number; q: string; }
 
         i = 2;
->i = 2 : 任意
->类型别名 :=> 任意
->i : 任意
->类型别名 :=> 任意
->2 : 任意
->类型别名 :=> 任意
+>i = 2 : any
+>i : any
+>2 : any
 
         z = 10;
->z = 10 : 任意
->类型别名 :=> 任意
->z : 任意
->类型别名 :=> 任意
->10 : 任意
->类型别名 :=> 任意
+>z = 10 : any
+>z : any
+>10 : any
     }
     switch (obj.z) {
->obj.z : 数字
->类型别名 :=> 数字
->obj : { z: 数字; q: 文字; }
->z : 数字
->类型别名 :=> 数字
+>obj.z : number
+>obj : { z: number; q: string; }
+>z : number
 
         case 0: {
 >0 : 0
 
             x++;
->x++ : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x++ : number
+>x : number
 
             break;
 
@@ -229,26 +176,21 @@ function f() {
 >1 : 1
 
             x--;
->x-- : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x-- : number
+>x : number
 
             break;
 
         }
         default: {
             x *= 2;
->x *= 2 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x *= 2 : number
+>x : number
 >2 : 2
 
             x = 50;
 >x = 50 : 50
->x : 数字
->类型别名 :=> 数字
+>x : number
 >50 : 50
 
             break;
@@ -256,129 +198,92 @@ function f() {
         }
     }
     while (x < 10) {
->x < 10 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x < 10 : boolean
+>x : number
 >10 : 10
 
         x++;
->x++ : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x++ : number
+>x : number
     }
     do {
         x--;
->x-- : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x-- : number
+>x : number
 
     } while (x > 4)
->x > 4 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x > 4 : boolean
+>x : number
 >4 : 4
 
     x = y;
->x = y : 任意
->类型别名 :=> 任意
->x : 数字
->类型别名 :=> 数字
->y : 任意
->类型别名 :=> 任意
+>x = y : any
+>x : number
+>y : any
 
     var z = (x == 1) ? x + 1 : x - 1;
->z : 数字
->类型别名 :=> 数字
->(x == 1) ? x + 1 : x - 1 : 数字
->类型别名 :=> 数字
->(x == 1) : 真假
->类型别名 :=> 真假
->x == 1 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>z : number
+>(x == 1) ? x + 1 : x - 1 : number
+>(x == 1) : boolean
+>x == 1 : boolean
+>x : number
 >1 : 1
->x + 1 : 数字
->类型别名 :=> 数字
+>x + 1 : number
 >x : 1
 >1 : 1
->x - 1 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x - 1 : number
+>x : number
 >1 : 1
 
     (x == 1) ? x + 1 : x - 1;
->(x == 1) ? x + 1 : x - 1 : 数字
->类型别名 :=> 数字
->(x == 1) : 真假
->类型别名 :=> 真假
->x == 1 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>(x == 1) ? x + 1 : x - 1 : number
+>(x == 1) : boolean
+>x == 1 : boolean
+>x : number
 >1 : 1
->x + 1 : 数字
->类型别名 :=> 数字
+>x + 1 : number
 >x : 1
 >1 : 1
->x - 1 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x - 1 : number
+>x : number
 >1 : 1
 
     x === 1;
->x === 1 : 真假
->类型别名 :=> 真假
->x : 数字
->类型别名 :=> 数字
+>x === 1 : boolean
+>x : number
 >1 : 1
 
     x = z = 40;
 >x = z = 40 : 40
->x : 数字
->类型别名 :=> 数字
+>x : number
 >z = 40 : 40
->z : 数字
->类型别名 :=> 数字
+>z : number
 >40 : 40
 
     eval("y");
->eval("y") : 任意
->类型别名 :=> 任意
->eval : (x: 文字) => 任意
+>eval("y") : any
+>eval : (x: string) => any
 >"y" : "y"
 
     return;
 }
 var b = function () {
->b : () => 无值
->function () {    var x = 10;    x = x + 1;} : () => 无值
+>b : () => void
+>function () {    var x = 10;    x = x + 1;} : () => void
 
     var x = 10;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >10 : 10
 
     x = x + 1;
->x = x + 1 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
->x + 1 : 数字
->类型别名 :=> 数字
->x : 数字
->类型别名 :=> 数字
+>x = x + 1 : number
+>x : number
+>x + 1 : number
+>x : number
 >1 : 1
 
 };
 f();
->f() : 无值
->类型别名 :=> 无值
->f : () => 无值
+>f() : void
+>f : () => void
 

@@ -2,52 +2,41 @@
 // all expected to be valid
 
 var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
 var x = 2;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >2 : 2
 
 if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     var x = 3;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >3 : 3
 
     for (var x = 0; ;) { }
->x : 数字
->类型别名 :=> 数字
+>x : number
 >0 : 0
 }
 var x = <number>undefined;
->x : 数字
->类型别名 :=> 数字
-><number>undefined : 数字
->类型别名 :=> 数字
->undefined : 未定
->类型别名 :=> 未定
+>x : number
+><number>undefined : number
+>undefined : undefined
 
 // new declaration space, making redeclaring x as a string valid
 function declSpace() {
->declSpace : () => 无值
+>declSpace : () => void
 
     var x = 'this is a string';
->x : 文字
->类型别名 :=> 文字
+>x : string
 >'this is a string' : "this is a string"
 }
 
 interface Point { x: number; y: number; }
 >Point : Point
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
 
 var p: Point;
 >p : Point
@@ -55,133 +44,109 @@ var p: Point;
 
 var p = { x: 1, y: 2 };
 >p : Point
->{ x: 1, y: 2 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: 2 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
 
 var p: Point = { x: 0, y: undefined };
 >p : Point
 >Point : Point
->{ x: 0, y: undefined } : { x: 数字; y: 未定; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: undefined } : { x: number; y: undefined; }
+>x : number
 >0 : 0
->y : 未定
->类型别名 :=> 未定
->undefined : 未定
->类型别名 :=> 未定
+>y : undefined
+>undefined : undefined
 
 var p = { x: 1, y: <number>undefined };
 >p : Point
->{ x: 1, y: <number>undefined } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 1, y: <number>undefined } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
-><number>undefined : 数字
->类型别名 :=> 数字
->undefined : 未定
->类型别名 :=> 未定
+>y : number
+><number>undefined : number
+>undefined : undefined
 
 var p: { x: number; y: number; } = { x: 1, y: 2 };
 >p : Point
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
->{ x: 1, y: 2 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
+>{ x: 1, y: 2 } : { x: number; y: number; }
+>x : number
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
 
 var p = <{ x: number; y: number; }>{ x: 0, y: undefined };
 >p : Point
-><{ x: number; y: number; }>{ x: 0, y: undefined } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
->{ x: 0, y: undefined } : { x: 数字; y: 未定; }
->x : 数字
->类型别名 :=> 数字
+><{ x: number; y: number; }>{ x: 0, y: undefined } : { x: number; y: number; }
+>x : number
+>y : number
+>{ x: 0, y: undefined } : { x: number; y: undefined; }
+>x : number
 >0 : 0
->y : 未定
->类型别名 :=> 未定
->undefined : 未定
->类型别名 :=> 未定
+>y : undefined
+>undefined : undefined
 
 var p: typeof p;
 >p : Point
 >p : Point
 
 var fn = function (s: string) { return 42; }
->fn : (s: 文字) => 数字
->function (s: string) { return 42; } : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
+>fn : (s: string) => number
+>function (s: string) { return 42; } : (s: string) => number
+>s : string
 >42 : 42
 
 var fn = (s: string) => 3;
->fn : (s: 文字) => 数字
->(s: string) => 3 : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
+>fn : (s: string) => number
+>(s: string) => 3 : (s: string) => number
+>s : string
 >3 : 3
 
 var fn: (s: string) => number;
->fn : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
+>fn : (s: string) => number
+>s : string
 
 var fn: { (s: string): number };
->fn : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
+>fn : (s: string) => number
+>s : string
 
 var fn = <(s: string) => number> null;
->fn : (s: 文字) => 数字
-><(s: string) => number> null : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
->null : 空值
->类型别名 :=> 空值
+>fn : (s: string) => number
+><(s: string) => number> null : (s: string) => number
+>s : string
+>null : null
 
 var fn: typeof fn;
->fn : (s: 文字) => 数字
->fn : (s: 文字) => 数字
+>fn : (s: string) => number
+>fn : (s: string) => number
 
 var a: string[]; 
->a : 文字[]
+>a : string[]
 
 var a = ['a', 'b']
->a : 文字[]
->['a', 'b'] : 文字[]
+>a : string[]
+>['a', 'b'] : string[]
 >'a' : "a"
 >'b' : "b"
 
 var a = <string[]>[];
->a : 文字[]
-><string[]>[] : 文字[]
->[] : 未定[]
+>a : string[]
+><string[]>[] : string[]
+>[] : undefined[]
 
 var a: string[] = [];
->a : 文字[]
->[] : 未定[]
+>a : string[]
+>[] : undefined[]
 
 var a = new Array<string>();
->a : 文字[]
->new Array<string>() : 文字[]
+>a : string[]
+>new Array<string>() : string[]
 >Array : ArrayConstructor
 
 var a: typeof a;
->a : 文字[]
->a : 文字[]
+>a : string[]
+>a : string[]
 

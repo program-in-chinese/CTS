@@ -2,15 +2,13 @@
 // No inference is made from function typed arguments which have multiple call signatures
 
 var a: {
->a : { (x: 真假): 真假; (x: 文字): 任意; }
+>a : { (x: boolean): boolean; (x: string): any; }
 
     (x: boolean): boolean;
->x : 真假
->类型别名 :=> 真假
+>x : boolean
 
     (x: string): any;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 function foo4<T, U>(cb: (x: T) => U) {
@@ -31,20 +29,17 @@ function foo4<T, U>(cb: (x: T) => U) {
 }
 
 var r = foo4(a); // T is {} (candidates boolean and string), U is any (candidates any and boolean)
->r : 任意
->类型别名 :=> 任意
->foo4(a) : 任意
->类型别名 :=> 任意
+>r : any
+>foo4(a) : any
 >foo4 : <T, U>(cb: (x: T) => U) => U
->a : { (x: 真假): 真假; (x: 文字): 任意; }
+>a : { (x: boolean): boolean; (x: string): any; }
 
 var b: {
->b : { <T>(x: 真假): T; <T>(x: T): 任意; }
+>b : { <T>(x: boolean): T; <T>(x: T): any; }
 
     <T>(x: boolean): T;
 >T : T
->x : 真假
->类型别名 :=> 真假
+>x : boolean
 >T : T
 
     <T>(x: T): any;
@@ -54,10 +49,8 @@ var b: {
 }
 
 var r2 = foo4(b); // T is {} (candidates boolean and {}), U is any (candidates any and {})
->r2 : 任意
->类型别名 :=> 任意
->foo4(b) : 任意
->类型别名 :=> 任意
+>r2 : any
+>foo4(b) : any
 >foo4 : <T, U>(cb: (x: T) => U) => U
->b : { <T>(x: 真假): T; <T>(x: T): 任意; }
+>b : { <T>(x: boolean): T; <T>(x: T): any; }
 

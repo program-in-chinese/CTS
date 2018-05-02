@@ -1,7 +1,6 @@
 === tests/cases/compiler/genericTypeArgumentInference1.ts ===
 module Underscore {
->Underscore : 任意
->类型别名 :=> 任意
+>Underscore : any
 
     export interface Iterator<T, U> {
 >Iterator : Iterator<T, U>
@@ -11,25 +10,22 @@ module Underscore {
         (value: T, index: any, list: any): U;
 >value : T
 >T : T
->index : 任意
->类型别名 :=> 任意
->list : 任意
->类型别名 :=> 任意
+>index : any
+>list : any
 >U : U
     }
     export interface Static {
 >Static : Static
 
         all<T>(list: T[], iterator?: Iterator<T, boolean>, context?: any): T;
->all : <T>(list: T[], iterator?: Iterator<T, 真假>, context?: 任意) => T
+>all : <T>(list: T[], iterator?: Iterator<T, boolean>, context?: any) => T
 >T : T
 >list : T[]
 >T : T
->iterator : Iterator<T, 真假>
+>iterator : Iterator<T, boolean>
 >Iterator : Iterator<T, U>
 >T : T
->context : 任意
->类型别名 :=> 任意
+>context : any
 >T : T
 
         identity<T>(value: T): T;
@@ -42,70 +38,56 @@ module Underscore {
 }
 declare var _: Underscore.Static;
 >_ : Underscore.Static
->Underscore : 任意
->类型别名 :=> 任意
+>Underscore : any
 >Static : Underscore.Static
 
 var r = _.all([true, 1, null, 'yes'], _.identity);
->r : 任意
->类型别名 :=> 任意
->_.all([true, 1, null, 'yes'], _.identity) : 任意
->类型别名 :=> 任意
->_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
+>r : any
+>_.all([true, 1, null, 'yes'], _.identity) : any
+>_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
->all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
->[true, 1, null, 'yes'] : (文字 | 数字 | 真假)[]
->true : 为真
->类型别名 :=> 为真
+>all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
+>[true, 1, null, 'yes'] : (string | number | boolean)[]
+>true : true
 >1 : 1
->null : 空值
->类型别名 :=> 空值
+>null : null
 >'yes' : "yes"
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
 >identity : <T>(value: T) => T
 
 var r2 = _.all([true], _.identity);
->r2 : 真假
->类型别名 :=> 真假
->_.all([true], _.identity) : 真假
->类型别名 :=> 真假
->_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
+>r2 : boolean
+>_.all([true], _.identity) : boolean
+>_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
->all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
->[true] : 为真[]
->true : 为真
->类型别名 :=> 为真
+>all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
+>[true] : true[]
+>true : true
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
 >identity : <T>(value: T) => T
 
 var r3 = _.all([], _.identity);
->r3 : 任意
->类型别名 :=> 任意
->_.all([], _.identity) : 任意
->类型别名 :=> 任意
->_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
+>r3 : any
+>_.all([], _.identity) : any
+>_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
->all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
->[] : 未定[]
+>all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
+>[] : undefined[]
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
 >identity : <T>(value: T) => T
 
 var r4 = _.all([<any>true], _.identity);
->r4 : 任意
->类型别名 :=> 任意
->_.all([<any>true], _.identity) : 任意
->类型别名 :=> 任意
->_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
+>r4 : any
+>_.all([<any>true], _.identity) : any
+>_.all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
 >_ : Underscore.Static
->all : <T>(list: T[], iterator?: Underscore.Iterator<T, 真假>, context?: 任意) => T
->[<any>true] : 任意[]
-><any>true : 任意
->类型别名 :=> 任意
->true : 为真
->类型别名 :=> 为真
+>all : <T>(list: T[], iterator?: Underscore.Iterator<T, boolean>, context?: any) => T
+>[<any>true] : any[]
+><any>true : any
+>true : true
 >_.identity : <T>(value: T) => T
 >_ : Underscore.Static
 >identity : <T>(value: T) => T

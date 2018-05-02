@@ -230,41 +230,37 @@ const arrayMap = <T, U>(f: (x: T) => U) => (a: T[]) => a.map(f);
 >a : T[]
 >T : T
 >a.map(f) : U[]
->a.map : <U>(callbackfn: (value: T, index: 数字, array: T[]) => U, thisArg?: 任意) => U[]
+>a.map : <U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any) => U[]
 >a : T[]
->map : <U>(callbackfn: (value: T, index: 数字, array: T[]) => U, thisArg?: 任意) => U[]
+>map : <U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any) => U[]
 >f : (x: T) => U
 
 const arrayFilter = <T>(f: (x: T) => boolean) => (a: T[]) => a.filter(f);
->arrayFilter : <T>(f: (x: T) => 真假) => (a: T[]) => T[]
-><T>(f: (x: T) => boolean) => (a: T[]) => a.filter(f) : <T>(f: (x: T) => 真假) => (a: T[]) => T[]
+>arrayFilter : <T>(f: (x: T) => boolean) => (a: T[]) => T[]
+><T>(f: (x: T) => boolean) => (a: T[]) => a.filter(f) : <T>(f: (x: T) => boolean) => (a: T[]) => T[]
 >T : T
->f : (x: T) => 真假
+>f : (x: T) => boolean
 >x : T
 >T : T
 >(a: T[]) => a.filter(f) : (a: T[]) => T[]
 >a : T[]
 >T : T
 >a.filter(f) : T[]
->a.filter : { <S 扩展 T>(callbackfn: (value: T, index: 数字, array: T[]) => value 作为 S, thisArg?: 任意): S[]; (callbackfn: (value: T, index: 数字, array: T[]) => 任意, thisArg?: 任意): T[]; }
+>a.filter : { <S extends T>(callbackfn: (value: T, index: number, array: T[]) => value is S, thisArg?: any): S[]; (callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[]; }
 >a : T[]
->filter : { <S 扩展 T>(callbackfn: (value: T, index: 数字, array: T[]) => value 作为 S, thisArg?: 任意): S[]; (callbackfn: (value: T, index: 数字, array: T[]) => 任意, thisArg?: 任意): T[]; }
->f : (x: T) => 真假
+>filter : { <S extends T>(callbackfn: (value: T, index: number, array: T[]) => value is S, thisArg?: any): S[]; (callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[]; }
+>f : (x: T) => boolean
 
 const f20: (a: string[]) => number[] = arrayMap(x => x.length);
->f20 : (a: 文字[]) => 数字[]
->a : 文字[]
->arrayMap(x => x.length) : (a: 文字[]) => 数字[]
+>f20 : (a: string[]) => number[]
+>a : string[]
+>arrayMap(x => x.length) : (a: string[]) => number[]
 >arrayMap : <T, U>(f: (x: T) => U) => (a: T[]) => U[]
->x => x.length : (x: 文字) => 数字
->x : 文字
->类型别名 :=> 文字
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x => x.length : (x: string) => number
+>x : string
+>x.length : number
+>x : string
+>length : number
 
 const f21: <A>(a: A[]) => A[][] = arrayMap(x => [x]);
 >f21 : <A>(a: A[]) => A[][]
@@ -305,41 +301,33 @@ const f23: <A>(a: A[]) => Box<A>[] = arrayMap(value => ({ value }));
 >value : A
 
 const f30: (a: string[]) => string[] = arrayFilter(x => x.length > 10);
->f30 : (a: 文字[]) => 文字[]
->a : 文字[]
->arrayFilter(x => x.length > 10) : (a: 文字[]) => 文字[]
->arrayFilter : <T>(f: (x: T) => 真假) => (a: T[]) => T[]
->x => x.length > 10 : (x: 文字) => 真假
->x : 文字
->类型别名 :=> 文字
->x.length > 10 : 真假
->类型别名 :=> 真假
->x.length : 数字
->类型别名 :=> 数字
->x : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>f30 : (a: string[]) => string[]
+>a : string[]
+>arrayFilter(x => x.length > 10) : (a: string[]) => string[]
+>arrayFilter : <T>(f: (x: T) => boolean) => (a: T[]) => T[]
+>x => x.length > 10 : (x: string) => boolean
+>x : string
+>x.length > 10 : boolean
+>x.length : number
+>x : string
+>length : number
 >10 : 10
 
 const f31: <T extends Box<number>>(a: T[]) => T[] = arrayFilter(x => x.value > 10);
->f31 : <T 扩展 Box<数字>>(a: T[]) => T[]
+>f31 : <T extends Box<number>>(a: T[]) => T[]
 >T : T
 >Box : Box<T>
 >a : T[]
 >T : T
 >T : T
 >arrayFilter(x => x.value > 10) : (a: T[]) => T[]
->arrayFilter : <T>(f: (x: T) => 真假) => (a: T[]) => T[]
->x => x.value > 10 : (x: T) => 真假
+>arrayFilter : <T>(f: (x: T) => boolean) => (a: T[]) => T[]
+>x => x.value > 10 : (x: T) => boolean
 >x : T
->x.value > 10 : 真假
->类型别名 :=> 真假
->x.value : 数字
->类型别名 :=> 数字
+>x.value > 10 : boolean
+>x.value : number
 >x : T
->value : 数字
->类型别名 :=> 数字
+>value : number
 >10 : 10
 
 const f40: <A, B>(b: B, a: A) => [A, B] = flip(zip);

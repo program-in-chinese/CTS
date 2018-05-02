@@ -6,24 +6,21 @@ interface A {
 >A : A
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 
 interface A {
 >A : A
 
     bar: number;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 }
 
 interface A {
 >A : A
 
     baz: boolean;
->baz : 真假
->类型别名 :=> 真假
+>baz : boolean
 }
 
 var a: A;
@@ -31,31 +28,22 @@ var a: A;
 >A : A
 
 var r1 = a.foo
->r1 : 文字
->类型别名 :=> 文字
->a.foo : 文字
->类型别名 :=> 文字
+>r1 : string
+>a.foo : string
 >a : A
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 var r2 = a.bar;
->r2 : 数字
->类型别名 :=> 数字
->a.bar : 数字
->类型别名 :=> 数字
+>r2 : number
+>a.bar : number
 >a : A
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 
 var r3 = a.baz;
->r3 : 真假
->类型别名 :=> 真假
->a.baz : 真假
->类型别名 :=> 真假
+>r3 : boolean
+>a.baz : boolean
 >a : A
->baz : 真假
->类型别名 :=> 真假
+>baz : boolean
 
 // basic generic case
 interface B<T> {
@@ -86,62 +74,50 @@ interface B<T> {
 }
 
 var b: B<string>;
->b : B<文字>
+>b : B<string>
 >B : B<T>
 
 var r4 = b.foo
->r4 : 文字
->类型别名 :=> 文字
->b.foo : 文字
->类型别名 :=> 文字
->b : B<文字>
->foo : 文字
->类型别名 :=> 文字
+>r4 : string
+>b.foo : string
+>b : B<string>
+>foo : string
 
 var r5 = b.bar;
->r5 : 文字
->类型别名 :=> 文字
->b.bar : 文字
->类型别名 :=> 文字
->b : B<文字>
->bar : 文字
->类型别名 :=> 文字
+>r5 : string
+>b.bar : string
+>b : B<string>
+>bar : string
 
 var r6 = b.baz;
->r6 : 文字
->类型别名 :=> 文字
->b.baz : 文字
->类型别名 :=> 文字
->b : B<文字>
->baz : 文字
->类型别名 :=> 文字
+>r6 : string
+>b.baz : string
+>b : B<string>
+>baz : string
 
 // basic non-generic and generic case inside a module
 module M {
->M : 类为 M
+>M : typeof M
 
     interface A {
 >A : A
 
         foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
     }
 
     interface A {
 >A : A
 
         bar: number;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
     }
 
     interface A {
 >A : A
 
         baz: boolean;
->baz : 真假
->类型别名 :=> 真假
+>baz : boolean
     }
 
     var a: A;
@@ -149,33 +125,24 @@ module M {
 >A : A
 
     var r1 = a.foo;
->r1 : 文字
->类型别名 :=> 文字
->a.foo : 文字
->类型别名 :=> 文字
+>r1 : string
+>a.foo : string
 >a : A
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
     // BUG 856491
     var r2 = a.bar; // any, should be number
->r2 : 数字
->类型别名 :=> 数字
->a.bar : 数字
->类型别名 :=> 数字
+>r2 : number
+>a.bar : number
 >a : A
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 
     // BUG 856491
     var r3 = a.baz; // any, should be boolean
->r3 : 真假
->类型别名 :=> 真假
->a.baz : 真假
->类型别名 :=> 真假
+>r3 : boolean
+>a.baz : boolean
 >a : A
->baz : 真假
->类型别名 :=> 真假
+>baz : boolean
 
     interface B<T> {
 >B : B<T>
@@ -205,35 +172,26 @@ module M {
     }
 
     var b: B<string>;
->b : B<文字>
+>b : B<string>
 >B : B<T>
 
     var r4 = b.foo
->r4 : 文字
->类型别名 :=> 文字
->b.foo : 文字
->类型别名 :=> 文字
->b : B<文字>
->foo : 文字
->类型别名 :=> 文字
+>r4 : string
+>b.foo : string
+>b : B<string>
+>foo : string
 
     // BUG 856491
     var r5 = b.bar; // any, should be number
->r5 : 文字
->类型别名 :=> 文字
->b.bar : 文字
->类型别名 :=> 文字
->b : B<文字>
->bar : 文字
->类型别名 :=> 文字
+>r5 : string
+>b.bar : string
+>b : B<string>
+>bar : string
 
     // BUG 856491
     var r6 = b.baz; // any, should be boolean
->r6 : 文字
->类型别名 :=> 文字
->b.baz : 文字
->类型别名 :=> 文字
->b : B<文字>
->baz : 文字
->类型别名 :=> 文字
+>r6 : string
+>b.baz : string
+>b : B<string>
+>baz : string
 }

@@ -2,13 +2,16 @@
 /// <reference path="diagnosticInformationMap.generated.ts"/>
 
 namespace ts {
-    export interface ErrorCallback {
-        (message: DiagnosticMessage, length: number): void;
-    }
+    export type ErrorCallback = (message: DiagnosticMessage, length: number) => void;
 
     /* @internal */
     export function tokenIsIdentifierOrKeyword(token: SyntaxKind): boolean {
         return token >= SyntaxKind.Identifier;
+    }
+
+    /* @internal */
+    export function tokenIsIdentifierOrKeywordOrGreaterThan(token: SyntaxKind): boolean {
+        return token === SyntaxKind.GreaterThanToken || tokenIsIdentifierOrKeyword(token);
     }
 
     export interface Scanner {
@@ -24,7 +27,7 @@ namespace ts {
         isReservedWord(): boolean;
         isUnterminated(): boolean;
         /* @internal */
-        getNumericLiteralFlags(): NumericLiteralFlags;
+        getTokenFlags(): TokenFlags;
         reScanGreaterToken(): SyntaxKind;
         reScanSlashToken(): SyntaxKind;
         reScanTemplateToken(): SyntaxKind;
@@ -32,10 +35,8 @@ namespace ts {
         scanJsxAttributeValue(): SyntaxKind;
         reScanJsxToken(): SyntaxKind;
         scanJsxToken(): SyntaxKind;
-        scanJSDocToken(): SyntaxKind;
+        scanJSDocToken(): JsDocSyntaxKind;
         scan(): SyntaxKind;
-        翻译词典扫描(): SyntaxKind;
-        扫描词典主体(): SyntaxKind;
         getText(): string;
         // Sets the text for the scanner to scan.  An optional subrange starting point and length
         // can be provided to have the scanner only scan a portion of the text.
@@ -59,6 +60,85 @@ namespace ts {
         // of invoking the callback is returned from this function.
         tryScan<T>(callback: () => T): T;
     }
+
+    const textToTokenUn = createMapFromTemplate({
+        [unicodeDic.Keywords.abstract]: SyntaxKind.AbstractKeyword,
+        [unicodeDic.Keywords.any]: SyntaxKind.AnyKeyword,
+        [unicodeDic.Keywords.as]: SyntaxKind.AsKeyword,
+        [unicodeDic.Keywords.boolean]: SyntaxKind.BooleanKeyword,
+        [unicodeDic.Keywords.break]: SyntaxKind.BreakKeyword,
+        [unicodeDic.Keywords.case]: SyntaxKind.CaseKeyword,
+        [unicodeDic.Keywords.catch]: SyntaxKind.CatchKeyword,
+        [unicodeDic.Keywords.class]: SyntaxKind.ClassKeyword,
+        [unicodeDic.Keywords.continue]: SyntaxKind.ContinueKeyword,
+        [unicodeDic.Keywords.const]: SyntaxKind.ConstKeyword,
+        [unicodeDic.Keywords.constructor]: SyntaxKind.ConstructorKeyword,
+        [unicodeDic.Keywords.debugger]: SyntaxKind.DebuggerKeyword,
+        [unicodeDic.Keywords.declare]: SyntaxKind.DeclareKeyword,
+        [unicodeDic.Keywords.default]: SyntaxKind.DefaultKeyword,
+        [unicodeDic.Keywords.delete]: SyntaxKind.DeleteKeyword,
+        [unicodeDic.Keywords.do]: SyntaxKind.DoKeyword,
+        [unicodeDic.Keywords.else]: SyntaxKind.ElseKeyword,
+        [unicodeDic.Keywords.enum]: SyntaxKind.EnumKeyword,
+        [unicodeDic.Keywords.export]: SyntaxKind.ExportKeyword,
+        [unicodeDic.Keywords.extends]: SyntaxKind.ExtendsKeyword,
+        [unicodeDic.Keywords.false]: SyntaxKind.FalseKeyword,
+        [unicodeDic.Keywords.finally]: SyntaxKind.FinallyKeyword,
+        [unicodeDic.Keywords.for]: SyntaxKind.ForKeyword,
+        [unicodeDic.Keywords.from]: SyntaxKind.FromKeyword,
+        [unicodeDic.Keywords.function]: SyntaxKind.FunctionKeyword,
+        [unicodeDic.Keywords.get]: SyntaxKind.GetKeyword,
+        [unicodeDic.Keywords.if]: SyntaxKind.IfKeyword,
+        [unicodeDic.Keywords.implements]: SyntaxKind.ImplementsKeyword,
+        [unicodeDic.Keywords.import]: SyntaxKind.ImportKeyword,
+        [unicodeDic.Keywords.in]: SyntaxKind.InKeyword,
+        [unicodeDic.Keywords.infer]: SyntaxKind.InferKeyword,
+        [unicodeDic.Keywords.instanceof]: SyntaxKind.InstanceOfKeyword,
+        [unicodeDic.Keywords.interface]: SyntaxKind.InterfaceKeyword,
+        [unicodeDic.Keywords.is]: SyntaxKind.IsKeyword,
+        [unicodeDic.Keywords.keyof]: SyntaxKind.KeyOfKeyword,
+        [unicodeDic.Keywords.let]: SyntaxKind.LetKeyword,
+        [unicodeDic.Keywords.module]: SyntaxKind.ModuleKeyword,
+        [unicodeDic.Keywords.namespace]: SyntaxKind.NamespaceKeyword,
+        [unicodeDic.Keywords.never]: SyntaxKind.NeverKeyword,
+        [unicodeDic.Keywords.new]: SyntaxKind.NewKeyword,
+        [unicodeDic.Keywords.null]: SyntaxKind.NullKeyword,
+        [unicodeDic.Keywords.number]: SyntaxKind.NumberKeyword,
+        [unicodeDic.Keywords.object]: SyntaxKind.ObjectKeyword,
+        [unicodeDic.Keywords.package]: SyntaxKind.PackageKeyword,
+        [unicodeDic.Keywords.private]: SyntaxKind.PrivateKeyword,
+        [unicodeDic.Keywords.protected]: SyntaxKind.ProtectedKeyword,
+        [unicodeDic.Keywords.public]: SyntaxKind.PublicKeyword,
+        [unicodeDic.Keywords.readonly]: SyntaxKind.ReadonlyKeyword,
+        [unicodeDic.Keywords.require]: SyntaxKind.RequireKeyword,
+        [unicodeDic.Keywords.global]: SyntaxKind.GlobalKeyword,
+        [unicodeDic.Keywords.return]: SyntaxKind.ReturnKeyword,
+        [unicodeDic.Keywords.set]: SyntaxKind.SetKeyword,
+        [unicodeDic.Keywords.static]: SyntaxKind.StaticKeyword,
+        [unicodeDic.Keywords.string]: SyntaxKind.StringKeyword,
+        [unicodeDic.Keywords.super]: SyntaxKind.SuperKeyword,
+        [unicodeDic.Keywords.switch]: SyntaxKind.SwitchKeyword,
+        [unicodeDic.Keywords.symbol]: SyntaxKind.SymbolKeyword,
+        [unicodeDic.Keywords.this]: SyntaxKind.ThisKeyword,
+        [unicodeDic.Keywords.throw]: SyntaxKind.ThrowKeyword,
+        [unicodeDic.Keywords.true]: SyntaxKind.TrueKeyword,
+        [unicodeDic.Keywords.try]: SyntaxKind.TryKeyword,
+        [unicodeDic.Keywords.type]: SyntaxKind.TypeKeyword,
+        [unicodeDic.Keywords.typeof]: SyntaxKind.TypeOfKeyword,
+        [unicodeDic.Keywords.undefined]: SyntaxKind.UndefinedKeyword,
+        [unicodeDic.Keywords.unique]: SyntaxKind.UniqueKeyword,
+        [unicodeDic.Keywords.var]: SyntaxKind.VarKeyword,
+        [unicodeDic.Keywords.void]: SyntaxKind.VoidKeyword,
+        [unicodeDic.Keywords.while]: SyntaxKind.WhileKeyword,
+        [unicodeDic.Keywords.with]: SyntaxKind.WithKeyword,
+        [unicodeDic.Keywords.yield]: SyntaxKind.YieldKeyword,
+        [unicodeDic.Keywords.async]: SyntaxKind.AsyncKeyword,
+        [unicodeDic.Keywords.await]: SyntaxKind.AwaitKeyword,
+        [unicodeDic.Keywords.of]: SyntaxKind.OfKeyword
+    });
+
+    const 最大长度 = unicodeDic.Keywords.maxLength;
+    const 最小长度 = unicodeDic.Keywords.minLength;
 
     const textToToken = createMapFromTemplate({
         "abstract": SyntaxKind.AbstractKeyword,
@@ -91,6 +171,7 @@ namespace ts {
         "implements": SyntaxKind.ImplementsKeyword,
         "import": SyntaxKind.ImportKeyword,
         "in": SyntaxKind.InKeyword,
+        "infer": SyntaxKind.InferKeyword,
         "instanceof": SyntaxKind.InstanceOfKeyword,
         "interface": SyntaxKind.InterfaceKeyword,
         "is": SyntaxKind.IsKeyword,
@@ -124,6 +205,7 @@ namespace ts {
         "type": SyntaxKind.TypeKeyword,
         "typeof": SyntaxKind.TypeOfKeyword,
         "undefined": SyntaxKind.UndefinedKeyword,
+        "unique": SyntaxKind.UniqueKeyword,
         "var": SyntaxKind.VarKeyword,
         "void": SyntaxKind.VoidKeyword,
         "while": SyntaxKind.WhileKeyword,
@@ -188,165 +270,10 @@ namespace ts {
         "@": SyntaxKind.AtToken,
     });
 
-    const 中文关键字映射表 = createMapFromTemplate({
-
-        "抽象": SyntaxKind.AbstractKeyword,
-        "任意": SyntaxKind.AnyKeyword,
-        "转为": SyntaxKind.AsKeyword,
-        "真假": SyntaxKind.BooleanKeyword,
-        "跳出": SyntaxKind.BreakKeyword,
-        "如为": SyntaxKind.CaseKeyword,
-        "捕获": SyntaxKind.CatchKeyword,
-
-        "类别": SyntaxKind.ClassKeyword,
-        "类": SyntaxKind.ClassKeyword,
-
-        "继续": SyntaxKind.ContinueKeyword,
-        "常量": SyntaxKind.ConstKeyword,
-        "构造": SyntaxKind.ConstructorKeyword,
-        "调试": SyntaxKind.DebuggerKeyword,
-        "声明": SyntaxKind.DeclareKeyword,
-        "默认": SyntaxKind.DefaultKeyword,
-        "删除": SyntaxKind.DeleteKeyword,
-        "运行": SyntaxKind.DoKeyword,
-        "否则": SyntaxKind.ElseKeyword,
-        "枚举": SyntaxKind.EnumKeyword,
-        "导出": SyntaxKind.ExportKeyword,
-        "扩展": SyntaxKind.ExtendsKeyword,
-
-        "为假": SyntaxKind.FalseKeyword,
-        "假值": SyntaxKind.FalseKeyword,
-        "假的": SyntaxKind.FalseKeyword,
-        "假": SyntaxKind.FalseKeyword,
-
-        "善后": SyntaxKind.FinallyKeyword,
-        "循环": SyntaxKind.ForKeyword,
-        "来自": SyntaxKind.FromKeyword,
-        "函数": SyntaxKind.FunctionKeyword,
-        "获取": SyntaxKind.GetKeyword,
-        "如果": SyntaxKind.IfKeyword,
-        "实现": SyntaxKind.ImplementsKeyword,
-        "导入": SyntaxKind.ImportKeyword,
-        "位于": SyntaxKind.InKeyword,
-        "身为": SyntaxKind.InstanceOfKeyword,
-        "接口": SyntaxKind.InterfaceKeyword,
-
-        "作为": SyntaxKind.IsKeyword,
-        "键集": SyntaxKind.KeyOfKeyword,
-
-        "变量": SyntaxKind.LetKeyword,
-
-        "模块": SyntaxKind.ModuleKeyword,
-
-        "名域": SyntaxKind.NamespaceKeyword,
-        "不及": SyntaxKind.NeverKeyword,
-
-        "新建": SyntaxKind.NewKeyword,
-        "空值": SyntaxKind.NullKeyword,
-        "数字": SyntaxKind.NumberKeyword,
-        "实例": SyntaxKind.ObjectKeyword,
-
-        "包装": SyntaxKind.PackageKeyword,
-
-        "私有": SyntaxKind.PrivateKeyword,
-        "保护": SyntaxKind.ProtectedKeyword,
-        "公开": SyntaxKind.PublicKeyword,
-        "只读": SyntaxKind.ReadonlyKeyword,
-        "需要": SyntaxKind.RequireKeyword,
-        "全局": SyntaxKind.GlobalKeyword,
-        "返回": SyntaxKind.ReturnKeyword,
-        "设置": SyntaxKind.SetKeyword,
-        "静态": SyntaxKind.StaticKeyword,
-        "文字": SyntaxKind.StringKeyword,
-
-        "父级": SyntaxKind.SuperKeyword,
-        "假如": SyntaxKind.SwitchKeyword,
-
-        "符号": SyntaxKind.SymbolKeyword,
-
-        "本体": SyntaxKind.ThisKeyword,
-
-        "抛出": SyntaxKind.ThrowKeyword,
-
-        "为真": SyntaxKind.TrueKeyword,
-        "真值": SyntaxKind.TrueKeyword,
-        "真的": SyntaxKind.TrueKeyword,
-        "真": SyntaxKind.TrueKeyword,
-
-        "尝试": SyntaxKind.TryKeyword,
-        "类型": SyntaxKind.TypeKeyword,
-
-        "类为": SyntaxKind.TypeOfKeyword,
-        "未定": SyntaxKind.UndefinedKeyword,
-
-        "值量": SyntaxKind.VarKeyword,
-        "无值": SyntaxKind.VoidKeyword,
-        "判断": SyntaxKind.WhileKeyword,
-        "外扩": SyntaxKind.WithKeyword,
-        "获得": SyntaxKind.YieldKeyword,
-        "异步": SyntaxKind.AsyncKeyword,
-        "等待": SyntaxKind.AwaitKeyword,
-        "属于": SyntaxKind.OfKeyword,
-
-        "{": SyntaxKind.OpenBraceToken,
-        "}": SyntaxKind.CloseBraceToken,
-        "(": SyntaxKind.OpenParenToken,
-        ")": SyntaxKind.CloseParenToken,
-        "[": SyntaxKind.OpenBracketToken,
-        "]": SyntaxKind.CloseBracketToken,
-        ".": SyntaxKind.DotToken,
-        "...": SyntaxKind.DotDotDotToken,
-        ";": SyntaxKind.SemicolonToken,
-        ",": SyntaxKind.CommaToken,
-        "<": SyntaxKind.LessThanToken,
-        ">": SyntaxKind.GreaterThanToken,
-        "<=": SyntaxKind.LessThanEqualsToken,
-        ">=": SyntaxKind.GreaterThanEqualsToken,
-        "==": SyntaxKind.EqualsEqualsToken,
-        "!=": SyntaxKind.ExclamationEqualsToken,
-        "===": SyntaxKind.EqualsEqualsEqualsToken,
-        "!==": SyntaxKind.ExclamationEqualsEqualsToken,
-        "=>": SyntaxKind.EqualsGreaterThanToken,
-        "+": SyntaxKind.PlusToken,
-        "-": SyntaxKind.MinusToken,
-        "**": SyntaxKind.AsteriskAsteriskToken,
-        "*": SyntaxKind.AsteriskToken,
-        "/": SyntaxKind.SlashToken,
-        "%": SyntaxKind.PercentToken,
-        "++": SyntaxKind.PlusPlusToken,
-        "--": SyntaxKind.MinusMinusToken,
-        "<<": SyntaxKind.LessThanLessThanToken,
-        "</": SyntaxKind.LessThanSlashToken,
-        ">>": SyntaxKind.GreaterThanGreaterThanToken,
-        ">>>": SyntaxKind.GreaterThanGreaterThanGreaterThanToken,
-        "&": SyntaxKind.AmpersandToken,
-        "|": SyntaxKind.BarToken,
-        "^": SyntaxKind.CaretToken,
-        "!": SyntaxKind.ExclamationToken,
-        "~": SyntaxKind.TildeToken,
-        "&&": SyntaxKind.AmpersandAmpersandToken,
-        "||": SyntaxKind.BarBarToken,
-        "?": SyntaxKind.QuestionToken,
-        ":": SyntaxKind.ColonToken,
-        "=": SyntaxKind.EqualsToken,
-        "+=": SyntaxKind.PlusEqualsToken,
-        "-=": SyntaxKind.MinusEqualsToken,
-        "*=": SyntaxKind.AsteriskEqualsToken,
-        "**=": SyntaxKind.AsteriskAsteriskEqualsToken,
-        "/=": SyntaxKind.SlashEqualsToken,
-        "%=": SyntaxKind.PercentEqualsToken,
-        "<<=": SyntaxKind.LessThanLessThanEqualsToken,
-        ">>=": SyntaxKind.GreaterThanGreaterThanEqualsToken,
-        ">>>=": SyntaxKind.GreaterThanGreaterThanGreaterThanEqualsToken,
-        "&=": SyntaxKind.AmpersandEqualsToken,
-        "|=": SyntaxKind.BarEqualsToken,
-        "^=": SyntaxKind.CaretEqualsToken,
-        "@": SyntaxKind.AtToken
-    });
     /*
         As per ECMAScript Language Specification 3th Edition, Section 7.6: Identifiers
         IdentifierStart ::
-            Can contain Unicode 3.0.0  categories:
+            Can contain Unicode 3.0.0 categories:
             Uppercase letter (Lu),
             Lowercase letter (Ll),
             Titlecase letter (Lt),
@@ -354,7 +281,7 @@ namespace ts {
             Other letter (Lo), or
             Letter number (Nl).
         IdentifierPart :: =
-            Can contain IdentifierStart + Unicode 3.0.0  categories:
+            Can contain IdentifierStart + Unicode 3.0.0 categories:
             Non-spacing mark (Mn),
             Combining spacing mark (Mc),
             Decimal number (Nd), or
@@ -369,7 +296,7 @@ namespace ts {
     /*
         As per ECMAScript Language Specification 5th Edition, Section 7.6: ISyntaxToken Names and Identifiers
         IdentifierStart ::
-            Can contain Unicode 6.2  categories:
+            Can contain Unicode 6.2 categories:
             Uppercase letter (Lu),
             Lowercase letter (Ll),
             Titlecase letter (Lt),
@@ -377,7 +304,7 @@ namespace ts {
             Other letter (Lo), or
             Letter number (Nl).
         IdentifierPart ::
-            Can contain IdentifierStart + Unicode 6.2  categories:
+            Can contain IdentifierStart + Unicode 6.2 categories:
             Non-spacing mark (Mn),
             Combining spacing mark (Mc),
             Decimal number (Nd),
@@ -436,29 +363,28 @@ namespace ts {
     function makeReverseMap(source: Map<number>): string[] {
         const result: string[] = [];
         source.forEach((value, name) => {
-            if (!result[value]) {
-                result[value] = name;
-            }
+            result[value] = name;
         });
         return result;
     }
 
     const tokenStrings = makeReverseMap(textToToken);
-    const tokenStringsCh = makeReverseMap(中文关键字映射表);
+    const tokenStringsUn = makeReverseMap(textToTokenUn);
 
     export function tokenToString(t: SyntaxKind): string | undefined {
         return tokenStrings[t];
     }
-    export function 令牌转为关键字(t: SyntaxKind): string | undefined {
-        return tokenStrings[t];
-    }
-    export function 令牌转为中文关键字(t: SyntaxKind): string | undefined {
-        return tokenStringsCh[t];
+    export function tokenToStringUn(t: SyntaxKind): string | undefined {
+        return tokenStringsUn[t] || tokenStrings[t];
     }
 
     /* @internal */
-    export function stringToToken(s: string): SyntaxKind {
-        return textToToken.get(s) || 中文关键字映射表.get(s);
+    export function stringToToken(s: string): SyntaxKind | undefined {
+        return textToToken.get(s);
+    }
+    /* @internal */
+    export function stringToTokenUn(s: string): SyntaxKind | undefined {
+        return textToTokenUn.get(s);
     }
 
     /* @internal */
@@ -497,7 +423,10 @@ namespace ts {
 
     /* @internal */
     export function computePositionOfLineAndCharacter(lineStarts: ReadonlyArray<number>, line: number, character: number, debugText?: string): number {
-        Debug.assert(line >= 0 && line < lineStarts.length);
+        if (line < 0 || line >= lineStarts.length) {
+            Debug.fail(`Bad line number. Line: ${line}, lineStarts.length: ${lineStarts.length} , line map is correct? ${debugText !== undefined ? arraysEqual(lineStarts, computeLineStarts(debugText)) : "unknown"}`);
+        }
+
         const res = lineStarts[line] + character;
         if (line < lineStarts.length - 1) {
             Debug.assert(res < lineStarts[line + 1]);
@@ -518,7 +447,7 @@ namespace ts {
      * We assume the first line starts at position 0 and 'position' is non-negative.
      */
     export function computeLineAndCharacterOfPosition(lineStarts: ReadonlyArray<number>, position: number): LineAndCharacter {
-        let lineNumber = binarySearch(lineStarts, position);
+        let lineNumber = binarySearch(lineStarts, position, identity, compareValues);
         if (lineNumber < 0) {
             // If the actual position was not found,
             // the binary search returns the 2's-complement of the next line start
@@ -723,9 +652,9 @@ namespace ts {
         return false;
     }
 
-    function scanConflictMarkerTrivia(text: string, pos: number, error?: ErrorCallback) {
+    function scanConflictMarkerTrivia(text: string, pos: number, error?: (diag: DiagnosticMessage, pos?: number, len?: number) => void) {
         if (error) {
-            error(Diagnostics.Merge_conflict_marker_encountered, mergeConflictMarkerLength);
+            error(Diagnostics.Merge_conflict_marker_encountered, pos, mergeConflictMarkerLength);
         }
 
         const ch = text.charCodeAt(pos);
@@ -887,10 +816,14 @@ namespace ts {
         return accumulator;
     }
 
+    export function forEachLeadingCommentRange<U>(text: string, pos: number, cb: (pos: number, end: number, kind: CommentKind, hasTrailingNewLine: boolean) => U): U | undefined;
+    export function forEachLeadingCommentRange<T, U>(text: string, pos: number, cb: (pos: number, end: number, kind: CommentKind, hasTrailingNewLine: boolean, state: T) => U, state: T): U | undefined;
     export function forEachLeadingCommentRange<T, U>(text: string, pos: number, cb: (pos: number, end: number, kind: CommentKind, hasTrailingNewLine: boolean, state: T) => U, state?: T): U | undefined {
         return iterateCommentRanges(/*reduce*/ false, text, pos, /*trailing*/ false, cb, state);
     }
 
+    export function forEachTrailingCommentRange<U>(text: string, pos: number, cb: (pos: number, end: number, kind: CommentKind, hasTrailingNewLine: boolean) => U): U | undefined;
+    export function forEachTrailingCommentRange<T, U>(text: string, pos: number, cb: (pos: number, end: number, kind: CommentKind, hasTrailingNewLine: boolean, state: T) => U, state: T): U | undefined;
     export function forEachTrailingCommentRange<T, U>(text: string, pos: number, cb: (pos: number, end: number, kind: CommentKind, hasTrailingNewLine: boolean, state: T) => U, state?: T): U | undefined {
         return iterateCommentRanges(/*reduce*/ false, text, pos, /*trailing*/ true, cb, state);
     }
@@ -962,7 +895,8 @@ namespace ts {
                                   text?: string,
                                   onError?: ErrorCallback,
                                   start?: number,
-                                  length?: number): Scanner {
+                                  length?: number,                                
+                                  是包括词典 = false): Scanner {
         // Current position (end position of text of current token)
         let pos: number;
 
@@ -977,11 +911,8 @@ namespace ts {
 
         let token: SyntaxKind;
         let tokenValue: string;
-        let precedingLineBreak: boolean;
-        let hasExtendedUnicodeEscape: boolean;
-        let tokenIsUnterminated: boolean;
-        let numericLiteralFlags: NumericLiteralFlags;
-        let 开始扫描词典主体 = false;
+        let tokenFlags: TokenFlags;
+
         setText(text, start, length);
 
         return {
@@ -991,12 +922,12 @@ namespace ts {
             getTokenPos: () => tokenPos,
             getTokenText: () => text.substring(tokenPos, pos),
             getTokenValue: () => tokenValue,
-            hasExtendedUnicodeEscape: () => hasExtendedUnicodeEscape,
-            hasPrecedingLineBreak: () => precedingLineBreak,
+            hasExtendedUnicodeEscape: () => (tokenFlags & TokenFlags.ExtendedUnicodeEscape) !== 0,
+            hasPrecedingLineBreak: () => (tokenFlags & TokenFlags.PrecedingLineBreak) !== 0,
             isIdentifier: () => token === SyntaxKind.Identifier || token > SyntaxKind.LastReservedWord,
             isReservedWord: () => token >= SyntaxKind.FirstReservedWord && token <= SyntaxKind.LastReservedWord,
-            isUnterminated: () => tokenIsUnterminated,
-            getNumericLiteralFlags: () => numericLiteralFlags,
+            isUnterminated: () => (tokenFlags & TokenFlags.Unterminated) !== 0,
+            getTokenFlags: () => tokenFlags,
             reScanGreaterToken,
             reScanSlashToken,
             reScanTemplateToken,
@@ -1006,8 +937,6 @@ namespace ts {
             scanJsxToken,
             scanJSDocToken,
             scan,
-            翻译词典扫描,
-            扫描词典主体,
             getText,
             setText,
             setScriptTarget,
@@ -1019,34 +948,92 @@ namespace ts {
             scanRange,
         };
 
-        function error(message: DiagnosticMessage, length?: number): void {
+        function error(message: DiagnosticMessage): void;
+        function error(message: DiagnosticMessage, errPos: number, length: number): void;
+        function error(message: DiagnosticMessage, errPos: number = pos, length?: number): void {
             if (onError) {
+                const oldPos = pos;
+                pos = errPos;
                 onError(message, length || 0);
+                pos = oldPos;
             }
+        }
+
+        function scanNumberFragment(): string {
+            let start = pos;
+            let allowSeparator = false;
+            let isPreviousTokenSeparator = false;
+            let result = "";
+            while (true) {
+                const ch = text.charCodeAt(pos);
+                if (ch === CharacterCodes._) {
+                    tokenFlags |= TokenFlags.ContainsSeparator;
+                    if (allowSeparator) {
+                        allowSeparator = false;
+                        isPreviousTokenSeparator = true;
+                        result += text.substring(start, pos);
+                    }
+                    else if (isPreviousTokenSeparator) {
+                        error(Diagnostics.Multiple_consecutive_numeric_separators_are_not_permitted, pos, 1);
+                    }
+                    else {
+                        error(Diagnostics.Numeric_separators_are_not_allowed_here, pos, 1);
+                    }
+                    pos++;
+                    start = pos;
+                    continue;
+                }
+                if (isDigit(ch)) {
+                    allowSeparator = true;
+                    isPreviousTokenSeparator = false;
+                    pos++;
+                    continue;
+                }
+                break;
+            }
+            if (text.charCodeAt(pos - 1) === CharacterCodes._) {
+                error(Diagnostics.Numeric_separators_are_not_allowed_here, pos - 1, 1);
+            }
+            return result + text.substring(start, pos);
         }
 
         function scanNumber(): string {
             const start = pos;
-            while (isDigit(text.charCodeAt(pos))) pos++;
+            const mainFragment = scanNumberFragment();
+            let decimalFragment: string;
+            let scientificFragment: string;
             if (text.charCodeAt(pos) === CharacterCodes.dot) {
                 pos++;
-                while (isDigit(text.charCodeAt(pos))) pos++;
+                decimalFragment = scanNumberFragment();
             }
             let end = pos;
             if (text.charCodeAt(pos) === CharacterCodes.E || text.charCodeAt(pos) === CharacterCodes.e) {
                 pos++;
-                numericLiteralFlags = NumericLiteralFlags.Scientific;
+                tokenFlags |= TokenFlags.Scientific;
                 if (text.charCodeAt(pos) === CharacterCodes.plus || text.charCodeAt(pos) === CharacterCodes.minus) pos++;
-                if (isDigit(text.charCodeAt(pos))) {
-                    pos++;
-                    while (isDigit(text.charCodeAt(pos))) pos++;
-                    end = pos;
-                }
-                else {
+                const preNumericPart = pos;
+                const finalFragment = scanNumberFragment();
+                if (!finalFragment) {
                     error(Diagnostics.Digit_expected);
                 }
+                else {
+                    scientificFragment = text.substring(end, preNumericPart) + finalFragment;
+                    end = pos;
+                }
             }
-            return "" + +(text.substring(start, end));
+            if (tokenFlags & TokenFlags.ContainsSeparator) {
+                let result = mainFragment;
+                if (decimalFragment) {
+                    result += "." + decimalFragment;
+                }
+                if (scientificFragment) {
+                    result += scientificFragment;
+                }
+                return "" + +result;
+            }
+            else {
+                return "" + +(text.substring(start, end)); // No need to use all the fragments; no _ removal needed
+            }
         }
 
         function scanOctalDigits(): number {
@@ -1061,23 +1048,41 @@ namespace ts {
          * Scans the given number of hexadecimal digits in the text,
          * returning -1 if the given number is unavailable.
          */
-        function scanExactNumberOfHexDigits(count: number): number {
-            return scanHexDigits(/*minCount*/ count, /*scanAsManyAsPossible*/ false);
+        function scanExactNumberOfHexDigits(count: number, canHaveSeparators: boolean): number {
+            return scanHexDigits(/*minCount*/ count, /*scanAsManyAsPossible*/ false, canHaveSeparators);
         }
 
         /**
          * Scans as many hexadecimal digits as are available in the text,
          * returning -1 if the given number of digits was unavailable.
          */
-        function scanMinimumNumberOfHexDigits(count: number): number {
-            return scanHexDigits(/*minCount*/ count, /*scanAsManyAsPossible*/ true);
+        function scanMinimumNumberOfHexDigits(count: number, canHaveSeparators: boolean): number {
+            return scanHexDigits(/*minCount*/ count, /*scanAsManyAsPossible*/ true, canHaveSeparators);
         }
 
-        function scanHexDigits(minCount: number, scanAsManyAsPossible: boolean): number {
+        function scanHexDigits(minCount: number, scanAsManyAsPossible: boolean, canHaveSeparators: boolean): number {
             let digits = 0;
             let value = 0;
+            let allowSeparator = false;
+            let isPreviousTokenSeparator = false;
             while (digits < minCount || scanAsManyAsPossible) {
                 const ch = text.charCodeAt(pos);
+                if (canHaveSeparators && ch === CharacterCodes._) {
+                    tokenFlags |= TokenFlags.ContainsSeparator;
+                    if (allowSeparator) {
+                        allowSeparator = false;
+                        isPreviousTokenSeparator = true;
+                    }
+                    else if (isPreviousTokenSeparator) {
+                        error(Diagnostics.Multiple_consecutive_numeric_separators_are_not_permitted, pos, 1);
+                    }
+                    else {
+                        error(Diagnostics.Numeric_separators_are_not_allowed_here, pos, 1);
+                    }
+                    pos++;
+                    continue;
+                }
+                allowSeparator = canHaveSeparators;
                 if (ch >= CharacterCodes._0 && ch <= CharacterCodes._9) {
                     value = value * 16 + ch - CharacterCodes._0;
                 }
@@ -1092,14 +1097,18 @@ namespace ts {
                 }
                 pos++;
                 digits++;
+                isPreviousTokenSeparator = false;
             }
             if (digits < minCount) {
                 value = -1;
             }
+            if (text.charCodeAt(pos - 1) === CharacterCodes._) {
+                error(Diagnostics.Numeric_separators_are_not_allowed_here, pos - 1, 1);
+            }
             return value;
         }
 
-        function scanString(allowEscapes = true): string {
+        function scanString(jsxAttributeString = false): string {
             const quote = text.charCodeAt(pos);
             pos++;
             let result = "";
@@ -1107,7 +1116,7 @@ namespace ts {
             while (true) {
                 if (pos >= end) {
                     result += text.substring(start, pos);
-                    tokenIsUnterminated = true;
+                    tokenFlags |= TokenFlags.Unterminated;
                     error(Diagnostics.Unterminated_string_literal);
                     break;
                 }
@@ -1117,15 +1126,15 @@ namespace ts {
                     pos++;
                     break;
                 }
-                if (ch === CharacterCodes.backslash && allowEscapes) {
+                if (ch === CharacterCodes.backslash && !jsxAttributeString) {
                     result += text.substring(start, pos);
                     result += scanEscapeSequence();
                     start = pos;
                     continue;
                 }
-                if (isLineBreak(ch)) {
+                if (isLineBreak(ch) && !jsxAttributeString) {
                     result += text.substring(start, pos);
-                    tokenIsUnterminated = true;
+                    tokenFlags |= TokenFlags.Unterminated;
                     error(Diagnostics.Unterminated_string_literal);
                     break;
                 }
@@ -1149,7 +1158,7 @@ namespace ts {
             while (true) {
                 if (pos >= end) {
                     contents += text.substring(start, pos);
-                    tokenIsUnterminated = true;
+                    tokenFlags |= TokenFlags.Unterminated;
                     error(Diagnostics.Unterminated_template_literal);
                     resultingToken = startedWithBacktick ? SyntaxKind.NoSubstitutionTemplateLiteral : SyntaxKind.TemplateTail;
                     break;
@@ -1235,7 +1244,7 @@ namespace ts {
                 case CharacterCodes.u:
                     // '\u{DDDDDDDD}'
                     if (pos < end && text.charCodeAt(pos) === CharacterCodes.openBrace) {
-                        hasExtendedUnicodeEscape = true;
+                        tokenFlags |= TokenFlags.ExtendedUnicodeEscape;
                         pos++;
                         return scanExtendedUnicodeEscape();
                     }
@@ -1264,7 +1273,7 @@ namespace ts {
         }
 
         function scanHexadecimalEscape(numDigits: number): string {
-            const escapedValue = scanExactNumberOfHexDigits(numDigits);
+            const escapedValue = scanExactNumberOfHexDigits(numDigits, /*canHaveSeparators*/ false);
 
             if (escapedValue >= 0) {
                 return String.fromCharCode(escapedValue);
@@ -1276,7 +1285,7 @@ namespace ts {
         }
 
         function scanExtendedUnicodeEscape(): string {
-            const escapedValue = scanMinimumNumberOfHexDigits(1);
+            const escapedValue = scanMinimumNumberOfHexDigits(1, /*canHaveSeparators*/ false);
             let isInvalidExtendedEscape = false;
 
             // Validate the value of the digit
@@ -1329,7 +1338,7 @@ namespace ts {
             if (pos + 5 < end && text.charCodeAt(pos + 1) === CharacterCodes.u) {
                 const start = pos;
                 pos += 2;
-                const value = scanExactNumberOfHexDigits(4);
+                const value = scanExactNumberOfHexDigits(4, /*canHaveSeparators*/ false);
                 pos = start;
                 return value;
             }
@@ -1364,18 +1373,19 @@ namespace ts {
         }
 
         function getIdentifierToken(): SyntaxKind {
-            /** 保留字在2到11个字符之间，以小写字母开头 */
+            // Reserved words are between 2 and 11 characters long and start with a lowercase letter
             const len = tokenValue.length;
+            const ch = tokenValue.charCodeAt(0);
 
-            if (len >= 1 && len <= 2) {
-                token = 中文关键字映射表.get(tokenValue);
+            if (len >= 最小长度 && len <= 最大长度) {
+                token = textToTokenUn.get(tokenValue);
                 if (token !== undefined) {
                     return token;
                 }
             }
+
             if (len >= 2 && len <= 11) {
-                const ch = tokenValue.charCodeAt(0);
-                if (len >= 2 && ch >= CharacterCodes.a && ch <= CharacterCodes.z) {
+                if (ch >= CharacterCodes.a && ch <= CharacterCodes.z) {
                     token = textToToken.get(tokenValue);
                     if (token !== undefined) {
                         return token;
@@ -1392,8 +1402,27 @@ namespace ts {
             // For counting number of digits; Valid binaryIntegerLiteral must have at least one binary digit following B or b.
             // Similarly valid octalIntegerLiteral must have at least one octal digit following o or O.
             let numberOfDigits = 0;
+            let separatorAllowed = false;
+            let isPreviousTokenSeparator = false;
             while (true) {
                 const ch = text.charCodeAt(pos);
+                // Numeric seperators are allowed anywhere within a numeric literal, except not at the beginning, or following another separator
+                if (ch === CharacterCodes._) {
+                    tokenFlags |= TokenFlags.ContainsSeparator;
+                    if (separatorAllowed) {
+                        separatorAllowed = false;
+                        isPreviousTokenSeparator = true;
+                    }
+                    else if (isPreviousTokenSeparator) {
+                        error(Diagnostics.Multiple_consecutive_numeric_separators_are_not_permitted, pos, 1);
+                    }
+                    else {
+                        error(Diagnostics.Numeric_separators_are_not_allowed_here, pos, 1);
+                    }
+                    pos++;
+                    continue;
+                }
+                separatorAllowed = true;
                 const valueOfCh = ch - CharacterCodes._0;
                 if (!isDigit(ch) || valueOfCh >= base) {
                     break;
@@ -1401,20 +1430,23 @@ namespace ts {
                 value = value * base + valueOfCh;
                 pos++;
                 numberOfDigits++;
+                isPreviousTokenSeparator = false;
             }
             // Invalid binaryIntegerLiteral or octalIntegerLiteral
             if (numberOfDigits === 0) {
                 return -1;
+            }
+            if (text.charCodeAt(pos - 1) === CharacterCodes._) {
+                // Literal ends with underscore - not allowed
+                error(Diagnostics.Numeric_separators_are_not_allowed_here, pos - 1, 1);
+                return value;
             }
             return value;
         }
 
         function scan(): SyntaxKind {
             startPos = pos;
-            hasExtendedUnicodeEscape = false;
-            precedingLineBreak = false;
-            tokenIsUnterminated = false;
-            numericLiteralFlags = 0;
+            tokenFlags = 0;
             while (true) {
                 tokenPos = pos;
                 if (pos >= end) {
@@ -1436,7 +1468,7 @@ namespace ts {
                 switch (ch) {
                     case CharacterCodes.lineFeed:
                     case CharacterCodes.carriageReturn:
-                        precedingLineBreak = true;
+                        tokenFlags |= TokenFlags.PrecedingLineBreak;
                         if (skipTrivia) {
                             pos++;
                             continue;
@@ -1545,18 +1577,13 @@ namespace ts {
                         pos++;
                         return token = SyntaxKind.DotToken;
                     case CharacterCodes.slash:
+                    // Single-line comment
+                    if (是包括词典) {
                         // 全局词典扫描
                         if (text.charCodeAt(pos + 1) === CharacterCodes.slash && text.charCodeAt(pos + 2) === CharacterCodes.at && text.charCodeAt(pos + 3) === CharacterCodes.at && text.charCodeAt(pos + 4) === CharacterCodes.openBrace) {
                             pos += 5;
-                            let 有结尾 = false;
                             while (pos < end) {
-                                if (text.charCodeAt(pos) === CharacterCodes.closeBrace) {
-                                    有结尾 = true;
-                                }
                                 if (isLineBreak(text.charCodeAt(pos))) {
-                                    if (!有结尾) {
-                                        error(Diagnostics.字典语句包含错误);
-                                    }
                                     break;
                                 }
                                 pos++;
@@ -1566,35 +1593,12 @@ namespace ts {
                                 continue;
                             }
                             else {
-                                return token = SyntaxKind.全局词典语句;
+                                return token = SyntaxKind.词典语句;
                             }
                         }
-                        // 局部词典扫描
-                        if (text.charCodeAt(pos + 1) === CharacterCodes.slash && text.charCodeAt(pos + 2) === CharacterCodes.at && text.charCodeAt(pos + 3) === CharacterCodes.openBrace) {
-                            pos += 4;
-                            let 有结尾 = false;
-                            while (pos < end) {
-                                if (text.charCodeAt(pos) === CharacterCodes.closeBrace) {
-                                    有结尾 = true;
-                                }
-                                if (isLineBreak(text.charCodeAt(pos))) {
-                                    if (!有结尾) {
-                                        error(Diagnostics.字典语句包含错误);
-                                    }
-                                    break;
-                                }
-                                pos++;
-                            }
 
-                            if (skipTrivia) {
-                                continue;
-                            }
-                            else {
-                                return token = SyntaxKind.局部词典语句;
-                            }
-                        }
-                        // Single-line comment
-                        if (text.charCodeAt(pos + 1) === CharacterCodes.slash) {
+                    }
+                    if (text.charCodeAt(pos + 1) === CharacterCodes.slash) {
                             pos += 2;
 
                             while (pos < end) {
@@ -1615,6 +1619,9 @@ namespace ts {
                         // Multi-line comment
                         if (text.charCodeAt(pos + 1) === CharacterCodes.asterisk) {
                             pos += 2;
+                            if (text.charCodeAt(pos) === CharacterCodes.asterisk && text.charCodeAt(pos + 1) !== CharacterCodes.slash) {
+                                tokenFlags |= TokenFlags.PrecedingJSDocComment;
+                            }
 
                             let commentClosed = false;
                             while (pos < end) {
@@ -1627,7 +1634,7 @@ namespace ts {
                                 }
 
                                 if (isLineBreak(ch)) {
-                                    precedingLineBreak = true;
+                                    tokenFlags |= TokenFlags.PrecedingLineBreak;
                                 }
                                 pos++;
                             }
@@ -1640,7 +1647,9 @@ namespace ts {
                                 continue;
                             }
                             else {
-                                tokenIsUnterminated = !commentClosed;
+                                if (!commentClosed) {
+                                    tokenFlags |= TokenFlags.Unterminated;
+                                }
                                 return token = SyntaxKind.MultiLineCommentTrivia;
                             }
                         }
@@ -1655,13 +1664,13 @@ namespace ts {
                     case CharacterCodes._0:
                         if (pos + 2 < end && (text.charCodeAt(pos + 1) === CharacterCodes.X || text.charCodeAt(pos + 1) === CharacterCodes.x)) {
                             pos += 2;
-                            let value = scanMinimumNumberOfHexDigits(1);
+                            let value = scanMinimumNumberOfHexDigits(1, /*canHaveSeparators*/ true);
                             if (value < 0) {
                                 error(Diagnostics.Hexadecimal_digit_expected);
                                 value = 0;
                             }
                             tokenValue = "" + value;
-                            numericLiteralFlags = NumericLiteralFlags.HexSpecifier;
+                            tokenFlags |= TokenFlags.HexSpecifier;
                             return token = SyntaxKind.NumericLiteral;
                         }
                         else if (pos + 2 < end && (text.charCodeAt(pos + 1) === CharacterCodes.B || text.charCodeAt(pos + 1) === CharacterCodes.b)) {
@@ -1672,7 +1681,7 @@ namespace ts {
                                 value = 0;
                             }
                             tokenValue = "" + value;
-                            numericLiteralFlags = NumericLiteralFlags.BinarySpecifier;
+                            tokenFlags |= TokenFlags.BinarySpecifier;
                             return token = SyntaxKind.NumericLiteral;
                         }
                         else if (pos + 2 < end && (text.charCodeAt(pos + 1) === CharacterCodes.O || text.charCodeAt(pos + 1) === CharacterCodes.o)) {
@@ -1683,13 +1692,13 @@ namespace ts {
                                 value = 0;
                             }
                             tokenValue = "" + value;
-                            numericLiteralFlags = NumericLiteralFlags.OctalSpecifier;
+                            tokenFlags |= TokenFlags.OctalSpecifier;
                             return token = SyntaxKind.NumericLiteral;
                         }
                         // Try to parse as an octal
                         if (pos + 1 < end && isOctalDigit(text.charCodeAt(pos + 1))) {
                             tokenValue = "" + scanOctalDigits();
-                            numericLiteralFlags = NumericLiteralFlags.Octal;
+                            tokenFlags |= TokenFlags.Octal;
                             return token = SyntaxKind.NumericLiteral;
                         }
                         // This fall-through is a deviation from the EcmaScript grammar. The grammar says that a leading zero
@@ -1709,7 +1718,7 @@ namespace ts {
                         return token = SyntaxKind.NumericLiteral;
                     case CharacterCodes.colon:
                         pos++;
-                        return  token = SyntaxKind.ColonToken;
+                        return token = SyntaxKind.ColonToken;
                     case CharacterCodes.semicolon:
                         pos++;
                         return token = SyntaxKind.SemicolonToken;
@@ -1846,7 +1855,7 @@ namespace ts {
                             continue;
                         }
                         else if (isLineBreak(ch)) {
-                            precedingLineBreak = true;
+                            tokenFlags |= TokenFlags.PrecedingLineBreak;
                             pos++;
                             continue;
                         }
@@ -1857,94 +1866,6 @@ namespace ts {
             }
         }
 
-        function 翻译词典扫描(): SyntaxKind {
-            startPos = pos;
-            while (true) {
-                tokenPos = pos;
-                if (pos >= end) {
-                    开始扫描词典主体 = false;
-                    return SyntaxKind.EndOfFileToken;
-                }
-                if (text.charCodeAt(pos) === CharacterCodes.slash) {
-                    if (text.charCodeAt(pos + 1) === CharacterCodes.slash) {
-                        if (text.charCodeAt(pos + 2) === CharacterCodes.at) {
-                            if (text.charCodeAt(pos + 3) === CharacterCodes.at) {
-                                if (text.charCodeAt(pos + 4) === CharacterCodes.openBrace) {
-                                    pos += 5;
-                                    开始扫描词典主体 = true;
-                                    tokenValue = "//@@";
-                                    return SyntaxKind.全局词典语句;
-                                }
-                            }
-                        }
-                    }
-                }
-                return 扫描主体();
-            }
-        }
-        function 扫描词典主体() {
-            开始扫描词典主体 = true;
-            startPos = pos;
-            return 扫描主体();
-        }
-        function 扫描主体() {
-            while (开始扫描词典主体) {
-                tokenPos = pos;
-                if (pos >= end) {
-                    开始扫描词典主体 = false;
-                    return SyntaxKind.EndOfFileToken;
-                }
-                let ch = text.charCodeAt(pos);
-                switch (ch) {
-                    case CharacterCodes.openBrace:
-                        pos++;
-                        tokenValue = "{";
-                        return SyntaxKind.OpenBraceToken;
-                    case CharacterCodes.colon:
-                        pos++;
-                        tokenValue = ":";
-                        return SyntaxKind.ColonToken;
-                    case CharacterCodes.comma:
-                        pos++;
-                        tokenValue = ",";
-                        return SyntaxKind.CommaToken;
-                    case CharacterCodes.closeBrace:
-                        pos++;
-                        tokenValue = "}";
-                        开始扫描词典主体 = false;
-                        return SyntaxKind.CloseBraceToken;
-                    case CharacterCodes.doubleQuote:
-                    case CharacterCodes.singleQuote:
-                        tokenValue = scanString();
-                        return token = SyntaxKind.StringLiteral;
-                    default:
-                        if (isLineBreak(ch)) {
-                            error(Diagnostics.字典语句包含错误);
-                            pos++;
-                            开始扫描词典主体 = false;
-                            return token = SyntaxKind.NewLineTrivia;
-                        }
-                        if (isIdentifierStart(ch, languageVersion)) {
-                            pos++;
-                            while (pos < end && isIdentifierPart(ch = text.charCodeAt(pos), languageVersion)) pos++;
-                            tokenValue = text.substring(tokenPos, pos);
-                            if (ch === CharacterCodes.backslash) {
-                                tokenValue += scanIdentifierParts();
-                            }
-                            return token = SyntaxKind.Identifier;
-                        }
-                        else if (isWhiteSpaceSingleLine(ch)) {
-                            pos++;
-                            continue;
-                        }
-                        error(Diagnostics.字典语句包含错误);
-                        pos++;
-                        // 开始扫描词典主体 = false
-                        return token = SyntaxKind.Unknown;
-                }
-            }
-            pos++;
-        }
         function reScanGreaterToken(): SyntaxKind {
             if (token === SyntaxKind.GreaterThanToken) {
                 if (text.charCodeAt(pos) === CharacterCodes.greaterThan) {
@@ -1977,14 +1898,14 @@ namespace ts {
                     // If we reach the end of a file, or hit a newline, then this is an unterminated
                     // regex.  Report error and return what we have so far.
                     if (p >= end) {
-                        tokenIsUnterminated = true;
+                        tokenFlags |= TokenFlags.Unterminated;
                         error(Diagnostics.Unterminated_regular_expression_literal);
                         break;
                     }
 
                     const ch = text.charCodeAt(p);
                     if (isLineBreak(ch)) {
-                        tokenIsUnterminated = true;
+                        tokenFlags |= TokenFlags.Unterminated;
                         error(Diagnostics.Unterminated_regular_expression_literal);
                         break;
                     }
@@ -2108,7 +2029,7 @@ namespace ts {
                         break;
                     }
                 }
-                tokenValue += text.substr(firstCharPosition, pos - firstCharPosition);
+                tokenValue += text.substring(firstCharPosition, pos);
             }
             return token;
         }
@@ -2119,7 +2040,7 @@ namespace ts {
             switch (text.charCodeAt(pos)) {
                 case CharacterCodes.doubleQuote:
                 case CharacterCodes.singleQuote:
-                    tokenValue = scanString(/*allowEscapes*/ false);
+                    tokenValue = scanString(/*jsxAttributeString*/ true);
                     return token = SyntaxKind.StringLiteral;
                 default:
                     // If this scans anything other than `{`, it's a parse error.
@@ -2127,7 +2048,7 @@ namespace ts {
             }
         }
 
-        function scanJSDocToken(): SyntaxKind {
+        function scanJSDocToken(): JsDocSyntaxKind {
             if (pos >= end) {
                 return token = SyntaxKind.EndOfFileToken;
             }
@@ -2136,6 +2057,7 @@ namespace ts {
             tokenPos = pos;
 
             const ch = text.charCodeAt(pos);
+            pos++;
             switch (ch) {
                 case CharacterCodes.tab:
                 case CharacterCodes.verticalTab:
@@ -2146,53 +2068,39 @@ namespace ts {
                     }
                     return token = SyntaxKind.WhitespaceTrivia;
                 case CharacterCodes.at:
-                    pos++;
                     return token = SyntaxKind.AtToken;
                 case CharacterCodes.lineFeed:
                 case CharacterCodes.carriageReturn:
-                    pos++;
                     return token = SyntaxKind.NewLineTrivia;
                 case CharacterCodes.asterisk:
-                    pos++;
                     return token = SyntaxKind.AsteriskToken;
                 case CharacterCodes.openBrace:
-                    pos++;
                     return token = SyntaxKind.OpenBraceToken;
                 case CharacterCodes.closeBrace:
-                    pos++;
                     return token = SyntaxKind.CloseBraceToken;
                 case CharacterCodes.openBracket:
-                    pos++;
                     return token = SyntaxKind.OpenBracketToken;
                 case CharacterCodes.closeBracket:
-                    pos++;
                     return token = SyntaxKind.CloseBracketToken;
                 case CharacterCodes.lessThan:
-                    pos++;
                     return token = SyntaxKind.LessThanToken;
-                case CharacterCodes.greaterThan:
-                    pos++;
-                    return token = SyntaxKind.GreaterThanToken;
                 case CharacterCodes.equals:
-                    pos++;
                     return token = SyntaxKind.EqualsToken;
                 case CharacterCodes.comma:
-                    pos++;
                     return token = SyntaxKind.CommaToken;
                 case CharacterCodes.dot:
-                    pos++;
                     return token = SyntaxKind.DotToken;
             }
 
             if (isIdentifierStart(ch, ScriptTarget.Latest)) {
-                pos++;
                 while (isIdentifierPart(text.charCodeAt(pos), ScriptTarget.Latest) && pos < end) {
                     pos++;
                 }
+                tokenValue = text.substring(tokenPos, pos);
                 return token = SyntaxKind.Identifier;
             }
             else {
-                return pos += 1, token = SyntaxKind.Unknown;
+                return token = SyntaxKind.Unknown;
             }
         }
 
@@ -2202,7 +2110,7 @@ namespace ts {
             const saveTokenPos = tokenPos;
             const saveToken = token;
             const saveTokenValue = tokenValue;
-            const savePrecedingLineBreak = precedingLineBreak;
+            const saveTokenFlags = tokenFlags;
             const result = callback();
 
             // If our callback returned something 'falsy' or we're just looking ahead,
@@ -2213,7 +2121,7 @@ namespace ts {
                 tokenPos = saveTokenPos;
                 token = saveToken;
                 tokenValue = saveTokenValue;
-                precedingLineBreak = savePrecedingLineBreak;
+                tokenFlags = saveTokenFlags;
             }
             return result;
         }
@@ -2224,10 +2132,8 @@ namespace ts {
             const saveStartPos = startPos;
             const saveTokenPos = tokenPos;
             const saveToken = token;
-            const savePrecedingLineBreak = precedingLineBreak;
             const saveTokenValue = tokenValue;
-            const saveHasExtendedUnicodeEscape = hasExtendedUnicodeEscape;
-            const saveTokenIsUnterminated = tokenIsUnterminated;
+            const saveTokenFlags = tokenFlags;
 
             setText(text, start, length);
             const result = callback();
@@ -2237,10 +2143,8 @@ namespace ts {
             startPos = saveStartPos;
             tokenPos = saveTokenPos;
             token = saveToken;
-            precedingLineBreak = savePrecedingLineBreak;
             tokenValue = saveTokenValue;
-            hasExtendedUnicodeEscape = saveHasExtendedUnicodeEscape;
-            tokenIsUnterminated = saveTokenIsUnterminated;
+            tokenFlags = saveTokenFlags;
 
             return result;
         }
@@ -2281,11 +2185,8 @@ namespace ts {
             startPos = textPos;
             tokenPos = textPos;
             token = SyntaxKind.Unknown;
-            precedingLineBreak = false;
-
             tokenValue = undefined;
-            hasExtendedUnicodeEscape = false;
-            tokenIsUnterminated = false;
+            tokenFlags = 0;
         }
     }
 }

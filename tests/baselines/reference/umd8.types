@@ -1,39 +1,36 @@
 === tests/cases/conformance/externalModules/a.ts ===
 /// <reference path="foo.d.ts" />
 import * as ff from './foo';
->ff : 类为 ff
+>ff : typeof ff
 
 let y: Foo; // OK in type position
 >y : ff
 >Foo : ff
 
 y.foo();
->y.foo() : 数字
->类型别名 :=> 数字
->y.foo : () => 数字
+>y.foo() : number
+>y.foo : () => number
 >y : ff
->foo : () => 数字
+>foo : () => number
 
 let z: Foo.SubThing; // OK in ns position
 >z : ff.SubThing
->Foo : 任意
->类型别名 :=> 任意
+>Foo : any
 >SubThing : ff.SubThing
 
 let x: any = Foo; // Not OK in value position
->x : 任意
->类型别名 :=> 任意
->Foo : 类为 ff
+>x : any
+>Foo : typeof ff
 
 === tests/cases/conformance/externalModules/foo.d.ts ===
 declare class Thing {
 >Thing : Thing
 
 	foo(): number;
->foo : () => 数字
+>foo : () => number
 }
 declare namespace Thing {
->Thing : 类为 Thing
+>Thing : typeof Thing
 
 	interface SubThing { }
 >SubThing : SubThing
@@ -42,5 +39,5 @@ export = Thing;
 >Thing : Thing
 
 export as namespace Foo;
->Foo : 类为 Thing
+>Foo : typeof Thing
 

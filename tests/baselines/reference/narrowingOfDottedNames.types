@@ -5,134 +5,110 @@ class A {
 >A : A
 
     prop: { a: string; };
->prop : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>prop : { a: string; }
+>a : string
 }
 
 class B {
 >B : B
 
     prop: { b: string; }
->prop : { b: 文字; }
->b : 文字
->类型别名 :=> 文字
+>prop : { b: string; }
+>b : string
 }
 
 function isA(x: any): x is A {
->isA : (x: 任意) => x 作为 A
->x : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>isA : (x: any) => x is A
+>x : any
+>x : any
 >A : A
 
     return x instanceof A;
->x instanceof A : 真假
->类型别名 :=> 真假
->x : 任意
->类型别名 :=> 任意
->A : 类为 A
+>x instanceof A : boolean
+>x : any
+>A : typeof A
 }
 
 function isB(x: any): x is B {
->isB : (x: 任意) => x 作为 B
->x : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>isB : (x: any) => x is B
+>x : any
+>x : any
 >B : B
 
     return x instanceof B;
->x instanceof B : 真假
->类型别名 :=> 真假
->x : 任意
->类型别名 :=> 任意
->B : 类为 B
+>x instanceof B : boolean
+>x : any
+>B : typeof B
 }
 
 function f1(x: A | B) {
->f1 : (x: A | B) => 无值
+>f1 : (x: A | B) => void
 >x : A | B
 >A : A
 >B : B
 
     while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         if (x instanceof A) {
->x instanceof A : 真假
->类型别名 :=> 真假
+>x instanceof A : boolean
 >x : A | B
->A : 类为 A
+>A : typeof A
 
             x.prop.a;
->x.prop.a : 文字
->类型别名 :=> 文字
->x.prop : { a: 文字; }
+>x.prop.a : string
+>x.prop : { a: string; }
 >x : A
->prop : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>prop : { a: string; }
+>a : string
         }
         else if (x instanceof B) {
->x instanceof B : 真假
->类型别名 :=> 真假
+>x instanceof B : boolean
 >x : B
->B : 类为 B
+>B : typeof B
 
             x.prop.b;
->x.prop.b : 文字
->类型别名 :=> 文字
->x.prop : { b: 文字; }
+>x.prop.b : string
+>x.prop : { b: string; }
 >x : B
->prop : { b: 文字; }
->b : 文字
->类型别名 :=> 文字
+>prop : { b: string; }
+>b : string
         }
     }
 }
 
 function f2(x: A | B) {
->f2 : (x: A | B) => 无值
+>f2 : (x: A | B) => void
 >x : A | B
 >A : A
 >B : B
 
     while (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         if (isA(x)) {
->isA(x) : 真假
->类型别名 :=> 真假
->isA : (x: 任意) => x 作为 A
+>isA(x) : boolean
+>isA : (x: any) => x is A
 >x : A | B
 
             x.prop.a;
->x.prop.a : 文字
->类型别名 :=> 文字
->x.prop : { a: 文字; }
+>x.prop.a : string
+>x.prop : { a: string; }
 >x : A
->prop : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>prop : { a: string; }
+>a : string
         }
         else if (isB(x)) {
->isB(x) : 真假
->类型别名 :=> 真假
->isB : (x: 任意) => x 作为 B
+>isB(x) : boolean
+>isB : (x: any) => x is B
 >x : B
 
             x.prop.b;
->x.prop.b : 文字
->类型别名 :=> 文字
->x.prop : { b: 文字; }
+>x.prop.b : string
+>x.prop : { b: string; }
 >x : B
->prop : { b: 文字; }
->b : 文字
->类型别名 :=> 文字
+>prop : { b: string; }
+>b : string
         }
     }
 }

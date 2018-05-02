@@ -1,56 +1,44 @@
 === tests/cases/compiler/scopeTests.ts ===
 class C { private v; public p; static s; }
 >C : C
->v : 任意
->类型别名 :=> 任意
->p : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
+>v : any
+>p : any
+>s : any
 
 class D extends C {
 >D : D
 >C : C
 
   public v: number;
->v : 数字
->类型别名 :=> 数字
+>v : number
 
   public p: number
->p : 数字
->类型别名 :=> 数字
+>p : number
 
   constructor() {
    super()
->super() : 无值
->类型别名 :=> 无值
->super : 类为 C
+>super() : void
+>super : typeof C
 
    this.v = 1;
 >this.v = 1 : 1
->this.v : 数字
->类型别名 :=> 数字
->this : 本体
->v : 数字
->类型别名 :=> 数字
+>this.v : number
+>this : this
+>v : number
 >1 : 1
 
    this.p = 1;
 >this.p = 1 : 1
->this.p : 数字
->类型别名 :=> 数字
->this : 本体
->p : 数字
->类型别名 :=> 数字
+>this.p : number
+>this : this
+>p : number
 >1 : 1
 
    C.s = 1;
 >C.s = 1 : 1
->C.s : 任意
->类型别名 :=> 任意
->C : 类为 C
->s : 任意
->类型别名 :=> 任意
+>C.s : any
+>C : typeof C
+>s : any
 >1 : 1
   }
 }

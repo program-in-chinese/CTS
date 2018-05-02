@@ -1,28 +1,24 @@
 === tests/cases/compiler/typeValueConflict1.ts ===
 module M1 {
->M1 : 类为 M1
+>M1 : typeof M1
 
  export class A {
 >A : A
  }
 }
 module M2 {
->M2 : 类为 M2
+>M2 : typeof M2
 
  var M1 = 0;
->M1 : 数字
->类型别名 :=> 数字
+>M1 : number
 >0 : 0
 
  // Should error.  M1 should bind to the variable, not to the module.
  class B extends M1.A {
 >B : B
->M1.A : 任意
->类型别名 :=> 任意
->M1 : 数字
->类型别名 :=> 数字
->A : 任意
->类型别名 :=> 任意
+>M1.A : any
+>M1 : number
+>A : any
  }
 }
 

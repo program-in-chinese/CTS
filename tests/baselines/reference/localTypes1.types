@@ -33,7 +33,7 @@ function f1() {
 >A : I[]
 >[new C()] : C[]
 >new C() : C
->C : 类为 C
+>C : typeof C
 
     a[0].x = E.B;
 >a[0].x = E.B : E.B
@@ -43,7 +43,7 @@ function f1() {
 >0 : 0
 >x : E
 >E.B : E.B
->E : 类为 E
+>E : typeof E
 >B : E.B
 
     return a;
@@ -87,7 +87,7 @@ function f2() {
 >A : I[]
 >[new C()] : C[]
 >new C() : C
->C : 类为 C
+>C : typeof C
 
         a[0].x = E.B;
 >a[0].x = E.B : E.B
@@ -97,7 +97,7 @@ function f2() {
 >0 : 0
 >x : E
 >E.B : E.B
->E : 类为 E
+>E : typeof E
 >B : E.B
 
         return a;
@@ -109,13 +109,11 @@ function f2() {
 }
 
 function f3(b: boolean) {
->f3 : (b: 真假) => I[]
->b : 真假
->类型别名 :=> 真假
+>f3 : (b: boolean) => I[]
+>b : boolean
 
     if (true) {
->true : 为真
->类型别名 :=> 为真
+>true : true
 
         enum E {
 >E : E
@@ -126,8 +124,7 @@ function f3(b: boolean) {
 >C : E.C
         }
         if (b) {
->b : 真假
->类型别名 :=> 真假
+>b : boolean
 
             class C {
 >C : C
@@ -152,7 +149,7 @@ function f3(b: boolean) {
 >A : I[]
 >[new C()] : C[]
 >new C() : C
->C : 类为 C
+>C : typeof C
 
             a[0].x = E.B;
 >a[0].x = E.B : E.B
@@ -162,7 +159,7 @@ function f3(b: boolean) {
 >0 : 0
 >x : E
 >E.B : E.B
->E : 类为 E
+>E : typeof E
 >B : E.B
 
             return a;
@@ -192,7 +189,7 @@ function f3(b: boolean) {
 >C : J[]
 >[new A()] : A[]
 >new A() : A
->A : 类为 A
+>A : typeof A
 
             c[0].x = E.B;
 >c[0].x = E.B : E.B
@@ -202,7 +199,7 @@ function f3(b: boolean) {
 >0 : 0
 >x : E
 >E.B : E.B
->E : 类为 E
+>E : typeof E
 >B : E.B
 
             return c;
@@ -212,7 +209,7 @@ function f3(b: boolean) {
 }
 
 function f5() {
->f5 : () => 无值
+>f5 : () => void
 
     var z1 = function () {
 >z1 : () => C
@@ -235,7 +232,7 @@ function f5() {
         }
         return new C();
 >new C() : C
->C : 类为 C
+>C : typeof C
     }
     var z2 = () => {
 >z2 : () => C
@@ -258,7 +255,7 @@ function f5() {
         }
         return new C();
 >new C() : C
->C : 类为 C
+>C : typeof C
     }
 }
 
@@ -302,7 +299,7 @@ class A {
         }
         return new C();
 >new C() : C
->C : 类为 C
+>C : typeof C
     }
     get p() {
 >p : C
@@ -324,7 +321,7 @@ class A {
         }
         return new C();
 >new C() : C
->C : 类为 C
+>C : typeof C
     }
 }
 
@@ -335,8 +332,7 @@ function f6() {
 >A : A
 
         a: string;
->a : 文字
->类型别名 :=> 文字
+>a : string
     }
     function g() {
 >g : () => C
@@ -346,8 +342,7 @@ function f6() {
 >A : A
 
             b: string;
->b : 文字
->类型别名 :=> 文字
+>b : string
         }
         function h() {
 >h : () => C
@@ -357,39 +352,32 @@ function f6() {
 >B : B
 
                 c: string;
->c : 文字
->类型别名 :=> 文字
+>c : string
             }
             var x = new C();
 >x : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
             x.a = "a";
 >x.a = "a" : "a"
->x.a : 文字
->类型别名 :=> 文字
+>x.a : string
 >x : C
->a : 文字
->类型别名 :=> 文字
+>a : string
 >"a" : "a"
 
             x.b = "b";
 >x.b = "b" : "b"
->x.b : 文字
->类型别名 :=> 文字
+>x.b : string
 >x : C
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"b" : "b"
 
             x.c = "c";
 >x.c = "c" : "c"
->x.c : 文字
->类型别名 :=> 文字
+>x.c : string
 >x : C
->c : 文字
->类型别名 :=> 文字
+>c : string
 >"c" : "c"
 
             return x;

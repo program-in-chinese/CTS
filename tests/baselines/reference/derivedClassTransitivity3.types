@@ -6,7 +6,7 @@ class C<T> {
 >T : T
 
     foo(x: T, y: T) { }
->foo : (x: T, y: T) => 无值
+>foo : (x: T, y: T) => void
 >x : T
 >T : T
 >y : T
@@ -20,7 +20,7 @@ class D<T> extends C<T> {
 >T : T
 
     foo(x: T) { } // ok to drop parameters
->foo : (x: T) => 无值
+>foo : (x: T) => void
 >x : T
 >T : T
 }
@@ -32,49 +32,44 @@ class E<T> extends D<T> {
 >T : T
 
     foo(x: T, y?: number) { } // ok to add optional parameters
->foo : (x: T, y?: 数字) => 无值
+>foo : (x: T, y?: number) => void
 >x : T
 >T : T
->y : 数字
->类型别名 :=> 数字
+>y : number
 }
 
 var c: C<string>;
->c : C<文字>
+>c : C<string>
 >C : C<T>
 
 var d: D<string>;
->d : D<文字>
+>d : D<string>
 >D : D<T>
 
 var e: E<string>;
->e : E<文字>
+>e : E<string>
 >E : E<T>
 
 c = e;
->c = e : E<文字>
->c : C<文字>
->e : E<文字>
+>c = e : E<string>
+>c : C<string>
+>e : E<string>
 
 var r = c.foo('', '');
->r : 无值
->类型别名 :=> 无值
->c.foo('', '') : 无值
->类型别名 :=> 无值
->c.foo : (x: 文字, y: 文字) => 无值
->c : C<文字>
->foo : (x: 文字, y: 文字) => 无值
+>r : void
+>c.foo('', '') : void
+>c.foo : (x: string, y: string) => void
+>c : C<string>
+>foo : (x: string, y: string) => void
 >'' : ""
 >'' : ""
 
 var r2 = e.foo('', 1);
->r2 : 无值
->类型别名 :=> 无值
->e.foo('', 1) : 无值
->类型别名 :=> 无值
->e.foo : (x: 文字, y?: 数字) => 无值
->e : E<文字>
->foo : (x: 文字, y?: 数字) => 无值
+>r2 : void
+>e.foo('', 1) : void
+>e.foo : (x: string, y?: number) => void
+>e : E<string>
+>foo : (x: string, y?: number) => void
 >'' : ""
 >1 : 1
 

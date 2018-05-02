@@ -1,171 +1,120 @@
 === tests/cases/conformance/expressions/unaryOperators/voidOperator/voidOperatorWithBooleanType.ts ===
 // void  operator on boolean type
 var BOOLEAN: boolean;
->BOOLEAN : 真假
->类型别名 :=> 真假
+>BOOLEAN : boolean
 
 function foo(): boolean { return true; }
->foo : () => 真假
->true : 为真
->类型别名 :=> 为真
+>foo : () => boolean
+>true : true
 
 class A {
 >A : A
 
     public a: boolean;
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
     static foo() { return false; }
->foo : () => 真假
->false : 为假
->类型别名 :=> 为假
+>foo : () => boolean
+>false : false
 }
 module M {
->M : 类为 M
+>M : typeof M
 
     export var n: boolean;
->n : 真假
->类型别名 :=> 真假
+>n : boolean
 }
 
 var objA = new A();
 >objA : A
 >new A() : A
->A : 类为 A
+>A : typeof A
 
 // boolean type var
 var ResultIsAny1 = void BOOLEAN;
->ResultIsAny1 : 任意
->类型别名 :=> 任意
->void BOOLEAN : 未定
->类型别名 :=> 未定
->BOOLEAN : 真假
->类型别名 :=> 真假
+>ResultIsAny1 : any
+>void BOOLEAN : undefined
+>BOOLEAN : boolean
 
 // boolean type literal
 var ResultIsAny2 = void true;
->ResultIsAny2 : 任意
->类型别名 :=> 任意
->void true : 未定
->类型别名 :=> 未定
->true : 为真
->类型别名 :=> 为真
+>ResultIsAny2 : any
+>void true : undefined
+>true : true
 
 var ResultIsAny3 = void { x: true, y: false };
->ResultIsAny3 : 任意
->类型别名 :=> 任意
->void { x: true, y: false } : 未定
->类型别名 :=> 未定
->{ x: true, y: false } : { x: 真假; y: 真假; }
->x : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
->y : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>ResultIsAny3 : any
+>void { x: true, y: false } : undefined
+>{ x: true, y: false } : { x: boolean; y: boolean; }
+>x : boolean
+>true : true
+>y : boolean
+>false : false
 
 // boolean type expressions
 var ResultIsAny4 = void objA.a;
->ResultIsAny4 : 任意
->类型别名 :=> 任意
->void objA.a : 未定
->类型别名 :=> 未定
->objA.a : 真假
->类型别名 :=> 真假
+>ResultIsAny4 : any
+>void objA.a : undefined
+>objA.a : boolean
 >objA : A
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 var ResultIsAny5 = void M.n;
->ResultIsAny5 : 任意
->类型别名 :=> 任意
->void M.n : 未定
->类型别名 :=> 未定
->M.n : 真假
->类型别名 :=> 真假
->M : 类为 M
->n : 真假
->类型别名 :=> 真假
+>ResultIsAny5 : any
+>void M.n : undefined
+>M.n : boolean
+>M : typeof M
+>n : boolean
 
 var ResultIsAny6 = void foo();
->ResultIsAny6 : 任意
->类型别名 :=> 任意
->void foo() : 未定
->类型别名 :=> 未定
->foo() : 真假
->类型别名 :=> 真假
->foo : () => 真假
+>ResultIsAny6 : any
+>void foo() : undefined
+>foo() : boolean
+>foo : () => boolean
 
 var ResultIsAny7 = void A.foo();
->ResultIsAny7 : 任意
->类型别名 :=> 任意
->void A.foo() : 未定
->类型别名 :=> 未定
->A.foo() : 真假
->类型别名 :=> 真假
->A.foo : () => 真假
->A : 类为 A
->foo : () => 真假
+>ResultIsAny7 : any
+>void A.foo() : undefined
+>A.foo() : boolean
+>A.foo : () => boolean
+>A : typeof A
+>foo : () => boolean
 
 // multiple void  operator
 var ResultIsAny8 = void void BOOLEAN;
->ResultIsAny8 : 任意
->类型别名 :=> 任意
->void void BOOLEAN : 未定
->类型别名 :=> 未定
->void BOOLEAN : 未定
->类型别名 :=> 未定
->BOOLEAN : 真假
->类型别名 :=> 真假
+>ResultIsAny8 : any
+>void void BOOLEAN : undefined
+>void BOOLEAN : undefined
+>BOOLEAN : boolean
 
 // miss assignment operators
 void true;
->void true : 未定
->类型别名 :=> 未定
->true : 为真
->类型别名 :=> 为真
+>void true : undefined
+>true : true
 
 void BOOLEAN;
->void BOOLEAN : 未定
->类型别名 :=> 未定
->BOOLEAN : 真假
->类型别名 :=> 真假
+>void BOOLEAN : undefined
+>BOOLEAN : boolean
 
 void foo();
->void foo() : 未定
->类型别名 :=> 未定
->foo() : 真假
->类型别名 :=> 真假
->foo : () => 真假
+>void foo() : undefined
+>foo() : boolean
+>foo : () => boolean
 
 void true, false;
->void true, false : 为假
->类型别名 :=> 为假
->void true : 未定
->类型别名 :=> 未定
->true : 为真
->类型别名 :=> 为真
->false : 为假
->类型别名 :=> 为假
+>void true, false : false
+>void true : undefined
+>true : true
+>false : false
 
 void objA.a;
->void objA.a : 未定
->类型别名 :=> 未定
->objA.a : 真假
->类型别名 :=> 真假
+>void objA.a : undefined
+>objA.a : boolean
 >objA : A
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 void M.n;
->void M.n : 未定
->类型别名 :=> 未定
->M.n : 真假
->类型别名 :=> 真假
->M : 类为 M
->n : 真假
->类型别名 :=> 真假
+>void M.n : undefined
+>M.n : boolean
+>M : typeof M
+>n : boolean
 

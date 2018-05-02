@@ -3,203 +3,187 @@ class MyTestClass {
 >MyTestClass : MyTestClass
 
     private canary: number;
->canary : 数字
->类型别名 :=> 数字
+>canary : number
 
     static staticCanary: number;
->staticCanary : 数字
->类型别名 :=> 数字
+>staticCanary : number
 
     constructor() {
         //type of 'this' in constructor body is the class instance type
         var p = this.canary;
->p : 数字
->类型别名 :=> 数字
->this.canary : 数字
->类型别名 :=> 数字
->this : 本体
->canary : 数字
->类型别名 :=> 数字
+>p : number
+>this.canary : number
+>this : this
+>canary : number
 
         var p: number;
->p : 数字
->类型别名 :=> 数字
+>p : number
 
         this.canary = 3;
 >this.canary = 3 : 3
->this.canary : 数字
->类型别名 :=> 数字
->this : 本体
->canary : 数字
->类型别名 :=> 数字
+>this.canary : number
+>this : this
+>canary : number
 >3 : 3
     }
 
     //type of 'this' in member function param list is the class instance type
     memberFunc(t = this) {
->memberFunc : (t?: 本体) => 无值
->t : 本体
->this : 本体
+>memberFunc : (t?: this) => void
+>t : this
+>this : this
 
         var t: MyTestClass;
->t : 本体
+>t : this
 >MyTestClass : MyTestClass
 
         //type of 'this' in member function body is the class instance type
         var p = this;
->p : 本体
->this : 本体
+>p : this
+>this : this
 
         var p: MyTestClass;
->p : 本体
+>p : this
 >MyTestClass : MyTestClass
     }
 
     //type of 'this' in member accessor(get and set) body is the class instance type
     get prop() {
->prop : 本体
+>prop : this
 
         var p = this;
->p : 本体
->this : 本体
+>p : this
+>this : this
 
         var p: MyTestClass;
->p : 本体
+>p : this
 >MyTestClass : MyTestClass
 
         return this;
->this : 本体
+>this : this
     }
     set prop(v) {
->prop : 本体
->v : 本体
+>prop : this
+>v : this
 
         var p = this;
->p : 本体
->this : 本体
+>p : this
+>this : this
 
         var p: MyTestClass;
->p : 本体
+>p : this
 >MyTestClass : MyTestClass
 
         p = v;
->p = v : 本体
->p : 本体
->v : 本体
+>p = v : this
+>p : this
+>v : this
 
         v = p;
->v = p : 本体
->v : 本体
->p : 本体
+>v = p : this
+>v : this
+>p : this
     }
 
     someFunc = () => {
->someFunc : () => 无值
->() => {        //type of 'this' in member variable initializer is the class instance type        var t = this;        var t: MyTestClass;    } : () => 无值
+>someFunc : () => void
+>() => {        //type of 'this' in member variable initializer is the class instance type        var t = this;        var t: MyTestClass;    } : () => void
 
         //type of 'this' in member variable initializer is the class instance type
         var t = this;
->t : 本体
->this : 本体
+>t : this
+>this : this
 
         var t: MyTestClass;
->t : 本体
+>t : this
 >MyTestClass : MyTestClass
 
     };
 
     //type of 'this' in static function param list is constructor function type
     static staticFn(t = this) {
->staticFn : (t?: 类为 MyTestClass) => 无值
->t : 类为 MyTestClass
->this : 类为 MyTestClass
+>staticFn : (t?: typeof MyTestClass) => void
+>t : typeof MyTestClass
+>this : typeof MyTestClass
 
         var t: typeof MyTestClass;
->t : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>t : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         var t = MyTestClass;
->t : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>t : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         t.staticCanary;
->t.staticCanary : 数字
->类型别名 :=> 数字
->t : 类为 MyTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>t.staticCanary : number
+>t : typeof MyTestClass
+>staticCanary : number
 
         //type of 'this' in static function body is constructor function type
         var p = this;
->p : 类为 MyTestClass
->this : 类为 MyTestClass
+>p : typeof MyTestClass
+>this : typeof MyTestClass
 
         var p: typeof MyTestClass;
->p : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>p : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         var p = MyTestClass;
->p : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>p : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         p.staticCanary;
->p.staticCanary : 数字
->类型别名 :=> 数字
->p : 类为 MyTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>p.staticCanary : number
+>p : typeof MyTestClass
+>staticCanary : number
     }
 
     static get staticProp() {
->staticProp : 类为 MyTestClass
+>staticProp : typeof MyTestClass
 
         //type of 'this' in static accessor body is constructor function type
         var p = this;
->p : 类为 MyTestClass
->this : 类为 MyTestClass
+>p : typeof MyTestClass
+>this : typeof MyTestClass
 
         var p: typeof MyTestClass;
->p : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>p : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         var p = MyTestClass;
->p : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>p : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         p.staticCanary;
->p.staticCanary : 数字
->类型别名 :=> 数字
->p : 类为 MyTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>p.staticCanary : number
+>p : typeof MyTestClass
+>staticCanary : number
 
         return this;
->this : 类为 MyTestClass
+>this : typeof MyTestClass
     }
     static set staticProp(v: typeof MyTestClass) {
->staticProp : 类为 MyTestClass
->v : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>staticProp : typeof MyTestClass
+>v : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         //type of 'this' in static accessor body is constructor function type
         var p = this;
->p : 类为 MyTestClass
->this : 类为 MyTestClass
+>p : typeof MyTestClass
+>this : typeof MyTestClass
 
         var p: typeof MyTestClass;
->p : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>p : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         var p = MyTestClass;
->p : 类为 MyTestClass
->MyTestClass : 类为 MyTestClass
+>p : typeof MyTestClass
+>MyTestClass : typeof MyTestClass
 
         p.staticCanary;
->p.staticCanary : 数字
->类型别名 :=> 数字
->p : 类为 MyTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>p.staticCanary : number
+>p : typeof MyTestClass
+>staticCanary : number
     }
 }
 
@@ -209,57 +193,49 @@ class MyGenericTestClass<T, U> {
 >U : U
 
     private canary: number;
->canary : 数字
->类型别名 :=> 数字
+>canary : number
 
     static staticCanary: number;
->staticCanary : 数字
->类型别名 :=> 数字
+>staticCanary : number
 
     constructor() {
         //type of 'this' in constructor body is the class instance type
         var p = this.canary;
->p : 数字
->类型别名 :=> 数字
->this.canary : 数字
->类型别名 :=> 数字
->this : 本体
->canary : 数字
->类型别名 :=> 数字
+>p : number
+>this.canary : number
+>this : this
+>canary : number
 
         var p: number;
->p : 数字
->类型别名 :=> 数字
+>p : number
 
         this.canary = 3;
 >this.canary = 3 : 3
->this.canary : 数字
->类型别名 :=> 数字
->this : 本体
->canary : 数字
->类型别名 :=> 数字
+>this.canary : number
+>this : this
+>canary : number
 >3 : 3
     }
 
     //type of 'this' in member function param list is the class instance type
     memberFunc(t = this) {
->memberFunc : (t?: 本体) => 无值
->t : 本体
->this : 本体
+>memberFunc : (t?: this) => void
+>t : this
+>this : this
 
         var t: MyGenericTestClass<T, U>;
->t : 本体
+>t : this
 >MyGenericTestClass : MyGenericTestClass<T, U>
 >T : T
 >U : U
 
         //type of 'this' in member function body is the class instance type
         var p = this;
->p : 本体
->this : 本体
+>p : this
+>this : this
 
         var p: MyGenericTestClass<T, U>;
->p : 本体
+>p : this
 >MyGenericTestClass : MyGenericTestClass<T, U>
 >T : T
 >U : U
@@ -267,57 +243,57 @@ class MyGenericTestClass<T, U> {
 
     //type of 'this' in member accessor(get and set) body is the class instance type
     get prop() {
->prop : 本体
+>prop : this
 
         var p = this;
->p : 本体
->this : 本体
+>p : this
+>this : this
 
         var p: MyGenericTestClass<T, U>;
->p : 本体
+>p : this
 >MyGenericTestClass : MyGenericTestClass<T, U>
 >T : T
 >U : U
 
         return this;
->this : 本体
+>this : this
     }
     set prop(v) {
->prop : 本体
->v : 本体
+>prop : this
+>v : this
 
         var p = this;
->p : 本体
->this : 本体
+>p : this
+>this : this
 
         var p: MyGenericTestClass<T, U>;
->p : 本体
+>p : this
 >MyGenericTestClass : MyGenericTestClass<T, U>
 >T : T
 >U : U
 
         p = v;
->p = v : 本体
->p : 本体
->v : 本体
+>p = v : this
+>p : this
+>v : this
 
         v = p;
->v = p : 本体
->v : 本体
->p : 本体
+>v = p : this
+>v : this
+>p : this
     }
 
     someFunc = () => {
->someFunc : () => 无值
->() => {        //type of 'this' in member variable initializer is the class instance type        var t = this;        var t: MyGenericTestClass<T, U>;    } : () => 无值
+>someFunc : () => void
+>() => {        //type of 'this' in member variable initializer is the class instance type        var t = this;        var t: MyGenericTestClass<T, U>;    } : () => void
 
         //type of 'this' in member variable initializer is the class instance type
         var t = this;
->t : 本体
->this : 本体
+>t : this
+>this : this
 
         var t: MyGenericTestClass<T, U>;
->t : 本体
+>t : this
 >MyGenericTestClass : MyGenericTestClass<T, U>
 >T : T
 >U : U
@@ -326,252 +302,202 @@ class MyGenericTestClass<T, U> {
 
     //type of 'this' in static function param list is constructor function type
     static staticFn(t = this) {
->staticFn : (t?: 类为 MyGenericTestClass) => 无值
->t : 类为 MyGenericTestClass
->this : 类为 MyGenericTestClass
+>staticFn : (t?: typeof MyGenericTestClass) => void
+>t : typeof MyGenericTestClass
+>this : typeof MyGenericTestClass
 
         var t: typeof MyGenericTestClass;
->t : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>t : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         var t = MyGenericTestClass;
->t : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>t : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         t.staticCanary;
->t.staticCanary : 数字
->类型别名 :=> 数字
->t : 类为 MyGenericTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>t.staticCanary : number
+>t : typeof MyGenericTestClass
+>staticCanary : number
 
         //type of 'this' in static function body is constructor function type
         var p = this;
->p : 类为 MyGenericTestClass
->this : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>this : typeof MyGenericTestClass
 
         var p: typeof MyGenericTestClass;
->p : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         var p = MyGenericTestClass;
->p : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         p.staticCanary;
->p.staticCanary : 数字
->类型别名 :=> 数字
->p : 类为 MyGenericTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>p.staticCanary : number
+>p : typeof MyGenericTestClass
+>staticCanary : number
     }
 
     static get staticProp() {
->staticProp : 类为 MyGenericTestClass
+>staticProp : typeof MyGenericTestClass
 
         //type of 'this' in static accessor body is constructor function type
         var p = this;
->p : 类为 MyGenericTestClass
->this : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>this : typeof MyGenericTestClass
 
         var p: typeof MyGenericTestClass;
->p : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         var p = MyGenericTestClass;
->p : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         p.staticCanary;
->p.staticCanary : 数字
->类型别名 :=> 数字
->p : 类为 MyGenericTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>p.staticCanary : number
+>p : typeof MyGenericTestClass
+>staticCanary : number
 
         return this;
->this : 类为 MyGenericTestClass
+>this : typeof MyGenericTestClass
     }
     static set staticProp(v: typeof MyGenericTestClass) {
->staticProp : 类为 MyGenericTestClass
->v : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>staticProp : typeof MyGenericTestClass
+>v : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         //type of 'this' in static accessor body is constructor function type
         var p = this;
->p : 类为 MyGenericTestClass
->this : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>this : typeof MyGenericTestClass
 
         var p: typeof MyGenericTestClass;
->p : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         var p = MyGenericTestClass;
->p : 类为 MyGenericTestClass
->MyGenericTestClass : 类为 MyGenericTestClass
+>p : typeof MyGenericTestClass
+>MyGenericTestClass : typeof MyGenericTestClass
 
         p.staticCanary;
->p.staticCanary : 数字
->类型别名 :=> 数字
->p : 类为 MyGenericTestClass
->staticCanary : 数字
->类型别名 :=> 数字
+>p.staticCanary : number
+>p : typeof MyGenericTestClass
+>staticCanary : number
     }
 }
 
 //type of 'this' in a function declaration param list is Any
 function fn(s = this) {
->fn : (s?: 任意) => 无值
->s : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>fn : (s?: any) => void
+>s : any
+>this : any
 
     var s: any;
->s : 任意
->类型别名 :=> 任意
+>s : any
 
     s.spaaaaaaace = 4;
 >s.spaaaaaaace = 4 : 4
->s.spaaaaaaace : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
->spaaaaaaace : 任意
->类型别名 :=> 任意
+>s.spaaaaaaace : any
+>s : any
+>spaaaaaaace : any
 >4 : 4
 
     //type of 'this' in a function declaration body is Any
     var t: any;
->t : 任意
->类型别名 :=> 任意
+>t : any
 
     var t = this;
->t : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>t : any
+>this : any
 
     this.spaaaaace = 4;
 >this.spaaaaace = 4 : 4
->this.spaaaaace : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->spaaaaace : 任意
->类型别名 :=> 任意
+>this.spaaaaace : any
+>this : any
+>spaaaaace : any
 >4 : 4
 }
 
 //type of 'this' in a function expression param list list is Any
 var q1 = function (s = this) {
->q1 : (s?: 任意) => 无值
->function (s = this) {    var s: any;    s.spaaaaaaace = 4;    //type of 'this' in a function expression body is Any    var t: any;    var t = this;    this.spaaaaace = 4;} : (s?: 任意) => 无值
->s : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>q1 : (s?: any) => void
+>function (s = this) {    var s: any;    s.spaaaaaaace = 4;    //type of 'this' in a function expression body is Any    var t: any;    var t = this;    this.spaaaaace = 4;} : (s?: any) => void
+>s : any
+>this : any
 
     var s: any;
->s : 任意
->类型别名 :=> 任意
+>s : any
 
     s.spaaaaaaace = 4;
 >s.spaaaaaaace = 4 : 4
->s.spaaaaaaace : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
->spaaaaaaace : 任意
->类型别名 :=> 任意
+>s.spaaaaaaace : any
+>s : any
+>spaaaaaaace : any
 >4 : 4
 
     //type of 'this' in a function expression body is Any
     var t: any;
->t : 任意
->类型别名 :=> 任意
+>t : any
 
     var t = this;
->t : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>t : any
+>this : any
 
     this.spaaaaace = 4;
 >this.spaaaaace = 4 : 4
->this.spaaaaace : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->spaaaaace : 任意
->类型别名 :=> 任意
+>this.spaaaaace : any
+>this : any
+>spaaaaace : any
 >4 : 4
 }
 
 //type of 'this' in a fat arrow expression param list is Any
 var q2 = (s = this) => {
->q2 : (s?: 任意) => 无值
->(s = this) => {    var s: any;    s.spaaaaaaace = 4;    //type of 'this' in a fat arrow expression body is Any    var t: any;    var t = this;    this.spaaaaace = 4;} : (s?: 任意) => 无值
->s : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>q2 : (s?: any) => void
+>(s = this) => {    var s: any;    s.spaaaaaaace = 4;    //type of 'this' in a fat arrow expression body is Any    var t: any;    var t = this;    this.spaaaaace = 4;} : (s?: any) => void
+>s : any
+>this : any
 
     var s: any;
->s : 任意
->类型别名 :=> 任意
+>s : any
 
     s.spaaaaaaace = 4;
 >s.spaaaaaaace = 4 : 4
->s.spaaaaaaace : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
->spaaaaaaace : 任意
->类型别名 :=> 任意
+>s.spaaaaaaace : any
+>s : any
+>spaaaaaaace : any
 >4 : 4
 
     //type of 'this' in a fat arrow expression body is Any
     var t: any;
->t : 任意
->类型别名 :=> 任意
+>t : any
 
     var t = this;
->t : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>t : any
+>this : any
 
     this.spaaaaace = 4;
 >this.spaaaaace = 4 : 4
->this.spaaaaace : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->spaaaaace : 任意
->类型别名 :=> 任意
+>this.spaaaaace : any
+>this : any
+>spaaaaace : any
 >4 : 4
 }
 
 //type of 'this' in global module is Any
 var t: any;
->t : 任意
->类型别名 :=> 任意
+>t : any
 
 var t = this;
->t : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>t : any
+>this : any
 
 this.spaaaaace = 4;
 >this.spaaaaace = 4 : 4
->this.spaaaaace : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->spaaaaace : 任意
->类型别名 :=> 任意
+>this.spaaaaace : any
+>this : any
+>spaaaaace : any
 >4 : 4
 
 

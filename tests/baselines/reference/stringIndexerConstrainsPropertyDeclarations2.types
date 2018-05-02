@@ -5,7 +5,7 @@ class A {
 >A : A
 
     foo(): string { return ''; }
->foo : () => 文字
+>foo : () => string
 >'' : ""
 }
 
@@ -14,7 +14,7 @@ class B extends A {
 >A : A
 
     bar(): string { return ''; }
->bar : () => 文字
+>bar : () => string
 >'' : ""
 }
 
@@ -22,8 +22,7 @@ class Foo {
 >Foo : Foo
 
     [x: string]: A;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >A : A
 
     a: A; // ok
@@ -35,20 +34,17 @@ class Foo {
 >B : B
 
     c: number; // error
->c : 数字
->类型别名 :=> 数字
+>c : number
 
     d: string; // error
->d : 文字
->类型别名 :=> 文字
+>d : string
 }
 
 interface Foo2 {
 >Foo2 : Foo2
 
     [x: string]: A;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >A : A
 
     a: A; // ok
@@ -60,20 +56,17 @@ interface Foo2 {
 >B : B
 
     c: number; // error
->c : 数字
->类型别名 :=> 数字
+>c : number
 
     d: string; // error
->d : 文字
->类型别名 :=> 文字
+>d : string
 }
 
 var a: {
->a : { [x: 文字]: A; a: A; b: B; c: 数字; d: 文字; }
+>a : { [x: string]: A; a: A; b: B; c: number; d: string; }
 
     [x: string]: A;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >A : A
 
     a: A; // ok
@@ -85,28 +78,25 @@ var a: {
 >B : B
 
     c: number; // error
->c : 数字
->类型别名 :=> 数字
+>c : number
 
     d: string; // error
->d : 文字
->类型别名 :=> 文字
+>d : string
 
 };
 
 // error
 var b: { [x: string]: A } = {
->b : { [x: 文字]: A; }
->x : 文字
->类型别名 :=> 文字
+>b : { [x: string]: A; }
+>x : string
 >A : A
->{    a: A,    b: B} : { a: 类为 A; b: 类为 B; }
+>{    a: A,    b: B} : { a: typeof A; b: typeof B; }
 
     a: A,
->a : 类为 A
->A : 类为 A
+>a : typeof A
+>A : typeof A
 
     b: B
->b : 类为 B
->B : 类为 B
+>b : typeof B
+>B : typeof B
 }

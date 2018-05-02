@@ -1,21 +1,19 @@
 === tests/cases/compiler/fatArrowSelf.ts ===
 module Events {
->Events : 类为 Events
+>Events : typeof Events
 
     export interface ListenerCallback {
 >ListenerCallback : ListenerCallback
 
         (value:any):void;
->value : 任意
->类型别名 :=> 任意
+>value : any
     }
     export class EventEmitter {
 >EventEmitter : EventEmitter
 
          public addListener(type:string, listener:ListenerCallback) {
->addListener : (type: 文字, listener: ListenerCallback) => 无值
->type : 文字
->类型别名 :=> 文字
+>addListener : (type: string, listener: ListenerCallback) => void
+>type : string
 >listener : ListenerCallback
 >ListenerCallback : ListenerCallback
          }
@@ -23,45 +21,41 @@ module Events {
 }
 
 module Consumer {
->Consumer : 类为 Consumer
+>Consumer : typeof Consumer
 
     class EventEmitterConsummer {
 >EventEmitterConsummer : EventEmitterConsummer
 
         constructor (private emitter: Events.EventEmitter) { }
 >emitter : Events.EventEmitter
->Events : 任意
->类型别名 :=> 任意
+>Events : any
 >EventEmitter : Events.EventEmitter
 
         private register() {
->register : () => 无值
+>register : () => void
 
             this.emitter.addListener('change', (e) => {
->this.emitter.addListener('change', (e) => {                this.changed();            }) : 无值
->类型别名 :=> 无值
->this.emitter.addListener : (type: 文字, listener: Events.ListenerCallback) => 无值
+>this.emitter.addListener('change', (e) => {                this.changed();            }) : void
+>this.emitter.addListener : (type: string, listener: Events.ListenerCallback) => void
 >this.emitter : Events.EventEmitter
->this : 本体
+>this : this
 >emitter : Events.EventEmitter
->addListener : (type: 文字, listener: Events.ListenerCallback) => 无值
+>addListener : (type: string, listener: Events.ListenerCallback) => void
 >'change' : "change"
->(e) => {                this.changed();            } : (e: 任意) => 无值
->e : 任意
->类型别名 :=> 任意
+>(e) => {                this.changed();            } : (e: any) => void
+>e : any
 
                 this.changed();
->this.changed() : 无值
->类型别名 :=> 无值
->this.changed : () => 无值
->this : 本体
->changed : () => 无值
+>this.changed() : void
+>this.changed : () => void
+>this : this
+>changed : () => void
 
             });
         }      
 
         private changed() {
->changed : () => 无值
+>changed : () => void
         }
     }
 }

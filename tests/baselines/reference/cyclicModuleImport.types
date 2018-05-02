@@ -1,18 +1,18 @@
 === tests/cases/compiler/cyclicModuleImport.ts ===
 declare module "SubModule" {
+>"SubModule" : typeof "SubModule"
+
     import MainModule = require('MainModule');
->MainModule : 类为 MainModule
+>MainModule : typeof MainModule
 
     class SubModule {
 >SubModule : SubModule
 
         public static StaticVar: number;
->StaticVar : 数字
->类型别名 :=> 数字
+>StaticVar : number
 
         public InstanceVar: number;
->InstanceVar : 数字
->类型别名 :=> 数字
+>InstanceVar : number
 
         public main: MainModule;
 >main : MainModule
@@ -24,8 +24,10 @@ declare module "SubModule" {
 >SubModule : SubModule
 }
 declare module "MainModule" {
+>"MainModule" : typeof "MainModule"
+
     import SubModule = require('SubModule');
->SubModule : 类为 SubModule
+>SubModule : typeof SubModule
 
     class MainModule {
 >MainModule : MainModule

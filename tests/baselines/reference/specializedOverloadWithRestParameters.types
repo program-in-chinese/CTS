@@ -1,58 +1,50 @@
 === tests/cases/compiler/specializedOverloadWithRestParameters.ts ===
 class Base { foo() { } }
 >Base : Base
->foo : () => 无值
+>foo : () => void
 
 class Derived1 extends Base { bar() { } }
 >Derived1 : Derived1
 >Base : Base
->bar : () => 无值
+>bar : () => void
 
 function f(tagName: 'span', ...args): Derived1;   // error
->f : { (tagName: "span", ...args: 任意[]): Derived1; (tagName: 数字, ...args: 任意[]): Base; }
+>f : { (tagName: "span", ...args: any[]): Derived1; (tagName: number, ...args: any[]): Base; }
 >tagName : "span"
->args : 任意[]
+>args : any[]
 >Derived1 : Derived1
 
 function f(tagName: number, ...args): Base;
->f : { (tagName: "span", ...args: 任意[]): Derived1; (tagName: 数字, ...args: 任意[]): Base; }
->tagName : 数字
->类型别名 :=> 数字
->args : 任意[]
+>f : { (tagName: "span", ...args: any[]): Derived1; (tagName: number, ...args: any[]): Base; }
+>tagName : number
+>args : any[]
 >Base : Base
 
 function f(tagName: any): Base {
->f : { (tagName: "span", ...args: 任意[]): Derived1; (tagName: 数字, ...args: 任意[]): Base; }
->tagName : 任意
->类型别名 :=> 任意
+>f : { (tagName: "span", ...args: any[]): Derived1; (tagName: number, ...args: any[]): Base; }
+>tagName : any
 >Base : Base
 
     return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 function g(tagName: 'span', arg): Derived1;    // error
->g : { (tagName: "span", arg: 任意): Derived1; (tagName: 数字, arg: 任意): Base; }
+>g : { (tagName: "span", arg: any): Derived1; (tagName: number, arg: any): Base; }
 >tagName : "span"
->arg : 任意
->类型别名 :=> 任意
+>arg : any
 >Derived1 : Derived1
 
 function g(tagName: number, arg): Base;
->g : { (tagName: "span", arg: 任意): Derived1; (tagName: 数字, arg: 任意): Base; }
->tagName : 数字
->类型别名 :=> 数字
->arg : 任意
->类型别名 :=> 任意
+>g : { (tagName: "span", arg: any): Derived1; (tagName: number, arg: any): Base; }
+>tagName : number
+>arg : any
 >Base : Base
 
 function g(tagName: any): Base {
->g : { (tagName: "span", arg: 任意): Derived1; (tagName: 数字, arg: 任意): Base; }
->tagName : 任意
->类型别名 :=> 任意
+>g : { (tagName: "span", arg: any): Derived1; (tagName: number, arg: any): Base; }
+>tagName : any
 >Base : Base
 
     return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 }

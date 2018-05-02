@@ -3,20 +3,16 @@ class Shape {
 >Shape : Shape
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     width: number;
->width : 数字
->类型别名 :=> 数字
+>width : number
 
     height: number;
->height : 数字
->类型别名 :=> 数字
+>height : number
 
     visible: boolean;
->visible : 真假
->类型别名 :=> 真假
+>visible : boolean
 }
 
 class TaggedShape extends Shape {
@@ -24,20 +20,17 @@ class TaggedShape extends Shape {
 >Shape : Shape
 
     tag: string;
->tag : 文字
->类型别名 :=> 文字
+>tag : string
 }
 
 class Item {
 >Item : Item
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     price: number;
->price : 数字
->类型别名 :=> 数字
+>price : number
 }
 
 class Options {
@@ -50,15 +43,13 @@ class Options {
 type Dictionary<T> = { [x: string]: T };
 >Dictionary : Dictionary<T>
 >T : T
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
 type NumericallyIndexed<T> = { [x: number]: T };
 >NumericallyIndexed : NumericallyIndexed<T>
 >T : T
->x : 数字
->类型别名 :=> 数字
+>x : number
 >T : T
 
 const enum E { A, B, C }
@@ -68,8 +59,7 @@ const enum E { A, B, C }
 >C : E.C
 
 type K00 = keyof any;  // string
->K00 : 文字
->类型别名 :=> 文字
+>K00 : string
 
 type K01 = keyof string;  // "toString" | "charAt" | ...
 >K01 : "length" | "toString" | "concat" | "slice" | "indexOf" | "lastIndexOf" | "charAt" | "charCodeAt" | "localeCompare" | "match" | "replace" | "search" | "split" | "substring" | "toLowerCase" | "toLocaleLowerCase" | "toUpperCase" | "toLocaleUpperCase" | "trim" | "substr" | "valueOf"
@@ -81,22 +71,17 @@ type K03 = keyof boolean;  // "valueOf"
 >K03 : "valueOf"
 
 type K04 = keyof void;  // never
->K04 : 不及
->类型别名 :=> 不及
+>K04 : never
 
 type K05 = keyof undefined;  // never
->K05 : 不及
->类型别名 :=> 不及
+>K05 : never
 
 type K06 = keyof null;  // never
->K06 : 不及
->类型别名 :=> 不及
->null : 空值
->类型别名 :=> 空值
+>K06 : never
+>null : null
 
 type K07 = keyof never;  // never
->K07 : 不及
->类型别名 :=> 不及
+>K07 : never
 
 type K10 = keyof Shape;  // "name" | "width" | "height" | "visible"
 >K10 : "name" | "width" | "height" | "visible"
@@ -107,14 +92,12 @@ type K11 = keyof Shape[];  // "length" | "toString" | ...
 >Shape : Shape
 
 type K12 = keyof Dictionary<Shape>;  // string
->K12 : 文字
->类型别名 :=> 文字
+>K12 : string
 >Dictionary : Dictionary<T>
 >Shape : Shape
 
 type K13 = keyof {};  // never
->K13 : 不及
->类型别名 :=> 不及
+>K13 : never
 
 type K14 = keyof Object;  // "constructor" | "toString" | ...
 >K14 : "toString" | "toLocaleString" | "valueOf" | "constructor" | "hasOwnProperty" | "isPrototypeOf" | "propertyIsEnumerable"
@@ -138,25 +121,23 @@ type K18 = keyof (Shape & Item);  // "name" | "width" | "height" | "visible" | "
 >Item : Item
 
 type K19 = keyof NumericallyIndexed<Shape> // never
->K19 : 不及
->类型别名 :=> 不及
+>K19 : never
 >NumericallyIndexed : NumericallyIndexed<T>
 >Shape : Shape
 
 type KeyOf<T> = keyof T;
->KeyOf : 键集 T
+>KeyOf : keyof T
 >T : T
 >T : T
 
 type K20 = KeyOf<Shape>;  // "name" | "width" | "height" | "visible"
 >K20 : "name" | "width" | "height" | "visible"
->KeyOf : 键集 T
+>KeyOf : keyof T
 >Shape : Shape
 
 type K21 = KeyOf<Dictionary<Shape>>;  // string
->K21 : 文字
->类型别名 :=> 文字
->KeyOf : 键集 T
+>K21 : string
+>KeyOf : keyof T
 >Dictionary : Dictionary<T>
 >Shape : Shape
 
@@ -167,78 +148,64 @@ type WIDTH_OR_HEIGHT = "width" | "height";
 >WIDTH_OR_HEIGHT : "width" | "height"
 
 type Q10 = Shape["name"];  // string
->Q10 : 文字
->类型别名 :=> 文字
+>Q10 : string
 >Shape : Shape
 
 type Q11 = Shape["width" | "height"];  // number
->Q11 : 数字
->类型别名 :=> 数字
+>Q11 : number
 >Shape : Shape
 
 type Q12 = Shape["name" | "visible"];  // string | boolean
->Q12 : 文字 | 真假
+>Q12 : string | boolean
 >Shape : Shape
 
 type Q20 = Shape[NAME];  // string
->Q20 : 文字
->类型别名 :=> 文字
+>Q20 : string
 >Shape : Shape
 >NAME : "name"
 
 type Q21 = Shape[WIDTH_OR_HEIGHT];  // number
->Q21 : 数字
->类型别名 :=> 数字
+>Q21 : number
 >Shape : Shape
 >WIDTH_OR_HEIGHT : "width" | "height"
 
 type Q30 = [string, number][0];  // string
->Q30 : 文字
->类型别名 :=> 文字
+>Q30 : string
 
 type Q31 = [string, number][1];  // number
->Q31 : 数字
->类型别名 :=> 数字
+>Q31 : number
 
 type Q32 = [string, number][2];  // string | number
->Q32 : 文字 | 数字
+>Q32 : string | number
 
 type Q33 = [string, number][E.A];  // string
->Q33 : 文字
->类型别名 :=> 文字
->E : 任意
->类型别名 :=> 任意
+>Q33 : string
+>E : any
 >A : E.A
 
 type Q34 = [string, number][E.B];  // number
->Q34 : 数字
->类型别名 :=> 数字
->E : 任意
->类型别名 :=> 任意
+>Q34 : number
+>E : any
 >B : E.B
 
 type Q35 = [string, number][E.C];  // string | number
->Q35 : 文字 | 数字
->E : 任意
->类型别名 :=> 任意
+>Q35 : string | number
+>E : any
 >C : E.C
 
 type Q36 = [string, number]["0"];  // string
->Q36 : 文字
->类型别名 :=> 文字
+>Q36 : string
 
 type Q37 = [string, number]["1"];  // string
->Q37 : 数字
->类型别名 :=> 数字
+>Q37 : number
 
 type Q40 = (Shape | Options)["visible"];  // boolean | "yes" | "no"
->Q40 : 真假 | "yes" | "no"
+>Q40 : boolean | "yes" | "no"
 >Shape : Shape
 >Options : Options
 
 type Q41 = (Shape & Options)["visible"];  // true & "yes" | true & "no" | false & "yes" | false & "no"
->Q41 : 不及
->类型别名 :=> 不及
+>Q41 : never
 >Shape : Shape
 >Options : Options
 
@@ -256,16 +223,14 @@ type Q52 = Dictionary<Shape>[E.B];  // Shape
 >Q52 : Shape
 >Dictionary : Dictionary<T>
 >Shape : Shape
->E : 任意
->类型别名 :=> 任意
+>E : any
 >B : E.B
 
 declare let cond: boolean;
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
 function getProperty<T, K extends keyof T>(obj: T, key: K) {
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >T : T
 >K : K
 >T : T
@@ -281,7 +246,7 @@ function getProperty<T, K extends keyof T>(obj: T, key: K) {
 }
 
 function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >T : T
 >K : K
 >T : T
@@ -302,169 +267,137 @@ function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
 }
 
 function f10(shape: Shape) {
->f10 : (shape: Shape) => 无值
+>f10 : (shape: Shape) => void
 >shape : Shape
 >Shape : Shape
 
     let name = getProperty(shape, "name");  // string
->name : 文字
->类型别名 :=> 文字
->getProperty(shape, "name") : 文字
->类型别名 :=> 文字
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>name : string
+>getProperty(shape, "name") : string
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >"name" : "name"
 
     let widthOrHeight = getProperty(shape, cond ? "width" : "height");  // number
->widthOrHeight : 数字
->类型别名 :=> 数字
->getProperty(shape, cond ? "width" : "height") : 数字
->类型别名 :=> 数字
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>widthOrHeight : number
+>getProperty(shape, cond ? "width" : "height") : number
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >cond ? "width" : "height" : "width" | "height"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"width" : "width"
 >"height" : "height"
 
     let nameOrVisible = getProperty(shape, cond ? "name" : "visible");  // string | boolean
->nameOrVisible : 文字 | 真假
->getProperty(shape, cond ? "name" : "visible") : 文字 | 真假
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>nameOrVisible : string | boolean
+>getProperty(shape, cond ? "name" : "visible") : string | boolean
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >cond ? "name" : "visible" : "name" | "visible"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"name" : "name"
 >"visible" : "visible"
 
     setProperty(shape, "name", "rectangle");
->setProperty(shape, "name", "rectangle") : 无值
->类型别名 :=> 无值
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty(shape, "name", "rectangle") : void
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >"name" : "name"
 >"rectangle" : "rectangle"
 
     setProperty(shape, cond ? "width" : "height", 10);
->setProperty(shape, cond ? "width" : "height", 10) : 无值
->类型别名 :=> 无值
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty(shape, cond ? "width" : "height", 10) : void
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >cond ? "width" : "height" : "width" | "height"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"width" : "width"
 >"height" : "height"
 >10 : 10
 
     setProperty(shape, cond ? "name" : "visible", true);  // Technically not safe
->setProperty(shape, cond ? "name" : "visible", true) : 无值
->类型别名 :=> 无值
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty(shape, cond ? "name" : "visible", true) : void
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >cond ? "name" : "visible" : "name" | "visible"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"name" : "name"
 >"visible" : "visible"
->true : 为真
->类型别名 :=> 为真
+>true : true
 }
 
 function f11(a: Shape[]) {
->f11 : (a: Shape[]) => 无值
+>f11 : (a: Shape[]) => void
 >a : Shape[]
 >Shape : Shape
 
     let len = getProperty(a, "length");  // number
->len : 数字
->类型别名 :=> 数字
->getProperty(a, "length") : 数字
->类型别名 :=> 数字
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>len : number
+>getProperty(a, "length") : number
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >a : Shape[]
 >"length" : "length"
 
     setProperty(a, "length", len);
->setProperty(a, "length", len) : 无值
->类型别名 :=> 无值
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty(a, "length", len) : void
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >a : Shape[]
 >"length" : "length"
->len : 数字
->类型别名 :=> 数字
+>len : number
 }
 
 function f12(t: [Shape, boolean]) {
->f12 : (t: [Shape, 真假]) => 无值
->t : [Shape, 真假]
+>f12 : (t: [Shape, boolean]) => void
+>t : [Shape, boolean]
 >Shape : Shape
 
     let len = getProperty(t, "length");
->len : 数字
->类型别名 :=> 数字
->getProperty(t, "length") : 数字
->类型别名 :=> 数字
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->t : [Shape, 真假]
+>len : 2
+>getProperty(t, "length") : 2
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>t : [Shape, boolean]
 >"length" : "length"
 
     let s2 = getProperty(t, "0");  // Shape
 >s2 : Shape
 >getProperty(t, "0") : Shape
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->t : [Shape, 真假]
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>t : [Shape, boolean]
 >"0" : "0"
 
     let b2 = getProperty(t, "1");  // boolean
->b2 : 真假
->类型别名 :=> 真假
->getProperty(t, "1") : 真假
->类型别名 :=> 真假
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->t : [Shape, 真假]
+>b2 : boolean
+>getProperty(t, "1") : boolean
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>t : [Shape, boolean]
 >"1" : "1"
 }
 
 function f13(foo: any, bar: any) {
->f13 : (foo: 任意, bar: 任意) => 无值
->foo : 任意
->类型别名 :=> 任意
->bar : 任意
->类型别名 :=> 任意
+>f13 : (foo: any, bar: any) => void
+>foo : any
+>bar : any
 
     let x = getProperty(foo, "x");  // any
->x : 任意
->类型别名 :=> 任意
->getProperty(foo, "x") : 任意
->类型别名 :=> 任意
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->foo : 任意
->类型别名 :=> 任意
+>x : any
+>getProperty(foo, "x") : any
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>foo : any
 >"x" : "x"
 
     let y = getProperty(foo, "100");  // any
->y : 任意
->类型别名 :=> 任意
->getProperty(foo, "100") : 任意
->类型别名 :=> 任意
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->foo : 任意
->类型别名 :=> 任意
+>y : any
+>getProperty(foo, "100") : any
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>foo : any
 >"100" : "100"
 
     let z = getProperty(foo, bar);  // any
->z : 任意
->类型别名 :=> 任意
->getProperty(foo, bar) : 任意
->类型别名 :=> 任意
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->foo : 任意
->类型别名 :=> 任意
->bar : 任意
->类型别名 :=> 任意
+>z : any
+>getProperty(foo, bar) : any
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>foo : any
+>bar : any
 }
 
 class Component<PropType> {
@@ -476,7 +409,7 @@ class Component<PropType> {
 >PropType : PropType
 
     getProperty<K extends keyof PropType>(key: K) {
->getProperty : <K 扩展 键集 PropType>(key: K) => PropType[K]
+>getProperty : <K extends keyof PropType>(key: K) => PropType[K]
 >K : K
 >PropType : PropType
 >key : K
@@ -485,12 +418,12 @@ class Component<PropType> {
         return this.props[key];
 >this.props[key] : PropType[K]
 >this.props : PropType
->this : 本体
+>this : this
 >props : PropType
 >key : K
     }
     setProperty<K extends keyof PropType>(key: K, value: PropType[K]) {
->setProperty : <K 扩展 键集 PropType>(key: K, value: PropType[K]) => 无值
+>setProperty : <K extends keyof PropType>(key: K, value: PropType[K]) => void
 >K : K
 >PropType : PropType
 >key : K
@@ -503,7 +436,7 @@ class Component<PropType> {
 >this.props[key] = value : PropType[K]
 >this.props[key] : PropType[K]
 >this.props : PropType
->this : 本体
+>this : this
 >props : PropType
 >key : K
 >value : PropType[K]
@@ -511,86 +444,74 @@ class Component<PropType> {
 }
 
 function f20(component: Component<Shape>) {
->f20 : (component: Component<Shape>) => 无值
+>f20 : (component: Component<Shape>) => void
 >component : Component<Shape>
 >Component : Component<PropType>
 >Shape : Shape
 
     let name = component.getProperty("name");  // string
->name : 文字
->类型别名 :=> 文字
->component.getProperty("name") : 文字
->类型别名 :=> 文字
->component.getProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K) => Shape[K]
+>name : string
+>component.getProperty("name") : string
+>component.getProperty : <K extends "name" | "width" | "height" | "visible">(key: K) => Shape[K]
 >component : Component<Shape>
->getProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K) => Shape[K]
+>getProperty : <K extends "name" | "width" | "height" | "visible">(key: K) => Shape[K]
 >"name" : "name"
 
     let widthOrHeight = component.getProperty(cond ? "width" : "height");  // number
->widthOrHeight : 数字
->类型别名 :=> 数字
->component.getProperty(cond ? "width" : "height") : 数字
->类型别名 :=> 数字
->component.getProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K) => Shape[K]
+>widthOrHeight : number
+>component.getProperty(cond ? "width" : "height") : number
+>component.getProperty : <K extends "name" | "width" | "height" | "visible">(key: K) => Shape[K]
 >component : Component<Shape>
->getProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K) => Shape[K]
+>getProperty : <K extends "name" | "width" | "height" | "visible">(key: K) => Shape[K]
 >cond ? "width" : "height" : "width" | "height"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"width" : "width"
 >"height" : "height"
 
     let nameOrVisible = component.getProperty(cond ? "name" : "visible");  // string | boolean
->nameOrVisible : 文字 | 真假
->component.getProperty(cond ? "name" : "visible") : 文字 | 真假
->component.getProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K) => Shape[K]
+>nameOrVisible : string | boolean
+>component.getProperty(cond ? "name" : "visible") : string | boolean
+>component.getProperty : <K extends "name" | "width" | "height" | "visible">(key: K) => Shape[K]
 >component : Component<Shape>
->getProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K) => Shape[K]
+>getProperty : <K extends "name" | "width" | "height" | "visible">(key: K) => Shape[K]
 >cond ? "name" : "visible" : "name" | "visible"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"name" : "name"
 >"visible" : "visible"
 
     component.setProperty("name", "rectangle");
->component.setProperty("name", "rectangle") : 无值
->类型别名 :=> 无值
->component.setProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => 无值
+>component.setProperty("name", "rectangle") : void
+>component.setProperty : <K extends "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => void
 >component : Component<Shape>
->setProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => 无值
+>setProperty : <K extends "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => void
 >"name" : "name"
 >"rectangle" : "rectangle"
 
     component.setProperty(cond ? "width" : "height", 10)
->component.setProperty(cond ? "width" : "height", 10) : 无值
->类型别名 :=> 无值
->component.setProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => 无值
+>component.setProperty(cond ? "width" : "height", 10) : void
+>component.setProperty : <K extends "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => void
 >component : Component<Shape>
->setProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => 无值
+>setProperty : <K extends "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => void
 >cond ? "width" : "height" : "width" | "height"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"width" : "width"
 >"height" : "height"
 >10 : 10
 
     component.setProperty(cond ? "name" : "visible", true);  // Technically not safe
->component.setProperty(cond ? "name" : "visible", true) : 无值
->类型别名 :=> 无值
->component.setProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => 无值
+>component.setProperty(cond ? "name" : "visible", true) : void
+>component.setProperty : <K extends "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => void
 >component : Component<Shape>
->setProperty : <K 扩展 "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => 无值
+>setProperty : <K extends "name" | "width" | "height" | "visible">(key: K, value: Shape[K]) => void
 >cond ? "name" : "visible" : "name" | "visible"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"name" : "name"
 >"visible" : "visible"
->true : 为真
->类型别名 :=> 为真
+>true : true
 }
 
 function pluck<T, K extends keyof T>(array: T[], key: K) {
->pluck : <T, K 扩展 键集 T>(array: T[], key: K) => T[K][]
+>pluck : <T, K extends keyof T>(array: T[], key: K) => T[K][]
 >T : T
 >K : K
 >T : T
@@ -601,9 +522,9 @@ function pluck<T, K extends keyof T>(array: T[], key: K) {
 
     return array.map(x => x[key]);
 >array.map(x => x[key]) : T[K][]
->array.map : <U>(callbackfn: (value: T, index: 数字, array: T[]) => U, thisArg?: 任意) => U[]
+>array.map : <U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any) => U[]
 >array : T[]
->map : <U>(callbackfn: (value: T, index: 数字, array: T[]) => U, thisArg?: 任意) => U[]
+>map : <U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any) => U[]
 >x => x[key] : (x: T) => T[K]
 >x : T
 >x[key] : T[K]
@@ -612,38 +533,37 @@ function pluck<T, K extends keyof T>(array: T[], key: K) {
 }
 
 function f30(shapes: Shape[]) {
->f30 : (shapes: Shape[]) => 无值
+>f30 : (shapes: Shape[]) => void
 >shapes : Shape[]
 >Shape : Shape
 
     let names = pluck(shapes, "name");    // string[]
->names : 文字[]
->pluck(shapes, "name") : 文字[]
->pluck : <T, K 扩展 键集 T>(array: T[], key: K) => T[K][]
+>names : string[]
+>pluck(shapes, "name") : string[]
+>pluck : <T, K extends keyof T>(array: T[], key: K) => T[K][]
 >shapes : Shape[]
 >"name" : "name"
 
     let widths = pluck(shapes, "width");  // number[]
->widths : 数字[]
->pluck(shapes, "width") : 数字[]
->pluck : <T, K 扩展 键集 T>(array: T[], key: K) => T[K][]
+>widths : number[]
+>pluck(shapes, "width") : number[]
+>pluck : <T, K extends keyof T>(array: T[], key: K) => T[K][]
 >shapes : Shape[]
 >"width" : "width"
 
     let nameOrVisibles = pluck(shapes, cond ? "name" : "visible");  // (string | boolean)[]
->nameOrVisibles : (文字 | 真假)[]
->pluck(shapes, cond ? "name" : "visible") : (文字 | 真假)[]
->pluck : <T, K 扩展 键集 T>(array: T[], key: K) => T[K][]
+>nameOrVisibles : (string | boolean)[]
+>pluck(shapes, cond ? "name" : "visible") : (string | boolean)[]
+>pluck : <T, K extends keyof T>(array: T[], key: K) => T[K][]
 >shapes : Shape[]
 >cond ? "name" : "visible" : "name" | "visible"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"name" : "name"
 >"visible" : "visible"
 }
 
 function f31<K extends keyof Shape>(key: K) {
->f31 : <K 扩展 "name" | "width" | "height" | "visible">(key: K) => Shape[K]
+>f31 : <K extends "name" | "width" | "height" | "visible">(key: K) => Shape[K]
 >K : K
 >Shape : Shape
 >key : K
@@ -652,20 +572,15 @@ function f31<K extends keyof Shape>(key: K) {
     const shape: Shape = { name: "foo", width: 5, height: 10, visible: true };
 >shape : Shape
 >Shape : Shape
->{ name: "foo", width: 5, height: 10, visible: true } : { name: 文字; width: 数字; height: 数字; visible: 为真; }
->name : 文字
->类型别名 :=> 文字
+>{ name: "foo", width: 5, height: 10, visible: true } : { name: string; width: number; height: number; visible: true; }
+>name : string
 >"foo" : "foo"
->width : 数字
->类型别名 :=> 数字
+>width : number
 >5 : 5
->height : 数字
->类型别名 :=> 数字
+>height : number
 >10 : 10
->visible : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>visible : true
+>true : true
 
     return shape[key];  // Shape[K]
 >shape[key] : Shape[K]
@@ -674,7 +589,7 @@ function f31<K extends keyof Shape>(key: K) {
 }
 
 function f32<K extends "width" | "height">(key: K) {
->f32 : <K 扩展 "width" | "height">(key: K) => Shape[K]
+>f32 : <K extends "width" | "height">(key: K) => Shape[K]
 >K : K
 >key : K
 >K : K
@@ -682,20 +597,15 @@ function f32<K extends "width" | "height">(key: K) {
     const shape: Shape = { name: "foo", width: 5, height: 10, visible: true };
 >shape : Shape
 >Shape : Shape
->{ name: "foo", width: 5, height: 10, visible: true } : { name: 文字; width: 数字; height: 数字; visible: 为真; }
->name : 文字
->类型别名 :=> 文字
+>{ name: "foo", width: 5, height: 10, visible: true } : { name: string; width: number; height: number; visible: true; }
+>name : string
 >"foo" : "foo"
->width : 数字
->类型别名 :=> 数字
+>width : number
 >5 : 5
->height : 数字
->类型别名 :=> 数字
+>height : number
 >10 : 10
->visible : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>visible : true
+>true : true
 
     return shape[key];  // Shape[K]
 >shape[key] : Shape[K]
@@ -704,7 +614,7 @@ function f32<K extends "width" | "height">(key: K) {
 }
 
 function f33<S extends Shape, K extends keyof S>(shape: S, key: K) {
->f33 : <S 扩展 Shape, K 扩展 键集 S>(shape: S, key: K) => S[K]
+>f33 : <S extends Shape, K extends keyof S>(shape: S, key: K) => S[K]
 >S : S
 >Shape : Shape
 >K : K
@@ -717,14 +627,14 @@ function f33<S extends Shape, K extends keyof S>(shape: S, key: K) {
     let name = getProperty(shape, "name");
 >name : S["name"]
 >getProperty(shape, "name") : S["name"]
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : S
 >"name" : "name"
 
     let prop = getProperty(shape, key);
 >prop : S[K]
 >getProperty(shape, key) : S[K]
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : S
 >key : K
 
@@ -733,25 +643,21 @@ function f33<S extends Shape, K extends keyof S>(shape: S, key: K) {
 }
 
 function f34(ts: TaggedShape) {
->f34 : (ts: TaggedShape) => 无值
+>f34 : (ts: TaggedShape) => void
 >ts : TaggedShape
 >TaggedShape : TaggedShape
 
     let tag1 = f33(ts, "tag");
->tag1 : 文字
->类型别名 :=> 文字
->f33(ts, "tag") : 文字
->类型别名 :=> 文字
->f33 : <S 扩展 Shape, K 扩展 键集 S>(shape: S, key: K) => S[K]
+>tag1 : string
+>f33(ts, "tag") : string
+>f33 : <S extends Shape, K extends keyof S>(shape: S, key: K) => S[K]
 >ts : TaggedShape
 >"tag" : "tag"
 
     let tag2 = getProperty(ts, "tag");
->tag2 : 文字
->类型别名 :=> 文字
->getProperty(ts, "tag") : 文字
->类型别名 :=> 文字
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>tag2 : string
+>getProperty(ts, "tag") : string
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >ts : TaggedShape
 >"tag" : "tag"
 }
@@ -760,224 +666,181 @@ class C {
 >C : C
 
     public x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     protected y: string;
->y : 文字
->类型别名 :=> 文字
+>y : string
 
     private z: string;
->z : 文字
->类型别名 :=> 文字
+>z : string
 }
 
 // Indexed access expressions have always permitted access to private and protected members.
 // For consistency we also permit such access in indexed access types.
 function f40(c: C) {
->f40 : (c: C) => 无值
+>f40 : (c: C) => void
 >c : C
 >C : C
 
     type X = C["x"];
->X : 文字
->类型别名 :=> 文字
+>X : string
 >C : C
 
     type Y = C["y"];
->Y : 文字
->类型别名 :=> 文字
+>Y : string
 >C : C
 
     type Z = C["z"];
->Z : 文字
->类型别名 :=> 文字
+>Z : string
 >C : C
 
     let x: X = c["x"];
->x : 文字
->类型别名 :=> 文字
->X : 文字
->类型别名 :=> 文字
->c["x"] : 文字
->类型别名 :=> 文字
+>x : string
+>X : string
+>c["x"] : string
 >c : C
 >"x" : "x"
 
     let y: Y = c["y"];
->y : 文字
->类型别名 :=> 文字
->Y : 文字
->类型别名 :=> 文字
->c["y"] : 文字
->类型别名 :=> 文字
+>y : string
+>Y : string
+>c["y"] : string
 >c : C
 >"y" : "y"
 
     let z: Z = c["z"];
->z : 文字
->类型别名 :=> 文字
->Z : 文字
->类型别名 :=> 文字
->c["z"] : 文字
->类型别名 :=> 文字
+>z : string
+>Z : string
+>c["z"] : string
 >c : C
 >"z" : "z"
 }
 
 function f50<T>(k: keyof T, s: string) {
->f50 : <T>(k: 键集 T, s: 文字) => 无值
+>f50 : <T>(k: keyof T, s: string) => void
 >T : T
->k : 键集 T
+>k : keyof T
 >T : T
->s : 文字
->类型别名 :=> 文字
+>s : string
 
     const x1 = s as keyof T;
->x1 : 键集 T
->s as keyof T : 键集 T
->s : 文字
->类型别名 :=> 文字
+>x1 : keyof T
+>s as keyof T : keyof T
+>s : string
 >T : T
 
     const x2 = k as string;
->x2 : 文字
->类型别名 :=> 文字
->k as string : 文字
->类型别名 :=> 文字
->k : 键集 T
+>x2 : string
+>k as string : string
+>k : keyof T
 }
 
 function f51<T, K extends keyof T>(k: K, s: string) {
->f51 : <T, K 扩展 键集 T>(k: K, s: 文字) => 无值
+>f51 : <T, K extends keyof T>(k: K, s: string) => void
 >T : T
 >K : K
 >T : T
 >k : K
 >K : K
->s : 文字
->类型别名 :=> 文字
+>s : string
 
     const x1 = s as keyof T;
->x1 : 键集 T
->s as keyof T : 键集 T
->s : 文字
->类型别名 :=> 文字
+>x1 : keyof T
+>s as keyof T : keyof T
+>s : string
 >T : T
 
     const x2 = k as string;
->x2 : 文字
->类型别名 :=> 文字
->k as string : 文字
->类型别名 :=> 文字
+>x2 : string
+>k as string : string
 >k : K
 }
 
 function f52<T>(obj: { [x: string]: boolean }, k: keyof T, s: string, n: number) {
->f52 : <T>(obj: { [x: 文字]: 真假; }, k: 键集 T, s: 文字, n: 数字) => 无值
+>f52 : <T>(obj: { [x: string]: boolean; }, k: keyof T, s: string, n: number) => void
 >T : T
->obj : { [x: 文字]: 真假; }
->x : 文字
->类型别名 :=> 文字
->k : 键集 T
+>obj : { [x: string]: boolean; }
+>x : string
+>k : keyof T
 >T : T
->s : 文字
->类型别名 :=> 文字
->n : 数字
->类型别名 :=> 数字
+>s : string
+>n : number
 
     const x1 = obj[s];
->x1 : 真假
->类型别名 :=> 真假
->obj[s] : 真假
->类型别名 :=> 真假
->obj : { [x: 文字]: 真假; }
->s : 文字
->类型别名 :=> 文字
+>x1 : boolean
+>obj[s] : boolean
+>obj : { [x: string]: boolean; }
+>s : string
 
     const x2 = obj[n];
->x2 : 真假
->类型别名 :=> 真假
->obj[n] : 真假
->类型别名 :=> 真假
->obj : { [x: 文字]: 真假; }
->n : 数字
->类型别名 :=> 数字
+>x2 : boolean
+>obj[n] : boolean
+>obj : { [x: string]: boolean; }
+>n : number
 
     const x3 = obj[k];
->x3 : { [x: 文字]: 真假; }[键集 T]
->obj[k] : { [x: 文字]: 真假; }[键集 T]
->obj : { [x: 文字]: 真假; }
->k : 键集 T
+>x3 : { [x: string]: boolean; }[keyof T]
+>obj[k] : { [x: string]: boolean; }[keyof T]
+>obj : { [x: string]: boolean; }
+>k : keyof T
 }
 
 function f53<T, K extends keyof T>(obj: { [x: string]: boolean }, k: K, s: string, n: number) {
->f53 : <T, K 扩展 键集 T>(obj: { [x: 文字]: 真假; }, k: K, s: 文字, n: 数字) => 无值
+>f53 : <T, K extends keyof T>(obj: { [x: string]: boolean; }, k: K, s: string, n: number) => void
 >T : T
 >K : K
 >T : T
->obj : { [x: 文字]: 真假; }
->x : 文字
->类型别名 :=> 文字
+>obj : { [x: string]: boolean; }
+>x : string
 >k : K
 >K : K
->s : 文字
->类型别名 :=> 文字
->n : 数字
->类型别名 :=> 数字
+>s : string
+>n : number
 
     const x1 = obj[s];
->x1 : 真假
->类型别名 :=> 真假
->obj[s] : 真假
->类型别名 :=> 真假
->obj : { [x: 文字]: 真假; }
->s : 文字
->类型别名 :=> 文字
+>x1 : boolean
+>obj[s] : boolean
+>obj : { [x: string]: boolean; }
+>s : string
 
     const x2 = obj[n];
->x2 : 真假
->类型别名 :=> 真假
->obj[n] : 真假
->类型别名 :=> 真假
->obj : { [x: 文字]: 真假; }
->n : 数字
->类型别名 :=> 数字
+>x2 : boolean
+>obj[n] : boolean
+>obj : { [x: string]: boolean; }
+>n : number
 
     const x3 = obj[k];
->x3 : { [x: 文字]: 真假; }[K]
->obj[k] : { [x: 文字]: 真假; }[K]
->obj : { [x: 文字]: 真假; }
+>x3 : { [x: string]: boolean; }[K]
+>obj[k] : { [x: string]: boolean; }[K]
+>obj : { [x: string]: boolean; }
 >k : K
 }
 
 function f54<T>(obj: T, key: keyof T) {
->f54 : <T>(obj: T, key: 键集 T) => 无值
+>f54 : <T>(obj: T, key: keyof T) => void
 >T : T
 >obj : T
 >T : T
->key : 键集 T
+>key : keyof T
 >T : T
 
     for (let s in obj[key]) {
->s : 键集 T[键集 T]
->obj[key] : T[键集 T]
+>s : keyof T[keyof T]
+>obj[key] : T[keyof T]
 >obj : T
->key : 键集 T
+>key : keyof T
     }
     const b = "foo" in obj[key];
->b : 真假
->类型别名 :=> 真假
->"foo" in obj[key] : 真假
->类型别名 :=> 真假
+>b : boolean
+>"foo" in obj[key] : boolean
 >"foo" : "foo"
->obj[key] : T[键集 T]
+>obj[key] : T[keyof T]
 >obj : T
->key : 键集 T
+>key : keyof T
 }
 
 function f55<T, K extends keyof T>(obj: T, key: K) {
->f55 : <T, K 扩展 键集 T>(obj: T, key: K) => 无值
+>f55 : <T, K extends keyof T>(obj: T, key: K) => void
 >T : T
 >K : K
 >T : T
@@ -987,16 +850,14 @@ function f55<T, K extends keyof T>(obj: T, key: K) {
 >K : K
 
     for (let s in obj[key]) {
->s : 键集 T[K]
+>s : keyof T[K]
 >obj[key] : T[K]
 >obj : T
 >key : K
     }
     const b = "foo" in obj[key];
->b : 真假
->类型别名 :=> 真假
->"foo" in obj[key] : 真假
->类型别名 :=> 真假
+>b : boolean
+>"foo" in obj[key] : boolean
 >"foo" : "foo"
 >obj[key] : T[K]
 >obj : T
@@ -1004,7 +865,7 @@ function f55<T, K extends keyof T>(obj: T, key: K) {
 }
 
 function f60<T>(source: T, target: T) {
->f60 : <T>(source: T, target: T) => 无值
+>f60 : <T>(source: T, target: T) => void
 >T : T
 >source : T
 >T : T
@@ -1012,80 +873,65 @@ function f60<T>(source: T, target: T) {
 >T : T
 
     for (let k in source) {
->k : 键集 T
+>k : keyof T
 >source : T
 
         target[k] = source[k];
->target[k] = source[k] : T[键集 T]
->target[k] : T[键集 T]
+>target[k] = source[k] : T[keyof T]
+>target[k] : T[keyof T]
 >target : T
->k : 键集 T
->source[k] : T[键集 T]
+>k : keyof T
+>source[k] : T[keyof T]
 >source : T
->k : 键集 T
+>k : keyof T
     }
 }
 
 function f70(func: <T, U>(k1: keyof (T | U), k2: keyof (T & U)) => void) {
->f70 : (func: <T, U>(k1: 键集 (T | U), k2: 键集 (T & U)) => 无值) => 无值
->func : <T, U>(k1: 键集 (T | U), k2: 键集 (T & U)) => 无值
+>f70 : (func: <T, U>(k1: keyof (T | U), k2: keyof T | keyof U) => void) => void
+>func : <T, U>(k1: keyof (T | U), k2: keyof T | keyof U) => void
 >T : T
 >U : U
->k1 : 键集 (T | U)
+>k1 : keyof (T | U)
 >T : T
 >U : U
->k2 : 键集 (T & U)
+>k2 : keyof T | keyof U
 >T : T
 >U : U
 
     func<{ a: any, b: any }, { a: any, c: any }>('a', 'a');
->func<{ a: any, b: any }, { a: any, c: any }>('a', 'a') : 无值
->类型别名 :=> 无值
->func : <T, U>(k1: 键集 (T | U), k2: 键集 (T & U)) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>func<{ a: any, b: any }, { a: any, c: any }>('a', 'a') : void
+>func : <T, U>(k1: keyof (T | U), k2: keyof T | keyof U) => void
+>a : any
+>b : any
+>a : any
+>c : any
 >'a' : "a"
 >'a' : "a"
 
     func<{ a: any, b: any }, { a: any, c: any }>('a', 'b');
->func<{ a: any, b: any }, { a: any, c: any }>('a', 'b') : 无值
->类型别名 :=> 无值
->func : <T, U>(k1: 键集 (T | U), k2: 键集 (T & U)) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>func<{ a: any, b: any }, { a: any, c: any }>('a', 'b') : void
+>func : <T, U>(k1: keyof (T | U), k2: keyof T | keyof U) => void
+>a : any
+>b : any
+>a : any
+>c : any
 >'a' : "a"
 >'b' : "b"
 
     func<{ a: any, b: any }, { a: any, c: any }>('a', 'c');
->func<{ a: any, b: any }, { a: any, c: any }>('a', 'c') : 无值
->类型别名 :=> 无值
->func : <T, U>(k1: 键集 (T | U), k2: 键集 (T & U)) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>func<{ a: any, b: any }, { a: any, c: any }>('a', 'c') : void
+>func : <T, U>(k1: keyof (T | U), k2: keyof T | keyof U) => void
+>a : any
+>b : any
+>a : any
+>c : any
 >'a' : "a"
 >'c' : "c"
 }
 
 function f71(func: <T, U>(x: T, y: U) => Partial<T & U>) {
->f71 : (func: <T, U>(x: T, y: U) => Partial<T & U>) => 无值
+>f71 : (func: <T, U>(x: T, y: U) => Partial<T & U>) => void
 >func : <T, U>(x: T, y: U) => Partial<T & U>
 >T : T
 >U : U
@@ -1098,41 +944,37 @@ function f71(func: <T, U>(x: T, y: U) => Partial<T & U>) {
 >U : U
 
     let x = func({ a: 1, b: "hello" }, { c: true });
->x : Partial<{ a: 数字; b: 文字; } & { c: 真假; }>
->func({ a: 1, b: "hello" }, { c: true }) : Partial<{ a: 数字; b: 文字; } & { c: 真假; }>
+>x : Partial<{ a: number; b: string; } & { c: boolean; }>
+>func({ a: 1, b: "hello" }, { c: true }) : Partial<{ a: number; b: string; } & { c: boolean; }>
 >func : <T, U>(x: T, y: U) => Partial<T & U>
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ c: true } : { c: 为真; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: true; }
+>c : true
+>true : true
 
     x.a;  // number | undefined
->x.a : 数字 | 未定
->x : Partial<{ a: 数字; b: 文字; } & { c: 真假; }>
->a : 数字 | 未定
+>x.a : number | undefined
+>x : Partial<{ a: number; b: string; } & { c: boolean; }>
+>a : number | undefined
 
     x.b;  // string | undefined
->x.b : 文字 | 未定
->x : Partial<{ a: 数字; b: 文字; } & { c: 真假; }>
->b : 文字 | 未定
+>x.b : string | undefined
+>x : Partial<{ a: number; b: string; } & { c: boolean; }>
+>b : string | undefined
 
     x.c;  // boolean | undefined
->x.c : 真假 | 未定
->x : Partial<{ a: 数字; b: 文字; } & { c: 真假; }>
->c : 真假 | 未定
+>x.c : boolean | undefined
+>x : Partial<{ a: number; b: string; } & { c: boolean; }>
+>c : boolean | undefined
 }
 
 function f72(func: <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]) {
->f72 : (func: <T, U, K 扩展 键集 T | 键集 U>(x: T, y: U, k: K) => (T & U)[K]) => 无值
->func : <T, U, K 扩展 键集 T | 键集 U>(x: T, y: U, k: K) => (T & U)[K]
+>f72 : (func: <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]) => void
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
 >T : T
 >U : U
 >K : K
@@ -1149,69 +991,51 @@ function f72(func: <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T &
 >K : K
 
     let a = func({ a: 1, b: "hello" }, { c: true }, 'a');  // number
->a : 数字
->类型别名 :=> 数字
->func({ a: 1, b: "hello" }, { c: true }, 'a') : 数字
->类型别名 :=> 数字
->func : <T, U, K 扩展 键集 T | 键集 U>(x: T, y: U, k: K) => (T & U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>a : number
+>func({ a: 1, b: "hello" }, { c: true }, 'a') : number
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ c: true } : { c: 为真; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: true; }
+>c : true
+>true : true
 >'a' : "a"
 
     let b = func({ a: 1, b: "hello" }, { c: true }, 'b');  // string
->b : 文字
->类型别名 :=> 文字
->func({ a: 1, b: "hello" }, { c: true }, 'b') : 文字
->类型别名 :=> 文字
->func : <T, U, K 扩展 键集 T | 键集 U>(x: T, y: U, k: K) => (T & U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>b : string
+>func({ a: 1, b: "hello" }, { c: true }, 'b') : string
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ c: true } : { c: 为真; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: true; }
+>c : true
+>true : true
 >'b' : "b"
 
     let c = func({ a: 1, b: "hello" }, { c: true }, 'c');  // boolean
->c : 真假
->类型别名 :=> 真假
->func({ a: 1, b: "hello" }, { c: true }, 'c') : 真假
->类型别名 :=> 真假
->func : <T, U, K 扩展 键集 T | 键集 U>(x: T, y: U, k: K) => (T & U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>c : boolean
+>func({ a: 1, b: "hello" }, { c: true }, 'c') : boolean
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ c: true } : { c: 为真; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: true; }
+>c : true
+>true : true
 >'c' : "c"
 }
 
 function f73(func: <T, U, K extends keyof (T & U)>(x: T, y: U, k: K) => (T & U)[K]) {
->f73 : (func: <T, U, K 扩展 键集 (T & U)>(x: T, y: U, k: K) => (T & U)[K]) => 无值
->func : <T, U, K 扩展 键集 (T & U)>(x: T, y: U, k: K) => (T & U)[K]
+>f73 : (func: <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]) => void
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
 >T : T
 >U : U
 >K : K
@@ -1228,69 +1052,51 @@ function f73(func: <T, U, K extends keyof (T & U)>(x: T, y: U, k: K) => (T & U)[
 >K : K
 
     let a = func({ a: 1, b: "hello" }, { c: true }, 'a');  // number
->a : 数字
->类型别名 :=> 数字
->func({ a: 1, b: "hello" }, { c: true }, 'a') : 数字
->类型别名 :=> 数字
->func : <T, U, K 扩展 键集 (T & U)>(x: T, y: U, k: K) => (T & U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>a : number
+>func({ a: 1, b: "hello" }, { c: true }, 'a') : number
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ c: true } : { c: 为真; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: true; }
+>c : true
+>true : true
 >'a' : "a"
 
     let b = func({ a: 1, b: "hello" }, { c: true }, 'b');  // string
->b : 文字
->类型别名 :=> 文字
->func({ a: 1, b: "hello" }, { c: true }, 'b') : 文字
->类型别名 :=> 文字
->func : <T, U, K 扩展 键集 (T & U)>(x: T, y: U, k: K) => (T & U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>b : string
+>func({ a: 1, b: "hello" }, { c: true }, 'b') : string
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ c: true } : { c: 为真; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: true; }
+>c : true
+>true : true
 >'b' : "b"
 
     let c = func({ a: 1, b: "hello" }, { c: true }, 'c');  // boolean
->c : 真假
->类型别名 :=> 真假
->func({ a: 1, b: "hello" }, { c: true }, 'c') : 真假
->类型别名 :=> 真假
->func : <T, U, K 扩展 键集 (T & U)>(x: T, y: U, k: K) => (T & U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>c : boolean
+>func({ a: 1, b: "hello" }, { c: true }, 'c') : boolean
+>func : <T, U, K extends keyof T | keyof U>(x: T, y: U, k: K) => (T & U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ c: true } : { c: 为真; }
->c : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>{ c: true } : { c: true; }
+>c : true
+>true : true
 >'c' : "c"
 }
 
 function f74(func: <T, U, K extends keyof (T | U)>(x: T, y: U, k: K) => (T | U)[K]) {
->f74 : (func: <T, U, K 扩展 键集 (T | U)>(x: T, y: U, k: K) => (T | U)[K]) => 无值
->func : <T, U, K 扩展 键集 (T | U)>(x: T, y: U, k: K) => (T | U)[K]
+>f74 : (func: <T, U, K extends keyof (T | U)>(x: T, y: U, k: K) => (T | U)[K]) => void
+>func : <T, U, K extends keyof (T | U)>(x: T, y: U, k: K) => (T | U)[K]
 >T : T
 >U : U
 >K : K
@@ -1307,96 +1113,78 @@ function f74(func: <T, U, K extends keyof (T | U)>(x: T, y: U, k: K) => (T | U)[
 >K : K
 
     let a = func({ a: 1, b: "hello" }, { a: 2, b: true }, 'a');  // number
->a : 数字
->类型别名 :=> 数字
->func({ a: 1, b: "hello" }, { a: 2, b: true }, 'a') : 数字
->类型别名 :=> 数字
->func : <T, U, K 扩展 键集 (T | U)>(x: T, y: U, k: K) => (T | U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>a : number
+>func({ a: 1, b: "hello" }, { a: 2, b: true }, 'a') : number
+>func : <T, U, K extends keyof (T | U)>(x: T, y: U, k: K) => (T | U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ a: 2, b: true } : { a: 数字; b: 为真; }
->a : 数字
->类型别名 :=> 数字
+>{ a: 2, b: true } : { a: number; b: true; }
+>a : number
 >2 : 2
->b : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>b : true
+>true : true
 >'a' : "a"
 
     let b = func({ a: 1, b: "hello" }, { a: 2, b: true }, 'b');  // string | boolean
->b : 文字 | 真假
->func({ a: 1, b: "hello" }, { a: 2, b: true }, 'b') : 文字 | 真假
->func : <T, U, K 扩展 键集 (T | U)>(x: T, y: U, k: K) => (T | U)[K]
->{ a: 1, b: "hello" } : { a: 数字; b: 文字; }
->a : 数字
->类型别名 :=> 数字
+>b : string | boolean
+>func({ a: 1, b: "hello" }, { a: 2, b: true }, 'b') : string | boolean
+>func : <T, U, K extends keyof (T | U)>(x: T, y: U, k: K) => (T | U)[K]
+>{ a: 1, b: "hello" } : { a: number; b: string; }
+>a : number
 >1 : 1
->b : 文字
->类型别名 :=> 文字
+>b : string
 >"hello" : "hello"
->{ a: 2, b: true } : { a: 数字; b: 为真; }
->a : 数字
->类型别名 :=> 数字
+>{ a: 2, b: true } : { a: number; b: true; }
+>a : number
 >2 : 2
->b : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>b : true
+>true : true
 >'b' : "b"
 }
 
 function f80<T extends { a: { x: any } }>(obj: T) {
->f80 : <T 扩展 { a: { x: 任意; }; }>(obj: T) => 无值
+>f80 : <T extends { a: { x: any; }; }>(obj: T) => void
 >T : T
->a : { x: 任意; }
->x : 任意
->类型别名 :=> 任意
+>a : { x: any; }
+>x : any
 >obj : T
 >T : T
 
     let a1 = obj.a;  // { x: any }
->a1 : { x: 任意; }
->obj.a : { x: 任意; }
+>a1 : { x: any; }
+>obj.a : { x: any; }
 >obj : T
->a : { x: 任意; }
+>a : { x: any; }
 
     let a2 = obj['a'];  // { x: any }
->a2 : { x: 任意; }
->obj['a'] : { x: 任意; }
+>a2 : { x: any; }
+>obj['a'] : { x: any; }
 >obj : T
 >'a' : "a"
 
     let a3 = obj['a'] as T['a'];  // T["a"]
 >a3 : T["a"]
 >obj['a'] as T['a'] : T["a"]
->obj['a'] : { x: 任意; }
+>obj['a'] : { x: any; }
 >obj : T
 >'a' : "a"
 >T : T
 
     let x1 = obj.a.x;  // any
->x1 : 任意
->类型别名 :=> 任意
->obj.a.x : 任意
->类型别名 :=> 任意
->obj.a : { x: 任意; }
+>x1 : any
+>obj.a.x : any
+>obj.a : { x: any; }
 >obj : T
->a : { x: 任意; }
->x : 任意
->类型别名 :=> 任意
+>a : { x: any; }
+>x : any
 
     let x2 = obj['a']['x'];  // any
->x2 : 任意
->类型别名 :=> 任意
->obj['a']['x'] : 任意
->类型别名 :=> 任意
->obj['a'] : { x: 任意; }
+>x2 : any
+>obj['a']['x'] : any
+>obj['a'] : { x: any; }
 >obj : T
 >'a' : "a"
 >'x' : "x"
@@ -1404,9 +1192,8 @@ function f80<T extends { a: { x: any } }>(obj: T) {
     let x3 = obj['a']['x'] as T['a']['x'];  // T["a"]["x"]
 >x3 : T["a"]["x"]
 >obj['a']['x'] as T['a']['x'] : T["a"]["x"]
->obj['a']['x'] : 任意
->类型别名 :=> 任意
->obj['a'] : { x: 任意; }
+>obj['a']['x'] : any
+>obj['a'] : { x: any; }
 >obj : T
 >'a' : "a"
 >'x' : "x"
@@ -1414,19 +1201,17 @@ function f80<T extends { a: { x: any } }>(obj: T) {
 }
 
 function f81<T extends { a: { x: any } }>(obj: T) {
->f81 : <T 扩展 { a: { x: 任意; }; }>(obj: T) => T["a"]["x"]
+>f81 : <T extends { a: { x: any; }; }>(obj: T) => T["a"]["x"]
 >T : T
->a : { x: 任意; }
->x : 任意
->类型别名 :=> 任意
+>a : { x: any; }
+>x : any
 >obj : T
 >T : T
 
     return obj['a']['x'] as T['a']['x'];
 >obj['a']['x'] as T['a']['x'] : T["a"]["x"]
->obj['a']['x'] : 任意
->类型别名 :=> 任意
->obj['a'] : { x: 任意; }
+>obj['a']['x'] : any
+>obj['a'] : { x: any; }
 >obj : T
 >'a' : "a"
 >'x' : "x"
@@ -1434,42 +1219,34 @@ function f81<T extends { a: { x: any } }>(obj: T) {
 }
 
 function f82() {
->f82 : () => 无值
+>f82 : () => void
 
     let x1 = f81({ a: { x: "hello" } });  // string
->x1 : 文字
->类型别名 :=> 文字
->f81({ a: { x: "hello" } }) : 文字
->类型别名 :=> 文字
->f81 : <T 扩展 { a: { x: 任意; }; }>(obj: T) => T["a"]["x"]
->{ a: { x: "hello" } } : { a: { x: 文字; }; }
->a : { x: 文字; }
->{ x: "hello" } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>x1 : string
+>f81({ a: { x: "hello" } }) : string
+>f81 : <T extends { a: { x: any; }; }>(obj: T) => T["a"]["x"]
+>{ a: { x: "hello" } } : { a: { x: string; }; }
+>a : { x: string; }
+>{ x: "hello" } : { x: string; }
+>x : string
 >"hello" : "hello"
 
     let x2 = f81({ a: { x: 42 } });  // number
->x2 : 数字
->类型别名 :=> 数字
->f81({ a: { x: 42 } }) : 数字
->类型别名 :=> 数字
->f81 : <T 扩展 { a: { x: 任意; }; }>(obj: T) => T["a"]["x"]
->{ a: { x: 42 } } : { a: { x: 数字; }; }
->a : { x: 数字; }
->{ x: 42 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>x2 : number
+>f81({ a: { x: 42 } }) : number
+>f81 : <T extends { a: { x: any; }; }>(obj: T) => T["a"]["x"]
+>{ a: { x: 42 } } : { a: { x: number; }; }
+>a : { x: number; }
+>{ x: 42 } : { x: number; }
+>x : number
 >42 : 42
 }
 
 function f83<T extends { [x: string]: { x: any } }, K extends keyof T>(obj: T, key: K) {
->f83 : <T 扩展 { [x: 文字]: { x: 任意; }; }, K 扩展 键集 T>(obj: T, key: K) => T[K]["x"]
+>f83 : <T extends { [x: string]: { x: any; }; }, K extends keyof T>(obj: T, key: K) => T[K]["x"]
 >T : T
->x : 文字
->类型别名 :=> 文字
->x : 任意
->类型别名 :=> 任意
+>x : string
+>x : any
 >K : K
 >T : T
 >obj : T
@@ -1479,8 +1256,7 @@ function f83<T extends { [x: string]: { x: any } }, K extends keyof T>(obj: T, k
 
     return obj[key]['x'] as T[K]['x'];
 >obj[key]['x'] as T[K]['x'] : T[K]["x"]
->obj[key]['x'] : 任意
->类型别名 :=> 任意
+>obj[key]['x'] : any
 >obj[key] : T[K]
 >obj : T
 >key : K
@@ -1490,33 +1266,27 @@ function f83<T extends { [x: string]: { x: any } }, K extends keyof T>(obj: T, k
 }
 
 function f84() {
->f84 : () => 无值
+>f84 : () => void
 
     let x1 = f83({ foo: { x: "hello" } }, "foo");  // string
->x1 : 文字
->类型别名 :=> 文字
->f83({ foo: { x: "hello" } }, "foo") : 文字
->类型别名 :=> 文字
->f83 : <T 扩展 { [x: 文字]: { x: 任意; }; }, K 扩展 键集 T>(obj: T, key: K) => T[K]["x"]
->{ foo: { x: "hello" } } : { foo: { x: 文字; }; }
->foo : { x: 文字; }
->{ x: "hello" } : { x: 文字; }
->x : 文字
->类型别名 :=> 文字
+>x1 : string
+>f83({ foo: { x: "hello" } }, "foo") : string
+>f83 : <T extends { [x: string]: { x: any; }; }, K extends keyof T>(obj: T, key: K) => T[K]["x"]
+>{ foo: { x: "hello" } } : { foo: { x: string; }; }
+>foo : { x: string; }
+>{ x: "hello" } : { x: string; }
+>x : string
 >"hello" : "hello"
 >"foo" : "foo"
 
     let x2 = f83({ bar: { x: 42 } }, "bar");  // number
->x2 : 数字
->类型别名 :=> 数字
->f83({ bar: { x: 42 } }, "bar") : 数字
->类型别名 :=> 数字
->f83 : <T 扩展 { [x: 文字]: { x: 任意; }; }, K 扩展 键集 T>(obj: T, key: K) => T[K]["x"]
->{ bar: { x: 42 } } : { bar: { x: 数字; }; }
->bar : { x: 数字; }
->{ x: 42 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>x2 : number
+>f83({ bar: { x: 42 } }, "bar") : number
+>f83 : <T extends { [x: string]: { x: any; }; }, K extends keyof T>(obj: T, key: K) => T[K]["x"]
+>{ bar: { x: 42 } } : { bar: { x: number; }; }
+>bar : { x: number; }
+>{ x: 42 } : { x: number; }
+>x : number
 >42 : 42
 >"bar" : "bar"
 }
@@ -1525,101 +1295,90 @@ class C1 {
 >C1 : C1
 
     x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     get<K extends keyof this>(key: K) {
->get : <K 扩展 键集 本体>(key: K) => 本体[K]
+>get : <K extends keyof this>(key: K) => this[K]
 >K : K
 >key : K
 >K : K
 
         return this[key];
->this[key] : 本体[K]
->this : 本体
+>this[key] : this[K]
+>this : this
 >key : K
     }
     set<K extends keyof this>(key: K, value: this[K]) {
->set : <K 扩展 键集 本体>(key: K, value: 本体[K]) => 无值
+>set : <K extends keyof this>(key: K, value: this[K]) => void
 >K : K
 >key : K
 >K : K
->value : 本体[K]
+>value : this[K]
 >K : K
 
         this[key] = value;
->this[key] = value : 本体[K]
->this[key] : 本体[K]
->this : 本体
+>this[key] = value : this[K]
+>this[key] : this[K]
+>this : this
 >key : K
->value : 本体[K]
+>value : this[K]
     }
     foo() {
->foo : () => 无值
+>foo : () => void
 
         let x1 = this.x;  // number
->x1 : 数字
->类型别名 :=> 数字
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
+>x1 : number
+>this.x : number
+>this : this
+>x : number
 
         let x2 = this["x"];  // number
->x2 : 数字
->类型别名 :=> 数字
->this["x"] : 数字
->类型别名 :=> 数字
->this : 本体
+>x2 : number
+>this["x"] : number
+>this : this
 >"x" : "x"
 
         let x3 = this.get("x");  // this["x"]
->x3 : 本体["x"]
->this.get("x") : 本体["x"]
->this.get : <K 扩展 键集 本体>(key: K) => 本体[K]
->this : 本体
->get : <K 扩展 键集 本体>(key: K) => 本体[K]
+>x3 : this["x"]
+>this.get("x") : this["x"]
+>this.get : <K extends keyof this>(key: K) => this[K]
+>this : this
+>get : <K extends keyof this>(key: K) => this[K]
 >"x" : "x"
 
         let x4 = getProperty(this, "x"); // this["x"]
->x4 : 本体["x"]
->getProperty(this, "x") : 本体["x"]
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->this : 本体
+>x4 : this["x"]
+>getProperty(this, "x") : this["x"]
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>this : this
 >"x" : "x"
 
         this.x = 42;
 >this.x = 42 : 42
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
+>this.x : number
+>this : this
+>x : number
 >42 : 42
 
         this["x"] = 42;
 >this["x"] = 42 : 42
->this["x"] : 数字
->类型别名 :=> 数字
->this : 本体
+>this["x"] : number
+>this : this
 >"x" : "x"
 >42 : 42
 
         this.set("x", 42);
->this.set("x", 42) : 无值
->类型别名 :=> 无值
->this.set : <K 扩展 键集 本体>(key: K, value: 本体[K]) => 无值
->this : 本体
->set : <K 扩展 键集 本体>(key: K, value: 本体[K]) => 无值
+>this.set("x", 42) : void
+>this.set : <K extends keyof this>(key: K, value: this[K]) => void
+>this : this
+>set : <K extends keyof this>(key: K, value: this[K]) => void
 >"x" : "x"
 >42 : 42
 
         setProperty(this, "x", 42);
->setProperty(this, "x", 42) : 无值
->类型别名 :=> 无值
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
->this : 本体
+>setProperty(this, "x", 42) : void
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
+>this : this
 >"x" : "x"
 >42 : 42
     }
@@ -1629,23 +1388,20 @@ type S2 = {
 >S2 : S2
 
     a: string;
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     b: string;
->b : 文字
->类型别名 :=> 文字
+>b : string
 
 };
 
 function f90<T extends S2, K extends keyof S2>(x1: S2[keyof S2], x2: T[keyof S2], x3: S2[K], x4: T[K]) {
->f90 : <T 扩展 S2, K 扩展 "a" | "b">(x1: 文字, x2: T["a" | "b"], x3: S2[K], x4: T[K]) => 无值
+>f90 : <T extends S2, K extends "a" | "b">(x1: string, x2: T["a" | "b"], x3: S2[K], x4: T[K]) => void
 >T : T
 >S2 : S2
 >K : K
 >S2 : S2
->x1 : 文字
->类型别名 :=> 文字
+>x1 : string
 >S2 : S2
 >S2 : S2
 >x2 : T["a" | "b"]
@@ -1660,28 +1416,23 @@ function f90<T extends S2, K extends keyof S2>(x1: S2[keyof S2], x2: T[keyof S2]
 
     x1 = x2;
 >x1 = x2 : T["a" | "b"]
->x1 : 文字
->类型别名 :=> 文字
+>x1 : string
 >x2 : T["a" | "b"]
 
     x1 = x3;
 >x1 = x3 : S2[K]
->x1 : 文字
->类型别名 :=> 文字
+>x1 : string
 >x3 : S2[K]
 
     x1 = x4;
 >x1 = x4 : T[K]
->x1 : 文字
->类型别名 :=> 文字
+>x1 : string
 >x4 : T[K]
 
     x2 = x1;
->x2 = x1 : 文字
->类型别名 :=> 文字
+>x2 = x1 : string
 >x2 : T["a" | "b"]
->x1 : 文字
->类型别名 :=> 文字
+>x1 : string
 
     x2 = x3;
 >x2 = x3 : S2[K]
@@ -1694,11 +1445,9 @@ function f90<T extends S2, K extends keyof S2>(x1: S2[keyof S2], x2: T[keyof S2]
 >x4 : T[K]
 
     x3 = x1;
->x3 = x1 : 文字
->类型别名 :=> 文字
+>x3 = x1 : string
 >x3 : S2[K]
->x1 : 文字
->类型别名 :=> 文字
+>x1 : string
 
     x3 = x2;
 >x3 = x2 : T["a" | "b"]
@@ -1711,11 +1460,9 @@ function f90<T extends S2, K extends keyof S2>(x1: S2[keyof S2], x2: T[keyof S2]
 >x4 : T[K]
 
     x4 = x1;
->x4 = x1 : 文字
->类型别名 :=> 文字
+>x4 = x1 : string
 >x4 : T[K]
->x1 : 文字
->类型别名 :=> 文字
+>x1 : string
 
     x4 = x2;
 >x4 = x2 : T["a" | "b"]
@@ -1728,33 +1475,24 @@ function f90<T extends S2, K extends keyof S2>(x1: S2[keyof S2], x2: T[keyof S2]
 >x3 : S2[K]
 
     x1.length;
->x1.length : 数字
->类型别名 :=> 数字
->x1 : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>x1.length : number
+>x1 : string
+>length : number
 
     x2.length;
->x2.length : 数字
->类型别名 :=> 数字
+>x2.length : number
 >x2 : T["a" | "b"]
->length : 数字
->类型别名 :=> 数字
+>length : number
 
     x3.length;
->x3.length : 数字
->类型别名 :=> 数字
+>x3.length : number
 >x3 : S2[K]
->length : 数字
->类型别名 :=> 数字
+>length : number
 
     x4.length;
->x4.length : 数字
->类型别名 :=> 数字
+>x4.length : number
 >x4 : T[K]
->length : 数字
->类型别名 :=> 数字
+>length : number
 }
 
 // Repros from #12011
@@ -1763,30 +1501,30 @@ class Base {
 >Base : Base
 
     get<K extends keyof this>(prop: K) {
->get : <K 扩展 键集 本体>(prop: K) => 本体[K]
+>get : <K extends keyof this>(prop: K) => this[K]
 >K : K
 >prop : K
 >K : K
 
         return this[prop];
->this[prop] : 本体[K]
->this : 本体
+>this[prop] : this[K]
+>this : this
 >prop : K
     }
     set<K extends keyof this>(prop: K, value: this[K]) {
->set : <K 扩展 键集 本体>(prop: K, value: 本体[K]) => 无值
+>set : <K extends keyof this>(prop: K, value: this[K]) => void
 >K : K
 >prop : K
 >K : K
->value : 本体[K]
+>value : this[K]
 >K : K
 
         this[prop] = value;
->this[prop] = value : 本体[K]
->this[prop] : 本体[K]
->this : 本体
+>this[prop] = value : this[K]
+>this[prop] : this[K]
+>this : this
 >prop : K
->value : 本体[K]
+>value : this[K]
     }
 }
 
@@ -1795,36 +1533,31 @@ class Person extends Base {
 >Base : Base
 
     parts: number;
->parts : 数字
->类型别名 :=> 数字
+>parts : number
 
     constructor(parts: number) {
->parts : 数字
->类型别名 :=> 数字
+>parts : number
 
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 Base
+>super() : void
+>super : typeof Base
 
         this.set("parts", parts);
->this.set("parts", parts) : 无值
->类型别名 :=> 无值
->this.set : <K 扩展 键集 本体>(prop: K, value: 本体[K]) => 无值
->this : 本体
->set : <K 扩展 键集 本体>(prop: K, value: 本体[K]) => 无值
+>this.set("parts", parts) : void
+>this.set : <K extends keyof this>(prop: K, value: this[K]) => void
+>this : this
+>set : <K extends keyof this>(prop: K, value: this[K]) => void
 >"parts" : "parts"
->parts : 数字
->类型别名 :=> 数字
+>parts : number
     }
     getParts() {
->getParts : () => 本体["parts"]
+>getParts : () => this["parts"]
 
         return this.get("parts")
->this.get("parts") : 本体["parts"]
->this.get : <K 扩展 键集 本体>(prop: K) => 本体[K]
->this : 本体
->get : <K 扩展 键集 本体>(prop: K) => 本体[K]
+>this.get("parts") : this["parts"]
+>this.get : <K extends keyof this>(prop: K) => this[K]
+>this : this
+>get : <K extends keyof this>(prop: K) => this[K]
 >"parts" : "parts"
     }
 }
@@ -1833,29 +1566,25 @@ class OtherPerson {
 >OtherPerson : OtherPerson
 
     parts: number;
->parts : 数字
->类型别名 :=> 数字
+>parts : number
 
     constructor(parts: number) {
->parts : 数字
->类型别名 :=> 数字
+>parts : number
 
         setProperty(this, "parts", parts);
->setProperty(this, "parts", parts) : 无值
->类型别名 :=> 无值
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
->this : 本体
+>setProperty(this, "parts", parts) : void
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
+>this : this
 >"parts" : "parts"
->parts : 数字
->类型别名 :=> 数字
+>parts : number
     }
     getParts() {
->getParts : () => 本体["parts"]
+>getParts : () => this["parts"]
 
         return getProperty(this, "parts")
->getProperty(this, "parts") : 本体["parts"]
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
->this : 本体
+>getProperty(this, "parts") : this["parts"]
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
+>this : this
 >"parts" : "parts"
     }
 }
@@ -1863,7 +1592,7 @@ class OtherPerson {
 // Modified repro from #12544
 
 function path<T, K1 extends keyof T>(obj: T, key1: K1): T[K1];
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
 >T : T
 >K1 : K1
 >T : T
@@ -1875,7 +1604,7 @@ function path<T, K1 extends keyof T>(obj: T, key1: K1): T[K1];
 >K1 : K1
 
 function path<T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2];
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
 >T : T
 >K1 : K1
 >T : T
@@ -1893,7 +1622,7 @@ function path<T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, k
 >K2 : K2
 
 function path<T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3];
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
 >T : T
 >K1 : K1
 >T : T
@@ -1918,101 +1647,82 @@ function path<T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[
 >K3 : K3
 
 function path(obj: any, ...keys: (string | number)[]): any;
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
->obj : 任意
->类型别名 :=> 任意
->keys : (文字 | 数字)[]
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
+>obj : any
+>keys : (string | number)[]
 
 function path(obj: any, ...keys: (string | number)[]): any {
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
->obj : 任意
->类型别名 :=> 任意
->keys : (文字 | 数字)[]
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
+>obj : any
+>keys : (string | number)[]
 
     let result = obj;
->result : 任意
->类型别名 :=> 任意
->obj : 任意
->类型别名 :=> 任意
+>result : any
+>obj : any
 
     for (let k of keys) {
->k : 文字 | 数字
->keys : (文字 | 数字)[]
+>k : string | number
+>keys : (string | number)[]
 
         result = result[k];
->result = result[k] : 任意
->类型别名 :=> 任意
->result : 任意
->类型别名 :=> 任意
->result[k] : 任意
->类型别名 :=> 任意
->result : 任意
->类型别名 :=> 任意
->k : 文字 | 数字
+>result = result[k] : any
+>result : any
+>result[k] : any
+>result : any
+>k : string | number
     }
     return result;
->result : 任意
->类型别名 :=> 任意
+>result : any
 }
 
 type Thing = {
 >Thing : Thing
 
     a: { x: number, y: string },
->a : { x: 数字; y: 文字; }
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>a : { x: number; y: string; }
+>x : number
+>y : string
 
     b: boolean
->b : 真假
->类型别名 :=> 真假
+>b : boolean
 
 };
 
 
 function f1(thing: Thing) {
->f1 : (thing: Thing) => 无值
+>f1 : (thing: Thing) => void
 >thing : Thing
 >Thing : Thing
 
     let x1 = path(thing, 'a');  // { x: number, y: string }
->x1 : { x: 数字; y: 文字; }
->path(thing, 'a') : { x: 数字; y: 文字; }
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
+>x1 : { x: number; y: string; }
+>path(thing, 'a') : { x: number; y: string; }
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
 >thing : Thing
 >'a' : "a"
 
     let x2 = path(thing, 'a', 'y');  // string
->x2 : 文字
->类型别名 :=> 文字
->path(thing, 'a', 'y') : 文字
->类型别名 :=> 文字
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
+>x2 : string
+>path(thing, 'a', 'y') : string
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
 >thing : Thing
 >'a' : "a"
 >'y' : "y"
 
     let x3 = path(thing, 'b');  // boolean
->x3 : 真假
->类型别名 :=> 真假
->path(thing, 'b') : 真假
->类型别名 :=> 真假
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
+>x3 : boolean
+>path(thing, 'b') : boolean
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
 >thing : Thing
 >'b' : "b"
 
     let x4 = path(thing, ...['a', 'x']);  // any
->x4 : 任意
->类型别名 :=> 任意
->path(thing, ...['a', 'x']) : 任意
->类型别名 :=> 任意
->path : { <T, K1 扩展 键集 T>(obj: T, key1: K1): T[K1]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 扩展 键集 T, K2 扩展 键集 T[K1], K3 扩展 键集 T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: 任意, ...keys: (文字 | 数字)[]): 任意; }
+>x4 : any
+>path(thing, ...['a', 'x']) : any
+>path : { <T, K1 extends keyof T>(obj: T, key1: K1): T[K1]; <T, K1 extends keyof T, K2 extends keyof T[K1]>(obj: T, key1: K1, key2: K2): T[K1][K2]; <T, K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(obj: T, key1: K1, key2: K2, key3: K3): T[K1][K2][K3]; (obj: any, ...keys: (string | number)[]): any; }
 >thing : Thing
->...['a', 'x'] : 文字
->类型别名 :=> 文字
->['a', 'x'] : 文字[]
+>...['a', 'x'] : string
+>['a', 'x'] : string[]
 >'a' : "a"
 >'x' : "x"
 }
@@ -2020,8 +1730,8 @@ function f1(thing: Thing) {
 // Repro from comment in #12114
 
 const assignTo2 = <T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) =>
->assignTo2 : <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2]
-><T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) =>    (value: T[K1][K2]) => object[key1][key2] = value : <T, K1 扩展 键集 T, K2 扩展 键集 T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2]
+>assignTo2 : <T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2]
+><T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) =>    (value: T[K1][K2]) => object[key1][key2] = value : <T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key1: K1, key2: K2) => (value: T[K1][K2]) => T[K1][K2]
 >T : T
 >K1 : K1
 >T : T
@@ -2052,9 +1762,9 @@ const assignTo2 = <T, K1 extends keyof T, K2 extends keyof T[K1]>(object: T, key
 // Modified repro from #12573
 
 declare function one<T>(handler: (t: T) => void): T
->one : <T>(handler: (t: T) => 无值) => T
+>one : <T>(handler: (t: T) => void) => T
 >T : T
->handler : (t: T) => 无值
+>handler : (t: T) => void
 >t : T
 >T : T
 >T : T
@@ -2062,8 +1772,8 @@ declare function one<T>(handler: (t: T) => void): T
 var empty = one(() => {}) // inferred as {}, expected
 >empty : {}
 >one(() => {}) : {}
->one : <T>(handler: (t: T) => 无值) => T
->() => {} : () => 无值
+>one : <T>(handler: (t: T) => void) => T
+>() => {} : () => void
 
 type Handlers<T> = { [K in keyof T]: (t: T[K]) => void }
 >Handlers : Handlers<T>
@@ -2086,19 +1796,18 @@ var hashOfEmpty1 = on({ test: () => {} });  // {}
 >hashOfEmpty1 : { test: {}; }
 >on({ test: () => {} }) : { test: {}; }
 >on : <T>(handlerHash: Handlers<T>) => T
->{ test: () => {} } : { test: () => 无值; }
->test : () => 无值
->() => {} : () => 无值
+>{ test: () => {} } : { test: () => void; }
+>test : () => void
+>() => {} : () => void
 
 var hashOfEmpty2 = on({ test: (x: boolean) => {} });  // { test: boolean }
->hashOfEmpty2 : { test: 真假; }
->on({ test: (x: boolean) => {} }) : { test: 真假; }
+>hashOfEmpty2 : { test: boolean; }
+>on({ test: (x: boolean) => {} }) : { test: boolean; }
 >on : <T>(handlerHash: Handlers<T>) => T
->{ test: (x: boolean) => {} } : { test: (x: 真假) => 无值; }
->test : (x: 真假) => 无值
->(x: boolean) => {} : (x: 真假) => 无值
->x : 真假
->类型别名 :=> 真假
+>{ test: (x: boolean) => {} } : { test: (x: boolean) => void; }
+>test : (x: boolean) => void
+>(x: boolean) => {} : (x: boolean) => void
+>x : boolean
 
 // Repro from #12624
 
@@ -2108,11 +1817,11 @@ interface Options1<Data, Computed> {
 >Computed : Computed
 
     data?: Data
->data : Data | 未定
+>data : Data | undefined
 >Data : Data
 
     computed?: Computed;
->computed : Computed | 未定
+>computed : Computed | undefined
 >Computed : Computed
 }
 
@@ -2128,7 +1837,7 @@ declare class Component1<Data, Computed> {
 >Computed : Computed
 
     get<K extends keyof (Data & Computed)>(key: K): (Data & Computed)[K];
->get : <K 扩展 键集 (Data & Computed)>(key: K) => (Data & Computed)[K]
+>get : <K extends keyof Data | keyof Computed>(key: K) => (Data & Computed)[K]
 >K : K
 >Data : Data
 >Computed : Computed
@@ -2140,28 +1849,26 @@ declare class Component1<Data, Computed> {
 }
 
 let c1 = new Component1({
->c1 : Component1<{ hello: 文字; }, {}>
->new Component1({    data: {        hello: ""    }}) : Component1<{ hello: 文字; }, {}>
->Component1 : 类为 Component1
->{    data: {        hello: ""    }} : { data: { hello: 文字; }; }
+>c1 : Component1<{ hello: string; }, {}>
+>new Component1({    data: {        hello: ""    }}) : Component1<{ hello: string; }, {}>
+>Component1 : typeof Component1
+>{    data: {        hello: ""    }} : { data: { hello: string; }; }
 
     data: {
->data : { hello: 文字; }
->{        hello: ""    } : { hello: 文字; }
+>data : { hello: string; }
+>{        hello: ""    } : { hello: string; }
 
         hello: ""
->hello : 文字
->类型别名 :=> 文字
+>hello : string
 >"" : ""
     }
 });
 
 c1.get("hello");
->c1.get("hello") : 文字
->类型别名 :=> 文字
->c1.get : <K 扩展 "hello">(key: K) => { hello: 文字; }[K]
->c1 : Component1<{ hello: 文字; }, {}>
->get : <K 扩展 "hello">(key: K) => { hello: 文字; }[K]
+>c1.get("hello") : string
+>c1.get : <K extends "hello">(key: K) => { hello: string; }[K]
+>c1 : Component1<{ hello: string; }, {}>
+>get : <K extends "hello">(key: K) => { hello: string; }[K]
 >"hello" : "hello"
 
 // Repro from #12625
@@ -2172,11 +1879,11 @@ interface Options2<Data, Computed> {
 >Computed : Computed
 
     data?: Data
->data : Data | 未定
+>data : Data | undefined
 >Data : Data
 
     computed?: Computed;
->computed : Computed | 未定
+>computed : Computed | undefined
 >Computed : Computed
 }
 
@@ -2192,7 +1899,7 @@ declare class Component2<Data, Computed> {
 >Computed : Computed
 
     get<K extends keyof Data | keyof Computed>(key: K): (Data & Computed)[K];
->get : <K 扩展 键集 Data | 键集 Computed>(key: K) => (Data & Computed)[K]
+>get : <K extends keyof Data | keyof Computed>(key: K) => (Data & Computed)[K]
 >K : K
 >Data : Data
 >Computed : Computed
@@ -2209,31 +1916,25 @@ interface R {
 >R : R
 
     p: number;
->p : 数字
->类型别名 :=> 数字
+>p : number
 }
 
 function f<K extends keyof R>(p: K) {
->f : <K 扩展 "p">(p: K) => 无值
+>f : <K extends "p">(p: K) => void
 >K : K
 >R : R
 >p : K
 >K : K
 
     let a: any;
->a : 任意
->类型别名 :=> 任意
+>a : any
 
     a[p].add;  // any
->a[p].add : 任意
->类型别名 :=> 任意
->a[p] : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>a[p].add : any
+>a[p] : any
+>a : any
 >p : K
->add : 任意
->类型别名 :=> 任意
+>add : any
 }
 
 // Repro from #12651
@@ -2242,19 +1943,17 @@ type MethodDescriptor = {
 >MethodDescriptor : MethodDescriptor
 
 	name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
 	args: any[];
->args : 任意[]
+>args : any[]
 
 	returnValue: any;
->returnValue : 任意
->类型别名 :=> 任意
+>returnValue : any
 }
 
 declare function dispatchMethod<M extends MethodDescriptor>(name: M['name'], args: M['args']): M['returnValue'];
->dispatchMethod : <M 扩展 MethodDescriptor>(name: M["name"], args: M["args"]) => M["returnValue"]
+>dispatchMethod : <M extends MethodDescriptor>(name: M["name"], args: M["args"]) => M["returnValue"]
 >M : M
 >MethodDescriptor : MethodDescriptor
 >name : M["name"]
@@ -2270,19 +1969,19 @@ type SomeMethodDescriptor = {
 >name : "someMethod"
 
 	args: [string, number];
->args : [文字, 数字]
+>args : [string, number]
 
 	returnValue: string[];
->returnValue : 文字[]
+>returnValue : string[]
 }
 
 let result = dispatchMethod<SomeMethodDescriptor>("someMethod", ["hello", 35]);
->result : 文字[]
->dispatchMethod<SomeMethodDescriptor>("someMethod", ["hello", 35]) : 文字[]
->dispatchMethod : <M 扩展 MethodDescriptor>(name: M["name"], args: M["args"]) => M["returnValue"]
+>result : string[]
+>dispatchMethod<SomeMethodDescriptor>("someMethod", ["hello", 35]) : string[]
+>dispatchMethod : <M extends MethodDescriptor>(name: M["name"], args: M["args"]) => M["returnValue"]
 >SomeMethodDescriptor : SomeMethodDescriptor
 >"someMethod" : "someMethod"
->["hello", 35] : [文字, 数字]
+>["hello", 35] : [string, number]
 >"hello" : "hello"
 >35 : 35
 
@@ -2292,25 +1991,24 @@ type KeyTypes = "a" | "b"
 >KeyTypes : "a" | "b"
 
 let MyThingy: { [key in KeyTypes]: string[] };
->MyThingy : { a: 文字[]; b: 文字[]; }
+>MyThingy : { a: string[]; b: string[]; }
 >key : key
 >KeyTypes : "a" | "b"
 
 function addToMyThingy<S extends KeyTypes>(key: S) {
->addToMyThingy : <S 扩展 "a" | "b">(key: S) => 无值
+>addToMyThingy : <S extends "a" | "b">(key: S) => void
 >S : S
 >KeyTypes : "a" | "b"
 >key : S
 >S : S
 
     MyThingy[key].push("a");
->MyThingy[key].push("a") : 数字
->类型别名 :=> 数字
->MyThingy[key].push : (...items: 文字[]) => 数字
->MyThingy[key] : { a: 文字[]; b: 文字[]; }[S]
->MyThingy : { a: 文字[]; b: 文字[]; }
+>MyThingy[key].push("a") : number
+>MyThingy[key].push : (...items: string[]) => number
+>MyThingy[key] : { a: string[]; b: string[]; }[S]
+>MyThingy : { a: string[]; b: string[]; }
 >key : S
->push : (...items: 文字[]) => 数字
+>push : (...items: string[]) => number
 >"a" : "a"
 }
 
@@ -2321,34 +2019,32 @@ type Handler<T> = {
 >T : T
 
     onChange: (name: keyof T) => void;
->onChange : (name: 键集 T) => 无值
->name : 键集 T
+>onChange : (name: keyof T) => void
+>name : keyof T
 >T : T
 
 };
 
 function onChangeGenericFunction<T>(handler: Handler<T & {preset: number}>) {
->onChangeGenericFunction : <T>(handler: Handler<T & { preset: 数字; }>) => 无值
+>onChangeGenericFunction : <T>(handler: Handler<T & { preset: number; }>) => void
 >T : T
->handler : Handler<T & { preset: 数字; }>
+>handler : Handler<T & { preset: number; }>
 >Handler : Handler<T>
 >T : T
->preset : 数字
->类型别名 :=> 数字
+>preset : number
 
     handler.onChange('preset')
->handler.onChange('preset') : 无值
->类型别名 :=> 无值
->handler.onChange : (name: 键集 (T & { preset: 数字; })) => 无值
->handler : Handler<T & { preset: 数字; }>
->onChange : (name: 键集 (T & { preset: 数字; })) => 无值
+>handler.onChange('preset') : void
+>handler.onChange : (name: keyof T | "preset") => void
+>handler : Handler<T & { preset: number; }>
+>onChange : (name: keyof T | "preset") => void
 >'preset' : "preset"
 }
 
 // Repro from #13285
 
 function updateIds<T extends Record<K, string>, K extends string>(
->updateIds : <T 扩展 Record<K, 文字>, K 扩展 文字>(obj: T, idFields: K[], idMapping: { [oldId: 文字]: 文字; }) => Record<K, 文字>
+>updateIds : <T extends Record<K, string>, K extends string>(obj: T, idFields: K[], idMapping: { [oldId: string]: string; }) => Record<K, string>
 >T : T
 >Record : Record<K, T>
 >K : K
@@ -2363,9 +2059,8 @@ function updateIds<T extends Record<K, string>, K extends string>(
 >K : K
 
     idMapping: { [oldId: string]: string }
->idMapping : { [oldId: 文字]: 文字; }
->oldId : 文字
->类型别名 :=> 文字
+>idMapping : { [oldId: string]: string; }
+>oldId : string
 
 ): Record<K, string> {
 >Record : Record<K, T>
@@ -2376,22 +2071,22 @@ function updateIds<T extends Record<K, string>, K extends string>(
 >idFields : K[]
 
         const newId = idMapping[obj[idField]];
->newId : { [oldId: 文字]: 文字; }[T[K]]
->idMapping[obj[idField]] : { [oldId: 文字]: 文字; }[T[K]]
->idMapping : { [oldId: 文字]: 文字; }
+>newId : { [oldId: string]: string; }[T[K]]
+>idMapping[obj[idField]] : { [oldId: string]: string; }[T[K]]
+>idMapping : { [oldId: string]: string; }
 >obj[idField] : T[K]
 >obj : T
 >idField : K
 
         if (newId) {
->newId : { [oldId: 文字]: 文字; }[T[K]]
+>newId : { [oldId: string]: string; }[T[K]]
 
             obj[idField] = newId;
->obj[idField] = newId : { [oldId: 文字]: 文字; }[T[K]]
+>obj[idField] = newId : { [oldId: string]: string; }[T[K]]
 >obj[idField] : T[K]
 >obj : T
 >idField : K
->newId : { [oldId: 文字]: 文字; }[T[K]]
+>newId : { [oldId: string]: string; }[T[K]]
         }
     }
     return obj;
@@ -2401,10 +2096,9 @@ function updateIds<T extends Record<K, string>, K extends string>(
 // Repro from #13285
 
 function updateIds2<T extends { [x: string]: string }, K extends keyof T>(
->updateIds2 : <T 扩展 { [x: 文字]: 文字; }, K 扩展 键集 T>(obj: T, key: K, stringMap: { [oldId: 文字]: 文字; }) => 无值
+>updateIds2 : <T extends { [x: string]: string; }, K extends keyof T>(obj: T, key: K, stringMap: { [oldId: string]: string; }) => void
 >T : T
->x : 文字
->类型别名 :=> 文字
+>x : string
 >K : K
 >T : T
 
@@ -2417,9 +2111,8 @@ function updateIds2<T extends { [x: string]: string }, K extends keyof T>(
 >K : K
 
     stringMap: { [oldId: string]: string }
->stringMap : { [oldId: 文字]: 文字; }
->oldId : 文字
->类型别名 :=> 文字
+>stringMap : { [oldId: string]: string; }
+>oldId : string
 
 ) {
     var x = obj[key];
@@ -2429,15 +2122,15 @@ function updateIds2<T extends { [x: string]: string }, K extends keyof T>(
 >key : K
 
     stringMap[x]; // Should be OK.
->stringMap[x] : { [oldId: 文字]: 文字; }[T[K]]
->stringMap : { [oldId: 文字]: 文字; }
+>stringMap[x] : { [oldId: string]: string; }[T[K]]
+>stringMap : { [oldId: string]: string; }
 >x : T[K]
 }
 
 // Repro from #13514
 
 declare function head<T extends Array<any>>(list: T): T[0];
->head : <T 扩展 任意[]>(list: T) => T[0]
+>head : <T extends any[]>(list: T) => T[0]
 >T : T
 >Array : T[]
 >list : T
@@ -2451,28 +2144,24 @@ class A<T> {
 >T : T
 
 	props: T & { foo: string };
->props : T & { foo: 文字; }
+>props : T & { foo: string; }
 >T : T
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 
 class B extends A<{ x: number}> {
 >B : B
->A : A<{ x: 数字; }>
->x : 数字
->类型别名 :=> 数字
+>A : A<{ x: number; }>
+>x : number
 
 	f(p: this["props"]) {
->f : (p: 本体["props"]) => 无值
->p : 本体["props"]
+>f : (p: this["props"]) => void
+>p : this["props"]
 
 		p.x;
->p.x : 数字
->类型别名 :=> 数字
->p : 本体["props"]
->x : 数字
->类型别名 :=> 数字
+>p.x : number
+>p : this["props"]
+>x : number
 	}
 }
 
@@ -2483,7 +2172,7 @@ class Form<T> {
 >T : T
 
     private childFormFactories: {[K in keyof T]: (v: T[K]) => Form<T[K]>}
->childFormFactories : { [K 位于 键集 T]: (v: T[K]) => Form<T[K]>; }
+>childFormFactories : { [K in keyof T]: (v: T[K]) => Form<T[K]>; }
 >K : K
 >T : T
 >v : T[K]
@@ -2494,7 +2183,7 @@ class Form<T> {
 >K : K
 
     public set<K extends keyof T>(prop: K, value: T[K]) {
->set : <K 扩展 键集 T>(prop: K, value: T[K]) => 无值
+>set : <K extends keyof T>(prop: K, value: T[K]) => void
 >K : K
 >T : T
 >prop : K
@@ -2505,10 +2194,10 @@ class Form<T> {
 
         this.childFormFactories[prop](value)
 >this.childFormFactories[prop](value) : Form<T[K]>
->this.childFormFactories[prop] : { [K 位于 键集 T]: (v: T[K]) => Form<T[K]>; }[K]
->this.childFormFactories : { [K 位于 键集 T]: (v: T[K]) => Form<T[K]>; }
->this : 本体
->childFormFactories : { [K 位于 键集 T]: (v: T[K]) => Form<T[K]>; }
+>this.childFormFactories[prop] : { [K in keyof T]: (v: T[K]) => Form<T[K]>; }[K]
+>this.childFormFactories : { [K in keyof T]: (v: T[K]) => Form<T[K]>; }
+>this : this
+>childFormFactories : { [K in keyof T]: (v: T[K]) => Form<T[K]>; }
 >prop : K
 >value : T[K]
     }
@@ -2532,12 +2221,12 @@ class SampleClass<P> {
         this.props = Object.freeze(props);
 >this.props = Object.freeze(props) : Readonly<P>
 >this.props : Readonly<P>
->this : 本体
+>this : this
 >props : Readonly<P>
 >Object.freeze(props) : Readonly<P>
->Object.freeze : { <T>(a: T[]): ReadonlyArray<T>; <T 扩展 Function>(f: T): T; <T>(o: T): Readonly<T>; }
+>Object.freeze : { <T>(a: T[]): ReadonlyArray<T>; <T extends Function>(f: T): T; <T>(o: T): Readonly<T>; }
 >Object : ObjectConstructor
->freeze : { <T>(a: T[]): ReadonlyArray<T>; <T 扩展 Function>(f: T): T; <T>(o: T): Readonly<T>; }
+>freeze : { <T>(a: T[]): ReadonlyArray<T>; <T extends Function>(f: T): T; <T>(o: T): Readonly<T>; }
 >props : P
     }
 }
@@ -2546,8 +2235,7 @@ interface Foo {
 >Foo : Foo
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 
 declare function merge<T, U>(obj1: T, obj2: U): T & U;
@@ -2575,15 +2263,13 @@ class AnotherSampleClass<T> extends SampleClass<T & Foo> {
         const foo: Foo = { foo: "bar" };
 >foo : Foo
 >Foo : Foo
->{ foo: "bar" } : { foo: 文字; }
->foo : 文字
->类型别名 :=> 文字
+>{ foo: "bar" } : { foo: string; }
+>foo : string
 >"bar" : "bar"
 
         super(merge(props, foo));
->super(merge(props, foo)) : 无值
->类型别名 :=> 无值
->super : 类为 SampleClass
+>super(merge(props, foo)) : void
+>super : typeof SampleClass
 >merge(props, foo) : T & Foo
 >merge : <T, U>(obj1: T, obj2: U) => T & U
 >props : T
@@ -2591,20 +2277,68 @@ class AnotherSampleClass<T> extends SampleClass<T & Foo> {
     }
 
     public brokenMethod() {
->brokenMethod : () => 无值
+>brokenMethod : () => void
 
         this.props.foo.concat;
->this.props.foo.concat : (...strings: 文字[]) => 文字
+>this.props.foo.concat : (...strings: string[]) => string
 >this.props.foo : (T & Foo)["foo"]
 >this.props : Readonly<T & Foo>
->this : 本体
+>this : this
 >props : Readonly<T & Foo>
 >foo : (T & Foo)["foo"]
->concat : (...strings: 文字[]) => 文字
+>concat : (...strings: string[]) => string
     }
 }
 new AnotherSampleClass({});
 >new AnotherSampleClass({}) : AnotherSampleClass<{}>
->AnotherSampleClass : 类为 AnotherSampleClass
+>AnotherSampleClass : typeof AnotherSampleClass
 >{} : {}
+
+// Positive repro from #17166
+function f3<T, K extends keyof T>(t: T, k: K, tk: T[K]): void {
+>f3 : <T, K extends keyof T>(t: T, k: K, tk: T[K]) => void
+>T : T
+>K : K
+>T : T
+>t : T
+>T : T
+>k : K
+>K : K
+>tk : T[K]
+>T : T
+>K : K
+
+    for (let key in t) {
+>key : keyof T
+>t : T
+
+        key = k // ok, K ==> keyof T
+>key = k : K
+>key : keyof T
+>k : K
+
+        t[key] = tk; // ok, T[K] ==> T[keyof T]
+>t[key] = tk : T[K]
+>t[key] : T[keyof T]
+>t : T
+>key : keyof T
+>tk : T[K]
+    }
+}
+
+// # 21185
+type Predicates<TaggedRecord> = {
+>Predicates : Predicates<TaggedRecord>
+>TaggedRecord : TaggedRecord
+
+  [T in keyof TaggedRecord]: (variant: TaggedRecord[keyof TaggedRecord]) => variant is TaggedRecord[T]
+>T : T
+>TaggedRecord : TaggedRecord
+>variant : TaggedRecord[keyof TaggedRecord]
+>TaggedRecord : TaggedRecord
+>TaggedRecord : TaggedRecord
+>variant : any
+>TaggedRecord : TaggedRecord
+>T : T
+}
 

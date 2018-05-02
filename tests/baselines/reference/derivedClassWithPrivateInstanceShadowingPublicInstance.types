@@ -3,26 +3,22 @@ class Base {
 >Base : Base
 
     public x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     public fn(): string {
->fn : () => 文字
+>fn : () => string
 
         return '';
 >'' : ""
     }
 
     public get a() { return 1; }
->a : 数字
->类型别名 :=> 数字
+>a : number
 >1 : 1
 
     public set a(v) { }
->a : 数字
->类型别名 :=> 数字
->v : 数字
->类型别名 :=> 数字
+>a : number
+>v : number
 }
 
 // error, not a subtype
@@ -31,101 +27,73 @@ class Derived extends Base {
 >Base : Base
 
     private x: string; 
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     private fn(): string {
->fn : () => 文字
+>fn : () => string
 
         return '';
 >'' : ""
     }
 
     private get a() { return 1; }
->a : 数字
->类型别名 :=> 数字
+>a : number
 >1 : 1
 
     private set a(v) { }
->a : 数字
->类型别名 :=> 数字
->v : 数字
->类型别名 :=> 数字
+>a : number
+>v : number
 }
 
 var r = Base.x; // ok
->r : 任意
->类型别名 :=> 任意
->Base.x : 任意
->类型别名 :=> 任意
->Base : 类为 Base
->x : 任意
->类型别名 :=> 任意
+>r : any
+>Base.x : any
+>Base : typeof Base
+>x : any
 
 var r2 = Derived.x; // error
->r2 : 任意
->类型别名 :=> 任意
->Derived.x : 任意
->类型别名 :=> 任意
->Derived : 类为 Derived
->x : 任意
->类型别名 :=> 任意
+>r2 : any
+>Derived.x : any
+>Derived : typeof Derived
+>x : any
 
 var r3 = Base.fn(); // ok
->r3 : 任意
->类型别名 :=> 任意
->Base.fn() : 任意
->类型别名 :=> 任意
->Base.fn : 任意
->类型别名 :=> 任意
->Base : 类为 Base
->fn : 任意
->类型别名 :=> 任意
+>r3 : any
+>Base.fn() : any
+>Base.fn : any
+>Base : typeof Base
+>fn : any
 
 var r4 = Derived.fn(); // error
->r4 : 任意
->类型别名 :=> 任意
->Derived.fn() : 任意
->类型别名 :=> 任意
->Derived.fn : 任意
->类型别名 :=> 任意
->Derived : 类为 Derived
->fn : 任意
->类型别名 :=> 任意
+>r4 : any
+>Derived.fn() : any
+>Derived.fn : any
+>Derived : typeof Derived
+>fn : any
 
 var r5 = Base.a; // ok
->r5 : 任意
->类型别名 :=> 任意
->Base.a : 任意
->类型别名 :=> 任意
->Base : 类为 Base
->a : 任意
->类型别名 :=> 任意
+>r5 : any
+>Base.a : any
+>Base : typeof Base
+>a : any
 
 Base.a = 2; // ok
 >Base.a = 2 : 2
->Base.a : 任意
->类型别名 :=> 任意
->Base : 类为 Base
->a : 任意
->类型别名 :=> 任意
+>Base.a : any
+>Base : typeof Base
+>a : any
 >2 : 2
 
 var r6 = Derived.a; // error
->r6 : 任意
->类型别名 :=> 任意
->Derived.a : 任意
->类型别名 :=> 任意
->Derived : 类为 Derived
->a : 任意
->类型别名 :=> 任意
+>r6 : any
+>Derived.a : any
+>Derived : typeof Derived
+>a : any
 
 Derived.a = 2; // error
 >Derived.a = 2 : 2
->Derived.a : 任意
->类型别名 :=> 任意
->Derived : 类为 Derived
->a : 任意
->类型别名 :=> 任意
+>Derived.a : any
+>Derived : typeof Derived
+>a : any
 >2 : 2
 

@@ -1,39 +1,37 @@
 === tests/cases/compiler/file2.ts ===
 import appJs = require("file1");
->appJs : 类为 appJs
+>appJs : typeof appJs
 
 import Services = appJs.Services;
->Services : 类为 appJs.Services
->appJs : 类为 appJs
->Services : 类为 appJs.Services
+>Services : typeof appJs.Services
+>appJs : typeof appJs
+>Services : typeof appJs.Services
 
 import UserServices = Services.UserServices;
->UserServices : 类为 Services.UserServices
->Services : 类为 appJs.Services
+>UserServices : typeof Services.UserServices
+>Services : typeof appJs.Services
 >UserServices : Services.UserServices
 
 var x = new UserServices().getUserName();
->x : 文字
->类型别名 :=> 文字
->new UserServices().getUserName() : 文字
->类型别名 :=> 文字
->new UserServices().getUserName : () => 文字
+>x : string
+>new UserServices().getUserName() : string
+>new UserServices().getUserName : () => string
 >new UserServices() : Services.UserServices
->UserServices : 类为 Services.UserServices
->getUserName : () => 文字
+>UserServices : typeof Services.UserServices
+>getUserName : () => string
 
 === tests/cases/compiler/file1.ts ===
 module App {
->App : 类为 App
+>App : typeof App
 
     export module Services {
->Services : 类为 Services
+>Services : typeof Services
 
         export class UserServices {
 >UserServices : UserServices
 
             public getUserName(): string {
->getUserName : () => 文字
+>getUserName : () => string
 
                 return "Bill Gates";
 >"Bill Gates" : "Bill Gates"
@@ -43,9 +41,9 @@ module App {
 }
 
 import Mod = App;
->Mod : 类为 App
->App : 类为 App
+>Mod : typeof App
+>App : typeof App
 
 export = Mod;
->Mod : 类为 App
+>Mod : typeof App
 

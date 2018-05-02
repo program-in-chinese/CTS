@@ -1,6 +1,6 @@
 === tests/cases/compiler/constructorArgWithGenericCallSignature.ts ===
 module Test {
->Test : 类为 Test
+>Test : typeof Test
 
     export interface MyFunc {
 >MyFunc : MyFunc
@@ -20,29 +20,27 @@ module Test {
     }
  
  export function F(func: MyFunc) { }
->F : (func: MyFunc) => 无值
+>F : (func: MyFunc) => void
 >func : MyFunc
 >MyFunc : MyFunc
 }
 var func: Test.MyFunc;
 >func : Test.MyFunc
->Test : 任意
->类型别名 :=> 任意
+>Test : any
 >MyFunc : Test.MyFunc
 
 Test.F(func); // OK
->Test.F(func) : 无值
->类型别名 :=> 无值
->Test.F : (func: Test.MyFunc) => 无值
->Test : 类为 Test
->F : (func: Test.MyFunc) => 无值
+>Test.F(func) : void
+>Test.F : (func: Test.MyFunc) => void
+>Test : typeof Test
+>F : (func: Test.MyFunc) => void
 >func : Test.MyFunc
 
 var test = new Test.MyClass(func); // Should be OK
 >test : Test.MyClass
 >new Test.MyClass(func) : Test.MyClass
->Test.MyClass : 类为 Test.MyClass
->Test : 类为 Test
->MyClass : 类为 Test.MyClass
+>Test.MyClass : typeof Test.MyClass
+>Test : typeof Test
+>MyClass : typeof Test.MyClass
 >func : Test.MyFunc
 

@@ -1,17 +1,15 @@
 === tests/cases/conformance/types/contextualTypes/jsxAttributes/file.tsx ===
 import React = require('react')
->React : 类为 React
+>React : typeof React
 
 export interface ClickableProps {
 >ClickableProps : ClickableProps
 
     children?: string;
->children : 文字
->类型别名 :=> 文字
+>children : string
 
     className?: string;
->className : 文字
->类型别名 :=> 文字
+>className : string
 }
 
 export interface ButtonProps extends ClickableProps {
@@ -19,7 +17,7 @@ export interface ButtonProps extends ClickableProps {
 >ClickableProps : ClickableProps
 
     onClick: (k: "left" | "right") => void;
->onClick : (k: "left" | "right") => 无值
+>onClick : (k: "left" | "right") => void
 >k : "left" | "right"
 }
 
@@ -35,16 +33,14 @@ export function MainButton(buttonProps: ButtonProps): JSX.Element;
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; }
 >buttonProps : ButtonProps
 >ButtonProps : ButtonProps
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
 export function MainButton(linkProps: LinkProps): JSX.Element;
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; }
 >linkProps : LinkProps
 >LinkProps : LinkProps
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
 export function MainButton(props: ButtonProps | LinkProps): JSX.Element {
@@ -52,8 +48,7 @@ export function MainButton(props: ButtonProps | LinkProps): JSX.Element {
 >props : ButtonProps | LinkProps
 >ButtonProps : ButtonProps
 >LinkProps : LinkProps
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
 
     const linkProps = props as LinkProps;
@@ -68,26 +63,18 @@ export function MainButton(props: ButtonProps | LinkProps): JSX.Element {
 >goTo : "home" | "contact"
 
         return this._buildMainLink(props);
->this._buildMainLink(props) : 任意
->类型别名 :=> 任意
->this._buildMainLink : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->_buildMainLink : 任意
->类型别名 :=> 任意
+>this._buildMainLink(props) : any
+>this._buildMainLink : any
+>this : any
+>_buildMainLink : any
 >props : ButtonProps | LinkProps
     }
 
     return this._buildMainButton(props);
->this._buildMainButton(props) : 任意
->类型别名 :=> 任意
->this._buildMainButton : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->_buildMainButton : 任意
->类型别名 :=> 任意
+>this._buildMainButton(props) : any
+>this._buildMainButton : any
+>this : any
+>_buildMainButton : any
 >props : ButtonProps | LinkProps
 }
 
@@ -95,100 +82,84 @@ const b0 = <MainButton {...{onClick: (k) => {console.log(k)}}} extra />;  // k h
 >b0 : JSX.Element
 ><MainButton {...{onClick: (k) => {console.log(k)}}} extra /> : JSX.Element
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; }
->{onClick: (k) => {console.log(k)}} : { onClick: (k: "left" | "right") => 无值; }
->onClick : (k: "left" | "right") => 无值
->(k) => {console.log(k)} : (k: "left" | "right") => 无值
+>{onClick: (k) => {console.log(k)}} : { onClick: (k: "left" | "right") => void; }
+>onClick : (k: "left" | "right") => void
+>(k) => {console.log(k)} : (k: "left" | "right") => void
 >k : "left" | "right"
->console.log(k) : 无值
->类型别名 :=> 无值
->console.log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>console.log(k) : void
+>console.log : (message?: any, ...optionalParams: any[]) => void
 >console : Console
->log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>log : (message?: any, ...optionalParams: any[]) => void
 >k : "left" | "right"
->extra : 为真
->类型别名 :=> 为真
+>extra : true
 
 const b2 = <MainButton onClick={(k)=>{console.log(k)}} extra />;  // k has type "left" | "right"
 >b2 : JSX.Element
 ><MainButton onClick={(k)=>{console.log(k)}} extra /> : JSX.Element
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; }
->onClick : (k: "left" | "right") => 无值
->(k)=>{console.log(k)} : (k: "left" | "right") => 无值
+>onClick : (k: "left" | "right") => void
+>(k)=>{console.log(k)} : (k: "left" | "right") => void
 >k : "left" | "right"
->console.log(k) : 无值
->类型别名 :=> 无值
->console.log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>console.log(k) : void
+>console.log : (message?: any, ...optionalParams: any[]) => void
 >console : Console
->log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>log : (message?: any, ...optionalParams: any[]) => void
 >k : "left" | "right"
->extra : 为真
->类型别名 :=> 为真
+>extra : true
 
 const b3 = <MainButton {...{goTo:"home"}} extra />;  // goTo has type"home" | "contact"
 >b3 : JSX.Element
 ><MainButton {...{goTo:"home"}} extra /> : JSX.Element
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; }
 >{goTo:"home"} : { goTo: "home"; }
->goTo : 文字
->类型别名 :=> 文字
+>goTo : "home"
 >"home" : "home"
->extra : 为真
->类型别名 :=> 为真
+>extra : true
 
 const b4 = <MainButton goTo="home" extra />;  // goTo has type "home" | "contact"
 >b4 : JSX.Element
 ><MainButton goTo="home" extra /> : JSX.Element
 >MainButton : { (buttonProps: ButtonProps): JSX.Element; (linkProps: LinkProps): JSX.Element; }
->goTo : 文字
->类型别名 :=> 文字
->extra : 为真
->类型别名 :=> 为真
+>goTo : "home"
+>extra : true
 
 export function NoOverload(buttonProps: ButtonProps): JSX.Element { return undefined }
 >NoOverload : (buttonProps: ButtonProps) => JSX.Element
 >buttonProps : ButtonProps
 >ButtonProps : ButtonProps
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 const c1 = <NoOverload  {...{onClick: (k) => {console.log(k)}}} extra />;  // k has type any
 >c1 : JSX.Element
 ><NoOverload  {...{onClick: (k) => {console.log(k)}}} extra /> : JSX.Element
 >NoOverload : (buttonProps: ButtonProps) => JSX.Element
->{onClick: (k) => {console.log(k)}} : { onClick: (k: "left" | "right") => 无值; }
->onClick : (k: "left" | "right") => 无值
->(k) => {console.log(k)} : (k: "left" | "right") => 无值
+>{onClick: (k) => {console.log(k)}} : { onClick: (k: "left" | "right") => void; }
+>onClick : (k: "left" | "right") => void
+>(k) => {console.log(k)} : (k: "left" | "right") => void
 >k : "left" | "right"
->console.log(k) : 无值
->类型别名 :=> 无值
->console.log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>console.log(k) : void
+>console.log : (message?: any, ...optionalParams: any[]) => void
 >console : Console
->log : (message?: 任意, ...optionalParams: 任意[]) => 无值
+>log : (message?: any, ...optionalParams: any[]) => void
 >k : "left" | "right"
->extra : 为真
->类型别名 :=> 为真
+>extra : true
 
 export function NoOverload1(linkProps: LinkProps): JSX.Element { return undefined }
 >NoOverload1 : (linkProps: LinkProps) => JSX.Element
 >linkProps : LinkProps
 >LinkProps : LinkProps
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 >Element : JSX.Element
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
 const d1 = <NoOverload1 {...{goTo:"home"}} extra  />;  // goTo has type "home" | "contact"
 >d1 : JSX.Element
 ><NoOverload1 {...{goTo:"home"}} extra  /> : JSX.Element
 >NoOverload1 : (linkProps: LinkProps) => JSX.Element
 >{goTo:"home"} : { goTo: "home"; }
->goTo : 文字
->类型别名 :=> 文字
+>goTo : "home"
 >"home" : "home"
->extra : 为真
->类型别名 :=> 为真
+>extra : true
 

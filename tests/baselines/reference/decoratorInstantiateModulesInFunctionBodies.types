@@ -1,26 +1,21 @@
 === tests/cases/conformance/decorators/class/a.ts ===
 // from #3108
 export var test = 'abc';
->test : 文字
->类型别名 :=> 文字
+>test : string
 >'abc' : "abc"
 
 === tests/cases/conformance/decorators/class/b.ts ===
 import { test } from './a';
->test : 文字
->类型别名 :=> 文字
+>test : string
 
 function filter(handler: any) {
->filter : (handler: 任意) => (target: 任意, propertyKey: 文字) => 无值
->handler : 任意
->类型别名 :=> 任意
+>filter : (handler: any) => (target: any, propertyKey: string) => void
+>handler : any
 
     return function (target: any, propertyKey: string) {
->function (target: any, propertyKey: string) {        // ...    } : (target: 任意, propertyKey: 文字) => 无值
->target : 任意
->类型别名 :=> 任意
->propertyKey : 文字
->类型别名 :=> 文字
+>function (target: any, propertyKey: string) {        // ...    } : (target: any, propertyKey: string) => void
+>target : any
+>propertyKey : string
 
         // ...
     };
@@ -30,17 +25,15 @@ class Wat {
 >Wat : Wat
 
     @filter(() => test == 'abc')
->filter(() => test == 'abc') : (target: 任意, propertyKey: 文字) => 无值
->filter : (handler: 任意) => (target: 任意, propertyKey: 文字) => 无值
->() => test == 'abc' : () => 真假
->test == 'abc' : 真假
->类型别名 :=> 真假
->test : 文字
->类型别名 :=> 文字
+>filter(() => test == 'abc') : (target: any, propertyKey: string) => void
+>filter : (handler: any) => (target: any, propertyKey: string) => void
+>() => test == 'abc' : () => boolean
+>test == 'abc' : boolean
+>test : string
 >'abc' : "abc"
 
     static whatever() {
->whatever : () => 无值
+>whatever : () => void
 
         // ...
     }

@@ -5,12 +5,10 @@ interface I {
 >I : I
 
     [x: string]: any;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: any; // ok, any identical to itself
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -18,12 +16,10 @@ interface I2 {
 >I2 : I2
 
     [x: string]: number;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -31,12 +27,10 @@ interface I3 {
 >I3 : I3
 
     [x: string]: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -44,12 +38,10 @@ interface I4 {
 >I4 : I4
 
     [x: string]: boolean;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -57,13 +49,11 @@ interface I5 {
 >I5 : I5
 
     [x: string]: Date;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Date : Date
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -71,13 +61,11 @@ interface I6 {
 >I6 : I6
 
     [x: string]: RegExp;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >RegExp : RegExp
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -85,14 +73,11 @@ interface I7 {
 >I7 : I7
 
     [x: string]: { bar: number };
->x : 文字
->类型别名 :=> 文字
->bar : 数字
->类型别名 :=> 数字
+>x : string
+>bar : number
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -100,12 +85,10 @@ interface I8 {
 >I8 : I8
 
     [x: string]: number[];
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -113,31 +96,26 @@ interface I9 {
 >I9 : I9
 
     [x: string]: I8;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >I8 : I8
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 class A { foo: number; }
 >A : A
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 
 interface I10 {
 >I10 : I10
 
     [x: string]: A;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >A : A
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 class A2<T> { foo: T; }
@@ -150,13 +128,11 @@ interface I11 {
 >I11 : I11
 
     [x: string]: A2<number>;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >A2 : A2<T>
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -164,14 +140,11 @@ interface I12 {
 >I12 : I12
 
     [x: string]: (x) => number;
->x : 文字
->类型别名 :=> 文字
->x : 任意
->类型别名 :=> 任意
+>x : string
+>x : any
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -179,16 +152,14 @@ interface I13 {
 >I13 : I13
 
     [x: string]: <T>(x: T) => T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 >x : T
 >T : T
 >T : T
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -200,65 +171,56 @@ interface I14 {
 >I14 : I14
 
     [x: string]: E;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >E : E
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
 function f() { }
->f : 类为 f
+>f : typeof f
 
 module f {
->f : 类为 f
+>f : typeof f
 
     export var bar = 1;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 >1 : 1
 }
 interface I15 {
 >I15 : I15
 
     [x: string]: typeof f;
->x : 文字
->类型别名 :=> 文字
->f : 类为 f
+>x : string
+>f : typeof f
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
 class c { baz: string }
 >c : c
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 module c {
->c : 类为 c
+>c : typeof c
 
     export var bar = 1;
->bar : 数字
->类型别名 :=> 数字
+>bar : number
 >1 : 1
 }
 interface I16 {
 >I16 : I16
 
     [x: string]: typeof c;
->x : 文字
->类型别名 :=> 文字
->c : 类为 c
+>x : string
+>c : typeof c
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -267,13 +229,11 @@ interface I17<T> {
 >T : T
 
     [x: string]: T;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -284,13 +244,11 @@ interface I18<T, U extends T> {
 >T : T
 
     [x: string]: U;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >U : U
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -298,13 +256,11 @@ interface I19 {
 >I19 : I19
 
     [x: string]: Object;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Object : Object
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 
 
@@ -312,11 +268,9 @@ interface I20 {
 >I20 : I20
 
     [x: string]: {};
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo: any;
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 }
 

@@ -1,36 +1,33 @@
 === tests/cases/compiler/consumer.tsx ===
 /// <reference path="component.d.ts" />
 import BaseComponent from 'BaseComponent';
->BaseComponent : 类为 BaseComponent
+>BaseComponent : typeof BaseComponent
 
 class TestComponent extends React.Component<any, {}> {
 >TestComponent : TestComponent
->React.Component : React.Component<任意, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React.Component : React.Component<any, {}>
+>React : typeof React
+>Component : typeof React.Component
 
     render() {
->render : () => 任意
+>render : () => any
 
         return <BaseComponent />;
-><BaseComponent /> : 任意
->类型别名 :=> 任意
->BaseComponent : 类为 BaseComponent
+><BaseComponent /> : any
+>BaseComponent : typeof BaseComponent
     }
 }
 
 === tests/cases/compiler/component.d.ts ===
 declare module JSX {
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 
   interface ElementAttributesProperty { props; }
 >ElementAttributesProperty : ElementAttributesProperty
->props : 任意
->类型别名 :=> 任意
+>props : any
 }
 declare module React {
->React : 类为 React
+>React : typeof React
 
   class Component<T, U> { }
 >Component : Component<T, U>
@@ -38,10 +35,12 @@ declare module React {
 >U : U
 }
 declare module "BaseComponent" {
+>"BaseComponent" : typeof "BaseComponent"
+
     export default class extends React.Component<any, {}> {
->React.Component : React.Component<任意, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React.Component : React.Component<any, {}>
+>React : typeof React
+>Component : typeof React.Component
     }
 }
 

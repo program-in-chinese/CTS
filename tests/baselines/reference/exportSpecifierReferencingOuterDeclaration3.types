@@ -1,28 +1,25 @@
 === tests/cases/compiler/exportSpecifierReferencingOuterDeclaration3.ts ===
 declare module X { export interface bar { } }
->X : 任意
->类型别名 :=> 任意
+>X : any
 >bar : bar
 
 declare module "m" {
+>"m" : typeof "m"
+
     module X { export interface foo { } }
->X : 任意
->类型别名 :=> 任意
+>X : any
 >foo : foo
 
     export { X };
->X : 任意
->类型别名 :=> 任意
+>X : any
 
     export function foo(): X.foo;
 >foo : () => X.foo
->X : 任意
->类型别名 :=> 任意
+>X : any
 >foo : X.foo
 
     export function bar(): X.bar; // error
->bar : () => 任意
->X : 任意
->类型别名 :=> 任意
+>bar : () => any
+>X : any
 >bar : No type information available!
 }

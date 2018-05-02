@@ -5,16 +5,13 @@ class A {
 >A : A
 
     constructor(readonly x: number) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         this.x = 0;
 >this.x = 0 : 0
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
+>this.x : number
+>this : this
+>x : number
 >0 : 0
     }
 }
@@ -24,24 +21,19 @@ class B extends A {
 >A : A
 
     constructor(x: number) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         super(x);
->super(x) : 无值
->类型别名 :=> 无值
->super : 类为 A
->x : 数字
->类型别名 :=> 数字
+>super(x) : void
+>super : typeof A
+>x : number
 
         // Fails, x is readonly
         this.x = 1;
 >this.x = 1 : 1
->this.x : 任意
->类型别名 :=> 任意
->this : 本体
->x : 任意
->类型别名 :=> 任意
+>this.x : any
+>this : this
+>x : any
 >1 : 1
     }
 }
@@ -53,23 +45,18 @@ class C extends A {
     // This is the usual behavior of readonly properties:
     // if one is redeclared in a base class, then it can be assigned to.
     constructor(readonly x: number) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         super(x);
->super(x) : 无值
->类型别名 :=> 无值
->super : 类为 A
->x : 数字
->类型别名 :=> 数字
+>super(x) : void
+>super : typeof A
+>x : number
 
         this.x = 1;
 >this.x = 1 : 1
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
+>this.x : number
+>this : this
+>x : number
 >1 : 1
     }
 }
@@ -78,16 +65,13 @@ class D {
 >D : D
 
     constructor(private readonly x: number) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         this.x = 0;
 >this.x = 0 : 0
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
+>this.x : number
+>this : this
+>x : number
 >0 : 0
     }
 }
@@ -98,23 +82,18 @@ class E extends D {
 >D : D
 
     constructor(readonly x: number) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         super(x);
->super(x) : 无值
->类型别名 :=> 无值
->super : 类为 D
->x : 数字
->类型别名 :=> 数字
+>super(x) : void
+>super : typeof D
+>x : number
 
         this.x = 1;
 >this.x = 1 : 1
->this.x : 数字
->类型别名 :=> 数字
->this : 本体
->x : 数字
->类型别名 :=> 数字
+>this.x : number
+>this : this
+>x : number
 >1 : 1
     }
 }

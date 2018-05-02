@@ -2,95 +2,86 @@
 // Repro from #10041
 
 (''.match(/ /) || []).map(s => s.toLowerCase());
->(''.match(/ /) || []).map(s => s.toLowerCase()) : 文字[]
->(''.match(/ /) || []).map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
+>(''.match(/ /) || []).map(s => s.toLowerCase()) : string[]
+>(''.match(/ /) || []).map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
 >(''.match(/ /) || []) : RegExpMatchArray
 >''.match(/ /) || [] : RegExpMatchArray
->''.match(/ /) : RegExpMatchArray | 空值
->''.match : (regexp: 文字 | RegExp) => RegExpMatchArray | 空值
+>''.match(/ /) : RegExpMatchArray | null
+>''.match : (regexp: string | RegExp) => RegExpMatchArray | null
 >'' : ""
->match : (regexp: 文字 | RegExp) => RegExpMatchArray | 空值
+>match : (regexp: string | RegExp) => RegExpMatchArray | null
 >/ / : RegExp
->[] : 不及[]
->map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
->s => s.toLowerCase() : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
->s.toLowerCase() : 文字
->类型别名 :=> 文字
->s.toLowerCase : () => 文字
->s : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>[] : never[]
+>map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
+>s => s.toLowerCase() : (s: string) => string
+>s : string
+>s.toLowerCase() : string
+>s.toLowerCase : () => string
+>s : string
+>toLowerCase : () => string
 
 // Similar cases
 
 function f1() {
->f1 : () => 无值
+>f1 : () => void
 
     let x = ''.match(/ /);
->x : RegExpMatchArray | 空值
->''.match(/ /) : RegExpMatchArray | 空值
->''.match : (regexp: 文字 | RegExp) => RegExpMatchArray | 空值
+>x : RegExpMatchArray | null
+>''.match(/ /) : RegExpMatchArray | null
+>''.match : (regexp: string | RegExp) => RegExpMatchArray | null
 >'' : ""
->match : (regexp: 文字 | RegExp) => RegExpMatchArray | 空值
+>match : (regexp: string | RegExp) => RegExpMatchArray | null
 >/ / : RegExp
 
     let y = x || [];
 >y : RegExpMatchArray
 >x || [] : RegExpMatchArray
->x : RegExpMatchArray | 空值
->[] : 不及[]
+>x : RegExpMatchArray | null
+>[] : never[]
 
     let z = y.map(s => s.toLowerCase());
->z : 文字[]
->y.map(s => s.toLowerCase()) : 文字[]
->y.map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
+>z : string[]
+>y.map(s => s.toLowerCase()) : string[]
+>y.map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
 >y : RegExpMatchArray
->map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
->s => s.toLowerCase() : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
->s.toLowerCase() : 文字
->类型别名 :=> 文字
->s.toLowerCase : () => 文字
->s : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
+>s => s.toLowerCase() : (s: string) => string
+>s : string
+>s.toLowerCase() : string
+>s.toLowerCase : () => string
+>s : string
+>toLowerCase : () => string
 }
 
 function f2() {
->f2 : () => 无值
+>f2 : () => void
 
     let x = ''.match(/ /);
->x : RegExpMatchArray | 空值
->''.match(/ /) : RegExpMatchArray | 空值
->''.match : (regexp: 文字 | RegExp) => RegExpMatchArray | 空值
+>x : RegExpMatchArray | null
+>''.match(/ /) : RegExpMatchArray | null
+>''.match : (regexp: string | RegExp) => RegExpMatchArray | null
 >'' : ""
->match : (regexp: 文字 | RegExp) => RegExpMatchArray | 空值
+>match : (regexp: string | RegExp) => RegExpMatchArray | null
 >/ / : RegExp
 
     let y = x ? x : [];
 >y : RegExpMatchArray
 >x ? x : [] : RegExpMatchArray
->x : RegExpMatchArray | 空值
+>x : RegExpMatchArray | null
 >x : RegExpMatchArray
->[] : 不及[]
+>[] : never[]
 
     let z = y.map(s => s.toLowerCase());
->z : 文字[]
->y.map(s => s.toLowerCase()) : 文字[]
->y.map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
+>z : string[]
+>y.map(s => s.toLowerCase()) : string[]
+>y.map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
 >y : RegExpMatchArray
->map : <U>(callbackfn: (value: 文字, index: 数字, array: 文字[]) => U, thisArg?: 任意) => U[]
->s => s.toLowerCase() : (s: 文字) => 文字
->s : 文字
->类型别名 :=> 文字
->s.toLowerCase() : 文字
->类型别名 :=> 文字
->s.toLowerCase : () => 文字
->s : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>map : <U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]
+>s => s.toLowerCase() : (s: string) => string
+>s : string
+>s.toLowerCase() : string
+>s.toLowerCase : () => string
+>s : string
+>toLowerCase : () => string
 }
 

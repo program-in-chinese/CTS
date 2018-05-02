@@ -3,8 +3,7 @@ class C {
 >C : C
 
    private x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 }
 class D extends C {}
@@ -15,106 +14,98 @@ class E {
 >E : E
 
    private y = 1;
->y : 数字
->类型别名 :=> 数字
+>y : number
 >1 : 1
 }
 function foo(x: "hi", items: string[]): D;
->foo : { (x: "hi", items: 文字[]): D; (x: "bye", items: 文字[]): E; }
+>foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
 >x : "hi"
->items : 文字[]
+>items : string[]
 >D : D
 
 function foo(x: "bye", items: string[]): E;
->foo : { (x: "hi", items: 文字[]): D; (x: "bye", items: 文字[]): E; }
+>foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
 >x : "bye"
->items : 文字[]
+>items : string[]
 >E : E
 
 function foo(x: string, items: string[]): C {
->foo : { (x: "hi", items: 文字[]): D; (x: "bye", items: 文字[]): E; }
->x : 文字
->类型别名 :=> 文字
->items : 文字[]
+>foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
+>x : string
+>items : string[]
 >C : C
 
    return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 var a: D = foo("hi", []); // D
 >a : D
 >D : D
 >foo("hi", []) : D
->foo : { (x: "hi", items: 文字[]): D; (x: "bye", items: 文字[]): E; }
+>foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
 >"hi" : "hi"
->[] : 未定[]
+>[] : undefined[]
 
 var b: E = foo("bye", []); // E 
 >b : E
 >E : E
 >foo("bye", []) : E
->foo : { (x: "hi", items: 文字[]): D; (x: "bye", items: 文字[]): E; }
+>foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
 >"bye" : "bye"
->[] : 未定[]
+>[] : undefined[]
 
 var c = foo("um", []); // error
->c : 任意
->类型别名 :=> 任意
->foo("um", []) : 任意
->类型别名 :=> 任意
->foo : { (x: "hi", items: 文字[]): D; (x: "bye", items: 文字[]): E; }
+>c : any
+>foo("um", []) : any
+>foo : { (x: "hi", items: string[]): D; (x: "bye", items: string[]): E; }
 >"um" : "um"
->[] : 未定[]
+>[] : undefined[]
 
 
 //function bar(x: "hi", items: string[]): D;
 function bar(x: "bye", items: string[]): E;
->bar : { (x: "bye", items: 文字[]): E; (x: 文字, items: 文字[]): C; }
+>bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
 >x : "bye"
->items : 文字[]
+>items : string[]
 >E : E
 
 function bar(x: string, items: string[]): C;
->bar : { (x: "bye", items: 文字[]): E; (x: 文字, items: 文字[]): C; }
->x : 文字
->类型别名 :=> 文字
->items : 文字[]
+>bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
+>x : string
+>items : string[]
 >C : C
 
 function bar(x: string, items: string[]): C {
->bar : { (x: "bye", items: 文字[]): E; (x: 文字, items: 文字[]): C; }
->x : 文字
->类型别名 :=> 文字
->items : 文字[]
+>bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
+>x : string
+>items : string[]
 >C : C
 
    return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
 }
 
 var d: D = bar("hi", []); // D
 >d : D
 >D : D
 >bar("hi", []) : C
->bar : { (x: "bye", items: 文字[]): E; (x: 文字, items: 文字[]): C; }
+>bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
 >"hi" : "hi"
->[] : 未定[]
+>[] : undefined[]
 
 var e: E = bar("bye", []); // E 
 >e : E
 >E : E
 >bar("bye", []) : E
->bar : { (x: "bye", items: 文字[]): E; (x: 文字, items: 文字[]): C; }
+>bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
 >"bye" : "bye"
->[] : 未定[]
+>[] : undefined[]
 
 var f: C = bar("um", []); // C
 >f : C
 >C : C
 >bar("um", []) : C
->bar : { (x: "bye", items: 文字[]): E; (x: 文字, items: 文字[]): C; }
+>bar : { (x: "bye", items: string[]): E; (x: string, items: string[]): C; }
 >"um" : "um"
->[] : 未定[]
+>[] : undefined[]
 

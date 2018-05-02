@@ -2,72 +2,47 @@
 // Repro from ##8913
 
 declare var require:any;
->require : 任意
->类型别名 :=> 任意
+>require : any
 
 var HTMLDOMPropertyConfig = require('react/lib/HTMLDOMPropertyConfig');
->HTMLDOMPropertyConfig : 任意
->类型别名 :=> 任意
->require('react/lib/HTMLDOMPropertyConfig') : 任意
->类型别名 :=> 任意
->require : 任意
->类型别名 :=> 任意
+>HTMLDOMPropertyConfig : any
+>require('react/lib/HTMLDOMPropertyConfig') : any
+>require : any
 >'react/lib/HTMLDOMPropertyConfig' : "react/lib/HTMLDOMPropertyConfig"
 
 // Populate property map with ReactJS's attribute and property mappings
 // TODO handle/use .Properties value eg: MUST_USE_PROPERTY is not HTML attr
 for (var propname in HTMLDOMPropertyConfig.Properties) {
->propname : 文字
->类型别名 :=> 文字
->HTMLDOMPropertyConfig.Properties : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig : 任意
->类型别名 :=> 任意
->Properties : 任意
->类型别名 :=> 任意
+>propname : string
+>HTMLDOMPropertyConfig.Properties : any
+>HTMLDOMPropertyConfig : any
+>Properties : any
 
   if (!HTMLDOMPropertyConfig.Properties.hasOwnProperty(propname)) {
->!HTMLDOMPropertyConfig.Properties.hasOwnProperty(propname) : 真假
->类型别名 :=> 真假
->HTMLDOMPropertyConfig.Properties.hasOwnProperty(propname) : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig.Properties.hasOwnProperty : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig.Properties : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig : 任意
->类型别名 :=> 任意
->Properties : 任意
->类型别名 :=> 任意
->hasOwnProperty : 任意
->类型别名 :=> 任意
->propname : 文字
->类型别名 :=> 文字
+>!HTMLDOMPropertyConfig.Properties.hasOwnProperty(propname) : boolean
+>HTMLDOMPropertyConfig.Properties.hasOwnProperty(propname) : any
+>HTMLDOMPropertyConfig.Properties.hasOwnProperty : any
+>HTMLDOMPropertyConfig.Properties : any
+>HTMLDOMPropertyConfig : any
+>Properties : any
+>hasOwnProperty : any
+>propname : string
 
     continue;
   }
 
   var mapFrom = HTMLDOMPropertyConfig.DOMAttributeNames[propname] || propname.toLowerCase();
->mapFrom : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig.DOMAttributeNames[propname] || propname.toLowerCase() : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig.DOMAttributeNames[propname] : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig.DOMAttributeNames : 任意
->类型别名 :=> 任意
->HTMLDOMPropertyConfig : 任意
->类型别名 :=> 任意
->DOMAttributeNames : 任意
->类型别名 :=> 任意
->propname : 文字
->类型别名 :=> 文字
->propname.toLowerCase() : 文字
->类型别名 :=> 文字
->propname.toLowerCase : () => 文字
->propname : 文字
->类型别名 :=> 文字
->toLowerCase : () => 文字
+>mapFrom : any
+>HTMLDOMPropertyConfig.DOMAttributeNames[propname] || propname.toLowerCase() : any
+>HTMLDOMPropertyConfig.DOMAttributeNames[propname] : any
+>HTMLDOMPropertyConfig.DOMAttributeNames : any
+>HTMLDOMPropertyConfig : any
+>DOMAttributeNames : any
+>propname : string
+>propname.toLowerCase() : string
+>propname.toLowerCase : () => string
+>propname : string
+>toLowerCase : () => string
 }
 
 /**
@@ -80,75 +55,55 @@ for (var propname in HTMLDOMPropertyConfig.Properties) {
  * @see http://jsperf.com/string-repeater/2
  */
 function repeatString(string, times) {
->repeatString : (string: 任意, times: 任意) => 任意
->string : 任意
->类型别名 :=> 任意
->times : 任意
->类型别名 :=> 任意
+>repeatString : (string: any, times: any) => any
+>string : any
+>times : any
 
   if (times === 1) {
->times === 1 : 真假
->类型别名 :=> 真假
->times : 任意
->类型别名 :=> 任意
+>times === 1 : boolean
+>times : any
 >1 : 1
 
     return string;
->string : 任意
->类型别名 :=> 任意
+>string : any
   }
   if (times < 0) { throw new Error(); }
->times < 0 : 真假
->类型别名 :=> 真假
->times : 任意
->类型别名 :=> 任意
+>times < 0 : boolean
+>times : any
 >0 : 0
 >new Error() : Error
 >Error : ErrorConstructor
 
   var repeated = '';
->repeated : 文字
->类型别名 :=> 文字
+>repeated : string
 >'' : ""
 
   while (times) {
->times : 任意
->类型别名 :=> 任意
+>times : any
 
     if (times & 1) {
->times & 1 : 数字
->类型别名 :=> 数字
->times : 任意
->类型别名 :=> 任意
+>times & 1 : number
+>times : any
 >1 : 1
 
       repeated += string;
->repeated += string : 文字
->类型别名 :=> 文字
->repeated : 文字
->类型别名 :=> 文字
->string : 任意
->类型别名 :=> 任意
+>repeated += string : string
+>repeated : string
+>string : any
     }
     if (times >>= 1) {
->times >>= 1 : 数字
->类型别名 :=> 数字
->times : 任意
->类型别名 :=> 任意
+>times >>= 1 : number
+>times : any
 >1 : 1
 
       string += string;
->string += string : 任意
->类型别名 :=> 任意
->string : 任意
->类型别名 :=> 任意
->string : 任意
->类型别名 :=> 任意
+>string += string : any
+>string : any
+>string : any
     }
   }
   return repeated;
->repeated : 文字
->类型别名 :=> 文字
+>repeated : string
 }
 
 /**
@@ -159,33 +114,21 @@ function repeatString(string, times) {
  * @return {boolean}
  */
 function endsWith(haystack, needle) {
->endsWith : (haystack: 任意, needle: 任意) => 真假
->haystack : 任意
->类型别名 :=> 任意
->needle : 任意
->类型别名 :=> 任意
+>endsWith : (haystack: any, needle: any) => boolean
+>haystack : any
+>needle : any
 
   return haystack.slice(-needle.length) === needle;
->haystack.slice(-needle.length) === needle : 真假
->类型别名 :=> 真假
->haystack.slice(-needle.length) : 任意
->类型别名 :=> 任意
->haystack.slice : 任意
->类型别名 :=> 任意
->haystack : 任意
->类型别名 :=> 任意
->slice : 任意
->类型别名 :=> 任意
->-needle.length : 数字
->类型别名 :=> 数字
->needle.length : 任意
->类型别名 :=> 任意
->needle : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
->needle : 任意
->类型别名 :=> 任意
+>haystack.slice(-needle.length) === needle : boolean
+>haystack.slice(-needle.length) : any
+>haystack.slice : any
+>haystack : any
+>slice : any
+>-needle.length : number
+>needle.length : any
+>needle : any
+>length : any
+>needle : any
 }
 
 /**
@@ -197,80 +140,54 @@ function endsWith(haystack, needle) {
  * @return {string}
  */
 function trimEnd(haystack, needle) {
->trimEnd : (haystack: 任意, needle: 任意) => 任意
->haystack : 任意
->类型别名 :=> 任意
->needle : 任意
->类型别名 :=> 任意
+>trimEnd : (haystack: any, needle: any) => any
+>haystack : any
+>needle : any
 
   return endsWith(haystack, needle)
->endsWith(haystack, needle)    ? haystack.slice(0, -needle.length)    : haystack : 任意
->类型别名 :=> 任意
->endsWith(haystack, needle) : 真假
->类型别名 :=> 真假
->endsWith : (haystack: 任意, needle: 任意) => 真假
->haystack : 任意
->类型别名 :=> 任意
->needle : 任意
->类型别名 :=> 任意
+>endsWith(haystack, needle)    ? haystack.slice(0, -needle.length)    : haystack : any
+>endsWith(haystack, needle) : boolean
+>endsWith : (haystack: any, needle: any) => boolean
+>haystack : any
+>needle : any
 
     ? haystack.slice(0, -needle.length)
->haystack.slice(0, -needle.length) : 任意
->类型别名 :=> 任意
->haystack.slice : 任意
->类型别名 :=> 任意
->haystack : 任意
->类型别名 :=> 任意
->slice : 任意
->类型别名 :=> 任意
+>haystack.slice(0, -needle.length) : any
+>haystack.slice : any
+>haystack : any
+>slice : any
 >0 : 0
->-needle.length : 数字
->类型别名 :=> 数字
->needle.length : 任意
->类型别名 :=> 任意
->needle : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>-needle.length : number
+>needle.length : any
+>needle : any
+>length : any
 
     : haystack;
->haystack : 任意
->类型别名 :=> 任意
+>haystack : any
 }
 
 /**
  * Convert a hyphenated string to camelCase.
  */
 function hyphenToCamelCase(string) {
->hyphenToCamelCase : (string: 任意) => 任意
->string : 任意
->类型别名 :=> 任意
+>hyphenToCamelCase : (string: any) => any
+>string : any
 
   return string.replace(/-(.)/g, function(match, chr) {
->string.replace(/-(.)/g, function(match, chr) {    return chr.toUpperCase();  }) : 任意
->类型别名 :=> 任意
->string.replace : 任意
->类型别名 :=> 任意
->string : 任意
->类型别名 :=> 任意
->replace : 任意
->类型别名 :=> 任意
+>string.replace(/-(.)/g, function(match, chr) {    return chr.toUpperCase();  }) : any
+>string.replace : any
+>string : any
+>replace : any
 >/-(.)/g : RegExp
->function(match, chr) {    return chr.toUpperCase();  } : (match: 任意, chr: 任意) => 任意
->match : 任意
->类型别名 :=> 任意
->chr : 任意
->类型别名 :=> 任意
+>function(match, chr) {    return chr.toUpperCase();  } : (match: any, chr: any) => any
+>match : any
+>chr : any
 
     return chr.toUpperCase();
->chr.toUpperCase() : 任意
->类型别名 :=> 任意
->chr.toUpperCase : 任意
->类型别名 :=> 任意
->chr : 任意
->类型别名 :=> 任意
->toUpperCase : 任意
->类型别名 :=> 任意
+>chr.toUpperCase() : any
+>chr.toUpperCase : any
+>chr : any
+>toUpperCase : any
 
   });
 }
@@ -279,20 +196,16 @@ function hyphenToCamelCase(string) {
  * Determines if the specified string consists entirely of whitespace.
  */
 function isEmpty(string) {
->isEmpty : (string: 任意) => 真假
->string : 任意
->类型别名 :=> 任意
+>isEmpty : (string: any) => boolean
+>string : any
 
    return !/[^\s]/.test(string);
->!/[^\s]/.test(string) : 真假
->类型别名 :=> 真假
->/[^\s]/.test(string) : 真假
->类型别名 :=> 真假
->/[^\s]/.test : (string: 文字) => 真假
+>!/[^\s]/.test(string) : boolean
+>/[^\s]/.test(string) : boolean
+>/[^\s]/.test : (string: string) => boolean
 >/[^\s]/ : RegExp
->test : (string: 文字) => 真假
->string : 任意
->类型别名 :=> 任意
+>test : (string: string) => boolean
+>string : any
 }
 
 /**
@@ -303,34 +216,28 @@ function isEmpty(string) {
  * @return {boolean}
  */
 function isConvertiblePixelValue(value) {
->isConvertiblePixelValue : (value: 任意) => 真假
->value : 任意
->类型别名 :=> 任意
+>isConvertiblePixelValue : (value: any) => boolean
+>value : any
 
   return /^\d+px$/.test(value);
->/^\d+px$/.test(value) : 真假
->类型别名 :=> 真假
->/^\d+px$/.test : (string: 文字) => 真假
+>/^\d+px$/.test(value) : boolean
+>/^\d+px$/.test : (string: string) => boolean
 >/^\d+px$/ : RegExp
->test : (string: 文字) => 真假
->value : 任意
->类型别名 :=> 任意
+>test : (string: string) => boolean
+>value : any
 }
 
 export class HTMLtoJSX {
 >HTMLtoJSX : HTMLtoJSX
 
     private output: string;
->output : 文字
->类型别名 :=> 文字
+>output : string
 
     private level: number;
->level : 数字
->类型别名 :=> 数字
+>level : number
 
     private _inPreTag: boolean;
->_inPreTag : 真假
->类型别名 :=> 真假
+>_inPreTag : boolean
 
 
   /**
@@ -339,51 +246,32 @@ export class HTMLtoJSX {
    * @param {TextNode} node
    */
   _visitText = (node) => {
->_visitText : (node: 任意) => 无值
->(node) => {    var parentTag = node.parentNode && node.parentNode.tagName.toLowerCase();    if (parentTag === 'textarea' || parentTag === 'style') {      // Ignore text content of textareas and styles, as it will have already been moved      // to a "defaultValue" attribute and "dangerouslySetInnerHTML" attribute respectively.      return;    }    var text = ''    if (this._inPreTag) {      // If this text is contained within a <pre>, we need to ensure the JSX      // whitespace coalescing rules don't eat the whitespace. This means      // wrapping newlines and sequences of two or more spaces in variables.      text = text        .replace(/\r/g, '')        .replace(/( {2,}|\n|\t|\{|\})/g, function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        });    } else {      // If there's a newline in the text, adjust the indent level      if (text.indexOf('\n') > -1) {      }    }    this.output += text;  } : (node: 任意) => 无值
->node : 任意
->类型别名 :=> 任意
+>_visitText : (node: any) => void
+>(node) => {    var parentTag = node.parentNode && node.parentNode.tagName.toLowerCase();    if (parentTag === 'textarea' || parentTag === 'style') {      // Ignore text content of textareas and styles, as it will have already been moved      // to a "defaultValue" attribute and "dangerouslySetInnerHTML" attribute respectively.      return;    }    var text = ''    if (this._inPreTag) {      // If this text is contained within a <pre>, we need to ensure the JSX      // whitespace coalescing rules don't eat the whitespace. This means      // wrapping newlines and sequences of two or more spaces in variables.      text = text        .replace(/\r/g, '')        .replace(/( {2,}|\n|\t|\{|\})/g, function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        });    } else {      // If there's a newline in the text, adjust the indent level      if (text.indexOf('\n') > -1) {      }    }    this.output += text;  } : (node: any) => void
+>node : any
 
     var parentTag = node.parentNode && node.parentNode.tagName.toLowerCase();
->parentTag : 任意
->类型别名 :=> 任意
->node.parentNode && node.parentNode.tagName.toLowerCase() : 任意
->类型别名 :=> 任意
->node.parentNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->parentNode : 任意
->类型别名 :=> 任意
->node.parentNode.tagName.toLowerCase() : 任意
->类型别名 :=> 任意
->node.parentNode.tagName.toLowerCase : 任意
->类型别名 :=> 任意
->node.parentNode.tagName : 任意
->类型别名 :=> 任意
->node.parentNode : 任意
->类型别名 :=> 任意
->node : 任意
->类型别名 :=> 任意
->parentNode : 任意
->类型别名 :=> 任意
->tagName : 任意
->类型别名 :=> 任意
->toLowerCase : 任意
->类型别名 :=> 任意
+>parentTag : any
+>node.parentNode && node.parentNode.tagName.toLowerCase() : any
+>node.parentNode : any
+>node : any
+>parentNode : any
+>node.parentNode.tagName.toLowerCase() : any
+>node.parentNode.tagName.toLowerCase : any
+>node.parentNode.tagName : any
+>node.parentNode : any
+>node : any
+>parentNode : any
+>tagName : any
+>toLowerCase : any
 
     if (parentTag === 'textarea' || parentTag === 'style') {
->parentTag === 'textarea' || parentTag === 'style' : 真假
->类型别名 :=> 真假
->parentTag === 'textarea' : 真假
->类型别名 :=> 真假
->parentTag : 任意
->类型别名 :=> 任意
+>parentTag === 'textarea' || parentTag === 'style' : boolean
+>parentTag === 'textarea' : boolean
+>parentTag : any
 >'textarea' : "textarea"
->parentTag === 'style' : 真假
->类型别名 :=> 真假
->parentTag : 任意
->类型别名 :=> 任意
+>parentTag === 'style' : boolean
+>parentTag : any
 >'style' : "style"
 
       // Ignore text content of textareas and styles, as it will have already been moved
@@ -392,88 +280,68 @@ export class HTMLtoJSX {
     }
 
     var text = ''
->text : 文字
->类型别名 :=> 文字
+>text : string
 >'' : ""
 
     if (this._inPreTag) {
->this._inPreTag : 真假
->类型别名 :=> 真假
->this : 本体
->_inPreTag : 真假
->类型别名 :=> 真假
+>this._inPreTag : boolean
+>this : this
+>_inPreTag : boolean
 
       // If this text is contained within a <pre>, we need to ensure the JSX
       // whitespace coalescing rules don't eat the whitespace. This means
       // wrapping newlines and sequences of two or more spaces in variables.
       text = text
->text = text        .replace(/\r/g, '')        .replace(/( {2,}|\n|\t|\{|\})/g, function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        }) : 文字
->类型别名 :=> 文字
->text : 文字
->类型别名 :=> 文字
->text        .replace(/\r/g, '')        .replace(/( {2,}|\n|\t|\{|\})/g, function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        }) : 文字
->类型别名 :=> 文字
->text        .replace(/\r/g, '')        .replace : { (searchValue: 文字 | RegExp, replaceValue: 文字): 文字; (searchValue: 文字 | RegExp, replacer: (substring: 文字, ...args: 任意[]) => 文字): 文字; }
->text        .replace(/\r/g, '') : 文字
->类型别名 :=> 文字
->text        .replace : { (searchValue: 文字 | RegExp, replaceValue: 文字): 文字; (searchValue: 文字 | RegExp, replacer: (substring: 文字, ...args: 任意[]) => 文字): 文字; }
->text : 文字
->类型别名 :=> 文字
+>text = text        .replace(/\r/g, '')        .replace(/( {2,}|\n|\t|\{|\})/g, function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        }) : string
+>text : string
+>text        .replace(/\r/g, '')        .replace(/( {2,}|\n|\t|\{|\})/g, function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        }) : string
+>text        .replace(/\r/g, '')        .replace : { (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }
+>text        .replace(/\r/g, '') : string
+>text        .replace : { (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }
+>text : string
 
         .replace(/\r/g, '')
->replace : { (searchValue: 文字 | RegExp, replaceValue: 文字): 文字; (searchValue: 文字 | RegExp, replacer: (substring: 文字, ...args: 任意[]) => 文字): 文字; }
+>replace : { (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }
 >/\r/g : RegExp
 >'' : ""
 
         .replace(/( {2,}|\n|\t|\{|\})/g, function(whitespace) {
->replace : { (searchValue: 文字 | RegExp, replaceValue: 文字): 文字; (searchValue: 文字 | RegExp, replacer: (substring: 文字, ...args: 任意[]) => 文字): 文字; }
+>replace : { (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }
 >/( {2,}|\n|\t|\{|\})/g : RegExp
->function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        } : (whitespace: 文字) => 文字
->whitespace : 文字
->类型别名 :=> 文字
+>function(whitespace) {          return '{' + JSON.stringify(whitespace) + '}';        } : (whitespace: string) => string
+>whitespace : string
 
           return '{' + JSON.stringify(whitespace) + '}';
->'{' + JSON.stringify(whitespace) + '}' : 文字
->类型别名 :=> 文字
->'{' + JSON.stringify(whitespace) : 文字
->类型别名 :=> 文字
+>'{' + JSON.stringify(whitespace) + '}' : string
+>'{' + JSON.stringify(whitespace) : string
 >'{' : "{"
->JSON.stringify(whitespace) : 文字
->类型别名 :=> 文字
->JSON.stringify : { (value: 任意, replacer?: (key: 文字, value: 任意) => 任意, space?: 文字 | 数字): 文字; (value: 任意, replacer?: (文字 | 数字)[], space?: 文字 | 数字): 文字; }
+>JSON.stringify(whitespace) : string
+>JSON.stringify : { (value: any, replacer?: (key: string, value: any) => any, space?: string | number): string; (value: any, replacer?: (string | number)[], space?: string | number): string; }
 >JSON : JSON
->stringify : { (value: 任意, replacer?: (key: 文字, value: 任意) => 任意, space?: 文字 | 数字): 文字; (value: 任意, replacer?: (文字 | 数字)[], space?: 文字 | 数字): 文字; }
->whitespace : 文字
->类型别名 :=> 文字
+>stringify : { (value: any, replacer?: (key: string, value: any) => any, space?: string | number): string; (value: any, replacer?: (string | number)[], space?: string | number): string; }
+>whitespace : string
 >'}' : "}"
 
         });
     } else {
       // If there's a newline in the text, adjust the indent level
       if (text.indexOf('\n') > -1) {
->text.indexOf('\n') > -1 : 真假
->类型别名 :=> 真假
->text.indexOf('\n') : 数字
->类型别名 :=> 数字
->text.indexOf : (searchString: 文字, position?: 数字) => 数字
->text : 文字
->类型别名 :=> 文字
->indexOf : (searchString: 文字, position?: 数字) => 数字
+>text.indexOf('\n') > -1 : boolean
+>text.indexOf('\n') : number
+>text.indexOf : (searchString: string, position?: number) => number
+>text : string
+>indexOf : (searchString: string, position?: number) => number
 >'\n' : "\n"
 >-1 : -1
 >1 : 1
       }
     }
     this.output += text;
->this.output += text : 文字
->类型别名 :=> 文字
->this.output : 文字
->类型别名 :=> 文字
->this : 本体
->output : 文字
->类型别名 :=> 文字
->text : 文字
->类型别名 :=> 文字
+>this.output += text : string
+>this.output : string
+>this : this
+>output : string
+>text : string
   }
 
 
@@ -491,28 +359,24 @@ export class StyleParser {
 >{} : {}
 
   toJSXString = () => {
->toJSXString : () => 无值
->() => {    for (var key in this.styles) {      if (!this.styles.hasOwnProperty(key)) {      }    }  } : () => 无值
+>toJSXString : () => void
+>() => {    for (var key in this.styles) {      if (!this.styles.hasOwnProperty(key)) {      }    }  } : () => void
 
     for (var key in this.styles) {
->key : 文字
->类型别名 :=> 文字
+>key : string
 >this.styles : {}
->this : 本体
+>this : this
 >styles : {}
 
       if (!this.styles.hasOwnProperty(key)) {
->!this.styles.hasOwnProperty(key) : 真假
->类型别名 :=> 真假
->this.styles.hasOwnProperty(key) : 真假
->类型别名 :=> 真假
->this.styles.hasOwnProperty : (v: 文字) => 真假
+>!this.styles.hasOwnProperty(key) : boolean
+>this.styles.hasOwnProperty(key) : boolean
+>this.styles.hasOwnProperty : (v: string) => boolean
 >this.styles : {}
->this : 本体
+>this : this
 >styles : {}
->hasOwnProperty : (v: 文字) => 真假
->key : 文字
->类型别名 :=> 文字
+>hasOwnProperty : (v: string) => boolean
+>key : string
       }
     }
   }

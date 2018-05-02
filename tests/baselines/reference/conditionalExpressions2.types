@@ -1,96 +1,68 @@
 === tests/cases/compiler/conditionalExpressions2.ts ===
 var a = false ? 1 : null;
->a : 数字
->类型别名 :=> 数字
+>a : number
 >false ? 1 : null : 1
->false : 为假
->类型别名 :=> 为假
+>false : false
 >1 : 1
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var b = false ? undefined : 0;
->b : 数字
->类型别名 :=> 数字
+>b : number
 >false ? undefined : 0 : 0
->false : 为假
->类型别名 :=> 为假
->undefined : 未定
->类型别名 :=> 未定
+>false : false
+>undefined : undefined
 >0 : 0
 
 var c = false ? 1 : 0;
->c : 数字
->类型别名 :=> 数字
+>c : number
 >false ? 1 : 0 : 1 | 0
->false : 为假
->类型别名 :=> 为假
+>false : false
 >1 : 1
 >0 : 0
 
 var d = false ? false : true;
->d : 真假
->类型别名 :=> 真假
->false ? false : true : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
->false : 为假
->类型别名 :=> 为假
->true : 为真
->类型别名 :=> 为真
+>d : boolean
+>false ? false : true : boolean
+>false : false
+>false : false
+>true : true
 
 var e = false ? "foo" : "bar";
->e : 文字
->类型别名 :=> 文字
+>e : string
 >false ? "foo" : "bar" : "foo" | "bar"
->false : 为假
->类型别名 :=> 为假
+>false : false
 >"foo" : "foo"
 >"bar" : "bar"
 
 var f = false ? null : undefined;
->f : 任意
->类型别名 :=> 任意
->false ? null : undefined : 空值
->类型别名 :=> 空值
->false : 为假
->类型别名 :=> 为假
->null : 空值
->类型别名 :=> 空值
->undefined : 未定
->类型别名 :=> 未定
+>f : any
+>false ? null : undefined : null
+>false : false
+>null : null
+>undefined : undefined
 
 var g = true ? {g:5} : null;
->g : { g: 数字; }
->true ? {g:5} : null : { g: 数字; }
->true : 为真
->类型别名 :=> 为真
->{g:5} : { g: 数字; }
->g : 数字
->类型别名 :=> 数字
+>g : { g: number; }
+>true ? {g:5} : null : { g: number; }
+>true : true
+>{g:5} : { g: number; }
+>g : number
 >5 : 5
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var h = [{h:5}, null];
->h : { h: 数字; }[]
->[{h:5}, null] : { h: 数字; }[]
->{h:5} : { h: 数字; }
->h : 数字
->类型别名 :=> 数字
+>h : { h: number; }[]
+>[{h:5}, null] : { h: number; }[]
+>{h:5} : { h: number; }
+>h : number
 >5 : 5
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 function i() { if (true) { return { x: 5 }; } else { return null; } }
->i : () => { x: 数字; }
->true : 为真
->类型别名 :=> 为真
->{ x: 5 } : { x: 数字; }
->x : 数字
->类型别名 :=> 数字
+>i : () => { x: number; }
+>true : true
+>{ x: 5 } : { x: number; }
+>x : number
 >5 : 5
->null : 空值
->类型别名 :=> 空值
+>null : null
 

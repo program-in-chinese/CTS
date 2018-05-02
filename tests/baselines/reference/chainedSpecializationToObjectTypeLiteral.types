@@ -4,8 +4,8 @@ interface Sequence<T> {
 >T : T
 
     each(iterator: (value: T) => void): void;
->each : (iterator: (value: T) => 无值) => 无值
->iterator : (value: T) => 无值
+>each : (iterator: (value: T) => void) => void
+>iterator : (value: T) => void
 >value : T
 >T : T
 
@@ -20,8 +20,8 @@ interface Sequence<T> {
 >U : U
 
     filter(iterator: (value: T) => boolean): Sequence<T>;
->filter : (iterator: (value: T) => 真假) => Sequence<T>
->iterator : (value: T) => 真假
+>filter : (iterator: (value: T) => boolean) => Sequence<T>
+>iterator : (value: T) => boolean
 >value : T
 >T : T
 >Sequence : Sequence<T>
@@ -42,38 +42,30 @@ interface Sequence<T> {
 }
 
 var s: Sequence<string>;
->s : Sequence<文字>
+>s : Sequence<string>
 >Sequence : Sequence<T>
 
 var s2 = s.groupBy(s => s.length);
->s2 : Sequence<{ key: 数字; items: 文字[]; }>
->s.groupBy(s => s.length) : Sequence<{ key: 数字; items: 文字[]; }>
->s.groupBy : <K>(keySelector: (value: 文字) => K) => Sequence<{ key: K; items: 文字[]; }>
->s : Sequence<文字>
->groupBy : <K>(keySelector: (value: 文字) => K) => Sequence<{ key: K; items: 文字[]; }>
->s => s.length : (s: 文字) => 数字
->s : 文字
->类型别名 :=> 文字
->s.length : 数字
->类型别名 :=> 数字
->s : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>s2 : Sequence<{ key: number; items: string[]; }>
+>s.groupBy(s => s.length) : Sequence<{ key: number; items: string[]; }>
+>s.groupBy : <K>(keySelector: (value: string) => K) => Sequence<{ key: K; items: string[]; }>
+>s : Sequence<string>
+>groupBy : <K>(keySelector: (value: string) => K) => Sequence<{ key: K; items: string[]; }>
+>s => s.length : (s: string) => number
+>s : string
+>s.length : number
+>s : string
+>length : number
 
 var s3 = s2.each(x => { x.key /* Type is K, should be number */ });
->s3 : 无值
->类型别名 :=> 无值
->s2.each(x => { x.key /* Type is K, should be number */ }) : 无值
->类型别名 :=> 无值
->s2.each : (iterator: (value: { key: 数字; items: 文字[]; }) => 无值) => 无值
->s2 : Sequence<{ key: 数字; items: 文字[]; }>
->each : (iterator: (value: { key: 数字; items: 文字[]; }) => 无值) => 无值
->x => { x.key /* Type is K, should be number */ } : (x: { key: 数字; items: 文字[]; }) => 无值
->x : { key: 数字; items: 文字[]; }
->x.key : 数字
->类型别名 :=> 数字
->x : { key: 数字; items: 文字[]; }
->key : 数字
->类型别名 :=> 数字
+>s3 : void
+>s2.each(x => { x.key /* Type is K, should be number */ }) : void
+>s2.each : (iterator: (value: { key: number; items: string[]; }) => void) => void
+>s2 : Sequence<{ key: number; items: string[]; }>
+>each : (iterator: (value: { key: number; items: string[]; }) => void) => void
+>x => { x.key /* Type is K, should be number */ } : (x: { key: number; items: string[]; }) => void
+>x : { key: number; items: string[]; }
+>x.key : number
+>x : { key: number; items: string[]; }
+>key : number
 

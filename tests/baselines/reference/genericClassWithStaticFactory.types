@@ -1,6 +1,6 @@
 === tests/cases/compiler/genericClassWithStaticFactory.ts ===
 module Editor {
->Editor : 类为 Editor
+>Editor : typeof Editor
 
     export class List<T> {
 >List : List<T>
@@ -22,18 +22,17 @@ module Editor {
 >T : T
 
         constructor(public isHead: boolean, public data: T) {
->isHead : 真假
->类型别名 :=> 真假
+>isHead : boolean
 >data : T
 >T : T
 
             this.listFactory = new ListFactory<T>();
 >this.listFactory = new ListFactory<T>() : ListFactory<T>
 >this.listFactory : ListFactory<T>
->this : 本体
+>this : this
 >listFactory : ListFactory<T>
 >new ListFactory<T>() : ListFactory<T>
->ListFactory : 类为 ListFactory
+>ListFactory : typeof ListFactory
 >T : T
            
         }
@@ -50,7 +49,7 @@ module Editor {
 >this.listFactory.MakeEntry(data) : List<T>
 >this.listFactory.MakeEntry : <T>(data: T) => List<T>
 >this.listFactory : ListFactory<T>
->this : 本体
+>this : this
 >listFactory : ListFactory<T>
 >MakeEntry : <T>(data: T) => List<T>
 >data : T
@@ -59,17 +58,17 @@ module Editor {
 >this.prev.next = entry : List<T>
 >this.prev.next : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 >next : List<T>
 >entry : List<T>
 
             entry.next = this;
->entry.next = this : 本体
+>entry.next = this : this
 >entry.next : List<T>
 >entry : List<T>
 >next : List<T>
->this : 本体
+>this : this
 
             entry.prev = this.prev;
 >entry.prev = this.prev : List<T>
@@ -77,13 +76,13 @@ module Editor {
 >entry : List<T>
 >prev : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 
             this.prev = entry;
 >this.prev = entry : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 >entry : List<T>
 
@@ -92,7 +91,7 @@ module Editor {
         }
 
         public count(): number {
->count : () => 数字
+>count : () => number
 
             var entry: List<T>;
 >entry : List<T>
@@ -100,34 +99,26 @@ module Editor {
 >T : T
 
             var i: number;
->i : 数字
->类型别名 :=> 数字
+>i : number
 
             entry = this.next;
 >entry = this.next : List<T>
 >entry : List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 
             for (i = 0; !(entry.isHead); i++) {
 >i = 0 : 0
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->!(entry.isHead) : 真假
->类型别名 :=> 真假
->(entry.isHead) : 真假
->类型别名 :=> 真假
->entry.isHead : 真假
->类型别名 :=> 真假
+>!(entry.isHead) : boolean
+>(entry.isHead) : boolean
+>entry.isHead : boolean
 >entry : List<T>
->isHead : 真假
->类型别名 :=> 真假
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>isHead : boolean
+>i++ : number
+>i : number
 
                 entry = entry.next;
 >entry = entry.next : List<T>
@@ -138,24 +129,20 @@ module Editor {
             }
 
             return (i);
->(i) : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>(i) : number
+>i : number
         }
 
         public isEmpty(): boolean {
->isEmpty : () => 真假
+>isEmpty : () => boolean
 
             return (this.next == this);
->(this.next == this) : 真假
->类型别名 :=> 真假
->this.next == this : 真假
->类型别名 :=> 真假
+>(this.next == this) : boolean
+>this.next == this : boolean
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
->this : 本体
+>this : this
         }
 
         public first(): T {
@@ -163,42 +150,36 @@ module Editor {
 >T : T
 
             if (this.isEmpty())
->this.isEmpty() : 真假
->类型别名 :=> 真假
->this.isEmpty : () => 真假
->this : 本体
->isEmpty : () => 真假
+>this.isEmpty() : boolean
+>this.isEmpty : () => boolean
+>this : this
+>isEmpty : () => boolean
             {
                 return this.next.data;
 >this.next.data : T
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 >data : T
             }
             else {
                 return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
             }
         }
 
         public pushEntry(entry: List<T>): void {
->pushEntry : (entry: List<T>) => 无值
+>pushEntry : (entry: List<T>) => void
 >entry : List<T>
 >List : List<T>
 >T : T
 
             entry.isHead = false;
->entry.isHead = false : 为假
->类型别名 :=> 为假
->entry.isHead : 真假
->类型别名 :=> 真假
+>entry.isHead = false : false
+>entry.isHead : boolean
 >entry : List<T>
->isHead : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>isHead : boolean
+>false : false
 
             entry.next = this.next;
 >entry.next = this.next : List<T>
@@ -206,20 +187,20 @@ module Editor {
 >entry : List<T>
 >next : List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 
             entry.prev = this;
->entry.prev = this : 本体
+>entry.prev = this : this
 >entry.prev : List<T>
 >entry : List<T>
 >prev : List<T>
->this : 本体
+>this : this
 
             this.next = entry;
 >this.next = entry : List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 >entry : List<T>
 
@@ -234,7 +215,7 @@ module Editor {
         }
 
         public push(data: T): void {
->push : (data: T) => 无值
+>push : (data: T) => void
 >data : T
 >T : T
 
@@ -243,7 +224,7 @@ module Editor {
 >this.listFactory.MakeEntry(data) : List<T>
 >this.listFactory.MakeEntry : <T>(data: T) => List<T>
 >this.listFactory : ListFactory<T>
->this : 本体
+>this : this
 >listFactory : ListFactory<T>
 >MakeEntry : <T>(data: T) => List<T>
 >data : T
@@ -256,15 +237,11 @@ module Editor {
 >data : T
 
             entry.isHead = false;
->entry.isHead = false : 为假
->类型别名 :=> 为假
->entry.isHead : 真假
->类型别名 :=> 真假
+>entry.isHead = false : false
+>entry.isHead : boolean
 >entry : List<T>
->isHead : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>isHead : boolean
+>false : false
 
             entry.next = this.next;
 >entry.next = this.next : List<T>
@@ -272,20 +249,20 @@ module Editor {
 >entry : List<T>
 >next : List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 
             entry.prev = this;
->entry.prev = this : 本体
+>entry.prev = this : this
 >entry.prev : List<T>
 >entry : List<T>
 >prev : List<T>
->this : 本体
+>this : this
 
             this.next = entry;
 >this.next = entry : List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 >entry : List<T>
 
@@ -308,28 +285,25 @@ module Editor {
 >T : T
 
             if (this.next.isHead) {
->this.next.isHead : 真假
->类型别名 :=> 真假
+>this.next.isHead : boolean
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
->isHead : 真假
->类型别名 :=> 真假
+>isHead : boolean
 
                 return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
             }
             else {
                 return this.listFactory.RemoveEntry(this.next);
 >this.listFactory.RemoveEntry(this.next) : List<T>
 >this.listFactory.RemoveEntry : <T>(entry: List<T>) => List<T>
 >this.listFactory : ListFactory<T>
->this : 本体
+>this : this
 >listFactory : ListFactory<T>
 >RemoveEntry : <T>(entry: List<T>) => List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
             }
         }
@@ -343,31 +317,27 @@ module Editor {
 >T : T
 
             entry.isHead = false;
->entry.isHead = false : 为假
->类型别名 :=> 为假
->entry.isHead : 真假
->类型别名 :=> 真假
+>entry.isHead = false : false
+>entry.isHead : boolean
 >entry : List<T>
->isHead : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>isHead : boolean
+>false : false
 
             this.prev.next = entry;
 >this.prev.next = entry : List<T>
 >this.prev.next : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 >next : List<T>
 >entry : List<T>
 
             entry.next = this;
->entry.next = this : 本体
+>entry.next = this : this
 >entry.next : List<T>
 >entry : List<T>
 >next : List<T>
->this : 本体
+>this : this
 
             entry.prev = this.prev;
 >entry.prev = this.prev : List<T>
@@ -375,13 +345,13 @@ module Editor {
 >entry : List<T>
 >prev : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 
             this.prev = entry;
 >this.prev = entry : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 >entry : List<T>
 
@@ -403,7 +373,7 @@ module Editor {
 >this.listFactory.MakeEntry(data) : List<T>
 >this.listFactory.MakeEntry : <T>(data: T) => List<T>
 >this.listFactory : ListFactory<T>
->this : 本体
+>this : this
 >listFactory : ListFactory<T>
 >MakeEntry : <T>(data: T) => List<T>
 >data : T
@@ -414,20 +384,20 @@ module Editor {
 >entry : List<T>
 >next : List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 
             entry.prev = this;
->entry.prev = this : 本体
+>entry.prev = this : this
 >entry.prev : List<T>
 >entry : List<T>
 >prev : List<T>
->this : 本体
+>this : this
 
             this.next = entry;
 >this.next = entry : List<T>
 >this.next : List<T>
->this : 本体
+>this : this
 >next : List<T>
 >entry : List<T>
 
@@ -456,17 +426,17 @@ module Editor {
 >this.prev.next = entry : List<T>
 >this.prev.next : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 >next : List<T>
 >entry : List<T>
 
             entry.next = this;
->entry.next = this : 本体
+>entry.next = this : this
 >entry.next : List<T>
 >entry : List<T>
 >next : List<T>
->this : 本体
+>this : this
 
             entry.prev = this.prev;
 >entry.prev = this.prev : List<T>
@@ -474,13 +444,13 @@ module Editor {
 >entry : List<T>
 >prev : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 
             this.prev = entry;
 >this.prev = entry : List<T>
 >this.prev : List<T>
->this : 本体
+>this : this
 >prev : List<T>
 >entry : List<T>
 
@@ -500,7 +470,7 @@ module Editor {
 >this.listFactory.MakeEntry(data) : List<T>
 >this.listFactory.MakeEntry : <T>(data: T) => List<T>
 >this.listFactory : ListFactory<T>
->this : 本体
+>this : this
 >listFactory : ListFactory<T>
 >MakeEntry : <T>(data: T) => List<T>
 >data : T
@@ -508,7 +478,7 @@ module Editor {
             return this.insertEntryBefore(entry);
 >this.insertEntryBefore(entry) : List<T>
 >this.insertEntryBefore : (entry: List<T>) => List<T>
->this : 本体
+>this : this
 >insertEntryBefore : (entry: List<T>) => List<T>
 >entry : List<T>
         }
@@ -529,12 +499,10 @@ module Editor {
 >List : List<T>
 >T : T
 >new List<T>(true, null) : List<T>
->List : 类为 List
+>List : typeof List
 >T : T
->true : 为真
->类型别名 :=> 为真
->null : 空值
->类型别名 :=> 空值
+>true : true
+>null : null
 
             entry.prev = entry;
 >entry.prev = entry : List<T>
@@ -567,10 +535,9 @@ module Editor {
 >List : List<T>
 >T : T
 >new List<T>(false, data) : List<T>
->List : 类为 List
+>List : typeof List
 >T : T
->false : 为假
->类型别名 :=> 为假
+>false : false
 >data : T
 
             entry.prev = entry;
@@ -601,27 +568,21 @@ module Editor {
 >T : T
 
             if (entry == null) {
->entry == null : 真假
->类型别名 :=> 真假
+>entry == null : boolean
 >entry : List<T>
->null : 空值
->类型别名 :=> 空值
+>null : null
 
                 return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
             }
             else if (entry.isHead) {
->entry.isHead : 真假
->类型别名 :=> 真假
+>entry.isHead : boolean
 >entry : List<T>
->isHead : 真假
->类型别名 :=> 真假
+>isHead : boolean
 
             // Can't remove the head of a list!
                 return null;
->null : 空值
->类型别名 :=> 空值
+>null : null
             }
             else {
                 entry.next.prev = entry.prev;

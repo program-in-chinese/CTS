@@ -1,8 +1,7 @@
 === tests/cases/compiler/constDeclarations-invalidContexts.ts ===
 // Errors, const must be defined inside a block
 if (true) 
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     const c1 = 0;
 >c1 : 0
@@ -14,8 +13,7 @@ else
 >0 : 0
 
 while (true) 
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     const c3 = 0;
 >c3 : 0
@@ -27,44 +25,33 @@ do
 >0 : 0
 
 while (true);
->true : 为真
->类型别名 :=> 为真
+>true : true
 
 var obj;
->obj : 任意
->类型别名 :=> 任意
+>obj : any
 
 with (obj) 
->obj : 任意
->类型别名 :=> 任意
+>obj : any
 
     const c5 = 0;  // No  Error will be reported here since we turn off all type checking
->c5 : 任意
->类型别名 :=> 任意
->0 : 任意
->类型别名 :=> 任意
+>c5 : any
+>0 : any
 
 for (var i = 0; i < 10; i++)
->i : 数字
->类型别名 :=> 数字
+>i : number
 >0 : 0
->i < 10 : 真假
->类型别名 :=> 真假
->i : 数字
->类型别名 :=> 数字
+>i < 10 : boolean
+>i : number
 >10 : 10
->i++ : 数字
->类型别名 :=> 数字
->i : 数字
->类型别名 :=> 数字
+>i++ : number
+>i : number
 
     const c6 = 0;
 >c6 : 0
 >0 : 0
 
 for (var i2 in {}) 
->i2 : 文字
->类型别名 :=> 文字
+>i2 : string
 >{} : {}
 
     const c7 = 0;
@@ -72,26 +59,20 @@ for (var i2 in {})
 >0 : 0
 
 if (true) 
->true : 为真
->类型别名 :=> 为真
+>true : true
 
     label: const c8 = 0;
->label : 任意
->类型别名 :=> 任意
+>label : any
 >c8 : 0
 >0 : 0
 
 while (false)
->false : 为假
->类型别名 :=> 为假
+>false : false
 
     label2: label3: label4: const c9 = 0;
->label2 : 任意
->类型别名 :=> 任意
->label3 : 任意
->类型别名 :=> 任意
->label4 : 任意
->类型别名 :=> 任意
+>label2 : any
+>label3 : any
+>label4 : any
 >c9 : 0
 >0 : 0
 

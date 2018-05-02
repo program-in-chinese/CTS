@@ -5,8 +5,7 @@ enum e1111 { One } // error
 >One : e1111
 
 var e1111 = 1; // error
->e1111 : 数字
->类型别名 :=> 数字
+>e1111 : number
 >1 : 1
 
 // enum then function
@@ -15,15 +14,15 @@ enum e2 { One } // error
 >One : e2
 
 function e2() { } // error
->e2 : () => 无值
+>e2 : () => void
 
 enum e3 { One } // error
 >e3 : e3
 >One : e3
 
 var e3 = () => { } // error
->e3 : () => 无值
->() => { } : () => 无值
+>e3 : () => void
+>() => { } : () => void
 
 // enum then class
 enum e4 { One } // error
@@ -32,7 +31,7 @@ enum e4 { One } // error
 
 class e4 { public foo() { } } // error
 >e4 : e4
->foo : () => 无值
+>foo : () => void
 
 // enum then enum
 enum e5 { One }
@@ -57,16 +56,15 @@ enum e6 { One }
 >One : e6
 
 module e6 { } // ok
->e6 : 类为 e6
+>e6 : typeof e6
 
 enum e6a { One }
 >e6a : e6a
 >One : e6a
 
 module e6a { var y = 2; } // should be error
->e6a : 类为 e6a
->y : 数字
->类型别名 :=> 数字
+>e6a : typeof e6a
+>y : number
 >2 : 2
 
 enum e6b { One }
@@ -74,9 +72,8 @@ enum e6b { One }
 >One : e6b
 
 module e6b { export var y = 2; } // should be error
->e6b : 类为 e6b
->y : 数字
->类型别名 :=> 数字
+>e6b : typeof e6b
+>y : number
 >2 : 2
 
 // enum then import, messes with error reporting

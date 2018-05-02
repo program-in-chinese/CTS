@@ -2,21 +2,20 @@
 ///<reference path="file.tsx" />
 // Should keep s1 and elide s2
 import s1 = require('elements1');
->s1 : 类为 s1
+>s1 : typeof s1
 
 import s2 = require('elements2');
->s2 : 类为 s2
+>s2 : typeof s2
 
 <s1.MyElement />;
 ><s1.MyElement /> : JSX.Element
->s1.MyElement : 类为 s1.MyElement
->s1 : 类为 s1
->MyElement : 类为 s1.MyElement
+>s1.MyElement : typeof s1.MyElement
+>s1 : typeof s1
+>MyElement : typeof s1.MyElement
 
 === tests/cases/conformance/jsx/file.tsx ===
 declare module JSX {
->JSX : 任意
->类型别名 :=> 任意
+>JSX : any
 
 	interface Element { }
 >Element : Element
@@ -26,6 +25,8 @@ declare module JSX {
 }
 
 declare module 'elements1' {
+>'elements1' : typeof 'elements1'
+
 	class MyElement {
 >MyElement : MyElement
 
@@ -33,6 +34,8 @@ declare module 'elements1' {
 }
 
 declare module 'elements2' {
+>'elements2' : typeof 'elements2'
+
 	class MyElement {
 >MyElement : MyElement
 

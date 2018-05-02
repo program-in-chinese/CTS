@@ -1,7 +1,6 @@
 === tests/cases/compiler/express.d.ts ===
 declare module Express {
->Express : 任意
->类型别名 :=> 任意
+>Express : any
 
     export interface Request { }
 >Request : Request
@@ -14,14 +13,15 @@ declare module Express {
 }
 
 declare module "express" {
+>"express" : typeof "express"
+
     function e(): e.Express;
->e : 类为 e
->e : 任意
->类型别名 :=> 任意
+>e : typeof e
+>e : any
 >Express : Express
 
     namespace e {
->e : 类为 e
+>e : typeof e
 
         interface IRoute {
 >IRoute : IRoute
@@ -38,7 +38,7 @@ declare module "express" {
 >T : T
 
             (name: string|RegExp, ...handlers: RequestHandler[]): T;
->name : 文字 | RegExp
+>name : string | RegExp
 >RegExp : RegExp
 >handlers : RequestHandler[]
 >RequestHandler : RequestHandler
@@ -51,16 +51,14 @@ declare module "express" {
 >RequestHandler : RequestHandler
 
             route(path: string): IRoute;
->route : (path: 文字) => IRoute
->path : 文字
->类型别名 :=> 文字
+>route : (path: string) => IRoute
+>path : string
 >IRoute : IRoute
         }
 
         export function Router(options?: any): Router;
->Router : (options?: 任意) => Router
->options : 任意
->类型别名 :=> 任意
+>Router : (options?: any) => Router
+>options : any
 >Router : Router
 
         export interface Router extends IRouter<Router> {}
@@ -75,37 +73,30 @@ declare module "express" {
 
         interface Request extends Express.Request {
 >Request : Request
->Express.Request : 任意
->类型别名 :=> 任意
->Express : 任意
->类型别名 :=> 任意
+>Express.Request : any
+>Express : any
 >Request : Express.Request
 
             get (name: string): string;
->get : (name: 文字) => 文字
->name : 文字
->类型别名 :=> 文字
+>get : (name: string) => string
+>name : string
         }
 
         interface Response extends Express.Response {
 >Response : Response
->Express.Response : 任意
->类型别名 :=> 任意
->Express : 任意
->类型别名 :=> 任意
+>Express.Response : any
+>Express : any
 >Response : Express.Response
 
             charset: string;
->charset : 文字
->类型别名 :=> 文字
+>charset : string
         }
 
         interface ErrorRequestHandler {
 >ErrorRequestHandler : ErrorRequestHandler
 
             (err: any, req: Request, res: Response, next: Function): any;
->err : 任意
->类型别名 :=> 任意
+>err : any
 >req : Request
 >Request : Request
 >res : Response
@@ -140,23 +131,19 @@ declare module "express" {
 >Response : Response
 >next : Function
 >Function : Function
->param : 任意
->类型别名 :=> 任意
+>param : any
         }
 
         interface Application extends IRouter<Application>, Express.Application {
 >Application : Application
 >IRouter : IRouter<T>
 >Application : Application
->Express.Application : 任意
->类型别名 :=> 任意
->Express : 任意
->类型别名 :=> 任意
+>Express.Application : any
+>Express : any
 >Application : Express.Application
 
             routes: any;
->routes : 任意
->类型别名 :=> 任意
+>routes : any
         }
 
         interface Express extends Application {
@@ -169,33 +156,32 @@ declare module "express" {
         }
 
         var static: any;
->static : 任意
->类型别名 :=> 任意
+>static : any
     }
 
     export = e;
->e : 类为 e
+>e : typeof e
 }
 
 === tests/cases/compiler/augmentation.ts ===
 /// <reference path="express.d.ts"/>
 import * as e from "express";
->e : 类为 e
+>e : typeof e
 
 declare module "express" {
+>"express" : typeof e
+
     interface Request {
 >Request : Request
 
         id: number;
->id : 数字
->类型别名 :=> 数字
+>id : number
     }
 }
 
 === tests/cases/compiler/consumer.ts ===
 import { Request } from "express";
->Request : 任意
->类型别名 :=> 任意
+>Request : any
 
 import "./augmentation";
 let x: Request;
@@ -203,11 +189,8 @@ let x: Request;
 >Request : Request
 
 const y = x.id;
->y : 数字
->类型别名 :=> 数字
->x.id : 数字
->类型别名 :=> 数字
+>y : number
+>x.id : number
 >x : Request
->id : 数字
->类型别名 :=> 数字
+>id : number
 

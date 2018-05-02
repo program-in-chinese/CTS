@@ -11,7 +11,7 @@ interface I<T, U> {
 } 
 
 var i1: I<string, number>;
->i1 : I<文字, 数字>
+>i1 : I<string, number>
 >I : I<T, U>
 
 var i2: I<{}, {}>;
@@ -20,99 +20,92 @@ var i2: I<{}, {}>;
 
 // no error
 i1.tuple1 = ["foo", 5];
->i1.tuple1 = ["foo", 5] : [文字, 数字]
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
->["foo", 5] : [文字, 数字]
+>i1.tuple1 = ["foo", 5] : [string, number]
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
+>["foo", 5] : [string, number]
 >"foo" : "foo"
 >5 : 5
 
 var e1 = i1.tuple1[0];  // string
->e1 : 文字
->类型别名 :=> 文字
->i1.tuple1[0] : 文字
->类型别名 :=> 文字
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
+>e1 : string
+>i1.tuple1[0] : string
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
 >0 : 0
 
 var e2 = i1.tuple1[1];  // number
->e2 : 数字
->类型别名 :=> 数字
->i1.tuple1[1] : 数字
->类型别名 :=> 数字
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
+>e2 : number
+>i1.tuple1[1] : number
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
 >1 : 1
 
 i1.tuple1 = ["foo", 5, false, true];
->i1.tuple1 = ["foo", 5, false, true] : [文字, 数字, 真假, 真假]
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
->["foo", 5, false, true] : [文字, 数字, 真假, 真假]
+>i1.tuple1 = ["foo", 5, false, true] : [string, number, boolean, boolean]
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
+>["foo", 5, false, true] : [string, number, boolean, boolean]
 >"foo" : "foo"
 >5 : 5
->false : 为假
->类型别名 :=> 为假
->true : 为真
->类型别名 :=> 为真
+>false : false
+>true : true
 
 var e3 = i1.tuple1[2];  // {}
->e3 : 文字 | 数字
->i1.tuple1[2] : 文字 | 数字
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
+>e3 : string | number
+>i1.tuple1[2] : string | number
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
 >2 : 2
 
 i1.tuple1[3] = { a: "string" };
->i1.tuple1[3] = { a: "string" } : { a: 文字; }
->i1.tuple1[3] : 文字 | 数字
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
+>i1.tuple1[3] = { a: "string" } : { a: string; }
+>i1.tuple1[3] : string | number
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
 >3 : 3
->{ a: "string" } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: "string" } : { a: string; }
+>a : string
 >"string" : "string"
 
 var e4 = i1.tuple1[3];  // {}
->e4 : 文字 | 数字
->i1.tuple1[3] : 文字 | 数字
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
+>e4 : string | number
+>i1.tuple1[3] : string | number
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
 >3 : 3
 
 i2.tuple1 = ["foo", 5];
->i2.tuple1 = ["foo", 5] : [文字, 数字]
+>i2.tuple1 = ["foo", 5] : [string, number]
 >i2.tuple1 : [{}, {}]
 >i2 : I<{}, {}>
 >tuple1 : [{}, {}]
->["foo", 5] : [文字, 数字]
+>["foo", 5] : [string, number]
 >"foo" : "foo"
 >5 : 5
 
 i2.tuple1 = ["foo", "bar"];
->i2.tuple1 = ["foo", "bar"] : [文字, 文字]
+>i2.tuple1 = ["foo", "bar"] : [string, string]
 >i2.tuple1 : [{}, {}]
 >i2 : I<{}, {}>
 >tuple1 : [{}, {}]
->["foo", "bar"] : [文字, 文字]
+>["foo", "bar"] : [string, string]
 >"foo" : "foo"
 >"bar" : "bar"
 
 i2.tuple1 = [5, "bar"];
->i2.tuple1 = [5, "bar"] : [数字, 文字]
+>i2.tuple1 = [5, "bar"] : [number, string]
 >i2.tuple1 : [{}, {}]
 >i2 : I<{}, {}>
 >tuple1 : [{}, {}]
->[5, "bar"] : [数字, 文字]
+>[5, "bar"] : [number, string]
 >5 : 5
 >"bar" : "bar"
 
@@ -127,19 +120,19 @@ i2.tuple1 = [{}, {}];
 
 // error
 i1.tuple1 = [5, "foo"];
->i1.tuple1 = [5, "foo"] : [数字, 文字]
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
->[5, "foo"] : [数字, 文字]
+>i1.tuple1 = [5, "foo"] : [number, string]
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
+>[5, "foo"] : [number, string]
 >5 : 5
 >"foo" : "foo"
 
 i1.tuple1 = [{}, {}];
 >i1.tuple1 = [{}, {}] : [{}, {}]
->i1.tuple1 : [文字, 数字]
->i1 : I<文字, 数字>
->tuple1 : [文字, 数字]
+>i1.tuple1 : [string, number]
+>i1 : I<string, number>
+>tuple1 : [string, number]
 >[{}, {}] : [{}, {}]
 >{} : {}
 >{} : {}

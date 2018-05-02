@@ -4,26 +4,24 @@ class clodule<T> {
 >T : T
 
     id: string;
->id : 文字
->类型别名 :=> 文字
+>id : string
 
     value: T;
 >value : T
 >T : T
 
     private static sfn(id: string) { return 42; }
->sfn : (id: 文字) => 数字
->id : 文字
->类型别名 :=> 文字
+>sfn : (id: string) => number
+>id : string
 >42 : 42
 }
 
 module clodule {
->clodule : 类为 clodule
+>clodule : typeof clodule
 
     // error: duplicate identifier expected
     export function fn<T>(x: T, y: T): number {
->fn : <T>(x: T, y: T) => 数字
+>fn : <T>(x: T, y: T) => number
 >T : T
 >x : T
 >T : T
@@ -31,11 +29,10 @@ module clodule {
 >T : T
 
         return clodule.sfn('a');
->clodule.sfn('a') : 数字
->类型别名 :=> 数字
->clodule.sfn : (id: 文字) => 数字
->clodule : 类为 clodule
->sfn : (id: 文字) => 数字
+>clodule.sfn('a') : number
+>clodule.sfn : (id: string) => number
+>clodule : typeof clodule
+>sfn : (id: string) => number
 >'a' : "a"
     }
 }

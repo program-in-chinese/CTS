@@ -3,47 +3,38 @@ class Bug {
 >Bug : Bug
 
     private name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     private static func: Function[] = [
 >func : Function[]
 >Function : Function
->[     (that: Bug, name: string) => {         that.foo(name);     }    ] : ((that: Bug, name: 文字) => 无值)[]
+>[     (that: Bug, name: string) => {         that.foo(name);     }    ] : ((that: Bug, name: string) => void)[]
 
      (that: Bug, name: string) => {
->(that: Bug, name: string) => {         that.foo(name);     } : (that: Bug, name: 文字) => 无值
+>(that: Bug, name: string) => {         that.foo(name);     } : (that: Bug, name: string) => void
 >that : Bug
 >Bug : Bug
->name : 文字
->类型别名 :=> 文字
+>name : string
 
          that.foo(name);
->that.foo(name) : 无值
->类型别名 :=> 无值
->that.foo : (name: 文字) => 无值
+>that.foo(name) : void
+>that.foo : (name: string) => void
 >that : Bug
->foo : (name: 文字) => 无值
->name : 文字
->类型别名 :=> 文字
+>foo : (name: string) => void
+>name : string
      }
     ];
 
     private foo(name: string) {
->foo : (name: 文字) => 无值
->name : 文字
->类型别名 :=> 文字
+>foo : (name: string) => void
+>name : string
 
         this.name = name;
->this.name = name : 文字
->类型别名 :=> 文字
->this.name : 文字
->类型别名 :=> 文字
->this : 本体
->name : 文字
->类型别名 :=> 文字
->name : 文字
->类型别名 :=> 文字
+>this.name = name : string
+>this.name : string
+>this : this
+>name : string
+>name : string
     }
 }
 
@@ -52,70 +43,64 @@ class A {
 >A : A
 
     prop1 = function() {
->prop1 : () => 无值
->function() {        this;    } : () => 无值
+>prop1 : () => void
+>function() {        this;    } : () => void
 
         this;
->this : 任意
->类型别名 :=> 任意
+>this : any
 
     };
 
     prop2 = function() {
->prop2 : () => 无值
->function() {        function inner() {            this;        }        () => this;    } : () => 无值
+>prop2 : () => void
+>function() {        function inner() {            this;        }        () => this;    } : () => void
 
         function inner() {
->inner : () => 无值
+>inner : () => void
 
             this;
->this : 任意
->类型别名 :=> 任意
+>this : any
         }
         () => this;
->() => this : () => 任意
->this : 任意
->类型别名 :=> 任意
+>() => this : () => any
+>this : any
 
     };
 
     prop3 = () => {
->prop3 : () => 无值
->() => {        function inner() {            this;        }    } : () => 无值
+>prop3 : () => void
+>() => {        function inner() {            this;        }    } : () => void
 
         function inner() {
->inner : () => 无值
+>inner : () => void
 
             this;
->this : 任意
->类型别名 :=> 任意
+>this : any
         }
     };
 
     prop4 = {
->prop4 : { a: () => 任意; }
->{        a: function() { return this; },    } : { a: () => 任意; }
+>prop4 : { a: () => any; }
+>{        a: function() { return this; },    } : { a: () => any; }
 
         a: function() { return this; },
->a : () => 任意
->function() { return this; } : () => 任意
->this : 任意
->类型别名 :=> 任意
+>a : () => any
+>function() { return this; } : () => any
+>this : any
 
     };
 
     prop5 = () => {
->prop5 : () => { a: () => 任意; }
->() => {        return {            a: function() { return this; },        };    } : () => { a: () => 任意; }
+>prop5 : () => { a: () => any; }
+>() => {        return {            a: function() { return this; },        };    } : () => { a: () => any; }
 
         return {
->{            a: function() { return this; },        } : { a: () => 任意; }
+>{            a: function() { return this; },        } : { a: () => any; }
 
             a: function() { return this; },
->a : () => 任意
->function() { return this; } : () => 任意
->this : 任意
->类型别名 :=> 任意
+>a : () => any
+>function() { return this; } : () => any
+>this : any
 
         };
     };
@@ -125,69 +110,65 @@ class B {
 >B : B
 
     prop1 = this;
->prop1 : 本体
->this : 本体
+>prop1 : this
+>this : this
 
     prop2 = () => this;
->prop2 : () => 本体
->() => this : () => 本体
->this : 本体
+>prop2 : () => this
+>() => this : () => this
+>this : this
 
     prop3 = () => () => () => () => this;
->prop3 : () => () => () => () => 本体
->() => () => () => () => this : () => () => () => () => 本体
->() => () => () => this : () => () => () => 本体
->() => () => this : () => () => 本体
->() => this : () => 本体
->this : 本体
+>prop3 : () => () => () => () => this
+>() => () => () => () => this : () => () => () => () => this
+>() => () => () => this : () => () => () => this
+>() => () => this : () => () => this
+>() => this : () => this
+>this : this
 
     prop4 = '  ' +
->prop4 : 文字
->类型别名 :=> 文字
->'  ' +    function() {    } +    ' ' +    (() => () => () => this) : 文字
->类型别名 :=> 文字
->'  ' +    function() {    } +    ' ' : 文字
->类型别名 :=> 文字
->'  ' +    function() {    } : 文字
->类型别名 :=> 文字
+>prop4 : string
+>'  ' +    function() {    } +    ' ' +    (() => () => () => this) : string
+>'  ' +    function() {    } +    ' ' : string
+>'  ' +    function() {    } : string
 >'  ' : "  "
 
     function() {
->function() {    } : () => 无值
+>function() {    } : () => void
 
     } +
     ' ' +
 >' ' : " "
 
     (() => () => () => this);
->(() => () => () => this) : () => () => () => 本体
->() => () => () => this : () => () => () => 本体
->() => () => this : () => () => 本体
->() => this : () => 本体
->this : 本体
+>(() => () => () => this) : () => () => () => this
+>() => () => () => this : () => () => () => this
+>() => () => this : () => () => this
+>() => this : () => this
+>this : this
 
     prop5 = {
->prop5 : { a: () => 本体; }
->{        a: () => { return this; }    } : { a: () => 本体; }
+>prop5 : { a: () => this; }
+>{        a: () => { return this; }    } : { a: () => this; }
 
         a: () => { return this; }
->a : () => 本体
->() => { return this; } : () => 本体
->this : 本体
+>a : () => this
+>() => { return this; } : () => this
+>this : this
 
     };
 
     prop6 = () => {
->prop6 : () => { a: () => 本体; }
->() => {        return {            a: () => { return this; }        };    } : () => { a: () => 本体; }
+>prop6 : () => { a: () => this; }
+>() => {        return {            a: () => { return this; }        };    } : () => { a: () => this; }
 
         return {
->{            a: () => { return this; }        } : { a: () => 本体; }
+>{            a: () => { return this; }        } : { a: () => this; }
 
             a: () => { return this; }
->a : () => 本体
->() => { return this; } : () => 本体
->this : 本体
+>a : () => this
+>() => { return this; } : () => this
+>this : this
 
         };
     };

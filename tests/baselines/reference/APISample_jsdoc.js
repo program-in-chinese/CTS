@@ -8,7 +8,7 @@
 
 declare var console: any;
 
-import * as ts from "ctsScript";
+import * as ts from "typescript";
 
 // excerpted from https://github.com/YousefED/typescript-json-schema
 // (converted from a method and modified; for example, `this: any` to compensate, among other changes)
@@ -21,7 +21,7 @@ function parseCommentsIntoDefinition(this: any,
     }
 
     // the comments for a symbol
-    let comments = symbol.getDocumentationComment();
+    let comments = symbol.getDocumentationComment(undefined);
 
     if (comments.length) {
         definition.description = comments.map(comment => comment.kind === "lineBreak" ? comment.text : comment.text.trim().replace(/\r\n/g, "\n")).join("");
@@ -122,7 +122,7 @@ function getSomeOtherTags(node: ts.Node) {
  *       Please log a "breaking change" issue for any API breaking change affecting this issue
  */
 exports.__esModule = true;
-var ts = require("ctsScript");
+var ts = require("typescript");
 // excerpted from https://github.com/YousefED/typescript-json-schema
 // (converted from a method and modified; for example, `this: any` to compensate, among other changes)
 function parseCommentsIntoDefinition(symbol, definition, otherAnnotations) {
@@ -131,7 +131,7 @@ function parseCommentsIntoDefinition(symbol, definition, otherAnnotations) {
         return;
     }
     // the comments for a symbol
-    var comments = symbol.getDocumentationComment();
+    var comments = symbol.getDocumentationComment(undefined);
     if (comments.length) {
         definition.description = comments.map(function (comment) { return comment.kind === "lineBreak" ? comment.text : comment.text.trim().replace(/\r\n/g, "\n"); }).join("");
     }

@@ -5,48 +5,38 @@ class C<T extends Date> {
 >Date : Date
 
     f() {
->f : () => 任意
+>f : () => any
 
         var x: T;
 >x : T
 >T : T
 
         var a = x['notHere'](); // should be string
->a : 任意
->类型别名 :=> 任意
->x['notHere']() : 任意
->类型别名 :=> 任意
->x['notHere'] : 任意
->类型别名 :=> 任意
+>a : any
+>x['notHere']() : any
+>x['notHere'] : any
 >x : T
 >'notHere' : "notHere"
 
         return a + x.notHere();
->a + x.notHere() : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->x.notHere() : 任意
->类型别名 :=> 任意
->x.notHere : 任意
->类型别名 :=> 任意
+>a + x.notHere() : any
+>a : any
+>x.notHere() : any
+>x.notHere : any
 >x : T
->notHere : 任意
->类型别名 :=> 任意
+>notHere : any
     }
 }
 
 var r = (new C<Date>()).f();
->r : 任意
->类型别名 :=> 任意
->(new C<Date>()).f() : 任意
->类型别名 :=> 任意
->(new C<Date>()).f : () => 任意
+>r : any
+>(new C<Date>()).f() : any
+>(new C<Date>()).f : () => any
 >(new C<Date>()) : C<Date>
 >new C<Date>() : C<Date>
->C : 类为 C
+>C : typeof C
 >Date : Date
->f : () => 任意
+>f : () => any
 
 interface I<T extends Date> {
 >I : I<T>
@@ -63,32 +53,25 @@ var i: I<Date>;
 >Date : Date
 
 var r2 = i.foo.notHere();
->r2 : 任意
->类型别名 :=> 任意
->i.foo.notHere() : 任意
->类型别名 :=> 任意
->i.foo.notHere : 任意
->类型别名 :=> 任意
+>r2 : any
+>i.foo.notHere() : any
+>i.foo.notHere : any
 >i.foo : Date
 >i : I<Date>
 >foo : Date
->notHere : 任意
->类型别名 :=> 任意
+>notHere : any
 
 var r2b = i.foo['notHere']();
->r2b : 任意
->类型别名 :=> 任意
->i.foo['notHere']() : 任意
->类型别名 :=> 任意
->i.foo['notHere'] : 任意
->类型别名 :=> 任意
+>r2b : any
+>i.foo['notHere']() : any
+>i.foo['notHere'] : any
 >i.foo : Date
 >i : I<Date>
 >foo : Date
 >'notHere' : "notHere"
 
 var a: {
->a : <T 扩展 Date>() => T
+>a : <T extends Date>() => T
 
     <T extends Date>(): T;
 >T : T
@@ -96,36 +79,28 @@ var a: {
 >T : T
 }
 var r3: string = a().notHere();
->r3 : 文字
->类型别名 :=> 文字
->a().notHere() : 任意
->类型别名 :=> 任意
->a().notHere : 任意
->类型别名 :=> 任意
+>r3 : string
+>a().notHere() : any
+>a().notHere : any
 >a() : Date
->a : <T 扩展 Date>() => T
->notHere : 任意
->类型别名 :=> 任意
+>a : <T extends Date>() => T
+>notHere : any
 
 var r3b: string = a()['notHere']();
->r3b : 文字
->类型别名 :=> 文字
->a()['notHere']() : 任意
->类型别名 :=> 任意
->a()['notHere'] : 任意
->类型别名 :=> 任意
+>r3b : string
+>a()['notHere']() : any
+>a()['notHere'] : any
 >a() : Date
->a : <T 扩展 Date>() => T
+>a : <T extends Date>() => T
 >'notHere' : "notHere"
 
 var b = {
->b : 任意
->类型别名 :=> 任意
->{    foo: <T extends Date>(x: T): T => {        var a = x['notHere'](); // should be string        return a + x.notHere();    },    bar: b.foo().notHere()} : { foo: <T 扩展 Date>(x: T) => T; bar: 任意; }
+>b : any
+>{    foo: <T extends Date>(x: T): T => {        var a = x['notHere'](); // should be string        return a + x.notHere();    },    bar: b.foo().notHere()} : { foo: <T extends Date>(x: T) => T; bar: any; }
 
     foo: <T extends Date>(x: T): T => {
->foo : <T 扩展 Date>(x: T) => T
-><T extends Date>(x: T): T => {        var a = x['notHere'](); // should be string        return a + x.notHere();    } : <T 扩展 Date>(x: T) => T
+>foo : <T extends Date>(x: T) => T
+><T extends Date>(x: T): T => {        var a = x['notHere'](); // should be string        return a + x.notHere();    } : <T extends Date>(x: T) => T
 >T : T
 >Date : Date
 >x : T
@@ -133,59 +108,38 @@ var b = {
 >T : T
 
         var a = x['notHere'](); // should be string
->a : 任意
->类型别名 :=> 任意
->x['notHere']() : 任意
->类型别名 :=> 任意
->x['notHere'] : 任意
->类型别名 :=> 任意
+>a : any
+>x['notHere']() : any
+>x['notHere'] : any
 >x : T
 >'notHere' : "notHere"
 
         return a + x.notHere();
->a + x.notHere() : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
->x.notHere() : 任意
->类型别名 :=> 任意
->x.notHere : 任意
->类型别名 :=> 任意
+>a + x.notHere() : any
+>a : any
+>x.notHere() : any
+>x.notHere : any
 >x : T
->notHere : 任意
->类型别名 :=> 任意
+>notHere : any
 
     },
     bar: b.foo().notHere()
->bar : 任意
->类型别名 :=> 任意
->b.foo().notHere() : 任意
->类型别名 :=> 任意
->b.foo().notHere : 任意
->类型别名 :=> 任意
->b.foo() : 任意
->类型别名 :=> 任意
->b.foo : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
->notHere : 任意
->类型别名 :=> 任意
+>bar : any
+>b.foo().notHere() : any
+>b.foo().notHere : any
+>b.foo() : any
+>b.foo : any
+>b : any
+>foo : any
+>notHere : any
 }
 
 var r4 = b.foo(new Date());
->r4 : 任意
->类型别名 :=> 任意
->b.foo(new Date()) : 任意
->类型别名 :=> 任意
->b.foo : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>r4 : any
+>b.foo(new Date()) : any
+>b.foo : any
+>b : any
+>foo : any
 >new Date() : Date
 >Date : DateConstructor
 

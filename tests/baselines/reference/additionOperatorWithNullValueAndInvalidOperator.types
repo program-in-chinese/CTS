@@ -2,21 +2,18 @@
 // If one operand is the null or undefined value, it is treated as having the type of the other operand.
 
 function foo(): void { return undefined }
->foo : () => 无值
->undefined : 未定
->类型别名 :=> 未定
+>foo : () => void
+>undefined : undefined
 
 var a: boolean;
->a : 真假
->类型别名 :=> 真假
+>a : boolean
 
 var b: Object;
 >b : Object
 >Object : Object
 
 var c: void;
->c : 无值
->类型别名 :=> 无值
+>c : void
 
 var d: Number;
 >d : Number
@@ -24,113 +21,73 @@ var d: Number;
 
 // null + boolean/Object
 var r1 = null + a;
->r1 : 任意
->类型别名 :=> 任意
->null + a : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->a : 真假
->类型别名 :=> 真假
+>r1 : any
+>null + a : any
+>null : null
+>a : boolean
 
 var r2 = null + b;
->r2 : 任意
->类型别名 :=> 任意
->null + b : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>r2 : any
+>null + b : any
+>null : null
 >b : Object
 
 var r3 = null + c;
->r3 : 任意
->类型别名 :=> 任意
->null + c : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->c : 无值
->类型别名 :=> 无值
+>r3 : any
+>null + c : any
+>null : null
+>c : void
 
 var r4 = a + null;
->r4 : 任意
->类型别名 :=> 任意
->a + null : 任意
->类型别名 :=> 任意
->a : 真假
->类型别名 :=> 真假
->null : 空值
->类型别名 :=> 空值
+>r4 : any
+>a + null : any
+>a : boolean
+>null : null
 
 var r5 = b + null;
->r5 : 任意
->类型别名 :=> 任意
->b + null : 任意
->类型别名 :=> 任意
+>r5 : any
+>b + null : any
 >b : Object
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var r6 = null + c;
->r6 : 任意
->类型别名 :=> 任意
->null + c : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->c : 无值
->类型别名 :=> 无值
+>r6 : any
+>null + c : any
+>null : null
+>c : void
 
 // other cases
 var r7 = null + d;
->r7 : 任意
->类型别名 :=> 任意
->null + d : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>r7 : any
+>null + d : any
+>null : null
 >d : Number
 
 var r8 = null + true;
->r8 : 任意
->类型别名 :=> 任意
->null + true : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->true : 为真
->类型别名 :=> 为真
+>r8 : any
+>null + true : any
+>null : null
+>true : true
 
 var r9 = null + { a: '' };
->r9 : 任意
->类型别名 :=> 任意
->null + { a: '' } : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->{ a: '' } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>r9 : any
+>null + { a: '' } : any
+>null : null
+>{ a: '' } : { a: string; }
+>a : string
 >'' : ""
 
 var r10 = null + foo();
->r10 : 任意
->类型别名 :=> 任意
->null + foo() : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->foo() : 无值
->类型别名 :=> 无值
->foo : () => 无值
+>r10 : any
+>null + foo() : any
+>null : null
+>foo() : void
+>foo : () => void
 
 var r11 = null + (() => { });
->r11 : 任意
->类型别名 :=> 任意
->null + (() => { }) : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
->(() => { }) : () => 无值
->() => { } : () => 无值
+>r11 : any
+>null + (() => { }) : any
+>null : null
+>(() => { }) : () => void
+>() => { } : () => void
 

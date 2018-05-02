@@ -6,43 +6,38 @@ const enum E { A, B, C }
 >C : E.C
 
 function foo<T extends number>(x: T) {
->foo : <T 扩展 数字>(x: T) => 无值
+>foo : <T extends number>(x: T) => void
 >T : T
 >x : T
 >T : T
 
     var y: number = x;  // Ok
->y : 数字
->类型别名 :=> 数字
+>y : number
 >x : T
 }
 
 foo(5);
->foo(5) : 无值
->类型别名 :=> 无值
->foo : <T 扩展 数字>(x: T) => 无值
+>foo(5) : void
+>foo : <T extends number>(x: T) => void
 >5 : 5
 
 foo(E.A);
->foo(E.A) : 无值
->类型别名 :=> 无值
->foo : <T 扩展 数字>(x: T) => 无值
+>foo(E.A) : void
+>foo : <T extends number>(x: T) => void
 >E.A : E.A
->E : 类为 E
+>E : typeof E
 >A : E.A
 
 class A { a }
 >A : A
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 class B { b }
 >B : B
->b : 任意
->类型别名 :=> 任意
+>b : any
 
 function bar<T extends A | B>(x: T) {
->bar : <T 扩展 A | B>(x: T) => 无值
+>bar : <T extends A | B>(x: T) => void
 >T : T
 >A : A
 >B : B
@@ -57,16 +52,14 @@ function bar<T extends A | B>(x: T) {
 }
 
 bar(new A);
->bar(new A) : 无值
->类型别名 :=> 无值
->bar : <T 扩展 A | B>(x: T) => 无值
+>bar(new A) : void
+>bar : <T extends A | B>(x: T) => void
 >new A : A
->A : 类为 A
+>A : typeof A
 
 bar(new B);
->bar(new B) : 无值
->类型别名 :=> 无值
->bar : <T 扩展 A | B>(x: T) => 无值
+>bar(new B) : void
+>bar : <T extends A | B>(x: T) => void
 >new B : B
->B : 类为 B
+>B : typeof B
 

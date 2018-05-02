@@ -1,56 +1,45 @@
 === tests/cases/compiler/declarationNoDanglingGenerics.ts ===
 const kindCache: { [kind: string]: boolean } = {};
->kindCache : { [kind: 文字]: 真假; }
->kind : 文字
->类型别名 :=> 文字
+>kindCache : { [kind: string]: boolean; }
+>kind : string
 >{} : {}
 
 function register(kind: string): void | never {
->register : (kind: 文字) => 无值
->kind : 文字
->类型别名 :=> 文字
+>register : (kind: string) => void
+>kind : string
 
   if (kindCache[kind]) {
->kindCache[kind] : 真假
->类型别名 :=> 真假
->kindCache : { [kind: 文字]: 真假; }
->kind : 文字
->类型别名 :=> 文字
+>kindCache[kind] : boolean
+>kindCache : { [kind: string]: boolean; }
+>kind : string
 
     throw new Error(`Class with kind "${kind}" is already registered.`);
 >new Error(`Class with kind "${kind}" is already registered.`) : Error
 >Error : ErrorConstructor
->`Class with kind "${kind}" is already registered.` : 文字
->类型别名 :=> 文字
->kind : 文字
->类型别名 :=> 文字
+>`Class with kind "${kind}" is already registered.` : string
+>kind : string
   }
   kindCache[kind] = true;
->kindCache[kind] = true : 为真
->类型别名 :=> 为真
->kindCache[kind] : 真假
->类型别名 :=> 真假
->kindCache : { [kind: 文字]: 真假; }
->kind : 文字
->类型别名 :=> 文字
->true : 为真
->类型别名 :=> 为真
+>kindCache[kind] = true : true
+>kindCache[kind] : boolean
+>kindCache : { [kind: string]: boolean; }
+>kind : string
+>true : true
 }
 
 function ClassFactory<TKind extends string>(kind: TKind) {
->ClassFactory : <TKind 扩展 文字>(kind: TKind) => 类为 (Anonymous class)
+>ClassFactory : <TKind extends string>(kind: TKind) => typeof (Anonymous class)
 >TKind : TKind
 >kind : TKind
 >TKind : TKind
 
   register(kind);
->register(kind) : 无值
->类型别名 :=> 无值
->register : (kind: 文字) => 无值
+>register(kind) : void
+>register : (kind: string) => void
 >kind : TKind
 
   return class {
->class {    static readonly THE_KIND: TKind = kind;    readonly kind: TKind = kind;  } : 类为 (Anonymous class)
+>class {    static readonly THE_KIND: TKind = kind;    readonly kind: TKind = kind;  } : typeof (Anonymous class)
 
     static readonly THE_KIND: TKind = kind;
 >THE_KIND : TKind
@@ -84,26 +73,26 @@ class Kinds {
 export class AKind extends ClassFactory(Kinds.A) {
 >AKind : AKind
 >ClassFactory(Kinds.A) : ClassFactory<"A">.(Anonymous class)
->ClassFactory : <TKind 扩展 文字>(kind: TKind) => 类为 (Anonymous class)
+>ClassFactory : <TKind extends string>(kind: TKind) => typeof (Anonymous class)
 >Kinds.A : "A"
->Kinds : 类为 Kinds
+>Kinds : typeof Kinds
 >A : "A"
 }
 
 export class BKind extends ClassFactory(Kinds.B) {
 >BKind : BKind
 >ClassFactory(Kinds.B) : ClassFactory<"B">.(Anonymous class)
->ClassFactory : <TKind 扩展 文字>(kind: TKind) => 类为 (Anonymous class)
+>ClassFactory : <TKind extends string>(kind: TKind) => typeof (Anonymous class)
 >Kinds.B : "B"
->Kinds : 类为 Kinds
+>Kinds : typeof Kinds
 >B : "B"
 }
 
 export class CKind extends ClassFactory(Kinds.C) {
 >CKind : CKind
 >ClassFactory(Kinds.C) : ClassFactory<"C">.(Anonymous class)
->ClassFactory : <TKind 扩展 文字>(kind: TKind) => 类为 (Anonymous class)
+>ClassFactory : <TKind extends string>(kind: TKind) => typeof (Anonymous class)
 >Kinds.C : "C"
->Kinds : 类为 Kinds
+>Kinds : typeof Kinds
 >C : "C"
 }

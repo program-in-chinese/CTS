@@ -1,26 +1,21 @@
 === tests/cases/compiler/baseCheck.ts ===
 class C { constructor(x: number, y: number) { } }
 >C : C
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>x : number
+>y : number
 
 class ELoc extends C {
 >ELoc : ELoc
 >C : C
 
     constructor(x: number) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         super(0, x);
->super(0, x) : 无值
->类型别名 :=> 无值
->super : 类为 C
+>super(0, x) : void
+>super : typeof C
 >0 : 0
->x : 数字
->类型别名 :=> 数字
+>x : number
     }
 }
 class ELocVar extends C {  
@@ -28,24 +23,20 @@ class ELocVar extends C {
 >C : C
 
     constructor(x: number) {
->x : 数字
->类型别名 :=> 数字
+>x : number
 
         super(0, loc);
->super(0, loc) : 无值
->类型别名 :=> 无值
->super : 类为 C
+>super(0, loc) : void
+>super : typeof C
 >0 : 0
->loc : 任意
->类型别名 :=> 任意
+>loc : any
     }
 
     m() {
->m : () => 无值
+>m : () => void
 
         var loc=10;
->loc : 数字
->类型别名 :=> 数字
+>loc : number
 >10 : 10
     }
 }
@@ -53,68 +44,52 @@ class ELocVar extends C {
 class D extends C { constructor(public z: number) { super(this.z) }  } // too few params
 >D : D
 >C : C
->z : 数字
->类型别名 :=> 数字
->super(this.z) : 无值
->类型别名 :=> 无值
->super : 类为 C
->this.z : 数字
->类型别名 :=> 数字
->this : 本体
->z : 数字
->类型别名 :=> 数字
+>z : number
+>super(this.z) : void
+>super : typeof C
+>this.z : number
+>this : this
+>z : number
 
 class E extends C { constructor(public z: number) { super(0, this.z) } }
 >E : E
 >C : C
->z : 数字
->类型别名 :=> 数字
->super(0, this.z) : 无值
->类型别名 :=> 无值
->super : 类为 C
+>z : number
+>super(0, this.z) : void
+>super : typeof C
 >0 : 0
->this.z : 数字
->类型别名 :=> 数字
->this : 本体
->z : 数字
->类型别名 :=> 数字
+>this.z : number
+>this : this
+>z : number
 
 class F extends C { constructor(public z: number) { super("hello", this.z) } } // first param type
 >F : F
 >C : C
->z : 数字
->类型别名 :=> 数字
->super("hello", this.z) : 无值
->类型别名 :=> 无值
->super : 类为 C
+>z : number
+>super("hello", this.z) : void
+>super : typeof C
 >"hello" : "hello"
->this.z : 数字
->类型别名 :=> 数字
->this : 本体
->z : 数字
->类型别名 :=> 数字
+>this.z : number
+>this : this
+>z : number
 
 function f() {
->f : () => 无值
+>f : () => void
 
     if (x<10) {
->x<10 : 真假
->类型别名 :=> 真假
->x : 任意
->类型别名 :=> 任意
+>x<10 : boolean
+>x : any
 >10 : 10
 
       x=11;
 >x=11 : 11
->x : 任意
->类型别名 :=> 任意
+>x : any
 >11 : 11
     }
     else {
         x=12;
 >x=12 : 12
->x : 任意
->类型别名 :=> 任意
+>x : any
 >12 : 12
     }
 }

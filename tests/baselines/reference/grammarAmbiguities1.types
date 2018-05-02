@@ -1,76 +1,61 @@
 === tests/cases/compiler/grammarAmbiguities1.ts ===
 class A { foo() { } }
 >A : A
->foo : () => 无值
+>foo : () => void
 
 class B { bar() { }}
 >B : B
->bar : () => 无值
+>bar : () => void
 
 function f(x) { return x; }
->f : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>f : (x: any) => any
+>x : any
+>x : any
 
 function g<T, U>(x) { return f(x); }
->g : <T, U>(x: 任意) => 任意
+>g : <T, U>(x: any) => any
 >T : T
 >U : U
->x : 任意
->类型别名 :=> 任意
->f(x) : 任意
->类型别名 :=> 任意
->f : (x: 任意) => 任意
->x : 任意
->类型别名 :=> 任意
+>x : any
+>f(x) : any
+>f : (x: any) => any
+>x : any
 
 g<A, B>(7)
->g<A, B>(7) : 任意
->类型别名 :=> 任意
->g : <T, U>(x: 任意) => 任意
+>g<A, B>(7) : any
+>g : <T, U>(x: any) => any
 >A : A
 >B : B
 >7 : 7
 
 f(g<A, B>(7));
->f(g<A, B>(7)) : 任意
->类型别名 :=> 任意
->f : (x: 任意) => 任意
->g<A, B>(7) : 任意
->类型别名 :=> 任意
->g : <T, U>(x: 任意) => 任意
+>f(g<A, B>(7)) : any
+>f : (x: any) => any
+>g<A, B>(7) : any
+>g : <T, U>(x: any) => any
 >A : A
 >B : B
 >7 : 7
 
 f(g < A, B > 7);
->f(g < A, B > 7) : 任意
->类型别名 :=> 任意
->f : (x: 任意) => 任意
->g < A : 真假
->类型别名 :=> 真假
->g : <T, U>(x: 任意) => 任意
->A : 类为 A
->B > 7 : 真假
->类型别名 :=> 真假
->B : 类为 B
+>f(g < A, B > 7) : any
+>f : (x: any) => any
+>g < A : boolean
+>g : <T, U>(x: any) => any
+>A : typeof A
+>B > 7 : boolean
+>B : typeof B
 >7 : 7
 
 f(g < A, B > +(7));
->f(g < A, B > +(7)) : 任意
->类型别名 :=> 任意
->f : (x: 任意) => 任意
->g < A : 真假
->类型别名 :=> 真假
->g : <T, U>(x: 任意) => 任意
->A : 类为 A
->B > +(7) : 真假
->类型别名 :=> 真假
->B : 类为 B
->+(7) : 数字
->类型别名 :=> 数字
+>f(g < A, B > +(7)) : any
+>f : (x: any) => any
+>g < A : boolean
+>g : <T, U>(x: any) => any
+>A : typeof A
+>B > +(7) : boolean
+>B : typeof B
+>+(7) : number
 >(7) : 7
 >7 : 7
 

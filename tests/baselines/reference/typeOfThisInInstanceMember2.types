@@ -4,51 +4,51 @@ class C<T> {
 >T : T
 
     x = this;
->x : 本体
->this : 本体
+>x : this
+>this : this
 
     foo() {
->foo : () => 本体
+>foo : () => this
 
         return this;
->this : 本体
+>this : this
     }
     constructor(x: T) {
 >x : T
 >T : T
 
         var t = this;
->t : 本体
->this : 本体
+>t : this
+>this : this
 
         t.x;
->t.x : 本体
->t : 本体
->x : 本体
+>t.x : this
+>t : this
+>x : this
 
         t.y;
->t.y : 本体
->t : 本体
->y : 本体
+>t.y : this
+>t : this
+>y : this
 
         t.z;
 >t.z : T
->t : 本体
+>t : this
 >z : T
 
         var r = t.foo();
->r : 本体
->t.foo() : 本体
->t.foo : () => 本体
->t : 本体
->foo : () => 本体
+>r : this
+>t.foo() : this
+>t.foo : () => this
+>t : this
+>foo : () => this
     }
 
     get y() {
->y : 本体
+>y : this
 
         return this;
->this : 本体
+>this : this
     }
 
     z: T;
@@ -57,84 +57,78 @@ class C<T> {
 }
 
 var c: C<string>;
->c : C<文字>
+>c : C<string>
 >C : C<T>
 
 // all ok
 var r = c.x;
->r : C<文字>
->c.x : C<文字>
->c : C<文字>
->x : C<文字>
+>r : C<string>
+>c.x : C<string>
+>c : C<string>
+>x : C<string>
 
 var ra = c.x.x.x;
->ra : C<文字>
->c.x.x.x : C<文字>
->c.x.x : C<文字>
->c.x : C<文字>
->c : C<文字>
->x : C<文字>
->x : C<文字>
->x : C<文字>
+>ra : C<string>
+>c.x.x.x : C<string>
+>c.x.x : C<string>
+>c.x : C<string>
+>c : C<string>
+>x : C<string>
+>x : C<string>
+>x : C<string>
 
 var r2 = c.y;
->r2 : C<文字>
->c.y : C<文字>
->c : C<文字>
->y : C<文字>
+>r2 : C<string>
+>c.y : C<string>
+>c : C<string>
+>y : C<string>
 
 var r3 = c.foo();
->r3 : C<文字>
->c.foo() : C<文字>
->c.foo : () => C<文字>
->c : C<文字>
->foo : () => C<文字>
+>r3 : C<string>
+>c.foo() : C<string>
+>c.foo : () => C<string>
+>c : C<string>
+>foo : () => C<string>
 
 var r4 = c.z;
->r4 : 文字
->类型别名 :=> 文字
->c.z : 文字
->类型别名 :=> 文字
->c : C<文字>
->z : 文字
->类型别名 :=> 文字
+>r4 : string
+>c.z : string
+>c : C<string>
+>z : string
 
 var rs = [r, r2, r3];
->rs : C<文字>[]
->[r, r2, r3] : C<文字>[]
->r : C<文字>
->r2 : C<文字>
->r3 : C<文字>
+>rs : C<string>[]
+>[r, r2, r3] : C<string>[]
+>r : C<string>
+>r2 : C<string>
+>r3 : C<string>
 
 rs.forEach(x => {
->rs.forEach(x => {    x.foo;    x.x;    x.y;    x.z;}) : 无值
->类型别名 :=> 无值
->rs.forEach : (callbackfn: (value: C<文字>, index: 数字, array: C<文字>[]) => 无值, thisArg?: 任意) => 无值
->rs : C<文字>[]
->forEach : (callbackfn: (value: C<文字>, index: 数字, array: C<文字>[]) => 无值, thisArg?: 任意) => 无值
->x => {    x.foo;    x.x;    x.y;    x.z;} : (x: C<文字>) => 无值
->x : C<文字>
+>rs.forEach(x => {    x.foo;    x.x;    x.y;    x.z;}) : void
+>rs.forEach : (callbackfn: (value: C<string>, index: number, array: C<string>[]) => void, thisArg?: any) => void
+>rs : C<string>[]
+>forEach : (callbackfn: (value: C<string>, index: number, array: C<string>[]) => void, thisArg?: any) => void
+>x => {    x.foo;    x.x;    x.y;    x.z;} : (x: C<string>) => void
+>x : C<string>
 
     x.foo;
->x.foo : () => C<文字>
->x : C<文字>
->foo : () => C<文字>
+>x.foo : () => C<string>
+>x : C<string>
+>foo : () => C<string>
 
     x.x;
->x.x : C<文字>
->x : C<文字>
->x : C<文字>
+>x.x : C<string>
+>x : C<string>
+>x : C<string>
 
     x.y;
->x.y : C<文字>
->x : C<文字>
->y : C<文字>
+>x.y : C<string>
+>x : C<string>
+>y : C<string>
 
     x.z;
->x.z : 文字
->类型别名 :=> 文字
->x : C<文字>
->z : 文字
->类型别名 :=> 文字
+>x.z : string
+>x : C<string>
+>z : string
 
 });

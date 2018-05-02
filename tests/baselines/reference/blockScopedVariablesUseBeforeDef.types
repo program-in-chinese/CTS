@@ -1,266 +1,226 @@
 === tests/cases/compiler/blockScopedVariablesUseBeforeDef.ts ===
 function foo0() {
->foo0 : () => 无值
+>foo0 : () => void
 
     let a = x;
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo1() {
->foo1 : () => 无值
+>foo1 : () => void
 
     let a = () => x;
->a : () => 任意
->() => x : () => 任意
->x : 任意
->类型别名 :=> 任意
+>a : () => any
+>() => x : () => any
+>x : any
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo2() {
->foo2 : () => 无值
+>foo2 : () => void
 
     let a = function () { return x; }
->a : () => 任意
->function () { return x; } : () => 任意
->x : 任意
->类型别名 :=> 任意
+>a : () => any
+>function () { return x; } : () => any
+>x : any
 
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo3() {
->foo3 : () => 无值
+>foo3 : () => void
 
     class X {
 >X : X
 
         m() { return x;}
->m : () => 任意
->x : 任意
->类型别名 :=> 任意
+>m : () => any
+>x : any
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo4() {
->foo4 : () => 无值
+>foo4 : () => void
 
     let y = class {
->y : 类为 y
->class {        m() { return x; }    } : 类为 y
+>y : typeof y
+>class {        m() { return x; }    } : typeof y
 
         m() { return x; }
->m : () => 任意
->x : 任意
->类型别名 :=> 任意
+>m : () => any
+>x : any
 
     };
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo5() {
->foo5 : () => 无值
+>foo5 : () => void
 
     let x = () => y;
->x : () => () => 任意
->() => y : () => () => 任意
->y : () => () => 任意
+>x : () => () => any
+>() => y : () => () => any
+>y : () => () => any
 
     let y = () => x;
->y : () => () => 任意
->() => x : () => () => 任意
->x : () => () => 任意
+>y : () => () => any
+>() => x : () => () => any
+>x : () => () => any
 }
 
 function foo6() {
->foo6 : () => 无值
+>foo6 : () => void
 
     function f() {
->f : () => 任意
+>f : () => any
 
         return x;
->x : 任意
->类型别名 :=> 任意
+>x : any
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo7() {
->foo7 : () => 无值
+>foo7 : () => void
 
     class A {
 >A : A
 
         a = x;
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo8() {
->foo8 : () => 无值
+>foo8 : () => void
 
     let y = class {
->y : 类为 y
->class {        a = x;    } : 类为 y
+>y : typeof y
+>class {        a = x;    } : typeof y
 
         a = x;
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo9() {
->foo9 : () => 无值
+>foo9 : () => void
 
     let y = class {
->y : 类为 y
->class {        static a = x;    } : 类为 y
+>y : typeof y
+>class {        static a = x;    } : typeof y
 
         static a = x;
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo10() {
->foo10 : () => 无值
+>foo10 : () => void
 
     class A {
 >A : A
 
         static a = x;
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo11() {
->foo11 : () => 无值
+>foo11 : () => void
 
     function f () {
->f : () => 无值
+>f : () => void
 
         let y = class {
->y : 类为 y
->class {            static a = x;        } : 类为 y
+>y : typeof y
+>class {            static a = x;        } : typeof y
 
             static a = x;
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
         }
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo12() {
->foo12 : () => 无值
+>foo12 : () => void
 
     function f () {
->f : () => 无值
+>f : () => void
 
         let y = class {
->y : 类为 y
->class {            a;            constructor() {                this.a = x;            }        } : 类为 y
+>y : typeof y
+>class {            a;            constructor() {                this.a = x;            }        } : typeof y
 
             a;
->a : 任意
->类型别名 :=> 任意
+>a : any
 
             constructor() {
                 this.a = x;
->this.a = x : 任意
->类型别名 :=> 任意
->this.a : 任意
->类型别名 :=> 任意
->this : 本体
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>this.a = x : any
+>this.a : any
+>this : this
+>a : any
+>x : any
             }
         }
     }
     let x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo13() {
->foo13 : () => 无值
+>foo13 : () => void
 
     let a = {
->a : { 只读 a: 任意; }
->{        get a() { return x }     } : { 只读 a: 任意; }
+>a : { readonly a: any; }
+>{        get a() { return x }     } : { readonly a: any; }
 
         get a() { return x } 
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
     }
     let x
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function foo14() {
->foo14 : () => 无值
+>foo14 : () => void
 
     let a = {
->a : { a: 任意; }
->{        a: x     } : { a: 任意; }
+>a : { a: any; }
+>{        a: x     } : { a: any; }
 
         a: x 
->a : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>a : any
+>x : any
     }
     let x
->x : 任意
->类型别名 :=> 任意
+>x : any
 }

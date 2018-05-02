@@ -1,10 +1,10 @@
 tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(4,23): error TS2304: Cannot find name 'window'.
-tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(4,58): error TS2345: Argument of type '{ value: 文字; readonly: 真假; }' is not assignable to parameter of type 'PropertyDescriptor & ThisType<任意>'.
-  Object literal may only specify known properties, and 'readonly' does not exist in type 'PropertyDescriptor & ThisType<任意>'.
-tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(9,30): error TS2322: Type '{ y: 数字; }' is not assignable to type 'A & ThisType<任意>'.
-  Object literal may only specify known properties, and 'y' does not exist in type 'A & ThisType<任意>'.
-tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(14,34): error TS2322: Type '{ y: 文字; }' is not assignable to type 'Empty & { x: 数字; }'.
-  Object literal may only specify known properties, and 'y' does not exist in type 'Empty & { x: 数字; }'.
+tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(4,58): error TS2345: Argument of type '{ value: string; readonly: boolean; }' is not assignable to parameter of type 'PropertyDescriptor & ThisType<any>'.
+  Object literal may only specify known properties, and 'readonly' does not exist in type 'PropertyDescriptor & ThisType<any>'.
+tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(9,30): error TS2322: Type '{ y: number; }' is not assignable to type 'A & ThisType<any>'.
+  Object literal may only specify known properties, and 'y' does not exist in type 'A & ThisType<any>'.
+tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(14,34): error TS2322: Type '{ y: string; }' is not assignable to type 'Empty & { x: number; }'.
+  Object literal may only specify known properties, and 'y' does not exist in type 'Empty & { x: number; }'.
 
 
 ==== tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts (4 errors) ====
@@ -15,22 +15,22 @@ tests/cases/compiler/excessPropertyCheckWithEmptyObject.ts(14,34): error TS2322:
                           ~~~~~~
 !!! error TS2304: Cannot find name 'window'.
                                                              ~~~~~~~~~~~~~~~
-!!! error TS2345: Argument of type '{ value: 文字; readonly: 真假; }' is not assignable to parameter of type 'PropertyDescriptor & ThisType<任意>'.
-!!! error TS2345:   Object literal may only specify known properties, and 'readonly' does not exist in type 'PropertyDescriptor & ThisType<任意>'.
+!!! error TS2345: Argument of type '{ value: string; readonly: boolean; }' is not assignable to parameter of type 'PropertyDescriptor & ThisType<any>'.
+!!! error TS2345:   Object literal may only specify known properties, and 'readonly' does not exist in type 'PropertyDescriptor & ThisType<any>'.
     
     interface A { x?: string }
     
     // Excess property error expected here
     let a: A & ThisType<any> = { y: 10 };
                                  ~~~~~
-!!! error TS2322: Type '{ y: 数字; }' is not assignable to type 'A & ThisType<任意>'.
-!!! error TS2322:   Object literal may only specify known properties, and 'y' does not exist in type 'A & ThisType<任意>'.
+!!! error TS2322: Type '{ y: number; }' is not assignable to type 'A & ThisType<any>'.
+!!! error TS2322:   Object literal may only specify known properties, and 'y' does not exist in type 'A & ThisType<any>'.
     
     interface Empty {}
     
     // Excess property error expected here
     let x: Empty & { x: number } = { y: "hello" };
                                      ~~~~~~~~~~
-!!! error TS2322: Type '{ y: 文字; }' is not assignable to type 'Empty & { x: 数字; }'.
-!!! error TS2322:   Object literal may only specify known properties, and 'y' does not exist in type 'Empty & { x: 数字; }'.
+!!! error TS2322: Type '{ y: string; }' is not assignable to type 'Empty & { x: number; }'.
+!!! error TS2322:   Object literal may only specify known properties, and 'y' does not exist in type 'Empty & { x: number; }'.
     

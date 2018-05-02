@@ -1,17 +1,15 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 interface Prop {
 >Prop : Prop
 
     a: number,
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     b: string
->b : 文字
->类型别名 :=> 文字
+>b : string
 }
 
 declare class MyComp<P extends Prop> extends React.Component<P, {}> {
@@ -19,8 +17,8 @@ declare class MyComp<P extends Prop> extends React.Component<P, {}> {
 >P : P
 >Prop : Prop
 >React.Component : React.Component<P, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 >P : P
 
     internalProp: P;
@@ -28,27 +26,25 @@ declare class MyComp<P extends Prop> extends React.Component<P, {}> {
 >P : P
 }
 
-// OK: we fille in missing type argument with empty object
+// Error
 let x1 = <MyComp />
 >x1 : JSX.Element
 ><MyComp /> : JSX.Element
->MyComp : 类为 MyComp
+>MyComp : typeof MyComp
 
-// Error
+// OK
 let x = <MyComp a={10} b="hi" />
 >x : JSX.Element
 ><MyComp a={10} b="hi" /> : JSX.Element
->MyComp : 类为 MyComp
->a : 数字
->类型别名 :=> 数字
+>MyComp : typeof MyComp
+>a : number
 >10 : 10
->b : 文字
->类型别名 :=> 文字
+>b : string
 
+// Error
 let x2 = <MyComp a="hi"/>
 >x2 : JSX.Element
 ><MyComp a="hi"/> : JSX.Element
->MyComp : 类为 MyComp
->a : 文字
->类型别名 :=> 文字
+>MyComp : typeof MyComp
+>a : string
 

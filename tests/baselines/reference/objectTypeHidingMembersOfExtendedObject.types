@@ -3,8 +3,7 @@ class A {
 >A : A
 
     foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 }
 
 class B extends A {
@@ -12,8 +11,7 @@ class B extends A {
 >A : A
 
     bar: string;
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 }
 
 interface Object {
@@ -24,8 +22,7 @@ interface Object {
 >A : A
 
     [x: string]: Object;
->x : 文字
->类型别名 :=> 文字
+>x : string
 >Object : Object
 }
 
@@ -33,15 +30,14 @@ class C {
 >C : C
 
     valueOf() { }
->valueOf : () => 无值
+>valueOf : () => void
 
     data: B;
 >data : B
 >B : B
 
     [x: string]: any;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 var c: C;
@@ -49,13 +45,11 @@ var c: C;
 >C : C
 
 var r1: void = c.valueOf();
->r1 : 无值
->类型别名 :=> 无值
->c.valueOf() : 无值
->类型别名 :=> 无值
->c.valueOf : () => 无值
+>r1 : void
+>c.valueOf() : void
+>c.valueOf : () => void
 >c : C
->valueOf : () => 无值
+>valueOf : () => void
 
 var r1b: B = c.data;
 >r1b : B
@@ -65,18 +59,14 @@ var r1b: B = c.data;
 >data : B
 
 var r1c = r1b['hm']; // should be 'Object'
->r1c : 任意
->类型别名 :=> 任意
->r1b['hm'] : 任意
->类型别名 :=> 任意
+>r1c : any
+>r1b['hm'] : any
 >r1b : B
 >'hm' : "hm"
 
 var r1d = c['hm']; // should be 'any'
->r1d : 任意
->类型别名 :=> 任意
->c['hm'] : 任意
->类型别名 :=> 任意
+>r1d : any
+>c['hm'] : any
 >c : C
 >'hm' : "hm"
 
@@ -84,15 +74,14 @@ interface I {
 >I : I
 
     valueOf(): void;
->valueOf : () => 无值
+>valueOf : () => void
 
     data: B;
 >data : B
 >B : B
 
     [x: string]: any;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 var i: I;
@@ -100,13 +89,11 @@ var i: I;
 >I : I
 
 var r2: void = i.valueOf();
->r2 : 无值
->类型别名 :=> 无值
->i.valueOf() : 无值
->类型别名 :=> 无值
->i.valueOf : () => 无值
+>r2 : void
+>i.valueOf() : void
+>i.valueOf : () => void
 >i : I
->valueOf : () => 无值
+>valueOf : () => void
 
 var r2b: B = i.data;
 >r2b : B
@@ -116,88 +103,75 @@ var r2b: B = i.data;
 >data : B
 
 var r2c = r2b['hm']; // should be 'Object'
->r2c : 任意
->类型别名 :=> 任意
->r2b['hm'] : 任意
->类型别名 :=> 任意
+>r2c : any
+>r2b['hm'] : any
 >r2b : B
 >'hm' : "hm"
 
 var r2d = i['hm']; // should be 'any'
->r2d : 任意
->类型别名 :=> 任意
->i['hm'] : 任意
->类型别名 :=> 任意
+>r2d : any
+>i['hm'] : any
 >i : I
 >'hm' : "hm"
 
 var a = {
->a : { valueOf: () => 无值; data: B; }
->{    valueOf: () => { },    data: new B()} : { valueOf: () => 无值; data: B; }
+>a : { valueOf: () => void; data: B; }
+>{    valueOf: () => { },    data: new B()} : { valueOf: () => void; data: B; }
 
     valueOf: () => { },
->valueOf : () => 无值
->() => { } : () => 无值
+>valueOf : () => void
+>() => { } : () => void
 
     data: new B()
 >data : B
 >new B() : B
->B : 类为 B
+>B : typeof B
 }
 
 var r3: void = a.valueOf();
->r3 : 无值
->类型别名 :=> 无值
->a.valueOf() : 无值
->类型别名 :=> 无值
->a.valueOf : () => 无值
->a : { valueOf: () => 无值; data: B; }
->valueOf : () => 无值
+>r3 : void
+>a.valueOf() : void
+>a.valueOf : () => void
+>a : { valueOf: () => void; data: B; }
+>valueOf : () => void
 
 var r3b: B = a.data;
 >r3b : B
 >B : B
 >a.data : B
->a : { valueOf: () => 无值; data: B; }
+>a : { valueOf: () => void; data: B; }
 >data : B
 
 var r3c = r3b['hm']; // should be 'Object'
->r3c : 任意
->类型别名 :=> 任意
->r3b['hm'] : 任意
->类型别名 :=> 任意
+>r3c : any
+>r3b['hm'] : any
 >r3b : B
 >'hm' : "hm"
 
 var r3d = i['hm'];
->r3d : 任意
->类型别名 :=> 任意
->i['hm'] : 任意
->类型别名 :=> 任意
+>r3d : any
+>i['hm'] : any
 >i : I
 >'hm' : "hm"
 
 var b: {
->b : { [x: 文字]: 任意; valueOf(): 无值; data: B; }
+>b : { [x: string]: any; valueOf(): void; data: B; }
 
     valueOf(): void;
->valueOf : () => 无值
+>valueOf : () => void
 
     data: B;
 >data : B
 >B : B
 
     [x: string]: any;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 var r4: void = b.valueOf();
->r4 : 无值
->类型别名 :=> 无值
->b.valueOf() : 无值
->类型别名 :=> 无值
->b.valueOf : () => 无值
->b : { [x: 文字]: 任意; valueOf(): 无值; data: B; }
->valueOf : () => 无值
+>r4 : void
+>b.valueOf() : void
+>b.valueOf : () => void
+>b : { [x: string]: any; valueOf(): void; data: B; }
+>valueOf : () => void
 

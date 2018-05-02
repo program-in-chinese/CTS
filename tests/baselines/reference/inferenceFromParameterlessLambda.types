@@ -1,6 +1,6 @@
 === tests/cases/compiler/inferenceFromParameterlessLambda.ts ===
 function foo<T>(o: Take<T>, i: Make<T>) { }
->foo : <T>(o: Take<T>, i: Make<T>) => 无值
+>foo : <T>(o: Take<T>, i: Make<T>) => void
 >T : T
 >o : Take<T>
 >Take : Take<T>
@@ -26,18 +26,13 @@ interface Take<T> {
 }
 // Infer string from second argument because it isn't context sensitive
 foo(n => n.length, () => 'hi');
->foo(n => n.length, () => 'hi') : 无值
->类型别名 :=> 无值
->foo : <T>(o: Take<T>, i: Make<T>) => 无值
->n => n.length : (n: 文字) => 数字
->n : 文字
->类型别名 :=> 文字
->n.length : 数字
->类型别名 :=> 数字
->n : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
->() => 'hi' : () => 文字
+>foo(n => n.length, () => 'hi') : void
+>foo : <T>(o: Take<T>, i: Make<T>) => void
+>n => n.length : (n: string) => number
+>n : string
+>n.length : number
+>n : string
+>length : number
+>() => 'hi' : () => string
 >'hi' : "hi"
 

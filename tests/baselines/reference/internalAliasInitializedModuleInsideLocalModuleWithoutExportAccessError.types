@@ -1,9 +1,9 @@
 === tests/cases/compiler/internalAliasInitializedModuleInsideLocalModuleWithoutExportAccessError.ts ===
 export module a {
->a : 类为 a
+>a : typeof a
 
     export module b {
->b : 类为 b
+>b : typeof b
 
         export class c {
 >c : c
@@ -12,36 +12,29 @@ export module a {
 }
 
 export module c {
->c : 类为 c
+>c : typeof c
 
     import b = a.b;
->b : 类为 b
->a : 类为 a
->b : 类为 b
+>b : typeof b
+>a : typeof a
+>b : typeof b
 
     export var x: b.c = new b.c();
 >x : b.c
->b : 任意
->类型别名 :=> 任意
+>b : any
 >c : b.c
 >new b.c() : b.c
->b.c : 类为 b.c
->b : 类为 b
->c : 类为 b.c
+>b.c : typeof b.c
+>b : typeof b
+>c : typeof b.c
 }
 
 export var d = new c.b.c();
->d : 任意
->类型别名 :=> 任意
->new c.b.c() : 任意
->类型别名 :=> 任意
->c.b.c : 任意
->类型别名 :=> 任意
->c.b : 任意
->类型别名 :=> 任意
->c : 类为 c
->b : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>d : any
+>new c.b.c() : any
+>c.b.c : any
+>c.b : any
+>c : typeof c
+>b : any
+>c : any
 

@@ -6,43 +6,38 @@ interface I {
 >I : I
 
     [Symbol.iterator]?: { x };
->Symbol.iterator : 符号
->类型别名 :=> 符号
+>[Symbol.iterator] : { x: any; }
+>Symbol.iterator : symbol
 >Symbol : SymbolConstructor
->iterator : 符号
->类型别名 :=> 符号
->x : 任意
->类型别名 :=> 任意
+>iterator : symbol
+>x : any
 }
 
 declare function foo(i: I): I;
->foo : { (i: I): I; (a: 任意): 任意; }
+>foo : { (i: I): I; (a: any): any; }
 >i : I
 >I : I
 >I : I
 
 declare function foo(a: any): any;
->foo : { (i: I): I; (a: 任意): 任意; }
->a : 任意
->类型别名 :=> 任意
+>foo : { (i: I): I; (a: any): any; }
+>a : any
 
 declare function bar(i: C): C;
->bar : { (i: C): C; (a: 任意): 任意; }
+>bar : { (i: C): C; (a: any): any; }
 >i : C
 >C : C
 >C : C
 
 declare function bar(a: any): any;
->bar : { (i: C): C; (a: 任意): 任意; }
->a : 任意
->类型别名 :=> 任意
+>bar : { (i: C): C; (a: any): any; }
+>a : any
 
 foo(new C);
->foo(new C) : 任意
->类型别名 :=> 任意
->foo : { (i: I): I; (a: 任意): 任意; }
+>foo(new C) : any
+>foo : { (i: I): I; (a: any): any; }
 >new C : C
->C : 类为 C
+>C : typeof C
 
 var i: I;
 >i : I
@@ -50,6 +45,6 @@ var i: I;
 
 bar(i);
 >bar(i) : C
->bar : { (i: C): C; (a: 任意): 任意; }
+>bar : { (i: C): C; (a: any): any; }
 >i : I
 

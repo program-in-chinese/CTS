@@ -1,33 +1,29 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 const obj = {};
 >obj : {}
 >{} : {}
 
 const obj1 = {
->obj1 : { x: 数字; }
->{    x: 2} : { x: 数字; }
+>obj1 : { x: number; }
+>{    x: 2} : { x: number; }
 
     x: 2
->x : 数字
->类型别名 :=> 数字
+>x : number
 >2 : 2
 }
 const obj3 = {
->obj3 : { y: 真假; overwrite: 文字; }
->{    y: true,    overwrite: "hi"} : { y: 真假; overwrite: 文字; }
+>obj3 : { y: boolean; overwrite: string; }
+>{    y: true,    overwrite: "hi"} : { y: boolean; overwrite: string; }
 
     y: true,
->y : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>y : boolean
+>true : true
 
     overwrite: "hi"
->overwrite : 文字
->类型别名 :=> 文字
+>overwrite : string
 >"hi" : "hi"
 }
 
@@ -35,23 +31,20 @@ interface Prop {
 >Prop : Prop
 
     x: number
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     y: boolean
->y : 真假
->类型别名 :=> 真假
+>y : boolean
 
     overwrite: string
->overwrite : 文字
->类型别名 :=> 文字
+>overwrite : string
 }
 
 class OverWriteAttr extends React.Component<Prop, {}> {
 >OverWriteAttr : OverWriteAttr
 >React.Component : React.Component<Prop, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 >Prop : Prop
 
     render() {
@@ -59,10 +52,8 @@ class OverWriteAttr extends React.Component<Prop, {}> {
 
         return <div>Hello</div>;
 ><div>Hello</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
     }
 }
 
@@ -70,18 +61,16 @@ class OverWriteAttr extends React.Component<Prop, {}> {
 let x = <OverWriteAttr {...obj} y overwrite="hi" {...obj1} />
 >x : JSX.Element
 ><OverWriteAttr {...obj} y overwrite="hi" {...obj1} /> : JSX.Element
->OverWriteAttr : 类为 OverWriteAttr
+>OverWriteAttr : typeof OverWriteAttr
 >obj : {}
->y : 为真
->类型别名 :=> 为真
->overwrite : 文字
->类型别名 :=> 文字
->obj1 : { x: 数字; }
+>y : true
+>overwrite : string
+>obj1 : { x: number; }
 
 let x1 = <OverWriteAttr {...obj1} {...obj3}  />
 >x1 : JSX.Element
 ><OverWriteAttr {...obj1} {...obj3}  /> : JSX.Element
->OverWriteAttr : 类为 OverWriteAttr
->obj1 : { x: 数字; }
->obj3 : { y: 真假; overwrite: 文字; }
+>OverWriteAttr : typeof OverWriteAttr
+>obj1 : { x: number; }
+>obj3 : { y: boolean; overwrite: string; }
 

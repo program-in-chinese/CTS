@@ -1,6 +1,6 @@
 === tests/cases/compiler/classTypeParametersInStatics.ts ===
 module Editor {
->Editor : 类为 Editor
+>Editor : typeof Editor
 
 
     export class List<T> {
@@ -18,46 +18,43 @@ module Editor {
 >T : T
 
         constructor(public isHead: boolean, public data: T) {
->isHead : 真假
->类型别名 :=> 真假
+>isHead : boolean
 >data : T
 >T : T
         
         }
 
         public static MakeHead(): List<T> { // should error
->MakeHead : () => List<任意>
+>MakeHead : () => List<any>
 >List : List<T>
 >T : No type information available!
 
             var entry: List<T> = new List<T>(true, null);
->entry : List<任意>
+>entry : List<any>
 >List : List<T>
 >T : No type information available!
->new List<T>(true, null) : List<任意>
->List : 类为 List
+>new List<T>(true, null) : List<any>
+>List : typeof List
 >T : No type information available!
->true : 为真
->类型别名 :=> 为真
->null : 空值
->类型别名 :=> 空值
+>true : true
+>null : null
 
             entry.prev = entry;
->entry.prev = entry : List<任意>
->entry.prev : List<任意>
->entry : List<任意>
->prev : List<任意>
->entry : List<任意>
+>entry.prev = entry : List<any>
+>entry.prev : List<any>
+>entry : List<any>
+>prev : List<any>
+>entry : List<any>
 
             entry.next = entry;
->entry.next = entry : List<任意>
->entry.next : List<任意>
->entry : List<任意>
->next : List<任意>
->entry : List<任意>
+>entry.next = entry : List<any>
+>entry.next : List<any>
+>entry : List<any>
+>next : List<any>
+>entry : List<any>
 
             return entry;
->entry : List<任意>
+>entry : List<any>
         }        
 
         public static MakeHead2<T>(): List<T> { // should not error
@@ -71,12 +68,10 @@ module Editor {
 >List : List<T>
 >T : T
 >new List<T>(true, null) : List<T>
->List : 类为 List
+>List : typeof List
 >T : T
->true : 为真
->类型别名 :=> 为真
->null : 空值
->类型别名 :=> 空值
+>true : true
+>null : null
 
             entry.prev = entry;
 >entry.prev = entry : List<T>
@@ -107,12 +102,10 @@ module Editor {
 >List : List<T>
 >U : U
 >new List<U>(true, null) : List<U>
->List : 类为 List
+>List : typeof List
 >U : U
->true : 为真
->类型别名 :=> 为真
->null : 空值
->类型别名 :=> 空值
+>true : true
+>null : null
 
             entry.prev = entry;
 >entry.prev = entry : List<U>

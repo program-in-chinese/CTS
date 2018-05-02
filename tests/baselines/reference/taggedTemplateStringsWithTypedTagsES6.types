@@ -5,7 +5,7 @@ interface I {
     (stringParts: TemplateStringsArray, ...rest: number[]): I;
 >stringParts : TemplateStringsArray
 >TemplateStringsArray : TemplateStringsArray
->rest : 数字[]
+>rest : number[]
 >I : I
 
     g: I;
@@ -21,13 +21,11 @@ interface I {
 >I : I
 
     thisIsNotATag(x: string): void
->thisIsNotATag : (x: 文字) => 无值
->x : 文字
->类型别名 :=> 文字
+>thisIsNotATag : (x: string) => void
+>x : string
 
     [x: number]: I;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >I : I
 }
 
@@ -43,8 +41,7 @@ f `abc`
 f `abc${1}def${2}ghi`;
 >f `abc${1}def${2}ghi` : I
 >f : I
->`abc${1}def${2}ghi` : 文字
->类型别名 :=> 文字
+>`abc${1}def${2}ghi` : string
 >1 : 1
 >2 : 2
 
@@ -59,8 +56,7 @@ f `abc${1}def${2}ghi`.member;
 >f `abc${1}def${2}ghi`.member : I
 >f `abc${1}def${2}ghi` : I
 >f : I
->`abc${1}def${2}ghi` : 文字
->类型别名 :=> 文字
+>`abc${1}def${2}ghi` : string
 >1 : 1
 >2 : 2
 >member : I
@@ -76,8 +72,7 @@ f `abc${1}def${2}ghi`["member"];
 >f `abc${1}def${2}ghi`["member"] : I
 >f `abc${1}def${2}ghi` : I
 >f : I
->`abc${1}def${2}ghi` : 文字
->类型别名 :=> 文字
+>`abc${1}def${2}ghi` : string
 >1 : 1
 >2 : 2
 >"member" : "member"
@@ -91,8 +86,7 @@ f `abc`[0].member `abc${1}def${2}ghi`;
 >`abc` : "abc"
 >0 : 0
 >member : I
->`abc${1}def${2}ghi` : 文字
->类型别名 :=> 文字
+>`abc${1}def${2}ghi` : string
 >1 : 1
 >2 : 2
 
@@ -102,33 +96,28 @@ f `abc${1}def${2}ghi`["member"].member `abc${1}def${2}ghi`;
 >f `abc${1}def${2}ghi`["member"] : I
 >f `abc${1}def${2}ghi` : I
 >f : I
->`abc${1}def${2}ghi` : 文字
->类型别名 :=> 文字
+>`abc${1}def${2}ghi` : string
 >1 : 1
 >2 : 2
 >"member" : "member"
 >member : I
->`abc${1}def${2}ghi` : 文字
->类型别名 :=> 文字
+>`abc${1}def${2}ghi` : string
 >1 : 1
 >2 : 2
 
 f.thisIsNotATag(`abc`);
->f.thisIsNotATag(`abc`) : 无值
->类型别名 :=> 无值
->f.thisIsNotATag : (x: 文字) => 无值
+>f.thisIsNotATag(`abc`) : void
+>f.thisIsNotATag : (x: string) => void
 >f : I
->thisIsNotATag : (x: 文字) => 无值
+>thisIsNotATag : (x: string) => void
 >`abc` : "abc"
 
 f.thisIsNotATag(`abc${1}def${2}ghi`);
->f.thisIsNotATag(`abc${1}def${2}ghi`) : 无值
->类型别名 :=> 无值
->f.thisIsNotATag : (x: 文字) => 无值
+>f.thisIsNotATag(`abc${1}def${2}ghi`) : void
+>f.thisIsNotATag : (x: string) => void
 >f : I
->thisIsNotATag : (x: 文字) => 无值
->`abc${1}def${2}ghi` : 文字
->类型别名 :=> 文字
+>thisIsNotATag : (x: string) => void
+>`abc${1}def${2}ghi` : string
 >1 : 1
 >2 : 2
 

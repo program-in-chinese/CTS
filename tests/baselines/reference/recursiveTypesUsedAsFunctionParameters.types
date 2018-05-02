@@ -30,21 +30,21 @@ class MyList<T> {
 }
 
 function foo<T>(x: List<T>);
->foo : { <T>(x: List<T>): 任意; <U>(x: List<U>): 任意; }
+>foo : { <T>(x: List<T>): any; <U>(x: List<U>): any; }
 >T : T
 >x : List<T>
 >List : List<T>
 >T : T
 
 function foo<U>(x: List<U>); // error, duplicate
->foo : { <T>(x: List<T>): 任意; <U>(x: List<U>): 任意; }
+>foo : { <T>(x: List<T>): any; <U>(x: List<U>): any; }
 >U : U
 >x : List<U>
 >List : List<T>
 >U : U
 
 function foo<T>(x: List<T>) {
->foo : { <T>(x: List<T>): 任意; <U>(x: List<U>): 任意; }
+>foo : { <T>(x: List<T>): any; <U>(x: List<U>): any; }
 >T : T
 >x : List<T>
 >List : List<T>
@@ -52,28 +52,27 @@ function foo<T>(x: List<T>) {
 }
 
 function foo2<T>(x: List<T>);
->foo2 : { <T>(x: List<T>): 任意; <U>(x: MyList<U>): 任意; }
+>foo2 : { <T>(x: List<T>): any; <U>(x: MyList<U>): any; }
 >T : T
 >x : List<T>
 >List : List<T>
 >T : T
 
 function foo2<U>(x: MyList<U>); // ok, nominally compared with first overload
->foo2 : { <T>(x: List<T>): 任意; <U>(x: MyList<U>): 任意; }
+>foo2 : { <T>(x: List<T>): any; <U>(x: MyList<U>): any; }
 >U : U
 >x : MyList<U>
 >MyList : MyList<T>
 >U : U
 
 function foo2<T>(x: any) {
->foo2 : { <T>(x: List<T>): 任意; <U>(x: MyList<U>): 任意; }
+>foo2 : { <T>(x: List<T>): any; <U>(x: MyList<U>): any; }
 >T : T
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 function other<T extends List<U>, U>() {
->other : <T 扩展 List<U>, U>() => 无值
+>other : <T extends List<U>, U>() => void
 >T : T
 >List : List<T>
 >U : U
@@ -82,13 +81,13 @@ function other<T extends List<U>, U>() {
     // error but wrong error
     // BUG 838247
     function foo3<V>(x: T);
->foo3 : <V>(x: T) => 任意
+>foo3 : <V>(x: T) => any
 >V : V
 >x : T
 >T : T
 
     function foo3<V>(x: MyList<V>) { }
->foo3 : <V>(x: T) => 任意
+>foo3 : <V>(x: T) => any
 >V : V
 >x : MyList<V>
 >MyList : MyList<T>
@@ -97,13 +96,13 @@ function other<T extends List<U>, U>() {
     // should be error
     // BUG 838247
     function foo4<V>(x: T);
->foo4 : <V>(x: T) => 任意
+>foo4 : <V>(x: T) => any
 >V : V
 >x : T
 >T : T
 
     function foo4<V>(x: List<V>) { }
->foo4 : <V>(x: T) => 任意
+>foo4 : <V>(x: T) => any
 >V : V
 >x : List<V>
 >List : List<T>
@@ -111,54 +110,48 @@ function other<T extends List<U>, U>() {
 
     // ok
     function foo5<V>(x: T): string;
->foo5 : { <V>(x: T): 文字; <V>(x: List<V>): 数字; <V>(x: MyList<V>): 真假; }
+>foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
 >V : V
 >x : T
 >T : T
 
     function foo5<V>(x: List<V>): number;
->foo5 : { <V>(x: T): 文字; <V>(x: List<V>): 数字; <V>(x: MyList<V>): 真假; }
+>foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
 >V : V
 >x : List<V>
 >List : List<T>
 >V : V
 
     function foo5<V>(x: MyList<V>): boolean;
->foo5 : { <V>(x: T): 文字; <V>(x: List<V>): 数字; <V>(x: MyList<V>): 真假; }
+>foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
 >V : V
 >x : MyList<V>
 >MyList : MyList<T>
 >V : V
 
     function foo5<V>(x: any): any { return null; }
->foo5 : { <V>(x: T): 文字; <V>(x: List<V>): 数字; <V>(x: MyList<V>): 真假; }
+>foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
 >V : V
->x : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>x : any
+>null : null
 
     var list: List<string>;
->list : List<文字>
+>list : List<string>
 >List : List<T>
 
     var myList: MyList<string>;
->myList : MyList<文字>
+>myList : MyList<string>
 >MyList : MyList<T>
 
     var r = foo5(list);
->r : 数字
->类型别名 :=> 数字
->foo5(list) : 数字
->类型别名 :=> 数字
->foo5 : { <V>(x: T): 文字; <V>(x: List<V>): 数字; <V>(x: MyList<V>): 真假; }
->list : List<文字>
+>r : number
+>foo5(list) : number
+>foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
+>list : List<string>
 
     var r2 = foo5(myList);
->r2 : 数字
->类型别名 :=> 数字
->foo5(myList) : 数字
->类型别名 :=> 数字
->foo5 : { <V>(x: T): 文字; <V>(x: List<V>): 数字; <V>(x: MyList<V>): 真假; }
->myList : MyList<文字>
+>r2 : number
+>foo5(myList) : number
+>foo5 : { <V>(x: T): string; <V>(x: List<V>): number; <V>(x: MyList<V>): boolean; }
+>myList : MyList<string>
 }

@@ -1,43 +1,39 @@
 === tests/cases/conformance/ambient/consumer.ts ===
 /// <reference path="decls.ts" />
 import imp1 = require('equ');
->imp1 : 任意
->类型别名 :=> 任意
+>imp1 : any
 
 
 // Ambient external module members are always exported with or without export keyword when module lacks export assignment
 import imp3 = require('equ2');
->imp3 : 类为 imp3
+>imp3 : typeof imp3
 
 var n = imp3.x;
->n : 数字
->类型别名 :=> 数字
->imp3.x : 数字
->类型别名 :=> 数字
->imp3 : 类为 imp3
->x : 数字
->类型别名 :=> 数字
+>n : number
+>imp3.x : number
+>imp3 : typeof imp3
+>x : number
 
 var n: number;
->n : 数字
->类型别名 :=> 数字
+>n : number
 
 === tests/cases/conformance/ambient/decls.ts ===
 // Ambient external module with export assignment
 declare module 'equ' {
+>'equ' : typeof 'equ'
+
     var x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     export = x;
->x : 任意
->类型别名 :=> 任意
+>x : any
 }
 
 declare module 'equ2' {
+>'equ2' : typeof 'equ2'
+
     var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 }
 
 // Ambient external import declaration referencing ambient external module using top level module name

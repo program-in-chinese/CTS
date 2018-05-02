@@ -15,9 +15,8 @@ type C = A | B | undefined;
 >B : B
 
 function never(_: never): never {
->never : (_: 不及) => 不及
->_ : 不及
->类型别名 :=> 不及
+>never : (_: never) => never
+>_ : never
 
     throw new Error();
 >new Error() : Error
@@ -25,12 +24,12 @@ function never(_: never): never {
 }
 
 function useA(_: A): void { }
->useA : (_: A) => 无值
+>useA : (_: A) => void
 >_ : A
 >A : A
 
 function useB(_: B): void { }
->useB : (_: B) => 无值
+>useB : (_: B) => void
 >_ : B
 >B : B
 
@@ -39,11 +38,9 @@ declare var c: C;
 >C : C
 
 if (c !== undefined) {
->c !== undefined : 真假
->类型别名 :=> 真假
+>c !== undefined : boolean
 >c : C
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 
     switch (c.kind) {
 >c.kind : "A" | "B"
@@ -52,23 +49,19 @@ if (c !== undefined) {
 
         case 'A': useA(c); break;
 >'A' : "A"
->useA(c) : 无值
->类型别名 :=> 无值
->useA : (_: A) => 无值
+>useA(c) : void
+>useA : (_: A) => void
 >c : A
 
         case 'B': useB(c); break;
 >'B' : "B"
->useB(c) : 无值
->类型别名 :=> 无值
->useB : (_: B) => 无值
+>useB(c) : void
+>useB : (_: B) => void
 >c : B
 
         default: never(c);
->never(c) : 不及
->类型别名 :=> 不及
->never : (_: 不及) => 不及
->c : 不及
->类型别名 :=> 不及
+>never(c) : never
+>never : (_: never) => never
+>c : never
     }
 }

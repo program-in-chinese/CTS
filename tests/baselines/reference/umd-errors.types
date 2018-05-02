@@ -6,6 +6,8 @@ export as namespace Foo;
 === tests/cases/conformance/externalModules/err2.d.ts ===
 // Illegal, can't be in external ambient module
 declare module "Foo" {
+>"Foo" : typeof "Foo"
+
 	export as namespace Bar;
 >Bar : No type information available!
 }
@@ -13,25 +15,24 @@ declare module "Foo" {
 === tests/cases/conformance/externalModules/err3.d.ts ===
 // Illegal, can't have modifiers
 export var p;
->p : 任意
->类型别名 :=> 任意
+>p : any
 
 static export as namespace oo1;
->oo1 : 类为 "tests/cases/conformance/externalModules/err3"
+>oo1 : typeof "tests/cases/conformance/externalModules/err3"
 
 declare export as namespace oo2;
->oo2 : 类为 "tests/cases/conformance/externalModules/err3"
+>oo2 : typeof "tests/cases/conformance/externalModules/err3"
 
 public export as namespace oo3;
->oo3 : 类为 "tests/cases/conformance/externalModules/err3"
+>oo3 : typeof "tests/cases/conformance/externalModules/err3"
 
 const export as namespace oo4;
->oo4 : 类为 "tests/cases/conformance/externalModules/err3"
+>oo4 : typeof "tests/cases/conformance/externalModules/err3"
 
 === tests/cases/conformance/externalModules/err4.d.ts ===
 // Illegal, must be at top-level
 export namespace B {
->B : 类为 B
+>B : typeof B
 
 	export as namespace C1;
 >C1 : No type information available!
@@ -40,8 +41,7 @@ export namespace B {
 === tests/cases/conformance/externalModules/err5.ts ===
 // Illegal, may not appear in implementation files
 export var v;
->v : 任意
->类型别名 :=> 任意
+>v : any
 
 export as namespace C2;
 >C2 : No type information available!

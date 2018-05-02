@@ -1,65 +1,53 @@
 === tests/cases/compiler/potentiallyUncalledDecorators.ts ===
 // Angular-style Input/Output API:
 declare function Input(bindingPropertyName?: string): any;
->Input : (bindingPropertyName?: 文字) => 任意
->bindingPropertyName : 文字
->类型别名 :=> 文字
+>Input : (bindingPropertyName?: string) => any
+>bindingPropertyName : string
 
 class FooComponent {
 >FooComponent : FooComponent
 
     @Input foo: string;
->Input : (bindingPropertyName?: 文字) => 任意
->foo : 文字
->类型别名 :=> 文字
+>Input : (bindingPropertyName?: string) => any
+>foo : string
 }
 
 // Glimmer-style tracked API:
 declare const tracked: PropertyDecorator & { (...watchedProperties: string[]): any; }
->tracked : PropertyDecorator & ((...watchedProperties: 文字[]) => 任意)
+>tracked : PropertyDecorator & ((...watchedProperties: string[]) => any)
 >PropertyDecorator : PropertyDecorator
->watchedProperties : 文字[]
+>watchedProperties : string[]
 
 class Person {
 >Person : Person
 
     @tracked person; any;
->tracked : PropertyDecorator & ((...watchedProperties: 文字[]) => 任意)
->person : 任意
->类型别名 :=> 任意
->any : 任意
->类型别名 :=> 任意
+>tracked : PropertyDecorator & ((...watchedProperties: string[]) => any)
+>person : any
+>any : any
 }
 
 class MultiplyByTwo {
 >MultiplyByTwo : MultiplyByTwo
 
     args: any;
->args : 任意
->类型别名 :=> 任意
+>args : any
 
     @tracked('args')
->tracked('args') : 任意
->类型别名 :=> 任意
->tracked : PropertyDecorator & ((...watchedProperties: 文字[]) => 任意)
+>tracked('args') : any
+>tracked : PropertyDecorator & ((...watchedProperties: string[]) => any)
 >'args' : "args"
 
     get multiplied() {
->multiplied : 数字
->类型别名 :=> 数字
+>multiplied : number
 
         return this.args.number * 2;
->this.args.number * 2 : 数字
->类型别名 :=> 数字
->this.args.number : 任意
->类型别名 :=> 任意
->this.args : 任意
->类型别名 :=> 任意
->this : 本体
->args : 任意
->类型别名 :=> 任意
->number : 任意
->类型别名 :=> 任意
+>this.args.number * 2 : number
+>this.args.number : any
+>this.args : any
+>this : this
+>args : any
+>number : any
 >2 : 2
     }
 }
@@ -78,44 +66,36 @@ declare function noArgs(): OmniDecorator;
 >OmniDecorator : OmniDecorator
 
 declare function allRest(...args: any[]): OmniDecorator;
->allRest : (...args: 任意[]) => OmniDecorator
->args : 任意[]
+>allRest : (...args: any[]) => OmniDecorator
+>args : any[]
 >OmniDecorator : OmniDecorator
 
 declare function oneOptional(x?: any): OmniDecorator;
->oneOptional : (x?: 任意) => OmniDecorator
->x : 任意
->类型别名 :=> 任意
+>oneOptional : (x?: any) => OmniDecorator
+>x : any
 >OmniDecorator : OmniDecorator
 
 declare function twoOptional(x?: any, y?: any): OmniDecorator;
->twoOptional : (x?: 任意, y?: 任意) => OmniDecorator
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>twoOptional : (x?: any, y?: any) => OmniDecorator
+>x : any
+>y : any
 >OmniDecorator : OmniDecorator
 
 declare function threeOptional(x?: any, y?: any, z?: any): OmniDecorator;
->threeOptional : (x?: 任意, y?: 任意, z?: 任意) => OmniDecorator
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->z : 任意
->类型别名 :=> 任意
+>threeOptional : (x?: any, y?: any, z?: any) => OmniDecorator
+>x : any
+>y : any
+>z : any
 >OmniDecorator : OmniDecorator
 
 declare function oneOptionalWithRest(x?: any, ...args: any[]): OmniDecorator;
->oneOptionalWithRest : (x?: 任意, ...args: 任意[]) => OmniDecorator
->x : 任意
->类型别名 :=> 任意
->args : 任意[]
+>oneOptionalWithRest : (x?: any, ...args: any[]) => OmniDecorator
+>x : any
+>args : any[]
 >OmniDecorator : OmniDecorator
 
 declare const anyDec: any;
->anyDec : 任意
->类型别名 :=> 任意
+>anyDec : any
 
 @noArgs
 >noArgs : () => OmniDecorator
@@ -125,111 +105,101 @@ class A {
 
     @noArgs foo: any;
 >noArgs : () => OmniDecorator
->foo : 任意
->类型别名 :=> 任意
+>foo : any
 
     @noArgs bar() { }
 >noArgs : () => OmniDecorator
->bar : () => 无值
+>bar : () => void
 }
 
 @allRest
->allRest : (...args: 任意[]) => OmniDecorator
+>allRest : (...args: any[]) => OmniDecorator
 
 class B {
 >B : B
 
     @allRest foo: any;
->allRest : (...args: 任意[]) => OmniDecorator
->foo : 任意
->类型别名 :=> 任意
+>allRest : (...args: any[]) => OmniDecorator
+>foo : any
 
     @allRest bar() { }
->allRest : (...args: 任意[]) => OmniDecorator
->bar : () => 无值
+>allRest : (...args: any[]) => OmniDecorator
+>bar : () => void
 }
 
 @oneOptional
->oneOptional : (x?: 任意) => OmniDecorator
+>oneOptional : (x?: any) => OmniDecorator
 
 class C {
 >C : C
 
     @oneOptional foo: any;
->oneOptional : (x?: 任意) => OmniDecorator
->foo : 任意
->类型别名 :=> 任意
+>oneOptional : (x?: any) => OmniDecorator
+>foo : any
 
     @oneOptional bar() { }
->oneOptional : (x?: 任意) => OmniDecorator
->bar : () => 无值
+>oneOptional : (x?: any) => OmniDecorator
+>bar : () => void
 }
 
 @twoOptional
->twoOptional : (x?: 任意, y?: 任意) => OmniDecorator
+>twoOptional : (x?: any, y?: any) => OmniDecorator
 
 class D {
 >D : D
 
     @twoOptional foo: any;
->twoOptional : (x?: 任意, y?: 任意) => OmniDecorator
->foo : 任意
->类型别名 :=> 任意
+>twoOptional : (x?: any, y?: any) => OmniDecorator
+>foo : any
 
     @twoOptional bar() { }
->twoOptional : (x?: 任意, y?: 任意) => OmniDecorator
->bar : () => 无值
+>twoOptional : (x?: any, y?: any) => OmniDecorator
+>bar : () => void
 }
 
 @threeOptional
->threeOptional : (x?: 任意, y?: 任意, z?: 任意) => OmniDecorator
+>threeOptional : (x?: any, y?: any, z?: any) => OmniDecorator
 
 class E {
 >E : E
 
     @threeOptional foo: any;
->threeOptional : (x?: 任意, y?: 任意, z?: 任意) => OmniDecorator
->foo : 任意
->类型别名 :=> 任意
+>threeOptional : (x?: any, y?: any, z?: any) => OmniDecorator
+>foo : any
 
     @threeOptional bar() { }
->threeOptional : (x?: 任意, y?: 任意, z?: 任意) => OmniDecorator
->bar : () => 无值
+>threeOptional : (x?: any, y?: any, z?: any) => OmniDecorator
+>bar : () => void
 }
 
 @oneOptionalWithRest
->oneOptionalWithRest : (x?: 任意, ...args: 任意[]) => OmniDecorator
+>oneOptionalWithRest : (x?: any, ...args: any[]) => OmniDecorator
 
 class F {
 >F : F
 
     @oneOptionalWithRest foo: any;
->oneOptionalWithRest : (x?: 任意, ...args: 任意[]) => OmniDecorator
->foo : 任意
->类型别名 :=> 任意
+>oneOptionalWithRest : (x?: any, ...args: any[]) => OmniDecorator
+>foo : any
 
     @oneOptionalWithRest bar() { }
->oneOptionalWithRest : (x?: 任意, ...args: 任意[]) => OmniDecorator
->bar : () => 无值
+>oneOptionalWithRest : (x?: any, ...args: any[]) => OmniDecorator
+>bar : () => void
 }
 
 @anyDec
->anyDec : 任意
->类型别名 :=> 任意
+>anyDec : any
 
 class G {
 >G : G
 
     @anyDec foo: any;
->anyDec : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>anyDec : any
+>foo : any
 
     @anyDec bar() { }
->anyDec : 任意
->类型别名 :=> 任意
->bar : () => 无值
+>anyDec : any
+>bar : () => void
 }
 
 export { };

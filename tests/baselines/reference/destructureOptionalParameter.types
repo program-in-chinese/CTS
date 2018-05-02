@@ -1,87 +1,69 @@
 === tests/cases/compiler/destructureOptionalParameter.ts ===
 declare function f1({ a, b }?: { a: number, b: string }): void;
->f1 : ({ a, b }?: { a: 数字; b: 文字; } | 未定) => 无值
->a : 数字
->类型别名 :=> 数字
->b : 文字
->类型别名 :=> 文字
->a : 数字
->类型别名 :=> 数字
->b : 文字
->类型别名 :=> 文字
+>f1 : ({ a, b }?: { a: number; b: string; } | undefined) => void
+>a : number
+>b : string
+>a : number
+>b : string
 
 function f2({ a, b }: { a: number, b: number } = { a: 0, b: 0 }) {
->f2 : ({ a, b }?: { a: 数字; b: 数字; }) => 无值
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->{ a: 0, b: 0 } : { a: 数字; b: 数字; }
->a : 数字
->类型别名 :=> 数字
+>f2 : ({ a, b }?: { a: number; b: number; }) => void
+>a : number
+>b : number
+>a : number
+>b : number
+>{ a: 0, b: 0 } : { a: number; b: number; }
+>a : number
 >0 : 0
->b : 数字
->类型别名 :=> 数字
+>b : number
 >0 : 0
 
     a;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
     b;
->b : 数字
->类型别名 :=> 数字
+>b : number
 }
 
 // Repro from #8681
 
 interface Type { t: void }
 >Type : Type
->t : 无值
->类型别名 :=> 无值
+>t : void
 
 interface QueryMetadata { q: void }
 >QueryMetadata : QueryMetadata
->q : 无值
->类型别名 :=> 无值
+>q : void
 
 interface QueryMetadataFactory {
 >QueryMetadataFactory : QueryMetadataFactory
 
     (selector: Type | string, {descendants, read}?: {
->selector : 文字 | Type
+>selector : string | Type
 >Type : Type
->descendants : 真假 | 未定
->read : 任意
->类型别名 :=> 任意
+>descendants : boolean | undefined
+>read : any
 
         descendants?: boolean;
->descendants : 真假 | 未定
+>descendants : boolean | undefined
 
         read?: any;
->read : 任意
->类型别名 :=> 任意
+>read : any
 
     }): ParameterDecorator;
 >ParameterDecorator : ParameterDecorator
 
     new (selector: Type | string, {descendants, read}?: {
->selector : 文字 | Type
+>selector : string | Type
 >Type : Type
->descendants : 真假 | 未定
->read : 任意
->类型别名 :=> 任意
+>descendants : boolean | undefined
+>read : any
 
         descendants?: boolean;
->descendants : 真假 | 未定
+>descendants : boolean | undefined
 
         read?: any;
->read : 任意
->类型别名 :=> 任意
+>read : any
 
     }): QueryMetadata;
 >QueryMetadata : QueryMetadata

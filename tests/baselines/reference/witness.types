@@ -1,481 +1,369 @@
 === tests/cases/conformance/types/witness/witness.ts ===
 // Initializers
 var varInit = varInit; // any
->varInit : 任意
->类型别名 :=> 任意
->varInit : 任意
->类型别名 :=> 任意
+>varInit : any
+>varInit : any
 
 var pInit: any;
->pInit : 任意
->类型别名 :=> 任意
+>pInit : any
 
 function fn(pInit = pInit) {
->fn : (pInit?: 任意) => 无值
->pInit : 任意
->类型别名 :=> 任意
->pInit : 任意
->类型别名 :=> 任意
+>fn : (pInit?: any) => void
+>pInit : any
+>pInit : any
 
     var pInit: any;
->pInit : 任意
->类型别名 :=> 任意
+>pInit : any
 }
 class InitClass {
 >InitClass : InitClass
 
     x = this.x;
->x : 任意
->类型别名 :=> 任意
->this.x : 任意
->类型别名 :=> 任意
->this : 本体
->x : 任意
->类型别名 :=> 任意
+>x : any
+>this.x : any
+>this : this
+>x : any
 
     fn() {
->fn : () => 无值
+>fn : () => void
 
         var y = this.x;
->y : 任意
->类型别名 :=> 任意
->this.x : 任意
->类型别名 :=> 任意
->this : 本体
->x : 任意
->类型别名 :=> 任意
+>y : any
+>this.x : any
+>this : this
+>x : any
 
         var y: any;
->y : 任意
->类型别名 :=> 任意
+>y : any
     }
 }
 
 // Return type
 function fnReturn1() {
->fnReturn1 : () => 任意
+>fnReturn1 : () => any
 
     return fnReturn1();
->fnReturn1() : 任意
->类型别名 :=> 任意
->fnReturn1 : () => 任意
+>fnReturn1() : any
+>fnReturn1 : () => any
 }
 var a: any;
->a : 任意
->类型别名 :=> 任意
+>a : any
 
 var a = fnReturn1();
->a : 任意
->类型别名 :=> 任意
->fnReturn1() : 任意
->类型别名 :=> 任意
->fnReturn1 : () => 任意
+>a : any
+>fnReturn1() : any
+>fnReturn1 : () => any
 
 function fnReturn2() {
->fnReturn2 : () => 类为 fnReturn2
+>fnReturn2 : () => typeof fnReturn2
 
     return fnReturn2;
->fnReturn2 : () => 类为 fnReturn2
+>fnReturn2 : () => typeof fnReturn2
 }
 var fnr2: () => any = fnReturn2();
->fnr2 : () => 任意
->fnReturn2() : () => 类为 fnReturn2
->fnReturn2 : () => 类为 fnReturn2
+>fnr2 : () => any
+>fnReturn2() : () => typeof fnReturn2
+>fnReturn2 : () => typeof fnReturn2
 
 // Comma
 var co1 = (co1, 3);
->co1 : 任意
->类型别名 :=> 任意
+>co1 : any
 >(co1, 3) : 3
 >co1, 3 : 3
->co1 : 任意
->类型别名 :=> 任意
+>co1 : any
 >3 : 3
 
 var co1: number;
->co1 : 任意
->类型别名 :=> 任意
+>co1 : any
 
 var co2 = (3, 4, co2);
->co2 : 任意
->类型别名 :=> 任意
->(3, 4, co2) : 任意
->类型别名 :=> 任意
->3, 4, co2 : 任意
->类型别名 :=> 任意
+>co2 : any
+>(3, 4, co2) : any
+>3, 4, co2 : any
 >3, 4 : 4
 >3 : 3
 >4 : 4
->co2 : 任意
->类型别名 :=> 任意
+>co2 : any
 
 var co2: any;
->co2 : 任意
->类型别名 :=> 任意
+>co2 : any
 
 var co3 = (co1, co2, co3, co1);
->co3 : 任意
->类型别名 :=> 任意
->(co1, co2, co3, co1) : 任意
->类型别名 :=> 任意
->co1, co2, co3, co1 : 任意
->类型别名 :=> 任意
->co1, co2, co3 : 任意
->类型别名 :=> 任意
->co1, co2 : 任意
->类型别名 :=> 任意
->co1 : 任意
->类型别名 :=> 任意
->co2 : 任意
->类型别名 :=> 任意
->co3 : 任意
->类型别名 :=> 任意
->co1 : 任意
->类型别名 :=> 任意
+>co3 : any
+>(co1, co2, co3, co1) : any
+>co1, co2, co3, co1 : any
+>co1, co2, co3 : any
+>co1, co2 : any
+>co1 : any
+>co2 : any
+>co3 : any
+>co1 : any
 
 var co3: number;
->co3 : 任意
->类型别名 :=> 任意
+>co3 : any
 
 // Assignment
 var as1 = (as1 = 2);
->as1 : 任意
->类型别名 :=> 任意
+>as1 : any
 >(as1 = 2) : 2
 >as1 = 2 : 2
->as1 : 任意
->类型别名 :=> 任意
+>as1 : any
 >2 : 2
 
 var as1: number;
->as1 : 任意
->类型别名 :=> 任意
+>as1 : any
 
 var as2 = (as2 = as2 = 2);
->as2 : 任意
->类型别名 :=> 任意
+>as2 : any
 >(as2 = as2 = 2) : 2
 >as2 = as2 = 2 : 2
->as2 : 任意
->类型别名 :=> 任意
+>as2 : any
 >as2 = 2 : 2
->as2 : 任意
->类型别名 :=> 任意
+>as2 : any
 >2 : 2
 
 var as2: number;
->as2 : 任意
->类型别名 :=> 任意
+>as2 : any
 
 // Conditional
 var cnd1 = cnd1 ? 0 : 1;
->cnd1 : 任意
->类型别名 :=> 任意
+>cnd1 : any
 >cnd1 ? 0 : 1 : 0 | 1
->cnd1 : 任意
->类型别名 :=> 任意
+>cnd1 : any
 >0 : 0
 >1 : 1
 
 var cnd1: number;
->cnd1 : 任意
->类型别名 :=> 任意
+>cnd1 : any
 
 var cnd2 = cnd1 ? cnd1 ? '' : "" : '';
->cnd2 : 文字
->类型别名 :=> 文字
+>cnd2 : string
 >cnd1 ? cnd1 ? '' : "" : '' : ""
->cnd1 : 任意
->类型别名 :=> 任意
+>cnd1 : any
 >cnd1 ? '' : "" : ""
->cnd1 : 任意
->类型别名 :=> 任意
+>cnd1 : any
 >'' : ""
 >"" : ""
 >'' : ""
 
 var cnd2: string;
->cnd2 : 文字
->类型别名 :=> 文字
+>cnd2 : string
 
 // ||
 var or1 = or1 || '';
->or1 : 任意
->类型别名 :=> 任意
->or1 || '' : 任意
->类型别名 :=> 任意
->or1 : 任意
->类型别名 :=> 任意
+>or1 : any
+>or1 || '' : any
+>or1 : any
 >'' : ""
 
 var or1: any;
->or1 : 任意
->类型别名 :=> 任意
+>or1 : any
 
 var or2 = '' || or2;
->or2 : 任意
->类型别名 :=> 任意
->'' || or2 : 任意
->类型别名 :=> 任意
+>or2 : any
+>'' || or2 : any
 >'' : ""
->or2 : 任意
->类型别名 :=> 任意
+>or2 : any
 
 var or2: any;
->or2 : 任意
->类型别名 :=> 任意
+>or2 : any
 
 var or3 = or3 || or3;
->or3 : 任意
->类型别名 :=> 任意
->or3 || or3 : 任意
->类型别名 :=> 任意
->or3 : 任意
->类型别名 :=> 任意
->or3 : 任意
->类型别名 :=> 任意
+>or3 : any
+>or3 || or3 : any
+>or3 : any
+>or3 : any
 
 var or3: any;
->or3 : 任意
->类型别名 :=> 任意
+>or3 : any
 
 // &&
 var and1 = and1 && '';
->and1 : 任意
->类型别名 :=> 任意
+>and1 : any
 >and1 && '' : ""
->and1 : 任意
->类型别名 :=> 任意
+>and1 : any
 >'' : ""
 
 var and1: string;
->and1 : 任意
->类型别名 :=> 任意
+>and1 : any
 
 var and2 = '' && and2;
->and2 : 任意
->类型别名 :=> 任意
+>and2 : any
 >'' && and2 : ""
 >'' : ""
->and2 : 任意
->类型别名 :=> 任意
+>and2 : any
 
 var and2: any;
->and2 : 任意
->类型别名 :=> 任意
+>and2 : any
 
 var and3 = and3 && and3;
->and3 : 任意
->类型别名 :=> 任意
->and3 && and3 : 任意
->类型别名 :=> 任意
->and3 : 任意
->类型别名 :=> 任意
->and3 : 任意
->类型别名 :=> 任意
+>and3 : any
+>and3 && and3 : any
+>and3 : any
+>and3 : any
 
 var and3: any;
->and3 : 任意
->类型别名 :=> 任意
+>and3 : any
 
 // function call return type
 function fnCall() {
->fnCall : () => 任意
+>fnCall : () => any
 
     return fnCall();
->fnCall() : 任意
->类型别名 :=> 任意
->fnCall : () => 任意
+>fnCall() : any
+>fnCall : () => any
 }
 var fnCallResult = fnCall();
->fnCallResult : 任意
->类型别名 :=> 任意
->fnCall() : 任意
->类型别名 :=> 任意
->fnCall : () => 任意
+>fnCallResult : any
+>fnCall() : any
+>fnCall : () => any
 
 var fnCallResult: any;
->fnCallResult : 任意
->类型别名 :=> 任意
+>fnCallResult : any
 
 // Call argument
 function fnArg1(x: typeof fnArg1, y: number) {
->fnArg1 : (x: 类为 fnArg1, y: 数字) => 无值
->x : (x: 类为 fnArg1, y: 数字) => 无值
->fnArg1 : (x: 类为 fnArg1, y: 数字) => 无值
->y : 数字
->类型别名 :=> 数字
+>fnArg1 : (x: typeof fnArg1, y: number) => void
+>x : (x: typeof fnArg1, y: number) => void
+>fnArg1 : (x: typeof fnArg1, y: number) => void
+>y : number
 
     var x: (n: typeof fnArg1, m: number) => void;
->x : (x: 类为 fnArg1, y: 数字) => 无值
->n : (x: 类为 fnArg1, y: 数字) => 无值
->fnArg1 : (x: 类为 fnArg1, y: 数字) => 无值
->m : 数字
->类型别名 :=> 数字
+>x : (x: typeof fnArg1, y: number) => void
+>n : (x: typeof fnArg1, y: number) => void
+>fnArg1 : (x: typeof fnArg1, y: number) => void
+>m : number
 
     fnArg1(fnArg1, 0);
->fnArg1(fnArg1, 0) : 无值
->类型别名 :=> 无值
->fnArg1 : (x: 类为 fnArg1, y: 数字) => 无值
->fnArg1 : (x: 类为 fnArg1, y: 数字) => 无值
+>fnArg1(fnArg1, 0) : void
+>fnArg1 : (x: typeof fnArg1, y: number) => void
+>fnArg1 : (x: typeof fnArg1, y: number) => void
 >0 : 0
 }
 
 function overload1(x: (n: string) => string): string;
->overload1 : { (x: (n: 文字) => 文字): 文字; (x: (n: 数字) => 数字): 数字; (x: (n: 任意) => 任意): 任意; }
->x : (n: 文字) => 文字
->n : 文字
->类型别名 :=> 文字
+>overload1 : { (x: (n: string) => string): string; (x: (n: number) => number): number; (x: (n: any) => any): any; }
+>x : (n: string) => string
+>n : string
 
 function overload1(x: (n: number) => number): number;
->overload1 : { (x: (n: 文字) => 文字): 文字; (x: (n: 数字) => 数字): 数字; (x: (n: 任意) => 任意): 任意; }
->x : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
+>overload1 : { (x: (n: string) => string): string; (x: (n: number) => number): number; (x: (n: any) => any): any; }
+>x : (n: number) => number
+>n : number
 
 function overload1(x: (n: any) => any): any;
->overload1 : { (x: (n: 文字) => 文字): 文字; (x: (n: 数字) => 数字): 数字; (x: (n: 任意) => 任意): 任意; }
->x : (n: 任意) => 任意
->n : 任意
->类型别名 :=> 任意
+>overload1 : { (x: (n: string) => string): string; (x: (n: number) => number): number; (x: (n: any) => any): any; }
+>x : (n: any) => any
+>n : any
 
 function overload1() { return undefined; };
->overload1 : { (x: (n: 文字) => 文字): 文字; (x: (n: 数字) => 数字): 数字; (x: (n: 任意) => 任意): 任意; }
->undefined : 未定
->类型别名 :=> 未定
+>overload1 : { (x: (n: string) => string): string; (x: (n: number) => number): number; (x: (n: any) => any): any; }
+>undefined : undefined
 
 function fnArg2() {
->fnArg2 : () => 任意
+>fnArg2 : () => any
 
     return overload1(fnArg2);
->overload1(fnArg2) : 任意
->类型别名 :=> 任意
->overload1 : { (x: (n: 文字) => 文字): 文字; (x: (n: 数字) => 数字): 数字; (x: (n: 任意) => 任意): 任意; }
->fnArg2 : () => 任意
+>overload1(fnArg2) : any
+>overload1 : { (x: (n: string) => string): string; (x: (n: number) => number): number; (x: (n: any) => any): any; }
+>fnArg2 : () => any
 }
 var t = fnArg2(); // t: should be 'any', but is 'string'
->t : 任意
->类型别名 :=> 任意
->fnArg2() : 任意
->类型别名 :=> 任意
->fnArg2 : () => 任意
+>t : any
+>fnArg2() : any
+>fnArg2 : () => any
 
 // New operator
 class C {
 >C : C
 
     fn1() {
->fn1 : () => 任意
+>fn1 : () => any
 
         return new (this.fn1())();
->new (this.fn1())() : 任意
->类型别名 :=> 任意
->(this.fn1()) : 任意
->类型别名 :=> 任意
->this.fn1() : 任意
->类型别名 :=> 任意
->this.fn1 : () => 任意
->this : 本体
->fn1 : () => 任意
+>new (this.fn1())() : any
+>(this.fn1()) : any
+>this.fn1() : any
+>this.fn1 : () => any
+>this : this
+>fn1 : () => any
     }
     fn2() {
->fn2 : () => 任意
+>fn2 : () => any
 
         return new (this.fn2());
->new (this.fn2()) : 任意
->类型别名 :=> 任意
->(this.fn2()) : 任意
->类型别名 :=> 任意
->this.fn2() : 任意
->类型别名 :=> 任意
->this.fn2 : () => 任意
->this : 本体
->fn2 : () => 任意
+>new (this.fn2()) : any
+>(this.fn2()) : any
+>this.fn2() : any
+>this.fn2 : () => any
+>this : this
+>fn2 : () => any
     }
     fn3() {
->fn3 : () => 数字
+>fn3 : () => number
 
         var a: new(x) => number;
->a : 新建 (x: 任意) => 数字
->x : 任意
->类型别名 :=> 任意
+>a : new (x: any) => number
+>x : any
 
         return new a(this.fn3);
->new a(this.fn3) : 数字
->类型别名 :=> 数字
->a : 新建 (x: 任意) => 数字
->this.fn3 : () => 数字
->this : 本体
->fn3 : () => 数字
+>new a(this.fn3) : number
+>a : new (x: any) => number
+>this.fn3 : () => number
+>this : this
+>fn3 : () => number
     }
 }
 
 function fn5() {
->fn5 : () => 数字
+>fn5 : () => number
 
     var a: new (x) => number;
->a : 新建 (x: 任意) => 数字
->x : 任意
->类型别名 :=> 任意
+>a : new (x: any) => number
+>x : any
 
     return new a(fn5);
->new a(fn5) : 数字
->类型别名 :=> 数字
->a : 新建 (x: 任意) => 数字
->fn5 : () => 数字
+>new a(fn5) : number
+>a : new (x: any) => number
+>fn5 : () => number
 }
 var fn5r = fn5(); // fn5r: should be 'any', but is 'number'
->fn5r : 数字
->类型别名 :=> 数字
->fn5() : 数字
->类型别名 :=> 数字
->fn5 : () => 数字
+>fn5r : number
+>fn5() : number
+>fn5 : () => number
 
 // Property access
 var propAcc1 = {
->propAcc1 : 任意
->类型别名 :=> 任意
->{    m: propAcc1.m} : { m: 任意; }
+>propAcc1 : any
+>{    m: propAcc1.m} : { m: any; }
 
     m: propAcc1.m
->m : 任意
->类型别名 :=> 任意
->propAcc1.m : 任意
->类型别名 :=> 任意
->propAcc1 : 任意
->类型别名 :=> 任意
->m : 任意
->类型别名 :=> 任意
+>m : any
+>propAcc1.m : any
+>propAcc1 : any
+>m : any
 
 };
 var propAcc1: { m: any; }
->propAcc1 : 任意
->类型别名 :=> 任意
->m : 任意
->类型别名 :=> 任意
+>propAcc1 : any
+>m : any
 
 // Property access of module member
 module M2 {
->M2 : 类为 M2
+>M2 : typeof M2
 
     export var x = M2.x;
->x : 任意
->类型别名 :=> 任意
->M2.x : 任意
->类型别名 :=> 任意
->M2 : 类为 M2
->x : 任意
->类型别名 :=> 任意
+>x : any
+>M2.x : any
+>M2 : typeof M2
+>x : any
 
     var y = x;
->y : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>y : any
+>x : any
 
     var y: any;
->y : 任意
->类型别名 :=> 任意
+>y : any
 }
 
 // Property access of class instance type
@@ -483,53 +371,39 @@ class C2 {
 >C2 : C2
 
     n = this.n; // n: any
->n : 任意
->类型别名 :=> 任意
->this.n : 任意
->类型别名 :=> 任意
->this : 本体
->n : 任意
->类型别名 :=> 任意
+>n : any
+>this.n : any
+>this : this
+>n : any
 }
 var c2inst = new C2().n;
->c2inst : 任意
->类型别名 :=> 任意
->new C2().n : 任意
->类型别名 :=> 任意
+>c2inst : any
+>new C2().n : any
 >new C2() : C2
->C2 : 类为 C2
->n : 任意
->类型别名 :=> 任意
+>C2 : typeof C2
+>n : any
 
 var c2inst: any;
->c2inst : 任意
->类型别名 :=> 任意
+>c2inst : any
 
 // Constructor function property access
 class C3 {
 >C3 : C3
 
     static q = C3.q;
->q : 任意
->类型别名 :=> 任意
->C3.q : 任意
->类型别名 :=> 任意
->C3 : 类为 C3
->q : 任意
->类型别名 :=> 任意
+>q : any
+>C3.q : any
+>C3 : typeof C3
+>q : any
 }
 var qq = C3.q;
->qq : 任意
->类型别名 :=> 任意
->C3.q : 任意
->类型别名 :=> 任意
->C3 : 类为 C3
->q : 任意
->类型别名 :=> 任意
+>qq : any
+>C3.q : any
+>C3 : typeof C3
+>q : any
 
 var qq: any;
->qq : 任意
->类型别名 :=> 任意
+>qq : any
 
 // Parentheses - tested a bunch above
 

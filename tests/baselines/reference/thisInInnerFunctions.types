@@ -3,57 +3,47 @@ class Foo {
 >Foo : Foo
 
     x = "hello";
->x : 文字
->类型别名 :=> 文字
+>x : string
 >"hello" : "hello"
 
     bar() {
->bar : () => 无值
+>bar : () => void
 
         function inner() {
->inner : () => 无值
+>inner : () => void
 
             this.y = "hi"; // 'this' should be not type to 'Foo' either
 >this.y = "hi" : "hi"
->this.y : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>this.y : any
+>this : any
+>y : any
 >"hi" : "hi"
 
             var f = () => this.y;  // 'this' should be not type to 'Foo' either
->f : () => 任意
->() => this.y : () => 任意
->this.y : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>f : () => any
+>() => this.y : () => any
+>this.y : any
+>this : any
+>y : any
         }
     }
 }
 
 function test() {
->test : () => 无值
+>test : () => void
 
     var x = () => {
->x : () => 无值
->() => {        (() => this)();        this;    } : () => 无值
+>x : () => void
+>() => {        (() => this)();        this;    } : () => void
 
         (() => this)();
->(() => this)() : 任意
->类型别名 :=> 任意
->(() => this) : () => 任意
->() => this : () => 任意
->this : 任意
->类型别名 :=> 任意
+>(() => this)() : any
+>(() => this) : () => any
+>() => this : () => any
+>this : any
 
         this;
->this : 任意
->类型别名 :=> 任意
+>this : any
 
     };
 }

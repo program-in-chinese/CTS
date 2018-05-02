@@ -1,153 +1,119 @@
 === tests/cases/conformance/expressions/functions/arrowFunctionExpressions.ts ===
 // ArrowFormalParameters => AssignmentExpression is equivalent to ArrowFormalParameters => { return AssignmentExpression; }
 var a = (p: string) => p.length;
->a : (p: 文字) => 数字
->(p: string) => p.length : (p: 文字) => 数字
->p : 文字
->类型别名 :=> 文字
->p.length : 数字
->类型别名 :=> 数字
->p : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>a : (p: string) => number
+>(p: string) => p.length : (p: string) => number
+>p : string
+>p.length : number
+>p : string
+>length : number
 
 var a = (p: string) => { return p.length; }
->a : (p: 文字) => 数字
->(p: string) => { return p.length; } : (p: 文字) => 数字
->p : 文字
->类型别名 :=> 文字
->p.length : 数字
->类型别名 :=> 数字
->p : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>a : (p: string) => number
+>(p: string) => { return p.length; } : (p: string) => number
+>p : string
+>p.length : number
+>p : string
+>length : number
 
 // Identifier => Block is equivalent to(Identifier) => Block
 var b = j => { return 0; }
->b : (j: 任意) => 数字
->j => { return 0; } : (j: 任意) => 数字
->j : 任意
->类型别名 :=> 任意
+>b : (j: any) => number
+>j => { return 0; } : (j: any) => number
+>j : any
 >0 : 0
 
 var b = (j) => { return 0; }
->b : (j: 任意) => 数字
->(j) => { return 0; } : (j: 任意) => 数字
->j : 任意
->类型别名 :=> 任意
+>b : (j: any) => number
+>(j) => { return 0; } : (j: any) => number
+>j : any
 >0 : 0
 
 // Identifier => AssignmentExpression is equivalent to(Identifier) => AssignmentExpression
 var c: number;
->c : 数字
->类型别名 :=> 数字
+>c : number
 
 var d = n => c = n;
->d : (n: 任意) => 任意
->n => c = n : (n: 任意) => 任意
->n : 任意
->类型别名 :=> 任意
->c = n : 任意
->类型别名 :=> 任意
->c : 数字
->类型别名 :=> 数字
->n : 任意
->类型别名 :=> 任意
+>d : (n: any) => any
+>n => c = n : (n: any) => any
+>n : any
+>c = n : any
+>c : number
+>n : any
 
 var d = (n) => c = n;
->d : (n: 任意) => 任意
->(n) => c = n : (n: 任意) => 任意
->n : 任意
->类型别名 :=> 任意
->c = n : 任意
->类型别名 :=> 任意
->c : 数字
->类型别名 :=> 数字
->n : 任意
->类型别名 :=> 任意
+>d : (n: any) => any
+>(n) => c = n : (n: any) => any
+>n : any
+>c = n : any
+>c : number
+>n : any
 
 var d: (n: any) => any;
->d : (n: 任意) => 任意
->n : 任意
->类型别名 :=> 任意
+>d : (n: any) => any
+>n : any
 
 // Binding patterns in arrow functions
 var p1 = ([a]) => { };
->p1 : ([a]: [任意]) => 无值
->([a]) => { } : ([a]: [任意]) => 无值
->a : 任意
->类型别名 :=> 任意
+>p1 : ([a]: [any]) => void
+>([a]) => { } : ([a]: [any]) => void
+>a : any
 
 var p2 = ([...a]) => { };
->p2 : ([...a]: 任意[]) => 无值
->([...a]) => { } : ([...a]: 任意[]) => 无值
->a : 任意[]
+>p2 : ([...a]: any[]) => void
+>([...a]) => { } : ([...a]: any[]) => void
+>a : any[]
 
 var p3 = ([, a]) => { };
->p3 : ([, a]: [任意, 任意]) => 无值
->([, a]) => { } : ([, a]: [任意, 任意]) => 无值
-> : 未定
->类型别名 :=> 未定
->a : 任意
->类型别名 :=> 任意
+>p3 : ([, a]: [any, any]) => void
+>([, a]) => { } : ([, a]: [any, any]) => void
+> : undefined
+>a : any
 
 var p4 = ([, ...a]) => { };
->p4 : ([, ...a]: 任意[]) => 无值
->([, ...a]) => { } : ([, ...a]: 任意[]) => 无值
-> : 未定
->类型别名 :=> 未定
->a : 任意[]
+>p4 : ([, ...a]: any[]) => void
+>([, ...a]) => { } : ([, ...a]: any[]) => void
+> : undefined
+>a : any[]
 
 var p5 = ([a = 1]) => { };
->p5 : ([a]: [数字]) => 无值
->([a = 1]) => { } : ([a]: [数字]) => 无值
->a : 数字
->类型别名 :=> 数字
+>p5 : ([a]: [number]) => void
+>([a = 1]) => { } : ([a]: [number]) => void
+>a : number
 >1 : 1
 
 var p6 = ({ a }) => { };
->p6 : ({ a }: { a: 任意; }) => 无值
->({ a }) => { } : ({ a }: { a: 任意; }) => 无值
->a : 任意
->类型别名 :=> 任意
+>p6 : ({ a }: { a: any; }) => void
+>({ a }) => { } : ({ a }: { a: any; }) => void
+>a : any
 
 var p7 = ({ a: { b } }) => { };
->p7 : ({ a: { b } }: { a: { b: 任意; }; }) => 无值
->({ a: { b } }) => { } : ({ a: { b } }: { a: { b: 任意; }; }) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>p7 : ({ a: { b } }: { a: { b: any; }; }) => void
+>({ a: { b } }) => { } : ({ a: { b } }: { a: { b: any; }; }) => void
+>a : any
+>b : any
 
 var p8 = ({ a = 1 }) => { };
->p8 : ({ a }: { a?: 数字; }) => 无值
->({ a = 1 }) => { } : ({ a }: { a?: 数字; }) => 无值
->a : 数字
->类型别名 :=> 数字
+>p8 : ({ a }: { a?: number; }) => void
+>({ a = 1 }) => { } : ({ a }: { a?: number; }) => void
+>a : number
 >1 : 1
 
 var p9 = ({ a: { b = 1 } = { b: 1 } }) => { };
->p9 : ({ a: { b } }: { a?: { b?: 数字; }; }) => 无值
->({ a: { b = 1 } = { b: 1 } }) => { } : ({ a: { b } }: { a?: { b?: 数字; }; }) => 无值
->a : 任意
->类型别名 :=> 任意
->b : 数字
->类型别名 :=> 数字
+>p9 : ({ a: { b } }: { a?: { b?: number; }; }) => void
+>({ a: { b = 1 } = { b: 1 } }) => { } : ({ a: { b } }: { a?: { b?: number; }; }) => void
+>a : any
+>b : number
 >1 : 1
->{ b: 1 } : { b?: 数字; }
->b : 数字
->类型别名 :=> 数字
+>{ b: 1 } : { b?: number; }
+>b : number
 >1 : 1
 
 var p10 = ([{ value, done }]) => { };
->p10 : ([{ value, done }]: [{ value: 任意; done: 任意; }]) => 无值
->([{ value, done }]) => { } : ([{ value, done }]: [{ value: 任意; done: 任意; }]) => 无值
->value : 任意
->类型别名 :=> 任意
->done : 任意
->类型别名 :=> 任意
+>p10 : ([{ value, done }]: [{ value: any; done: any; }]) => void
+>([{ value, done }]) => { } : ([{ value, done }]: [{ value: any; done: any; }]) => void
+>value : any
+>done : any
 
 // Arrow function used in class member initializer
 // Arrow function used in class member function
@@ -155,289 +121,233 @@ class MyClass {
 >MyClass : MyClass
 
     m = (n) => n + 1;
->m : (n: 任意) => 任意
->(n) => n + 1 : (n: 任意) => 任意
->n : 任意
->类型别名 :=> 任意
->n + 1 : 任意
->类型别名 :=> 任意
->n : 任意
->类型别名 :=> 任意
+>m : (n: any) => any
+>(n) => n + 1 : (n: any) => any
+>n : any
+>n + 1 : any
+>n : any
 >1 : 1
 
     p = (n) => n && this;
->p : (n: 任意) => 本体
->(n) => n && this : (n: 任意) => 本体
->n : 任意
->类型别名 :=> 任意
->n && this : 本体
->n : 任意
->类型别名 :=> 任意
->this : 本体
+>p : (n: any) => this
+>(n) => n && this : (n: any) => this
+>n : any
+>n && this : this
+>n : any
+>this : this
 
     fn() {
->fn : () => 无值
+>fn : () => void
 
         var m = (n) => n + 1;
->m : (n: 任意) => 任意
->(n) => n + 1 : (n: 任意) => 任意
->n : 任意
->类型别名 :=> 任意
->n + 1 : 任意
->类型别名 :=> 任意
->n : 任意
->类型别名 :=> 任意
+>m : (n: any) => any
+>(n) => n + 1 : (n: any) => any
+>n : any
+>n + 1 : any
+>n : any
 >1 : 1
 
         var p = (n) => n && this;
->p : (n: 任意) => 本体
->(n) => n && this : (n: 任意) => 本体
->n : 任意
->类型别名 :=> 任意
->n && this : 本体
->n : 任意
->类型别名 :=> 任意
->this : 本体
+>p : (n: any) => this
+>(n) => n && this : (n: any) => this
+>n : any
+>n && this : this
+>n : any
+>this : this
     }
 }
 
 // Arrow function used in arrow function
 var arrrr = () => (m: number) => () => (n: number) => m + n;
->arrrr : () => (m: 数字) => () => (n: 数字) => 数字
->() => (m: number) => () => (n: number) => m + n : () => (m: 数字) => () => (n: 数字) => 数字
->(m: number) => () => (n: number) => m + n : (m: 数字) => () => (n: 数字) => 数字
->m : 数字
->类型别名 :=> 数字
->() => (n: number) => m + n : () => (n: 数字) => 数字
->(n: number) => m + n : (n: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
->m + n : 数字
->类型别名 :=> 数字
->m : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
+>arrrr : () => (m: number) => () => (n: number) => number
+>() => (m: number) => () => (n: number) => m + n : () => (m: number) => () => (n: number) => number
+>(m: number) => () => (n: number) => m + n : (m: number) => () => (n: number) => number
+>m : number
+>() => (n: number) => m + n : () => (n: number) => number
+>(n: number) => m + n : (n: number) => number
+>n : number
+>m + n : number
+>m : number
+>n : number
 
 var e = arrrr()(3)()(4);
->e : 数字
->类型别名 :=> 数字
->arrrr()(3)()(4) : 数字
->类型别名 :=> 数字
->arrrr()(3)() : (n: 数字) => 数字
->arrrr()(3) : () => (n: 数字) => 数字
->arrrr() : (m: 数字) => () => (n: 数字) => 数字
->arrrr : () => (m: 数字) => () => (n: 数字) => 数字
+>e : number
+>arrrr()(3)()(4) : number
+>arrrr()(3)() : (n: number) => number
+>arrrr()(3) : () => (n: number) => number
+>arrrr() : (m: number) => () => (n: number) => number
+>arrrr : () => (m: number) => () => (n: number) => number
 >3 : 3
 >4 : 4
 
 var e: number;
->e : 数字
->类型别名 :=> 数字
+>e : number
 
 // Arrow function used in arrow function used in function
 function someFn() {
->someFn : () => 无值
+>someFn : () => void
 
     var arr = (n: number) => (p: number) => p * n;
->arr : (n: 数字) => (p: 数字) => 数字
->(n: number) => (p: number) => p * n : (n: 数字) => (p: 数字) => 数字
->n : 数字
->类型别名 :=> 数字
->(p: number) => p * n : (p: 数字) => 数字
->p : 数字
->类型别名 :=> 数字
->p * n : 数字
->类型别名 :=> 数字
->p : 数字
->类型别名 :=> 数字
->n : 数字
->类型别名 :=> 数字
+>arr : (n: number) => (p: number) => number
+>(n: number) => (p: number) => p * n : (n: number) => (p: number) => number
+>n : number
+>(p: number) => p * n : (p: number) => number
+>p : number
+>p * n : number
+>p : number
+>n : number
 
     arr(3)(4).toExponential();
->arr(3)(4).toExponential() : 文字
->类型别名 :=> 文字
->arr(3)(4).toExponential : (fractionDigits?: 数字) => 文字
->arr(3)(4) : 数字
->类型别名 :=> 数字
->arr(3) : (p: 数字) => 数字
->arr : (n: 数字) => (p: 数字) => 数字
+>arr(3)(4).toExponential() : string
+>arr(3)(4).toExponential : (fractionDigits?: number) => string
+>arr(3)(4) : number
+>arr(3) : (p: number) => number
+>arr : (n: number) => (p: number) => number
 >3 : 3
 >4 : 4
->toExponential : (fractionDigits?: 数字) => 文字
+>toExponential : (fractionDigits?: number) => string
 }
 
 // Arrow function used in function
 function someOtherFn() {
->someOtherFn : () => 无值
+>someOtherFn : () => void
 
     var arr = (n: number) => '' + n;
->arr : (n: 数字) => 文字
->(n: number) => '' + n : (n: 数字) => 文字
->n : 数字
->类型别名 :=> 数字
->'' + n : 文字
->类型别名 :=> 文字
+>arr : (n: number) => string
+>(n: number) => '' + n : (n: number) => string
+>n : number
+>'' + n : string
 >'' : ""
->n : 数字
->类型别名 :=> 数字
+>n : number
 
     arr(4).charAt(0);
->arr(4).charAt(0) : 文字
->类型别名 :=> 文字
->arr(4).charAt : (pos: 数字) => 文字
->arr(4) : 文字
->类型别名 :=> 文字
->arr : (n: 数字) => 文字
+>arr(4).charAt(0) : string
+>arr(4).charAt : (pos: number) => string
+>arr(4) : string
+>arr : (n: number) => string
 >4 : 4
->charAt : (pos: 数字) => 文字
+>charAt : (pos: number) => string
 >0 : 0
 }
 
 // Arrow function used in nested function in function
 function outerFn() {
->outerFn : () => 无值
+>outerFn : () => void
 
     function innerFn() {
->innerFn : () => 无值
+>innerFn : () => void
 
         var arrowFn = () => { };
->arrowFn : () => 无值
->() => { } : () => 无值
+>arrowFn : () => void
+>() => { } : () => void
 
         var p = arrowFn();
->p : 无值
->类型别名 :=> 无值
->arrowFn() : 无值
->类型别名 :=> 无值
->arrowFn : () => 无值
+>p : void
+>arrowFn() : void
+>arrowFn : () => void
 
         var p: void;
->p : 无值
->类型别名 :=> 无值
+>p : void
     }
 }
 
 // Arrow function used in nested function in arrow function
 var f = (n: string) => {
->f : (n: 文字) => () => 文字
->(n: string) => {    function fn(x: number) {        return () => n + x;    }    return fn(4);} : (n: 文字) => () => 文字
->n : 文字
->类型别名 :=> 文字
+>f : (n: string) => () => string
+>(n: string) => {    function fn(x: number) {        return () => n + x;    }    return fn(4);} : (n: string) => () => string
+>n : string
 
     function fn(x: number) {
->fn : (x: 数字) => () => 文字
->x : 数字
->类型别名 :=> 数字
+>fn : (x: number) => () => string
+>x : number
 
         return () => n + x;
->() => n + x : () => 文字
->n + x : 文字
->类型别名 :=> 文字
->n : 文字
->类型别名 :=> 文字
->x : 数字
->类型别名 :=> 数字
+>() => n + x : () => string
+>n + x : string
+>n : string
+>x : number
     }
     return fn(4);
->fn(4) : () => 文字
->fn : (x: 数字) => () => 文字
+>fn(4) : () => string
+>fn : (x: number) => () => string
 >4 : 4
 }
 var g = f('')();
->g : 文字
->类型别名 :=> 文字
->f('')() : 文字
->类型别名 :=> 文字
->f('') : () => 文字
->f : (n: 文字) => () => 文字
+>g : string
+>f('')() : string
+>f('') : () => string
+>f : (n: string) => () => string
 >'' : ""
 
 var g: string;
->g : 文字
->类型别名 :=> 文字
+>g : string
 
 
 // Arrow function used in nested function in arrow function in nested function
 function someOuterFn() {
->someOuterFn : () => (n: 文字) => () => () => 数字
+>someOuterFn : () => (n: string) => () => () => number
 
     var arr = (n: string) => {
->arr : (n: 文字) => () => () => 数字
->(n: string) => {        function innerFn() {            return () => n.length;        }        return innerFn;    } : (n: 文字) => () => () => 数字
->n : 文字
->类型别名 :=> 文字
+>arr : (n: string) => () => () => number
+>(n: string) => {        function innerFn() {            return () => n.length;        }        return innerFn;    } : (n: string) => () => () => number
+>n : string
 
         function innerFn() {
->innerFn : () => () => 数字
+>innerFn : () => () => number
 
             return () => n.length;
->() => n.length : () => 数字
->n.length : 数字
->类型别名 :=> 数字
->n : 文字
->类型别名 :=> 文字
->length : 数字
->类型别名 :=> 数字
+>() => n.length : () => number
+>n.length : number
+>n : string
+>length : number
         }
         return innerFn;
->innerFn : () => () => 数字
+>innerFn : () => () => number
     }
     return arr;
->arr : (n: 文字) => () => () => 数字
+>arr : (n: string) => () => () => number
 }
 var h = someOuterFn()('')()();
->h : 数字
->类型别名 :=> 数字
->someOuterFn()('')()() : 数字
->类型别名 :=> 数字
->someOuterFn()('')() : () => 数字
->someOuterFn()('') : () => () => 数字
->someOuterFn() : (n: 文字) => () => () => 数字
->someOuterFn : () => (n: 文字) => () => () => 数字
+>h : number
+>someOuterFn()('')()() : number
+>someOuterFn()('')() : () => number
+>someOuterFn()('') : () => () => number
+>someOuterFn() : (n: string) => () => () => number
+>someOuterFn : () => (n: string) => () => () => number
 >'' : ""
 
 h.toExponential();
->h.toExponential() : 文字
->类型别名 :=> 文字
->h.toExponential : (fractionDigits?: 数字) => 文字
->h : 数字
->类型别名 :=> 数字
->toExponential : (fractionDigits?: 数字) => 文字
+>h.toExponential() : string
+>h.toExponential : (fractionDigits?: number) => string
+>h : number
+>toExponential : (fractionDigits?: number) => string
 
 // Arrow function used in try/catch/finally in function
 function tryCatchFn() {
->tryCatchFn : () => 无值
+>tryCatchFn : () => void
 
     try {
         var x = () => this;
->x : () => 任意
->() => this : () => 任意
->this : 任意
->类型别名 :=> 任意
+>x : () => any
+>() => this : () => any
+>this : any
 
     } catch (e) {
->e : 任意
->类型别名 :=> 任意
+>e : any
 
         var t = () => e + this;
->t : () => 任意
->() => e + this : () => 任意
->e + this : 任意
->类型别名 :=> 任意
->e : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
+>t : () => any
+>() => e + this : () => any
+>e + this : any
+>e : any
+>this : any
 
     } finally {
         var m = () => this + '';
->m : () => 文字
->() => this + '' : () => 文字
->this + '' : 文字
->类型别名 :=> 文字
->this : 任意
->类型别名 :=> 任意
+>m : () => string
+>() => this + '' : () => string
+>this + '' : string
+>this : any
 >'' : ""
     }
 }

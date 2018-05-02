@@ -1,86 +1,84 @@
 === tests/cases/compiler/extendingClassFromAliasAndUsageInIndexer_main.ts ===
 import Backbone = require("./extendingClassFromAliasAndUsageInIndexer_backbone");
->Backbone : 类为 Backbone
+>Backbone : typeof Backbone
 
 import moduleA = require("./extendingClassFromAliasAndUsageInIndexer_moduleA");
->moduleA : 类为 moduleA
+>moduleA : typeof moduleA
 
 import moduleB = require("./extendingClassFromAliasAndUsageInIndexer_moduleB");
->moduleB : 类为 moduleB
+>moduleB : typeof moduleB
 
 interface IHasVisualizationModel {
 >IHasVisualizationModel : IHasVisualizationModel
 
     VisualizationModel: typeof Backbone.Model;
->VisualizationModel : 类为 Backbone.Model
->Backbone.Model : 类为 Backbone.Model
->Backbone : 类为 Backbone
->Model : 类为 Backbone.Model
+>VisualizationModel : typeof Backbone.Model
+>Backbone.Model : typeof Backbone.Model
+>Backbone : typeof Backbone
+>Model : typeof Backbone.Model
 }
 var moduleATyped: IHasVisualizationModel = moduleA;
 >moduleATyped : IHasVisualizationModel
 >IHasVisualizationModel : IHasVisualizationModel
->moduleA : 类为 moduleA
+>moduleA : typeof moduleA
 
 var moduleMap: { [key: string]: IHasVisualizationModel } = {
->moduleMap : { [key: 文字]: IHasVisualizationModel; }
->key : 文字
->类型别名 :=> 文字
+>moduleMap : { [key: string]: IHasVisualizationModel; }
+>key : string
 >IHasVisualizationModel : IHasVisualizationModel
->{    "moduleA": moduleA,    "moduleB": moduleB} : { "moduleA": 类为 moduleA; "moduleB": 类为 moduleB; }
+>{    "moduleA": moduleA,    "moduleB": moduleB} : { "moduleA": typeof moduleA; "moduleB": typeof moduleB; }
 
     "moduleA": moduleA,
->moduleA : 类为 moduleA
+>"moduleA" : typeof moduleA
+>moduleA : typeof moduleA
 
     "moduleB": moduleB
->moduleB : 类为 moduleB
+>"moduleB" : typeof moduleB
+>moduleB : typeof moduleB
 
 };
 var moduleName: string;
->moduleName : 文字
->类型别名 :=> 文字
+>moduleName : string
 
 var visModel = new moduleMap[moduleName].VisualizationModel();
 >visModel : Backbone.Model
 >new moduleMap[moduleName].VisualizationModel() : Backbone.Model
->moduleMap[moduleName].VisualizationModel : 类为 Backbone.Model
+>moduleMap[moduleName].VisualizationModel : typeof Backbone.Model
 >moduleMap[moduleName] : IHasVisualizationModel
->moduleMap : { [key: 文字]: IHasVisualizationModel; }
->moduleName : 文字
->类型别名 :=> 文字
->VisualizationModel : 类为 Backbone.Model
+>moduleMap : { [key: string]: IHasVisualizationModel; }
+>moduleName : string
+>VisualizationModel : typeof Backbone.Model
 
 === tests/cases/compiler/extendingClassFromAliasAndUsageInIndexer_backbone.ts ===
 export class Model {
 >Model : Model
 
     public someData: string;
->someData : 文字
->类型别名 :=> 文字
+>someData : string
 }
 
 === tests/cases/compiler/extendingClassFromAliasAndUsageInIndexer_moduleA.ts ===
 import Backbone = require("./extendingClassFromAliasAndUsageInIndexer_backbone");
->Backbone : 类为 Backbone
+>Backbone : typeof Backbone
 
 export class VisualizationModel extends Backbone.Model {
 >VisualizationModel : VisualizationModel
 >Backbone.Model : Backbone.Model
->Backbone : 类为 Backbone
->Model : 类为 Backbone.Model
+>Backbone : typeof Backbone
+>Model : typeof Backbone.Model
 
     // interesting stuff here
 }
 
 === tests/cases/compiler/extendingClassFromAliasAndUsageInIndexer_moduleB.ts ===
 import Backbone = require("./extendingClassFromAliasAndUsageInIndexer_backbone");
->Backbone : 类为 Backbone
+>Backbone : typeof Backbone
 
 export class VisualizationModel extends Backbone.Model {
 >VisualizationModel : VisualizationModel
 >Backbone.Model : Backbone.Model
->Backbone : 类为 Backbone
->Model : 类为 Backbone.Model
+>Backbone : typeof Backbone
+>Model : typeof Backbone.Model
 
     // different interesting stuff here
 }

@@ -6,13 +6,11 @@
 // to a function type with e's call signature instantiated in the context of T's call signature (section 3.8.5).
 
 declare function foo<T>(cb: (x: number, y: string) => T): T;
->foo : <T>(cb: (x: 数字, y: 文字) => T) => T
+>foo : <T>(cb: (x: number, y: string) => T) => T
 >T : T
->cb : (x: 数字, y: 文字) => T
->x : 数字
->类型别名 :=> 数字
->y : 文字
->类型别名 :=> 文字
+>cb : (x: number, y: string) => T
+>x : number
+>y : string
 >T : T
 >T : T
 
@@ -70,92 +68,87 @@ declare function h<T, U>(x: T, y: U): T[] | U[];
 >U : U
 
 var a: number;
->a : 数字
->类型别名 :=> 数字
+>a : number
 
 var a = bar(1, 1, g);      // Should be number
->a : 数字
->类型别名 :=> 数字
->bar(1, 1, g) : 数字
->类型别名 :=> 数字
+>a : number
+>bar(1, 1, g) : number
 >bar : <T, U, V>(x: T, y: U, cb: (x: T, y: U) => V) => V
 >1 : 1
 >1 : 1
 >g : <T>(x: T, y: T) => T
 
 var a = baz(1, 1, g);      // Should be number
->a : 数字
->类型别名 :=> 数字
->baz(1, 1, g) : 数字
->类型别名 :=> 数字
+>a : number
+>baz(1, 1, g) : number
 >baz : <T, U>(x: T, y: T, cb: (x: T, y: T) => U) => U
 >1 : 1
 >1 : 1
 >g : <T>(x: T, y: T) => T
 
 var b: number | string;
->b : 文字 | 数字
+>b : string | number
 
 var b = foo(g);            // Should be number | string
->b : 文字 | 数字
->foo(g) : 文字 | 数字
->foo : <T>(cb: (x: 数字, y: 文字) => T) => T
+>b : string | number
+>foo(g) : string | number
+>foo : <T>(cb: (x: number, y: string) => T) => T
 >g : <T>(x: T, y: T) => T
 
 var b = bar(1, "one", g);  // Should be number | string
->b : 文字 | 数字
->bar(1, "one", g) : 文字 | 数字
+>b : string | number
+>bar(1, "one", g) : string | number
 >bar : <T, U, V>(x: T, y: U, cb: (x: T, y: U) => V) => V
 >1 : 1
 >"one" : "one"
 >g : <T>(x: T, y: T) => T
 
 var b = bar("one", 1, g);  // Should be number | string
->b : 文字 | 数字
->bar("one", 1, g) : 文字 | 数字
+>b : string | number
+>bar("one", 1, g) : string | number
 >bar : <T, U, V>(x: T, y: U, cb: (x: T, y: U) => V) => V
 >"one" : "one"
 >1 : 1
 >g : <T>(x: T, y: T) => T
 
 var b = baz(b, b, g);      // Should be number | string
->b : 文字 | 数字
->baz(b, b, g) : 文字 | 数字
+>b : string | number
+>baz(b, b, g) : string | number
 >baz : <T, U>(x: T, y: T, cb: (x: T, y: T) => U) => U
->b : 文字 | 数字
->b : 文字 | 数字
+>b : string | number
+>b : string | number
 >g : <T>(x: T, y: T) => T
 
 var d: number[] | string[];
->d : 数字[] | 文字[]
+>d : number[] | string[]
 
 var d = foo(h);            // Should be number[] | string[]
->d : 数字[] | 文字[]
->foo(h) : 数字[] | 文字[]
->foo : <T>(cb: (x: 数字, y: 文字) => T) => T
+>d : number[] | string[]
+>foo(h) : number[] | string[]
+>foo : <T>(cb: (x: number, y: string) => T) => T
 >h : <T, U>(x: T, y: U) => T[] | U[]
 
 var d = bar(1, "one", h);  // Should be number[] | string[]
->d : 数字[] | 文字[]
->bar(1, "one", h) : 数字[] | 文字[]
+>d : number[] | string[]
+>bar(1, "one", h) : number[] | string[]
 >bar : <T, U, V>(x: T, y: U, cb: (x: T, y: U) => V) => V
 >1 : 1
 >"one" : "one"
 >h : <T, U>(x: T, y: U) => T[] | U[]
 
 var d = bar("one", 1, h);  // Should be number[] | string[]
->d : 数字[] | 文字[]
->bar("one", 1, h) : 数字[] | 文字[]
+>d : number[] | string[]
+>bar("one", 1, h) : number[] | string[]
 >bar : <T, U, V>(x: T, y: U, cb: (x: T, y: U) => V) => V
 >"one" : "one"
 >1 : 1
 >h : <T, U>(x: T, y: U) => T[] | U[]
 
 var d = baz(d, d, g);      // Should be number[] | string[]
->d : 数字[] | 文字[]
->baz(d, d, g) : 数字[] | 文字[]
+>d : number[] | string[]
+>baz(d, d, g) : number[] | string[]
 >baz : <T, U>(x: T, y: T, cb: (x: T, y: T) => U) => U
->d : 数字[] | 文字[]
->d : 数字[] | 文字[]
+>d : number[] | string[]
+>d : number[] | string[]
 >g : <T>(x: T, y: T) => T
 

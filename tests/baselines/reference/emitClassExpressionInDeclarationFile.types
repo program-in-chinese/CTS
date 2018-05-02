@@ -1,18 +1,18 @@
 === tests/cases/compiler/emitClassExpressionInDeclarationFile.ts ===
 export var simpleExample = class {
->simpleExample : 类为 simpleExample
->class {    static getTags() { }    tags() { }} : 类为 simpleExample
+>simpleExample : typeof simpleExample
+>class {    static getTags() { }    tags() { }} : typeof simpleExample
 
     static getTags() { }
->getTags : () => 无值
+>getTags : () => void
 
     tags() { }
->tags : () => 无值
+>tags : () => void
 }
 export var circularReference = class C {
->circularReference : 类为 C
->class C {    static getTags(c: C): C { return c }    tags(c: C): C { return c }} : 类为 C
->C : 类为 C
+>circularReference : typeof C
+>class C {    static getTags(c: C): C { return c }    tags(c: C): C { return c }} : typeof C
+>C : typeof C
 
     static getTags(c: C): C { return c }
 >getTags : (c: C) => C
@@ -34,21 +34,20 @@ export class FooItem {
 >FooItem : FooItem
 
     foo(): void { }
->foo : () => 无值
+>foo : () => void
 
     name?: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 }
 
 export type Constructor<T> = new(...args: any[]) => T;
 >Constructor : Constructor<T>
 >T : T
->args : 任意[]
+>args : any[]
 >T : T
 
 export function WithTags<T extends Constructor<FooItem>>(Base: T) {
->WithTags : <T 扩展 Constructor<FooItem>>(Base: T) => { 新建 (...args: 任意[]): (Anonymous class); prototype: WithTags<任意>.(Anonymous class); getTags(): 无值; } & T
+>WithTags : <T extends Constructor<FooItem>>(Base: T) => { new (...args: any[]): (Anonymous class); prototype: WithTags<any>.(Anonymous class); getTags(): void; } & T
 >T : T
 >Constructor : Constructor<T>
 >FooItem : FooItem
@@ -56,39 +55,37 @@ export function WithTags<T extends Constructor<FooItem>>(Base: T) {
 >T : T
 
     return class extends Base {
->class extends Base {        static getTags(): void { }        tags(): void { }    } : { 新建 (...args: 任意[]): (Anonymous class); prototype: WithTags<任意>.(Anonymous class); getTags(): 无值; } & T
+>class extends Base {        static getTags(): void { }        tags(): void { }    } : { new (...args: any[]): (Anonymous class); prototype: WithTags<any>.(Anonymous class); getTags(): void; } & T
 >Base : FooItem
 
         static getTags(): void { }
->getTags : () => 无值
+>getTags : () => void
 
         tags(): void { }
->tags : () => 无值
+>tags : () => void
     }
 }
 
 export class Test extends WithTags(FooItem) {}
 >Test : Test
->WithTags(FooItem) : WithTags<类为 FooItem>.(Anonymous class) & FooItem
->WithTags : <T 扩展 Constructor<FooItem>>(Base: T) => { 新建 (...args: 任意[]): (Anonymous class); prototype: WithTags<任意>.(Anonymous class); getTags(): 无值; } & T
->FooItem : 类为 FooItem
+>WithTags(FooItem) : WithTags<typeof FooItem>.(Anonymous class) & FooItem
+>WithTags : <T extends Constructor<FooItem>>(Base: T) => { new (...args: any[]): (Anonymous class); prototype: WithTags<any>.(Anonymous class); getTags(): void; } & T
+>FooItem : typeof FooItem
 
 const test = new Test();
 >test : Test
 >new Test() : Test
->Test : 类为 Test
+>Test : typeof Test
 
 Test.getTags()
->Test.getTags() : 无值
->类型别名 :=> 无值
->Test.getTags : () => 无值
->Test : 类为 Test
->getTags : () => 无值
+>Test.getTags() : void
+>Test.getTags : () => void
+>Test : typeof Test
+>getTags : () => void
 
 test.tags();
->test.tags() : 无值
->类型别名 :=> 无值
->test.tags : () => 无值
+>test.tags() : void
+>test.tags : () => void
 >test : Test
->tags : () => 无值
+>tags : () => void
 

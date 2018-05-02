@@ -3,7 +3,7 @@ abstract class A {
 >A : A
 
     abstract foo() : number;
->foo : () => 数字
+>foo : () => number
 }
 
 class B extends A {
@@ -11,7 +11,7 @@ class B extends A {
 >A : A
 
     foo() { return 1; }
->foo : () => 数字
+>foo : () => number
 >1 : 1
 }
 
@@ -20,33 +20,29 @@ abstract class C extends A  {
 >A : A
 
     abstract foo() : number;
->foo : () => 数字
+>foo : () => number
 }
 
 var a = new B;
 >a : B
 >new B : B
->B : 类为 B
+>B : typeof B
 
 a.foo();
->a.foo() : 数字
->类型别名 :=> 数字
->a.foo : () => 数字
+>a.foo() : number
+>a.foo : () => number
 >a : B
->foo : () => 数字
+>foo : () => number
 
 a = new C; // error, cannot instantiate abstract class.
->a = new C : 任意
->类型别名 :=> 任意
+>a = new C : any
 >a : B
->new C : 任意
->类型别名 :=> 任意
->C : 类为 C
+>new C : any
+>C : typeof C
 
 a.foo();
->a.foo() : 数字
->类型别名 :=> 数字
->a.foo : () => 数字
+>a.foo() : number
+>a.foo : () => number
 >a : B
->foo : () => 数字
+>foo : () => number
 

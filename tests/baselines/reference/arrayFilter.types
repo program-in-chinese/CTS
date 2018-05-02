@@ -1,39 +1,33 @@
 === tests/cases/compiler/arrayFilter.ts ===
 var foo = [
->foo : { name: 文字; }[]
->[    { name: 'bar' },    { name: null },    { name: 'baz' }] : { name: 文字; }[]
+>foo : { name: string; }[]
+>[    { name: 'bar' },    { name: null },    { name: 'baz' }] : { name: string; }[]
 
     { name: 'bar' },
->{ name: 'bar' } : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>{ name: 'bar' } : { name: string; }
+>name : string
 >'bar' : "bar"
 
     { name: null },
->{ name: null } : { name: 空值; }
->name : 空值
->类型别名 :=> 空值
->null : 空值
->类型别名 :=> 空值
+>{ name: null } : { name: null; }
+>name : null
+>null : null
 
     { name: 'baz' }
->{ name: 'baz' } : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>{ name: 'baz' } : { name: string; }
+>name : string
 >'baz' : "baz"
 
 ]
 
 foo.filter(x => x.name); //should accepted all possible types not only boolean! 
->foo.filter(x => x.name) : { name: 文字; }[]
->foo.filter : { <S 扩展 { name: 文字; }>(callbackfn: (value: { name: 文字; }, index: 数字, array: { name: 文字; }[]) => value 作为 S, thisArg?: 任意): S[]; (callbackfn: (value: { name: 文字; }, index: 数字, array: { name: 文字; }[]) => 任意, thisArg?: 任意): { name: 文字; }[]; }
->foo : { name: 文字; }[]
->filter : { <S 扩展 { name: 文字; }>(callbackfn: (value: { name: 文字; }, index: 数字, array: { name: 文字; }[]) => value 作为 S, thisArg?: 任意): S[]; (callbackfn: (value: { name: 文字; }, index: 数字, array: { name: 文字; }[]) => 任意, thisArg?: 任意): { name: 文字; }[]; }
->x => x.name : (x: { name: 文字; }) => 文字
->x : { name: 文字; }
->x.name : 文字
->类型别名 :=> 文字
->x : { name: 文字; }
->name : 文字
->类型别名 :=> 文字
+>foo.filter(x => x.name) : { name: string; }[]
+>foo.filter : { <S extends { name: string; }>(callbackfn: (value: { name: string; }, index: number, array: { name: string; }[]) => value is S, thisArg?: any): S[]; (callbackfn: (value: { name: string; }, index: number, array: { name: string; }[]) => any, thisArg?: any): { name: string; }[]; }
+>foo : { name: string; }[]
+>filter : { <S extends { name: string; }>(callbackfn: (value: { name: string; }, index: number, array: { name: string; }[]) => value is S, thisArg?: any): S[]; (callbackfn: (value: { name: string; }, index: number, array: { name: string; }[]) => any, thisArg?: any): { name: string; }[]; }
+>x => x.name : (x: { name: string; }) => string
+>x : { name: string; }
+>x.name : string
+>x : { name: string; }
+>name : string
 

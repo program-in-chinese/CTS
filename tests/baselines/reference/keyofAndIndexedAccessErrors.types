@@ -3,32 +3,26 @@ class Shape {
 >Shape : Shape
 
     name: string;
->name : 文字
->类型别名 :=> 文字
+>name : string
 
     width: number;
->width : 数字
->类型别名 :=> 数字
+>width : number
 
     height: number;
->height : 数字
->类型别名 :=> 数字
+>height : number
 
     visible: boolean;
->visible : 真假
->类型别名 :=> 真假
+>visible : boolean
 }
 
 type Dictionary<T> = { [x: string]: T };
 >Dictionary : Dictionary<T>
 >T : T
->x : 文字
->类型别名 :=> 文字
+>x : string
 >T : T
 
 type T00 = keyof K0;  // Error
->T00 : 文字
->类型别名 :=> 文字
+>T00 : string
 >K0 : No type information available!
 
 type T01 = keyof Object;
@@ -56,136 +50,109 @@ type T06 = keyof keyof keyof keyof keyof keyof Object;
 >Object : Object
 
 type T10 = Shape["name"];
->T10 : 文字
->类型别名 :=> 文字
+>T10 : string
 >Shape : Shape
 
 type T11 = Shape["foo"];  // Error
->T11 : 任意
->类型别名 :=> 任意
+>T11 : any
 >Shape : Shape
 
 type T12 = Shape["name" | "foo"];  // Error
->T12 : 任意
->类型别名 :=> 任意
+>T12 : any
 >Shape : Shape
 
 type T13 = Shape[any];  // Error
->T13 : 任意
->类型别名 :=> 任意
+>T13 : any
 >Shape : Shape
 
 type T14 = Shape[string];  // Error
->T14 : 任意
->类型别名 :=> 任意
+>T14 : any
 >Shape : Shape
 
 type T15 = Shape[number];  // Error
->T15 : 任意
->类型别名 :=> 任意
+>T15 : any
 >Shape : Shape
 
 type T16 = Shape[boolean];  // Error
->T16 : 任意
->类型别名 :=> 任意
+>T16 : any
 >Shape : Shape
 
 type T17 = Shape[void];  // Error
->T17 : 任意
->类型别名 :=> 任意
+>T17 : any
 >Shape : Shape
 
 type T18 = Shape[undefined];  // Error
->T18 : 任意
->类型别名 :=> 任意
+>T18 : any
 >Shape : Shape
 
 type T19 = Shape[{ x: string }];  // Error
->T19 : 任意
->类型别名 :=> 任意
+>T19 : any
 >Shape : Shape
->x : 文字
->类型别名 :=> 文字
+>x : string
 
 type T20 = Shape[string | number];  // Error
->T20 : 任意
->类型别名 :=> 任意
+>T20 : any
 >Shape : Shape
 
 type T21 = Shape[string & number];  // Error
->T21 : 任意
->类型别名 :=> 任意
+>T21 : any
 >Shape : Shape
 
 type T22 = Shape[string | boolean];  // Error
->T22 : 任意
->类型别名 :=> 任意
+>T22 : any
 >Shape : Shape
 
 type T30 = string[]["length"];
->T30 : 数字
->类型别名 :=> 数字
+>T30 : number
 
 type T31 = string[][number];
->T31 : 文字
->类型别名 :=> 文字
+>T31 : string
 
 type T32 = string[][string];  // Error
->T32 : 任意
->类型别名 :=> 任意
+>T32 : any
 
 type T33 = string[][boolean];  // Error
->T33 : 任意
->类型别名 :=> 任意
+>T33 : any
 
 type T40 = Dictionary<string>[any];
->T40 : 文字
->类型别名 :=> 文字
+>T40 : string
 >Dictionary : Dictionary<T>
 
 type T41 = Dictionary<string>[number];
->T41 : 文字
->类型别名 :=> 文字
+>T41 : string
 >Dictionary : Dictionary<T>
 
 type T42 = Dictionary<string>[string];
->T42 : 文字
->类型别名 :=> 文字
+>T42 : string
 >Dictionary : Dictionary<T>
 
 type T43 = Dictionary<string>[boolean];  // Error
->T43 : 任意
->类型别名 :=> 任意
+>T43 : any
 >Dictionary : Dictionary<T>
 
 type T50 = any[any];
->T50 : 任意
->类型别名 :=> 任意
+>T50 : any
 
 type T51 = any[number];
->T51 : 任意
->类型别名 :=> 任意
+>T51 : any
 
 type T52 = any[string];
->T52 : 任意
->类型别名 :=> 任意
+>T52 : any
 
 type T53 = any[boolean];  // Error
->T53 : 任意
->类型别名 :=> 任意
+>T53 : any
 
 type T60 = {}["toString"];
->T60 : () => 文字
+>T60 : () => string
 
 type T61 = []["toString"];
->T61 : () => 文字
+>T61 : () => string
 
 declare let cond: boolean;
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 
 function getProperty<T, K extends keyof T>(obj: T, key: K) {
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >T : T
 >K : K
 >T : T
@@ -201,7 +168,7 @@ function getProperty<T, K extends keyof T>(obj: T, key: K) {
 }
 
 function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >T : T
 >K : K
 >T : T
@@ -222,78 +189,67 @@ function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
 }
 
 function f10(shape: Shape) {
->f10 : (shape: Shape) => 无值
+>f10 : (shape: Shape) => void
 >shape : Shape
 >Shape : Shape
 
     let x1 = getProperty(shape, "name");
->x1 : 文字
->类型别名 :=> 文字
->getProperty(shape, "name") : 文字
->类型别名 :=> 文字
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>x1 : string
+>getProperty(shape, "name") : string
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >"name" : "name"
 
     let x2 = getProperty(shape, "size");  // Error
->x2 : 任意
->类型别名 :=> 任意
->getProperty(shape, "size") : 任意
->类型别名 :=> 任意
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>x2 : any
+>getProperty(shape, "size") : any
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >"size" : "size"
 
     let x3 = getProperty(shape, cond ? "name" : "size");  // Error
->x3 : 任意
->类型别名 :=> 任意
->getProperty(shape, cond ? "name" : "size") : 任意
->类型别名 :=> 任意
->getProperty : <T, K 扩展 键集 T>(obj: T, key: K) => T[K]
+>x3 : any
+>getProperty(shape, cond ? "name" : "size") : any
+>getProperty : <T, K extends keyof T>(obj: T, key: K) => T[K]
 >shape : Shape
 >cond ? "name" : "size" : "name" | "size"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"name" : "name"
 >"size" : "size"
 
     setProperty(shape, "name", "rectangle");
->setProperty(shape, "name", "rectangle") : 无值
->类型别名 :=> 无值
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty(shape, "name", "rectangle") : void
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >"name" : "name"
 >"rectangle" : "rectangle"
 
     setProperty(shape, "size", 10);  // Error
->setProperty(shape, "size", 10) : 任意
->类型别名 :=> 任意
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty(shape, "size", 10) : any
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >"size" : "size"
 >10 : 10
 
     setProperty(shape, cond ? "name" : "size", 10);  // Error
->setProperty(shape, cond ? "name" : "size", 10) : 任意
->类型别名 :=> 任意
->setProperty : <T, K 扩展 键集 T>(obj: T, key: K, value: T[K]) => 无值
+>setProperty(shape, cond ? "name" : "size", 10) : any
+>setProperty : <T, K extends keyof T>(obj: T, key: K, value: T[K]) => void
 >shape : Shape
 >cond ? "name" : "size" : "name" | "size"
->cond : 真假
->类型别名 :=> 真假
+>cond : boolean
 >"name" : "name"
 >"size" : "size"
 >10 : 10
 }
 
 function f20<T, U>(k1: keyof (T | U), k2: keyof (T & U), o1: T | U, o2: T & U) {
->f20 : <T, U>(k1: 键集 (T | U), k2: 键集 (T & U), o1: T | U, o2: T & U) => 无值
+>f20 : <T, U>(k1: keyof (T | U), k2: keyof T | keyof U, o1: T | U, o2: T & U) => void
 >T : T
 >U : U
->k1 : 键集 (T | U)
+>k1 : keyof (T | U)
 >T : T
 >U : U
->k2 : 键集 (T & U)
+>k2 : keyof T | keyof U
 >T : T
 >U : U
 >o1 : T | U
@@ -304,24 +260,24 @@ function f20<T, U>(k1: keyof (T | U), k2: keyof (T & U), o1: T | U, o2: T & U) {
 >U : U
 
     o1[k1];
->o1[k1] : (T | U)[键集 (T | U)]
+>o1[k1] : (T | U)[keyof (T | U)]
 >o1 : T | U
->k1 : 键集 (T | U)
+>k1 : keyof (T | U)
 
     o1[k2];   // Error
->o1[k2] : (T | U)[键集 (T & U)]
+>o1[k2] : (T | U)[keyof T | keyof U]
 >o1 : T | U
->k2 : 键集 (T & U)
+>k2 : keyof T | keyof U
 
     o2[k1];
->o2[k1] : (T & U)[键集 (T | U)]
+>o2[k1] : (T & U)[keyof (T | U)]
 >o2 : T & U
->k1 : 键集 (T | U)
+>k1 : keyof (T | U)
 
     o2[k2];
->o2[k2] : (T & U)[键集 (T & U)]
+>o2[k2] : (T & U)[keyof T | keyof U]
 >o2 : T & U
->k2 : 键集 (T & U)
+>k2 : keyof T | keyof U
 
     o1 = o2;
 >o1 = o2 : T & U
@@ -334,12 +290,115 @@ function f20<T, U>(k1: keyof (T | U), k2: keyof (T & U), o1: T | U, o2: T & U) {
 >o1 : T | U
 
     k1 = k2;  // Error
->k1 = k2 : 键集 (T & U)
->k1 : 键集 (T | U)
->k2 : 键集 (T & U)
+>k1 = k2 : keyof T | keyof U
+>k1 : keyof (T | U)
+>k2 : keyof T | keyof U
 
     k2 = k1;
->k2 = k1 : 键集 (T | U)
->k2 : 键集 (T & U)
->k1 : 键集 (T | U)
+>k2 = k1 : keyof (T | U)
+>k2 : keyof T | keyof U
+>k1 : keyof (T | U)
 }
+
+// Repro from #17166
+function f3<T, K extends keyof T, U extends T, J extends K>(
+>f3 : <T, K extends keyof T, U extends T, J extends K>(t: T, k: K, tk: T[K], u: U, j: J, uk: U[K], tj: T[J], uj: U[J]) => void
+>T : T
+>K : K
+>T : T
+>U : U
+>T : T
+>J : J
+>K : K
+
+    t: T, k: K, tk: T[K], u: U, j: J, uk: U[K], tj: T[J], uj: U[J]): void {
+>t : T
+>T : T
+>k : K
+>K : K
+>tk : T[K]
+>T : T
+>K : K
+>u : U
+>U : U
+>j : J
+>J : J
+>uk : U[K]
+>U : U
+>K : K
+>tj : T[J]
+>T : T
+>J : J
+>uj : U[J]
+>U : U
+>J : J
+
+    for (let key in t) {
+>key : keyof T
+>t : T
+
+        key = k // ok, K ==> keyof T
+>key = k : K
+>key : keyof T
+>k : K
+
+        k = key // error, keyof T =/=> K
+>k = key : keyof T
+>k : K
+>key : keyof T
+
+        t[key] = tk; // ok, T[K] ==> T[keyof T]
+>t[key] = tk : T[K]
+>t[key] : T[keyof T]
+>t : T
+>key : keyof T
+>tk : T[K]
+
+        tk = t[key]; // error, T[keyof T] =/=> T[K]
+>tk = t[key] : T[keyof T]
+>tk : T[K]
+>t[key] : T[keyof T]
+>t : T
+>key : keyof T
+    }
+    tk = uk;
+>tk = uk : U[K]
+>tk : T[K]
+>uk : U[K]
+
+    uk = tk; // error
+>uk = tk : T[K]
+>uk : U[K]
+>tk : T[K]
+
+    tj = uj;
+>tj = uj : U[J]
+>tj : T[J]
+>uj : U[J]
+
+    uj = tj; // error
+>uj = tj : T[J]
+>uj : U[J]
+>tj : T[J]
+
+    tk = tj;
+>tk = tj : T[J]
+>tk : T[K]
+>tj : T[J]
+
+    tj = tk; // error
+>tj = tk : T[K]
+>tj : T[J]
+>tk : T[K]
+
+    tk = uj;
+>tk = uj : U[J]
+>tk : T[K]
+>uj : U[J]
+
+    uj = tk; // error
+>uj = tk : T[K]
+>uj : U[J]
+>tk : T[K]
+}
+

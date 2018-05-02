@@ -3,7 +3,7 @@ class A {
 >A : A
 
     foo() { }
->foo : () => 无值
+>foo : () => void
 
     constructor() {
         return;
@@ -14,7 +14,7 @@ class B {
 >B : B
 
     foo() { }
->foo : () => 无值
+>foo : () => void
 
     constructor() {
         return 1; // error
@@ -26,11 +26,11 @@ class C {
 >C : C
 
     foo() { }
->foo : () => 无值
+>foo : () => void
 
     constructor() {
         return this;
->this : 本体
+>this : this
     }
 }
 
@@ -38,7 +38,7 @@ class D {
 >D : D
 
     foo() { }
->foo : () => 无值
+>foo : () => void
 
     constructor() {
         return "test"; // error
@@ -50,14 +50,12 @@ class E {
 >E : E
 
     public foo: number;
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 
     constructor() {
         return { foo: 1 };
->{ foo: 1 } : { foo: 数字; }
->foo : 数字
->类型别名 :=> 数字
+>{ foo: 1 } : { foo: number; }
+>foo : number
 >1 : 1
     }
 }
@@ -66,14 +64,12 @@ class F {
 >F : F
 
     public foo: string;
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
     constructor() {
         return { foo: 1 }; //error
->{ foo: 1 } : { foo: 数字; }
->foo : 数字
->类型别名 :=> 数字
+>{ foo: 1 } : { foo: number; }
+>foo : number
 >1 : 1
     }
 }
@@ -82,23 +78,20 @@ class G {
 >G : G
 
     private test: number;
->test : 数字
->类型别名 :=> 数字
+>test : number
 
     public test1() { }
->test1 : () => 无值
+>test1 : () => void
 
     foo() { }
->foo : () => 无值
+>foo : () => void
 
     constructor() {
         this.test = 2;
 >this.test = 2 : 2
->this.test : 数字
->类型别名 :=> 数字
->this : 本体
->test : 数字
->类型别名 :=> 数字
+>this.test : number
+>this : this
+>test : number
 >2 : 2
     }
 }
@@ -109,13 +102,12 @@ class H extends F {
 
     constructor() {
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 F
+>super() : void
+>super : typeof F
 
         return new G(); //error
 >new G() : G
->G : 类为 G
+>G : typeof G
     }
 }
 
@@ -125,13 +117,12 @@ class I extends G {
 
     constructor() {
         super();
->super() : 无值
->类型别名 :=> 无值
->super : 类为 G
+>super() : void
+>super : typeof G
 
         return new G();
 >new G() : G
->G : 类为 G
+>G : typeof G
     }
 }
 

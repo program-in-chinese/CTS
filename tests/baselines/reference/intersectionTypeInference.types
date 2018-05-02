@@ -40,35 +40,27 @@ function extend<T, U>(obj1: T, obj2: U): T & U {
 }
 
 var x = extend({ a: "hello" }, { b: 42 });
->x : { a: 文字; } & { b: 数字; }
->extend({ a: "hello" }, { b: 42 }) : { a: 文字; } & { b: 数字; }
+>x : { a: string; } & { b: number; }
+>extend({ a: "hello" }, { b: 42 }) : { a: string; } & { b: number; }
 >extend : <T, U>(obj1: T, obj2: U) => T & U
->{ a: "hello" } : { a: 文字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: "hello" } : { a: string; }
+>a : string
 >"hello" : "hello"
->{ b: 42 } : { b: 数字; }
->b : 数字
->类型别名 :=> 数字
+>{ b: 42 } : { b: number; }
+>b : number
 >42 : 42
 
 var s = x.a;
->s : 文字
->类型别名 :=> 文字
->x.a : 文字
->类型别名 :=> 文字
->x : { a: 文字; } & { b: 数字; }
->a : 文字
->类型别名 :=> 文字
+>s : string
+>x.a : string
+>x : { a: string; } & { b: number; }
+>a : string
 
 var n = x.b;
->n : 数字
->类型别名 :=> 数字
->x.b : 数字
->类型别名 :=> 数字
->x : { a: 文字; } & { b: 数字; }
->b : 数字
->类型别名 :=> 数字
+>n : number
+>x.b : number
+>x : { a: string; } & { b: number; }
+>b : number
 
 interface A<T> {
 >A : A<T>
@@ -101,22 +93,19 @@ function foo<T, U>(obj: A<T> & B<U>): T | U {
 >U : U
 
     return undefined;
->undefined : 未定
->类型别名 :=> 未定
+>undefined : undefined
 }
 
 var z = foo({ a: "hello", b: 42 });
->z : 文字 | 数字
->foo({ a: "hello", b: 42 }) : 文字 | 数字
+>z : string | number
+>foo({ a: "hello", b: 42 }) : string | number
 >foo : <T, U>(obj: A<T> & B<U>) => T | U
->{ a: "hello", b: 42 } : { a: 文字; b: 数字; }
->a : 文字
->类型别名 :=> 文字
+>{ a: "hello", b: 42 } : { a: string; b: number; }
+>a : string
 >"hello" : "hello"
->b : 数字
->类型别名 :=> 数字
+>b : number
 >42 : 42
 
 var z: string | number;
->z : 文字 | 数字
+>z : string | number
 

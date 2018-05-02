@@ -6,28 +6,26 @@ function f1<T>(args: T) {
 >T : T
 
     var v1: { [index: string]: new (arg: T) => Date };
->v1 : { [index: 文字]: 新建 (arg: T) => Date; }
->index : 文字
->类型别名 :=> 文字
+>v1 : { [index: string]: new (arg: T) => Date; }
+>index : string
 >arg : T
 >T : T
 >Date : Date
 
     var v2 = v1['test'];
->v2 : 新建 (arg: T) => Date
->v1['test'] : 新建 (arg: T) => Date
->v1 : { [index: 文字]: 新建 (arg: T) => Date; }
+>v2 : new (arg: T) => Date
+>v1['test'] : new (arg: T) => Date
+>v1 : { [index: string]: new (arg: T) => Date; }
 >'test' : "test"
 
     v2(args); 
->v2(args) : 任意
->类型别名 :=> 任意
->v2 : 新建 (arg: T) => Date
+>v2(args) : any
+>v2 : new (arg: T) => Date
 >args : T
 
     return new v2(args); // used to give error
 >new v2(args) : Date
->v2 : 新建 (arg: T) => Date
+>v2 : new (arg: T) => Date
 >args : T
 }
 
@@ -46,23 +44,20 @@ function f2<T>(args: T) {
 >T : T
 
     var v1: { [index: string]: I1<T> };
->v1 : { [index: 文字]: I1<T>; }
->index : 文字
->类型别名 :=> 文字
+>v1 : { [index: string]: I1<T>; }
+>index : string
 >I1 : I1<T>
 >T : T
 
     var v2 = v1['test'];
 >v2 : I1<T>
 >v1['test'] : I1<T>
->v1 : { [index: 文字]: I1<T>; }
+>v1 : { [index: string]: I1<T>; }
 >'test' : "test"
 
     var y = v2(args); 
->y : 任意
->类型别名 :=> 任意
->v2(args) : 任意
->类型别名 :=> 任意
+>y : any
+>v2(args) : any
 >v2 : I1<T>
 >args : T
 

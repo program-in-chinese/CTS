@@ -1,39 +1,32 @@
 === tests/cases/compiler/scopeCheckExtendedClassInsideStaticMethod1.ts ===
 class C { private v; public p; static s; }
 >C : C
->v : 任意
->类型别名 :=> 任意
->p : 任意
->类型别名 :=> 任意
->s : 任意
->类型别名 :=> 任意
+>v : any
+>p : any
+>s : any
 
 class D extends C {
 >D : D
 >C : C
 
    static c() {
->c : () => 无值
+>c : () => void
 
       v = 1;
 >v = 1 : 1
->v : 任意
->类型别名 :=> 任意
+>v : any
 >1 : 1
 
       this.p = 1;
 >this.p = 1 : 1
->this.p : 任意
->类型别名 :=> 任意
->this : 类为 D
->p : 任意
->类型别名 :=> 任意
+>this.p : any
+>this : typeof D
+>p : any
 >1 : 1
 
       s = 1;
 >s = 1 : 1
->s : 任意
->类型别名 :=> 任意
+>s : any
 >1 : 1
    }
 }

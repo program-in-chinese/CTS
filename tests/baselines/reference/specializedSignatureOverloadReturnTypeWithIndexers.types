@@ -3,63 +3,51 @@ interface A {
 >A : A
 
     f(p: string): { [p: string]: string; };
->f : { (p: 文字): { [p: 文字]: 文字; }; (p: "spec"): { [p: 文字]: 任意; }; }
->p : 文字
->类型别名 :=> 文字
->p : 文字
->类型别名 :=> 文字
+>f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: string]: any; }; }
+>p : string
+>p : string
 
     f(p: "spec"): { [p: string]: any; } // Should be ok
->f : { (p: 文字): { [p: 文字]: 文字; }; (p: "spec"): { [p: 文字]: 任意; }; }
+>f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: string]: any; }; }
 >p : "spec"
->p : 文字
->类型别名 :=> 文字
+>p : string
 }
 interface B {
 >B : B
 
     f(p: string): { [p: number]: string; };
->f : { (p: 文字): { [p: 数字]: 文字; }; (p: "spec"): { [p: 文字]: 任意; }; }
->p : 文字
->类型别名 :=> 文字
->p : 数字
->类型别名 :=> 数字
+>f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: string]: any; }; }
+>p : string
+>p : number
 
     f(p: "spec"): { [p: string]: any; } // Should be ok
->f : { (p: 文字): { [p: 数字]: 文字; }; (p: "spec"): { [p: 文字]: 任意; }; }
+>f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: string]: any; }; }
 >p : "spec"
->p : 文字
->类型别名 :=> 文字
+>p : string
 }
 interface C {
 >C : C
 
     f(p: string): { [p: number]: string; };
->f : { (p: 文字): { [p: 数字]: 文字; }; (p: "spec"): { [p: 数字]: 任意; }; }
->p : 文字
->类型别名 :=> 文字
->p : 数字
->类型别名 :=> 数字
+>f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: number]: any; }; }
+>p : string
+>p : number
 
     f(p: "spec"): { [p: number]: any; } // Should be ok
->f : { (p: 文字): { [p: 数字]: 文字; }; (p: "spec"): { [p: 数字]: 任意; }; }
+>f : { (p: string): { [p: number]: string; }; (p: "spec"): { [p: number]: any; }; }
 >p : "spec"
->p : 数字
->类型别名 :=> 数字
+>p : number
 }
 interface D {
 >D : D
 
     f(p: string): { [p: string]: string; };
->f : { (p: 文字): { [p: 文字]: 文字; }; (p: "spec"): { [p: 数字]: 任意; }; }
->p : 文字
->类型别名 :=> 文字
->p : 文字
->类型别名 :=> 文字
+>f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: number]: any; }; }
+>p : string
+>p : string
 
     f(p: "spec"): { [p: number]: any; } // Should be error
->f : { (p: 文字): { [p: 文字]: 文字; }; (p: "spec"): { [p: 数字]: 任意; }; }
+>f : { (p: string): { [p: string]: string; }; (p: "spec"): { [p: number]: any; }; }
 >p : "spec"
->p : 数字
->类型别名 :=> 数字
+>p : number
 }

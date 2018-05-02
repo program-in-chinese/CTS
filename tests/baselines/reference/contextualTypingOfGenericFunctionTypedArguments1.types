@@ -4,16 +4,15 @@ interface Collection<T> {
 >T : T
 
     length: number;
->length : 数字
->类型别名 :=> 数字
+>length : number
 
     add(x: T): void;
->add : (x: T) => 无值
+>add : (x: T) => void
 >x : T
 >T : T
 
     remove(x: T): boolean;
->remove : (x: T) => 真假
+>remove : (x: T) => boolean
 >x : T
 >T : T
 }
@@ -22,7 +21,7 @@ interface Combinators {
 >Combinators : Combinators
 
     forEach<T>(c: Collection<T>, f: (x: T) => Date): void;
->forEach : <T>(c: Collection<T>, f: (x: T) => Date) => 无值
+>forEach : <T>(c: Collection<T>, f: (x: T) => Date) => void
 >T : T
 >c : Collection<T>
 >Collection : Collection<T>
@@ -34,7 +33,7 @@ interface Combinators {
 }
 
 var c2: Collection<number>;
->c2 : Collection<数字>
+>c2 : Collection<number>
 >Collection : Collection<T>
 
 var _: Combinators;
@@ -43,44 +42,34 @@ var _: Combinators;
 
 // errors on all 3 lines, bug was that r5 was the only line with errors
 var f = (x: number) => { return x.toFixed() };
->f : (x: 数字) => 文字
->(x: number) => { return x.toFixed() } : (x: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
->x.toFixed() : 文字
->类型别名 :=> 文字
->x.toFixed : (fractionDigits?: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
->toFixed : (fractionDigits?: 数字) => 文字
+>f : (x: number) => string
+>(x: number) => { return x.toFixed() } : (x: number) => string
+>x : number
+>x.toFixed() : string
+>x.toFixed : (fractionDigits?: number) => string
+>x : number
+>toFixed : (fractionDigits?: number) => string
 
 var r5 = _.forEach<number>(c2, f); 
->r5 : 任意
->类型别名 :=> 任意
->_.forEach<number>(c2, f) : 任意
->类型别名 :=> 任意
->_.forEach : <T>(c: Collection<T>, f: (x: T) => Date) => 无值
+>r5 : any
+>_.forEach<number>(c2, f) : any
+>_.forEach : <T>(c: Collection<T>, f: (x: T) => Date) => void
 >_ : Combinators
->forEach : <T>(c: Collection<T>, f: (x: T) => Date) => 无值
->c2 : Collection<数字>
->f : (x: 数字) => 文字
+>forEach : <T>(c: Collection<T>, f: (x: T) => Date) => void
+>c2 : Collection<number>
+>f : (x: number) => string
 
 var r6 = _.forEach<number>(c2, (x) => { return x.toFixed() }); 
->r6 : 任意
->类型别名 :=> 任意
->_.forEach<number>(c2, (x) => { return x.toFixed() }) : 任意
->类型别名 :=> 任意
->_.forEach : <T>(c: Collection<T>, f: (x: T) => Date) => 无值
+>r6 : any
+>_.forEach<number>(c2, (x) => { return x.toFixed() }) : any
+>_.forEach : <T>(c: Collection<T>, f: (x: T) => Date) => void
 >_ : Combinators
->forEach : <T>(c: Collection<T>, f: (x: T) => Date) => 无值
->c2 : Collection<数字>
->(x) => { return x.toFixed() } : (x: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
->x.toFixed() : 文字
->类型别名 :=> 文字
->x.toFixed : (fractionDigits?: 数字) => 文字
->x : 数字
->类型别名 :=> 数字
->toFixed : (fractionDigits?: 数字) => 文字
+>forEach : <T>(c: Collection<T>, f: (x: T) => Date) => void
+>c2 : Collection<number>
+>(x) => { return x.toFixed() } : (x: number) => string
+>x : number
+>x.toFixed() : string
+>x.toFixed : (fractionDigits?: number) => string
+>x : number
+>toFixed : (fractionDigits?: number) => string
 

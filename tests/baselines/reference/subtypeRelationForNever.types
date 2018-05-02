@@ -1,15 +1,13 @@
 === tests/cases/compiler/subtypeRelationForNever.ts ===
 function fail(message: string) : never { throw new Error(message); }
->fail : (message: 文字) => 不及
->message : 文字
->类型别名 :=> 文字
+>fail : (message: string) => never
+>message : string
 >new Error(message) : Error
 >Error : ErrorConstructor
->message : 文字
->类型别名 :=> 文字
+>message : string
 
 function withFew<a, r>(values: a[], haveFew: (values: a[]) => r, haveNone: (reason: string) => r): r {
->withFew : <a, r>(values: a[], haveFew: (values: a[]) => r, haveNone: (reason: 文字) => r) => r
+>withFew : <a, r>(values: a[], haveFew: (values: a[]) => r, haveNone: (reason: string) => r) => r
 >a : a
 >r : r
 >values : a[]
@@ -18,27 +16,23 @@ function withFew<a, r>(values: a[], haveFew: (values: a[]) => r, haveNone: (reas
 >values : a[]
 >a : a
 >r : r
->haveNone : (reason: 文字) => r
->reason : 文字
->类型别名 :=> 文字
+>haveNone : (reason: string) => r
+>reason : string
 >r : r
 >r : r
 
     return values.length > 0 ? haveFew(values) : haveNone('No values.');
 >values.length > 0 ? haveFew(values) : haveNone('No values.') : r
->values.length > 0 : 真假
->类型别名 :=> 真假
->values.length : 数字
->类型别名 :=> 数字
+>values.length > 0 : boolean
+>values.length : number
 >values : a[]
->length : 数字
->类型别名 :=> 数字
+>length : number
 >0 : 0
 >haveFew(values) : r
 >haveFew : (values: a[]) => r
 >values : a[]
 >haveNone('No values.') : r
->haveNone : (reason: 文字) => r
+>haveNone : (reason: string) => r
 >'No values.' : "No values."
 }
 function id<a>(value: a) : a { return value; }
@@ -50,13 +44,13 @@ function id<a>(value: a) : a { return value; }
 >value : a
 
 const result = withFew([1, 2, 3], id, fail); // expected result is number[]
->result : 数字[]
->withFew([1, 2, 3], id, fail) : 数字[]
->withFew : <a, r>(values: a[], haveFew: (values: a[]) => r, haveNone: (reason: 文字) => r) => r
->[1, 2, 3] : 数字[]
+>result : number[]
+>withFew([1, 2, 3], id, fail) : number[]
+>withFew : <a, r>(values: a[], haveFew: (values: a[]) => r, haveNone: (reason: string) => r) => r
+>[1, 2, 3] : number[]
 >1 : 1
 >2 : 2
 >3 : 3
 >id : <a>(value: a) => a
->fail : (message: 文字) => 不及
+>fail : (message: string) => never
 

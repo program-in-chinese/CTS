@@ -1,48 +1,40 @@
 === tests/cases/conformance/internalModules/DeclarationMerging/part1.ts ===
 module Root {
->Root : 类为 Root
+>Root : typeof Root
 
     export module A {
->A : 类为 A
+>A : typeof A
 
         export interface Point {
 >Point : Point
 
             x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
             y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
         }
 
         export module Utils {
->Utils : 类为 Utils
+>Utils : typeof Utils
 
             export function mirror<T extends Point>(p: T) {
->mirror : <T 扩展 Point>(p: T) => { x: 数字; y: 数字; }
+>mirror : <T extends Point>(p: T) => { x: number; y: number; }
 >T : T
 >Point : Point
 >p : T
 >T : T
 
                 return { x: p.y, y: p.x };
->{ x: p.y, y: p.x } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
->p.y : 数字
->类型别名 :=> 数字
+>{ x: p.y, y: p.x } : { x: number; y: number; }
+>x : number
+>p.y : number
 >p : T
->y : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
->p.x : 数字
->类型别名 :=> 数字
+>y : number
+>y : number
+>p.x : number
 >p : T
->x : 数字
->类型别名 :=> 数字
+>x : number
             }
         }
     }
@@ -50,45 +42,37 @@ module Root {
 
 === tests/cases/conformance/internalModules/DeclarationMerging/part2.ts ===
 module otherRoot {
->otherRoot : 类为 otherRoot
+>otherRoot : typeof otherRoot
 
     export module A {
->A : 类为 A
+>A : typeof A
 
         // have to be fully qualified since in different root
         export var Origin: Root.A.Point = { x: 0, y: 0 };
 >Origin : Root.A.Point
->Root : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>Root : any
+>A : any
 >Point : Root.A.Point
->{ x: 0, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>{ x: 0, y: 0 } : { x: number; y: number; }
+>x : number
 >0 : 0
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 
         export module Utils {
->Utils : 类为 Utils
+>Utils : typeof Utils
 
             export class Plane {
 >Plane : Plane
 
                 constructor(public tl: Root.A.Point, public br: Root.A.Point) { }
 >tl : Root.A.Point
->Root : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>Root : any
+>A : any
 >Point : Root.A.Point
 >br : Root.A.Point
->Root : 任意
->类型别名 :=> 任意
->A : 任意
->类型别名 :=> 任意
+>Root : any
+>A : any
 >Point : Root.A.Point
             }
         }

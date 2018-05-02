@@ -2,988 +2,578 @@
 // Repro for #8401
 
 function f(dim, offsets, arr, acommon, centerAnchorLimit, g, has, lin) {
->f : (dim: 任意, offsets: 任意, arr: 任意, acommon: 任意, centerAnchorLimit: 任意, g: 任意, has: 任意, lin: 任意) => 无值
->dim : 任意
->类型别名 :=> 任意
->offsets : 任意
->类型别名 :=> 任意
->arr : 任意
->类型别名 :=> 任意
->acommon : 任意
->类型别名 :=> 任意
->centerAnchorLimit : 任意
->类型别名 :=> 任意
->g : 任意
->类型别名 :=> 任意
->has : 任意
->类型别名 :=> 任意
->lin : 任意
->类型别名 :=> 任意
+>f : (dim: any, offsets: any, arr: any, acommon: any, centerAnchorLimit: any, g: any, has: any, lin: any) => void
+>dim : any
+>offsets : any
+>arr : any
+>acommon : any
+>centerAnchorLimit : any
+>g : any
+>has : any
+>lin : any
 
     var isRtl = this._isRtl();  // chart mirroring
->isRtl : 任意
->类型别名 :=> 任意
->this._isRtl() : 任意
->类型别名 :=> 任意
->this._isRtl : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->_isRtl : 任意
->类型别名 :=> 任意
+>isRtl : any
+>this._isRtl() : any
+>this._isRtl : any
+>this : any
+>_isRtl : any
 
     // prepare variable
     var o = this.opt, ta = this.chart.theme.axis, position = o.position,
->o : 任意
->类型别名 :=> 任意
->this.opt : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->opt : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->this.chart.theme.axis : 任意
->类型别名 :=> 任意
->this.chart.theme : 任意
->类型别名 :=> 任意
->this.chart : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->chart : 任意
->类型别名 :=> 任意
->theme : 任意
->类型别名 :=> 任意
->axis : 任意
->类型别名 :=> 任意
->position : 任意
->类型别名 :=> 任意
->o.position : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->position : 任意
->类型别名 :=> 任意
+>o : any
+>this.opt : any
+>this : any
+>opt : any
+>ta : any
+>this.chart.theme.axis : any
+>this.chart.theme : any
+>this.chart : any
+>this : any
+>chart : any
+>theme : any
+>axis : any
+>position : any
+>o.position : any
+>o : any
+>position : any
 
         leftBottom = position !== "rightOrTop", rotation = o.rotation % 360,
->leftBottom : 真假
->类型别名 :=> 真假
->position !== "rightOrTop" : 真假
->类型别名 :=> 真假
->position : 任意
->类型别名 :=> 任意
+>leftBottom : boolean
+>position !== "rightOrTop" : boolean
+>position : any
 >"rightOrTop" : "rightOrTop"
->rotation : 数字
->类型别名 :=> 数字
->o.rotation % 360 : 数字
->类型别名 :=> 数字
->o.rotation : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->rotation : 任意
->类型别名 :=> 任意
+>rotation : number
+>o.rotation % 360 : number
+>o.rotation : any
+>o : any
+>rotation : any
 >360 : 360
 
         start, stop, titlePos, titleRotation = 0, titleOffset, axisVector, tickVector, anchorOffset, labelOffset, labelAlign,
->start : 任意
->类型别名 :=> 任意
->stop : 任意
->类型别名 :=> 任意
->titlePos : 任意
->类型别名 :=> 任意
->titleRotation : 数字
->类型别名 :=> 数字
+>start : any
+>stop : any
+>titlePos : any
+>titleRotation : number
 >0 : 0
->titleOffset : 任意
->类型别名 :=> 任意
->axisVector : 任意
->类型别名 :=> 任意
->tickVector : 任意
->类型别名 :=> 任意
->anchorOffset : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->labelAlign : 任意
->类型别名 :=> 任意
+>titleOffset : any
+>axisVector : any
+>tickVector : any
+>anchorOffset : any
+>labelOffset : any
+>labelAlign : any
 
         labelGap = this.chart.theme.axis.tick.labelGap,
->labelGap : 任意
->类型别名 :=> 任意
->this.chart.theme.axis.tick.labelGap : 任意
->类型别名 :=> 任意
->this.chart.theme.axis.tick : 任意
->类型别名 :=> 任意
->this.chart.theme.axis : 任意
->类型别名 :=> 任意
->this.chart.theme : 任意
->类型别名 :=> 任意
->this.chart : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->chart : 任意
->类型别名 :=> 任意
->theme : 任意
->类型别名 :=> 任意
->axis : 任意
->类型别名 :=> 任意
->tick : 任意
->类型别名 :=> 任意
->labelGap : 任意
->类型别名 :=> 任意
+>labelGap : any
+>this.chart.theme.axis.tick.labelGap : any
+>this.chart.theme.axis.tick : any
+>this.chart.theme.axis : any
+>this.chart.theme : any
+>this.chart : any
+>this : any
+>chart : any
+>theme : any
+>axis : any
+>tick : any
+>labelGap : any
 
         taFont = o.font || (ta.majorTick && ta.majorTick.font) || (ta.tick && ta.tick.font),
->taFont : 任意
->类型别名 :=> 任意
->o.font || (ta.majorTick && ta.majorTick.font) || (ta.tick && ta.tick.font) : 任意
->类型别名 :=> 任意
->o.font || (ta.majorTick && ta.majorTick.font) : 任意
->类型别名 :=> 任意
->o.font : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->font : 任意
->类型别名 :=> 任意
->(ta.majorTick && ta.majorTick.font) : 任意
->类型别名 :=> 任意
->ta.majorTick && ta.majorTick.font : 任意
->类型别名 :=> 任意
->ta.majorTick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->majorTick : 任意
->类型别名 :=> 任意
->ta.majorTick.font : 任意
->类型别名 :=> 任意
->ta.majorTick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->majorTick : 任意
->类型别名 :=> 任意
->font : 任意
->类型别名 :=> 任意
->(ta.tick && ta.tick.font) : 任意
->类型别名 :=> 任意
->ta.tick && ta.tick.font : 任意
->类型别名 :=> 任意
->ta.tick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->tick : 任意
->类型别名 :=> 任意
->ta.tick.font : 任意
->类型别名 :=> 任意
->ta.tick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->tick : 任意
->类型别名 :=> 任意
->font : 任意
->类型别名 :=> 任意
+>taFont : any
+>o.font || (ta.majorTick && ta.majorTick.font) || (ta.tick && ta.tick.font) : any
+>o.font || (ta.majorTick && ta.majorTick.font) : any
+>o.font : any
+>o : any
+>font : any
+>(ta.majorTick && ta.majorTick.font) : any
+>ta.majorTick && ta.majorTick.font : any
+>ta.majorTick : any
+>ta : any
+>majorTick : any
+>ta.majorTick.font : any
+>ta.majorTick : any
+>ta : any
+>majorTick : any
+>font : any
+>(ta.tick && ta.tick.font) : any
+>ta.tick && ta.tick.font : any
+>ta.tick : any
+>ta : any
+>tick : any
+>ta.tick.font : any
+>ta.tick : any
+>ta : any
+>tick : any
+>font : any
 
         taTitleFont = o.titleFont || (ta.title && ta.title.font),
->taTitleFont : 任意
->类型别名 :=> 任意
->o.titleFont || (ta.title && ta.title.font) : 任意
->类型别名 :=> 任意
->o.titleFont : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->titleFont : 任意
->类型别名 :=> 任意
->(ta.title && ta.title.font) : 任意
->类型别名 :=> 任意
->ta.title && ta.title.font : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->ta.title.font : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->font : 任意
->类型别名 :=> 任意
+>taTitleFont : any
+>o.titleFont || (ta.title && ta.title.font) : any
+>o.titleFont : any
+>o : any
+>titleFont : any
+>(ta.title && ta.title.font) : any
+>ta.title && ta.title.font : any
+>ta.title : any
+>ta : any
+>title : any
+>ta.title.font : any
+>ta.title : any
+>ta : any
+>title : any
+>font : any
 
         taFontColor = o.fontColor || (ta.majorTick && ta.majorTick.fontColor) || (ta.tick && ta.tick.fontColor) || "black",
->taFontColor : 任意
->类型别名 :=> 任意
->o.fontColor || (ta.majorTick && ta.majorTick.fontColor) || (ta.tick && ta.tick.fontColor) || "black" : 任意
->类型别名 :=> 任意
->o.fontColor || (ta.majorTick && ta.majorTick.fontColor) || (ta.tick && ta.tick.fontColor) : 任意
->类型别名 :=> 任意
->o.fontColor || (ta.majorTick && ta.majorTick.fontColor) : 任意
->类型别名 :=> 任意
->o.fontColor : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->fontColor : 任意
->类型别名 :=> 任意
->(ta.majorTick && ta.majorTick.fontColor) : 任意
->类型别名 :=> 任意
->ta.majorTick && ta.majorTick.fontColor : 任意
->类型别名 :=> 任意
->ta.majorTick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->majorTick : 任意
->类型别名 :=> 任意
->ta.majorTick.fontColor : 任意
->类型别名 :=> 任意
->ta.majorTick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->majorTick : 任意
->类型别名 :=> 任意
->fontColor : 任意
->类型别名 :=> 任意
->(ta.tick && ta.tick.fontColor) : 任意
->类型别名 :=> 任意
->ta.tick && ta.tick.fontColor : 任意
->类型别名 :=> 任意
->ta.tick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->tick : 任意
->类型别名 :=> 任意
->ta.tick.fontColor : 任意
->类型别名 :=> 任意
->ta.tick : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->tick : 任意
->类型别名 :=> 任意
->fontColor : 任意
->类型别名 :=> 任意
+>taFontColor : any
+>o.fontColor || (ta.majorTick && ta.majorTick.fontColor) || (ta.tick && ta.tick.fontColor) || "black" : any
+>o.fontColor || (ta.majorTick && ta.majorTick.fontColor) || (ta.tick && ta.tick.fontColor) : any
+>o.fontColor || (ta.majorTick && ta.majorTick.fontColor) : any
+>o.fontColor : any
+>o : any
+>fontColor : any
+>(ta.majorTick && ta.majorTick.fontColor) : any
+>ta.majorTick && ta.majorTick.fontColor : any
+>ta.majorTick : any
+>ta : any
+>majorTick : any
+>ta.majorTick.fontColor : any
+>ta.majorTick : any
+>ta : any
+>majorTick : any
+>fontColor : any
+>(ta.tick && ta.tick.fontColor) : any
+>ta.tick && ta.tick.fontColor : any
+>ta.tick : any
+>ta : any
+>tick : any
+>ta.tick.fontColor : any
+>ta.tick : any
+>ta : any
+>tick : any
+>fontColor : any
 >"black" : "black"
 
         taTitleFontColor = o.titleFontColor || (ta.title && ta.title.fontColor) || "black",
->taTitleFontColor : 任意
->类型别名 :=> 任意
->o.titleFontColor || (ta.title && ta.title.fontColor) || "black" : 任意
->类型别名 :=> 任意
->o.titleFontColor || (ta.title && ta.title.fontColor) : 任意
->类型别名 :=> 任意
->o.titleFontColor : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->titleFontColor : 任意
->类型别名 :=> 任意
->(ta.title && ta.title.fontColor) : 任意
->类型别名 :=> 任意
->ta.title && ta.title.fontColor : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->ta.title.fontColor : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->fontColor : 任意
->类型别名 :=> 任意
+>taTitleFontColor : any
+>o.titleFontColor || (ta.title && ta.title.fontColor) || "black" : any
+>o.titleFontColor || (ta.title && ta.title.fontColor) : any
+>o.titleFontColor : any
+>o : any
+>titleFontColor : any
+>(ta.title && ta.title.fontColor) : any
+>ta.title && ta.title.fontColor : any
+>ta.title : any
+>ta : any
+>title : any
+>ta.title.fontColor : any
+>ta.title : any
+>ta : any
+>title : any
+>fontColor : any
 >"black" : "black"
 
         taTitleGap = (o.titleGap == 0) ? 0 : o.titleGap || (ta.title && ta.title.gap) || 15,
->taTitleGap : 任意
->类型别名 :=> 任意
->(o.titleGap == 0) ? 0 : o.titleGap || (ta.title && ta.title.gap) || 15 : 任意
->类型别名 :=> 任意
->(o.titleGap == 0) : 真假
->类型别名 :=> 真假
->o.titleGap == 0 : 真假
->类型别名 :=> 真假
->o.titleGap : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->titleGap : 任意
->类型别名 :=> 任意
+>taTitleGap : any
+>(o.titleGap == 0) ? 0 : o.titleGap || (ta.title && ta.title.gap) || 15 : any
+>(o.titleGap == 0) : boolean
+>o.titleGap == 0 : boolean
+>o.titleGap : any
+>o : any
+>titleGap : any
 >0 : 0
 >0 : 0
->o.titleGap || (ta.title && ta.title.gap) || 15 : 任意
->类型别名 :=> 任意
->o.titleGap || (ta.title && ta.title.gap) : 任意
->类型别名 :=> 任意
->o.titleGap : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->titleGap : 任意
->类型别名 :=> 任意
->(ta.title && ta.title.gap) : 任意
->类型别名 :=> 任意
->ta.title && ta.title.gap : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->ta.title.gap : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->gap : 任意
->类型别名 :=> 任意
+>o.titleGap || (ta.title && ta.title.gap) || 15 : any
+>o.titleGap || (ta.title && ta.title.gap) : any
+>o.titleGap : any
+>o : any
+>titleGap : any
+>(ta.title && ta.title.gap) : any
+>ta.title && ta.title.gap : any
+>ta.title : any
+>ta : any
+>title : any
+>ta.title.gap : any
+>ta.title : any
+>ta : any
+>title : any
+>gap : any
 >15 : 15
 
         taTitleOrientation = o.titleOrientation || (ta.title && ta.title.orientation) || "axis",
->taTitleOrientation : 任意
->类型别名 :=> 任意
->o.titleOrientation || (ta.title && ta.title.orientation) || "axis" : 任意
->类型别名 :=> 任意
->o.titleOrientation || (ta.title && ta.title.orientation) : 任意
->类型别名 :=> 任意
->o.titleOrientation : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->titleOrientation : 任意
->类型别名 :=> 任意
->(ta.title && ta.title.orientation) : 任意
->类型别名 :=> 任意
->ta.title && ta.title.orientation : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->ta.title.orientation : 任意
->类型别名 :=> 任意
->ta.title : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->title : 任意
->类型别名 :=> 任意
->orientation : 任意
->类型别名 :=> 任意
+>taTitleOrientation : any
+>o.titleOrientation || (ta.title && ta.title.orientation) || "axis" : any
+>o.titleOrientation || (ta.title && ta.title.orientation) : any
+>o.titleOrientation : any
+>o : any
+>titleOrientation : any
+>(ta.title && ta.title.orientation) : any
+>ta.title && ta.title.orientation : any
+>ta.title : any
+>ta : any
+>title : any
+>ta.title.orientation : any
+>ta.title : any
+>ta : any
+>title : any
+>orientation : any
 >"axis" : "axis"
 
         taMajorTick = this.chart.theme.getTick("major", o),
->taMajorTick : 任意
->类型别名 :=> 任意
->this.chart.theme.getTick("major", o) : 任意
->类型别名 :=> 任意
->this.chart.theme.getTick : 任意
->类型别名 :=> 任意
->this.chart.theme : 任意
->类型别名 :=> 任意
->this.chart : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->chart : 任意
->类型别名 :=> 任意
->theme : 任意
->类型别名 :=> 任意
->getTick : 任意
->类型别名 :=> 任意
+>taMajorTick : any
+>this.chart.theme.getTick("major", o) : any
+>this.chart.theme.getTick : any
+>this.chart.theme : any
+>this.chart : any
+>this : any
+>chart : any
+>theme : any
+>getTick : any
 >"major" : "major"
->o : 任意
->类型别名 :=> 任意
+>o : any
 
         taMinorTick = this.chart.theme.getTick("minor", o),
->taMinorTick : 任意
->类型别名 :=> 任意
->this.chart.theme.getTick("minor", o) : 任意
->类型别名 :=> 任意
->this.chart.theme.getTick : 任意
->类型别名 :=> 任意
->this.chart.theme : 任意
->类型别名 :=> 任意
->this.chart : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->chart : 任意
->类型别名 :=> 任意
->theme : 任意
->类型别名 :=> 任意
->getTick : 任意
->类型别名 :=> 任意
+>taMinorTick : any
+>this.chart.theme.getTick("minor", o) : any
+>this.chart.theme.getTick : any
+>this.chart.theme : any
+>this.chart : any
+>this : any
+>chart : any
+>theme : any
+>getTick : any
 >"minor" : "minor"
->o : 任意
->类型别名 :=> 任意
+>o : any
 
         taMicroTick = this.chart.theme.getTick("micro", o),
->taMicroTick : 任意
->类型别名 :=> 任意
->this.chart.theme.getTick("micro", o) : 任意
->类型别名 :=> 任意
->this.chart.theme.getTick : 任意
->类型别名 :=> 任意
->this.chart.theme : 任意
->类型别名 :=> 任意
->this.chart : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->chart : 任意
->类型别名 :=> 任意
->theme : 任意
->类型别名 :=> 任意
->getTick : 任意
->类型别名 :=> 任意
+>taMicroTick : any
+>this.chart.theme.getTick("micro", o) : any
+>this.chart.theme.getTick : any
+>this.chart.theme : any
+>this.chart : any
+>this : any
+>chart : any
+>theme : any
+>getTick : any
 >"micro" : "micro"
->o : 任意
->类型别名 :=> 任意
+>o : any
 
         taStroke = "stroke" in o ? o.stroke : ta.stroke,
->taStroke : 任意
->类型别名 :=> 任意
->"stroke" in o ? o.stroke : ta.stroke : 任意
->类型别名 :=> 任意
->"stroke" in o : 真假
->类型别名 :=> 真假
+>taStroke : any
+>"stroke" in o ? o.stroke : ta.stroke : any
+>"stroke" in o : boolean
 >"stroke" : "stroke"
->o : 任意
->类型别名 :=> 任意
->o.stroke : 任意
->类型别名 :=> 任意
->o : 任意
->类型别名 :=> 任意
->stroke : 任意
->类型别名 :=> 任意
->ta.stroke : 任意
->类型别名 :=> 任意
->ta : 任意
->类型别名 :=> 任意
->stroke : 任意
->类型别名 :=> 任意
+>o : any
+>o.stroke : any
+>o : any
+>stroke : any
+>ta.stroke : any
+>ta : any
+>stroke : any
 
         size = taFont ? g.normalizedLength(g.splitFontString(taFont).size) : 0,
->size : 任意
->类型别名 :=> 任意
->taFont ? g.normalizedLength(g.splitFontString(taFont).size) : 0 : 任意
->类型别名 :=> 任意
->taFont : 任意
->类型别名 :=> 任意
->g.normalizedLength(g.splitFontString(taFont).size) : 任意
->类型别名 :=> 任意
->g.normalizedLength : 任意
->类型别名 :=> 任意
->g : 任意
->类型别名 :=> 任意
->normalizedLength : 任意
->类型别名 :=> 任意
->g.splitFontString(taFont).size : 任意
->类型别名 :=> 任意
->g.splitFontString(taFont) : 任意
->类型别名 :=> 任意
->g.splitFontString : 任意
->类型别名 :=> 任意
->g : 任意
->类型别名 :=> 任意
->splitFontString : 任意
->类型别名 :=> 任意
->taFont : 任意
->类型别名 :=> 任意
->size : 任意
->类型别名 :=> 任意
+>size : any
+>taFont ? g.normalizedLength(g.splitFontString(taFont).size) : 0 : any
+>taFont : any
+>g.normalizedLength(g.splitFontString(taFont).size) : any
+>g.normalizedLength : any
+>g : any
+>normalizedLength : any
+>g.splitFontString(taFont).size : any
+>g.splitFontString(taFont) : any
+>g.splitFontString : any
+>g : any
+>splitFontString : any
+>taFont : any
+>size : any
 >0 : 0
 
         cosr = Math.abs(Math.cos(rotation * Math.PI / 180)),
->cosr : 数字
->类型别名 :=> 数字
->Math.abs(Math.cos(rotation * Math.PI / 180)) : 数字
->类型别名 :=> 数字
->Math.abs : (x: 数字) => 数字
+>cosr : number
+>Math.abs(Math.cos(rotation * Math.PI / 180)) : number
+>Math.abs : (x: number) => number
 >Math : Math
->abs : (x: 数字) => 数字
->Math.cos(rotation * Math.PI / 180) : 数字
->类型别名 :=> 数字
->Math.cos : (x: 数字) => 数字
+>abs : (x: number) => number
+>Math.cos(rotation * Math.PI / 180) : number
+>Math.cos : (x: number) => number
 >Math : Math
->cos : (x: 数字) => 数字
->rotation * Math.PI / 180 : 数字
->类型别名 :=> 数字
->rotation * Math.PI : 数字
->类型别名 :=> 数字
->rotation : 数字
->类型别名 :=> 数字
->Math.PI : 数字
->类型别名 :=> 数字
+>cos : (x: number) => number
+>rotation * Math.PI / 180 : number
+>rotation * Math.PI : number
+>rotation : number
+>Math.PI : number
 >Math : Math
->PI : 数字
->类型别名 :=> 数字
+>PI : number
 >180 : 180
 
         sinr = Math.abs(Math.sin(rotation * Math.PI / 180)),
->sinr : 数字
->类型别名 :=> 数字
->Math.abs(Math.sin(rotation * Math.PI / 180)) : 数字
->类型别名 :=> 数字
->Math.abs : (x: 数字) => 数字
+>sinr : number
+>Math.abs(Math.sin(rotation * Math.PI / 180)) : number
+>Math.abs : (x: number) => number
 >Math : Math
->abs : (x: 数字) => 数字
->Math.sin(rotation * Math.PI / 180) : 数字
->类型别名 :=> 数字
->Math.sin : (x: 数字) => 数字
+>abs : (x: number) => number
+>Math.sin(rotation * Math.PI / 180) : number
+>Math.sin : (x: number) => number
 >Math : Math
->sin : (x: 数字) => 数字
->rotation * Math.PI / 180 : 数字
->类型别名 :=> 数字
->rotation * Math.PI : 数字
->类型别名 :=> 数字
->rotation : 数字
->类型别名 :=> 数字
->Math.PI : 数字
->类型别名 :=> 数字
+>sin : (x: number) => number
+>rotation * Math.PI / 180 : number
+>rotation * Math.PI : number
+>rotation : number
+>Math.PI : number
 >Math : Math
->PI : 数字
->类型别名 :=> 数字
+>PI : number
 >180 : 180
 
         tsize = taTitleFont ? g.normalizedLength(g.splitFontString(taTitleFont).size) : 0;
->tsize : 任意
->类型别名 :=> 任意
->taTitleFont ? g.normalizedLength(g.splitFontString(taTitleFont).size) : 0 : 任意
->类型别名 :=> 任意
->taTitleFont : 任意
->类型别名 :=> 任意
->g.normalizedLength(g.splitFontString(taTitleFont).size) : 任意
->类型别名 :=> 任意
->g.normalizedLength : 任意
->类型别名 :=> 任意
->g : 任意
->类型别名 :=> 任意
->normalizedLength : 任意
->类型别名 :=> 任意
->g.splitFontString(taTitleFont).size : 任意
->类型别名 :=> 任意
->g.splitFontString(taTitleFont) : 任意
->类型别名 :=> 任意
->g.splitFontString : 任意
->类型别名 :=> 任意
->g : 任意
->类型别名 :=> 任意
->splitFontString : 任意
->类型别名 :=> 任意
->taTitleFont : 任意
->类型别名 :=> 任意
->size : 任意
->类型别名 :=> 任意
+>tsize : any
+>taTitleFont ? g.normalizedLength(g.splitFontString(taTitleFont).size) : 0 : any
+>taTitleFont : any
+>g.normalizedLength(g.splitFontString(taTitleFont).size) : any
+>g.normalizedLength : any
+>g : any
+>normalizedLength : any
+>g.splitFontString(taTitleFont).size : any
+>g.splitFontString(taTitleFont) : any
+>g.splitFontString : any
+>g : any
+>splitFontString : any
+>taTitleFont : any
+>size : any
 >0 : 0
 
     if (rotation < 0) {
->rotation < 0 : 真假
->类型别名 :=> 真假
->rotation : 数字
->类型别名 :=> 数字
+>rotation < 0 : boolean
+>rotation : number
 >0 : 0
 
         rotation += 360;
->rotation += 360 : 数字
->类型别名 :=> 数字
->rotation : 数字
->类型别名 :=> 数字
+>rotation += 360 : number
+>rotation : number
 >360 : 360
     }
     var cachedLabelW = this._getMaxLabelSize();
->cachedLabelW : 任意
->类型别名 :=> 任意
->this._getMaxLabelSize() : 任意
->类型别名 :=> 任意
->this._getMaxLabelSize : 任意
->类型别名 :=> 任意
->this : 任意
->类型别名 :=> 任意
->_getMaxLabelSize : 任意
->类型别名 :=> 任意
+>cachedLabelW : any
+>this._getMaxLabelSize() : any
+>this._getMaxLabelSize : any
+>this : any
+>_getMaxLabelSize : any
 
     cachedLabelW = cachedLabelW && cachedLabelW.majLabelW;
->cachedLabelW = cachedLabelW && cachedLabelW.majLabelW : 任意
->类型别名 :=> 任意
->cachedLabelW : 任意
->类型别名 :=> 任意
->cachedLabelW && cachedLabelW.majLabelW : 任意
->类型别名 :=> 任意
->cachedLabelW : 任意
->类型别名 :=> 任意
->cachedLabelW.majLabelW : 任意
->类型别名 :=> 任意
->cachedLabelW : 任意
->类型别名 :=> 任意
->majLabelW : 任意
->类型别名 :=> 任意
+>cachedLabelW = cachedLabelW && cachedLabelW.majLabelW : any
+>cachedLabelW : any
+>cachedLabelW && cachedLabelW.majLabelW : any
+>cachedLabelW : any
+>cachedLabelW.majLabelW : any
+>cachedLabelW : any
+>majLabelW : any
 
     titleOffset = size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,
->titleOffset = size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) +        tsize + taTitleGap : 任意
->类型别名 :=> 任意
->titleOffset : 任意
->类型别名 :=> 任意
->size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) +        tsize + taTitleGap : 任意
->类型别名 :=> 任意
->size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) +        tsize : 任意
->类型别名 :=> 任意
->size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) : 任意
->类型别名 :=> 任意
->size * cosr + (cachedLabelW || 0) * sinr + labelGap : 任意
->类型别名 :=> 任意
->size * cosr + (cachedLabelW || 0) * sinr : 数字
->类型别名 :=> 数字
->size * cosr : 数字
->类型别名 :=> 数字
->size : 任意
->类型别名 :=> 任意
->cosr : 数字
->类型别名 :=> 数字
->(cachedLabelW || 0) * sinr : 数字
->类型别名 :=> 数字
->(cachedLabelW || 0) : 任意
->类型别名 :=> 任意
->cachedLabelW || 0 : 任意
->类型别名 :=> 任意
->cachedLabelW : 任意
->类型别名 :=> 任意
+>titleOffset = size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) +        tsize + taTitleGap : any
+>titleOffset : any
+>size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) +        tsize + taTitleGap : any
+>size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) +        tsize : any
+>size * cosr + (cachedLabelW || 0) * sinr + labelGap + Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) : any
+>size * cosr + (cachedLabelW || 0) * sinr + labelGap : any
+>size * cosr + (cachedLabelW || 0) * sinr : number
+>size * cosr : number
+>size : any
+>cosr : number
+>(cachedLabelW || 0) * sinr : number
+>(cachedLabelW || 0) : any
+>cachedLabelW || 0 : any
+>cachedLabelW : any
 >0 : 0
->sinr : 数字
->类型别名 :=> 数字
->labelGap : 任意
->类型别名 :=> 任意
->Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) : 数字
->类型别名 :=> 数字
->Math.max : (...values: 数字[]) => 数字
+>sinr : number
+>labelGap : any
+>Math.max(taMajorTick.length > 0 ? taMajorTick.length : 0,        taMinorTick.length > 0 ? taMinorTick.length : 0) : number
+>Math.max : (...values: number[]) => number
 >Math : Math
->max : (...values: 数字[]) => 数字
->taMajorTick.length > 0 ? taMajorTick.length : 0 : 任意
->类型别名 :=> 任意
->taMajorTick.length > 0 : 真假
->类型别名 :=> 真假
->taMajorTick.length : 任意
->类型别名 :=> 任意
->taMajorTick : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>max : (...values: number[]) => number
+>taMajorTick.length > 0 ? taMajorTick.length : 0 : any
+>taMajorTick.length > 0 : boolean
+>taMajorTick.length : any
+>taMajorTick : any
+>length : any
 >0 : 0
->taMajorTick.length : 任意
->类型别名 :=> 任意
->taMajorTick : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>taMajorTick.length : any
+>taMajorTick : any
+>length : any
 >0 : 0
 
         taMinorTick.length > 0 ? taMinorTick.length : 0) +
->taMinorTick.length > 0 ? taMinorTick.length : 0 : 任意
->类型别名 :=> 任意
->taMinorTick.length > 0 : 真假
->类型别名 :=> 真假
->taMinorTick.length : 任意
->类型别名 :=> 任意
->taMinorTick : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>taMinorTick.length > 0 ? taMinorTick.length : 0 : any
+>taMinorTick.length > 0 : boolean
+>taMinorTick.length : any
+>taMinorTick : any
+>length : any
 >0 : 0
->taMinorTick.length : 任意
->类型别名 :=> 任意
->taMinorTick : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>taMinorTick.length : any
+>taMinorTick : any
+>length : any
 >0 : 0
 
         tsize + taTitleGap;
->tsize : 任意
->类型别名 :=> 任意
->taTitleGap : 任意
->类型别名 :=> 任意
+>tsize : any
+>taTitleGap : any
 
     axisVector = { x: isRtl ? -1 : 1, y: 0 };     // chart mirroring
->axisVector = { x: isRtl ? -1 : 1, y: 0 } : { x: 数字; y: 数字; }
->axisVector : 任意
->类型别名 :=> 任意
->{ x: isRtl ? -1 : 1, y: 0 } : { x: 数字; y: 数字; }
->x : 数字
->类型别名 :=> 数字
+>axisVector = { x: isRtl ? -1 : 1, y: 0 } : { x: number; y: number; }
+>axisVector : any
+>{ x: isRtl ? -1 : 1, y: 0 } : { x: number; y: number; }
+>x : number
 >isRtl ? -1 : 1 : 1 | -1
->isRtl : 任意
->类型别名 :=> 任意
+>isRtl : any
 >-1 : -1
 >1 : 1
 >1 : 1
->y : 数字
->类型别名 :=> 数字
+>y : number
 >0 : 0
 
     switch (rotation) {
->rotation : 数字
->类型别名 :=> 数字
+>rotation : number
 
         default:
             if (rotation < (90 - centerAnchorLimit)) {
->rotation < (90 - centerAnchorLimit) : 真假
->类型别名 :=> 真假
->rotation : 数字
->类型别名 :=> 数字
->(90 - centerAnchorLimit) : 数字
->类型别名 :=> 数字
->90 - centerAnchorLimit : 数字
->类型别名 :=> 数字
+>rotation < (90 - centerAnchorLimit) : boolean
+>rotation : number
+>(90 - centerAnchorLimit) : number
+>90 - centerAnchorLimit : number
 >90 : 90
->centerAnchorLimit : 任意
->类型别名 :=> 任意
+>centerAnchorLimit : any
 
                 labelOffset.y = leftBottom ? size : 0;
->labelOffset.y = leftBottom ? size : 0 : 任意
->类型别名 :=> 任意
->labelOffset.y : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->leftBottom ? size : 0 : 任意
->类型别名 :=> 任意
->leftBottom : 真假
->类型别名 :=> 真假
->size : 任意
->类型别名 :=> 任意
+>labelOffset.y = leftBottom ? size : 0 : any
+>labelOffset.y : any
+>labelOffset : any
+>y : any
+>leftBottom ? size : 0 : any
+>leftBottom : boolean
+>size : any
 >0 : 0
 
             } else if (rotation < (90 + centerAnchorLimit)) {
->rotation < (90 + centerAnchorLimit) : 真假
->类型别名 :=> 真假
->rotation : 数字
->类型别名 :=> 数字
->(90 + centerAnchorLimit) : 任意
->类型别名 :=> 任意
->90 + centerAnchorLimit : 任意
->类型别名 :=> 任意
+>rotation < (90 + centerAnchorLimit) : boolean
+>rotation : number
+>(90 + centerAnchorLimit) : any
+>90 + centerAnchorLimit : any
 >90 : 90
->centerAnchorLimit : 任意
->类型别名 :=> 任意
+>centerAnchorLimit : any
 
                 labelOffset.x = -size * 0.4;
->labelOffset.x = -size * 0.4 : 数字
->类型别名 :=> 数字
->labelOffset.x : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->-size * 0.4 : 数字
->类型别名 :=> 数字
->-size : 数字
->类型别名 :=> 数字
->size : 任意
->类型别名 :=> 任意
+>labelOffset.x = -size * 0.4 : number
+>labelOffset.x : any
+>labelOffset : any
+>x : any
+>-size * 0.4 : number
+>-size : number
+>size : any
 >0.4 : 0.4
 
             } else if (rotation < 180) {
->rotation < 180 : 真假
->类型别名 :=> 真假
->rotation : 数字
->类型别名 :=> 数字
+>rotation < 180 : boolean
+>rotation : number
 >180 : 180
 
                 labelOffset.y = leftBottom ? 0 : -size;
->labelOffset.y = leftBottom ? 0 : -size : 数字
->类型别名 :=> 数字
->labelOffset.y : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->leftBottom ? 0 : -size : 数字
->类型别名 :=> 数字
->leftBottom : 真假
->类型别名 :=> 真假
+>labelOffset.y = leftBottom ? 0 : -size : number
+>labelOffset.y : any
+>labelOffset : any
+>y : any
+>leftBottom ? 0 : -size : number
+>leftBottom : boolean
 >0 : 0
->-size : 数字
->类型别名 :=> 数字
->size : 任意
->类型别名 :=> 任意
+>-size : number
+>size : any
 
             } else if (rotation < (270 - centerAnchorLimit)) {
->rotation < (270 - centerAnchorLimit) : 真假
->类型别名 :=> 真假
->rotation : 数字
->类型别名 :=> 数字
->(270 - centerAnchorLimit) : 数字
->类型别名 :=> 数字
->270 - centerAnchorLimit : 数字
->类型别名 :=> 数字
+>rotation < (270 - centerAnchorLimit) : boolean
+>rotation : number
+>(270 - centerAnchorLimit) : number
+>270 - centerAnchorLimit : number
 >270 : 270
->centerAnchorLimit : 任意
->类型别名 :=> 任意
+>centerAnchorLimit : any
 
                 labelOffset.y = leftBottom ? 0 : -size;
->labelOffset.y = leftBottom ? 0 : -size : 数字
->类型别名 :=> 数字
->labelOffset.y : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->leftBottom ? 0 : -size : 数字
->类型别名 :=> 数字
->leftBottom : 真假
->类型别名 :=> 真假
+>labelOffset.y = leftBottom ? 0 : -size : number
+>labelOffset.y : any
+>labelOffset : any
+>y : any
+>leftBottom ? 0 : -size : number
+>leftBottom : boolean
 >0 : 0
->-size : 数字
->类型别名 :=> 数字
->size : 任意
->类型别名 :=> 任意
+>-size : number
+>size : any
 
             } else if (rotation < (270 + centerAnchorLimit)) {
->rotation < (270 + centerAnchorLimit) : 真假
->类型别名 :=> 真假
->rotation : 数字
->类型别名 :=> 数字
->(270 + centerAnchorLimit) : 任意
->类型别名 :=> 任意
->270 + centerAnchorLimit : 任意
->类型别名 :=> 任意
+>rotation < (270 + centerAnchorLimit) : boolean
+>rotation : number
+>(270 + centerAnchorLimit) : any
+>270 + centerAnchorLimit : any
 >270 : 270
->centerAnchorLimit : 任意
->类型别名 :=> 任意
+>centerAnchorLimit : any
 
                 labelOffset.y = leftBottom ? size * 0.4 : 0;
->labelOffset.y = leftBottom ? size * 0.4 : 0 : 数字
->类型别名 :=> 数字
->labelOffset.y : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->leftBottom ? size * 0.4 : 0 : 数字
->类型别名 :=> 数字
->leftBottom : 真假
->类型别名 :=> 真假
->size * 0.4 : 数字
->类型别名 :=> 数字
->size : 任意
->类型别名 :=> 任意
+>labelOffset.y = leftBottom ? size * 0.4 : 0 : number
+>labelOffset.y : any
+>labelOffset : any
+>y : any
+>leftBottom ? size * 0.4 : 0 : number
+>leftBottom : boolean
+>size * 0.4 : number
+>size : any
 >0.4 : 0.4
 >0 : 0
 
             } else {
                 labelOffset.y = leftBottom ? size : 0;
->labelOffset.y = leftBottom ? size : 0 : 任意
->类型别名 :=> 任意
->labelOffset.y : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->leftBottom ? size : 0 : 任意
->类型别名 :=> 任意
->leftBottom : 真假
->类型别名 :=> 真假
->size : 任意
->类型别名 :=> 任意
+>labelOffset.y = leftBottom ? size : 0 : any
+>labelOffset.y : any
+>labelOffset : any
+>y : any
+>leftBottom ? size : 0 : any
+>leftBottom : boolean
+>size : any
 >0 : 0
             }
     }
 
     titleRotation = (taTitleOrientation && taTitleOrientation == "away") ? 180 : 0;
 >titleRotation = (taTitleOrientation && taTitleOrientation == "away") ? 180 : 0 : 0 | 180
->titleRotation : 数字
->类型别名 :=> 数字
+>titleRotation : number
 >(taTitleOrientation && taTitleOrientation == "away") ? 180 : 0 : 0 | 180
->(taTitleOrientation && taTitleOrientation == "away") : 真假
->类型别名 :=> 真假
->taTitleOrientation && taTitleOrientation == "away" : 真假
->类型别名 :=> 真假
->taTitleOrientation : 任意
->类型别名 :=> 任意
->taTitleOrientation == "away" : 真假
->类型别名 :=> 真假
->taTitleOrientation : 任意
->类型别名 :=> 任意
+>(taTitleOrientation && taTitleOrientation == "away") : boolean
+>taTitleOrientation && taTitleOrientation == "away" : boolean
+>taTitleOrientation : any
+>taTitleOrientation == "away" : boolean
+>taTitleOrientation : any
 >"away" : "away"
 >180 : 180
 >0 : 0
 
     titlePos.y = offsets.t - titleOffset + (titleRotation ? 0 : tsize);
->titlePos.y = offsets.t - titleOffset + (titleRotation ? 0 : tsize) : 任意
->类型别名 :=> 任意
->titlePos.y : 任意
->类型别名 :=> 任意
->titlePos : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->offsets.t - titleOffset + (titleRotation ? 0 : tsize) : 任意
->类型别名 :=> 任意
->offsets.t - titleOffset : 数字
->类型别名 :=> 数字
->offsets.t : 任意
->类型别名 :=> 任意
->offsets : 任意
->类型别名 :=> 任意
->t : 任意
->类型别名 :=> 任意
->titleOffset : 任意
->类型别名 :=> 任意
->(titleRotation ? 0 : tsize) : 任意
->类型别名 :=> 任意
->titleRotation ? 0 : tsize : 任意
->类型别名 :=> 任意
->titleRotation : 数字
->类型别名 :=> 数字
+>titlePos.y = offsets.t - titleOffset + (titleRotation ? 0 : tsize) : any
+>titlePos.y : any
+>titlePos : any
+>y : any
+>offsets.t - titleOffset + (titleRotation ? 0 : tsize) : any
+>offsets.t - titleOffset : number
+>offsets.t : any
+>offsets : any
+>t : any
+>titleOffset : any
+>(titleRotation ? 0 : tsize) : any
+>titleRotation ? 0 : tsize : any
+>titleRotation : number
 >0 : 0
->tsize : 任意
->类型别名 :=> 任意
+>tsize : any
 
     switch (labelAlign) {
->labelAlign : 任意
->类型别名 :=> 任意
+>labelAlign : any
 
         case "start":
 >"start" : "start"
 
             labelAlign = "end";
 >labelAlign = "end" : "end"
->labelAlign : 任意
->类型别名 :=> 任意
+>labelAlign : any
 >"end" : "end"
 
             break;
@@ -992,8 +582,7 @@ function f(dim, offsets, arr, acommon, centerAnchorLimit, g, has, lin) {
 
             labelAlign = "start";
 >labelAlign = "start" : "start"
->labelAlign : 任意
->类型别名 :=> 任意
+>labelAlign : any
 >"start" : "start"
 
             break;
@@ -1001,24 +590,17 @@ function f(dim, offsets, arr, acommon, centerAnchorLimit, g, has, lin) {
 >"middle" : "middle"
 
             labelOffset.y -= size;
->labelOffset.y -= size : 数字
->类型别名 :=> 数字
->labelOffset.y : 任意
->类型别名 :=> 任意
->labelOffset : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
->size : 任意
->类型别名 :=> 任意
+>labelOffset.y -= size : number
+>labelOffset.y : any
+>labelOffset : any
+>y : any
+>size : any
 
             break;
     }
 
     let _ = rotation;
->_ : 数字
->类型别名 :=> 数字
->rotation : 数字
->类型别名 :=> 数字
+>_ : number
+>rotation : number
 }
 

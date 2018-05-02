@@ -1,48 +1,40 @@
 === tests/cases/conformance/externalModules/test/foo_3.ts ===
 import foo0 = require('../foo_0');
->foo0 : 类为 foo0
+>foo0 : typeof foo0
 
 import foo1 = require('./test/foo_1');
->foo1 : 类为 foo1
+>foo1 : typeof foo1
 
 import foo2 = require('./.././test/foo_2');
->foo2 : 类为 foo2
+>foo2 : typeof foo2
 
 if(foo2.M2.x){
->foo2.M2.x : 真假
->类型别名 :=> 真假
->foo2.M2 : 类为 foo2.M2
->foo2 : 类为 foo2
->M2 : 类为 foo2.M2
->x : 真假
->类型别名 :=> 真假
+>foo2.M2.x : boolean
+>foo2.M2 : typeof foo2.M2
+>foo2 : typeof foo2
+>M2 : typeof foo2.M2
+>x : boolean
 
 	var x = foo0.foo + foo1.f();
->x : 数字
->类型别名 :=> 数字
->foo0.foo + foo1.f() : 数字
->类型别名 :=> 数字
->foo0.foo : 数字
->类型别名 :=> 数字
->foo0 : 类为 foo0
->foo : 数字
->类型别名 :=> 数字
->foo1.f() : 数字
->类型别名 :=> 数字
->foo1.f : () => 数字
->foo1 : 类为 foo1
->f : () => 数字
+>x : number
+>foo0.foo + foo1.f() : number
+>foo0.foo : number
+>foo0 : typeof foo0
+>foo : number
+>foo1.f() : number
+>foo1.f : () => number
+>foo1 : typeof foo1
+>f : () => number
 }
 
 === tests/cases/conformance/externalModules/foo_0.ts ===
 export var foo = 42;
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 >42 : 42
 
 === tests/cases/conformance/externalModules/test/test/foo_1.ts ===
 export function f(){
->f : () => 数字
+>f : () => number
 
 	return 42;
 >42 : 42
@@ -50,12 +42,10 @@ export function f(){
 
 === tests/cases/conformance/externalModules/test/foo_2.ts ===
 export module M2 {
->M2 : 类为 M2
+>M2 : typeof M2
 
 	export var x = true;
->x : 真假
->类型别名 :=> 真假
->true : 为真
->类型别名 :=> 为真
+>x : boolean
+>true : true
 }
 

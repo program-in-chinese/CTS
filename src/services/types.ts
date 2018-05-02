@@ -5,9 +5,11 @@ namespace ts {
         getChildAt(index: number, sourceFile?: SourceFile): Node;
         getChildren(sourceFile?: SourceFile): Node[];
         /* @internal */
+        // tslint:disable-next-line unified-signatures
         getChildren(sourceFile?: SourceFileLike): Node[];
         getStart(sourceFile?: SourceFile, includeJsDocComment?: boolean): number;
         /* @internal */
+        // tslint:disable-next-line unified-signatures
         getStart(sourceFile?: SourceFileLike, includeJsDocComment?: boolean): number;
         getFullStart(): number;
         getEnd(): number;
@@ -32,13 +34,8 @@ namespace ts {
         getEscapedName(): __String;
         getName(): string;
         getDeclarations(): Declaration[] | undefined;
-        getDocumentationComment(): SymbolDisplayPart[];
+        getDocumentationComment(typeChecker: TypeChecker | undefined): SymbolDisplayPart[];
         getJsDocTags(): JSDocTagInfo[];
-    }
-
-    export interface 别名 {
-         旗帜: 别名旗帜;
-         名称: __String
     }
 
     export interface Type {
@@ -53,6 +50,8 @@ namespace ts {
         getNumberIndexType(): Type | undefined;
         getBaseTypes(): BaseType[] | undefined;
         getNonNullableType(): Type;
+        getConstraint(): Type | undefined;
+        getDefault(): Type | undefined;
     }
 
     export interface Signature {
@@ -60,7 +59,7 @@ namespace ts {
         getTypeParameters(): TypeParameter[] | undefined;
         getParameters(): Symbol[];
         getReturnType(): Type;
-        getDocumentationComment(): SymbolDisplayPart[];
+        getDocumentationComment(typeChecker: TypeChecker | undefined): SymbolDisplayPart[];
         getJsDocTags(): JSDocTagInfo[];
     }
 
@@ -72,12 +71,12 @@ namespace ts {
     }
 
     export interface 名称引用 {
-        kind?: ScriptElementKind,
-        fileName: string,
-        textSpan: TextSpan,
-        isInString: boolean,
-        name: string
-        parent: Position
+        kind?: ScriptElementKind;
+        fileName: string;
+        textSpan: TextSpan;
+        isInString: boolean;
+        name: string;
+        parent: Position;
     }
 
     export interface Position {
@@ -106,6 +105,7 @@ namespace ts {
         /* @internal */ version: string;
         /* @internal */ scriptSnapshot: IScriptSnapshot;
         /* @internal */ nameTable: UnderscoreEscapedMap<number>;
+
         /* @internal */ getNamedDeclarations(): Map<Declaration[]>;
 
         getLineAndCharacterOfPosition(pos: number): LineAndCharacter;
@@ -128,6 +128,7 @@ namespace ts {
      * snapshot is observably immutable. i.e. the same calls with the same parameters will return
      * the same values.
      */
+    // tslint:disable-next-line interface-name
     export interface IScriptSnapshot {
         /** Gets a portion of the script snapshot specified by [start, end). */
         getText(start: number, end: number): string;
@@ -218,6 +219,7 @@ namespace ts {
          */
         readDirectory?(path: string, extensions?: ReadonlyArray<string>, exclude?: ReadonlyArray<string>, include?: ReadonlyArray<string>, depth?: number): string[];
         readFile?(path: string, encoding?: string): string | undefined;
+        realpath?(path: string): string;
         fileExists?(path: string): boolean;
 
         /*
@@ -236,8 +238,8 @@ namespace ts {
         /* @internal */ hasChangedAutomaticTypeDirectiveNames?: boolean;
 
         /*
-         * getDirectories is also required for full import and type reference completions. Without it defined, certain
-         * completions will not be provided
+         * Required for full import and type reference completions.
+         * These should be unprefixed names. E.g. `getDirectories("/foo/bar")` should return `["a", "b"]`, not `["/foo/bar/a", "/foo/bar/b"]`.
          */
         getDirectories?(directoryName: string): string[];
 
@@ -259,6 +261,7 @@ namespace ts {
 
         getSyntacticDiagnostics(fileName: string): Diagnostic[];
         getSemanticDiagnostics(fileName: string): Diagnostic[];
+        getSuggestionDiagnostics(fileName: string): Diagnostic[];
 
         // TODO: Rename this to getProgramDiagnostics to better indicate that these are any
         // diagnostics present for the program level, and not just 'options' diagnostics.
@@ -278,10 +281,17 @@ namespace ts {
         getEncodedSyntacticClassifications(fileName: string, span: TextSpan): Classifications;
         getEncodedSemanticClassifications(fileName: string, span: TextSpan): Classifications;
 
-        getCompletionsAtPosition(fileName: string, position: number): CompletionInfo;
-        // "options" is optional only for backwards-compatibility
-        getCompletionEntryDetails(fileName: string, position: number, entryName: string, options?: FormatCodeOptions | FormatCodeSettings): CompletionEntryDetails;
-        getCompletionEntrySymbol(fileName: string, position: number, entryName: string): Symbol;
+        getCompletionsAtPosition(fileName: string, position: number, options: GetCompletionsAtPositionOptions | undefined): CompletionInfo;
+        // "options" and "source" are optional only for backwards-compatibility
+        getCompletionEntryDetails(
+            fileName: string,
+            position: number,
+            name: string,
+            options: FormatCodeOptions | FormatCodeSettings | undefined,
+            source: string | undefined,
+        ): CompletionEntryDetails;
+        getCompletionEntrySymbol(fileName: string, position: number, name: string, source: string | undefined): Symbol;
+
         getQuickInfoAtPosition(fileName: string, position: number): QuickInfo;
 
         getNameOrDottedNameSpan(fileName: string, startPos: number, endPos: number): TextSpan;
@@ -292,8 +302,9 @@ namespace ts {
 
         getRenameInfo(fileName: string, position: number): RenameInfo;
         findRenameLocations(fileName: string, position: number, findInStrings: boolean, findInComments: boolean): RenameLocation[];
-        取词典自动完成项目新?(fileName: string, position: number, ignoreName: string):名称引用[]
+
         getDefinitionAtPosition(fileName: string, position: number): DefinitionInfo[];
+        getDefinitionAndBoundSpan(fileName: string, position: number): DefinitionInfoAndBoundSpan;
         getTypeDefinitionAtPosition(fileName: string, position: number): DefinitionInfo[];
         getImplementationAtPosition(fileName: string, position: number): ImplementationLocation[];
 
@@ -323,10 +334,20 @@ namespace ts {
 
         getSpanOfEnclosingComment(fileName: string, position: number, onlyMultiLine: boolean): TextSpan;
 
-        getCodeFixesAtPosition(fileName: string, start: number, end: number, errorCodes: number[], formatOptions: FormatCodeSettings): CodeAction[];
+        getCodeFixesAtPosition(fileName: string, start: number, end: number, errorCodes: ReadonlyArray<number>, formatOptions: FormatCodeSettings): ReadonlyArray<CodeFixAction>;
+        getCombinedCodeFix(scope: CombinedCodeFixScope, fixId: {}, formatOptions: FormatCodeSettings): CombinedCodeActions;
+        applyCodeActionCommand(action: CodeActionCommand): Promise<ApplyCodeActionCommandResult>;
+        applyCodeActionCommand(action: CodeActionCommand[]): Promise<ApplyCodeActionCommandResult[]>;
+        applyCodeActionCommand(action: CodeActionCommand | CodeActionCommand[]): Promise<ApplyCodeActionCommandResult | ApplyCodeActionCommandResult[]>;
+        /** @deprecated `fileName` will be ignored */
         applyCodeActionCommand(fileName: string, action: CodeActionCommand): Promise<ApplyCodeActionCommandResult>;
+        /** @deprecated `fileName` will be ignored */
+        applyCodeActionCommand(fileName: string, action: CodeActionCommand[]): Promise<ApplyCodeActionCommandResult[]>;
+        /** @deprecated `fileName` will be ignored */
+        applyCodeActionCommand(fileName: string, action: CodeActionCommand | CodeActionCommand[]): Promise<ApplyCodeActionCommandResult | ApplyCodeActionCommandResult[]>;
         getApplicableRefactors(fileName: string, positionOrRaneg: number | TextRange): ApplicableRefactorInfo[];
         getEditsForRefactor(fileName: string, formatOptions: FormatCodeSettings, positionOrRange: number | TextRange, refactorName: string, actionName: string): RefactorEditInfo | undefined;
+        organizeImports(scope: OrganizeImportsScope, formatOptions: FormatCodeSettings): ReadonlyArray<FileTextChanges>;
 
         getEmitOutput(fileName: string, emitOnlyDtsFiles?: boolean): EmitOutput;
 
@@ -339,9 +360,20 @@ namespace ts {
          * @deprecated Use ts.createSourceFile instead.
          */
         getSourceFile(fileName: string): SourceFile;
-        转为CTS(fileName: string):string;
-        格式化词典语句?(fileName: string):string;
+
+        取词典自动完成项目新?(fileName: string, position: number, ignoreName: string): 名称引用[];
+        转为CTS?(fileName: string): string;
+        格式化词典语句?(fileName: string): string;
         dispose(): void;
+    }
+
+    export interface CombinedCodeFixScope { type: "file"; fileName: string; }
+
+    export type OrganizeImportsScope = CombinedCodeFixScope;
+
+    export interface GetCompletionsAtPositionOptions {
+        includeExternalModuleExports: boolean;
+        includeInsertTextCompletions: boolean;
     }
 
     export interface ApplyCodeActionCommandResult {
@@ -427,11 +459,25 @@ namespace ts {
         commands?: CodeActionCommand[];
     }
 
+    export interface CodeFixAction extends CodeAction {
+        /**
+         * If present, one may call 'getCombinedCodeFix' with this fixId.
+         * This may be omitted to indicate that the code fix can't be applied in a group.
+         */
+        fixId?: {};
+    }
+
+    export interface CombinedCodeActions {
+        changes: ReadonlyArray<FileTextChanges>;
+        commands: ReadonlyArray<CodeActionCommand> | undefined;
+    }
+
     // Publicly, this type is just `{}`. Internally it is a union of all the actions we use.
     // See `commands?: {}[]` in protocol.ts
     export type CodeActionCommand = InstallPackageAction;
 
     export interface InstallPackageAction {
+        /* @internal */ file: string;
         /* @internal */ type: "install package";
         /* @internal */ packageName: string;
     }
@@ -588,6 +634,7 @@ namespace ts {
         InsertSpaceBeforeFunctionParenthesis?: boolean;
         PlaceOpenBraceOnNewLineForFunctions: boolean;
         PlaceOpenBraceOnNewLineForControlBlocks: boolean;
+        insertSpaceBeforeTypeAnnotation?: boolean;
     }
 
     export interface FormatCodeSettings extends EditorSettings {
@@ -606,6 +653,7 @@ namespace ts {
         insertSpaceBeforeFunctionParenthesis?: boolean;
         placeOpenBraceOnNewLineForFunctions?: boolean;
         placeOpenBraceOnNewLineForControlBlocks?: boolean;
+        insertSpaceBeforeTypeAnnotation?: boolean;
     }
 
     export interface DefinitionInfo {
@@ -615,6 +663,11 @@ namespace ts {
         name: string;
         containerKind: ScriptElementKind;
         containerName: string;
+    }
+
+    export interface DefinitionInfoAndBoundSpan {
+        definitions: ReadonlyArray<DefinitionInfo>;
+        textSpan: TextSpan;
     }
 
     export interface ReferencedSymbolDefinitionInfo extends DefinitionInfo {
@@ -716,6 +769,7 @@ namespace ts {
     }
 
     export interface CompletionInfo {
+        /** Not true for all glboal completions. This will be true if the enclosing scope matches a few syntax kinds. See `isSnippetScope`. */
         isGlobalCompletion: boolean;
         isMemberCompletion: boolean;
 
@@ -726,18 +780,22 @@ namespace ts {
         entries: CompletionEntry[];
     }
 
+    // see comments in protocol.ts
     export interface CompletionEntry {
         name: string;
         kind: ScriptElementKind;
-        kindModifiers: string;   // see ScriptElementKindModifier, comma separated
+        kindModifiers: string; // see ScriptElementKindModifier, comma separated
         sortText: string;
+        insertText?: string;
         /**
-         * An optional span that indicates the text to be replaced by this completion item. It will be
-         * set if the required span differs from the one generated by the default replacement behavior and should
-         * be used in that case
+         * An optional span that indicates the text to be replaced by this completion item.
+         * If present, this span should be used instead of the default one.
+         * It will be set if the required span differs from the one generated by the default replacement behavior.
          */
         replacementSpan?: TextSpan;
         hasAction?: true;
+        source?: string;
+        isRecommended?: true;
     }
 
     export interface CompletionEntryDetails {
@@ -748,6 +806,7 @@ namespace ts {
         documentation: SymbolDisplayPart[];
         tags: JSDocTagInfo[];
         codeActions?: CodeAction[];
+        source?: SymbolDisplayPart[];
     }
 
     export interface OutliningSpan {
@@ -832,138 +891,139 @@ namespace ts {
 
     export const enum ScriptElementKind {
         unknown = "",
-        warning = "警告",
+        warning = "warning",
 
         /** predefined type (void) or keyword (class) */
-        keyword = "关键字",
+        keyword = "keyword",
 
         /** top level script node */
-        scriptElement = "脚本",
+        scriptElement = "script",
 
         /** module foo {} */
-        moduleElement = "模块",
+        moduleElement = "module",
 
         /** class X {} */
-        classElement = "类别",
+        classElement = "class",
 
         /** var x = class X {} */
-        localClassElement = "本地类别",
+        localClassElement = "local class",
 
         /** interface Y {} */
-        interfaceElement = "接口",
+        interfaceElement = "interface",
 
         /** type T = ... */
-        typeElement = "类型",
+        typeElement = "type",
 
         /** enum E */
-        enumElement = "枚举",
-        enumMemberElement = "枚举成员",
+        enumElement = "enum",
+        enumMemberElement = "enum member",
 
         /**
          * Inside module and script only
          * const v = ..
          */
-        variableElement = "值量",
+        variableElement = "var",
 
         /** Inside function */
-        localVariableElement = "本地值量",
+        localVariableElement = "local var",
 
         /**
          * Inside module and script only
          * function f() { }
          */
-        functionElement = "函数",
+        functionElement = "function",
 
         /** Inside function */
-        localFunctionElement = "本地函数",
+        localFunctionElement = "local function",
 
         /** class X { [public|private]* foo() {} } */
-        memberFunctionElement = "方法",
+        memberFunctionElement = "method",
 
         /** class X { [public|private]* [get|set] foo:number; } */
-        memberGetAccessorElement = "获取",
-        memberSetAccessorElement = "设置",
+        memberGetAccessorElement = "getter",
+        memberSetAccessorElement = "setter",
 
         /**
          * class X { [public|private]* foo:number; }
          * interface Y { foo:number; }
          */
-        memberVariableElement = "属性",
+        memberVariableElement = "property",
 
         /** class X { constructor() { } } */
-        constructorImplementationElement = "构造",
+        constructorImplementationElement = "constructor",
 
         /** interface Y { ():number; } */
-        callSignatureElement = "调用",
+        callSignatureElement = "call",
 
         /** interface Y { []:number; } */
-        indexSignatureElement = "索引",
+        indexSignatureElement = "index",
 
         /** interface Y { new():Y; } */
-        constructSignatureElement = "构建",
+        constructSignatureElement = "construct",
 
         /** function foo(*Y*: string) */
-        parameterElement = "参数",
+        parameterElement = "parameter",
 
-        typeParameterElement = "类型参数",
+        typeParameterElement = "type parameter",
 
-        primitiveType = "原始类型",
+        primitiveType = "primitive type",
 
-        label = "标签",
+        label = "label",
 
-        alias = "别名",
+        alias = "alias",
 
-        constElement = "常量",
+        constElement = "const",
 
-        letElement = "变量",
+        letElement = "let",
 
-        directory = "目录",
+        directory = "directory",
 
-        externalModuleName = "外部模块名",
+        externalModuleName = "external module name",
 
         /**
          * <JsxTagName attribute1 attribute2={0} />
          */
-        jsxAttribute = "JSX属性",
+        jsxAttribute = "JSX attribute",
     }
 
     export const enum ScriptElementKindModifier {
         none = "",
-        publicMemberModifier = "公开",
-        privateMemberModifier = "私有",
-        protectedMemberModifier = "保护",
-        exportedModifier = "导出",
-        ambientModifier = "声明",
-        staticModifier = "静态",
-        abstractModifier = "抽象",
+        publicMemberModifier = "public",
+        privateMemberModifier = "private",
+        protectedMemberModifier = "protected",
+        exportedModifier = "export",
+        ambientModifier = "declare",
+        staticModifier = "static",
+        abstractModifier = "abstract",
+        optionalModifier = "optional"
     }
 
     export const enum ClassificationTypeNames {
-        comment = "评论",
-        identifier = "标识符",
-        keyword = "关键字",
-        numericLiteral = "数字",
-        operator = "运算符",
-        stringLiteral = "文字",
-        whiteSpace = "空格",
-        text = "文本",
+        comment = "comment",
+        identifier = "identifier",
+        keyword = "keyword",
+        numericLiteral = "number",
+        operator = "operator",
+        stringLiteral = "string",
+        whiteSpace = "whitespace",
+        text = "text",
 
-        punctuation = "标点符号",
+        punctuation = "punctuation",
 
-        className = "类名",
-        enumName = "枚举名",
-        interfaceName = "接口名",
-        moduleName = "模块名",
-        typeParameterName = "类型参数名",
-        typeAliasName = "类型别名名",
-        parameterName = "参数名",
-        docCommentTagName = "注释标签名",
-        jsxOpenTagName = "JSX开始标签名",
-        jsxCloseTagName = "JSX结尾标签名",
-        jsxSelfClosingTagName = "JSX自闭标签名",
-        jsxAttribute = "JSX特性",
-        jsxText = "JSX文本",
-        jsxAttributeStringLiteralValue = "JSX特性字面值",
+        className = "class name",
+        enumName = "enum name",
+        interfaceName = "interface name",
+        moduleName = "module name",
+        typeParameterName = "type parameter name",
+        typeAliasName = "type alias name",
+        parameterName = "parameter name",
+        docCommentTagName = "doc comment tag name",
+        jsxOpenTagName = "jsx open tag name",
+        jsxCloseTagName = "jsx close tag name",
+        jsxSelfClosingTagName = "jsx self closing tag name",
+        jsxAttribute = "jsx attribute",
+        jsxText = "jsx text",
+        jsxAttributeStringLiteralValue = "jsx attribute string literal value",
     }
 
     export const enum ClassificationType {

@@ -1,13 +1,12 @@
 === tests/cases/conformance/jsx/file.tsx ===
 import React = require('react');
->React : 类为 React
+>React : typeof React
 
 interface PoisonedProp {
 >PoisonedProp : PoisonedProp
 
     x: string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     y: 2;
 >y : 2
@@ -16,8 +15,8 @@ interface PoisonedProp {
 class Poisoned extends React.Component<PoisonedProp, {}> {
 >Poisoned : Poisoned
 >React.Component : React.Component<PoisonedProp, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 >PoisonedProp : PoisonedProp
 
     render() {
@@ -25,25 +24,21 @@ class Poisoned extends React.Component<PoisonedProp, {}> {
 
         return <div>Hello</div>;
 ><div>Hello</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
     }
 }
 
 let obj = {
->obj : { x: 文字; y: 数字; }
->{    x: "hello world",    y: 2} : { x: 文字; y: 数字; }
+>obj : { x: string; y: number; }
+>{    x: "hello world",    y: 2} : { x: string; y: number; }
 
     x: "hello world",
->x : 文字
->类型别名 :=> 文字
+>x : string
 >"hello world" : "hello world"
 
     y: 2
->y : 数字
->类型别名 :=> 数字
+>y : number
 >2 : 2
 
 };
@@ -52,44 +47,39 @@ let obj = {
 let p = <Poisoned {...obj} />;
 >p : JSX.Element
 ><Poisoned {...obj} /> : JSX.Element
->Poisoned : 类为 Poisoned
->obj : { x: 文字; y: 数字; }
+>Poisoned : typeof Poisoned
+>obj : { x: string; y: number; }
 
 class EmptyProp extends React.Component<{}, {}> {
 >EmptyProp : EmptyProp
 >React.Component : React.Component<{}, {}>
->React : 类为 React
->Component : 类为 React.Component
+>React : typeof React
+>Component : typeof React.Component
 
     render() {
 >render : () => JSX.Element
 
         return <div>Default hi</div>;
 ><div>Default hi</div> : JSX.Element
->div : 任意
->类型别名 :=> 任意
->div : 任意
->类型别名 :=> 任意
+>div : any
+>div : any
     }
     greeting: string;
->greeting : 文字
->类型别名 :=> 文字
+>greeting : string
 }
 
 let o = {
->o : { prop1: 真假; }
->{    prop1: false} : { prop1: 真假; }
+>o : { prop1: boolean; }
+>{    prop1: false} : { prop1: boolean; }
 
     prop1: false
->prop1 : 真假
->类型别名 :=> 真假
->false : 为假
->类型别名 :=> 为假
+>prop1 : boolean
+>false : false
 }
 // Ok
 let e = <EmptyProp {...o} />;
 >e : JSX.Element
 ><EmptyProp {...o} /> : JSX.Element
->EmptyProp : 类为 EmptyProp
->o : { prop1: 真假; }
+>EmptyProp : typeof EmptyProp
+>o : { prop1: boolean; }
 

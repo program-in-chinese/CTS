@@ -7,45 +7,42 @@ abstract class B extends A {}
 >A : A
 
 function NewA(Factory: typeof A) {
->NewA : (Factory: 类为 A) => A
->Factory : 类为 A
->A : 类为 A
+>NewA : (Factory: typeof A) => A
+>Factory : typeof A
+>A : typeof A
 
     return new A;
 >new A : A
->A : 类为 A
+>A : typeof A
 }
 
 function NewB(Factory: typeof B) {
->NewB : (Factory: 类为 B) => 任意
->Factory : 类为 B
->B : 类为 B
+>NewB : (Factory: typeof B) => any
+>Factory : typeof B
+>B : typeof B
 
     return new B;
->new B : 任意
->类型别名 :=> 任意
->B : 类为 B
+>new B : any
+>B : typeof B
 }
 
 NewA(A);
 >NewA(A) : A
->NewA : (Factory: 类为 A) => A
->A : 类为 A
+>NewA : (Factory: typeof A) => A
+>A : typeof A
 
 NewA(B);
 >NewA(B) : A
->NewA : (Factory: 类为 A) => A
->B : 类为 B
+>NewA : (Factory: typeof A) => A
+>B : typeof B
 
 NewB(A);
->NewB(A) : 任意
->类型别名 :=> 任意
->NewB : (Factory: 类为 B) => 任意
->A : 类为 A
+>NewB(A) : any
+>NewB : (Factory: typeof B) => any
+>A : typeof A
 
 NewB(B);
->NewB(B) : 任意
->类型别名 :=> 任意
->NewB : (Factory: 类为 B) => 任意
->B : 类为 B
+>NewB(B) : any
+>NewB : (Factory: typeof B) => any
+>B : typeof B
 

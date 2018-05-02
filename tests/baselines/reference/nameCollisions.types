@@ -1,71 +1,61 @@
 === tests/cases/compiler/nameCollisions.ts ===
 module T {
->T : 类为 T
+>T : typeof T
 
     var x = 2;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >2 : 2
 
     module x { // error
->x : 类为 x
+>x : typeof x
 
         export class Bar {
 >Bar : Bar
 
             test: number;
->test : 数字
->类型别名 :=> 数字
+>test : number
         }
     }
 
     module z {
->z : 类为 z
+>z : typeof z
 
         var t;
->t : 任意
->类型别名 :=> 任意
+>t : any
     }
     var z; // error
->z : 任意
->类型别名 :=> 任意
+>z : any
 
     module y {
->y : 类为 y
+>y : typeof y
 
         var b;
->b : 任意
->类型别名 :=> 任意
+>b : any
     }
 
     class y { } // error
 >y : y
 
     var w;
->w : 任意
->类型别名 :=> 任意
+>w : any
 
     module w { } //ok
->w : 任意
->类型别名 :=> 任意
+>w : any
 
     var f;
->f : 任意
->类型别名 :=> 任意
+>f : any
 
     function f() { } //error
->f : () => 无值
+>f : () => void
 
     function f2() { }
->f2 : () => 无值
+>f2 : () => void
 
     var f2; // error
->f2 : 任意
->类型别名 :=> 任意
+>f2 : any
 
     var i;
->i : 任意
->类型别名 :=> 任意
+>i : any
 
     interface i { } //ok
 >i : i
@@ -74,16 +64,16 @@ module T {
 >C : C
 
     function C() { } // error
->C : () => 无值
+>C : () => void
 
     function C2() { }
->C2 : () => 无值
+>C2 : () => void
 
     class C2 { } // error
 >C2 : C2
 
     function fi() { }
->fi : () => 无值
+>fi : () => void
 
     interface fi { } // ok
 >fi : fi

@@ -1,70 +1,50 @@
 === tests/cases/compiler/extendFromAny.ts ===
 declare var Base: any;
->Base : 任意
->类型别名 :=> 任意
+>Base : any
 
 class C extends Base {
 >C : C
->Base : 任意
->类型别名 :=> 任意
+>Base : any
 
     known = 1;
->known : 数字
->类型别名 :=> 数字
+>known : number
 >1 : 1
 
     static sknown = 2;
->sknown : 数字
->类型别名 :=> 数字
+>sknown : number
 >2 : 2
 }
 
 let c = new C();
 >c : C
 >new C() : C
->C : 类为 C
+>C : typeof C
 
 c.known.length; // error, 'known' has no 'length' property
->c.known.length : 任意
->类型别名 :=> 任意
->c.known : 数字
->类型别名 :=> 数字
+>c.known.length : any
+>c.known : number
 >c : C
->known : 数字
->类型别名 :=> 数字
->length : 任意
->类型别名 :=> 任意
+>known : number
+>length : any
 
 C.sknown.length; // error, 'sknown' has no 'length' property
->C.sknown.length : 任意
->类型别名 :=> 任意
->C.sknown : 数字
->类型别名 :=> 数字
->C : 类为 C
->sknown : 数字
->类型别名 :=> 数字
->length : 任意
->类型别名 :=> 任意
+>C.sknown.length : any
+>C.sknown : number
+>C : typeof C
+>sknown : number
+>length : any
 
 c.unknown.length; // ok, unknown: any
->c.unknown.length : 任意
->类型别名 :=> 任意
->c.unknown : 任意
->类型别名 :=> 任意
+>c.unknown.length : any
+>c.unknown : any
 >c : C
->unknown : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>unknown : any
+>length : any
 
 C.sunknown.length; // ok: sunknown: any
->C.sunknown.length : 任意
->类型别名 :=> 任意
->C.sunknown : 任意
->类型别名 :=> 任意
->C : 类为 C
->sunknown : 任意
->类型别名 :=> 任意
->length : 任意
->类型别名 :=> 任意
+>C.sunknown.length : any
+>C.sunknown : any
+>C : typeof C
+>sunknown : any
+>length : any
 

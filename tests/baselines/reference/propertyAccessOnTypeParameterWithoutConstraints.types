@@ -4,44 +4,37 @@ class C<T> {
 >T : T
 
     f() {
->f : () => 文字
+>f : () => string
 
         var x: T;
 >x : T
 >T : T
 
         var a = x['toString'](); // should be string
->a : 文字
->类型别名 :=> 文字
->x['toString']() : 文字
->类型别名 :=> 文字
->x['toString'] : () => 文字
+>a : string
+>x['toString']() : string
+>x['toString'] : () => string
 >x : T
 >'toString' : "toString"
 
         return a + x.toString();
->a + x.toString() : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
->x.toString() : 文字
->类型别名 :=> 文字
->x.toString : () => 文字
+>a + x.toString() : string
+>a : string
+>x.toString() : string
+>x.toString : () => string
 >x : T
->toString : () => 文字
+>toString : () => string
     }
 }
 
 var r = (new C<number>()).f();
->r : 文字
->类型别名 :=> 文字
->(new C<number>()).f() : 文字
->类型别名 :=> 文字
->(new C<number>()).f : () => 文字
->(new C<number>()) : C<数字>
->new C<number>() : C<数字>
->C : 类为 C
->f : () => 文字
+>r : string
+>(new C<number>()).f() : string
+>(new C<number>()).f : () => string
+>(new C<number>()) : C<number>
+>new C<number>() : C<number>
+>C : typeof C
+>f : () => string
 
 interface I<T> {
 >I : I<T>
@@ -52,33 +45,25 @@ interface I<T> {
 >T : T
 }
 var i: I<number>;
->i : I<数字>
+>i : I<number>
 >I : I<T>
 
 var r2 = i.foo.toString();
->r2 : 文字
->类型别名 :=> 文字
->i.foo.toString() : 文字
->类型别名 :=> 文字
->i.foo.toString : (radix?: 数字) => 文字
->i.foo : 数字
->类型别名 :=> 数字
->i : I<数字>
->foo : 数字
->类型别名 :=> 数字
->toString : (radix?: 数字) => 文字
+>r2 : string
+>i.foo.toString() : string
+>i.foo.toString : (radix?: number) => string
+>i.foo : number
+>i : I<number>
+>foo : number
+>toString : (radix?: number) => string
 
 var r2b = i.foo['toString']();
->r2b : 文字
->类型别名 :=> 文字
->i.foo['toString']() : 文字
->类型别名 :=> 文字
->i.foo['toString'] : (radix?: 数字) => 文字
->i.foo : 数字
->类型别名 :=> 数字
->i : I<数字>
->foo : 数字
->类型别名 :=> 数字
+>r2b : string
+>i.foo['toString']() : string
+>i.foo['toString'] : (radix?: number) => string
+>i.foo : number
+>i : I<number>
+>foo : number
 >'toString' : "toString"
 
 var a: {
@@ -89,65 +74,54 @@ var a: {
 >T : T
 }
 var r3: string = a().toString();
->r3 : 文字
->类型别名 :=> 文字
->a().toString() : 文字
->类型别名 :=> 文字
->a().toString : () => 文字
+>r3 : string
+>a().toString() : string
+>a().toString : () => string
 >a() : {}
 >a : <T>() => T
->toString : () => 文字
+>toString : () => string
 
 var r3b: string = a()['toString']();
->r3b : 文字
->类型别名 :=> 文字
->a()['toString']() : 文字
->类型别名 :=> 文字
->a()['toString'] : () => 文字
+>r3b : string
+>a()['toString']() : string
+>a()['toString'] : () => string
 >a() : {}
 >a : <T>() => T
 >'toString' : "toString"
 
 var b = {
->b : { foo: <T>(x: T) => 文字; }
->{    foo: <T>(x: T) => {        var a = x['toString'](); // should be string        return a + x.toString();    }} : { foo: <T>(x: T) => 文字; }
+>b : { foo: <T>(x: T) => string; }
+>{    foo: <T>(x: T) => {        var a = x['toString'](); // should be string        return a + x.toString();    }} : { foo: <T>(x: T) => string; }
 
     foo: <T>(x: T) => {
->foo : <T>(x: T) => 文字
-><T>(x: T) => {        var a = x['toString'](); // should be string        return a + x.toString();    } : <T>(x: T) => 文字
+>foo : <T>(x: T) => string
+><T>(x: T) => {        var a = x['toString'](); // should be string        return a + x.toString();    } : <T>(x: T) => string
 >T : T
 >x : T
 >T : T
 
         var a = x['toString'](); // should be string
->a : 文字
->类型别名 :=> 文字
->x['toString']() : 文字
->类型别名 :=> 文字
->x['toString'] : () => 文字
+>a : string
+>x['toString']() : string
+>x['toString'] : () => string
 >x : T
 >'toString' : "toString"
 
         return a + x.toString();
->a + x.toString() : 文字
->类型别名 :=> 文字
->a : 文字
->类型别名 :=> 文字
->x.toString() : 文字
->类型别名 :=> 文字
->x.toString : () => 文字
+>a + x.toString() : string
+>a : string
+>x.toString() : string
+>x.toString : () => string
 >x : T
->toString : () => 文字
+>toString : () => string
     }
 }
 
 var r4 = b.foo(1);
->r4 : 文字
->类型别名 :=> 文字
->b.foo(1) : 文字
->类型别名 :=> 文字
->b.foo : <T>(x: T) => 文字
->b : { foo: <T>(x: T) => 文字; }
->foo : <T>(x: T) => 文字
+>r4 : string
+>b.foo(1) : string
+>b.foo : <T>(x: T) => string
+>b : { foo: <T>(x: T) => string; }
+>foo : <T>(x: T) => string
 >1 : 1
 

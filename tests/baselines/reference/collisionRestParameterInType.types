@@ -1,32 +1,27 @@
 === tests/cases/compiler/collisionRestParameterInType.ts ===
 var v1: (_i: number, ...restParameters) => void; // no error - no code gen
->v1 : (_i: 数字, ...restParameters: 任意[]) => 无值
->_i : 数字
->类型别名 :=> 数字
->restParameters : 任意[]
+>v1 : (_i: number, ...restParameters: any[]) => void
+>_i : number
+>restParameters : any[]
 
 var v2: {
->v2 : { (_i: 数字, ...restParameters: 任意[]): 任意; 新建 (_i: 数字, ...restParameters: 任意[]): 任意; foo(_i: 数字, ...restParameters: 任意[]): 任意; prop: (_i: 数字, ...restParameters: 任意[]) => 无值; }
+>v2 : { (_i: number, ...restParameters: any[]): any; new (_i: number, ...restParameters: any[]): any; foo(_i: number, ...restParameters: any[]): any; prop: (_i: number, ...restParameters: any[]) => void; }
 
     (_i: number, ...restParameters); // no error - no code gen
->_i : 数字
->类型别名 :=> 数字
->restParameters : 任意[]
+>_i : number
+>restParameters : any[]
 
     new (_i: number, ...restParameters); // no error - no code gen
->_i : 数字
->类型别名 :=> 数字
->restParameters : 任意[]
+>_i : number
+>restParameters : any[]
 
     foo(_i: number, ...restParameters); // no error - no code gen
->foo : (_i: 数字, ...restParameters: 任意[]) => 任意
->_i : 数字
->类型别名 :=> 数字
->restParameters : 任意[]
+>foo : (_i: number, ...restParameters: any[]) => any
+>_i : number
+>restParameters : any[]
 
     prop: (_i: number, ...restParameters) => void; // no error - no code gen
->prop : (_i: 数字, ...restParameters: 任意[]) => 无值
->_i : 数字
->类型别名 :=> 数字
->restParameters : 任意[]
+>prop : (_i: number, ...restParameters: any[]) => void
+>_i : number
+>restParameters : any[]
 }

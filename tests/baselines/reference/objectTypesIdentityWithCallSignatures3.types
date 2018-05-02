@@ -5,8 +5,7 @@ interface I {
 >I : I
 
     (x: string): string;
->x : 文字
->类型别名 :=> 文字
+>x : string
 }
 
 interface I2<T> {
@@ -20,116 +19,104 @@ interface I2<T> {
 }
 
 var a: { (x: string): string }
->a : (x: 文字) => 文字
->x : 文字
->类型别名 :=> 文字
+>a : (x: string) => string
+>x : string
 
 function foo2(x: I);
->foo2 : { (x: I): 任意; (x: I): 任意; }
+>foo2 : { (x: I): any; (x: I): any; }
 >x : I
 >I : I
 
 function foo2(x: I); // error
->foo2 : { (x: I): 任意; (x: I): 任意; }
+>foo2 : { (x: I): any; (x: I): any; }
 >x : I
 >I : I
 
 function foo2(x: any) { }
->foo2 : { (x: I): 任意; (x: I): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo2 : { (x: I): any; (x: I): any; }
+>x : any
 
 function foo3(x: typeof a);
->foo3 : { (x: (x: 文字) => 文字): 任意; (x: (x: 文字) => 文字): 任意; }
->x : (x: 文字) => 文字
->a : (x: 文字) => 文字
+>foo3 : { (x: (x: string) => string): any; (x: (x: string) => string): any; }
+>x : (x: string) => string
+>a : (x: string) => string
 
 function foo3(x: typeof a); // error
->foo3 : { (x: (x: 文字) => 文字): 任意; (x: (x: 文字) => 文字): 任意; }
->x : (x: 文字) => 文字
->a : (x: 文字) => 文字
+>foo3 : { (x: (x: string) => string): any; (x: (x: string) => string): any; }
+>x : (x: string) => string
+>a : (x: string) => string
 
 function foo3(x: any) { }
->foo3 : { (x: (x: 文字) => 文字): 任意; (x: (x: 文字) => 文字): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo3 : { (x: (x: string) => string): any; (x: (x: string) => string): any; }
+>x : any
 
 function foo4(x: typeof b);
->foo4 : { (x: 任意): 任意; (x: 任意): 任意; }
->x : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>foo4 : { (x: any): any; (x: any): any; }
+>x : any
+>b : any
 
 function foo4(x: typeof b); // error
->foo4 : { (x: 任意): 任意; (x: 任意): 任意; }
->x : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>foo4 : { (x: any): any; (x: any): any; }
+>x : any
+>b : any
 
 function foo4(x: any) { }
->foo4 : { (x: 任意): 任意; (x: 任意): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo4 : { (x: any): any; (x: any): any; }
+>x : any
 
 function foo13(x: I);
->foo13 : { (x: I): 任意; (x: (x: 文字) => 文字): 任意; }
+>foo13 : { (x: I): any; (x: (x: string) => string): any; }
 >x : I
 >I : I
 
 function foo13(x: typeof a); // error
->foo13 : { (x: I): 任意; (x: (x: 文字) => 文字): 任意; }
->x : (x: 文字) => 文字
->a : (x: 文字) => 文字
+>foo13 : { (x: I): any; (x: (x: string) => string): any; }
+>x : (x: string) => string
+>a : (x: string) => string
 
 function foo13(x: any) { }
->foo13 : { (x: I): 任意; (x: (x: 文字) => 文字): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo13 : { (x: I): any; (x: (x: string) => string): any; }
+>x : any
 
 function foo14(x: I);
->foo14 : { (x: I): 任意; (x: I2<文字>): 任意; }
+>foo14 : { (x: I): any; (x: I2<string>): any; }
 >x : I
 >I : I
 
 function foo14(x: I2<string>); // error
->foo14 : { (x: I): 任意; (x: I2<文字>): 任意; }
->x : I2<文字>
+>foo14 : { (x: I): any; (x: I2<string>): any; }
+>x : I2<string>
 >I2 : I2<T>
 
 function foo14(x: any) { }
->foo14 : { (x: I): 任意; (x: I2<文字>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo14 : { (x: I): any; (x: I2<string>): any; }
+>x : any
 
 function foo14b(x: typeof a);
->foo14b : { (x: (x: 文字) => 文字): 任意; (x: I2<文字>): 任意; }
->x : (x: 文字) => 文字
->a : (x: 文字) => 文字
+>foo14b : { (x: (x: string) => string): any; (x: I2<string>): any; }
+>x : (x: string) => string
+>a : (x: string) => string
 
 function foo14b(x: I2<string>); // error
->foo14b : { (x: (x: 文字) => 文字): 任意; (x: I2<文字>): 任意; }
->x : I2<文字>
+>foo14b : { (x: (x: string) => string): any; (x: I2<string>): any; }
+>x : I2<string>
 >I2 : I2<T>
 
 function foo14b(x: any) { }
->foo14b : { (x: (x: 文字) => 文字): 任意; (x: I2<文字>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo14b : { (x: (x: string) => string): any; (x: I2<string>): any; }
+>x : any
 
 function foo15(x: I);
->foo15 : { (x: I): 任意; (x: I2<数字>): 任意; }
+>foo15 : { (x: I): any; (x: I2<number>): any; }
 >x : I
 >I : I
 
 function foo15(x: I2<number>); // ok
->foo15 : { (x: I): 任意; (x: I2<数字>): 任意; }
->x : I2<数字>
+>foo15 : { (x: I): any; (x: I2<number>): any; }
+>x : I2<number>
 >I2 : I2<T>
 
 function foo15(x: any) { }
->foo15 : { (x: I): 任意; (x: I2<数字>): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo15 : { (x: I): any; (x: I2<number>): any; }
+>x : any
 

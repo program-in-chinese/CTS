@@ -6,73 +6,76 @@ interface MyNumber extends Number {
 >Number : Number
 
     foo: number;
->foo : 数字
->类型别名 :=> 数字
+>foo : number
 }
 
 class C {
 >C : C
 
     [x: number]: string;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     constructor() { } // ok
 
     a: string; // ok
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     b: number; // ok
->b : 数字
->类型别名 :=> 数字
+>b : number
 
     c: () => {} // ok
 >c : () => {}
 
     "d": string; // ok
+>"d" : string
+
     "e": number; // ok
+>"e" : number
+
     1.0: string; // ok
+>1.0 : string
+
     2.0: number; // error
+>2.0 : number
+
     "3.0": string; // ok
+>"3.0" : string
+
     "4.0": number; // error
+>"4.0" : number
+
     3.0: MyNumber // error
+>3.0 : MyNumber
 >MyNumber : MyNumber
 
     get X() { // ok
->X : 文字
->类型别名 :=> 文字
+>X : string
 
         return '';
 >'' : ""
     }
     set X(v) { } // ok
->X : 文字
->类型别名 :=> 文字
->v : 文字
->类型别名 :=> 文字
+>X : string
+>v : string
 
     foo() { 
->foo : () => 文字
+>foo : () => string
 
         return '';
 >'' : ""
     }
 
     static sa: number; // ok
->sa : 数字
->类型别名 :=> 数字
+>sa : number
 
     static sb: string; // ok
->sb : 文字
->类型别名 :=> 文字
+>sb : string
 
     static foo() { } // ok
->foo : () => 无值
+>foo : () => void
 
     static get X() { // ok
->X : 数字
->类型别名 :=> 数字
+>X : number
 
         return 1;
 >1 : 1
@@ -83,71 +86,87 @@ interface I {
 >I : I
 
     [x: number]: string;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     a: string; // ok
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     b: number; // ok
->b : 数字
->类型别名 :=> 数字
+>b : number
 
     c: () => {} // ok
 >c : () => {}
 
     "d": string; // ok
+>"d" : string
+
     "e": number; // ok
+>"e" : number
+
     1.0: string; // ok
+>1.0 : string
+
     2.0: number; // error
+>2.0 : number
+
     (): string; // ok
     (x): number // ok
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     foo(): string; // ok
->foo : () => 文字
+>foo : () => string
 
     "3.0": string; // ok
+>"3.0" : string
+
     "4.0": number; // error
+>"4.0" : number
+
     f: MyNumber; // error
 >f : MyNumber
 >MyNumber : MyNumber
 }
 
 var a: {
->a : { (): 文字; (x: 任意): 数字; [x: 数字]: 文字; a: 文字; b: 数字; c: () => {}; "d": 文字; "e": 数字; 1.0: 文字; 2.0: 数字; foo(): 文字; "3.0": 文字; "4.0": 数字; f: MyNumber; }
+>a : { (): string; (x: any): number; [x: number]: string; a: string; b: number; c: () => {}; "d": string; "e": number; 1.0: string; 2.0: number; foo(): string; "3.0": string; "4.0": number; f: MyNumber; }
 
     [x: number]: string;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     a: string; // ok
->a : 文字
->类型别名 :=> 文字
+>a : string
 
     b: number; // ok
->b : 数字
->类型别名 :=> 数字
+>b : number
 
     c: () => {} // ok
 >c : () => {}
 
     "d": string; // ok
+>"d" : string
+
     "e": number; // ok
+>"e" : number
+
     1.0: string; // ok
+>1.0 : string
+
     2.0: number; // error
+>2.0 : number
+
     (): string; // ok
     (x): number // ok
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     foo(): string; // ok
->foo : () => 文字
+>foo : () => string
 
     "3.0": string; // ok
+>"3.0" : string
+
     "4.0": number; // error
+>"4.0" : number
+
     f: MyNumber; // error
 >f : MyNumber
 >MyNumber : MyNumber
@@ -155,68 +174,65 @@ var a: {
 
 // error
 var b: { [x: number]: string; } = {
->b : { [x: 数字]: 文字; }
->x : 数字
->类型别名 :=> 数字
->{    a: '',    b: 1,     c: () => { },     "d": '',     "e": 1,     1.0: '',    2.0: 1,     "3.0": '',     "4.0": 1,     f: <Myn>null,     get X() {         return '';    },    set X(v) { },     foo() {         return '';    }} : { a: 文字; b: 数字; c: () => 无值; "d": 文字; "e": 数字; 1.0: 文字; 2.0: 数字; "3.0": 文字; "4.0": 数字; f: 任意; X: 文字; foo(): 文字; }
+>b : { [x: number]: string; }
+>x : number
+>{    a: '',    b: 1,     c: () => { },     "d": '',     "e": 1,     1.0: '',    2.0: 1,     "3.0": '',     "4.0": 1,     f: <Myn>null,     get X() {         return '';    },    set X(v) { },     foo() {         return '';    }} : { a: string; b: number; c: () => void; "d": string; "e": number; 1.0: string; 2.0: number; "3.0": string; "4.0": number; f: any; X: string; foo(): string; }
 
     a: '',
->a : 文字
->类型别名 :=> 文字
+>a : string
 >'' : ""
 
     b: 1, 
->b : 数字
->类型别名 :=> 数字
+>b : number
 >1 : 1
 
     c: () => { }, 
->c : () => 无值
->() => { } : () => 无值
+>c : () => void
+>() => { } : () => void
 
     "d": '', 
+>"d" : string
 >'' : ""
 
     "e": 1, 
+>"e" : number
 >1 : 1
 
     1.0: '',
+>1.0 : string
 >'' : ""
 
     2.0: 1, 
+>2.0 : number
 >1 : 1
 
     "3.0": '', 
+>"3.0" : string
 >'' : ""
 
     "4.0": 1, 
+>"4.0" : number
 >1 : 1
 
     f: <Myn>null, 
->f : 任意
->类型别名 :=> 任意
-><Myn>null : 任意
->类型别名 :=> 任意
+>f : any
+><Myn>null : any
 >Myn : No type information available!
->null : 空值
->类型别名 :=> 空值
+>null : null
 
     get X() { 
->X : 文字
->类型别名 :=> 文字
+>X : string
 
         return '';
 >'' : ""
 
     },
     set X(v) { }, 
->X : 文字
->类型别名 :=> 文字
->v : 文字
->类型别名 :=> 文字
+>X : string
+>v : string
 
     foo() { 
->foo : () => 文字
+>foo : () => string
 
         return '';
 >'' : ""

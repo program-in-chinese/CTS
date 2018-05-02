@@ -1,22 +1,19 @@
 === tests/cases/compiler/baseIndexSignatureResolution.ts ===
 class Base { private a: string; }
 >Base : Base
->a : 文字
->类型别名 :=> 文字
+>a : string
 
 class Derived extends Base { private b: string; }
 >Derived : Derived
 >Base : Base
->b : 文字
->类型别名 :=> 文字
+>b : string
 
 // Note - commmenting "extends Foo" prevents the error
 interface Foo {
 >Foo : Foo
 
     [i: number]: Base;
->i : 数字
->类型别名 :=> 数字
+>i : number
 >Base : Base
 }
 interface FooOf<TBase extends Base> extends Foo {
@@ -26,16 +23,14 @@ interface FooOf<TBase extends Base> extends Foo {
 >Foo : Foo
 
     [i: number]: TBase;
->i : 数字
->类型别名 :=> 数字
+>i : number
 >TBase : TBase
 }
 var x: FooOf<Derived> = null;
 >x : FooOf<Derived>
 >FooOf : FooOf<TBase>
 >Derived : Derived
->null : 空值
->类型别名 :=> 空值
+>null : null
 
 var y: Derived = x[0];
 >y : Derived

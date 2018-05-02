@@ -5,52 +5,48 @@
 
 class Base { foo: string; }
 >Base : Base
->foo : 文字
->类型别名 :=> 文字
+>foo : string
 
 class Derived extends Base { bar: string; }
 >Derived : Derived
 >Base : Base
->bar : 文字
->类型别名 :=> 文字
+>bar : string
 
 class Derived2 extends Derived { baz: string; }
 >Derived2 : Derived2
 >Derived : Derived
->baz : 文字
->类型别名 :=> 文字
+>baz : string
 
 class OtherDerived extends Base { bing: string; }
 >OtherDerived : OtherDerived
 >Base : Base
->bing : 文字
->类型别名 :=> 文字
+>bing : string
 
 interface A { // T
 >A : A
 
     // M's
     a: new <T>(x: T) => T[];
->a : 新建 <T>(x: T) => T[]
+>a : new <T>(x: T) => T[]
 >T : T
 >x : T
 >T : T
 >T : T
 
     a2: new <T>(x: T) => string[];
->a2 : 新建 <T>(x: T) => 文字[]
+>a2 : new <T>(x: T) => string[]
 >T : T
 >x : T
 >T : T
 
     a3: new <T>(x: T) => void;
->a3 : 新建 <T>(x: T) => 无值
+>a3 : new <T>(x: T) => void
 >T : T
 >x : T
 >T : T
 
     a4: new <T, U>(x: T, y: U) => string;
->a4 : 新建 <T, U>(x: T, y: U) => 文字
+>a4 : new <T, U>(x: T, y: U) => string
 >T : T
 >U : U
 >x : T
@@ -59,7 +55,7 @@ interface A { // T
 >U : U
 
     a5: new <T, U>(x: (arg: T) => U) => T;
->a5 : 新建 <T, U>(x: (arg: T) => U) => T
+>a5 : new <T, U>(x: (arg: T) => U) => T
 >T : T
 >U : U
 >x : (arg: T) => U
@@ -69,7 +65,7 @@ interface A { // T
 >T : T
 
     a6: new <T extends Base>(x: (arg: T) => Derived) => T;
->a6 : 新建 <T 扩展 Base>(x: (arg: T) => Derived) => T
+>a6 : new <T extends Base>(x: (arg: T) => Derived) => T
 >T : T
 >Base : Base
 >x : (arg: T) => Derived
@@ -79,7 +75,7 @@ interface A { // T
 >T : T
 
     a11: new <T>(x: { foo: T }, y: { foo: T; bar: T }) => Base;
->a11 : 新建 <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
+>a11 : new <T>(x: { foo: T; }, y: { foo: T; bar: T; }) => Base
 >T : T
 >x : { foo: T; }
 >foo : T
@@ -92,7 +88,7 @@ interface A { // T
 >Base : Base
 
     a15: new <T>(x: { a: T; b: T }) => T[];
->a15 : 新建 <T>(x: { a: T; b: T; }) => T[]
+>a15 : new <T>(x: { a: T; b: T; }) => T[]
 >T : T
 >x : { a: T; b: T; }
 >a : T
@@ -102,7 +98,7 @@ interface A { // T
 >T : T
 
     a16: new <T extends Base>(x: { a: T; b: T }) => T[];
->a16 : 新建 <T 扩展 Base>(x: { a: T; b: T; }) => T[]
+>a16 : new <T extends Base>(x: { a: T; b: T; }) => T[]
 >T : T
 >Base : Base
 >x : { a: T; b: T; }
@@ -120,7 +116,7 @@ interface I<T> extends A {
 >A : A
 
     a: new (x: T) => T[]; 
->a : 新建 (x: T) => T[]
+>a : new (x: T) => T[]
 >x : T
 >T : T
 >T : T
@@ -132,7 +128,7 @@ interface I2<T> extends A {
 >A : A
 
     a2: new (x: T) => string[]; 
->a2 : 新建 (x: T) => 文字[]
+>a2 : new (x: T) => string[]
 >x : T
 >T : T
 }
@@ -143,7 +139,7 @@ interface I3<T> extends A {
 >A : A
 
     a3: new (x: T) => T;
->a3 : 新建 (x: T) => T
+>a3 : new (x: T) => T
 >x : T
 >T : T
 >T : T
@@ -155,7 +151,7 @@ interface I4<T> extends A {
 >A : A
 
     a4: new <U>(x: T, y: U) => string; 
->a4 : 新建 <U>(x: T, y: U) => 文字
+>a4 : new <U>(x: T, y: U) => string
 >U : U
 >x : T
 >T : T
@@ -169,7 +165,7 @@ interface I5<T> extends A {
 >A : A
 
     a5: new <U>(x: (arg: T) => U) => T; 
->a5 : 新建 <U>(x: (arg: T) => U) => T
+>a5 : new <U>(x: (arg: T) => U) => T
 >U : U
 >x : (arg: T) => U
 >arg : T
@@ -184,7 +180,7 @@ interface I7<T> extends A {
 >A : A
 
     a11: new <U>(x: { foo: T }, y: { foo: U; bar: U }) => Base; 
->a11 : 新建 <U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
+>a11 : new <U>(x: { foo: T; }, y: { foo: U; bar: U; }) => Base
 >U : U
 >x : { foo: T; }
 >foo : T
@@ -203,7 +199,7 @@ interface I9<T> extends A {
 >A : A
 
     a16: new (x: { a: T; b: T }) => T[]; 
->a16 : 新建 (x: { a: T; b: T; }) => T[]
+>a16 : new (x: { a: T; b: T; }) => T[]
 >x : { a: T; b: T; }
 >a : T
 >T : T

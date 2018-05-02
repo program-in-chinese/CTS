@@ -2,30 +2,27 @@
 // Rest parameters must be an array type if they have a type annotation, so all these are errors
 
 function foo(...x: string) { }
->foo : (...x: 文字) => 无值
->x : 文字
->类型别名 :=> 文字
+>foo : (...x: string) => void
+>x : string
 
 var f = function foo(...x: number) { }
->f : (...x: 数字) => 无值
->function foo(...x: number) { } : (...x: 数字) => 无值
->foo : (...x: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
+>f : (...x: number) => void
+>function foo(...x: number) { } : (...x: number) => void
+>foo : (...x: number) => void
+>x : number
 
 var f2 = (...x: Date, ...y: boolean) => { }
->f2 : (...x: Date, ...y: 真假) => 无值
->(...x: Date, ...y: boolean) => { } : (...x: Date, ...y: 真假) => 无值
+>f2 : (...x: Date, ...y: boolean) => void
+>(...x: Date, ...y: boolean) => { } : (...x: Date, ...y: boolean) => void
 >x : Date
 >Date : Date
->y : 真假
->类型别名 :=> 真假
+>y : boolean
 
 class C {
 >C : C
 
     foo(...x: C) { }
->foo : (...x: C) => 无值
+>foo : (...x: C) => void
 >x : C
 >C : C
 }
@@ -34,51 +31,43 @@ interface I {
 >I : I
 
     (...x: string);
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo(...x: number, ...y: number);
->foo : (...x: 数字, ...y: 数字) => 任意
->x : 数字
->类型别名 :=> 数字
->y : 数字
->类型别名 :=> 数字
+>foo : (...x: number, ...y: number) => any
+>x : number
+>y : number
 }
 
 var a: {
->a : { (...x: 文字): 任意; foo(...x: 文字): 任意; }
+>a : { (...x: string): any; foo(...x: string): any; }
 
     (...x: string);
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     foo(...x: string);
->foo : (...x: 文字) => 任意
->x : 文字
->类型别名 :=> 文字
+>foo : (...x: string) => any
+>x : string
 }
 
 var b = {
->b : { foo(...x: 文字): 无值; a: (...x: 数字, ...y: Date) => 无值; b: (...x: 文字) => 无值; }
->{    foo(...x: string) { },    a: function foo(...x: number, ...y: Date) { },    b: (...x: string) => { }} : { foo(...x: 文字): 无值; a: (...x: 数字, ...y: Date) => 无值; b: (...x: 文字) => 无值; }
+>b : { foo(...x: string): void; a: (...x: number, ...y: Date) => void; b: (...x: string) => void; }
+>{    foo(...x: string) { },    a: function foo(...x: number, ...y: Date) { },    b: (...x: string) => { }} : { foo(...x: string): void; a: (...x: number, ...y: Date) => void; b: (...x: string) => void; }
 
     foo(...x: string) { },
->foo : (...x: 文字) => 无值
->x : 文字
->类型别名 :=> 文字
+>foo : (...x: string) => void
+>x : string
 
     a: function foo(...x: number, ...y: Date) { },
->a : (...x: 数字, ...y: Date) => 无值
->function foo(...x: number, ...y: Date) { } : (...x: 数字, ...y: Date) => 无值
->foo : (...x: 数字, ...y: Date) => 无值
->x : 数字
->类型别名 :=> 数字
+>a : (...x: number, ...y: Date) => void
+>function foo(...x: number, ...y: Date) { } : (...x: number, ...y: Date) => void
+>foo : (...x: number, ...y: Date) => void
+>x : number
 >y : Date
 >Date : Date
 
     b: (...x: string) => { }
->b : (...x: 文字) => 无值
->(...x: string) => { } : (...x: 文字) => 无值
->x : 文字
->类型别名 :=> 文字
+>b : (...x: string) => void
+>(...x: string) => { } : (...x: string) => void
+>x : string
 }

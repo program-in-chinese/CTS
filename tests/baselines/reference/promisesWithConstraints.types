@@ -4,7 +4,7 @@ interface Promise<T> {
 >T : T
 
     then<U>(cb: (x: T) => Promise<U>): Promise<U>;
->then : { <TResult1 = T, TResult2 = 不及>(onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: 任意) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(cb: (x: T) => Promise<U>): Promise<U>; }
+>then : { <TResult1 = T, TResult2 = never>(onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>; <U>(cb: (x: T) => Promise<U>): Promise<U>; }
 >U : U
 >cb : (x: T) => Promise<U>
 >x : T
@@ -18,14 +18,12 @@ interface Promise<T> {
 interface CPromise<T extends { x: any; }> {
 >CPromise : CPromise<T>
 >T : T
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     then<U extends { x: any; }>(cb: (x: T) => Promise<U>): Promise<U>;
->then : <U 扩展 { x: 任意; }>(cb: (x: T) => Promise<U>) => Promise<U>
+>then : <U extends { x: any; }>(cb: (x: T) => Promise<U>) => Promise<U>
 >U : U
->x : 任意
->类型别名 :=> 任意
+>x : any
 >cb : (x: T) => Promise<U>
 >x : T
 >T : T
@@ -37,15 +35,12 @@ interface CPromise<T extends { x: any; }> {
 
 interface Foo { x; }
 >Foo : Foo
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 interface Bar { x; y; }
 >Bar : Bar
->x : 任意
->类型别名 :=> 任意
->y : 任意
->类型别名 :=> 任意
+>x : any
+>y : any
 
 var a: Promise<Foo>;
 >a : Promise<Foo>

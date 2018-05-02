@@ -1,81 +1,67 @@
 === tests/cases/compiler/implicitAnyFromCircularInference.ts ===
 // Error expected
 var a: typeof a;
->a : 任意
->类型别名 :=> 任意
->a : 任意
->类型别名 :=> 任意
+>a : any
+>a : any
 
 // Error expected on b or c
 var b: typeof c;
->b : 任意
->类型别名 :=> 任意
->c : 任意
->类型别名 :=> 任意
+>b : any
+>c : any
 
 var c: typeof b;
->c : 任意
->类型别名 :=> 任意
->b : 任意
->类型别名 :=> 任意
+>c : any
+>b : any
 
 // Error expected
 var d: Array<typeof d>;
->d : 任意
->类型别名 :=> 任意
+>d : any
 >Array : T[]
->d : 任意
->类型别名 :=> 任意
+>d : any
 
 function f() { return f; }
->f : () => 类为 f
->f : () => 类为 f
+>f : () => typeof f
+>f : () => typeof f
 
 // Error expected
 function g() { return g(); }
->g : () => 任意
->g() : 任意
->类型别名 :=> 任意
->g : () => 任意
+>g : () => any
+>g() : any
+>g : () => any
 
 // Error expected
 var f1 = function () {
->f1 : () => 任意
->function () {    return f1();} : () => 任意
+>f1 : () => any
+>function () {    return f1();} : () => any
 
     return f1();
->f1() : 任意
->类型别名 :=> 任意
->f1 : () => 任意
+>f1() : any
+>f1 : () => any
 
 };
 
 // Error expected
 var f2 = () => f2();
->f2 : () => 任意
->() => f2() : () => 任意
->f2() : 任意
->类型别名 :=> 任意
->f2 : () => 任意
+>f2 : () => any
+>() => f2() : () => any
+>f2() : any
+>f2 : () => any
 
 // Error expected
 function h() {
->h : () => 任意
+>h : () => any
 
     return foo();
->foo() : 任意
->类型别名 :=> 任意
->foo : () => 任意
+>foo() : any
+>foo : () => any
 
     function foo() {
->foo : () => 任意
+>foo : () => any
 
         return h() || "hello";
->h() || "hello" : 任意
->类型别名 :=> 任意
->h() : 任意
->类型别名 :=> 任意
->h : () => 任意
+>h() || "hello" : any
+>h() : any
+>h : () => any
 >"hello" : "hello"
     }
 }
@@ -84,12 +70,11 @@ interface A {
 >A : A
 
     s: string;
->s : 文字
->类型别名 :=> 文字
+>s : string
 }
 
 function foo(x: A): string { return "abc"; }
->foo : (x: A) => 文字
+>foo : (x: A) => string
 >x : A
 >A : A
 >"abc" : "abc"
@@ -99,12 +84,10 @@ class C {
 
     // Error expected
     s = foo(this);
->s : 文字
->类型别名 :=> 文字
->foo(this) : 文字
->类型别名 :=> 文字
->foo : (x: A) => 文字
->this : 本体
+>s : string
+>foo(this) : string
+>foo : (x: A) => string
+>this : this
 }
 
 class D {
@@ -112,15 +95,12 @@ class D {
 
     // Error expected
     get x() {
->x : 任意
->类型别名 :=> 任意
+>x : any
 
         return this.x;
->this.x : 任意
->类型别名 :=> 任意
->this : 本体
->x : 任意
->类型别名 :=> 任意
+>this.x : any
+>this : this
+>x : any
     }
 }
 

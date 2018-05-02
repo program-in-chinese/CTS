@@ -3,36 +3,30 @@ class C {
 >C : C
 
     constructor(x: number);
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     constructor(x: string);
->x : 文字
->类型别名 :=> 文字
+>x : string
 
     constructor(x) { }
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     static foo(x: number);
->foo : { (x: 数字): 任意; (x: C): 任意; }
->x : 数字
->类型别名 :=> 数字
+>foo : { (x: number): any; (x: C): any; }
+>x : number
 
     static foo(x: C);
->foo : { (x: 数字): 任意; (x: C): 任意; }
+>foo : { (x: number): any; (x: C): any; }
 >x : C
 >C : C
 
     static foo(x) { }
->foo : { (x: 数字): 任意; (x: C): 任意; }
->x : 任意
->类型别名 :=> 任意
+>foo : { (x: number): any; (x: C): any; }
+>x : any
 
     static bar(x) { }
->bar : (x: 任意) => 无值
->x : 任意
->类型别名 :=> 任意
+>bar : (x: any) => void
+>x : any
 }
 
 class D extends C {
@@ -40,12 +34,11 @@ class D extends C {
 >C : C
 
     static baz(x: number) { }
->baz : (x: 数字) => 无值
->x : 数字
->类型别名 :=> 数字
+>baz : (x: number) => void
+>x : number
 
     foo() { }
->foo : () => 无值
+>foo : () => void
 }
 
 var d: D;
@@ -53,8 +46,8 @@ var d: D;
 >D : D
 
 var r1: typeof D;
->r1 : 类为 D
->D : 类为 D
+>r1 : typeof D
+>D : typeof D
 
 var r2: typeof d;
 >r2 : D

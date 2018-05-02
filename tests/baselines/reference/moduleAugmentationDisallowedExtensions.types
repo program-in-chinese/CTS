@@ -1,68 +1,52 @@
 === tests/cases/compiler/x0.ts ===
 export let a = 1;
->a : 数字
->类型别名 :=> 数字
+>a : number
 >1 : 1
 
 === tests/cases/compiler/x.ts ===
 namespace N1 {
->N1 : 类为 N1
+>N1 : typeof N1
 
     export let x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 }
 
 declare module "./observable" {
+>"./observable" : typeof "tests/cases/compiler/observable"
+
     var x: number;
->x : 数字
->类型别名 :=> 数字
+>x : number
 
     let y: number;
->y : 数字
->类型别名 :=> 数字
+>y : number
 
     const z: number;
->z : 数字
->类型别名 :=> 数字
+>z : number
 
     let {x1, y1, z0: {n}, z1: {arr: [el1, el2, el3]}}: {x1: number, y1: string, z0: {n: number}, z1: {arr: number[]} }
->x1 : 数字
->类型别名 :=> 数字
->y1 : 文字
->类型别名 :=> 文字
->z0 : 任意
->类型别名 :=> 任意
->n : 数字
->类型别名 :=> 数字
->z1 : 任意
->类型别名 :=> 任意
->arr : 任意
->类型别名 :=> 任意
->el1 : 数字
->类型别名 :=> 数字
->el2 : 数字
->类型别名 :=> 数字
->el3 : 数字
->类型别名 :=> 数字
->x1 : 数字
->类型别名 :=> 数字
->y1 : 文字
->类型别名 :=> 文字
->z0 : { n: 数字; }
->n : 数字
->类型别名 :=> 数字
->z1 : { arr: 数字[]; }
->arr : 数字[]
+>x1 : number
+>y1 : string
+>z0 : any
+>n : number
+>z1 : any
+>arr : any
+>el1 : number
+>el2 : number
+>el3 : number
+>x1 : number
+>y1 : string
+>z0 : { n: number; }
+>n : number
+>z1 : { arr: number[]; }
+>arr : number[]
 
     interface A { x }
 >A : A
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     namespace N {
->N : 类为 N
+>N : typeof N
 
         export class C {}
 >C : C
@@ -71,29 +55,27 @@ declare module "./observable" {
 >Cls : Cls
 
     function foo(): number;
->foo : () => 数字
+>foo : () => number
 
     type T = number;
->T : 数字
->类型别名 :=> 数字
+>T : number
 
     import * as all from "./x0";
->all : 任意
->类型别名 :=> 任意
+>all : any
 
     import {a} from "./x0";
->a : 任意
->类型别名 :=> 任意
+>a : any
 
     export * from "./x0";
     export {a} from "./x0";
->a : 任意
->类型别名 :=> 任意
+>a : any
 }
 
 declare module "./test" {
+>"./test" : typeof "tests/cases/compiler/test"
+
     export = N1;
->N1 : 类为 N1
+>N1 : typeof N1
 }
 export {}
 
@@ -103,27 +85,25 @@ export declare class Observable<T> {
 >T : T
 
     filter(pred: (e:T) => boolean): Observable<T>;
->filter : (pred: (e: T) => 真假) => Observable<T>
->pred : (e: T) => 真假
+>filter : (pred: (e: T) => boolean) => Observable<T>
+>pred : (e: T) => boolean
 >e : T
 >T : T
 >Observable : Observable<T>
 >T : T
 }
 export var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
 
 === tests/cases/compiler/test.ts ===
 export let b = 1;
->b : 数字
->类型别名 :=> 数字
+>b : number
 >1 : 1
 
 === tests/cases/compiler/main.ts ===
 import { Observable } from "./observable"
->Observable : 类为 Observable
+>Observable : typeof Observable
 
 import "./x";
 

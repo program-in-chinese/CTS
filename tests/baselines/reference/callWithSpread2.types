@@ -1,216 +1,153 @@
 === tests/cases/conformance/expressions/functionCalls/callWithSpread2.ts ===
 declare function all(a?: number, b?: number): void;
->all : (a?: 数字, b?: 数字) => 无值
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>all : (a?: number, b?: number) => void
+>a : number
+>b : number
 
 declare function weird(a?: number | string, b?: number | string): void;
->weird : (a?: 文字 | 数字, b?: 文字 | 数字) => 无值
->a : 文字 | 数字
->b : 文字 | 数字
+>weird : (a?: string | number, b?: string | number) => void
+>a : string | number
+>b : string | number
 
 declare function prefix(s: string, a?: number, b?: number): void;
->prefix : (s: 文字, a?: 数字, b?: 数字) => 无值
->s : 文字
->类型别名 :=> 文字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
+>prefix : (s: string, a?: number, b?: number) => void
+>s : string
+>a : number
+>b : number
 
 declare function rest(s: string, a?: number, b?: number,  ...rest: number[]): void;
->rest : (s: 文字, a?: 数字, b?: 数字, ...rest: 数字[]) => 无值
->s : 文字
->类型别名 :=> 文字
->a : 数字
->类型别名 :=> 数字
->b : 数字
->类型别名 :=> 数字
->rest : 数字[]
+>rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
+>s : string
+>a : number
+>b : number
+>rest : number[]
 
 declare function normal(s: string): void;
->normal : (s: 文字) => 无值
->s : 文字
->类型别名 :=> 文字
+>normal : (s: string) => void
+>s : string
 
 declare function thunk(): string;
->thunk : () => 文字
+>thunk : () => string
 
 declare var ns: number[];
->ns : 数字[]
+>ns : number[]
 
 declare var mixed: (number | string)[];
->mixed : (文字 | 数字)[]
+>mixed : (string | number)[]
 
 declare var tuple: [number, string];
->tuple : [数字, 文字]
+>tuple : [number, string]
 
 // good
 all(...ns)
->all(...ns) : 无值
->类型别名 :=> 无值
->all : (a?: 数字, b?: 数字) => 无值
->...ns : 数字
->类型别名 :=> 数字
->ns : 数字[]
+>all(...ns) : void
+>all : (a?: number, b?: number) => void
+>...ns : number
+>ns : number[]
 
 weird(...ns)
->weird(...ns) : 无值
->类型别名 :=> 无值
->weird : (a?: 文字 | 数字, b?: 文字 | 数字) => 无值
->...ns : 数字
->类型别名 :=> 数字
->ns : 数字[]
+>weird(...ns) : void
+>weird : (a?: string | number, b?: string | number) => void
+>...ns : number
+>ns : number[]
 
 weird(...mixed)
->weird(...mixed) : 无值
->类型别名 :=> 无值
->weird : (a?: 文字 | 数字, b?: 文字 | 数字) => 无值
->...mixed : 文字 | 数字
->mixed : (文字 | 数字)[]
+>weird(...mixed) : void
+>weird : (a?: string | number, b?: string | number) => void
+>...mixed : string | number
+>mixed : (string | number)[]
 
 weird(...tuple)
->weird(...tuple) : 无值
->类型别名 :=> 无值
->weird : (a?: 文字 | 数字, b?: 文字 | 数字) => 无值
->...tuple : 文字 | 数字
->tuple : [数字, 文字]
+>weird(...tuple) : void
+>weird : (a?: string | number, b?: string | number) => void
+>...tuple : string | number
+>tuple : [number, string]
 
 prefix("a", ...ns)
->prefix("a", ...ns) : 无值
->类型别名 :=> 无值
->prefix : (s: 文字, a?: 数字, b?: 数字) => 无值
+>prefix("a", ...ns) : void
+>prefix : (s: string, a?: number, b?: number) => void
 >"a" : "a"
->...ns : 数字
->类型别名 :=> 数字
->ns : 数字[]
+>...ns : number
+>ns : number[]
 
 rest("d", ...ns)
->rest("d", ...ns) : 无值
->类型别名 :=> 无值
->rest : (s: 文字, a?: 数字, b?: 数字, ...rest: 数字[]) => 无值
+>rest("d", ...ns) : void
+>rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
 >"d" : "d"
->...ns : 数字
->类型别名 :=> 数字
->ns : 数字[]
+>...ns : number
+>ns : number[]
 
 
-// this covers the arguments case
+// extra arguments
 normal("g", ...ns)
->normal("g", ...ns) : 无值
->类型别名 :=> 无值
->normal : (s: 文字) => 无值
+>normal("g", ...ns) : void
+>normal : (s: string) => void
 >"g" : "g"
->...ns : 数字
->类型别名 :=> 数字
->ns : 数字[]
-
-normal("h", ...mixed)
->normal("h", ...mixed) : 无值
->类型别名 :=> 无值
->normal : (s: 文字) => 无值
->"h" : "h"
->...mixed : 文字 | 数字
->mixed : (文字 | 数字)[]
-
-normal("i", ...tuple)
->normal("i", ...tuple) : 无值
->类型别名 :=> 无值
->normal : (s: 文字) => 无值
->"i" : "i"
->...tuple : 文字 | 数字
->tuple : [数字, 文字]
+>...ns : number
+>ns : number[]
 
 thunk(...ns)
->thunk(...ns) : 文字
->类型别名 :=> 文字
->thunk : () => 文字
->...ns : 数字
->类型别名 :=> 数字
->ns : 数字[]
-
-thunk(...mixed)
->thunk(...mixed) : 文字
->类型别名 :=> 文字
->thunk : () => 文字
->...mixed : 文字 | 数字
->mixed : (文字 | 数字)[]
-
-thunk(...tuple)
->thunk(...tuple) : 文字
->类型别名 :=> 文字
->thunk : () => 文字
->...tuple : 文字 | 数字
->tuple : [数字, 文字]
+>thunk(...ns) : string
+>thunk : () => string
+>...ns : number
+>ns : number[]
 
 // bad
 all(...mixed)
->all(...mixed) : 无值
->类型别名 :=> 无值
->all : (a?: 数字, b?: 数字) => 无值
->...mixed : 文字 | 数字
->mixed : (文字 | 数字)[]
+>all(...mixed) : void
+>all : (a?: number, b?: number) => void
+>...mixed : string | number
+>mixed : (string | number)[]
 
 all(...tuple)
->all(...tuple) : 无值
->类型别名 :=> 无值
->all : (a?: 数字, b?: 数字) => 无值
->...tuple : 文字 | 数字
->tuple : [数字, 文字]
+>all(...tuple) : void
+>all : (a?: number, b?: number) => void
+>...tuple : string | number
+>tuple : [number, string]
 
 prefix("b", ...mixed)
->prefix("b", ...mixed) : 无值
->类型别名 :=> 无值
->prefix : (s: 文字, a?: 数字, b?: 数字) => 无值
+>prefix("b", ...mixed) : void
+>prefix : (s: string, a?: number, b?: number) => void
 >"b" : "b"
->...mixed : 文字 | 数字
->mixed : (文字 | 数字)[]
+>...mixed : string | number
+>mixed : (string | number)[]
 
 prefix("c", ...tuple)
->prefix("c", ...tuple) : 无值
->类型别名 :=> 无值
->prefix : (s: 文字, a?: 数字, b?: 数字) => 无值
+>prefix("c", ...tuple) : void
+>prefix : (s: string, a?: number, b?: number) => void
 >"c" : "c"
->...tuple : 文字 | 数字
->tuple : [数字, 文字]
+>...tuple : string | number
+>tuple : [number, string]
 
 rest("e", ...mixed)
->rest("e", ...mixed) : 无值
->类型别名 :=> 无值
->rest : (s: 文字, a?: 数字, b?: 数字, ...rest: 数字[]) => 无值
+>rest("e", ...mixed) : void
+>rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
 >"e" : "e"
->...mixed : 文字 | 数字
->mixed : (文字 | 数字)[]
+>...mixed : string | number
+>mixed : (string | number)[]
 
 rest("f", ...tuple)
->rest("f", ...tuple) : 无值
->类型别名 :=> 无值
->rest : (s: 文字, a?: 数字, b?: 数字, ...rest: 数字[]) => 无值
+>rest("f", ...tuple) : void
+>rest : (s: string, a?: number, b?: number, ...rest: number[]) => void
 >"f" : "f"
->...tuple : 文字 | 数字
->tuple : [数字, 文字]
+>...tuple : string | number
+>tuple : [number, string]
 
 prefix(...ns) // required parameters are required
->prefix(...ns) : 无值
->类型别名 :=> 无值
->prefix : (s: 文字, a?: 数字, b?: 数字) => 无值
->...ns : 数字
->类型别名 :=> 数字
->ns : 数字[]
+>prefix(...ns) : void
+>prefix : (s: string, a?: number, b?: number) => void
+>...ns : number
+>ns : number[]
 
 prefix(...mixed)
->prefix(...mixed) : 无值
->类型别名 :=> 无值
->prefix : (s: 文字, a?: 数字, b?: 数字) => 无值
->...mixed : 文字 | 数字
->mixed : (文字 | 数字)[]
+>prefix(...mixed) : void
+>prefix : (s: string, a?: number, b?: number) => void
+>...mixed : string | number
+>mixed : (string | number)[]
 
 prefix(...tuple)
->prefix(...tuple) : 无值
->类型别名 :=> 无值
->prefix : (s: 文字, a?: 数字, b?: 数字) => 无值
->...tuple : 文字 | 数字
->tuple : [数字, 文字]
+>prefix(...tuple) : void
+>prefix : (s: string, a?: number, b?: number) => void
+>...tuple : string | number
+>tuple : [number, string]
 

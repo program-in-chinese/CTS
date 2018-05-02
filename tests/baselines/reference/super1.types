@@ -4,7 +4,7 @@ class Base1 {
 >Base1 : Base1
 
     public foo() {
->foo : () => 文字
+>foo : () => string
 
         return "base";
 >"base" : "base"
@@ -16,7 +16,7 @@ class Sub1 extends Base1 {
 >Base1 : Base1
 
     public bar() {
->bar : () => 文字
+>bar : () => string
 
         return "base";
 >"base" : "base"
@@ -28,18 +28,14 @@ class SubSub1 extends Sub1 {
 >Sub1 : Sub1
 
     public bar() {
->bar : () => 任意
+>bar : () => any
 
         return super.super.foo;
->super.super.foo : 任意
->类型别名 :=> 任意
->super.super : 任意
->类型别名 :=> 任意
+>super.super.foo : any
+>super.super : any
 >super : Sub1
->super : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
+>super : any
+>foo : any
     }
 }
 
@@ -48,7 +44,7 @@ class Base2 {
 >Base2 : Base2
 
     public foo() {
->foo : () => 文字
+>foo : () => string
 
         return "base";
 >"base" : "base"
@@ -60,22 +56,16 @@ class SubE2 extends Base2 {
 >Base2 : Base2
 
     public bar() {
->bar : () => 任意
+>bar : () => any
 
         return super.prototype.foo = null;
->super.prototype.foo = null : 空值
->类型别名 :=> 空值
->super.prototype.foo : 任意
->类型别名 :=> 任意
->super.prototype : 任意
->类型别名 :=> 任意
+>super.prototype.foo = null : null
+>super.prototype.foo : any
+>super.prototype : any
 >super : Base2
->prototype : 任意
->类型别名 :=> 任意
->foo : 任意
->类型别名 :=> 任意
->null : 空值
->类型别名 :=> 空值
+>prototype : any
+>foo : any
+>null : null
     }
 }
 
@@ -84,7 +74,7 @@ class Base3 {
 >Base3 : Base3
 
     public foo() {
->foo : () => 文字
+>foo : () => string
 
         return "base";
 >"base" : "base"
@@ -96,28 +86,25 @@ class SubE3 extends Base3 {
 >Base3 : Base3
 
     public bar() {
->bar : () => 任意
+>bar : () => any
 
         return super.bar();
->super.bar() : 任意
->类型别名 :=> 任意
->super.bar : 任意
->类型别名 :=> 任意
+>super.bar() : any
+>super.bar : any
 >super : Base3
->bar : 任意
->类型别名 :=> 任意
+>bar : any
     }
 }
 
 // Case 4
 module Base4 {
->Base4 : 类为 Base4
+>Base4 : typeof Base4
 
     class Sub4 {
 >Sub4 : Sub4
 
         public x(){
->x : () => 文字
+>x : () => string
 
             return "hello";
 >"hello" : "hello"
@@ -129,14 +116,13 @@ module Base4 {
 >Sub4 : Sub4
 
         public x(){
->x : () => 文字
+>x : () => string
 
             return super.x();
->super.x() : 文字
->类型别名 :=> 文字
->super.x : () => 文字
+>super.x() : string
+>super.x : () => string
 >super : Sub4
->x : () => 文字
+>x : () => string
         }
     }
     
@@ -144,17 +130,13 @@ module Base4 {
 >Sub4E : Sub4E
 
         public x() {
->x : () => 任意
+>x : () => any
 
             return super.x();
->super.x() : 任意
->类型别名 :=> 任意
->super.x : 任意
->类型别名 :=> 任意
->super : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
+>super.x() : any
+>super.x : any
+>super : any
+>x : any
         }
     }
 }

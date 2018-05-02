@@ -1,54 +1,41 @@
 === tests/cases/compiler/unknownSymbols2.ts ===
 module M {
->M : 类为 M
+>M : typeof M
 
     var x: asdf;
->x : 任意
->类型别名 :=> 任意
+>x : any
 >asdf : No type information available!
 
     var y = x + asdf;
->y : 任意
->类型别名 :=> 任意
->x + asdf : 任意
->类型别名 :=> 任意
->x : 任意
->类型别名 :=> 任意
->asdf : 任意
->类型别名 :=> 任意
+>y : any
+>x + asdf : any
+>x : any
+>asdf : any
 
     var z = <asdf>x; // should be an error
->z : 任意
->类型别名 :=> 任意
-><asdf>x : 任意
->类型别名 :=> 任意
+>z : any
+><asdf>x : any
 >asdf : No type information available!
->x : 任意
->类型别名 :=> 任意
+>x : any
 
     if (asdf) {
->asdf : 任意
->类型别名 :=> 任意
+>asdf : any
     }
     else if (qwerty) {
->qwerty : 任意
->类型别名 :=> 任意
+>qwerty : any
     }
 
     try {
     }
     catch (asdf) { // no error
->asdf : 任意
->类型别名 :=> 任意
+>asdf : any
     }
 
     switch (asdf) {
->asdf : 任意
->类型别名 :=> 任意
+>asdf : any
 
         case qwerty:
->qwerty : 任意
->类型别名 :=> 任意
+>qwerty : any
 
             break;
         default:
@@ -56,33 +43,28 @@ module M {
     }
 
     var a = () => asdf;
->a : () => 任意
->() => asdf : () => 任意
->asdf : 任意
->类型别名 :=> 任意
+>a : () => any
+>() => asdf : () => any
+>asdf : any
 
     var b = (asdf) => { return qwerty };
->b : (asdf: 任意) => 任意
->(asdf) => { return qwerty } : (asdf: 任意) => 任意
->asdf : 任意
->类型别名 :=> 任意
->qwerty : 任意
->类型别名 :=> 任意
+>b : (asdf: any) => any
+>(asdf) => { return qwerty } : (asdf: any) => any
+>asdf : any
+>qwerty : any
 
     module N {
->N : 类为 N
+>N : typeof N
 
         var x = 1;
->x : 数字
->类型别名 :=> 数字
+>x : number
 >1 : 1
     }
     import c = N;
->c : 类为 N
->N : 类为 N
+>c : typeof N
+>N : typeof N
 
     import d = asdf;
->d : 任意
->类型别名 :=> 任意
->asdf : No type information available!
+>d : any
+>asdf : any
 }

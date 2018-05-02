@@ -1,21 +1,21 @@
 === /index.ts ===
 import * as a from "a";
->a : 类为 a
+>a : typeof a
 
 import { Foo } from "foo";
->Foo : 类为 Foo
+>Foo : typeof Foo
 
 let foo: Foo = a.foo;
 >foo : Foo
 >Foo : Foo
 >a.foo : Foo
->a : 类为 a
+>a : typeof a
 >foo : Foo
 
 === /node_modules/a/index.d.ts ===
 /// <reference types="foo" />
 import { Foo } from "foo";
->Foo : 类为 Foo
+>Foo : typeof Foo
 
 export const foo: Foo;
 >foo : Foo
@@ -24,12 +24,10 @@ export const foo: Foo;
 === /node_modules/a/node_modules/foo/index.d.ts ===
 export class Foo { private x; }
 >Foo : Foo
->x : 任意
->类型别名 :=> 任意
+>x : any
 
 === /node_modules/@types/foo/index.d.ts ===
 export class Foo { private x; }
 >Foo : Foo
->x : 任意
->类型别名 :=> 任意
+>x : any
 
