@@ -13,7 +13,6 @@
      * @returns A Promise for the completion of the callback.
      */
 
-    //@@{ 预设_:Promise }
-    //##{ finally:最后, onfinally:正在最后 }#
+    //@@{ 最后:finally, 正在最后:onfinally, 预设_:Promise }
     最后(正在最后?: (() => 无值) | 未定 | 空值): 预设_<T>
 }

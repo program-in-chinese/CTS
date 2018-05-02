@@ -1,31 +1,31 @@
 /// <引用  路径="lib.zh-cn.es2015.symbol.d.cts" />
 /// <引用  路径="lib.zh-cn.es2015.symbol.wellknown.d.cts" />
 
-//##{ SharedArrayBuffer:共享数组缓冲区_ }# 
+//@@{ 共享数组缓冲区_:SharedArrayBuffer }
 接口 共享数组缓冲区_ {
 
     /**
      * Read-only. The length of the ArrayBuffer (in bytes).
      */
 
-    //##{ byteLength:字节长度 }#
+    //@@{ 字节长度:byteLength }
     只读 字节长度: 数字;
 
     /*
      * The SharedArrayBuffer constructor's length property whose value is 1.
      */
 
-    //##{ length:长度 }#
+    //@@{ 长度:length }
     长度: 数字;
 
     /**
      * Returns a section of an SharedArrayBuffer.
      */
 
-    //##{ slice:分割, begin:开始, end:结束 }#
+    //@@{ 分割:slice, 开始:begin, 结束:end, 共享数组缓冲区_:SharedArrayBuffer }
     分割(开始: 数字, 结束?: 数字): 共享数组缓冲区_;
 
-    //@@{ 符号_:Symbol, 派生构造:species }
+    //@@{ 符号_:Symbol, 派生构造:species, 共享数组缓冲区_:SharedArrayBuffer }
     只读 [符号_.派生构造]: 共享数组缓冲区_;
 
     //@@{ 符号_:Symbol, 转为文字标签:toStringTag }
@@ -33,29 +33,29 @@
 
 }
 
-//##{ SharedArrayBufferConstructor:共享缓冲区数组构造函数_ }#
+//@@{ 共享缓冲区数组构造函数_:SharedArrayBufferConstructor }
 接口 共享缓冲区数组构造函数_ {
 
-    //##{ prototype:原型 }#
+    //@@{ 原型:prototype, 共享数组缓冲区_:SharedArrayBuffer }
     只读 原型: 共享数组缓冲区_;
 
-    //##{ byteLength:字节长度 }#
+    //@@{ 字节长度:byteLength, 共享数组缓冲区_:SharedArrayBuffer }
     新建 (字节长度: 数字): 共享数组缓冲区_;
 
 }
 
-//##{ SharedArrayBuffer:共享数组缓冲区_ }#
+//@@{ 共享数组缓冲区_:SharedArrayBuffer, 共享缓冲区数组构造函数_:SharedArrayBufferConstructor }
 声明 值量 共享数组缓冲区_: 共享缓冲区数组构造函数_;
 
 //@@{ 数组缓冲类型_:ArrayBufferTypes }
 接口 数组缓冲类型_ {
 
-    //##{ SharedArrayBuffer:共享数组缓冲区_ }#
+    //@@{ 共享数组缓冲区_:SharedArrayBuffer }
     共享数组缓冲区_: 共享数组缓冲区_;
 
 }
 
-//##{ Atomics:原子_ }# 
+//@@{ 原子_:Atomics }
 接口 原子_ {
 
     /**
@@ -64,8 +64,7 @@
      * will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ add:添加, typedArray:类型数组, index:索引, value:值 }#
+    //@@{ 添加:add, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 值:value }
     添加(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 值: 数字): 数字;
 
     /**
@@ -74,8 +73,7 @@
      * write operation against the array will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ and:添加, typedArray:类型数组, index:索引, value:值 }#
+    //@@{ 添加:and, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 值:value }
     添加(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 值: 数字): 数字;
 
     /**
@@ -84,8 +82,7 @@
      * other read or write operation against the array will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ compareExchange:比较交换, typedArray:类型数组, index:索引, expectedValue:期望值, replacementValue:替换值 }#
+    //@@{ 比较交换:compareExchange, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 期望值:expectedValue, 替换值:replacementValue }
     比较交换(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 期望值: 数字, 替换值: 数字): 数字;
 
     /**
@@ -94,8 +91,7 @@
      * block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ exchange:交换, typedArray:类型数组, index:索引, value:值 }#
+    //@@{ 交换:exchange, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 值:value }
     交换(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 值: 数字): 数字;
 
     /**
@@ -104,7 +100,7 @@
      * array.
      */
 
-    //##{ isLockFree:是无锁的, size:大小 }#
+    //@@{ 是无锁的:isLockFree, 大小:size }
     是无锁的(大小: 数字): 真假;
 
     /**
@@ -112,8 +108,7 @@
      * any other read or write operation against the array will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ load:加载, typedArray:类型数组, index:索引 }#
+    //@@{ 加载:load, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index }
     加载(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字): 数字;
 
     /**
@@ -122,8 +117,7 @@
      * operation against the array will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ or:或, typedArray:类型数组, index:索引, value:值 }#
+    //@@{ 或:or, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 值:value }
     或(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 值: 数字): 数字;
 
     /**
@@ -131,8 +125,7 @@
      * atomic operation completes, any other read or write operation against the array will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ store:商店, typedArray:类型数组, index:索引, value:值 }#
+    //@@{ 商店:store, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 值:value }
     商店(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 值: 数字): 数字;
 
     /**
@@ -141,8 +134,7 @@
      * array will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ sub:子, typedArray:类型数组, index:索引, value:值 }#
+    //@@{ 子:sub, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 值:value }
     子(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 值: 数字): 数字;
 
     /**
@@ -152,8 +144,7 @@
      * `"not-equal"`.
      */
 
-    //@@{ 整数数组32_:Int32Array }
-    //##{ wait:等待, typedArray:类型数组, index:索引, value:值, timeout:超时, "ok":"正确","not-equal":"不等","timed-out":"超时" }#
+    //@@{ 等待:wait, 类型数组:typedArray, 整数数组32_:Int32Array, 索引:index, 值:value, 超时:timeout }
     等待(类型数组: 整数数组32_, 索引: 数字, 值: 数字, 超时?: 数字): "正确" | "不等" | "超时";
 
     /**
@@ -161,8 +152,7 @@
      * number of agents that were awoken.
      */
 
-    //@@{ 整数数组32_:Int32Array }
-    //##{ wake:之后, typedArray:类型数组, index:索引, count:数量 }#
+    //@@{ 之后:wake, 类型数组:typedArray, 整数数组32_:Int32Array, 索引:index, 数量:count }
     之后(类型数组: 整数数组32_, 索引: 数字, 数量: 数字): 数字;
 
     /**
@@ -171,15 +161,13 @@
      * operation against the array will block.
      */
 
-    //@@{ 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array }
-    //##{ xor:异或, typedArray:类型数组, index:索引, value:值 }#
+    //@@{ 异或:xor, 类型数组:typedArray, 整数数组8_:Int8Array, 正整数数组8_:Uint8Array, 整数数组16_:Int16Array, 正整数数组16_:Uint16Array, 整数数组32_:Int32Array, 正整数数组32_:Uint32Array, 索引:index, 值:value }
     异或(类型数组: 整数数组8_ | 正整数数组8_ | 整数数组16_ | 正整数数组16_ | 整数数组32_ | 正整数数组32_, 索引: 数字, 值: 数字): 数字;
 
     //@@{ 符号_:Symbol, 转为文字标签:toStringTag }
-    //##{ "Atomics":"原子_" }#
     只读 [符号_.转为文字标签]: "原子_";
 
 }
 
-//##{ Atomics:原子_ }#
+//@@{ 原子_:Atomics }
 声明 值量 原子_: 原子_;

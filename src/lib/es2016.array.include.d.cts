@@ -7,7 +7,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: T, 从指数?: 数字): 真假;
 
 }
@@ -21,7 +21,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: T, 从指数?: 数字): 真假;
 
 }
@@ -35,7 +35,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -49,7 +49,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -63,7 +63,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -77,7 +77,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -91,7 +91,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -105,7 +105,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -119,7 +119,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -133,7 +133,7 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 
 }
@@ -147,6 +147,6 @@
      * @param 从指数 The position in this array at which to begin searching for searchElement.
      */
 
-    //##{ includes:包括, searchElement:搜索元素, fromIndex:从指数 }#
+    //@@{ 包括:includes, 搜索元素:searchElement, 从指数:fromIndex }
     包括(搜索元素: 数字, 从指数?: 数字): 真假;
 }

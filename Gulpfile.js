@@ -233,7 +233,7 @@ const zhcnlibrarySourceMap = [
     { target: "lib.zh-cn.dom.d.cts", sources: ["header.d.cts", "dom.generated.d.cts"] },
     { target: "lib.zh-cn.dom.iterable.d.cts", sources: ["header.d.cts", "dom.iterable.d.cts"] },
     { target: "lib.zh-cn.webworker.d.cts", sources: ["header.d.cts", "webworker.generated.d.cts"] },
-    { target: "lib.scripthost.d.cts", sources: ["header.d.cts", "scripthost.d.cts"] },
+    { target: "lib.zh-cn.scripthost.d.cts", sources: ["header.d.cts", "scripthost.d.cts"] },
 
     // JavaScript library
     { target: "lib.zh-cn.es5.d.cts", sources: ["header.d.cts", "es5.d.cts"] },

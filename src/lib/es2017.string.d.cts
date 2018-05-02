@@ -14,7 +14,7 @@
      *        The default value for this parameter is " " (U+0020).
      */
 
-    //##{ padStart:添入开始, maxLength:最大长度, fillString:填充字符 }#
+    //@@{ 添入开始:padStart, 最大长度:maxLength, 填充字符:fillString }
     添入开始(最大长度: 数字, 填充字符?: 文字): 文字;
 
     /**
@@ -29,6 +29,6 @@
      *        The default value for this parameter is " " (U+0020).
      */
 
-    //##{ padEnd:添入结尾, maxLength:最大长度, fillString:填充字符 }#
+    //@@{ 添入结尾:padEnd, 最大长度:maxLength, 填充字符:fillString }
     添入结尾(最大长度: 数字, 填充字符?: 文字): 文字;
 }

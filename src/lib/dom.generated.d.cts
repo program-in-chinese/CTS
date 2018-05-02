@@ -29210,7 +29210,7 @@
     只读 __前面_表面__: 数字;
 
     //@@{ __函数_添加__:FUNC_ADD }
-    只读 __函数_添加__: 数字;//##{ FUNC_REVERSE_SUBTRACT:__函数_反向_减去__ }#
+    只读 __函数_添加__: 数字;
 
     //@@{ __函数_反向_减去__:FUNC_REVERSE_SUBTRACT }
     只读 __函数_反向_减去__: 数字;
@@ -29228,7 +29228,7 @@
     只读 __G更大的__: 数字;
 
     //@@{ __绿色_位__:GREEN_BITS }
-    只读 __绿色_位__: 数字;//##{ HIGH_FLOAT:__高_浮点__ }#
+    只读 __绿色_位__: 数字;
 
     //@@{ __高_浮点__:HIGH_FLOAT }
     只读 __高_浮点__: 数字;
@@ -34941,9 +34941,7 @@
 //@@{ 请求凭证_:RequestCredentials, "省略":"omit", "相同-起点":"same-origin", "包括":"include" }
 类型 请求凭证_ = "省略" | "相同-起点" | "包括";
 
-//##{ "subresource":"子资源" ,"worker":"工人"}##
-
-//@@{ 请求目的地_:RequestDestination, "文档":"document", "共享工人":"sharedworker", "未知的":"unknown" }
+//@@{ 请求目的地_:RequestDestination, "文档":"document", "共享工人":"sharedworker", "未知的":"unknown" ,"子资源":"subresource" ,"工人":"worker"}
 类型 请求目的地_ = "" | "文档" | "共享工人" | "子资源" | "未知的" | "工人";
 
 //@@{ 请求模式_:RequestMode, "导航":"navigate", "相同-起点":"same-origin", "不-连续":"no-cors", "连续":"cors" }
